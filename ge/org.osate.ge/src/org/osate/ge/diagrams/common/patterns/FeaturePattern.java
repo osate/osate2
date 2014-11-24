@@ -238,9 +238,21 @@ public class FeaturePattern extends AgeLeafShapePattern {
 		
 		final Shape shape = context.getShape();
 		final int containerWidth = shape.getContainer().getGraphicsAlgorithm().getWidth();
-		final boolean isLeft = calculateIsLeft(shape.getContainer(), context.getX() , shape.getGraphicsAlgorithm().getWidth());
+		final int containerHeight = shape.getContainer().getGraphicsAlgorithm().getHeight();
+		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+		final boolean isLeft = calculateIsLeft(shape.getContainer(), context.getX(), shapeGa.getWidth());
 		final MoveShapeContext mutableContext = (MoveShapeContext)context;
-		mutableContext.setX(isLeft ? 0 : containerWidth-shape.getGraphicsAlgorithm().getWidth());
+		mutableContext.setX(isLeft ? 0 : containerWidth-shapeGa.getWidth());
+		
+		// Snap to the top/bottom instead of resizing container
+		if(context.getY() < 0) {
+			mutableContext.setY(0);
+		} else {
+			final int bottomY = context.getY() + shapeGa.getHeight();
+			if(bottomY > containerHeight) {
+				mutableContext.setY(containerHeight - shapeGa.getHeight());
+			}
+		}
 	}
 
 	@Override 
