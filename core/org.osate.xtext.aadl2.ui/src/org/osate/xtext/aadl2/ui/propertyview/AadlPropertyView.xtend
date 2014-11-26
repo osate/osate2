@@ -82,6 +82,9 @@ import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.linking.ILinker
+import org.eclipse.xtext.nodemodel.ICompositeNode
+import org.eclipse.xtext.nodemodel.INode
+import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
 import org.eclipse.xtext.resource.XtextResource
@@ -125,6 +128,8 @@ import static extension org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
  * @author aarong
  */
 class AadlPropertyView extends ViewPart {
+	val static EMBEDDED_RESOURCE_NAME_SUFFIX = "_embedded_for_property_view_cell_editor"
+	
 	val static HIDE_UNDEFINED_TOOL_TIP = "Click to hide undefined properties"
 	val static SHOW_UNDEFINED_TOOL_TIP = "Click to show undefined properties"
 
@@ -627,6 +632,22 @@ class AadlPropertyView extends ViewPart {
 		treeViewer.tree.setFocus
 	}
 	
+	def private getLastLeaf(ICompositeNode node) {
+		var INode result = node
+		while (result instanceof ICompositeNode) {
+			result = result.lastChild
+		}
+		result ?: node
+	}
+	
+	def private getPreviousNode(INode node) {
+		var lln = node.previousSibling
+		while (lln instanceof HiddenLeafNode) {
+			lln = lln.previousSibling
+		}
+		lln
+	}
+	
 	def private createValueColumnEditingSupport(TreeViewer treeViewer) {
 		new EditingSupport(treeViewer) {
 			override protected canEdit(Object element) {
@@ -681,10 +702,20 @@ class AadlPropertyView extends ViewPart {
 							val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
 							if (associationURI != null) {
 								associationURI.getEObjectAndRun[PropertyAssociation association | if (input.getEObjectAndRun[it == association.owner] && !association.modal) {
-									val node = NodeModelUtils.getNode(association.ownedValues.head.ownedValue)
-									new CellEditorPartialValue(xtextDocument.get(0, node.offset),
+									val propertyExpressionNode = NodeModelUtils.getNode(association.ownedValues.head.ownedValue)
+									
+									val modelUnitNameNode = xtextDocument.readOnly[NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head]
+									val prefix = xtextDocument.get(0, propertyExpressionNode.offset)
+									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
+									
+									
+									val endNameNode = getPreviousNode(getLastLeaf(xtextDocument.readOnly[NodeModelUtils.getNode(contents.head)]))
+									val suffix = xtextDocument.get(propertyExpressionNode.endOffset, xtextDocument.length - propertyExpressionNode.endOffset)
+									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - propertyExpressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
+
+									new CellEditorPartialValue(newPrefix.toString,
 										serializer.serialize(association.ownedValues.head.ownedValue).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim,
-										xtextDocument.get(node.endOffset, xtextDocument.length - node.endOffset)
+										newSuffix.toString
 									)
 								} else {
 									throw new UnsupportedOperationException("TODO: auto-generated method stub")
