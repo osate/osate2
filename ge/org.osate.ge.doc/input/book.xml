@@ -124,6 +124,13 @@
 				<para>Appropriate elements can be refined by right-clicking on them and selecting <emphasis>Refine</emphasis> from the context menu. Once an element is refined. Deleting a refined element will only delete the refinement.</para>
 			</section>
 			<section>
+				<title>Instantiating</title>
+				<para>Appropriate elements can be instanstiated by right-clicking on them and selecting <emphasis>Instantiate</emphasis> from the context menu.  The instance will be created in that projects <emphasis>instances</emphasis> folder in the AADL Navigator.</para>
+				<imageobject>
+    				<imagedata fileref="images/Instantiate.png" format="PNG"/>
+  				</imageobject>
+			</section>
+			<section>
 				<title>Editing Property Associations</title>
 				<para>Property associations can be edited using OSATE's <emphasis>AADL Property Values</emphasis> view. Selecting an element in the diagram updates the view to show property values for that element.</para>
 			</section>
@@ -151,6 +158,41 @@
     				<imagedata fileref="images/LayoutDiagram.png" format="PNG"/>
   				</imageobject>
 			</section>
+			<section>
+			<title>Nesting Views</title>
+			<para>Components can have multiple layers of nested subcomponents.  These nested layers make up the components depth level.  The graphical editor allows the content of a component and all nested subcomponents to be graphically represented on one diagram.</para>
+			<!--<section>-->
+				<!--<title>Setting Nested Depth Level</title>-->
+				<para>A components depth level can be set to hide or show the contents of the subcomponents up to the specified depth level.  Anything below the specified depth level are hidden from view on the appropriate diagram.  The elements still exist and are not deleted when hidden on the diagram.</para>
+				<section>
+					<title>Using the Increase and Decrease Nesting Depth Buttons to Select a Depth Level</title>
+					<orderedlist>
+						<para>Nesting depth level can be set using the Increase and Decrease Nesting Depth buttons on the toolbar.</para>
+						<listitem>
+							<para>To increase the nesting depth, select an appropriate element and click the Increase Nesting Depth button.</para>
+						</listitem>
+						<listitem>
+							<para>To decrease the nesting depth, select an appropriate element and click the Decrease Nesting Depth button.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Using the Depth Selector Drop-Down to Select a Depth Level</title>
+					<orderedlist>
+					<para>Nesting depth level can be set using the depth selector on the toolbar.</para>
+						<listitem>
+							<para>Select an appropriate element.</para>
+						</listitem>
+						<listitem>
+							<para>Click the depth selector drop-down.</para>
+						</listitem>
+						<listitem>
+							<para>Select the preferred depth level.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+			<!--</section>-->
+		</section>
 		</section>
 		<section>
 			<title>Classifiers</title>
@@ -209,6 +251,10 @@
 					</orderedlist>
 				</section>
 			</section>
+			<section>
+				<title>Performing Update Layout from Classifier Diagram</title>
+				<para>When extending a classifier, the editor lays out the extending classifier diagram automatically.  The layout of the extending classifier diagram can be redone to match the extended classifier diagram by right clicking the extending claissifier diagram and selecting <emphasis>Perform Update Layout from Classifier Diagram</emphasis> from the context menu.  Doing so will change the height, width, and layout of elements of the extending classifier to match the extended classifier.</para>
+			</section>
 		</section>
 		<section>
 			<title>Features</title>
@@ -254,7 +300,7 @@
 			<section>
 				<title>Setting Modes</title>
 				<para>To set the modes in which subcomponents are active, see <xref linkend="modes_configuring_in_modes"/>.</para>
-			</section>			
+			</section>		
 		</section>
 		<section>
 			<title>Flows</title>
@@ -350,6 +396,77 @@
 				<para>The editor allows specifying the modes in which a modal element, such as a subcomponent, is active as well as the mapping between modes in the case of derived modes. The modes can be specified by right-clicking on the element and selecting <emphasis>Configure In Modes...</emphasis> from the context menu.</para>
 			</section>
 		</section>
+		<section>
+			<title>Bindings</title>
+			<section>
+				<title>Creating Bindings</title>
+				<para>When viewing a component implementation diagram, a binding can be created for appropriate subcomponents.</para>
+			</section>
+			<section>
+				<title>Setting Bindings</title>
+				<section>
+					<title>Using the Context Menu to Set Bindings</title>
+					<orderedlist>
+						<listitem>
+							<para>Right click on the appropriate subcomponent.</para>
+						</listitem>
+						<listitem>
+							<para>Select <emphasis>Bind...</emphasis> from the context menu.</para>
+						</listitem>
+						<listitem>
+							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
+							<imageobject>
+    						<imagedata fileref="images/Bindings.png" format="PNG"/>
+  							</imageobject>
+						</listitem>
+						<listitem>
+							<para>Click one or more elements from the diagram to bind to subcomponent.</para>
+						</listitem>
+						<listitem>
+							<para>Click <emphasis>OK</emphasis>.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Using the Toolbar to Set Bindings</title>
+					<orderedlist>
+						<listitem>
+							<para>Click on the appropriate subcomponent.</para>
+						</listitem>
+						<listitem>
+							<para>Click the Bind... button from the toolbar.</para>
+						</listitem>
+						<listitem>
+							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
+							<imageobject>
+    							<imagedata fileref="images/Bindings.png" format="PNG"/>
+  							</imageobject>
+						</listitem>
+						<listitem>
+							<para>Click one or more elements from the diagram to bind to a subcomponent.</para>
+						</listitem>
+						<listitem>
+							<para>Click <emphasis>OK</emphasis>.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+			</section>
+			<section>
+				<title>Bindings Diagram Properties</title>
+				<para>Bindings can be hidden or shown from diagrams by checking and unchecking the appropriate settings in the bindings properties view.  By default, bindings will show up on all appropriate diagrams.</para>
+				<orderedlist>
+					<listitem>
+						<para>Left-click the empty space outside of the elements in a diagram.</para>
+					</listitem>
+					<listitem>
+						<para>In the properties view, check/uncheck the bindings to show/hide them on the diagram.  The bindings still exist and are not deleted when hidden on the diagram.</para>
+						<imageobject>
+    							<imagedata fileref="images/BindingProperties.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+				</orderedlist>
+			</section>
+		</section>	
 	</chapter>
 	<chapter>
 		<title>Troubleshooting</title>
