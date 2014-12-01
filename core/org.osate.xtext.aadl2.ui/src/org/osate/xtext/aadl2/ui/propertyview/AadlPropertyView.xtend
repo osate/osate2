@@ -201,6 +201,8 @@ class AadlPropertyView extends ViewPart {
 	
 	var URI previousSelectionURI = null
 	
+	var String initialEditablePart
+	
 	var CachePropertyLookupJob cachePropertyLookupJob = null
 	
 	//If the URIs were resolved to EObjects, then this would be a Map<PropertySet, Map<Property, PropertyAssociation>>
@@ -708,15 +710,13 @@ class AadlPropertyView extends ViewPart {
 									val prefix = xtextDocument.get(0, propertyExpressionNode.offset)
 									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
 									
+									initialEditablePart = serializer.serialize(association.ownedValues.head.ownedValue).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
 									
 									val endNameNode = getPreviousNode(getLastLeaf(xtextDocument.readOnly[NodeModelUtils.getNode(contents.head)]))
 									val suffix = xtextDocument.get(propertyExpressionNode.endOffset, xtextDocument.length - propertyExpressionNode.endOffset)
 									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - propertyExpressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
 
-									new CellEditorPartialValue(newPrefix.toString,
-										serializer.serialize(association.ownedValues.head.ownedValue).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim,
-										newSuffix.toString
-									)
+									new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
 								} else {
 									throw new UnsupportedOperationException("TODO: auto-generated method stub")
 								}]
@@ -737,38 +737,40 @@ class AadlPropertyView extends ViewPart {
 			}
 			
 			override protected setValue(Object element, Object value) {
-				switch treeElement : (element as Pair<Object, Object>).value {
-					URI: {
-						val node = treeElement.getEObjectAndRun[switch it {
-							Property: {
-								val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
-								if (associationURI != null) {
-									associationURI.getEObjectAndRun[PropertyAssociation association | if (input.getEObjectAndRun[it == association.owner] && !association.modal) {
-										NodeModelUtils.getNode(association.ownedValues.head.ownedValue)
+				if (initialEditablePart != value) {
+					switch treeElement : (element as Pair<Object, Object>).value {
+						URI: {
+							val node = treeElement.getEObjectAndRun[switch it {
+								Property: {
+									val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
+									if (associationURI != null) {
+										associationURI.getEObjectAndRun[PropertyAssociation association | if (input.getEObjectAndRun[it == association.owner] && !association.modal) {
+											NodeModelUtils.getNode(association.ownedValues.head.ownedValue)
+										} else {
+											throw new UnsupportedOperationException("TODO: auto-generated method stub")
+										}]
 									} else {
 										throw new UnsupportedOperationException("TODO: auto-generated method stub")
-									}]
-								} else {
+									}
+								}
+								default: {
+									println("setValue: " + it)
 									throw new UnsupportedOperationException("TODO: auto-generated method stub")
 								}
+							}]
+							if (node != null) {
+								xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+									override process(XtextResource state) throws Exception {
+										state.update(node.offset, node.length, value as String)
+									}
+								})
+								treeViewer.refresh(element)
 							}
-							default: {
-								println("setValue: " + it)
-								throw new UnsupportedOperationException("TODO: auto-generated method stub")
-							}
-						}]
-						if (node != null) {
-							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
-								override process(XtextResource state) throws Exception {
-									state.update(node.offset, node.length, value as String)
-								}
-							})
-							treeViewer.refresh(element)
 						}
-					}
-					default: {
-						println("setValue: " + treeElement)
-						throw new UnsupportedOperationException("TODO: auto-generated method stub")
+						default: {
+							println("setValue: " + treeElement)
+							throw new UnsupportedOperationException("TODO: auto-generated method stub")
+						}
 					}
 				}
 			}
