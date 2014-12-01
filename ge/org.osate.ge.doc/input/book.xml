@@ -125,7 +125,7 @@
 			</section>
 			<section>
 				<title>Instantiating</title>
-				<para>Appropriate elements can be instanstiated by right-clicking on them and selecting <emphasis>Instantiate</emphasis> from the context menu.  The instance will be created in that projects <emphasis>instances</emphasis> folder in the AADL Navigator.</para>
+				<para>When viewing a package diagram, component implementations can be instantiated by right-clicking on them and selecting <emphasis>Instantiate</emphasis> from the context menu. The instance model will be created in that projects <emphasis>instances</emphasis> folder in the AADL Navigator.</para>
 				<imageobject>
     				<imagedata fileref="images/Instantiate.png" format="PNG"/>
   				</imageobject>
