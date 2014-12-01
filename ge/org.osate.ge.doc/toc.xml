@@ -18,58 +18,58 @@
          <topic label="Editing Property Associations" href="output/ch03.html#d0e188"/>
          <topic label="Moving Shapes Using Arrow Keys" href="output/ch03.html#d0e196"/>
          <topic label="Performing Diagram Layout" href="output/ch03.html#d0e224"/>
-         <topic label="Nesting Views" href="output/ch03.html#d0e234">
-            <topic label="Using the Increase and Decrease Nesting Depth Buttons to Select a Depth Level" href="output/ch03.html#d0e243"/>
-            <topic label="Using the Depth Selector Drop-Down to Select a Depth Level" href="output/ch03.html#d0e255"/>
-         </topic>
       </topic>
       <topic label="Classifiers" href="output/ch03s02.html">
-         <topic label="Creating" href="output/ch03s02.html#d0e276"/>
-         <topic label="Extending" href="output/ch03s02.html#d0e293">
-            <topic label="Using the Palette to Extend a Classifier" href="output/ch03s02.html#d0e298"/>
-            <topic label="Using the Context Menu to Set Extended Classifier" href="output/ch03s02.html#d0e314"/>
+         <topic label="Creating" href="output/ch03s02.html#d0e239"/>
+         <topic label="Extending" href="output/ch03s02.html#d0e256">
+            <topic label="Using the Palette to Extend a Classifier" href="output/ch03s02.html#d0e261"/>
+            <topic label="Using the Context Menu to Set Extended Classifier" href="output/ch03s02.html#d0e277"/>
          </topic>
-         <topic label="Performing Update Layout from Classifier Diagram" href="output/ch03s02.html#d0e337"/>
+         <topic label="Performing Update Layout from Classifier Diagram" href="output/ch03s02.html#d0e300"/>
       </topic>
       <topic label="Features" href="output/ch03s03.html">
-         <topic label="Creating" href="output/ch03s03.html#d0e350"/>
-         <topic label="Setting the Feature Classifier" href="output/ch03s03.html#d0e355"/>
-         <topic label="Setting the Feature Direction (Directional Features Only)" href="output/ch03s03.html#d0e365"/>
-         <topic label="Setting Access Kind (Access Features Only)" href="output/ch03s03.html#d0e379"/>
-         <topic label="Setting a Feature Group as Inverse" href="output/ch03s03.html#d0e390"/>
+         <topic label="Creating" href="output/ch03s03.html#d0e313"/>
+         <topic label="Setting the Feature Classifier" href="output/ch03s03.html#d0e318"/>
+         <topic label="Setting the Feature Direction (Directional Features Only)" href="output/ch03s03.html#d0e328"/>
+         <topic label="Setting Access Kind (Access Features Only)" href="output/ch03s03.html#d0e342"/>
+         <topic label="Setting a Feature Group as Inverse" href="output/ch03s03.html#d0e353"/>
       </topic>
       <topic label="Subcomponents" href="output/ch03s04.html">
-         <topic label="Creating" href="output/ch03s04.html#d0e406"/>
-         <topic label="Setting the Classifier" href="output/ch03s04.html#d0e411"/>
-         <topic label="Setting Modes" href="output/ch03s04.html#d0e421"/>
+         <topic label="Creating" href="output/ch03s04.html#d0e369"/>
+         <topic label="Setting the Classifier" href="output/ch03s04.html#d0e374"/>
+         <topic label="Setting Modes" href="output/ch03s04.html#d0e384"/>
+         <topic label="Displaying Details" href="output/ch03s04.html#d0e391">
+            <topic label="Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth" href="output/ch03s04.html#d0e396"/>
+            <topic label="Using the Depth Selector Drop-Down to Select a Nesting Depth" href="output/ch03s04.html#d0e402"/>
+         </topic>
       </topic>
       <topic label="Flows" href="output/ch03s05.html">
-         <topic label="Creating Flow Sources" href="output/ch03s05.html#d0e433"/>
-         <topic label="Creating Flow Sinks" href="output/ch03s05.html#d0e441"/>
-         <topic label="Creating Flow Paths" href="output/ch03s05.html#d0e451"/>
-         <topic label="Editing Flow Implementations and End-to-End Flows" href="output/ch03s05.html#d0e469"/>
-         <topic label="Highlighting Flow Implementations and End-to-End Flows" href="output/ch03s05.html#d0e479"/>
+         <topic label="Creating Flow Sources" href="output/ch03s05.html#d0e419"/>
+         <topic label="Creating Flow Sinks" href="output/ch03s05.html#d0e427"/>
+         <topic label="Creating Flow Paths" href="output/ch03s05.html#d0e437"/>
+         <topic label="Editing Flow Implementations and End-to-End Flows" href="output/ch03s05.html#d0e455"/>
+         <topic label="Highlighting Flow Implementations and End-to-End Flows" href="output/ch03s05.html#d0e465"/>
       </topic>
       <topic label="Modes" href="output/ch03s06.html">
-         <topic label="Creating Modes" href="output/ch03s06.html#d0e489"/>
-         <topic label="Setting the Initial Mode" href="output/ch03s06.html#d0e497"/>
-         <topic label="Creating Mode Transitions" href="output/ch03s06.html#d0e505"/>
-         <topic label="Setting Mode Transition Triggers" href="output/ch03s06.html#d0e540"/>
-         <topic label="Switching Between Derived and Non-derived Modes" href="output/ch03s06.html#d0e548"/>
-         <topic label="Highlighting" href="output/ch03s06.html#d0e567"/>
+         <topic label="Creating Modes" href="output/ch03s06.html#d0e475"/>
+         <topic label="Setting the Initial Mode" href="output/ch03s06.html#d0e483"/>
+         <topic label="Creating Mode Transitions" href="output/ch03s06.html#d0e491"/>
+         <topic label="Setting Mode Transition Triggers" href="output/ch03s06.html#d0e526"/>
+         <topic label="Switching Between Derived and Non-derived Modes" href="output/ch03s06.html#d0e534"/>
+         <topic label="Highlighting" href="output/ch03s06.html#d0e553"/>
          <topic label="Selecting Active Components" href="output/ch03s06.html#modes_configuring_in_modes"/>
       </topic>
       <topic label="Bindings" href="output/ch03s07.html">
-         <topic label="Creating Bindings" href="output/ch03s07.html#d0e583"/>
-         <topic label="Setting Bindings" href="output/ch03s07.html#d0e588">
-            <topic label="Using the Context Menu to Set Bindings" href="output/ch03s07.html#d0e591"/>
-            <topic label="Using the Toolbar to Set Bindings" href="output/ch03s07.html#d0e618"/>
+         <topic label="Creating Bindings" href="output/ch03s07.html#d0e569"/>
+         <topic label="Setting Bindings" href="output/ch03s07.html#d0e574">
+            <topic label="Using the Context Menu to Set Bindings" href="output/ch03s07.html#d0e577"/>
+            <topic label="Using the Toolbar to Set Bindings" href="output/ch03s07.html#d0e604"/>
          </topic>
-         <topic label="Bindings Diagram Properties" href="output/ch03s07.html#d0e642"/>
+         <topic label="Bindings Diagram Properties" href="output/ch03s07.html#d0e631"/>
       </topic>
    </topic>
    <topic label="Troubleshooting" href="output/ch04.html">
-      <topic label="Build Automatically" href="output/ch04.html#d0e661"/>
+      <topic label="Build Automatically" href="output/ch04.html#d0e662"/>
       <topic label="Updating a Diagram" href="output/ch04s02.html"/>
       <topic label="Reporting Bugs" href="output/ch04s03.html"/>
    </topic>

@@ -158,41 +158,6 @@
     				<imagedata fileref="images/LayoutDiagram.png" format="PNG"/>
   				</imageobject>
 			</section>
-			<section>
-			<title>Nesting Views</title>
-			<para>Components can have multiple layers of nested subcomponents.  These nested layers make up the components depth level.  The graphical editor allows the content of a component and all nested subcomponents to be graphically represented on one diagram.</para>
-			<!--<section>-->
-				<!--<title>Setting Nested Depth Level</title>-->
-				<para>A components depth level can be set to hide or show the contents of the subcomponents up to the specified depth level.  Anything below the specified depth level are hidden from view on the appropriate diagram.  The elements still exist and are not deleted when hidden on the diagram.</para>
-				<section>
-					<title>Using the Increase and Decrease Nesting Depth Buttons to Select a Depth Level</title>
-					<orderedlist>
-						<para>Nesting depth level can be set using the Increase and Decrease Nesting Depth buttons on the toolbar.</para>
-						<listitem>
-							<para>To increase the nesting depth, select an appropriate element and click the Increase Nesting Depth button.</para>
-						</listitem>
-						<listitem>
-							<para>To decrease the nesting depth, select an appropriate element and click the Decrease Nesting Depth button.</para>
-						</listitem>
-					</orderedlist>
-				</section>
-				<section>
-					<title>Using the Depth Selector Drop-Down to Select a Depth Level</title>
-					<orderedlist>
-					<para>Nesting depth level can be set using the depth selector on the toolbar.</para>
-						<listitem>
-							<para>Select an appropriate element.</para>
-						</listitem>
-						<listitem>
-							<para>Click the depth selector drop-down.</para>
-						</listitem>
-						<listitem>
-							<para>Select the preferred depth level.</para>
-						</listitem>
-					</orderedlist>
-				</section>
-			<!--</section>-->
-		</section>
 		</section>
 		<section>
 			<title>Classifiers</title>
@@ -300,7 +265,29 @@
 			<section>
 				<title>Setting Modes</title>
 				<para>To set the modes in which subcomponents are active, see <xref linkend="modes_configuring_in_modes"/>.</para>
-			</section>		
+			</section>
+			<section>
+				<title>Displaying Details</title>
+				<para>Internal details of subcomponents such as inner connections and subcomponents can be displayed within a diagram. The number of subcomponent levels to display is determined by the nesting depth. The nesting depth can be set to customize how many subcomponent levels to show. Anything beyond the specified nesting depth is hidden from the diagram.</para>
+				<section>
+					<title>Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth</title>
+					<orderedlist>
+						<para>Nesting depth can be set using the Increase and Decrease Nesting Depth buttons on the toolbar.</para>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Using the Depth Selector Drop-Down to Select a Nesting Depth</title>
+					<orderedlist>
+					<para>The nesting depth can be set using the depth selector on the toolbar.</para>
+						<listitem>
+							<para>Select the depth selector drop-down.</para>
+						</listitem>
+						<listitem>
+							<para>Select the preferred nesting depth.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+			</section>
 		</section>
 		<section>
 			<title>Flows</title>
@@ -400,7 +387,7 @@
 			<title>Bindings</title>
 			<section>
 				<title>Creating Bindings</title>
-				<para>When viewing a component implementation diagram, a binding can be created for appropriate subcomponents.</para>
+				<para>When viewing a component implementation diagram, a binding property associations can be created.</para>
 			</section>
 			<section>
 				<title>Setting Bindings</title>
@@ -408,7 +395,7 @@
 					<title>Using the Context Menu to Set Bindings</title>
 					<orderedlist>
 						<listitem>
-							<para>Right click on the appropriate subcomponent.</para>
+							<para>Right click on the diagram element for which to set the binding.</para>
 						</listitem>
 						<listitem>
 							<para>Select <emphasis>Bind...</emphasis> from the context menu.</para>
@@ -420,10 +407,10 @@
   							</imageobject>
 						</listitem>
 						<listitem>
-							<para>Click one or more elements from the diagram to bind to subcomponent.</para>
+							<para>Select one or more elements from the diagram to bind to the initially selected element.</para>
 						</listitem>
 						<listitem>
-							<para>Click <emphasis>OK</emphasis>.</para>
+							<para>Select <emphasis>OK</emphasis>.</para>
 						</listitem>
 					</orderedlist>
 				</section>
@@ -431,10 +418,10 @@
 					<title>Using the Toolbar to Set Bindings</title>
 					<orderedlist>
 						<listitem>
-							<para>Click on the appropriate subcomponent.</para>
+							<para>Select the diagram element for which to set the binding.</para>
 						</listitem>
 						<listitem>
-							<para>Click the Bind... button from the toolbar.</para>
+							<para>Select the <emphasis>Bind...</emphasis> button from the toolbar.</para>
 						</listitem>
 						<listitem>
 							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
@@ -443,23 +430,26 @@
   							</imageobject>
 						</listitem>
 						<listitem>
-							<para>Click one or more elements from the diagram to bind to a subcomponent.</para>
+							<para>Select one or more elements from the diagram to bind to the initially selected element.</para>
 						</listitem>
 						<listitem>
-							<para>Click <emphasis>OK</emphasis>.</para>
+							<para>Select <emphasis>OK</emphasis>.</para>
 						</listitem>
 					</orderedlist>
 				</section>
 			</section>
 			<section>
 				<title>Bindings Diagram Properties</title>
-				<para>Bindings can be hidden or shown from diagrams by checking and unchecking the appropriate settings in the bindings properties view.  By default, bindings will show up on all appropriate diagrams.</para>
+				<para>The <emphasis>Properties</emphasis> view can be used to customize which bindings are shown in a diagram. By default, all supported bindings are displayed.</para>
 				<orderedlist>
 					<listitem>
 						<para>Left-click the empty space outside of the elements in a diagram.</para>
 					</listitem>
 					<listitem>
-						<para>In the properties view, check/uncheck the bindings to show/hide them on the diagram.  The bindings still exist and are not deleted when hidden on the diagram.</para>
+						<para>In the <emphasis>Properties</emphasis> view, select the <emphasis>Bindings</emphasis> tab. </para>
+					</listitem>
+					<listitem>
+						<para>Select the checkboxes to configure which bindings to show.</para>
 						<imageobject>
     							<imagedata fileref="images/BindingProperties.png" format="PNG"/>
   						</imageobject>
