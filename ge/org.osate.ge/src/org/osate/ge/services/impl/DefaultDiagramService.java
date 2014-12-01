@@ -112,12 +112,8 @@ public class DefaultDiagramService implements DiagramService {
 	 * @return the diagram type id
 	 */
 	private String getDiagramTypeId(final NamedElement element) {
-		if(element instanceof AadlPackage) {
-			return "AADL Package";
-		} if(element instanceof ComponentImplementation) {
-			return "AADL Component Implementation";
-		} else if(element instanceof ComponentType || element instanceof FeatureGroupType) {
-			return "AADL Type";
+		if(element instanceof AadlPackage || element instanceof ComponentImplementation || element instanceof ComponentType || element instanceof FeatureGroupType) {
+			return AgeDiagramBehavior.AADL_DIAGRAM_TYPE_ID;
 		} else {
 			throw new RuntimeException("Unexpected named element type: " + element.getClass().getSimpleName());
 		}
@@ -230,8 +226,7 @@ public class DefaultDiagramService implements DiagramService {
 	@Override
 	public List<Diagram> findDiagrams() {
 		final List<Diagram> diagrams = new ArrayList<Diagram>();
-		final Map<URI, Diagram> openDiagrams = new HashMap<URI, Diagram>();
-		
+		final Map<URI, Diagram> openDiagrams = new HashMap<URI, Diagram>();		
 
 		for(final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences()) {
 			final IEditorPart editor = editorRef.getEditor(false); // If restore is true then the editor is automatically updated

@@ -11,6 +11,7 @@ package org.osate.ge.services;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
  * Contains methods for working with Graphiti connections
@@ -24,4 +25,23 @@ public interface ConnectionService {
 	Anchor[] getAnchors(ContainerShape ownerShape, Object bo);
 
 	ContainerShape getOwnerShape(Connection connection);
+	
+	/**
+	 * Used to retrieve an anchor for the connection's midpoint.
+	 * @param connection
+	 * @return the anchor or null if the anchor does not exist
+	 */
+	Anchor getMidpointAnchor(Connection connection);
+	
+	/**
+	 * Helper for creating and updating a connection's midpoint anchor.
+	 * @param connection
+	 */
+	void createUpdateMidpointAnchor(Connection connection);
+	
+	/**
+	 * Updates connections that are connecting to anchors owned by the shape
+	 * @param shape
+	 */
+	void updateConnectionAnchors(Shape shape);
 }

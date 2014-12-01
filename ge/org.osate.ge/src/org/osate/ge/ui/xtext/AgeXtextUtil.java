@@ -19,6 +19,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWindowListener;
@@ -28,6 +30,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
+import org.osate.ge.services.CachingService;
+import org.osate.ge.ui.editor.AgeDiagramEditor;
 import org.osate.ge.util.StringUtil;
 
 public class AgeXtextUtil {
@@ -182,9 +186,20 @@ public class AgeXtextUtil {
             			   // Unload the resource
             			   rsResource.unload();
             		   }            		   
-            		   
             	   }
- 
+            	   
+            	   // Invalidate all caches
+            	   for(final IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+            		   for(final IWorkbenchPage page : window.getPages()) {
+            			   for(final IEditorReference editorRef : page.getEditorReferences()) {
+            				   final IEditorPart editor = editorRef.getEditor(false);
+            				   if(editor instanceof AgeDiagramEditor) {
+            					   final CachingService cachingService = (CachingService)editor.getAdapter(CachingService.class);
+            					   cachingService.invalidate();
+            				   }
+            			   }
+            		   }
+            	   }
                }
                return true;
             }

@@ -31,11 +31,21 @@ public abstract class AbstractConnectionInfoProvider implements ConnectionInfoPr
 		return this.bor;
 	}
 	
+	@Override
+	public boolean allowMidpointAnchor() {
+		return false;
+	}
+	
 	/**
 	 * Returns all connections in the diagram
 	 * @return
 	 */
 	protected final List<Connection> getConnections() {
 		return this.diagram.getConnections();
+	}
+	
+	@Override
+	public boolean isApplicable(final Connection connection) {
+		return isBusinessObjectApplicable(getBusinessObject(connection));
 	}
 }

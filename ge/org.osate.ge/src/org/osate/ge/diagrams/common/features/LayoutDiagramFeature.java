@@ -16,9 +16,11 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -41,18 +43,18 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.PropertyService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.ShapeService;
 
 public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private static String RELAYOUT_SHAPES_PROPERTY_KEY = "relayout";
-	private final VisibilityService visibilityHelper;
+	private final ShapeService shapeService;
 	private final LayoutService resizeHelper;
 	private final PropertyService propertyUtil;
 	
 	@Inject
-	public LayoutDiagramFeature(final IFeatureProvider fp, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final PropertyService propertyUtil) {
+	public LayoutDiagramFeature(final IFeatureProvider fp, final ShapeService shapeService, final LayoutService resizeHelper, final PropertyService propertyUtil) {
 		super(fp);
-		this.visibilityHelper = visibilityHelper;
+		this.shapeService = shapeService;
 		this.resizeHelper = resizeHelper;
 		this.propertyUtil = propertyUtil;
 	}
@@ -70,15 +72,12 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	@Override
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
-		//Checks if inner Graphics algorithm is null if yes the right clicked area was the empty space.
-		if(customCtx.getInnerGraphicsAlgorithm() != null) {
-			return false;
-		}
-		return true;
+		// Only make the feature available if the user is right clicking on the outer diagram.
+		return customCtx.getPictogramElements().length == 1 && customCtx.getPictogramElements()[0] instanceof Diagram;
 	}
 	
 	@Override
-	public boolean canExecute(ICustomContext context) {
+	public boolean canExecute(final ICustomContext context) {
 		return true;
 	}
 
@@ -124,7 +123,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	}
 	
 	private boolean layout(final ContainerShape shape, final LayoutAlgorithm alg, final boolean relayoutShapes) throws InvalidLayoutConfiguration {
-		final List<Shape> children = visibilityHelper.getNonGhostChildren(shape);
+		final List<Shape> children = shapeService.getNonGhostChildren(shape);
 		boolean updateVisualization = false;
 
 		// Layout the inside of the child shapes
@@ -185,6 +184,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		// Use the resize helper to resize the shape
 		if(!(shape instanceof Diagram)) {
 			if(resizeHelper.checkSize(shape)) {
+				resizeHelper.checkContainerSize(shape);
 				updateVisualization = true;
 			}
 		}
@@ -231,8 +231,19 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		final Shape shape = (Shape)entity.getRealObject();
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		if(!entity.hasPreferredLocation()) {
-			ga.setX((int)entity.getXInLayout());
-			ga.setY((int)entity.getYInLayout());
+			final MoveShapeContext context = new MoveShapeContext(shape);
+			context.setLocation((int)entity.getXInLayout(), (int)entity.getYInLayout());
+			context.setSourceContainer(shape.getContainer());
+			context.setTargetContainer(shape.getContainer());
+			
+			final IMoveShapeFeature feature = getFeatureProvider().getMoveShapeFeature(context);
+			if(feature != null && feature.canMoveShape(context)) {
+				feature.moveShape(context);
+			} else { // Force the position
+				ga.setX((int)entity.getXInLayout());
+				ga.setY((int)entity.getYInLayout());
+			}
+			
 			propertyUtil.setIsLayedOut(shape, true);
 		}
 	}

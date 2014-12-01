@@ -22,6 +22,7 @@ import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
@@ -31,7 +32,9 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Element;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.GhostingService;
 
 /**
  * Base class for all connection Patterns for AGE. Contains logic shared between all connection patterns.
@@ -39,12 +42,15 @@ import org.osate.ge.services.VisibilityService;
  *
  */
 public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate, IDelete {
-	public abstract boolean isMainBusinessObjectApplicable(final Object mainBusinessObject);
-	private final VisibilityService visibilityHelper;
+	private final GhostingService ghostingService;
+	protected final ConnectionService connectionService;
+	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public AgeConnectionPattern(final VisibilityService visibilityHelper) {
-		this.visibilityHelper = visibilityHelper;
+	public AgeConnectionPattern(final GhostingService ghostingService, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
+		this.ghostingService = ghostingService;
+		this.connectionService = connectionService;
+		this.bor = bor;
 	}
 	
 	@Override
@@ -55,7 +61,7 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	@Override
 	public boolean canUpdate(final IUpdateContext context) {
 		final Object bo = this.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		return context.getPictogramElement() instanceof Connection && isMainBusinessObjectApplicable(bo);
+		return context.getPictogramElement() instanceof Connection && isMainBusinessObjectApplicable(bo) && getAnchors((Connection)context.getPictogramElement()) != null;
 	}
 
 	@Override
@@ -81,7 +87,14 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	public void redo(final IFeature feature, final IContext context) {
 	}
 	
-	protected abstract Anchor[] getAnchors(Connection connection);
+	protected Anchor[] getAnchors(Connection connection) {
+		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
+		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
+		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, bo);	
+	}
+	
+	protected abstract boolean isMainBusinessObjectApplicable(final Object mainBusinessObject);
+	
 	protected abstract void createGraphicsAlgorithm(final Connection connection);
 	protected abstract void createDecorators(final Connection connection);
 	
@@ -137,17 +150,16 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 		final Connection connection = (Connection)context.getPictogramElement();
 		final Anchor[] anchors = getAnchors(connection);
 
-		// Update anchors
 		if(anchors == null) {
 			connection.setStart(null);
 			connection.setEnd(null);
-			visibilityHelper.setIsGhost(connection, true);
+			ghostingService.setIsGhost(connection, true);
 		}
 		else {
 			connection.setStart(anchors[0]);
 			connection.setEnd(anchors[1]);
-			visibilityHelper.setIsGhost(connection, false);
-
+			ghostingService.setIsGhost(connection, false);
+		
 			createGraphicsAlgorithmOnUpdate(connection);
 			createDecorators(connection);
 			onAfterRefresh(connection);
@@ -173,4 +185,6 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	@Override
 	public void postDelete(final IDeleteContext context) {
 	}
+	
+	public abstract boolean isPaletteApplicable();
 }

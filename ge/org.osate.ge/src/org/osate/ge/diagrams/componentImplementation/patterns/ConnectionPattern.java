@@ -26,11 +26,9 @@ import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -78,7 +76,7 @@ import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
@@ -91,7 +89,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	private final AadlFeatureService featureService;
 	private final StyleService styleUtil;
 	private final HighlightingService highlightingHelper;
-	private final ConnectionService connectionHelper;
 	private final BusinessObjectResolutionService bor;
 	private final AadlModificationService aadlModService;
 	private final NamingService namingService;
@@ -119,15 +116,14 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	}
 	
 	@Inject
-	public ConnectionPattern(final AadlFeatureService featureService, final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, 
+	public ConnectionPattern(final AadlFeatureService featureService, final GhostingService ghostingService, final StyleService styleUtil,final HighlightingService highlightingHelper, 
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
 			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
 			final @Named("Connection Type") EClass connectionType) {
-		super(visibilityHelper);
+		super(ghostingService, connectionHelper, bor);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
 		this.highlightingHelper = highlightingHelper;
-		this.connectionHelper = connectionHelper;
 		this.bor = bor;
 		this.aadlModService = aadlModService;
 		this.namingService = namingService;
@@ -143,8 +139,24 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		return connectionType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
 	}
 	
+	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		return diagramBo instanceof ComponentImplementation;
+	}
+	
 	private org.osate.aadl2.Connection getAadlConnection(final Connection connection) {
 		return (org.osate.aadl2.Connection)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+	}
+	
+	@Override
+	protected void onAfterRefresh(final Connection connection) {
+		updateAnchors(connection);
+		super.onAfterRefresh(connection);
+	}
+	
+	private void updateAnchors(final Connection connection) {
+		connectionService.createUpdateMidpointAnchor(connection);
 	}
 	
 	@Override
@@ -158,7 +170,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		}
 		
 		// Determine fonts and values for text decorators
-		final Font decoratorFont = GraphitiUi.getGaService().manageDefaultFont(getDiagram());// styleUtil.getLabelStyle().getFont();
+		final Font decoratorFont = GraphitiUi.getGaService().manageDefaultFont(getDiagram());
 		final String labelTxtValue = aadlConnection.getName();
 		final String connectionPatternTxtValue = getConnectionPatterns(aadlConnection);
 		int labelTxtWidth = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxtValue, decoratorFont).getWidth();
@@ -337,14 +349,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 			x, -10, 
 			x, 10}).setStyle(style);
 	}
-	
-	@Override
-	protected Anchor[] getAnchors(final Connection connection) {
-		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
-		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
-		
-		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, aadlConnection);	
-	}
 
 	private ConnectedElement getConnectedElementForShape(PictogramElement pe) {
 		if(!(pe instanceof Shape)) {
@@ -379,7 +383,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		return ce;
 	}
 	
-	// TODO: Comment
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());

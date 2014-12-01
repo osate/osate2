@@ -12,6 +12,7 @@ import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.impl.DefaultPropertyService;
 import org.osate.ge.ui.util.impl.DefaultGhostPurger;
 
@@ -24,7 +25,8 @@ public class AgeDiagramEditor extends DiagramEditor {
 	}
 	
 	protected DiagramBehavior createDiagramBehavior() {
+		final PropertyService propertyService = new DefaultPropertyService();
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-		return new AgeDiagramBehavior(this, new DefaultGhostPurger(new DefaultPropertyService()), diagramService);
+		return new AgeDiagramBehavior(this, new DefaultGhostPurger(propertyService), diagramService, propertyService);
 	}
 }

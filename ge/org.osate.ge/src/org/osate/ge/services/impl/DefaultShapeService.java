@@ -8,23 +8,35 @@
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
-import org.osate.ge.services.VisibilityService;
 
 public class DefaultShapeService implements ShapeService {
 	private final PropertyService propertyUtil;
-	private final VisibilityService visibilityHelper;
 	private final BusinessObjectResolutionService bor;
 	
-	public DefaultShapeService(final PropertyService propertyUtil, final VisibilityService visibilityHelper, final BusinessObjectResolutionService bor) {
+	public DefaultShapeService(final PropertyService propertyUtil, final BusinessObjectResolutionService bor) {
 		this.propertyUtil = propertyUtil;
-		this.visibilityHelper = visibilityHelper;
 		this.bor = bor;
+	}
+	
+	@Override
+	public List<Shape> getNonGhostChildren(final ContainerShape shape) {
+		final List<Shape> children = new ArrayList<Shape>();
+		for(final Shape child : shape.getChildren()) {
+			if(!propertyUtil.isGhost(child)) {
+				children.add(child);
+			}
+		}
+		
+		return children;
 	}
 	
 	/* (non-Javadoc)
@@ -46,12 +58,15 @@ public class DefaultShapeService implements ShapeService {
 	 */
 	@Override
 	public Shape getChildShapeByElementName(final ContainerShape shape, final NamedElement el) {
-		for(final Shape c : shape.getChildren()) {
-			Object bo = bor.getBusinessObjectForPictogramElement(c);
-			if(bo instanceof NamedElement && areNamesEqual((NamedElement)bo, el)) {
-				return c;
+		if(shape.isVisible()) {
+			for(final Shape c : shape.getChildren()) {
+				Object bo = bor.getBusinessObjectForPictogramElement(c);
+				if(bo instanceof NamedElement && areNamesEqual((NamedElement)bo, el) && c.isVisible()) {
+					return c;
+				}
 			}
 		}
+		
 		return null;
 	}
 		
@@ -77,14 +92,19 @@ public class DefaultShapeService implements ShapeService {
 	 */	
 	@Override
 	public Shape getDescendantShapeByElementName(final ContainerShape shape, final NamedElement el) {
-		for(final Shape c : shape.getChildren()) {
-			final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
-			if(childBo instanceof NamedElement && areNamesEqual((NamedElement)childBo, el)) {
-				return c;
-			} else if(childBo == null && c instanceof ContainerShape) {
-				final Shape recResult = getDescendantShapeByElementName((ContainerShape)c, el);
-				if(recResult != null) {
-					return recResult;
+		// Only look inside visible shapes
+		if(shape.isVisible()) {
+			for(final Shape c : shape.getChildren()) {
+				if(c.isVisible()) {
+					final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
+					if(childBo instanceof NamedElement && areNamesEqual((NamedElement)childBo, el)) {
+						return c;
+					} else if(childBo == null && c instanceof ContainerShape) {
+						final Shape recResult = getDescendantShapeByElementName((ContainerShape)c, el);
+						if(recResult != null) {
+							return recResult;
+						}
+					}
 				}
 			}
 		}
@@ -97,7 +117,7 @@ public class DefaultShapeService implements ShapeService {
 	 */
 	@Override
 	public Shape getChildShapeByName(final ContainerShape shape, final String name) {
-		for(final Shape child : visibilityHelper.getNonGhostChildren(shape)) {
+		for(final Shape child : getNonGhostChildren(shape)) {
 			if(name.equals(propertyUtil.getName(child))) {
 				return child;
 			}

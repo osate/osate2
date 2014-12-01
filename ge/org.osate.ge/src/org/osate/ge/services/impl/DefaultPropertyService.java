@@ -18,6 +18,7 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String NAME_KEY = "name";
 	private static final String CONNECTION_TYPE_KEY = "connection_type";
 	private static final String SIDE_KEY = "side"; // Which side the shape is on
+	private static final String NESTING_DEPTH_KEY = "nesting_depth";
 	private static final String LAYOUT_SIDE_KEY = "layout_side"; // Which side the shape is layed out as
 	private static final String SELECTED_MODE_KEY = "selected_mode"; // The name of the mode the user has selected in the UI
 	private static final String SELECTED_FLOW_KEY = "selected_flow"; // The name of the flow the user has selected in the UI
@@ -25,7 +26,11 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String IS_MANUALLY_POSITIONED_KEY = "is_manually_positioned"; // Whether the shape should be ignored by the automatic layout algorithm
 	private static final String IS_GHOST_KEY = "is_ghost"; // Whether the pictogram element is a ghost. A ghost is an element that has been hidden because the corresponding business object is no longer valid.
 	private static final String IS_INNER_SHAPE_KEY = "is_inner_shape"; // Inner shapes are shapes that are a child of an are considered part of another shape. They may be related to the same business object. They may be active for practical reasons 
-	
+	private static final String IS_UNSELECTABLE_KEY = "is_unselectable";
+	private static final String IS_TRANSIENT_KEY = "is_transient";
+	private static final String BINDING_TYPE_KEY = "binding_type";
+	private static final String SHOW_BINDING_TYPE_KEY_BASE = "show_binding_type";
+
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.PropertyService#getName(org.eclipse.graphiti.mm.pictograms.PictogramElement)
 	 */
@@ -74,6 +79,22 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public final void setIsLeftLayout(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, LAYOUT_SIDE_KEY, value ? "left" : "right");
+	}
+	
+	@Override
+	public final int getNestingDepth(Diagram diagram) {
+		final String nestingDepth = Graphiti.getPeService().getPropertyValue(diagram, NESTING_DEPTH_KEY);
+		return (nestingDepth == null) ? 0 : Integer.parseInt(nestingDepth);
+	}
+	
+	@Override
+	public final void setNestingDepth(Diagram diagram, int depth) {
+		Graphiti.getPeService().setPropertyValue(diagram, NESTING_DEPTH_KEY, Integer.toString(depth));
+	}
+	
+	@Override
+	public final String getNestingDepthKey() {
+		return NESTING_DEPTH_KEY;
 	}
 	
 	/* (non-Javadoc)
@@ -171,4 +192,50 @@ public class DefaultPropertyService implements PropertyService {
 	public void setIsInnerShape(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_INNER_SHAPE_KEY, value ? "true" : "false");
 	}
+	
+	@Override
+	public boolean isUnselectable(final PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_UNSELECTABLE_KEY));
+	}
+	
+	@Override
+	public void setIsUnselectable(final PictogramElement pe, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_UNSELECTABLE_KEY, value ? "true" : "false");
+	}
+	
+	@Override
+	public boolean isTransient(final PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_TRANSIENT_KEY));
+	}
+	
+	@Override
+	public void setIsTransient(final PictogramElement pe, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_TRANSIENT_KEY, value ? "true" : "false");
+	}
+	
+	// Bindings
+	@Override
+	public BindingType getBindingType(final Connection c) {
+		return BindingType.getByKey(Graphiti.getPeService().getPropertyValue(c, BINDING_TYPE_KEY));
+	}
+	
+	@Override
+	public void setBindingType(final Connection c, final BindingType value) {
+		Graphiti.getPeService().setPropertyValue(c, BINDING_TYPE_KEY, value.key);
+	}
+	
+	@Override
+	public boolean getShowConnectionBindingType(final Diagram diagram, final BindingType type) {
+		return !"false".equals(Graphiti.getPeService().getPropertyValue(diagram, buildShowBindingTypeKey(type)));
+	}
+	
+	@Override
+	public void setShowConnectionBindingType(final Diagram diagram, final BindingType type, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(diagram, buildShowBindingTypeKey(type), value ? "true" : "false");
+	}
+	
+	private String buildShowBindingTypeKey(final BindingType type) {
+		return SHOW_BINDING_TYPE_KEY_BASE + type.key;
+	}
+
 }

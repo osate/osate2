@@ -107,7 +107,7 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 		if(!(startContainer instanceof Shape)) {
 			return null;
 		}
-		
+
 		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, ComponentClassifier.class);
 	}
     

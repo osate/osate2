@@ -19,6 +19,11 @@ import org.eclipse.graphiti.pattern.AbstractPattern;
 import org.eclipse.graphiti.pattern.ICustomUndoablePattern;
 import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.pattern.MoveShapeFeatureForPattern;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.ge.diagrams.common.AadlElementWrapper;
 
 /**
  * Base class for all shape patterns for AGE. Contains logic shared between all shape patterns.
@@ -27,7 +32,7 @@ import org.eclipse.graphiti.pattern.MoveShapeFeatureForPattern;
  */
 public abstract class AgePattern extends AbstractPattern implements IPattern, ICustomUndoablePattern {
 	public static final String chopboxAnchorName = "chopbox";
-	
+
 	public AgePattern() {
 		super(null);
 	}
@@ -79,5 +84,22 @@ public abstract class AgePattern extends AbstractPattern implements IPattern, IC
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		return false;
+	}
+	
+	protected boolean isPackageDiagram() {
+		return AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram())) instanceof AadlPackage;
+	}
+	
+	protected boolean isClassifierDiagram() {
+		return isTypeDiagram() || isComponentImplementationDiagram();
+	}
+	
+	protected boolean isTypeDiagram() {
+		final Object diagramBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram()));
+		return diagramBo instanceof ComponentType || diagramBo instanceof FeatureGroupType;
+	}
+	
+	protected boolean isComponentImplementationDiagram() {
+		return AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(getDiagram())) instanceof ComponentImplementation;
 	}
 }

@@ -7,13 +7,6 @@
    </extension>
       
    <extension point="org.eclipse.ui.menus">
-   	<!--
-   		<menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">		
-			<menu id="org.osate.ge.menu" label="AGE">
-				<command commandId="org.osate.ge.commands.openpackagediagram" style="push"/>
-			</menu>
-		</menuContribution>
-		-->
 		<menuContribution allPopups="false" locationURI="popup:#TextEditorContext?after=additions">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 		</menuContribution>
@@ -22,61 +15,23 @@
 		</menuContribution>
    </extension>
 	   
-   <extension
-         point="org.eclipse.graphiti.ui.diagramTypes">
+   <extension point="org.eclipse.graphiti.ui.diagramTypes">      
       <diagramType
-            name="AADL Package Diagram Type"
-            type="AADL Package"
-            id="org.osate.ge.aadlPackageDiagramType">
-      </diagramType>
-      
-      <diagramType
-            name="AADL Type Diagram Type"
-            type="AADL Type"
-            id="org.osate.ge.aadlTypeDiagramType">
-      </diagramType>
-      
-      <diagramType
-            name="AADL Component Implementation Diagram Type"
-            type="AADL Component Implementation"
-            id="org.osate.ge.aadlComponentImplementationDiagramType">
+            name="AADL Diagram Type"
+            type="AADL Diagram"
+            id="org.osate.ge.aadlDiagramType">
       </diagramType>
    </extension>
    
-   <extension
-         point="org.eclipse.graphiti.ui.diagramTypeProviders">
-      <diagramTypeProvider
-            name="AADL Package Diagram Type Provider"
-            class="org.osate.ge.diagrams.pkg.PackageDiagramTypeProvider"
-            id="org.osate.ge.aadlPackageDiagramTypeProvider">
-         <diagramType
-               id="org.osate.ge.aadlPackageDiagramType">
-         </diagramType>
-         <imageProvider
-            id="org.osate.ge.diagrams.common.AgeImageProvider">
-      	 </imageProvider>
-      </diagramTypeProvider>
-      
-      <diagramTypeProvider
-            name="AADL Type Diagram Type Provider"
-            class="org.osate.ge.diagrams.type.TypeDiagramTypeProvider"
-            id="org.osate.ge.aadlTypeDiagramTypeProvider">
-         <diagramType
-               id="org.osate.ge.aadlTypeDiagramType">
-         </diagramType>
-         <imageProvider
-            id="org.osate.ge.diagrams.common.AgeImageProvider">
-   	     </imageProvider>
-      </diagramTypeProvider>
-      
+   <extension point="org.eclipse.graphiti.ui.diagramTypeProviders">     
       <diagramTypeProvider
             name="AADL Component Implementation Diagram Type Provider"
-            class="org.osate.ge.diagrams.componentImplementation.ComponentImplementationDiagramTypeProvider"
-            id="org.osate.ge.aadlComponentImplementationDiagramTypeProvider">
+            class="org.osate.ge.diagrams.common.AgeDiagramTypeProvider"
+            id="org.osate.ge.aadlDiagramTypeProvider">
          <diagramType
-               id="org.osate.ge.aadlComponentImplementationDiagramType">
+               id="org.osate.ge.aadlDiagramType">
          </diagramType>
-         <imageProvider
+		 <imageProvider
             id="org.osate.ge.diagrams.common.AgeImageProvider">
       	 </imageProvider>
       </diagramTypeProvider>
@@ -286,4 +241,34 @@
           sequence="M1+M2+V">
     </key>
  </extension>
+ 
+  <extension
+    point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+    <propertyContributor contributorId="org.osate.ge.editor.AgeDiagramEditor"> 
+        <propertyCategory category="org.osate.ge"> 
+        </propertyCategory> 
+    </propertyContributor> 
+</extension>
+       
+ <extension
+      point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+    <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
+		<propertyTab category="org.osate.ge" id="org.osate.ge.bindings" label="Bindings">
+    </propertyTab>
+   </propertyTabs>
+</extension>
+     
+ <extension
+      point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections
+          contributorId="org.osate.ge.editor.AgeDiagramEditor">
+        <propertySection
+              class="org.osate.ge.properties.BindingsSection"
+              filter="org.osate.ge.properties.BindingsFilter"
+              id="graphiti.main.tab.emfclass"
+              tab="org.osate.ge.bindings">
+        </propertySection>
+    </propertySections>
+ </extension>
+ 
 </plugin>

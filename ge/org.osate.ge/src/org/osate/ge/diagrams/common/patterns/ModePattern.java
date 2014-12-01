@@ -8,10 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common.patterns;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.resource.Resource;
@@ -21,6 +18,7 @@ import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
@@ -45,25 +43,25 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.RefactoringService;
-import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class ModePattern extends AgeLeafShapePattern {
@@ -71,6 +69,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";
 	private final AnchorService anchorService;
+	private final ConnectionService connectionService;
 	private final LayoutService resizeHelper;
 	private final ShapeService shapeHelper;
 	private final PropertyService propertyService;
@@ -81,18 +80,18 @@ public class ModePattern extends AgeLeafShapePattern {
 	private final AadlModificationService modificationService;
 	private final UserInputService userInputService;
 	private final NamingService namingService;
-	private final SerializableReferenceService referenceService;
 	private final BusinessObjectResolutionService bor;
 	private final RefactoringService refactoringService;
 	
 	@Inject
-	public ModePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final ShapeService shapeHelper, 
+	public ModePattern(final AnchorService anchorUtil, final GhostingService ghostingService, final ConnectionService connectionService, final LayoutService resizeHelper, final ShapeService shapeHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
-			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService, 
-			final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor) {
-		super(anchorUtil, visibilityHelper);
+			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService,
+			final BusinessObjectResolutionService bor) {
+		super(anchorUtil, ghostingService);
 		this.anchorService = anchorUtil;
+		this.connectionService = connectionService;
 		this.resizeHelper = resizeHelper;
 		this.shapeHelper = shapeHelper;
 		this.propertyService = propertyUtil;
@@ -104,7 +103,6 @@ public class ModePattern extends AgeLeafShapePattern {
 		this.userInputService = userInputService;
 		this.namingService = namingService;
 		this.refactoringService = refactoringService;
-		this.referenceService = referenceService;
 		this.bor = bor;
 	}
 
@@ -116,7 +114,8 @@ public class ModePattern extends AgeLeafShapePattern {
 	@Override
 	public boolean canAdd(final IAddContext context) {
 		if(isMainBusinessObjectApplicable(context.getNewObject())) {
-			if(AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getTargetContainer())) instanceof ComponentClassifier) {
+			final Object targetContainerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+			if(targetContainerBo instanceof ComponentClassifier || targetContainerBo instanceof Subcomponent) {
 				return true;
 			}
 		}
@@ -169,27 +168,35 @@ public class ModePattern extends AgeLeafShapePattern {
 	@Override 
 	protected void postMoveShape(final IMoveShapeContext untransformedContext) {
 		final IMoveShapeContext newContext = transformMoveShapeContext(untransformedContext);
-		final Anchor anchor = anchorService.getAnchorByName(getInnerModeShape((ContainerShape)newContext.getPictogramElement()), chopboxAnchorName);
-		if(anchor != null) {
-			updateModeTransition(anchor.getIncomingConnections());
-			updateModeTransition(anchor.getOutgoingConnections());
+
+		boolean refresh = false;
+		if(resizeHelper.checkContainerSize((ContainerShape)newContext.getPictogramElement())) {
+			refresh = true;			
 		}
 		
-		resizeHelper.checkContainerSize((ContainerShape)newContext.getPictogramElement());
+		layout((ContainerShape)newContext.getPictogramElement());
+		
+		if(refresh) {
+			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		}
 	}
 	
-	// Updates the control points for mode transition connections. Also update the mode transition triggers. 
-	// It does not update all aspects of the connection because doing so will cause problems due to issues
-	// caused by creating graphics algorithms during postMoveShape()
-	public void updateModeTransition(final List<Connection> connections) {
-		for(Connection connection : connections) {
-			final Object connectionBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(connection));
-			if(connectionBo instanceof ModeTransition) {
-				final ModeTransition mt = (ModeTransition)connectionBo;
-				ModeTransitionPattern.updateControlPoints(connection);
-				ModeTransitionPattern.updateAnchors(referenceService, connection, mt, anchorService);
-			}
-		}
+	public boolean canLayout(ILayoutContext context) {
+		return isMainBusinessObjectApplicable(getBusinessObjectForPictogramElement(context.getPictogramElement())) && context.getPictogramElement() instanceof ContainerShape;
+	}
+	
+	@Override
+	public boolean layout(ILayoutContext context) {
+		layout((ContainerShape)context.getPictogramElement());
+		return super.layout(context);
+	}
+
+	/**
+	 * Adjusts the mode transitions
+	 * @param shape
+	 */
+	private void layout(final ContainerShape shape) {
+		connectionService.updateConnectionAnchors(getInnerModeShape(shape));
 	}
 	
 	@Override
@@ -197,15 +204,10 @@ public class ModePattern extends AgeLeafShapePattern {
 		final Mode mode = (Mode)bo;
 		final IGaService gaService = Graphiti.getGaService();
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-        
+		
         // Remove connections related to the initial shape
-		{
-	        final Shape initialModeShape = shapeHelper.getChildShapeByName(shape, initialModeShapeName);
-	        if(initialModeShape != null) {
-	        	removeConnectionsByAnchorParent(initialModeShape);
-	        }
-		}
-        
+		getVisibilityService().ghostInvalidConnections(shape);
+		
 		// Remove child shapes
 		// Clear all shapes except for the inner mode shape
 		final Iterator<Shape> it = shape.getChildren().iterator();
@@ -267,6 +269,7 @@ public class ModePattern extends AgeLeafShapePattern {
 			final Connection initialModeConnection = peCreateService.createCurvedConnection(new double[] {0.0, -10.0}, getDiagram());
 			initialModeConnection.setStart(initialModeAnchor);
 			initialModeConnection.setEnd(anchorService.getAnchorByName(innerModeShape, chopboxAnchorName));
+			propertyService.setIsTransient(initialModeConnection, true);
 			propertyService.setConnectionType(initialModeConnection, INITIAL_MODE_CONNECTION_TYPE);
 			
 			// Create the line
@@ -285,7 +288,8 @@ public class ModePattern extends AgeLeafShapePattern {
 	}
 	
 	private ComponentClassifier getComponentClassifier(final Shape modeShape) {
-		return shapeHelper.getClosestBusinessObjectOfType(modeShape, ComponentClassifier.class);
+		final Object container = shapeHelper.getClosestBusinessObjectOfType(modeShape, ComponentClassifier.class, Subcomponent.class);
+		return container instanceof ComponentClassifier ? (ComponentClassifier)container : null;
 	}
 	
 	private GraphicsAlgorithm createArrow(final GraphicsAlgorithmContainer gaContainer, final Style style) {
@@ -304,29 +308,6 @@ public class ModePattern extends AgeLeafShapePattern {
 		
 		super.updateAnchors(shape);
 	}
-	
-	private void removeConnectionsByAnchorParent(final PictogramElement anchorParent) {
-		final List<Connection> connectionsToRemove = new ArrayList<Connection>();
-		
-		for(final Connection connection : this.getDiagram().getConnections()) {
-			boolean remove = false;
-			
-			if((connection.getStart() != null && connection.getStart().getParent() == anchorParent) ||
-					(connection.getEnd() != null && connection.getEnd().getParent() == anchorParent)) {
-				remove = true;
-				break;
-			}
-
-			if(remove) {
-				connectionsToRemove.add(connection);
-			}
-		}
-		
-		// Remove the connections
-		for(final Connection connection : connectionsToRemove) {
-			EcoreUtil.delete(connection, true);
-		}		
-	}
 
 	@Override
 	public boolean isPaletteApplicable() {
@@ -337,6 +318,7 @@ public class ModePattern extends AgeLeafShapePattern {
 	public boolean canCreate(final ICreateContext context) {
 		return !(context.getTargetContainer() instanceof Diagram) && bor.getBusinessObjectForPictogramElement(context.getTargetContainer()) instanceof ComponentClassifier;
 	}
+	
 	@Override
 	public String getCreateImageId(){
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();

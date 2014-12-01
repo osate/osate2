@@ -25,7 +25,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.PropertyService;
 
-public class ModeContributionItem extends ComboContributionItem {
+public class ModeContributionItem extends ComboContributionItem implements ComponentClassifierItem {
 	private static final String emptySelectionTxt = "<Modes>";
 	private static final String selectedModePropertyKey = "org.osate.ge.ui.editor.selectedMode";
 	private final PropertyService propertyUtil;
