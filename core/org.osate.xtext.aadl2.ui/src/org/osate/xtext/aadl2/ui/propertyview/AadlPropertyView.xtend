@@ -118,6 +118,7 @@ import org.osate.xtext.aadl2.ui.propertyview.associationwizard.PropertyAssociati
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.getNode
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 import static extension org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 
@@ -647,7 +648,7 @@ class AadlPropertyView extends ViewPart {
 		treeViewer.tree.setFocus
 	}
 	
-	def private getLastLeaf(ICompositeNode node) {
+	def private static getLastLeaf(ICompositeNode node) {
 		var INode result = node
 		while (result instanceof ICompositeNode) {
 			result = result.lastChild
@@ -655,7 +656,7 @@ class AadlPropertyView extends ViewPart {
 		result ?: node
 	}
 	
-	def private getPreviousNode(INode node) {
+	def private static getPreviousNode(INode node) {
 		var lln = node.previousSibling
 		while (lln instanceof HiddenLeafNode) {
 			lln = lln.previousSibling
@@ -668,122 +669,75 @@ class AadlPropertyView extends ViewPart {
 			override protected canEdit(Object element) {
 				switch treeElement : (element as Pair<Object, Object>).value {
 					URI: treeElement.getEObjectAndRun[switch it {
-						PropertySet: false
 						Property: {
 							val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
 							associationURI != null && associationURI.getEObjectAndRun[PropertyAssociation association | input.getEObjectAndRun[it == association.owner] && !association.modal]
 						}
-						default: {
-							println("canEdit: " + it)
-							throw new UnsupportedOperationException("TODO: auto-generated method stub")
+						BasicPropertyAssociation: {
+							val containingAssociation = getContainerOfType(PropertyAssociation)
+							containingAssociation != null && input.getEObjectAndRun[it == containingAssociation.owner] && !containingAssociation.modal
 						}
+						default: false
 					}]
-					default: {
-						println("canEdit: " + treeElement)
-						throw new UnsupportedOperationException("TODO: auto-generated method stub")
-					}
+					Pair<Object, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it |
+						val containingAssociation = getContainerOfType(PropertyAssociation)
+						containingAssociation != null && input.getEObjectAndRun[it == containingAssociation.owner] && !containingAssociation.modal
+					]
+					default: false
 				}
 			}
 			
 			override protected getCellEditor(Object element) {
-				switch treeElement : (element as Pair<Object, Object>).value {
-					URI: treeElement.getEObjectAndRun[switch it {
-						Property: {
-							val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
-							if (associationURI != null && associationURI.getEObjectAndRun[PropertyAssociation association | input.getEObjectAndRun[it == association.owner] && !association.modal]) {
-								new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)) => [
-									create(treeViewer.tree)
-								]
-							} else {
-								throw new UnsupportedOperationException("TODO: auto-generated method stub")
-							}
-						}
-						default: {
-							println("getCellEditor: " + it)
-							throw new UnsupportedOperationException("TODO: auto-generated method stub")
-						}
-					}]
-					default: {
-						println("getCellEditor: " + treeElement)
-						throw new UnsupportedOperationException("TODO: auto-generated method stub")
-					}
-				}
+				new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)) => [
+					create(treeViewer.tree)
+				]
 			}
 			
 			override protected getValue(Object element) {
-				switch treeElement : (element as Pair<Object, Object>).value {
-					URI: treeElement.getEObjectAndRun[switch it {
-						Property: {
-							val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
-							if (associationURI != null) {
-								associationURI.getEObjectAndRun[PropertyAssociation association | if (input.getEObjectAndRun[it == association.owner] && !association.modal) {
-									val propertyExpressionNode = NodeModelUtils.getNode(association.ownedValues.head.ownedValue)
-									
-									val modelUnitNameNode = xtextDocument.readOnly[NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head]
-									val prefix = xtextDocument.get(0, propertyExpressionNode.offset)
-									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
-									
-									initialEditablePart = serializer.serialize(association.ownedValues.head.ownedValue).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
-									
-									val endNameNode = getPreviousNode(getLastLeaf(xtextDocument.readOnly[NodeModelUtils.getNode(contents.head)]))
-									val suffix = xtextDocument.get(propertyExpressionNode.endOffset, xtextDocument.length - propertyExpressionNode.endOffset)
-									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - propertyExpressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
-
-									new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
-								} else {
-									throw new UnsupportedOperationException("TODO: auto-generated method stub")
-								}]
-							} else {
-								throw new UnsupportedOperationException("TODO: auto-generated method stub")
-							}
-						}
-						default: {
-							println("getValue: " + it)
-							throw new UnsupportedOperationException("TODO: auto-generated method stub")
-						}
-					}]
-					default: {
-						println("getValue: " + treeElement)
-						throw new UnsupportedOperationException("TODO: auto-generated method stub")
+				xtextDocument.readOnly[
+					val expression = switch treeElement: (element as Pair<Object, Object>).value {
+						URI: treeElement.getEObjectAndRun[switch it {
+							Property: cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement).getEObjectAndRun[PropertyAssociation it |
+								ownedValues.head.ownedValue
+							]
+							BasicPropertyAssociation: value
+						}]
+						Pair<Object, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it | it]
 					}
-				}
+					val expressionNode = expression.node
+					
+					val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+					val prefix = xtextDocument.get(0, expressionNode.offset)
+					val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
+					
+					initialEditablePart = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
+					
+					val endNameNode = contents.head.node.lastLeaf.previousNode
+					val suffix = xtextDocument.get(expressionNode.endOffset, xtextDocument.length - expressionNode.endOffset)
+					val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - expressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
+					
+					new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+				]
 			}
 			
 			override protected setValue(Object element, Object value) {
 				if (initialEditablePart != value) {
-					switch treeElement : (element as Pair<Object, Object>).value {
-						URI: {
-							val node = treeElement.getEObjectAndRun[switch it {
-								Property: {
-									val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
-									if (associationURI != null) {
-										associationURI.getEObjectAndRun[PropertyAssociation association | if (input.getEObjectAndRun[it == association.owner] && !association.modal) {
-											NodeModelUtils.getNode(association.ownedValues.head.ownedValue)
-										} else {
-											throw new UnsupportedOperationException("TODO: auto-generated method stub")
-										}]
-									} else {
-										throw new UnsupportedOperationException("TODO: auto-generated method stub")
-									}
-								}
-								default: {
-									println("setValue: " + it)
-									throw new UnsupportedOperationException("TODO: auto-generated method stub")
-								}
-							}]
-							if (node != null) {
-								xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
-									override process(XtextResource state) throws Exception {
-										state.update(node.offset, node.length, value as String)
-									}
-								})
-								treeViewer.refresh(element)
+					val node = switch treeElement : (element as Pair<Object, Object>).value {
+						URI: treeElement.getEObjectAndRun[switch it {
+							Property: cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement).getEObjectAndRun[PropertyAssociation it |
+								ownedValues.head.ownedValue
+							]
+							BasicPropertyAssociation: it.value
+						}.node]
+						Pair<Object, URI>: treeElement.value.getEObjectAndRun[node]
+					}
+					if (node != null) {
+						xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+							override process(XtextResource state) throws Exception {
+								state.update(node.offset, node.length, value as String)
 							}
-						}
-						default: {
-							println("setValue: " + treeElement)
-							throw new UnsupportedOperationException("TODO: auto-generated method stub")
-						}
+						})
+						treeViewer.refresh(element)
 					}
 				}
 			}
