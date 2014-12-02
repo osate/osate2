@@ -59,7 +59,7 @@ public class DistributeVerticallyAction extends SelectionAction {
     	= new Comparator<PictogramElement>() {
 		@Override
 		public int compare(PictogramElement yValueArg1, PictogramElement yValueArg2) {
-			return Integer.compare(yValueArg1.getGraphicsAlgorithm().getY(), yValueArg2.getGraphicsAlgorithm().getY());
+			return Integer.valueOf(yValueArg1.getGraphicsAlgorithm().getY()).compareTo(yValueArg2.getGraphicsAlgorithm().getY());
 		}
 	};
 
