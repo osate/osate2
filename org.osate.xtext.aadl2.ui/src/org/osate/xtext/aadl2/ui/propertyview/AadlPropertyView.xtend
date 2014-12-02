@@ -143,6 +143,7 @@ class AadlPropertyView extends ViewPart {
 	
 	val static STATUS_UNDEFINED = "undefined"
 	val static STATUS_LOCAL = "local"
+	val static STATUS_LOCAL_CONTAINED = "local contained"
 	val static STATUS_INHERITED = "inherited"
 	val static STATUS_DEFAULT = "default"
 	
@@ -347,25 +348,35 @@ class AadlPropertyView extends ViewPart {
 			if (treeElement instanceof URI) {
 				treeElement.getEObjectAndRun[switch it {
 					Property: {
-						val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
-						if (associationURI != null) {
-							if (associationURI.getEObjectAndRun[PropertyAssociation association | input.getEObjectAndRun[it == association.owner]]) {
-								STATUS_LOCAL
-							} else {
-								STATUS_INHERITED
-							}
+						cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)?.getEObjectAndRun[PropertyAssociation association |
+							input.getEObjectAndRun[inputElement |
+								if (inputElement == association.owner) {
+									STATUS_LOCAL
+								} else if (association.appliesTos.exists[inputElement == containmentPathElements.last.namedElement]) {
+									STATUS_LOCAL_CONTAINED
+								} else {
+									STATUS_INHERITED
+								}
+							]
+						] ?: if (defaultValue != null) {
+							STATUS_DEFAULT
 						} else {
-							if (defaultValue != null) {
-								STATUS_DEFAULT
-							} else {
-								STATUS_UNDEFINED
-							}
+							STATUS_UNDEFINED
 						}
 					}
-					BasicPropertyAssociation: switch containingAssociation : getContainerOfType(PropertyAssociation) {
-						case null: STATUS_DEFAULT
-						case input.getEObjectAndRun[it == containingAssociation.owner]: STATUS_LOCAL
-						default: STATUS_INHERITED
+					BasicPropertyAssociation: {
+						val containingAssociation = getContainerOfType(PropertyAssociation)
+						if (containingAssociation == null) {
+							STATUS_DEFAULT
+						} else {
+							input.getEObjectAndRun[inputElement | if (inputElement == containingAssociation.owner) {
+								STATUS_LOCAL
+							} else if (containingAssociation.appliesTos.exists[inputElement == containmentPathElements.last.namedElement]) {
+								STATUS_LOCAL_CONTAINED
+							} else {
+								STATUS_INHERITED
+							}]
+						}
 					}
 					BasicProperty case !(it instanceof Property): STATUS_UNDEFINED
 				}]
@@ -588,7 +599,9 @@ class AadlPropertyView extends ViewPart {
 				new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 					column.text = "Status"
 					val gc = new GC(column.parent)
-					treeColumnLayout.setColumnData(column, new ColumnPixelData(#[STATUS_LOCAL, STATUS_INHERITED, STATUS_DEFAULT, STATUS_UNDEFINED].map[gc.stringExtent(it).x].max + 5, true, true))
+					treeColumnLayout.setColumnData(column,
+						new ColumnPixelData(#[STATUS_LOCAL, STATUS_LOCAL_CONTAINED, STATUS_INHERITED, STATUS_DEFAULT, STATUS_UNDEFINED].map[gc.stringExtent(it).x].max + 5, true, true)
+					)
 					gc.dispose
 					labelProvider = statusColumnLabelProvider
 				]
