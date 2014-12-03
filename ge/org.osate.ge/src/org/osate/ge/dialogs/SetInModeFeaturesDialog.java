@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
 
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -37,10 +38,11 @@ import org.eclipse.swt.widgets.Shell;
 public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	private final List<Control> modeControls = new ArrayList<Control>(); // A list of all controls that are involved in configuring modes. Will be disabled when the all modes check box is selected.
 	private final List<String> localModes;
+	private final List<String> localModeTransitions;
 	private final List<String> childModes;
 	private final Map<String, String> localToChildModeMap;
 	private boolean inAllModes;
-
+	
 	/**
 	 * 
 	 * @param parentShell
@@ -48,9 +50,10 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	 * @param childModes optional. Used in case there is a mapping to child modes
 	 * @param localToChildModeMap
 	 */
-	public SetInModeFeaturesDialog(final Shell parentShell, final List<String> localModeFeatures, final List<String> childModes, final Map<String, String> localToChildModeMap) {
+	public SetInModeFeaturesDialog(final Shell parentShell, final List<String> localModeFeatures, final List<String> localModeTransitionFeatures, final List<String> childModes, final Map<String, String> localToChildModeMap) {
 		super(parentShell);
 		this.localModes = localModeFeatures;
+		this.localModeTransitions = localModeTransitionFeatures;
 		this.childModes = childModes;
 		this.localToChildModeMap = new HashMap<String, String>(localToChildModeMap);
 		this.inAllModes = localToChildModeMap.size() == 0;
@@ -62,6 +65,12 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		setTitle("Modes");
 	    setMessage("Select the modes for the element.", IMessageProvider.INFORMATION);	
 	}	
+	
+	@Override
+	protected void configureShell(final Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText("Configure In Modes");
+	}
 	
 	public Map<String, String> getLocalToChildModeMap() {
 		return inAllModes ? new HashMap<String, String>() : localToChildModeMap;
@@ -90,19 +99,33 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	    allModesBtn.setLayoutData(allModesGridData);
 	    allModesBtn.setSelection(inAllModes);
 	    
-	    final Label separator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
-	    final GridData separatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-	    separatorLayoutData.horizontalSpan = layout.numColumns;
-	    separator.setLayoutData(separatorLayoutData);
-
+	    final Label modeSeparator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
+	    final GridData modeSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
+	    modeSeparatorLayoutData.horizontalSpan = layout.numColumns;
+	    modeSeparator.setLayoutData(modeSeparatorLayoutData);
+	    // Sort mode names
+	    Collections.sort(localModes);
 	    // Add controls for each of the local modes
 	    for(final String localMode : localModes) {
 	    	addLocalMode(container, localMode);
 	    }	    
-	    
+	  
 	    scrolled.setContent(container); 
 	    scrolled.setMinSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 	    
+	    //will not show up on dialog if there are no mode transitions eligible for selection 
+	    if (localModeTransitions != null && !localModeTransitions.isEmpty()) {
+	    	//Sort transition names
+	    	Collections.sort(localModeTransitions);    
+	    	final GridData modeTransitionSeparatorLayoutData = new GridData(GridData.FILL_HORIZONTAL);
+	    	final Label modeTransitionSeparator = new Label(container, SWT.HORIZONTAL | SWT.SEPARATOR);
+	    	modeTransitionSeparatorLayoutData.horizontalSpan = layout.numColumns;
+	    	modeTransitionSeparator.setLayoutData(modeTransitionSeparatorLayoutData);
+	    	for(final String localModeTransition : localModeTransitions) {
+	    		addLocalMode(container, localModeTransition);
+	    	}
+	    }
+	    //update all check boxes when all modes is selected
 	    updateEnabledStateOfModeControls(!allModesBtn.getSelection());
 	    allModesBtn.addSelectionListener(new SelectionAdapter() {
 	    	@Override
@@ -117,7 +140,7 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	
 	private void updateEnabledStateOfModeControls(final boolean value) {
 		for(final Control c : modeControls) {
-			c.setEnabled(value);
+				c.setEnabled(value);
 		}
 	}
 	
@@ -125,7 +148,7 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 	    final Button modeBtn = new Button(container, SWT.CHECK);
 	    modeBtn.setText(modeName);
 	    modeControls.add(modeBtn);
-	    
+
 	    // Set checked state
 	    if(localToChildModeMap.containsKey(modeName)) {
 		    modeBtn.setSelection(true);
@@ -146,6 +169,8 @@ public class SetInModeFeaturesDialog extends TitleAreaDialog {
 		    childModeFld = new Combo(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 		    modeControls.add(childModeFld);
 		    childModeFld.add("");
+		    // Sort child modes' names
+		    Collections.sort(childModes);
 		    for(final String childMode : childModes) {
 		    	 childModeFld.add(childMode);
 		    }
