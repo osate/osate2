@@ -341,6 +341,12 @@ class AadlPropertyView extends ViewPart {
 				Pair<Object, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it | getValueAsString(serializer)]
 			}
 		}
+		
+		override getForeground(Object element) {
+			if (!canEdit(element)) {
+				site.shell.display.getSystemColor(SWT.COLOR_GRAY)
+			}
+		}
 	}
 	
 	val statusColumnLabelProvider = new ColumnLabelProvider {
@@ -672,27 +678,31 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 	
+	def private canEdit(Object element) {
+		switch treeElement : (element as Pair<Object, Object>).value {
+			URI: treeElement.getEObjectAndRun[switch it {
+				Property: {
+					val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
+					associationURI != null && associationURI.getEObjectAndRun[PropertyAssociation association | input.getEObjectAndRun[it == association.owner] && !association.modal]
+				}
+				BasicPropertyAssociation: {
+					val containingAssociation = getContainerOfType(PropertyAssociation)
+					containingAssociation != null && input.getEObjectAndRun[it == containingAssociation.owner] && !containingAssociation.modal
+				}
+				default: false
+			}]
+			Pair<Object, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it |
+				val containingAssociation = getContainerOfType(PropertyAssociation)
+				containingAssociation != null && input.getEObjectAndRun[it == containingAssociation.owner] && !containingAssociation.modal
+			]
+			default: false
+		}
+	}
+	
 	def private createValueColumnEditingSupport(TreeViewer treeViewer) {
 		new EditingSupport(treeViewer) {
 			override protected canEdit(Object element) {
-				switch treeElement : (element as Pair<Object, Object>).value {
-					URI: treeElement.getEObjectAndRun[switch it {
-						Property: {
-							val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
-							associationURI != null && associationURI.getEObjectAndRun[PropertyAssociation association | input.getEObjectAndRun[it == association.owner] && !association.modal]
-						}
-						BasicPropertyAssociation: {
-							val containingAssociation = getContainerOfType(PropertyAssociation)
-							containingAssociation != null && input.getEObjectAndRun[it == containingAssociation.owner] && !containingAssociation.modal
-						}
-						default: false
-					}]
-					Pair<Object, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it |
-						val containingAssociation = getContainerOfType(PropertyAssociation)
-						containingAssociation != null && input.getEObjectAndRun[it == containingAssociation.owner] && !containingAssociation.modal
-					]
-					default: false
-				}
+				AadlPropertyView.this.canEdit(element)
 			}
 			
 			override protected getCellEditor(Object element) {
