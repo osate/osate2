@@ -92,6 +92,7 @@ import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.serializer.ISerializer
 import org.eclipse.xtext.ui.editor.XtextEditor
 import org.eclipse.xtext.ui.editor.model.IXtextDocument
+import org.eclipse.xtext.ui.editor.model.IXtextModelListener
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
 import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator
@@ -206,6 +207,7 @@ class AadlPropertyView extends ViewPart {
 	var String initialEditablePart
 	
 	var CachePropertyLookupJob cachePropertyLookupJob = null
+	val jobLock = new Object
 	
 	//If the URIs were resolved to EObjects, then this would be a Map<PropertySet, Map<Property, PropertyAssociation>>
 	val Map<URI, Map<URI, URI>> cachedPropertyAssociations = Collections.synchronizedMap(newLinkedHashMap)
@@ -247,6 +249,16 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	val ISelectionChangedListener selectionChangedListener = [updateSelection(site.workbenchWindow.activePage.activeEditor as XtextEditor, selection)]
+	
+	val IXtextModelListener xtextModelListener = [synchronized (jobLock) {
+		if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+			cachePropertyLookupJob.cancel
+		}
+		if (input != null) {
+			cachePropertyLookupJob = createCachePropertyLookupJob(input)
+			cachePropertyLookupJob.schedule
+		}
+	}]
 	
 	val propertyColumnLabelProvider = new ColumnLabelProvider {
 		/** Cached Icon for property set nodes */
@@ -634,9 +646,11 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	override dispose() {
-		if (cachePropertyLookupJob != null) {
-			cachePropertyLookupJob.cancel
-			cachePropertyLookupJob = null
+		synchronized (jobLock) {
+			if (cachePropertyLookupJob != null) {
+				cachePropertyLookupJob.cancel
+				cachePropertyLookupJob = null
+			}
 		}
 		site.page.removeSelectionListener(selectionListener)
 		site.page.removePartListener(partListener)
@@ -647,6 +661,7 @@ class AadlPropertyView extends ViewPart {
 				editorSelectionProvider.removePostSelectionChangedListener(selectionChangedListener)
 			}
 		}
+		xtextDocument?.removeModelListener(xtextModelListener)
 		super.dispose
 	}
 	
@@ -787,11 +802,13 @@ class AadlPropertyView extends ViewPart {
 				if (new WizardDialog(viewSite.workbenchWindow.shell,
 					new PropertyAssociationWizard(xtextDocument, editingDomain?.commandStack, input.getEObjectAndRun[NamedElement it | it], serializer, aadl2Parser, linker)
 				).open == Window.OK) {
-					if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
-						cachePropertyLookupJob.cancel
+					synchronized (jobLock) {
+						if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+							cachePropertyLookupJob.cancel
+						}
+						cachePropertyLookupJob = createCachePropertyLookupJob(input)
+						cachePropertyLookupJob.schedule
 					}
-					cachePropertyLookupJob = createCachePropertyLookupJob(input)
-					cachePropertyLookupJob.schedule
 				}
 			}
 		} => [
@@ -803,6 +820,7 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
+		xtextDocument?.removeModelListener(xtextModelListener)
 		val currentSelection = switch selection {
 			case selection.empty: {
 				null
@@ -831,6 +849,7 @@ class AadlPropertyView extends ViewPart {
 				}
 			}
 		}
+		xtextDocument?.addModelListener(xtextModelListener)
 		if (currentSelection instanceof NamedElement) {
 			editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(currentSelection)
 			resourceSet = currentSelection.eResource.resourceSet
@@ -839,16 +858,20 @@ class AadlPropertyView extends ViewPart {
 				pageBook.showPage(treeViewerComposite)
 			} else {
 				previousSelectionURI = currentSelectionURI
-				if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
-					cachePropertyLookupJob.cancel
+				synchronized (jobLock) {
+					if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+						cachePropertyLookupJob.cancel
+					}
+					cachePropertyLookupJob = createCachePropertyLookupJob(currentSelectionURI)
+					cachePropertyLookupJob.schedule
 				}
-				cachePropertyLookupJob = createCachePropertyLookupJob(currentSelectionURI)
-				cachePropertyLookupJob.schedule
 			}
 		} else {
-			if (cachePropertyLookupJob != null) {
-				cachePropertyLookupJob.cancel
-				cachePropertyLookupJob = null
+			synchronized (jobLock) {
+				if (cachePropertyLookupJob != null) {
+					cachePropertyLookupJob.cancel
+					cachePropertyLookupJob = null
+				}
 			}
 			pageBook.showPage(noPropertiesLabel)
 			addNewPropertyAssociationToolbarAction.enabled = false
