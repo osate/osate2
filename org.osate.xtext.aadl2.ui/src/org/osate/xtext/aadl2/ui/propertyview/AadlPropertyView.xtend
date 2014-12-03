@@ -664,6 +664,14 @@ class AadlPropertyView extends ViewPart {
 		lln
 	}
 	
+	def private Pair<?, ?> getPropertyParent(Pair<?, ?> element) {
+		if (element.value instanceof URI && (element.value as URI).getEObjectAndRun[it instanceof Property]) {
+			element
+		} else {
+			(element.key as Pair<Object, Object>).propertyParent
+		}
+	}
+	
 	def private createValueColumnEditingSupport(TreeViewer treeViewer) {
 		new EditingSupport(treeViewer) {
 			override protected canEdit(Object element) {
@@ -721,7 +729,7 @@ class AadlPropertyView extends ViewPart {
 			}
 			
 			override protected setValue(Object element, Object value) {
-				if (initialEditablePart != value) {
+				if (initialEditablePart != value  && !(value as String).empty) {
 					val node = switch treeElement : (element as Pair<Object, Object>).value {
 						URI: treeElement.getEObjectAndRun[switch it {
 							Property: cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement).getEObjectAndRun[PropertyAssociation it |
@@ -737,7 +745,7 @@ class AadlPropertyView extends ViewPart {
 								state.update(node.offset, node.length, value as String)
 							}
 						})
-						treeViewer.refresh(element)
+						treeViewer.refresh((element as Pair<Object, Object>).propertyParent)
 					}
 				}
 			}
