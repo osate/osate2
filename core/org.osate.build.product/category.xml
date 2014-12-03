@@ -15,9 +15,6 @@
    <feature url="features/org.osate.plugins.source.feature_2.0.0.qualifier.jar" id="org.osate.plugins.source.feature" version="2.0.0.qualifier">
       <category name="osate2source"/>
    </feature>
-   <feature url="features/edu.cmu.sei.aadl.errorannex.feature_2.0.0.qualifier.jar" id="edu.cmu.sei.aadl.errorannex.feature" version="2.0.0.qualifier">
-      <category name="osate2"/>
-   </feature>
    <feature url="features/org.osate.xtext.aadl2.errormodel.feature_2.0.0.qualifier.jar" id="org.osate.xtext.aadl2.errormodel.feature" version="2.0.0.qualifier">
       <category name="osate2"/>
    </feature>
@@ -26,6 +23,18 @@
    </feature>
    <feature url="features/org.osate.utils.feature_1.0.0.qualifier.jar" id="org.osate.utils.feature" version="1.0.0.qualifier">
       <category name="osate2"/>
+   </feature>
+   <feature url="features/com.rockwellcollins.atc.agree.feature_1.0.0.qualifier.jar" id="com.rockwellcollins.atc.agree.feature" version="1.0.0.qualifier">
+      <category name="osate2"/>
+   </feature>
+   <feature url="features/com.rockwellcollins.atc.resolute.feature_1.0.0.qualifier.jar" id="com.rockwellcollins.atc.resolute.feature" version="1.0.0.qualifier">
+      <category name="osate2"/>
+   </feature>
+   <feature url="features/com.rockwellcollins.atc.agree.source.feature_1.0.0.qualifier.jar" id="com.rockwellcollins.atc.agree.source.feature" version="1.0.0.qualifier">
+      <category name="osate2source"/>
+   </feature>
+   <feature url="features/com.rockwellcollins.atc.resolute.source.feature_1.0.0.qualifier.jar" id="com.rockwellcollins.atc.resolute.source.feature" version="1.0.0.qualifier">
+      <category name="osate2source"/>
    </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
