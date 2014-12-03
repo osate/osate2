@@ -65,7 +65,9 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.services.NamingService;
@@ -111,6 +113,12 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		this.namingService = namingService;
 		this.setHelpAvailable(false);
 		populatePotentialFlowSegmentList();	    
+	}
+	
+	@Override
+	protected void configureShell(final Shell newShell) {
+		super.configureShell(newShell);
+		newShell.setText("Edit Flows");
 	}
 	
 	private void populatePotentialFlowSegmentList() {
@@ -338,14 +346,21 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					for(final ModeFeature mf : mp.getInModeOrTransitions()) {
 						localToChildModeMap.put(mf.getName(), null);
 					}		
-								
+					
 					final List<String> localModeFeatureNames = new ArrayList<String>();
+					final List<String> localModeTransitionFeatureNames = new ArrayList<String>();
 					for(final ModeFeature tmpMode : localModeFeatures) {
-						localModeFeatureNames.add(tmpMode.getName());
+						if (tmpMode instanceof Mode){
+							localModeFeatureNames.add(tmpMode.getName());
+						} else {
+							if(tmpMode instanceof ModeTransition){
+								localModeTransitionFeatureNames.add(tmpMode.getName());
+							}
+						}
 					}
 					
 					// Show the dialog
-					final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(getShell(), localModeFeatureNames, null, localToChildModeMap);
+					final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(getShell(), localModeFeatureNames, localModeTransitionFeatureNames, null, localToChildModeMap);
 					if(dlg.open() == Dialog.CANCEL) {
 						return;
 					}
