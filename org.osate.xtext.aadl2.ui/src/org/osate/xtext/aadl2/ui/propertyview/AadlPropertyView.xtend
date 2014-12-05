@@ -53,7 +53,9 @@ import org.eclipse.emf.transaction.RunnableWithResult
 import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.emf.transaction.util.TransactionUtil
 import org.eclipse.jface.action.Action
+import org.eclipse.jface.action.GroupMarker
 import org.eclipse.jface.action.IAction
+import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.text.ITextSelection
 import org.eclipse.jface.viewers.ColumnLabelProvider
@@ -78,6 +80,7 @@ import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.IPartListener
 import org.eclipse.ui.ISelectionListener
+import org.eclipse.ui.IWorkbenchActionConstants
 import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
@@ -149,6 +152,10 @@ class AadlPropertyView extends ViewPart {
 	val static STATUS_INHERITED = "inherited"
 	val static STATUS_DEFAULT = "default"
 	
+	val static MINIMUM_LABEL = "minimum"
+	val static MAXIMUM_LABEL = "maximum"
+	val static DELTA_LABEL = "delta"
+	
 	/**
 	 * Page book for switching between the tree viewer and the "no properties"
 	 * message.
@@ -180,6 +187,8 @@ class AadlPropertyView extends ViewPart {
 	 * from this view's selection
 	 */
 	var Action addNewPropertyAssociationToolbarAction = null
+	
+	var Action removeElementAction = null
 	
 	/**
 	 * The editing domain for the viewer's input
@@ -548,9 +557,9 @@ class AadlPropertyView extends ViewPart {
 		def private getElement(PropertyExpression expression, int index, PropertyType propertyType, PropertyExpression defaultValue) {
 			switch expression {
 				RangeValue: switch index {
-					case 0: "minimum" -> expression.minimum.getURI
-					case 1: "maximum" -> expression.maximum.getURI
-					case 2: "delta" -> expression.delta.getURI
+					case 0: MINIMUM_LABEL -> expression.minimum.getURI
+					case 1: MAXIMUM_LABEL -> expression.maximum.getURI
+					case 2: DELTA_LABEL -> expression.delta.getURI
 				}
 				RecordValue: {
 					val recordType = propertyType as RecordType
@@ -643,6 +652,7 @@ class AadlPropertyView extends ViewPart {
 			}
 		}
 		createActions
+		createContextMenu
 	}
 
 	override dispose() {
@@ -816,6 +826,77 @@ class AadlPropertyView extends ViewPart {
 			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/new_pa.gif")
 			enabled = false
 			viewSite.actionBars.toolBarManager.add(it)
+		]
+		
+		removeElementAction = new Action("Remove") {
+			override run() {
+				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as Pair<Object, Object>
+				switch treeElement : selectedElement.value {
+					URI: {
+						val postModificationUpdate = xtextDocument.modify[switch treeElementObject : it.resourceSet.getEObject(treeElement, true) {
+							Property: {
+								val associationURI = cachedPropertyAssociations.get((selectedElement.key as Pair<Object, Object>).value).get(selectedElement.value)
+								val association = it.resourceSet.getEObject(associationURI, true) as PropertyAssociation
+								(association.owner as NamedElement).ownedPropertyAssociations.remove(association);
+								[|synchronized (jobLock) {
+									if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+										cachePropertyLookupJob.cancel
+									}
+									cachePropertyLookupJob = createCachePropertyLookupJob(input)
+									cachePropertyLookupJob.schedule
+								}]
+							}
+							BasicPropertyAssociation: {
+								(treeElementObject.owner as RecordValue).ownedFieldValues.remove(treeElementObject);
+								[|treeViewer.refresh(selectedElement.key)]
+							}
+						}]
+						postModificationUpdate.apply
+					}
+					Pair<Object, URI>: switch key : treeElement.key {
+						String: {
+							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+								override process(XtextResource state) throws Exception {
+									((state.resourceSet.getEObject((treeElement as Pair<String, URI>).value, true) as PropertyExpression).owner as RangeValue).delta = null
+								}
+							})
+							treeViewer.refresh(selectedElement.key)
+						}
+						Integer: {
+							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+								override process(XtextResource state) throws Exception {
+									((state.resourceSet.getEObject((treeElement as Pair<Integer, URI>).value, true) as PropertyExpression).owner as ListValue).ownedListElements.remove(
+										(key as Integer).intValue
+									)
+								}
+							})
+							treeViewer.refresh(selectedElement.key)
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	def private createContextMenu() {
+		new MenuManager => [
+			removeAllWhenShown = true
+			addMenuListener[
+				add(removeElementAction)
+				val selection = treeViewer.selection as IStructuredSelection
+				removeElementAction.enabled = xtextDocument != null && selection.size == 1 && canEdit(selection.firstElement) && switch treeElement : (selection.firstElement as Pair<?, ?>).value {
+					URI: treeElement.getEObjectAndRun[switch it {
+						Property: true
+						BasicPropertyAssociation: (owner as RecordValue).ownedFieldValues.size >= 2
+						default: false
+					}]
+					Pair<Object, Object>: treeElement.key == DELTA_LABEL || treeElement.key instanceof Integer
+					default: false
+				} 
+				add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS))
+			]
+			treeViewer.control.menu = createContextMenu(treeViewer.control)
+			site.registerContextMenu(it, treeViewer)
 		]
 	}
 
