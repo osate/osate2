@@ -93,6 +93,7 @@ import org.eclipse.xtext.resource.EObjectAtOffsetHelper
 import org.eclipse.xtext.resource.XtextResource
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.serializer.ISerializer
+import org.eclipse.xtext.ui.editor.IURIEditorOpener
 import org.eclipse.xtext.ui.editor.XtextEditor
 import org.eclipse.xtext.ui.editor.model.IXtextDocument
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener
@@ -190,6 +191,8 @@ class AadlPropertyView extends ViewPart {
 	
 	var Action removeElementAction = null
 	
+	var Action openDefinitionAction = null
+	
 	/**
 	 * The editing domain for the viewer's input
 	 */
@@ -210,6 +213,9 @@ class AadlPropertyView extends ViewPart {
 
 	@Inject
 	var IScopeProvider scopeProvider
+	
+	@Inject
+	var IURIEditorOpener editorOpener
 	
 	var URI previousSelectionURI = null
 	
@@ -259,13 +265,18 @@ class AadlPropertyView extends ViewPart {
 
 	val ISelectionChangedListener selectionChangedListener = [updateSelection(site.workbenchWindow.activePage.activeEditor as XtextEditor, selection)]
 	
-	val IXtextModelListener xtextModelListener = [synchronized (jobLock) {
-		if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
-			cachePropertyLookupJob.cancel
-		}
-		if (input != null) {
-			cachePropertyLookupJob = createCachePropertyLookupJob(input)
-			cachePropertyLookupJob.schedule
+	//This flag is necessary because calling IURIEditorOpener.open causes a model change event.  This event should be ignored when calling IURIEditorOpener.open
+	var modelListenerEnabled = true
+	
+	val IXtextModelListener xtextModelListener = [if (modelListenerEnabled) {
+		synchronized (jobLock) {
+			if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
+				cachePropertyLookupJob.cancel
+			}
+			if (input != null) {
+				cachePropertyLookupJob = createCachePropertyLookupJob(input)
+				cachePropertyLookupJob.schedule
+			}
 		}
 	}]
 	
@@ -876,15 +887,33 @@ class AadlPropertyView extends ViewPart {
 				}
 			}
 		}
+		
+		openDefinitionAction = new Action("Open Definition") {
+			override run() {
+				val selectedElementURI = ((treeViewer.selection as IStructuredSelection).firstElement as Pair<Object, URI>).value
+				val uriToOpen = selectedElementURI.getEObjectAndRun[switch it {
+					PropertySet, Property, BasicProperty: selectedElementURI
+					BasicPropertyAssociation: property.URI
+				}]
+				modelListenerEnabled = false
+				editorOpener.open(uriToOpen, true)
+				modelListenerEnabled = true
+			}
+		}
 	}
 	
 	def private createContextMenu() {
 		new MenuManager => [
 			removeAllWhenShown = true
 			addMenuListener[
+				add(openDefinitionAction)
 				add(removeElementAction)
 				val selection = treeViewer.selection as IStructuredSelection
-				removeElementAction.enabled = xtextDocument != null && selection.size == 1 && canEdit(selection.firstElement) && switch treeElement : (selection.firstElement as Pair<?, ?>).value {
+				val firstSelectedElement = selection.firstElement as Pair<?, ?>
+				openDefinitionAction.enabled = selection.size == 1 && firstSelectedElement.value instanceof URI && (firstSelectedElement.value as URI).getEObjectAndRun[
+					it instanceof PropertySet || it instanceof Property || it instanceof BasicPropertyAssociation || it instanceof BasicProperty
+				]
+				removeElementAction.enabled = xtextDocument != null && selection.size == 1 && canEdit(firstSelectedElement) && switch treeElement : firstSelectedElement.value {
 					URI: treeElement.getEObjectAndRun[switch it {
 						Property: true
 						BasicPropertyAssociation: (owner as RecordValue).ownedFieldValues.size >= 2
@@ -892,7 +921,7 @@ class AadlPropertyView extends ViewPart {
 					}]
 					Pair<Object, Object>: treeElement.key == DELTA_LABEL || treeElement.key instanceof Integer
 					default: false
-				} 
+				}
 				add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS))
 			]
 			treeViewer.control.menu = createContextMenu(treeViewer.control)
