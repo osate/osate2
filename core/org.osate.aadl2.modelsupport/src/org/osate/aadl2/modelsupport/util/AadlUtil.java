@@ -126,6 +126,7 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Realization;
+import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramCall;
@@ -1070,32 +1071,15 @@ public final class AadlUtil {
 	}
 
 	/**
-	 * return true if repl is the same feature or a refinement of the
-	 original
-	 * @param origin Feature
-	 * @param refinement Feature
-	 * @return boolean true if repl is an extension of origin
-	 */
-	public static boolean isSameOrRefines(Feature origin, Feature refinement) {
-		while (origin != refinement) {
-			refinement = refinement.getRefined();
-			if (refinement == null) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
 	 * return true if repl is the same Subcomponent or a refinement of the
 	 original
-	 * @param origin Subcomponent
-	 * @param refinement Subcomponent
+	 * @param origin RefinableElement
+	 * @param refinement RefinableElement
 	 * @return boolean true if repl is an extension of origin
 	 */
-	public static boolean isSameOrRefines(Subcomponent origin, Subcomponent refinement) {
+	public static boolean isSameOrRefines(RefinableElement origin, RefinableElement refinement) {
 		while (origin != refinement) {
-			refinement = refinement.getRefined();
+			refinement = refinement.getRefinedElement();
 			if (refinement == null) {
 				return false;
 			}

@@ -116,6 +116,7 @@ import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.RecordValue
+import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
@@ -125,6 +126,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.getNode
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
+import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
 import static extension org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 
 /**
@@ -192,6 +194,8 @@ class AadlPropertyView extends ViewPart {
 	var Action removeElementAction = null
 	
 	var Action openDefinitionAction = null
+	
+	var Action openPropertyContainerAction = null
 	
 	/**
 	 * The editing domain for the viewer's input
@@ -900,6 +904,24 @@ class AadlPropertyView extends ViewPart {
 				modelListenerEnabled = true
 			}
 		}
+		
+		openPropertyContainerAction = new Action("Open Property Container") {
+			override run() {
+				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as Pair<Object, URI>
+				val uriToOpen = cachedPropertyAssociations.get((selectedElement.key as Pair<?, URI>).value).get(selectedElement.value).getEObjectAndRun[PropertyAssociation association |
+					input.getEObjectAndRun[inputElement |
+						(if (inputElement instanceof RefinableElement) {
+							association.appliesTos.map[containmentPathElements.last.namedElement].filter(RefinableElement).filter[isSameOrRefines(inputElement)].head ?: association.owner
+						} else {
+							association.owner
+						}).URI
+					]
+				]
+				modelListenerEnabled = false
+				editorOpener.open(uriToOpen, true)
+				modelListenerEnabled = true
+			}
+		}
 	}
 	
 	def private createContextMenu() {
@@ -907,12 +929,17 @@ class AadlPropertyView extends ViewPart {
 			removeAllWhenShown = true
 			addMenuListener[
 				add(openDefinitionAction)
+				add(openPropertyContainerAction)
 				add(removeElementAction)
 				val selection = treeViewer.selection as IStructuredSelection
 				val firstSelectedElement = selection.firstElement as Pair<?, ?>
 				openDefinitionAction.enabled = selection.size == 1 && firstSelectedElement.value instanceof URI && (firstSelectedElement.value as URI).getEObjectAndRun[
 					it instanceof PropertySet || it instanceof Property || it instanceof BasicPropertyAssociation || it instanceof BasicProperty
 				]
+				openPropertyContainerAction.enabled = selection.size == 1 && firstSelectedElement.value instanceof URI && (firstSelectedElement.value as URI).getEObjectAndRun[it instanceof Property] &&
+					cachedPropertyAssociations.get((firstSelectedElement.key as Pair<?, URI>).value).get(firstSelectedElement.value)?.getEObjectAndRun[PropertyAssociation association |
+						input.getEObjectAndRun[inputElement | inputElement != association.owner && association.appliesTos.forall[inputElement != containmentPathElements.last.namedElement]]
+					] ?: false
 				removeElementAction.enabled = xtextDocument != null && selection.size == 1 && canEdit(firstSelectedElement) && switch treeElement : firstSelectedElement.value {
 					URI: treeElement.getEObjectAndRun[switch it {
 						Property: true
