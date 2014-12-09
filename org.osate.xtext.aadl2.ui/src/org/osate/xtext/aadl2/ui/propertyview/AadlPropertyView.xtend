@@ -67,6 +67,7 @@ import org.eclipse.jface.viewers.IPostSelectionProvider
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.ISelectionChangedListener
 import org.eclipse.jface.viewers.IStructuredSelection
+import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
 import org.eclipse.jface.viewers.Viewer
@@ -104,6 +105,8 @@ import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.BasicProperty
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.ContainedNamedElement
+import org.osate.aadl2.ContainmentPathElement
 import org.osate.aadl2.Element
 import org.osate.aadl2.ListValue
 import org.osate.aadl2.ModalPropertyValue
@@ -195,7 +198,7 @@ class AadlPropertyView extends ViewPart {
 	
 	var Action openDefinitionAction = null
 	
-	var Action openPropertyContainerAction = null
+	var Action openPropertyAssociationAction = null
 	
 	/**
 	 * The editing domain for the viewer's input
@@ -278,7 +281,7 @@ class AadlPropertyView extends ViewPart {
 				cachePropertyLookupJob.cancel
 			}
 			if (input != null) {
-				cachePropertyLookupJob = createCachePropertyLookupJob(input)
+				cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
 				cachePropertyLookupJob.schedule
 			}
 		}
@@ -831,7 +834,7 @@ class AadlPropertyView extends ViewPart {
 						if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
 							cachePropertyLookupJob.cancel
 						}
-						cachePropertyLookupJob = createCachePropertyLookupJob(input)
+						cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
 						cachePropertyLookupJob.schedule
 					}
 				}
@@ -857,7 +860,7 @@ class AadlPropertyView extends ViewPart {
 									if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
 										cachePropertyLookupJob.cancel
 									}
-									cachePropertyLookupJob = createCachePropertyLookupJob(input)
+									cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
 									cachePropertyLookupJob.schedule
 								}]
 							}
@@ -905,15 +908,17 @@ class AadlPropertyView extends ViewPart {
 			}
 		}
 		
-		openPropertyContainerAction = new Action("Open Property Container") {
+		openPropertyAssociationAction = new Action("Open Property Association") {
 			override run() {
 				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as Pair<Object, URI>
 				val uriToOpen = cachedPropertyAssociations.get((selectedElement.key as Pair<?, URI>).value).get(selectedElement.value).getEObjectAndRun[PropertyAssociation association |
 					input.getEObjectAndRun[inputElement |
 						(if (inputElement instanceof RefinableElement) {
-							association.appliesTos.map[containmentPathElements.last.namedElement].filter(RefinableElement).filter[isSameOrRefines(inputElement)].head ?: association.owner
+							association.appliesTos.map[containmentPathElements.last].filter[
+								namedElement instanceof RefinableElement && (namedElement as RefinableElement).isSameOrRefines(inputElement)
+							].head ?: association
 						} else {
-							association.owner
+							association
 						}).URI
 					]
 				]
@@ -929,14 +934,14 @@ class AadlPropertyView extends ViewPart {
 			removeAllWhenShown = true
 			addMenuListener[
 				add(openDefinitionAction)
-				add(openPropertyContainerAction)
+				add(openPropertyAssociationAction)
 				add(removeElementAction)
 				val selection = treeViewer.selection as IStructuredSelection
 				val firstSelectedElement = selection.firstElement as Pair<?, ?>
 				openDefinitionAction.enabled = selection.size == 1 && firstSelectedElement.value instanceof URI && (firstSelectedElement.value as URI).getEObjectAndRun[
 					it instanceof PropertySet || it instanceof Property || it instanceof BasicPropertyAssociation || it instanceof BasicProperty
 				]
-				openPropertyContainerAction.enabled = selection.size == 1 && firstSelectedElement.value instanceof URI && (firstSelectedElement.value as URI).getEObjectAndRun[it instanceof Property] &&
+				openPropertyAssociationAction.enabled = selection.size == 1 && firstSelectedElement.value instanceof URI && (firstSelectedElement.value as URI).getEObjectAndRun[it instanceof Property] &&
 					cachedPropertyAssociations.get((firstSelectedElement.key as Pair<?, URI>).value).get(firstSelectedElement.value)?.getEObjectAndRun[PropertyAssociation association |
 						input.getEObjectAndRun[inputElement | inputElement != association.owner && association.appliesTos.forall[inputElement != containmentPathElements.last.namedElement]]
 					] ?: false
@@ -987,11 +992,36 @@ class AadlPropertyView extends ViewPart {
 			}
 		}
 		xtextDocument?.addModelListener(xtextModelListener)
-		if (currentSelection instanceof NamedElement) {
+		var Object treeElementToSelect
+		val currentSelectionURI = try {
+			switch currentSelection {
+				NamedElement: currentSelection.URI
+				PropertyAssociation case currentSelection.appliesTos.empty: {
+					treeElementToSelect = currentSelection.owner.URI -> currentSelection.property.getContainerOfType(PropertySet).URI -> currentSelection.property.URI
+					currentSelection.owner.URI
+				}
+				PropertyAssociation case currentSelection.appliesTos.size == 1 && currentSelection.appliesTos.head.containmentPathElements.size == 1: {
+					treeElementToSelect = currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI ->
+						currentSelection.property.getContainerOfType(PropertySet).URI ->
+							currentSelection.property.URI
+					currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI
+				}
+				ContainmentPathElement case currentSelection.path == null && currentSelection.owner instanceof ContainedNamedElement: {
+					treeElementToSelect = currentSelection.namedElement.URI ->
+						currentSelection.getContainerOfType(PropertyAssociation).property.getContainerOfType(PropertySet).URI ->
+							currentSelection.getContainerOfType(PropertyAssociation).property.URI
+					currentSelection.namedElement.URI
+				}
+			}
+		} catch (NullPointerException e) {
+		}
+		if (currentSelectionURI != null) {
 			editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(currentSelection)
 			resourceSet = currentSelection.eResource.resourceSet
-			val currentSelectionURI = EcoreUtil.getURI(currentSelection)
 			if (currentSelectionURI == previousSelectionURI) {
+				if (treeElementToSelect != null) {
+					treeViewer.setSelection(new StructuredSelection(treeElementToSelect), true)
+				}
 				pageBook.showPage(treeViewerComposite)
 			} else {
 				previousSelectionURI = currentSelectionURI
@@ -999,7 +1029,7 @@ class AadlPropertyView extends ViewPart {
 					if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
 						cachePropertyLookupJob.cancel
 					}
-					cachePropertyLookupJob = createCachePropertyLookupJob(currentSelectionURI)
+					cachePropertyLookupJob = createCachePropertyLookupJob(currentSelectionURI, treeElementToSelect)
 					cachePropertyLookupJob.schedule
 				}
 			}
@@ -1041,12 +1071,15 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 	
-	def private createCachePropertyLookupJob(URI elementURI) {
+	def private createCachePropertyLookupJob(URI elementURI, Object objectToSelect) {
 		new CachePropertyLookupJob(elementURI, this, site.shell.display, scopeProvider, [|
 			pageBook.showPage(populatingViewLabel)
 			addNewPropertyAssociationToolbarAction.enabled = false
 		], [|
 			treeViewer.input = elementURI
+			if (objectToSelect != null) {
+				treeViewer.setSelection(new StructuredSelection(objectToSelect), true)
+			}
 			pageBook.showPage(treeViewerComposite)
 			addNewPropertyAssociationToolbarAction.enabled = true
 		])
@@ -1097,43 +1130,48 @@ class AadlPropertyView extends ViewPart {
 		
 		override protected run(IProgressMonitor monitor) {
 			display.syncExec(preUiUpdate)
-			val propertyAssociations = propertyView.getEObjectAndRun(elementURI, [NamedElement element |
-				//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
-				val propertySets = element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
-					if (EObjectOrProxy.eIsProxy) {
-						EcoreUtil.resolve(EObjectOrProxy, element)
-					} else {
-						EObjectOrProxy
+			val propertyAssociations = try {
+				propertyView.getEObjectAndRun(elementURI, [NamedElement element |
+					if (element != null) {
+						//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
+						val propertySets = element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
+							if (EObjectOrProxy.eIsProxy) {
+								EcoreUtil.resolve(EObjectOrProxy, element)
+							} else {
+								EObjectOrProxy
+							}
+						].filter[!eIsProxy].filter(PropertySet)
+						/*
+						 * Build a map from PropertySets to a collection of their owned Properties.  Properties that do not apply to the selected element are filtered
+						 * out.  PropertySets without any applicable properties are filtered out.
+						 */
+						val properties = propertySets.toInvertedMap[ownedProperties.filter[element.acceptsProperty(it)]].filter[propertySet, acceptableProperties | !acceptableProperties.empty]
+						/*
+						 * Build a map from URIs of PropertySets to a map from URIs of Properties to URIs of PropertyAssociations(Map<URI, Map<URI, URI>>, derived from
+						 * Map<PropertySet, Map<Property, PropertyAssociation>>).  This is where the property lookup actually happens.  Entries for the
+						 * PropertyAssociation URI could be null which means that the Property is undefined, taking the default value, or the model is incomplete.  In
+						 * the case that the model is incomplete, we treat the property like it is undefined or taking the default value.  This whole expression is
+						 * wrapped in a construction of a new LinkedHashMap so that all of the lazy parts of the expression will be evaluated before we check if the
+						 * monitor is canceled.
+						 */
+						newLinkedHashMap(properties.mapValues[
+							/*
+							 * This whole expression is wrapped in a construction of a new LinkedHashMap so that all of the lazy parts of the expression will be
+							 * evaluated before we check if the monitor is canceled.
+							 */
+							newLinkedHashMap(toInvertedMap[element.getPropertyValue(it).first].mapValues[
+								//This check is for incomplete models which may occur while the user is typing a PropertyAssociation
+								if (it != null && (ownedValues.empty || ownedValues.exists[ownedValue == null])) {
+									null
+								} else {
+									it?.getURI
+								}
+							].entrySet.map[key.getURI -> value]).unmodifiableView
+						].entrySet.map[key.getURI -> value]).unmodifiableView
 					}
-				].filter[!eIsProxy].filter(PropertySet)
-				/*
-				 * Build a map from PropertySets to a collection of their owned Properties.  Properties that do not apply to the selected element are filtered
-				 * out.  PropertySets without any applicable properties are filtered out.
-				 */
-				val properties = propertySets.toInvertedMap[ownedProperties.filter[element.acceptsProperty(it)]].filter[propertySet, acceptableProperties | !acceptableProperties.empty]
-				/*
-				 * Build a map from URIs of PropertySets to a map from URIs of Properties to URIs of PropertyAssociations(Map<URI, Map<URI, URI>>, derived from
-				 * Map<PropertySet, Map<Property, PropertyAssociation>>).  This is where the property lookup actually happens.  Entries for the
-				 * PropertyAssociation URI could be null which means that the Property is undefined, taking the default value, or the model is incomplete.  In
-				 * the case that the model is incomplete, we treat the property like it is undefined or taking the default value.  This whole expression is
-				 * wrapped in a construction of a new LinkedHashMap so that all of the lazy parts of the expression will be evaluated before we check if the
-				 * monitor is canceled.
-				 */
-				newLinkedHashMap(properties.mapValues[
-					/*
-					 * This whole expression is wrapped in a construction of a new LinkedHashMap so that all of the lazy parts of the expression will be
-					 * evaluated before we check if the monitor is canceled.
-					 */
-					newLinkedHashMap(toInvertedMap[element.getPropertyValue(it).first].mapValues[
-						//This check is for incomplete models which may occur while the user is typing a PropertyAssociation
-						if (it != null && (ownedValues.empty || ownedValues.exists[ownedValue == null])) {
-							null
-						} else {
-							it?.getURI
-						}
-					].entrySet.map[key.getURI -> value]).unmodifiableView
-				].entrySet.map[key.getURI -> value]).unmodifiableView
-			])
+				])
+			} catch (NullPointerException e) {
+			}
 			if (monitor.canceled) {
 				Status.CANCEL_STATUS
 			} else {
