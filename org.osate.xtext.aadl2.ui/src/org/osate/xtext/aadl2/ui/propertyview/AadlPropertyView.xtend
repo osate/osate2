@@ -85,6 +85,9 @@ import org.eclipse.ui.IWorkbenchActionConstants
 import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
+import org.eclipse.xtend.lib.annotations.EqualsHashCode
+import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import org.eclipse.xtend.lib.annotations.ToString
 import org.eclipse.xtext.linking.ILinker
 import org.eclipse.xtext.nodemodel.ICompositeNode
 import org.eclipse.xtext.nodemodel.INode
@@ -298,7 +301,7 @@ class AadlPropertyView extends ViewPart {
 		var Image modeImage = null
 		
 		override getText(Object element) {
-			switch treeElement : (element as Pair<Object, Object>).value {
+			switch treeElement : (element as TreeEntry).treeElement {
 				URI: treeElement.getEObjectAndRun[switch it {
 					PropertySet: name
 					Property: name
@@ -316,25 +319,23 @@ class AadlPropertyView extends ViewPart {
 					BasicPropertyAssociation: property.name
 					BasicProperty case !(it instanceof Property): name
 				}]
-				Pair<?, URI>: switch key : treeElement.key {
-					String: key
-					Integer: "# " + key
-				}
+				RangeElement: treeElement.label
+				ListElement: "# " + treeElement.index
 			}
 		}
 		
 		override getForeground(Object element) {
-			val treeElement = (element as Pair<Object, Object>).value
+			val treeElement = (element as TreeEntry).treeElement
 			if (treeElement instanceof URI) {
 				treeElement.getEObjectAndRun[switch it {
-					Property case cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement) == null && defaultValue == null,
+					Property case cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement) == null && defaultValue == null,
 					BasicProperty case !(it instanceof Property): site.shell.display.getSystemColor(SWT.COLOR_RED)
 				}]
 			}
 		}
 		
 		override getImage(Object element) {
-			val treeElement = (element as Pair<Object, Object>).value
+			val treeElement = (element as TreeEntry).treeElement
 			if (treeElement instanceof URI) {
 				treeElement.getEObjectAndRun[switch it {
 					PropertySet: propSetImage ?: (propSetImage = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON).createImage)
@@ -360,10 +361,10 @@ class AadlPropertyView extends ViewPart {
 	
 	val valueColumnLabelProvider = new ColumnLabelProvider {
 		override getText(Object element) {
-			switch treeElement : (element as Pair<Object, Object>).value {
+			switch treeElement : (element as TreeEntry).treeElement {
 				URI: treeElement.getEObjectAndRun[switch it {
 					Property: {
-						val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
+						val associationURI = cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
 						if (associationURI == null) {
 							defaultValue?.getValueAsString(serializer)
 						} else {
@@ -377,7 +378,8 @@ class AadlPropertyView extends ViewPart {
 					ModalPropertyValue: ownedValue.getValueAsString(serializer)
 					BasicPropertyAssociation: value.getValueAsString(serializer)
 				}]
-				Pair<Object, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it | getValueAsString(serializer)]
+				RangeElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it | getValueAsString(serializer)]
+				ListElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it | getValueAsString(serializer)]
 			}
 		}
 		
@@ -390,11 +392,11 @@ class AadlPropertyView extends ViewPart {
 	
 	val statusColumnLabelProvider = new ColumnLabelProvider {
 		override getText(Object element) {
-			val treeElement = (element as Pair<Object, Object>).value
+			val treeElement = (element as TreeEntry).treeElement
 			if (treeElement instanceof URI) {
 				treeElement.getEObjectAndRun[switch it {
 					Property: {
-						cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)?.getEObjectAndRun[PropertyAssociation association |
+						cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)?.getEObjectAndRun[PropertyAssociation association |
 							input.getEObjectAndRun[inputElement |
 								if (inputElement == association.owner) {
 									STATUS_LOCAL
@@ -430,10 +432,10 @@ class AadlPropertyView extends ViewPart {
 		}
 		
 		override getForeground(Object element) {
-			val treeElement = (element as Pair<Object, Object>).value
+			val treeElement = (element as TreeEntry).treeElement
 			if (treeElement instanceof URI) {
 				treeElement.getEObjectAndRun[switch it {
-					Property case cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement) == null && defaultValue == null,
+					Property case cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement) == null && defaultValue == null,
 					BasicProperty case !(it instanceof Property): site.shell.display.getSystemColor(SWT.COLOR_RED)
 				}]
 			}
@@ -453,7 +455,7 @@ class AadlPropertyView extends ViewPart {
 						cachedPropertyAssociations.values.filter[entrySet.exists[value != null || key.getEObjectAndRun[Property it | defaultValue != null]]].size
 					}
 				}
-				Pair<Object, Object>: switch treeElement : element.value {
+				TreeEntry: switch treeElement : element.treeElement {
 					URI: treeElement.getEObjectAndRun[switch it {
 						PropertySet: {
 							if (showUndefinedAction.checked) {
@@ -465,7 +467,7 @@ class AadlPropertyView extends ViewPart {
 							}
 						}
 						Property: {
-							val associationURI = cachedPropertyAssociations.get((element.key as Pair<URI, URI>).value).get(treeElement)
+							val associationURI = cachedPropertyAssociations.get((element.parent as TreeEntry).treeElement).get(treeElement)
 							if (associationURI == null) {
 								getChildCount(defaultValue, propertyType, null)
 							} else {
@@ -482,14 +484,12 @@ class AadlPropertyView extends ViewPart {
 						BasicPropertyAssociation: getChildCount(value, property.propertyType, null)
 						default: 0
 					}]
-					Pair<Object, URI>: switch treeElement.key {
-						String: 0
-						Integer: treeElement.value.getEObjectAndRun[PropertyExpression it |
-							getChildCount(it, (
-								getContainerOfType(BasicPropertyAssociation)?.property ?: getContainerOfType(PropertyAssociation)?.property ?: getContainerOfType(Property)
-							).propertyType.basePropertyType, null)
-						]
-					}
+					RangeElement: 0
+					ListElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it |
+						getChildCount(it, (
+							getContainerOfType(BasicPropertyAssociation)?.property ?: getContainerOfType(PropertyAssociation)?.property ?: getContainerOfType(Property)
+						).propertyType.basePropertyType, null)
+					]
 				}
 			}
 			if (currentChildCount != childCount) {
@@ -518,7 +518,7 @@ class AadlPropertyView extends ViewPart {
 		}
 		
 		override updateElement(Object parent, int index) {
-			val Pair<Object, Object> childElement = parent -> switch parent {
+			val childElement = new TreeEntry(parent, switch parent {
 				URI: {
 					val filteredAssociations = if (showUndefinedAction.checked) {
 						cachedPropertyAssociations
@@ -529,7 +529,7 @@ class AadlPropertyView extends ViewPart {
 					}
 					filteredAssociations.keySet.sortBy[getEObjectAndRun[PropertySet it | name.toUpperCase]].get(index)
 				}
-				Pair<?, ?>: switch treeElement : parent.value {
+				TreeEntry: switch treeElement : parent.treeElement {
 					URI: treeElement.getEObjectAndRun[switch it {
 						PropertySet: {
 							val filteredAssociations = if (showUndefinedAction.checked) {
@@ -542,13 +542,13 @@ class AadlPropertyView extends ViewPart {
 							filteredAssociations.keySet.sortBy[getEObjectAndRun[Property it | name.toUpperCase]].get(index)
 						}
 						Property: {
-							val associationURI = cachedPropertyAssociations.get((parent.key as Pair<URI, URI>).value).get(treeElement)
+							val associationURI = cachedPropertyAssociations.get((parent.parent as TreeEntry).treeElement).get(treeElement)
 							if (associationURI == null) {
 								getElement(defaultValue, index, propertyType, null)
 							} else {
 								associationURI.getEObjectAndRun[PropertyAssociation association |
 									if (association.modal) {
-										association.ownedValues.get(index).getURI
+										association.ownedValues.get(index).URI
 									} else {
 										getElement(association.ownedValues.head.ownedValue, index, propertyType, defaultValue)
 									}
@@ -561,13 +561,13 @@ class AadlPropertyView extends ViewPart {
 						}
 						BasicPropertyAssociation: getElement(value, index, property.propertyType, null)
 					}]
-					Pair<Integer, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it |
+					ListElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it |
 						getElement(it, index, (
 							getContainerOfType(BasicPropertyAssociation)?.property ?: getContainerOfType(PropertyAssociation)?.property ?: getContainerOfType(Property)
 						).propertyType.basePropertyType, null)
 					]
 				}
-			}
+			})
 			treeViewer.replace(parent, index, childElement)
 			updateChildCount(childElement, -1)
 		}
@@ -575,9 +575,9 @@ class AadlPropertyView extends ViewPart {
 		def private getElement(PropertyExpression expression, int index, PropertyType propertyType, PropertyExpression defaultValue) {
 			switch expression {
 				RangeValue: switch index {
-					case 0: MINIMUM_LABEL -> expression.minimum.getURI
-					case 1: MAXIMUM_LABEL -> expression.maximum.getURI
-					case 2: DELTA_LABEL -> expression.delta.getURI
+					case 0: new RangeElement(MINIMUM_LABEL, expression.minimum.URI)
+					case 1: new RangeElement(MAXIMUM_LABEL, expression.maximum.URI)
+					case 2: new RangeElement(DELTA_LABEL, expression.delta.URI)
 				}
 				RecordValue: {
 					val recordType = propertyType as RecordType
@@ -596,15 +596,15 @@ class AadlPropertyView extends ViewPart {
 						} else {
 							recordType.ownedFields.map[fieldInType | expression.ownedFieldValues.findFirst[property == fieldInType]].filterNull.get(index)
 						}
-					}).getURI
+					}).URI
 				}
-				ListValue: index -> expression.ownedListElements.get(index).getURI
+				ListValue: new ListElement(index, expression.ownedListElements.get(index).URI)
 			}
 		}
 		
 		override getParent(Object element) {
-			if (element instanceof Pair<?, ?>) {
-				element.key
+			if (element instanceof TreeEntry) {
+				element.parent
 			}
 		}
 		
@@ -713,19 +713,19 @@ class AadlPropertyView extends ViewPart {
 		lln
 	}
 	
-	def private Pair<?, ?> getPropertyParent(Pair<?, ?> element) {
-		if (element.value instanceof URI && (element.value as URI).getEObjectAndRun[it instanceof Property]) {
+	def private TreeEntry getPropertyParent(TreeEntry element) {
+		if (element.treeElement instanceof URI && (element.treeElement as URI).getEObjectAndRun[it instanceof Property]) {
 			element
 		} else {
-			(element.key as Pair<Object, Object>).propertyParent
+			(element.parent as TreeEntry).propertyParent
 		}
 	}
 	
 	def private canEdit(Object element) {
-		switch treeElement : (element as Pair<Object, Object>).value {
+		switch treeElement : (element as TreeEntry).treeElement {
 			URI: treeElement.getEObjectAndRun[switch it {
 				Property: {
-					val associationURI = cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement)
+					val associationURI = cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
 					associationURI != null && associationURI.getEObjectAndRun[PropertyAssociation association | input.getEObjectAndRun[it == association.owner] && !association.modal]
 				}
 				BasicPropertyAssociation: {
@@ -734,7 +734,11 @@ class AadlPropertyView extends ViewPart {
 				}
 				default: false
 			}]
-			Pair<Object, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it |
+			RangeElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it |
+				val containingAssociation = getContainerOfType(PropertyAssociation)
+				containingAssociation != null && input.getEObjectAndRun[it == containingAssociation.owner] && !containingAssociation.modal
+			]
+			ListElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it |
 				val containingAssociation = getContainerOfType(PropertyAssociation)
 				containingAssociation != null && input.getEObjectAndRun[it == containingAssociation.owner] && !containingAssociation.modal
 			]
@@ -756,14 +760,15 @@ class AadlPropertyView extends ViewPart {
 			
 			override protected getValue(Object element) {
 				xtextDocument.readOnly[
-					val expression = switch treeElement: (element as Pair<Object, Object>).value {
+					val expression = switch treeElement : (element as TreeEntry).treeElement {
 						URI: treeElement.getEObjectAndRun[switch it {
-							Property: cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement).getEObjectAndRun[PropertyAssociation it |
+							Property: cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement).getEObjectAndRun[PropertyAssociation it |
 								ownedValues.head.ownedValue
 							]
 							BasicPropertyAssociation: value
 						}]
-						Pair<Object, URI>: treeElement.value.getEObjectAndRun[PropertyExpression it | it]
+						RangeElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it | it]
+						ListElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it | it]
 					}
 					val expressionNode = expression.node
 					
@@ -782,15 +787,16 @@ class AadlPropertyView extends ViewPart {
 			}
 			
 			override protected setValue(Object element, Object value) {
-				if (initialEditablePart != value  && !(value as String).empty) {
-					val node = switch treeElement : (element as Pair<Object, Object>).value {
+				if (initialEditablePart != value && !(value as String).empty) {
+					val node = switch treeElement : (element as TreeEntry).treeElement {
 						URI: treeElement.getEObjectAndRun[switch it {
-							Property: cachedPropertyAssociations.get((element as Pair<Pair<Object, URI>, Object>).key.value).get(treeElement).getEObjectAndRun[PropertyAssociation it |
+							Property: cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement).getEObjectAndRun[PropertyAssociation it |
 								ownedValues.head.ownedValue
 							]
 							BasicPropertyAssociation: it.value
 						}.node]
-						Pair<Object, URI>: treeElement.value.getEObjectAndRun[node]
+						RangeElement: treeElement.expressionURI.getEObjectAndRun[node]
+						ListElement: treeElement.expressionURI.getEObjectAndRun[node]
 					}
 					if (node != null) {
 						xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
@@ -798,7 +804,7 @@ class AadlPropertyView extends ViewPart {
 								state.update(node.offset, node.length, value as String)
 							}
 						})
-						treeViewer.refresh((element as Pair<Object, Object>).propertyParent)
+						treeViewer.refresh((element as TreeEntry).propertyParent)
 					}
 				}
 			}
@@ -848,15 +854,15 @@ class AadlPropertyView extends ViewPart {
 		
 		removeElementAction = new Action("Remove") {
 			override run() {
-				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as Pair<Object, Object>
-				switch treeElement : selectedElement.value {
+				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as TreeEntry
+				switch treeElement : selectedElement.treeElement {
 					URI: {
 						val postModificationUpdate = xtextDocument.modify[switch treeElementObject : it.resourceSet.getEObject(treeElement, true) {
 							Property: {
-								val associationURI = cachedPropertyAssociations.get((selectedElement.key as Pair<Object, Object>).value).get(selectedElement.value)
+								val associationURI = cachedPropertyAssociations.get((selectedElement.parent as TreeEntry).treeElement).get(selectedElement.treeElement)
 								val association = it.resourceSet.getEObject(associationURI, true) as PropertyAssociation
 								(association.owner as NamedElement).ownedPropertyAssociations.remove(association);
-								[|synchronized (jobLock) {
+								[| synchronized (jobLock) {
 									if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
 										cachePropertyLookupJob.cancel
 									}
@@ -866,30 +872,28 @@ class AadlPropertyView extends ViewPart {
 							}
 							BasicPropertyAssociation: {
 								(treeElementObject.owner as RecordValue).ownedFieldValues.remove(treeElementObject);
-								[|treeViewer.refresh(selectedElement.key)]
+								[| treeViewer.refresh(selectedElement.parent)]
 							}
 						}]
 						postModificationUpdate.apply
 					}
-					Pair<Object, URI>: switch key : treeElement.key {
-						String: {
-							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
-								override process(XtextResource state) throws Exception {
-									((state.resourceSet.getEObject((treeElement as Pair<String, URI>).value, true) as PropertyExpression).owner as RangeValue).delta = null
-								}
-							})
-							treeViewer.refresh(selectedElement.key)
-						}
-						Integer: {
-							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
-								override process(XtextResource state) throws Exception {
-									((state.resourceSet.getEObject((treeElement as Pair<Integer, URI>).value, true) as PropertyExpression).owner as ListValue).ownedListElements.remove(
-										(key as Integer).intValue
-									)
-								}
-							})
-							treeViewer.refresh(selectedElement.key)
-						}
+					RangeElement: {
+						xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+							override process(XtextResource state) throws Exception {
+								((state.resourceSet.getEObject((treeElement as RangeElement).expressionURI, true) as PropertyExpression).owner as RangeValue).delta = null
+							}
+						})
+						treeViewer.refresh(selectedElement.parent)
+					}
+					ListElement: {
+						xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+							override process(XtextResource state) throws Exception {
+								((state.resourceSet.getEObject((treeElement as ListElement).expressionURI, true) as PropertyExpression).owner as ListValue).ownedListElements.remove(
+									(treeElement as ListElement).index
+								)
+							}
+						})
+						treeViewer.refresh(selectedElement.parent)
 					}
 				}
 			}
@@ -897,7 +901,7 @@ class AadlPropertyView extends ViewPart {
 		
 		openDefinitionAction = new Action("Open Definition") {
 			override run() {
-				val selectedElementURI = ((treeViewer.selection as IStructuredSelection).firstElement as Pair<Object, URI>).value
+				val selectedElementURI = ((treeViewer.selection as IStructuredSelection).firstElement as TreeEntry).treeElement as URI
 				val uriToOpen = selectedElementURI.getEObjectAndRun[switch it {
 					PropertySet, Property, BasicProperty: selectedElementURI
 					BasicPropertyAssociation: property.URI
@@ -910,8 +914,8 @@ class AadlPropertyView extends ViewPart {
 		
 		openPropertyAssociationAction = new Action("Open Property Association") {
 			override run() {
-				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as Pair<Object, URI>
-				val uriToOpen = cachedPropertyAssociations.get((selectedElement.key as Pair<?, URI>).value).get(selectedElement.value).getEObjectAndRun[PropertyAssociation association |
+				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as TreeEntry
+				val uriToOpen = cachedPropertyAssociations.get((selectedElement.parent as TreeEntry).treeElement).get(selectedElement.treeElement).getEObjectAndRun[PropertyAssociation association |
 					input.getEObjectAndRun[inputElement |
 						(if (inputElement instanceof RefinableElement) {
 							association.appliesTos.map[containmentPathElements.last].filter[
@@ -937,21 +941,23 @@ class AadlPropertyView extends ViewPart {
 				add(openPropertyAssociationAction)
 				add(removeElementAction)
 				val selection = treeViewer.selection as IStructuredSelection
-				val firstSelectedElement = selection.firstElement as Pair<?, ?>
-				openDefinitionAction.enabled = selection.size == 1 && firstSelectedElement.value instanceof URI && (firstSelectedElement.value as URI).getEObjectAndRun[
+				val firstSelectedElement = selection.firstElement as TreeEntry
+				openDefinitionAction.enabled = selection.size == 1 && firstSelectedElement.treeElement instanceof URI && (firstSelectedElement.treeElement as URI).getEObjectAndRun[
 					it instanceof PropertySet || it instanceof Property || it instanceof BasicPropertyAssociation || it instanceof BasicProperty
 				]
-				openPropertyAssociationAction.enabled = selection.size == 1 && firstSelectedElement.value instanceof URI && (firstSelectedElement.value as URI).getEObjectAndRun[it instanceof Property] &&
-					cachedPropertyAssociations.get((firstSelectedElement.key as Pair<?, URI>).value).get(firstSelectedElement.value)?.getEObjectAndRun[PropertyAssociation association |
+				openPropertyAssociationAction.enabled = selection.size == 1 && firstSelectedElement.treeElement instanceof URI &&
+					(firstSelectedElement.treeElement as URI).getEObjectAndRun[it instanceof Property] &&
+					cachedPropertyAssociations.get((firstSelectedElement.parent as TreeEntry).treeElement).get(firstSelectedElement.treeElement)?.getEObjectAndRun[PropertyAssociation association |
 						input.getEObjectAndRun[inputElement | inputElement != association.owner && association.appliesTos.forall[inputElement != containmentPathElements.last.namedElement]]
 					] ?: false
-				removeElementAction.enabled = xtextDocument != null && selection.size == 1 && canEdit(firstSelectedElement) && switch treeElement : firstSelectedElement.value {
+				removeElementAction.enabled = xtextDocument != null && selection.size == 1 canEdit(firstSelectedElement) && switch treeElement : firstSelectedElement.treeElement {
 					URI: treeElement.getEObjectAndRun[switch it {
 						Property: true
 						BasicPropertyAssociation: (owner as RecordValue).ownedFieldValues.size >= 2
 						default: false
 					}]
-					Pair<Object, Object>: treeElement.key == DELTA_LABEL || treeElement.key instanceof Integer
+					RangeElement: treeElement.label == DELTA_LABEL
+					ListElement: true
 					default: false
 				}
 				add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS))
@@ -997,19 +1003,19 @@ class AadlPropertyView extends ViewPart {
 			switch currentSelection {
 				NamedElement: currentSelection.URI
 				PropertyAssociation case currentSelection.appliesTos.empty: {
-					treeElementToSelect = currentSelection.owner.URI -> currentSelection.property.getContainerOfType(PropertySet).URI -> currentSelection.property.URI
+					treeElementToSelect = new TreeEntry(new TreeEntry(currentSelection.owner.URI, currentSelection.property.getContainerOfType(PropertySet).URI), currentSelection.property.URI)
 					currentSelection.owner.URI
 				}
 				PropertyAssociation case currentSelection.appliesTos.size == 1 && currentSelection.appliesTos.head.containmentPathElements.size == 1: {
-					treeElementToSelect = currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI ->
-						currentSelection.property.getContainerOfType(PropertySet).URI ->
-							currentSelection.property.URI
+					treeElementToSelect = new TreeEntry(new TreeEntry(currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI,
+						currentSelection.property.getContainerOfType(PropertySet).URI
+					), currentSelection.property.URI)
 					currentSelection.appliesTos.head.containmentPathElements.head.namedElement.URI
 				}
 				ContainmentPathElement case currentSelection.path == null && currentSelection.owner instanceof ContainedNamedElement: {
-					treeElementToSelect = currentSelection.namedElement.URI ->
-						currentSelection.getContainerOfType(PropertyAssociation).property.getContainerOfType(PropertySet).URI ->
-							currentSelection.getContainerOfType(PropertyAssociation).property.URI
+					treeElementToSelect = new TreeEntry(new TreeEntry(currentSelection.namedElement.URI,
+						currentSelection.getContainerOfType(PropertyAssociation).property.getContainerOfType(PropertySet).URI
+					), currentSelection.getContainerOfType(PropertyAssociation).property.URI)
 					currentSelection.namedElement.URI
 				}
 			}
@@ -1183,5 +1189,29 @@ class AadlPropertyView extends ViewPart {
 				Status.OK_STATUS
 			}
 		}
+	}
+	
+	@FinalFieldsConstructor
+	@EqualsHashCode
+	@ToString(singleLine = true)
+	private static class TreeEntry {
+		val Object parent
+		val Object treeElement
+	}
+	
+	@FinalFieldsConstructor
+	@EqualsHashCode
+	@ToString(singleLine = true)
+	private static class RangeElement {
+		val String label
+		val URI expressionURI
+	}
+	
+	@FinalFieldsConstructor
+	@EqualsHashCode
+	@ToString(singleLine = true)
+	private static class ListElement {
+		val int index
+		val URI expressionURI
 	}
 }
