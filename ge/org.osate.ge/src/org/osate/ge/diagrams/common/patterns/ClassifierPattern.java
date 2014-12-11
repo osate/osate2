@@ -106,7 +106,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  * A pattern for top level classifier shapes as well as subcomponents.
  * @author philip.alldredge
  */
-public class ClassifierPattern extends AgePattern {
+public class ClassifierPattern extends AgePattern implements SubcomponentsCompartment {
 	public static String BINDING_CONNECTION_TYPE = "generic_binding";
 	private static LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final String labelShapeName = "label";

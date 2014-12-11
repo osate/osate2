@@ -60,7 +60,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
-public class FlowSpecificationPattern extends AgeConnectionPattern {
+public class FlowSpecificationPattern extends AgeConnectionPattern implements FlowsCompartment {
 	private final StyleService styleUtil;
 	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
 	private final HighlightingService highlightingHelper;

@@ -8,11 +8,18 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
+import org.eclipse.graphiti.features.ICreateFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -20,6 +27,12 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
+import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
+import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
+import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
+import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
+import org.eclipse.graphiti.pattern.CreateFeatureForPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.osate.aadl2.Classifier;
@@ -36,6 +49,14 @@ import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.services.PropertyService;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
+import org.osate.ge.diagrams.common.patterns.ConnectionsCompartment;
+import org.osate.ge.diagrams.common.patterns.FeaturesCompartment;
+import org.osate.ge.diagrams.common.patterns.FlowsCompartment;
+import org.osate.ge.diagrams.common.patterns.ModesCompartment;
+import org.osate.ge.diagrams.common.patterns.SubcomponentsCompartment;
+import org.osate.ge.diagrams.pkg.patterns.ClassifiersCompartment;
+import org.osate.ge.diagrams.pkg.patterns.RelationshipsCompartment;
+
 
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
@@ -59,6 +80,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
 		return null;
 	}
+
 	
 	// Override the business object equality check. This is needed in the case of Generalization because the owner is one of the defining
 	// characteristics and is not checked by the default check which uses EcoreUtil.equals().
@@ -172,6 +194,107 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	    }
 	    
 	    return super.getToolTip(ga);
+	}
+	
+	@Override
+	public IPaletteCompartmentEntry[] getPalette() {
+		List<IPaletteCompartmentEntry> compartments = new ArrayList<IPaletteCompartmentEntry>();
+		
+		
+		PaletteCompartmentEntry classifiersCompartmentEntry = new PaletteCompartmentEntry("Classifiers", null);
+		compartments.add(classifiersCompartmentEntry);
+		PaletteCompartmentEntry connectionsCompartmentEntry = new PaletteCompartmentEntry("Connections", null);
+		compartments.add(connectionsCompartmentEntry);
+		PaletteCompartmentEntry featuresCompartmentEntry = new PaletteCompartmentEntry("Features", null);
+		compartments.add(featuresCompartmentEntry);
+		PaletteCompartmentEntry flowsCompartmentEntry = new PaletteCompartmentEntry("Flows", null);
+		compartments.add(flowsCompartmentEntry);
+		PaletteCompartmentEntry modesCompartmentEntry = new PaletteCompartmentEntry("Modes", null);
+		compartments.add(modesCompartmentEntry);
+		PaletteCompartmentEntry relationshipsCompartmentEntry = new PaletteCompartmentEntry("Relationships", null);
+		compartments.add(relationshipsCompartmentEntry);
+		PaletteCompartmentEntry subcomponentCompartmentEntry = new PaletteCompartmentEntry("Subcomponents", null);
+		compartments.add(subcomponentCompartmentEntry);
+		PaletteCompartmentEntry compartmentEntry = new PaletteCompartmentEntry("Connections", null);
+		compartments.add(compartmentEntry);
+		PaletteCompartmentEntry objectsCompartmentEntry = new PaletteCompartmentEntry("Objects", null);
+		compartments.add(objectsCompartmentEntry);
+		
+		IFeatureProvider featureProvider = getFeatureProvider();
+		
+		ICreateConnectionFeature[] createConnectionFeatures = featureProvider.getCreateConnectionFeatures();
+		if (createConnectionFeatures.length > 0) {
+			for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {	
+				ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(
+						createConnectionFeature.getCreateName(), createConnectionFeature.getCreateDescription(),
+						createConnectionFeature.getCreateImageId(), createConnectionFeature.getCreateLargeImageId());
+				ccTool.addCreateConnectionFeature(createConnectionFeature);
+				
+				// Get the object that is either a feature or a pattern that has been tagged with an interface to indicate which
+				// category of connection it handles
+				final Object taggedFeatureOrPattern;
+				if(createConnectionFeature instanceof CreateConnectionFeatureForPattern) {
+					final CreateConnectionFeatureForPattern featureForPattern = (CreateConnectionFeatureForPattern)createConnectionFeature;
+					taggedFeatureOrPattern = featureForPattern.getPattern();
+					if (taggedFeatureOrPattern instanceof ConnectionsCompartment){
+						connectionsCompartmentEntry.addToolEntry(ccTool);
+					}
+					else if (taggedFeatureOrPattern instanceof FlowsCompartment){
+						flowsCompartmentEntry.addToolEntry(ccTool);
+					}
+					else if (taggedFeatureOrPattern instanceof ModesCompartment){
+						modesCompartmentEntry.addToolEntry(ccTool);
+					}
+					
+					else if (taggedFeatureOrPattern instanceof RelationshipsCompartment){
+						relationshipsCompartmentEntry.addToolEntry(ccTool);
+					} else {
+						compartmentEntry.addToolEntry(ccTool);
+					}
+				}
+			}
+		}
+		
+		ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
+		if (createConnectionFeatures.length > 0){
+			for (ICreateFeature createFeature : createFeatures) {
+				ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(
+						createFeature.getCreateName(), createFeature.getCreateDescription(),
+						createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
+				
+				final Object taggedFeatureOrPattern;
+				if(createFeature instanceof CreateFeatureForPattern) {
+					final CreateFeatureForPattern featureForPattern = (CreateFeatureForPattern)createFeature;
+					taggedFeatureOrPattern = featureForPattern.getPattern();
+					if (taggedFeatureOrPattern instanceof ClassifiersCompartment){
+						classifiersCompartmentEntry.addToolEntry(objectCreationToolEntry);
+					}
+					else if(taggedFeatureOrPattern instanceof FeaturesCompartment){
+						featuresCompartmentEntry.addToolEntry(objectCreationToolEntry);
+					}
+					else if (taggedFeatureOrPattern instanceof ModesCompartment){
+						modesCompartmentEntry.addToolEntry(objectCreationToolEntry);
+					}
+					else if (taggedFeatureOrPattern instanceof SubcomponentsCompartment){
+						subcomponentCompartmentEntry.addToolEntry(objectCreationToolEntry);
+					} else {
+						objectsCompartmentEntry.addToolEntry(objectCreationToolEntry);
+					}
+				}	
+			}
+		}
+		//Remove empty compartments		
+		final Iterator<IPaletteCompartmentEntry> it = compartments.iterator(); 
+		while(it.hasNext()) {
+			final IPaletteCompartmentEntry entry = it.next();
+			if(entry.getToolEntries().isEmpty()) {
+				it.remove();
+			}
+		}
+
+		IPaletteCompartmentEntry[] res = compartments.toArray(new IPaletteCompartmentEntry[compartments.size()]);
+
+		return res;
 	}
 	
 }

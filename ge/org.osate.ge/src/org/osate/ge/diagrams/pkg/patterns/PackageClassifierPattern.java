@@ -75,7 +75,7 @@ import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
-public class PackageClassifierPattern extends AgeLeafShapePattern {
+public class PackageClassifierPattern extends AgeLeafShapePattern implements ClassifiersCompartment {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final PropertyService propertyUtil;
 	private final AadlModificationService modificationService;
@@ -228,7 +228,6 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	public boolean canCreate(ICreateContext context) {
 		return true;
 	}
-	
 	
 	@Override
 	public String getCreateImageId() {

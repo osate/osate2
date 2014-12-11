@@ -107,7 +107,7 @@ import org.osate.ge.util.StringUtil;
  */
 // TODO: Not a leaf shape since it may contain children associated with business objects. Rename the leaf shape pattern
 // or do not extend AgeLeafShapePattern. The latter may be preferable due to the way this class interacts with its children.
-public class FeaturePattern extends AgeLeafShapePattern {
+public class FeaturePattern extends AgeLeafShapePattern implements FeaturesCompartment {
 	private static final String featureShapeName = "feature";
 	private static final String labelShapeName = "label";	
 	private static final String annotationShapeName = "annotation";
@@ -899,7 +899,7 @@ public class FeaturePattern extends AgeLeafShapePattern {
 
         return false;
     }
-    
+	
     public String getInitialValue(final IDirectEditingContext context) {
     	final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
     	return getFeatureName(feature);

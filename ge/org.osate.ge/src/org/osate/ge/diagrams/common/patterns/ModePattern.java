@@ -64,7 +64,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
-public class ModePattern extends AgeLeafShapePattern {
+public class ModePattern extends AgeLeafShapePattern implements ModesCompartment {
 	public static String INITIAL_MODE_CONNECTION_TYPE = "initial_mode";
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";

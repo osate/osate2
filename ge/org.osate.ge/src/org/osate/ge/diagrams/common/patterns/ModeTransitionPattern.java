@@ -68,7 +68,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
-public class ModeTransitionPattern extends AgeConnectionPattern {
+public class ModeTransitionPattern extends AgeConnectionPattern implements ModesCompartment {
 	public static String MODE_TRANSITION_TRIGGER_CONNECTION_TYPE = "mode_transition_trigger";
 	private final StyleService styleService;
 	private final AnchorService anchorService;

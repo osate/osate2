@@ -58,7 +58,7 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 
-public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection {
+public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection, RelationshipsCompartment {
 	private final StyleService styleUtil;
 	private final AadlModificationService modificationService;
 	private final ConnectionCreationService connectionCreationService;
@@ -148,7 +148,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	public String getCreateName() {
 		return "Extension";
 	}
-
+	
 	@Override
 	public boolean canCreate(final ICreateConnectionContext context) {
 		if (context.getSourceAnchor() == null || context.getTargetAnchor() == null) {

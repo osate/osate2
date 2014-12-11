@@ -41,7 +41,7 @@ import org.osate.ge.services.GhostingService;
  * @author philip.alldredge
  *
  */
-public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate, IDelete {
+public abstract class AgeConnectionPattern extends AbstractConnectionPattern implements IConnectionPattern, ICustomUndoablePattern, IUpdate, IDelete, ConnectionsCompartment {
 	private final GhostingService ghostingService;
 	protected final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
