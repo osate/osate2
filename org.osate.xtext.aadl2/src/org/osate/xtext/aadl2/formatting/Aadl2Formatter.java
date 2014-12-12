@@ -97,6 +97,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 			c.setLinewrap(0, 0, 1).before(pair.getSecond());
 		}
 		for (Keyword annex : g.findKeywords("annex")) {
+			c.setLinewrap(1, 1, 2).before(annex);
 			c.setIndentationDecrement().before(annex);
 			c.setIndentationIncrement().after(annex);
 		}
@@ -150,10 +151,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		}
 		for (Keyword section : g.findKeywords("prototypes", "subcomponents", "connections", "flows", "calls",
 				"properties")) {
-			c.setLinewrap(1, 1, 2).before(section);
-			c.setLinewrap().after(section);
-			c.setIndentationDecrement().before(section);
-			c.setIndentationIncrement().after(section);
+			indentSection(c, section);
 		}
 		for (Keyword applies : g.findKeywords("applies")) {
 			c.setLinewrap(0, 0, 1).before(applies);
@@ -391,6 +389,14 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		indentTwiceAfter(c, g.getContainedPropertyAssociationAccess().getEqualsSignGreaterThanSignKeyword_1_0());
 		unindentTwiceAfter(c, g.getPropertyAssociationRule());
 		unindentTwiceAfter(c, g.getContainedPropertyAssociationRule());
+
+		// inverse of in feature group type
+		{
+			Keyword keyword = g.getFeatureGroupTypeAccess().getInverseKeyword_6_0();
+			c.setLinewrap(1, 1, 2).before(keyword);
+			c.setIndentationDecrement().before(keyword);
+			c.setIndentationIncrement().after(keyword);
+		}
 
 		// Property sets
 		c.setIndentationIncrement().after(g.getPropertySetAccess().getIsKeyword_3());
