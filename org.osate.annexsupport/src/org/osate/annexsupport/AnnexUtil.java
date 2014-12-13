@@ -19,6 +19,7 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.PackageSection;
@@ -292,7 +293,8 @@ public class AnnexUtil {
 		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
 		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
 		if (cl instanceof ComponentImplementation) {
-			final EList<Classifier> tclassifiers = ((ComponentImplementation) cl).getSelfPlusAllExtended();
+			ComponentType ct = ((ComponentImplementation) cl).getType();
+			final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
 			classifiers.addAll(tclassifiers);
 		}
 		for (Classifier classifier : classifiers) {
