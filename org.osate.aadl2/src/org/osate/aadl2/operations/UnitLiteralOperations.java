@@ -98,6 +98,8 @@ public class UnitLiteralOperations extends NamedElementOperations {
 	}
 
 	public static UnitLiteral getAbsoluteUnit(UnitLiteral lit) {
+		if (lit == null)
+			return lit;
 		while (lit.getBaseUnit() != null) {
 			lit = lit.getBaseUnit();
 		}
