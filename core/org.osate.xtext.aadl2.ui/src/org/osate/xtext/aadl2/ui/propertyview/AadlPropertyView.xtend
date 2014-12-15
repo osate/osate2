@@ -203,6 +203,8 @@ class AadlPropertyView extends ViewPart {
 	
 	var Action openPropertyAssociationAction = null
 	
+	var Action makeLocalAction = null
+	
 	/**
 	 * The editing domain for the viewer's input
 	 */
@@ -931,6 +933,31 @@ class AadlPropertyView extends ViewPart {
 				modelListenerEnabled = true
 			}
 		}
+		
+		makeLocalAction = new Action("Make Local") {
+			override run() {
+				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as TreeEntry
+				val propertyURI = selectedElement.treeElement as URI
+				val associationURI = cachedPropertyAssociations.get((selectedElement.parent as TreeEntry).treeElement).get(propertyURI)
+				xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+					override process(XtextResource state) throws Exception {
+						val inputElement = state.resourceSet.getEObject(input, true) as NamedElement
+						if (associationURI != null) {
+							inputElement.ownedPropertyAssociations.add(EcoreUtil.copy(state.resourceSet.getEObject(associationURI, true) as PropertyAssociation))
+						} else {
+							val property = state.resourceSet.getEObject(propertyURI, true) as Property
+							inputElement.createOwnedPropertyAssociation => [
+								it.property = property
+								createOwnedValue => [
+									ownedValue = EcoreUtil.copy(property.defaultValue)
+								]
+							]
+						}
+					}
+				})
+				treeViewer.refresh(selectedElement)
+			}
+		}
 	}
 	
 	def private createContextMenu() {
@@ -939,6 +966,7 @@ class AadlPropertyView extends ViewPart {
 			addMenuListener[
 				add(openDefinitionAction)
 				add(openPropertyAssociationAction)
+				add(makeLocalAction)
 				add(removeElementAction)
 				val selection = treeViewer.selection as IStructuredSelection
 				val firstSelectedElement = selection.firstElement as TreeEntry
@@ -950,6 +978,11 @@ class AadlPropertyView extends ViewPart {
 					cachedPropertyAssociations.get((firstSelectedElement.parent as TreeEntry).treeElement).get(firstSelectedElement.treeElement)?.getEObjectAndRun[PropertyAssociation association |
 						input.getEObjectAndRun[inputElement | inputElement != association.owner && association.appliesTos.forall[inputElement != containmentPathElements.last.namedElement]]
 					] ?: false
+				makeLocalAction.enabled = xtextDocument != null && selection.size == 1 && firstSelectedElement.treeElement instanceof URI &&
+					(firstSelectedElement.treeElement as URI).getEObjectAndRun[it instanceof Property] &&
+					cachedPropertyAssociations.get((firstSelectedElement.parent as TreeEntry).treeElement).get(firstSelectedElement.treeElement)?.getEObjectAndRun[PropertyAssociation association |
+						input.getEObjectAndRun[inputElement | inputElement != association.owner && association.appliesTos.forall[inputElement != containmentPathElements.last.namedElement]]
+					] ?: (firstSelectedElement.treeElement as URI).getEObjectAndRun[Property it | defaultValue != null]
 				removeElementAction.enabled = xtextDocument != null && selection.size == 1 canEdit(firstSelectedElement) && switch treeElement : firstSelectedElement.treeElement {
 					URI: treeElement.getEObjectAndRun[switch it {
 						Property: true
