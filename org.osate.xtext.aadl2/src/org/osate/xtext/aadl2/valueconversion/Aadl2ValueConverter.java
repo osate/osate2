@@ -177,7 +177,7 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 
 			@Override
 			public String toString(String value) {
-				if (value.charAt(0) == '"') {
+				if (!value.isEmpty() && value.charAt(0) == '"') {
 					return value;
 				}
 				return '"' + value + '"';
