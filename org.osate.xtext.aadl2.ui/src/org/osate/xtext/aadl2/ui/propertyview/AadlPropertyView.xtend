@@ -105,13 +105,16 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
 import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator
 import org.osate.aadl2.Aadl2Package
+import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.BasicProperty
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ContainedNamedElement
 import org.osate.aadl2.ContainmentPathElement
 import org.osate.aadl2.Element
+import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.ListValue
+import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Property
@@ -123,6 +126,8 @@ import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.RefinableElement
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.SubprogramCallSequence
 import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
@@ -204,6 +209,10 @@ class AadlPropertyView extends ViewPart {
 	var Action openPropertyAssociationAction = null
 	
 	var Action makeLocalAction = null
+	
+	var Action createNewAssociationAction = null
+	var nextEditIsANewAssociationCreation = false
+	var creatingNewAssociationInEdit = false
 	
 	/**
 	 * The editing domain for the viewer's input
@@ -751,7 +760,14 @@ class AadlPropertyView extends ViewPart {
 	def private createValueColumnEditingSupport(TreeViewer treeViewer) {
 		new EditingSupport(treeViewer) {
 			override protected canEdit(Object element) {
-				AadlPropertyView.this.canEdit(element)
+				if (nextEditIsANewAssociationCreation) {
+					creatingNewAssociationInEdit = true
+					nextEditIsANewAssociationCreation = false
+					true
+				} else {
+					creatingNewAssociationInEdit = false
+					AadlPropertyView.this.canEdit(element)
+				}
 			}
 			
 			override protected getCellEditor(Object element) {
@@ -761,35 +777,243 @@ class AadlPropertyView extends ViewPart {
 			}
 			
 			override protected getValue(Object element) {
-				xtextDocument.readOnly[
-					val expression = switch treeElement : (element as TreeEntry).treeElement {
-						URI: treeElement.getEObjectAndRun[switch it {
-							Property: cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement).getEObjectAndRun[PropertyAssociation it |
-								ownedValues.head.ownedValue
-							]
-							BasicPropertyAssociation: value
-						}]
-						RangeElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it | it]
-						ListElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it | it]
-					}
-					val expressionNode = expression.node
-					
-					val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
-					val prefix = xtextDocument.get(0, expressionNode.offset)
-					val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
-					
-					initialEditablePart = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
-					
-					val endNameNode = contents.head.node.lastLeaf.previousNode
-					val suffix = xtextDocument.get(expressionNode.endOffset, xtextDocument.length - expressionNode.endOffset)
-					val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - expressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
-					
-					new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
-				]
+				if (creatingNewAssociationInEdit) {
+					xtextDocument.readOnly[
+						val associationURI = cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get((element as TreeEntry).treeElement)
+						if (associationURI != null && associationURI.getEObjectAndRun[PropertyAssociation association | input.getEObjectAndRun[NamedElement inputElement | association.owner == inputElement]]) {
+							val expression = associationURI.getEObjectAndRun[PropertyAssociation it | ownedValues.head.ownedValue]
+							val expressionNode = expression.node
+							
+							val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+							val prefix = xtextDocument.get(0, expressionNode.offset)
+							val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
+							
+							initialEditablePart = ""
+							
+							val endNameNode = contents.head.node.lastLeaf.previousNode
+							val suffix = xtextDocument.get(expressionNode.endOffset, xtextDocument.length - expressionNode.endOffset)
+							val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - expressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
+							
+							new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+						} else {
+							val property = ((element as TreeEntry).treeElement as URI).getEObjectAndRun[Property it | it]
+							val inputElement = input.getEObjectAndRun[NamedElement it | it]
+							if (inputElement.ownedPropertyAssociations.empty) {
+								if (inputElement instanceof AadlPackage || inputElement instanceof FeatureGroupType || (inputElement instanceof ComponentClassifier && (inputElement as ComponentClassifier).ownedAnnexSubclauses.empty)) {
+									val endKeywordNode = inputElement.node.lastLeaf.previousNode.previousNode
+									
+									val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+									val prefix = xtextDocument.get(0, endKeywordNode.offset)
+									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).append("properties ").append(property.getQualifiedName).append(" => ")
+									
+									initialEditablePart = ""
+									
+									val endNameNode = contents.head.node.lastLeaf.previousNode
+									val suffix = xtextDocument.get(endKeywordNode.offset, xtextDocument.length - endKeywordNode.offset)
+									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - endKeywordNode.offset, EMBEDDED_RESOURCE_NAME_SUFFIX).insert(0, ";")
+									
+									new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+								} else if (inputElement instanceof ComponentClassifier) {
+									val firstAnnexNode = inputElement.ownedAnnexSubclauses.head.node
+									
+									val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+									val prefix = xtextDocument.get(0, firstAnnexNode.offset)
+									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).append("properties ").append(property.getQualifiedName).append(" => ")
+									
+									initialEditablePart = ""
+									
+									val endNameNode = contents.head.node.lastLeaf.previousNode
+									val suffix = xtextDocument.get(firstAnnexNode.offset, xtextDocument.length - firstAnnexNode.offset)
+									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - firstAnnexNode.offset, EMBEDDED_RESOURCE_NAME_SUFFIX).insert(0, ";")
+									
+									new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+								} else if (inputElement instanceof Subcomponent && !(inputElement as Subcomponent).ownedModeBindings.empty) {
+									val inKeywordNode = (inputElement as Subcomponent).ownedModeBindings.head.node.previousNode.previousNode.previousNode
+									
+									val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+									val prefix = xtextDocument.get(0, inKeywordNode.offset)
+									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).append("{").append(property.getQualifiedName).append(" => ")
+									
+									initialEditablePart = ""
+									
+									val endNameNode = contents.head.node.lastLeaf.previousNode
+									val suffix = xtextDocument.get(inKeywordNode.offset, xtextDocument.length - inKeywordNode.offset)
+									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - inKeywordNode.offset, EMBEDDED_RESOURCE_NAME_SUFFIX).insert(0, ";}")
+									
+									new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+								} else if (inputElement instanceof ModalPath && !(inputElement as ModalPath).inModeOrTransitions.empty) {
+									val inKeywordNode = NodeModelUtils.findNodesForFeature(inputElement, Aadl2Package.eINSTANCE.modalPath_InModeOrTransition).head.previousNode.previousNode.previousNode
+									
+									val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+									val prefix = xtextDocument.get(0, inKeywordNode.offset)
+									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).append("{").append(property.getQualifiedName).append(" => ")
+									
+									initialEditablePart = ""
+									
+									val endNameNode = contents.head.node.lastLeaf.previousNode
+									val suffix = xtextDocument.get(inKeywordNode.offset, xtextDocument.length - inKeywordNode.offset)
+									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - inKeywordNode.offset, EMBEDDED_RESOURCE_NAME_SUFFIX).insert(0, ";}")
+									
+									new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+								} else if (inputElement instanceof SubprogramCallSequence && !(inputElement as SubprogramCallSequence).inModes.empty) {
+									val inKeywordNode = NodeModelUtils.findNodesForFeature(inputElement, Aadl2Package.eINSTANCE.modalElement_InMode).head.previousNode.previousNode.previousNode
+									
+									val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+									val prefix = xtextDocument.get(0, inKeywordNode.offset)
+									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).append("{").append(property.getQualifiedName).append(" => ")
+									
+									initialEditablePart = ""
+									
+									val endNameNode = contents.head.node.lastLeaf.previousNode
+									val suffix = xtextDocument.get(inKeywordNode.offset, xtextDocument.length - inKeywordNode.offset)
+									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - inKeywordNode.offset, EMBEDDED_RESOURCE_NAME_SUFFIX).insert(0, ";}")
+									
+									new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+								} else {
+									val semicolonNode = inputElement.node.lastLeaf
+									
+									val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+									val prefix = xtextDocument.get(0, semicolonNode.offset)
+									val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).append("{").append(property.getQualifiedName).append(" => ")
+									
+									initialEditablePart = ""
+									
+									val endNameNode = contents.head.node.lastLeaf.previousNode
+									val suffix = xtextDocument.get(semicolonNode.offset, xtextDocument.length - semicolonNode.offset)
+									val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - semicolonNode.offset, EMBEDDED_RESOURCE_NAME_SUFFIX).insert(0, ";}")
+									
+									new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+								}
+							} else {
+								val lastExistingAssociationNode = inputElement.ownedPropertyAssociations.last.node
+								
+								
+								val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+								val prefix = xtextDocument.get(0, lastExistingAssociationNode.endOffset)
+								val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).append(property.getQualifiedName).append(" => ")
+
+								initialEditablePart = ""
+								
+								val endNameNode = contents.head.node.lastLeaf.previousNode
+								val suffix = xtextDocument.get(lastExistingAssociationNode.endOffset, xtextDocument.length - lastExistingAssociationNode.endOffset)
+								val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - lastExistingAssociationNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).insert(0, ";")
+								
+								new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+							}
+						}
+					]
+				} else {
+					xtextDocument.readOnly[
+						val expression = switch treeElement : (element as TreeEntry).treeElement {
+							URI: treeElement.getEObjectAndRun[switch it {
+								Property: cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement).getEObjectAndRun[PropertyAssociation it |
+									ownedValues.head.ownedValue
+								]
+								BasicPropertyAssociation: value
+							}]
+							RangeElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it | it]
+							ListElement: treeElement.expressionURI.getEObjectAndRun[PropertyExpression it | it]
+						}
+						val expressionNode = expression.node
+						
+						val modelUnitNameNode = NodeModelUtils.findNodesForFeature(contents.head, Aadl2Package.eINSTANCE.namedElement_Name).head
+						val prefix = xtextDocument.get(0, expressionNode.offset)
+						val newPrefix = new StringBuilder(prefix).insert(modelUnitNameNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
+						
+						initialEditablePart = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
+						
+						val endNameNode = contents.head.node.lastLeaf.previousNode
+						val suffix = xtextDocument.get(expressionNode.endOffset, xtextDocument.length - expressionNode.endOffset)
+						val newSuffix = new StringBuilder(suffix).insert(endNameNode.endOffset - expressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)
+						
+						new CellEditorPartialValue(newPrefix.toString, initialEditablePart, newSuffix.toString)
+					]
+				}
 			}
 			
 			override protected setValue(Object element, Object value) {
-				if (initialEditablePart != value && !(value as String).empty) {
+				if (creatingNewAssociationInEdit) {
+					val associationURI = cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get((element as TreeEntry).treeElement)
+					if (associationURI != null && associationURI.getEObjectAndRun[PropertyAssociation association | input.getEObjectAndRun[NamedElement inputElement | association.owner == inputElement]]) {
+						val node = associationURI.getEObjectAndRun[PropertyAssociation it | ownedValues.head.ownedValue.node]
+						if (node != null) {
+							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+								override process(XtextResource state) throws Exception {
+									state.update(node.offset, node.length, value as String)
+								}
+							})
+							treeViewer.refresh((element as TreeEntry).propertyParent)
+						}
+					} else {
+						if (input.getEObjectAndRun[NamedElement it | ownedPropertyAssociations.empty]) {
+							if (input.getEObjectAndRun[it instanceof AadlPackage || it instanceof FeatureGroupType || (it instanceof ComponentClassifier && (it as ComponentClassifier).ownedAnnexSubclauses.empty)]) {
+								val endKeywordNode = input.getEObjectAndRun[node.lastLeaf.previousNode.previousNode]
+								val propertyQualifiedName = ((element as TreeEntry).treeElement as URI).getEObjectAndRun[Property it | getQualifiedName]
+								xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+									override process(XtextResource state) throws Exception {
+										state.update(endKeywordNode.offset, 0, '''properties «propertyQualifiedName» => «value»;''')
+									}
+								})
+								treeViewer.refresh(element)
+							} else if (input.getEObjectAndRun[it instanceof ComponentClassifier]) {
+								val firstAnnexNode = input.getEObjectAndRun[ComponentClassifier it | ownedAnnexSubclauses.head.node]
+								val propertyQualifiedName = ((element as TreeEntry).treeElement as URI).getEObjectAndRun[Property it | getQualifiedName]
+								xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+									override process(XtextResource state) throws Exception {
+										state.update(firstAnnexNode.offset, 0, '''properties «propertyQualifiedName» => «value»;''')
+									}
+								})
+								treeViewer.refresh(element)
+							} else if (input.getEObjectAndRun[it instanceof Subcomponent && !(it as Subcomponent).ownedModeBindings.empty]) {
+								val inKeywordNode = input.getEObjectAndRun[Subcomponent it | ownedModeBindings.head.node.previousNode.previousNode.previousNode]
+								val propertyQualifiedName = ((element as TreeEntry).treeElement as URI).getEObjectAndRun[Property it | getQualifiedName]
+								xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+									override process(XtextResource state) throws Exception {
+										state.update(inKeywordNode.offset, 0, '''{«propertyQualifiedName» => «value»;}''')
+									}
+								})
+								treeViewer.refresh(element)
+							} else if (input.getEObjectAndRun[it instanceof ModalPath && !(it as ModalPath).inModeOrTransitions.empty]) {
+								val inKeywordNode = input.getEObjectAndRun[NodeModelUtils.findNodesForFeature(it, Aadl2Package.eINSTANCE.modalPath_InModeOrTransition).head.previousNode.previousNode.previousNode]
+								val propertyQualifiedName = ((element as TreeEntry).treeElement as URI).getEObjectAndRun[Property it | getQualifiedName]
+								xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+									override process(XtextResource state) throws Exception {
+										state.update(inKeywordNode.offset, 0, '''{«propertyQualifiedName» => «value»;}''')
+									}
+								})
+								treeViewer.refresh(element)
+							} else if (input.getEObjectAndRun[it instanceof SubprogramCallSequence && !(it as SubprogramCallSequence).inModes.empty]) {
+								val inKeywordNode = input.getEObjectAndRun[NodeModelUtils.findNodesForFeature(it, Aadl2Package.eINSTANCE.modalElement_InMode).head.previousNode.previousNode.previousNode]
+								val propertyQualifiedName = ((element as TreeEntry).treeElement as URI).getEObjectAndRun[Property it | getQualifiedName]
+								xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+									override process(XtextResource state) throws Exception {
+										state.update(inKeywordNode.offset, 0, '''{«propertyQualifiedName» => «value»;}''')
+									}
+								})
+								treeViewer.refresh(element)
+							} else {
+								val semicolonNode = input.getEObjectAndRun[node.lastLeaf]
+								val propertyQualifiedName = ((element as TreeEntry).treeElement as URI).getEObjectAndRun[Property it | getQualifiedName]
+								xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+									override process(XtextResource state) throws Exception {
+										state.update(semicolonNode.offset, 0, '''{«propertyQualifiedName» => «value»;}''')
+									}
+								})
+								treeViewer.refresh(element)
+							}
+						} else {
+							val lastExistingAssociationNode = input.getEObjectAndRun[NamedElement it | ownedPropertyAssociations.last.node]
+							val propertyQualifiedName = ((element as TreeEntry).treeElement as URI).getEObjectAndRun[Property it | getQualifiedName]
+							
+							xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
+								override process(XtextResource state) throws Exception {
+									state.update(lastExistingAssociationNode.endOffset, 0, '''«propertyQualifiedName» => «value»;''')
+								}
+							})
+							treeViewer.refresh(element)
+						}
+					}
+				} else if (initialEditablePart != value && !(value as String).empty) {
 					val node = switch treeElement : (element as TreeEntry).treeElement {
 						URI: treeElement.getEObjectAndRun[switch it {
 							Property: cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement).getEObjectAndRun[PropertyAssociation it |
@@ -958,6 +1182,14 @@ class AadlPropertyView extends ViewPart {
 				treeViewer.refresh(selectedElement)
 			}
 		}
+		
+		createNewAssociationAction = new Action("Create New Property Association") {
+			override run() {
+				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as TreeEntry
+				nextEditIsANewAssociationCreation = true
+				treeViewer.editElement(selectedElement, 1)
+			}
+		}
 	}
 	
 	def private createContextMenu() {
@@ -966,6 +1198,7 @@ class AadlPropertyView extends ViewPart {
 			addMenuListener[
 				add(openDefinitionAction)
 				add(openPropertyAssociationAction)
+				add(createNewAssociationAction)
 				add(makeLocalAction)
 				add(removeElementAction)
 				val selection = treeViewer.selection as IStructuredSelection
@@ -978,6 +1211,8 @@ class AadlPropertyView extends ViewPart {
 					cachedPropertyAssociations.get((firstSelectedElement.parent as TreeEntry).treeElement).get(firstSelectedElement.treeElement)?.getEObjectAndRun[PropertyAssociation association |
 						input.getEObjectAndRun[inputElement | inputElement != association.owner && association.appliesTos.forall[inputElement != containmentPathElements.last.namedElement]]
 					] ?: false
+				createNewAssociationAction.enabled = xtextDocument != null && selection.size == 1 && firstSelectedElement.treeElement instanceof URI &&
+					(firstSelectedElement.treeElement as URI).getEObjectAndRun[it instanceof Property]
 				makeLocalAction.enabled = xtextDocument != null && selection.size == 1 && firstSelectedElement.treeElement instanceof URI &&
 					(firstSelectedElement.treeElement as URI).getEObjectAndRun[it instanceof Property] &&
 					cachedPropertyAssociations.get((firstSelectedElement.parent as TreeEntry).treeElement).get(firstSelectedElement.treeElement)?.getEObjectAndRun[PropertyAssociation association |
