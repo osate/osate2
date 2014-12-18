@@ -1,0 +1,46 @@
+grammar org.osate.assure.Assure with org.osate.alisa.common.Common
+
+generate assure "http://www.osate.org/assure/Assure"
+import "http://aadl.info/AADL/2.0" as aadl2
+import "http://aadl.info/AADL/2.0/instance" as instance
+import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
+import "http://www.osate.org/verify/Verify" as Verify
+
+ AssuranceCase: 
+ 	'assurance' 'case' name = ID
+ 	'for' target = [instance::SystemInstance]
+ 	'[' results+= AssuranceResult+
+ 	']'
+ ;
+
+VerificationResult:
+	'verification' 'result' name=ID 'of' verificationActivity=[Verify::VerificationActivity]
+	'['(('output'  title=ValueString)?
+	&('logfile'  description=ValueString)?
+	&('date'  method=ValueString)?
+	&('state'  state=VerificationResultState)?
+	&('status'  status=VerificationResultStatus)? )
+	(assumptionVerificationResult+= VerificationResult)*
+	']'  
+;
+
+ClaimResult:
+	'claim' 'result' name=ID 'of' requirement=[ReqSpec::Requirement]
+	'['('pass'  passCount=INT)
+	('fail'  failCount=INT)
+	('neutral' neutralCount=INT)
+	('unknown' unknownCount=INT) 
+	(subClaimResult += ClaimResult)*
+	(subVAResult+= VerificationResult)*
+	']'  
+;
+
+AssuranceResult: VerificationResult | ClaimResult;
+
+enum  VerificationResultState:
+	SCHEDULED='scheduled' | COMPLETED='completed' | INPROGRESS='inprogress'
+;
+
+enum VerificationResultStatus:
+	PASS='pass' | FAIL='fail' | NEUTRAL='neutral' | UNKNOWN='unknown'
+;

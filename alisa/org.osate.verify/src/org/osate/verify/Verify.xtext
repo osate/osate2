@@ -1,0 +1,96 @@
+grammar org.osate.verify.Verify with org.osate.alisa.common.Common
+
+generate verify "http://www.osate.org/verify/Verify"
+import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
+import  "http://www.osate.org/categories/Categories" as categories
+
+
+RSALContainer returns RSALContainer:
+	'container' name =ID 
+	('for' target=[ReqSpec::Requirement|DOTTEDREF])?
+	'[' (content+= ( VerificationActivity | VerificationMethod | RSALContainer))*
+	']'
+	;
+	
+//	Requirement: 'req' name=ID;
+/*
+ * Verification Activity
+ */
+
+VerificationActivity:
+	'verification' 'activity' name=ID
+	'['(('title'  title=ValueString)?
+	&('description'  description=ValueString)?
+ 	&('category'  category=[categories::VerificationCategory|DOTTEDREF])?
+	&('method'  method=VerificationMethod)?
+//	('parameters'  verificationParameters+=([ElementReference])*)?
+	&(assumption+=VerificationAssumption)*
+	)
+	']'  
+;
+ 
+ 	
+VerificationAssumption:
+	'verification' 'assumption'  name=ID  
+	'['( 
+	('title'  title=ValueString)? 
+	&('description'  description=Description)? 
+	&('asserted' 'by'  assert=[ReqSpec::Requirement|DOTTEDREF])? 
+	&('verified by' verifiedBy=[AssurancePlan|DOTTEDREF])?
+	&('rationale'  rationale=ValueString)? 
+	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
+	)
+	']';
+
+AssurancePlan:
+	'plan' name=ID
+	'argument' expression=ArgumentExpr ';'
+	('rationale'  rationale=ValueString)? 
+	'end'
+;
+
+ArgumentExpr:
+	ImpliesExpr
+;
+
+ImpliesExpr returns ArgumentExpr:
+	OrExpr (=>({BinaryExpr.left=current} op='=>') right=ImpliesExpr)?
+;
+
+OrExpr returns ArgumentExpr:
+	AndExpr (=>({BinaryExpr.left=current} op='or') right=AndExpr)*
+;
+
+AndExpr returns ArgumentExpr:
+	AtomicExpr (=>({BinaryExpr.left=current} op='and') right=AtomicExpr)*
+;
+
+AtomicExpr returns ArgumentExpr:
+	{RefExpr} id=ArgumentReference
+|	'(' ArgumentExpr ')'
+;
+
+ArgumentReference:
+	reference=[VerificationActivity|DOTTEDREF]
+	('*' weight=INT )?
+;
+
+VerificationMethod:
+	'verification' 'method' name=ID '='
+ 	 language=SupportedLanguage method = ValueString
+	(('title'  title=ValueString)?
+	&('description'  description=ValueString)?
+ 	&('category'  category=[categories::VerificationCategory|CATREF])?
+ 	)
+;
+
+SupportedLanguage:
+	'lute' | 'agree'
+;
+	
+ValueString :
+	// remove quotes from string in ValueConverter 
+	STRING
+;
+
+	

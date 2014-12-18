@@ -1,0 +1,40 @@
+grammar org.osate.categories.Categories with org.osate.alisa.common.Common
+
+generate categories "http://www.osate.org/categories/Categories"
+
+Categories : RequirementCategories | HazardCategories;
+
+RequirementCategories :
+	'requirement''categories' name = ID
+	'{' category += RequirementCategory+
+	'}'
+;
+
+
+HazardCategories :
+	'hazard' 'categories' name = ID
+	'{' category += HazardCategory+
+	'}'
+;
+
+VerificationCategories :
+	'Verification' 'categories' name = ID
+	'{' category += VerificationCategory+
+	'}'
+;
+
+
+RequirementCategory :
+	'category' name = ID ('extends' extends=[RequirementCategory|CATREF])? 
+;
+
+
+HazardCategory :
+	'category' name = ID ('extends' extends=[HazardCategory|CATREF])? 
+;
+
+
+VerificationCategory :
+	'category' name = ID ('extends' extends=[VerificationCategory|CATREF])? 
+;
+

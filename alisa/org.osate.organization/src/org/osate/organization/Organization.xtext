@@ -1,0 +1,22 @@
+grammar org.osate.organization.Organization with org.osate.alisa.common.Common
+
+generate organization "http://www.osate.org/organization/Organization"
+
+
+Organization:
+	'organization' name = ID
+	stakeholder += Stakeholder+
+;
+
+/*
+ * Stakeholder
+ */
+Stakeholder:
+	'stakeholder' name=ID
+	'['(('title'  title=ValueString )?
+	&('description'  description=ValueString )?
+	&('role'  role=ValueString )?
+	&('email'  email=ValueString)?
+	&('phone'  phone=ValueString)?)
+	']' 
+;

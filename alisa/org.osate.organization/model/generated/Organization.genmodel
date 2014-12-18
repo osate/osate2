@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.organization/src-gen" editDirectory="/org.osate.organization.edit/src"
+    editorDirectory="/org.osate.organization.editor/src" modelPluginID="org.osate.organization"
+    forceOverwrite="true" modelName="Organization" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.organization.edit"
+    editorPluginID="org.osate.organization.editor" runtimeVersion="2.10">
+  <genPackages prefix="Organization" basePackage="org.osate.organization" disposableProviderFactory="true"
+      fileExtensions="org" ecorePackage="Organization.ecore#/">
+    <genClasses ecoreClass="Organization.ecore#//Organization">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Organization/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Organization.ecore#//Organization/stakeholder"/>
+    </genClasses>
+    <genClasses ecoreClass="Organization.ecore#//Stakeholder">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/role"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/email"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/phone"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,98 @@
+grammar org.osate.reqspec.ReqSpec with org.osate.alisa.common.Common
+
+generate reqSpec "http://www.osate.org/reqspec/ReqSpec"
+
+import "http://aadl.info/AADL/2.0" as aadl2
+import  "http://www.osate.org/categories/Categories" as categories
+import  "http://www.osate.org/organization/Organization" as org
+
+ReqSpecModel: ReqSpecContainer  ;
+
+ContractualElement: Goal | Requirement  | Hazard;
+	
+
+
+ReqSpecContainer returns ReqSpecContainer:
+	'container' name =ID 
+	'[' ( 'for' target=[aadl2::NamedElement|QNEREF])?
+	(content+= (Goal | Requirement |  ReqSpecContainer))*
+	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
+	']'
+	;
+	
+
+// TODO: May reference a property by referring to its definition
+RSLVariable :
+	'val' name = ID '=' value = ValueString
+;
+
+
+
+Goal returns Goal:
+	'goal' name=ID 
+'['  (( 'for' target=[aadl2::NamedElement|QNEREF])?
+	 &('category'  category=[categories::RequirementCategory|CATREF])?
+	 &('title'  title=ValueString )? 
+	 &('description'  description=Description)? 
+	 &('assertion'  	assert=ValueString )? 
+	 &('rationale'  rationale=ValueString)? 
+	 &('issues'  issue+=ValueString (','issue+=ValueString)* )? 
+	 &('refined' 'to' refinesReference+=[Goal|DOTTEDREF](',' refinesReference+=[Goal|DOTTEDREF])*)? 
+	 &( subgoal+=Goal*) 
+	 &('decomposed' 'to' decomposesReference+=[Goal|DOTTEDREF](',' decomposesReference+=[Goal|DOTTEDREF])*)? 
+	 &('evolves'  evolvesReference+=[Goal|DOTTEDREF](',' evolvesReference+=[Goal|DOTTEDREF])*)? 
+	 &('conflicts'  conflictsReference+=[Goal|DOTTEDREF](',' conflictsReference+=[Goal|DOTTEDREF])*)? 
+	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|DOTTEDREF] (',' stakeholderReference+=[org::Stakeholder|DOTTEDREF])*)?
+	 &('see' 'goal'  stakeholderRequirementReference+=[Goal|DOTTEDREF] (',' stakeholderRequirementReference+=[Goal|DOTTEDREF])*)?
+	 &('see' 'requirement'  systemRequirementReference+=[ContractualElement|DOTTEDREF] (',' systemRequirementReference+=[ContractualElement|DOTTEDREF])*)?
+	 &('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
+	)
+	 ']';
+	
+Requirement:
+	'requirement'  name=ID   
+'['	(( 'for' target=[aadl2::NamedElement|QNEREF])?
+ 	&('category'  category=[categories::RequirementCategory|CATREF])?
+	&('title'  title=ValueString)? 
+	&('description'  description=Description)? 
+	&('assertion'  assert=ValueString)?  // predicate expression 
+	&('rationale'  rationale=ValueString)? 
+	& (reqValue += RSLVariable)*
+	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
+	&('see' 'goal'  goalReference+=[Goal] (',' goalReference+=[Goal])*)?
+	&('see' 'hazard'  hazardReference+=QNEREF (',' hazardReference+=QNEREF)*)? // hazardReference+=[aadl2::NamedElement|QNEREF]
+	&('refines'  refinesReference+=[Requirement|DOTTEDREF](',' refinesReference+=[Requirement|DOTTEDREF])*)? 
+	 &( subrequirement+=Requirement*) 
+	&('decomposes'  decomposesReference+=[Requirement|DOTTEDREF](',' decomposesReference+=[Requirement|DOTTEDREF])*)? 
+	&('evolves'  evolvesReference+=[Requirement|DOTTEDREF](',' evolvesReference+=[Requirement|DOTTEDREF])*)? 
+	&('see' 'goal'  stakeholderRequirementReference+=[Goal|DOTTEDREF] (',' stakeholderRequirementReference+=[Goal|DOTTEDREF])*)?
+	&('see' 'requirement'  systemRequirementReference+=[ContractualElement|DOTTEDREF] (',' systemRequirementReference+=[ContractualElement|DOTTEDREF])*)?
+//	&('verified by' verifiedBy=[VerificationPlan|DOTTEDREF] )?
+	&('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
+	)
+	']';
+
+	
+	
+Hazard:
+	'hazard'  name=ID   
+	'['(( 'for' target=[aadl2::NamedElement|QNEREF])?
+ 	&('category'  category=[categories::HazardCategory|CATREF])?
+	&('title'  title=ValueString)? 
+	&('description'  description=ValueString)? 
+	&('mitigated' 'by'  mitigated=[Requirement|DOTTEDREF])? 
+	&('rationale'  rationale=ValueString)? 
+	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
+	)
+	']';
+
+
+ExternalDocument : 
+	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?
+;
+
+
+// path to external document and its fragment
+DOCPATH: ( ID '/')* ID '.' ID;
+
+DOCFRAGMENT: ID ('.' ID)*;

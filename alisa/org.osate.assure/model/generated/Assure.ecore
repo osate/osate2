@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="assure" nsURI="http://www.osate.org/assure/Assure" nsPrefix="assure">
+  <eClassifiers xsi:type="ecore:EClass" name="AssuranceCase">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/instance.ecore#//SystemInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
+        eType="#//AssuranceResult" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VerificationResult" eSuperTypes="#//AssuranceResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivity" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="method" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#//VerificationResultState"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="#//VerificationResultStatus"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assumptionVerificationResult"
+        upperBound="-1" eType="#//VerificationResult" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ClaimResult" eSuperTypes="#//AssuranceResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="passCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="neutralCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unknownCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subClaimResult" upperBound="-1"
+        eType="#//ClaimResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subVAResult" upperBound="-1"
+        eType="#//VerificationResult" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssuranceResult">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VerificationResultState">
+    <eLiterals name="SCHEDULED" literal="scheduled"/>
+    <eLiterals name="COMPLETED" value="1" literal="completed"/>
+    <eLiterals name="INPROGRESS" value="2" literal="inprogress"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VerificationResultStatus">
+    <eLiterals name="PASS" literal="pass"/>
+    <eLiterals name="FAIL" value="1" literal="fail"/>
+    <eLiterals name="NEUTRAL" value="2" literal="neutral"/>
+    <eLiterals name="UNKNOWN" value="3" literal="unknown"/>
+  </eClassifiers>
+</ecore:EPackage>

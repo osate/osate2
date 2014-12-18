@@ -1,0 +1,39 @@
+grammar org.osate.alisa.common.Common with org.eclipse.xtext.common.Terminals
+
+generate common "http://www.osate.org/alisa/common/Common"
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+Model:
+	content=(Description);
+	
+
+	
+Description : 
+	( description += DescriptionElement  )+
+;
+
+DescriptionElement :
+ 	text = STRING | ref = [ecore::EObject|ID]
+ ;	
+ 
+ ReferencePath: 
+ 	ref = [ecore::EObject|ID] ('.' subpath=ReferencePath)
+ ;
+
+	
+ValueString :
+	// remove quotes from string in ValueConverter 
+	STRING
+;
+
+// dotted path as relative reference
+DOTTEDREF:
+	ID ('.' ID)* ;	
+
+// :: qualified classifier reference
+QNEREF:
+	(ID '::')* ID ('.' ID)?;
+// dotted path as relative reference
+CATREF:
+	ID '.' ID;	
+	
