@@ -622,6 +622,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getReferencePathAccess().getRule();
 	}
 
+	//Import:
+	//	"import" importedNamespace=QualifiedNameWithWildcard;
+	public CommonGrammarAccess.ImportElements getImportAccess() {
+		return gaCommon.getImportAccess();
+	}
+	
+	public ParserRule getImportRule() {
+		return getImportAccess().getRule();
+	}
+
 	//ValueString: // remove quotes from string in ValueConverter 
 	//	STRING;
 	public CommonGrammarAccess.ValueStringElements getValueStringAccess() {
@@ -633,36 +643,47 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// dotted path as relative reference
-	//DOTTEDREF:
+	//QualifiedName:
 	//	ID ("." ID)*;
-	public CommonGrammarAccess.DOTTEDREFElements getDOTTEDREFAccess() {
-		return gaCommon.getDOTTEDREFAccess();
+	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
+		return gaCommon.getQualifiedNameAccess();
 	}
 	
-	public ParserRule getDOTTEDREFRule() {
-		return getDOTTEDREFAccess().getRule();
+	public ParserRule getQualifiedNameRule() {
+		return getQualifiedNameAccess().getRule();
 	}
 
-	//// :: qualified classifier reference
-	//QNEREF:
-	//	(ID "::")* ID ("." ID)?;
-	public CommonGrammarAccess.QNEREFElements getQNEREFAccess() {
-		return gaCommon.getQNEREFAccess();
+	//// qualified named with wildcard
+	//QualifiedNameWithWildcard:
+	//	QualifiedName ".*"?;
+	public CommonGrammarAccess.QualifiedNameWithWildcardElements getQualifiedNameWithWildcardAccess() {
+		return gaCommon.getQualifiedNameWithWildcardAccess();
 	}
 	
-	public ParserRule getQNEREFRule() {
-		return getQNEREFAccess().getRule();
+	public ParserRule getQualifiedNameWithWildcardRule() {
+		return getQualifiedNameWithWildcardAccess().getRule();
 	}
 
-	//// dotted path as relative reference
-	//CATREF:
-	//	ID "." ID;
-	public CommonGrammarAccess.CATREFElements getCATREFAccess() {
-		return gaCommon.getCATREFAccess();
+	//// Qualified classifier reference
+	//AadlClassifierReference:
+	//	(ID "::")+ ID ("." ID)?;
+	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
+		return gaCommon.getAadlClassifierReferenceAccess();
 	}
 	
-	public ParserRule getCATREFRule() {
-		return getCATREFAccess().getRule();
+	public ParserRule getAadlClassifierReferenceRule() {
+		return getAadlClassifierReferenceAccess().getRule();
+	}
+
+	//// Category reference. Currently it is only a single ID
+	//CatRef: //('.' ID)?
+	//	ID;
+	public CommonGrammarAccess.CatRefElements getCatRefAccess() {
+		return gaCommon.getCatRefAccess();
+	}
+	
+	public ParserRule getCatRefRule() {
+		return getCatRefAccess().getRule();
 	}
 
 	//terminal ID:
