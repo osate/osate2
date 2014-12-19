@@ -801,12 +801,10 @@ ruleGoal returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getGoalRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getGoalAccess().getTargetNamedElementCrossReference_2_1_0()); 
-	    }
-		ruleAadlClassifierReference		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_3=RULE_ID
+	{
+		newLeafNode(otherlv_3, grammarAccess.getGoalAccess().getTargetNamedElementCrossReference_2_1_0()); 
+	}
 
 )
 ))?
@@ -1617,12 +1615,10 @@ ruleRequirement returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getRequirementRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getRequirementAccess().getTargetNamedElementCrossReference_3_0_1_0()); 
-	    }
-		ruleAadlClassifierReference		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getRequirementAccess().getTargetNamedElementCrossReference_3_0_1_0()); 
+	}
 
 )
 )))
@@ -2458,12 +2454,10 @@ ruleHazard returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getHazardRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getHazardAccess().getTargetNamedElementCrossReference_3_0_1_0()); 
-	    }
-		ruleAadlClassifierReference		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getHazardAccess().getTargetNamedElementCrossReference_3_0_1_0()); 
+	}
 
 )
 )))

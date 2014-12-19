@@ -46,7 +46,7 @@ RSLVariable :
 
 
 Goal returns Goal:
-	'goal' name=ID ( 'for' target=[aadl2::NamedElement|AadlClassifierReference])?
+	'goal' name=ID ( 'for' target=[aadl2::NamedElement|ID])?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
 	 &('title'  title=ValueString )? 
@@ -68,7 +68,7 @@ Goal returns Goal:
 	
 Requirement:
 	'requirement'  name=ID   
-'['	(( 'for' target=[aadl2::NamedElement|AadlClassifierReference])?
+'['	(( 'for' target=[aadl2::NamedElement|ID])?
  	&('category'  category=[categories::RequirementCategory|CatRef])?
 	&('title'  title=ValueString)? 
 	&('description'  description=Description)? 
@@ -93,7 +93,7 @@ Requirement:
 	
 Hazard:
 	'hazard'  name=ID   
-	'['(( 'for' target=[aadl2::NamedElement|AadlClassifierReference])?
+	'['(( 'for' target=[aadl2::NamedElement|ID])?
  	&('category'  category=[categories::HazardCategory|CatRef])?
 	&('title'  title=ValueString)? 
 	&('description'  description=ValueString)? 

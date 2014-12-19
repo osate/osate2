@@ -143,7 +143,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|AadlClassifierReference]? 
+	 *         target=[NamedElement|ID]? 
 	 *         category=[RequirementCategory|CatRef]? 
 	 *         title=ValueString? 
 	 *         description=Description? 
@@ -170,7 +170,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|AadlClassifierReference]? 
+	 *         target=[NamedElement|ID]? 
 	 *         category=[HazardCategory|CatRef]? 
 	 *         title=ValueString? 
 	 *         description=ValueString? 
@@ -251,7 +251,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|AadlClassifierReference]? 
+	 *         target=[NamedElement|ID]? 
 	 *         category=[RequirementCategory|CatRef]? 
 	 *         title=ValueString? 
 	 *         description=Description? 

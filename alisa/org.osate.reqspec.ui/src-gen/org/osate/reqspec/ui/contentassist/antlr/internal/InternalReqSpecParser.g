@@ -10403,8 +10403,8 @@ rule__Goal__TargetAssignment_2_1
 (
 { before(grammarAccess.getGoalAccess().getTargetNamedElementCrossReference_2_1_0()); }
 (
-{ before(grammarAccess.getGoalAccess().getTargetNamedElementAadlClassifierReferenceParserRuleCall_2_1_0_1()); }
-	ruleAadlClassifierReference{ after(grammarAccess.getGoalAccess().getTargetNamedElementAadlClassifierReferenceParserRuleCall_2_1_0_1()); }
+{ before(grammarAccess.getGoalAccess().getTargetNamedElementIDTerminalRuleCall_2_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getGoalAccess().getTargetNamedElementIDTerminalRuleCall_2_1_0_1()); }
 )
 { after(grammarAccess.getGoalAccess().getTargetNamedElementCrossReference_2_1_0()); }
 )
@@ -10857,8 +10857,8 @@ rule__Requirement__TargetAssignment_3_0_1
 (
 { before(grammarAccess.getRequirementAccess().getTargetNamedElementCrossReference_3_0_1_0()); }
 (
-{ before(grammarAccess.getRequirementAccess().getTargetNamedElementAadlClassifierReferenceParserRuleCall_3_0_1_0_1()); }
-	ruleAadlClassifierReference{ after(grammarAccess.getRequirementAccess().getTargetNamedElementAadlClassifierReferenceParserRuleCall_3_0_1_0_1()); }
+{ before(grammarAccess.getRequirementAccess().getTargetNamedElementIDTerminalRuleCall_3_0_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getRequirementAccess().getTargetNamedElementIDTerminalRuleCall_3_0_1_0_1()); }
 )
 { after(grammarAccess.getRequirementAccess().getTargetNamedElementCrossReference_3_0_1_0()); }
 )
@@ -11318,8 +11318,8 @@ rule__Hazard__TargetAssignment_3_0_1
 (
 { before(grammarAccess.getHazardAccess().getTargetNamedElementCrossReference_3_0_1_0()); }
 (
-{ before(grammarAccess.getHazardAccess().getTargetNamedElementAadlClassifierReferenceParserRuleCall_3_0_1_0_1()); }
-	ruleAadlClassifierReference{ after(grammarAccess.getHazardAccess().getTargetNamedElementAadlClassifierReferenceParserRuleCall_3_0_1_0_1()); }
+{ before(grammarAccess.getHazardAccess().getTargetNamedElementIDTerminalRuleCall_3_0_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getHazardAccess().getTargetNamedElementIDTerminalRuleCall_3_0_1_0_1()); }
 )
 { after(grammarAccess.getHazardAccess().getTargetNamedElementCrossReference_3_0_1_0()); }
 )
