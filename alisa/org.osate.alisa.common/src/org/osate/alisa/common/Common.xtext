@@ -27,13 +27,20 @@ ValueString :
 ;
 
 // dotted path as relative reference
-DOTTEDREF:
+QualifiedName:
 	ID ('.' ID)* ;	
+	
+// qualified named with wildcard
+QualifiedNameWithWildcard:
+	QualifiedName '.*'?
+;
 
-// :: qualified classifier reference
-QNEREF:
-	(ID '::')* ID ('.' ID)?;
-// dotted path as relative reference
-CATREF:
-	ID ('.' ID)?;	
+// Qualified classifier reference
+AadlClassifierReference:
+	(ID '::')+ ID ('.' ID)?;
+
+// Category reference. Currently it is only a single ID
+CatRef:
+	ID //('.' ID)?
+	;	
 	

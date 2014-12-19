@@ -135,8 +135,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getSTRINGTerminalRuleCall() { return cSTRINGTerminalRuleCall; }
 	}
 
-	public class DOTTEDREFElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DOTTEDREF");
+	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedName");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
@@ -144,7 +144,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		//// dotted path as relative reference
-		//DOTTEDREF:
+		//QualifiedName:
 		//	ID ("." ID)*;
 		public ParserRule getRule() { return rule; }
 
@@ -164,8 +164,29 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
 
-	public class QNEREFElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QNEREF");
+	public class QualifiedNameWithWildcardElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedNameWithWildcard");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cQualifiedNameParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopAsteriskKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//// qualified named with wildcard
+		//QualifiedNameWithWildcard:
+		//	QualifiedName ".*"?;
+		public ParserRule getRule() { return rule; }
+
+		//QualifiedName ".*"?
+		public Group getGroup() { return cGroup; }
+
+		//QualifiedName
+		public RuleCall getQualifiedNameParserRuleCall_0() { return cQualifiedNameParserRuleCall_0; }
+
+		//".*"?
+		public Keyword getFullStopAsteriskKeyword_1() { return cFullStopAsteriskKeyword_1; }
+	}
+
+	public class AadlClassifierReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AadlClassifierReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
@@ -175,15 +196,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
-		//// :: qualified classifier reference
-		//QNEREF:
-		//	(ID "::")* ID ("." ID)?;
+		//// Qualified classifier reference
+		//AadlClassifierReference:
+		//	(ID "::")+ ID ("." ID)?;
 		public ParserRule getRule() { return rule; }
 
-		//(ID "::")* ID ("." ID)?
+		//(ID "::")+ ID ("." ID)?
 		public Group getGroup() { return cGroup; }
 
-		//(ID "::")*
+		//(ID "::")+
 		public Group getGroup_0() { return cGroup_0; }
 
 		//ID
@@ -205,33 +226,18 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getIDTerminalRuleCall_2_1() { return cIDTerminalRuleCall_2_1; }
 	}
 
-	public class CATREFElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CATREF");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+	public class CatRefElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CatRef");
+		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//// dotted path as relative reference
-		//CATREF:
-		//	ID ("." ID)?;
+		//// Category reference. Currently it is only a single ID
+		//CatRef: //('.' ID)?
+		//	ID;
 		public ParserRule getRule() { return rule; }
 
-		//ID ("." ID)?
-		public Group getGroup() { return cGroup; }
-
+		////('.' ID)?
 		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
-
-		//("." ID)?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"."
-		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
+		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
 	}
 	
 	
@@ -240,9 +246,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final DescriptionElementElements pDescriptionElement;
 	private final ReferencePathElements pReferencePath;
 	private final ValueStringElements pValueString;
-	private final DOTTEDREFElements pDOTTEDREF;
-	private final QNEREFElements pQNEREF;
-	private final CATREFElements pCATREF;
+	private final QualifiedNameElements pQualifiedName;
+	private final QualifiedNameWithWildcardElements pQualifiedNameWithWildcard;
+	private final AadlClassifierReferenceElements pAadlClassifierReference;
+	private final CatRefElements pCatRef;
 	
 	private final Grammar grammar;
 
@@ -258,9 +265,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDescriptionElement = new DescriptionElementElements();
 		this.pReferencePath = new ReferencePathElements();
 		this.pValueString = new ValueStringElements();
-		this.pDOTTEDREF = new DOTTEDREFElements();
-		this.pQNEREF = new QNEREFElements();
-		this.pCATREF = new CATREFElements();
+		this.pQualifiedName = new QualifiedNameElements();
+		this.pQualifiedNameWithWildcard = new QualifiedNameWithWildcardElements();
+		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
+		this.pCatRef = new CatRefElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -341,36 +349,47 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// dotted path as relative reference
-	//DOTTEDREF:
+	//QualifiedName:
 	//	ID ("." ID)*;
-	public DOTTEDREFElements getDOTTEDREFAccess() {
-		return pDOTTEDREF;
+	public QualifiedNameElements getQualifiedNameAccess() {
+		return pQualifiedName;
 	}
 	
-	public ParserRule getDOTTEDREFRule() {
-		return getDOTTEDREFAccess().getRule();
+	public ParserRule getQualifiedNameRule() {
+		return getQualifiedNameAccess().getRule();
 	}
 
-	//// :: qualified classifier reference
-	//QNEREF:
-	//	(ID "::")* ID ("." ID)?;
-	public QNEREFElements getQNEREFAccess() {
-		return pQNEREF;
+	//// qualified named with wildcard
+	//QualifiedNameWithWildcard:
+	//	QualifiedName ".*"?;
+	public QualifiedNameWithWildcardElements getQualifiedNameWithWildcardAccess() {
+		return pQualifiedNameWithWildcard;
 	}
 	
-	public ParserRule getQNEREFRule() {
-		return getQNEREFAccess().getRule();
+	public ParserRule getQualifiedNameWithWildcardRule() {
+		return getQualifiedNameWithWildcardAccess().getRule();
 	}
 
-	//// dotted path as relative reference
-	//CATREF:
-	//	ID ("." ID)?;
-	public CATREFElements getCATREFAccess() {
-		return pCATREF;
+	//// Qualified classifier reference
+	//AadlClassifierReference:
+	//	(ID "::")+ ID ("." ID)?;
+	public AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
+		return pAadlClassifierReference;
 	}
 	
-	public ParserRule getCATREFRule() {
-		return getCATREFAccess().getRule();
+	public ParserRule getAadlClassifierReferenceRule() {
+		return getAadlClassifierReferenceAccess().getRule();
+	}
+
+	//// Category reference. Currently it is only a single ID
+	//CatRef: //('.' ID)?
+	//	ID;
+	public CatRefElements getCatRefAccess() {
+		return pCatRef;
+	}
+	
+	public ParserRule getCatRefRule() {
+		return getCatRefAccess().getRule();
 	}
 
 	//terminal ID:
