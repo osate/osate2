@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.categories.categories.Categories#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.categories.categories.Categories#getLabel <em>Label</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,29 +23,29 @@ import org.eclipse.emf.ecore.EObject;
 public interface Categories extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Label</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Label</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.osate.categories.categories.CategoriesPackage#getCategories_Name()
+   * @return the value of the '<em>Label</em>' attribute.
+   * @see #setLabel(String)
+   * @see org.osate.categories.categories.CategoriesPackage#getCategories_Label()
    * @model
    * @generated
    */
-  String getName();
+  String getLabel();
 
   /**
-   * Sets the value of the '{@link org.osate.categories.categories.Categories#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.categories.categories.Categories#getLabel <em>Label</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Label</em>' attribute.
+   * @see #getLabel()
    * @generated
    */
-  void setName(String value);
+  void setLabel(String value);
 
 } // Categories

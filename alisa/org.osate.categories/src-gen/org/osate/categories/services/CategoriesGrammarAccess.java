@@ -47,18 +47,20 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cRequirementKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cCategoriesKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Assignment cLabelAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cLabelIDTerminalRuleCall_2_0 = (RuleCall)cLabelAssignment_2.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cCategoryRequirementCategoryParserRuleCall_4_0 = (RuleCall)cCategoryAssignment_4.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//RequirementCategories:
-		//	"requirement" "categories" name=ID "[" category+=RequirementCategory+ "]";
+		/// **
+		// * requirement categories uses a label instead of name to make the category itself global
+		// * / RequirementCategories:
+		//	"requirement" "categories" label=ID "[" category+=RequirementCategory+ "]";
 		public ParserRule getRule() { return rule; }
 
-		//"requirement" "categories" name=ID "[" category+=RequirementCategory+ "]"
+		//"requirement" "categories" label=ID "[" category+=RequirementCategory+ "]"
 		public Group getGroup() { return cGroup; }
 
 		//"requirement"
@@ -67,11 +69,11 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//"categories"
 		public Keyword getCategoriesKeyword_1() { return cCategoriesKeyword_1; }
 
-		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		//label=ID
+		public Assignment getLabelAssignment_2() { return cLabelAssignment_2; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getLabelIDTerminalRuleCall_2_0() { return cLabelIDTerminalRuleCall_2_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
@@ -91,18 +93,18 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cHazardKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cCategoriesKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Assignment cLabelAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cLabelIDTerminalRuleCall_2_0 = (RuleCall)cLabelAssignment_2.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cCategoryHazardCategoryParserRuleCall_4_0 = (RuleCall)cCategoryAssignment_4.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//HazardCategories:
-		//	"hazard" "categories" name=ID "[" category+=HazardCategory+ "]";
+		//	"hazard" "categories" label=ID "[" category+=HazardCategory+ "]";
 		public ParserRule getRule() { return rule; }
 
-		//"hazard" "categories" name=ID "[" category+=HazardCategory+ "]"
+		//"hazard" "categories" label=ID "[" category+=HazardCategory+ "]"
 		public Group getGroup() { return cGroup; }
 
 		//"hazard"
@@ -111,11 +113,11 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//"categories"
 		public Keyword getCategoriesKeyword_1() { return cCategoriesKeyword_1; }
 
-		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		//label=ID
+		public Assignment getLabelAssignment_2() { return cLabelAssignment_2; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getLabelIDTerminalRuleCall_2_0() { return cLabelIDTerminalRuleCall_2_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
@@ -135,18 +137,18 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cVerificationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cCategoriesKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Assignment cLabelAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cLabelIDTerminalRuleCall_2_0 = (RuleCall)cLabelAssignment_2.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cCategoryVerificationCategoryParserRuleCall_4_0 = (RuleCall)cCategoryAssignment_4.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//VerificationCategories:
-		//	"Verification" "categories" name=ID "[" category+=VerificationCategory+ "]";
+		//	"Verification" "categories" label=ID "[" category+=VerificationCategory+ "]";
 		public ParserRule getRule() { return rule; }
 
-		//"Verification" "categories" name=ID "[" category+=VerificationCategory+ "]"
+		//"Verification" "categories" label=ID "[" category+=VerificationCategory+ "]"
 		public Group getGroup() { return cGroup; }
 
 		//"Verification"
@@ -155,11 +157,11 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//"categories"
 		public Keyword getCategoriesKeyword_1() { return cCategoriesKeyword_1; }
 
-		//name=ID
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		//label=ID
+		public Assignment getLabelAssignment_2() { return cLabelAssignment_2; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
+		public RuleCall getLabelIDTerminalRuleCall_2_0() { return cLabelIDTerminalRuleCall_2_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
@@ -184,13 +186,15 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cExtendsKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cExtendsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final CrossReference cExtendsRequirementCategoryCrossReference_2_1_0 = (CrossReference)cExtendsAssignment_2_1.eContents().get(0);
-		private final RuleCall cExtendsRequirementCategoryCATREFParserRuleCall_2_1_0_1 = (RuleCall)cExtendsRequirementCategoryCrossReference_2_1_0.eContents().get(1);
+		private final RuleCall cExtendsRequirementCategoryCatRefParserRuleCall_2_1_0_1 = (RuleCall)cExtendsRequirementCategoryCrossReference_2_1_0.eContents().get(1);
 		
-		//RequirementCategory:
-		//	"category" name=ID ("extends" extends=[RequirementCategory|CATREF])?;
+		/// **
+		// * Requirement category indicates the kind of requirement we are dealing with
+		// * / RequirementCategory:
+		//	"category" name=ID ("extends" extends=[RequirementCategory|CatRef])?;
 		public ParserRule getRule() { return rule; }
 
-		//"category" name=ID ("extends" extends=[RequirementCategory|CATREF])?
+		//"category" name=ID ("extends" extends=[RequirementCategory|CatRef])?
 		public Group getGroup() { return cGroup; }
 
 		//"category"
@@ -202,20 +206,20 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//("extends" extends=[RequirementCategory|CATREF])?
+		//("extends" extends=[RequirementCategory|CatRef])?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"extends"
 		public Keyword getExtendsKeyword_2_0() { return cExtendsKeyword_2_0; }
 
-		//extends=[RequirementCategory|CATREF]
+		//extends=[RequirementCategory|CatRef]
 		public Assignment getExtendsAssignment_2_1() { return cExtendsAssignment_2_1; }
 
-		//[RequirementCategory|CATREF]
+		//[RequirementCategory|CatRef]
 		public CrossReference getExtendsRequirementCategoryCrossReference_2_1_0() { return cExtendsRequirementCategoryCrossReference_2_1_0; }
 
-		//CATREF
-		public RuleCall getExtendsRequirementCategoryCATREFParserRuleCall_2_1_0_1() { return cExtendsRequirementCategoryCATREFParserRuleCall_2_1_0_1; }
+		//CatRef
+		public RuleCall getExtendsRequirementCategoryCatRefParserRuleCall_2_1_0_1() { return cExtendsRequirementCategoryCatRefParserRuleCall_2_1_0_1; }
 	}
 
 	public class HazardCategoryElements extends AbstractParserRuleElementFinder {
@@ -228,13 +232,15 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cExtendsKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cExtendsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final CrossReference cExtendsHazardCategoryCrossReference_2_1_0 = (CrossReference)cExtendsAssignment_2_1.eContents().get(0);
-		private final RuleCall cExtendsHazardCategoryCATREFParserRuleCall_2_1_0_1 = (RuleCall)cExtendsHazardCategoryCrossReference_2_1_0.eContents().get(1);
+		private final RuleCall cExtendsHazardCategoryCatRefParserRuleCall_2_1_0_1 = (RuleCall)cExtendsHazardCategoryCrossReference_2_1_0.eContents().get(1);
 		
-		//HazardCategory:
-		//	"category" name=ID ("extends" extends=[HazardCategory|CATREF])?;
+		/// **
+		// * Hazard category indicates the kind of hazard we are dealing with
+		// * / HazardCategory:
+		//	"category" name=ID ("extends" extends=[HazardCategory|CatRef])?;
 		public ParserRule getRule() { return rule; }
 
-		//"category" name=ID ("extends" extends=[HazardCategory|CATREF])?
+		//"category" name=ID ("extends" extends=[HazardCategory|CatRef])?
 		public Group getGroup() { return cGroup; }
 
 		//"category"
@@ -246,20 +252,20 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//("extends" extends=[HazardCategory|CATREF])?
+		//("extends" extends=[HazardCategory|CatRef])?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"extends"
 		public Keyword getExtendsKeyword_2_0() { return cExtendsKeyword_2_0; }
 
-		//extends=[HazardCategory|CATREF]
+		//extends=[HazardCategory|CatRef]
 		public Assignment getExtendsAssignment_2_1() { return cExtendsAssignment_2_1; }
 
-		//[HazardCategory|CATREF]
+		//[HazardCategory|CatRef]
 		public CrossReference getExtendsHazardCategoryCrossReference_2_1_0() { return cExtendsHazardCategoryCrossReference_2_1_0; }
 
-		//CATREF
-		public RuleCall getExtendsHazardCategoryCATREFParserRuleCall_2_1_0_1() { return cExtendsHazardCategoryCATREFParserRuleCall_2_1_0_1; }
+		//CatRef
+		public RuleCall getExtendsHazardCategoryCatRefParserRuleCall_2_1_0_1() { return cExtendsHazardCategoryCatRefParserRuleCall_2_1_0_1; }
 	}
 
 	public class VerificationCategoryElements extends AbstractParserRuleElementFinder {
@@ -272,13 +278,15 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cExtendsKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cExtendsAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final CrossReference cExtendsVerificationCategoryCrossReference_2_1_0 = (CrossReference)cExtendsAssignment_2_1.eContents().get(0);
-		private final RuleCall cExtendsVerificationCategoryCATREFParserRuleCall_2_1_0_1 = (RuleCall)cExtendsVerificationCategoryCrossReference_2_1_0.eContents().get(1);
+		private final RuleCall cExtendsVerificationCategoryCatRefParserRuleCall_2_1_0_1 = (RuleCall)cExtendsVerificationCategoryCrossReference_2_1_0.eContents().get(1);
 		
-		//VerificationCategory:
-		//	"category" name=ID ("extends" extends=[VerificationCategory|CATREF])?;
+		/// **
+		// * Verification category indicates the kind of verification we are dealing with
+		// * / VerificationCategory:
+		//	"category" name=ID ("extends" extends=[VerificationCategory|CatRef])?;
 		public ParserRule getRule() { return rule; }
 
-		//"category" name=ID ("extends" extends=[VerificationCategory|CATREF])?
+		//"category" name=ID ("extends" extends=[VerificationCategory|CatRef])?
 		public Group getGroup() { return cGroup; }
 
 		//"category"
@@ -290,20 +298,20 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//("extends" extends=[VerificationCategory|CATREF])?
+		//("extends" extends=[VerificationCategory|CatRef])?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"extends"
 		public Keyword getExtendsKeyword_2_0() { return cExtendsKeyword_2_0; }
 
-		//extends=[VerificationCategory|CATREF]
+		//extends=[VerificationCategory|CatRef]
 		public Assignment getExtendsAssignment_2_1() { return cExtendsAssignment_2_1; }
 
-		//[VerificationCategory|CATREF]
+		//[VerificationCategory|CatRef]
 		public CrossReference getExtendsVerificationCategoryCrossReference_2_1_0() { return cExtendsVerificationCategoryCrossReference_2_1_0; }
 
-		//CATREF
-		public RuleCall getExtendsVerificationCategoryCATREFParserRuleCall_2_1_0_1() { return cExtendsVerificationCategoryCATREFParserRuleCall_2_1_0_1; }
+		//CatRef
+		public RuleCall getExtendsVerificationCategoryCatRefParserRuleCall_2_1_0_1() { return cExtendsVerificationCategoryCatRefParserRuleCall_2_1_0_1; }
 	}
 	
 	
@@ -370,8 +378,10 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getCategoriesAccess().getRule();
 	}
 
-	//RequirementCategories:
-	//	"requirement" "categories" name=ID "[" category+=RequirementCategory+ "]";
+	/// **
+	// * requirement categories uses a label instead of name to make the category itself global
+	// * / RequirementCategories:
+	//	"requirement" "categories" label=ID "[" category+=RequirementCategory+ "]";
 	public RequirementCategoriesElements getRequirementCategoriesAccess() {
 		return pRequirementCategories;
 	}
@@ -381,7 +391,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//HazardCategories:
-	//	"hazard" "categories" name=ID "[" category+=HazardCategory+ "]";
+	//	"hazard" "categories" label=ID "[" category+=HazardCategory+ "]";
 	public HazardCategoriesElements getHazardCategoriesAccess() {
 		return pHazardCategories;
 	}
@@ -391,7 +401,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationCategories:
-	//	"Verification" "categories" name=ID "[" category+=VerificationCategory+ "]";
+	//	"Verification" "categories" label=ID "[" category+=VerificationCategory+ "]";
 	public VerificationCategoriesElements getVerificationCategoriesAccess() {
 		return pVerificationCategories;
 	}
@@ -400,8 +410,10 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationCategoriesAccess().getRule();
 	}
 
-	//RequirementCategory:
-	//	"category" name=ID ("extends" extends=[RequirementCategory|CATREF])?;
+	/// **
+	// * Requirement category indicates the kind of requirement we are dealing with
+	// * / RequirementCategory:
+	//	"category" name=ID ("extends" extends=[RequirementCategory|CatRef])?;
 	public RequirementCategoryElements getRequirementCategoryAccess() {
 		return pRequirementCategory;
 	}
@@ -410,8 +422,10 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getRequirementCategoryAccess().getRule();
 	}
 
-	//HazardCategory:
-	//	"category" name=ID ("extends" extends=[HazardCategory|CATREF])?;
+	/// **
+	// * Hazard category indicates the kind of hazard we are dealing with
+	// * / HazardCategory:
+	//	"category" name=ID ("extends" extends=[HazardCategory|CatRef])?;
 	public HazardCategoryElements getHazardCategoryAccess() {
 		return pHazardCategory;
 	}
@@ -420,8 +434,10 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getHazardCategoryAccess().getRule();
 	}
 
-	//VerificationCategory:
-	//	"category" name=ID ("extends" extends=[VerificationCategory|CATREF])?;
+	/// **
+	// * Verification category indicates the kind of verification we are dealing with
+	// * / VerificationCategory:
+	//	"category" name=ID ("extends" extends=[VerificationCategory|CatRef])?;
 	public VerificationCategoryElements getVerificationCategoryAccess() {
 		return pVerificationCategory;
 	}
@@ -481,36 +497,47 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// dotted path as relative reference
-	//DOTTEDREF:
+	//QualifiedName:
 	//	ID ("." ID)*;
-	public CommonGrammarAccess.DOTTEDREFElements getDOTTEDREFAccess() {
-		return gaCommon.getDOTTEDREFAccess();
+	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
+		return gaCommon.getQualifiedNameAccess();
 	}
 	
-	public ParserRule getDOTTEDREFRule() {
-		return getDOTTEDREFAccess().getRule();
+	public ParserRule getQualifiedNameRule() {
+		return getQualifiedNameAccess().getRule();
 	}
 
-	//// :: qualified classifier reference
-	//QNEREF:
-	//	(ID "::")* ID ("." ID)?;
-	public CommonGrammarAccess.QNEREFElements getQNEREFAccess() {
-		return gaCommon.getQNEREFAccess();
+	//// qualified named with wildcard
+	//QualifiedNameWithWildcard:
+	//	QualifiedName ".*"?;
+	public CommonGrammarAccess.QualifiedNameWithWildcardElements getQualifiedNameWithWildcardAccess() {
+		return gaCommon.getQualifiedNameWithWildcardAccess();
 	}
 	
-	public ParserRule getQNEREFRule() {
-		return getQNEREFAccess().getRule();
+	public ParserRule getQualifiedNameWithWildcardRule() {
+		return getQualifiedNameWithWildcardAccess().getRule();
 	}
 
-	//// dotted path as relative reference
-	//CATREF:
-	//	ID ("." ID)?;
-	public CommonGrammarAccess.CATREFElements getCATREFAccess() {
-		return gaCommon.getCATREFAccess();
+	//// Qualified classifier reference
+	//AadlClassifierReference:
+	//	(ID "::")+ ID ("." ID)?;
+	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
+		return gaCommon.getAadlClassifierReferenceAccess();
 	}
 	
-	public ParserRule getCATREFRule() {
-		return getCATREFAccess().getRule();
+	public ParserRule getAadlClassifierReferenceRule() {
+		return getAadlClassifierReferenceAccess().getRule();
+	}
+
+	//// Category reference. Currently it is only a single ID
+	//CatRef: //('.' ID)?
+	//	ID;
+	public CommonGrammarAccess.CatRefElements getCatRefAccess() {
+		return gaCommon.getCatRefAccess();
+	}
+	
+	public ParserRule getCatRefRule() {
+		return getCatRefAccess().getRule();
 	}
 
 	//terminal ID:

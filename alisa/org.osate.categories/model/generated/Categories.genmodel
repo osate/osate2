@@ -8,7 +8,7 @@
   <genPackages prefix="Categories" basePackage="org.osate.categories" disposableProviderFactory="true"
       fileExtensions="cat" ecorePackage="Categories.ecore#/">
     <genClasses ecoreClass="Categories.ecore#//Categories">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//Categories/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//Categories/label"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//RequirementCategories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategories/category"/>

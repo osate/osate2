@@ -154,7 +154,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCategories_Name()
+  public EAttribute getCategories_Label()
   {
     return (EAttribute)categoriesEClass.getEStructuralFeatures().get(0);
   }
@@ -340,7 +340,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     // Create classes and their features
     categoriesEClass = createEClass(CATEGORIES);
-    createEAttribute(categoriesEClass, CATEGORIES__NAME);
+    createEAttribute(categoriesEClass, CATEGORIES__LABEL);
 
     requirementCategoriesEClass = createEClass(REQUIREMENT_CATEGORIES);
     createEReference(requirementCategoriesEClass, REQUIREMENT_CATEGORIES__CATEGORY);
@@ -399,7 +399,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     // Initialize classes and features; add operations and parameters
     initEClass(categoriesEClass, Categories.class, "Categories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getCategories_Name(), ecorePackage.getEString(), "name", null, 0, 1, Categories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCategories_Label(), ecorePackage.getEString(), "label", null, 0, 1, Categories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(requirementCategoriesEClass, RequirementCategories.class, "RequirementCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRequirementCategories_Category(), this.getRequirementCategory(), null, "category", null, 0, -1, RequirementCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

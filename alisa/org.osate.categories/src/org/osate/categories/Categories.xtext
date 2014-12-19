@@ -3,38 +3,48 @@ grammar org.osate.categories.Categories with org.osate.alisa.common.Common
 generate categories "http://www.osate.org/categories/Categories"
 
 Categories : RequirementCategories | HazardCategories | VerificationCategories;
-
+/**
+ * requirement categories uses a label instead of name to make the category itself global
+ */
 RequirementCategories :
-	'requirement''categories' name = ID
+	'requirement''categories' label = ID
 	'[' category += RequirementCategory+
 	']'
 ;
 
 
 HazardCategories :
-	'hazard' 'categories' name = ID
+	'hazard' 'categories' label = ID
 	'[' category += HazardCategory+
 	']'
 ;
 
 VerificationCategories :
-	'Verification' 'categories' name = ID
+	'Verification' 'categories' label = ID
 	'[' category += VerificationCategory+
 	']'
 ;
 
-
+/**
+ * Requirement category indicates the kind of requirement we are dealing with
+ */
 RequirementCategory :
-	'category' name = ID ('extends' extends=[RequirementCategory|CATREF])? 
+	'category' name = ID ('extends' extends=[RequirementCategory|CatRef])? 
 ;
 
 
+/**
+ * Hazard category indicates the kind of hazard we are dealing with
+ */
 HazardCategory :
-	'category' name = ID ('extends' extends=[HazardCategory|CATREF])? 
+	'category' name = ID ('extends' extends=[HazardCategory|CatRef])? 
 ;
 
 
+/**
+ * Verification category indicates the kind of verification we are dealing with
+ */
 VerificationCategory :
-	'category' name = ID ('extends' extends=[VerificationCategory|CATREF])? 
+	'category' name = ID ('extends' extends=[VerificationCategory|CatRef])? 
 ;
 

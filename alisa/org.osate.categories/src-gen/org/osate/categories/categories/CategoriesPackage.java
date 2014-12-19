@@ -67,13 +67,13 @@ public interface CategoriesPackage extends EPackage
   int CATEGORIES = 0;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Label</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CATEGORIES__NAME = 0;
+  int CATEGORIES__LABEL = 0;
 
   /**
    * The number of structural features of the '<em>Categories</em>' class.
@@ -95,13 +95,13 @@ public interface CategoriesPackage extends EPackage
   int REQUIREMENT_CATEGORIES = 1;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Label</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT_CATEGORIES__NAME = CATEGORIES__NAME;
+  int REQUIREMENT_CATEGORIES__LABEL = CATEGORIES__LABEL;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -132,13 +132,13 @@ public interface CategoriesPackage extends EPackage
   int HAZARD_CATEGORIES = 2;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Label</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int HAZARD_CATEGORIES__NAME = CATEGORIES__NAME;
+  int HAZARD_CATEGORIES__LABEL = CATEGORIES__LABEL;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -169,13 +169,13 @@ public interface CategoriesPackage extends EPackage
   int VERIFICATION_CATEGORIES = 3;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Label</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORIES__NAME = CATEGORIES__NAME;
+  int VERIFICATION_CATEGORIES__LABEL = CATEGORIES__LABEL;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -318,15 +318,15 @@ public interface CategoriesPackage extends EPackage
   EClass getCategories();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.categories.categories.Categories#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.categories.categories.Categories#getLabel <em>Label</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.categories.categories.Categories#getName()
+   * @return the meta object for the attribute '<em>Label</em>'.
+   * @see org.osate.categories.categories.Categories#getLabel()
    * @see #getCategories()
    * @generated
    */
-  EAttribute getCategories_Name();
+  EAttribute getCategories_Label();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.RequirementCategories <em>Requirement Categories</em>}'.
@@ -521,12 +521,12 @@ public interface CategoriesPackage extends EPackage
     EClass CATEGORIES = eINSTANCE.getCategories();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CATEGORIES__NAME = eINSTANCE.getCategories_Name();
+    EAttribute CATEGORIES__LABEL = eINSTANCE.getCategories_Label();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.RequirementCategoriesImpl <em>Requirement Categories</em>}' class.

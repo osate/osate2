@@ -103,7 +103,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID category+=HazardCategory+)
+	 *     (label=ID category+=HazardCategory+)
 	 */
 	protected void sequence_HazardCategories(EObject context, HazardCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -112,7 +112,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID extends=[HazardCategory|CATREF]?)
+	 *     (name=ID extends=[HazardCategory|CatRef]?)
 	 */
 	protected void sequence_HazardCategory(EObject context, HazardCategory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -121,7 +121,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID category+=RequirementCategory+)
+	 *     (label=ID category+=RequirementCategory+)
 	 */
 	protected void sequence_RequirementCategories(EObject context, RequirementCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -130,7 +130,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID extends=[RequirementCategory|CATREF]?)
+	 *     (name=ID extends=[RequirementCategory|CatRef]?)
 	 */
 	protected void sequence_RequirementCategory(EObject context, RequirementCategory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -139,7 +139,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID category+=VerificationCategory+)
+	 *     (label=ID category+=VerificationCategory+)
 	 */
 	protected void sequence_VerificationCategories(EObject context, VerificationCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -148,7 +148,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID extends=[VerificationCategory|CATREF]?)
+	 *     (name=ID extends=[VerificationCategory|CatRef]?)
 	 */
 	protected void sequence_VerificationCategory(EObject context, VerificationCategory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
