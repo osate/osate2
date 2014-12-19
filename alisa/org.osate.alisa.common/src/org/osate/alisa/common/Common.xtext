@@ -20,6 +20,9 @@ DescriptionElement :
  	ref = [ecore::EObject|ID] ('.' subpath=ReferencePath)
  ;
 
+Import:
+'import' importedNamespace = QualifiedNameWithWildcard
+;
 	
 ValueString :
 	// remove quotes from string in ValueConverter 
