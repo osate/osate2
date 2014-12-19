@@ -6,16 +6,33 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/organization/Organization" as org
 
-ReqSpecModel: ReqSpecContainer  ;
+ReqSpec: ReqSpecModel | ReqSpecDocument ;
 
+ReqSpecContainer: ReqSpec | ReqSpecFolder;
 ContractualElement: Goal | Requirement  | Hazard;
+
+ReqSpecModel returns ReqSpecModel:
+	'package' name =ID 
+	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
+	( ^import += Import)*
+	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
+	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
+	']'
+	;
 	
+ReqSpecDocument returns ReqSpecDocument:
+	'document' name =ID ('@' docref = ExternalDocument)?
+	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
+	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
+	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
+	']'
+	;
 
-
-ReqSpecContainer returns ReqSpecContainer:
-	'container' name =ID 
-	'[' ( 'for' target=[aadl2::NamedElement|QNEREF])?
-	(content+= (Goal | Requirement |  ReqSpecContainer))*
+// does not add to a qualified name
+ReqSpecFolder returns ReqSpecFolder:
+	'container' label =ID 
+	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
+	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
 	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
 	']'
 	;
@@ -29,30 +46,30 @@ RSLVariable :
 
 
 Goal returns Goal:
-	'goal' name=ID 
-'['  (( 'for' target=[aadl2::NamedElement|QNEREF])?
-	 &('category'  category=[categories::RequirementCategory|CATREF])?
+	'goal' name=ID ( 'for' target=[aadl2::NamedElement|AadlClassifierReference])?
+'['  (
+	 ('category'  category=[categories::RequirementCategory|CatRef])?
 	 &('title'  title=ValueString )? 
 	 &('description'  description=Description)? 
 	 &('assertion'  	assert=ValueString )? 
 	 &('rationale'  rationale=ValueString)? 
 	 &('issues'  issue+=ValueString (','issue+=ValueString)* )? 
-	 &('refined' 'to' refinesReference+=[Goal|DOTTEDREF](',' refinesReference+=[Goal|DOTTEDREF])*)? 
+	 &('refined' 'to' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
 	 &( subgoal+=Goal*) 
-	 &('decomposed' 'to' decomposesReference+=[Goal|DOTTEDREF](',' decomposesReference+=[Goal|DOTTEDREF])*)? 
-	 &('evolves'  evolvesReference+=[Goal|DOTTEDREF](',' evolvesReference+=[Goal|DOTTEDREF])*)? 
-	 &('conflicts'  conflictsReference+=[Goal|DOTTEDREF](',' conflictsReference+=[Goal|DOTTEDREF])*)? 
-	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|DOTTEDREF] (',' stakeholderReference+=[org::Stakeholder|DOTTEDREF])*)?
-	 &('see' 'goal'  stakeholderRequirementReference+=[Goal|DOTTEDREF] (',' stakeholderRequirementReference+=[Goal|DOTTEDREF])*)?
-	 &('see' 'requirement'  systemRequirementReference+=[ContractualElement|DOTTEDREF] (',' systemRequirementReference+=[ContractualElement|DOTTEDREF])*)?
+	 &('decomposed' 'to' decomposesReference+=[Goal|QualifiedName](',' decomposesReference+=[Goal|QualifiedName])*)? 
+	 &('evolves'  evolvesReference+=[Goal|QualifiedName](',' evolvesReference+=[Goal|QualifiedName])*)? 
+	 &('conflicts'  conflictsReference+=[Goal|QualifiedName](',' conflictsReference+=[Goal|QualifiedName])*)? 
+	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName] (',' stakeholderReference+=[org::Stakeholder|QualifiedName])*)?
+	 &('see' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
+	 &('see' 'requirement'  systemRequirementReference+=[ContractualElement|QualifiedName] (',' systemRequirementReference+=[ContractualElement|QualifiedName])*)?
 	 &('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
 	)
 	 ']';
 	
 Requirement:
 	'requirement'  name=ID   
-'['	(( 'for' target=[aadl2::NamedElement|QNEREF])?
- 	&('category'  category=[categories::RequirementCategory|CATREF])?
+'['	(( 'for' target=[aadl2::NamedElement|AadlClassifierReference])?
+ 	&('category'  category=[categories::RequirementCategory|CatRef])?
 	&('title'  title=ValueString)? 
 	&('description'  description=Description)? 
 	&('assertion'  assert=ValueString)?  // predicate expression 
@@ -60,14 +77,14 @@ Requirement:
 	& (reqValue += RSLVariable)*
 	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
 	&('see' 'goal'  goalReference+=[Goal] (',' goalReference+=[Goal])*)?
-	&('see' 'hazard'  hazardReference+=QNEREF (',' hazardReference+=QNEREF)*)? // hazardReference+=[aadl2::NamedElement|QNEREF]
-	&('refines'  refinesReference+=[Requirement|DOTTEDREF](',' refinesReference+=[Requirement|DOTTEDREF])*)? 
+	&('see' 'hazard'  hazardReference+=AadlClassifierReference (',' hazardReference+=AadlClassifierReference)*)? // hazardReference+=[aadl2::NamedElement|AadlClassifierReference]
+	&('refines'  refinesReference+=[Requirement|QualifiedName](',' refinesReference+=[Requirement|QualifiedName])*)? 
 	 &( subrequirement+=Requirement*) 
-	&('decomposes'  decomposesReference+=[Requirement|DOTTEDREF](',' decomposesReference+=[Requirement|DOTTEDREF])*)? 
-	&('evolves'  evolvesReference+=[Requirement|DOTTEDREF](',' evolvesReference+=[Requirement|DOTTEDREF])*)? 
-	&('see' 'goal'  stakeholderRequirementReference+=[Goal|DOTTEDREF] (',' stakeholderRequirementReference+=[Goal|DOTTEDREF])*)?
-	&('see' 'requirement'  systemRequirementReference+=[ContractualElement|DOTTEDREF] (',' systemRequirementReference+=[ContractualElement|DOTTEDREF])*)?
-//	&('verified by' verifiedBy=[VerificationPlan|DOTTEDREF] )?
+	&('decomposes'  decomposesReference+=[Requirement|QualifiedName](',' decomposesReference+=[Requirement|QualifiedName])*)? 
+	&('evolves'  evolvesReference+=[Requirement|QualifiedName](',' evolvesReference+=[Requirement|QualifiedName])*)? 
+	&('see' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
+	&('see' 'requirement'  systemRequirementReference+=[ContractualElement|QualifiedName] (',' systemRequirementReference+=[ContractualElement|QualifiedName])*)?
+//	&('verified by' verifiedBy=[VerificationPlan|QualifiedName] )?
 	&('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
 	)
 	']';
@@ -76,11 +93,11 @@ Requirement:
 	
 Hazard:
 	'hazard'  name=ID   
-	'['(( 'for' target=[aadl2::NamedElement|QNEREF])?
- 	&('category'  category=[categories::HazardCategory|CATREF])?
+	'['(( 'for' target=[aadl2::NamedElement|AadlClassifierReference])?
+ 	&('category'  category=[categories::HazardCategory|CatRef])?
 	&('title'  title=ValueString)? 
 	&('description'  description=ValueString)? 
-	&('mitigated' 'by'  mitigated=[Requirement|DOTTEDREF])? 
+	&('mitigated' 'by'  mitigated=[Requirement|QualifiedName])? 
 	&('rationale'  rationale=ValueString)? 
 	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
 	)

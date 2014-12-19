@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Classifier;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +16,6 @@ import org.osate.aadl2.NamedElement;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecContainer#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecContainer#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecContainer#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecContainer#getIssue <em>Issue</em>}</li>
@@ -27,34 +26,8 @@ import org.osate.aadl2.NamedElement;
  * @model
  * @generated
  */
-public interface ReqSpecContainer extends ReqSpecModel
+public interface ReqSpecContainer extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecContainer_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ReqSpecContainer#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
@@ -64,12 +37,12 @@ public interface ReqSpecContainer extends ReqSpecModel
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(NamedElement)
+   * @see #setTarget(Classifier)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecContainer_Target()
    * @model
    * @generated
    */
-  NamedElement getTarget();
+  Classifier getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.reqspec.reqSpec.ReqSpecContainer#getTarget <em>Target</em>}' reference.
@@ -79,7 +52,7 @@ public interface ReqSpecContainer extends ReqSpecModel
    * @see #getTarget()
    * @generated
    */
-  void setTarget(NamedElement value);
+  void setTarget(Classifier value);
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

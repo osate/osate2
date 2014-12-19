@@ -3,6 +3,14 @@
  */
 package org.osate.reqspec.scoping
 
+import org.osate.aadl2.Element
+import org.eclipse.emf.ecore.EReference
+import org.osate.aadl2.Classifier
+import org.osate.reqspec.reqSpec.ReqSpecContainer
+import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+
+import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+
 /**
  * This class contains custom scoping description.
  * 
@@ -10,6 +18,11 @@ package org.osate.reqspec.scoping
  * on how and when to use it 
  *
  */
-class ReqSpecScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider {
+class ReqSpecScopeProvider extends AbstractDeclarativeScopeProvider {
+	//Reference is from Goal
+	def scope_Goal_target(Element context, EReference reference) {
+		context.getContainerOfType(ReqSpecContainer).target
+		//.allPrototypes.filter(DataSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
+	}
 
 }

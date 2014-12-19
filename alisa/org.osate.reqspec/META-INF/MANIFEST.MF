@@ -38,5 +38,6 @@ Export-Package: org.osate.reqspec,
  org.osate.reqspec.validation,
  org.osate.reqspec.scoping,
  org.osate.reqspec.generator,
- org.osate.reqspec.formatting
+ org.osate.reqspec.formatting,
+ org.osate.reqspec.parser.antlr.lexer
 Import-Package: org.apache.log4j

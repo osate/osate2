@@ -23,8 +23,11 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.Hazard;
 import org.osate.reqspec.reqSpec.RSLVariable;
+import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecContainer;
+import org.osate.reqspec.reqSpec.ReqSpecDocument;
 import org.osate.reqspec.reqSpec.ReqSpecFactory;
+import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecModel;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
@@ -42,7 +45,14 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass reqSpecModelEClass = null;
+  private EClass reqSpecEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass reqSpecContainerEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -56,7 +66,21 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass reqSpecContainerEClass = null;
+  private EClass reqSpecModelEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass reqSpecDocumentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass reqSpecFolderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -167,9 +191,59 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getReqSpecModel()
+  public EClass getReqSpec()
   {
-    return reqSpecModelEClass;
+    return reqSpecEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getReqSpec_Name()
+  {
+    return (EAttribute)reqSpecEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getReqSpecContainer()
+  {
+    return reqSpecContainerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getReqSpecContainer_Target()
+  {
+    return (EReference)reqSpecContainerEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getReqSpecContainer_Content()
+  {
+    return (EReference)reqSpecContainerEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getReqSpecContainer_Issue()
+  {
+    return (EAttribute)reqSpecContainerEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -237,9 +311,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getReqSpecContainer()
+  public EClass getReqSpecModel()
   {
-    return reqSpecContainerEClass;
+    return reqSpecModelEClass;
   }
 
   /**
@@ -247,9 +321,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getReqSpecContainer_Name()
+  public EReference getReqSpecModel_Import()
   {
-    return (EAttribute)reqSpecContainerEClass.getEStructuralFeatures().get(0);
+    return (EReference)reqSpecModelEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -257,9 +331,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getReqSpecContainer_Target()
+  public EClass getReqSpecDocument()
   {
-    return (EReference)reqSpecContainerEClass.getEStructuralFeatures().get(1);
+    return reqSpecDocumentEClass;
   }
 
   /**
@@ -267,9 +341,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getReqSpecContainer_Content()
+  public EReference getReqSpecDocument_Docref()
   {
-    return (EReference)reqSpecContainerEClass.getEStructuralFeatures().get(2);
+    return (EReference)reqSpecDocumentEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -277,9 +351,19 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getReqSpecContainer_Issue()
+  public EClass getReqSpecFolder()
   {
-    return (EAttribute)reqSpecContainerEClass.getEStructuralFeatures().get(3);
+    return reqSpecFolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getReqSpecFolder_Label()
+  {
+    return (EAttribute)reqSpecFolderEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -682,7 +766,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     isCreated = true;
 
     // Create classes and their features
-    reqSpecModelEClass = createEClass(REQ_SPEC_MODEL);
+    reqSpecEClass = createEClass(REQ_SPEC);
+    createEAttribute(reqSpecEClass, REQ_SPEC__NAME);
+
+    reqSpecContainerEClass = createEClass(REQ_SPEC_CONTAINER);
+    createEReference(reqSpecContainerEClass, REQ_SPEC_CONTAINER__TARGET);
+    createEReference(reqSpecContainerEClass, REQ_SPEC_CONTAINER__CONTENT);
+    createEAttribute(reqSpecContainerEClass, REQ_SPEC_CONTAINER__ISSUE);
 
     contractualElementEClass = createEClass(CONTRACTUAL_ELEMENT);
     createEAttribute(contractualElementEClass, CONTRACTUAL_ELEMENT__NAME);
@@ -691,11 +781,14 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEAttribute(contractualElementEClass, CONTRACTUAL_ELEMENT__RATIONALE);
     createEAttribute(contractualElementEClass, CONTRACTUAL_ELEMENT__ISSUE);
 
-    reqSpecContainerEClass = createEClass(REQ_SPEC_CONTAINER);
-    createEAttribute(reqSpecContainerEClass, REQ_SPEC_CONTAINER__NAME);
-    createEReference(reqSpecContainerEClass, REQ_SPEC_CONTAINER__TARGET);
-    createEReference(reqSpecContainerEClass, REQ_SPEC_CONTAINER__CONTENT);
-    createEAttribute(reqSpecContainerEClass, REQ_SPEC_CONTAINER__ISSUE);
+    reqSpecModelEClass = createEClass(REQ_SPEC_MODEL);
+    createEReference(reqSpecModelEClass, REQ_SPEC_MODEL__IMPORT);
+
+    reqSpecDocumentEClass = createEClass(REQ_SPEC_DOCUMENT);
+    createEReference(reqSpecDocumentEClass, REQ_SPEC_DOCUMENT__DOCREF);
+
+    reqSpecFolderEClass = createEClass(REQ_SPEC_FOLDER);
+    createEAttribute(reqSpecFolderEClass, REQ_SPEC_FOLDER__LABEL);
 
     rslVariableEClass = createEClass(RSL_VARIABLE);
     createEAttribute(rslVariableEClass, RSL_VARIABLE__NAME);
@@ -767,8 +860,8 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
-    CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
     CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+    CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
     OrganizationPackage theOrganizationPackage = (OrganizationPackage)EPackage.Registry.INSTANCE.getEPackage(OrganizationPackage.eNS_URI);
 
     // Create type parameters
@@ -776,13 +869,22 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    reqSpecContainerEClass.getESuperTypes().add(this.getReqSpecModel());
+    reqSpecEClass.getESuperTypes().add(this.getReqSpecContainer());
+    reqSpecModelEClass.getESuperTypes().add(this.getReqSpec());
+    reqSpecDocumentEClass.getESuperTypes().add(this.getReqSpec());
+    reqSpecFolderEClass.getESuperTypes().add(this.getReqSpecContainer());
     goalEClass.getESuperTypes().add(this.getContractualElement());
     requirementEClass.getESuperTypes().add(this.getContractualElement());
     hazardEClass.getESuperTypes().add(this.getContractualElement());
 
     // Initialize classes and features; add operations and parameters
-    initEClass(reqSpecModelEClass, ReqSpecModel.class, "ReqSpecModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(reqSpecEClass, ReqSpec.class, "ReqSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getReqSpec_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ReqSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(reqSpecContainerEClass, ReqSpecContainer.class, "ReqSpecContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getReqSpecContainer_Target(), theAadl2Package.getClassifier(), null, "target", null, 0, 1, ReqSpecContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReqSpecContainer_Content(), theEcorePackage.getEObject(), null, "content", null, 0, -1, ReqSpecContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getReqSpecContainer_Issue(), theEcorePackage.getEString(), "issue", null, 0, -1, ReqSpecContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(contractualElementEClass, ContractualElement.class, "ContractualElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getContractualElement_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -791,11 +893,14 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getContractualElement_Rationale(), theEcorePackage.getEString(), "rationale", null, 0, 1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getContractualElement_Issue(), theEcorePackage.getEString(), "issue", null, 0, -1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(reqSpecContainerEClass, ReqSpecContainer.class, "ReqSpecContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getReqSpecContainer_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ReqSpecContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getReqSpecContainer_Target(), theAadl2Package.getNamedElement(), null, "target", null, 0, 1, ReqSpecContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getReqSpecContainer_Content(), theEcorePackage.getEObject(), null, "content", null, 0, -1, ReqSpecContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getReqSpecContainer_Issue(), theEcorePackage.getEString(), "issue", null, 0, -1, ReqSpecContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(reqSpecModelEClass, ReqSpecModel.class, "ReqSpecModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getReqSpecModel_Import(), theCommonPackage.getImport(), null, "import", null, 0, -1, ReqSpecModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(reqSpecDocumentEClass, ReqSpecDocument.class, "ReqSpecDocument", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getReqSpecDocument_Docref(), this.getExternalDocument(), null, "docref", null, 0, 1, ReqSpecDocument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(reqSpecFolderEClass, ReqSpecFolder.class, "ReqSpecFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getReqSpecFolder_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ReqSpecFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rslVariableEClass, RSLVariable.class, "RSLVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getRSLVariable_Name(), theEcorePackage.getEString(), "name", null, 0, 1, RSLVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

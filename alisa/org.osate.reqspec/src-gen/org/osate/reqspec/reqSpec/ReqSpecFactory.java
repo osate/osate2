@@ -23,13 +23,22 @@ public interface ReqSpecFactory extends EFactory
   ReqSpecFactory eINSTANCE = org.osate.reqspec.reqSpec.impl.ReqSpecFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Model</em>'.
+   * Returns a new object of class '<em>Req Spec</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Model</em>'.
+   * @return a new object of class '<em>Req Spec</em>'.
    * @generated
    */
-  ReqSpecModel createReqSpecModel();
+  ReqSpec createReqSpec();
+
+  /**
+   * Returns a new object of class '<em>Container</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Container</em>'.
+   * @generated
+   */
+  ReqSpecContainer createReqSpecContainer();
 
   /**
    * Returns a new object of class '<em>Contractual Element</em>'.
@@ -41,13 +50,31 @@ public interface ReqSpecFactory extends EFactory
   ContractualElement createContractualElement();
 
   /**
-   * Returns a new object of class '<em>Container</em>'.
+   * Returns a new object of class '<em>Model</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Container</em>'.
+   * @return a new object of class '<em>Model</em>'.
    * @generated
    */
-  ReqSpecContainer createReqSpecContainer();
+  ReqSpecModel createReqSpecModel();
+
+  /**
+   * Returns a new object of class '<em>Document</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Document</em>'.
+   * @generated
+   */
+  ReqSpecDocument createReqSpecDocument();
+
+  /**
+   * Returns a new object of class '<em>Folder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Folder</em>'.
+   * @generated
+   */
+  ReqSpecFolder createReqSpecFolder();
 
   /**
    * Returns a new object of class '<em>RSL Variable</em>'.

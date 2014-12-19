@@ -5,8 +5,8 @@ package org.osate.reqspec.formatting
 
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter
 import org.eclipse.xtext.formatting.impl.FormattingConfig
-// import com.google.inject.Inject;
-// import org.osate.reqspec.services.ReqSpecGrammarAccess
+ import com.google.inject.Inject;
+ import org.osate.reqspec.services.ReqSpecGrammarAccess
 
 /**
  * This class contains custom formatting description.
@@ -18,13 +18,30 @@ import org.eclipse.xtext.formatting.impl.FormattingConfig
  */
 class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 
-//	@Inject extension ReqSpecGrammarAccess
+	@Inject extension ReqSpecGrammarAccess
 	
 	override protected void configureFormatting(FormattingConfig c) {
 // It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments
-//		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
-//		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
-//		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
+		c.setAutoLinewrap(120);
+		c.setWrappedLineIndentation(2);
+		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
+		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
+		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
+	    for ( pair : _reqSpecGrammarAccess.findKeywordPairs("[", "]")) {
+		      c.setIndentationIncrement().after(pair.first);
+		      c.setLinewrap().after(pair.first);
+		      c.setIndentationDecrement().before(pair.second);
+		      c.setLinewrap().before(pair.second);
+		    }
+		for (kw : _reqSpecGrammarAccess.findKeywords("requirement")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : _reqSpecGrammarAccess.findKeywords("goal")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : _reqSpecGrammarAccess.findKeywords("hazard")) {
+			c.setLinewrap().before(kw);
+		}
 	}
 }

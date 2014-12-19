@@ -15,6 +15,7 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransi
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.Import;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.ReferencePath;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
@@ -22,7 +23,9 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.Hazard;
 import org.osate.reqspec.reqSpec.RSLVariable;
-import org.osate.reqspec.reqSpec.ReqSpecContainer;
+import org.osate.reqspec.reqSpec.ReqSpecDocument;
+import org.osate.reqspec.reqSpec.ReqSpecFolder;
+import org.osate.reqspec.reqSpec.ReqSpecModel;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
@@ -44,6 +47,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.DESCRIPTION_ELEMENT:
 				if(context == grammarAccess.getDescriptionElementRule()) {
 					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.IMPORT:
+				if(context == grammarAccess.getImportRule()) {
+					sequence_Import(context, (Import) semanticObject); 
 					return; 
 				}
 				else break;
@@ -87,10 +96,26 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case ReqSpecPackage.REQ_SPEC_CONTAINER:
+			case ReqSpecPackage.REQ_SPEC_DOCUMENT:
+				if(context == grammarAccess.getReqSpecRule() ||
+				   context == grammarAccess.getReqSpecContainerRule() ||
+				   context == grammarAccess.getReqSpecDocumentRule()) {
+					sequence_ReqSpecDocument(context, (ReqSpecDocument) semanticObject); 
+					return; 
+				}
+				else break;
+			case ReqSpecPackage.REQ_SPEC_FOLDER:
 				if(context == grammarAccess.getReqSpecContainerRule() ||
+				   context == grammarAccess.getReqSpecFolderRule()) {
+					sequence_ReqSpecFolder(context, (ReqSpecFolder) semanticObject); 
+					return; 
+				}
+				else break;
+			case ReqSpecPackage.REQ_SPEC_MODEL:
+				if(context == grammarAccess.getReqSpecRule() ||
+				   context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getReqSpecModelRule()) {
-					sequence_ReqSpecContainer(context, (ReqSpecContainer) semanticObject); 
+					sequence_ReqSpecModel(context, (ReqSpecModel) semanticObject); 
 					return; 
 				}
 				else break;
@@ -118,21 +143,21 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|QNEREF]? 
-	 *         category=[RequirementCategory|CATREF]? 
+	 *         target=[NamedElement|AadlClassifierReference]? 
+	 *         category=[RequirementCategory|CatRef]? 
 	 *         title=ValueString? 
 	 *         description=Description? 
 	 *         assert=ValueString? 
 	 *         rationale=ValueString? 
 	 *         (issue+=ValueString issue+=ValueString*)? 
-	 *         (refinesReference+=[Goal|DOTTEDREF] refinesReference+=[Goal|DOTTEDREF]*)? 
+	 *         (refinesReference+=[Goal|QualifiedName] refinesReference+=[Goal|QualifiedName]*)? 
 	 *         subgoal+=Goal* 
-	 *         (decomposesReference+=[Goal|DOTTEDREF] decomposesReference+=[Goal|DOTTEDREF]*)? 
-	 *         (evolvesReference+=[Goal|DOTTEDREF] evolvesReference+=[Goal|DOTTEDREF]*)? 
-	 *         (conflictsReference+=[Goal|DOTTEDREF] conflictsReference+=[Goal|DOTTEDREF]*)? 
-	 *         (stakeholderReference+=[Stakeholder|DOTTEDREF] stakeholderReference+=[Stakeholder|DOTTEDREF]*)? 
-	 *         (stakeholderRequirementReference+=[Goal|DOTTEDREF] stakeholderRequirementReference+=[Goal|DOTTEDREF]*)? 
-	 *         (systemRequirementReference+=[ContractualElement|DOTTEDREF] systemRequirementReference+=[ContractualElement|DOTTEDREF]*)? 
+	 *         (decomposesReference+=[Goal|QualifiedName] decomposesReference+=[Goal|QualifiedName]*)? 
+	 *         (evolvesReference+=[Goal|QualifiedName] evolvesReference+=[Goal|QualifiedName]*)? 
+	 *         (conflictsReference+=[Goal|QualifiedName] conflictsReference+=[Goal|QualifiedName]*)? 
+	 *         (stakeholderReference+=[Stakeholder|QualifiedName] stakeholderReference+=[Stakeholder|QualifiedName]*)? 
+	 *         (stakeholderRequirementReference+=[Goal|QualifiedName] stakeholderRequirementReference+=[Goal|QualifiedName]*)? 
+	 *         (systemRequirementReference+=[ContractualElement|QualifiedName] systemRequirementReference+=[ContractualElement|QualifiedName]*)? 
 	 *         (docReference+=ExternalDocument docReference+=ExternalDocument*)?
 	 *     )
 	 */
@@ -145,11 +170,11 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|QNEREF]? 
-	 *         category=[HazardCategory|CATREF]? 
+	 *         target=[NamedElement|AadlClassifierReference]? 
+	 *         category=[HazardCategory|CatRef]? 
 	 *         title=ValueString? 
 	 *         description=ValueString? 
-	 *         mitigated=[Requirement|DOTTEDREF]? 
+	 *         mitigated=[Requirement|QualifiedName]? 
 	 *         rationale=ValueString? 
 	 *         (issue+=ValueString issue+=ValueString*)?
 	 *     )
@@ -182,12 +207,27 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|QNEREF]? 
-	 *         (content+=Goal | content+=Requirement | content+=ReqSpecContainer)* 
+	 *         docref=ExternalDocument? 
+	 *         target=[Classifier|AadlClassifierReference]? 
+	 *         (content+=Goal | content+=Requirement | content+=ReqSpecFolder)* 
 	 *         (issue+=ValueString issue+=ValueString*)?
 	 *     )
 	 */
-	protected void sequence_ReqSpecContainer(EObject context, ReqSpecContainer semanticObject) {
+	protected void sequence_ReqSpecDocument(EObject context, ReqSpecDocument semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         label=ID 
+	 *         target=[Classifier|AadlClassifierReference]? 
+	 *         (content+=Goal | content+=Requirement | content+=ReqSpecFolder)* 
+	 *         (issue+=ValueString issue+=ValueString*)?
+	 *     )
+	 */
+	protected void sequence_ReqSpecFolder(EObject context, ReqSpecFolder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -196,8 +236,23 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|QNEREF]? 
-	 *         category=[RequirementCategory|CATREF]? 
+	 *         target=[Classifier|AadlClassifierReference]? 
+	 *         import+=Import* 
+	 *         (content+=Goal | content+=Requirement | content+=ReqSpecFolder)* 
+	 *         (issue+=ValueString issue+=ValueString*)?
+	 *     )
+	 */
+	protected void sequence_ReqSpecModel(EObject context, ReqSpecModel semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         target=[NamedElement|AadlClassifierReference]? 
+	 *         category=[RequirementCategory|CatRef]? 
 	 *         title=ValueString? 
 	 *         description=Description? 
 	 *         assert=ValueString? 
@@ -205,13 +260,13 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         reqValue+=RSLVariable* 
 	 *         (issue+=ValueString issue+=ValueString*)? 
 	 *         (goalReference+=[Goal|ID] goalReference+=[Goal|ID]*)? 
-	 *         (hazardReference+=QNEREF hazardReference+=QNEREF*)? 
-	 *         (refinesReference+=[Requirement|DOTTEDREF] refinesReference+=[Requirement|DOTTEDREF]*)? 
+	 *         (hazardReference+=AadlClassifierReference hazardReference+=AadlClassifierReference*)? 
+	 *         (refinesReference+=[Requirement|QualifiedName] refinesReference+=[Requirement|QualifiedName]*)? 
 	 *         subrequirement+=Requirement* 
-	 *         (decomposesReference+=[Requirement|DOTTEDREF] decomposesReference+=[Requirement|DOTTEDREF]*)? 
-	 *         (evolvesReference+=[Requirement|DOTTEDREF] evolvesReference+=[Requirement|DOTTEDREF]*)? 
-	 *         (stakeholderRequirementReference+=[Goal|DOTTEDREF] stakeholderRequirementReference+=[Goal|DOTTEDREF]*)? 
-	 *         (systemRequirementReference+=[ContractualElement|DOTTEDREF] systemRequirementReference+=[ContractualElement|DOTTEDREF]*)? 
+	 *         (decomposesReference+=[Requirement|QualifiedName] decomposesReference+=[Requirement|QualifiedName]*)? 
+	 *         (evolvesReference+=[Requirement|QualifiedName] evolvesReference+=[Requirement|QualifiedName]*)? 
+	 *         (stakeholderRequirementReference+=[Goal|QualifiedName] stakeholderRequirementReference+=[Goal|QualifiedName]*)? 
+	 *         (systemRequirementReference+=[ContractualElement|QualifiedName] systemRequirementReference+=[ContractualElement|QualifiedName]*)? 
 	 *         (docReference+=ExternalDocument docReference+=ExternalDocument*)?
 	 *     )
 	 */

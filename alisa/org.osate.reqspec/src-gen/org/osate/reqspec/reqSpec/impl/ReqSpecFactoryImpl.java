@@ -64,9 +64,12 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     switch (eClass.getClassifierID())
     {
-      case ReqSpecPackage.REQ_SPEC_MODEL: return createReqSpecModel();
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT: return createContractualElement();
+      case ReqSpecPackage.REQ_SPEC: return createReqSpec();
       case ReqSpecPackage.REQ_SPEC_CONTAINER: return createReqSpecContainer();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT: return createContractualElement();
+      case ReqSpecPackage.REQ_SPEC_MODEL: return createReqSpecModel();
+      case ReqSpecPackage.REQ_SPEC_DOCUMENT: return createReqSpecDocument();
+      case ReqSpecPackage.REQ_SPEC_FOLDER: return createReqSpecFolder();
       case ReqSpecPackage.RSL_VARIABLE: return createRSLVariable();
       case ReqSpecPackage.GOAL: return createGoal();
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
@@ -82,10 +85,21 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ReqSpecModel createReqSpecModel()
+  public ReqSpec createReqSpec()
   {
-    ReqSpecModelImpl reqSpecModel = new ReqSpecModelImpl();
-    return reqSpecModel;
+    ReqSpecImpl reqSpec = new ReqSpecImpl();
+    return reqSpec;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqSpecContainer createReqSpecContainer()
+  {
+    ReqSpecContainerImpl reqSpecContainer = new ReqSpecContainerImpl();
+    return reqSpecContainer;
   }
 
   /**
@@ -104,10 +118,32 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ReqSpecContainer createReqSpecContainer()
+  public ReqSpecModel createReqSpecModel()
   {
-    ReqSpecContainerImpl reqSpecContainer = new ReqSpecContainerImpl();
-    return reqSpecContainer;
+    ReqSpecModelImpl reqSpecModel = new ReqSpecModelImpl();
+    return reqSpecModel;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqSpecDocument createReqSpecDocument()
+  {
+    ReqSpecDocumentImpl reqSpecDocument = new ReqSpecDocumentImpl();
+    return reqSpecDocument;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqSpecFolder createReqSpecFolder()
+  {
+    ReqSpecFolderImpl reqSpecFolder = new ReqSpecFolderImpl();
+    return reqSpecFolder;
   }
 
   /**

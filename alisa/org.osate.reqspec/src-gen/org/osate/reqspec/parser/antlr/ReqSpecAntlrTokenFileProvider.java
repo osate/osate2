@@ -10,6 +10,6 @@ public class ReqSpecAntlrTokenFileProvider implements IAntlrTokenFileProvider {
 	
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/reqspec/parser/antlr/internal/InternalReqSpec.tokens");
+    	return classLoader.getResourceAsStream("org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.tokens");
 	}
 }
