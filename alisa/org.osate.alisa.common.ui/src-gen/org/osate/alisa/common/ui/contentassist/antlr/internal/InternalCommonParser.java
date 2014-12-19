@@ -834,20 +834,20 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Model__ContentAssignment"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:342:1: rule__Model__ContentAssignment : ( ruleDescription ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:343:1: rule__Model__ContentAssignment : ( ruleDescription ) ;
     public final void rule__Model__ContentAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:346:1: ( ( ruleDescription ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:347:1: ( ruleDescription )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:347:1: ( ( ruleDescription ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:348:1: ( ruleDescription )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:347:1: ( ruleDescription )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:348:1: ruleDescription
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:348:1: ( ruleDescription )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:349:1: ruleDescription
             {
              before(grammarAccess.getModelAccess().getContentDescriptionParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleDescription_in_rule__Model__ContentAssignment639);
+            pushFollow(FOLLOW_ruleDescription_in_rule__Model__ContentAssignment640);
             ruleDescription();
 
             state._fsp--;
@@ -875,20 +875,20 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Description__DescriptionAssignment"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:357:1: rule__Description__DescriptionAssignment : ( ruleDescriptionElement ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:358:1: rule__Description__DescriptionAssignment : ( ruleDescriptionElement ) ;
     public final void rule__Description__DescriptionAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:361:1: ( ( ruleDescriptionElement ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:362:1: ( ruleDescriptionElement )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:362:1: ( ( ruleDescriptionElement ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:363:1: ( ruleDescriptionElement )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:362:1: ( ruleDescriptionElement )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:363:1: ruleDescriptionElement
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:363:1: ( ruleDescriptionElement )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:364:1: ruleDescriptionElement
             {
              before(grammarAccess.getDescriptionAccess().getDescriptionDescriptionElementParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment670);
+            pushFollow(FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment671);
             ruleDescriptionElement();
 
             state._fsp--;
@@ -916,20 +916,20 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__TextAssignment_0"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:372:1: rule__DescriptionElement__TextAssignment_0 : ( RULE_STRING ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:373:1: rule__DescriptionElement__TextAssignment_0 : ( RULE_STRING ) ;
     public final void rule__DescriptionElement__TextAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:376:1: ( ( RULE_STRING ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:377:1: ( RULE_STRING )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:377:1: ( ( RULE_STRING ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:378:1: ( RULE_STRING )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:377:1: ( RULE_STRING )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:378:1: RULE_STRING
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:378:1: ( RULE_STRING )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:379:1: RULE_STRING
             {
              before(grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_0701); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_0702); 
              after(grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
 
             }
@@ -953,24 +953,24 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__RefAssignment_1"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:387:1: rule__DescriptionElement__RefAssignment_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:388:1: rule__DescriptionElement__RefAssignment_1 : ( ( RULE_ID ) ) ;
     public final void rule__DescriptionElement__RefAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:391:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:392:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:392:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:393:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:392:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:393:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:393:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:394:1: ( RULE_ID )
             {
              before(grammarAccess.getDescriptionElementAccess().getRefEObjectCrossReference_1_0()); 
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:394:1: ( RULE_ID )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:395:1: RULE_ID
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:395:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:396:1: RULE_ID
             {
              before(grammarAccess.getDescriptionElementAccess().getRefEObjectIDTerminalRuleCall_1_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__DescriptionElement__RefAssignment_1736); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__DescriptionElement__RefAssignment_1737); 
              after(grammarAccess.getDescriptionElementAccess().getRefEObjectIDTerminalRuleCall_1_0_1()); 
 
             }
@@ -998,24 +998,24 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReferencePath__RefAssignment_0"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:406:1: rule__ReferencePath__RefAssignment_0 : ( ( RULE_ID ) ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:407:1: rule__ReferencePath__RefAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__ReferencePath__RefAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:410:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:411:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:411:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:412:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:411:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:412:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:412:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:413:1: ( RULE_ID )
             {
              before(grammarAccess.getReferencePathAccess().getRefEObjectCrossReference_0_0()); 
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:413:1: ( RULE_ID )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:414:1: RULE_ID
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:414:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:415:1: RULE_ID
             {
              before(grammarAccess.getReferencePathAccess().getRefEObjectIDTerminalRuleCall_0_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReferencePath__RefAssignment_0775); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReferencePath__RefAssignment_0776); 
              after(grammarAccess.getReferencePathAccess().getRefEObjectIDTerminalRuleCall_0_0_1()); 
 
             }
@@ -1043,20 +1043,20 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReferencePath__SubpathAssignment_1_1"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:425:1: rule__ReferencePath__SubpathAssignment_1_1 : ( ruleReferencePath ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:426:1: rule__ReferencePath__SubpathAssignment_1_1 : ( ruleReferencePath ) ;
     public final void rule__ReferencePath__SubpathAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:429:1: ( ( ruleReferencePath ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:430:1: ( ruleReferencePath )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:430:1: ( ( ruleReferencePath ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:431:1: ( ruleReferencePath )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:430:1: ( ruleReferencePath )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:431:1: ruleReferencePath
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:431:1: ( ruleReferencePath )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:432:1: ruleReferencePath
             {
              before(grammarAccess.getReferencePathAccess().getSubpathReferencePathParserRuleCall_1_1_0()); 
-            pushFollow(FOLLOW_ruleReferencePath_in_rule__ReferencePath__SubpathAssignment_1_1810);
+            pushFollow(FOLLOW_ruleReferencePath_in_rule__ReferencePath__SubpathAssignment_1_1811);
             ruleReferencePath();
 
             state._fsp--;
@@ -1112,11 +1112,11 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_11_in_rule__ReferencePath__Group_1__0__Impl536 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ReferencePath__Group_1__1__Impl_in_rule__ReferencePath__Group_1__1567 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ReferencePath__SubpathAssignment_1_1_in_rule__ReferencePath__Group_1__1__Impl594 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDescription_in_rule__Model__ContentAssignment639 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment670 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_0701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__DescriptionElement__RefAssignment_1736 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ReferencePath__RefAssignment_0775 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleReferencePath_in_rule__ReferencePath__SubpathAssignment_1_1810 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDescription_in_rule__Model__ContentAssignment640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment671 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_0702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__DescriptionElement__RefAssignment_1737 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ReferencePath__RefAssignment_0776 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleReferencePath_in_rule__ReferencePath__SubpathAssignment_1_1811 = new BitSet(new long[]{0x0000000000000002L});
 
 }

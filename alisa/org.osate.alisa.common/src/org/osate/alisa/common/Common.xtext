@@ -35,5 +35,5 @@ QNEREF:
 	(ID '::')* ID ('.' ID)?;
 // dotted path as relative reference
 CATREF:
-	ID '.' ID;	
+	ID ('.' ID)?;	
 	

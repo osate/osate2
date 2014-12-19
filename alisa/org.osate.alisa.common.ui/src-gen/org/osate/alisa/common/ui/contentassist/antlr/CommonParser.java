@@ -46,6 +46,7 @@ public class CommonParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQNEREFAccess().getGroup_0(), "rule__QNEREF__Group_0__0");
 					put(grammarAccess.getQNEREFAccess().getGroup_2(), "rule__QNEREF__Group_2__0");
 					put(grammarAccess.getCATREFAccess().getGroup(), "rule__CATREF__Group__0");
+					put(grammarAccess.getCATREFAccess().getGroup_1(), "rule__CATREF__Group_1__0");
 					put(grammarAccess.getModelAccess().getContentAssignment(), "rule__Model__ContentAssignment");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");

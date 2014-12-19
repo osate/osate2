@@ -209,25 +209,29 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CATREF");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		//// dotted path as relative reference
 		//CATREF:
-		//	ID "." ID;
+		//	ID ("." ID)?;
 		public ParserRule getRule() { return rule; }
 
-		//ID "." ID
+		//ID ("." ID)?
 		public Group getGroup() { return cGroup; }
 
 		//ID
 		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
 
+		//("." ID)?
+		public Group getGroup_1() { return cGroup_1; }
+
 		//"."
-		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
 	
 	
@@ -360,7 +364,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// dotted path as relative reference
 	//CATREF:
-	//	ID "." ID;
+	//	ID ("." ID)?;
 	public CATREFElements getCATREFAccess() {
 		return pCATREF;
 	}

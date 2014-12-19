@@ -339,6 +339,7 @@ finally {
 
 
 
+
 rule__Model__ContentAssignment
     @init {
 		int stackSize = keepStackSize();
