@@ -17,7 +17,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//HazardCategories/category"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//VerificationCategories">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//VerificationCategories/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategories/category"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//RequirementCategory">

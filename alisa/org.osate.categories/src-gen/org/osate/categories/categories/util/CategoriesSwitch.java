@@ -99,6 +99,7 @@ public class CategoriesSwitch<T> extends Switch<T>
       {
         VerificationCategories verificationCategories = (VerificationCategories)theEObject;
         T result = caseVerificationCategories(verificationCategories);
+        if (result == null) result = caseCategories(verificationCategories);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }

@@ -2,25 +2,25 @@ grammar org.osate.categories.Categories with org.osate.alisa.common.Common
 
 generate categories "http://www.osate.org/categories/Categories"
 
-Categories : RequirementCategories | HazardCategories;
+Categories : RequirementCategories | HazardCategories | VerificationCategories;
 
 RequirementCategories :
 	'requirement''categories' name = ID
-	'{' category += RequirementCategory+
-	'}'
+	'[' category += RequirementCategory+
+	']'
 ;
 
 
 HazardCategories :
 	'hazard' 'categories' name = ID
-	'{' category += HazardCategory+
-	'}'
+	'[' category += HazardCategory+
+	']'
 ;
 
 VerificationCategories :
 	'Verification' 'categories' name = ID
-	'{' category += VerificationCategory+
-	'}'
+	'[' category += VerificationCategory+
+	']'
 ;
 
 

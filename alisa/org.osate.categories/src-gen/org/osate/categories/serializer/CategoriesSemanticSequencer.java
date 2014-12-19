@@ -59,7 +59,8 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case CategoriesPackage.VERIFICATION_CATEGORIES:
-				if(context == grammarAccess.getVerificationCategoriesRule()) {
+				if(context == grammarAccess.getCategoriesRule() ||
+				   context == grammarAccess.getVerificationCategoriesRule()) {
 					sequence_VerificationCategories(context, (VerificationCategories) semanticObject); 
 					return; 
 				}

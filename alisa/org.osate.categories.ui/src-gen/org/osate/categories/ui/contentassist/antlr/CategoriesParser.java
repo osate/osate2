@@ -56,6 +56,7 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQNEREFAccess().getGroup_0(), "rule__QNEREF__Group_0__0");
 					put(grammarAccess.getQNEREFAccess().getGroup_2(), "rule__QNEREF__Group_2__0");
 					put(grammarAccess.getCATREFAccess().getGroup(), "rule__CATREF__Group__0");
+					put(grammarAccess.getCATREFAccess().getGroup_1(), "rule__CATREF__Group_1__0");
 					put(grammarAccess.getRequirementCategoriesAccess().getNameAssignment_2(), "rule__RequirementCategories__NameAssignment_2");
 					put(grammarAccess.getRequirementCategoriesAccess().getCategoryAssignment_4(), "rule__RequirementCategories__CategoryAssignment_4");
 					put(grammarAccess.getHazardCategoriesAccess().getNameAssignment_2(), "rule__HazardCategories__NameAssignment_2");

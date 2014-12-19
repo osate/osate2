@@ -23,12 +23,13 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cRequirementCategoriesParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cHazardCategoriesParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cVerificationCategoriesParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//Categories:
-		//	RequirementCategories | HazardCategories;
+		//	RequirementCategories | HazardCategories | VerificationCategories;
 		public ParserRule getRule() { return rule; }
 
-		//RequirementCategories | HazardCategories
+		//RequirementCategories | HazardCategories | VerificationCategories
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//RequirementCategories
@@ -36,6 +37,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 		//HazardCategories
 		public RuleCall getHazardCategoriesParserRuleCall_1() { return cHazardCategoriesParserRuleCall_1; }
+
+		//VerificationCategories
+		public RuleCall getVerificationCategoriesParserRuleCall_2() { return cVerificationCategoriesParserRuleCall_2; }
 	}
 
 	public class RequirementCategoriesElements extends AbstractParserRuleElementFinder {
@@ -45,16 +49,16 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCategoriesKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cCategoryRequirementCategoryParserRuleCall_4_0 = (RuleCall)cCategoryAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//RequirementCategories:
-		//	"requirement" "categories" name=ID "{" category+=RequirementCategory+ "}";
+		//	"requirement" "categories" name=ID "[" category+=RequirementCategory+ "]";
 		public ParserRule getRule() { return rule; }
 
-		//"requirement" "categories" name=ID "{" category+=RequirementCategory+ "}"
+		//"requirement" "categories" name=ID "[" category+=RequirementCategory+ "]"
 		public Group getGroup() { return cGroup; }
 
 		//"requirement"
@@ -69,8 +73,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+		//"["
+		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
 		//category+=RequirementCategory+
 		public Assignment getCategoryAssignment_4() { return cCategoryAssignment_4; }
@@ -78,8 +82,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//RequirementCategory
 		public RuleCall getCategoryRequirementCategoryParserRuleCall_4_0() { return cCategoryRequirementCategoryParserRuleCall_4_0; }
 
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		//"]"
+		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
 	public class HazardCategoriesElements extends AbstractParserRuleElementFinder {
@@ -89,16 +93,16 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCategoriesKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cCategoryHazardCategoryParserRuleCall_4_0 = (RuleCall)cCategoryAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//HazardCategories:
-		//	"hazard" "categories" name=ID "{" category+=HazardCategory+ "}";
+		//	"hazard" "categories" name=ID "[" category+=HazardCategory+ "]";
 		public ParserRule getRule() { return rule; }
 
-		//"hazard" "categories" name=ID "{" category+=HazardCategory+ "}"
+		//"hazard" "categories" name=ID "[" category+=HazardCategory+ "]"
 		public Group getGroup() { return cGroup; }
 
 		//"hazard"
@@ -113,8 +117,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+		//"["
+		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
 		//category+=HazardCategory+
 		public Assignment getCategoryAssignment_4() { return cCategoryAssignment_4; }
@@ -122,8 +126,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//HazardCategory
 		public RuleCall getCategoryHazardCategoryParserRuleCall_4_0() { return cCategoryHazardCategoryParserRuleCall_4_0; }
 
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		//"]"
+		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
 	public class VerificationCategoriesElements extends AbstractParserRuleElementFinder {
@@ -133,16 +137,16 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCategoriesKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cCategoryAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cCategoryVerificationCategoryParserRuleCall_4_0 = (RuleCall)cCategoryAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//VerificationCategories:
-		//	"Verification" "categories" name=ID "{" category+=VerificationCategory+ "}";
+		//	"Verification" "categories" name=ID "[" category+=VerificationCategory+ "]";
 		public ParserRule getRule() { return rule; }
 
-		//"Verification" "categories" name=ID "{" category+=VerificationCategory+ "}"
+		//"Verification" "categories" name=ID "[" category+=VerificationCategory+ "]"
 		public Group getGroup() { return cGroup; }
 
 		//"Verification"
@@ -157,8 +161,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
+		//"["
+		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
 		//category+=VerificationCategory+
 		public Assignment getCategoryAssignment_4() { return cCategoryAssignment_4; }
@@ -166,8 +170,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationCategory
 		public RuleCall getCategoryVerificationCategoryParserRuleCall_4_0() { return cCategoryVerificationCategoryParserRuleCall_4_0; }
 
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		//"]"
+		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
 	public class RequirementCategoryElements extends AbstractParserRuleElementFinder {
@@ -357,7 +361,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Categories:
-	//	RequirementCategories | HazardCategories;
+	//	RequirementCategories | HazardCategories | VerificationCategories;
 	public CategoriesElements getCategoriesAccess() {
 		return pCategories;
 	}
@@ -367,7 +371,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//RequirementCategories:
-	//	"requirement" "categories" name=ID "{" category+=RequirementCategory+ "}";
+	//	"requirement" "categories" name=ID "[" category+=RequirementCategory+ "]";
 	public RequirementCategoriesElements getRequirementCategoriesAccess() {
 		return pRequirementCategories;
 	}
@@ -377,7 +381,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//HazardCategories:
-	//	"hazard" "categories" name=ID "{" category+=HazardCategory+ "}";
+	//	"hazard" "categories" name=ID "[" category+=HazardCategory+ "]";
 	public HazardCategoriesElements getHazardCategoriesAccess() {
 		return pHazardCategories;
 	}
@@ -387,7 +391,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationCategories:
-	//	"Verification" "categories" name=ID "{" category+=VerificationCategory+ "}";
+	//	"Verification" "categories" name=ID "[" category+=VerificationCategory+ "]";
 	public VerificationCategoriesElements getVerificationCategoriesAccess() {
 		return pVerificationCategories;
 	}
@@ -500,7 +504,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// dotted path as relative reference
 	//CATREF:
-	//	ID "." ID;
+	//	ID ("." ID)?;
 	public CommonGrammarAccess.CATREFElements getCATREFAccess() {
 		return gaCommon.getCATREFAccess();
 	}

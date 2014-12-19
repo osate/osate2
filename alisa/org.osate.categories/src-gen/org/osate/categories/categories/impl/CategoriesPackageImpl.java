@@ -214,19 +214,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVerificationCategories_Name()
-  {
-    return (EAttribute)verificationCategoriesEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getVerificationCategories_Category()
   {
-    return (EReference)verificationCategoriesEClass.getEStructuralFeatures().get(1);
+    return (EReference)verificationCategoriesEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -359,7 +349,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     createEReference(hazardCategoriesEClass, HAZARD_CATEGORIES__CATEGORY);
 
     verificationCategoriesEClass = createEClass(VERIFICATION_CATEGORIES);
-    createEAttribute(verificationCategoriesEClass, VERIFICATION_CATEGORIES__NAME);
     createEReference(verificationCategoriesEClass, VERIFICATION_CATEGORIES__CATEGORY);
 
     requirementCategoryEClass = createEClass(REQUIREMENT_CATEGORY);
@@ -406,6 +395,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     // Add supertypes to classes
     requirementCategoriesEClass.getESuperTypes().add(this.getCategories());
     hazardCategoriesEClass.getESuperTypes().add(this.getCategories());
+    verificationCategoriesEClass.getESuperTypes().add(this.getCategories());
 
     // Initialize classes and features; add operations and parameters
     initEClass(categoriesEClass, Categories.class, "Categories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -418,7 +408,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEReference(getHazardCategories_Category(), this.getHazardCategory(), null, "category", null, 0, -1, HazardCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationCategoriesEClass, VerificationCategories.class, "VerificationCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getVerificationCategories_Name(), ecorePackage.getEString(), "name", null, 0, 1, VerificationCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationCategories_Category(), this.getVerificationCategory(), null, "category", null, 0, -1, VerificationCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(requirementCategoryEClass, RequirementCategory.class, "RequirementCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

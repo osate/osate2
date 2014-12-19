@@ -175,7 +175,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORIES__NAME = 0;
+  int VERIFICATION_CATEGORIES__NAME = CATEGORIES__NAME;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -184,7 +184,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORIES__CATEGORY = 1;
+  int VERIFICATION_CATEGORIES__CATEGORY = CATEGORIES_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Verification Categories</em>' class.
@@ -193,7 +193,7 @@ public interface CategoriesPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_CATEGORIES_FEATURE_COUNT = 2;
+  int VERIFICATION_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.RequirementCategoryImpl <em>Requirement Category</em>}' class.
@@ -379,17 +379,6 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EClass getVerificationCategories();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.categories.categories.VerificationCategories#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.categories.categories.VerificationCategories#getName()
-   * @see #getVerificationCategories()
-   * @generated
-   */
-  EAttribute getVerificationCategories_Name();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.categories.categories.VerificationCategories#getCategory <em>Category</em>}'.
@@ -584,14 +573,6 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EClass VERIFICATION_CATEGORIES = eINSTANCE.getVerificationCategories();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_CATEGORIES__NAME = eINSTANCE.getVerificationCategories_Name();
 
     /**
      * The meta object literal for the '<em><b>Category</b></em>' containment reference list feature.
