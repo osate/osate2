@@ -5,13 +5,23 @@ import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import  "http://www.osate.org/categories/Categories" as categories
 
 
-RSALContainer returns RSALContainer:
-	'container' name =ID 
-	('for' target=[ReqSpec::Requirement|DOTTEDREF])?
-	'[' (content+= ( VerificationActivity | VerificationMethod | RSALContainer))*
+
+VerificationModel returns VerificationModel:
+	'package' name =ID 
+	('for' target=[ReqSpec::Requirement|AadlClassifierReference])?
+	( ^import += Import )*
+	'[' (content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
 	']'
 	;
-	
+
+VerificationFolder returns VerificationFolder:
+	'folder' label =ID 
+	('for' target=[ReqSpec::Requirement|AadlClassifierReference])?
+	'[' (content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
+	']'
+	;
+ VerificationContainer : VerificationModel | VerificationFolder;
+ 	
 //	Requirement: 'req' name=ID;
 /*
  * Verification Activity
@@ -21,7 +31,7 @@ VerificationActivity:
 	'verification' 'activity' name=ID
 	'['(('title'  title=ValueString)?
 	&('description'  description=ValueString)?
- 	&('category'  category=[categories::VerificationCategory|DOTTEDREF])?
+ 	&('category'  category=[categories::VerificationCategory|AadlClassifierReference])?
 	&('method'  method=VerificationMethod)?
 //	('parameters'  verificationParameters+=([ElementReference])*)?
 	&(assumption+=VerificationAssumption)*
@@ -35,8 +45,8 @@ VerificationAssumption:
 	'['( 
 	('title'  title=ValueString)? 
 	&('description'  description=Description)? 
-	&('asserted' 'by'  assert=[ReqSpec::Requirement|DOTTEDREF])? 
-	&('verified by' verifiedBy=[AssurancePlan|DOTTEDREF])?
+	&('asserted' 'by'  assert=[ReqSpec::Requirement|AadlClassifierReference])? 
+	&('verified by' verifiedBy=[AssurancePlan|AadlClassifierReference])?
 	&('rationale'  rationale=ValueString)? 
 	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
 	)
@@ -71,7 +81,7 @@ AtomicExpr returns ArgumentExpr:
 ;
 
 ArgumentReference:
-	reference=[VerificationActivity|DOTTEDREF]
+	reference=[VerificationActivity|AadlClassifierReference]
 	('*' weight=INT )?
 ;
 
@@ -80,17 +90,12 @@ VerificationMethod:
  	 language=SupportedLanguage method = ValueString
 	(('title'  title=ValueString)?
 	&('description'  description=ValueString)?
- 	&('category'  category=[categories::VerificationCategory|CATREF])?
+ 	&('category'  category=[categories::VerificationCategory|CatRef])?
  	)
 ;
 
 SupportedLanguage:
 	'lute' | 'agree'
-;
-	
-ValueString :
-	// remove quotes from string in ValueConverter 
-	STRING
 ;
 
 	

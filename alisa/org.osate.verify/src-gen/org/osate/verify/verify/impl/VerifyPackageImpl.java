@@ -20,11 +20,13 @@ import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.ArgumentReference;
 import org.osate.verify.verify.AssurancePlan;
 import org.osate.verify.verify.BinaryExpr;
-import org.osate.verify.verify.RSALContainer;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationAssumption;
+import org.osate.verify.verify.VerificationContainer;
+import org.osate.verify.verify.VerificationFolder;
 import org.osate.verify.verify.VerificationMethod;
+import org.osate.verify.verify.VerificationModel;
 import org.osate.verify.verify.VerifyFactory;
 import org.osate.verify.verify.VerifyPackage;
 
@@ -41,7 +43,21 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass rsalContainerEClass = null;
+  private EClass verificationModelEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass verificationFolderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass verificationContainerEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -148,7 +164,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     isInited = true;
 
     // Initialize simple dependencies
-    CategoriesPackage.eINSTANCE.eClass();
     ReqSpecPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
@@ -171,9 +186,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getRSALContainer()
+  public EClass getVerificationModel()
   {
-    return rsalContainerEClass;
+    return verificationModelEClass;
   }
 
   /**
@@ -181,9 +196,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRSALContainer_Name()
+  public EAttribute getVerificationModel_Name()
   {
-    return (EAttribute)rsalContainerEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)verificationModelEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -191,9 +206,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRSALContainer_Target()
+  public EReference getVerificationModel_Import()
   {
-    return (EReference)rsalContainerEClass.getEStructuralFeatures().get(1);
+    return (EReference)verificationModelEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -201,9 +216,49 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRSALContainer_Content()
+  public EClass getVerificationFolder()
   {
-    return (EReference)rsalContainerEClass.getEStructuralFeatures().get(2);
+    return verificationFolderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVerificationFolder_Label()
+  {
+    return (EAttribute)verificationFolderEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVerificationContainer()
+  {
+    return verificationContainerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationContainer_Target()
+  {
+    return (EReference)verificationContainerEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationContainer_Content()
+  {
+    return (EReference)verificationContainerEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -596,10 +651,16 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     isCreated = true;
 
     // Create classes and their features
-    rsalContainerEClass = createEClass(RSAL_CONTAINER);
-    createEAttribute(rsalContainerEClass, RSAL_CONTAINER__NAME);
-    createEReference(rsalContainerEClass, RSAL_CONTAINER__TARGET);
-    createEReference(rsalContainerEClass, RSAL_CONTAINER__CONTENT);
+    verificationModelEClass = createEClass(VERIFICATION_MODEL);
+    createEAttribute(verificationModelEClass, VERIFICATION_MODEL__NAME);
+    createEReference(verificationModelEClass, VERIFICATION_MODEL__IMPORT);
+
+    verificationFolderEClass = createEClass(VERIFICATION_FOLDER);
+    createEAttribute(verificationFolderEClass, VERIFICATION_FOLDER__LABEL);
+
+    verificationContainerEClass = createEClass(VERIFICATION_CONTAINER);
+    createEReference(verificationContainerEClass, VERIFICATION_CONTAINER__TARGET);
+    createEReference(verificationContainerEClass, VERIFICATION_CONTAINER__CONTENT);
 
     verificationActivityEClass = createEClass(VERIFICATION_ACTIVITY);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__NAME);
@@ -672,23 +733,31 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     ReqSpecPackage theReqSpecPackage = (ReqSpecPackage)EPackage.Registry.INSTANCE.getEPackage(ReqSpecPackage.eNS_URI);
     CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
-    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
     // Create type parameters
 
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    verificationModelEClass.getESuperTypes().add(this.getVerificationContainer());
+    verificationFolderEClass.getESuperTypes().add(this.getVerificationContainer());
     binaryExprEClass.getESuperTypes().add(this.getArgumentExpr());
     refExprEClass.getESuperTypes().add(this.getArgumentExpr());
 
     // Initialize classes and features; add operations and parameters
-    initEClass(rsalContainerEClass, RSALContainer.class, "RSALContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getRSALContainer_Name(), theEcorePackage.getEString(), "name", null, 0, 1, RSALContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRSALContainer_Target(), theReqSpecPackage.getRequirement(), null, "target", null, 0, 1, RSALContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRSALContainer_Content(), theEcorePackage.getEObject(), null, "content", null, 0, -1, RSALContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(verificationModelEClass, VerificationModel.class, "VerificationModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVerificationModel_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationModel_Import(), theCommonPackage.getImport(), null, "import", null, 0, -1, VerificationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(verificationFolderEClass, VerificationFolder.class, "VerificationFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVerificationFolder_Label(), theEcorePackage.getEString(), "label", null, 0, 1, VerificationFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(verificationContainerEClass, VerificationContainer.class, "VerificationContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getVerificationContainer_Target(), theReqSpecPackage.getRequirement(), null, "target", null, 0, 1, VerificationContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationContainer_Content(), theEcorePackage.getEObject(), null, "content", null, 0, -1, VerificationContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationActivityEClass, VerificationActivity.class, "VerificationActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationActivity_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

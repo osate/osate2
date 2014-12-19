@@ -37,12 +37,16 @@ public class VerifyParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getRSALContainerAccess().getContentAlternatives_4_0(), "rule__RSALContainer__ContentAlternatives_4_0");
+					put(grammarAccess.getVerificationModelAccess().getContentAlternatives_5_0(), "rule__VerificationModel__ContentAlternatives_5_0");
+					put(grammarAccess.getVerificationFolderAccess().getContentAlternatives_4_0(), "rule__VerificationFolder__ContentAlternatives_4_0");
+					put(grammarAccess.getVerificationContainerAccess().getAlternatives(), "rule__VerificationContainer__Alternatives");
 					put(grammarAccess.getAtomicExprAccess().getAlternatives(), "rule__AtomicExpr__Alternatives");
 					put(grammarAccess.getSupportedLanguageAccess().getAlternatives(), "rule__SupportedLanguage__Alternatives");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
-					put(grammarAccess.getRSALContainerAccess().getGroup(), "rule__RSALContainer__Group__0");
-					put(grammarAccess.getRSALContainerAccess().getGroup_2(), "rule__RSALContainer__Group_2__0");
+					put(grammarAccess.getVerificationModelAccess().getGroup(), "rule__VerificationModel__Group__0");
+					put(grammarAccess.getVerificationModelAccess().getGroup_2(), "rule__VerificationModel__Group_2__0");
+					put(grammarAccess.getVerificationFolderAccess().getGroup(), "rule__VerificationFolder__Group__0");
+					put(grammarAccess.getVerificationFolderAccess().getGroup_2(), "rule__VerificationFolder__Group_2__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup(), "rule__VerificationActivity__Group__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup_4_0(), "rule__VerificationActivity__Group_4_0__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup_4_1(), "rule__VerificationActivity__Group_4_1__0");
@@ -80,15 +84,20 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationMethodAccess().getGroup_6_2(), "rule__VerificationMethod__Group_6_2__0");
 					put(grammarAccess.getReferencePathAccess().getGroup(), "rule__ReferencePath__Group__0");
 					put(grammarAccess.getReferencePathAccess().getGroup_1(), "rule__ReferencePath__Group_1__0");
-					put(grammarAccess.getDOTTEDREFAccess().getGroup(), "rule__DOTTEDREF__Group__0");
-					put(grammarAccess.getDOTTEDREFAccess().getGroup_1(), "rule__DOTTEDREF__Group_1__0");
-					put(grammarAccess.getQNEREFAccess().getGroup(), "rule__QNEREF__Group__0");
-					put(grammarAccess.getQNEREFAccess().getGroup_0(), "rule__QNEREF__Group_0__0");
-					put(grammarAccess.getQNEREFAccess().getGroup_2(), "rule__QNEREF__Group_2__0");
-					put(grammarAccess.getCATREFAccess().getGroup(), "rule__CATREF__Group__0");
-					put(grammarAccess.getRSALContainerAccess().getNameAssignment_1(), "rule__RSALContainer__NameAssignment_1");
-					put(grammarAccess.getRSALContainerAccess().getTargetAssignment_2_1(), "rule__RSALContainer__TargetAssignment_2_1");
-					put(grammarAccess.getRSALContainerAccess().getContentAssignment_4(), "rule__RSALContainer__ContentAssignment_4");
+					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
+					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
+					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
+					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
+					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
+					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_0(), "rule__AadlClassifierReference__Group_0__0");
+					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
+					put(grammarAccess.getVerificationModelAccess().getNameAssignment_1(), "rule__VerificationModel__NameAssignment_1");
+					put(grammarAccess.getVerificationModelAccess().getTargetAssignment_2_1(), "rule__VerificationModel__TargetAssignment_2_1");
+					put(grammarAccess.getVerificationModelAccess().getImportAssignment_3(), "rule__VerificationModel__ImportAssignment_3");
+					put(grammarAccess.getVerificationModelAccess().getContentAssignment_5(), "rule__VerificationModel__ContentAssignment_5");
+					put(grammarAccess.getVerificationFolderAccess().getLabelAssignment_1(), "rule__VerificationFolder__LabelAssignment_1");
+					put(grammarAccess.getVerificationFolderAccess().getTargetAssignment_2_1(), "rule__VerificationFolder__TargetAssignment_2_1");
+					put(grammarAccess.getVerificationFolderAccess().getContentAssignment_4(), "rule__VerificationFolder__ContentAssignment_4");
 					put(grammarAccess.getVerificationActivityAccess().getNameAssignment_2(), "rule__VerificationActivity__NameAssignment_2");
 					put(grammarAccess.getVerificationActivityAccess().getTitleAssignment_4_0_1(), "rule__VerificationActivity__TitleAssignment_4_0_1");
 					put(grammarAccess.getVerificationActivityAccess().getDescriptionAssignment_4_1_1(), "rule__VerificationActivity__DescriptionAssignment_4_1_1");
@@ -127,6 +136,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionElementAccess().getRefAssignment_1(), "rule__DescriptionElement__RefAssignment_1");
 					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
 					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
+					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
 					put(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_4(), "rule__VerificationActivity__UnorderedGroup_4");
 					put(grammarAccess.getVerificationAssumptionAccess().getUnorderedGroup_4(), "rule__VerificationAssumption__UnorderedGroup_4");
 					put(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), "rule__VerificationMethod__UnorderedGroup_6");
@@ -140,7 +150,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
 			org.osate.verify.ui.contentassist.antlr.internal.InternalVerifyParser typedParser = (org.osate.verify.ui.contentassist.antlr.internal.InternalVerifyParser) parser;
-			typedParser.entryRuleRSALContainer();
+			typedParser.entryRuleVerificationModel();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {
 			throw new RuntimeException(ex);

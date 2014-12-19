@@ -15,6 +15,7 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransi
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.Import;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.ReferencePath;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
@@ -22,11 +23,12 @@ import org.osate.verify.services.VerifyGrammarAccess;
 import org.osate.verify.verify.ArgumentReference;
 import org.osate.verify.verify.AssurancePlan;
 import org.osate.verify.verify.BinaryExpr;
-import org.osate.verify.verify.RSALContainer;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationAssumption;
+import org.osate.verify.verify.VerificationFolder;
 import org.osate.verify.verify.VerificationMethod;
+import org.osate.verify.verify.VerificationModel;
 import org.osate.verify.verify.VerifyPackage;
 
 @SuppressWarnings("all")
@@ -46,6 +48,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.DESCRIPTION_ELEMENT:
 				if(context == grammarAccess.getDescriptionElementRule()) {
 					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.IMPORT:
+				if(context == grammarAccess.getImportRule()) {
+					sequence_Import(context, (Import) semanticObject); 
 					return; 
 				}
 				else break;
@@ -88,12 +96,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case VerifyPackage.RSAL_CONTAINER:
-				if(context == grammarAccess.getRSALContainerRule()) {
-					sequence_RSALContainer(context, (RSALContainer) semanticObject); 
-					return; 
-				}
-				else break;
 			case VerifyPackage.REF_EXPR:
 				if(context == grammarAccess.getAndExprRule() ||
 				   context == grammarAccess.getAndExprAccess().getBinaryExprLeftAction_1_0_0_0() ||
@@ -119,9 +121,23 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case VerifyPackage.VERIFICATION_FOLDER:
+				if(context == grammarAccess.getVerificationContainerRule() ||
+				   context == grammarAccess.getVerificationFolderRule()) {
+					sequence_VerificationFolder(context, (VerificationFolder) semanticObject); 
+					return; 
+				}
+				else break;
 			case VerifyPackage.VERIFICATION_METHOD:
 				if(context == grammarAccess.getVerificationMethodRule()) {
 					sequence_VerificationMethod(context, (VerificationMethod) semanticObject); 
+					return; 
+				}
+				else break;
+			case VerifyPackage.VERIFICATION_MODEL:
+				if(context == grammarAccess.getVerificationContainerRule() ||
+				   context == grammarAccess.getVerificationModelRule()) {
+					sequence_VerificationModel(context, (VerificationModel) semanticObject); 
 					return; 
 				}
 				else break;
@@ -144,7 +160,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (reference=[VerificationActivity|DOTTEDREF] weight=INT?)
+	 *     (reference=[VerificationActivity|AadlClassifierReference] weight=INT?)
 	 */
 	protected void sequence_ArgumentReference(EObject context, ArgumentReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -178,20 +194,11 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID target=[Requirement|DOTTEDREF]? (content+=VerificationActivity | content+=VerificationMethod | content+=RSALContainer)*)
-	 */
-	protected void sequence_RSALContainer(EObject context, RSALContainer semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=ValueString? 
 	 *         description=ValueString? 
-	 *         category=[VerificationCategory|DOTTEDREF]? 
+	 *         category=[VerificationCategory|AadlClassifierReference]? 
 	 *         method=VerificationMethod? 
 	 *         assumption+=VerificationAssumption*
 	 *     )
@@ -207,8 +214,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=ValueString? 
 	 *         description=Description? 
-	 *         assert=[Requirement|DOTTEDREF]? 
-	 *         verifiedBy=[AssurancePlan|DOTTEDREF]? 
+	 *         assert=[Requirement|AadlClassifierReference]? 
+	 *         verifiedBy=[AssurancePlan|AadlClassifierReference]? 
 	 *         rationale=ValueString? 
 	 *         (issue+=ValueString issue+=ValueString*)?
 	 *     )
@@ -221,15 +228,42 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         label=ID 
+	 *         target=[Requirement|AadlClassifierReference]? 
+	 *         (content+=VerificationActivity | content+=VerificationMethod | content+=VerificationFolder)*
+	 *     )
+	 */
+	protected void sequence_VerificationFolder(EObject context, VerificationFolder semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         name=ID 
 	 *         language=SupportedLanguage 
 	 *         method=ValueString 
 	 *         title=ValueString? 
 	 *         description=ValueString? 
-	 *         category=[VerificationCategory|CATREF]?
+	 *         category=[VerificationCategory|CatRef]?
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         target=[Requirement|AadlClassifierReference]? 
+	 *         import+=Import* 
+	 *         (content+=VerificationActivity | content+=VerificationMethod | content+=VerificationFolder)*
+	 *     )
+	 */
+	protected void sequence_VerificationModel(EObject context, VerificationModel semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

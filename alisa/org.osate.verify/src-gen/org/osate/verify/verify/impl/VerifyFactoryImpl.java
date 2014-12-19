@@ -64,7 +64,9 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     switch (eClass.getClassifierID())
     {
-      case VerifyPackage.RSAL_CONTAINER: return createRSALContainer();
+      case VerifyPackage.VERIFICATION_MODEL: return createVerificationModel();
+      case VerifyPackage.VERIFICATION_FOLDER: return createVerificationFolder();
+      case VerifyPackage.VERIFICATION_CONTAINER: return createVerificationContainer();
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.VERIFICATION_ASSUMPTION: return createVerificationAssumption();
       case VerifyPackage.ASSURANCE_PLAN: return createAssurancePlan();
@@ -83,10 +85,32 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public RSALContainer createRSALContainer()
+  public VerificationModel createVerificationModel()
   {
-    RSALContainerImpl rsalContainer = new RSALContainerImpl();
-    return rsalContainer;
+    VerificationModelImpl verificationModel = new VerificationModelImpl();
+    return verificationModel;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationFolder createVerificationFolder()
+  {
+    VerificationFolderImpl verificationFolder = new VerificationFolderImpl();
+    return verificationFolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationContainer createVerificationContainer()
+  {
+    VerificationContainerImpl verificationContainer = new VerificationContainerImpl();
+    return verificationContainer;
   }
 
   /**

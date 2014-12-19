@@ -72,10 +72,26 @@ public class VerifySwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case VerifyPackage.RSAL_CONTAINER:
+      case VerifyPackage.VERIFICATION_MODEL:
       {
-        RSALContainer rsalContainer = (RSALContainer)theEObject;
-        T result = caseRSALContainer(rsalContainer);
+        VerificationModel verificationModel = (VerificationModel)theEObject;
+        T result = caseVerificationModel(verificationModel);
+        if (result == null) result = caseVerificationContainer(verificationModel);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.VERIFICATION_FOLDER:
+      {
+        VerificationFolder verificationFolder = (VerificationFolder)theEObject;
+        T result = caseVerificationFolder(verificationFolder);
+        if (result == null) result = caseVerificationContainer(verificationFolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.VERIFICATION_CONTAINER:
+      {
+        VerificationContainer verificationContainer = (VerificationContainer)theEObject;
+        T result = caseVerificationContainer(verificationContainer);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -142,17 +158,49 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>RSAL Container</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Verification Model</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>RSAL Container</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Verification Model</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseRSALContainer(RSALContainer object)
+  public T caseVerificationModel(VerificationModel object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Verification Folder</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Verification Folder</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVerificationFolder(VerificationFolder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Verification Container</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Verification Container</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVerificationContainer(VerificationContainer object)
   {
     return null;
   }

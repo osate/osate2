@@ -23,13 +23,31 @@ public interface VerifyFactory extends EFactory
   VerifyFactory eINSTANCE = org.osate.verify.verify.impl.VerifyFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>RSAL Container</em>'.
+   * Returns a new object of class '<em>Verification Model</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>RSAL Container</em>'.
+   * @return a new object of class '<em>Verification Model</em>'.
    * @generated
    */
-  RSALContainer createRSALContainer();
+  VerificationModel createVerificationModel();
+
+  /**
+   * Returns a new object of class '<em>Verification Folder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Folder</em>'.
+   * @generated
+   */
+  VerificationFolder createVerificationFolder();
+
+  /**
+   * Returns a new object of class '<em>Verification Container</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Container</em>'.
+   * @generated
+   */
+  VerificationContainer createVerificationContainer();
 
   /**
    * Returns a new object of class '<em>Verification Activity</em>'.

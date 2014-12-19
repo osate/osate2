@@ -75,9 +75,19 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
     new VerifySwitch<Adapter>()
     {
       @Override
-      public Adapter caseRSALContainer(RSALContainer object)
+      public Adapter caseVerificationModel(VerificationModel object)
       {
-        return createRSALContainerAdapter();
+        return createVerificationModelAdapter();
+      }
+      @Override
+      public Adapter caseVerificationFolder(VerificationFolder object)
+      {
+        return createVerificationFolderAdapter();
+      }
+      @Override
+      public Adapter caseVerificationContainer(VerificationContainer object)
+      {
+        return createVerificationContainerAdapter();
       }
       @Override
       public Adapter caseVerificationActivity(VerificationActivity object)
@@ -142,16 +152,46 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.RSALContainer <em>RSAL Container</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationModel <em>Verification Model</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.verify.verify.RSALContainer
+   * @see org.osate.verify.verify.VerificationModel
    * @generated
    */
-  public Adapter createRSALContainerAdapter()
+  public Adapter createVerificationModelAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationFolder <em>Verification Folder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.VerificationFolder
+   * @generated
+   */
+  public Adapter createVerificationFolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationContainer <em>Verification Container</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.VerificationContainer
+   * @generated
+   */
+  public Adapter createVerificationContainerAdapter()
   {
     return null;
   }

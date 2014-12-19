@@ -25,7 +25,7 @@ public class VerifyParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrPa
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "RSALContainer";
+		return "VerificationModel";
 	}
 	
 	public VerifyGrammarAccess getGrammarAccess() {
