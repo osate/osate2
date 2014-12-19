@@ -129,7 +129,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 
 	public static double defaultMIPS = 1000.0;
 
-	private int partitionChoice;
+	private int partitionChoice = 2;
 
 	protected void initPropertyReferences() {
 	}
@@ -185,6 +185,11 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 					+ " is missing Transmission Time property. Using default of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
 		}
 
+	}
+
+	public void invoke(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
+			final SystemInstance root, final SystemOperationMode som) {
+		analyzeInstanceModel(monitor, errManager, root, som);
 	}
 
 	@Override
