@@ -56,39 +56,40 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cStakeholderKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final UnorderedGroup cUnorderedGroup_3 = (UnorderedGroup)cGroup.eContents().get(3);
-		private final Group cGroup_3_0 = (Group)cUnorderedGroup_3.eContents().get(0);
-		private final Keyword cTitleKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
-		private final Assignment cTitleAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_3_0_1_0 = (RuleCall)cTitleAssignment_3_0_1.eContents().get(0);
-		private final Group cGroup_3_1 = (Group)cUnorderedGroup_3.eContents().get(1);
-		private final Keyword cDescriptionKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
-		private final Assignment cDescriptionAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
-		private final RuleCall cDescriptionValueStringParserRuleCall_3_1_1_0 = (RuleCall)cDescriptionAssignment_3_1_1.eContents().get(0);
-		private final Group cGroup_3_2 = (Group)cUnorderedGroup_3.eContents().get(2);
-		private final Keyword cRoleKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
-		private final Assignment cRoleAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
-		private final RuleCall cRoleValueStringParserRuleCall_3_2_1_0 = (RuleCall)cRoleAssignment_3_2_1.eContents().get(0);
-		private final Group cGroup_3_3 = (Group)cUnorderedGroup_3.eContents().get(3);
-		private final Keyword cEmailKeyword_3_3_0 = (Keyword)cGroup_3_3.eContents().get(0);
-		private final Assignment cEmailAssignment_3_3_1 = (Assignment)cGroup_3_3.eContents().get(1);
-		private final RuleCall cEmailValueStringParserRuleCall_3_3_1_0 = (RuleCall)cEmailAssignment_3_3_1.eContents().get(0);
-		private final Group cGroup_3_4 = (Group)cUnorderedGroup_3.eContents().get(4);
-		private final Keyword cPhoneKeyword_3_4_0 = (Keyword)cGroup_3_4.eContents().get(0);
-		private final Assignment cPhoneAssignment_3_4_1 = (Assignment)cGroup_3_4.eContents().get(1);
-		private final RuleCall cPhoneValueStringParserRuleCall_3_4_1_0 = (RuleCall)cPhoneAssignment_3_4_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cLeftSquareBracketKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final UnorderedGroup cUnorderedGroup_2_1 = (UnorderedGroup)cGroup_2.eContents().get(1);
+		private final Group cGroup_2_1_0 = (Group)cUnorderedGroup_2_1.eContents().get(0);
+		private final Keyword cTitleKeyword_2_1_0_0 = (Keyword)cGroup_2_1_0.eContents().get(0);
+		private final Assignment cTitleAssignment_2_1_0_1 = (Assignment)cGroup_2_1_0.eContents().get(1);
+		private final RuleCall cTitleValueStringParserRuleCall_2_1_0_1_0 = (RuleCall)cTitleAssignment_2_1_0_1.eContents().get(0);
+		private final Group cGroup_2_1_1 = (Group)cUnorderedGroup_2_1.eContents().get(1);
+		private final Keyword cDescriptionKeyword_2_1_1_0 = (Keyword)cGroup_2_1_1.eContents().get(0);
+		private final Assignment cDescriptionAssignment_2_1_1_1 = (Assignment)cGroup_2_1_1.eContents().get(1);
+		private final RuleCall cDescriptionValueStringParserRuleCall_2_1_1_1_0 = (RuleCall)cDescriptionAssignment_2_1_1_1.eContents().get(0);
+		private final Group cGroup_2_1_2 = (Group)cUnorderedGroup_2_1.eContents().get(2);
+		private final Keyword cRoleKeyword_2_1_2_0 = (Keyword)cGroup_2_1_2.eContents().get(0);
+		private final Assignment cRoleAssignment_2_1_2_1 = (Assignment)cGroup_2_1_2.eContents().get(1);
+		private final RuleCall cRoleValueStringParserRuleCall_2_1_2_1_0 = (RuleCall)cRoleAssignment_2_1_2_1.eContents().get(0);
+		private final Group cGroup_2_1_3 = (Group)cUnorderedGroup_2_1.eContents().get(3);
+		private final Keyword cEmailKeyword_2_1_3_0 = (Keyword)cGroup_2_1_3.eContents().get(0);
+		private final Assignment cEmailAssignment_2_1_3_1 = (Assignment)cGroup_2_1_3.eContents().get(1);
+		private final RuleCall cEmailValueStringParserRuleCall_2_1_3_1_0 = (RuleCall)cEmailAssignment_2_1_3_1.eContents().get(0);
+		private final Group cGroup_2_1_4 = (Group)cUnorderedGroup_2_1.eContents().get(4);
+		private final Keyword cPhoneKeyword_2_1_4_0 = (Keyword)cGroup_2_1_4.eContents().get(0);
+		private final Assignment cPhoneAssignment_2_1_4_1 = (Assignment)cGroup_2_1_4.eContents().get(1);
+		private final RuleCall cPhoneValueStringParserRuleCall_2_1_4_1_0 = (RuleCall)cPhoneAssignment_2_1_4_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		
 		/// *
 		// * Stakeholder
 		// * / Stakeholder:
-		//	"stakeholder" name=ID "[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
-		//	role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]";
+		//	"stakeholder" name=ID ("[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
+		//	role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]")?;
 		public ParserRule getRule() { return rule; }
 
-		//"stakeholder" name=ID "[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
-		//role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]"
+		//"stakeholder" name=ID ("[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
+		//role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]")?
 		public Group getGroup() { return cGroup; }
 
 		//"stakeholder"
@@ -100,75 +101,79 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
+		//("[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role" role=ValueString)? & ("email"
+		//email=ValueString)? & ("phone" phone=ValueString)?) "]")?
+		public Group getGroup_2() { return cGroup_2; }
+
 		//"["
-		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
+		public Keyword getLeftSquareBracketKeyword_2_0() { return cLeftSquareBracketKeyword_2_0; }
 
 		//("title" title=ValueString)? & ("description" description=ValueString)? & ("role" role=ValueString)? & ("email"
 		//email=ValueString)? & ("phone" phone=ValueString)?
-		public UnorderedGroup getUnorderedGroup_3() { return cUnorderedGroup_3; }
+		public UnorderedGroup getUnorderedGroup_2_1() { return cUnorderedGroup_2_1; }
 
 		//("title" title=ValueString)?
-		public Group getGroup_3_0() { return cGroup_3_0; }
+		public Group getGroup_2_1_0() { return cGroup_2_1_0; }
 
 		//"title"
-		public Keyword getTitleKeyword_3_0_0() { return cTitleKeyword_3_0_0; }
+		public Keyword getTitleKeyword_2_1_0_0() { return cTitleKeyword_2_1_0_0; }
 
 		//title=ValueString
-		public Assignment getTitleAssignment_3_0_1() { return cTitleAssignment_3_0_1; }
+		public Assignment getTitleAssignment_2_1_0_1() { return cTitleAssignment_2_1_0_1; }
 
 		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_3_0_1_0() { return cTitleValueStringParserRuleCall_3_0_1_0; }
+		public RuleCall getTitleValueStringParserRuleCall_2_1_0_1_0() { return cTitleValueStringParserRuleCall_2_1_0_1_0; }
 
 		//("description" description=ValueString)?
-		public Group getGroup_3_1() { return cGroup_3_1; }
+		public Group getGroup_2_1_1() { return cGroup_2_1_1; }
 
 		//"description"
-		public Keyword getDescriptionKeyword_3_1_0() { return cDescriptionKeyword_3_1_0; }
+		public Keyword getDescriptionKeyword_2_1_1_0() { return cDescriptionKeyword_2_1_1_0; }
 
 		//description=ValueString
-		public Assignment getDescriptionAssignment_3_1_1() { return cDescriptionAssignment_3_1_1; }
+		public Assignment getDescriptionAssignment_2_1_1_1() { return cDescriptionAssignment_2_1_1_1; }
 
 		//ValueString
-		public RuleCall getDescriptionValueStringParserRuleCall_3_1_1_0() { return cDescriptionValueStringParserRuleCall_3_1_1_0; }
+		public RuleCall getDescriptionValueStringParserRuleCall_2_1_1_1_0() { return cDescriptionValueStringParserRuleCall_2_1_1_1_0; }
 
 		//("role" role=ValueString)?
-		public Group getGroup_3_2() { return cGroup_3_2; }
+		public Group getGroup_2_1_2() { return cGroup_2_1_2; }
 
 		//"role"
-		public Keyword getRoleKeyword_3_2_0() { return cRoleKeyword_3_2_0; }
+		public Keyword getRoleKeyword_2_1_2_0() { return cRoleKeyword_2_1_2_0; }
 
 		//role=ValueString
-		public Assignment getRoleAssignment_3_2_1() { return cRoleAssignment_3_2_1; }
+		public Assignment getRoleAssignment_2_1_2_1() { return cRoleAssignment_2_1_2_1; }
 
 		//ValueString
-		public RuleCall getRoleValueStringParserRuleCall_3_2_1_0() { return cRoleValueStringParserRuleCall_3_2_1_0; }
+		public RuleCall getRoleValueStringParserRuleCall_2_1_2_1_0() { return cRoleValueStringParserRuleCall_2_1_2_1_0; }
 
 		//("email" email=ValueString)?
-		public Group getGroup_3_3() { return cGroup_3_3; }
+		public Group getGroup_2_1_3() { return cGroup_2_1_3; }
 
 		//"email"
-		public Keyword getEmailKeyword_3_3_0() { return cEmailKeyword_3_3_0; }
+		public Keyword getEmailKeyword_2_1_3_0() { return cEmailKeyword_2_1_3_0; }
 
 		//email=ValueString
-		public Assignment getEmailAssignment_3_3_1() { return cEmailAssignment_3_3_1; }
+		public Assignment getEmailAssignment_2_1_3_1() { return cEmailAssignment_2_1_3_1; }
 
 		//ValueString
-		public RuleCall getEmailValueStringParserRuleCall_3_3_1_0() { return cEmailValueStringParserRuleCall_3_3_1_0; }
+		public RuleCall getEmailValueStringParserRuleCall_2_1_3_1_0() { return cEmailValueStringParserRuleCall_2_1_3_1_0; }
 
 		//("phone" phone=ValueString)?
-		public Group getGroup_3_4() { return cGroup_3_4; }
+		public Group getGroup_2_1_4() { return cGroup_2_1_4; }
 
 		//"phone"
-		public Keyword getPhoneKeyword_3_4_0() { return cPhoneKeyword_3_4_0; }
+		public Keyword getPhoneKeyword_2_1_4_0() { return cPhoneKeyword_2_1_4_0; }
 
 		//phone=ValueString
-		public Assignment getPhoneAssignment_3_4_1() { return cPhoneAssignment_3_4_1; }
+		public Assignment getPhoneAssignment_2_1_4_1() { return cPhoneAssignment_2_1_4_1; }
 
 		//ValueString
-		public RuleCall getPhoneValueStringParserRuleCall_3_4_1_0() { return cPhoneValueStringParserRuleCall_3_4_1_0; }
+		public RuleCall getPhoneValueStringParserRuleCall_2_1_4_1_0() { return cPhoneValueStringParserRuleCall_2_1_4_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
+		public Keyword getRightSquareBracketKeyword_2_2() { return cRightSquareBracketKeyword_2_2; }
 	}
 	
 	
@@ -228,8 +233,8 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	/// *
 	// * Stakeholder
 	// * / Stakeholder:
-	//	"stakeholder" name=ID "[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
-	//	role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]";
+	//	"stakeholder" name=ID ("[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
+	//	role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]")?;
 	public StakeholderElements getStakeholderAccess() {
 		return pStakeholder;
 	}
@@ -312,7 +317,7 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// dotted path as relative reference
 	//CATREF:
-	//	ID "." ID;
+	//	ID ("." ID)?;
 	public CommonGrammarAccess.CATREFElements getCATREFAccess() {
 		return gaCommon.getCATREFAccess();
 	}

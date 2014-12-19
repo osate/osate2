@@ -81,14 +81,7 @@ public class OrganizationSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=ValueString? 
-	 *         description=ValueString? 
-	 *         role=ValueString? 
-	 *         email=ValueString? 
-	 *         phone=ValueString?
-	 *     )
+	 *     (name=ID (title=ValueString? description=ValueString? role=ValueString? email=ValueString? phone=ValueString?)?)
 	 */
 	protected void sequence_Stakeholder(EObject context, Stakeholder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

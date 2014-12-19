@@ -40,11 +40,12 @@ public class OrganizationParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getOrganizationAccess().getGroup(), "rule__Organization__Group__0");
 					put(grammarAccess.getStakeholderAccess().getGroup(), "rule__Stakeholder__Group__0");
-					put(grammarAccess.getStakeholderAccess().getGroup_3_0(), "rule__Stakeholder__Group_3_0__0");
-					put(grammarAccess.getStakeholderAccess().getGroup_3_1(), "rule__Stakeholder__Group_3_1__0");
-					put(grammarAccess.getStakeholderAccess().getGroup_3_2(), "rule__Stakeholder__Group_3_2__0");
-					put(grammarAccess.getStakeholderAccess().getGroup_3_3(), "rule__Stakeholder__Group_3_3__0");
-					put(grammarAccess.getStakeholderAccess().getGroup_3_4(), "rule__Stakeholder__Group_3_4__0");
+					put(grammarAccess.getStakeholderAccess().getGroup_2(), "rule__Stakeholder__Group_2__0");
+					put(grammarAccess.getStakeholderAccess().getGroup_2_1_0(), "rule__Stakeholder__Group_2_1_0__0");
+					put(grammarAccess.getStakeholderAccess().getGroup_2_1_1(), "rule__Stakeholder__Group_2_1_1__0");
+					put(grammarAccess.getStakeholderAccess().getGroup_2_1_2(), "rule__Stakeholder__Group_2_1_2__0");
+					put(grammarAccess.getStakeholderAccess().getGroup_2_1_3(), "rule__Stakeholder__Group_2_1_3__0");
+					put(grammarAccess.getStakeholderAccess().getGroup_2_1_4(), "rule__Stakeholder__Group_2_1_4__0");
 					put(grammarAccess.getReferencePathAccess().getGroup(), "rule__ReferencePath__Group__0");
 					put(grammarAccess.getReferencePathAccess().getGroup_1(), "rule__ReferencePath__Group_1__0");
 					put(grammarAccess.getDOTTEDREFAccess().getGroup(), "rule__DOTTEDREF__Group__0");
@@ -53,21 +54,22 @@ public class OrganizationParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQNEREFAccess().getGroup_0(), "rule__QNEREF__Group_0__0");
 					put(grammarAccess.getQNEREFAccess().getGroup_2(), "rule__QNEREF__Group_2__0");
 					put(grammarAccess.getCATREFAccess().getGroup(), "rule__CATREF__Group__0");
+					put(grammarAccess.getCATREFAccess().getGroup_1(), "rule__CATREF__Group_1__0");
 					put(grammarAccess.getOrganizationAccess().getNameAssignment_1(), "rule__Organization__NameAssignment_1");
 					put(grammarAccess.getOrganizationAccess().getStakeholderAssignment_2(), "rule__Organization__StakeholderAssignment_2");
 					put(grammarAccess.getStakeholderAccess().getNameAssignment_1(), "rule__Stakeholder__NameAssignment_1");
-					put(grammarAccess.getStakeholderAccess().getTitleAssignment_3_0_1(), "rule__Stakeholder__TitleAssignment_3_0_1");
-					put(grammarAccess.getStakeholderAccess().getDescriptionAssignment_3_1_1(), "rule__Stakeholder__DescriptionAssignment_3_1_1");
-					put(grammarAccess.getStakeholderAccess().getRoleAssignment_3_2_1(), "rule__Stakeholder__RoleAssignment_3_2_1");
-					put(grammarAccess.getStakeholderAccess().getEmailAssignment_3_3_1(), "rule__Stakeholder__EmailAssignment_3_3_1");
-					put(grammarAccess.getStakeholderAccess().getPhoneAssignment_3_4_1(), "rule__Stakeholder__PhoneAssignment_3_4_1");
+					put(grammarAccess.getStakeholderAccess().getTitleAssignment_2_1_0_1(), "rule__Stakeholder__TitleAssignment_2_1_0_1");
+					put(grammarAccess.getStakeholderAccess().getDescriptionAssignment_2_1_1_1(), "rule__Stakeholder__DescriptionAssignment_2_1_1_1");
+					put(grammarAccess.getStakeholderAccess().getRoleAssignment_2_1_2_1(), "rule__Stakeholder__RoleAssignment_2_1_2_1");
+					put(grammarAccess.getStakeholderAccess().getEmailAssignment_2_1_3_1(), "rule__Stakeholder__EmailAssignment_2_1_3_1");
+					put(grammarAccess.getStakeholderAccess().getPhoneAssignment_2_1_4_1(), "rule__Stakeholder__PhoneAssignment_2_1_4_1");
 					put(grammarAccess.getModelAccess().getContentAssignment(), "rule__Model__ContentAssignment");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getRefAssignment_1(), "rule__DescriptionElement__RefAssignment_1");
 					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
 					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
-					put(grammarAccess.getStakeholderAccess().getUnorderedGroup_3(), "rule__Stakeholder__UnorderedGroup_3");
+					put(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), "rule__Stakeholder__UnorderedGroup_2_1");
 				}
 			};
 		}

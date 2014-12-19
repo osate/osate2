@@ -13,10 +13,10 @@ Organization:
  */
 Stakeholder:
 	'stakeholder' name=ID
-	'['(('title'  title=ValueString )?
+	('['(('title'  title=ValueString )?
 	&('description'  description=ValueString )?
 	&('role'  role=ValueString )?
 	&('email'  email=ValueString)?
 	&('phone'  phone=ValueString)?)
-	']' 
+	']')? 
 ;
