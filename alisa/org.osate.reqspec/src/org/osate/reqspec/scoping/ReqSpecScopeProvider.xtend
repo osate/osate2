@@ -10,6 +10,11 @@ import org.osate.reqspec.reqSpec.ReqSpecContainer
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import org.osate.reqspec.reqSpec.Goal
+import org.osate.reqspec.reqSpec.ContractualElement
+import org.eclipse.emf.ecore.EObject
+import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
+import org.eclipse.xtext.scoping.IScope
 
 /**
  * This class contains custom scoping description.
@@ -18,11 +23,29 @@ import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
  * on how and when to use it 
  *
  */
-class ReqSpecScopeProvider extends AbstractDeclarativeScopeProvider {
+class ReqSpecScopeProvider extends PropertiesScopeProvider {
 	//Reference is from Goal
-	def scope_Goal_target(Element context, EReference reference) {
-		context.getContainerOfType(ReqSpecContainer).target
-		//.allPrototypes.filter(DataSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
+	def scope_Classifier_target(ContractualElement context, EReference reference) {
+		val targetClassifier = contextClassifier(context)
+		if (targetClassifier != null){
+			targetClassifier.getAllFeatures.scopeFor
+		} else {
+			IScope.NULLSCOPE
+		}
 	}
+
+
+	def contextClassifier(EObject context) {
+		var container = context
+		while (container.eContainer != null) {
+			container =container.eContainer
+			if (container instanceof ReqSpecContainer){
+				val rs = container as ReqSpecContainer
+				if (rs.target != null) return rs.target
+			} 
+		}
+		return null;
+	}
+
 
 }
