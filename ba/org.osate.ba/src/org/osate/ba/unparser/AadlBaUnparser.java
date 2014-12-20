@@ -1154,12 +1154,13 @@ public class AadlBaUnparser
           aadlbaText.addOutput(tmp);
         }
         
-        if(pnh.isSetField())
-        {
-          aadlbaText.addOutput(".") ;
-          process(pnh.getField()) ;
-        }
-        else if(peh.isSetArrayIndexes())
+//        if(pnh.isSetField())
+//        {
+//          aadlbaText.addOutput(".") ;
+//          process(pnh.getField()) ;
+//        }
+//        else 
+        if(peh.isSetArrayIndexes())
         {
           caseArrayIndex(peh.getArrayIndexes()) ;
         }
