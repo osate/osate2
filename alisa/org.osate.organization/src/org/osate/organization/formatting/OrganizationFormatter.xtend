@@ -7,6 +7,7 @@ import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter
 import org.eclipse.xtext.formatting.impl.FormattingConfig
  import com.google.inject.Inject;
  import org.osate.organization.services.OrganizationGrammarAccess
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout
 
 /**
  * This class contains custom formatting description.
@@ -28,14 +29,17 @@ class OrganizationFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
 		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
 		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
-	    for ( pair : _organizationGrammarAccess.findKeywordPairs("[", "]")) {
+	    for ( pair : findKeywordPairs("[", "]")) {
 		      c.setIndentationIncrement().after(pair.first);
 		      c.setLinewrap().after(pair.first);
 		      c.setIndentationDecrement().before(pair.second);
 		      c.setLinewrap().around(pair.second);
 		    }
-		for (annex : _organizationGrammarAccess.findKeywords("stakeholder")) {
-			c.setLinewrap().before(annex);
-		}
+		c.setLinewrap().before(stakeholderRule);
+		c.setLinewrap().before(stakeholderAccess.titleKeyword_2_1_0_0);
+		c.setLinewrap().before(stakeholderAccess.descriptionKeyword_2_1_1_0);
+		c.setLinewrap().before(stakeholderAccess.emailKeyword_2_1_3_0);
+		c.setLinewrap().before(stakeholderAccess.phoneKeyword_2_1_4_0);
+		c.setLinewrap().before(stakeholderAccess.roleKeyword_2_1_2_0);
 	}
 }

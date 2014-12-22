@@ -8,7 +8,8 @@ import org.eclipse.xtext.validation.Check
 import static extension org.osate.organization.OrganizationUtil.*
 import org.osate.organization.organization.Organization
 import org.osate.organization.organization.OrganizationPackage
-import org.osate.alisa.common.GlobalScopeUtil
+import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
+
 
 /**
  * Custom validation rules. 
@@ -16,7 +17,7 @@ import org.osate.alisa.common.GlobalScopeUtil
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class OrganizationValidator extends AbstractOrganizationValidator {
-	extension GlobalScopeUtil e = new GlobalScopeUtil
+	extension AlisaGlobalScopeProvider e = new AlisaGlobalScopeProvider
 
 	public static val DUPLICATE_STAKEHOLDER = "org.osate.organization.DuplicateStakeholder"
 	public static val DUPLICATE_ORGANIZATION = "org.osate.organization.DuplicateOrganization"
