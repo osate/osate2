@@ -95,6 +95,11 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
         return createVerificationCategoriesAdapter();
       }
       @Override
+      public Adapter caseCategory(Category object)
+      {
+        return createCategoryAdapter();
+      }
+      @Override
       public Adapter caseRequirementCategory(RequirementCategory object)
       {
         return createRequirementCategoryAdapter();
@@ -187,6 +192,21 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVerificationCategoriesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.Category <em>Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.Category
+   * @generated
+   */
+  public Adapter createCategoryAdapter()
   {
     return null;
   }

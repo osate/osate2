@@ -59,6 +59,15 @@ public interface CategoriesFactory extends EFactory
   VerificationCategories createVerificationCategories();
 
   /**
+   * Returns a new object of class '<em>Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Category</em>'.
+   * @generated
+   */
+  Category createCategory();
+
+  /**
    * Returns a new object of class '<em>Requirement Category</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

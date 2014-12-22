@@ -7,23 +7,25 @@ Categories : RequirementCategories | HazardCategories | VerificationCategories;
  * requirement categories uses a label instead of name to make the category itself global
  */
 RequirementCategories :
-	'requirement''categories' label = ID
+	'requirement''categories' 
 	'[' category += RequirementCategory+
 	']'
 ;
 
 
 HazardCategories :
-	'hazard' 'categories' label = ID
+	'hazard' 'categories' 
 	'[' category += HazardCategory+
 	']'
 ;
 
 VerificationCategories :
-	'Verification' 'categories' label = ID
+	'verification' 'categories' 
 	'[' category += VerificationCategory+
 	']'
 ;
+
+Category : RequirementCategory | VerificationCategory | HazardCategory;
 
 /**
  * Requirement category indicates the kind of requirement we are dealing with

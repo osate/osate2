@@ -38,6 +38,7 @@ public class CategoriesParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getCategoriesAccess().getAlternatives(), "rule__Categories__Alternatives");
+					put(grammarAccess.getCategoryAccess().getAlternatives(), "rule__Category__Alternatives");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getRequirementCategoriesAccess().getGroup(), "rule__RequirementCategories__Group__0");
 					put(grammarAccess.getHazardCategoriesAccess().getGroup(), "rule__HazardCategories__Group__0");
@@ -50,18 +51,16 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationCategoryAccess().getGroup_2(), "rule__VerificationCategory__Group_2__0");
 					put(grammarAccess.getReferencePathAccess().getGroup(), "rule__ReferencePath__Group__0");
 					put(grammarAccess.getReferencePathAccess().getGroup_1(), "rule__ReferencePath__Group_1__0");
+					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_0(), "rule__AadlClassifierReference__Group_0__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
-					put(grammarAccess.getRequirementCategoriesAccess().getLabelAssignment_2(), "rule__RequirementCategories__LabelAssignment_2");
-					put(grammarAccess.getRequirementCategoriesAccess().getCategoryAssignment_4(), "rule__RequirementCategories__CategoryAssignment_4");
-					put(grammarAccess.getHazardCategoriesAccess().getLabelAssignment_2(), "rule__HazardCategories__LabelAssignment_2");
-					put(grammarAccess.getHazardCategoriesAccess().getCategoryAssignment_4(), "rule__HazardCategories__CategoryAssignment_4");
-					put(grammarAccess.getVerificationCategoriesAccess().getLabelAssignment_2(), "rule__VerificationCategories__LabelAssignment_2");
-					put(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_4(), "rule__VerificationCategories__CategoryAssignment_4");
+					put(grammarAccess.getRequirementCategoriesAccess().getCategoryAssignment_3(), "rule__RequirementCategories__CategoryAssignment_3");
+					put(grammarAccess.getHazardCategoriesAccess().getCategoryAssignment_3(), "rule__HazardCategories__CategoryAssignment_3");
+					put(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3(), "rule__VerificationCategories__CategoryAssignment_3");
 					put(grammarAccess.getRequirementCategoryAccess().getNameAssignment_1(), "rule__RequirementCategory__NameAssignment_1");
 					put(grammarAccess.getRequirementCategoryAccess().getExtendsAssignment_2_1(), "rule__RequirementCategory__ExtendsAssignment_2_1");
 					put(grammarAccess.getHazardCategoryAccess().getNameAssignment_1(), "rule__HazardCategory__NameAssignment_1");
@@ -74,6 +73,7 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionElementAccess().getRefAssignment_1(), "rule__DescriptionElement__RefAssignment_1");
 					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
 					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
+					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
 				}
 			};
 		}

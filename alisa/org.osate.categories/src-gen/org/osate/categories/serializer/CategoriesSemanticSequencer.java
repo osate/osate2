@@ -12,6 +12,7 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.Import;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.ReferencePath;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
@@ -40,7 +41,8 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case CategoriesPackage.HAZARD_CATEGORY:
-				if(context == grammarAccess.getHazardCategoryRule()) {
+				if(context == grammarAccess.getCategoryRule() ||
+				   context == grammarAccess.getHazardCategoryRule()) {
 					sequence_HazardCategory(context, (HazardCategory) semanticObject); 
 					return; 
 				}
@@ -53,7 +55,8 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case CategoriesPackage.REQUIREMENT_CATEGORY:
-				if(context == grammarAccess.getRequirementCategoryRule()) {
+				if(context == grammarAccess.getCategoryRule() ||
+				   context == grammarAccess.getRequirementCategoryRule()) {
 					sequence_RequirementCategory(context, (RequirementCategory) semanticObject); 
 					return; 
 				}
@@ -66,7 +69,8 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case CategoriesPackage.VERIFICATION_CATEGORY:
-				if(context == grammarAccess.getVerificationCategoryRule()) {
+				if(context == grammarAccess.getCategoryRule() ||
+				   context == grammarAccess.getVerificationCategoryRule()) {
 					sequence_VerificationCategory(context, (VerificationCategory) semanticObject); 
 					return; 
 				}
@@ -82,6 +86,12 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.DESCRIPTION_ELEMENT:
 				if(context == grammarAccess.getDescriptionElementRule()) {
 					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.IMPORT:
+				if(context == grammarAccess.getImportRule()) {
+					sequence_Import(context, (Import) semanticObject); 
 					return; 
 				}
 				else break;
@@ -103,7 +113,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID category+=HazardCategory+)
+	 *     category+=HazardCategory+
 	 */
 	protected void sequence_HazardCategories(EObject context, HazardCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -121,7 +131,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID category+=RequirementCategory+)
+	 *     category+=RequirementCategory+
 	 */
 	protected void sequence_RequirementCategories(EObject context, RequirementCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -139,7 +149,7 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID category+=VerificationCategory+)
+	 *     category+=VerificationCategory+
 	 */
 	protected void sequence_VerificationCategories(EObject context, VerificationCategories semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

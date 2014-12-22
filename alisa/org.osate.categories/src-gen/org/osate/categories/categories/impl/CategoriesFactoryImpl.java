@@ -68,6 +68,7 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
       case CategoriesPackage.REQUIREMENT_CATEGORIES: return createRequirementCategories();
       case CategoriesPackage.HAZARD_CATEGORIES: return createHazardCategories();
       case CategoriesPackage.VERIFICATION_CATEGORIES: return createVerificationCategories();
+      case CategoriesPackage.CATEGORY: return createCategory();
       case CategoriesPackage.REQUIREMENT_CATEGORY: return createRequirementCategory();
       case CategoriesPackage.HAZARD_CATEGORY: return createHazardCategory();
       case CategoriesPackage.VERIFICATION_CATEGORY: return createVerificationCategory();
@@ -118,6 +119,17 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     VerificationCategoriesImpl verificationCategories = new VerificationCategoriesImpl();
     return verificationCategories;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Category createCategory()
+  {
+    CategoryImpl category = new CategoryImpl();
+    return category;
   }
 
   /**

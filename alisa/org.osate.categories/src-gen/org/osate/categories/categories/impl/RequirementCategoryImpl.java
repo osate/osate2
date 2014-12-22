@@ -8,7 +8,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.RequirementCategory;
@@ -20,35 +19,14 @@ import org.osate.categories.categories.RequirementCategory;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.categories.categories.impl.RequirementCategoryImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.categories.categories.impl.RequirementCategoryImpl#getExtends <em>Extends</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class RequirementCategoryImpl extends MinimalEObjectImpl.Container implements RequirementCategory
+public class RequirementCategoryImpl extends CategoryImpl implements RequirementCategory
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference.
    * <!-- begin-user-doc -->
@@ -78,29 +56,6 @@ public class RequirementCategoryImpl extends MinimalEObjectImpl.Container implem
   protected EClass eStaticClass()
   {
     return CategoriesPackage.Literals.REQUIREMENT_CATEGORY;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.REQUIREMENT_CATEGORY__NAME, oldName, name));
   }
 
   /**
@@ -156,8 +111,6 @@ public class RequirementCategoryImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case CategoriesPackage.REQUIREMENT_CATEGORY__NAME:
-        return getName();
       case CategoriesPackage.REQUIREMENT_CATEGORY__EXTENDS:
         if (resolve) return getExtends();
         return basicGetExtends();
@@ -175,9 +128,6 @@ public class RequirementCategoryImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case CategoriesPackage.REQUIREMENT_CATEGORY__NAME:
-        setName((String)newValue);
-        return;
       case CategoriesPackage.REQUIREMENT_CATEGORY__EXTENDS:
         setExtends((RequirementCategory)newValue);
         return;
@@ -195,9 +145,6 @@ public class RequirementCategoryImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case CategoriesPackage.REQUIREMENT_CATEGORY__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case CategoriesPackage.REQUIREMENT_CATEGORY__EXTENDS:
         setExtends((RequirementCategory)null);
         return;
@@ -215,29 +162,10 @@ public class RequirementCategoryImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case CategoriesPackage.REQUIREMENT_CATEGORY__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case CategoriesPackage.REQUIREMENT_CATEGORY__EXTENDS:
         return extends_ != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //RequirementCategoryImpl

@@ -5,44 +5,54 @@ package org.osate.categories.categories.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.categories.categories.CategoriesPackage;
-import org.osate.categories.categories.HazardCategory;
+import org.osate.categories.categories.Category;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Hazard Category</b></em>'.
+ * An implementation of the model object '<em><b>Category</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.categories.categories.impl.HazardCategoryImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.osate.categories.categories.impl.CategoryImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class HazardCategoryImpl extends CategoryImpl implements HazardCategory
+public class CategoryImpl extends MinimalEObjectImpl.Container implements Category
 {
   /**
-   * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getExtends()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected HazardCategory extends_;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected HazardCategoryImpl()
+  protected CategoryImpl()
   {
     super();
   }
@@ -55,7 +65,7 @@ public class HazardCategoryImpl extends CategoryImpl implements HazardCategory
   @Override
   protected EClass eStaticClass()
   {
-    return CategoriesPackage.Literals.HAZARD_CATEGORY;
+    return CategoriesPackage.Literals.CATEGORY;
   }
 
   /**
@@ -63,19 +73,9 @@ public class HazardCategoryImpl extends CategoryImpl implements HazardCategory
    * <!-- end-user-doc -->
    * @generated
    */
-  public HazardCategory getExtends()
+  public String getName()
   {
-    if (extends_ != null && extends_.eIsProxy())
-    {
-      InternalEObject oldExtends = (InternalEObject)extends_;
-      extends_ = (HazardCategory)eResolveProxy(oldExtends);
-      if (extends_ != oldExtends)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CategoriesPackage.HAZARD_CATEGORY__EXTENDS, oldExtends, extends_));
-      }
-    }
-    return extends_;
+    return name;
   }
 
   /**
@@ -83,22 +83,12 @@ public class HazardCategoryImpl extends CategoryImpl implements HazardCategory
    * <!-- end-user-doc -->
    * @generated
    */
-  public HazardCategory basicGetExtends()
+  public void setName(String newName)
   {
-    return extends_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setExtends(HazardCategory newExtends)
-  {
-    HazardCategory oldExtends = extends_;
-    extends_ = newExtends;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.HAZARD_CATEGORY__EXTENDS, oldExtends, extends_));
+      eNotify(new ENotificationImpl(this, Notification.SET, CategoriesPackage.CATEGORY__NAME, oldName, name));
   }
 
   /**
@@ -111,9 +101,8 @@ public class HazardCategoryImpl extends CategoryImpl implements HazardCategory
   {
     switch (featureID)
     {
-      case CategoriesPackage.HAZARD_CATEGORY__EXTENDS:
-        if (resolve) return getExtends();
-        return basicGetExtends();
+      case CategoriesPackage.CATEGORY__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -128,8 +117,8 @@ public class HazardCategoryImpl extends CategoryImpl implements HazardCategory
   {
     switch (featureID)
     {
-      case CategoriesPackage.HAZARD_CATEGORY__EXTENDS:
-        setExtends((HazardCategory)newValue);
+      case CategoriesPackage.CATEGORY__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -145,8 +134,8 @@ public class HazardCategoryImpl extends CategoryImpl implements HazardCategory
   {
     switch (featureID)
     {
-      case CategoriesPackage.HAZARD_CATEGORY__EXTENDS:
-        setExtends((HazardCategory)null);
+      case CategoriesPackage.CATEGORY__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -162,10 +151,27 @@ public class HazardCategoryImpl extends CategoryImpl implements HazardCategory
   {
     switch (featureID)
     {
-      case CategoriesPackage.HAZARD_CATEGORY__EXTENDS:
-        return extends_ != null;
+      case CategoriesPackage.CATEGORY__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
 
-} //HazardCategoryImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
+  }
+
+} //CategoryImpl

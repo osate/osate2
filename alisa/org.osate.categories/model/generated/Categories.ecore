@@ -2,9 +2,7 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="categories" nsURI="http://www.osate.org/categories/Categories"
     nsPrefix="categories">
-  <eClassifiers xsi:type="ecore:EClass" name="Categories">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Categories"/>
   <eClassifiers xsi:type="ecore:EClass" name="RequirementCategories" eSuperTypes="#//Categories">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
         eType="#//RequirementCategory" containment="true"/>
@@ -17,16 +15,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
         eType="#//VerificationCategory" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RequirementCategory">
+  <eClassifiers xsi:type="ecore:EClass" name="Category">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RequirementCategory" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//RequirementCategory"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HazardCategory">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HazardCategory" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//HazardCategory"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VerificationCategory">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VerificationCategory" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//VerificationCategory"/>
   </eClassifiers>
 </ecore:EPackage>

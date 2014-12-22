@@ -1,5 +1,5 @@
 '.'=19
-'Verification'=16
+'.*'=20
 '['=13
 ']'=14
 'categories'=12
@@ -7,6 +7,7 @@
 'extends'=18
 'hazard'=15
 'requirement'=11
+'verification'=16
 RULE_ANY_OTHER=10
 RULE_ID=4
 RULE_INT=6
@@ -23,3 +24,4 @@ T__16=16
 T__17=17
 T__18=18
 T__19=19
+T__20=20

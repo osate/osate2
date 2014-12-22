@@ -7,9 +7,7 @@
     editorPluginID="org.osate.categories.editor" runtimeVersion="2.10">
   <genPackages prefix="Categories" basePackage="org.osate.categories" disposableProviderFactory="true"
       fileExtensions="cat" ecorePackage="Categories.ecore#/">
-    <genClasses ecoreClass="Categories.ecore#//Categories">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//Categories/label"/>
-    </genClasses>
+    <genClasses ecoreClass="Categories.ecore#//Categories"/>
     <genClasses ecoreClass="Categories.ecore#//RequirementCategories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategories/category"/>
     </genClasses>
@@ -19,16 +17,16 @@
     <genClasses ecoreClass="Categories.ecore#//VerificationCategories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategories/category"/>
     </genClasses>
+    <genClasses ecoreClass="Categories.ecore#//Category">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//Category/name"/>
+    </genClasses>
     <genClasses ecoreClass="Categories.ecore#//RequirementCategory">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//RequirementCategory/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategory/extends"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//HazardCategory">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//HazardCategory/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//HazardCategory/extends"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//VerificationCategory">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//VerificationCategory/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategory/extends"/>
     </genClasses>
   </genPackages>
