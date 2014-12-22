@@ -25,7 +25,7 @@ class OrganizationValidator extends AbstractOrganizationValidator {
  * Check that stakeholder names are unique within an organization
  */
 	@Check
-	def void checkNoDuplicateStakeholder(Stakeholder sh) {
+	def void checkDuplicateStakeholder(Stakeholder sh) {
 		if (sh.containingOrganization.stakeholder.exists [
 			it != sh && it.name == sh.name
 		])
@@ -41,7 +41,7 @@ class OrganizationValidator extends AbstractOrganizationValidator {
  * Check that organizations are globally unique
  */
 	@Check
-	def void getDuplicatesOrganization(Organization org) {
+	def void checkDuplicatesOrganization(Organization org) {
 		val dups = org.duplicates
 		if (!dups.empty) {
 			// the original is in the set
