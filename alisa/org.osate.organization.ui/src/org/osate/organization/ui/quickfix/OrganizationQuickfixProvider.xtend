@@ -3,9 +3,12 @@
 */
 package org.osate.organization.ui.quickfix
 
-//import org.eclipse.xtext.ui.editor.quickfix.Fix
-//import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
-//import org.eclipse.xtext.validation.Issue
+import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.eclipse.xtext.validation.Issue
+import org.osate.organization.validation.OrganizationValidator
+import org.osate.organization.organization.Stakeholder
+import static extension org.osate.organization.OrganizationUtil.*
 
 /**
  * Custom quickfixes.
@@ -14,13 +17,12 @@ package org.osate.organization.ui.quickfix
  */
 class OrganizationQuickfixProvider extends org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
 
-//	@Fix(MyDslValidator::INVALID_NAME)
-//	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, 'Capitalize name', 'Capitalize the name.', 'upcase.png') [
-//			context |
-//			val xtextDocument = context.xtextDocument
-//			val firstLetter = xtextDocument.get(issue.offset, 1)
-//			xtextDocument.replace(issue.offset, 1, firstLetter.toUpperCase)
-//		]
-//	}
+@Fix(OrganizationValidator::DUPLICATE_STAKEHOLDER)
+def void removeStakeholder(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue,"Remove stakeholder",
+			'''Remove stakeholder '«issue.data.get(0)»' ''',
+			"delete.gif",
+			[element, context| (element as Stakeholder).containingOrganization.stakeholder.remove(element)]
+		)
+		}
 }

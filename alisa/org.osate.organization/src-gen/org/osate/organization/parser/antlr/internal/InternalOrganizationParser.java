@@ -21,10 +21,16 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalOrganizationParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'organization'", "'stakeholder'", "'['", "'title'", "'description'", "'role'", "'email'", "'phone'", "']'", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'organization'", "'stakeholder'", "'['", "'title'", "'description'", "'role'", "'email'", "'phone'", "']'", "'.'", "'.*'"
     };
-    public static final int T__19=19;
     public static final int RULE_ID=4;
+    public static final int RULE_ANY_OTHER=10;
+    public static final int T__21=21;
+    public static final int T__20=20;
+    public static final int RULE_SL_COMMENT=8;
+    public static final int EOF=-1;
+    public static final int RULE_ML_COMMENT=7;
+    public static final int T__19=19;
     public static final int RULE_STRING=5;
     public static final int T__16=16;
     public static final int T__15=15;
@@ -34,13 +40,8 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
     public static final int T__11=11;
     public static final int T__14=14;
     public static final int T__13=13;
-    public static final int RULE_ANY_OTHER=10;
-    public static final int T__20=20;
     public static final int RULE_INT=6;
     public static final int RULE_WS=9;
-    public static final int RULE_SL_COMMENT=8;
-    public static final int EOF=-1;
-    public static final int RULE_ML_COMMENT=7;
 
     // delegates
     // delegators
@@ -1228,7 +1229,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleValueString"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:515:1: entryRuleValueString returns [String current=null] : iv_ruleValueString= ruleValueString EOF ;
+    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:517:1: entryRuleValueString returns [String current=null] : iv_ruleValueString= ruleValueString EOF ;
     public final String entryRuleValueString() throws RecognitionException {
         String current = null;
 
@@ -1236,17 +1237,17 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:516:2: (iv_ruleValueString= ruleValueString EOF )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:517:2: iv_ruleValueString= ruleValueString EOF
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:518:2: (iv_ruleValueString= ruleValueString EOF )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:519:2: iv_ruleValueString= ruleValueString EOF
             {
              newCompositeNode(grammarAccess.getValueStringRule()); 
-            pushFollow(FOLLOW_ruleValueString_in_entryRuleValueString1149);
+            pushFollow(FOLLOW_ruleValueString_in_entryRuleValueString1151);
             iv_ruleValueString=ruleValueString();
 
             state._fsp--;
 
              current =iv_ruleValueString.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleValueString1160); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleValueString1162); 
 
             }
 
@@ -1264,7 +1265,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleValueString"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:524:1: ruleValueString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
+    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:526:1: ruleValueString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
     public final AntlrDatatypeRuleToken ruleValueString() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -1273,10 +1274,10 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:527:28: (this_STRING_0= RULE_STRING )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:528:5: this_STRING_0= RULE_STRING
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:529:28: (this_STRING_0= RULE_STRING )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:530:5: this_STRING_0= RULE_STRING
             {
-            this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleValueString1199); 
+            this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleValueString1201); 
 
             		current.merge(this_STRING_0);
                 
@@ -1301,7 +1302,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedName"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:543:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:545:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
     public final String entryRuleQualifiedName() throws RecognitionException {
         String current = null;
 
@@ -1309,17 +1310,17 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:544:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:545:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:546:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:547:2: iv_ruleQualifiedName= ruleQualifiedName EOF
             {
              newCompositeNode(grammarAccess.getQualifiedNameRule()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName1244);
+            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName1246);
             iv_ruleQualifiedName=ruleQualifiedName();
 
             state._fsp--;
 
              current =iv_ruleQualifiedName.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName1255); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName1257); 
 
             }
 
@@ -1337,7 +1338,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedName"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:552:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
+    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:554:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -1348,20 +1349,20 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:555:28: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:556:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:557:28: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:558:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
             {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:556:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:556:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:558:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:558:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName1295); 
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName1297); 
 
             		current.merge(this_ID_0);
                 
              
                 newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
                 
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:563:1: (kw= '.' this_ID_2= RULE_ID )*
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:565:1: (kw= '.' this_ID_2= RULE_ID )*
             loop6:
             do {
                 int alt6=2;
@@ -1374,14 +1375,14 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
                 switch (alt6) {
             	case 1 :
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:564:2: kw= '.' this_ID_2= RULE_ID
+            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:566:2: kw= '.' this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,20,FOLLOW_20_in_ruleQualifiedName1314); 
+            	    kw=(Token)match(input,20,FOLLOW_20_in_ruleQualifiedName1316); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             	        
-            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName1329); 
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName1331); 
 
             	    		current.merge(this_ID_2);
             	        
@@ -1415,6 +1416,116 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
         return current;
     }
     // $ANTLR end "ruleQualifiedName"
+
+
+    // $ANTLR start "entryRuleQualifiedNameWithWildcard"
+    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:586:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
+    public final String entryRuleQualifiedNameWithWildcard() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleQualifiedNameWithWildcard = null;
+
+
+        try {
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:587:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:588:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
+            {
+             newCompositeNode(grammarAccess.getQualifiedNameWithWildcardRule()); 
+            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard1379);
+            iv_ruleQualifiedNameWithWildcard=ruleQualifiedNameWithWildcard();
+
+            state._fsp--;
+
+             current =iv_ruleQualifiedNameWithWildcard.getText(); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard1390); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleQualifiedNameWithWildcard"
+
+
+    // $ANTLR start "ruleQualifiedNameWithWildcard"
+    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:595:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) ;
+    public final AntlrDatatypeRuleToken ruleQualifiedNameWithWildcard() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+        AntlrDatatypeRuleToken this_QualifiedName_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:598:28: ( (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:599:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
+            {
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:599:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:600:5: this_QualifiedName_0= ruleQualifiedName (kw= '.*' )?
+            {
+             
+                    newCompositeNode(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard1437);
+            this_QualifiedName_0=ruleQualifiedName();
+
+            state._fsp--;
+
+
+            		current.merge(this_QualifiedName_0);
+                
+             
+                    afterParserOrEnumRuleCall();
+                
+            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:610:1: (kw= '.*' )?
+            int alt7=2;
+            int LA7_0 = input.LA(1);
+
+            if ( (LA7_0==21) ) {
+                alt7=1;
+            }
+            switch (alt7) {
+                case 1 :
+                    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganization.g:611:2: kw= '.*'
+                    {
+                    kw=(Token)match(input,21,FOLLOW_21_in_ruleQualifiedNameWithWildcard1456); 
+
+                            current.merge(kw);
+                            newLeafNode(kw, grammarAccess.getQualifiedNameWithWildcardAccess().getFullStopAsteriskKeyword_1()); 
+                        
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleQualifiedNameWithWildcard"
 
     // Delegated rules
 
@@ -1454,13 +1565,17 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_ID_in_ruleReferencePath1077 = new BitSet(new long[]{0x0000000000100000L});
     public static final BitSet FOLLOW_20_in_ruleReferencePath1090 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleReferencePath_in_ruleReferencePath1111 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_entryRuleValueString1149 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleValueString1160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleValueString1199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName1244 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName1255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName1295 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_20_in_ruleQualifiedName1314 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName1329 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_ruleValueString_in_entryRuleValueString1151 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleValueString1162 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleValueString1201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName1246 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName1257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName1297 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_20_in_ruleQualifiedName1316 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName1331 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard1379 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard1390 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard1437 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_21_in_ruleQualifiedNameWithWildcard1456 = new BitSet(new long[]{0x0000000000000002L});
 
 }

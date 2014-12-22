@@ -12,6 +12,7 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.Import;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.ReferencePath;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
@@ -37,6 +38,12 @@ public class OrganizationSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.DESCRIPTION_ELEMENT:
 				if(context == grammarAccess.getDescriptionElementRule()) {
 					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.IMPORT:
+				if(context == grammarAccess.getImportRule()) {
+					sequence_Import(context, (Import) semanticObject); 
 					return; 
 				}
 				else break;

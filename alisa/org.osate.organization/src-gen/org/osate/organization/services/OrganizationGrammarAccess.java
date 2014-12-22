@@ -283,6 +283,16 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		return getReferencePathAccess().getRule();
 	}
 
+	//Import:
+	//	"import" importedNamespace=QualifiedNameWithWildcard;
+	public CommonGrammarAccess.ImportElements getImportAccess() {
+		return gaCommon.getImportAccess();
+	}
+	
+	public ParserRule getImportRule() {
+		return getImportAccess().getRule();
+	}
+
 	//ValueString: // remove quotes from string in ValueConverter 
 	//	STRING;
 	public CommonGrammarAccess.ValueStringElements getValueStringAccess() {

@@ -48,6 +48,7 @@ public class OrganizationParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderAccess().getGroup_2_1_4(), "rule__Stakeholder__Group_2_1_4__0");
 					put(grammarAccess.getReferencePathAccess().getGroup(), "rule__ReferencePath__Group__0");
 					put(grammarAccess.getReferencePathAccess().getGroup_1(), "rule__ReferencePath__Group_1__0");
+					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
@@ -68,6 +69,7 @@ public class OrganizationParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionElementAccess().getRefAssignment_1(), "rule__DescriptionElement__RefAssignment_1");
 					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
 					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
+					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
 					put(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), "rule__Stakeholder__UnorderedGroup_2_1");
 				}
 			};
