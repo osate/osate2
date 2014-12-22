@@ -4,12 +4,12 @@
 package org.osate.categories.validation
 
 import org.eclipse.xtext.validation.Check
-import org.osate.alisa.common.GlobalScopeUtil
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.HazardCategory
 import org.osate.categories.categories.VerificationCategory
 import org.osate.categories.categories.Category
+import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -18,7 +18,7 @@ import org.osate.categories.categories.Category
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class CategoriesValidator extends AbstractCategoriesValidator {
-	extension GlobalScopeUtil e = new GlobalScopeUtil
+	extension AlisaGlobalScopeProvider e = new AlisaGlobalScopeProvider
 
 	public static val DUPLICATE_CATEGORY = "org.osate.organization.DuplicateCategory"
 	public static val CYCLES_CATEGORY = "org.osate.organization.CyclesCategory"

@@ -9,7 +9,6 @@ import com.google.inject.Inject
 import org.osate.categories.services.CategoriesGrammarAccess
 import org.eclipse.xtext.Keyword;
 
-
 /**
  * This class contains custom formatting description.
  * 
@@ -21,23 +20,24 @@ import org.eclipse.xtext.Keyword;
 class CategoriesFormatter extends AbstractDeclarativeFormatter {
 
 	@Inject extension CategoriesGrammarAccess
-	
+
 	override protected void configureFormatting(FormattingConfig c) {
-// It's usually a good idea to activate the following three statements.
-// They will add and preserve newlines around comments
+
+		// It's usually a good idea to activate the following three statements.
+		// They will add and preserve newlines around comments
 		c.setAutoLinewrap(120);
 		c.setWrappedLineIndentation(2);
 		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
 		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
 		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
-	    for ( pair : _categoriesGrammarAccess.findKeywordPairs("[", "]")) {
-		      c.setIndentationIncrement().after(pair.first);
-		      c.setLinewrap().after(pair.first);
-		      c.setIndentationDecrement().before(pair.second);
-		      c.setLinewrap().before(pair.second);
-		    }
-		for (kw : _categoriesGrammarAccess.findKeywords("category")) {
-			c.setLinewrap().before(kw);
+		for (pair : findKeywordPairs("[", "]")) {
+			c.setIndentationIncrement().after(pair.first);
+			c.setLinewrap().after(pair.first);
+			c.setIndentationDecrement().before(pair.second);
+			c.setLinewrap().before(pair.second);
 		}
+		c.setLinewrap().before(verificationCategoryRule);
+		c.setLinewrap().before(requirementCategoryRule);
+		c.setLinewrap().before(hazardCategoryRule);
 	}
 }
