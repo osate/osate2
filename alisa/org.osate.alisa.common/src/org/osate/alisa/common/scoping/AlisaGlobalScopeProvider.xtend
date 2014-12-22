@@ -1,4 +1,4 @@
-package org.osate.alisa.common
+package org.osate.alisa.common.scoping
 
 import com.google.common.collect.Lists
 import com.google.inject.Inject
@@ -12,9 +12,12 @@ import java.util.List
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.emf.common.util.URI
+import com.google.inject.Singleton
 
-class GlobalScopeUtil extends DefaultGlobalScopeProvider {
-	@Inject private IQualifiedNameProvider qualifiedNameProvider;
+@Singleton
+class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
+//	@Inject 
+	private IQualifiedNameProvider qualifiedNameProvider ;
 
 	public static val DUPLICATE_GLOBAL_NAME = "org.osate.alisa.common.DuplicateGlobalName"
 
@@ -22,7 +25,7 @@ class GlobalScopeUtil extends DefaultGlobalScopeProvider {
 	 * Get all global definitions of objects with the qualified name and the same eClass as target.
 	 */
 	def List<IEObjectDescription> getDuplicates(EObject target) {
-		val qn = qualifiedNameProvider.getFullyQualifiedName(target)
+		val qn = qualifiedNameProvider?.getFullyQualifiedName(target)
 		if(qn == null) return Collections.EMPTY_LIST;
 		val res = new Stack<IEObjectDescription>()
 		val context = target.eResource();
@@ -77,6 +80,10 @@ class GlobalScopeUtil extends DefaultGlobalScopeProvider {
 			if (match == qn) return true
 		}
 		return false
+	}
+	
+	def void getFullyQualifiedName(){
+		
 	}
 
 }

@@ -1,9 +1,9 @@
-package org.osate.alisa.common;
+package org.osate.alisa.common.scoping;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,9 +23,9 @@ import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
+@Singleton
 @SuppressWarnings("all")
-public class GlobalScopeUtil extends DefaultGlobalScopeProvider {
-  @Inject
+public class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
   private IQualifiedNameProvider qualifiedNameProvider;
   
   public final static String DUPLICATE_GLOBAL_NAME = "org.osate.alisa.common.DuplicateGlobalName";
@@ -34,7 +34,11 @@ public class GlobalScopeUtil extends DefaultGlobalScopeProvider {
    * Get all global definitions of objects with the qualified name and the same eClass as target.
    */
   public List<IEObjectDescription> getDuplicates(final EObject target) {
-    final QualifiedName qn = this.qualifiedNameProvider.getFullyQualifiedName(target);
+    QualifiedName _fullyQualifiedName = null;
+    if (this.qualifiedNameProvider!=null) {
+      _fullyQualifiedName=this.qualifiedNameProvider.getFullyQualifiedName(target);
+    }
+    final QualifiedName qn = _fullyQualifiedName;
     boolean _equals = Objects.equal(qn, null);
     if (_equals) {
       return Collections.EMPTY_LIST;
@@ -139,5 +143,8 @@ public class GlobalScopeUtil extends DefaultGlobalScopeProvider {
       }
     }
     return false;
+  }
+  
+  public void getFullyQualifiedName() {
   }
 }
