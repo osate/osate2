@@ -8,7 +8,8 @@ import  "http://www.osate.org/organization/Organization" as org
 
 ReqSpec: ReqSpecModel | ReqSpecDocument ;
 
-ReqSpecContainer: ReqSpec | ReqSpecFolder;
+ReqSpecContainer: ReqSpecModel | ReqSpecDocument | ReqSpecFolder | ReqSpecSection ;
+
 ContractualElement: Goal | Requirement  | Hazard;
 
 ReqSpecModel returns ReqSpecModel:
@@ -23,16 +24,25 @@ ReqSpecModel returns ReqSpecModel:
 ReqSpecDocument returns ReqSpecDocument:
 	'document' name =ID ('@' docref = ExternalDocument)?
 	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
-	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
+	'[' (content+= (Goal | Requirement |  ReqSpecSection))*
 	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
 	']'
 	;
 
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:
-	'container' label =ID 
+	'folder' label =ID 
 	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
 	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
+	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
+	']'
+	;
+
+// does not add to a qualified name
+ReqSpecSection returns ReqSpecSection:
+	'section' label =ID 
+	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
+	'[' (content+= (Goal | Requirement |  ReqSpecSection))*
 	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
 	']'
 	;

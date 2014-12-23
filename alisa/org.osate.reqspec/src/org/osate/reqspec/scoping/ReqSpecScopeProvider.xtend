@@ -9,6 +9,7 @@ import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
 import static org.osate.reqspec.util.ReqSpecUtil.*
+import org.osate.reqspec.reqSpec.Goal
 
 /**
  * This class contains custom scoping description.
@@ -18,8 +19,8 @@ import static org.osate.reqspec.util.ReqSpecUtil.*
  *
  */
 class ReqSpecScopeProvider extends PropertiesScopeProvider {
-	//Reference is from Goal
-	def scope_Classifier_target(ContractualElement context, EReference reference) {
+	//Reference is from Goal, ReqSpec, or Hazard
+	def scope_NamedElement(ContractualElement context, EReference reference) {
 		val targetClassifier = contextClassifier(context)
 		if (targetClassifier != null){
 			targetClassifier.getAllFeatures.scopeFor

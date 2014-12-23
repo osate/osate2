@@ -3,9 +3,21 @@
  */
 package org.osate.reqspec;
 
+import org.eclipse.xtext.scoping.IScopeProvider;
+import org.osate.reqspec.scoping.ReqSpecScopeProvider;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRuntimeModule {
+
+	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
+		return org.osate.reqspec.naming.ReqSpecQualifiedNameConverter.class;
+	}
+
+	@Override
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return ReqSpecScopeProvider.class;
+	}
 
 }
