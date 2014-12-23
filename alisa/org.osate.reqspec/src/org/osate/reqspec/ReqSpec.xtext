@@ -46,17 +46,17 @@ RSLVariable :
 
 
 Goal returns Goal:
-	'goal' name=ID ( 'for' target=[aadl2::NamedElement|ID])?
+	'goal' name=ID (':'  title=ValueString )? // short string for title
+	( 'for' target=[aadl2::NamedElement|ID])?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
-	 &('title'  title=ValueString )? 
 	 &('description'  description=Description)? 
 	 &('assertion'  	assert=ValueString )? 
 	 &('rationale'  rationale=ValueString)? 
 	 &('issues'  issue+=ValueString (','issue+=ValueString)* )? 
-	 &('refined' 'to' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
+	 &('refines' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
 	 &( subgoal+=Goal*) 
-	 &('decomposed' 'to' decomposesReference+=[Goal|QualifiedName](',' decomposesReference+=[Goal|QualifiedName])*)? 
+	 &('decomposes' decomposesReference+=[Goal|QualifiedName](',' decomposesReference+=[Goal|QualifiedName])*)? 
 	 &('evolves'  evolvesReference+=[Goal|QualifiedName](',' evolvesReference+=[Goal|QualifiedName])*)? 
 	 &('conflicts'  conflictsReference+=[Goal|QualifiedName](',' conflictsReference+=[Goal|QualifiedName])*)? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName] (',' stakeholderReference+=[org::Stakeholder|QualifiedName])*)?
@@ -68,10 +68,11 @@ Goal returns Goal:
 	
 Requirement:
 	'requirement'  name=ID   
-'['	(( 'for' target=[aadl2::NamedElement|ID])?
- 	&('category'  category=[categories::RequirementCategory|CatRef])?
-	&('title'  title=ValueString)? 
-	&('description'  description=Description)? 
+	(':'  title=ValueString)? 
+ 	('('  category=[categories::RequirementCategory|CatRef] ')')?
+	( 'for' target=[aadl2::NamedElement|ID])?
+'['	(
+	('description'  description=Description)? 
 	&('assertion'  assert=ValueString)?  // predicate expression 
 	&('rationale'  rationale=ValueString)? 
 	& (reqValue += RSLVariable)*

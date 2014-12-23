@@ -271,9 +271,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getContractualElement_Target()
+  public EAttribute getContractualElement_Title()
   {
-    return (EReference)contractualElementEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)contractualElementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -281,9 +281,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getContractualElement_Title()
+  public EReference getContractualElement_Target()
   {
-    return (EAttribute)contractualElementEClass.getEStructuralFeatures().get(2);
+    return (EReference)contractualElementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -776,8 +776,8 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     contractualElementEClass = createEClass(CONTRACTUAL_ELEMENT);
     createEAttribute(contractualElementEClass, CONTRACTUAL_ELEMENT__NAME);
-    createEReference(contractualElementEClass, CONTRACTUAL_ELEMENT__TARGET);
     createEAttribute(contractualElementEClass, CONTRACTUAL_ELEMENT__TITLE);
+    createEReference(contractualElementEClass, CONTRACTUAL_ELEMENT__TARGET);
     createEAttribute(contractualElementEClass, CONTRACTUAL_ELEMENT__RATIONALE);
     createEAttribute(contractualElementEClass, CONTRACTUAL_ELEMENT__ISSUE);
 
@@ -888,8 +888,8 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     initEClass(contractualElementEClass, ContractualElement.class, "ContractualElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getContractualElement_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getContractualElement_Target(), theAadl2Package.getNamedElement(), null, "target", null, 0, 1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getContractualElement_Title(), theEcorePackage.getEString(), "title", null, 0, 1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getContractualElement_Target(), theAadl2Package.getNamedElement(), null, "target", null, 0, 1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getContractualElement_Rationale(), theEcorePackage.getEString(), "rationale", null, 0, 1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getContractualElement_Issue(), theEcorePackage.getEString(), "issue", null, 0, -1, ContractualElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

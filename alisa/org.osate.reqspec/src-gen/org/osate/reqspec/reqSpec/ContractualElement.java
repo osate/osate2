@@ -17,8 +17,8 @@ import org.osate.aadl2.NamedElement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getIssue <em>Issue</em>}</li>
  * </ul>
@@ -57,32 +57,6 @@ public interface ContractualElement extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(NamedElement)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Target()
-   * @model
-   * @generated
-   */
-  NamedElement getTarget();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
-   * @generated
-   */
-  void setTarget(NamedElement value);
-
-  /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -107,6 +81,32 @@ public interface ContractualElement extends EObject
    * @generated
    */
   void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(NamedElement)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Target()
+   * @model
+   * @generated
+   */
+  NamedElement getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(NamedElement value);
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' attribute.

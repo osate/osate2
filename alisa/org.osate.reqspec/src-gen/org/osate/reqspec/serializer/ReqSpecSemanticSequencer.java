@@ -143,9 +143,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         title=ValueString? 
 	 *         target=[NamedElement|ID]? 
 	 *         category=[RequirementCategory|CatRef]? 
-	 *         title=ValueString? 
 	 *         description=Description? 
 	 *         assert=ValueString? 
 	 *         rationale=ValueString? 
@@ -251,9 +251,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|ID]? 
-	 *         category=[RequirementCategory|CatRef]? 
 	 *         title=ValueString? 
+	 *         category=[RequirementCategory|CatRef]? 
+	 *         target=[NamedElement|ID]? 
 	 *         description=Description? 
 	 *         assert=ValueString? 
 	 *         rationale=ValueString? 

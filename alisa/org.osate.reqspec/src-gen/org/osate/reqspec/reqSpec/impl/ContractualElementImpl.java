@@ -30,8 +30,8 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getIssue <em>Issue</em>}</li>
  * </ul>
@@ -62,16 +62,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTarget()
-   * @generated
-   * @ordered
-   */
-  protected NamedElement target;
-
-  /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -90,6 +80,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTarget()
+   * @generated
+   * @ordered
+   */
+  protected NamedElement target;
 
   /**
    * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
@@ -170,6 +170,29 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public NamedElement getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
@@ -206,29 +229,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET, oldTarget, target));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getTitle()
-  {
-    return title;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTitle(String newTitle)
-  {
-    String oldTitle = title;
-    title = newTitle;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE, oldTitle, title));
   }
 
   /**
@@ -280,11 +280,11 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     {
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__NAME:
         return getName();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
+        return getTitle();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
-        return getTitle();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return getRationale();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUE:
@@ -307,11 +307,11 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__NAME:
         setName((String)newValue);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
-        setTarget((NamedElement)newValue);
-        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         setTitle((String)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
+        setTarget((NamedElement)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale((String)newValue);
@@ -337,11 +337,11 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
-        setTarget((NamedElement)null);
-        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         setTitle(TITLE_EDEFAULT);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
+        setTarget((NamedElement)null);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale(RATIONALE_EDEFAULT);
@@ -365,10 +365,10 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     {
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
-        return target != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
+        return target != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUE:

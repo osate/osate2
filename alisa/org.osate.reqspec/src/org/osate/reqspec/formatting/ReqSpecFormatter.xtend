@@ -28,19 +28,50 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
 		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
 		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
-	    for ( pair : _reqSpecGrammarAccess.findKeywordPairs("[", "]")) {
+	    for ( pair : findKeywordPairs("[", "]")) {
 		      c.setIndentationIncrement().after(pair.first);
 		      c.setLinewrap().after(pair.first);
 		      c.setIndentationDecrement().before(pair.second);
 		      c.setLinewrap().before(pair.second);
 		    }
-		for (kw : _reqSpecGrammarAccess.findKeywords("requirement")) {
+		c.setLinewrap(2).before(requirementRule);
+		c.setLinewrap(2).before(goalRule);
+		c.setLinewrap(2).before(hazardRule);
+		c.setLinewrap(2).before(RSLVariableRule);
+		c.setLinewrap().before(reqSpecModelRule);
+		c.setLinewrap().before(reqSpecDocumentRule);
+		c.setLinewrap().before(reqSpecFolderRule);
+		for (kw : findKeywords("description")) {
 			c.setLinewrap().before(kw);
 		}
-		for (kw : _reqSpecGrammarAccess.findKeywords("goal")) {
+		for (kw : findKeywords("assertion")) {
 			c.setLinewrap().before(kw);
 		}
-		for (kw : _reqSpecGrammarAccess.findKeywords("hazard")) {
+		for (kw : findKeywords("rationale")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("issues")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("refines")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("decomposes")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("evolves")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("conflicts")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("mitigated")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("stakeholder")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("see")) {
 			c.setLinewrap().before(kw);
 		}
 	}

@@ -22,8 +22,6 @@ Requirement : ('R'|'r')('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('R'|'r')('E'|'e')('M
 
 Stakeholder : ('S'|'s')('T'|'t')('A'|'a')('K'|'k')('E'|'e')('H'|'h')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
 
-Decomposed : ('D'|'d')('E'|'e')('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('S'|'s')('E'|'e')('D'|'d');
-
 Decomposes : ('D'|'d')('E'|'e')('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('S'|'s')('E'|'e')('S'|'s');
 
 Assertion : ('A'|'a')('S'|'s')('S'|'s')('E'|'e')('R'|'r')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
@@ -43,8 +41,6 @@ Document : ('D'|'d')('O'|'o')('C'|'c')('U'|'u')('M'|'m')('E'|'e')('N'|'n')('T'|'
 Evolves : ('E'|'e')('V'|'v')('O'|'o')('L'|'l')('V'|'v')('E'|'e')('S'|'s');
 
 Package : ('P'|'p')('A'|'a')('C'|'c')('K'|'k')('A'|'a')('G'|'g')('E'|'e');
-
-Refined : ('R'|'r')('E'|'e')('F'|'f')('I'|'i')('N'|'n')('E'|'e')('D'|'d');
 
 Refines : ('R'|'r')('E'|'e')('F'|'f')('I'|'i')('N'|'n')('E'|'e')('S'|'s');
 
@@ -70,15 +66,19 @@ ColonColon : ':'':';
 
 By : ('B'|'b')('Y'|'y');
 
-To : ('T'|'t')('O'|'o');
-
 NumberSign : '#';
+
+LeftParenthesis : '(';
+
+RightParenthesis : ')';
 
 Comma : ',';
 
 FullStop : '.';
 
 Solidus : '/';
+
+Colon : ':';
 
 EqualsSign : '=';
 

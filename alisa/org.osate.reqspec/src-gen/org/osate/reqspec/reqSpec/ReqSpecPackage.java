@@ -177,22 +177,22 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACTUAL_ELEMENT__TARGET = 1;
-
-  /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__TITLE = 2;
+  int CONTRACTUAL_ELEMENT__TITLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACTUAL_ELEMENT__TARGET = 2;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' attribute.
@@ -461,15 +461,6 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__NAME = CONTRACTUAL_ELEMENT__NAME;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GOAL__TARGET = CONTRACTUAL_ELEMENT__TARGET;
-
-  /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -477,6 +468,15 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int GOAL__TITLE = CONTRACTUAL_ELEMENT__TITLE;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__TARGET = CONTRACTUAL_ELEMENT__TARGET;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' attribute.
@@ -633,15 +633,6 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__NAME = CONTRACTUAL_ELEMENT__NAME;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__TARGET = CONTRACTUAL_ELEMENT__TARGET;
-
-  /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -649,6 +640,15 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int REQUIREMENT__TITLE = CONTRACTUAL_ELEMENT__TITLE;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__TARGET = CONTRACTUAL_ELEMENT__TARGET;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' attribute.
@@ -814,15 +814,6 @@ public interface ReqSpecPackage extends EPackage
   int HAZARD__NAME = CONTRACTUAL_ELEMENT__NAME;
 
   /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HAZARD__TARGET = CONTRACTUAL_ELEMENT__TARGET;
-
-  /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -830,6 +821,15 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int HAZARD__TITLE = CONTRACTUAL_ELEMENT__TITLE;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int HAZARD__TARGET = CONTRACTUAL_ELEMENT__TARGET;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' attribute.
@@ -1009,17 +1009,6 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getContractualElement_Name();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.reqspec.reqSpec.ContractualElement#getTarget()
-   * @see #getContractualElement()
-   * @generated
-   */
-  EReference getContractualElement_Target();
-
-  /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ContractualElement#getTitle <em>Title</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1029,6 +1018,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EAttribute getContractualElement_Title();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#getTarget()
+   * @see #getContractualElement()
+   * @generated
+   */
+  EReference getContractualElement_Target();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}'.
@@ -1611,20 +1611,20 @@ public interface ReqSpecPackage extends EPackage
     EAttribute CONTRACTUAL_ELEMENT__NAME = eINSTANCE.getContractualElement_Name();
 
     /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONTRACTUAL_ELEMENT__TARGET = eINSTANCE.getContractualElement_Target();
-
-    /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute CONTRACTUAL_ELEMENT__TITLE = eINSTANCE.getContractualElement_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONTRACTUAL_ELEMENT__TARGET = eINSTANCE.getContractualElement_Target();
 
     /**
      * The meta object literal for the '<em><b>Rationale</b></em>' attribute feature.
