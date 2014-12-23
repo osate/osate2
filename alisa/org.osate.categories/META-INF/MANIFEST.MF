@@ -23,14 +23,15 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.categories,
- org.osate.categories.services,
  org.osate.categories.categories,
  org.osate.categories.categories.impl,
  org.osate.categories.categories.util,
- org.osate.categories.serializer,
+ org.osate.categories.formatting,
+ org.osate.categories.generator,
  org.osate.categories.parser.antlr,
  org.osate.categories.parser.antlr.internal,
- org.osate.categories.validation,
  org.osate.categories.scoping,
- org.osate.categories.generator,
- org.osate.categories.formatting
+ org.osate.categories.serializer,
+ org.osate.categories.services,
+ org.osate.categories.util,
+ org.osate.categories.validation

@@ -3,9 +3,13 @@
 */
 package org.osate.categories.ui.quickfix
 
-//import org.eclipse.xtext.ui.editor.quickfix.Fix
-//import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
-//import org.eclipse.xtext.validation.Issue
+import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.osate.categories.validation.CategoriesValidator
+import org.eclipse.xtext.validation.Issue
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.osate.categories.categories.Category
+
+import static extension org.osate.categories.util.CategoriesUtil.*
 
 /**
  * Custom quickfixes.
@@ -14,13 +18,14 @@ package org.osate.categories.ui.quickfix
  */
 class CategoriesQuickfixProvider extends org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
 
-//	@Fix(MyDslValidator::INVALID_NAME)
-//	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, 'Capitalize name', 'Capitalize the name.', 'upcase.png') [
-//			context |
-//			val xtextDocument = context.xtextDocument
-//			val firstLetter = xtextDocument.get(issue.offset, 1)
-//			xtextDocument.replace(issue.offset, 1, firstLetter.toUpperCase)
-//		]
-//	}
+@Fix(CategoriesValidator::DUPLICATE_CATEGORY)
+	def void removeStakeholder(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			"Remove stakeholder",
+			'''Remove stakeholder '«issue.data.get(0)»' ''',
+			"delete.gif",
+			[element, context|(element as Category).containingCategories.category.remove(element)]
+		)
+	}
 }
