@@ -3,18 +3,12 @@
  */
 package org.osate.reqspec.scoping
 
-import org.osate.aadl2.Element
 import org.eclipse.emf.ecore.EReference
-import org.osate.aadl2.Classifier
-import org.osate.reqspec.reqSpec.ReqSpecContainer
-import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
-
-import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import org.osate.reqspec.reqSpec.Goal
-import org.osate.reqspec.reqSpec.ContractualElement
-import org.eclipse.emf.ecore.EObject
-import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 import org.eclipse.xtext.scoping.IScope
+import org.osate.reqspec.reqSpec.ContractualElement
+import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
+
+import static org.osate.reqspec.util.ReqSpecUtil.*
 
 /**
  * This class contains custom scoping description.
@@ -32,19 +26,6 @@ class ReqSpecScopeProvider extends PropertiesScopeProvider {
 		} else {
 			IScope.NULLSCOPE
 		}
-	}
-
-
-	def contextClassifier(EObject context) {
-		var container = context
-		while (container.eContainer != null) {
-			container =container.eContainer
-			if (container instanceof ReqSpecContainer){
-				val rs = container as ReqSpecContainer
-				if (rs.target != null) return rs.target
-			} 
-		}
-		return null;
 	}
 
 

@@ -29,16 +29,17 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.reqspec,
- org.osate.reqspec.services,
+ org.osate.reqspec.formatting,
+ org.osate.reqspec.generator,
+ org.osate.reqspec.parser.antlr,
+ org.osate.reqspec.parser.antlr.internal,
+ org.osate.reqspec.parser.antlr.lexer,
  org.osate.reqspec.reqSpec,
  org.osate.reqspec.reqSpec.impl,
  org.osate.reqspec.reqSpec.util,
- org.osate.reqspec.serializer,
- org.osate.reqspec.parser.antlr,
- org.osate.reqspec.parser.antlr.internal,
- org.osate.reqspec.validation,
  org.osate.reqspec.scoping,
- org.osate.reqspec.generator,
- org.osate.reqspec.formatting,
- org.osate.reqspec.parser.antlr.lexer
+ org.osate.reqspec.serializer,
+ org.osate.reqspec.services,
+ org.osate.reqspec.util,
+ org.osate.reqspec.validation
 Import-Package: org.apache.log4j
