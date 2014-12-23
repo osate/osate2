@@ -23,14 +23,15 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.organization,
- org.osate.organization.services,
+ org.osate.organization.formatting,
+ org.osate.organization.generator,
  org.osate.organization.organization,
  org.osate.organization.organization.impl,
  org.osate.organization.organization.util,
- org.osate.organization.serializer,
  org.osate.organization.parser.antlr,
  org.osate.organization.parser.antlr.internal,
- org.osate.organization.validation,
  org.osate.organization.scoping,
- org.osate.organization.generator,
- org.osate.organization.formatting
+ org.osate.organization.serializer,
+ org.osate.organization.services,
+ org.osate.organization.util,
+ org.osate.organization.validation

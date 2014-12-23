@@ -5,7 +5,7 @@ package org.osate.organization.validation
 
 import org.osate.organization.organization.Stakeholder
 import org.eclipse.xtext.validation.Check
-import static extension org.osate.organization.OrganizationUtil.*
+import static extension org.osate.organization.util.OrganizationUtil.*
 import org.osate.organization.organization.Organization
 import org.osate.organization.organization.OrganizationPackage
 import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider

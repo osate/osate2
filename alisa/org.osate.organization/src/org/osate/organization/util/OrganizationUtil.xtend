@@ -1,4 +1,4 @@
-package org.osate.organization
+package org.osate.organization.util
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.osate.organization.organization.Stakeholder
 import org.osate.organization.organization.Organization
