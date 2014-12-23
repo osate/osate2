@@ -1131,7 +1131,7 @@ public class AadlBaUnparser
       {
         process(object.getComponent()) ;
         aadlbaText.addOutput("#");
-        processEList(object.getProperties(), ".") ;
+        processEList(object.getProperties(), ".");
         return DONE ;
       }
       
@@ -1154,12 +1154,12 @@ public class AadlBaUnparser
           aadlbaText.addOutput(tmp);
         }
         
-//        if(pnh.isSetField())
-//        {
-//          aadlbaText.addOutput(".") ;
-//          process(pnh.getField()) ;
-//        }
-//        else 
+        if(pnh.getField()!=null)
+        {
+          aadlbaText.addOutput(".") ;
+          process(pnh.getField()) ;
+        }
+        else 
         if(peh.isSetArrayIndexes())
         {
           caseArrayIndex(peh.getArrayIndexes()) ;
