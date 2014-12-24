@@ -9,7 +9,8 @@ import static extension org.osate.organization.util.OrganizationUtil.*
 import org.osate.organization.organization.Organization
 import org.osate.organization.organization.OrganizationPackage
 import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
-
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import com.google.inject.Inject
 
 /**
  * Custom validation rules. 
@@ -17,7 +18,9 @@ import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class OrganizationValidator extends AbstractOrganizationValidator {
-	extension AlisaGlobalScopeProvider e = new AlisaGlobalScopeProvider
+
+	@Inject
+	private IGlobalScopeProvider scopeProvider;
 
 	public static val DUPLICATE_STAKEHOLDER = "org.osate.organization.DuplicateStakeholder"
 	public static val DUPLICATE_ORGANIZATION = "org.osate.organization.DuplicateOrganization"
@@ -43,7 +46,7 @@ class OrganizationValidator extends AbstractOrganizationValidator {
  */
 	@Check
 	def void checkDuplicatesOrganization(Organization org) {
-		val dups = org.duplicates
+		val dups = ( scopeProvider as AlisaGlobalScopeProvider).getDuplicates(org)
 		if (!dups.empty) {
 			// the original is in the set
 			for (dup : dups) {

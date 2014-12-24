@@ -3,7 +3,7 @@ package org.osate.alisa.common.scoping;
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.inject.Singleton;
+import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,42 +23,40 @@ import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
-@Singleton
 @SuppressWarnings("all")
 public class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
+  @Inject
   private IQualifiedNameProvider qualifiedNameProvider;
-  
-  public final static String DUPLICATE_GLOBAL_NAME = "org.osate.alisa.common.DuplicateGlobalName";
   
   /**
    * Get all global definitions of objects with the qualified name and the same eClass as target.
    */
   public List<IEObjectDescription> getDuplicates(final EObject target) {
-    QualifiedName _fullyQualifiedName = null;
-    if (this.qualifiedNameProvider!=null) {
-      _fullyQualifiedName=this.qualifiedNameProvider.getFullyQualifiedName(target);
-    }
-    final QualifiedName qn = _fullyQualifiedName;
-    boolean _equals = Objects.equal(qn, null);
-    if (_equals) {
-      return Collections.EMPTY_LIST;
-    }
     final Stack<IEObjectDescription> res = new Stack<IEObjectDescription>();
     final Resource context = target.eResource();
     boolean _or = false;
-    boolean _equals_1 = Objects.equal(context, null);
-    if (_equals_1) {
+    boolean _equals = Objects.equal(context, null);
+    if (_equals) {
       _or = true;
     } else {
       ResourceSet _resourceSet = context.getResourceSet();
-      boolean _equals_2 = Objects.equal(_resourceSet, null);
-      _or = _equals_2;
+      boolean _equals_1 = Objects.equal(_resourceSet, null);
+      _or = _equals_1;
     }
     if (_or) {
       return Collections.EMPTY_LIST;
     }
     List<IContainer> _visibleContainers = this.getVisibleContainers(context);
     final ArrayList<IContainer> containers = Lists.<IContainer>newArrayList(_visibleContainers);
+    QualifiedName _fullyQualifiedName = null;
+    if (this.qualifiedNameProvider!=null) {
+      _fullyQualifiedName=this.qualifiedNameProvider.getFullyQualifiedName(target);
+    }
+    final QualifiedName qn = _fullyQualifiedName;
+    boolean _equals_2 = Objects.equal(qn, null);
+    if (_equals_2) {
+      return Collections.EMPTY_LIST;
+    }
     for (final IContainer container : containers) {
       {
         EClass _eClass = target.eClass();

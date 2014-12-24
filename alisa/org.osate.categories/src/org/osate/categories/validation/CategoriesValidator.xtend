@@ -10,6 +10,8 @@ import org.osate.categories.categories.HazardCategory
 import org.osate.categories.categories.VerificationCategory
 import org.osate.categories.categories.Category
 import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
+import com.google.inject.Inject
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -18,7 +20,9 @@ import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class CategoriesValidator extends AbstractCategoriesValidator {
-	extension AlisaGlobalScopeProvider e = new AlisaGlobalScopeProvider
+
+	@Inject
+	private IGlobalScopeProvider scopeProvider;
 
 	public static val DUPLICATE_CATEGORY = "org.osate.organization.DuplicateCategory"
 	public static val CYCLES_CATEGORY = "org.osate.organization.CyclesCategory"
@@ -28,7 +32,7 @@ class CategoriesValidator extends AbstractCategoriesValidator {
  */
 	@Check
 	def void checkDuplicatesCategory(Category cat) {
-		val dups = cat.duplicates
+		val dups = ( scopeProvider as AlisaGlobalScopeProvider).getDuplicates(cat)
 		if (!dups.empty) {
 
 			// the original is in the set
