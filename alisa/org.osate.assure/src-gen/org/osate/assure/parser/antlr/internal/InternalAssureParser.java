@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'assurance'", "'case'", "'for'", "'['", "']'", "'verification'", "'result'", "'of'", "'output'", "'logfile'", "'date'", "'state'", "'status'", "'claim'", "'pass'", "'fail'", "'neutral'", "'unknown'", "'.'", "'.*'", "'scheduled'", "'completed'", "'inprogress'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'assurance'", "'case'", "'for'", "'['", "']'", "'verification'", "'result'", "'of'", "'output'", "'logfile'", "'date'", "'state'", "'status'", "'claim'", "'pass'", "'fail'", "'neutral'", "'unknown'", "'.'", "'.*'", "'perform'", "'inprogress'", "'redo'", "'completed'"
     };
     public static final int RULE_ID=4;
     public static final int T__29=29;
@@ -46,6 +46,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final int T__32=32;
     public static final int T__33=33;
     public static final int T__16=16;
+    public static final int T__34=34;
     public static final int T__15=15;
     public static final int T__18=18;
     public static final int T__17=17;
@@ -2174,21 +2175,22 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationResultState"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:933:1: ruleVerificationResultState returns [Enumerator current=null] : ( (enumLiteral_0= 'scheduled' ) | (enumLiteral_1= 'completed' ) | (enumLiteral_2= 'inprogress' ) ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:933:1: ruleVerificationResultState returns [Enumerator current=null] : ( (enumLiteral_0= 'perform' ) | (enumLiteral_1= 'inprogress' ) | (enumLiteral_2= 'redo' ) | (enumLiteral_3= 'completed' ) ) ;
     public final Enumerator ruleVerificationResultState() throws RecognitionException {
         Enumerator current = null;
 
         Token enumLiteral_0=null;
         Token enumLiteral_1=null;
         Token enumLiteral_2=null;
+        Token enumLiteral_3=null;
 
          enterRule(); 
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:935:28: ( ( (enumLiteral_0= 'scheduled' ) | (enumLiteral_1= 'completed' ) | (enumLiteral_2= 'inprogress' ) ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:1: ( (enumLiteral_0= 'scheduled' ) | (enumLiteral_1= 'completed' ) | (enumLiteral_2= 'inprogress' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:935:28: ( ( (enumLiteral_0= 'perform' ) | (enumLiteral_1= 'inprogress' ) | (enumLiteral_2= 'redo' ) | (enumLiteral_3= 'completed' ) ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:1: ( (enumLiteral_0= 'perform' ) | (enumLiteral_1= 'inprogress' ) | (enumLiteral_2= 'redo' ) | (enumLiteral_3= 'completed' ) )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:1: ( (enumLiteral_0= 'scheduled' ) | (enumLiteral_1= 'completed' ) | (enumLiteral_2= 'inprogress' ) )
-            int alt11=3;
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:1: ( (enumLiteral_0= 'perform' ) | (enumLiteral_1= 'inprogress' ) | (enumLiteral_2= 'redo' ) | (enumLiteral_3= 'completed' ) )
+            int alt11=4;
             switch ( input.LA(1) ) {
             case 31:
                 {
@@ -2205,6 +2207,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 alt11=3;
                 }
                 break;
+            case 34:
+                {
+                alt11=4;
+                }
+                break;
             default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 11, 0, input);
@@ -2214,15 +2221,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             switch (alt11) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:2: (enumLiteral_0= 'scheduled' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:2: (enumLiteral_0= 'perform' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:2: (enumLiteral_0= 'scheduled' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:4: enumLiteral_0= 'scheduled'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:2: (enumLiteral_0= 'perform' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:936:4: enumLiteral_0= 'perform'
                     {
                     enumLiteral_0=(Token)match(input,31,FOLLOW_31_in_ruleVerificationResultState2127); 
 
-                            current = grammarAccess.getVerificationResultStateAccess().getSCHEDULEDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStateAccess().getSCHEDULEDEnumLiteralDeclaration_0()); 
+                            current = grammarAccess.getVerificationResultStateAccess().getPERFORMEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStateAccess().getPERFORMEnumLiteralDeclaration_0()); 
                         
 
                     }
@@ -2231,15 +2238,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:942:6: (enumLiteral_1= 'completed' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:942:6: (enumLiteral_1= 'inprogress' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:942:6: (enumLiteral_1= 'completed' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:942:8: enumLiteral_1= 'completed'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:942:6: (enumLiteral_1= 'inprogress' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:942:8: enumLiteral_1= 'inprogress'
                     {
                     enumLiteral_1=(Token)match(input,32,FOLLOW_32_in_ruleVerificationResultState2144); 
 
-                            current = grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_1()); 
+                            current = grammarAccess.getVerificationResultStateAccess().getINPROGRESSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStateAccess().getINPROGRESSEnumLiteralDeclaration_1()); 
                         
 
                     }
@@ -2248,15 +2255,32 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:948:6: (enumLiteral_2= 'inprogress' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:948:6: (enumLiteral_2= 'redo' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:948:6: (enumLiteral_2= 'inprogress' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:948:8: enumLiteral_2= 'inprogress'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:948:6: (enumLiteral_2= 'redo' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:948:8: enumLiteral_2= 'redo'
                     {
                     enumLiteral_2=(Token)match(input,33,FOLLOW_33_in_ruleVerificationResultState2161); 
 
-                            current = grammarAccess.getVerificationResultStateAccess().getINPROGRESSEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStateAccess().getINPROGRESSEnumLiteralDeclaration_2()); 
+                            current = grammarAccess.getVerificationResultStateAccess().getREDOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStateAccess().getREDOEnumLiteralDeclaration_2()); 
+                        
+
+                    }
+
+
+                    }
+                    break;
+                case 4 :
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:954:6: (enumLiteral_3= 'completed' )
+                    {
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:954:6: (enumLiteral_3= 'completed' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:954:8: enumLiteral_3= 'completed'
+                    {
+                    enumLiteral_3=(Token)match(input,34,FOLLOW_34_in_ruleVerificationResultState2178); 
+
+                            current = grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_3()); 
                         
 
                     }
@@ -2285,7 +2309,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationResultStatus"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:958:1: ruleVerificationResultStatus returns [Enumerator current=null] : ( (enumLiteral_0= 'pass' ) | (enumLiteral_1= 'fail' ) | (enumLiteral_2= 'neutral' ) | (enumLiteral_3= 'unknown' ) ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:964:1: ruleVerificationResultStatus returns [Enumerator current=null] : ( (enumLiteral_0= 'unknown' ) | (enumLiteral_1= 'pass' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'neutral' ) ) ;
     public final Enumerator ruleVerificationResultStatus() throws RecognitionException {
         Enumerator current = null;
 
@@ -2296,28 +2320,28 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:960:28: ( ( (enumLiteral_0= 'pass' ) | (enumLiteral_1= 'fail' ) | (enumLiteral_2= 'neutral' ) | (enumLiteral_3= 'unknown' ) ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:961:1: ( (enumLiteral_0= 'pass' ) | (enumLiteral_1= 'fail' ) | (enumLiteral_2= 'neutral' ) | (enumLiteral_3= 'unknown' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:966:28: ( ( (enumLiteral_0= 'unknown' ) | (enumLiteral_1= 'pass' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'neutral' ) ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:967:1: ( (enumLiteral_0= 'unknown' ) | (enumLiteral_1= 'pass' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'neutral' ) )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:961:1: ( (enumLiteral_0= 'pass' ) | (enumLiteral_1= 'fail' ) | (enumLiteral_2= 'neutral' ) | (enumLiteral_3= 'unknown' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:967:1: ( (enumLiteral_0= 'unknown' ) | (enumLiteral_1= 'pass' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'neutral' ) )
             int alt12=4;
             switch ( input.LA(1) ) {
-            case 25:
+            case 28:
                 {
                 alt12=1;
                 }
                 break;
-            case 26:
+            case 25:
                 {
                 alt12=2;
                 }
                 break;
-            case 27:
+            case 26:
                 {
                 alt12=3;
                 }
                 break;
-            case 28:
+            case 27:
                 {
                 alt12=4;
                 }
@@ -2331,15 +2355,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             switch (alt12) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:961:2: (enumLiteral_0= 'pass' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:967:2: (enumLiteral_0= 'unknown' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:961:2: (enumLiteral_0= 'pass' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:961:4: enumLiteral_0= 'pass'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:967:2: (enumLiteral_0= 'unknown' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:967:4: enumLiteral_0= 'unknown'
                     {
-                    enumLiteral_0=(Token)match(input,25,FOLLOW_25_in_ruleVerificationResultStatus2206); 
+                    enumLiteral_0=(Token)match(input,28,FOLLOW_28_in_ruleVerificationResultStatus2223); 
 
-                            current = grammarAccess.getVerificationResultStatusAccess().getPASSEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStatusAccess().getPASSEnumLiteralDeclaration_0()); 
+                            current = grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_0()); 
                         
 
                     }
@@ -2348,15 +2372,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:967:6: (enumLiteral_1= 'fail' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:973:6: (enumLiteral_1= 'pass' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:967:6: (enumLiteral_1= 'fail' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:967:8: enumLiteral_1= 'fail'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:973:6: (enumLiteral_1= 'pass' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:973:8: enumLiteral_1= 'pass'
                     {
-                    enumLiteral_1=(Token)match(input,26,FOLLOW_26_in_ruleVerificationResultStatus2223); 
+                    enumLiteral_1=(Token)match(input,25,FOLLOW_25_in_ruleVerificationResultStatus2240); 
 
-                            current = grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_1()); 
+                            current = grammarAccess.getVerificationResultStatusAccess().getPASSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStatusAccess().getPASSEnumLiteralDeclaration_1()); 
                         
 
                     }
@@ -2365,15 +2389,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:973:6: (enumLiteral_2= 'neutral' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:979:6: (enumLiteral_2= 'fail' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:973:6: (enumLiteral_2= 'neutral' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:973:8: enumLiteral_2= 'neutral'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:979:6: (enumLiteral_2= 'fail' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:979:8: enumLiteral_2= 'fail'
                     {
-                    enumLiteral_2=(Token)match(input,27,FOLLOW_27_in_ruleVerificationResultStatus2240); 
+                    enumLiteral_2=(Token)match(input,26,FOLLOW_26_in_ruleVerificationResultStatus2257); 
 
-                            current = grammarAccess.getVerificationResultStatusAccess().getNEUTRALEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStatusAccess().getNEUTRALEnumLiteralDeclaration_2()); 
+                            current = grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_2()); 
                         
 
                     }
@@ -2382,15 +2406,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:979:6: (enumLiteral_3= 'unknown' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:985:6: (enumLiteral_3= 'neutral' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:979:6: (enumLiteral_3= 'unknown' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:979:8: enumLiteral_3= 'unknown'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:985:6: (enumLiteral_3= 'neutral' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:985:8: enumLiteral_3= 'neutral'
                     {
-                    enumLiteral_3=(Token)match(input,28,FOLLOW_28_in_ruleVerificationResultStatus2257); 
+                    enumLiteral_3=(Token)match(input,27,FOLLOW_27_in_ruleVerificationResultStatus2274); 
 
-                            current = grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-                            newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_3()); 
+                            current = grammarAccess.getVerificationResultStatusAccess().getNEUTRALEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+                            newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStatusAccess().getNEUTRALEnumLiteralDeclaration_3()); 
                         
 
                     }
@@ -2446,7 +2470,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleValueString_in_ruleVerificationResult563 = new BitSet(new long[]{0x0000000000F98000L});
     public static final BitSet FOLLOW_21_in_ruleVerificationResult631 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_ruleValueString_in_ruleVerificationResult652 = new BitSet(new long[]{0x0000000000F98000L});
-    public static final BitSet FOLLOW_22_in_ruleVerificationResult720 = new BitSet(new long[]{0x0000000380000000L});
+    public static final BitSet FOLLOW_22_in_ruleVerificationResult720 = new BitSet(new long[]{0x0000000780000000L});
     public static final BitSet FOLLOW_ruleVerificationResultState_in_ruleVerificationResult741 = new BitSet(new long[]{0x0000000000F98000L});
     public static final BitSet FOLLOW_23_in_ruleVerificationResult809 = new BitSet(new long[]{0x000000001E000000L});
     public static final BitSet FOLLOW_ruleVerificationResultStatus_in_ruleVerificationResult830 = new BitSet(new long[]{0x0000000000F98000L});
@@ -2502,9 +2526,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_31_in_ruleVerificationResultState2127 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_32_in_ruleVerificationResultState2144 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_33_in_ruleVerificationResultState2161 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_ruleVerificationResultStatus2206 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_ruleVerificationResultStatus2223 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_ruleVerificationResultStatus2240 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_ruleVerificationResultStatus2257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_ruleVerificationResultState2178 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_ruleVerificationResultStatus2223 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_ruleVerificationResultStatus2240 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_ruleVerificationResultStatus2257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_ruleVerificationResultStatus2274 = new BitSet(new long[]{0x0000000000000002L});
 
 }

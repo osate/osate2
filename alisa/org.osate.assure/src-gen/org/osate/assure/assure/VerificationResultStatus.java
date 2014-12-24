@@ -20,6 +20,16 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum VerificationResultStatus implements Enumerator
 {
   /**
+   * The '<em><b>UNKNOWN</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #UNKNOWN_VALUE
+   * @generated
+   * @ordered
+   */
+  UNKNOWN(0, "UNKNOWN", "unknown"),
+
+  /**
    * The '<em><b>PASS</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -27,7 +37,7 @@ public enum VerificationResultStatus implements Enumerator
    * @generated
    * @ordered
    */
-  PASS(0, "PASS", "pass"),
+  PASS(1, "PASS", "pass"),
 
   /**
    * The '<em><b>FAIL</b></em>' literal object.
@@ -37,7 +47,7 @@ public enum VerificationResultStatus implements Enumerator
    * @generated
    * @ordered
    */
-  FAIL(1, "FAIL", "fail"),
+  FAIL(2, "FAIL", "fail"),
 
   /**
    * The '<em><b>NEUTRAL</b></em>' literal object.
@@ -47,62 +57,7 @@ public enum VerificationResultStatus implements Enumerator
    * @generated
    * @ordered
    */
-  NEUTRAL(2, "NEUTRAL", "neutral"),
-
-  /**
-   * The '<em><b>UNKNOWN</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #UNKNOWN_VALUE
-   * @generated
-   * @ordered
-   */
-  UNKNOWN(3, "UNKNOWN", "unknown");
-
-  /**
-   * The '<em><b>PASS</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>PASS</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #PASS
-   * @model literal="pass"
-   * @generated
-   * @ordered
-   */
-  public static final int PASS_VALUE = 0;
-
-  /**
-   * The '<em><b>FAIL</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #FAIL
-   * @model literal="fail"
-   * @generated
-   * @ordered
-   */
-  public static final int FAIL_VALUE = 1;
-
-  /**
-   * The '<em><b>NEUTRAL</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>NEUTRAL</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #NEUTRAL
-   * @model literal="neutral"
-   * @generated
-   * @ordered
-   */
-  public static final int NEUTRAL_VALUE = 2;
+  NEUTRAL(3, "NEUTRAL", "neutral");
 
   /**
    * The '<em><b>UNKNOWN</b></em>' literal value.
@@ -117,7 +72,52 @@ public enum VerificationResultStatus implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int UNKNOWN_VALUE = 3;
+  public static final int UNKNOWN_VALUE = 0;
+
+  /**
+   * The '<em><b>PASS</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>PASS</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #PASS
+   * @model literal="pass"
+   * @generated
+   * @ordered
+   */
+  public static final int PASS_VALUE = 1;
+
+  /**
+   * The '<em><b>FAIL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #FAIL
+   * @model literal="fail"
+   * @generated
+   * @ordered
+   */
+  public static final int FAIL_VALUE = 2;
+
+  /**
+   * The '<em><b>NEUTRAL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>NEUTRAL</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #NEUTRAL
+   * @model literal="neutral"
+   * @generated
+   * @ordered
+   */
+  public static final int NEUTRAL_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Verification Result Status</b></em>' enumerators.
@@ -128,10 +128,10 @@ public enum VerificationResultStatus implements Enumerator
   private static final VerificationResultStatus[] VALUES_ARRAY =
     new VerificationResultStatus[]
     {
+      UNKNOWN,
       PASS,
       FAIL,
       NEUTRAL,
-      UNKNOWN,
     };
 
   /**
@@ -190,10 +190,10 @@ public enum VerificationResultStatus implements Enumerator
   {
     switch (value)
     {
+      case UNKNOWN_VALUE: return UNKNOWN;
       case PASS_VALUE: return PASS;
       case FAIL_VALUE: return FAIL;
       case NEUTRAL_VALUE: return NEUTRAL;
-      case UNKNOWN_VALUE: return UNKNOWN;
     }
     return null;
   }

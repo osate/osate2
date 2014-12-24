@@ -511,15 +511,16 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     // Initialize enums and add enum literals
     initEEnum(verificationResultStateEEnum, VerificationResultState.class, "VerificationResultState");
-    addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.SCHEDULED);
-    addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.COMPLETED);
+    addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.PERFORM);
     addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.INPROGRESS);
+    addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.REDO);
+    addEEnumLiteral(verificationResultStateEEnum, VerificationResultState.COMPLETED);
 
     initEEnum(verificationResultStatusEEnum, VerificationResultStatus.class, "VerificationResultStatus");
+    addEEnumLiteral(verificationResultStatusEEnum, VerificationResultStatus.UNKNOWN);
     addEEnumLiteral(verificationResultStatusEEnum, VerificationResultStatus.PASS);
     addEEnumLiteral(verificationResultStatusEEnum, VerificationResultStatus.FAIL);
     addEEnumLiteral(verificationResultStatusEEnum, VerificationResultStatus.NEUTRAL);
-    addEEnumLiteral(verificationResultStatusEEnum, VerificationResultStatus.UNKNOWN);
 
     // Create resource
     createResource(eNS_URI);

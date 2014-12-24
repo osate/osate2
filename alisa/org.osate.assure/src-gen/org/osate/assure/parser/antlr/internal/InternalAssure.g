@@ -933,22 +933,28 @@ ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrD
 ruleVerificationResultState returns [Enumerator current=null] 
     @init { enterRule(); }
     @after { leaveRule(); }:
-((	enumLiteral_0='scheduled' 
+((	enumLiteral_0='perform' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getSCHEDULEDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStateAccess().getSCHEDULEDEnumLiteralDeclaration_0()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getPERFORMEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStateAccess().getPERFORMEnumLiteralDeclaration_0()); 
     }
 )
-    |(	enumLiteral_1='completed' 
+    |(	enumLiteral_1='inprogress' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_1()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getINPROGRESSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStateAccess().getINPROGRESSEnumLiteralDeclaration_1()); 
     }
 )
-    |(	enumLiteral_2='inprogress' 
+    |(	enumLiteral_2='redo' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getINPROGRESSEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStateAccess().getINPROGRESSEnumLiteralDeclaration_2()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getREDOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStateAccess().getREDOEnumLiteralDeclaration_2()); 
+    }
+)
+    |(	enumLiteral_3='completed' 
+	{
+        $current = grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_3()); 
     }
 ));
 
@@ -958,28 +964,28 @@ ruleVerificationResultState returns [Enumerator current=null]
 ruleVerificationResultStatus returns [Enumerator current=null] 
     @init { enterRule(); }
     @after { leaveRule(); }:
-((	enumLiteral_0='pass' 
+((	enumLiteral_0='unknown' 
 	{
-        $current = grammarAccess.getVerificationResultStatusAccess().getPASSEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStatusAccess().getPASSEnumLiteralDeclaration_0()); 
+        $current = grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_0()); 
     }
 )
-    |(	enumLiteral_1='fail' 
+    |(	enumLiteral_1='pass' 
 	{
-        $current = grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_1()); 
+        $current = grammarAccess.getVerificationResultStatusAccess().getPASSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStatusAccess().getPASSEnumLiteralDeclaration_1()); 
     }
 )
-    |(	enumLiteral_2='neutral' 
+    |(	enumLiteral_2='fail' 
 	{
-        $current = grammarAccess.getVerificationResultStatusAccess().getNEUTRALEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStatusAccess().getNEUTRALEnumLiteralDeclaration_2()); 
+        $current = grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_2()); 
     }
 )
-    |(	enumLiteral_3='unknown' 
+    |(	enumLiteral_3='neutral' 
 	{
-        $current = grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_3()); 
+        $current = grammarAccess.getVerificationResultStatusAccess().getNEUTRALEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStatusAccess().getNEUTRALEnumLiteralDeclaration_3()); 
     }
 ));
 

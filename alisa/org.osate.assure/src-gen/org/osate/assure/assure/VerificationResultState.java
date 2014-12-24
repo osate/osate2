@@ -20,24 +20,14 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum VerificationResultState implements Enumerator
 {
   /**
-   * The '<em><b>SCHEDULED</b></em>' literal object.
+   * The '<em><b>PERFORM</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #SCHEDULED_VALUE
+   * @see #PERFORM_VALUE
    * @generated
    * @ordered
    */
-  SCHEDULED(0, "SCHEDULED", "scheduled"),
-
-  /**
-   * The '<em><b>COMPLETED</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #COMPLETED_VALUE
-   * @generated
-   * @ordered
-   */
-  COMPLETED(1, "COMPLETED", "completed"),
+  PERFORM(0, "PERFORM", "perform"),
 
   /**
    * The '<em><b>INPROGRESS</b></em>' literal object.
@@ -47,37 +37,42 @@ public enum VerificationResultState implements Enumerator
    * @generated
    * @ordered
    */
-  INPROGRESS(2, "INPROGRESS", "inprogress");
+  INPROGRESS(1, "INPROGRESS", "inprogress"),
 
   /**
-   * The '<em><b>SCHEDULED</b></em>' literal value.
+   * The '<em><b>REDO</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>SCHEDULED</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #SCHEDULED
-   * @model literal="scheduled"
+   * @see #REDO_VALUE
    * @generated
    * @ordered
    */
-  public static final int SCHEDULED_VALUE = 0;
+  REDO(2, "REDO", "redo"),
 
   /**
-   * The '<em><b>COMPLETED</b></em>' literal value.
+   * The '<em><b>COMPLETED</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>COMPLETED</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #COMPLETED
-   * @model literal="completed"
+   * @see #COMPLETED_VALUE
    * @generated
    * @ordered
    */
-  public static final int COMPLETED_VALUE = 1;
+  COMPLETED(3, "COMPLETED", "completed");
+
+  /**
+   * The '<em><b>PERFORM</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>PERFORM</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #PERFORM
+   * @model literal="perform"
+   * @generated
+   * @ordered
+   */
+  public static final int PERFORM_VALUE = 0;
 
   /**
    * The '<em><b>INPROGRESS</b></em>' literal value.
@@ -92,7 +87,37 @@ public enum VerificationResultState implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int INPROGRESS_VALUE = 2;
+  public static final int INPROGRESS_VALUE = 1;
+
+  /**
+   * The '<em><b>REDO</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>REDO</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #REDO
+   * @model literal="redo"
+   * @generated
+   * @ordered
+   */
+  public static final int REDO_VALUE = 2;
+
+  /**
+   * The '<em><b>COMPLETED</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>COMPLETED</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #COMPLETED
+   * @model literal="completed"
+   * @generated
+   * @ordered
+   */
+  public static final int COMPLETED_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Verification Result State</b></em>' enumerators.
@@ -103,9 +128,10 @@ public enum VerificationResultState implements Enumerator
   private static final VerificationResultState[] VALUES_ARRAY =
     new VerificationResultState[]
     {
-      SCHEDULED,
-      COMPLETED,
+      PERFORM,
       INPROGRESS,
+      REDO,
+      COMPLETED,
     };
 
   /**
@@ -164,9 +190,10 @@ public enum VerificationResultState implements Enumerator
   {
     switch (value)
     {
-      case SCHEDULED_VALUE: return SCHEDULED;
-      case COMPLETED_VALUE: return COMPLETED;
+      case PERFORM_VALUE: return PERFORM;
       case INPROGRESS_VALUE: return INPROGRESS;
+      case REDO_VALUE: return REDO;
+      case COMPLETED_VALUE: return COMPLETED;
     }
     return null;
   }

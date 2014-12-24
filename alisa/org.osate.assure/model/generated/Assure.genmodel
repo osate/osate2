@@ -8,15 +8,16 @@
   <genPackages prefix="Assure" basePackage="org.osate.assure" disposableProviderFactory="true"
       fileExtensions="assure" ecorePackage="Assure.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationResultState">
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/SCHEDULED"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/COMPLETED"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/PERFORM"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/INPROGRESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/REDO"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/COMPLETED"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationResultStatus">
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/UNKNOWN"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/PASS"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/FAIL"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/NEUTRAL"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/UNKNOWN"/>
     </genEnums>
     <genClasses ecoreClass="Assure.ecore#//AssuranceCase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceCase/name"/>

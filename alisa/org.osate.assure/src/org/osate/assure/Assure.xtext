@@ -38,9 +38,12 @@ ClaimResult:
 AssuranceResult: VerificationResult | ClaimResult;
 
 enum  VerificationResultState:
-	SCHEDULED='scheduled' | COMPLETED='completed' | INPROGRESS='inprogress'
+	PERFORM='perform'  // verification to be performed
+	| INPROGRESS='inprogress' // verification in progress (background processing)
+	| REDO='redo' // invalidated while in progress. redo verification.
+	| COMPLETED='completed' // completed. verification result is valid
 ;
 
 enum VerificationResultStatus:
-	PASS='pass' | FAIL='fail' | NEUTRAL='neutral' | UNKNOWN='unknown'
+	UNKNOWN='unknown' | PASS='pass' | FAIL='fail' | NEUTRAL='neutral' 
 ;

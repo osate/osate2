@@ -123,7 +123,7 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
    * @generated
    * @ordered
    */
-  protected static final VerificationResultState STATE_EDEFAULT = VerificationResultState.SCHEDULED;
+  protected static final VerificationResultState STATE_EDEFAULT = VerificationResultState.PERFORM;
 
   /**
    * The cached value of the '{@link #getState() <em>State</em>}' attribute.
@@ -143,7 +143,7 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
    * @generated
    * @ordered
    */
-  protected static final VerificationResultStatus STATUS_EDEFAULT = VerificationResultStatus.PASS;
+  protected static final VerificationResultStatus STATUS_EDEFAULT = VerificationResultStatus.UNKNOWN;
 
   /**
    * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.

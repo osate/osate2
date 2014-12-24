@@ -389,81 +389,105 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	public class VerificationResultStateElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationResultState");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cSCHEDULEDEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cSCHEDULEDScheduledKeyword_0_0 = (Keyword)cSCHEDULEDEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cCOMPLETEDEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cCOMPLETEDCompletedKeyword_1_0 = (Keyword)cCOMPLETEDEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cINPROGRESSEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cINPROGRESSInprogressKeyword_2_0 = (Keyword)cINPROGRESSEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cPERFORMEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cPERFORMPerformKeyword_0_0 = (Keyword)cPERFORMEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cINPROGRESSEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cINPROGRESSInprogressKeyword_1_0 = (Keyword)cINPROGRESSEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cREDOEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cREDORedoKeyword_2_0 = (Keyword)cREDOEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cCOMPLETEDEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cCOMPLETEDCompletedKeyword_3_0 = (Keyword)cCOMPLETEDEnumLiteralDeclaration_3.eContents().get(0);
 		
 		//enum VerificationResultState:
-		//	SCHEDULED="scheduled" | COMPLETED="completed" | INPROGRESS="inprogress";
+		//	PERFORM= // verification to be performed
+		//	"perform" | INPROGRESS= // verification in progress (background processing)
+		//	"inprogress" | REDO= // invalidated while in progress. redo verification.
+		//	"redo" | COMPLETED= // completed. verification result is valid
+		//	"completed";
 		public EnumRule getRule() { return rule; }
 
-		//SCHEDULED="scheduled" | COMPLETED="completed" | INPROGRESS="inprogress"
+		//PERFORM= // verification to be performed
+		//"perform" | INPROGRESS= // verification in progress (background processing)
+		//"inprogress" | REDO= // invalidated while in progress. redo verification.
+		//"redo" | COMPLETED= // completed. verification result is valid
+		//"completed"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//SCHEDULED="scheduled"
-		public EnumLiteralDeclaration getSCHEDULEDEnumLiteralDeclaration_0() { return cSCHEDULEDEnumLiteralDeclaration_0; }
+		//PERFORM= // verification to be performed
+		//"perform"
+		public EnumLiteralDeclaration getPERFORMEnumLiteralDeclaration_0() { return cPERFORMEnumLiteralDeclaration_0; }
 
-		//"scheduled"
-		public Keyword getSCHEDULEDScheduledKeyword_0_0() { return cSCHEDULEDScheduledKeyword_0_0; }
+		//// verification to be performed
+		//"perform"
+		public Keyword getPERFORMPerformKeyword_0_0() { return cPERFORMPerformKeyword_0_0; }
 
-		//COMPLETED="completed"
-		public EnumLiteralDeclaration getCOMPLETEDEnumLiteralDeclaration_1() { return cCOMPLETEDEnumLiteralDeclaration_1; }
-
-		//"completed"
-		public Keyword getCOMPLETEDCompletedKeyword_1_0() { return cCOMPLETEDCompletedKeyword_1_0; }
-
-		//INPROGRESS="inprogress"
-		public EnumLiteralDeclaration getINPROGRESSEnumLiteralDeclaration_2() { return cINPROGRESSEnumLiteralDeclaration_2; }
-
+		//INPROGRESS= // verification in progress (background processing)
 		//"inprogress"
-		public Keyword getINPROGRESSInprogressKeyword_2_0() { return cINPROGRESSInprogressKeyword_2_0; }
+		public EnumLiteralDeclaration getINPROGRESSEnumLiteralDeclaration_1() { return cINPROGRESSEnumLiteralDeclaration_1; }
+
+		//// verification in progress (background processing)
+		//"inprogress"
+		public Keyword getINPROGRESSInprogressKeyword_1_0() { return cINPROGRESSInprogressKeyword_1_0; }
+
+		//REDO= // invalidated while in progress. redo verification.
+		//"redo"
+		public EnumLiteralDeclaration getREDOEnumLiteralDeclaration_2() { return cREDOEnumLiteralDeclaration_2; }
+
+		//// invalidated while in progress. redo verification.
+		//"redo"
+		public Keyword getREDORedoKeyword_2_0() { return cREDORedoKeyword_2_0; }
+
+		//COMPLETED= // completed. verification result is valid
+		//"completed"
+		public EnumLiteralDeclaration getCOMPLETEDEnumLiteralDeclaration_3() { return cCOMPLETEDEnumLiteralDeclaration_3; }
+
+		//// completed. verification result is valid
+		//"completed"
+		public Keyword getCOMPLETEDCompletedKeyword_3_0() { return cCOMPLETEDCompletedKeyword_3_0; }
 	}
 
 	public class VerificationResultStatusElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationResultStatus");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cPASSEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cPASSPassKeyword_0_0 = (Keyword)cPASSEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cFAILFailKeyword_1_0 = (Keyword)cFAILEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cNEUTRALEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cNEUTRALNeutralKeyword_2_0 = (Keyword)cNEUTRALEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cUNKNOWNUnknownKeyword_3_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cUNKNOWNUnknownKeyword_0_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cPASSEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cPASSPassKeyword_1_0 = (Keyword)cPASSEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cFAILFailKeyword_2_0 = (Keyword)cFAILEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cNEUTRALEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cNEUTRALNeutralKeyword_3_0 = (Keyword)cNEUTRALEnumLiteralDeclaration_3.eContents().get(0);
 		
 		//enum VerificationResultStatus:
-		//	PASS="pass" | FAIL="fail" | NEUTRAL="neutral" | UNKNOWN="unknown";
+		//	UNKNOWN="unknown" | PASS="pass" | FAIL="fail" | NEUTRAL="neutral";
 		public EnumRule getRule() { return rule; }
 
-		//PASS="pass" | FAIL="fail" | NEUTRAL="neutral" | UNKNOWN="unknown"
+		//UNKNOWN="unknown" | PASS="pass" | FAIL="fail" | NEUTRAL="neutral"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//PASS="pass"
-		public EnumLiteralDeclaration getPASSEnumLiteralDeclaration_0() { return cPASSEnumLiteralDeclaration_0; }
-
-		//"pass"
-		public Keyword getPASSPassKeyword_0_0() { return cPASSPassKeyword_0_0; }
-
-		//FAIL="fail"
-		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_1() { return cFAILEnumLiteralDeclaration_1; }
-
-		//"fail"
-		public Keyword getFAILFailKeyword_1_0() { return cFAILFailKeyword_1_0; }
-
-		//NEUTRAL="neutral"
-		public EnumLiteralDeclaration getNEUTRALEnumLiteralDeclaration_2() { return cNEUTRALEnumLiteralDeclaration_2; }
-
-		//"neutral"
-		public Keyword getNEUTRALNeutralKeyword_2_0() { return cNEUTRALNeutralKeyword_2_0; }
-
 		//UNKNOWN="unknown"
-		public EnumLiteralDeclaration getUNKNOWNEnumLiteralDeclaration_3() { return cUNKNOWNEnumLiteralDeclaration_3; }
+		public EnumLiteralDeclaration getUNKNOWNEnumLiteralDeclaration_0() { return cUNKNOWNEnumLiteralDeclaration_0; }
 
 		//"unknown"
-		public Keyword getUNKNOWNUnknownKeyword_3_0() { return cUNKNOWNUnknownKeyword_3_0; }
+		public Keyword getUNKNOWNUnknownKeyword_0_0() { return cUNKNOWNUnknownKeyword_0_0; }
+
+		//PASS="pass"
+		public EnumLiteralDeclaration getPASSEnumLiteralDeclaration_1() { return cPASSEnumLiteralDeclaration_1; }
+
+		//"pass"
+		public Keyword getPASSPassKeyword_1_0() { return cPASSPassKeyword_1_0; }
+
+		//FAIL="fail"
+		public EnumLiteralDeclaration getFAILEnumLiteralDeclaration_2() { return cFAILEnumLiteralDeclaration_2; }
+
+		//"fail"
+		public Keyword getFAILFailKeyword_2_0() { return cFAILFailKeyword_2_0; }
+
+		//NEUTRAL="neutral"
+		public EnumLiteralDeclaration getNEUTRALEnumLiteralDeclaration_3() { return cNEUTRALEnumLiteralDeclaration_3; }
+
+		//"neutral"
+		public Keyword getNEUTRALNeutralKeyword_3_0() { return cNEUTRALNeutralKeyword_3_0; }
 	}
 	
 	private final AssuranceCaseElements pAssuranceCase;
@@ -563,7 +587,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum VerificationResultState:
-	//	SCHEDULED="scheduled" | COMPLETED="completed" | INPROGRESS="inprogress";
+	//	PERFORM= // verification to be performed
+	//	"perform" | INPROGRESS= // verification in progress (background processing)
+	//	"inprogress" | REDO= // invalidated while in progress. redo verification.
+	//	"redo" | COMPLETED= // completed. verification result is valid
+	//	"completed";
 	public VerificationResultStateElements getVerificationResultStateAccess() {
 		return unknownRuleVerificationResultState;
 	}
@@ -573,7 +601,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum VerificationResultStatus:
-	//	PASS="pass" | FAIL="fail" | NEUTRAL="neutral" | UNKNOWN="unknown";
+	//	UNKNOWN="unknown" | PASS="pass" | FAIL="fail" | NEUTRAL="neutral";
 	public VerificationResultStatusElements getVerificationResultStatusAccess() {
 		return unknownRuleVerificationResultStatus;
 	}
