@@ -9,7 +9,7 @@ import org.eclipse.xtext.validation.Issue
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.osate.categories.categories.Category
 
-import static extension org.osate.categories.util.CategoriesUtil.*
+import org.osate.categories.util.CategoriesUtil
 
 /**
  * Custom quickfixes.
@@ -17,7 +17,8 @@ import static extension org.osate.categories.util.CategoriesUtil.*
  * see http://www.eclipse.org/Xtext/documentation.html#quickfixes
  */
 class CategoriesQuickfixProvider extends org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
-
+	extension CategoriesUtil cu = new CategoriesUtil
+	
 @Fix(CategoriesValidator::DUPLICATE_CATEGORY)
 	def void removeStakeholder(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(

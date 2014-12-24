@@ -8,11 +8,11 @@ import org.osate.categories.categories.HazardCategories
 
 class CategoriesUtil {
 	
-	def static Categories containingCategories(Category sh){
+	def Categories containingCategories(Category sh){
 		sh.eContainer() as Categories
 	}
 	
-	def static category(Categories cats) {
+	def category(Categories cats) {
 		switch (cats) {
 			RequirementCategories: cats.category
 			VerificationCategories: cats.category

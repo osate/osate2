@@ -4,7 +4,7 @@ import org.osate.organization.organization.Stakeholder
 import org.osate.organization.organization.Organization
 
 class OrganizationUtil {
-	def static containingOrganization(Stakeholder sh){
+	def containingOrganization(Stakeholder sh){
 		sh.getContainerOfType(typeof(Organization))
 	}
 }

@@ -6,7 +6,7 @@ import org.osate.organization.organization.Stakeholder;
 
 @SuppressWarnings("all")
 public class OrganizationUtil {
-  public static Organization containingOrganization(final Stakeholder sh) {
+  public Organization containingOrganization(final Stakeholder sh) {
     return EcoreUtil2.<Organization>getContainerOfType(sh, Organization.class);
   }
 }

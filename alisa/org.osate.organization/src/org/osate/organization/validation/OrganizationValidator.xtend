@@ -5,12 +5,12 @@ package org.osate.organization.validation
 
 import org.osate.organization.organization.Stakeholder
 import org.eclipse.xtext.validation.Check
-import static extension org.osate.organization.util.OrganizationUtil.*
 import org.osate.organization.organization.Organization
 import org.osate.organization.organization.OrganizationPackage
 import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
 import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import com.google.inject.Inject
+import org.osate.organization.util.OrganizationUtil
 
 /**
  * Custom validation rules. 
@@ -18,7 +18,7 @@ import com.google.inject.Inject
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class OrganizationValidator extends AbstractOrganizationValidator {
-
+	extension OrganizationUtil ou = new OrganizationUtil
 	@Inject
 	private IGlobalScopeProvider scopeProvider;
 

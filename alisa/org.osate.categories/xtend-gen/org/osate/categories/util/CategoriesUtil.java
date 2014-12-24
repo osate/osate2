@@ -10,12 +10,12 @@ import org.osate.categories.categories.VerificationCategories;
 
 @SuppressWarnings("all")
 public class CategoriesUtil {
-  public static Categories containingCategories(final Category sh) {
+  public Categories containingCategories(final Category sh) {
     EObject _eContainer = sh.eContainer();
     return ((Categories) _eContainer);
   }
   
-  public static EList<? extends Category> category(final Categories cats) {
+  public EList<? extends Category> category(final Categories cats) {
     EList<? extends Category> _switchResult = null;
     boolean _matched = false;
     if (!_matched) {
