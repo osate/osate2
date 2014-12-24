@@ -12,6 +12,7 @@ import org.osate.categories.categories.Category
 import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
 import com.google.inject.Inject
 import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import org.osate.categories.util.CategoriesUtil
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -20,7 +21,7 @@ import org.eclipse.xtext.scoping.IGlobalScopeProvider
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 class CategoriesValidator extends AbstractCategoriesValidator {
-
+	extension CategoriesUtil cu = new CategoriesUtil
 	@Inject
 	private IGlobalScopeProvider scopeProvider;
 
@@ -61,20 +62,12 @@ class CategoriesValidator extends AbstractCategoriesValidator {
 			if (visitedCategory.contains(current)){
 				error("Cycle in extends hierarchy of Category '"+current.name+"'",
 					CategoriesPackage::eINSTANCE.category_Name,
-					CYCLES_CATEGORY, current.name.toString
+					CYCLES_CATEGORY, supertype.name.toString
 				)
 				return
 			}
 			visitedCategory.add(current)
 			current = current.superType
-		}
-	}
-
-	def Category superType(Category cat) {
-		switch (cat) {
-			RequirementCategory: cat.extends
-			VerificationCategory: cat.extends
-			HazardCategory: cat.extends
 		}
 	}
 

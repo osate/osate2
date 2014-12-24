@@ -20,13 +20,28 @@ class CategoriesQuickfixProvider extends org.osate.alisa.common.ui.quickfix.Comm
 	extension CategoriesUtil cu = new CategoriesUtil
 	
 @Fix(CategoriesValidator::DUPLICATE_CATEGORY)
-	def void removeStakeholder(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void removeCategory(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
-			"Remove stakeholder",
-			'''Remove stakeholder '«issue.data.get(0)»' ''',
+			"Remove category",
+			'''Remove category '«issue.data.get(0)»' ''',
 			"delete.gif",
 			[element, context|(element as Category).containingCategories.category.remove(element)]
+		)
+	}
+
+
+	
+@Fix(CategoriesValidator::CYCLES_CATEGORY)
+	def void removeExtends(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(
+			issue,
+			"Remove extends",
+			'''Remove extends '«issue.data.get(0)»' ''',
+			"delete.gif",
+			[element, context|
+				(element as Category).superType = null
+			]
 		)
 	}
 }
