@@ -56,6 +56,7 @@
       <feature id="com.rockwellcollins.atc.agree.source.feature" version="1.0.0.qualifier"/>
       <feature id="com.rockwellcollins.atc.resolute.feature" version="1.0.0.qualifier"/>
       <feature id="com.rockwellcollins.atc.resolute.source.feature" version="1.0.0.qualifier"/>
+      <feature id="org.osate.ocarina.feature" version="0.0.1.qualifier"/>
       <feature id="org.eclipse.e4.rcp" version="1.3.100.v20140909-1633"/>
       <feature id="org.eclipse.egit" version="3.4.1.201406201815-r"/>
       <feature id="org.eclipse.emf.sdk" version="2.10.1.v20140901-1055"/>
