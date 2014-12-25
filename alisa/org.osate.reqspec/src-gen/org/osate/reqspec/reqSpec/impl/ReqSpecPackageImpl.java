@@ -10,6 +10,10 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.xtext.xbase.XbasePackage;
+
+import org.eclipse.xtext.xtype.XtypePackage;
+
 import org.osate.aadl2.Aadl2Package;
 
 import org.osate.alisa.common.common.CommonPackage;
@@ -22,7 +26,6 @@ import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.Hazard;
-import org.osate.reqspec.reqSpec.RSLVariable;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecContainer;
 import org.osate.reqspec.reqSpec.ReqSpecFactory;
@@ -73,13 +76,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * @generated
    */
   private EClass reqSpecFolderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass rslVariableEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -158,6 +154,8 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     isInited = true;
 
     // Initialize simple dependencies
+    XbasePackage.eINSTANCE.eClass();
+    XtypePackage.eINSTANCE.eClass();
     Aadl2Package.eINSTANCE.eClass();
     CommonPackage.eINSTANCE.eClass();
     CategoriesPackage.eINSTANCE.eClass();
@@ -323,7 +321,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getReqSpecModel_Import()
+  public EReference getReqSpecModel_ImportDeclarations()
   {
     return (EReference)reqSpecModelEClass.getEStructuralFeatures().get(1);
   }
@@ -346,36 +344,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
   public EAttribute getReqSpecFolder_Label()
   {
     return (EAttribute)reqSpecFolderEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getRSLVariable()
-  {
-    return rslVariableEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getRSLVariable_Name()
-  {
-    return (EAttribute)rslVariableEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getRSLVariable_Value()
-  {
-    return (EAttribute)rslVariableEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -413,9 +381,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getGoal_Assert()
+  public EReference getGoal_Assert()
   {
-    return (EAttribute)goalEClass.getEStructuralFeatures().get(2);
+    return (EReference)goalEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -543,19 +511,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRequirement_Assert()
+  public EReference getRequirement_Assert()
   {
-    return (EAttribute)requirementEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getRequirement_ReqValue()
-  {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(3);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -565,7 +523,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_GoalReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(4);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -575,7 +533,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_HazardReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(5);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -585,7 +543,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_RefinesReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(6);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -595,7 +553,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_Subrequirement()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(7);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -605,7 +563,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_DecomposesReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(8);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -615,7 +573,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_EvolvesReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(9);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -625,7 +583,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_StakeholderRequirementReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(10);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -635,7 +593,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_SystemRequirementReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(11);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(10);
   }
 
   /**
@@ -645,7 +603,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    */
   public EReference getRequirement_DocReference()
   {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(12);
+    return (EReference)requirementEClass.getEStructuralFeatures().get(11);
   }
 
   /**
@@ -755,19 +713,15 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     reqSpecModelEClass = createEClass(REQ_SPEC_MODEL);
     createEAttribute(reqSpecModelEClass, REQ_SPEC_MODEL__NAME);
-    createEReference(reqSpecModelEClass, REQ_SPEC_MODEL__IMPORT);
+    createEReference(reqSpecModelEClass, REQ_SPEC_MODEL__IMPORT_DECLARATIONS);
 
     reqSpecFolderEClass = createEClass(REQ_SPEC_FOLDER);
     createEAttribute(reqSpecFolderEClass, REQ_SPEC_FOLDER__LABEL);
 
-    rslVariableEClass = createEClass(RSL_VARIABLE);
-    createEAttribute(rslVariableEClass, RSL_VARIABLE__NAME);
-    createEAttribute(rslVariableEClass, RSL_VARIABLE__VALUE);
-
     goalEClass = createEClass(GOAL);
     createEReference(goalEClass, GOAL__CATEGORY);
     createEReference(goalEClass, GOAL__DESCRIPTION);
-    createEAttribute(goalEClass, GOAL__ASSERT);
+    createEReference(goalEClass, GOAL__ASSERT);
     createEReference(goalEClass, GOAL__REFINES_REFERENCE);
     createEReference(goalEClass, GOAL__SUBGOAL);
     createEReference(goalEClass, GOAL__DECOMPOSES_REFERENCE);
@@ -781,8 +735,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     requirementEClass = createEClass(REQUIREMENT);
     createEReference(requirementEClass, REQUIREMENT__CATEGORY);
     createEReference(requirementEClass, REQUIREMENT__DESCRIPTION);
-    createEAttribute(requirementEClass, REQUIREMENT__ASSERT);
-    createEReference(requirementEClass, REQUIREMENT__REQ_VALUE);
+    createEReference(requirementEClass, REQUIREMENT__ASSERT);
     createEReference(requirementEClass, REQUIREMENT__GOAL_REFERENCE);
     createEReference(requirementEClass, REQUIREMENT__HAZARD_REFERENCE);
     createEReference(requirementEClass, REQUIREMENT__REFINES_REFERENCE);
@@ -829,8 +782,10 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     // Obtain other dependent packages
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
-    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+    XtypePackage theXtypePackage = (XtypePackage)EPackage.Registry.INSTANCE.getEPackage(XtypePackage.eNS_URI);
     CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
+    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+    XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
     OrganizationPackage theOrganizationPackage = (OrganizationPackage)EPackage.Registry.INSTANCE.getEPackage(OrganizationPackage.eNS_URI);
 
     // Create type parameters
@@ -863,19 +818,15 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     initEClass(reqSpecModelEClass, ReqSpecModel.class, "ReqSpecModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getReqSpecModel_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ReqSpecModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getReqSpecModel_Import(), theCommonPackage.getImport(), null, "import", null, 0, -1, ReqSpecModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReqSpecModel_ImportDeclarations(), theXtypePackage.getXImportDeclaration(), null, "importDeclarations", null, 0, -1, ReqSpecModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(reqSpecFolderEClass, ReqSpecFolder.class, "ReqSpecFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getReqSpecFolder_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ReqSpecFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(rslVariableEClass, RSLVariable.class, "RSLVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getRSLVariable_Name(), theEcorePackage.getEString(), "name", null, 0, 1, RSLVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getRSLVariable_Value(), theEcorePackage.getEString(), "value", null, 0, 1, RSLVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(goalEClass, Goal.class, "Goal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getGoal_Category(), theCategoriesPackage.getRequirementCategory(), null, "category", null, 0, 1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getGoal_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getGoal_Assert(), theEcorePackage.getEString(), "assert", null, 0, 1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getGoal_Assert(), theXbasePackage.getXExpression(), null, "assert", null, 0, 1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getGoal_RefinesReference(), this.getGoal(), null, "refinesReference", null, 0, -1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getGoal_Subgoal(), this.getGoal(), null, "subgoal", null, 0, -1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getGoal_DecomposesReference(), this.getGoal(), null, "decomposesReference", null, 0, -1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -889,8 +840,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEClass(requirementEClass, Requirement.class, "Requirement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRequirement_Category(), theCategoriesPackage.getRequirementCategory(), null, "category", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getRequirement_Assert(), theEcorePackage.getEString(), "assert", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirement_ReqValue(), this.getRSLVariable(), null, "reqValue", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRequirement_Assert(), theXbasePackage.getXExpression(), null, "assert", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_GoalReference(), this.getGoal(), null, "goalReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_HazardReference(), this.getHazard(), null, "hazardReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_RefinesReference(), this.getRequirement(), null, "refinesReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

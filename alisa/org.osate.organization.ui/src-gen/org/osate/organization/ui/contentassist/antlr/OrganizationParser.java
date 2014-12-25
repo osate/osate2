@@ -37,7 +37,6 @@ public class OrganizationParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getOrganizationAccess().getGroup(), "rule__Organization__Group__0");
 					put(grammarAccess.getStakeholderAccess().getGroup(), "rule__Stakeholder__Group__0");
 					put(grammarAccess.getStakeholderAccess().getGroup_2(), "rule__Stakeholder__Group_2__0");
@@ -46,15 +45,6 @@ public class OrganizationParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderAccess().getGroup_2_1_2(), "rule__Stakeholder__Group_2_1_2__0");
 					put(grammarAccess.getStakeholderAccess().getGroup_2_1_3(), "rule__Stakeholder__Group_2_1_3__0");
 					put(grammarAccess.getStakeholderAccess().getGroup_2_1_4(), "rule__Stakeholder__Group_2_1_4__0");
-					put(grammarAccess.getReferencePathAccess().getGroup(), "rule__ReferencePath__Group__0");
-					put(grammarAccess.getReferencePathAccess().getGroup_1(), "rule__ReferencePath__Group_1__0");
-					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
-					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
-					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
-					put(grammarAccess.getQualifiedNameWithWildcardAccess().getGroup(), "rule__QualifiedNameWithWildcard__Group__0");
-					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
-					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_0(), "rule__AadlClassifierReference__Group_0__0");
-					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
 					put(grammarAccess.getOrganizationAccess().getNameAssignment_1(), "rule__Organization__NameAssignment_1");
 					put(grammarAccess.getOrganizationAccess().getStakeholderAssignment_2(), "rule__Organization__StakeholderAssignment_2");
 					put(grammarAccess.getStakeholderAccess().getNameAssignment_1(), "rule__Stakeholder__NameAssignment_1");
@@ -63,13 +53,6 @@ public class OrganizationParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderAccess().getRoleAssignment_2_1_2_1(), "rule__Stakeholder__RoleAssignment_2_1_2_1");
 					put(grammarAccess.getStakeholderAccess().getEmailAssignment_2_1_3_1(), "rule__Stakeholder__EmailAssignment_2_1_3_1");
 					put(grammarAccess.getStakeholderAccess().getPhoneAssignment_2_1_4_1(), "rule__Stakeholder__PhoneAssignment_2_1_4_1");
-					put(grammarAccess.getModelAccess().getContentAssignment(), "rule__Model__ContentAssignment");
-					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
-					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
-					put(grammarAccess.getDescriptionElementAccess().getRefAssignment_1(), "rule__DescriptionElement__RefAssignment_1");
-					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
-					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
-					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
 					put(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), "rule__Stakeholder__UnorderedGroup_2_1");
 				}
 			};

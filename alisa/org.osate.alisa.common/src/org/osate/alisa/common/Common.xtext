@@ -1,4 +1,4 @@
-grammar org.osate.alisa.common.Common with org.eclipse.xtext.common.Terminals
+grammar org.osate.alisa.common.Common with org.eclipse.xtext.xbase.Xbase
 
 generate common "http://www.osate.org/alisa/common/Common"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
@@ -20,23 +20,12 @@ DescriptionElement :
  	ref = [ecore::EObject|ID] ('.' subpath=ReferencePath)
  ;
 
-Import:
-'import' importedNamespace = QualifiedNameWithWildcard
-;
 	
 ValueString :
 	// remove quotes from string in ValueConverter 
 	STRING
 ;
 
-// dotted path as relative reference
-QualifiedName:
-	ID ('.' ID)* ;	
-	
-// qualified named with wildcard
-QualifiedNameWithWildcard:
-	QualifiedName '.*'?
-;
 
 // Qualified classifier reference
 AadlClassifierReference:

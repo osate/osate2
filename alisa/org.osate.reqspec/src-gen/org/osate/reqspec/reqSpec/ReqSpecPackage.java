@@ -241,13 +241,13 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPEC_MODEL__NAME = REQ_SPEC_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Import</b></em>' containment reference list.
+   * The feature id for the '<em><b>Import Declarations</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPEC_MODEL__IMPORT = REQ_SPEC_FEATURE_COUNT + 4;
+  int REQ_SPEC_MODEL__IMPORT_DECLARATIONS = REQ_SPEC_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -314,43 +314,6 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPEC_FOLDER_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.RSLVariableImpl <em>RSL Variable</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.RSLVariableImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getRSLVariable()
-   * @generated
-   */
-  int RSL_VARIABLE = 5;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RSL_VARIABLE__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RSL_VARIABLE__VALUE = 1;
-
-  /**
-   * The number of structural features of the '<em>RSL Variable</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RSL_VARIABLE_FEATURE_COUNT = 2;
-
-  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -358,7 +321,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getGoal()
    * @generated
    */
-  int GOAL = 6;
+  int GOAL = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -433,7 +396,7 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__DESCRIPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Assert</b></em>' attribute.
+   * The feature id for the '<em><b>Assert</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -539,7 +502,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getRequirement()
    * @generated
    */
-  int REQUIREMENT = 7;
+  int REQUIREMENT = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -614,7 +577,7 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__DESCRIPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Assert</b></em>' attribute.
+   * The feature id for the '<em><b>Assert</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -623,22 +586,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__ASSERT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Req Value</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__REQ_VALUE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
    * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
+  int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Hazard Reference</b></em>' reference list.
@@ -647,7 +601,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__HAZARD_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+  int REQUIREMENT__HAZARD_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
@@ -656,7 +610,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
+  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Subrequirement</b></em>' containment reference list.
@@ -665,7 +619,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__SUBREQUIREMENT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
+  int REQUIREMENT__SUBREQUIREMENT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
@@ -674,7 +628,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
+  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Evolves Reference</b></em>' reference list.
@@ -683,7 +637,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EVOLVES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
+  int REQUIREMENT__EVOLVES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Stakeholder Requirement Reference</b></em>' reference list.
@@ -692,7 +646,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
+  int REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>System Requirement Reference</b></em>' reference list.
@@ -701,7 +655,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__SYSTEM_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 11;
+  int REQUIREMENT__SYSTEM_REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 10;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -710,7 +664,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__DOC_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 12;
+  int REQUIREMENT__DOC_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 11;
 
   /**
    * The number of structural features of the '<em>Requirement</em>' class.
@@ -719,7 +673,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 13;
+  int REQUIREMENT_FEATURE_COUNT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 12;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.HazardImpl <em>Hazard</em>}' class.
@@ -729,7 +683,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getHazard()
    * @generated
    */
-  int HAZARD = 8;
+  int HAZARD = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -820,7 +774,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 9;
+  int EXTERNAL_DOCUMENT = 8;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1001,15 +955,15 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getReqSpecModel_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecModel#getImport <em>Import</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecModel#getImportDeclarations <em>Import Declarations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Import</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecModel#getImport()
+   * @return the meta object for the containment reference list '<em>Import Declarations</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqSpecModel#getImportDeclarations()
    * @see #getReqSpecModel()
    * @generated
    */
-  EReference getReqSpecModel_Import();
+  EReference getReqSpecModel_ImportDeclarations();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqSpecFolder <em>Folder</em>}'.
@@ -1031,38 +985,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EAttribute getReqSpecFolder_Label();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.RSLVariable <em>RSL Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>RSL Variable</em>'.
-   * @see org.osate.reqspec.reqSpec.RSLVariable
-   * @generated
-   */
-  EClass getRSLVariable();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.RSLVariable#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.reqspec.reqSpec.RSLVariable#getName()
-   * @see #getRSLVariable()
-   * @generated
-   */
-  EAttribute getRSLVariable_Name();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.RSLVariable#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.osate.reqspec.reqSpec.RSLVariable#getValue()
-   * @see #getRSLVariable()
-   * @generated
-   */
-  EAttribute getRSLVariable_Value();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.Goal <em>Goal</em>}'.
@@ -1097,15 +1019,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getGoal_Description();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Goal#getAssert <em>Assert</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.Goal#getAssert <em>Assert</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Assert</em>'.
+   * @return the meta object for the containment reference '<em>Assert</em>'.
    * @see org.osate.reqspec.reqSpec.Goal#getAssert()
    * @see #getGoal()
    * @generated
    */
-  EAttribute getGoal_Assert();
+  EReference getGoal_Assert();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Goal#getRefinesReference <em>Refines Reference</em>}'.
@@ -1239,26 +1161,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getRequirement_Description();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.Requirement#getAssert <em>Assert</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.Requirement#getAssert <em>Assert</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Assert</em>'.
+   * @return the meta object for the containment reference '<em>Assert</em>'.
    * @see org.osate.reqspec.reqSpec.Requirement#getAssert()
    * @see #getRequirement()
    * @generated
    */
-  EAttribute getRequirement_Assert();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Requirement#getReqValue <em>Req Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Req Value</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getReqValue()
-   * @see #getRequirement()
-   * @generated
-   */
-  EReference getRequirement_ReqValue();
+  EReference getRequirement_Assert();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}'.
@@ -1567,12 +1478,12 @@ public interface ReqSpecPackage extends EPackage
     EAttribute REQ_SPEC_MODEL__NAME = eINSTANCE.getReqSpecModel_Name();
 
     /**
-     * The meta object literal for the '<em><b>Import</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Import Declarations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQ_SPEC_MODEL__IMPORT = eINSTANCE.getReqSpecModel_Import();
+    EReference REQ_SPEC_MODEL__IMPORT_DECLARATIONS = eINSTANCE.getReqSpecModel_ImportDeclarations();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecFolderImpl <em>Folder</em>}' class.
@@ -1591,32 +1502,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute REQ_SPEC_FOLDER__LABEL = eINSTANCE.getReqSpecFolder_Label();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.RSLVariableImpl <em>RSL Variable</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.RSLVariableImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getRSLVariable()
-     * @generated
-     */
-    EClass RSL_VARIABLE = eINSTANCE.getRSLVariable();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RSL_VARIABLE__NAME = eINSTANCE.getRSLVariable_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RSL_VARIABLE__VALUE = eINSTANCE.getRSLVariable_Value();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -1645,12 +1530,12 @@ public interface ReqSpecPackage extends EPackage
     EReference GOAL__DESCRIPTION = eINSTANCE.getGoal_Description();
 
     /**
-     * The meta object literal for the '<em><b>Assert</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Assert</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute GOAL__ASSERT = eINSTANCE.getGoal_Assert();
+    EReference GOAL__ASSERT = eINSTANCE.getGoal_Assert();
 
     /**
      * The meta object literal for the '<em><b>Refines Reference</b></em>' reference list feature.
@@ -1751,20 +1636,12 @@ public interface ReqSpecPackage extends EPackage
     EReference REQUIREMENT__DESCRIPTION = eINSTANCE.getRequirement_Description();
 
     /**
-     * The meta object literal for the '<em><b>Assert</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Assert</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute REQUIREMENT__ASSERT = eINSTANCE.getRequirement_Assert();
-
-    /**
-     * The meta object literal for the '<em><b>Req Value</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference REQUIREMENT__REQ_VALUE = eINSTANCE.getRequirement_ReqValue();
+    EReference REQUIREMENT__ASSERT = eINSTANCE.getRequirement_Assert();
 
     /**
      * The meta object literal for the '<em><b>Goal Reference</b></em>' reference list feature.

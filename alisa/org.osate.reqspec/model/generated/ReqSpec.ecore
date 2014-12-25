@@ -21,22 +21,19 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReqSpecModel" eSuperTypes="#//ReqSpec #//ReqSpecContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="import" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Import"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importDeclarations" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xtype.ecore#//XImportDeclaration"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReqSpecFolder" eSuperTypes="#//ReqSpecContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RSLVariable">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Goal" eSuperTypes="#//ContractualElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assert" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinesReference" unique="false"
         upperBound="-1" eType="#//Goal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subgoal" upperBound="-1"
@@ -60,9 +57,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assert" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="reqValue" upperBound="-1"
-        eType="#//RSLVariable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="goalReference" unique="false"
         upperBound="-1" eType="#//Goal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hazardReference" unique="false"

@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.xtext.xtype.XtypePackage;
+
 import org.osate.alisa.common.common.CommonPackage;
 
 import org.osate.categories.categories.CategoriesPackage;
@@ -206,7 +208,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVerificationModel_Import()
+  public EReference getVerificationModel_ImportDeclarations()
   {
     return (EReference)verificationModelEClass.getEStructuralFeatures().get(1);
   }
@@ -653,7 +655,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     // Create classes and their features
     verificationModelEClass = createEClass(VERIFICATION_MODEL);
     createEAttribute(verificationModelEClass, VERIFICATION_MODEL__NAME);
-    createEReference(verificationModelEClass, VERIFICATION_MODEL__IMPORT);
+    createEReference(verificationModelEClass, VERIFICATION_MODEL__IMPORT_DECLARATIONS);
 
     verificationFolderEClass = createEClass(VERIFICATION_FOLDER);
     createEAttribute(verificationFolderEClass, VERIFICATION_FOLDER__LABEL);
@@ -733,9 +735,10 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
-    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+    XtypePackage theXtypePackage = (XtypePackage)EPackage.Registry.INSTANCE.getEPackage(XtypePackage.eNS_URI);
     ReqSpecPackage theReqSpecPackage = (ReqSpecPackage)EPackage.Registry.INSTANCE.getEPackage(ReqSpecPackage.eNS_URI);
     CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
+    CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
     // Create type parameters
 
@@ -750,7 +753,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     // Initialize classes and features; add operations and parameters
     initEClass(verificationModelEClass, VerificationModel.class, "VerificationModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationModel_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVerificationModel_Import(), theCommonPackage.getImport(), null, "import", null, 0, -1, VerificationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationModel_ImportDeclarations(), theXtypePackage.getXImportDeclaration(), null, "importDeclarations", null, 0, -1, VerificationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationFolderEClass, VerificationFolder.class, "VerificationFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationFolder_Label(), theEcorePackage.getEString(), "label", null, 0, 1, VerificationFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

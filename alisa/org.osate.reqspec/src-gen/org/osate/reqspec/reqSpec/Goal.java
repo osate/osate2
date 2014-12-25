@@ -4,6 +4,8 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.RequirementCategory;
@@ -92,30 +94,30 @@ public interface Goal extends ContractualElement
   void setDescription(Description value);
 
   /**
-   * Returns the value of the '<em><b>Assert</b></em>' attribute.
+   * Returns the value of the '<em><b>Assert</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Assert</em>' attribute isn't clear,
+   * If the meaning of the '<em>Assert</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Assert</em>' attribute.
-   * @see #setAssert(String)
+   * @return the value of the '<em>Assert</em>' containment reference.
+   * @see #setAssert(XExpression)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getGoal_Assert()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getAssert();
+  XExpression getAssert();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Goal#getAssert <em>Assert</em>}' attribute.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Goal#getAssert <em>Assert</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Assert</em>' attribute.
+   * @param value the new value of the '<em>Assert</em>' containment reference.
    * @see #getAssert()
    * @generated
    */
-  void setAssert(String value);
+  void setAssert(XExpression value);
 
   /**
    * Returns the value of the '<em><b>Refines Reference</b></em>' reference list.

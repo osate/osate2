@@ -131,13 +131,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_MODEL__NAME = VERIFICATION_CONTAINER_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Import</b></em>' containment reference list.
+   * The feature id for the '<em><b>Import Declarations</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_MODEL__IMPORT = VERIFICATION_CONTAINER_FEATURE_COUNT + 1;
+  int VERIFICATION_MODEL__IMPORT_DECLARATIONS = VERIFICATION_CONTAINER_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Verification Model</em>' class.
@@ -621,15 +621,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationModel_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationModel#getImport <em>Import</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationModel#getImportDeclarations <em>Import Declarations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Import</em>'.
-   * @see org.osate.verify.verify.VerificationModel#getImport()
+   * @return the meta object for the containment reference list '<em>Import Declarations</em>'.
+   * @see org.osate.verify.verify.VerificationModel#getImportDeclarations()
    * @see #getVerificationModel()
    * @generated
    */
-  EReference getVerificationModel_Import();
+  EReference getVerificationModel_ImportDeclarations();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationFolder <em>Verification Folder</em>}'.
@@ -1114,12 +1114,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_MODEL__NAME = eINSTANCE.getVerificationModel_Name();
 
     /**
-     * The meta object literal for the '<em><b>Import</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Import Declarations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_MODEL__IMPORT = eINSTANCE.getVerificationModel_Import();
+    EReference VERIFICATION_MODEL__IMPORT_DECLARATIONS = eINSTANCE.getVerificationModel_ImportDeclarations();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationFolderImpl <em>Verification Folder</em>}' class.

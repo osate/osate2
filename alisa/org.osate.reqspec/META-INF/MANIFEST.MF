@@ -42,5 +42,6 @@ Export-Package: org.osate.reqspec,
  org.osate.reqspec.serializer,
  org.osate.reqspec.services,
  org.osate.reqspec.util,
- org.osate.reqspec.validation
+ org.osate.reqspec.validation,
+ org.osate.reqspec.jvmmodel
 Import-Package: org.apache.log4j

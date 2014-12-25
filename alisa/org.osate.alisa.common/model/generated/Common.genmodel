@@ -21,8 +21,5 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ReferencePath/ref"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ReferencePath/subpath"/>
     </genClasses>
-    <genClasses ecoreClass="Common.ecore#//Import">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Import/importedNamespace"/>
-    </genClasses>
   </genPackages>
 </genmodel:GenModel>

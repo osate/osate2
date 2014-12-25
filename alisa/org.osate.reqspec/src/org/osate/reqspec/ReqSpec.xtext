@@ -15,7 +15,7 @@ ContractualElement: Goal | Requirement  | Hazard;
 ReqSpecModel returns ReqSpecModel:
 	'package' name =ID 
 	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
-	( ^import += Import)*
+	importDeclarations+=XImportDeclaration*
 	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
 	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
 	']'
@@ -33,20 +33,13 @@ ReqSpecFolder returns ReqSpecFolder:
 
 	
 
-// TODO: May reference a property by referring to its definition
-RSLVariable :
-	'val' name = ID '=' value = ValueString
-;
-
-
-
 Goal returns Goal:
 	'goal' name=ID (':'  title=ValueString )? // short string for title
 	( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
 	 &('description'  description=Description)? 
-	 &('assertion'  	assert=ValueString )? 
+	 &('assert'  	assert=XExpressionInClosure )? 
 	 &('rationale'  rationale=ValueString)? 
 	 &('issues'  issue+=ValueString (','issue+=ValueString)* )? 
 	 &('refines' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
@@ -68,9 +61,8 @@ Requirement:
 	( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
 '['	(
 	('description'  description=Description)? 
-	&('assertion'  assert=ValueString)?  // predicate expression 
+	&('assert'  assert=XExpressionInClosure)?  // predicate expression 
 	&('rationale'  rationale=ValueString)? 
-	& (reqValue += RSLVariable)*
 	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName] (',' goalReference+=[Goal|QualifiedName])*)?
 	&('mitigates'  hazardReference+=[Hazard|QualifiedName] (',' hazardReference+=[Hazard])*)? 
@@ -107,3 +99,6 @@ ExternalDocument :
 DOCPATH: ( ID '/')* ID '.' ID;
 
 DOCFRAGMENT: ID ('.' ID)*;
+
+
+	

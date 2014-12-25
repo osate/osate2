@@ -68,7 +68,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.DESCRIPTION: return createDescription();
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
       case CommonPackage.REFERENCE_PATH: return createReferencePath();
-      case CommonPackage.IMPORT: return createImport();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -116,17 +115,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     ReferencePathImpl referencePath = new ReferencePathImpl();
     return referencePath;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Import createImport()
-  {
-    ImportImpl import_ = new ImportImpl();
-    return import_;
   }
 
   /**

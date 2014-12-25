@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.ecore.EPackage;
 
-public class AbstractCategoriesValidator extends org.osate.alisa.common.validation.CommonValidator {
+public class AbstractCategoriesValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {
 
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
+	    List<EPackage> result = new ArrayList<EPackage>();
 	    result.add(org.osate.categories.categories.CategoriesPackage.eINSTANCE);
 		return result;
 	}

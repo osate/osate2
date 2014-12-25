@@ -4,7 +4,7 @@ package org.osate.verify.verify;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.alisa.common.common.Import;
+import org.eclipse.xtext.xtype.XImportDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,7 +15,7 @@ import org.osate.alisa.common.common.Import;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationModel#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationModel#getImport <em>Import</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationModel#getImportDeclarations <em>Import Declarations</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,19 +52,19 @@ public interface VerificationModel extends VerificationContainer
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Import</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.Import}.
+   * Returns the value of the '<em><b>Import Declarations</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xtype.XImportDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Import</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Import Declarations</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Import</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationModel_Import()
+   * @return the value of the '<em>Import Declarations</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationModel_ImportDeclarations()
    * @model containment="true"
    * @generated
    */
-  EList<Import> getImport();
+  EList<XImportDeclaration> getImportDeclarations();
 
 } // VerificationModel

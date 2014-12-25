@@ -6,16 +6,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
-import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.Description;
-import org.osate.alisa.common.common.DescriptionElement;
-import org.osate.alisa.common.common.Import;
-import org.osate.alisa.common.common.Model;
-import org.osate.alisa.common.common.ReferencePath;
-import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.HazardCategories;
 import org.osate.categories.categories.HazardCategory;
@@ -26,7 +20,7 @@ import org.osate.categories.categories.VerificationCategory;
 import org.osate.categories.services.CategoriesGrammarAccess;
 
 @SuppressWarnings("all")
-public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
+public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 
 	@Inject
 	private CategoriesGrammarAccess grammarAccess;
@@ -72,38 +66,6 @@ public class CategoriesSemanticSequencer extends CommonSemanticSequencer {
 				if(context == grammarAccess.getCategoryRule() ||
 				   context == grammarAccess.getVerificationCategoryRule()) {
 					sequence_VerificationCategory(context, (VerificationCategory) semanticObject); 
-					return; 
-				}
-				else break;
-			}
-		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case CommonPackage.DESCRIPTION:
-				if(context == grammarAccess.getDescriptionRule()) {
-					sequence_Description(context, (Description) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.DESCRIPTION_ELEMENT:
-				if(context == grammarAccess.getDescriptionElementRule()) {
-					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.IMPORT:
-				if(context == grammarAccess.getImportRule()) {
-					sequence_Import(context, (Import) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.MODEL:
-				if(context == grammarAccess.getModelRule()) {
-					sequence_Model(context, (Model) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.REFERENCE_PATH:
-				if(context == grammarAccess.getReferencePathRule()) {
-					sequence_ReferencePath(context, (ReferencePath) semanticObject); 
 					return; 
 				}
 				else break;

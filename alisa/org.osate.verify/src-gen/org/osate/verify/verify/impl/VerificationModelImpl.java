@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.common.common.Import;
+import org.eclipse.xtext.xtype.XImportDeclaration;
 
 import org.osate.verify.verify.VerificationModel;
 import org.osate.verify.verify.VerifyPackage;
@@ -30,7 +30,7 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationModelImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationModelImpl#getImport <em>Import</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationModelImpl#getImportDeclarations <em>Import Declarations</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,14 +59,14 @@ public class VerificationModelImpl extends VerificationContainerImpl implements 
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getImport() <em>Import</em>}' containment reference list.
+   * The cached value of the '{@link #getImportDeclarations() <em>Import Declarations</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getImport()
+   * @see #getImportDeclarations()
    * @generated
    * @ordered
    */
-  protected EList<Import> import_;
+  protected EList<XImportDeclaration> importDeclarations;
 
   /**
    * <!-- begin-user-doc -->
@@ -117,13 +117,13 @@ public class VerificationModelImpl extends VerificationContainerImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Import> getImport()
+  public EList<XImportDeclaration> getImportDeclarations()
   {
-    if (import_ == null)
+    if (importDeclarations == null)
     {
-      import_ = new EObjectContainmentEList<Import>(Import.class, this, VerifyPackage.VERIFICATION_MODEL__IMPORT);
+      importDeclarations = new EObjectContainmentEList<XImportDeclaration>(XImportDeclaration.class, this, VerifyPackage.VERIFICATION_MODEL__IMPORT_DECLARATIONS);
     }
-    return import_;
+    return importDeclarations;
   }
 
   /**
@@ -136,8 +136,8 @@ public class VerificationModelImpl extends VerificationContainerImpl implements 
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_MODEL__IMPORT:
-        return ((InternalEList<?>)getImport()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_MODEL__IMPORT_DECLARATIONS:
+        return ((InternalEList<?>)getImportDeclarations()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -154,8 +154,8 @@ public class VerificationModelImpl extends VerificationContainerImpl implements 
     {
       case VerifyPackage.VERIFICATION_MODEL__NAME:
         return getName();
-      case VerifyPackage.VERIFICATION_MODEL__IMPORT:
-        return getImport();
+      case VerifyPackage.VERIFICATION_MODEL__IMPORT_DECLARATIONS:
+        return getImportDeclarations();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -174,9 +174,9 @@ public class VerificationModelImpl extends VerificationContainerImpl implements 
       case VerifyPackage.VERIFICATION_MODEL__NAME:
         setName((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_MODEL__IMPORT:
-        getImport().clear();
-        getImport().addAll((Collection<? extends Import>)newValue);
+      case VerifyPackage.VERIFICATION_MODEL__IMPORT_DECLARATIONS:
+        getImportDeclarations().clear();
+        getImportDeclarations().addAll((Collection<? extends XImportDeclaration>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -195,8 +195,8 @@ public class VerificationModelImpl extends VerificationContainerImpl implements 
       case VerifyPackage.VERIFICATION_MODEL__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_MODEL__IMPORT:
-        getImport().clear();
+      case VerifyPackage.VERIFICATION_MODEL__IMPORT_DECLARATIONS:
+        getImportDeclarations().clear();
         return;
     }
     super.eUnset(featureID);
@@ -214,8 +214,8 @@ public class VerificationModelImpl extends VerificationContainerImpl implements 
     {
       case VerifyPackage.VERIFICATION_MODEL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case VerifyPackage.VERIFICATION_MODEL__IMPORT:
-        return import_ != null && !import_.isEmpty();
+      case VerifyPackage.VERIFICATION_MODEL__IMPORT_DECLARATIONS:
+        return importDeclarations != null && !importDeclarations.isEmpty();
     }
     return super.eIsSet(featureID);
   }

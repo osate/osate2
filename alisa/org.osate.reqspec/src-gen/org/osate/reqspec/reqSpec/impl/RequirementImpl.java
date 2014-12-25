@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.RequirementCategory;
@@ -26,7 +28,6 @@ import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.Hazard;
-import org.osate.reqspec.reqSpec.RSLVariable;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
 
@@ -40,7 +41,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getAssert <em>Assert</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getReqValue <em>Req Value</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getHazardReference <em>Hazard Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinesReference <em>Refines Reference</em>}</li>
@@ -78,34 +78,14 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected Description description;
 
   /**
-   * The default value of the '{@link #getAssert() <em>Assert</em>}' attribute.
+   * The cached value of the '{@link #getAssert() <em>Assert</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getAssert()
    * @generated
    * @ordered
    */
-  protected static final String ASSERT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getAssert() <em>Assert</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAssert()
-   * @generated
-   * @ordered
-   */
-  protected String assert_ = ASSERT_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getReqValue() <em>Req Value</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getReqValue()
-   * @generated
-   * @ordered
-   */
-  protected EList<RSLVariable> reqValue;
+  protected XExpression assert_;
 
   /**
    * The cached value of the '{@link #getGoalReference() <em>Goal Reference</em>}' reference list.
@@ -314,7 +294,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getAssert()
+  public XExpression getAssert()
   {
     return assert_;
   }
@@ -324,12 +304,16 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAssert(String newAssert)
+  public NotificationChain basicSetAssert(XExpression newAssert, NotificationChain msgs)
   {
-    String oldAssert = assert_;
+    XExpression oldAssert = assert_;
     assert_ = newAssert;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__ASSERT, oldAssert, assert_));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__ASSERT, oldAssert, newAssert);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -337,13 +321,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<RSLVariable> getReqValue()
+  public void setAssert(XExpression newAssert)
   {
-    if (reqValue == null)
+    if (newAssert != assert_)
     {
-      reqValue = new EObjectContainmentEList<RSLVariable>(RSLVariable.class, this, ReqSpecPackage.REQUIREMENT__REQ_VALUE);
+      NotificationChain msgs = null;
+      if (assert_ != null)
+        msgs = ((InternalEObject)assert_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__ASSERT, null, msgs);
+      if (newAssert != null)
+        msgs = ((InternalEObject)newAssert).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__ASSERT, null, msgs);
+      msgs = basicSetAssert(newAssert, msgs);
+      if (msgs != null) msgs.dispatch();
     }
-    return reqValue;
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__ASSERT, newAssert, newAssert));
   }
 
   /**
@@ -484,8 +475,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
         return basicSetDescription(null, msgs);
-      case ReqSpecPackage.REQUIREMENT__REQ_VALUE:
-        return ((InternalEList<?>)getReqValue()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQUIREMENT__ASSERT:
+        return basicSetAssert(null, msgs);
       case ReqSpecPackage.REQUIREMENT__SUBREQUIREMENT:
         return ((InternalEList<?>)getSubrequirement()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQUIREMENT__DOC_REFERENCE:
@@ -511,8 +502,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getDescription();
       case ReqSpecPackage.REQUIREMENT__ASSERT:
         return getAssert();
-      case ReqSpecPackage.REQUIREMENT__REQ_VALUE:
-        return getReqValue();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return getGoalReference();
       case ReqSpecPackage.REQUIREMENT__HAZARD_REFERENCE:
@@ -553,11 +542,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         setDescription((Description)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__ASSERT:
-        setAssert((String)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__REQ_VALUE:
-        getReqValue().clear();
-        getReqValue().addAll((Collection<? extends RSLVariable>)newValue);
+        setAssert((XExpression)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
@@ -616,10 +601,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         setDescription((Description)null);
         return;
       case ReqSpecPackage.REQUIREMENT__ASSERT:
-        setAssert(ASSERT_EDEFAULT);
-        return;
-      case ReqSpecPackage.REQUIREMENT__REQ_VALUE:
-        getReqValue().clear();
+        setAssert((XExpression)null);
         return;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
@@ -667,9 +649,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
         return description != null;
       case ReqSpecPackage.REQUIREMENT__ASSERT:
-        return ASSERT_EDEFAULT == null ? assert_ != null : !ASSERT_EDEFAULT.equals(assert_);
-      case ReqSpecPackage.REQUIREMENT__REQ_VALUE:
-        return reqValue != null && !reqValue.isEmpty();
+        return assert_ != null;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return goalReference != null && !goalReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__HAZARD_REFERENCE:
@@ -690,23 +670,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return docReference != null && !docReference.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (assert: ");
-    result.append(assert_);
-    result.append(')');
-    return result.toString();
   }
 
 } //RequirementImpl

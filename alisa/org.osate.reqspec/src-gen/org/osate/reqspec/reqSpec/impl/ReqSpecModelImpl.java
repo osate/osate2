@@ -19,9 +19,9 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.Classifier;
+import org.eclipse.xtext.xtype.XImportDeclaration;
 
-import org.osate.alisa.common.common.Import;
+import org.osate.aadl2.Classifier;
 
 import org.osate.reqspec.reqSpec.ReqSpecContainer;
 import org.osate.reqspec.reqSpec.ReqSpecModel;
@@ -38,7 +38,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecModelImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecModelImpl#getIssue <em>Issue</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecModelImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecModelImpl#getImport <em>Import</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecModelImpl#getImportDeclarations <em>Import Declarations</em>}</li>
  * </ul>
  * </p>
  *
@@ -97,14 +97,14 @@ public class ReqSpecModelImpl extends ReqSpecImpl implements ReqSpecModel
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getImport() <em>Import</em>}' containment reference list.
+   * The cached value of the '{@link #getImportDeclarations() <em>Import Declarations</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getImport()
+   * @see #getImportDeclarations()
    * @generated
    * @ordered
    */
-  protected EList<Import> import_;
+  protected EList<XImportDeclaration> importDeclarations;
 
   /**
    * <!-- begin-user-doc -->
@@ -226,13 +226,13 @@ public class ReqSpecModelImpl extends ReqSpecImpl implements ReqSpecModel
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Import> getImport()
+  public EList<XImportDeclaration> getImportDeclarations()
   {
-    if (import_ == null)
+    if (importDeclarations == null)
     {
-      import_ = new EObjectContainmentEList<Import>(Import.class, this, ReqSpecPackage.REQ_SPEC_MODEL__IMPORT);
+      importDeclarations = new EObjectContainmentEList<XImportDeclaration>(XImportDeclaration.class, this, ReqSpecPackage.REQ_SPEC_MODEL__IMPORT_DECLARATIONS);
     }
-    return import_;
+    return importDeclarations;
   }
 
   /**
@@ -247,8 +247,8 @@ public class ReqSpecModelImpl extends ReqSpecImpl implements ReqSpecModel
     {
       case ReqSpecPackage.REQ_SPEC_MODEL__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT:
-        return ((InternalEList<?>)getImport()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT_DECLARATIONS:
+        return ((InternalEList<?>)getImportDeclarations()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -272,8 +272,8 @@ public class ReqSpecModelImpl extends ReqSpecImpl implements ReqSpecModel
         return getIssue();
       case ReqSpecPackage.REQ_SPEC_MODEL__NAME:
         return getName();
-      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT:
-        return getImport();
+      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT_DECLARATIONS:
+        return getImportDeclarations();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -303,9 +303,9 @@ public class ReqSpecModelImpl extends ReqSpecImpl implements ReqSpecModel
       case ReqSpecPackage.REQ_SPEC_MODEL__NAME:
         setName((String)newValue);
         return;
-      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT:
-        getImport().clear();
-        getImport().addAll((Collection<? extends Import>)newValue);
+      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT_DECLARATIONS:
+        getImportDeclarations().clear();
+        getImportDeclarations().addAll((Collection<? extends XImportDeclaration>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -333,8 +333,8 @@ public class ReqSpecModelImpl extends ReqSpecImpl implements ReqSpecModel
       case ReqSpecPackage.REQ_SPEC_MODEL__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT:
-        getImport().clear();
+      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT_DECLARATIONS:
+        getImportDeclarations().clear();
         return;
     }
     super.eUnset(featureID);
@@ -358,8 +358,8 @@ public class ReqSpecModelImpl extends ReqSpecImpl implements ReqSpecModel
         return issue != null && !issue.isEmpty();
       case ReqSpecPackage.REQ_SPEC_MODEL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT:
-        return import_ != null && !import_.isEmpty();
+      case ReqSpecPackage.REQ_SPEC_MODEL__IMPORT_DECLARATIONS:
+        return importDeclarations != null && !importDeclarations.isEmpty();
     }
     return super.eIsSet(featureID);
   }

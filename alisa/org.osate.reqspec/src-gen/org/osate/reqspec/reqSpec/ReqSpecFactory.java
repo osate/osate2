@@ -68,15 +68,6 @@ public interface ReqSpecFactory extends EFactory
   ReqSpecFolder createReqSpecFolder();
 
   /**
-   * Returns a new object of class '<em>RSL Variable</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>RSL Variable</em>'.
-   * @generated
-   */
-  RSLVariable createRSLVariable();
-
-  /**
    * Returns a new object of class '<em>Goal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

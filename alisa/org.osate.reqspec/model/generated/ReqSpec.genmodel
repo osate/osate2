@@ -4,7 +4,7 @@
     editorDirectory="/org.osate.reqspec.editor/src" modelPluginID="org.osate.reqspec"
     forceOverwrite="true" modelName="ReqSpec" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.reqspec.edit"
-    editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
+    editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xtype platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
   <genPackages prefix="ReqSpec" basePackage="org.osate.reqspec" disposableProviderFactory="true"
       fileExtensions="reqspec" ecorePackage="ReqSpec.ecore#/">
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec"/>
@@ -23,19 +23,15 @@
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecModel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecModel/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecModel/import"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecModel/importDeclarations"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecFolder">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecFolder/label"/>
     </genClasses>
-    <genClasses ecoreClass="ReqSpec.ecore#//RSLVariable">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//RSLVariable/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//RSLVariable/value"/>
-    </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//Goal">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/category"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Goal/assert"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/assert"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/refinesReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/subgoal"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/decomposesReference"/>
@@ -49,8 +45,7 @@
     <genClasses ecoreClass="ReqSpec.ecore#//Requirement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/category"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirement/assert"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/reqValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/assert"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/goalReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/hazardReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/refinesReference"/>

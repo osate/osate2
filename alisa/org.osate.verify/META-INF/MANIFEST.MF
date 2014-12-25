@@ -38,4 +38,5 @@ Export-Package: org.osate.verify,
  org.osate.verify.validation,
  org.osate.verify.scoping,
  org.osate.verify.generator,
- org.osate.verify.formatting
+ org.osate.verify.formatting,
+ org.osate.verify.jvmmodel

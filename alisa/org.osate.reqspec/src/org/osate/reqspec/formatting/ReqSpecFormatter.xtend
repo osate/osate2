@@ -34,17 +34,13 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		      c.setIndentationDecrement().before(pair.second);
 		      c.setLinewrap().before(pair.second);
 		    }
-//		c.setLinewrap().before(requirementRule);
-//		c.setLinewrap(1).before(goalRule);
-//		c.setLinewrap().before(hazardRule);
-		c.setLinewrap().before(RSLVariableRule);
 		c.setLinewrap().after(reqSpecModelRule);
 		c.setLinewrap().before(reqSpecFolderRule);
 		for (kw : findKeywords("goal","requirement","hazard")) {
 			c.setLinewrap().before(kw);
 		}
-		for (kw : findKeywords("description","assertion","rationale","issues",
-		"refines","decomposes","evolves","conflicts","mitigated","stakeholder","see")) {
+		for (kw : findKeywords("description","assert","rationale","issues",
+		"refines","decomposes","evolves","conflicts","mitigates","stakeholder","see")) {
 			c.setLinewrap().before(kw);
 		}
 	}

@@ -12,7 +12,7 @@ import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.eclipse.xtext.service.AbstractElementFinder.*;
 
-import org.osate.alisa.common.services.CommonGrammarAccess;
+import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 
 @Singleton
 public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
@@ -313,6 +313,20 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//CatRef
 		public RuleCall getExtendsVerificationCategoryCatRefParserRuleCall_2_1_0_1() { return cExtendsVerificationCategoryCatRefParserRuleCall_2_1_0_1; }
 	}
+
+	public class CatRefElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CatRef");
+		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//// Category reference. Currently it is only a single ID
+		//CatRef: //('.' ID)?
+		//	ID;
+		public ParserRule getRule() { return rule; }
+
+		////('.' ID)?
+		//ID
+		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
+	}
 	
 	
 	private final CategoriesElements pCategories;
@@ -323,16 +337,17 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	private final RequirementCategoryElements pRequirementCategory;
 	private final HazardCategoryElements pHazardCategory;
 	private final VerificationCategoryElements pVerificationCategory;
+	private final CatRefElements pCatRef;
 	
 	private final Grammar grammar;
 
-	private final CommonGrammarAccess gaCommon;
+	private final TerminalsGrammarAccess gaTerminals;
 
 	@Inject
 	public CategoriesGrammarAccess(GrammarProvider grammarProvider,
-		CommonGrammarAccess gaCommon) {
+		TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
-		this.gaCommon = gaCommon;
+		this.gaTerminals = gaTerminals;
 		this.pCategories = new CategoriesElements();
 		this.pRequirementCategories = new RequirementCategoriesElements();
 		this.pHazardCategories = new HazardCategoriesElements();
@@ -341,6 +356,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		this.pRequirementCategory = new RequirementCategoryElements();
 		this.pHazardCategory = new HazardCategoryElements();
 		this.pVerificationCategory = new VerificationCategoryElements();
+		this.pCatRef = new CatRefElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -365,8 +381,8 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 
-	public CommonGrammarAccess getCommonGrammarAccess() {
-		return gaCommon;
+	public TerminalsGrammarAccess getTerminalsGrammarAccess() {
+		return gaTerminals;
 	}
 
 	
@@ -458,104 +474,11 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationCategoryAccess().getRule();
 	}
 
-	//Model:
-	//	content=Description;
-	public CommonGrammarAccess.ModelElements getModelAccess() {
-		return gaCommon.getModelAccess();
-	}
-	
-	public ParserRule getModelRule() {
-		return getModelAccess().getRule();
-	}
-
-	//Description:
-	//	description+=DescriptionElement+;
-	public CommonGrammarAccess.DescriptionElements getDescriptionAccess() {
-		return gaCommon.getDescriptionAccess();
-	}
-	
-	public ParserRule getDescriptionRule() {
-		return getDescriptionAccess().getRule();
-	}
-
-	//DescriptionElement:
-	//	text=STRING | ref=[ecore::EObject];
-	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
-		return gaCommon.getDescriptionElementAccess();
-	}
-	
-	public ParserRule getDescriptionElementRule() {
-		return getDescriptionElementAccess().getRule();
-	}
-
-	//ReferencePath:
-	//	ref=[ecore::EObject] ("." subpath=ReferencePath);
-	public CommonGrammarAccess.ReferencePathElements getReferencePathAccess() {
-		return gaCommon.getReferencePathAccess();
-	}
-	
-	public ParserRule getReferencePathRule() {
-		return getReferencePathAccess().getRule();
-	}
-
-	//Import:
-	//	"import" importedNamespace=QualifiedNameWithWildcard;
-	public CommonGrammarAccess.ImportElements getImportAccess() {
-		return gaCommon.getImportAccess();
-	}
-	
-	public ParserRule getImportRule() {
-		return getImportAccess().getRule();
-	}
-
-	//ValueString: // remove quotes from string in ValueConverter 
-	//	STRING;
-	public CommonGrammarAccess.ValueStringElements getValueStringAccess() {
-		return gaCommon.getValueStringAccess();
-	}
-	
-	public ParserRule getValueStringRule() {
-		return getValueStringAccess().getRule();
-	}
-
-	//// dotted path as relative reference
-	//QualifiedName:
-	//	ID ("." ID)*;
-	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
-		return gaCommon.getQualifiedNameAccess();
-	}
-	
-	public ParserRule getQualifiedNameRule() {
-		return getQualifiedNameAccess().getRule();
-	}
-
-	//// qualified named with wildcard
-	//QualifiedNameWithWildcard:
-	//	QualifiedName ".*"?;
-	public CommonGrammarAccess.QualifiedNameWithWildcardElements getQualifiedNameWithWildcardAccess() {
-		return gaCommon.getQualifiedNameWithWildcardAccess();
-	}
-	
-	public ParserRule getQualifiedNameWithWildcardRule() {
-		return getQualifiedNameWithWildcardAccess().getRule();
-	}
-
-	//// Qualified classifier reference
-	//AadlClassifierReference:
-	//	(ID "::")+ ID ("." ID)?;
-	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
-		return gaCommon.getAadlClassifierReferenceAccess();
-	}
-	
-	public ParserRule getAadlClassifierReferenceRule() {
-		return getAadlClassifierReferenceAccess().getRule();
-	}
-
 	//// Category reference. Currently it is only a single ID
 	//CatRef: //('.' ID)?
 	//	ID;
-	public CommonGrammarAccess.CatRefElements getCatRefAccess() {
-		return gaCommon.getCatRefAccess();
+	public CatRefElements getCatRefAccess() {
+		return pCatRef;
 	}
 	
 	public ParserRule getCatRefRule() {
@@ -565,43 +488,43 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	//terminal ID:
 	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
-		return gaCommon.getIDRule();
+		return gaTerminals.getIDRule();
 	} 
 
 	//terminal INT returns ecore::EInt:
 	//	"0".."9"+;
 	public TerminalRule getINTRule() {
-		return gaCommon.getINTRule();
+		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:
 	//	"\"" ("\\" . / * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\""))* "\"" | "\'" ("\\" .
 	//	/ * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\'"))* "\'";
 	public TerminalRule getSTRINGRule() {
-		return gaCommon.getSTRINGRule();
+		return gaTerminals.getSTRINGRule();
 	} 
 
 	//terminal ML_COMMENT:
 	//	"/ *"->"* /";
 	public TerminalRule getML_COMMENTRule() {
-		return gaCommon.getML_COMMENTRule();
+		return gaTerminals.getML_COMMENTRule();
 	} 
 
 	//terminal SL_COMMENT:
 	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {
-		return gaCommon.getSL_COMMENTRule();
+		return gaTerminals.getSL_COMMENTRule();
 	} 
 
 	//terminal WS:
 	//	(" " | "\t" | "\r" | "\n")+;
 	public TerminalRule getWSRule() {
-		return gaCommon.getWSRule();
+		return gaTerminals.getWSRule();
 	} 
 
 	//terminal ANY_OTHER:
 	//	.;
 	public TerminalRule getANY_OTHERRule() {
-		return gaCommon.getANY_OTHERRule();
+		return gaTerminals.getANY_OTHERRule();
 	} 
 }

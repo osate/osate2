@@ -1,4 +1,4 @@
-grammar org.osate.assure.Assure with org.osate.alisa.common.Common
+grammar org.osate.assure.Assure with org.eclipse.xtext.common.Terminals
 
 generate assure "http://www.osate.org/assure/Assure"
 import "http://aadl.info/AADL/2.0" as aadl2
@@ -15,9 +15,9 @@ import "http://www.osate.org/verify/Verify" as Verify
 
 VerificationResult:
 	'verification' 'result' name=ID 'of' verificationActivity=[Verify::VerificationActivity]
-	'['(('output'  title=ValueString)?
-	&('logfile'  description=ValueString)?
-	&('date'  method=ValueString)?
+	'['(('output'  title=STRING)?
+	&('logfile'  description=STRING)?
+	&('date'  method=STRING)?
 	&('state'  state=VerificationResultState)?
 	&('status'  status=VerificationResultStatus)? )
 	(assumptionVerificationResult+= VerificationResult)*

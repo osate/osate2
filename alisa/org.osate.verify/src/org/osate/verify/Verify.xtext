@@ -9,7 +9,7 @@ import  "http://www.osate.org/categories/Categories" as categories
 VerificationModel returns VerificationModel:
 	'package' name =ID 
 	('for' target=[ReqSpec::Requirement|AadlClassifierReference])?
-	( ^import += Import )*
+	importDeclarations+=XImportDeclaration*
 	'[' (content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
 	']'
 	;

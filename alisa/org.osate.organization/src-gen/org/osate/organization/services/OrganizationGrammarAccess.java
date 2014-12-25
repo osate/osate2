@@ -12,7 +12,7 @@ import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.eclipse.xtext.service.AbstractElementFinder.*;
 
-import org.osate.alisa.common.services.CommonGrammarAccess;
+import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 
 @Singleton
 public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
@@ -62,34 +62,34 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2_1_0 = (Group)cUnorderedGroup_2_1.eContents().get(0);
 		private final Keyword cTitleKeyword_2_1_0_0 = (Keyword)cGroup_2_1_0.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1_0_1 = (Assignment)cGroup_2_1_0.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_2_1_0_1_0 = (RuleCall)cTitleAssignment_2_1_0_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0_1_0 = (RuleCall)cTitleAssignment_2_1_0_1.eContents().get(0);
 		private final Group cGroup_2_1_1 = (Group)cUnorderedGroup_2_1.eContents().get(1);
 		private final Keyword cDescriptionKeyword_2_1_1_0 = (Keyword)cGroup_2_1_1.eContents().get(0);
 		private final Assignment cDescriptionAssignment_2_1_1_1 = (Assignment)cGroup_2_1_1.eContents().get(1);
-		private final RuleCall cDescriptionValueStringParserRuleCall_2_1_1_1_0 = (RuleCall)cDescriptionAssignment_2_1_1_1.eContents().get(0);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_2_1_1_1_0 = (RuleCall)cDescriptionAssignment_2_1_1_1.eContents().get(0);
 		private final Group cGroup_2_1_2 = (Group)cUnorderedGroup_2_1.eContents().get(2);
 		private final Keyword cRoleKeyword_2_1_2_0 = (Keyword)cGroup_2_1_2.eContents().get(0);
 		private final Assignment cRoleAssignment_2_1_2_1 = (Assignment)cGroup_2_1_2.eContents().get(1);
-		private final RuleCall cRoleValueStringParserRuleCall_2_1_2_1_0 = (RuleCall)cRoleAssignment_2_1_2_1.eContents().get(0);
+		private final RuleCall cRoleSTRINGTerminalRuleCall_2_1_2_1_0 = (RuleCall)cRoleAssignment_2_1_2_1.eContents().get(0);
 		private final Group cGroup_2_1_3 = (Group)cUnorderedGroup_2_1.eContents().get(3);
 		private final Keyword cEmailKeyword_2_1_3_0 = (Keyword)cGroup_2_1_3.eContents().get(0);
 		private final Assignment cEmailAssignment_2_1_3_1 = (Assignment)cGroup_2_1_3.eContents().get(1);
-		private final RuleCall cEmailValueStringParserRuleCall_2_1_3_1_0 = (RuleCall)cEmailAssignment_2_1_3_1.eContents().get(0);
+		private final RuleCall cEmailSTRINGTerminalRuleCall_2_1_3_1_0 = (RuleCall)cEmailAssignment_2_1_3_1.eContents().get(0);
 		private final Group cGroup_2_1_4 = (Group)cUnorderedGroup_2_1.eContents().get(4);
 		private final Keyword cPhoneKeyword_2_1_4_0 = (Keyword)cGroup_2_1_4.eContents().get(0);
 		private final Assignment cPhoneAssignment_2_1_4_1 = (Assignment)cGroup_2_1_4.eContents().get(1);
-		private final RuleCall cPhoneValueStringParserRuleCall_2_1_4_1_0 = (RuleCall)cPhoneAssignment_2_1_4_1.eContents().get(0);
+		private final RuleCall cPhoneSTRINGTerminalRuleCall_2_1_4_1_0 = (RuleCall)cPhoneAssignment_2_1_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		
 		/// *
 		// * Stakeholder
 		// * / Stakeholder:
-		//	"stakeholder" name=ID ("[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
-		//	role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]")?;
+		//	"stakeholder" name=ID ("[" (("title" title=STRING)? & ("description" description=STRING)? & ("role" role=STRING)? &
+		//	("email" email=STRING)? & ("phone" phone=STRING)?) "]")?;
 		public ParserRule getRule() { return rule; }
 
-		//"stakeholder" name=ID ("[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
-		//role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]")?
+		//"stakeholder" name=ID ("[" (("title" title=STRING)? & ("description" description=STRING)? & ("role" role=STRING)? &
+		//("email" email=STRING)? & ("phone" phone=STRING)?) "]")?
 		public Group getGroup() { return cGroup; }
 
 		//"stakeholder"
@@ -101,76 +101,76 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//("[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role" role=ValueString)? & ("email"
-		//email=ValueString)? & ("phone" phone=ValueString)?) "]")?
+		//("[" (("title" title=STRING)? & ("description" description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? &
+		//("phone" phone=STRING)?) "]")?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_2_0() { return cLeftSquareBracketKeyword_2_0; }
 
-		//("title" title=ValueString)? & ("description" description=ValueString)? & ("role" role=ValueString)? & ("email"
-		//email=ValueString)? & ("phone" phone=ValueString)?
+		//("title" title=STRING)? & ("description" description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? &
+		//("phone" phone=STRING)?
 		public UnorderedGroup getUnorderedGroup_2_1() { return cUnorderedGroup_2_1; }
 
-		//("title" title=ValueString)?
+		//("title" title=STRING)?
 		public Group getGroup_2_1_0() { return cGroup_2_1_0; }
 
 		//"title"
 		public Keyword getTitleKeyword_2_1_0_0() { return cTitleKeyword_2_1_0_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_2_1_0_1() { return cTitleAssignment_2_1_0_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_2_1_0_1_0() { return cTitleValueStringParserRuleCall_2_1_0_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0_1_0; }
 
-		//("description" description=ValueString)?
+		//("description" description=STRING)?
 		public Group getGroup_2_1_1() { return cGroup_2_1_1; }
 
 		//"description"
 		public Keyword getDescriptionKeyword_2_1_1_0() { return cDescriptionKeyword_2_1_1_0; }
 
-		//description=ValueString
+		//description=STRING
 		public Assignment getDescriptionAssignment_2_1_1_1() { return cDescriptionAssignment_2_1_1_1; }
 
-		//ValueString
-		public RuleCall getDescriptionValueStringParserRuleCall_2_1_1_1_0() { return cDescriptionValueStringParserRuleCall_2_1_1_1_0; }
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_2_1_1_1_0() { return cDescriptionSTRINGTerminalRuleCall_2_1_1_1_0; }
 
-		//("role" role=ValueString)?
+		//("role" role=STRING)?
 		public Group getGroup_2_1_2() { return cGroup_2_1_2; }
 
 		//"role"
 		public Keyword getRoleKeyword_2_1_2_0() { return cRoleKeyword_2_1_2_0; }
 
-		//role=ValueString
+		//role=STRING
 		public Assignment getRoleAssignment_2_1_2_1() { return cRoleAssignment_2_1_2_1; }
 
-		//ValueString
-		public RuleCall getRoleValueStringParserRuleCall_2_1_2_1_0() { return cRoleValueStringParserRuleCall_2_1_2_1_0; }
+		//STRING
+		public RuleCall getRoleSTRINGTerminalRuleCall_2_1_2_1_0() { return cRoleSTRINGTerminalRuleCall_2_1_2_1_0; }
 
-		//("email" email=ValueString)?
+		//("email" email=STRING)?
 		public Group getGroup_2_1_3() { return cGroup_2_1_3; }
 
 		//"email"
 		public Keyword getEmailKeyword_2_1_3_0() { return cEmailKeyword_2_1_3_0; }
 
-		//email=ValueString
+		//email=STRING
 		public Assignment getEmailAssignment_2_1_3_1() { return cEmailAssignment_2_1_3_1; }
 
-		//ValueString
-		public RuleCall getEmailValueStringParserRuleCall_2_1_3_1_0() { return cEmailValueStringParserRuleCall_2_1_3_1_0; }
+		//STRING
+		public RuleCall getEmailSTRINGTerminalRuleCall_2_1_3_1_0() { return cEmailSTRINGTerminalRuleCall_2_1_3_1_0; }
 
-		//("phone" phone=ValueString)?
+		//("phone" phone=STRING)?
 		public Group getGroup_2_1_4() { return cGroup_2_1_4; }
 
 		//"phone"
 		public Keyword getPhoneKeyword_2_1_4_0() { return cPhoneKeyword_2_1_4_0; }
 
-		//phone=ValueString
+		//phone=STRING
 		public Assignment getPhoneAssignment_2_1_4_1() { return cPhoneAssignment_2_1_4_1; }
 
-		//ValueString
-		public RuleCall getPhoneValueStringParserRuleCall_2_1_4_1_0() { return cPhoneValueStringParserRuleCall_2_1_4_1_0; }
+		//STRING
+		public RuleCall getPhoneSTRINGTerminalRuleCall_2_1_4_1_0() { return cPhoneSTRINGTerminalRuleCall_2_1_4_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_2_2() { return cRightSquareBracketKeyword_2_2; }
@@ -182,13 +182,13 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private final Grammar grammar;
 
-	private final CommonGrammarAccess gaCommon;
+	private final TerminalsGrammarAccess gaTerminals;
 
 	@Inject
 	public OrganizationGrammarAccess(GrammarProvider grammarProvider,
-		CommonGrammarAccess gaCommon) {
+		TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
-		this.gaCommon = gaCommon;
+		this.gaTerminals = gaTerminals;
 		this.pOrganization = new OrganizationElements();
 		this.pStakeholder = new StakeholderElements();
 	}
@@ -215,8 +215,8 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 
-	public CommonGrammarAccess getCommonGrammarAccess() {
-		return gaCommon;
+	public TerminalsGrammarAccess getTerminalsGrammarAccess() {
+		return gaTerminals;
 	}
 
 	
@@ -233,8 +233,8 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	/// *
 	// * Stakeholder
 	// * / Stakeholder:
-	//	"stakeholder" name=ID ("[" (("title" title=ValueString)? & ("description" description=ValueString)? & ("role"
-	//	role=ValueString)? & ("email" email=ValueString)? & ("phone" phone=ValueString)?) "]")?;
+	//	"stakeholder" name=ID ("[" (("title" title=STRING)? & ("description" description=STRING)? & ("role" role=STRING)? &
+	//	("email" email=STRING)? & ("phone" phone=STRING)?) "]")?;
 	public StakeholderElements getStakeholderAccess() {
 		return pStakeholder;
 	}
@@ -243,150 +243,46 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		return getStakeholderAccess().getRule();
 	}
 
-	//Model:
-	//	content=Description;
-	public CommonGrammarAccess.ModelElements getModelAccess() {
-		return gaCommon.getModelAccess();
-	}
-	
-	public ParserRule getModelRule() {
-		return getModelAccess().getRule();
-	}
-
-	//Description:
-	//	description+=DescriptionElement+;
-	public CommonGrammarAccess.DescriptionElements getDescriptionAccess() {
-		return gaCommon.getDescriptionAccess();
-	}
-	
-	public ParserRule getDescriptionRule() {
-		return getDescriptionAccess().getRule();
-	}
-
-	//DescriptionElement:
-	//	text=STRING | ref=[ecore::EObject];
-	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
-		return gaCommon.getDescriptionElementAccess();
-	}
-	
-	public ParserRule getDescriptionElementRule() {
-		return getDescriptionElementAccess().getRule();
-	}
-
-	//ReferencePath:
-	//	ref=[ecore::EObject] ("." subpath=ReferencePath);
-	public CommonGrammarAccess.ReferencePathElements getReferencePathAccess() {
-		return gaCommon.getReferencePathAccess();
-	}
-	
-	public ParserRule getReferencePathRule() {
-		return getReferencePathAccess().getRule();
-	}
-
-	//Import:
-	//	"import" importedNamespace=QualifiedNameWithWildcard;
-	public CommonGrammarAccess.ImportElements getImportAccess() {
-		return gaCommon.getImportAccess();
-	}
-	
-	public ParserRule getImportRule() {
-		return getImportAccess().getRule();
-	}
-
-	//ValueString: // remove quotes from string in ValueConverter 
-	//	STRING;
-	public CommonGrammarAccess.ValueStringElements getValueStringAccess() {
-		return gaCommon.getValueStringAccess();
-	}
-	
-	public ParserRule getValueStringRule() {
-		return getValueStringAccess().getRule();
-	}
-
-	//// dotted path as relative reference
-	//QualifiedName:
-	//	ID ("." ID)*;
-	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
-		return gaCommon.getQualifiedNameAccess();
-	}
-	
-	public ParserRule getQualifiedNameRule() {
-		return getQualifiedNameAccess().getRule();
-	}
-
-	//// qualified named with wildcard
-	//QualifiedNameWithWildcard:
-	//	QualifiedName ".*"?;
-	public CommonGrammarAccess.QualifiedNameWithWildcardElements getQualifiedNameWithWildcardAccess() {
-		return gaCommon.getQualifiedNameWithWildcardAccess();
-	}
-	
-	public ParserRule getQualifiedNameWithWildcardRule() {
-		return getQualifiedNameWithWildcardAccess().getRule();
-	}
-
-	//// Qualified classifier reference
-	//AadlClassifierReference:
-	//	(ID "::")+ ID ("." ID)?;
-	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
-		return gaCommon.getAadlClassifierReferenceAccess();
-	}
-	
-	public ParserRule getAadlClassifierReferenceRule() {
-		return getAadlClassifierReferenceAccess().getRule();
-	}
-
-	//// Category reference. Currently it is only a single ID
-	//CatRef: //('.' ID)?
-	//	ID;
-	public CommonGrammarAccess.CatRefElements getCatRefAccess() {
-		return gaCommon.getCatRefAccess();
-	}
-	
-	public ParserRule getCatRefRule() {
-		return getCatRefAccess().getRule();
-	}
-
 	//terminal ID:
 	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
-		return gaCommon.getIDRule();
+		return gaTerminals.getIDRule();
 	} 
 
 	//terminal INT returns ecore::EInt:
 	//	"0".."9"+;
 	public TerminalRule getINTRule() {
-		return gaCommon.getINTRule();
+		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:
 	//	"\"" ("\\" . / * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\""))* "\"" | "\'" ("\\" .
 	//	/ * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\'"))* "\'";
 	public TerminalRule getSTRINGRule() {
-		return gaCommon.getSTRINGRule();
+		return gaTerminals.getSTRINGRule();
 	} 
 
 	//terminal ML_COMMENT:
 	//	"/ *"->"* /";
 	public TerminalRule getML_COMMENTRule() {
-		return gaCommon.getML_COMMENTRule();
+		return gaTerminals.getML_COMMENTRule();
 	} 
 
 	//terminal SL_COMMENT:
 	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {
-		return gaCommon.getSL_COMMENTRule();
+		return gaTerminals.getSL_COMMENTRule();
 	} 
 
 	//terminal WS:
 	//	(" " | "\t" | "\r" | "\n")+;
 	public TerminalRule getWSRule() {
-		return gaCommon.getWSRule();
+		return gaTerminals.getWSRule();
 	} 
 
 	//terminal ANY_OTHER:
 	//	.;
 	public TerminalRule getANY_OTHERRule() {
-		return gaCommon.getANY_OTHERRule();
+		return gaTerminals.getANY_OTHERRule();
 	} 
 }

@@ -100,11 +100,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createReqSpecFolderAdapter();
       }
       @Override
-      public Adapter caseRSLVariable(RSLVariable object)
-      {
-        return createRSLVariableAdapter();
-      }
-      @Override
       public Adapter caseGoal(Goal object)
       {
         return createGoalAdapter();
@@ -217,21 +212,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createReqSpecFolderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.RSLVariable <em>RSL Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.RSLVariable
-   * @generated
-   */
-  public Adapter createRSLVariableAdapter()
   {
     return null;
   }

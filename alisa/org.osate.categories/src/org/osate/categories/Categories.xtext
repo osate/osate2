@@ -1,4 +1,4 @@
-grammar org.osate.categories.Categories with org.osate.alisa.common.Common
+grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
@@ -49,4 +49,9 @@ HazardCategory :
 VerificationCategory :
 	'category' name = ID ('extends' extends=[VerificationCategory|CatRef])? 
 ;
+
+// Category reference. Currently it is only a single ID
+CatRef:
+	ID //('.' ID)?
+	;	
 

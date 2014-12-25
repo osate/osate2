@@ -12,7 +12,7 @@ import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.eclipse.xtext.service.AbstractElementFinder.*;
 
-import org.osate.alisa.common.services.CommonGrammarAccess;
+import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 
 @Singleton
 public class AssureGrammarAccess extends AbstractGrammarElementFinder {
@@ -94,15 +94,15 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_6_0 = (Group)cUnorderedGroup_6.eContents().get(0);
 		private final Keyword cOutputKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
 		private final Assignment cTitleAssignment_6_0_1 = (Assignment)cGroup_6_0.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_6_0_1_0 = (RuleCall)cTitleAssignment_6_0_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_6_0_1_0 = (RuleCall)cTitleAssignment_6_0_1.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cUnorderedGroup_6.eContents().get(1);
 		private final Keyword cLogfileKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Assignment cDescriptionAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
-		private final RuleCall cDescriptionValueStringParserRuleCall_6_1_1_0 = (RuleCall)cDescriptionAssignment_6_1_1.eContents().get(0);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_6_1_1_0 = (RuleCall)cDescriptionAssignment_6_1_1.eContents().get(0);
 		private final Group cGroup_6_2 = (Group)cUnorderedGroup_6.eContents().get(2);
 		private final Keyword cDateKeyword_6_2_0 = (Keyword)cGroup_6_2.eContents().get(0);
 		private final Assignment cMethodAssignment_6_2_1 = (Assignment)cGroup_6_2.eContents().get(1);
-		private final RuleCall cMethodValueStringParserRuleCall_6_2_1_0 = (RuleCall)cMethodAssignment_6_2_1.eContents().get(0);
+		private final RuleCall cMethodSTRINGTerminalRuleCall_6_2_1_0 = (RuleCall)cMethodAssignment_6_2_1.eContents().get(0);
 		private final Group cGroup_6_3 = (Group)cUnorderedGroup_6.eContents().get(3);
 		private final Keyword cStateKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
 		private final Assignment cStateAssignment_6_3_1 = (Assignment)cGroup_6_3.eContents().get(1);
@@ -117,15 +117,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//VerificationResult:
 		//	"verification" "result" name=ID "of" verificationActivity=[Verify::VerificationActivity] "[" (("output"
-		//	title=ValueString)? & ("logfile" description=ValueString)? & ("date" method=ValueString)? & ("state"
-		//	state=VerificationResultState)? & ("status" status=VerificationResultStatus)?)
-		//	assumptionVerificationResult+=VerificationResult* "]";
+		//	title=STRING)? & ("logfile" description=STRING)? & ("date" method=STRING)? & ("state" state=VerificationResultState)?
+		//	& ("status" status=VerificationResultStatus)?) assumptionVerificationResult+=VerificationResult* "]";
 		public ParserRule getRule() { return rule; }
 
-		//"verification" "result" name=ID "of" verificationActivity=[Verify::VerificationActivity] "[" (("output"
-		//title=ValueString)? & ("logfile" description=ValueString)? & ("date" method=ValueString)? & ("state"
-		//state=VerificationResultState)? & ("status" status=VerificationResultStatus)?)
-		//assumptionVerificationResult+=VerificationResult* "]"
+		//"verification" "result" name=ID "of" verificationActivity=[Verify::VerificationActivity] "[" (("output" title=STRING)? &
+		//("logfile" description=STRING)? & ("date" method=STRING)? & ("state" state=VerificationResultState)? & ("status"
+		//status=VerificationResultStatus)?) assumptionVerificationResult+=VerificationResult* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -155,45 +153,45 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//("output" title=ValueString)? & ("logfile" description=ValueString)? & ("date" method=ValueString)? & ("state"
+		//("output" title=STRING)? & ("logfile" description=STRING)? & ("date" method=STRING)? & ("state"
 		//state=VerificationResultState)? & ("status" status=VerificationResultStatus)?
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
-		//("output" title=ValueString)?
+		//("output" title=STRING)?
 		public Group getGroup_6_0() { return cGroup_6_0; }
 
 		//"output"
 		public Keyword getOutputKeyword_6_0_0() { return cOutputKeyword_6_0_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_6_0_1() { return cTitleAssignment_6_0_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_6_0_1_0() { return cTitleValueStringParserRuleCall_6_0_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_6_0_1_0() { return cTitleSTRINGTerminalRuleCall_6_0_1_0; }
 
-		//("logfile" description=ValueString)?
+		//("logfile" description=STRING)?
 		public Group getGroup_6_1() { return cGroup_6_1; }
 
 		//"logfile"
 		public Keyword getLogfileKeyword_6_1_0() { return cLogfileKeyword_6_1_0; }
 
-		//description=ValueString
+		//description=STRING
 		public Assignment getDescriptionAssignment_6_1_1() { return cDescriptionAssignment_6_1_1; }
 
-		//ValueString
-		public RuleCall getDescriptionValueStringParserRuleCall_6_1_1_0() { return cDescriptionValueStringParserRuleCall_6_1_1_0; }
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_6_1_1_0() { return cDescriptionSTRINGTerminalRuleCall_6_1_1_0; }
 
-		//("date" method=ValueString)?
+		//("date" method=STRING)?
 		public Group getGroup_6_2() { return cGroup_6_2; }
 
 		//"date"
 		public Keyword getDateKeyword_6_2_0() { return cDateKeyword_6_2_0; }
 
-		//method=ValueString
+		//method=STRING
 		public Assignment getMethodAssignment_6_2_1() { return cMethodAssignment_6_2_1; }
 
-		//ValueString
-		public RuleCall getMethodValueStringParserRuleCall_6_2_1_0() { return cMethodValueStringParserRuleCall_6_2_1_0; }
+		//STRING
+		public RuleCall getMethodSTRINGTerminalRuleCall_6_2_1_0() { return cMethodSTRINGTerminalRuleCall_6_2_1_0; }
 
 		//("state" state=VerificationResultState)?
 		public Group getGroup_6_3() { return cGroup_6_3; }
@@ -499,13 +497,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private final Grammar grammar;
 
-	private final CommonGrammarAccess gaCommon;
+	private final TerminalsGrammarAccess gaTerminals;
 
 	@Inject
 	public AssureGrammarAccess(GrammarProvider grammarProvider,
-		CommonGrammarAccess gaCommon) {
+		TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
-		this.gaCommon = gaCommon;
+		this.gaTerminals = gaTerminals;
 		this.pAssuranceCase = new AssuranceCaseElements();
 		this.pVerificationResult = new VerificationResultElements();
 		this.pClaimResult = new ClaimResultElements();
@@ -536,8 +534,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 
-	public CommonGrammarAccess getCommonGrammarAccess() {
-		return gaCommon;
+	public TerminalsGrammarAccess getTerminalsGrammarAccess() {
+		return gaTerminals;
 	}
 
 	
@@ -553,9 +551,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VerificationResult:
 	//	"verification" "result" name=ID "of" verificationActivity=[Verify::VerificationActivity] "[" (("output"
-	//	title=ValueString)? & ("logfile" description=ValueString)? & ("date" method=ValueString)? & ("state"
-	//	state=VerificationResultState)? & ("status" status=VerificationResultStatus)?)
-	//	assumptionVerificationResult+=VerificationResult* "]";
+	//	title=STRING)? & ("logfile" description=STRING)? & ("date" method=STRING)? & ("state" state=VerificationResultState)?
+	//	& ("status" status=VerificationResultStatus)?) assumptionVerificationResult+=VerificationResult* "]";
 	public VerificationResultElements getVerificationResultAccess() {
 		return pVerificationResult;
 	}
@@ -610,150 +607,46 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationResultStatusAccess().getRule();
 	}
 
-	//Model:
-	//	content=Description;
-	public CommonGrammarAccess.ModelElements getModelAccess() {
-		return gaCommon.getModelAccess();
-	}
-	
-	public ParserRule getModelRule() {
-		return getModelAccess().getRule();
-	}
-
-	//Description:
-	//	description+=DescriptionElement+;
-	public CommonGrammarAccess.DescriptionElements getDescriptionAccess() {
-		return gaCommon.getDescriptionAccess();
-	}
-	
-	public ParserRule getDescriptionRule() {
-		return getDescriptionAccess().getRule();
-	}
-
-	//DescriptionElement:
-	//	text=STRING | ref=[ecore::EObject];
-	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
-		return gaCommon.getDescriptionElementAccess();
-	}
-	
-	public ParserRule getDescriptionElementRule() {
-		return getDescriptionElementAccess().getRule();
-	}
-
-	//ReferencePath:
-	//	ref=[ecore::EObject] ("." subpath=ReferencePath);
-	public CommonGrammarAccess.ReferencePathElements getReferencePathAccess() {
-		return gaCommon.getReferencePathAccess();
-	}
-	
-	public ParserRule getReferencePathRule() {
-		return getReferencePathAccess().getRule();
-	}
-
-	//Import:
-	//	"import" importedNamespace=QualifiedNameWithWildcard;
-	public CommonGrammarAccess.ImportElements getImportAccess() {
-		return gaCommon.getImportAccess();
-	}
-	
-	public ParserRule getImportRule() {
-		return getImportAccess().getRule();
-	}
-
-	//ValueString: // remove quotes from string in ValueConverter 
-	//	STRING;
-	public CommonGrammarAccess.ValueStringElements getValueStringAccess() {
-		return gaCommon.getValueStringAccess();
-	}
-	
-	public ParserRule getValueStringRule() {
-		return getValueStringAccess().getRule();
-	}
-
-	//// dotted path as relative reference
-	//QualifiedName:
-	//	ID ("." ID)*;
-	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
-		return gaCommon.getQualifiedNameAccess();
-	}
-	
-	public ParserRule getQualifiedNameRule() {
-		return getQualifiedNameAccess().getRule();
-	}
-
-	//// qualified named with wildcard
-	//QualifiedNameWithWildcard:
-	//	QualifiedName ".*"?;
-	public CommonGrammarAccess.QualifiedNameWithWildcardElements getQualifiedNameWithWildcardAccess() {
-		return gaCommon.getQualifiedNameWithWildcardAccess();
-	}
-	
-	public ParserRule getQualifiedNameWithWildcardRule() {
-		return getQualifiedNameWithWildcardAccess().getRule();
-	}
-
-	//// Qualified classifier reference
-	//AadlClassifierReference:
-	//	(ID "::")+ ID ("." ID)?;
-	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
-		return gaCommon.getAadlClassifierReferenceAccess();
-	}
-	
-	public ParserRule getAadlClassifierReferenceRule() {
-		return getAadlClassifierReferenceAccess().getRule();
-	}
-
-	//// Category reference. Currently it is only a single ID
-	//CatRef: //('.' ID)?
-	//	ID;
-	public CommonGrammarAccess.CatRefElements getCatRefAccess() {
-		return gaCommon.getCatRefAccess();
-	}
-	
-	public ParserRule getCatRefRule() {
-		return getCatRefAccess().getRule();
-	}
-
 	//terminal ID:
 	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
-		return gaCommon.getIDRule();
+		return gaTerminals.getIDRule();
 	} 
 
 	//terminal INT returns ecore::EInt:
 	//	"0".."9"+;
 	public TerminalRule getINTRule() {
-		return gaCommon.getINTRule();
+		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:
 	//	"\"" ("\\" . / * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\""))* "\"" | "\'" ("\\" .
 	//	/ * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\'"))* "\'";
 	public TerminalRule getSTRINGRule() {
-		return gaCommon.getSTRINGRule();
+		return gaTerminals.getSTRINGRule();
 	} 
 
 	//terminal ML_COMMENT:
 	//	"/ *"->"* /";
 	public TerminalRule getML_COMMENTRule() {
-		return gaCommon.getML_COMMENTRule();
+		return gaTerminals.getML_COMMENTRule();
 	} 
 
 	//terminal SL_COMMENT:
 	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {
-		return gaCommon.getSL_COMMENTRule();
+		return gaTerminals.getSL_COMMENTRule();
 	} 
 
 	//terminal WS:
 	//	(" " | "\t" | "\r" | "\n")+;
 	public TerminalRule getWSRule() {
-		return gaCommon.getWSRule();
+		return gaTerminals.getWSRule();
 	} 
 
 	//terminal ANY_OTHER:
 	//	.;
 	public TerminalRule getANY_OTHERRule() {
-		return gaCommon.getANY_OTHERRule();
+		return gaTerminals.getANY_OTHERRule();
 	} 
 }

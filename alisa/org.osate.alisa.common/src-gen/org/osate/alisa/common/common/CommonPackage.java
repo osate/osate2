@@ -186,34 +186,6 @@ public interface CommonPackage extends EPackage
    */
   int REFERENCE_PATH_FEATURE_COUNT = 2;
 
-  /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ImportImpl <em>Import</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.ImportImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getImport()
-   * @generated
-   */
-  int IMPORT = 4;
-
-  /**
-   * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPORT__IMPORTED_NAMESPACE = 0;
-
-  /**
-   * The number of structural features of the '<em>Import</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMPORT_FEATURE_COUNT = 1;
-
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.Model <em>Model</em>}'.
@@ -320,27 +292,6 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getReferencePath_Subpath();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.Import <em>Import</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Import</em>'.
-   * @see org.osate.alisa.common.common.Import
-   * @generated
-   */
-  EClass getImport();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Import#getImportedNamespace <em>Imported Namespace</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Imported Namespace</em>'.
-   * @see org.osate.alisa.common.common.Import#getImportedNamespace()
-   * @see #getImport()
-   * @generated
-   */
-  EAttribute getImport_ImportedNamespace();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -452,24 +403,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference REFERENCE_PATH__SUBPATH = eINSTANCE.getReferencePath_Subpath();
-
-    /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ImportImpl <em>Import</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.ImportImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getImport()
-     * @generated
-     */
-    EClass IMPORT = eINSTANCE.getImport();
-
-    /**
-     * The meta object literal for the '<em><b>Imported Namespace</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IMPORT__IMPORTED_NAMESPACE = eINSTANCE.getImport_ImportedNamespace();
 
   }
 

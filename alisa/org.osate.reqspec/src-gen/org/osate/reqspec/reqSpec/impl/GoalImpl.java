@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.RequirementCategory;
@@ -76,24 +78,14 @@ public class GoalImpl extends ContractualElementImpl implements Goal
   protected Description description;
 
   /**
-   * The default value of the '{@link #getAssert() <em>Assert</em>}' attribute.
+   * The cached value of the '{@link #getAssert() <em>Assert</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getAssert()
    * @generated
    * @ordered
    */
-  protected static final String ASSERT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getAssert() <em>Assert</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getAssert()
-   * @generated
-   * @ordered
-   */
-  protected String assert_ = ASSERT_EDEFAULT;
+  protected XExpression assert_;
 
   /**
    * The cached value of the '{@link #getRefinesReference() <em>Refines Reference</em>}' reference list.
@@ -302,7 +294,7 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getAssert()
+  public XExpression getAssert()
   {
     return assert_;
   }
@@ -312,12 +304,37 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAssert(String newAssert)
+  public NotificationChain basicSetAssert(XExpression newAssert, NotificationChain msgs)
   {
-    String oldAssert = assert_;
+    XExpression oldAssert = assert_;
     assert_ = newAssert;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.GOAL__ASSERT, oldAssert, assert_));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.GOAL__ASSERT, oldAssert, newAssert);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAssert(XExpression newAssert)
+  {
+    if (newAssert != assert_)
+    {
+      NotificationChain msgs = null;
+      if (assert_ != null)
+        msgs = ((InternalEObject)assert_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.GOAL__ASSERT, null, msgs);
+      if (newAssert != null)
+        msgs = ((InternalEObject)newAssert).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.GOAL__ASSERT, null, msgs);
+      msgs = basicSetAssert(newAssert, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.GOAL__ASSERT, newAssert, newAssert));
   }
 
   /**
@@ -458,6 +475,8 @@ public class GoalImpl extends ContractualElementImpl implements Goal
     {
       case ReqSpecPackage.GOAL__DESCRIPTION:
         return basicSetDescription(null, msgs);
+      case ReqSpecPackage.GOAL__ASSERT:
+        return basicSetAssert(null, msgs);
       case ReqSpecPackage.GOAL__SUBGOAL:
         return ((InternalEList<?>)getSubgoal()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.GOAL__DOC_REFERENCE:
@@ -523,7 +542,7 @@ public class GoalImpl extends ContractualElementImpl implements Goal
         setDescription((Description)newValue);
         return;
       case ReqSpecPackage.GOAL__ASSERT:
-        setAssert((String)newValue);
+        setAssert((XExpression)newValue);
         return;
       case ReqSpecPackage.GOAL__REFINES_REFERENCE:
         getRefinesReference().clear();
@@ -582,7 +601,7 @@ public class GoalImpl extends ContractualElementImpl implements Goal
         setDescription((Description)null);
         return;
       case ReqSpecPackage.GOAL__ASSERT:
-        setAssert(ASSERT_EDEFAULT);
+        setAssert((XExpression)null);
         return;
       case ReqSpecPackage.GOAL__REFINES_REFERENCE:
         getRefinesReference().clear();
@@ -630,7 +649,7 @@ public class GoalImpl extends ContractualElementImpl implements Goal
       case ReqSpecPackage.GOAL__DESCRIPTION:
         return description != null;
       case ReqSpecPackage.GOAL__ASSERT:
-        return ASSERT_EDEFAULT == null ? assert_ != null : !ASSERT_EDEFAULT.equals(assert_);
+        return assert_ != null;
       case ReqSpecPackage.GOAL__REFINES_REFERENCE:
         return refinesReference != null && !refinesReference.isEmpty();
       case ReqSpecPackage.GOAL__SUBGOAL:
@@ -651,23 +670,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
         return docReference != null && !docReference.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (assert: ");
-    result.append(assert_);
-    result.append(')');
-    return result.toString();
   }
 
 } //GoalImpl
