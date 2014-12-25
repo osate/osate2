@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.reqspec.reqSpec.ContractualElement;
@@ -32,6 +33,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetContext <em>Target Context</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getIssue <em>Issue</em>}</li>
  * </ul>
@@ -90,6 +92,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected NamedElement target;
+
+  /**
+   * The cached value of the '{@link #getTargetContext() <em>Target Context</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetContext()
+   * @generated
+   * @ordered
+   */
+  protected Classifier targetContext;
 
   /**
    * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
@@ -236,6 +248,49 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public Classifier getTargetContext()
+  {
+    if (targetContext != null && ((EObject)targetContext).eIsProxy())
+    {
+      InternalEObject oldTargetContext = (InternalEObject)targetContext;
+      targetContext = (Classifier)eResolveProxy(oldTargetContext);
+      if (targetContext != oldTargetContext)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_CONTEXT, oldTargetContext, targetContext));
+      }
+    }
+    return targetContext;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Classifier basicGetTargetContext()
+  {
+    return targetContext;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTargetContext(Classifier newTargetContext)
+  {
+    Classifier oldTargetContext = targetContext;
+    targetContext = newTargetContext;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_CONTEXT, oldTargetContext, targetContext));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getRationale()
   {
     return rationale;
@@ -285,6 +340,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_CONTEXT:
+        if (resolve) return getTargetContext();
+        return basicGetTargetContext();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return getRationale();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUE:
@@ -312,6 +370,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         setTarget((NamedElement)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_CONTEXT:
+        setTargetContext((Classifier)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale((String)newValue);
@@ -343,6 +404,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         setTarget((NamedElement)null);
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_CONTEXT:
+        setTargetContext((Classifier)null);
+        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale(RATIONALE_EDEFAULT);
         return;
@@ -369,6 +433,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         return target != null;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_CONTEXT:
+        return targetContext != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUE:

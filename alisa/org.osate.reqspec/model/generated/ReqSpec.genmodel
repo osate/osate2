@@ -7,9 +7,7 @@
     editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
   <genPackages prefix="ReqSpec" basePackage="org.osate.reqspec" disposableProviderFactory="true"
       fileExtensions="reqspec" ecorePackage="ReqSpec.ecore#/">
-    <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpec/name"/>
-    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec"/>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecContainer">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecContainer/target"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecContainer/content"/>
@@ -19,14 +17,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/target"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/targetContext"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/rationale"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/issue"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecModel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecModel/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecModel/import"/>
-    </genClasses>
-    <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecDocument">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecDocument/docref"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecFolder">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecFolder/label"/>
@@ -55,7 +52,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirement/assert"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/reqValue"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/goalReference"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirement/hazardReference"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/hazardReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/refinesReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/subrequirement"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/decomposesReference"/>
@@ -67,7 +64,6 @@
     <genClasses ecoreClass="ReqSpec.ecore#//Hazard">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Hazard/category"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Hazard/description"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Hazard/mitigated"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ExternalDocument">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docReference"/>

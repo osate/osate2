@@ -6,9 +6,9 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/organization/Organization" as org
 
-ReqSpec: ReqSpecModel | ReqSpecDocument ;
+ReqSpec: ReqSpecModel  ;
 
-ReqSpecContainer: ReqSpecModel | ReqSpecDocument | ReqSpecFolder | ReqSpecSection ;
+ReqSpecContainer: ReqSpecModel  | ReqSpecFolder  ;
 
 ContractualElement: Goal | Requirement  | Hazard;
 
@@ -21,13 +21,6 @@ ReqSpecModel returns ReqSpecModel:
 	']'
 	;
 	
-ReqSpecDocument returns ReqSpecDocument:
-	'document' name =ID ('@' docref = ExternalDocument)?
-	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
-	'[' (content+= (Goal | Requirement |  ReqSpecSection))*
-	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
-	']'
-	;
 
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:
@@ -38,14 +31,6 @@ ReqSpecFolder returns ReqSpecFolder:
 	']'
 	;
 
-// does not add to a qualified name
-ReqSpecSection returns ReqSpecSection:
-	'section' label =ID 
-	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
-	'[' (content+= (Goal | Requirement |  ReqSpecSection))*
-	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
-	']'
-	;
 	
 
 // TODO: May reference a property by referring to its definition
@@ -57,7 +42,7 @@ RSLVariable :
 
 Goal returns Goal:
 	'goal' name=ID (':'  title=ValueString )? // short string for title
-	( 'for' target=[aadl2::NamedElement|ID])?
+	( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
 	 &('description'  description=Description)? 
@@ -80,22 +65,21 @@ Requirement:
 	'requirement'  name=ID   
 	(':'  title=ValueString)? 
  	('('  category=[categories::RequirementCategory|CatRef] ')')?
-	( 'for' target=[aadl2::NamedElement|ID])?
+	( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
 '['	(
 	('description'  description=Description)? 
 	&('assertion'  assert=ValueString)?  // predicate expression 
 	&('rationale'  rationale=ValueString)? 
 	& (reqValue += RSLVariable)*
 	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
-	&('see' 'goal'  goalReference+=[Goal] (',' goalReference+=[Goal])*)?
-	&('see' 'hazard'  hazardReference+=AadlClassifierReference (',' hazardReference+=AadlClassifierReference)*)? // hazardReference+=[aadl2::NamedElement|AadlClassifierReference]
+	&('see' 'goal'  goalReference+=[Goal|QualifiedName] (',' goalReference+=[Goal|QualifiedName])*)?
+	&('mitigates'  hazardReference+=[Hazard|QualifiedName] (',' hazardReference+=[Hazard])*)? 
 	&('refines'  refinesReference+=[Requirement|QualifiedName](',' refinesReference+=[Requirement|QualifiedName])*)? 
 	 &( subrequirement+=Requirement*) 
 	&('decomposes'  decomposesReference+=[Requirement|QualifiedName](',' decomposesReference+=[Requirement|QualifiedName])*)? 
 	&('evolves'  evolvesReference+=[Requirement|QualifiedName](',' evolvesReference+=[Requirement|QualifiedName])*)? 
 	&('see' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
 	&('see' 'requirement'  systemRequirementReference+=[ContractualElement|QualifiedName] (',' systemRequirementReference+=[ContractualElement|QualifiedName])*)?
-//	&('verified by' verifiedBy=[VerificationPlan|QualifiedName] )?
 	&('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
 	)
 	']';
@@ -104,11 +88,10 @@ Requirement:
 	
 Hazard:
 	'hazard'  name=ID   
-	'['(( 'for' target=[aadl2::NamedElement|ID])?
+	'['(( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
  	&('category'  category=[categories::HazardCategory|CatRef])?
 	&('title'  title=ValueString)? 
 	&('description'  description=ValueString)? 
-	&('mitigated' 'by'  mitigated=[Requirement|QualifiedName])? 
 	&('rationale'  rationale=ValueString)? 
 	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
 	)

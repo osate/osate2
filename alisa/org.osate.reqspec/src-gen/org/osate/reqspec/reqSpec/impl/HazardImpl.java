@@ -13,7 +13,6 @@ import org.osate.categories.categories.HazardCategory;
 
 import org.osate.reqspec.reqSpec.Hazard;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
-import org.osate.reqspec.reqSpec.Requirement;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +23,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.HazardImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.HazardImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.HazardImpl#getMitigated <em>Mitigated</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,16 +59,6 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
    * @ordered
    */
   protected String description = DESCRIPTION_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getMitigated() <em>Mitigated</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMitigated()
-   * @generated
-   * @ordered
-   */
-  protected Requirement mitigated;
 
   /**
    * <!-- begin-user-doc -->
@@ -164,49 +152,6 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
    * <!-- end-user-doc -->
    * @generated
    */
-  public Requirement getMitigated()
-  {
-    if (mitigated != null && mitigated.eIsProxy())
-    {
-      InternalEObject oldMitigated = (InternalEObject)mitigated;
-      mitigated = (Requirement)eResolveProxy(oldMitigated);
-      if (mitigated != oldMitigated)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.HAZARD__MITIGATED, oldMitigated, mitigated));
-      }
-    }
-    return mitigated;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Requirement basicGetMitigated()
-  {
-    return mitigated;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setMitigated(Requirement newMitigated)
-  {
-    Requirement oldMitigated = mitigated;
-    mitigated = newMitigated;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.HAZARD__MITIGATED, oldMitigated, mitigated));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -217,9 +162,6 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
         return basicGetCategory();
       case ReqSpecPackage.HAZARD__DESCRIPTION:
         return getDescription();
-      case ReqSpecPackage.HAZARD__MITIGATED:
-        if (resolve) return getMitigated();
-        return basicGetMitigated();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -239,9 +181,6 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
         return;
       case ReqSpecPackage.HAZARD__DESCRIPTION:
         setDescription((String)newValue);
-        return;
-      case ReqSpecPackage.HAZARD__MITIGATED:
-        setMitigated((Requirement)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -263,9 +202,6 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
       case ReqSpecPackage.HAZARD__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
-      case ReqSpecPackage.HAZARD__MITIGATED:
-        setMitigated((Requirement)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -284,8 +220,6 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
         return category != null;
       case ReqSpecPackage.HAZARD__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-      case ReqSpecPackage.HAZARD__MITIGATED:
-        return mitigated != null;
     }
     return super.eIsSet(featureID);
   }

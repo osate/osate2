@@ -23,7 +23,6 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.Hazard;
 import org.osate.reqspec.reqSpec.RSLVariable;
-import org.osate.reqspec.reqSpec.ReqSpecDocument;
 import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecModel;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -96,14 +95,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case ReqSpecPackage.REQ_SPEC_DOCUMENT:
-				if(context == grammarAccess.getReqSpecRule() ||
-				   context == grammarAccess.getReqSpecContainerRule() ||
-				   context == grammarAccess.getReqSpecDocumentRule()) {
-					sequence_ReqSpecDocument(context, (ReqSpecDocument) semanticObject); 
-					return; 
-				}
-				else break;
 			case ReqSpecPackage.REQ_SPEC_FOLDER:
 				if(context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getReqSpecFolderRule()) {
@@ -144,7 +135,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=ValueString? 
-	 *         target=[NamedElement|ID]? 
+	 *         (target=[NamedElement|ID] targetContext=[Classifier|AadlClassifierReference]?)? 
 	 *         category=[RequirementCategory|CatRef]? 
 	 *         description=Description? 
 	 *         assert=ValueString? 
@@ -170,11 +161,10 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[NamedElement|ID]? 
+	 *         (target=[NamedElement|ID] targetContext=[Classifier|AadlClassifierReference]?)? 
 	 *         category=[HazardCategory|CatRef]? 
 	 *         title=ValueString? 
 	 *         description=ValueString? 
-	 *         mitigated=[Requirement|QualifiedName]? 
 	 *         rationale=ValueString? 
 	 *         (issue+=ValueString issue+=ValueString*)?
 	 *     )
@@ -200,21 +190,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		feeder.accept(grammarAccess.getRSLVariableAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.accept(grammarAccess.getRSLVariableAccess().getValueValueStringParserRuleCall_3_0(), semanticObject.getValue());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         docref=ExternalDocument? 
-	 *         target=[Classifier|AadlClassifierReference]? 
-	 *         (content+=Goal | content+=Requirement | content+=ReqSpecFolder)* 
-	 *         (issue+=ValueString issue+=ValueString*)?
-	 *     )
-	 */
-	protected void sequence_ReqSpecDocument(EObject context, ReqSpecDocument semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -253,14 +228,14 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=ValueString? 
 	 *         category=[RequirementCategory|CatRef]? 
-	 *         target=[NamedElement|ID]? 
+	 *         (target=[NamedElement|ID] targetContext=[Classifier|AadlClassifierReference]?)? 
 	 *         description=Description? 
 	 *         assert=ValueString? 
 	 *         rationale=ValueString? 
 	 *         reqValue+=RSLVariable* 
 	 *         (issue+=ValueString issue+=ValueString*)? 
-	 *         (goalReference+=[Goal|ID] goalReference+=[Goal|ID]*)? 
-	 *         (hazardReference+=AadlClassifierReference hazardReference+=AadlClassifierReference*)? 
+	 *         (goalReference+=[Goal|QualifiedName] goalReference+=[Goal|QualifiedName]*)? 
+	 *         (hazardReference+=[Hazard|QualifiedName] hazardReference+=[Hazard|ID]*)? 
 	 *         (refinesReference+=[Requirement|QualifiedName] refinesReference+=[Requirement|QualifiedName]*)? 
 	 *         subrequirement+=Requirement* 
 	 *         (decomposesReference+=[Requirement|QualifiedName] decomposesReference+=[Requirement|QualifiedName]*)? 

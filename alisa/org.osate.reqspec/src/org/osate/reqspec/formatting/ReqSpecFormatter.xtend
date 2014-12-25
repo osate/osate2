@@ -34,44 +34,17 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		      c.setIndentationDecrement().before(pair.second);
 		      c.setLinewrap().before(pair.second);
 		    }
-		c.setLinewrap(2).before(requirementRule);
-		c.setLinewrap(2).before(goalRule);
-		c.setLinewrap(2).before(hazardRule);
-		c.setLinewrap(2).before(RSLVariableRule);
-		c.setLinewrap().before(reqSpecModelRule);
-		c.setLinewrap().before(reqSpecDocumentRule);
+//		c.setLinewrap().before(requirementRule);
+//		c.setLinewrap(1).before(goalRule);
+//		c.setLinewrap().before(hazardRule);
+		c.setLinewrap().before(RSLVariableRule);
+		c.setLinewrap().after(reqSpecModelRule);
 		c.setLinewrap().before(reqSpecFolderRule);
-		for (kw : findKeywords("description")) {
+		for (kw : findKeywords("goal","requirement","hazard")) {
 			c.setLinewrap().before(kw);
 		}
-		for (kw : findKeywords("assertion")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("rationale")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("issues")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("refines")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("decomposes")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("evolves")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("conflicts")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("mitigated")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("stakeholder")) {
-			c.setLinewrap().before(kw);
-		}
-		for (kw : findKeywords("see")) {
+		for (kw : findKeywords("description","assertion","rationale","issues",
+		"refines","decomposes","evolves","conflicts","mitigated","stakeholder","see")) {
 			c.setLinewrap().before(kw);
 		}
 	}

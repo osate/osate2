@@ -59,15 +59,6 @@ public interface ReqSpecFactory extends EFactory
   ReqSpecModel createReqSpecModel();
 
   /**
-   * Returns a new object of class '<em>Document</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Document</em>'.
-   * @generated
-   */
-  ReqSpecDocument createReqSpecDocument();
-
-  /**
    * Returns a new object of class '<em>Folder</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

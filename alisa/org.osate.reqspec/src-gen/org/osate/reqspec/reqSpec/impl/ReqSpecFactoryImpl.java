@@ -68,7 +68,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.REQ_SPEC_CONTAINER: return createReqSpecContainer();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT: return createContractualElement();
       case ReqSpecPackage.REQ_SPEC_MODEL: return createReqSpecModel();
-      case ReqSpecPackage.REQ_SPEC_DOCUMENT: return createReqSpecDocument();
       case ReqSpecPackage.REQ_SPEC_FOLDER: return createReqSpecFolder();
       case ReqSpecPackage.RSL_VARIABLE: return createRSLVariable();
       case ReqSpecPackage.GOAL: return createGoal();
@@ -122,17 +121,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     ReqSpecModelImpl reqSpecModel = new ReqSpecModelImpl();
     return reqSpecModel;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ReqSpecDocument createReqSpecDocument()
-  {
-    ReqSpecDocumentImpl reqSpecDocument = new ReqSpecDocumentImpl();
-    return reqSpecDocument;
   }
 
   /**

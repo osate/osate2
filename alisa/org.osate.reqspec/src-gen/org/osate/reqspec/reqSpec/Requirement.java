@@ -149,20 +149,20 @@ public interface Requirement extends ContractualElement
   EList<Goal> getGoalReference();
 
   /**
-   * Returns the value of the '<em><b>Hazard Reference</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Hazard Reference</b></em>' reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.Hazard}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Hazard Reference</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Hazard Reference</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Hazard Reference</em>' attribute list.
+   * @return the value of the '<em>Hazard Reference</em>' reference list.
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_HazardReference()
-   * @model unique="false"
+   * @model
    * @generated
    */
-  EList<String> getHazardReference();
+  EList<Hazard> getHazardReference();
 
   /**
    * Returns the value of the '<em><b>Refines Reference</b></em>' reference list.

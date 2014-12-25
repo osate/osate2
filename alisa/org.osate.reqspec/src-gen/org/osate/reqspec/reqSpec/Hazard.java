@@ -14,7 +14,6 @@ import org.osate.categories.categories.HazardCategory;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.Hazard#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Hazard#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Hazard#getMitigated <em>Mitigated</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,31 +74,5 @@ public interface Hazard extends ContractualElement
    * @generated
    */
   void setDescription(String value);
-
-  /**
-   * Returns the value of the '<em><b>Mitigated</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Mitigated</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Mitigated</em>' reference.
-   * @see #setMitigated(Requirement)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getHazard_Mitigated()
-   * @model
-   * @generated
-   */
-  Requirement getMitigated();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Hazard#getMitigated <em>Mitigated</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Mitigated</em>' reference.
-   * @see #getMitigated()
-   * @generated
-   */
-  void setMitigated(Requirement value);
 
 } // Hazard

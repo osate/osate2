@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -26,6 +25,7 @@ import org.osate.categories.categories.RequirementCategory;
 import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
+import org.osate.reqspec.reqSpec.Hazard;
 import org.osate.reqspec.reqSpec.RSLVariable;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
@@ -118,14 +118,14 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EList<Goal> goalReference;
 
   /**
-   * The cached value of the '{@link #getHazardReference() <em>Hazard Reference</em>}' attribute list.
+   * The cached value of the '{@link #getHazardReference() <em>Hazard Reference</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getHazardReference()
    * @generated
    * @ordered
    */
-  protected EList<String> hazardReference;
+  protected EList<Hazard> hazardReference;
 
   /**
    * The cached value of the '{@link #getRefinesReference() <em>Refines Reference</em>}' reference list.
@@ -365,11 +365,11 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getHazardReference()
+  public EList<Hazard> getHazardReference()
   {
     if (hazardReference == null)
     {
-      hazardReference = new EDataTypeEList<String>(String.class, this, ReqSpecPackage.REQUIREMENT__HAZARD_REFERENCE);
+      hazardReference = new EObjectResolvingEList<Hazard>(Hazard.class, this, ReqSpecPackage.REQUIREMENT__HAZARD_REFERENCE);
     }
     return hazardReference;
   }
@@ -565,7 +565,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return;
       case ReqSpecPackage.REQUIREMENT__HAZARD_REFERENCE:
         getHazardReference().clear();
-        getHazardReference().addAll((Collection<? extends String>)newValue);
+        getHazardReference().addAll((Collection<? extends Hazard>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         getRefinesReference().clear();
@@ -705,8 +705,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (assert: ");
     result.append(assert_);
-    result.append(", hazardReference: ");
-    result.append(hazardReference);
     result.append(')');
     return result.toString();
   }

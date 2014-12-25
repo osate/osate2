@@ -28,9 +28,7 @@ Assertion : ('A'|'a')('S'|'s')('S'|'s')('E'|'e')('R'|'r')('T'|'t')('I'|'i')('O'|
 
 Conflicts : ('C'|'c')('O'|'o')('N'|'n')('F'|'f')('L'|'l')('I'|'i')('C'|'c')('T'|'t')('S'|'s');
 
-Container : ('C'|'c')('O'|'o')('N'|'n')('T'|'t')('A'|'a')('I'|'i')('N'|'n')('E'|'e')('R'|'r');
-
-Mitigated : ('M'|'m')('I'|'i')('T'|'t')('I'|'i')('G'|'g')('A'|'a')('T'|'t')('E'|'e')('D'|'d');
+Mitigates : ('M'|'m')('I'|'i')('T'|'t')('I'|'i')('G'|'g')('A'|'a')('T'|'t')('E'|'e')('S'|'s');
 
 Rationale : ('R'|'r')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('A'|'a')('L'|'l')('E'|'e');
 
@@ -43,6 +41,8 @@ Evolves : ('E'|'e')('V'|'v')('O'|'o')('L'|'l')('V'|'v')('E'|'e')('S'|'s');
 Package : ('P'|'p')('A'|'a')('C'|'c')('K'|'k')('A'|'a')('G'|'g')('E'|'e');
 
 Refines : ('R'|'r')('E'|'e')('F'|'f')('I'|'i')('N'|'n')('E'|'e')('S'|'s');
+
+Folder : ('F'|'f')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
 
 Hazard : ('H'|'h')('A'|'a')('Z'|'z')('A'|'a')('R'|'r')('D'|'d');
 
@@ -64,7 +64,7 @@ FullStopAsterisk : '.''*';
 
 ColonColon : ':'':';
 
-By : ('B'|'b')('Y'|'y');
+Of : ('O'|'o')('F'|'f');
 
 NumberSign : '#';
 
@@ -81,8 +81,6 @@ Solidus : '/';
 Colon : ':';
 
 EqualsSign : '=';
-
-CommercialAt : '@';
 
 LeftSquareBracket : '[';
 

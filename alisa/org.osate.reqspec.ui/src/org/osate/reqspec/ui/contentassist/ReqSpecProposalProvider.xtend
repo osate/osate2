@@ -4,9 +4,45 @@
 package org.osate.reqspec.ui.contentassist
 
 import org.osate.reqspec.ui.contentassist.AbstractReqSpecProposalProvider
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.Assignment
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+import org.eclipse.xtext.CrossReference
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
  */
 class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
+	
+	override void completeReqSpecModel_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
+		);
+	}
+
+	override void completeReqSpecFolder_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
+		);
+	}
+
+	override void completeGoal_TargetContext(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
+		);
+	}
+
+	override void completeRequirement_TargetContext(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
+		);
+	}
+
+	override void completeHazard_TargetContext(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
+		);
+	}
+
 }
