@@ -142,7 +142,4 @@ public class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
     }
     return false;
   }
-  
-  public void getFullyQualifiedName() {
-  }
 }

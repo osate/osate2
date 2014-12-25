@@ -78,9 +78,5 @@ class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
 		}
 		return false
 	}
-	
-	def void getFullyQualifiedName(){
-		
-	}
 
 }
