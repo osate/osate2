@@ -65,7 +65,6 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
@@ -988,23 +987,6 @@ public class PropertyUtils {
 			}
 		}
 		return null;
-	}
-
-	/**
-	 * returns true if property is explicitly assigned
-	 * @param element NamedELement
-	 * @param pn Property definition
-	 * @return
-	 */
-	public static boolean isAssignedPropertyValue(NamedElement element, Property pn) {
-		try {
-			final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
-			PropertyAssociation firstAssociation = propertyAccumulator.first();
-			return firstAssociation != null;
-		} catch (org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException exception) {
-			return false;
-		}
-
 	}
 
 }
