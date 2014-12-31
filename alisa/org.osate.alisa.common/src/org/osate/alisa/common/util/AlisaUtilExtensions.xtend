@@ -14,8 +14,6 @@ import org.eclipse.xtext.scoping.Scopes
 
 class AlisaUtilExtensions {
 	extension AlisaGlobalScopeProvider agsp = new AlisaGlobalScopeProvider
-//	@Inject 
-//	private IQualifiedNameProvider qualifiedNameProvider ;
 	@Inject 
 	private IQualifiedNameConverter qualifiedNameConverter ;
 		
