@@ -15,7 +15,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider;
 
 @SuppressWarnings("all")
-public class AlisaUtilExtensions {
+public class AlisaUtilExtension {
   @Extension
   private AlisaGlobalScopeProvider agsp = new AlisaGlobalScopeProvider();
   

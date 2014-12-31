@@ -12,7 +12,7 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.osate.aadl2.Aadl2Package
 import org.eclipse.xtext.scoping.Scopes
 
-class AlisaUtilExtensions {
+class AlisaUtilExtension {
 	extension AlisaGlobalScopeProvider agsp = new AlisaGlobalScopeProvider
 	@Inject 
 	private IQualifiedNameConverter qualifiedNameConverter ;
