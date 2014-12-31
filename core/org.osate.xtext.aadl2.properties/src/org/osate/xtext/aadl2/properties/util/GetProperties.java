@@ -56,6 +56,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
@@ -69,12 +70,40 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class GetProperties {
+	/**
+	 * returns true if property is explicitly assigned
+	 * @param element NamedELement
+	 * @param pn Property definition
+	 * @return
+	 */
+	public static boolean isAssignedPropertyValue(NamedElement element, Property pn) {
+		try {
+			final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
+			PropertyAssociation firstAssociation = propertyAccumulator.first();
+			return firstAssociation != null;
+		} catch (org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException exception) {
+			return false;
+		}
+
+	}
+
+	/**
+	 * returns true if property is explicitly assigned
+	 * @param element NamedELement
+	 * @param pn Property definition
+	 * @return
+	 */
+	public static boolean hasAssignedPropertyValue(NamedElement element, String pname) {
+		Property pn = GetProperties.lookupPropertyDefinition(element, pname);
+		return isAssignedPropertyValue(element, pn);
+	}
 
 	/**
 	 * find property definition for given name. The property may be qualified by the property set name via the ps parameter
@@ -87,6 +116,17 @@ public class GetProperties {
 	public static Property lookupPropertyDefinition(EObject context, String ps, String name) {
 		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(context,
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
+	}
+
+	/**
+	 * find property definition for given name. The property may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param context EObject the model object that references the property definition
+	 * @param qpname String qualified Property Definition name
+	 * @return Property or null
+	 */
+	public static Property lookupPropertyDefinition(EObject context, String qpname) {
+		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(context, qpname);
 	}
 
 	/**
@@ -944,7 +984,7 @@ public class GetProperties {
 
 	public static boolean isAssignedDeadline(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.DEADLINE);
-		return PropertyUtils.isAssignedPropertyValue(ne, deadline);
+		return isAssignedPropertyValue(ne, deadline);
 	}
 
 	public static double getComputeDeadlineinMilliSec(final NamedElement ne) {
