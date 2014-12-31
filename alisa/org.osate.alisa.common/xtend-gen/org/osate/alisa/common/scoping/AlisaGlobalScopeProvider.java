@@ -1,6 +1,7 @@
 package org.osate.alisa.common.scoping;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -14,12 +15,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
@@ -27,6 +30,9 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
   @Inject
   private IQualifiedNameProvider qualifiedNameProvider;
+  
+  @Inject
+  private IQualifiedNameConverter qualifiedNameConverter;
   
   /**
    * Get all global definitions of objects with the qualified name and the same eClass as target.
@@ -141,5 +147,10 @@ public class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
       }
     }
     return false;
+  }
+  
+  public IScope getGlobalScope(final EObject context, final EClass eClass, final Predicate<IEObjectDescription> filter) {
+    Resource _eResource = context.eResource();
+    return this.getScope(_eResource, true, eClass, filter);
   }
 }

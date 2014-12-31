@@ -6,17 +6,23 @@ import java.util.Collections
 import java.util.List
 import java.util.Stack
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.naming.IQualifiedNameConverter
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.IEObjectDescription
+import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
-import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider
+import org.eclipse.xtext.scoping.IScope
+import com.google.common.base.Predicate
 
 class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
 	@Inject 
 	private IQualifiedNameProvider qualifiedNameProvider ;
+	@Inject 
+	private IQualifiedNameConverter qualifiedNameConverter ;
 
 	/**
 	 * Get all global definitions of objects with the qualified name and the same eClass as target.
@@ -77,6 +83,10 @@ class AlisaGlobalScopeProvider extends DefaultGlobalScopeProvider {
 			if (match == qn) return true
 		}
 		return false
+	}
+	
+	def IScope getGlobalScope(EObject context, EClass eClass, Predicate<IEObjectDescription> filter){
+		context.eResource.getScope(true, eClass, filter  )
 	}
 
 }
