@@ -863,4 +863,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		return true;
 	}
 
+	public String getAnalysisMarkerType() {
+		return getMarkerType();
+	}
+
 }
