@@ -61,13 +61,4 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 		super(uri);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl#useUUIDs()
-	 */
-	@Override
-	protected boolean useUUIDs() {
-		return true;
-	}
 } // Aadl2ResourceImpl
