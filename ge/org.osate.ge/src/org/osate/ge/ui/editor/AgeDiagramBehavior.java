@@ -140,13 +140,27 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				
 				// Update the diagram
 				final EObject contents = resource.getContents().get(0);
-				final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
-				if(contents instanceof NamedElement && bo instanceof NamedElement) {
-					final NamedElement namedElement = (NamedElement)bo;
+				if(contents instanceof NamedElement) {
 					final String resourceContentsName = ((NamedElement)contents).getQualifiedName();
-					final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
-					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
-						update();
+					
+					final Runnable updateIfPackageMatches = new Runnable() {
+						@Override
+						public void run() {
+							final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
+							if(bo instanceof NamedElement) {
+								final NamedElement namedElement = (NamedElement)bo;
+								final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
+								if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
+									update();
+								}
+							}							
+						}						
+					};
+			
+					if(Display.getDefault().getThread() == Thread.currentThread()) {
+						updateIfPackageMatches.run();
+					} else {
+						Display.getDefault().asyncExec(updateIfPackageMatches);	
 					}
 				}
 			}					
