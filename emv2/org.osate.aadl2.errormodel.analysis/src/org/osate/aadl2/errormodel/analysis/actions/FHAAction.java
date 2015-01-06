@@ -173,7 +173,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				target = failureMode;
 				localContext = errorSource;
 			}
-			if (HazardPA.isEmpty()) {
+			if ((HazardPA == null) || (HazardPA.isEmpty())) {
 				// error propagation is originating hazard
 				ts = ep.getTypeSet();
 				if (ts == null && failureMode != null)
@@ -184,7 +184,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				target = ep;
 				localContext = null;
 			}
-			if (HazardPA.isEmpty()) {
+			if ((HazardPA == null) || (HazardPA.isEmpty())) {
 				// error source is originating hazard
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null)
@@ -197,9 +197,11 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				target = errorSource;
 				localContext = null;
 			}
-			for (ContainedNamedElement hazProp : HazardPA) {
-				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
-						EMV2Util.findMatchingErrorType(hazProp, Like), target, ts, localContext, report);
+			if (HazardPA != null) {
+				for (ContainedNamedElement hazProp : HazardPA) {
+					reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
+							EMV2Util.findMatchingErrorType(hazProp, Like), target, ts, localContext, report);
+				}
 			}
 		}
 	}
