@@ -285,12 +285,14 @@ public class AnnexUtil {
 	/**
 	 * return set of annex subclauses for a given Classifier according to the classifier extends hierarchy and implementation -> type inheritance
 	 * 	Meta model class of interest e.g., EMV2AnnexSubclauseClass = ErrorModelPackage.eINSTANCE.getErrorModelSubclause();
-	 * @param cl Classifier
+	 * @param cl Classifier. Can be null. will return an empty set.
 	 * @param eclass Meta model class of annex subclause of interest
 	 * @return list of specific error model subclauses from specified classifier to those inherited
 	 */
 	public static EList<AnnexSubclause> getAllAnnexSubclauses(Classifier cl, EClass eclass) {
 		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		if (cl == null)
+			return result;
 		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
 		if (cl instanceof ComponentImplementation) {
 			ComponentType ct = ((ComponentImplementation) cl).getType();
