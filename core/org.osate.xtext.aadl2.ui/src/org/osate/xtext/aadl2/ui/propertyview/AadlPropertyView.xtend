@@ -35,12 +35,10 @@
 package org.osate.xtext.aadl2.ui.propertyview
 
 import com.google.inject.Inject
-import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor
 import java.util.Collections
 import java.util.List
 import java.util.Map
 import org.eclipse.core.runtime.IAdaptable
-import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.emf.common.util.URI
@@ -58,11 +56,8 @@ import org.eclipse.jface.action.IAction
 import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.text.ITextSelection
-import org.eclipse.jface.viewers.ColumnLabelProvider
 import org.eclipse.jface.viewers.ColumnPixelData
 import org.eclipse.jface.viewers.ColumnWeightData
-import org.eclipse.jface.viewers.EditingSupport
-import org.eclipse.jface.viewers.ILazyTreeContentProvider
 import org.eclipse.jface.viewers.IPostSelectionProvider
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.ISelectionChangedListener
@@ -70,14 +65,11 @@ import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
-import org.eclipse.jface.viewers.Viewer
 import org.eclipse.jface.window.Window
 import org.eclipse.jface.wizard.WizardDialog
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.GC
-import org.eclipse.swt.graphics.Image
 import org.eclipse.swt.widgets.Composite
-import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.IPartListener
 import org.eclipse.ui.ISelectionListener
@@ -85,13 +77,7 @@ import org.eclipse.ui.IWorkbenchActionConstants
 import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
-import org.eclipse.xtend.lib.annotations.EqualsHashCode
-import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
-import org.eclipse.xtend.lib.annotations.ToString
 import org.eclipse.xtext.linking.ILinker
-import org.eclipse.xtext.nodemodel.ICompositeNode
-import org.eclipse.xtext.nodemodel.INode
-import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
 import org.eclipse.xtext.resource.XtextResource
 import org.eclipse.xtext.scoping.IScopeProvider
@@ -102,48 +88,36 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
 import org.eclipse.xtext.util.concurrent.IUnitOfWork
-import org.eclipse.xtext.validation.IConcreteSyntaxValidator
-import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.BasicProperty
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.BehavioralFeature
 import org.osate.aadl2.Classifier
-import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ContainedNamedElement
 import org.osate.aadl2.ContainmentPathElement
-import org.osate.aadl2.Element
 import org.osate.aadl2.Feature
-import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.ListValue
 import org.osate.aadl2.ModalPath
-import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.ModeFeature
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertySet
-import org.osate.aadl2.PropertyType
 import org.osate.aadl2.Prototype
 import org.osate.aadl2.RangeValue
-import org.osate.aadl2.RecordType
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.SubprogramCallSequence
-import org.osate.aadl2.instance.InstanceReferenceValue
 import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 import org.osate.xtext.aadl2.ui.propertyview.associationwizard.PropertyAssociationWizard
 
+import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
+
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.findNodesForFeature
-import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.getNode
-import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
-import static extension org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -152,22 +126,11 @@ import static extension org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
  * @author aarong
  */
 class AadlPropertyView extends ViewPart {
-	val static EMBEDDED_RESOURCE_NAME_SUFFIX = "_embedded_for_property_view_cell_editor"
-	
 	val static HIDE_UNDEFINED_TOOL_TIP = "Click to hide undefined properties"
 	val static SHOW_UNDEFINED_TOOL_TIP = "Click to show undefined properties"
 
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
-	
-	val static MODE_ICON = "icons/propertyview/mode.gif"
-	val static SCALAR_ICON = "icons/propertyview/scalar.gif"
-	val static LIST_ICON = "icons/propertyview/list.gif"
-	val static PROPERTY_SET_ICON = "icons/propertyview/property_set.gif"
-	
-	val static MINIMUM_LABEL = "minimum"
-	val static MAXIMUM_LABEL = "maximum"
-	val static DELTA_LABEL = "delta"
 	
 	/**
 	 * Page book for switching between the tree viewer and the "no properties"
@@ -179,7 +142,7 @@ class AadlPropertyView extends ViewPart {
 	 * Tree for displaying properties. Underlying model is a
 	 * {@link List} of {@link PropertySet} objects.
 	 */
-	var TreeViewer treeViewer = null
+	var package TreeViewer treeViewer = null
 	
 	var Composite treeViewerComposite = null
 
@@ -193,7 +156,7 @@ class AadlPropertyView extends ViewPart {
 	/**
 	 * Action for toggling the display of nonexistent properties
 	 */
-	var Action showUndefinedAction = null
+	var package Action showUndefinedAction = null
 
 	/**
 	 * Action for creating a new Property Association without using any information
@@ -210,24 +173,19 @@ class AadlPropertyView extends ViewPart {
 	var Action makeLocalAction = null
 	
 	var Action createNewAssociationAction = null
-	var nextEditIsANewAssociationCreation = false
-	var creatingNewAssociationInEdit = false
-	var int updateOffset
-	var int updateLength
-	var String updatePrefix
-	var String updateSuffix
+	var package nextEditIsANewAssociationCreation = false
 	
 	/**
 	 * The editing domain for the viewer's input
 	 */
 	var EditingDomain editingDomain = null
 
-	var IXtextDocument xtextDocument = null
+	var package IXtextDocument xtextDocument = null
 
 	var ResourceSet resourceSetFromSelection = null
 	
 	@Inject
-	var ISerializer serializer
+	var package ISerializer serializer
 
 	@Inject
 	var Aadl2Parser aadl2Parser
@@ -243,13 +201,11 @@ class AadlPropertyView extends ViewPart {
 	
 	var URI previousSelectionURI = null
 	
-	var String initialEditablePart
-	
 	var CachePropertyLookupJob cachePropertyLookupJob = null
 	val jobLock = new Object
 	
 	//If the URIs were resolved to EObjects, then this would be a Map<PropertySet, Map<Property, PropertyAssociation>>
-	val Map<URI, Map<URI, URI>> cachedPropertyAssociations = Collections.synchronizedMap(newLinkedHashMap)
+	val package Map<URI, Map<URI, URI>> cachedPropertyAssociations = Collections.synchronizedMap(newLinkedHashMap)
 	
 	val ISelectionListener selectionListener = [part, selection |
 		/*
@@ -304,300 +260,6 @@ class AadlPropertyView extends ViewPart {
 		}
 	}]
 	
-	val propertyColumnLabelProvider = new ColumnLabelProvider {
-		/** Cached Icon for property set nodes */
-		var Image propSetImage = null
-		/** Cached Icon for list property value nodes */
-		var Image listImage = null
-		/** Cached Icon for scalar property value nodes */
-		var Image scalarImage = null
-		/** Cached Icon for modes */
-		var Image modeImage = null
-		
-		override getText(Object element) {
-			switch treeElement : (element as TreeEntry).treeElement {
-				URI: safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-					PropertySet,
-					BasicProperty: treeElementEObject.name
-					ModalPropertyValue: {
-						val modes = if (treeElementEObject.allInModes.empty) {
-							//This ModalPropertyValue exists in all modes that are not listed for other ModalPropertyValues
-							(input.getEObject(true) as ComponentClassifier).allModes.filter[classifierMode |
-								(treeElementEObject.owner as PropertyAssociation).ownedValues.forall[!allInModes.contains(classifierMode)]
-							]
-						} else {
-							treeElementEObject.allInModes
-						}
-						'''in modes («modes.map[name].join(", ")»)'''
-					}
-					BasicPropertyAssociation: treeElementEObject.property.name
-				}]
-				RangeElement: treeElement.label
-				ListElement: "# " + treeElement.index
-			}
-		}
-		
-		override getForeground(Object element) {
-			val treeElement = (element as TreeEntry).treeElement
-			if (treeElement instanceof URI) {
-				safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-					Property case getPropertyStatus(((element as TreeEntry).parent as TreeEntry).treeElement as URI, treeElement) == PropertyStatus.UNDEFINED,
-					BasicProperty case !(treeElementEObject instanceof Property): site.shell.display.getSystemColor(SWT.COLOR_RED)
-				}]
-			}
-		}
-		
-		override getImage(Object element) {
-			val treeElement = (element as TreeEntry).treeElement
-			if (treeElement instanceof URI) {
-				safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-					PropertySet: propSetImage ?: (propSetImage = MyAadl2Activator.getImageDescriptor(PROPERTY_SET_ICON).createImage)
-					Property case treeElementEObject.list: listImage ?: (listImage = MyAadl2Activator.getImageDescriptor(LIST_ICON).createImage)
-					Property case !treeElementEObject.list: scalarImage ?: (scalarImage = MyAadl2Activator.getImageDescriptor(SCALAR_ICON).createImage)
-					ModalPropertyValue: modeImage ?: (modeImage = MyAadl2Activator.getImageDescriptor(MODE_ICON).createImage)
-				}]
-			}
-		}
-		
-		override dispose() {
-			propSetImage?.dispose
-			propSetImage = null
-			listImage?.dispose
-			listImage = null
-			scalarImage?.dispose
-			scalarImage = null
-			modeImage?.dispose
-			modeImage = null
-			super.dispose
-		}
-	}
-	
-	val valueColumnLabelProvider = new ColumnLabelProvider {
-		override getText(Object element) {
-			safeRead[extension it | switch treeElement : (element as TreeEntry).treeElement {
-				URI: switch treeElementEObject : treeElement.getEObject(true) {
-					Property: {
-						val associationURI = cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
-						if (associationURI == null) {
-							treeElementEObject.defaultValue
-						} else {
-							val association = associationURI.getEObject(true) as PropertyAssociation
-							if (!association.modal) {
-								association.ownedValues.head.ownedValue
-							}
-						}
-					}
-					ModalPropertyValue: treeElementEObject.ownedValue
-					BasicPropertyAssociation: treeElementEObject.value
-				}
-				RangeElement: treeElement.expressionURI.getEObject(true) as PropertyExpression
-				ListElement: treeElement.expressionURI.getEObject(true) as PropertyExpression
-			}?.getValueAsString(serializer)]
-		}
-		
-		override getForeground(Object element) {
-			if (!canEdit(element)) {
-				site.shell.display.getSystemColor(SWT.COLOR_GRAY)
-			}
-		}
-	}
-	
-	val statusColumnLabelProvider = new ColumnLabelProvider {
-		override getText(Object element) {
-			val treeElement = (element as TreeEntry).treeElement
-			if (treeElement instanceof URI) {
-				safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-					Property: getPropertyStatus(((element as TreeEntry).parent as TreeEntry).treeElement as URI, treeElement)
-					BasicPropertyAssociation: getPropertyStatusNeverUndefined(treeElementEObject.getContainerOfType(PropertyAssociation))
-					BasicProperty case !(treeElementEObject instanceof Property): PropertyStatus.UNDEFINED
-				}?.toString]
-			}
-		}
-		
-		override getForeground(Object element) {
-			val treeElement = (element as TreeEntry).treeElement
-			if (treeElement instanceof URI) {
-				safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-					Property case getPropertyStatus(((element as TreeEntry).parent as TreeEntry).treeElement as URI, treeElement) == PropertyStatus.UNDEFINED,
-					BasicProperty case !(treeElementEObject instanceof Property): site.shell.display.getSystemColor(SWT.COLOR_RED)
-				}]
-			}
-		}
-	}
-	
-	val propertyViewContentProvider = new ILazyTreeContentProvider {
-		override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		}
-		
-		override updateChildCount(Object element, int currentChildCount) {
-			val childCount = switch element {
-				URI: {
-					if (showUndefinedAction.checked) {
-						cachedPropertyAssociations.size
-					} else {
-						cachedPropertyAssociations.values.filter[entrySet.exists[value != null || safeRead[extension resourceSet | (key.getEObject(true) as Property).defaultValue != null]]].size
-					}
-				}
-				TreeEntry: switch treeElement : element.treeElement {
-					URI: safeRead[extension it | switch treeElementEObject : treeElement.getEObject(true) {
-						PropertySet: {
-							if (showUndefinedAction.checked) {
-								cachedPropertyAssociations.get(treeElement).size
-							} else {
-								cachedPropertyAssociations.get(treeElement).filter[propertyURI, propertyAssociationURI |
-									propertyAssociationURI != null || (propertyURI.getEObject(true) as Property).defaultValue != null
-								].size
-							}
-						}
-						Property: {
-							val associationURI = cachedPropertyAssociations.get((element.parent as TreeEntry).treeElement).get(treeElement)
-							if (associationURI == null) {
-								getChildCount(treeElementEObject.defaultValue, treeElementEObject.propertyType, null)
-							} else {
-								val association = associationURI.getEObject(true) as PropertyAssociation
-								if (association.modal) {
-									association.ownedValues.size
-								} else {
-									getChildCount(association.ownedValues.head.ownedValue, treeElementEObject.propertyType, treeElementEObject.defaultValue)
-								}
-							}
-						}
-						ModalPropertyValue: {
-							val property = treeElementEObject.getContainerOfType(PropertyAssociation).property
-							getChildCount(treeElementEObject.ownedValue, property.propertyType, property.defaultValue)
-						}
-						BasicPropertyAssociation: getChildCount(treeElementEObject.value, treeElementEObject.property.propertyType, null)
-						default: 0
-					}]
-					RangeElement: 0
-					ListElement: safeRead[extension it |
-						val expression = treeElement.expressionURI.getEObject(true) as PropertyExpression
-						getChildCount(expression, (
-							expression.getContainerOfType(BasicPropertyAssociation)?.property ?: expression.getContainerOfType(PropertyAssociation)?.property ?: expression.getContainerOfType(Property)
-						).propertyType.basePropertyType, null)
-					]
-				}
-			}
-			if (currentChildCount != childCount) {
-				treeViewer.setChildCount(element, childCount)
-			}
-		}
-		
-		def private getChildCount(PropertyExpression expression, PropertyType propertyType, PropertyExpression defaultValue) {
-			switch expression {
-				RangeValue case expression.delta == null: 2
-				RangeValue case expression.delta != null: 3
-				RecordValue: switch propertyType {
-					RecordType case showUndefinedAction.checked: propertyType.ownedFields.size
-					RecordType case !showUndefinedAction.checked: {
-						if (defaultValue instanceof RecordValue) {
-							propertyType.ownedFields.filter[fieldInType | expression.ownedFieldValues.exists[property == fieldInType] || defaultValue.ownedFieldValues.exists[property == fieldInType]].size
-						} else {
-							propertyType.ownedFields.filter[fieldInType | expression.ownedFieldValues.exists[property == fieldInType]].size
-						}
-					}
-					default: 0
-				}
-				ListValue: expression.ownedListElements.size
-				default: 0
-			}
-		}
-		
-		override updateElement(Object parent, int index) {
-			val childElement = new TreeEntry(parent, switch parent {
-				URI: {
-					val filteredAssociations = if (showUndefinedAction.checked) {
-						cachedPropertyAssociations
-					} else {
-						cachedPropertyAssociations.filter[propertySetURI, associationsForPropertySet |
-							associationsForPropertySet.entrySet.exists[value != null || safeRead[extension resourceSet | (key.getEObject(true) as Property).defaultValue != null]]
-						]
-					}
-					filteredAssociations.keySet.sortBy[safeRead[extension resourceSet | (getEObject(true) as PropertySet).name.toUpperCase]].get(index)
-				}
-				TreeEntry: switch treeElement : parent.treeElement {
-					URI: safeRead[extension resourceSet | switch treeElementEObject : treeElement.getEObject(true) {
-						PropertySet: {
-							val filteredAssociations = if (showUndefinedAction.checked) {
-								cachedPropertyAssociations.get(treeElement)
-							} else {
-								cachedPropertyAssociations.get(treeElement).filter[propertyURI, propertyAssociationURI |
-									propertyAssociationURI != null || (propertyURI.getEObject(true) as Property).defaultValue != null
-								]
-							}
-							filteredAssociations.keySet.sortBy[(getEObject(true) as Property).name.toUpperCase].get(index)
-						}
-						Property: {
-							val associationURI = cachedPropertyAssociations.get((parent.parent as TreeEntry).treeElement).get(treeElement)
-							if (associationURI == null) {
-								getElement(treeElementEObject.defaultValue, index, treeElementEObject.propertyType, null)
-							} else {
-								val association = associationURI.getEObject(true) as PropertyAssociation
-								if (association.modal) {
-									association.ownedValues.get(index).URI
-								} else {
-									getElement(association.ownedValues.head.ownedValue, index, treeElementEObject.propertyType, treeElementEObject.defaultValue)
-								}
-							}
-						}
-						ModalPropertyValue: {
-							val property = treeElementEObject.getContainerOfType(PropertyAssociation).property
-							getElement(treeElementEObject.ownedValue, index, property.propertyType, property.defaultValue)
-						}
-						BasicPropertyAssociation: getElement(treeElementEObject.value, index, treeElementEObject.property.propertyType, null)
-					}]
-					ListElement: safeRead[extension it |
-						val expression = treeElement.expressionURI.getEObject(true) as PropertyExpression
-						getElement(expression, index, (
-							expression.getContainerOfType(BasicPropertyAssociation)?.property ?: expression.getContainerOfType(PropertyAssociation)?.property ?: expression.getContainerOfType(Property)
-						).propertyType.basePropertyType, null)
-					]
-				}
-			})
-			treeViewer.replace(parent, index, childElement)
-			updateChildCount(childElement, -1)
-		}
-		
-		def private getElement(PropertyExpression expression, int index, PropertyType propertyType, PropertyExpression defaultValue) {
-			switch expression {
-				RangeValue: switch index {
-					case 0: new RangeElement(MINIMUM_LABEL, expression.minimum.URI)
-					case 1: new RangeElement(MAXIMUM_LABEL, expression.maximum.URI)
-					case 2: new RangeElement(DELTA_LABEL, expression.delta.URI)
-				}
-				RecordValue: {
-					val recordType = propertyType as RecordType
-					(if (showUndefinedAction.checked) {
-						val fieldInType = recordType.ownedFields.get(index)
-						if (defaultValue instanceof RecordValue) {
-							expression.ownedFieldValues.findFirst[property == fieldInType] ?: defaultValue.ownedFieldValues.findFirst[property == fieldInType] ?: fieldInType
-						} else {
-							expression.ownedFieldValues.findFirst[property == fieldInType] ?: fieldInType
-						}
-					} else {
-						if (defaultValue instanceof RecordValue) {
-							recordType.ownedFields.map[fieldInType |
-								expression.ownedFieldValues.findFirst[property == fieldInType] ?: defaultValue.ownedFieldValues.findFirst[property == fieldInType]
-							].filterNull.get(index)
-						} else {
-							recordType.ownedFields.map[fieldInType | expression.ownedFieldValues.findFirst[property == fieldInType]].filterNull.get(index)
-						}
-					}).URI
-				}
-				ListValue: new ListElement(index, expression.ownedListElements.get(index).URI)
-			}
-		}
-		
-		override getParent(Object element) {
-			if (element instanceof TreeEntry) {
-				element.parent
-			}
-		}
-		
-		override dispose() {
-		}
-	}
-	
 	override createPartControl(Composite parent) {
 		pageBook = new PageBook(parent, SWT.NULL)
 
@@ -620,25 +282,25 @@ class AadlPropertyView extends ViewPart {
 				new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 					column.text = "Property"
 					treeColumnLayout.setColumnData(column, new ColumnWeightData(1, true))
-					labelProvider = propertyColumnLabelProvider
+					labelProvider = new PropertyColumnLabelProvider(this)
 				]
 				new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 					column.text = "Value"
 					treeColumnLayout.setColumnData(column, new ColumnWeightData(2, true))
-					labelProvider = valueColumnLabelProvider
-					editingSupport = createValueColumnEditingSupport(treeViewer)
+					labelProvider = new ValueColumnLabelProvider(this)
+					editingSupport = new ValueColumnEditingSupport(treeViewer, this)
 				]
 				new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 					column.text = "Status"
 					val gc = new GC(column.parent)
 					treeColumnLayout.setColumnData(column, new ColumnPixelData(PropertyStatus.values.map[gc.stringExtent(toString).x].max + 5, true, true))
 					gc.dispose
-					labelProvider = statusColumnLabelProvider
+					labelProvider = new StatusColumnLabelProvider(this)
 				]
 				treeViewer.tree.linesVisible = true
 				treeViewer.tree.headerVisible = true
 				treeViewer.useHashlookup = true
-				treeViewer.contentProvider = propertyViewContentProvider
+				treeViewer.contentProvider = new PropertyViewContentProvider(this)
 			]
 		]
 		
@@ -681,31 +343,7 @@ class AadlPropertyView extends ViewPart {
 		treeViewer.tree.setFocus
 	}
 	
-	def private static getLastLeaf(ICompositeNode node) {
-		var INode result = node
-		while (result instanceof ICompositeNode) {
-			result = result.lastChild
-		}
-		result ?: node
-	}
-	
-	def private static getPreviousNode(INode node) {
-		var lln = node.previousSibling
-		while (lln instanceof HiddenLeafNode) {
-			lln = lln.previousSibling
-		}
-		lln
-	}
-	
-	def private TreeEntry getPropertyParent(TreeEntry element) {
-		if (element.treeElement instanceof URI && safeRead[extension it | (element.treeElement as URI).getEObject(true) instanceof Property]) {
-			element
-		} else {
-			(element.parent as TreeEntry).propertyParent
-		}
-	}
-	
-	def private boolean canEdit(Object element) {
+	def package boolean canEdit(Object element) {
 		safeRead[extension it | switch treeElement : (element as TreeEntry).treeElement {
 			URI: switch treeElementEObject : treeElement.getEObject(true) {
 				Property: {
@@ -730,94 +368,7 @@ class AadlPropertyView extends ViewPart {
 		}]
 	}
 	
-	def private createValueColumnEditingSupport(TreeViewer treeViewer) {
-		new EditingSupport(treeViewer) {
-			override protected canEdit(Object element) {
-				if (nextEditIsANewAssociationCreation) {
-					creatingNewAssociationInEdit = true
-					nextEditIsANewAssociationCreation = false
-					true
-				} else {
-					creatingNewAssociationInEdit = false
-					AadlPropertyView.this.canEdit(element)
-				}
-			}
-			
-			override protected getCellEditor(Object element) {
-				new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)) => [
-					create(treeViewer.tree)
-				]
-			}
-			
-			override protected getValue(Object element) {
-				xtextDocument.readOnly[extension it |
-					val modelUnitNameEndOffset = contents.head.findNodesForFeature(Aadl2Package.eINSTANCE.namedElement_Name).head.endOffset
-					val endNameEndOffset = contents.head.node.lastLeaf.previousNode.endOffset
-					if (creatingNewAssociationInEdit) {
-						val propertyName = (resourceSet.getEObject((element as TreeEntry).treeElement as URI, true) as Property).getQualifiedName
-						val inputElement = resourceSet.getEObject(input, true) as NamedElement
-						initialEditablePart = ""
-						updateOffset = if (inputElement.ownedPropertyAssociations.empty) {
-							switch inputElement {
-								AadlPackage,
-								FeatureGroupType,
-								ComponentClassifier case inputElement.ownedAnnexSubclauses.empty: inputElement.node.lastLeaf.previousNode.previousNode.offset
-								ComponentClassifier: inputElement.ownedAnnexSubclauses.head.node.offset
-								Subcomponent case !inputElement.ownedModeBindings.empty: inputElement.ownedModeBindings.head.node.previousNode.previousNode.previousNode.offset
-								ModalPath case !inputElement.inModeOrTransitions.empty: {
-									inputElement.findNodesForFeature(Aadl2Package.eINSTANCE.modalPath_InModeOrTransition).head.previousNode.previousNode.previousNode.offset
-								}
-								SubprogramCallSequence case !inputElement.inModes.empty: {
-									inputElement.findNodesForFeature(Aadl2Package.eINSTANCE.modalElement_InMode).head.previousNode.previousNode.previousNode.offset
-								}
-								default: inputElement.node.lastLeaf.offset
-							}
-						} else {
-							inputElement.ownedPropertyAssociations.last.node.endOffset
-						}
-						updateLength = 0
-						val inputIsPackageOrClassifier = inputElement instanceof AadlPackage || inputElement instanceof Classifier
-						updatePrefix = '''«IF inputElement.ownedPropertyAssociations.empty»«IF inputIsPackageOrClassifier»properties «ELSE»{«ENDIF»«ENDIF»«propertyName» => '''
-						updateSuffix = ''';«IF inputElement.ownedPropertyAssociations.empty && !inputIsPackageOrClassifier»}«ENDIF»'''
-						new CellEditorPartialValue('''«new StringBuilder(xtextDocument.get(0, updateOffset)).insert(modelUnitNameEndOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)»«updatePrefix»''',
-							initialEditablePart,
-							'''«updateSuffix»«new StringBuilder(xtextDocument.get(updateOffset, xtextDocument.length - updateOffset)).insert(endNameEndOffset - updateOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)»'''
-						)
-					} else {
-						val expression = switch treeElement : (element as TreeEntry).treeElement {
-							URI: switch treeElementObject : resourceSet.getEObject(treeElement, true) {
-								Property: (resourceSet.getEObject(cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement), true) as PropertyAssociation).ownedValues.head.ownedValue
-								BasicPropertyAssociation: treeElementObject.value
-							}
-							RangeElement: resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression
-							ListElement: resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression
-						}
-						val expressionNode = expression.node
-						initialEditablePart = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
-						updateOffset = expressionNode.offset
-						updateLength = expressionNode.length
-						updatePrefix = ""
-						updateSuffix = ""
-						new CellEditorPartialValue(new StringBuilder(xtextDocument.get(0, expressionNode.offset)).insert(modelUnitNameEndOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).toString,
-							initialEditablePart,
-							new StringBuilder(xtextDocument.get(expressionNode.endOffset, xtextDocument.length - expressionNode.endOffset)).insert(endNameEndOffset - expressionNode.endOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).toString
-						)
-					}
-				]
-			}
-			
-			override protected setValue(Object element, Object value) {
-				xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
-					override process(XtextResource state) throws Exception {
-						state.update(updateOffset, updateLength, updatePrefix + value + updateSuffix)
-					}
-				})
-				treeViewer.refresh((element as TreeEntry).propertyParent)
-			}
-		}
-	}
-	
-	def private getInput() {
+	def package getInput() {
 		treeViewer.input as URI
 	}
 
@@ -1017,7 +568,7 @@ class AadlPropertyView extends ViewPart {
 							BasicPropertyAssociation: (treeElementEObject.owner as RecordValue).ownedFieldValues.size >= 2
 							default: false
 						}]
-						RangeElement: treeElement.label == DELTA_LABEL
+						RangeElement: treeElement.label == RangeElement.DELTA_LABEL
 						ListElement: true
 						default: false
 					}
@@ -1122,7 +673,7 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 	
-	def private <T> safeRead((ResourceSet)=>T operation) {
+	def package <T> safeRead((ResourceSet)=>T operation) {
 		if (xtextDocument != null) {
 			xtextDocument.readOnly[operation.apply(resourceSet)]
 		} else if (editingDomain instanceof TransactionalEditingDomain) {
@@ -1156,31 +707,7 @@ class AadlPropertyView extends ViewPart {
 		])
 	}
 	
-	def private static getValueAsString(Element expression, ISerializer serializer) {
-		try {
-			switch expression {
-				InstanceReferenceValue: expression.referencedInstanceObject?.instanceObjectPath ?: "null"
-				ListValue case expression.hasInstanceReferenceValue: expression.serializeListWithInstanceReferenceValue(serializer)
-				default: serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
-			}
-		} catch (IConcreteSyntaxValidator.InvalidConcreteSyntaxException e) {
-			//Simply return null.  Expression could not be serialized because the model is invalid.
-		}
-	}
-	
-	def private static boolean hasInstanceReferenceValue(ListValue topList) {
-		topList.ownedListElements.exists[it instanceof InstanceReferenceValue || (it instanceof ListValue && (it as ListValue).hasInstanceReferenceValue)]
-	}
-	
-	def private static String serializeListWithInstanceReferenceValue(ListValue topList, ISerializer serializer) {
-		topList.ownedListElements.join("(", ", ", ")", [switch it {
-			InstanceReferenceValue: referencedInstanceObject?.instanceObjectPath ?: "null"
-			ListValue: serializeListWithInstanceReferenceValue(serializer)
-			default: serializer.serialize(it).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
-		}])
-	}
-	
-	def private getPropertyStatus(URI propertySetURI, URI propertyURI) {
+	def package getPropertyStatus(URI propertySetURI, URI propertyURI) {
 		safeRead[extension it |
 			val associationURI = cachedPropertyAssociations.get(propertySetURI).get(propertyURI)
 			if (associationURI != null) {
@@ -1219,7 +746,7 @@ class AadlPropertyView extends ViewPart {
 		}
 	}
 	
-	def private getPropertyStatusNeverUndefined(extension ResourceSet resourceSet, PropertyAssociation association) {
+	def package getPropertyStatusNeverUndefined(extension ResourceSet resourceSet, PropertyAssociation association) {
 		if (association == null) {
 			PropertyStatus.DEFAULT
 		} else {
@@ -1232,106 +759,5 @@ class AadlPropertyView extends ViewPart {
 				PropertyStatus.INHERITED
 			}
 		}
-	}
-
-	private static class CachePropertyLookupJob extends Job {
-		val URI elementURI
-		val AadlPropertyView propertyView
-		val Display display
-		val extension IScopeProvider scopeProvider
-		val Runnable preUiUpdate
-		val Runnable postUiUpdate
-		
-		new(URI elementURI, AadlPropertyView propertyView, Display display, IScopeProvider scopeProvider, Runnable preUiUpdate, Runnable postUiUpdate) {
-			super("Updating Property View")
-			this.elementURI = elementURI
-			this.propertyView = propertyView
-			this.display = display
-			this.scopeProvider = scopeProvider
-			this.preUiUpdate = preUiUpdate
-			this.postUiUpdate = postUiUpdate
-			priority = SHORT
-		}
-		
-		override protected run(IProgressMonitor monitor) {
-			display.syncExec(preUiUpdate)
-			val propertyAssociations = try {
-				propertyView.safeRead[extension it |
-					val element = elementURI.getEObject(true) as NamedElement
-					if (element != null) {
-						//Build a collection of PropertySets that are visible from the selected element.  Unresolvable proxies are filtered out.
-						val propertySets = element.getScope(Aadl2Package.eINSTANCE.packageSection_ImportedUnit).allElements.map[
-							if (EObjectOrProxy.eIsProxy) {
-								EcoreUtil.resolve(EObjectOrProxy, element)
-							} else {
-								EObjectOrProxy
-							}
-						].filter[!eIsProxy].filter(PropertySet)
-						/*
-						 * Build a map from PropertySets to a collection of their owned Properties.  Properties that do not apply to the selected element are filtered
-						 * out.  PropertySets without any applicable properties are filtered out.
-						 */
-						val properties = propertySets.toInvertedMap[ownedProperties.filter[element.acceptsProperty(it)]].filter[propertySet, acceptableProperties | !acceptableProperties.empty]
-						/*
-						 * Build a map from URIs of PropertySets to a map from URIs of Properties to URIs of PropertyAssociations(Map<URI, Map<URI, URI>>, derived from
-						 * Map<PropertySet, Map<Property, PropertyAssociation>>).  This is where the property lookup actually happens.  Entries for the
-						 * PropertyAssociation URI could be null which means that the Property is undefined, taking the default value, or the model is incomplete.  In
-						 * the case that the model is incomplete, we treat the property like it is undefined or taking the default value.  This whole expression is
-						 * wrapped in a construction of a new LinkedHashMap so that all of the lazy parts of the expression will be evaluated before we check if the
-						 * monitor is canceled.
-						 */
-						newLinkedHashMap(properties.mapValues[
-							/*
-							 * This whole expression is wrapped in a construction of a new LinkedHashMap so that all of the lazy parts of the expression will be
-							 * evaluated before we check if the monitor is canceled.
-							 */
-							newLinkedHashMap(toInvertedMap[element.getPropertyValue(it).first].mapValues[
-								//This check is for incomplete models which may occur while the user is typing a PropertyAssociation
-								if (it != null && (ownedValues.empty || ownedValues.exists[ownedValue == null])) {
-									null
-								} else {
-									it?.URI
-								}
-							].entrySet.map[key.URI -> value]).unmodifiableView
-						].entrySet.map[key.URI -> value]).unmodifiableView
-					}
-				]
-			} catch (NullPointerException e) {
-			}
-			if (monitor.canceled) {
-				Status.CANCEL_STATUS
-			} else {
-				propertyView.cachedPropertyAssociations.clear
-				if (propertyAssociations != null) {
-					propertyView.cachedPropertyAssociations.putAll(propertyAssociations)
-				}
-				display.syncExec(postUiUpdate)
-				Status.OK_STATUS
-			}
-		}
-	}
-	
-	@FinalFieldsConstructor
-	@EqualsHashCode
-	@ToString(singleLine = true)
-	private static class TreeEntry {
-		val Object parent
-		val Object treeElement
-	}
-	
-	@FinalFieldsConstructor
-	@EqualsHashCode
-	@ToString(singleLine = true)
-	private static class RangeElement {
-		val String label
-		val URI expressionURI
-	}
-	
-	@FinalFieldsConstructor
-	@EqualsHashCode
-	@ToString(singleLine = true)
-	private static class ListElement {
-		val int index
-		val URI expressionURI
 	}
 }
