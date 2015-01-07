@@ -45,4 +45,5 @@
       </description>
    </category-def>
    <category-def name="osate2source" label="OSATE2 Source Code"/>
+   <repository-reference location="http://download.eclipse.org/epsilon/updates" enabled="true"/>
 </site>
