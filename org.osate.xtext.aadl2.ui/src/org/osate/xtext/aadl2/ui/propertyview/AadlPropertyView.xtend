@@ -65,8 +65,6 @@ import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
-import org.eclipse.jface.window.Window
-import org.eclipse.jface.wizard.WizardDialog
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.widgets.Composite
@@ -77,7 +75,6 @@ import org.eclipse.ui.IWorkbenchActionConstants
 import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
-import org.eclipse.xtext.linking.ILinker
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
 import org.eclipse.xtext.resource.XtextResource
 import org.eclipse.xtext.scoping.IScopeProvider
@@ -109,9 +106,7 @@ import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.Subcomponent
-import org.osate.xtext.aadl2.parser.antlr.Aadl2Parser
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
-import org.osate.xtext.aadl2.ui.propertyview.associationwizard.PropertyAssociationWizard
 
 import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 
@@ -158,12 +153,6 @@ class AadlPropertyView extends ViewPart {
 	 */
 	var package Action showUndefinedAction = null
 
-	/**
-	 * Action for creating a new Property Association without using any information
-	 * from this view's selection
-	 */
-	var Action addNewPropertyAssociationToolbarAction = null
-	
 	var Action removeElementAction = null
 	
 	var Action openDefinitionAction = null
@@ -186,12 +175,6 @@ class AadlPropertyView extends ViewPart {
 	
 	@Inject
 	var package ISerializer serializer
-
-	@Inject
-	var Aadl2Parser aadl2Parser
-
-	@Inject
-	var ILinker linker
 
 	@Inject
 	var IScopeProvider scopeProvider
@@ -388,27 +371,6 @@ class AadlPropertyView extends ViewPart {
 			toolTipText = SHOW_UNDEFINED_TOOL_TIP
 		]
 
-		addNewPropertyAssociationToolbarAction = new Action {
-			override run() {
-				if (new WizardDialog(viewSite.workbenchWindow.shell,
-					new PropertyAssociationWizard(xtextDocument, editingDomain?.commandStack, safeRead[extension it | input.getEObject(true) as NamedElement], serializer, aadl2Parser, linker)
-				).open == Window.OK) {
-					synchronized (jobLock) {
-						if (cachePropertyLookupJob != null && cachePropertyLookupJob.state != Job.NONE) {
-							cachePropertyLookupJob.cancel
-						}
-						cachePropertyLookupJob = createCachePropertyLookupJob(input, null)
-						cachePropertyLookupJob.schedule
-					}
-				}
-			}
-		} => [
-			toolTipText = "New Property Association"
-			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/new_pa.gif")
-			enabled = false
-			viewSite.actionBars.toolBarManager.add(it)
-		]
-		
 		removeElementAction = new Action("Remove") {
 			override run() {
 				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as TreeEntry
@@ -666,7 +628,6 @@ class AadlPropertyView extends ViewPart {
 				}
 			}
 			pageBook.showPage(noPropertiesLabel)
-			addNewPropertyAssociationToolbarAction.enabled = false
 			editingDomain = null
 			resourceSetFromSelection = null
 			previousSelectionURI = null
@@ -696,14 +657,12 @@ class AadlPropertyView extends ViewPart {
 	def private createCachePropertyLookupJob(URI elementURI, Object objectToSelect) {
 		new CachePropertyLookupJob(elementURI, this, site.shell.display, scopeProvider, [|
 			pageBook.showPage(populatingViewLabel)
-			addNewPropertyAssociationToolbarAction.enabled = false
 		], [|
 			treeViewer.input = elementURI
 			if (objectToSelect != null) {
 				treeViewer.setSelection(new StructuredSelection(objectToSelect), true)
 			}
 			pageBook.showPage(treeViewerComposite)
-			addNewPropertyAssociationToolbarAction.enabled = true
 		])
 	}
 	
