@@ -35,6 +35,7 @@
 package org.osate.xtext.aadl2.ui.propertyview
 
 import com.google.inject.Inject
+import java.util.ArrayDeque
 import java.util.Collections
 import java.util.List
 import java.util.Map
@@ -92,9 +93,11 @@ import org.osate.aadl2.BehavioralFeature
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ContainedNamedElement
 import org.osate.aadl2.ContainmentPathElement
+import org.osate.aadl2.Element
 import org.osate.aadl2.Feature
 import org.osate.aadl2.ListValue
 import org.osate.aadl2.ModalPath
+import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.ModeFeature
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Property
@@ -598,6 +601,34 @@ class AadlPropertyView extends ViewPart {
 						currentSelection.getContainerOfType(PropertyAssociation).property.getContainerOfType(PropertySet).URI
 					), currentSelection.getContainerOfType(PropertyAssociation).property.URI)
 					currentSelection.namedElement.URI
+				}
+				BasicPropertyAssociation: {
+					val path = new ArrayDeque
+					path.push(currentSelection.URI)
+					var currentElement = currentSelection.owner
+					var Element previousElement = currentSelection
+					while (currentElement != null && !(currentElement instanceof PropertyAssociation)) {
+						switch currentElement {
+							ModalPropertyValue case (currentElement.owner as PropertyAssociation).modal,
+							BasicPropertyAssociation: path.push(currentElement.URI)
+							ListValue: path.push(new ListElement(currentElement.ownedListElements.indexOf(previousElement), previousElement.URI))
+						}
+						previousElement = currentElement
+						currentElement = currentElement.owner
+					}
+					if (currentElement instanceof PropertyAssociation) {
+						path.push(currentElement.property.URI)
+						val root = if (currentElement.appliesTos.empty) {
+							currentElement.owner.URI
+						} else if (currentElement.appliesTos.size == 1 && currentElement.appliesTos.head.containmentPathElements.size == 1) {
+							currentElement.appliesTos.head.containmentPathElements.head.namedElement.URI
+						}
+						treeElementToSelect = new TreeEntry(root, currentElement.property.getContainerOfType(PropertySet).URI)
+						for (pathElement : path) {
+							treeElementToSelect = new TreeEntry(treeElementToSelect, pathElement)
+						}
+						root
+					}
 				}
 			}
 		} catch (NullPointerException e) {
