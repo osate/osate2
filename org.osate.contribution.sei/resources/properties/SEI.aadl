@@ -1,7 +1,7 @@
 property set SEI is
   -- property to support security level analysis
-  SecurityLevel: inherit aadlinteger  applies to (thread, thread group, process, system);
-  SafetyCriticality  : aadlinteger applies to (thread, thread group, process, system);
+  SecurityLevel: inherit aadlinteger  applies to (thread, thread group, process, system, virtual processor);
+  SafetyCriticality  : aadlinteger applies to (thread, thread group, process, system, virtual processor);
   
   -- property to support analysis of missrate propagation along flows
   StreamMissRate: aadlreal  applies to (port);
