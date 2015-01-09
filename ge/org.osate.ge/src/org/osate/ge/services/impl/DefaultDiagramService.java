@@ -235,9 +235,11 @@ public class DefaultDiagramService implements DiagramService {
 				final AgeDiagramBehavior behavior = (AgeDiagramBehavior)diagramEditor.getDiagramBehavior();
 
 				if(behavior != null && behavior.getDiagramTypeProvider() != null) {
-					final Diagram diagram = behavior.getDiagramTypeProvider().getDiagram();					
-					openDiagrams.put(diagram.eResource().getURI(), diagram);
-					diagrams.add(diagram);
+					final Diagram diagram = behavior.getDiagramTypeProvider().getDiagram();
+					if(diagram != null) {
+						openDiagrams.put(diagram.eResource().getURI(), diagram);
+						diagrams.add(diagram);
+					}
 				}
 			}
 		}

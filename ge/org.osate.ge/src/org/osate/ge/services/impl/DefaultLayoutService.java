@@ -124,13 +124,13 @@ public class DefaultLayoutService implements LayoutService {
 				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
 				final boolean childIsFeature = isFeature(childBo);
 				
-				if(!propertyService.isManuallyPositioned(childShape) || propertyService.isLayedOut(childShape) || childIsFeature) {
+				if(!propertyService.isManuallyPositioned(childShape) && propertyService.isLayedOut(childShape)) {
 					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 					if(childBo != null) {
 						// Currently features are only allowed to be on the left and right edges so don't take them into account when deciding to shift left or right
 						// TODO: When features are allowed to be snapped to the top and bottom, need to take into account feature position
 						if(!childIsFeature) {
-							shiftX = Math.max(shiftX, featureWidth - childGa.getX());		
+							shiftX = Math.max(shiftX, featureWidth - childGa.getX());
 						}
 						
 						shiftY = Math.max(shiftY, 30-childGa.getY());				
@@ -143,12 +143,12 @@ public class DefaultLayoutService implements LayoutService {
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		int maxWidth = Math.max(150, shapeGa == null ? 0 : (shapeGa.getWidth() + shiftX));
 		int maxHeight = Math.max(50, shapeGa == null ? 0 : (shapeGa.getHeight() + shiftY));
-
+		
 		for(final Shape childShape :  shapeService.getNonGhostChildren(shape)) {
 			if(childShape.isVisible()) {
 				final Object childBo = bor.getBusinessObjectForPictogramElement(childShape);
 				final boolean childIsFeature = isFeature(childBo);
-				if(propertyService.isManuallyPositioned(childShape) || propertyService.isLayedOut(childShape) || childIsFeature) {
+				if(!propertyService.isManuallyPositioned(childShape) && propertyService.isLayedOut(childShape)) {
 					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 					
 					// TODO: Will need to consider with instead of height of features if features are snapped to top or bottom

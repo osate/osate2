@@ -177,7 +177,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
-		return super.canResizeShape(context);
+		return false;
 	}
 	
 	public void resizeShape(final IResizeShapeContext context) {

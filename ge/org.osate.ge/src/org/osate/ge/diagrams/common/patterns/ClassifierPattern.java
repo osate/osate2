@@ -267,6 +267,9 @@ public class ClassifierPattern extends AgePattern {
 		
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
 		
+		// Update Connection Anchors
+		updateConnectionAnchors(shape);
+		
 		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());		
 	}
@@ -780,13 +783,14 @@ public class ClassifierPattern extends AgePattern {
 	        gaService.setLocationAndSize(subcomponentTypeText, 0, 0, paddedTypeTextWidth, paddedTypeTextHeight);
 			gaService.setLocationAndSize(subcomponentTypeLabelBackground, 0, 0, paddedTypeTextWidth, paddedTypeTextHeight);
 
-	        final int newSize[] = layoutService.adjustChildShapePositions(shape);
+	        final int[] newSize = layoutService.adjustChildShapePositions(shape);
 	        ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, (Subcomponent)bo, newSize[0], newSize[1]);	                
 			gaService.setLocation(ga, x, y);
 	        
 			// Set the position and size of the text	        
 			gaService.setLocation(labelBackground, (ga.getWidth() - paddedLabelTextWidth) / 2, 2);
 			gaService.setLocation(subcomponentTypeLabelBackground, (ga.getWidth() - paddedTypeTextWidth) / 2, labelText.getY()+paddedLabelTextHeight);
+
 			
 			// Set color based on current mode
 			highlightingService.highlight((Subcomponent)bo, null, ga);
