@@ -602,9 +602,12 @@ class AadlPropertyView extends ViewPart {
 					), currentSelection.getContainerOfType(PropertyAssociation).property.URI)
 					currentSelection.namedElement.URI
 				}
-				BasicPropertyAssociation: {
+				BasicPropertyAssociation,
+				PropertyExpression: {
 					val path = new ArrayDeque
-					path.push(currentSelection.URI)
+					if (currentSelection instanceof BasicPropertyAssociation) {
+						path.push(currentSelection.URI)
+					}
 					var currentElement = currentSelection.owner
 					var Element previousElement = currentSelection
 					while (currentElement != null && !(currentElement instanceof PropertyAssociation)) {
@@ -612,6 +615,11 @@ class AadlPropertyView extends ViewPart {
 							ModalPropertyValue case (currentElement.owner as PropertyAssociation).modal,
 							BasicPropertyAssociation: path.push(currentElement.URI)
 							ListValue: path.push(new ListElement(currentElement.ownedListElements.indexOf(previousElement), previousElement.URI))
+							RangeValue: path.push(new RangeElement(switch previousElement {
+								case currentElement.minimum: RangeElement.MINIMUM_LABEL
+								case currentElement.maximum: RangeElement.MAXIMUM_LABEL
+								case currentElement.delta: RangeElement.DELTA_LABEL
+							}, previousElement.URI))
 						}
 						previousElement = currentElement
 						currentElement = currentElement.owner
@@ -623,10 +631,7 @@ class AadlPropertyView extends ViewPart {
 						} else if (currentElement.appliesTos.size == 1 && currentElement.appliesTos.head.containmentPathElements.size == 1) {
 							currentElement.appliesTos.head.containmentPathElements.head.namedElement.URI
 						}
-						treeElementToSelect = new TreeEntry(root, currentElement.property.getContainerOfType(PropertySet).URI)
-						for (pathElement : path) {
-							treeElementToSelect = new TreeEntry(treeElementToSelect, pathElement)
-						}
+						treeElementToSelect = path.fold(new TreeEntry(root, currentElement.property.getContainerOfType(PropertySet).URI), [new TreeEntry($0, $1)])
 						root
 					}
 				}
