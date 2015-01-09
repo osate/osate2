@@ -19,18 +19,20 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.antlr.runtime,
  org.eclipse.xtext.common.types,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
- org.osate.aadl2;bundle-version="1.0.0"
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.junit;bundle-version="4.11.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.alisa.common,
- org.osate.alisa.common.services,
  org.osate.alisa.common.common,
  org.osate.alisa.common.common.impl,
  org.osate.alisa.common.common.util,
- org.osate.alisa.common.serializer,
+ org.osate.alisa.common.formatting,
+ org.osate.alisa.common.generator,
  org.osate.alisa.common.parser.antlr,
  org.osate.alisa.common.parser.antlr.internal,
- org.osate.alisa.common.validation,
  org.osate.alisa.common.scoping,
- org.osate.alisa.common.generator,
- org.osate.alisa.common.formatting
+ org.osate.alisa.common.serializer,
+ org.osate.alisa.common.services,
+ org.osate.alisa.common.util,
+ org.osate.alisa.common.validation

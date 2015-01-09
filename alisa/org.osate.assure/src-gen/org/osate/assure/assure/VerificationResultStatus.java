@@ -20,14 +20,14 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum VerificationResultStatus implements Enumerator
 {
   /**
-   * The '<em><b>UNKNOWN</b></em>' literal object.
+   * The '<em><b>TBD</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #UNKNOWN_VALUE
+   * @see #TBD_VALUE
    * @generated
    * @ordered
    */
-  UNKNOWN(0, "UNKNOWN", "unknown"),
+  TBD(0, "TBD", "tbd"),
 
   /**
    * The '<em><b>PASS</b></em>' literal object.
@@ -50,29 +50,29 @@ public enum VerificationResultStatus implements Enumerator
   FAIL(2, "FAIL", "fail"),
 
   /**
-   * The '<em><b>NEUTRAL</b></em>' literal object.
+   * The '<em><b>UNKNOWN</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #NEUTRAL_VALUE
+   * @see #UNKNOWN_VALUE
    * @generated
    * @ordered
    */
-  NEUTRAL(3, "NEUTRAL", "neutral");
+  UNKNOWN(3, "UNKNOWN", "unknown");
 
   /**
-   * The '<em><b>UNKNOWN</b></em>' literal value.
+   * The '<em><b>TBD</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>UNKNOWN</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>TBD</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #UNKNOWN
-   * @model literal="unknown"
+   * @see #TBD
+   * @model literal="tbd"
    * @generated
    * @ordered
    */
-  public static final int UNKNOWN_VALUE = 0;
+  public static final int TBD_VALUE = 0;
 
   /**
    * The '<em><b>PASS</b></em>' literal value.
@@ -105,19 +105,19 @@ public enum VerificationResultStatus implements Enumerator
   public static final int FAIL_VALUE = 2;
 
   /**
-   * The '<em><b>NEUTRAL</b></em>' literal value.
+   * The '<em><b>UNKNOWN</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>NEUTRAL</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>UNKNOWN</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #NEUTRAL
-   * @model literal="neutral"
+   * @see #UNKNOWN
+   * @model literal="unknown"
    * @generated
    * @ordered
    */
-  public static final int NEUTRAL_VALUE = 3;
+  public static final int UNKNOWN_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Verification Result Status</b></em>' enumerators.
@@ -128,10 +128,10 @@ public enum VerificationResultStatus implements Enumerator
   private static final VerificationResultStatus[] VALUES_ARRAY =
     new VerificationResultStatus[]
     {
-      UNKNOWN,
+      TBD,
       PASS,
       FAIL,
-      NEUTRAL,
+      UNKNOWN,
     };
 
   /**
@@ -190,10 +190,10 @@ public enum VerificationResultStatus implements Enumerator
   {
     switch (value)
     {
-      case UNKNOWN_VALUE: return UNKNOWN;
+      case TBD_VALUE: return TBD;
       case PASS_VALUE: return PASS;
       case FAIL_VALUE: return FAIL;
-      case NEUTRAL_VALUE: return NEUTRAL;
+      case UNKNOWN_VALUE: return UNKNOWN;
     }
     return null;
   }

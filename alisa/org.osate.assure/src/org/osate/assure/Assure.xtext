@@ -6,18 +6,24 @@ import "http://aadl.info/AADL/2.0/instance" as instance
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/verify/Verify" as Verify
 
- AssuranceCase: 
- 	'assurance' 'case' name = ID
- 	'for' target = [instance::SystemInstance]
- 	'[' results+= AssuranceResult+
- 	']'
- ;
+ 
+CaseResult:
+	'case' name=ID 
+	'for' target=[instance::InstanceObject]
+	'['
+	( result=AggregateResultData)?
+	(subCaseResult += CaseResult)*
+	(claimResult += ClaimResult)*
+	']'  
+;
 
 VerificationResult:
-	'verification' 'result' name=ID 'of' verificationActivity=[Verify::VerificationActivity]
+	'verification' name=ID 
+	'of' verificationActivity=[Verify::VerificationActivity]
+	'for' target=[instance::InstanceObject]
 	'['(('output'  title=STRING)?
 	&('logfile'  description=STRING)?
-	&('date'  method=STRING)?
+	&('date'  date=STRING)?
 	&('state'  state=VerificationResultState)?
 	&('status'  status=VerificationResultStatus)? )
 	(assumptionVerificationResult+= VerificationResult)*
@@ -25,25 +31,33 @@ VerificationResult:
 ;
 
 ClaimResult:
-	'claim' 'result' name=ID 'of' requirement=[ReqSpec::Requirement]
-	'['('pass'  passCount=INT)
-	('fail'  failCount=INT)
-	('neutral' neutralCount=INT)
-	('unknown' unknownCount=INT) 
+	'claim' name=ID 'of' requirement=[ReqSpec::Requirement]
+	'for' target=[instance::InstanceObject]
+	'['
+	( result=AggregateResultData)?
 	(subClaimResult += ClaimResult)*
-	(subVAResult+= VerificationResult)*
+	(verificationResult+= VerificationResult)*
 	']'  
 ;
 
-AssuranceResult: VerificationResult | ClaimResult;
+
+AggregateResultData:
+	('pass'  passCount=INT)
+	('fail'  failCount=INT)
+	('neutral' neutralCount=INT)
+	('unknown' unknownCount=INT) 
+	
+;
+
+AssuranceResult: VerificationResult | ClaimResult | CaseResult;
 
 enum  VerificationResultState:
-	PERFORM='perform'  // verification to be performed
-	| INPROGRESS='inprogress' // verification in progress (background processing)
+	TODO='todo'  // verification to be performed
+	| RUNNING='running' // verification in progress (background processing)
 	| REDO='redo' // invalidated while in progress. redo verification.
 	| COMPLETED='completed' // completed. verification result is valid
 ;
 
 enum VerificationResultStatus:
-	UNKNOWN='unknown' | PASS='pass' | FAIL='fail' | NEUTRAL='neutral' 
+	TBD='tbd' | PASS='pass' | FAIL='fail' | UNKNOWN='unknown' 
 ;

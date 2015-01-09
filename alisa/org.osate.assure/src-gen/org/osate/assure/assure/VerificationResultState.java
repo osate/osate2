@@ -20,24 +20,24 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum VerificationResultState implements Enumerator
 {
   /**
-   * The '<em><b>PERFORM</b></em>' literal object.
+   * The '<em><b>TODO</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #PERFORM_VALUE
+   * @see #TODO_VALUE
    * @generated
    * @ordered
    */
-  PERFORM(0, "PERFORM", "perform"),
+  TODO(0, "TODO", "todo"),
 
   /**
-   * The '<em><b>INPROGRESS</b></em>' literal object.
+   * The '<em><b>RUNNING</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #INPROGRESS_VALUE
+   * @see #RUNNING_VALUE
    * @generated
    * @ordered
    */
-  INPROGRESS(1, "INPROGRESS", "inprogress"),
+  RUNNING(1, "RUNNING", "running"),
 
   /**
    * The '<em><b>REDO</b></em>' literal object.
@@ -60,34 +60,34 @@ public enum VerificationResultState implements Enumerator
   COMPLETED(3, "COMPLETED", "completed");
 
   /**
-   * The '<em><b>PERFORM</b></em>' literal value.
+   * The '<em><b>TODO</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>PERFORM</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>TODO</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #PERFORM
-   * @model literal="perform"
+   * @see #TODO
+   * @model literal="todo"
    * @generated
    * @ordered
    */
-  public static final int PERFORM_VALUE = 0;
+  public static final int TODO_VALUE = 0;
 
   /**
-   * The '<em><b>INPROGRESS</b></em>' literal value.
+   * The '<em><b>RUNNING</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>INPROGRESS</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>RUNNING</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #INPROGRESS
-   * @model literal="inprogress"
+   * @see #RUNNING
+   * @model literal="running"
    * @generated
    * @ordered
    */
-  public static final int INPROGRESS_VALUE = 1;
+  public static final int RUNNING_VALUE = 1;
 
   /**
    * The '<em><b>REDO</b></em>' literal value.
@@ -128,8 +128,8 @@ public enum VerificationResultState implements Enumerator
   private static final VerificationResultState[] VALUES_ARRAY =
     new VerificationResultState[]
     {
-      PERFORM,
-      INPROGRESS,
+      TODO,
+      RUNNING,
       REDO,
       COMPLETED,
     };
@@ -190,8 +190,8 @@ public enum VerificationResultState implements Enumerator
   {
     switch (value)
     {
-      case PERFORM_VALUE: return PERFORM;
-      case INPROGRESS_VALUE: return INPROGRESS;
+      case TODO_VALUE: return TODO;
+      case RUNNING_VALUE: return RUNNING;
       case REDO_VALUE: return REDO;
       case COMPLETED_VALUE: return COMPLETED;
     }

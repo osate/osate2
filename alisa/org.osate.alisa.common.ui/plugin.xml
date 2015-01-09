@@ -14,6 +14,19 @@
             name="Common Editor">
         </editor>
     </extension>
+     <extension point="org.eclipse.ui.views">
+      <category
+            id="org.osate.alisa.common.analysis"
+            name="Alisa">
+      </category>
+      <view
+          category="org.osate.alisa.common.analysis"
+          id="org.osate.alisa.common.ui.views.AlisaView"
+          icon="icons/alisa.png"
+          name="Incremental Assurance"
+          class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.osate.alisa.common.ui.views.AlisaView"/>
+   </extension>
+    
     <extension
         point="org.eclipse.ui.handlers">
         <handler
@@ -54,6 +67,16 @@
 				</and>
             </activeWhen>
         </handler>
+             <handler
+            class="org.osate.alisa.common.ui.handlers.AlisaHandler"
+            commandId="org.osate.alisa.common.analysis.commands.testjunit">
+         <enabledWhen>
+            <reference
+                  definitionId="org.osate.alisa.common.ui.expressions.isSingleOutlineSelection">
+            </reference>
+         </enabledWhen>
+      </handler>
+        
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
         <definition id="org.osate.alisa.common.Common.Editor.opened">
@@ -76,6 +99,24 @@
                 </with>        
             </and>
         </definition>
+      <definition
+            id="org.osate.alisa.common.ui.expressions.isSingleOutlineSelection">
+         <with
+               variable="selection">
+            <and>
+               <count
+                     value="1">
+               </count>
+               <iterate
+                     ifEmpty="false"
+                     operator="or">
+                  <instanceof
+                        value="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+                  </instanceof>
+               </iterate>
+            </and>
+         </with>
+      </definition>
     </extension>
     <extension
             point="org.eclipse.ui.preferencePages">
@@ -121,6 +162,10 @@
     </extension>
     <extension
          point="org.eclipse.ui.commands">
+     <category
+            id="org.osate.alisa.common.analysis.commands"
+            name="Commands related to Alisa">
+     </category>
       <command
             description="Trigger expensive validation"
             id="org.osate.alisa.common.Common.validate"
@@ -139,8 +184,31 @@
             description="Copy the qualified name for the selected element"
             name="Copy Qualified Name">
       </command>
+           <command categoryId="org.osate.alisa.common.analysis.commands"
+            id="org.osate.alisa.common.analysis.commands.testjunit"
+            description="Perform JUnit Test"
+            name="TestJUnit">
+     </command>
+      <command  categoryId="org.osate.alisa.common.analysis.commands"
+
+            id="org.osate.alisa.common.analysis.commands.rerunTestjunit"
+            name="Re-run Junit">
+     </command>
+      
     </extension>
     <extension point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
+         <command
+                commandId="org.osate.alisa.common.analysis.commands.testjunit"
+                icon="icons/alisa.png"
+                id="org.osate.alisa.common.analysis.menus.testjunit"
+                mnemonic="j"
+                style="push"
+                tooltip="Perform Junit Test">
+         </command>
+      </menuContribution>
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
@@ -194,6 +262,30 @@
             	</visibleWhen>
 			</command>
 		</menuContribution>
+     <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="org.osate.alisa.common.analysis.toolbars.main">
+            <command
+                  commandId="org.osate.alisa.common.analysis.commands.testjunit"
+                  icon="icons/alisa.png"
+                  id="org.osate.alisa.common.analysis.menus.testjunit"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+     
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.osate.alisa.common.ui.views.AlisaView">
+         <command
+               commandId="org.osate.alisa.common.analysis.commands.rerunTestjunit"
+               icon="icons/refresh.gif"
+               label="Re-run Resolute"
+               style="push">
+         </command>
+      </menuContribution>
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler

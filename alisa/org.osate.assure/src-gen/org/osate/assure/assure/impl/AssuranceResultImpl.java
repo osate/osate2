@@ -5,9 +5,12 @@ package org.osate.assure.assure.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.osate.aadl2.instance.InstanceObject;
 
 import org.osate.assure.assure.AssuranceResult;
 import org.osate.assure.assure.AssurePackage;
@@ -20,6 +23,7 @@ import org.osate.assure.assure.AssurePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceResultImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceResultImpl#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,6 +50,16 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTarget()
+   * @generated
+   * @ordered
+   */
+  protected InstanceObject target;
 
   /**
    * <!-- begin-user-doc -->
@@ -96,6 +110,49 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public InstanceObject getTarget()
+  {
+    if (target != null && target.eIsProxy())
+    {
+      InternalEObject oldTarget = (InternalEObject)target;
+      target = (InstanceObject)eResolveProxy(oldTarget);
+      if (target != oldTarget)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_RESULT__TARGET, oldTarget, target));
+      }
+    }
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InstanceObject basicGetTarget()
+  {
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTarget(InstanceObject newTarget)
+  {
+    InstanceObject oldTarget = target;
+    target = newTarget;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_RESULT__TARGET, oldTarget, target));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -103,6 +160,9 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
     {
       case AssurePackage.ASSURANCE_RESULT__NAME:
         return getName();
+      case AssurePackage.ASSURANCE_RESULT__TARGET:
+        if (resolve) return getTarget();
+        return basicGetTarget();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -119,6 +179,9 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
     {
       case AssurePackage.ASSURANCE_RESULT__NAME:
         setName((String)newValue);
+        return;
+      case AssurePackage.ASSURANCE_RESULT__TARGET:
+        setTarget((InstanceObject)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -137,6 +200,9 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
       case AssurePackage.ASSURANCE_RESULT__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case AssurePackage.ASSURANCE_RESULT__TARGET:
+        setTarget((InstanceObject)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -153,6 +219,8 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
     {
       case AssurePackage.ASSURANCE_RESULT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case AssurePackage.ASSURANCE_RESULT__TARGET:
+        return target != null;
     }
     return super.eIsSet(featureID);
   }

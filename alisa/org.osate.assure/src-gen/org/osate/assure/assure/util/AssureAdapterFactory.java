@@ -75,9 +75,9 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
     new AssureSwitch<Adapter>()
     {
       @Override
-      public Adapter caseAssuranceCase(AssuranceCase object)
+      public Adapter caseCaseResult(CaseResult object)
       {
-        return createAssuranceCaseAdapter();
+        return createCaseResultAdapter();
       }
       @Override
       public Adapter caseVerificationResult(VerificationResult object)
@@ -88,6 +88,11 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
       public Adapter caseClaimResult(ClaimResult object)
       {
         return createClaimResultAdapter();
+      }
+      @Override
+      public Adapter caseAggregateResultData(AggregateResultData object)
+      {
+        return createAggregateResultDataAdapter();
       }
       @Override
       public Adapter caseAssuranceResult(AssuranceResult object)
@@ -117,16 +122,16 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.AssuranceCase <em>Assurance Case</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.CaseResult <em>Case Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.AssuranceCase
+   * @see org.osate.assure.assure.CaseResult
    * @generated
    */
-  public Adapter createAssuranceCaseAdapter()
+  public Adapter createCaseResultAdapter()
   {
     return null;
   }
@@ -157,6 +162,21 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createClaimResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.AggregateResultData <em>Aggregate Result Data</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.AggregateResultData
+   * @generated
+   */
+  public Adapter createAggregateResultDataAdapter()
   {
     return null;
   }

@@ -58,52 +58,6 @@ public interface AssurePackage extends EPackage
   AssurePackage eINSTANCE = org.osate.assure.assure.impl.AssurePackageImpl.init();
 
   /**
-   * The meta object id for the '{@link org.osate.assure.assure.impl.AssuranceCaseImpl <em>Assurance Case</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.assure.assure.impl.AssuranceCaseImpl
-   * @see org.osate.assure.assure.impl.AssurePackageImpl#getAssuranceCase()
-   * @generated
-   */
-  int ASSURANCE_CASE = 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE__TARGET = 1;
-
-  /**
-   * The feature id for the '<em><b>Results</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE__RESULTS = 2;
-
-  /**
-   * The number of structural features of the '<em>Assurance Case</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE_FEATURE_COUNT = 3;
-
-  /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.AssuranceResultImpl <em>Assurance Result</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -111,7 +65,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getAssuranceResult()
    * @generated
    */
-  int ASSURANCE_RESULT = 3;
+  int ASSURANCE_RESULT = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -123,13 +77,86 @@ public interface AssurePackage extends EPackage
   int ASSURANCE_RESULT__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_RESULT__TARGET = 1;
+
+  /**
    * The number of structural features of the '<em>Assurance Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_RESULT_FEATURE_COUNT = 1;
+  int ASSURANCE_RESULT_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.assure.assure.impl.CaseResultImpl <em>Case Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.impl.CaseResultImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getCaseResult()
+   * @generated
+   */
+  int CASE_RESULT = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CASE_RESULT__NAME = ASSURANCE_RESULT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CASE_RESULT__TARGET = ASSURANCE_RESULT__TARGET;
+
+  /**
+   * The feature id for the '<em><b>Result</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CASE_RESULT__RESULT = ASSURANCE_RESULT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Sub Case Result</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CASE_RESULT__SUB_CASE_RESULT = ASSURANCE_RESULT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Claim Result</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CASE_RESULT__CLAIM_RESULT = ASSURANCE_RESULT_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Case Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CASE_RESULT_FEATURE_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
@@ -149,6 +176,15 @@ public interface AssurePackage extends EPackage
    * @ordered
    */
   int VERIFICATION_RESULT__NAME = ASSURANCE_RESULT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_RESULT__TARGET = ASSURANCE_RESULT__TARGET;
 
   /**
    * The feature id for the '<em><b>Verification Activity</b></em>' reference.
@@ -178,13 +214,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_RESULT__DESCRIPTION = ASSURANCE_RESULT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Method</b></em>' attribute.
+   * The feature id for the '<em><b>Date</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__METHOD = ASSURANCE_RESULT_FEATURE_COUNT + 3;
+  int VERIFICATION_RESULT__DATE = ASSURANCE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>State</b></em>' attribute.
@@ -242,6 +278,15 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__NAME = ASSURANCE_RESULT__NAME;
 
   /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM_RESULT__TARGET = ASSURANCE_RESULT__TARGET;
+
+  /**
    * The feature id for the '<em><b>Requirement</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -251,40 +296,13 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__REQUIREMENT = ASSURANCE_RESULT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Pass Count</b></em>' attribute.
+   * The feature id for the '<em><b>Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__PASS_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Fail Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CLAIM_RESULT__FAIL_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Neutral Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CLAIM_RESULT__NEUTRAL_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CLAIM_RESULT__UNKNOWN_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 4;
+  int CLAIM_RESULT__RESULT = ASSURANCE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Sub Claim Result</b></em>' containment reference list.
@@ -293,16 +311,16 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__SUB_CLAIM_RESULT = ASSURANCE_RESULT_FEATURE_COUNT + 5;
+  int CLAIM_RESULT__SUB_CLAIM_RESULT = ASSURANCE_RESULT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Sub VA Result</b></em>' containment reference list.
+   * The feature id for the '<em><b>Verification Result</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__SUB_VA_RESULT = ASSURANCE_RESULT_FEATURE_COUNT + 6;
+  int CLAIM_RESULT__VERIFICATION_RESULT = ASSURANCE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Claim Result</em>' class.
@@ -311,7 +329,62 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT_FEATURE_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 7;
+  int CLAIM_RESULT_FEATURE_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 4;
+
+  /**
+   * The meta object id for the '{@link org.osate.assure.assure.impl.AggregateResultDataImpl <em>Aggregate Result Data</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.impl.AggregateResultDataImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getAggregateResultData()
+   * @generated
+   */
+  int AGGREGATE_RESULT_DATA = 3;
+
+  /**
+   * The feature id for the '<em><b>Pass Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AGGREGATE_RESULT_DATA__PASS_COUNT = 0;
+
+  /**
+   * The feature id for the '<em><b>Fail Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AGGREGATE_RESULT_DATA__FAIL_COUNT = 1;
+
+  /**
+   * The feature id for the '<em><b>Neutral Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AGGREGATE_RESULT_DATA__NEUTRAL_COUNT = 2;
+
+  /**
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AGGREGATE_RESULT_DATA__UNKNOWN_COUNT = 3;
+
+  /**
+   * The number of structural features of the '<em>Aggregate Result Data</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AGGREGATE_RESULT_DATA_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
@@ -321,7 +394,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
    * @generated
    */
-  int VERIFICATION_RESULT_STATE = 4;
+  int VERIFICATION_RESULT_STATE = 5;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultStatus <em>Verification Result Status</em>}' enum.
@@ -331,51 +404,51 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultStatus()
    * @generated
    */
-  int VERIFICATION_RESULT_STATUS = 5;
+  int VERIFICATION_RESULT_STATUS = 6;
 
 
   /**
-   * Returns the meta object for class '{@link org.osate.assure.assure.AssuranceCase <em>Assurance Case</em>}'.
+   * Returns the meta object for class '{@link org.osate.assure.assure.CaseResult <em>Case Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Assurance Case</em>'.
-   * @see org.osate.assure.assure.AssuranceCase
+   * @return the meta object for class '<em>Case Result</em>'.
+   * @see org.osate.assure.assure.CaseResult
    * @generated
    */
-  EClass getAssuranceCase();
+  EClass getCaseResult();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceCase#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.CaseResult#getResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.assure.assure.AssuranceCase#getName()
-   * @see #getAssuranceCase()
+   * @return the meta object for the containment reference '<em>Result</em>'.
+   * @see org.osate.assure.assure.CaseResult#getResult()
+   * @see #getCaseResult()
    * @generated
    */
-  EAttribute getAssuranceCase_Name();
+  EReference getCaseResult_Result();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceCase#getTarget <em>Target</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.CaseResult#getSubCaseResult <em>Sub Case Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.assure.assure.AssuranceCase#getTarget()
-   * @see #getAssuranceCase()
+   * @return the meta object for the containment reference list '<em>Sub Case Result</em>'.
+   * @see org.osate.assure.assure.CaseResult#getSubCaseResult()
+   * @see #getCaseResult()
    * @generated
    */
-  EReference getAssuranceCase_Target();
+  EReference getCaseResult_SubCaseResult();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceCase#getResults <em>Results</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.CaseResult#getClaimResult <em>Claim Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Results</em>'.
-   * @see org.osate.assure.assure.AssuranceCase#getResults()
-   * @see #getAssuranceCase()
+   * @return the meta object for the containment reference list '<em>Claim Result</em>'.
+   * @see org.osate.assure.assure.CaseResult#getClaimResult()
+   * @see #getCaseResult()
    * @generated
    */
-  EReference getAssuranceCase_Results();
+  EReference getCaseResult_ClaimResult();
 
   /**
    * Returns the meta object for class '{@link org.osate.assure.assure.VerificationResult <em>Verification Result</em>}'.
@@ -421,15 +494,15 @@ public interface AssurePackage extends EPackage
   EAttribute getVerificationResult_Description();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getMethod <em>Method</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getDate <em>Date</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Method</em>'.
-   * @see org.osate.assure.assure.VerificationResult#getMethod()
+   * @return the meta object for the attribute '<em>Date</em>'.
+   * @see org.osate.assure.assure.VerificationResult#getDate()
    * @see #getVerificationResult()
    * @generated
    */
-  EAttribute getVerificationResult_Method();
+  EAttribute getVerificationResult_Date();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getState <em>State</em>}'.
@@ -486,48 +559,15 @@ public interface AssurePackage extends EPackage
   EReference getClaimResult_Requirement();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getPassCount <em>Pass Count</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.ClaimResult#getResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Pass Count</em>'.
-   * @see org.osate.assure.assure.ClaimResult#getPassCount()
+   * @return the meta object for the containment reference '<em>Result</em>'.
+   * @see org.osate.assure.assure.ClaimResult#getResult()
    * @see #getClaimResult()
    * @generated
    */
-  EAttribute getClaimResult_PassCount();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getFailCount <em>Fail Count</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Fail Count</em>'.
-   * @see org.osate.assure.assure.ClaimResult#getFailCount()
-   * @see #getClaimResult()
-   * @generated
-   */
-  EAttribute getClaimResult_FailCount();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getNeutralCount <em>Neutral Count</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Neutral Count</em>'.
-   * @see org.osate.assure.assure.ClaimResult#getNeutralCount()
-   * @see #getClaimResult()
-   * @generated
-   */
-  EAttribute getClaimResult_NeutralCount();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getUnknownCount <em>Unknown Count</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Unknown Count</em>'.
-   * @see org.osate.assure.assure.ClaimResult#getUnknownCount()
-   * @see #getClaimResult()
-   * @generated
-   */
-  EAttribute getClaimResult_UnknownCount();
+  EReference getClaimResult_Result();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}'.
@@ -541,15 +581,69 @@ public interface AssurePackage extends EPackage
   EReference getClaimResult_SubClaimResult();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ClaimResult#getSubVAResult <em>Sub VA Result</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ClaimResult#getVerificationResult <em>Verification Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Sub VA Result</em>'.
-   * @see org.osate.assure.assure.ClaimResult#getSubVAResult()
+   * @return the meta object for the containment reference list '<em>Verification Result</em>'.
+   * @see org.osate.assure.assure.ClaimResult#getVerificationResult()
    * @see #getClaimResult()
    * @generated
    */
-  EReference getClaimResult_SubVAResult();
+  EReference getClaimResult_VerificationResult();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.assure.assure.AggregateResultData <em>Aggregate Result Data</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Aggregate Result Data</em>'.
+   * @see org.osate.assure.assure.AggregateResultData
+   * @generated
+   */
+  EClass getAggregateResultData();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AggregateResultData#getPassCount <em>Pass Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Pass Count</em>'.
+   * @see org.osate.assure.assure.AggregateResultData#getPassCount()
+   * @see #getAggregateResultData()
+   * @generated
+   */
+  EAttribute getAggregateResultData_PassCount();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AggregateResultData#getFailCount <em>Fail Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Fail Count</em>'.
+   * @see org.osate.assure.assure.AggregateResultData#getFailCount()
+   * @see #getAggregateResultData()
+   * @generated
+   */
+  EAttribute getAggregateResultData_FailCount();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AggregateResultData#getNeutralCount <em>Neutral Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Neutral Count</em>'.
+   * @see org.osate.assure.assure.AggregateResultData#getNeutralCount()
+   * @see #getAggregateResultData()
+   * @generated
+   */
+  EAttribute getAggregateResultData_NeutralCount();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AggregateResultData#getUnknownCount <em>Unknown Count</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Unknown Count</em>'.
+   * @see org.osate.assure.assure.AggregateResultData#getUnknownCount()
+   * @see #getAggregateResultData()
+   * @generated
+   */
+  EAttribute getAggregateResultData_UnknownCount();
 
   /**
    * Returns the meta object for class '{@link org.osate.assure.assure.AssuranceResult <em>Assurance Result</em>}'.
@@ -571,6 +665,17 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EAttribute getAssuranceResult_Name();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceResult#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target</em>'.
+   * @see org.osate.assure.assure.AssuranceResult#getTarget()
+   * @see #getAssuranceResult()
+   * @generated
+   */
+  EReference getAssuranceResult_Target();
 
   /**
    * Returns the meta object for enum '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}'.
@@ -616,38 +721,38 @@ public interface AssurePackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link org.osate.assure.assure.impl.AssuranceCaseImpl <em>Assurance Case</em>}' class.
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.CaseResultImpl <em>Case Result</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.assure.assure.impl.AssuranceCaseImpl
-     * @see org.osate.assure.assure.impl.AssurePackageImpl#getAssuranceCase()
+     * @see org.osate.assure.assure.impl.CaseResultImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getCaseResult()
      * @generated
      */
-    EClass ASSURANCE_CASE = eINSTANCE.getAssuranceCase();
+    EClass CASE_RESULT = eINSTANCE.getCaseResult();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURANCE_CASE__NAME = eINSTANCE.getAssuranceCase_Name();
+    EReference CASE_RESULT__RESULT = eINSTANCE.getCaseResult_Result();
 
     /**
-     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Sub Case Result</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE__TARGET = eINSTANCE.getAssuranceCase_Target();
+    EReference CASE_RESULT__SUB_CASE_RESULT = eINSTANCE.getCaseResult_SubCaseResult();
 
     /**
-     * The meta object literal for the '<em><b>Results</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Claim Result</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE__RESULTS = eINSTANCE.getAssuranceCase_Results();
+    EReference CASE_RESULT__CLAIM_RESULT = eINSTANCE.getCaseResult_ClaimResult();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
@@ -684,12 +789,12 @@ public interface AssurePackage extends EPackage
     EAttribute VERIFICATION_RESULT__DESCRIPTION = eINSTANCE.getVerificationResult_Description();
 
     /**
-     * The meta object literal for the '<em><b>Method</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Date</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_RESULT__METHOD = eINSTANCE.getVerificationResult_Method();
+    EAttribute VERIFICATION_RESULT__DATE = eINSTANCE.getVerificationResult_Date();
 
     /**
      * The meta object literal for the '<em><b>State</b></em>' attribute feature.
@@ -734,36 +839,12 @@ public interface AssurePackage extends EPackage
     EReference CLAIM_RESULT__REQUIREMENT = eINSTANCE.getClaimResult_Requirement();
 
     /**
-     * The meta object literal for the '<em><b>Pass Count</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CLAIM_RESULT__PASS_COUNT = eINSTANCE.getClaimResult_PassCount();
-
-    /**
-     * The meta object literal for the '<em><b>Fail Count</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CLAIM_RESULT__FAIL_COUNT = eINSTANCE.getClaimResult_FailCount();
-
-    /**
-     * The meta object literal for the '<em><b>Neutral Count</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CLAIM_RESULT__NEUTRAL_COUNT = eINSTANCE.getClaimResult_NeutralCount();
-
-    /**
-     * The meta object literal for the '<em><b>Unknown Count</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CLAIM_RESULT__UNKNOWN_COUNT = eINSTANCE.getClaimResult_UnknownCount();
+    EReference CLAIM_RESULT__RESULT = eINSTANCE.getClaimResult_Result();
 
     /**
      * The meta object literal for the '<em><b>Sub Claim Result</b></em>' containment reference list feature.
@@ -774,12 +855,54 @@ public interface AssurePackage extends EPackage
     EReference CLAIM_RESULT__SUB_CLAIM_RESULT = eINSTANCE.getClaimResult_SubClaimResult();
 
     /**
-     * The meta object literal for the '<em><b>Sub VA Result</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Verification Result</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CLAIM_RESULT__SUB_VA_RESULT = eINSTANCE.getClaimResult_SubVAResult();
+    EReference CLAIM_RESULT__VERIFICATION_RESULT = eINSTANCE.getClaimResult_VerificationResult();
+
+    /**
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.AggregateResultDataImpl <em>Aggregate Result Data</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.assure.assure.impl.AggregateResultDataImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getAggregateResultData()
+     * @generated
+     */
+    EClass AGGREGATE_RESULT_DATA = eINSTANCE.getAggregateResultData();
+
+    /**
+     * The meta object literal for the '<em><b>Pass Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AGGREGATE_RESULT_DATA__PASS_COUNT = eINSTANCE.getAggregateResultData_PassCount();
+
+    /**
+     * The meta object literal for the '<em><b>Fail Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AGGREGATE_RESULT_DATA__FAIL_COUNT = eINSTANCE.getAggregateResultData_FailCount();
+
+    /**
+     * The meta object literal for the '<em><b>Neutral Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AGGREGATE_RESULT_DATA__NEUTRAL_COUNT = eINSTANCE.getAggregateResultData_NeutralCount();
+
+    /**
+     * The meta object literal for the '<em><b>Unknown Count</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AGGREGATE_RESULT_DATA__UNKNOWN_COUNT = eINSTANCE.getAggregateResultData_UnknownCount();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.AssuranceResultImpl <em>Assurance Result</em>}' class.
@@ -798,6 +921,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute ASSURANCE_RESULT__NAME = eINSTANCE.getAssuranceResult_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_RESULT__TARGET = eINSTANCE.getAssuranceResult_Target();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.

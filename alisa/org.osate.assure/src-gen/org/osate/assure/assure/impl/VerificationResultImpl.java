@@ -34,7 +34,7 @@ import org.osate.verify.verify.VerificationActivity;
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getVerificationActivity <em>Verification Activity</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getMethod <em>Method</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getDate <em>Date</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getState <em>State</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getAssumptionVerificationResult <em>Assumption Verification Result</em>}</li>
@@ -96,24 +96,24 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
   protected String description = DESCRIPTION_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getMethod() <em>Method</em>}' attribute.
+   * The default value of the '{@link #getDate() <em>Date</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethod()
+   * @see #getDate()
    * @generated
    * @ordered
    */
-  protected static final String METHOD_EDEFAULT = null;
+  protected static final String DATE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getMethod() <em>Method</em>}' attribute.
+   * The cached value of the '{@link #getDate() <em>Date</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethod()
+   * @see #getDate()
    * @generated
    * @ordered
    */
-  protected String method = METHOD_EDEFAULT;
+  protected String date = DATE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getState() <em>State</em>}' attribute.
@@ -123,7 +123,7 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
    * @generated
    * @ordered
    */
-  protected static final VerificationResultState STATE_EDEFAULT = VerificationResultState.PERFORM;
+  protected static final VerificationResultState STATE_EDEFAULT = VerificationResultState.TODO;
 
   /**
    * The cached value of the '{@link #getState() <em>State</em>}' attribute.
@@ -143,7 +143,7 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
    * @generated
    * @ordered
    */
-  protected static final VerificationResultStatus STATUS_EDEFAULT = VerificationResultStatus.UNKNOWN;
+  protected static final VerificationResultStatus STATUS_EDEFAULT = VerificationResultStatus.TBD;
 
   /**
    * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
@@ -280,9 +280,9 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getMethod()
+  public String getDate()
   {
-    return method;
+    return date;
   }
 
   /**
@@ -290,12 +290,12 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMethod(String newMethod)
+  public void setDate(String newDate)
   {
-    String oldMethod = method;
-    method = newMethod;
+    String oldDate = date;
+    date = newDate;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__METHOD, oldMethod, method));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__DATE, oldDate, date));
   }
 
   /**
@@ -391,8 +391,8 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
         return getTitle();
       case AssurePackage.VERIFICATION_RESULT__DESCRIPTION:
         return getDescription();
-      case AssurePackage.VERIFICATION_RESULT__METHOD:
-        return getMethod();
+      case AssurePackage.VERIFICATION_RESULT__DATE:
+        return getDate();
       case AssurePackage.VERIFICATION_RESULT__STATE:
         return getState();
       case AssurePackage.VERIFICATION_RESULT__STATUS:
@@ -423,8 +423,8 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
       case AssurePackage.VERIFICATION_RESULT__DESCRIPTION:
         setDescription((String)newValue);
         return;
-      case AssurePackage.VERIFICATION_RESULT__METHOD:
-        setMethod((String)newValue);
+      case AssurePackage.VERIFICATION_RESULT__DATE:
+        setDate((String)newValue);
         return;
       case AssurePackage.VERIFICATION_RESULT__STATE:
         setState((VerificationResultState)newValue);
@@ -459,8 +459,8 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
       case AssurePackage.VERIFICATION_RESULT__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
-      case AssurePackage.VERIFICATION_RESULT__METHOD:
-        setMethod(METHOD_EDEFAULT);
+      case AssurePackage.VERIFICATION_RESULT__DATE:
+        setDate(DATE_EDEFAULT);
         return;
       case AssurePackage.VERIFICATION_RESULT__STATE:
         setState(STATE_EDEFAULT);
@@ -491,8 +491,8 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case AssurePackage.VERIFICATION_RESULT__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-      case AssurePackage.VERIFICATION_RESULT__METHOD:
-        return METHOD_EDEFAULT == null ? method != null : !METHOD_EDEFAULT.equals(method);
+      case AssurePackage.VERIFICATION_RESULT__DATE:
+        return DATE_EDEFAULT == null ? date != null : !DATE_EDEFAULT.equals(date);
       case AssurePackage.VERIFICATION_RESULT__STATE:
         return state != STATE_EDEFAULT;
       case AssurePackage.VERIFICATION_RESULT__STATUS:
@@ -518,8 +518,8 @@ public class VerificationResultImpl extends AssuranceResultImpl implements Verif
     result.append(title);
     result.append(", description: ");
     result.append(description);
-    result.append(", method: ");
-    result.append(method);
+    result.append(", date: ");
+    result.append(date);
     result.append(", state: ");
     result.append(state);
     result.append(", status: ");

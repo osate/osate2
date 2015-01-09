@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.assure.assure.AggregateResultData;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.VerificationResult;
@@ -31,12 +32,9 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getRequirement <em>Requirement</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getPassCount <em>Pass Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getNeutralCount <em>Neutral Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getUnknownCount <em>Unknown Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubVAResult <em>Sub VA Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getVerificationResult <em>Verification Result</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,84 +53,14 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
   protected Requirement requirement;
 
   /**
-   * The default value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
+   * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPassCount()
+   * @see #getResult()
    * @generated
    * @ordered
    */
-  protected static final int PASS_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPassCount()
-   * @generated
-   * @ordered
-   */
-  protected int passCount = PASS_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int FAIL_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailCount()
-   * @generated
-   * @ordered
-   */
-  protected int failCount = FAIL_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getNeutralCount() <em>Neutral Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNeutralCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int NEUTRAL_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getNeutralCount() <em>Neutral Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNeutralCount()
-   * @generated
-   * @ordered
-   */
-  protected int neutralCount = NEUTRAL_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnknownCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int UNKNOWN_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnknownCount()
-   * @generated
-   * @ordered
-   */
-  protected int unknownCount = UNKNOWN_COUNT_EDEFAULT;
+  protected AggregateResultData result;
 
   /**
    * The cached value of the '{@link #getSubClaimResult() <em>Sub Claim Result</em>}' containment reference list.
@@ -145,14 +73,14 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
   protected EList<ClaimResult> subClaimResult;
 
   /**
-   * The cached value of the '{@link #getSubVAResult() <em>Sub VA Result</em>}' containment reference list.
+   * The cached value of the '{@link #getVerificationResult() <em>Verification Result</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSubVAResult()
+   * @see #getVerificationResult()
    * @generated
    * @ordered
    */
-  protected EList<VerificationResult> subVAResult;
+  protected EList<VerificationResult> verificationResult;
 
   /**
    * <!-- begin-user-doc -->
@@ -223,9 +151,9 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getPassCount()
+  public AggregateResultData getResult()
   {
-    return passCount;
+    return result;
   }
 
   /**
@@ -233,12 +161,16 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPassCount(int newPassCount)
+  public NotificationChain basicSetResult(AggregateResultData newResult, NotificationChain msgs)
   {
-    int oldPassCount = passCount;
-    passCount = newPassCount;
+    AggregateResultData oldResult = result;
+    result = newResult;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__PASS_COUNT, oldPassCount, passCount));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__RESULT, oldResult, newResult);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -246,68 +178,20 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getFailCount()
+  public void setResult(AggregateResultData newResult)
   {
-    return failCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setFailCount(int newFailCount)
-  {
-    int oldFailCount = failCount;
-    failCount = newFailCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__FAIL_COUNT, oldFailCount, failCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getNeutralCount()
-  {
-    return neutralCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setNeutralCount(int newNeutralCount)
-  {
-    int oldNeutralCount = neutralCount;
-    neutralCount = newNeutralCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__NEUTRAL_COUNT, oldNeutralCount, neutralCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getUnknownCount()
-  {
-    return unknownCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setUnknownCount(int newUnknownCount)
-  {
-    int oldUnknownCount = unknownCount;
-    unknownCount = newUnknownCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT, oldUnknownCount, unknownCount));
+    if (newResult != result)
+    {
+      NotificationChain msgs = null;
+      if (result != null)
+        msgs = ((InternalEObject)result).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.CLAIM_RESULT__RESULT, null, msgs);
+      if (newResult != null)
+        msgs = ((InternalEObject)newResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.CLAIM_RESULT__RESULT, null, msgs);
+      msgs = basicSetResult(newResult, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__RESULT, newResult, newResult));
   }
 
   /**
@@ -329,13 +213,13 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationResult> getSubVAResult()
+  public EList<VerificationResult> getVerificationResult()
   {
-    if (subVAResult == null)
+    if (verificationResult == null)
     {
-      subVAResult = new EObjectContainmentEList<VerificationResult>(VerificationResult.class, this, AssurePackage.CLAIM_RESULT__SUB_VA_RESULT);
+      verificationResult = new EObjectContainmentEList<VerificationResult>(VerificationResult.class, this, AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT);
     }
-    return subVAResult;
+    return verificationResult;
   }
 
   /**
@@ -348,10 +232,12 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
   {
     switch (featureID)
     {
+      case AssurePackage.CLAIM_RESULT__RESULT:
+        return basicSetResult(null, msgs);
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         return ((InternalEList<?>)getSubClaimResult()).basicRemove(otherEnd, msgs);
-      case AssurePackage.CLAIM_RESULT__SUB_VA_RESULT:
-        return ((InternalEList<?>)getSubVAResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
+        return ((InternalEList<?>)getVerificationResult()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -369,18 +255,12 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__REQUIREMENT:
         if (resolve) return getRequirement();
         return basicGetRequirement();
-      case AssurePackage.CLAIM_RESULT__PASS_COUNT:
-        return getPassCount();
-      case AssurePackage.CLAIM_RESULT__FAIL_COUNT:
-        return getFailCount();
-      case AssurePackage.CLAIM_RESULT__NEUTRAL_COUNT:
-        return getNeutralCount();
-      case AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT:
-        return getUnknownCount();
+      case AssurePackage.CLAIM_RESULT__RESULT:
+        return getResult();
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         return getSubClaimResult();
-      case AssurePackage.CLAIM_RESULT__SUB_VA_RESULT:
-        return getSubVAResult();
+      case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
+        return getVerificationResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -399,25 +279,16 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__REQUIREMENT:
         setRequirement((Requirement)newValue);
         return;
-      case AssurePackage.CLAIM_RESULT__PASS_COUNT:
-        setPassCount((Integer)newValue);
-        return;
-      case AssurePackage.CLAIM_RESULT__FAIL_COUNT:
-        setFailCount((Integer)newValue);
-        return;
-      case AssurePackage.CLAIM_RESULT__NEUTRAL_COUNT:
-        setNeutralCount((Integer)newValue);
-        return;
-      case AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT:
-        setUnknownCount((Integer)newValue);
+      case AssurePackage.CLAIM_RESULT__RESULT:
+        setResult((AggregateResultData)newValue);
         return;
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         getSubClaimResult().clear();
         getSubClaimResult().addAll((Collection<? extends ClaimResult>)newValue);
         return;
-      case AssurePackage.CLAIM_RESULT__SUB_VA_RESULT:
-        getSubVAResult().clear();
-        getSubVAResult().addAll((Collection<? extends VerificationResult>)newValue);
+      case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
+        getVerificationResult().clear();
+        getVerificationResult().addAll((Collection<? extends VerificationResult>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -436,23 +307,14 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__REQUIREMENT:
         setRequirement((Requirement)null);
         return;
-      case AssurePackage.CLAIM_RESULT__PASS_COUNT:
-        setPassCount(PASS_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.CLAIM_RESULT__FAIL_COUNT:
-        setFailCount(FAIL_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.CLAIM_RESULT__NEUTRAL_COUNT:
-        setNeutralCount(NEUTRAL_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT:
-        setUnknownCount(UNKNOWN_COUNT_EDEFAULT);
+      case AssurePackage.CLAIM_RESULT__RESULT:
+        setResult((AggregateResultData)null);
         return;
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         getSubClaimResult().clear();
         return;
-      case AssurePackage.CLAIM_RESULT__SUB_VA_RESULT:
-        getSubVAResult().clear();
+      case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
+        getVerificationResult().clear();
         return;
     }
     super.eUnset(featureID);
@@ -470,43 +332,14 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
     {
       case AssurePackage.CLAIM_RESULT__REQUIREMENT:
         return requirement != null;
-      case AssurePackage.CLAIM_RESULT__PASS_COUNT:
-        return passCount != PASS_COUNT_EDEFAULT;
-      case AssurePackage.CLAIM_RESULT__FAIL_COUNT:
-        return failCount != FAIL_COUNT_EDEFAULT;
-      case AssurePackage.CLAIM_RESULT__NEUTRAL_COUNT:
-        return neutralCount != NEUTRAL_COUNT_EDEFAULT;
-      case AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT:
-        return unknownCount != UNKNOWN_COUNT_EDEFAULT;
+      case AssurePackage.CLAIM_RESULT__RESULT:
+        return result != null;
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         return subClaimResult != null && !subClaimResult.isEmpty();
-      case AssurePackage.CLAIM_RESULT__SUB_VA_RESULT:
-        return subVAResult != null && !subVAResult.isEmpty();
+      case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
+        return verificationResult != null && !verificationResult.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (passCount: ");
-    result.append(passCount);
-    result.append(", failCount: ");
-    result.append(failCount);
-    result.append(", neutralCount: ");
-    result.append(neutralCount);
-    result.append(", unknownCount: ");
-    result.append(unknownCount);
-    result.append(')');
-    return result.toString();
   }
 
 } //ClaimResultImpl

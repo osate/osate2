@@ -65,9 +65,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     switch (eClass.getClassifierID())
     {
-      case AssurePackage.ASSURANCE_CASE: return createAssuranceCase();
+      case AssurePackage.CASE_RESULT: return createCaseResult();
       case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       case AssurePackage.CLAIM_RESULT: return createClaimResult();
+      case AssurePackage.AGGREGATE_RESULT_DATA: return createAggregateResultData();
       case AssurePackage.ASSURANCE_RESULT: return createAssuranceResult();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -117,10 +118,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssuranceCase createAssuranceCase()
+  public CaseResult createCaseResult()
   {
-    AssuranceCaseImpl assuranceCase = new AssuranceCaseImpl();
-    return assuranceCase;
+    CaseResultImpl caseResult = new CaseResultImpl();
+    return caseResult;
   }
 
   /**
@@ -143,6 +144,17 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     ClaimResultImpl claimResult = new ClaimResultImpl();
     return claimResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AggregateResultData createAggregateResultData()
+  {
+    AggregateResultDataImpl aggregateResultData = new AggregateResultDataImpl();
+    return aggregateResultData;
   }
 
   /**

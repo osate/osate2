@@ -72,10 +72,11 @@ public class AssureSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case AssurePackage.ASSURANCE_CASE:
+      case AssurePackage.CASE_RESULT:
       {
-        AssuranceCase assuranceCase = (AssuranceCase)theEObject;
-        T result = caseAssuranceCase(assuranceCase);
+        CaseResult caseResult = (CaseResult)theEObject;
+        T result = caseCaseResult(caseResult);
+        if (result == null) result = caseAssuranceResult(caseResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -95,6 +96,13 @@ public class AssureSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AssurePackage.AGGREGATE_RESULT_DATA:
+      {
+        AggregateResultData aggregateResultData = (AggregateResultData)theEObject;
+        T result = caseAggregateResultData(aggregateResultData);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AssurePackage.ASSURANCE_RESULT:
       {
         AssuranceResult assuranceResult = (AssuranceResult)theEObject;
@@ -107,17 +115,17 @@ public class AssureSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Assurance Case</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Case Result</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Assurance Case</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Case Result</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAssuranceCase(AssuranceCase object)
+  public T caseCaseResult(CaseResult object)
   {
     return null;
   }
@@ -150,6 +158,22 @@ public class AssureSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseClaimResult(ClaimResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Aggregate Result Data</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Aggregate Result Data</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAggregateResultData(AggregateResultData object)
   {
     return null;
   }

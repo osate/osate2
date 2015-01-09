@@ -17,7 +17,7 @@ import org.osate.verify.verify.VerificationActivity;
  *   <li>{@link org.osate.assure.assure.VerificationResult#getVerificationActivity <em>Verification Activity</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationResult#getMethod <em>Method</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getDate <em>Date</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getState <em>State</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getStatus <em>Status</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getAssumptionVerificationResult <em>Assumption Verification Result</em>}</li>
@@ -109,30 +109,30 @@ public interface VerificationResult extends AssuranceResult
   void setDescription(String value);
 
   /**
-   * Returns the value of the '<em><b>Method</b></em>' attribute.
+   * Returns the value of the '<em><b>Date</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Method</em>' attribute isn't clear,
+   * If the meaning of the '<em>Date</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Method</em>' attribute.
-   * @see #setMethod(String)
-   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Method()
+   * @return the value of the '<em>Date</em>' attribute.
+   * @see #setDate(String)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Date()
    * @model
    * @generated
    */
-  String getMethod();
+  String getDate();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getMethod <em>Method</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getDate <em>Date</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Method</em>' attribute.
-   * @see #getMethod()
+   * @param value the new value of the '<em>Date</em>' attribute.
+   * @see #getDate()
    * @generated
    */
-  void setMethod(String value);
+  void setDate(String value);
 
   /**
    * Returns the value of the '<em><b>State</b></em>' attribute.

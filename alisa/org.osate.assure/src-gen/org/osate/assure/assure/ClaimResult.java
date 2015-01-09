@@ -15,12 +15,9 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getRequirement <em>Requirement</em>}</li>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getPassCount <em>Pass Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getNeutralCount <em>Neutral Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getUnknownCount <em>Unknown Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getSubVAResult <em>Sub VA Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getVerificationResult <em>Verification Result</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,108 +54,30 @@ public interface ClaimResult extends AssuranceResult
   void setRequirement(Requirement value);
 
   /**
-   * Returns the value of the '<em><b>Pass Count</b></em>' attribute.
+   * Returns the value of the '<em><b>Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Pass Count</em>' attribute isn't clear,
+   * If the meaning of the '<em>Result</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Pass Count</em>' attribute.
-   * @see #setPassCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_PassCount()
-   * @model
+   * @return the value of the '<em>Result</em>' containment reference.
+   * @see #setResult(AggregateResultData)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_Result()
+   * @model containment="true"
    * @generated
    */
-  int getPassCount();
+  AggregateResultData getResult();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getPassCount <em>Pass Count</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getResult <em>Result</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Pass Count</em>' attribute.
-   * @see #getPassCount()
+   * @param value the new value of the '<em>Result</em>' containment reference.
+   * @see #getResult()
    * @generated
    */
-  void setPassCount(int value);
-
-  /**
-   * Returns the value of the '<em><b>Fail Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Fail Count</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Fail Count</em>' attribute.
-   * @see #setFailCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_FailCount()
-   * @model
-   * @generated
-   */
-  int getFailCount();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getFailCount <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Fail Count</em>' attribute.
-   * @see #getFailCount()
-   * @generated
-   */
-  void setFailCount(int value);
-
-  /**
-   * Returns the value of the '<em><b>Neutral Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Neutral Count</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Neutral Count</em>' attribute.
-   * @see #setNeutralCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_NeutralCount()
-   * @model
-   * @generated
-   */
-  int getNeutralCount();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getNeutralCount <em>Neutral Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Neutral Count</em>' attribute.
-   * @see #getNeutralCount()
-   * @generated
-   */
-  void setNeutralCount(int value);
-
-  /**
-   * Returns the value of the '<em><b>Unknown Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Unknown Count</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Unknown Count</em>' attribute.
-   * @see #setUnknownCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_UnknownCount()
-   * @model
-   * @generated
-   */
-  int getUnknownCount();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getUnknownCount <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Unknown Count</em>' attribute.
-   * @see #getUnknownCount()
-   * @generated
-   */
-  void setUnknownCount(int value);
+  void setResult(AggregateResultData value);
 
   /**
    * Returns the value of the '<em><b>Sub Claim Result</b></em>' containment reference list.
@@ -177,19 +96,19 @@ public interface ClaimResult extends AssuranceResult
   EList<ClaimResult> getSubClaimResult();
 
   /**
-   * Returns the value of the '<em><b>Sub VA Result</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Verification Result</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.assure.assure.VerificationResult}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Sub VA Result</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Verification Result</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Sub VA Result</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_SubVAResult()
+   * @return the value of the '<em>Verification Result</em>' containment reference list.
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_VerificationResult()
    * @model containment="true"
    * @generated
    */
-  EList<VerificationResult> getSubVAResult();
+  EList<VerificationResult> getVerificationResult();
 
 } // ClaimResult
