@@ -64,6 +64,7 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -83,7 +84,7 @@ import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
-public class ConnectionPattern extends AgeConnectionPattern {
+public class ConnectionPattern extends AgeConnectionPattern implements Categorized {
 	private static final String labelDecoratorName = "label";
 	private static final String connectionPatternDecoratorName = "connection_pattern";
 	private final AadlFeatureService featureService;
@@ -638,5 +639,10 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public Category getCategory() {
+		return Category.CONNECTIONS;
 	}
 }

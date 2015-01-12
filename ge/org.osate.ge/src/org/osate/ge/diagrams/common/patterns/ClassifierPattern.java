@@ -75,6 +75,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -106,7 +107,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  * A pattern for top level classifier shapes as well as subcomponents.
  * @author philip.alldredge
  */
-public class ClassifierPattern extends AgePattern {
+public class ClassifierPattern extends AgePattern implements Categorized {
 	public static String BINDING_CONNECTION_TYPE = "generic_binding";
 	private static LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final String labelShapeName = "label";
@@ -1055,4 +1056,9 @@ public class ClassifierPattern extends AgePattern {
     	final Subcomponent sc = (Subcomponent)bor.getBusinessObjectForPictogramElement(pe);  	
     	refactoringService.renameElement(sc, value);
     }
+
+	@Override
+	public Category getCategory() {
+		return Category.SUBCOMPONENTS;
+	}
 }

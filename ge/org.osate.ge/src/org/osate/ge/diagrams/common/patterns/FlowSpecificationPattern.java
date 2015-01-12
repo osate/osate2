@@ -46,6 +46,7 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -60,7 +61,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
-public class FlowSpecificationPattern extends AgeConnectionPattern {
+public class FlowSpecificationPattern extends AgeConnectionPattern implements Categorized {
 	private final StyleService styleUtil;
 	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
 	private final HighlightingService highlightingHelper;
@@ -404,5 +405,10 @@ public class FlowSpecificationPattern extends AgeConnectionPattern {
 		}
 		
 		return true;
+	}
+
+	@Override
+	public Category getCategory() {
+		return Category.FLOWS;
 	}
 }

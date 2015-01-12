@@ -8,11 +8,18 @@
  *******************************************************************************/
 package org.osate.ge.diagrams.common;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.ICreateConnectionFeature;
+import org.eclipse.graphiti.features.ICreateFeature;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
@@ -20,6 +27,13 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
+import org.eclipse.graphiti.palette.IToolEntry;
+import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
+import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
+import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
+import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
+import org.eclipse.graphiti.pattern.CreateFeatureForPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.osate.aadl2.Classifier;
@@ -36,7 +50,6 @@ import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.services.PropertyService;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
-
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
@@ -174,4 +187,115 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	    return super.getToolTip(ga);
 	}
 	
+	@Override
+	public IPaletteCompartmentEntry[] getPalette() {				
+		final class PaletteCompartments {
+			private final List<IPaletteCompartmentEntry> compartments = new ArrayList<IPaletteCompartmentEntry>();
+			private final PaletteCompartmentEntry classifiersCompartmentEntry = createComparmentEntry("Classifiers");
+			private final PaletteCompartmentEntry connectionsCompartmentEntry = createComparmentEntry("Connections");
+			private final PaletteCompartmentEntry featuresCompartmentEntry = createComparmentEntry("Features");
+			private final PaletteCompartmentEntry flowsCompartmentEntry = createComparmentEntry("Flows");
+			private final PaletteCompartmentEntry modesCompartmentEntry = createComparmentEntry( "Modes");
+			private final PaletteCompartmentEntry relationshipsCompartmentEntry = createComparmentEntry("Relationships");
+			private final PaletteCompartmentEntry subcomponentCompartmentEntry = createComparmentEntry("Subcomponents");
+			private final PaletteCompartmentEntry miscCompartmentEntry = createComparmentEntry("Misc");
+			
+			private PaletteCompartmentEntry createComparmentEntry(final String label) {
+				final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(label, null);
+				compartments.add(newEntry);
+				return newEntry;
+			}
+			
+			public void addToolEntry(final IToolEntry toolEntry, final Object featureOrPattern) {
+				final PaletteCompartmentEntry compartmentEntry;
+				if(featureOrPattern instanceof Categorized) {
+					final Categorized.Category compartment = ((Categorized) featureOrPattern).getCategory();
+					switch(compartment) {
+					case CLASSIFIERS:
+						compartmentEntry = classifiersCompartmentEntry;
+						break;
+						
+					case CONNECTIONS:
+						compartmentEntry = connectionsCompartmentEntry;
+						break;
+						
+					case FEATURES:
+						compartmentEntry = featuresCompartmentEntry;
+						break;
+						
+					case FLOWS:
+						compartmentEntry = flowsCompartmentEntry;
+						break;
+						
+					case MODES:
+						compartmentEntry = modesCompartmentEntry;
+						break;
+						
+					case RELATIONSHIPS:
+						compartmentEntry = relationshipsCompartmentEntry;
+						break;
+						
+					case SUBCOMPONENTS:
+						compartmentEntry = subcomponentCompartmentEntry;
+						break;	
+						
+					default:
+						compartmentEntry = miscCompartmentEntry;
+					}
+				} else {
+					compartmentEntry = miscCompartmentEntry;
+				}
+				
+				compartmentEntry.addToolEntry(toolEntry);
+			}
+			
+			public void removeEmpty() {
+				// Remove empty compartments		
+				final Iterator<IPaletteCompartmentEntry> it = compartments.iterator(); 
+				while(it.hasNext()) {
+					final IPaletteCompartmentEntry entry = it.next();
+					if(entry.getToolEntries().isEmpty()) {
+						it.remove();
+					}
+				}
+			}
+			
+			public IPaletteCompartmentEntry[] toArray() {
+				return compartments.toArray(new IPaletteCompartmentEntry[compartments.size()]);
+			}
+		};
+		
+		final PaletteCompartments compartments = new PaletteCompartments();	
+		final IFeatureProvider featureProvider = getFeatureProvider();		
+		final ICreateConnectionFeature[] createConnectionFeatures = featureProvider.getCreateConnectionFeatures();
+		if (createConnectionFeatures.length > 0) {
+			for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {	
+				final ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(
+						createConnectionFeature.getCreateName(), createConnectionFeature.getCreateDescription(),
+						createConnectionFeature.getCreateImageId(), createConnectionFeature.getCreateLargeImageId());
+				ccTool.addCreateConnectionFeature(createConnectionFeature);
+
+				// Use the pattern if the feature was created from one.
+				final Object featureOrPattern = (createConnectionFeature instanceof CreateConnectionFeatureForPattern) ? ((CreateConnectionFeatureForPattern)createConnectionFeature).getPattern() : createConnectionFeature;
+				compartments.addToolEntry(ccTool, featureOrPattern);
+			}
+		}
+		
+		final ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
+		if (createFeatures.length > 0){
+			for (ICreateFeature createFeature : createFeatures) {
+				final ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(
+						createFeature.getCreateName(), createFeature.getCreateDescription(),
+						createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
+				
+				// Use the pattern if the feature was created from one.
+				final Object featureOrPattern = (createFeature instanceof CreateFeatureForPattern) ? ((CreateFeatureForPattern)createFeature).getPattern() : createFeature;
+				compartments.addToolEntry(objectCreationToolEntry, featureOrPattern);
+			}
+		}
+		
+		compartments.removeEmpty();
+
+		return compartments.toArray();
+	}
 }
