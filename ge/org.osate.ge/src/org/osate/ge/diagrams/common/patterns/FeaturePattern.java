@@ -78,6 +78,7 @@ import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.services.AadlArrayService;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -107,7 +108,7 @@ import org.osate.ge.util.StringUtil;
  */
 // TODO: Not a leaf shape since it may contain children associated with business objects. Rename the leaf shape pattern
 // or do not extend AgeLeafShapePattern. The latter may be preferable due to the way this class interacts with its children.
-public class FeaturePattern extends AgeLeafShapePattern implements FeaturesCompartment {
+public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	private static final String featureShapeName = "feature";
 	private static final String labelShapeName = "label";	
 	private static final String annotationShapeName = "annotation";
@@ -916,4 +917,9 @@ public class FeaturePattern extends AgeLeafShapePattern implements FeaturesCompa
    	
     	refactoringService.renameElement(feature, value);
     }
+
+	@Override
+	public Category getCategory() {
+		return Category.FEATURES;
+	}
 }

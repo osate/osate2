@@ -9,6 +9,7 @@
 package org.osate.ge.diagrams.common.patterns;
 
 import java.util.Iterator;
+
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.resource.Resource;
@@ -47,6 +48,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -64,7 +66,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
-public class ModePattern extends AgeLeafShapePattern implements ModesCompartment {
+public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	public static String INITIAL_MODE_CONNECTION_TYPE = "initial_mode";
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";
@@ -445,4 +447,9 @@ public class ModePattern extends AgeLeafShapePattern implements ModesCompartment
     	final Mode mode = (Mode)bor.getBusinessObjectForPictogramElement(pe);
     	refactoringService.renameElement(mode, value);
     }
+
+	@Override
+	public Category getCategory() {
+		return Category.MODES;
+	}
 }

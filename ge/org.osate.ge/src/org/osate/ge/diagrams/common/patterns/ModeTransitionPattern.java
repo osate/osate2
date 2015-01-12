@@ -51,6 +51,7 @@ import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.services.AadlModificationService;
@@ -68,7 +69,7 @@ import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
-public class ModeTransitionPattern extends AgeConnectionPattern implements ModesCompartment {
+public class ModeTransitionPattern extends AgeConnectionPattern implements Categorized {
 	public static String MODE_TRANSITION_TRIGGER_CONNECTION_TYPE = "mode_transition_trigger";
 	private final StyleService styleService;
 	private final AnchorService anchorService;
@@ -595,5 +596,10 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Modes
 		
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
+
+	@Override
+	public Category getCategory() {
+		return Category.MODES;
 	}
 }

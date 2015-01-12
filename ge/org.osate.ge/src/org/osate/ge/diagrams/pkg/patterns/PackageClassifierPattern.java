@@ -57,6 +57,7 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeLeafShapePattern;
 import org.osate.ge.dialogs.ElementSelectionDialog;
 import org.osate.ge.services.AadlModificationService;
@@ -75,7 +76,7 @@ import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
-public class PackageClassifierPattern extends AgeLeafShapePattern implements ClassifiersCompartment {
+public class PackageClassifierPattern extends AgeLeafShapePattern implements Categorized {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final PropertyService propertyUtil;
 	private final AadlModificationService modificationService;
@@ -602,4 +603,9 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cla
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);    	
     	refactoringService.renameElement(classifier,  value);  	   
     }
+
+	@Override
+	public Category getCategory() {
+		return Category.CLASSIFIERS;
+	}
 }

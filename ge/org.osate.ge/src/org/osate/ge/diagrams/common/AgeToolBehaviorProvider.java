@@ -28,6 +28,7 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.palette.IPaletteCompartmentEntry;
+import org.eclipse.graphiti.palette.IToolEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
@@ -49,15 +50,6 @@ import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.services.PropertyService;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
-import org.osate.ge.diagrams.common.patterns.ConnectionsCompartment;
-import org.osate.ge.diagrams.common.patterns.FeaturesCompartment;
-import org.osate.ge.diagrams.common.patterns.FlowsCompartment;
-import org.osate.ge.diagrams.common.patterns.ModesCompartment;
-import org.osate.ge.diagrams.common.patterns.SubcomponentsCompartment;
-import org.osate.ge.diagrams.pkg.patterns.ClassifiersCompartment;
-import org.osate.ge.diagrams.pkg.patterns.RelationshipsCompartment;
-
-
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
@@ -80,7 +72,6 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	public IContextButtonPadData getContextButtonPad(IPictogramElementContext context) {
 		return null;
 	}
-
 	
 	// Override the business object equality check. This is needed in the case of Generalization because the owner is one of the defining
 	// characteristics and is not checked by the default check which uses EcoreUtil.equals().
@@ -197,104 +188,114 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 	
 	@Override
-	public IPaletteCompartmentEntry[] getPalette() {
-		List<IPaletteCompartmentEntry> compartments = new ArrayList<IPaletteCompartmentEntry>();
-		
-		
-		PaletteCompartmentEntry classifiersCompartmentEntry = new PaletteCompartmentEntry("Classifiers", null);
-		compartments.add(classifiersCompartmentEntry);
-		PaletteCompartmentEntry connectionsCompartmentEntry = new PaletteCompartmentEntry("Connections", null);
-		compartments.add(connectionsCompartmentEntry);
-		PaletteCompartmentEntry featuresCompartmentEntry = new PaletteCompartmentEntry("Features", null);
-		compartments.add(featuresCompartmentEntry);
-		PaletteCompartmentEntry flowsCompartmentEntry = new PaletteCompartmentEntry("Flows", null);
-		compartments.add(flowsCompartmentEntry);
-		PaletteCompartmentEntry modesCompartmentEntry = new PaletteCompartmentEntry("Modes", null);
-		compartments.add(modesCompartmentEntry);
-		PaletteCompartmentEntry relationshipsCompartmentEntry = new PaletteCompartmentEntry("Relationships", null);
-		compartments.add(relationshipsCompartmentEntry);
-		PaletteCompartmentEntry subcomponentCompartmentEntry = new PaletteCompartmentEntry("Subcomponents", null);
-		compartments.add(subcomponentCompartmentEntry);
-		PaletteCompartmentEntry compartmentEntry = new PaletteCompartmentEntry("Connections", null);
-		compartments.add(compartmentEntry);
-		PaletteCompartmentEntry objectsCompartmentEntry = new PaletteCompartmentEntry("Objects", null);
-		compartments.add(objectsCompartmentEntry);
-		
-		IFeatureProvider featureProvider = getFeatureProvider();
-		
-		ICreateConnectionFeature[] createConnectionFeatures = featureProvider.getCreateConnectionFeatures();
-		if (createConnectionFeatures.length > 0) {
-			for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {	
-				ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(
-						createConnectionFeature.getCreateName(), createConnectionFeature.getCreateDescription(),
-						createConnectionFeature.getCreateImageId(), createConnectionFeature.getCreateLargeImageId());
-				ccTool.addCreateConnectionFeature(createConnectionFeature);
+	public IPaletteCompartmentEntry[] getPalette() {				
+		final class PaletteCompartments {
+			private final List<IPaletteCompartmentEntry> compartments = new ArrayList<IPaletteCompartmentEntry>();
+			private final PaletteCompartmentEntry classifiersCompartmentEntry = createComparmentEntry("Classifiers");
+			private final PaletteCompartmentEntry connectionsCompartmentEntry = createComparmentEntry("Connections");
+			private final PaletteCompartmentEntry featuresCompartmentEntry = createComparmentEntry("Features");
+			private final PaletteCompartmentEntry flowsCompartmentEntry = createComparmentEntry("Flows");
+			private final PaletteCompartmentEntry modesCompartmentEntry = createComparmentEntry( "Modes");
+			private final PaletteCompartmentEntry relationshipsCompartmentEntry = createComparmentEntry("Relationships");
+			private final PaletteCompartmentEntry subcomponentCompartmentEntry = createComparmentEntry("Subcomponents");
+			private final PaletteCompartmentEntry miscCompartmentEntry = createComparmentEntry("Misc");
+			
+			private PaletteCompartmentEntry createComparmentEntry(final String label) {
+				final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(label, null);
+				compartments.add(newEntry);
+				return newEntry;
+			}
+			
+			public void addToolEntry(final IToolEntry toolEntry, final Object featureOrPattern) {
+				final PaletteCompartmentEntry compartmentEntry;
+				if(featureOrPattern instanceof Categorized) {
+					final Categorized.Category compartment = ((Categorized) featureOrPattern).getCategory();
+					switch(compartment) {
+					case CLASSIFIERS:
+						compartmentEntry = classifiersCompartmentEntry;
+						break;
+						
+					case CONNECTIONS:
+						compartmentEntry = connectionsCompartmentEntry;
+						break;
+						
+					case FEATURES:
+						compartmentEntry = featuresCompartmentEntry;
+						break;
+						
+					case FLOWS:
+						compartmentEntry = flowsCompartmentEntry;
+						break;
+						
+					case MODES:
+						compartmentEntry = modesCompartmentEntry;
+						break;
+						
+					case RELATIONSHIPS:
+						compartmentEntry = relationshipsCompartmentEntry;
+						break;
+						
+					case SUBCOMPONENTS:
+						compartmentEntry = subcomponentCompartmentEntry;
+						break;	
+						
+					default:
+						compartmentEntry = miscCompartmentEntry;
+					}
+				} else {
+					compartmentEntry = miscCompartmentEntry;
+				}
 				
-				// Get the object that is either a feature or a pattern that has been tagged with an interface to indicate which
-				// category of connection it handles
-				final Object taggedFeatureOrPattern;
-				if(createConnectionFeature instanceof CreateConnectionFeatureForPattern) {
-					final CreateConnectionFeatureForPattern featureForPattern = (CreateConnectionFeatureForPattern)createConnectionFeature;
-					taggedFeatureOrPattern = featureForPattern.getPattern();
-					if (taggedFeatureOrPattern instanceof ConnectionsCompartment){
-						connectionsCompartmentEntry.addToolEntry(ccTool);
-					}
-					else if (taggedFeatureOrPattern instanceof FlowsCompartment){
-						flowsCompartmentEntry.addToolEntry(ccTool);
-					}
-					else if (taggedFeatureOrPattern instanceof ModesCompartment){
-						modesCompartmentEntry.addToolEntry(ccTool);
-					}
-					
-					else if (taggedFeatureOrPattern instanceof RelationshipsCompartment){
-						relationshipsCompartmentEntry.addToolEntry(ccTool);
-					} else {
-						compartmentEntry.addToolEntry(ccTool);
+				compartmentEntry.addToolEntry(toolEntry);
+			}
+			
+			public void removeEmpty() {
+				// Remove empty compartments		
+				final Iterator<IPaletteCompartmentEntry> it = compartments.iterator(); 
+				while(it.hasNext()) {
+					final IPaletteCompartmentEntry entry = it.next();
+					if(entry.getToolEntries().isEmpty()) {
+						it.remove();
 					}
 				}
 			}
+			
+			public IPaletteCompartmentEntry[] toArray() {
+				return compartments.toArray(new IPaletteCompartmentEntry[compartments.size()]);
+			}
+		};
+		
+		final PaletteCompartments compartments = new PaletteCompartments();	
+		final IFeatureProvider featureProvider = getFeatureProvider();		
+		final ICreateConnectionFeature[] createConnectionFeatures = featureProvider.getCreateConnectionFeatures();
+		if (createConnectionFeatures.length > 0) {
+			for (ICreateConnectionFeature createConnectionFeature : createConnectionFeatures) {	
+				final ConnectionCreationToolEntry ccTool = new ConnectionCreationToolEntry(
+						createConnectionFeature.getCreateName(), createConnectionFeature.getCreateDescription(),
+						createConnectionFeature.getCreateImageId(), createConnectionFeature.getCreateLargeImageId());
+				ccTool.addCreateConnectionFeature(createConnectionFeature);
+
+				// Use the pattern if the feature was created from one.
+				final Object featureOrPattern = (createConnectionFeature instanceof CreateConnectionFeatureForPattern) ? ((CreateConnectionFeatureForPattern)createConnectionFeature).getPattern() : createConnectionFeature;
+				compartments.addToolEntry(ccTool, featureOrPattern);
+			}
 		}
 		
-		ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
-		if (createConnectionFeatures.length > 0){
+		final ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
+		if (createFeatures.length > 0){
 			for (ICreateFeature createFeature : createFeatures) {
-				ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(
+				final ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(
 						createFeature.getCreateName(), createFeature.getCreateDescription(),
 						createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
 				
-				final Object taggedFeatureOrPattern;
-				if(createFeature instanceof CreateFeatureForPattern) {
-					final CreateFeatureForPattern featureForPattern = (CreateFeatureForPattern)createFeature;
-					taggedFeatureOrPattern = featureForPattern.getPattern();
-					if (taggedFeatureOrPattern instanceof ClassifiersCompartment){
-						classifiersCompartmentEntry.addToolEntry(objectCreationToolEntry);
-					}
-					else if(taggedFeatureOrPattern instanceof FeaturesCompartment){
-						featuresCompartmentEntry.addToolEntry(objectCreationToolEntry);
-					}
-					else if (taggedFeatureOrPattern instanceof ModesCompartment){
-						modesCompartmentEntry.addToolEntry(objectCreationToolEntry);
-					}
-					else if (taggedFeatureOrPattern instanceof SubcomponentsCompartment){
-						subcomponentCompartmentEntry.addToolEntry(objectCreationToolEntry);
-					} else {
-						objectsCompartmentEntry.addToolEntry(objectCreationToolEntry);
-					}
-				}	
+				// Use the pattern if the feature was created from one.
+				final Object featureOrPattern = (createFeature instanceof CreateFeatureForPattern) ? ((CreateFeatureForPattern)createFeature).getPattern() : createFeature;
+				compartments.addToolEntry(objectCreationToolEntry, featureOrPattern);
 			}
 		}
-		//Remove empty compartments		
-		final Iterator<IPaletteCompartmentEntry> it = compartments.iterator(); 
-		while(it.hasNext()) {
-			final IPaletteCompartmentEntry entry = it.next();
-			if(entry.getToolEntries().isEmpty()) {
-				it.remove();
-			}
-		}
+		
+		compartments.removeEmpty();
 
-		IPaletteCompartmentEntry[] res = compartments.toArray(new IPaletteCompartmentEntry[compartments.size()]);
-
-		return res;
+		return compartments.toArray();
 	}
-	
 }

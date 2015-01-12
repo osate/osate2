@@ -47,6 +47,7 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
@@ -58,7 +59,7 @@ import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 
-public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection, RelationshipsCompartment {
+public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection, Categorized {
 	private final StyleService styleUtil;
 	private final AadlModificationService modificationService;
 	private final ConnectionCreationService connectionCreationService;
@@ -467,6 +468,11 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	 */
 	private AadlPackage getDiagramPackage() {
 		return (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
+	}
+
+	@Override
+	public Category getCategory() {
+		return Category.RELATIONSHIPS;
 	}
 	
 }
