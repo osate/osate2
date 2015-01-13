@@ -27,7 +27,7 @@ aFloatConstant : constant aadlreal => 42.1 ;
 aStringConstant : constant aadlstring => "hello world" ;
 aBooleanConstant : constant aadlboolean => true ;
 
-aSimpleValue : aadlinteger applies to (data, subprogram, thread, system) ;
+aSimpleValue : aadlinteger applies to (data, data port, subprogram, thread, system) ;
 aSimpleValueDefined : aadlinteger => 20 applies to (data, subprogram, thread, system) ;
 
 rangeType : type range of aadlinteger units Time_Units ;
