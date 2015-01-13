@@ -68,6 +68,7 @@ import org.osate.ge.diagrams.common.features.DrillDownFeature;
 import org.osate.ge.diagrams.common.features.GraphicalToTextualFeature;
 import org.osate.ge.diagrams.common.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
+import org.osate.ge.diagrams.common.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.diagrams.common.features.UpdateLayoutFromClassifierDiagramFeature;
 import org.osate.ge.diagrams.common.features.RenameModeTransitionFeature;
 import org.osate.ge.diagrams.common.features.SetDerivedModesFeature;
@@ -225,6 +226,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(GraphicalToTextualFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(InstantiateComponentImplementationFeature.class));
+		features.add(make(SwitchDirectionOfConnectionFeature.class));
 		features.add(make(UpdateLayoutFromClassifierDiagramFeature.class));
 		features.add(make(ConfigureInModesFeature.class));
 		features.add(createSetInitialModeFeature(true));
@@ -238,7 +240,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
 			childCtx.set("Feature Type", featureType);
-			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));	
+			features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));
 		}
 		
 		// Component Implementation
