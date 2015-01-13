@@ -42,21 +42,27 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRequirementCategoriesAccess().getGroup(), "rule__RequirementCategories__Group__0");
 					put(grammarAccess.getHazardCategoriesAccess().getGroup(), "rule__HazardCategories__Group__0");
 					put(grammarAccess.getVerificationCategoriesAccess().getGroup(), "rule__VerificationCategories__Group__0");
+					put(grammarAccess.getSelectionCategoriesAccess().getGroup(), "rule__SelectionCategories__Group__0");
 					put(grammarAccess.getRequirementCategoryAccess().getGroup(), "rule__RequirementCategory__Group__0");
-					put(grammarAccess.getRequirementCategoryAccess().getGroup_2(), "rule__RequirementCategory__Group_2__0");
+					put(grammarAccess.getRequirementCategoryAccess().getGroup_1(), "rule__RequirementCategory__Group_1__0");
 					put(grammarAccess.getHazardCategoryAccess().getGroup(), "rule__HazardCategory__Group__0");
-					put(grammarAccess.getHazardCategoryAccess().getGroup_2(), "rule__HazardCategory__Group_2__0");
+					put(grammarAccess.getHazardCategoryAccess().getGroup_1(), "rule__HazardCategory__Group_1__0");
 					put(grammarAccess.getVerificationCategoryAccess().getGroup(), "rule__VerificationCategory__Group__0");
-					put(grammarAccess.getVerificationCategoryAccess().getGroup_2(), "rule__VerificationCategory__Group_2__0");
+					put(grammarAccess.getVerificationCategoryAccess().getGroup_1(), "rule__VerificationCategory__Group_1__0");
+					put(grammarAccess.getSelectionCategoryAccess().getGroup(), "rule__SelectionCategory__Group__0");
+					put(grammarAccess.getSelectionCategoryAccess().getGroup_1(), "rule__SelectionCategory__Group_1__0");
 					put(grammarAccess.getRequirementCategoriesAccess().getCategoryAssignment_3(), "rule__RequirementCategories__CategoryAssignment_3");
 					put(grammarAccess.getHazardCategoriesAccess().getCategoryAssignment_3(), "rule__HazardCategories__CategoryAssignment_3");
 					put(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3(), "rule__VerificationCategories__CategoryAssignment_3");
-					put(grammarAccess.getRequirementCategoryAccess().getNameAssignment_1(), "rule__RequirementCategory__NameAssignment_1");
-					put(grammarAccess.getRequirementCategoryAccess().getExtendsAssignment_2_1(), "rule__RequirementCategory__ExtendsAssignment_2_1");
-					put(grammarAccess.getHazardCategoryAccess().getNameAssignment_1(), "rule__HazardCategory__NameAssignment_1");
-					put(grammarAccess.getHazardCategoryAccess().getExtendsAssignment_2_1(), "rule__HazardCategory__ExtendsAssignment_2_1");
-					put(grammarAccess.getVerificationCategoryAccess().getNameAssignment_1(), "rule__VerificationCategory__NameAssignment_1");
-					put(grammarAccess.getVerificationCategoryAccess().getExtendsAssignment_2_1(), "rule__VerificationCategory__ExtendsAssignment_2_1");
+					put(grammarAccess.getSelectionCategoriesAccess().getCategoryAssignment_3(), "rule__SelectionCategories__CategoryAssignment_3");
+					put(grammarAccess.getRequirementCategoryAccess().getNameAssignment_0(), "rule__RequirementCategory__NameAssignment_0");
+					put(grammarAccess.getRequirementCategoryAccess().getExtendsAssignment_1_1(), "rule__RequirementCategory__ExtendsAssignment_1_1");
+					put(grammarAccess.getHazardCategoryAccess().getNameAssignment_0(), "rule__HazardCategory__NameAssignment_0");
+					put(grammarAccess.getHazardCategoryAccess().getExtendsAssignment_1_1(), "rule__HazardCategory__ExtendsAssignment_1_1");
+					put(grammarAccess.getVerificationCategoryAccess().getNameAssignment_0(), "rule__VerificationCategory__NameAssignment_0");
+					put(grammarAccess.getVerificationCategoryAccess().getExtendsAssignment_1_1(), "rule__VerificationCategory__ExtendsAssignment_1_1");
+					put(grammarAccess.getSelectionCategoryAccess().getNameAssignment_0(), "rule__SelectionCategory__NameAssignment_0");
+					put(grammarAccess.getSelectionCategoryAccess().getExtendsAssignment_1_1(), "rule__SelectionCategory__ExtendsAssignment_1_1");
 				}
 			};
 		}

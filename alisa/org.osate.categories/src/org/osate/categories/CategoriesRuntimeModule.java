@@ -10,7 +10,7 @@ public class CategoriesRuntimeModule extends org.osate.categories.AbstractCatego
 // bind in the Alisa global scope provider for Validation to pick up the duplicates method
 	@Override
 	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return org.osate.alisa.common.scoping.AlisaGlobalScopeProvider.class;
+		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
 	}
 
 }

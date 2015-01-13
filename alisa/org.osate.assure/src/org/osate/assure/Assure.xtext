@@ -1,4 +1,4 @@
-grammar org.osate.assure.Assure with org.eclipse.xtext.common.Terminals
+grammar org.osate.assure.Assure with org.osate.alisa.common.Common//org.eclipse.xtext.common.Terminals
 
 generate assure "http://www.osate.org/assure/Assure"
 import "http://aadl.info/AADL/2.0" as aadl2
@@ -6,50 +6,121 @@ import "http://aadl.info/AADL/2.0/instance" as instance
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/verify/Verify" as Verify
 
+// We assume that conditional selection has occurred during instantiation
  
+// result for a system in the architecture hierarchy
 CaseResult:
 	'case' name=ID 
-	'for' target=[instance::InstanceObject]
+	'for' target=[instance::InstanceObject|URIID]
 	'['
-	( result=AggregateResultData)?
+	('pass'  passCount=INT)
+	('fail'  failCount=INT)
+	('neutral' neutralCount=INT)
+	('unknown' unknownCount=INT) 
+	('weight' weight = INT)?
+	('successMsg' sucessMsg= MultiLineString)?
+	('failMsg' failMsg = MultiLineString)?
 	(subCaseResult += CaseResult)*
-	(claimResult += ClaimResult)*
+	(claimResult += EvidenceExpr)*
+	(hazardResult += HazardResult)*
 	']'  
 ;
 
+// result of executing a verification activity
 VerificationResult:
-	'verification' name=ID 
-	'of' verificationActivity=[Verify::VerificationActivity]
-	'for' target=[instance::InstanceObject]
-	'['(('output'  title=STRING)?
-	&('logfile'  description=STRING)?
-	&('date'  date=STRING)?
-	&('state'  state=VerificationResultState)?
-	&('status'  status=VerificationResultStatus)? )
-	(assumptionVerificationResult+= VerificationResult)*
+	'verification' 	name=ID 
+	'of' verificationActivity=[Verify::VerificationActivity|QualifiedName]
+	'for' target=[instance::InstanceObject|URIID]
+	'['
+	('output'  title=STRING)?
+	('logfile'  description=STRING)?
+	('date'  date=STRING)?
+	('state'  state=VerificationResultState)?
+	('status'  status=VerificationResultStatus)? 
+	('weight' weight = INT)?
+	('successMsg' sucessMsg= MultiLineString)?
+	('failMsg' failMsg = MultiLineString)?
+	(assumptionResult+= AssumptionResult)*
+	(preconditionResult+= PreconditionResult)*
+	']'  
+;
+AssumptionResult:
+	'assumption' 	name=ID 
+	'of' verificationActivity= [Verify::VerificationAssumption|QualifiedName]
+	'for' target=[instance::InstanceObject|URIID]
+	'['
+	('output'  title=STRING)?
+	('logfile'  description=STRING)?
+	('date'  date=STRING)?
+	('state'  state=VerificationResultState)?
+	('status'  status=VerificationResultStatus)? 
+	('weight' weight = INT)?
+	('successMsg' sucessMsg= MultiLineString)?
+	('failMsg' failMsg = MultiLineString)?
 	']'  
 ;
 
-ClaimResult:
-	'claim' name=ID 'of' requirement=[ReqSpec::Requirement]
-	'for' target=[instance::InstanceObject]
+PreconditionResult:
+	'precondition' 	name=ID 
+	'of' verificationActivity=[Verify::VerificationPrecondition|QualifiedName]
+	'for' target=[instance::InstanceObject|URIID]
 	'['
-	( result=AggregateResultData)?
+	('output'  title=STRING)?
+	('logfile'  description=STRING)?
+	('date'  date=STRING)?
+	('state'  state=VerificationResultState)?
+	('status'  status=VerificationResultStatus)? 
+	('weight' weight = INT)?
+	('successMsg' sucessMsg= MultiLineString)?
+	('failMsg' failMsg = MultiLineString)?
+	']'  
+;
+
+AssuranceResult: EvidenceResult | ClaimResult | HazardResult | CaseResult;
+EvidenceResult : VerificationResult | AssumptionResult | PreconditionResult;
+
+// Result of meeting a requirement
+ClaimResult:
+	'claim' name=ID 'of' requirement=[ReqSpec::Requirement|QualifiedName]
+	'for' target=[instance::InstanceObject|URIID]
+	'['
+	('success'  successCount=INT)
+	('fail'  failCount=INT)
+	('neutral' neutralCount=INT)
+	('unknown' unknownCount=INT) 
+	'successMsg' sucessMsg= MultiLineString
+	'failMsg' failMsg = MultiLineString
 	(subClaimResult += ClaimResult)*
 	(verificationResult+= VerificationResult)*
 	']'  
 ;
 
-
-AggregateResultData:
+// result of all requirements of a hazard being met
+HazardResult:
+	'hazard' name=ID 'of' hazard=[ReqSpec::Hazard|QualifiedName]
+	'for' target=[instance::InstanceObject|URIID]
+	'['
 	('pass'  passCount=INT)
 	('fail'  failCount=INT)
 	('neutral' neutralCount=INT)
 	('unknown' unknownCount=INT) 
-	
+	(verificationResult+= VerificationResult)*
+	']'  
 ;
 
-AssuranceResult: VerificationResult | ClaimResult | CaseResult;
+EvidenceExpr:
+	FailThen | ClaimResult
+;
+
+FailThen:
+	'fail' first+=ClaimResult 'then' second+=ClaimResult
+;
+
+IfThen:
+	'if' first+=ClaimResult 'then' second+=ClaimResult
+;
+
+
 
 enum  VerificationResultState:
 	TODO='todo'  // verification to be performed
@@ -59,5 +130,5 @@ enum  VerificationResultState:
 ;
 
 enum VerificationResultStatus:
-	TBD='tbd' | PASS='pass' | FAIL='fail' | UNKNOWN='unknown' 
+	TBD='tbd' | SUCCESS='success' | FAIL='fail' | UNKNOWN='unknown' 
 ;

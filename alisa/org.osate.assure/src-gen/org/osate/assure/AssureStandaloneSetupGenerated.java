@@ -17,7 +17,7 @@ import com.google.inject.Injector;
 public class AssureStandaloneSetupGenerated implements ISetup {
 
 	public Injector createInjectorAndDoEMFRegistration() {
-		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
+		org.osate.alisa.common.CommonStandaloneSetup.doSetup();
 
 		Injector injector = createInjector();
 		register(injector);

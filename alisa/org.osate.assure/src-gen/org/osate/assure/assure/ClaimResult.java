@@ -15,7 +15,12 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getRequirement <em>Requirement</em>}</li>
- *   <li>{@link org.osate.assure.assure.ClaimResult#getResult <em>Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getSuccessCount <em>Success Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getFailCount <em>Fail Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getNeutralCount <em>Neutral Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getUnknownCount <em>Unknown Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getSucessMsg <em>Sucess Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getVerificationResult <em>Verification Result</em>}</li>
  * </ul>
@@ -25,7 +30,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * @model
  * @generated
  */
-public interface ClaimResult extends AssuranceResult
+public interface ClaimResult extends AssuranceResult, EvidenceExpr
 {
   /**
    * Returns the value of the '<em><b>Requirement</b></em>' reference.
@@ -54,30 +59,160 @@ public interface ClaimResult extends AssuranceResult
   void setRequirement(Requirement value);
 
   /**
-   * Returns the value of the '<em><b>Result</b></em>' containment reference.
+   * Returns the value of the '<em><b>Success Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Result</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Success Count</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Result</em>' containment reference.
-   * @see #setResult(AggregateResultData)
-   * @see org.osate.assure.assure.AssurePackage#getClaimResult_Result()
-   * @model containment="true"
+   * @return the value of the '<em>Success Count</em>' attribute.
+   * @see #setSuccessCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_SuccessCount()
+   * @model
    * @generated
    */
-  AggregateResultData getResult();
+  int getSuccessCount();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getResult <em>Result</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getSuccessCount <em>Success Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Result</em>' containment reference.
-   * @see #getResult()
+   * @param value the new value of the '<em>Success Count</em>' attribute.
+   * @see #getSuccessCount()
    * @generated
    */
-  void setResult(AggregateResultData value);
+  void setSuccessCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Fail Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Fail Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Fail Count</em>' attribute.
+   * @see #setFailCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_FailCount()
+   * @model
+   * @generated
+   */
+  int getFailCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getFailCount <em>Fail Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Fail Count</em>' attribute.
+   * @see #getFailCount()
+   * @generated
+   */
+  void setFailCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Neutral Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Neutral Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Neutral Count</em>' attribute.
+   * @see #setNeutralCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_NeutralCount()
+   * @model
+   * @generated
+   */
+  int getNeutralCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getNeutralCount <em>Neutral Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Neutral Count</em>' attribute.
+   * @see #getNeutralCount()
+   * @generated
+   */
+  void setNeutralCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Unknown Count</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Unknown Count</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Unknown Count</em>' attribute.
+   * @see #setUnknownCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_UnknownCount()
+   * @model
+   * @generated
+   */
+  int getUnknownCount();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getUnknownCount <em>Unknown Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Unknown Count</em>' attribute.
+   * @see #getUnknownCount()
+   * @generated
+   */
+  void setUnknownCount(int value);
+
+  /**
+   * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Sucess Msg</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Sucess Msg</em>' attribute.
+   * @see #setSucessMsg(String)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_SucessMsg()
+   * @model
+   * @generated
+   */
+  String getSucessMsg();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getSucessMsg <em>Sucess Msg</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Sucess Msg</em>' attribute.
+   * @see #getSucessMsg()
+   * @generated
+   */
+  void setSucessMsg(String value);
+
+  /**
+   * Returns the value of the '<em><b>Fail Msg</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Fail Msg</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Fail Msg</em>' attribute.
+   * @see #setFailMsg(String)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_FailMsg()
+   * @model
+   * @generated
+   */
+  String getFailMsg();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getFailMsg <em>Fail Msg</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Fail Msg</em>' attribute.
+   * @see #getFailMsg()
+   * @generated
+   */
+  void setFailMsg(String value);
 
   /**
    * Returns the value of the '<em><b>Sub Claim Result</b></em>' containment reference list.

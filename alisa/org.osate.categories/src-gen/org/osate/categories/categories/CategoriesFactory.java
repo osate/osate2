@@ -59,6 +59,15 @@ public interface CategoriesFactory extends EFactory
   VerificationCategories createVerificationCategories();
 
   /**
+   * Returns a new object of class '<em>Selection Categories</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Selection Categories</em>'.
+   * @generated
+   */
+  SelectionCategories createSelectionCategories();
+
+  /**
    * Returns a new object of class '<em>Category</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -93,6 +102,15 @@ public interface CategoriesFactory extends EFactory
    * @generated
    */
   VerificationCategory createVerificationCategory();
+
+  /**
+   * Returns a new object of class '<em>Selection Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Selection Category</em>'.
+   * @generated
+   */
+  SelectionCategory createSelectionCategory();
 
   /**
    * Returns the package supported by this factory.

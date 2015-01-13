@@ -2,7 +2,12 @@
  */
 package org.osate.verify.verify.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -10,8 +15,15 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.alisa.common.common.Description;
+
 import org.osate.categories.categories.VerificationCategory;
 
+import org.osate.verify.verify.SupportedTypes;
+import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
 
@@ -23,11 +35,12 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getLanguage <em>Language</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getConditions <em>Conditions</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,24 +69,44 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getLanguage()
+   * @see #getTitle()
    * @generated
    * @ordered
    */
-  protected static final String LANGUAGE_EDEFAULT = null;
+  protected static final String TITLE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getLanguage()
+   * @see #getTitle()
    * @generated
    * @ordered
    */
-  protected String language = LANGUAGE_EDEFAULT;
+  protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMethodType()
+   * @generated
+   * @ordered
+   */
+  protected static final SupportedTypes METHOD_TYPE_EDEFAULT = SupportedTypes.SINGLEPREDICATE;
+
+  /**
+   * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMethodType()
+   * @generated
+   * @ordered
+   */
+  protected SupportedTypes methodType = METHOD_TYPE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getMethod() <em>Method</em>}' attribute.
@@ -96,44 +129,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected String method = METHOD_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected static final String TITLE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDescription()
    * @generated
    * @ordered
    */
-  protected static final String DESCRIPTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected String description = DESCRIPTION_EDEFAULT;
+  protected Description description;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
@@ -144,6 +147,16 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected VerificationCategory category;
+
+  /**
+   * The cached value of the '{@link #getConditions() <em>Conditions</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConditions()
+   * @generated
+   * @ordered
+   */
+  protected EList<VerificationCondition> conditions;
 
   /**
    * <!-- begin-user-doc -->
@@ -194,9 +207,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getLanguage()
+  public String getTitle()
   {
-    return language;
+    return title;
   }
 
   /**
@@ -204,12 +217,35 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setLanguage(String newLanguage)
+  public void setTitle(String newTitle)
   {
-    String oldLanguage = language;
-    language = newLanguage;
+    String oldTitle = title;
+    title = newTitle;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__LANGUAGE, oldLanguage, language));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SupportedTypes getMethodType()
+  {
+    return methodType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMethodType(SupportedTypes newMethodType)
+  {
+    SupportedTypes oldMethodType = methodType;
+    methodType = newMethodType == null ? METHOD_TYPE_EDEFAULT : newMethodType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE, oldMethodType, methodType));
   }
 
   /**
@@ -240,30 +276,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTitle()
-  {
-    return title;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTitle(String newTitle)
-  {
-    String oldTitle = title;
-    title = newTitle;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__TITLE, oldTitle, title));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getDescription()
+  public Description getDescription()
   {
     return description;
   }
@@ -273,12 +286,37 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDescription(String newDescription)
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
   {
-    String oldDescription = description;
+    Description oldDescription = description;
     description = newDescription;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, oldDescription, description));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, oldDescription, newDescription);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(Description newDescription)
+  {
+    if (newDescription != description)
+    {
+      NotificationChain msgs = null;
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, newDescription, newDescription));
   }
 
   /**
@@ -329,6 +367,38 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<VerificationCondition> getConditions()
+  {
+    if (conditions == null)
+    {
+      conditions = new EObjectContainmentEList<VerificationCondition>(VerificationCondition.class, this, VerifyPackage.VERIFICATION_METHOD__CONDITIONS);
+    }
+    return conditions;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
+        return basicSetDescription(null, msgs);
+      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
+        return ((InternalEList<?>)getConditions()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -336,17 +406,19 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         return getName();
-      case VerifyPackage.VERIFICATION_METHOD__LANGUAGE:
-        return getLanguage();
-      case VerifyPackage.VERIFICATION_METHOD__METHOD:
-        return getMethod();
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return getTitle();
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        return getMethodType();
+      case VerifyPackage.VERIFICATION_METHOD__METHOD:
+        return getMethod();
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         if (resolve) return getCategory();
         return basicGetCategory();
+      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
+        return getConditions();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -356,6 +428,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -364,20 +437,24 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         setName((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__LANGUAGE:
-        setLanguage((String)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__TITLE:
+        setTitle((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        setMethodType((SupportedTypes)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD:
         setMethod((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__TITLE:
-        setTitle((String)newValue);
-        return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
-        setDescription((String)newValue);
+        setDescription((Description)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         setCategory((VerificationCategory)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
+        getConditions().clear();
+        getConditions().addAll((Collection<? extends VerificationCondition>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -396,20 +473,23 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__LANGUAGE:
-        setLanguage(LANGUAGE_EDEFAULT);
+      case VerifyPackage.VERIFICATION_METHOD__TITLE:
+        setTitle(TITLE_EDEFAULT);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        setMethodType(METHOD_TYPE_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD:
         setMethod(METHOD_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__TITLE:
-        setTitle(TITLE_EDEFAULT);
-        return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
-        setDescription(DESCRIPTION_EDEFAULT);
+        setDescription((Description)null);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         setCategory((VerificationCategory)null);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
+        getConditions().clear();
         return;
     }
     super.eUnset(featureID);
@@ -427,16 +507,18 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case VerifyPackage.VERIFICATION_METHOD__LANGUAGE:
-        return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
-      case VerifyPackage.VERIFICATION_METHOD__METHOD:
-        return METHOD_EDEFAULT == null ? method != null : !METHOD_EDEFAULT.equals(method);
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
+        return methodType != METHOD_TYPE_EDEFAULT;
+      case VerifyPackage.VERIFICATION_METHOD__METHOD:
+        return METHOD_EDEFAULT == null ? method != null : !METHOD_EDEFAULT.equals(method);
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
-        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+        return description != null;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         return category != null;
+      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
+        return conditions != null && !conditions.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -454,14 +536,12 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", language: ");
-    result.append(language);
-    result.append(", method: ");
-    result.append(method);
     result.append(", title: ");
     result.append(title);
-    result.append(", description: ");
-    result.append(description);
+    result.append(", methodType: ");
+    result.append(methodType);
+    result.append(", method: ");
+    result.append(method);
     result.append(')');
     return result.toString();
   }

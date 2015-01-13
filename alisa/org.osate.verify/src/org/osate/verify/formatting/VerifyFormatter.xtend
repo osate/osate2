@@ -5,8 +5,8 @@ package org.osate.verify.formatting
 
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter
 import org.eclipse.xtext.formatting.impl.FormattingConfig
-// import com.google.inject.Inject;
-// import org.osate.verify.services.VerifyGrammarAccess
+ import com.google.inject.Inject;
+ import org.osate.verify.services.VerifyGrammarAccess
 
 /**
  * This class contains custom formatting description.
@@ -18,13 +18,27 @@ import org.eclipse.xtext.formatting.impl.FormattingConfig
  */
 class VerifyFormatter extends AbstractDeclarativeFormatter {
 
-//	@Inject extension VerifyGrammarAccess
+	@Inject extension VerifyGrammarAccess
 	
 	override protected void configureFormatting(FormattingConfig c) {
-// It's usually a good idea to activate the following three statements.
-// They will add and preserve newlines around comments
-//		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
-//		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
-//		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
-	}
+		c.setAutoLinewrap(120);
+		c.setWrappedLineIndentation(2);
+		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
+		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
+		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
+	    for ( pair : findKeywordPairs("[", "]")) {
+		      c.setIndentationIncrement().after(pair.first);
+		      c.setLinewrap().after(pair.first);
+		      c.setIndentationDecrement().before(pair.second);
+		      c.setLinewrap().before(pair.second);
+		    }
+		c.setLinewrap().after(verificationMethodRule);
+		c.setLinewrap().before(verificationFolderRule);
+		for (kw : findKeywords("verification","folder")) {
+			c.setLinewrap().before(kw);
+		}
+		for (kw : findKeywords("description","category","method","verified","asserted","rationale","issues")) {
+			c.setLinewrap().before(kw);
+		}
+		}
 }

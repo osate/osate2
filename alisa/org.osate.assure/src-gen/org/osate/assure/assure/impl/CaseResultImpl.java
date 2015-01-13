@@ -17,10 +17,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.assure.assure.AggregateResultData;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.CaseResult;
-import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.EvidenceExpr;
+import org.osate.assure.assure.HazardResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,9 +29,16 @@ import org.osate.assure.assure.ClaimResult;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getResult <em>Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getPassCount <em>Pass Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getFailCount <em>Fail Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getNeutralCount <em>Neutral Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getUnknownCount <em>Unknown Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSubCaseResult <em>Sub Case Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getClaimResult <em>Claim Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getHazardResult <em>Hazard Result</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,14 +47,144 @@ import org.osate.assure.assure.ClaimResult;
 public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
 {
   /**
-   * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
+   * The default value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getResult()
+   * @see #getPassCount()
    * @generated
    * @ordered
    */
-  protected AggregateResultData result;
+  protected static final int PASS_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPassCount()
+   * @generated
+   * @ordered
+   */
+  protected int passCount = PASS_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFailCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int FAIL_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFailCount()
+   * @generated
+   * @ordered
+   */
+  protected int failCount = FAIL_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getNeutralCount() <em>Neutral Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNeutralCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int NEUTRAL_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getNeutralCount() <em>Neutral Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNeutralCount()
+   * @generated
+   * @ordered
+   */
+  protected int neutralCount = NEUTRAL_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUnknownCount()
+   * @generated
+   * @ordered
+   */
+  protected static final int UNKNOWN_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUnknownCount()
+   * @generated
+   * @ordered
+   */
+  protected int unknownCount = UNKNOWN_COUNT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected static final int WEIGHT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected int weight = WEIGHT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSucessMsg()
+   * @generated
+   * @ordered
+   */
+  protected static final String SUCESS_MSG_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSucessMsg()
+   * @generated
+   * @ordered
+   */
+  protected String sucessMsg = SUCESS_MSG_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getFailMsg() <em>Fail Msg</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFailMsg()
+   * @generated
+   * @ordered
+   */
+  protected static final String FAIL_MSG_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getFailMsg() <em>Fail Msg</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFailMsg()
+   * @generated
+   * @ordered
+   */
+  protected String failMsg = FAIL_MSG_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getSubCaseResult() <em>Sub Case Result</em>}' containment reference list.
@@ -67,7 +204,17 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * @generated
    * @ordered
    */
-  protected EList<ClaimResult> claimResult;
+  protected EList<EvidenceExpr> claimResult;
+
+  /**
+   * The cached value of the '{@link #getHazardResult() <em>Hazard Result</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getHazardResult()
+   * @generated
+   * @ordered
+   */
+  protected EList<HazardResult> hazardResult;
 
   /**
    * <!-- begin-user-doc -->
@@ -95,9 +242,9 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public AggregateResultData getResult()
+  public int getPassCount()
   {
-    return result;
+    return passCount;
   }
 
   /**
@@ -105,16 +252,12 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetResult(AggregateResultData newResult, NotificationChain msgs)
+  public void setPassCount(int newPassCount)
   {
-    AggregateResultData oldResult = result;
-    result = newResult;
+    int oldPassCount = passCount;
+    passCount = newPassCount;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__RESULT, oldResult, newResult);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__PASS_COUNT, oldPassCount, passCount));
   }
 
   /**
@@ -122,20 +265,137 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setResult(AggregateResultData newResult)
+  public int getFailCount()
   {
-    if (newResult != result)
-    {
-      NotificationChain msgs = null;
-      if (result != null)
-        msgs = ((InternalEObject)result).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.CASE_RESULT__RESULT, null, msgs);
-      if (newResult != null)
-        msgs = ((InternalEObject)newResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.CASE_RESULT__RESULT, null, msgs);
-      msgs = basicSetResult(newResult, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__RESULT, newResult, newResult));
+    return failCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFailCount(int newFailCount)
+  {
+    int oldFailCount = failCount;
+    failCount = newFailCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__FAIL_COUNT, oldFailCount, failCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getNeutralCount()
+  {
+    return neutralCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNeutralCount(int newNeutralCount)
+  {
+    int oldNeutralCount = neutralCount;
+    neutralCount = newNeutralCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__NEUTRAL_COUNT, oldNeutralCount, neutralCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getUnknownCount()
+  {
+    return unknownCount;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setUnknownCount(int newUnknownCount)
+  {
+    int oldUnknownCount = unknownCount;
+    unknownCount = newUnknownCount;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__UNKNOWN_COUNT, oldUnknownCount, unknownCount));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getWeight()
+  {
+    return weight;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setWeight(int newWeight)
+  {
+    int oldWeight = weight;
+    weight = newWeight;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__WEIGHT, oldWeight, weight));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getSucessMsg()
+  {
+    return sucessMsg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSucessMsg(String newSucessMsg)
+  {
+    String oldSucessMsg = sucessMsg;
+    sucessMsg = newSucessMsg;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__SUCESS_MSG, oldSucessMsg, sucessMsg));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getFailMsg()
+  {
+    return failMsg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFailMsg(String newFailMsg)
+  {
+    String oldFailMsg = failMsg;
+    failMsg = newFailMsg;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__FAIL_MSG, oldFailMsg, failMsg));
   }
 
   /**
@@ -157,13 +417,27 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ClaimResult> getClaimResult()
+  public EList<EvidenceExpr> getClaimResult()
   {
     if (claimResult == null)
     {
-      claimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.CASE_RESULT__CLAIM_RESULT);
+      claimResult = new EObjectContainmentEList<EvidenceExpr>(EvidenceExpr.class, this, AssurePackage.CASE_RESULT__CLAIM_RESULT);
     }
     return claimResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<HazardResult> getHazardResult()
+  {
+    if (hazardResult == null)
+    {
+      hazardResult = new EObjectContainmentEList<HazardResult>(HazardResult.class, this, AssurePackage.CASE_RESULT__HAZARD_RESULT);
+    }
+    return hazardResult;
   }
 
   /**
@@ -176,12 +450,12 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__RESULT:
-        return basicSetResult(null, msgs);
       case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
         return ((InternalEList<?>)getSubCaseResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         return ((InternalEList<?>)getClaimResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
+        return ((InternalEList<?>)getHazardResult()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -196,12 +470,26 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__RESULT:
-        return getResult();
+      case AssurePackage.CASE_RESULT__PASS_COUNT:
+        return getPassCount();
+      case AssurePackage.CASE_RESULT__FAIL_COUNT:
+        return getFailCount();
+      case AssurePackage.CASE_RESULT__NEUTRAL_COUNT:
+        return getNeutralCount();
+      case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
+        return getUnknownCount();
+      case AssurePackage.CASE_RESULT__WEIGHT:
+        return getWeight();
+      case AssurePackage.CASE_RESULT__SUCESS_MSG:
+        return getSucessMsg();
+      case AssurePackage.CASE_RESULT__FAIL_MSG:
+        return getFailMsg();
       case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
         return getSubCaseResult();
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         return getClaimResult();
+      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
+        return getHazardResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -217,8 +505,26 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__RESULT:
-        setResult((AggregateResultData)newValue);
+      case AssurePackage.CASE_RESULT__PASS_COUNT:
+        setPassCount((Integer)newValue);
+        return;
+      case AssurePackage.CASE_RESULT__FAIL_COUNT:
+        setFailCount((Integer)newValue);
+        return;
+      case AssurePackage.CASE_RESULT__NEUTRAL_COUNT:
+        setNeutralCount((Integer)newValue);
+        return;
+      case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
+        setUnknownCount((Integer)newValue);
+        return;
+      case AssurePackage.CASE_RESULT__WEIGHT:
+        setWeight((Integer)newValue);
+        return;
+      case AssurePackage.CASE_RESULT__SUCESS_MSG:
+        setSucessMsg((String)newValue);
+        return;
+      case AssurePackage.CASE_RESULT__FAIL_MSG:
+        setFailMsg((String)newValue);
         return;
       case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
         getSubCaseResult().clear();
@@ -226,7 +532,11 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
         return;
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         getClaimResult().clear();
-        getClaimResult().addAll((Collection<? extends ClaimResult>)newValue);
+        getClaimResult().addAll((Collection<? extends EvidenceExpr>)newValue);
+        return;
+      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
+        getHazardResult().clear();
+        getHazardResult().addAll((Collection<? extends HazardResult>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -242,14 +552,35 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__RESULT:
-        setResult((AggregateResultData)null);
+      case AssurePackage.CASE_RESULT__PASS_COUNT:
+        setPassCount(PASS_COUNT_EDEFAULT);
+        return;
+      case AssurePackage.CASE_RESULT__FAIL_COUNT:
+        setFailCount(FAIL_COUNT_EDEFAULT);
+        return;
+      case AssurePackage.CASE_RESULT__NEUTRAL_COUNT:
+        setNeutralCount(NEUTRAL_COUNT_EDEFAULT);
+        return;
+      case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
+        setUnknownCount(UNKNOWN_COUNT_EDEFAULT);
+        return;
+      case AssurePackage.CASE_RESULT__WEIGHT:
+        setWeight(WEIGHT_EDEFAULT);
+        return;
+      case AssurePackage.CASE_RESULT__SUCESS_MSG:
+        setSucessMsg(SUCESS_MSG_EDEFAULT);
+        return;
+      case AssurePackage.CASE_RESULT__FAIL_MSG:
+        setFailMsg(FAIL_MSG_EDEFAULT);
         return;
       case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
         getSubCaseResult().clear();
         return;
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         getClaimResult().clear();
+        return;
+      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
+        getHazardResult().clear();
         return;
     }
     super.eUnset(featureID);
@@ -265,14 +596,57 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__RESULT:
-        return result != null;
+      case AssurePackage.CASE_RESULT__PASS_COUNT:
+        return passCount != PASS_COUNT_EDEFAULT;
+      case AssurePackage.CASE_RESULT__FAIL_COUNT:
+        return failCount != FAIL_COUNT_EDEFAULT;
+      case AssurePackage.CASE_RESULT__NEUTRAL_COUNT:
+        return neutralCount != NEUTRAL_COUNT_EDEFAULT;
+      case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
+        return unknownCount != UNKNOWN_COUNT_EDEFAULT;
+      case AssurePackage.CASE_RESULT__WEIGHT:
+        return weight != WEIGHT_EDEFAULT;
+      case AssurePackage.CASE_RESULT__SUCESS_MSG:
+        return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
+      case AssurePackage.CASE_RESULT__FAIL_MSG:
+        return FAIL_MSG_EDEFAULT == null ? failMsg != null : !FAIL_MSG_EDEFAULT.equals(failMsg);
       case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
         return subCaseResult != null && !subCaseResult.isEmpty();
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         return claimResult != null && !claimResult.isEmpty();
+      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
+        return hazardResult != null && !hazardResult.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (passCount: ");
+    result.append(passCount);
+    result.append(", failCount: ");
+    result.append(failCount);
+    result.append(", neutralCount: ");
+    result.append(neutralCount);
+    result.append(", unknownCount: ");
+    result.append(unknownCount);
+    result.append(", weight: ");
+    result.append(weight);
+    result.append(", sucessMsg: ");
+    result.append(sucessMsg);
+    result.append(", failMsg: ");
+    result.append(failMsg);
+    result.append(')');
+    return result.toString();
   }
 
 } //CaseResultImpl

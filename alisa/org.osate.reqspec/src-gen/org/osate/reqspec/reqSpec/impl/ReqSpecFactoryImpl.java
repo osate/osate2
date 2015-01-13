@@ -67,7 +67,11 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.REQ_SPEC: return createReqSpec();
       case ReqSpecPackage.REQ_SPEC_CONTAINER: return createReqSpecContainer();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT: return createContractualElement();
-      case ReqSpecPackage.REQ_SPEC_MODEL: return createReqSpecModel();
+      case ReqSpecPackage.REQ_ROOT: return createReqRoot();
+      case ReqSpecPackage.SYSTEM_SPEC: return createSystemSpec();
+      case ReqSpecPackage.STAKEHOLDER_GOALS: return createStakeholderGoals();
+      case ReqSpecPackage.REQ_DOCUMENT: return createReqDocument();
+      case ReqSpecPackage.REQ_SPEC_LIBRARY: return createReqSpecLibrary();
       case ReqSpecPackage.REQ_SPEC_FOLDER: return createReqSpecFolder();
       case ReqSpecPackage.GOAL: return createGoal();
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
@@ -116,10 +120,54 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ReqSpecModel createReqSpecModel()
+  public ReqRoot createReqRoot()
   {
-    ReqSpecModelImpl reqSpecModel = new ReqSpecModelImpl();
-    return reqSpecModel;
+    ReqRootImpl reqRoot = new ReqRootImpl();
+    return reqRoot;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SystemSpec createSystemSpec()
+  {
+    SystemSpecImpl systemSpec = new SystemSpecImpl();
+    return systemSpec;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StakeholderGoals createStakeholderGoals()
+  {
+    StakeholderGoalsImpl stakeholderGoals = new StakeholderGoalsImpl();
+    return stakeholderGoals;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqDocument createReqDocument()
+  {
+    ReqDocumentImpl reqDocument = new ReqDocumentImpl();
+    return reqDocument;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqSpecLibrary createReqSpecLibrary()
+  {
+    ReqSpecLibraryImpl reqSpecLibrary = new ReqSpecLibraryImpl();
+    return reqSpecLibrary;
   }
 
   /**

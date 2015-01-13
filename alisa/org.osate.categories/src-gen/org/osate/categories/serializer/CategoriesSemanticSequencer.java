@@ -15,6 +15,8 @@ import org.osate.categories.categories.HazardCategories;
 import org.osate.categories.categories.HazardCategory;
 import org.osate.categories.categories.RequirementCategories;
 import org.osate.categories.categories.RequirementCategory;
+import org.osate.categories.categories.SelectionCategories;
+import org.osate.categories.categories.SelectionCategory;
 import org.osate.categories.categories.VerificationCategories;
 import org.osate.categories.categories.VerificationCategory;
 import org.osate.categories.services.CategoriesGrammarAccess;
@@ -52,6 +54,20 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 				if(context == grammarAccess.getCategoryRule() ||
 				   context == grammarAccess.getRequirementCategoryRule()) {
 					sequence_RequirementCategory(context, (RequirementCategory) semanticObject); 
+					return; 
+				}
+				else break;
+			case CategoriesPackage.SELECTION_CATEGORIES:
+				if(context == grammarAccess.getCategoriesRule() ||
+				   context == grammarAccess.getSelectionCategoriesRule()) {
+					sequence_SelectionCategories(context, (SelectionCategories) semanticObject); 
+					return; 
+				}
+				else break;
+			case CategoriesPackage.SELECTION_CATEGORY:
+				if(context == grammarAccess.getCategoryRule() ||
+				   context == grammarAccess.getSelectionCategoryRule()) {
+					sequence_SelectionCategory(context, (SelectionCategory) semanticObject); 
 					return; 
 				}
 				else break;
@@ -105,6 +121,24 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	 *     (name=ID extends=[RequirementCategory|CatRef]?)
 	 */
 	protected void sequence_RequirementCategory(EObject context, RequirementCategory semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     category+=SelectionCategory+
+	 */
+	protected void sequence_SelectionCategories(EObject context, SelectionCategories semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID extends=[SelectionCategory|CatRef]?)
+	 */
+	protected void sequence_SelectionCategory(EObject context, SelectionCategory semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

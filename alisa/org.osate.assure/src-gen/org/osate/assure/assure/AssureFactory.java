@@ -41,22 +41,22 @@ public interface AssureFactory extends EFactory
   VerificationResult createVerificationResult();
 
   /**
-   * Returns a new object of class '<em>Claim Result</em>'.
+   * Returns a new object of class '<em>Assumption Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Claim Result</em>'.
+   * @return a new object of class '<em>Assumption Result</em>'.
    * @generated
    */
-  ClaimResult createClaimResult();
+  AssumptionResult createAssumptionResult();
 
   /**
-   * Returns a new object of class '<em>Aggregate Result Data</em>'.
+   * Returns a new object of class '<em>Precondition Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Aggregate Result Data</em>'.
+   * @return a new object of class '<em>Precondition Result</em>'.
    * @generated
    */
-  AggregateResultData createAggregateResultData();
+  PreconditionResult createPreconditionResult();
 
   /**
    * Returns a new object of class '<em>Assurance Result</em>'.
@@ -66,6 +66,60 @@ public interface AssureFactory extends EFactory
    * @generated
    */
   AssuranceResult createAssuranceResult();
+
+  /**
+   * Returns a new object of class '<em>Evidence Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Evidence Result</em>'.
+   * @generated
+   */
+  EvidenceResult createEvidenceResult();
+
+  /**
+   * Returns a new object of class '<em>Claim Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim Result</em>'.
+   * @generated
+   */
+  ClaimResult createClaimResult();
+
+  /**
+   * Returns a new object of class '<em>Hazard Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Hazard Result</em>'.
+   * @generated
+   */
+  HazardResult createHazardResult();
+
+  /**
+   * Returns a new object of class '<em>Evidence Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Evidence Expr</em>'.
+   * @generated
+   */
+  EvidenceExpr createEvidenceExpr();
+
+  /**
+   * Returns a new object of class '<em>Fail Then</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fail Then</em>'.
+   * @generated
+   */
+  FailThen createFailThen();
+
+  /**
+   * Returns a new object of class '<em>If Then</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>If Then</em>'.
+   * @generated
+   */
+  IfThen createIfThen();
 
   /**
    * Returns the package supported by this factory.

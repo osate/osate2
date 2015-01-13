@@ -3,15 +3,12 @@
  */
 package org.osate.categories.validation
 
-import org.eclipse.xtext.validation.Check
-import org.osate.categories.categories.CategoriesPackage
-import org.osate.categories.categories.RequirementCategory
-import org.osate.categories.categories.HazardCategory
-import org.osate.categories.categories.VerificationCategory
-import org.osate.categories.categories.Category
-import org.osate.alisa.common.scoping.AlisaGlobalScopeProvider
 import com.google.inject.Inject
 import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import org.eclipse.xtext.validation.Check
+import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
+import org.osate.categories.categories.CategoriesPackage
+import org.osate.categories.categories.Category
 import org.osate.categories.util.CategoriesUtil
 
 //import org.eclipse.xtext.validation.Check
@@ -33,7 +30,7 @@ class CategoriesValidator extends AbstractCategoriesValidator {
  */
 	@Check
 	def void checkDuplicatesCategory(Category cat) {
-		val dups = ( scopeProvider as AlisaGlobalScopeProvider).getDuplicates(cat)
+		val dups = ( scopeProvider as CommonGlobalScopeProvider).getDuplicates(cat)
 		if (!dups.empty) {
 
 			// the original is in the set

@@ -95,6 +95,11 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
         return createVerificationCategoriesAdapter();
       }
       @Override
+      public Adapter caseSelectionCategories(SelectionCategories object)
+      {
+        return createSelectionCategoriesAdapter();
+      }
+      @Override
       public Adapter caseCategory(Category object)
       {
         return createCategoryAdapter();
@@ -113,6 +118,11 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
       public Adapter caseVerificationCategory(VerificationCategory object)
       {
         return createVerificationCategoryAdapter();
+      }
+      @Override
+      public Adapter caseSelectionCategory(SelectionCategory object)
+      {
+        return createSelectionCategoryAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -197,6 +207,21 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.SelectionCategories <em>Selection Categories</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.SelectionCategories
+   * @generated
+   */
+  public Adapter createSelectionCategoriesAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.categories.categories.Category <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -252,6 +277,21 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVerificationCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.SelectionCategory <em>Selection Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.SelectionCategory
+   * @generated
+   */
+  public Adapter createSelectionCategoryAdapter()
   {
     return null;
   }

@@ -4,6 +4,7 @@ package org.osate.alisa.common.common;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -186,6 +187,118 @@ public interface CommonPackage extends EPackage
    */
   int REFERENCE_PATH_FEATURE_COUNT = 2;
 
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.PredicateExpressionImpl <em>Predicate Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.PredicateExpressionImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getPredicateExpression()
+   * @generated
+   */
+  int PREDICATE_EXPRESSION = 4;
+
+  /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_EXPRESSION__OP = 0;
+
+  /**
+   * The number of structural features of the '<em>Predicate Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_EXPRESSION_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.FinalValueImpl <em>Final Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.FinalValueImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getFinalValue()
+   * @generated
+   */
+  int FINAL_VALUE = 5;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_VALUE__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_VALUE__VALUE = 1;
+
+  /**
+   * The number of structural features of the '<em>Final Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_VALUE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ResultIssueImpl <em>Result Issue</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ResultIssueImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssue()
+   * @generated
+   */
+  int RESULT_ISSUE = 6;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_ISSUE__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Msg</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_ISSUE__MSG = 1;
+
+  /**
+   * The number of structural features of the '<em>Result Issue</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_ISSUE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.IssueType <em>Issue Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.IssueType
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getIssueType()
+   * @generated
+   */
+  int ISSUE_TYPE = 7;
+
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.Model <em>Model</em>}'.
@@ -292,6 +405,101 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getReferencePath_Subpath();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.PredicateExpression <em>Predicate Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Predicate Expression</em>'.
+   * @see org.osate.alisa.common.common.PredicateExpression
+   * @generated
+   */
+  EClass getPredicateExpression();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.PredicateExpression#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.osate.alisa.common.common.PredicateExpression#getOp()
+   * @see #getPredicateExpression()
+   * @generated
+   */
+  EAttribute getPredicateExpression_Op();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.FinalValue <em>Final Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Final Value</em>'.
+   * @see org.osate.alisa.common.common.FinalValue
+   * @generated
+   */
+  EClass getFinalValue();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.FinalValue#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.alisa.common.common.FinalValue#getName()
+   * @see #getFinalValue()
+   * @generated
+   */
+  EAttribute getFinalValue_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.FinalValue#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.osate.alisa.common.common.FinalValue#getValue()
+   * @see #getFinalValue()
+   * @generated
+   */
+  EAttribute getFinalValue_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ResultIssue <em>Result Issue</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Result Issue</em>'.
+   * @see org.osate.alisa.common.common.ResultIssue
+   * @generated
+   */
+  EClass getResultIssue();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ResultIssue#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see org.osate.alisa.common.common.ResultIssue#getType()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EAttribute getResultIssue_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ResultIssue#getMsg <em>Msg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Msg</em>'.
+   * @see org.osate.alisa.common.common.ResultIssue#getMsg()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EAttribute getResultIssue_Msg();
+
+  /**
+   * Returns the meta object for enum '{@link org.osate.alisa.common.common.IssueType <em>Issue Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Issue Type</em>'.
+   * @see org.osate.alisa.common.common.IssueType
+   * @generated
+   */
+  EEnum getIssueType();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -403,6 +611,86 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference REFERENCE_PATH__SUBPATH = eINSTANCE.getReferencePath_Subpath();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.PredicateExpressionImpl <em>Predicate Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.PredicateExpressionImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getPredicateExpression()
+     * @generated
+     */
+    EClass PREDICATE_EXPRESSION = eINSTANCE.getPredicateExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PREDICATE_EXPRESSION__OP = eINSTANCE.getPredicateExpression_Op();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.FinalValueImpl <em>Final Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.FinalValueImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getFinalValue()
+     * @generated
+     */
+    EClass FINAL_VALUE = eINSTANCE.getFinalValue();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FINAL_VALUE__NAME = eINSTANCE.getFinalValue_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FINAL_VALUE__VALUE = eINSTANCE.getFinalValue_Value();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ResultIssueImpl <em>Result Issue</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ResultIssueImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getResultIssue()
+     * @generated
+     */
+    EClass RESULT_ISSUE = eINSTANCE.getResultIssue();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_ISSUE__TYPE = eINSTANCE.getResultIssue_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Msg</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_ISSUE__MSG = eINSTANCE.getResultIssue_Msg();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.IssueType <em>Issue Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.IssueType
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getIssueType()
+     * @generated
+     */
+    EEnum ISSUE_TYPE = eINSTANCE.getIssueType();
 
   }
 

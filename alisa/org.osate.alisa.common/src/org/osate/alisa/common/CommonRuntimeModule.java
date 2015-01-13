@@ -9,7 +9,7 @@ package org.osate.alisa.common;
 public class CommonRuntimeModule extends org.osate.alisa.common.AbstractCommonRuntimeModule {
 	@Override
 	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return org.osate.alisa.common.scoping.AlisaGlobalScopeProvider.class;
+		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
 	}
 
 }

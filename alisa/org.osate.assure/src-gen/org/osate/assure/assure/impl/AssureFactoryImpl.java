@@ -67,9 +67,15 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
     {
       case AssurePackage.CASE_RESULT: return createCaseResult();
       case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
-      case AssurePackage.CLAIM_RESULT: return createClaimResult();
-      case AssurePackage.AGGREGATE_RESULT_DATA: return createAggregateResultData();
+      case AssurePackage.ASSUMPTION_RESULT: return createAssumptionResult();
+      case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.ASSURANCE_RESULT: return createAssuranceResult();
+      case AssurePackage.EVIDENCE_RESULT: return createEvidenceResult();
+      case AssurePackage.CLAIM_RESULT: return createClaimResult();
+      case AssurePackage.HAZARD_RESULT: return createHazardResult();
+      case AssurePackage.EVIDENCE_EXPR: return createEvidenceExpr();
+      case AssurePackage.FAIL_THEN: return createFailThen();
+      case AssurePackage.IF_THEN: return createIfThen();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -140,10 +146,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ClaimResult createClaimResult()
+  public AssumptionResult createAssumptionResult()
   {
-    ClaimResultImpl claimResult = new ClaimResultImpl();
-    return claimResult;
+    AssumptionResultImpl assumptionResult = new AssumptionResultImpl();
+    return assumptionResult;
   }
 
   /**
@@ -151,10 +157,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AggregateResultData createAggregateResultData()
+  public PreconditionResult createPreconditionResult()
   {
-    AggregateResultDataImpl aggregateResultData = new AggregateResultDataImpl();
-    return aggregateResultData;
+    PreconditionResultImpl preconditionResult = new PreconditionResultImpl();
+    return preconditionResult;
   }
 
   /**
@@ -166,6 +172,72 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     AssuranceResultImpl assuranceResult = new AssuranceResultImpl();
     return assuranceResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EvidenceResult createEvidenceResult()
+  {
+    EvidenceResultImpl evidenceResult = new EvidenceResultImpl();
+    return evidenceResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClaimResult createClaimResult()
+  {
+    ClaimResultImpl claimResult = new ClaimResultImpl();
+    return claimResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public HazardResult createHazardResult()
+  {
+    HazardResultImpl hazardResult = new HazardResultImpl();
+    return hazardResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EvidenceExpr createEvidenceExpr()
+  {
+    EvidenceExprImpl evidenceExpr = new EvidenceExprImpl();
+    return evidenceExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FailThen createFailThen()
+  {
+    FailThenImpl failThen = new FailThenImpl();
+    return failThen;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IfThen createIfThen()
+  {
+    IfThenImpl ifThen = new IfThenImpl();
+    return ifThen;
   }
 
   /**

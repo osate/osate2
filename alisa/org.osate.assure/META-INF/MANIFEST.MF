@@ -30,14 +30,16 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.assure,
- org.osate.assure.services,
  org.osate.assure.assure,
  org.osate.assure.assure.impl,
  org.osate.assure.assure.util,
- org.osate.assure.serializer,
+ org.osate.assure.formatting,
+ org.osate.assure.generator,
+ org.osate.assure.jvmmodel,
  org.osate.assure.parser.antlr,
  org.osate.assure.parser.antlr.internal,
- org.osate.assure.validation,
  org.osate.assure.scoping,
- org.osate.assure.generator,
- org.osate.assure.formatting
+ org.osate.assure.serializer,
+ org.osate.assure.services,
+ org.osate.assure.util,
+ org.osate.assure.validation

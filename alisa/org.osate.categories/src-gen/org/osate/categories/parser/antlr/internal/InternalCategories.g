@@ -106,6 +106,16 @@ ruleCategories returns [EObject current=null]
         $current = $this_VerificationCategories_2.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getCategoriesAccess().getSelectionCategoriesParserRuleCall_3()); 
+    }
+    this_SelectionCategories_3=ruleSelectionCategories
+    { 
+        $current = $this_SelectionCategories_3.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -278,6 +288,61 @@ ruleVerificationCategories returns [EObject current=null]
 
 
 
+// Entry rule entryRuleSelectionCategories
+entryRuleSelectionCategories returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getSelectionCategoriesRule()); }
+	 iv_ruleSelectionCategories=ruleSelectionCategories 
+	 { $current=$iv_ruleSelectionCategories.current; } 
+	 EOF 
+;
+
+// Rule SelectionCategories
+ruleSelectionCategories returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='selection' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getSelectionCategoriesAccess().getSelectionKeyword_0());
+    }
+	otherlv_1='categories' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getSelectionCategoriesAccess().getCategoriesKeyword_1());
+    }
+	otherlv_2='[' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getSelectionCategoriesAccess().getLeftSquareBracketKeyword_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSelectionCategoriesAccess().getCategorySelectionCategoryParserRuleCall_3_0()); 
+	    }
+		lv_category_3_0=ruleSelectionCategory		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSelectionCategoriesRule());
+	        }
+       		add(
+       			$current, 
+       			"category",
+        		lv_category_3_0, 
+        		"SelectionCategory");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+	otherlv_4=']' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getSelectionCategoriesAccess().getRightSquareBracketKeyword_4());
+    }
+)
+;
+
+
+
+
+
 
 
 // Entry rule entryRuleRequirementCategory
@@ -294,15 +359,11 @@ ruleRequirementCategory returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='category' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getRequirementCategoryAccess().getCategoryKeyword_0());
-    }
+((
 (
-(
-		lv_name_1_0=RULE_ID
+		lv_name_0_0=RULE_ID
 		{
-			newLeafNode(lv_name_1_0, grammarAccess.getRequirementCategoryAccess().getNameIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_name_0_0, grammarAccess.getRequirementCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -311,14 +372,14 @@ ruleRequirementCategory returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_1_0, 
+        		lv_name_0_0, 
         		"ID");
 	    }
 
 )
-)(	otherlv_2='extends' 
+)(	otherlv_1='extends' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getRequirementCategoryAccess().getExtendsKeyword_2_0());
+    	newLeafNode(otherlv_1, grammarAccess.getRequirementCategoryAccess().getExtendsKeyword_1_0());
     }
 (
 (
@@ -328,7 +389,7 @@ ruleRequirementCategory returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getRequirementCategoryAccess().getExtendsRequirementCategoryCrossReference_2_1_0()); 
+	        newCompositeNode(grammarAccess.getRequirementCategoryAccess().getExtendsRequirementCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();
@@ -356,15 +417,11 @@ ruleHazardCategory returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='category' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getHazardCategoryAccess().getCategoryKeyword_0());
-    }
+((
 (
-(
-		lv_name_1_0=RULE_ID
+		lv_name_0_0=RULE_ID
 		{
-			newLeafNode(lv_name_1_0, grammarAccess.getHazardCategoryAccess().getNameIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_name_0_0, grammarAccess.getHazardCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -373,14 +430,14 @@ ruleHazardCategory returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_1_0, 
+        		lv_name_0_0, 
         		"ID");
 	    }
 
 )
-)(	otherlv_2='extends' 
+)(	otherlv_1='extends' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getHazardCategoryAccess().getExtendsKeyword_2_0());
+    	newLeafNode(otherlv_1, grammarAccess.getHazardCategoryAccess().getExtendsKeyword_1_0());
     }
 (
 (
@@ -390,7 +447,7 @@ ruleHazardCategory returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getHazardCategoryAccess().getExtendsHazardCategoryCrossReference_2_1_0()); 
+	        newCompositeNode(grammarAccess.getHazardCategoryAccess().getExtendsHazardCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();
@@ -418,15 +475,11 @@ ruleVerificationCategory returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='category' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getVerificationCategoryAccess().getCategoryKeyword_0());
-    }
+((
 (
-(
-		lv_name_1_0=RULE_ID
+		lv_name_0_0=RULE_ID
 		{
-			newLeafNode(lv_name_1_0, grammarAccess.getVerificationCategoryAccess().getNameIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_name_0_0, grammarAccess.getVerificationCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -435,14 +488,14 @@ ruleVerificationCategory returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_1_0, 
+        		lv_name_0_0, 
         		"ID");
 	    }
 
 )
-)(	otherlv_2='extends' 
+)(	otherlv_1='extends' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getVerificationCategoryAccess().getExtendsKeyword_2_0());
+    	newLeafNode(otherlv_1, grammarAccess.getVerificationCategoryAccess().getExtendsKeyword_1_0());
     }
 (
 (
@@ -452,7 +505,65 @@ ruleVerificationCategory returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationCategoryAccess().getExtendsVerificationCategoryCrossReference_2_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationCategoryAccess().getExtendsVerificationCategoryCrossReference_1_1_0()); 
+	    }
+		ruleCatRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
+;
+
+
+
+
+
+// Entry rule entryRuleSelectionCategory
+entryRuleSelectionCategory returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getSelectionCategoryRule()); }
+	 iv_ruleSelectionCategory=ruleSelectionCategory 
+	 { $current=$iv_ruleSelectionCategory.current; } 
+	 EOF 
+;
+
+// Rule SelectionCategory
+ruleSelectionCategory returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_name_0_0=RULE_ID
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getSelectionCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSelectionCategoryRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ID");
+	    }
+
+)
+)(	otherlv_1='extends' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getSelectionCategoryAccess().getExtendsKeyword_1_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSelectionCategoryRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getSelectionCategoryAccess().getExtendsSelectionCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();

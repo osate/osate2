@@ -145,7 +145,7 @@ Workflow {
     		// scoping and exporting API
     		fragment = scoping.ImportNamespacesScopingFragment auto-inject {
     						 	generateStub = false
-		        ignoreCase = true
+//		        ignoreCase = true
     			
     		}
     		fragment = exporting.QualifiedNamesFragment auto-inject {}
@@ -185,14 +185,14 @@ Workflow {
     		// rename refactoring
     		fragment = refactoring.RefactorElementNameFragment auto-inject {}
     
-    		// provides the necessary bindings for java types integration
-    		fragment = types.TypesGeneratorFragment auto-inject {}
-    
-    		// generates the required bindings only if the grammar inherits from Xbase
-    		fragment = xbase.XbaseGeneratorFragment auto-inject {}
-    		
-    		// generates the required bindings only if the grammar inherits from Xtype
-    		fragment = xbase.XtypeGeneratorFragment auto-inject {}
+//    		// provides the necessary bindings for java types integration
+//    		fragment = types.TypesGeneratorFragment auto-inject {}
+//    
+//    		// generates the required bindings only if the grammar inherits from Xbase
+//    		fragment = xbase.XbaseGeneratorFragment auto-inject {}
+//    		
+//    		// generates the required bindings only if the grammar inherits from Xtype
+//    		fragment = xbase.XtypeGeneratorFragment auto-inject {}
     
     		// provides a preference page for template proposals
     		fragment = templates.CodetemplatesGeneratorFragment auto-inject {}

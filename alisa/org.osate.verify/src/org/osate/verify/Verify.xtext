@@ -1,101 +1,142 @@
 grammar org.osate.verify.Verify with org.osate.alisa.common.Common
 
 generate verify "http://www.osate.org/verify/Verify"
+
+import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import  "http://www.osate.org/categories/Categories" as categories
 
 
+Verification: contents+=(VerificationLibrary | VerificationPlan );
 
-VerificationModel returns VerificationModel:
-	'package' name =ID 
-	('for' target=[ReqSpec::Requirement|AadlClassifierReference])?
-	importDeclarations+=XImportDeclaration*
+VerificationPlan :
+	'plan' name=ID 
+	'for' target=[ReqSpec::SystemSpec|QualifiedName]
+	'['
+	('description' description=MultiLineString)?
+	(claims+=Claim)*
+//	subPlans +=VerificationPlan*
+	']'
+;
+
+VerificationLibrary returns VerificationLibrary:
+	'library' name =ID 
+	('for' target=[ReqSpec::Requirement|QualifiedName])?
 	'[' (content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
 	']'
 	;
 
 VerificationFolder returns VerificationFolder:
 	'folder' label =ID 
-	('for' target=[ReqSpec::Requirement|AadlClassifierReference])?
+	('for' target=[ReqSpec::Requirement|QualifiedName])?
 	'[' (content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
 	']'
 	;
- VerificationContainer : VerificationModel | VerificationFolder;
- 	
-//	Requirement: 'req' name=ID;
-/*
- * Verification Activity
- */
+ VerificationContainer : VerificationLibrary | VerificationFolder;
+ 
+ Claim :
+ 	'claim' name=ID 'for' requirement=[ReqSpec::Requirement|QualifiedName] 
+ 	'assert' assert=ArgumentExpr
+	('rationale'  rationale=MultiLineString)? 
+ 	;	
 
 VerificationActivity:
-	'verification' 'activity' name=ID
+	'verification' 'activity' name=ID 'for' target=[aadl2::ComponentClassifier|AadlClassifierReference]
+	// or should it be the requirement, which provides the predicate
 	'['(('title'  title=ValueString)?
-	&('description'  description=ValueString)?
- 	&('category'  category=[categories::VerificationCategory|AadlClassifierReference])?
+	&('description'  description=Description)?
+ 	&('category'  category=[categories::SelectionCategory|CatRef])?
 	&('method'  method=VerificationMethod)?
-//	('parameters'  verificationParameters+=([ElementReference])*)?
-	&(assumption+=VerificationAssumption)*
+//	('parameters'  verificationParameters+=([ElementReference])*)? 
+// these are data parameters to the method in addition to what comes with the model
+// and via the requirement (predicate/limit values
 	)
 	']'  
 ;
  
- 	
-VerificationAssumption:
-	'verification' 'assumption'  name=ID  
+
+VerificationCondition:
+	('assumption' {VerificationAssumption}| 'precondition' {VerificationPrecondition} )name=ID  
 	'['( 
 	('title'  title=ValueString)? 
 	&('description'  description=Description)? 
-	&('asserted' 'by'  assert=[ReqSpec::Requirement|AadlClassifierReference])? 
-	&('verified by' verifiedBy=[AssurancePlan|AadlClassifierReference])?
-	&('rationale'  rationale=ValueString)? 
-	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
+	 &('assert'  assert=ArgumentExpr )? 
+	&('met' 'by' metBy=[ReqSpec::Requirement|QualifiedName])?
+	&('rationale'  rationale=MultiLineString)? 
+	&('issues'  issue+=MultiLineString (','issue+=MultiLineString)* )? 
 	)
 	']';
+  	
 
-AssurancePlan:
-	'plan' name=ID
-	'argument' expression=ArgumentExpr ';'
-	('rationale'  rationale=ValueString)? 
-	'end'
-;
 
 ArgumentExpr:
-	ImpliesExpr
+	AllEvidenceExpr
 ;
 
-ImpliesExpr returns ArgumentExpr:
-	OrExpr (=>({BinaryExpr.left=current} op='=>') right=ImpliesExpr)?
+
+AllEvidenceExpr returns ArgumentExpr:
+	'all'{AllExpr} '[' all+=AndThenEvidenceExpr ( ',' all+=AndThenEvidenceExpr)* ']'
 ;
 
-OrExpr returns ArgumentExpr:
-	AndExpr (=>({BinaryExpr.left=current} op='or') right=AndExpr)*
+AndThenEvidenceExpr returns ArgumentExpr:
+	FailThenEvidenceExpr (=>({AndThenExpr.left=current} op='andthen') right=AndThenEvidenceExpr)*
 ;
 
-AndExpr returns ArgumentExpr:
-	AtomicExpr (=>({BinaryExpr.left=current} op='and') right=AtomicExpr)*
+// Execute as alternative if the first one fails.
+// The results of both are reported
+FailThenEvidenceExpr returns ArgumentExpr:
+	AtomicEvidenceExpr (=>({FailThenExpr.left=current} op='failthen') right=FailThenEvidenceExpr)*
 ;
 
-AtomicExpr returns ArgumentExpr:
-	{RefExpr} id=ArgumentReference
-|	'(' ArgumentExpr ')'
+AtomicEvidenceExpr returns ArgumentExpr:
+	ConditionalEvidence
+	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr 
 ;
 
-ArgumentReference:
-	reference=[VerificationActivity|AadlClassifierReference]
-	('*' weight=INT )?
+VAReference returns ArgumentExpr:
+	{RefExpr} reference=[VerificationActivity|QualifiedName]
+	('weight' weight=INT )?
 ;
+
+
+
+ConditionalEvidence returns ArgumentExpr:
+	VAReference (=>({ArgumentExpr.left=current} op='when') '(' right=OrConditionExpr ')')?
+;
+
+OrConditionExpr returns ConditionExpr:
+		AndConditionExpr (=>({ConditionExpr.left=current} op='or') right=AndConditionExpr)*
+;
+
+AndConditionExpr returns ConditionExpr:
+	AtomicConditionExpr (=>({ConditionExpr.left=current} op='and') right=AtomicConditionExpr)*
+;
+
+AtomicConditionExpr:
+	cat=[categories::VerificationCategory|CatRef]
+;
+
+
+// need to distinguish between method with/out predicate
+// method producing multiple results
+// Java based methods: all
+// interface methods to external or built-in
 
 VerificationMethod:
-	'verification' 'method' name=ID '='
- 	 language=SupportedLanguage method = ValueString
-	(('title'  title=ValueString)?
-	&('description'  description=ValueString)?
+	'verification' 'method' name=ID (':'  title=ValueString)?
+	'['
+ 	 methodType=SupportedTypes method = ValueString
+ 	 // parameters (in addition to the model element
+	(('description'  description=Description)?
  	&('category'  category=[categories::VerificationCategory|CatRef])?
+	&(conditions+=VerificationCondition)*
  	)
+ 	']'
 ;
 
-SupportedLanguage:
-	'lute' | 'agree'
-;
-
+enum SupportedTypes	:
+	SINGLEPREDICATE = "singlepredicate" | SINGLEANALYSIS = "singleanalysis" |
+	MULTIPREDICATE = "multipredicate" | MULTIANALYSIS = "multianalysis" 
 	
+//	XTEND = "Xtend" | LUTE = "lute" | AGREE= "agree" 
+;

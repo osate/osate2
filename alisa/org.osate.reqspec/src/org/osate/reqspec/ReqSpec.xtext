@@ -6,18 +6,33 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/organization/Organization" as org
 
-ReqSpec: ReqSpecModel  ;
+ReqSpec: contents +=(ReqSpecLibrary|SystemSpec|StakeholderGoals|ReqDocument)  ;
 
-ReqSpecContainer: ReqSpecModel  | ReqSpecFolder  ;
+ReqSpecContainer: ReqSpecLibrary  | ReqSpecFolder  ;
 
-ContractualElement: Goal | Requirement  | Hazard;
+ContractualElement: Goal | Requirement ;
 
-ReqSpecModel returns ReqSpecModel:
-	'package' name =ID 
+ReqRoot: SystemSpec | StakeholderGoals | ReqDocument;
+
+SystemSpec: 'specification' name=ID
+	'for' target=[aadl2::Classifier|AadlClassifierReference]
+	'[' consistsOf+=[ReqSpecLibrary|QualifiedName] ']'
+;
+
+
+StakeholderGoals: 'goals' name=ID
+	'[' consistsOf+=[ReqSpecLibrary|QualifiedName] ']'
+;
+
+ReqDocument: 'document' name=ID
+	'[' consistsOf+=[ReqSpecLibrary|QualifiedName] ']'
+;
+
+ReqSpecLibrary returns ReqSpecLibrary:
+	'library' name =ID 
 	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
-	importDeclarations+=XImportDeclaration*
-	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
-	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
+	'[' (content+= (Goal | Requirement | Hazard |  ReqSpecFolder))*
+	('issues'  '[' issue+=MultiLineString (',' issue+=MultiLineString)* ']')? 
 	']'
 	;
 	
@@ -26,8 +41,8 @@ ReqSpecModel returns ReqSpecModel:
 ReqSpecFolder returns ReqSpecFolder:
 	'folder' label =ID 
 	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
-	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
-	('issues'  '[' issue+=ValueString (',' issue+=ValueString)* ']')? 
+	'[' (content+= (Goal | Requirement | Hazard |  ReqSpecFolder))*
+	('issues'  '[' issue+=MultiLineString (',' issue+=MultiLineString)* ']')? 
 	']'
 	;
 
@@ -39,21 +54,24 @@ Goal returns Goal:
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
 	 &('description'  description=Description)? 
-	 &('assert'  	assert=XExpressionInClosure )? 
-	 &('rationale'  rationale=ValueString)? 
-	 &('issues'  issue+=ValueString (','issue+=ValueString)* )? 
-	 &('refines' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
+	 &('assert'  	assert=PredicateExpression )? 
+	 &('rationale'  rationale=MultiLineString)? 
+	 &('issues'  issue+=MultiLineString (','issue+=MultiLineString)* )? 
+	 &('refined' 'to' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
 	 &( subgoal+=Goal*) 
-	 &('decomposes' decomposesReference+=[Goal|QualifiedName](',' decomposesReference+=[Goal|QualifiedName])*)? 
-	 &('evolves'  evolvesReference+=[Goal|QualifiedName](',' evolvesReference+=[Goal|QualifiedName])*)? 
-	 &('conflicts'  conflictsReference+=[Goal|QualifiedName](',' conflictsReference+=[Goal|QualifiedName])*)? 
+	 &('decomposed' 'to' decomposesReference+=[Goal|QualifiedName](',' decomposesReference+=[Goal|QualifiedName])*)? 
+	 &('evolved' 'to' evolvesReference+=[Goal|QualifiedName](',' evolvesReference+=[Goal|QualifiedName])*)? 
+	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName](',' conflictsReference+=[Goal|QualifiedName])*)? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName] (',' stakeholderReference+=[org::Stakeholder|QualifiedName])*)?
 	 &('see' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
 	 &('see' 'requirement'  systemRequirementReference+=[ContractualElement|QualifiedName] (',' systemRequirementReference+=[ContractualElement|QualifiedName])*)?
 	 &('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
 	)
 	 ']';
-	
+
+
+// requirement without target acts as a general requirement/constraint
+// becomes a "global" constraint that still takes model elements that are supplied by query 	
 Requirement:
 	'requirement'  name=ID   
 	(':'  title=ValueString)? 
@@ -61,14 +79,14 @@ Requirement:
 	( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
 '['	(
 	('description'  description=Description)? 
-	&('assert'  assert=XExpressionInClosure)?  // predicate expression 
-	&('rationale'  rationale=ValueString)? 
-	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
+	&('parameters' parameters+=FinalValue+)?
+	&('assert'  assert=PredicateExpression)?  // predicate expression 
+	&('rationale'  rationale=MultiLineString)? 
+	&('issues'  issue+=MultiLineString (','issue+=MultiLineString)* )? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName] (',' goalReference+=[Goal|QualifiedName])*)?
-	&('mitigates'  hazardReference+=[Hazard|QualifiedName] (',' hazardReference+=[Hazard])*)? 
-	&('refines'  refinesReference+=[Requirement|QualifiedName](',' refinesReference+=[Requirement|QualifiedName])*)? 
+	&('refined' 'to' refinedReference+=[Requirement|QualifiedName](',' refinesReference+=[Requirement|QualifiedName])*)? 
 	 &( subrequirement+=Requirement*) 
-	&('decomposes'  decomposesReference+=[Requirement|QualifiedName](',' decomposesReference+=[Requirement|QualifiedName])*)? 
+	&('decomposed' 'to' decomposedReference+=[Requirement|QualifiedName](',' decomposesReference+=[Requirement|QualifiedName])*)? 
 	&('evolves'  evolvesReference+=[Requirement|QualifiedName](',' evolvesReference+=[Requirement|QualifiedName])*)? 
 	&('see' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
 	&('see' 'requirement'  systemRequirementReference+=[ContractualElement|QualifiedName] (',' systemRequirementReference+=[ContractualElement|QualifiedName])*)?
@@ -83,9 +101,10 @@ Hazard:
 	'['(( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
  	&('category'  category=[categories::HazardCategory|CatRef])?
 	&('title'  title=ValueString)? 
-	&('description'  description=ValueString)? 
-	&('rationale'  rationale=ValueString)? 
-	&('issues'  issue+=ValueString (','issue+=ValueString)* )? 
+	&('description'  description=Description)? 
+	&('mitigated' 'by' hazardReference+=[Requirement|QualifiedName] (',' hazardReference+=[Requirement|QualifiedName])*)? 
+	&('rationale'  rationale=MultiLineString)? 
+	&('issues'  issue+=MultiLineString (','issue+=MultiLineString)* )? 
 	)
 	']';
 

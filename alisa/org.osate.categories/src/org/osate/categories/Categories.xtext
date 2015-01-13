@@ -2,7 +2,7 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-Categories : RequirementCategories | HazardCategories | VerificationCategories;
+Categories : RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories;
 /**
  * requirement categories uses a label instead of name to make the category itself global
  */
@@ -25,13 +25,19 @@ VerificationCategories :
 	']'
 ;
 
-Category : RequirementCategory | VerificationCategory | HazardCategory;
+SelectionCategories :
+	'selection' 'categories' 
+	'[' category += SelectionCategory+
+	']'
+;
+
+Category : RequirementCategory | VerificationCategory | HazardCategory | SelectionCategory;
 
 /**
  * Requirement category indicates the kind of requirement we are dealing with
  */
 RequirementCategory :
-	'category' name = ID ('extends' extends=[RequirementCategory|CatRef])? 
+	name = ID ('extends' extends=[RequirementCategory|CatRef])? 
 ;
 
 
@@ -39,7 +45,7 @@ RequirementCategory :
  * Hazard category indicates the kind of hazard we are dealing with
  */
 HazardCategory :
-	'category' name = ID ('extends' extends=[HazardCategory|CatRef])? 
+	name = ID ('extends' extends=[HazardCategory|CatRef])? 
 ;
 
 
@@ -47,7 +53,14 @@ HazardCategory :
  * Verification category indicates the kind of verification we are dealing with
  */
 VerificationCategory :
-	'category' name = ID ('extends' extends=[VerificationCategory|CatRef])? 
+	name = ID ('extends' extends=[VerificationCategory|CatRef])? 
+;
+
+/**
+ * Verification category indicates the kind of verification we are dealing with
+ */
+SelectionCategory :
+	name = ID ('extends' extends=[SelectionCategory|CatRef])? 
 ;
 
 // Category reference. Currently it is only a single ID

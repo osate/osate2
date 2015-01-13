@@ -3,15 +3,14 @@
 package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.verify.verify.ArgumentReference;
 import org.osate.verify.verify.RefExpr;
+import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
@@ -21,7 +20,8 @@ import org.osate.verify.verify.VerifyPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.RefExprImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.RefExprImpl#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.RefExprImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,14 +30,34 @@ import org.osate.verify.verify.VerifyPackage;
 public class RefExprImpl extends ArgumentExprImpl implements RefExpr
 {
   /**
-   * The cached value of the '{@link #getId() <em>Id</em>}' containment reference.
+   * The cached value of the '{@link #getReference() <em>Reference</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getId()
+   * @see #getReference()
    * @generated
    * @ordered
    */
-  protected ArgumentReference id;
+  protected VerificationActivity reference;
+
+  /**
+   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected static final int WEIGHT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected int weight = WEIGHT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -65,9 +85,19 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentReference getId()
+  public VerificationActivity getReference()
   {
-    return id;
+    if (reference != null && reference.eIsProxy())
+    {
+      InternalEObject oldReference = (InternalEObject)reference;
+      reference = (VerificationActivity)eResolveProxy(oldReference);
+      if (reference != oldReference)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.REF_EXPR__REFERENCE, oldReference, reference));
+      }
+    }
+    return reference;
   }
 
   /**
@@ -75,16 +105,22 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetId(ArgumentReference newId, NotificationChain msgs)
+  public VerificationActivity basicGetReference()
   {
-    ArgumentReference oldId = id;
-    id = newId;
+    return reference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setReference(VerificationActivity newReference)
+  {
+    VerificationActivity oldReference = reference;
+    reference = newReference;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.REF_EXPR__ID, oldId, newId);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.REF_EXPR__REFERENCE, oldReference, reference));
   }
 
   /**
@@ -92,20 +128,9 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setId(ArgumentReference newId)
+  public int getWeight()
   {
-    if (newId != id)
-    {
-      NotificationChain msgs = null;
-      if (id != null)
-        msgs = ((InternalEObject)id).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.REF_EXPR__ID, null, msgs);
-      if (newId != null)
-        msgs = ((InternalEObject)newId).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.REF_EXPR__ID, null, msgs);
-      msgs = basicSetId(newId, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.REF_EXPR__ID, newId, newId));
+    return weight;
   }
 
   /**
@@ -113,15 +138,12 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public void setWeight(int newWeight)
   {
-    switch (featureID)
-    {
-      case VerifyPackage.REF_EXPR__ID:
-        return basicSetId(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    int oldWeight = weight;
+    weight = newWeight;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.REF_EXPR__WEIGHT, oldWeight, weight));
   }
 
   /**
@@ -134,8 +156,11 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.REF_EXPR__ID:
-        return getId();
+      case VerifyPackage.REF_EXPR__REFERENCE:
+        if (resolve) return getReference();
+        return basicGetReference();
+      case VerifyPackage.REF_EXPR__WEIGHT:
+        return getWeight();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -150,8 +175,11 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.REF_EXPR__ID:
-        setId((ArgumentReference)newValue);
+      case VerifyPackage.REF_EXPR__REFERENCE:
+        setReference((VerificationActivity)newValue);
+        return;
+      case VerifyPackage.REF_EXPR__WEIGHT:
+        setWeight((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -167,8 +195,11 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.REF_EXPR__ID:
-        setId((ArgumentReference)null);
+      case VerifyPackage.REF_EXPR__REFERENCE:
+        setReference((VerificationActivity)null);
+        return;
+      case VerifyPackage.REF_EXPR__WEIGHT:
+        setWeight(WEIGHT_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -184,10 +215,29 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.REF_EXPR__ID:
-        return id != null;
+      case VerifyPackage.REF_EXPR__REFERENCE:
+        return reference != null;
+      case VerifyPackage.REF_EXPR__WEIGHT:
+        return weight != WEIGHT_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (weight: ");
+    result.append(weight);
+    result.append(')');
+    return result.toString();
   }
 
 } //RefExprImpl

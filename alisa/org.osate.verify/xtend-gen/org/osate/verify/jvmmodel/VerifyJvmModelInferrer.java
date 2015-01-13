@@ -7,7 +7,7 @@ import org.eclipse.xtext.xbase.jvmmodel.AbstractModelInferrer;
 import org.eclipse.xtext.xbase.jvmmodel.IJvmDeclaredTypeAcceptor;
 import org.eclipse.xtext.xbase.jvmmodel.JvmTypesBuilder;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.osate.verify.verify.VerificationModel;
+import org.osate.verify.verify.Verification;
 
 /**
  * <p>Infers a JVM model from the source model.</p>
@@ -49,12 +49,12 @@ public class VerifyJvmModelInferrer extends AbstractModelInferrer {
    *            rely on linking using the index if isPreIndexingPhase is
    *            <code>true</code>.
    */
-  protected void _infer(final VerificationModel element, final IJvmDeclaredTypeAcceptor acceptor, final boolean isPreIndexingPhase) {
+  protected void _infer(final Verification element, final IJvmDeclaredTypeAcceptor acceptor, final boolean isPreIndexingPhase) {
   }
   
   public void infer(final EObject element, final IJvmDeclaredTypeAcceptor acceptor, final boolean isPreIndexingPhase) {
-    if (element instanceof VerificationModel) {
-      _infer((VerificationModel)element, acceptor, isPreIndexingPhase);
+    if (element instanceof Verification) {
+      _infer((Verification)element, acceptor, isPreIndexingPhase);
       return;
     } else if (element != null) {
       _infer(element, acceptor, isPreIndexingPhase);

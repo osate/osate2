@@ -59,6 +59,33 @@ public interface CommonFactory extends EFactory
   ReferencePath createReferencePath();
 
   /**
+   * Returns a new object of class '<em>Predicate Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Predicate Expression</em>'.
+   * @generated
+   */
+  PredicateExpression createPredicateExpression();
+
+  /**
+   * Returns a new object of class '<em>Final Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Final Value</em>'.
+   * @generated
+   */
+  FinalValue createFinalValue();
+
+  /**
+   * Returns a new object of class '<em>Result Issue</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result Issue</em>'.
+   * @generated
+   */
+  ResultIssue createResultIssue();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

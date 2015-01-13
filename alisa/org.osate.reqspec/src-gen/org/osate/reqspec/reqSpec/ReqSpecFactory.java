@@ -50,13 +50,49 @@ public interface ReqSpecFactory extends EFactory
   ContractualElement createContractualElement();
 
   /**
-   * Returns a new object of class '<em>Model</em>'.
+   * Returns a new object of class '<em>Req Root</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Model</em>'.
+   * @return a new object of class '<em>Req Root</em>'.
    * @generated
    */
-  ReqSpecModel createReqSpecModel();
+  ReqRoot createReqRoot();
+
+  /**
+   * Returns a new object of class '<em>System Spec</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>System Spec</em>'.
+   * @generated
+   */
+  SystemSpec createSystemSpec();
+
+  /**
+   * Returns a new object of class '<em>Stakeholder Goals</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Stakeholder Goals</em>'.
+   * @generated
+   */
+  StakeholderGoals createStakeholderGoals();
+
+  /**
+   * Returns a new object of class '<em>Req Document</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Req Document</em>'.
+   * @generated
+   */
+  ReqDocument createReqDocument();
+
+  /**
+   * Returns a new object of class '<em>Library</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Library</em>'.
+   * @generated
+   */
+  ReqSpecLibrary createReqSpecLibrary();
 
   /**
    * Returns a new object of class '<em>Folder</em>'.

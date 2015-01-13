@@ -103,6 +103,14 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CategoriesPackage.SELECTION_CATEGORIES:
+      {
+        SelectionCategories selectionCategories = (SelectionCategories)theEObject;
+        T result = caseSelectionCategories(selectionCategories);
+        if (result == null) result = caseCategories(selectionCategories);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CategoriesPackage.CATEGORY:
       {
         Category category = (Category)theEObject;
@@ -131,6 +139,14 @@ public class CategoriesSwitch<T> extends Switch<T>
         VerificationCategory verificationCategory = (VerificationCategory)theEObject;
         T result = caseVerificationCategory(verificationCategory);
         if (result == null) result = caseCategory(verificationCategory);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CategoriesPackage.SELECTION_CATEGORY:
+      {
+        SelectionCategory selectionCategory = (SelectionCategory)theEObject;
+        T result = caseSelectionCategory(selectionCategory);
+        if (result == null) result = caseCategory(selectionCategory);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -203,6 +219,22 @@ public class CategoriesSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Selection Categories</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Selection Categories</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSelectionCategories(SelectionCategories object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Category</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -262,6 +294,22 @@ public class CategoriesSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVerificationCategory(VerificationCategory object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Selection Category</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Selection Category</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSelectionCategory(SelectionCategory object)
   {
     return null;
   }

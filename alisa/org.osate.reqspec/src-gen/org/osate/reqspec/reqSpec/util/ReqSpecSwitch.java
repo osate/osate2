@@ -93,12 +93,42 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.REQ_SPEC_MODEL:
+      case ReqSpecPackage.REQ_ROOT:
       {
-        ReqSpecModel reqSpecModel = (ReqSpecModel)theEObject;
-        T result = caseReqSpecModel(reqSpecModel);
-        if (result == null) result = caseReqSpec(reqSpecModel);
-        if (result == null) result = caseReqSpecContainer(reqSpecModel);
+        ReqRoot reqRoot = (ReqRoot)theEObject;
+        T result = caseReqRoot(reqRoot);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.SYSTEM_SPEC:
+      {
+        SystemSpec systemSpec = (SystemSpec)theEObject;
+        T result = caseSystemSpec(systemSpec);
+        if (result == null) result = caseReqRoot(systemSpec);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.STAKEHOLDER_GOALS:
+      {
+        StakeholderGoals stakeholderGoals = (StakeholderGoals)theEObject;
+        T result = caseStakeholderGoals(stakeholderGoals);
+        if (result == null) result = caseReqRoot(stakeholderGoals);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.REQ_DOCUMENT:
+      {
+        ReqDocument reqDocument = (ReqDocument)theEObject;
+        T result = caseReqDocument(reqDocument);
+        if (result == null) result = caseReqRoot(reqDocument);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.REQ_SPEC_LIBRARY:
+      {
+        ReqSpecLibrary reqSpecLibrary = (ReqSpecLibrary)theEObject;
+        T result = caseReqSpecLibrary(reqSpecLibrary);
+        if (result == null) result = caseReqSpecContainer(reqSpecLibrary);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -130,7 +160,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         Hazard hazard = (Hazard)theEObject;
         T result = caseHazard(hazard);
-        if (result == null) result = caseContractualElement(hazard);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -194,17 +223,81 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Model</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Req Root</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Model</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Req Root</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseReqSpecModel(ReqSpecModel object)
+  public T caseReqRoot(ReqRoot object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>System Spec</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>System Spec</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSystemSpec(SystemSpec object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Stakeholder Goals</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Stakeholder Goals</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStakeholderGoals(StakeholderGoals object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Req Document</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Req Document</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseReqDocument(ReqDocument object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Library</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Library</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseReqSpecLibrary(ReqSpecLibrary object)
   {
     return null;
   }

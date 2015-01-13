@@ -2,11 +2,13 @@
  */
 package org.osate.verify.verify;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.categories.categories.VerificationCategory;
+import org.osate.aadl2.ComponentClassifier;
+
+import org.osate.alisa.common.common.Description;
+
+import org.osate.categories.categories.SelectionCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,11 +19,11 @@ import org.osate.categories.categories.VerificationCategory;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getAssumption <em>Assumption</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,6 +60,32 @@ public interface VerificationActivity extends EObject
   void setName(String value);
 
   /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(ComponentClassifier)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Target()
+   * @model
+   * @generated
+   */
+  ComponentClassifier getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(ComponentClassifier value);
+
+  /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -84,30 +112,30 @@ public interface VerificationActivity extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Description</em>' attribute isn't clear,
+   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' attribute.
-   * @see #setDescription(String)
+   * @return the value of the '<em>Description</em>' containment reference.
+   * @see #setDescription(Description)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Description()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getDescription();
+  Description getDescription();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' attribute.
+   * @param value the new value of the '<em>Description</em>' containment reference.
    * @see #getDescription()
    * @generated
    */
-  void setDescription(String value);
+  void setDescription(Description value);
 
   /**
    * Returns the value of the '<em><b>Category</b></em>' reference.
@@ -118,12 +146,12 @@ public interface VerificationActivity extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Category</em>' reference.
-   * @see #setCategory(VerificationCategory)
+   * @see #setCategory(SelectionCategory)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Category()
    * @model
    * @generated
    */
-  VerificationCategory getCategory();
+  SelectionCategory getCategory();
 
   /**
    * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}' reference.
@@ -133,7 +161,7 @@ public interface VerificationActivity extends EObject
    * @see #getCategory()
    * @generated
    */
-  void setCategory(VerificationCategory value);
+  void setCategory(SelectionCategory value);
 
   /**
    * Returns the value of the '<em><b>Method</b></em>' containment reference.
@@ -160,21 +188,5 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   void setMethod(VerificationMethod value);
-
-  /**
-   * Returns the value of the '<em><b>Assumption</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.verify.verify.VerificationAssumption}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Assumption</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Assumption</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Assumption()
-   * @model containment="true"
-   * @generated
-   */
-  EList<VerificationAssumption> getAssumption();
 
 } // VerificationActivity

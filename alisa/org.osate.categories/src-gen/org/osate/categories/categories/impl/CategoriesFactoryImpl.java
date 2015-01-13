@@ -68,10 +68,12 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
       case CategoriesPackage.REQUIREMENT_CATEGORIES: return createRequirementCategories();
       case CategoriesPackage.HAZARD_CATEGORIES: return createHazardCategories();
       case CategoriesPackage.VERIFICATION_CATEGORIES: return createVerificationCategories();
+      case CategoriesPackage.SELECTION_CATEGORIES: return createSelectionCategories();
       case CategoriesPackage.CATEGORY: return createCategory();
       case CategoriesPackage.REQUIREMENT_CATEGORY: return createRequirementCategory();
       case CategoriesPackage.HAZARD_CATEGORY: return createHazardCategory();
       case CategoriesPackage.VERIFICATION_CATEGORY: return createVerificationCategory();
+      case CategoriesPackage.SELECTION_CATEGORY: return createSelectionCategory();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -126,6 +128,17 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
+  public SelectionCategories createSelectionCategories()
+  {
+    SelectionCategoriesImpl selectionCategories = new SelectionCategoriesImpl();
+    return selectionCategories;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Category createCategory()
   {
     CategoryImpl category = new CategoryImpl();
@@ -163,6 +176,17 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     VerificationCategoryImpl verificationCategory = new VerificationCategoryImpl();
     return verificationCategory;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SelectionCategory createSelectionCategory()
+  {
+    SelectionCategoryImpl selectionCategory = new SelectionCategoryImpl();
+    return selectionCategory;
   }
 
   /**

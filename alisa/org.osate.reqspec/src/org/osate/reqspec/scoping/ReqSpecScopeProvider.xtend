@@ -8,6 +8,7 @@ import org.eclipse.xtext.scoping.IScope
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 import org.osate.reqspec.util.ReqSpecUtil
+import org.osate.reqspec.reqSpec.ReqSpecContainer
 
 /**
  * This class contains custom scoping description.

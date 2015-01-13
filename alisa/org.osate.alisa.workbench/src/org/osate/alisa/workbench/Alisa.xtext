@@ -1,0 +1,19 @@
+grammar org.osate.alisa.workbench.Alisa with org.osate.alisa.common.Common
+
+generate alisa "http://www.osate.org/alisa/workbench/Alisa"
+
+import "http://aadl.info/AADL/2.0" as aadl2
+import "http://www.osate.org/verify/Verify" as Verify
+
+AlisaWorkArea:
+	'alisa'  name=ID
+	 cases+=AssuranceCasePlan*;
+	
+	
+	AssuranceCasePlan:
+	'case' name=ID 'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
+	'['
+	plans+=[Verify::VerificationPlan|QualifiedName]
+	']'
+;
+	

@@ -30,14 +30,14 @@ public enum VerificationResultStatus implements Enumerator
   TBD(0, "TBD", "tbd"),
 
   /**
-   * The '<em><b>PASS</b></em>' literal object.
+   * The '<em><b>SUCCESS</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #PASS_VALUE
+   * @see #SUCCESS_VALUE
    * @generated
    * @ordered
    */
-  PASS(1, "PASS", "pass"),
+  SUCCESS(1, "SUCCESS", "success"),
 
   /**
    * The '<em><b>FAIL</b></em>' literal object.
@@ -75,19 +75,19 @@ public enum VerificationResultStatus implements Enumerator
   public static final int TBD_VALUE = 0;
 
   /**
-   * The '<em><b>PASS</b></em>' literal value.
+   * The '<em><b>SUCCESS</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>PASS</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #PASS
-   * @model literal="pass"
+   * @see #SUCCESS
+   * @model literal="success"
    * @generated
    * @ordered
    */
-  public static final int PASS_VALUE = 1;
+  public static final int SUCCESS_VALUE = 1;
 
   /**
    * The '<em><b>FAIL</b></em>' literal value.
@@ -129,7 +129,7 @@ public enum VerificationResultStatus implements Enumerator
     new VerificationResultStatus[]
     {
       TBD,
-      PASS,
+      SUCCESS,
       FAIL,
       UNKNOWN,
     };
@@ -191,7 +191,7 @@ public enum VerificationResultStatus implements Enumerator
     switch (value)
     {
       case TBD_VALUE: return TBD;
-      case PASS_VALUE: return PASS;
+      case SUCCESS_VALUE: return SUCCESS;
       case FAIL_VALUE: return FAIL;
       case UNKNOWN_VALUE: return UNKNOWN;
     }

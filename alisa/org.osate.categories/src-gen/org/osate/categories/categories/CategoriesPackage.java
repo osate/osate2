@@ -160,6 +160,34 @@ public interface CategoriesPackage extends EPackage
   int VERIFICATION_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.osate.categories.categories.impl.SelectionCategoriesImpl <em>Selection Categories</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.categories.categories.impl.SelectionCategoriesImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getSelectionCategories()
+   * @generated
+   */
+  int SELECTION_CATEGORIES = 4;
+
+  /**
+   * The feature id for the '<em><b>Category</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORIES__CATEGORY = CATEGORIES_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Selection Categories</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.CategoryImpl <em>Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -167,7 +195,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getCategory()
    * @generated
    */
-  int CATEGORY = 4;
+  int CATEGORY = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -195,7 +223,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getRequirementCategory()
    * @generated
    */
-  int REQUIREMENT_CATEGORY = 5;
+  int REQUIREMENT_CATEGORY = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -232,7 +260,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getHazardCategory()
    * @generated
    */
-  int HAZARD_CATEGORY = 6;
+  int HAZARD_CATEGORY = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -269,7 +297,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getVerificationCategory()
    * @generated
    */
-  int VERIFICATION_CATEGORY = 7;
+  int VERIFICATION_CATEGORY = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -297,6 +325,43 @@ public interface CategoriesPackage extends EPackage
    * @ordered
    */
   int VERIFICATION_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.categories.categories.impl.SelectionCategoryImpl <em>Selection Category</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.categories.categories.impl.SelectionCategoryImpl
+   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getSelectionCategory()
+   * @generated
+   */
+  int SELECTION_CATEGORY = 9;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORY__NAME = CATEGORY__NAME;
+
+  /**
+   * The feature id for the '<em><b>Extends</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORY__EXTENDS = CATEGORY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Selection Category</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 1;
 
 
   /**
@@ -371,6 +436,27 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EReference getVerificationCategories_Category();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.categories.categories.SelectionCategories <em>Selection Categories</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Selection Categories</em>'.
+   * @see org.osate.categories.categories.SelectionCategories
+   * @generated
+   */
+  EClass getSelectionCategories();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.categories.categories.SelectionCategories#getCategory <em>Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Category</em>'.
+   * @see org.osate.categories.categories.SelectionCategories#getCategory()
+   * @see #getSelectionCategories()
+   * @generated
+   */
+  EReference getSelectionCategories_Category();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.Category <em>Category</em>}'.
@@ -455,6 +541,27 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EReference getVerificationCategory_Extends();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.categories.categories.SelectionCategory <em>Selection Category</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Selection Category</em>'.
+   * @see org.osate.categories.categories.SelectionCategory
+   * @generated
+   */
+  EClass getSelectionCategory();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.categories.categories.SelectionCategory#getExtends <em>Extends</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Extends</em>'.
+   * @see org.osate.categories.categories.SelectionCategory#getExtends()
+   * @see #getSelectionCategory()
+   * @generated
+   */
+  EReference getSelectionCategory_Extends();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -544,6 +651,24 @@ public interface CategoriesPackage extends EPackage
     EReference VERIFICATION_CATEGORIES__CATEGORY = eINSTANCE.getVerificationCategories_Category();
 
     /**
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.SelectionCategoriesImpl <em>Selection Categories</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.categories.categories.impl.SelectionCategoriesImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getSelectionCategories()
+     * @generated
+     */
+    EClass SELECTION_CATEGORIES = eINSTANCE.getSelectionCategories();
+
+    /**
+     * The meta object literal for the '<em><b>Category</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SELECTION_CATEGORIES__CATEGORY = eINSTANCE.getSelectionCategories_Category();
+
+    /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.CategoryImpl <em>Category</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -614,6 +739,24 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_CATEGORY__EXTENDS = eINSTANCE.getVerificationCategory_Extends();
+
+    /**
+     * The meta object literal for the '{@link org.osate.categories.categories.impl.SelectionCategoryImpl <em>Selection Category</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.categories.categories.impl.SelectionCategoryImpl
+     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getSelectionCategory()
+     * @generated
+     */
+    EClass SELECTION_CATEGORY = eINSTANCE.getSelectionCategory();
+
+    /**
+     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SELECTION_CATEGORY__EXTENDS = eINSTANCE.getSelectionCategory_Extends();
 
   }
 

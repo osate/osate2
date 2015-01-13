@@ -11,7 +11,6 @@
             default="true"
             extensions="common"
             id="org.osate.alisa.common.Common"
-            matchingStrategy="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.editor.JavaEditorInputMatcher"
             name="Common Editor">
         </editor>
     </extension>

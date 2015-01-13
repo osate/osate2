@@ -7,6 +7,11 @@
     editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.10">
   <genPackages prefix="Common" basePackage="org.osate.alisa.common" disposableProviderFactory="true"
       fileExtensions="common" ecorePackage="Common.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Common.ecore#//IssueType">
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//IssueType/ERROR"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//IssueType/WARNING"/>
+      <genEnumLiterals ecoreEnumLiteral="Common.ecore#//IssueType/INFO"/>
+    </genEnums>
     <genClasses ecoreClass="Common.ecore#//Model">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//Model/content"/>
     </genClasses>
@@ -20,6 +25,17 @@
     <genClasses ecoreClass="Common.ecore#//ReferencePath">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ReferencePath/ref"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ReferencePath/subpath"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//PredicateExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//PredicateExpression/op"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//FinalValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//FinalValue/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//FinalValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ResultIssue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ResultIssue/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ResultIssue/msg"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

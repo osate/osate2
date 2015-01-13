@@ -21,8 +21,6 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 	@Inject extension ReqSpecGrammarAccess
 	
 	override protected void configureFormatting(FormattingConfig c) {
-// It's usually a good idea to activate the following three statements.
-// They will add and preserve newlines around comments
 		c.setAutoLinewrap(120);
 		c.setWrappedLineIndentation(2);
 		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
@@ -34,9 +32,13 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		      c.setIndentationDecrement().before(pair.second);
 		      c.setLinewrap().before(pair.second);
 		    }
-		c.setLinewrap().after(reqSpecModelRule);
+		    // top-level objects get newline at end
+		c.setLinewrap(1,2,2).after(stakeholderGoalsRule);
+		c.setLinewrap(1,2,2).after(systemSpecRule);
+		c.setLinewrap(1,2,2).after(reqDocumentRule);
+		c.setLinewrap(1,2,2).after(reqSpecLibraryRule);
 		c.setLinewrap().before(reqSpecFolderRule);
-		for (kw : findKeywords("goal","requirement","hazard")) {
+		for (kw : findKeywords("goal","requirement","hazard","folder")) {
 			c.setLinewrap().before(kw);
 		}
 		for (kw : findKeywords("description","assert","rationale","issues",

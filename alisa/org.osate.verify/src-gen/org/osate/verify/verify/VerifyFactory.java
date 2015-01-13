@@ -23,13 +23,31 @@ public interface VerifyFactory extends EFactory
   VerifyFactory eINSTANCE = org.osate.verify.verify.impl.VerifyFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Verification Model</em>'.
+   * Returns a new object of class '<em>Verification</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Model</em>'.
+   * @return a new object of class '<em>Verification</em>'.
    * @generated
    */
-  VerificationModel createVerificationModel();
+  Verification createVerification();
+
+  /**
+   * Returns a new object of class '<em>Verification Plan</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Plan</em>'.
+   * @generated
+   */
+  VerificationPlan createVerificationPlan();
+
+  /**
+   * Returns a new object of class '<em>Verification Library</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Library</em>'.
+   * @generated
+   */
+  VerificationLibrary createVerificationLibrary();
 
   /**
    * Returns a new object of class '<em>Verification Folder</em>'.
@@ -50,6 +68,15 @@ public interface VerifyFactory extends EFactory
   VerificationContainer createVerificationContainer();
 
   /**
+   * Returns a new object of class '<em>Claim</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim</em>'.
+   * @generated
+   */
+  Claim createClaim();
+
+  /**
    * Returns a new object of class '<em>Verification Activity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -59,22 +86,13 @@ public interface VerifyFactory extends EFactory
   VerificationActivity createVerificationActivity();
 
   /**
-   * Returns a new object of class '<em>Verification Assumption</em>'.
+   * Returns a new object of class '<em>Verification Condition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Assumption</em>'.
+   * @return a new object of class '<em>Verification Condition</em>'.
    * @generated
    */
-  VerificationAssumption createVerificationAssumption();
-
-  /**
-   * Returns a new object of class '<em>Assurance Plan</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Assurance Plan</em>'.
-   * @generated
-   */
-  AssurancePlan createAssurancePlan();
+  VerificationCondition createVerificationCondition();
 
   /**
    * Returns a new object of class '<em>Argument Expr</em>'.
@@ -86,13 +104,22 @@ public interface VerifyFactory extends EFactory
   ArgumentExpr createArgumentExpr();
 
   /**
-   * Returns a new object of class '<em>Argument Reference</em>'.
+   * Returns a new object of class '<em>Condition Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Argument Reference</em>'.
+   * @return a new object of class '<em>Condition Expr</em>'.
    * @generated
    */
-  ArgumentReference createArgumentReference();
+  ConditionExpr createConditionExpr();
+
+  /**
+   * Returns a new object of class '<em>Atomic Condition Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Atomic Condition Expr</em>'.
+   * @generated
+   */
+  AtomicConditionExpr createAtomicConditionExpr();
 
   /**
    * Returns a new object of class '<em>Verification Method</em>'.
@@ -104,13 +131,49 @@ public interface VerifyFactory extends EFactory
   VerificationMethod createVerificationMethod();
 
   /**
-   * Returns a new object of class '<em>Binary Expr</em>'.
+   * Returns a new object of class '<em>Verification Assumption</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Binary Expr</em>'.
+   * @return a new object of class '<em>Verification Assumption</em>'.
    * @generated
    */
-  BinaryExpr createBinaryExpr();
+  VerificationAssumption createVerificationAssumption();
+
+  /**
+   * Returns a new object of class '<em>Verification Precondition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Precondition</em>'.
+   * @generated
+   */
+  VerificationPrecondition createVerificationPrecondition();
+
+  /**
+   * Returns a new object of class '<em>All Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>All Expr</em>'.
+   * @generated
+   */
+  AllExpr createAllExpr();
+
+  /**
+   * Returns a new object of class '<em>And Then Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>And Then Expr</em>'.
+   * @generated
+   */
+  AndThenExpr createAndThenExpr();
+
+  /**
+   * Returns a new object of class '<em>Fail Then Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Fail Then Expr</em>'.
+   * @generated
+   */
+  FailThenExpr createFailThenExpr();
 
   /**
    * Returns a new object of class '<em>Ref Expr</em>'.

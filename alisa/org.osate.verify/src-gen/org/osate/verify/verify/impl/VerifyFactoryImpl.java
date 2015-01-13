@@ -3,6 +3,7 @@
 package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -64,16 +65,23 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     switch (eClass.getClassifierID())
     {
-      case VerifyPackage.VERIFICATION_MODEL: return createVerificationModel();
+      case VerifyPackage.VERIFICATION: return createVerification();
+      case VerifyPackage.VERIFICATION_PLAN: return createVerificationPlan();
+      case VerifyPackage.VERIFICATION_LIBRARY: return createVerificationLibrary();
       case VerifyPackage.VERIFICATION_FOLDER: return createVerificationFolder();
       case VerifyPackage.VERIFICATION_CONTAINER: return createVerificationContainer();
+      case VerifyPackage.CLAIM: return createClaim();
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
-      case VerifyPackage.VERIFICATION_ASSUMPTION: return createVerificationAssumption();
-      case VerifyPackage.ASSURANCE_PLAN: return createAssurancePlan();
+      case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
-      case VerifyPackage.ARGUMENT_REFERENCE: return createArgumentReference();
+      case VerifyPackage.CONDITION_EXPR: return createConditionExpr();
+      case VerifyPackage.ATOMIC_CONDITION_EXPR: return createAtomicConditionExpr();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
-      case VerifyPackage.BINARY_EXPR: return createBinaryExpr();
+      case VerifyPackage.VERIFICATION_ASSUMPTION: return createVerificationAssumption();
+      case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
+      case VerifyPackage.ALL_EXPR: return createAllExpr();
+      case VerifyPackage.AND_THEN_EXPR: return createAndThenExpr();
+      case VerifyPackage.FAIL_THEN_EXPR: return createFailThenExpr();
       case VerifyPackage.REF_EXPR: return createRefExpr();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -85,10 +93,66 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationModel createVerificationModel()
+  @Override
+  public Object createFromString(EDataType eDataType, String initialValue)
   {
-    VerificationModelImpl verificationModel = new VerificationModelImpl();
-    return verificationModel;
+    switch (eDataType.getClassifierID())
+    {
+      case VerifyPackage.SUPPORTED_TYPES:
+        return createSupportedTypesFromString(eDataType, initialValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String convertToString(EDataType eDataType, Object instanceValue)
+  {
+    switch (eDataType.getClassifierID())
+    {
+      case VerifyPackage.SUPPORTED_TYPES:
+        return convertSupportedTypesToString(eDataType, instanceValue);
+      default:
+        throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+    }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Verification createVerification()
+  {
+    VerificationImpl verification = new VerificationImpl();
+    return verification;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationPlan createVerificationPlan()
+  {
+    VerificationPlanImpl verificationPlan = new VerificationPlanImpl();
+    return verificationPlan;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationLibrary createVerificationLibrary()
+  {
+    VerificationLibraryImpl verificationLibrary = new VerificationLibraryImpl();
+    return verificationLibrary;
   }
 
   /**
@@ -118,6 +182,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Claim createClaim()
+  {
+    ClaimImpl claim = new ClaimImpl();
+    return claim;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VerificationActivity createVerificationActivity()
   {
     VerificationActivityImpl verificationActivity = new VerificationActivityImpl();
@@ -129,21 +204,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationAssumption createVerificationAssumption()
+  public VerificationCondition createVerificationCondition()
   {
-    VerificationAssumptionImpl verificationAssumption = new VerificationAssumptionImpl();
-    return verificationAssumption;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AssurancePlan createAssurancePlan()
-  {
-    AssurancePlanImpl assurancePlan = new AssurancePlanImpl();
-    return assurancePlan;
+    VerificationConditionImpl verificationCondition = new VerificationConditionImpl();
+    return verificationCondition;
   }
 
   /**
@@ -162,10 +226,21 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentReference createArgumentReference()
+  public ConditionExpr createConditionExpr()
   {
-    ArgumentReferenceImpl argumentReference = new ArgumentReferenceImpl();
-    return argumentReference;
+    ConditionExprImpl conditionExpr = new ConditionExprImpl();
+    return conditionExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AtomicConditionExpr createAtomicConditionExpr()
+  {
+    AtomicConditionExprImpl atomicConditionExpr = new AtomicConditionExprImpl();
+    return atomicConditionExpr;
   }
 
   /**
@@ -184,10 +259,54 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public BinaryExpr createBinaryExpr()
+  public VerificationAssumption createVerificationAssumption()
   {
-    BinaryExprImpl binaryExpr = new BinaryExprImpl();
-    return binaryExpr;
+    VerificationAssumptionImpl verificationAssumption = new VerificationAssumptionImpl();
+    return verificationAssumption;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationPrecondition createVerificationPrecondition()
+  {
+    VerificationPreconditionImpl verificationPrecondition = new VerificationPreconditionImpl();
+    return verificationPrecondition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AllExpr createAllExpr()
+  {
+    AllExprImpl allExpr = new AllExprImpl();
+    return allExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AndThenExpr createAndThenExpr()
+  {
+    AndThenExprImpl andThenExpr = new AndThenExprImpl();
+    return andThenExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FailThenExpr createFailThenExpr()
+  {
+    FailThenExprImpl failThenExpr = new FailThenExprImpl();
+    return failThenExpr;
   }
 
   /**
@@ -199,6 +318,28 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     RefExprImpl refExpr = new RefExprImpl();
     return refExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SupportedTypes createSupportedTypesFromString(EDataType eDataType, String initialValue)
+  {
+    SupportedTypes result = SupportedTypes.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertSupportedTypesToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**
