@@ -18,7 +18,7 @@ import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 
 public class SwitchDirectionOfConnectionFeature extends AbstractCustomFeature {
-	private BusinessObjectResolutionService bor;
+	private final BusinessObjectResolutionService bor;
 	private final AadlModificationService aadlModService;
 		
 	@Inject
@@ -36,27 +36,32 @@ public class SwitchDirectionOfConnectionFeature extends AbstractCustomFeature {
 		
 	@Override
 	public String getDescription() {
-		return "Switches the selected connection's directional flow between source and destination.";
+		return "Swap the ends of the selected connection.";
 	}
 
 	@Override
-	public boolean canExecute(ICustomContext context) {
+	public boolean canExecute(final ICustomContext context) {
 		return true;
 	}
 
 	@Override
-	public boolean isAvailable(IContext context) {
-		final PictogramElement pe = getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements()[0];
-		final Element feature = (Element) bor.getBusinessObjectForPictogramElement(pe);
-		if (feature instanceof org.osate.aadl2.Connection) {
-			return true;
+	public boolean isAvailable(final IContext context) {
+		final ICustomContext customCtx = (ICustomContext)context;
+		final PictogramElement[] pes = customCtx.getPictogramElements();
+		if (pes.length == 1) {
+			final PictogramElement pe = pes[0];
+			final Element feature = (Element) bor.getBusinessObjectForPictogramElement(pe);
+			if (feature instanceof org.osate.aadl2.Connection) {
+				return true;
+			}
 		}
 		return false;
 	}
 
 	@Override
 	public void execute(final ICustomContext context) {
-		final PictogramElement pe = getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements()[0];
+		final PictogramElement[] pes = context.getPictogramElements();
+		final PictogramElement pe = pes[0];
 		final NamedElement feature = (NamedElement)bor.getBusinessObjectForPictogramElement(pe);
 		// Make modifications			
 		aadlModService.modify(feature, new AbstractModifier<NamedElement, Object>() {
