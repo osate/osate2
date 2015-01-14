@@ -176,6 +176,15 @@ public interface VerifyFactory extends EFactory
   FailThenExpr createFailThenExpr();
 
   /**
+   * Returns a new object of class '<em>Conditional Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Conditional Expr</em>'.
+   * @generated
+   */
+  ConditionalExpr createConditionalExpr();
+
+  /**
    * Returns a new object of class '<em>Ref Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

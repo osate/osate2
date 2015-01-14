@@ -13,7 +13,7 @@ AlisaWorkArea:
 	AssuranceCasePlan:
 	'case' name=ID 'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
-	plans+=[Verify::VerificationPlan|QualifiedName]
+	plans+=[Verify::VerificationPlan|QualifiedName]*
 	']'
 ;
 	

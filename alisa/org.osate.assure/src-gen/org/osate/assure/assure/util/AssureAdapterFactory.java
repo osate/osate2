@@ -115,19 +115,14 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createHazardResultAdapter();
       }
       @Override
-      public Adapter caseEvidenceExpr(EvidenceExpr object)
+      public Adapter caseFailThenResult(FailThenResult object)
       {
-        return createEvidenceExprAdapter();
+        return createFailThenResultAdapter();
       }
       @Override
-      public Adapter caseFailThen(FailThen object)
+      public Adapter caseIfThenResult(IfThenResult object)
       {
-        return createFailThenAdapter();
-      }
-      @Override
-      public Adapter caseIfThen(IfThen object)
-      {
-        return createIfThenAdapter();
+        return createIfThenResultAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -272,46 +267,31 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.EvidenceExpr <em>Evidence Expr</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.FailThenResult <em>Fail Then Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.EvidenceExpr
+   * @see org.osate.assure.assure.FailThenResult
    * @generated
    */
-  public Adapter createEvidenceExprAdapter()
+  public Adapter createFailThenResultAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.FailThen <em>Fail Then</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.IfThenResult <em>If Then Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.FailThen
+   * @see org.osate.assure.assure.IfThenResult
    * @generated
    */
-  public Adapter createFailThenAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.IfThen <em>If Then</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.assure.assure.IfThen
-   * @generated
-   */
-  public Adapter createIfThenAdapter()
+  public Adapter createIfThenResultAdapter()
   {
     return null;
   }

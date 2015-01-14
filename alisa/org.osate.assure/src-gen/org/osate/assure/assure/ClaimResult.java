@@ -19,10 +19,13 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.assure.assure.ClaimResult#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getNeutralCount <em>Neutral Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getUnknownCount <em>Unknown Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getVerificationResult <em>Verification Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getFirst <em>First</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getSecond <em>Second</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,7 +33,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * @model
  * @generated
  */
-public interface ClaimResult extends AssuranceResult, EvidenceExpr
+public interface ClaimResult extends AssuranceResult
 {
   /**
    * Returns the value of the '<em><b>Requirement</b></em>' reference.
@@ -163,6 +166,32 @@ public interface ClaimResult extends AssuranceResult, EvidenceExpr
   void setUnknownCount(int value);
 
   /**
+   * Returns the value of the '<em><b>Weight</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Weight</em>' attribute.
+   * @see #setWeight(int)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_Weight()
+   * @model
+   * @generated
+   */
+  int getWeight();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getWeight <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Weight</em>' attribute.
+   * @see #getWeight()
+   * @generated
+   */
+  void setWeight(int value);
+
+  /**
    * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -245,5 +274,37 @@ public interface ClaimResult extends AssuranceResult, EvidenceExpr
    * @generated
    */
   EList<VerificationResult> getVerificationResult();
+
+  /**
+   * Returns the value of the '<em><b>First</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.assure.assure.ClaimResult}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>First</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>First</em>' containment reference list.
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_First()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ClaimResult> getFirst();
+
+  /**
+   * Returns the value of the '<em><b>Second</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.assure.assure.ClaimResult}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Second</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Second</em>' containment reference list.
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_Second()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ClaimResult> getSecond();
 
 } // ClaimResult

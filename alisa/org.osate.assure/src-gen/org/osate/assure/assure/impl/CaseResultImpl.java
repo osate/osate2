@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.CaseResult;
-import org.osate.assure.assure.EvidenceExpr;
+import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.HazardResult;
 
 /**
@@ -204,7 +204,7 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * @generated
    * @ordered
    */
-  protected EList<EvidenceExpr> claimResult;
+  protected EList<ClaimResult> claimResult;
 
   /**
    * The cached value of the '{@link #getHazardResult() <em>Hazard Result</em>}' containment reference list.
@@ -417,11 +417,11 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EvidenceExpr> getClaimResult()
+  public EList<ClaimResult> getClaimResult()
   {
     if (claimResult == null)
     {
-      claimResult = new EObjectContainmentEList<EvidenceExpr>(EvidenceExpr.class, this, AssurePackage.CASE_RESULT__CLAIM_RESULT);
+      claimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.CASE_RESULT__CLAIM_RESULT);
     }
     return claimResult;
   }
@@ -532,7 +532,7 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
         return;
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         getClaimResult().clear();
-        getClaimResult().addAll((Collection<? extends EvidenceExpr>)newValue);
+        getClaimResult().addAll((Collection<? extends ClaimResult>)newValue);
         return;
       case AssurePackage.CASE_RESULT__HAZARD_RESULT:
         getHazardResult().clear();

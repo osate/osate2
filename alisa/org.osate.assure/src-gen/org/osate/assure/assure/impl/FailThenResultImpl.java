@@ -4,28 +4,26 @@ package org.osate.assure.assure.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.EvidenceExpr;
+import org.osate.assure.assure.FailThenResult;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Evidence Expr</b></em>'.
+ * An implementation of the model object '<em><b>Fail Then Result</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class EvidenceExprImpl extends MinimalEObjectImpl.Container implements EvidenceExpr
+public class FailThenResultImpl extends ClaimResultImpl implements FailThenResult
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected EvidenceExprImpl()
+  protected FailThenResultImpl()
   {
     super();
   }
@@ -38,7 +36,7 @@ public class EvidenceExprImpl extends MinimalEObjectImpl.Container implements Ev
   @Override
   protected EClass eStaticClass()
   {
-    return AssurePackage.Literals.EVIDENCE_EXPR;
+    return AssurePackage.Literals.FAIL_THEN_RESULT;
   }
 
-} //EvidenceExprImpl
+} //FailThenResultImpl

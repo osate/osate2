@@ -231,7 +231,7 @@ public interface CaseResult extends AssuranceResult
 
   /**
    * Returns the value of the '<em><b>Claim Result</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.EvidenceExpr}.
+   * The list contents are of type {@link org.osate.assure.assure.ClaimResult}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Claim Result</em>' containment reference list isn't clear,
@@ -243,7 +243,7 @@ public interface CaseResult extends AssuranceResult
    * @model containment="true"
    * @generated
    */
-  EList<EvidenceExpr> getClaimResult();
+  EList<ClaimResult> getClaimResult();
 
   /**
    * Returns the value of the '<em><b>Hazard Result</b></em>' containment reference list.

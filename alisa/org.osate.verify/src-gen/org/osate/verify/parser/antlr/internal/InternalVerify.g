@@ -169,9 +169,9 @@ ruleVerificationPlan returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getTargetSystemSpecCrossReference_3_0()); 
+	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getTargetComponentClassifierCrossReference_3_0()); 
 	    }
-		ruleQualifiedName		{ 
+		ruleAadlClassifierReference		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -186,19 +186,19 @@ ruleVerificationPlan returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getDescriptionMultiLineStringParserRuleCall_5_1_0()); 
-	    }
-		lv_description_6_0=ruleMultiLineString		{
+		lv_description_6_0=RULE_STRING
+		{
+			newLeafNode(lv_description_6_0, grammarAccess.getVerificationPlanAccess().getDescriptionSTRINGTerminalRuleCall_5_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationPlanRule());
+	            $current = createModelElement(grammarAccess.getVerificationPlanRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"description",
         		lv_description_6_0, 
-        		"MultiLineString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -574,7 +574,33 @@ ruleClaim returns [EObject current=null]
 	    }
 
 )
-))?)
+))?(	otherlv_8='[' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getClaimAccess().getLeftSquareBracketKeyword_7_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getClaimAccess().getSubclaimsClaimParserRuleCall_7_1_0()); 
+	    }
+		lv_subclaims_9_0=ruleClaim		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getClaimRule());
+	        }
+       		add(
+       			$current, 
+       			"subclaims",
+        		lv_subclaims_9_0, 
+        		"Claim");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*	otherlv_10=']' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getClaimAccess().getRightSquareBracketKeyword_7_2());
+    }
+)?)
 ;
 
 
@@ -595,19 +621,15 @@ ruleVerificationActivity returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='verification' 
+(	otherlv_0='activity' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getVerificationActivityAccess().getVerificationKeyword_0());
-    }
-	otherlv_1='activity' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getVerificationActivityAccess().getActivityKeyword_1());
+    	newLeafNode(otherlv_0, grammarAccess.getVerificationActivityAccess().getActivityKeyword_0());
     }
 (
 (
-		lv_name_2_0=RULE_ID
+		lv_name_1_0=RULE_ID
 		{
-			newLeafNode(lv_name_2_0, grammarAccess.getVerificationActivityAccess().getNameIDTerminalRuleCall_2_0()); 
+			newLeafNode(lv_name_1_0, grammarAccess.getVerificationActivityAccess().getNameIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -616,14 +638,14 @@ ruleVerificationActivity returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_1_0, 
         		"ID");
 	    }
 
 )
-)	otherlv_3='for' 
+)	otherlv_2='for' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getVerificationActivityAccess().getForKeyword_3());
+    	newLeafNode(otherlv_2, grammarAccess.getVerificationActivityAccess().getForKeyword_2());
     }
 (
 (
@@ -633,48 +655,48 @@ ruleVerificationActivity returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getTargetComponentClassifierCrossReference_4_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getTargetComponentClassifierCrossReference_3_0()); 
 	    }
 		ruleAadlClassifierReference		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_5='[' 
+)	otherlv_4='[' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getVerificationActivityAccess().getLeftSquareBracketKeyword_5());
+    	newLeafNode(otherlv_4, grammarAccess.getVerificationActivityAccess().getLeftSquareBracketKeyword_4());
     }
 (
 
 (
 	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6());
+	  getUnorderedGroupHelper().enter(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5());
 	}
 	(
 		(
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6(), 0)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 0)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6(), 0);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 0);
 	 				}
-					({true}?=>(	otherlv_7='title' 
+					({true}?=>(	otherlv_6='title' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getVerificationActivityAccess().getTitleKeyword_6_0_0());
+    	newLeafNode(otherlv_6, grammarAccess.getVerificationActivityAccess().getTitleKeyword_5_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getTitleValueStringParserRuleCall_6_0_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getTitleValueStringParserRuleCall_5_0_1_0()); 
 	    }
-		lv_title_8_0=ruleValueString		{
+		lv_title_7_0=ruleValueString		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationActivityRule());
 	        }
        		set(
        			$current, 
        			"title",
-        		lv_title_8_0, 
+        		lv_title_7_0, 
         		"ValueString");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -682,33 +704,33 @@ ruleVerificationActivity returns [EObject current=null]
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6(), 1)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 1)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6(), 1);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 1);
 	 				}
-					({true}?=>(	otherlv_9='description' 
+					({true}?=>(	otherlv_8='description' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getVerificationActivityAccess().getDescriptionKeyword_6_1_0());
+    	newLeafNode(otherlv_8, grammarAccess.getVerificationActivityAccess().getDescriptionKeyword_5_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getDescriptionDescriptionParserRuleCall_6_1_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getDescriptionDescriptionParserRuleCall_5_1_1_0()); 
 	    }
-		lv_description_10_0=ruleDescription		{
+		lv_description_9_0=ruleDescription		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationActivityRule());
 	        }
        		set(
        			$current, 
        			"description",
-        		lv_description_10_0, 
+        		lv_description_9_0, 
         		"Description");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -716,19 +738,19 @@ ruleVerificationActivity returns [EObject current=null]
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6(), 2)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 2)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6(), 2);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 2);
 	 				}
-					({true}?=>(	otherlv_11='category' 
+					({true}?=>(	otherlv_10='category' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getVerificationActivityAccess().getCategoryKeyword_6_2_0());
+    	newLeafNode(otherlv_10, grammarAccess.getVerificationActivityAccess().getCategoryKeyword_5_2_0());
     }
 (
 (
@@ -738,7 +760,7 @@ ruleVerificationActivity returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getCategorySelectionCategoryCrossReference_6_2_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getCategorySelectionCategoryCrossReference_5_2_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();
@@ -747,41 +769,38 @@ ruleVerificationActivity returns [EObject current=null]
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6(), 3)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 3)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6(), 3);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 3);
 	 				}
-					({true}?=>(	otherlv_13='method' 
+					({true}?=>(	otherlv_12='method' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getVerificationActivityAccess().getMethodKeyword_6_3_0());
+    	newLeafNode(otherlv_12, grammarAccess.getVerificationActivityAccess().getMethodKeyword_5_3_0());
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getMethodVerificationMethodParserRuleCall_6_3_1_0()); 
-	    }
-		lv_method_14_0=ruleVerificationMethod		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationActivityRule());
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
-       		set(
-       			$current, 
-       			"method",
-        		lv_method_14_0, 
-        		"VerificationMethod");
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getMethodVerificationMethodCrossReference_5_3_1_0()); 
+	    }
+		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5());
 	 				}
  				)
 			)  
@@ -790,12 +809,12 @@ ruleVerificationActivity returns [EObject current=null]
 	)
 )
 	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_6());
+	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5());
 	}
 
-)	otherlv_15=']' 
+)	otherlv_14=']' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getVerificationActivityAccess().getRightSquareBracketKeyword_7());
+    	newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getRightSquareBracketKeyword_6());
     }
 )
 ;
@@ -1434,70 +1453,6 @@ ruleAtomicEvidenceExpr returns [EObject current=null]
 
 
 
-// Entry rule entryRuleVAReference
-entryRuleVAReference returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getVAReferenceRule()); }
-	 iv_ruleVAReference=ruleVAReference 
-	 { $current=$iv_ruleVAReference.current; } 
-	 EOF 
-;
-
-// Rule VAReference
-ruleVAReference returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getVAReferenceAccess().getRefExprAction_0(),
-            $current);
-    }
-)(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVAReferenceRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getVAReferenceAccess().getReferenceVerificationActivityCrossReference_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_2='weight' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getVAReferenceAccess().getWeightKeyword_2_0());
-    }
-(
-(
-		lv_weight_3_0=RULE_INT
-		{
-			newLeafNode(lv_weight_3_0, grammarAccess.getVAReferenceAccess().getWeightINTTerminalRuleCall_2_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVAReferenceRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"weight",
-        		lv_weight_3_0, 
-        		"INT");
-	    }
-
-)
-))?)
-;
-
-
-
-
-
 // Entry rule entryRuleConditionalEvidence
 entryRuleConditionalEvidence returns [EObject current=null] 
 	:
@@ -1531,7 +1486,7 @@ ruleConditionalEvidence returns [EObject current=null]
 )))=>((
     {
         $current = forceCreateModelElementAndSet(
-            grammarAccess.getConditionalEvidenceAccess().getArgumentExprLeftAction_1_0_0_0(),
+            grammarAccess.getConditionalEvidenceAccess().getConditionalExprVerificationAction_1_0_0_0(),
             $current);
     }
 )(
@@ -1549,33 +1504,89 @@ ruleConditionalEvidence returns [EObject current=null]
 	    }
 
 )
-)))	otherlv_3='(' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getConditionalEvidenceAccess().getLeftParenthesisKeyword_1_1());
-    }
-(
+)))(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConditionalEvidenceAccess().getRightOrConditionExprParserRuleCall_1_2_0()); 
+	        newCompositeNode(grammarAccess.getConditionalEvidenceAccess().getConditionOrConditionExprParserRuleCall_1_1_0()); 
 	    }
-		lv_right_4_0=ruleOrConditionExpr		{
+		lv_condition_3_0=ruleOrConditionExpr		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConditionalEvidenceRule());
 	        }
        		set(
        			$current, 
-       			"right",
-        		lv_right_4_0, 
+       			"condition",
+        		lv_condition_3_0, 
         		"OrConditionExpr");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_5=')' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getConditionalEvidenceAccess().getRightParenthesisKeyword_1_3());
+))?)
+;
+
+
+
+
+
+// Entry rule entryRuleVAReference
+entryRuleVAReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getVAReferenceRule()); }
+	 iv_ruleVAReference=ruleVAReference 
+	 { $current=$iv_ruleVAReference.current; } 
+	 EOF 
+;
+
+// Rule VAReference
+ruleVAReference returns [EObject current=null] 
+    @init { enterRule(); 
     }
-)?)
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getVAReferenceAccess().getRefExprAction_0(),
+            $current);
+    }
+)(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVAReferenceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityCrossReference_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_2='weight' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getVAReferenceAccess().getWeightKeyword_2_0());
+    }
+(
+(
+		lv_weight_3_0=RULE_INT
+		{
+			newLeafNode(lv_weight_3_0, grammarAccess.getVAReferenceAccess().getWeightINTTerminalRuleCall_2_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVAReferenceRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"weight",
+        		lv_weight_3_0, 
+        		"INT");
+	    }
+
+)
+))?)
 ;
 
 
@@ -1784,19 +1795,15 @@ ruleVerificationMethod returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='verification' 
+(	otherlv_0='method' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getVerificationMethodAccess().getVerificationKeyword_0());
-    }
-	otherlv_1='method' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getVerificationMethodAccess().getMethodKeyword_1());
+    	newLeafNode(otherlv_0, grammarAccess.getVerificationMethodAccess().getMethodKeyword_0());
     }
 (
 (
-		lv_name_2_0=RULE_ID
+		lv_name_1_0=RULE_ID
 		{
-			newLeafNode(lv_name_2_0, grammarAccess.getVerificationMethodAccess().getNameIDTerminalRuleCall_2_0()); 
+			newLeafNode(lv_name_1_0, grammarAccess.getVerificationMethodAccess().getNameIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1805,50 +1812,50 @@ ruleVerificationMethod returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_1_0, 
         		"ID");
 	    }
 
 )
-)(	otherlv_3=':' 
+)(	otherlv_2=':' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getVerificationMethodAccess().getColonKeyword_3_0());
+    	newLeafNode(otherlv_2, grammarAccess.getVerificationMethodAccess().getColonKeyword_2_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getTitleValueStringParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getTitleValueStringParserRuleCall_2_1_0()); 
 	    }
-		lv_title_4_0=ruleValueString		{
+		lv_title_3_0=ruleValueString		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
        		set(
        			$current, 
        			"title",
-        		lv_title_4_0, 
+        		lv_title_3_0, 
         		"ValueString");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))?	otherlv_5='[' 
+))?	otherlv_4='[' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getVerificationMethodAccess().getLeftSquareBracketKeyword_4());
+    	newLeafNode(otherlv_4, grammarAccess.getVerificationMethodAccess().getLeftSquareBracketKeyword_3());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodTypeSupportedTypesEnumRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodTypeSupportedTypesEnumRuleCall_4_0()); 
 	    }
-		lv_methodType_6_0=ruleSupportedTypes		{
+		lv_methodType_5_0=ruleSupportedTypes		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
        		set(
        			$current, 
        			"methodType",
-        		lv_methodType_6_0, 
+        		lv_methodType_5_0, 
         		"SupportedTypes");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1857,16 +1864,16 @@ ruleVerificationMethod returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodValueStringParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodValueStringParserRuleCall_5_0()); 
 	    }
-		lv_method_7_0=ruleValueString		{
+		lv_method_6_0=ruleValueString		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
        		set(
        			$current, 
        			"method",
-        		lv_method_7_0, 
+        		lv_method_6_0, 
         		"ValueString");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1876,33 +1883,33 @@ ruleVerificationMethod returns [EObject current=null]
 
 (
 	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7());
+	  getUnorderedGroupHelper().enter(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 	}
 	(
 		(
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7(), 0)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 0)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7(), 0);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 0);
 	 				}
-					({true}?=>(	otherlv_9='description' 
+					({true}?=>(	otherlv_8='description' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getVerificationMethodAccess().getDescriptionKeyword_7_0_0());
+    	newLeafNode(otherlv_8, grammarAccess.getVerificationMethodAccess().getDescriptionKeyword_6_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getDescriptionDescriptionParserRuleCall_7_0_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getDescriptionDescriptionParserRuleCall_6_0_1_0()); 
 	    }
-		lv_description_10_0=ruleDescription		{
+		lv_description_9_0=ruleDescription		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
        		set(
        			$current, 
        			"description",
-        		lv_description_10_0, 
+        		lv_description_9_0, 
         		"Description");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1910,19 +1917,19 @@ ruleVerificationMethod returns [EObject current=null]
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7(), 1)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 1)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7(), 1);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 1);
 	 				}
-					({true}?=>(	otherlv_11='category' 
+					({true}?=>(	otherlv_10='category' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_7_1_0());
+    	newLeafNode(otherlv_10, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_6_1_0());
     }
 (
 (
@@ -1932,7 +1939,7 @@ ruleVerificationMethod returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getCategoryVerificationCategoryCrossReference_7_1_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getCategoryVerificationCategoryCrossReference_6_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();
@@ -1941,29 +1948,29 @@ ruleVerificationMethod returns [EObject current=null]
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7(), 2)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 2)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7(), 2);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6(), 2);
 	 				}
 					({true}?=>(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getConditionsVerificationConditionParserRuleCall_7_2_0()); 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getConditionsVerificationConditionParserRuleCall_6_2_0()); 
 	    }
-		lv_conditions_13_0=ruleVerificationCondition		{
+		lv_conditions_12_0=ruleVerificationCondition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
        		add(
        			$current, 
        			"conditions",
-        		lv_conditions_13_0, 
+        		lv_conditions_12_0, 
         		"VerificationCondition");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1971,7 +1978,7 @@ ruleVerificationMethod returns [EObject current=null]
 )
 ))+
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 	 				}
  				)
 			)  
@@ -1980,12 +1987,12 @@ ruleVerificationMethod returns [EObject current=null]
 	)
 )
 	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7());
+	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_6());
 	}
 
-)	otherlv_14=']' 
+)	otherlv_13=']' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getVerificationMethodAccess().getRightSquareBracketKeyword_8());
+    	newLeafNode(otherlv_13, grammarAccess.getVerificationMethodAccess().getRightSquareBracketKeyword_7());
     }
 )
 ;

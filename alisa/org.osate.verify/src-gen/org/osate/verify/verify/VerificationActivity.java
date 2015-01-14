@@ -164,26 +164,26 @@ public interface VerificationActivity extends EObject
   void setCategory(SelectionCategory value);
 
   /**
-   * Returns the value of the '<em><b>Method</b></em>' containment reference.
+   * Returns the value of the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Method</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Method</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Method</em>' containment reference.
+   * @return the value of the '<em>Method</em>' reference.
    * @see #setMethod(VerificationMethod)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Method()
-   * @model containment="true"
+   * @model
    * @generated
    */
   VerificationMethod getMethod();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Method</em>' containment reference.
+   * @param value the new value of the '<em>Method</em>' reference.
    * @see #getMethod()
    * @generated
    */

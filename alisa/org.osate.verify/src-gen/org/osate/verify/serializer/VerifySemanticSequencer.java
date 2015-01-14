@@ -24,10 +24,10 @@ import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.verify.services.VerifyGrammarAccess;
 import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.AndThenExpr;
-import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.AtomicConditionExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.ConditionExpr;
+import org.osate.verify.verify.ConditionalExpr;
 import org.osate.verify.verify.FailThenExpr;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.Verification;
@@ -114,17 +114,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case VerifyPackage.ARGUMENT_EXPR:
-				if(context == grammarAccess.getAndThenEvidenceExprRule() ||
-				   context == grammarAccess.getAndThenEvidenceExprAccess().getAndThenExprLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAtomicEvidenceExprRule() ||
-				   context == grammarAccess.getConditionalEvidenceRule() ||
-				   context == grammarAccess.getFailThenEvidenceExprRule() ||
-				   context == grammarAccess.getFailThenEvidenceExprAccess().getFailThenExprLeftAction_1_0_0_0()) {
-					sequence_ConditionalEvidence(context, (ArgumentExpr) semanticObject); 
-					return; 
-				}
-				else break;
 			case VerifyPackage.ATOMIC_CONDITION_EXPR:
 				if(context == grammarAccess.getAndConditionExprRule() ||
 				   context == grammarAccess.getAndConditionExprAccess().getConditionExprLeftAction_1_0_0_0() ||
@@ -153,6 +142,17 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case VerifyPackage.CONDITIONAL_EXPR:
+				if(context == grammarAccess.getAndThenEvidenceExprRule() ||
+				   context == grammarAccess.getAndThenEvidenceExprAccess().getAndThenExprLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getAtomicEvidenceExprRule() ||
+				   context == grammarAccess.getConditionalEvidenceRule() ||
+				   context == grammarAccess.getFailThenEvidenceExprRule() ||
+				   context == grammarAccess.getFailThenEvidenceExprAccess().getFailThenExprLeftAction_1_0_0_0()) {
+					sequence_ConditionalEvidence(context, (ConditionalExpr) semanticObject); 
+					return; 
+				}
+				else break;
 			case VerifyPackage.FAIL_THEN_EXPR:
 				if(context == grammarAccess.getAndThenEvidenceExprRule() ||
 				   context == grammarAccess.getAndThenEvidenceExprAccess().getAndThenExprLeftAction_1_0_0_0() ||
@@ -168,7 +168,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				   context == grammarAccess.getAndThenEvidenceExprAccess().getAndThenExprLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getAtomicEvidenceExprRule() ||
 				   context == grammarAccess.getConditionalEvidenceRule() ||
-				   context == grammarAccess.getConditionalEvidenceAccess().getArgumentExprLeftAction_1_0_0_0() ||
+				   context == grammarAccess.getConditionalEvidenceAccess().getConditionalExprVerificationAction_1_0_0_0() ||
 				   context == grammarAccess.getFailThenEvidenceExprRule() ||
 				   context == grammarAccess.getFailThenEvidenceExprAccess().getFailThenExprLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getVAReferenceRule()) {
@@ -279,12 +279,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 */
 	protected void sequence_AndThenEvidenceExpr(EObject context, AndThenExpr semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__LEFT));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__OP) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__OP));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__RIGHT));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__LEFT));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__OP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__OP));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.AND_THEN_EXPR__RIGHT));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
@@ -306,7 +306,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID requirement=[Requirement|QualifiedName] assert=ArgumentExpr rationale=MultiLineString?)
+	 *     (name=ID requirement=[Requirement|QualifiedName] assert=ArgumentExpr rationale=MultiLineString? subclaims+=Claim*)
 	 */
 	protected void sequence_Claim(EObject context, Claim semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -315,22 +315,22 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (left=ConditionalEvidence_ArgumentExpr_1_0_0_0 op='when' right=OrConditionExpr)
+	 *     (verification=ConditionalEvidence_ConditionalExpr_1_0_0_0 op='when' condition=OrConditionExpr)
 	 */
-	protected void sequence_ConditionalEvidence(EObject context, ArgumentExpr semanticObject) {
+	protected void sequence_ConditionalEvidence(EObject context, ConditionalExpr semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__LEFT));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__OP) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__OP));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__RIGHT));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.CONDITIONAL_EXPR__VERIFICATION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.CONDITIONAL_EXPR__VERIFICATION));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.CONDITIONAL_EXPR__OP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.CONDITIONAL_EXPR__OP));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.CONDITIONAL_EXPR__CONDITION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.CONDITIONAL_EXPR__CONDITION));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getConditionalEvidenceAccess().getArgumentExprLeftAction_1_0_0_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getConditionalEvidenceAccess().getConditionalExprVerificationAction_1_0_0_0(), semanticObject.getVerification());
 		feeder.accept(grammarAccess.getConditionalEvidenceAccess().getOpWhenKeyword_1_0_0_1_0(), semanticObject.getOp());
-		feeder.accept(grammarAccess.getConditionalEvidenceAccess().getRightOrConditionExprParserRuleCall_1_2_0(), semanticObject.getRight());
+		feeder.accept(grammarAccess.getConditionalEvidenceAccess().getConditionOrConditionExprParserRuleCall_1_1_0(), semanticObject.getCondition());
 		feeder.finish();
 	}
 	
@@ -341,12 +341,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 */
 	protected void sequence_FailThenEvidenceExpr(EObject context, FailThenExpr semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__LEFT));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__OP) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__OP));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.ARGUMENT_EXPR__RIGHT));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__LEFT));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__OP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__OP));
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__RIGHT));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
@@ -359,7 +359,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (reference=[VerificationActivity|QualifiedName] weight=INT?)
+	 *     (verification=[VerificationActivity|QualifiedName] weight=INT?)
 	 */
 	protected void sequence_VAReference(EObject context, RefExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -374,7 +374,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=ValueString? 
 	 *         description=Description? 
 	 *         category=[SelectionCategory|CatRef]? 
-	 *         method=VerificationMethod?
+	 *         method=[VerificationMethod|QualifiedName]?
 	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
@@ -453,7 +453,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID target=[SystemSpec|QualifiedName] description=MultiLineString? claims+=Claim*)
+	 *     (name=ID target=[ComponentClassifier|AadlClassifierReference] description=STRING? claims+=Claim*)
 	 */
 	protected void sequence_VerificationPlan(EObject context, VerificationPlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

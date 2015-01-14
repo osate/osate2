@@ -102,7 +102,7 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID system=[ComponentImplementation|AadlClassifierReference] plans+=[VerificationPlan|QualifiedName])
+	 *     (name=ID system=[ComponentImplementation|AadlClassifierReference] plans+=[VerificationPlan|QualifiedName]*)
 	 */
 	protected void sequence_AssuranceCasePlan(EObject context, AssuranceCasePlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

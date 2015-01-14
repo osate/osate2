@@ -1,4 +1,4 @@
-package org.osate.reqspec.naming;
+package org.osate.alisa.common.naming;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.util.Strings;
 
-public class ReqSpecQualifiedNameConverter extends IQualifiedNameConverter.DefaultImpl {
+public class CommonQualifiedNameConverter extends IQualifiedNameConverter.DefaultImpl {
 	@Override
 	public QualifiedName toQualifiedName(String qualifiedNameAsString) {
 		if (qualifiedNameAsString == null) {
@@ -32,5 +32,4 @@ public class ReqSpecQualifiedNameConverter extends IQualifiedNameConverter.Defau
 			throw new IllegalArgumentException("Qualified name cannot be null");
 		return qualifiedName.toString(getDelimiter());
 	}
-
 }

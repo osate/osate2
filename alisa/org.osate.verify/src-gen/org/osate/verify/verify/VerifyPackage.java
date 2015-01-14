@@ -316,13 +316,22 @@ public interface VerifyPackage extends EPackage
   int CLAIM__RATIONALE = 3;
 
   /**
+   * The feature id for the '<em><b>Subclaims</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM__SUBCLAIMS = 4;
+
+  /**
    * The number of structural features of the '<em>Claim</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_FEATURE_COUNT = 4;
+  int CLAIM_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationActivityImpl <em>Verification Activity</em>}' class.
@@ -380,7 +389,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__CATEGORY = 4;
 
   /**
-   * The feature id for the '<em><b>Method</b></em>' containment reference.
+   * The feature id for the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -490,40 +499,13 @@ public interface VerifyPackage extends EPackage
   int ARGUMENT_EXPR = 8;
 
   /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARGUMENT_EXPR__LEFT = 0;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARGUMENT_EXPR__OP = 1;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ARGUMENT_EXPR__RIGHT = 2;
-
-  /**
    * The number of structural features of the '<em>Argument Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ARGUMENT_EXPR_FEATURE_COUNT = 3;
+  int ARGUMENT_EXPR_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ConditionExprImpl <em>Condition Expr</em>}' class.
@@ -883,33 +865,6 @@ public interface VerifyPackage extends EPackage
   int ALL_EXPR = 14;
 
   /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ALL_EXPR__LEFT = ARGUMENT_EXPR__LEFT;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ALL_EXPR__OP = ARGUMENT_EXPR__OP;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ALL_EXPR__RIGHT = ARGUMENT_EXPR__RIGHT;
-
-  /**
    * The feature id for the '<em><b>All</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -944,7 +899,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AND_THEN_EXPR__LEFT = ARGUMENT_EXPR__LEFT;
+  int AND_THEN_EXPR__LEFT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -953,7 +908,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AND_THEN_EXPR__OP = ARGUMENT_EXPR__OP;
+  int AND_THEN_EXPR__OP = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -962,7 +917,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AND_THEN_EXPR__RIGHT = ARGUMENT_EXPR__RIGHT;
+  int AND_THEN_EXPR__RIGHT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>And Then Expr</em>' class.
@@ -971,7 +926,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int AND_THEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
+  int AND_THEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.FailThenExprImpl <em>Fail Then Expr</em>}' class.
@@ -990,7 +945,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FAIL_THEN_EXPR__LEFT = ARGUMENT_EXPR__LEFT;
+  int FAIL_THEN_EXPR__LEFT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -999,7 +954,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FAIL_THEN_EXPR__OP = ARGUMENT_EXPR__OP;
+  int FAIL_THEN_EXPR__OP = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -1008,7 +963,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FAIL_THEN_EXPR__RIGHT = ARGUMENT_EXPR__RIGHT;
+  int FAIL_THEN_EXPR__RIGHT = ARGUMENT_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Fail Then Expr</em>' class.
@@ -1017,7 +972,53 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FAIL_THEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 0;
+  int FAIL_THEN_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.osate.verify.verify.impl.ConditionalExprImpl <em>Conditional Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.verify.verify.impl.ConditionalExprImpl
+   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getConditionalExpr()
+   * @generated
+   */
+  int CONDITIONAL_EXPR = 17;
+
+  /**
+   * The feature id for the '<em><b>Verification</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITIONAL_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITIONAL_EXPR__OP = ARGUMENT_EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Condition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITIONAL_EXPR__CONDITION = ARGUMENT_EXPR_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Conditional Expr</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITIONAL_EXPR_FEATURE_COUNT = ARGUMENT_EXPR_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.RefExprImpl <em>Ref Expr</em>}' class.
@@ -1027,43 +1028,16 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 17;
+  int REF_EXPR = 18;
 
   /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * The feature id for the '<em><b>Verification</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REF_EXPR__LEFT = ARGUMENT_EXPR__LEFT;
-
-  /**
-   * The feature id for the '<em><b>Op</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REF_EXPR__OP = ARGUMENT_EXPR__OP;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REF_EXPR__RIGHT = ARGUMENT_EXPR__RIGHT;
-
-  /**
-   * The feature id for the '<em><b>Reference</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REF_EXPR__REFERENCE = ARGUMENT_EXPR_FEATURE_COUNT + 0;
+  int REF_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Weight</b></em>' attribute.
@@ -1091,7 +1065,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedTypes()
    * @generated
    */
-  int SUPPORTED_TYPES = 18;
+  int SUPPORTED_TYPES = 19;
 
 
   /**
@@ -1298,6 +1272,17 @@ public interface VerifyPackage extends EPackage
   EAttribute getClaim_Rationale();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.Claim#getSubclaims <em>Subclaims</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Subclaims</em>'.
+   * @see org.osate.verify.verify.Claim#getSubclaims()
+   * @see #getClaim()
+   * @generated
+   */
+  EReference getClaim_Subclaims();
+
+  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationActivity <em>Verification Activity</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1363,10 +1348,10 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationActivity_Category();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Method</em>'.
+   * @return the meta object for the reference '<em>Method</em>'.
    * @see org.osate.verify.verify.VerificationActivity#getMethod()
    * @see #getVerificationActivity()
    * @generated
@@ -1469,39 +1454,6 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EClass getArgumentExpr();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ArgumentExpr#getLeft <em>Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.osate.verify.verify.ArgumentExpr#getLeft()
-   * @see #getArgumentExpr()
-   * @generated
-   */
-  EReference getArgumentExpr_Left();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.ArgumentExpr#getOp <em>Op</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Op</em>'.
-   * @see org.osate.verify.verify.ArgumentExpr#getOp()
-   * @see #getArgumentExpr()
-   * @generated
-   */
-  EAttribute getArgumentExpr_Op();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ArgumentExpr#getRight <em>Right</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.osate.verify.verify.ArgumentExpr#getRight()
-   * @see #getArgumentExpr()
-   * @generated
-   */
-  EReference getArgumentExpr_Right();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ConditionExpr <em>Condition Expr</em>}'.
@@ -1706,6 +1658,39 @@ public interface VerifyPackage extends EPackage
   EClass getAndThenExpr();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.AndThenExpr#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.osate.verify.verify.AndThenExpr#getLeft()
+   * @see #getAndThenExpr()
+   * @generated
+   */
+  EReference getAndThenExpr_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.AndThenExpr#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.osate.verify.verify.AndThenExpr#getOp()
+   * @see #getAndThenExpr()
+   * @generated
+   */
+  EAttribute getAndThenExpr_Op();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.AndThenExpr#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.osate.verify.verify.AndThenExpr#getRight()
+   * @see #getAndThenExpr()
+   * @generated
+   */
+  EReference getAndThenExpr_Right();
+
+  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.FailThenExpr <em>Fail Then Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1714,6 +1699,82 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EClass getFailThenExpr();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.FailThenExpr#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.osate.verify.verify.FailThenExpr#getLeft()
+   * @see #getFailThenExpr()
+   * @generated
+   */
+  EReference getFailThenExpr_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.FailThenExpr#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.osate.verify.verify.FailThenExpr#getOp()
+   * @see #getFailThenExpr()
+   * @generated
+   */
+  EAttribute getFailThenExpr_Op();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.FailThenExpr#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.osate.verify.verify.FailThenExpr#getRight()
+   * @see #getFailThenExpr()
+   * @generated
+   */
+  EReference getFailThenExpr_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.verify.verify.ConditionalExpr <em>Conditional Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Conditional Expr</em>'.
+   * @see org.osate.verify.verify.ConditionalExpr
+   * @generated
+   */
+  EClass getConditionalExpr();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ConditionalExpr#getVerification <em>Verification</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Verification</em>'.
+   * @see org.osate.verify.verify.ConditionalExpr#getVerification()
+   * @see #getConditionalExpr()
+   * @generated
+   */
+  EReference getConditionalExpr_Verification();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.ConditionalExpr#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.osate.verify.verify.ConditionalExpr#getOp()
+   * @see #getConditionalExpr()
+   * @generated
+   */
+  EAttribute getConditionalExpr_Op();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.ConditionalExpr#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @see org.osate.verify.verify.ConditionalExpr#getCondition()
+   * @see #getConditionalExpr()
+   * @generated
+   */
+  EReference getConditionalExpr_Condition();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.RefExpr <em>Ref Expr</em>}'.
@@ -1726,15 +1787,15 @@ public interface VerifyPackage extends EPackage
   EClass getRefExpr();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.RefExpr#getReference <em>Reference</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.verify.verify.RefExpr#getVerification <em>Verification</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Reference</em>'.
-   * @see org.osate.verify.verify.RefExpr#getReference()
+   * @return the meta object for the reference '<em>Verification</em>'.
+   * @see org.osate.verify.verify.RefExpr#getVerification()
    * @see #getRefExpr()
    * @generated
    */
-  EReference getRefExpr_Reference();
+  EReference getRefExpr_Verification();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.RefExpr#getWeight <em>Weight</em>}'.
@@ -1945,6 +2006,14 @@ public interface VerifyPackage extends EPackage
     EAttribute CLAIM__RATIONALE = eINSTANCE.getClaim_Rationale();
 
     /**
+     * The meta object literal for the '<em><b>Subclaims</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLAIM__SUBCLAIMS = eINSTANCE.getClaim_Subclaims();
+
+    /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationActivityImpl <em>Verification Activity</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1995,7 +2064,7 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_ACTIVITY__CATEGORY = eINSTANCE.getVerificationActivity_Category();
 
     /**
-     * The meta object literal for the '<em><b>Method</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Method</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2077,30 +2146,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EClass ARGUMENT_EXPR = eINSTANCE.getArgumentExpr();
-
-    /**
-     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARGUMENT_EXPR__LEFT = eINSTANCE.getArgumentExpr_Left();
-
-    /**
-     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ARGUMENT_EXPR__OP = eINSTANCE.getArgumentExpr_Op();
-
-    /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ARGUMENT_EXPR__RIGHT = eINSTANCE.getArgumentExpr_Right();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ConditionExprImpl <em>Condition Expr</em>}' class.
@@ -2269,6 +2314,30 @@ public interface VerifyPackage extends EPackage
     EClass AND_THEN_EXPR = eINSTANCE.getAndThenExpr();
 
     /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND_THEN_EXPR__LEFT = eINSTANCE.getAndThenExpr_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute AND_THEN_EXPR__OP = eINSTANCE.getAndThenExpr_Op();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND_THEN_EXPR__RIGHT = eINSTANCE.getAndThenExpr_Right();
+
+    /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.FailThenExprImpl <em>Fail Then Expr</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2277,6 +2346,64 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EClass FAIL_THEN_EXPR = eINSTANCE.getFailThenExpr();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FAIL_THEN_EXPR__LEFT = eINSTANCE.getFailThenExpr_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FAIL_THEN_EXPR__OP = eINSTANCE.getFailThenExpr_Op();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FAIL_THEN_EXPR__RIGHT = eINSTANCE.getFailThenExpr_Right();
+
+    /**
+     * The meta object literal for the '{@link org.osate.verify.verify.impl.ConditionalExprImpl <em>Conditional Expr</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.verify.verify.impl.ConditionalExprImpl
+     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getConditionalExpr()
+     * @generated
+     */
+    EClass CONDITIONAL_EXPR = eINSTANCE.getConditionalExpr();
+
+    /**
+     * The meta object literal for the '<em><b>Verification</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONDITIONAL_EXPR__VERIFICATION = eINSTANCE.getConditionalExpr_Verification();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CONDITIONAL_EXPR__OP = eINSTANCE.getConditionalExpr_Op();
+
+    /**
+     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONDITIONAL_EXPR__CONDITION = eINSTANCE.getConditionalExpr_Condition();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.RefExprImpl <em>Ref Expr</em>}' class.
@@ -2289,12 +2416,12 @@ public interface VerifyPackage extends EPackage
     EClass REF_EXPR = eINSTANCE.getRefExpr();
 
     /**
-     * The meta object literal for the '<em><b>Reference</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Verification</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REF_EXPR__REFERENCE = eINSTANCE.getRefExpr_Reference();
+    EReference REF_EXPR__VERIFICATION = eINSTANCE.getRefExpr_Verification();
 
     /**
      * The meta object literal for the '<em><b>Weight</b></em>' attribute feature.

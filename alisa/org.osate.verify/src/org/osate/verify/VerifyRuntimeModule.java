@@ -8,4 +8,8 @@ package org.osate.verify;
  */
 public class VerifyRuntimeModule extends org.osate.verify.AbstractVerifyRuntimeModule {
 
+	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
+		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
+	}
+
 }

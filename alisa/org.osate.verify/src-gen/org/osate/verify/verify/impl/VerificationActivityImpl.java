@@ -113,7 +113,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected SelectionCategory category;
 
   /**
-   * The cached value of the '{@link #getMethod() <em>Method</em>}' containment reference.
+   * The cached value of the '{@link #getMethod() <em>Method</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getMethod()
@@ -330,6 +330,16 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    */
   public VerificationMethod getMethod()
   {
+    if (method != null && method.eIsProxy())
+    {
+      InternalEObject oldMethod = (InternalEObject)method;
+      method = (VerificationMethod)eResolveProxy(oldMethod);
+      if (method != oldMethod)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_ACTIVITY__METHOD, oldMethod, method));
+      }
+    }
     return method;
   }
 
@@ -338,16 +348,9 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetMethod(VerificationMethod newMethod, NotificationChain msgs)
+  public VerificationMethod basicGetMethod()
   {
-    VerificationMethod oldMethod = method;
-    method = newMethod;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__METHOD, oldMethod, newMethod);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
+    return method;
   }
 
   /**
@@ -357,18 +360,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    */
   public void setMethod(VerificationMethod newMethod)
   {
-    if (newMethod != method)
-    {
-      NotificationChain msgs = null;
-      if (method != null)
-        msgs = ((InternalEObject)method).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__METHOD, null, msgs);
-      if (newMethod != null)
-        msgs = ((InternalEObject)newMethod).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__METHOD, null, msgs);
-      msgs = basicSetMethod(newMethod, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__METHOD, newMethod, newMethod));
+    VerificationMethod oldMethod = method;
+    method = newMethod;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__METHOD, oldMethod, method));
   }
 
   /**
@@ -383,8 +378,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         return basicSetDescription(null, msgs);
-      case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
-        return basicSetMethod(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -412,7 +405,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         if (resolve) return getCategory();
         return basicGetCategory();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
-        return getMethod();
+        if (resolve) return getMethod();
+        return basicGetMethod();
     }
     return super.eGet(featureID, resolve, coreType);
   }

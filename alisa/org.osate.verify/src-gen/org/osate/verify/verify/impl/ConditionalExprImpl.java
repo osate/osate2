@@ -11,35 +11,36 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.verify.verify.ArgumentExpr;
-import org.osate.verify.verify.FailThenExpr;
+import org.osate.verify.verify.ConditionExpr;
+import org.osate.verify.verify.ConditionalExpr;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Fail Then Expr</b></em>'.
+ * An implementation of the model object '<em><b>Conditional Expr</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#getLeft <em>Left</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#getOp <em>Op</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#getRight <em>Right</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ConditionalExprImpl#getVerification <em>Verification</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ConditionalExprImpl#getOp <em>Op</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ConditionalExprImpl#getCondition <em>Condition</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
+public class ConditionalExprImpl extends ArgumentExprImpl implements ConditionalExpr
 {
   /**
-   * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
+   * The cached value of the '{@link #getVerification() <em>Verification</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getLeft()
+   * @see #getVerification()
    * @generated
    * @ordered
    */
-  protected ArgumentExpr left;
+  protected ArgumentExpr verification;
 
   /**
    * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
@@ -62,21 +63,21 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
   protected String op = OP_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRight()
+   * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected ArgumentExpr right;
+  protected ConditionExpr condition;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected FailThenExprImpl()
+  protected ConditionalExprImpl()
   {
     super();
   }
@@ -89,7 +90,7 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
   @Override
   protected EClass eStaticClass()
   {
-    return VerifyPackage.Literals.FAIL_THEN_EXPR;
+    return VerifyPackage.Literals.CONDITIONAL_EXPR;
   }
 
   /**
@@ -97,9 +98,9 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentExpr getLeft()
+  public ArgumentExpr getVerification()
   {
-    return left;
+    return verification;
   }
 
   /**
@@ -107,13 +108,13 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetLeft(ArgumentExpr newLeft, NotificationChain msgs)
+  public NotificationChain basicSetVerification(ArgumentExpr newVerification, NotificationChain msgs)
   {
-    ArgumentExpr oldLeft = left;
-    left = newLeft;
+    ArgumentExpr oldVerification = verification;
+    verification = newVerification;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.FAIL_THEN_EXPR__LEFT, oldLeft, newLeft);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.CONDITIONAL_EXPR__VERIFICATION, oldVerification, newVerification);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -124,20 +125,20 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setLeft(ArgumentExpr newLeft)
+  public void setVerification(ArgumentExpr newVerification)
   {
-    if (newLeft != left)
+    if (newVerification != verification)
     {
       NotificationChain msgs = null;
-      if (left != null)
-        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.FAIL_THEN_EXPR__LEFT, null, msgs);
-      if (newLeft != null)
-        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.FAIL_THEN_EXPR__LEFT, null, msgs);
-      msgs = basicSetLeft(newLeft, msgs);
+      if (verification != null)
+        msgs = ((InternalEObject)verification).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CONDITIONAL_EXPR__VERIFICATION, null, msgs);
+      if (newVerification != null)
+        msgs = ((InternalEObject)newVerification).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CONDITIONAL_EXPR__VERIFICATION, null, msgs);
+      msgs = basicSetVerification(newVerification, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FAIL_THEN_EXPR__LEFT, newLeft, newLeft));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CONDITIONAL_EXPR__VERIFICATION, newVerification, newVerification));
   }
 
   /**
@@ -160,7 +161,7 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
     String oldOp = op;
     op = newOp;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FAIL_THEN_EXPR__OP, oldOp, op));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CONDITIONAL_EXPR__OP, oldOp, op));
   }
 
   /**
@@ -168,9 +169,9 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentExpr getRight()
+  public ConditionExpr getCondition()
   {
-    return right;
+    return condition;
   }
 
   /**
@@ -178,13 +179,13 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(ArgumentExpr newRight, NotificationChain msgs)
+  public NotificationChain basicSetCondition(ConditionExpr newCondition, NotificationChain msgs)
   {
-    ArgumentExpr oldRight = right;
-    right = newRight;
+    ConditionExpr oldCondition = condition;
+    condition = newCondition;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.FAIL_THEN_EXPR__RIGHT, oldRight, newRight);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.CONDITIONAL_EXPR__CONDITION, oldCondition, newCondition);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -195,20 +196,20 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRight(ArgumentExpr newRight)
+  public void setCondition(ConditionExpr newCondition)
   {
-    if (newRight != right)
+    if (newCondition != condition)
     {
       NotificationChain msgs = null;
-      if (right != null)
-        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.FAIL_THEN_EXPR__RIGHT, null, msgs);
-      if (newRight != null)
-        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.FAIL_THEN_EXPR__RIGHT, null, msgs);
-      msgs = basicSetRight(newRight, msgs);
+      if (condition != null)
+        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CONDITIONAL_EXPR__CONDITION, null, msgs);
+      if (newCondition != null)
+        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CONDITIONAL_EXPR__CONDITION, null, msgs);
+      msgs = basicSetCondition(newCondition, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FAIL_THEN_EXPR__RIGHT, newRight, newRight));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CONDITIONAL_EXPR__CONDITION, newCondition, newCondition));
   }
 
   /**
@@ -221,10 +222,10 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.FAIL_THEN_EXPR__LEFT:
-        return basicSetLeft(null, msgs);
-      case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
-        return basicSetRight(null, msgs);
+      case VerifyPackage.CONDITIONAL_EXPR__VERIFICATION:
+        return basicSetVerification(null, msgs);
+      case VerifyPackage.CONDITIONAL_EXPR__CONDITION:
+        return basicSetCondition(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -239,12 +240,12 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.FAIL_THEN_EXPR__LEFT:
-        return getLeft();
-      case VerifyPackage.FAIL_THEN_EXPR__OP:
+      case VerifyPackage.CONDITIONAL_EXPR__VERIFICATION:
+        return getVerification();
+      case VerifyPackage.CONDITIONAL_EXPR__OP:
         return getOp();
-      case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
-        return getRight();
+      case VerifyPackage.CONDITIONAL_EXPR__CONDITION:
+        return getCondition();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -259,14 +260,14 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.FAIL_THEN_EXPR__LEFT:
-        setLeft((ArgumentExpr)newValue);
+      case VerifyPackage.CONDITIONAL_EXPR__VERIFICATION:
+        setVerification((ArgumentExpr)newValue);
         return;
-      case VerifyPackage.FAIL_THEN_EXPR__OP:
+      case VerifyPackage.CONDITIONAL_EXPR__OP:
         setOp((String)newValue);
         return;
-      case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
-        setRight((ArgumentExpr)newValue);
+      case VerifyPackage.CONDITIONAL_EXPR__CONDITION:
+        setCondition((ConditionExpr)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -282,14 +283,14 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.FAIL_THEN_EXPR__LEFT:
-        setLeft((ArgumentExpr)null);
+      case VerifyPackage.CONDITIONAL_EXPR__VERIFICATION:
+        setVerification((ArgumentExpr)null);
         return;
-      case VerifyPackage.FAIL_THEN_EXPR__OP:
+      case VerifyPackage.CONDITIONAL_EXPR__OP:
         setOp(OP_EDEFAULT);
         return;
-      case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
-        setRight((ArgumentExpr)null);
+      case VerifyPackage.CONDITIONAL_EXPR__CONDITION:
+        setCondition((ConditionExpr)null);
         return;
     }
     super.eUnset(featureID);
@@ -305,12 +306,12 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.FAIL_THEN_EXPR__LEFT:
-        return left != null;
-      case VerifyPackage.FAIL_THEN_EXPR__OP:
+      case VerifyPackage.CONDITIONAL_EXPR__VERIFICATION:
+        return verification != null;
+      case VerifyPackage.CONDITIONAL_EXPR__OP:
         return OP_EDEFAULT == null ? op != null : !OP_EDEFAULT.equals(op);
-      case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
-        return right != null;
+      case VerifyPackage.CONDITIONAL_EXPR__CONDITION:
+        return condition != null;
     }
     return super.eIsSet(featureID);
   }
@@ -332,4 +333,4 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
     return result.toString();
   }
 
-} //FailThenExprImpl
+} //ConditionalExprImpl

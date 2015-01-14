@@ -95,31 +95,22 @@ public interface AssureFactory extends EFactory
   HazardResult createHazardResult();
 
   /**
-   * Returns a new object of class '<em>Evidence Expr</em>'.
+   * Returns a new object of class '<em>Fail Then Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Evidence Expr</em>'.
+   * @return a new object of class '<em>Fail Then Result</em>'.
    * @generated
    */
-  EvidenceExpr createEvidenceExpr();
+  FailThenResult createFailThenResult();
 
   /**
-   * Returns a new object of class '<em>Fail Then</em>'.
+   * Returns a new object of class '<em>If Then Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Fail Then</em>'.
+   * @return a new object of class '<em>If Then Result</em>'.
    * @generated
    */
-  FailThen createFailThen();
-
-  /**
-   * Returns a new object of class '<em>If Then</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>If Then</em>'.
-   * @generated
-   */
-  IfThen createIfThen();
+  IfThenResult createIfThenResult();
 
   /**
    * Returns the package supported by this factory.

@@ -2,6 +2,8 @@
  */
 package org.osate.verify.verify;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.reqspec.reqSpec.Requirement;
@@ -18,6 +20,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getSubclaims <em>Subclaims</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,5 +133,21 @@ public interface Claim extends EObject
    * @generated
    */
   void setRationale(String value);
+
+  /**
+   * Returns the value of the '<em><b>Subclaims</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.verify.verify.Claim}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Subclaims</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Subclaims</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Subclaims()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Claim> getSubclaims();
 
 } // Claim
