@@ -7,7 +7,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.SystemUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.osate.alisa.workbench.ui.internal.AlisaActivator;
@@ -15,6 +14,11 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 public class AlisaLoader {
+
+	public static boolean isWindows() {
+		return System.getProperty("os.name").startsWith("Windows");
+	}
+
 	public static boolean alisaInvoke(String className, String methodName, Object[] args) {
 
 		try {
@@ -76,7 +80,7 @@ public class AlisaLoader {
 				// and adapt to the OS naming scheme
 				bundleLocation = bundleLocation.replaceAll("reference:file:/", "");
 //				System.out.println("loc1=" + loc);
-				if (SystemUtils.IS_OS_WINDOWS) {
+				if (isWindows()) {
 					if (bundleLocation.contains("/")) {
 						bundleLocation = bundleLocation.replace('/', '\\');
 					}
