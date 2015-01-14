@@ -1,4 +1,4 @@
-grammar org.osate.assure.Assure with org.osate.alisa.common.Common//org.eclipse.xtext.common.Terminals
+grammar org.osate.assure.Assure with org.osate.alisa.common.Common
 
 generate assure "http://www.osate.org/assure/Assure"
 import "http://aadl.info/AADL/2.0" as aadl2

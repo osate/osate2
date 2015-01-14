@@ -1938,6 +1938,8 @@ ruleReferencePath returns [EObject current=null]
 
 
 
+
+
 // Entry rule entryRuleMultiLineString
 entryRuleMultiLineString returns [String current=null] 
 	:
@@ -1975,6 +1977,32 @@ ruleMultiLineString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRul
     ;
 
 
+
+
+
+// Entry rule entryRuleValueString
+entryRuleValueString returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getValueStringRule()); } 
+	 iv_ruleValueString=ruleValueString 
+	 { $current=$iv_ruleValueString.current.getText(); }  
+	 EOF 
+;
+
+// Rule ValueString
+ruleValueString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+    this_STRING_0=RULE_STRING    {
+		$current.merge(this_STRING_0);
+    }
+
+    { 
+    newLeafNode(this_STRING_0, grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); 
+    }
+
+    ;
 
 
 

@@ -15,7 +15,10 @@ Workflow {
     bean = StandaloneSetup {
     	scanClassPath = true
     	platformUri = "${runtimeProject}/.."
-     uriMap = {
+    	// The following two lines can be removed, if Xbase is not used.
+    	registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
+    	registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+    uriMap = {
 			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
 			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
 		}
@@ -176,14 +179,14 @@ Workflow {
     		// rename refactoring
     		fragment = refactoring.RefactorElementNameFragment auto-inject {}
     
-//    		// provides the necessary bindings for java types integration
-//    		fragment = types.TypesGeneratorFragment auto-inject {}
-//    
-//    		// generates the required bindings only if the grammar inherits from Xbase
-//    		fragment = xbase.XbaseGeneratorFragment auto-inject {}
-//    		
-//    		// generates the required bindings only if the grammar inherits from Xtype
-//    		fragment = xbase.XtypeGeneratorFragment auto-inject {}
+    		// provides the necessary bindings for java types integration
+    		fragment = types.TypesGeneratorFragment auto-inject {}
+    
+    		// generates the required bindings only if the grammar inherits from Xbase
+    		fragment = xbase.XbaseGeneratorFragment auto-inject {}
+    		
+    		// generates the required bindings only if the grammar inherits from Xtype
+    		fragment = xbase.XtypeGeneratorFragment auto-inject {}
     
     		// provides a preference page for template proposals
     		fragment = templates.CodetemplatesGeneratorFragment auto-inject {}

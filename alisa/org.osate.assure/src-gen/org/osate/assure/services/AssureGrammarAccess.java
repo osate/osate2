@@ -1652,13 +1652,23 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Dummy placeholder for comparison conditions
 	//PredicateExpression:
-	//	ID op="=" ID;
+	//	ID op=("=" | "!=" | "<" | "=<" | ">" | ">=") ID;
 	public CommonGrammarAccess.PredicateExpressionElements getPredicateExpressionAccess() {
 		return gaCommon.getPredicateExpressionAccess();
 	}
 	
 	public ParserRule getPredicateExpressionRule() {
 		return getPredicateExpressionAccess().getRule();
+	}
+
+	//FinalValue:
+	//	name=ID "=" value=ValueString;
+	public CommonGrammarAccess.FinalValueElements getFinalValueAccess() {
+		return gaCommon.getFinalValueAccess();
+	}
+	
+	public ParserRule getFinalValueRule() {
+		return getFinalValueAccess().getRule();
 	}
 
 	//ResultIssue:

@@ -12,6 +12,7 @@ import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.PredicateExpression;
 import org.osate.alisa.common.common.ReferencePath;
@@ -106,6 +107,12 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.DESCRIPTION_ELEMENT:
 				if(context == grammarAccess.getDescriptionElementRule()) {
 					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.FINAL_VALUE:
+				if(context == grammarAccess.getFinalValueRule()) {
+					sequence_FinalValue(context, (FinalValue) semanticObject); 
 					return; 
 				}
 				else break;

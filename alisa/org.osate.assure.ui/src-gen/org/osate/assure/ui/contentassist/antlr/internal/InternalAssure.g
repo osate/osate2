@@ -409,6 +409,8 @@ finally {
 
 
 
+
+
 // Entry rule entryRuleMultiLineString
 entryRuleMultiLineString 
 :
@@ -436,6 +438,32 @@ finally {
 }
 
 
+
+// Entry rule entryRuleValueString
+entryRuleValueString 
+:
+{ before(grammarAccess.getValueStringRule()); }
+	 ruleValueString
+{ after(grammarAccess.getValueStringRule()); } 
+	 EOF 
+;
+
+// Rule ValueString
+ruleValueString
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); }
+	RULE_STRING
+{ after(grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -629,6 +657,7 @@ rule__DescriptionElement__Alternatives
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 rule__VerificationResultState__Alternatives
     @init {
@@ -6513,6 +6542,7 @@ finally {
 
 
 
+
 rule__MultiLineString__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -7886,6 +7916,8 @@ rule__ReferencePath__SubpathAssignment_1_1
 finally {
 	restoreStackSize(stackSize);
 }
+
+
 
 
 
