@@ -35,10 +35,13 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getNeutralCount <em>Neutral Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getUnknownCount <em>Unknown Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getVerificationResult <em>Verification Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getFirst <em>First</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSecond <em>Second</em>}</li>
  * </ul>
  * </p>
  *
@@ -137,6 +140,26 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
   protected int unknownCount = UNKNOWN_COUNT_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected static final int WEIGHT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected int weight = WEIGHT_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -195,6 +218,26 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
    * @ordered
    */
   protected EList<VerificationResult> verificationResult;
+
+  /**
+   * The cached value of the '{@link #getFirst() <em>First</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFirst()
+   * @generated
+   * @ordered
+   */
+  protected EList<ClaimResult> first;
+
+  /**
+   * The cached value of the '{@link #getSecond() <em>Second</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSecond()
+   * @generated
+   * @ordered
+   */
+  protected EList<ClaimResult> second;
 
   /**
    * <!-- begin-user-doc -->
@@ -357,6 +400,29 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getWeight()
+  {
+    return weight;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setWeight(int newWeight)
+  {
+    int oldWeight = weight;
+    weight = newWeight;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__WEIGHT, oldWeight, weight));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getSucessMsg()
   {
     return sucessMsg;
@@ -431,6 +497,34 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ClaimResult> getFirst()
+  {
+    if (first == null)
+    {
+      first = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.CLAIM_RESULT__FIRST);
+    }
+    return first;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ClaimResult> getSecond()
+  {
+    if (second == null)
+    {
+      second = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.CLAIM_RESULT__SECOND);
+    }
+    return second;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -440,6 +534,10 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
         return ((InternalEList<?>)getSubClaimResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
         return ((InternalEList<?>)getVerificationResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.CLAIM_RESULT__FIRST:
+        return ((InternalEList<?>)getFirst()).basicRemove(otherEnd, msgs);
+      case AssurePackage.CLAIM_RESULT__SECOND:
+        return ((InternalEList<?>)getSecond()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -465,6 +563,8 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
         return getNeutralCount();
       case AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT:
         return getUnknownCount();
+      case AssurePackage.CLAIM_RESULT__WEIGHT:
+        return getWeight();
       case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
         return getSucessMsg();
       case AssurePackage.CLAIM_RESULT__FAIL_MSG:
@@ -473,6 +573,10 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
         return getSubClaimResult();
       case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
         return getVerificationResult();
+      case AssurePackage.CLAIM_RESULT__FIRST:
+        return getFirst();
+      case AssurePackage.CLAIM_RESULT__SECOND:
+        return getSecond();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -503,6 +607,9 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT:
         setUnknownCount((Integer)newValue);
         return;
+      case AssurePackage.CLAIM_RESULT__WEIGHT:
+        setWeight((Integer)newValue);
+        return;
       case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
         setSucessMsg((String)newValue);
         return;
@@ -516,6 +623,14 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
         getVerificationResult().clear();
         getVerificationResult().addAll((Collection<? extends VerificationResult>)newValue);
+        return;
+      case AssurePackage.CLAIM_RESULT__FIRST:
+        getFirst().clear();
+        getFirst().addAll((Collection<? extends ClaimResult>)newValue);
+        return;
+      case AssurePackage.CLAIM_RESULT__SECOND:
+        getSecond().clear();
+        getSecond().addAll((Collection<? extends ClaimResult>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -546,6 +661,9 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT:
         setUnknownCount(UNKNOWN_COUNT_EDEFAULT);
         return;
+      case AssurePackage.CLAIM_RESULT__WEIGHT:
+        setWeight(WEIGHT_EDEFAULT);
+        return;
       case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
         setSucessMsg(SUCESS_MSG_EDEFAULT);
         return;
@@ -557,6 +675,12 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
         return;
       case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
         getVerificationResult().clear();
+        return;
+      case AssurePackage.CLAIM_RESULT__FIRST:
+        getFirst().clear();
+        return;
+      case AssurePackage.CLAIM_RESULT__SECOND:
+        getSecond().clear();
         return;
     }
     super.eUnset(featureID);
@@ -582,6 +706,8 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
         return neutralCount != NEUTRAL_COUNT_EDEFAULT;
       case AssurePackage.CLAIM_RESULT__UNKNOWN_COUNT:
         return unknownCount != UNKNOWN_COUNT_EDEFAULT;
+      case AssurePackage.CLAIM_RESULT__WEIGHT:
+        return weight != WEIGHT_EDEFAULT;
       case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
         return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
       case AssurePackage.CLAIM_RESULT__FAIL_MSG:
@@ -590,6 +716,10 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
         return subClaimResult != null && !subClaimResult.isEmpty();
       case AssurePackage.CLAIM_RESULT__VERIFICATION_RESULT:
         return verificationResult != null && !verificationResult.isEmpty();
+      case AssurePackage.CLAIM_RESULT__FIRST:
+        return first != null && !first.isEmpty();
+      case AssurePackage.CLAIM_RESULT__SECOND:
+        return second != null && !second.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -613,6 +743,8 @@ public class ClaimResultImpl extends AssuranceResultImpl implements ClaimResult
     result.append(neutralCount);
     result.append(", unknownCount: ");
     result.append(unknownCount);
+    result.append(", weight: ");
+    result.append(weight);
     result.append(", sucessMsg: ");
     result.append(sucessMsg);
     result.append(", failMsg: ");

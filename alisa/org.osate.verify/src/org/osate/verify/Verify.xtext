@@ -9,11 +9,13 @@ import  "http://www.osate.org/categories/Categories" as categories
 
 Verification: contents+=(VerificationLibrary | VerificationPlan );
 
+// plan for a classifier. WIll add import to allow for non-qualified requirement references
+// Also allows for cross checking that we have covered requirements with claims
 VerificationPlan :
 	'plan' name=ID 
-	'for' target=[ReqSpec::SystemSpec|QualifiedName]
+	'for' target=  [aadl2::ComponentClassifier|AadlClassifierReference]  //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
-	('description' description=MultiLineString)?
+	('description' description=STRING)?
 	(claims+=Claim)*
 //	subPlans +=VerificationPlan*
 	']'
@@ -38,15 +40,16 @@ VerificationFolder returns VerificationFolder:
  	'claim' name=ID 'for' requirement=[ReqSpec::Requirement|QualifiedName] 
  	'assert' assert=ArgumentExpr
 	('rationale'  rationale=MultiLineString)? 
+	('[' (subclaims+=Claim)* ']')?
  	;	
 
 VerificationActivity:
-	'verification' 'activity' name=ID 'for' target=[aadl2::ComponentClassifier|AadlClassifierReference]
+	'activity' name=ID 'for' target=[aadl2::ComponentClassifier|AadlClassifierReference]
 	// or should it be the requirement, which provides the predicate
 	'['(('title'  title=ValueString)?
 	&('description'  description=Description)?
  	&('category'  category=[categories::SelectionCategory|CatRef])?
-	&('method'  method=VerificationMethod)?
+	&('method'  method=[VerificationMethod|QualifiedName])?
 //	('parameters'  verificationParameters+=([ElementReference])*)? 
 // these are data parameters to the method in addition to what comes with the model
 // and via the requirement (predicate/limit values
@@ -93,16 +96,16 @@ AtomicEvidenceExpr returns ArgumentExpr:
 	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr 
 ;
 
+
+ConditionalEvidence returns ArgumentExpr:
+	VAReference (=>({ConditionalExpr.verification=current} op='when')  condition=OrConditionExpr )?
+;
+
 VAReference returns ArgumentExpr:
-	{RefExpr} reference=[VerificationActivity|QualifiedName]
+	{RefExpr} verification=[VerificationActivity|QualifiedName]
 	('weight' weight=INT )?
 ;
 
-
-
-ConditionalEvidence returns ArgumentExpr:
-	VAReference (=>({ArgumentExpr.left=current} op='when') '(' right=OrConditionExpr ')')?
-;
 
 OrConditionExpr returns ConditionExpr:
 		AndConditionExpr (=>({ConditionExpr.left=current} op='or') right=AndConditionExpr)*
@@ -123,7 +126,7 @@ AtomicConditionExpr:
 // interface methods to external or built-in
 
 VerificationMethod:
-	'verification' 'method' name=ID (':'  title=ValueString)?
+	'method' name=ID (':'  title=ValueString)?
 	'['
  	 methodType=SupportedTypes method = ValueString
  	 // parameters (in addition to the model element

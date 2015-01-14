@@ -29,7 +29,20 @@ import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import org.eclipse.xtext.scoping.IGlobalScopeProvider
-
+import org.osate.verify.verify.VerificationPlan
+import java.util.ArrayList
+import org.osate.verify.verify.Claim
+import java.util.List
+import org.osate.verify.verify.ArgumentExpr
+import org.osate.verify.verify.AllExpr
+import org.osate.verify.verify.AndThenExpr
+import org.osate.verify.verify.FailThenExpr
+import org.osate.verify.verify.RefExpr
+import org.osate.verify.verify.ConditionalExpr
+import org.osate.verify.verify.ConditionExpr
+import org.osate.verify.verify.VerificationPrecondition
+import org.osate.aadl2.ComponentType
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 /**
  * Generates code from your model files on save.
@@ -37,153 +50,234 @@ import org.eclipse.xtext.scoping.IGlobalScopeProvider
  * see http://www.eclipse.org/Xtext/documentation.html#TutorialCodeGeneration
  */
 class AlisaGenerator implements IGenerator {
-	
+
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val workarea = resource.contents.get(0) as AlisaWorkArea
-		workarea.cases.forEach[mycase|
-		fsa.generateFile(
-			'''«mycase.name».assure''', generateCase(mycase) )
-				
+		workarea.cases.forEach [ mycase |
+			fsa.generateFile('''«mycase.name».assure''', generateCase(mycase))
 		]
 	}
-	
+
 	@Inject
-	var IGlobalScopeProvider scopeProvider 
+	var IGlobalScopeProvider scopeProvider
 	
+	@Inject extension IQualifiedNameProvider qualifiedNameProvider
+
 	extension CommonGlobalScopeProvider cgsp = scopeProvider as CommonGlobalScopeProvider
 
-	var AssuranceCasePlan currentcase 
-	
-	def generateCase(AssuranceCasePlan acp){
+	var AssuranceCasePlan currentcase
+
+	def generateCase(AssuranceCasePlan acp) {
 		currentcase = acp
-	val si = acp.system.buildInstanceModelFile
+		val si = acp.system.buildInstanceModelFile
 		si.generate
 	}
-	
-	def String generate ( ComponentInstance ci){
+
+	def String generate(ComponentInstance ci) {
 		'''
-		case «ci.name» for «ci.instanceObjectPath»
-		[
-			pass = 0
-			fail = 0
-			neutral = 0
-			unknown = 0
-			weight = 1
-		«FOR subci : ci.componentInstances»
-			«subci.generate»
-		«ENDFOR»
-		«FOR reqspec : ci.requirements»
-			«reqspec.generate(ci)»
-		«ENDFOR»
-		]
-		'''
-	}
-	
-//io.getRelativeURIFragmentPath(null) for relative path
-	def String generate (Requirement reqspec, InstanceObject io){
-		'''
-		claim «io.name»-«reqspec.name» of «reqspec»
-		for "«io.getURI»" 
-		[
-			pass = 0
-			fail = 0
-			neutral = 0
-			unknown = 0
-		«FOR subreqspec : reqspec.subrequirement»
-			«subreqspec.generate(io)»
-		«ENDFOR»
-		«FOR va : reqspec.verificationActivities»
-			«(va as VerificationActivity).generate(io)»
-		«ENDFOR»
-		]
-		'''
-	}
-		
-	def generate (VerificationActivity va, InstanceObject io){
-		'''
-		verification «io.name»-«va.name» of «va»
-		for "«io.getURI»" 
-		[
-			pass = 0
-			fail = 0
-			neutral = 0
-			unknown = 0
-		«FOR subva : va.method.conditions »
-			«subva.generate(io)»
-		«ENDFOR»
-		]
-		'''
-	}
-		
-	def generate (VerificationAssumption va, InstanceObject io){
-		'''
-		verification «io.name»-«va.name» of «va»
-		for "«io.getURI»" 
-		[
-			pass = 0
-			fail = 0
-			neutral = 0
-			unknown = 0
-		]
-		'''
-	}
-		
-	def generate (Hazard ha, InstanceObject io){
-		'''
-		verification «io.name»-«ha.name» of «ha»
-		for "«io.getURI»"
-		[
-		]
-		'''
-	}
-		
-	def generate (VerificationCondition vc, InstanceObject io){
-		'''
-		assumption/precondition «io.name»-«vc.name» of «vc»
-		for "«io.getURI»"
-		[
-		]
+			case «ci.name» for «ci.instanceObjectPath»
+			[
+				success 0
+				fail 0
+				neutral 0
+				unknown 0
+				weight 1
+				«FOR claim : ci.claims»
+				«claim.generate»
+				«ENDFOR»
+				«FOR subci : ci.componentInstances»
+				«subci.generateNonemptySubCase»
+				«ENDFOR»
+			]
 		'''
 	}
 	
-	def getRequirements(ComponentInstance io){
-		val x = io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement,null)
-		
-		val y = x.map[EObjectOrProxy as Requirement]
-		for ( r : y) {
-			val cl1 = r.target
-			val ComponentClassifier t2 = (io as ComponentInstance).componentClassifier
-			val c1n = cl1.getQualifiedName()
-			val c2n = t2.getQualifiedName()
-			println(c1n + " "+c2n)
+	def String generateNonemptySubCase(ComponentInstance ci){
+		val claimset = ci.claims
+		if (!claimset.empty){
+			ci.generate
 		}
-		y.filter[req| samereqs((req as Requirement).target as ComponentClassifier, (io as ComponentInstance).componentClassifier )]//(req as Requirement).target.getQualifiedName().equalsIgnoreCase((io as ComponentInstance).componentClassifier.getQualifiedName())]
-//		io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement)
-//		 [IEObjectDescription ed | (ed.EObjectOrProxy as Requirement).target == (io as ComponentInstance).componentClassifier]
-//		 .map[ed|ed.EObjectOrProxy as Requirement]
+		''''''
+	}
+
+	//io.getRelativeURIFragmentPath(null) for relative path
+	def String generate(Claim claim) {
+		'''
+			claim «claim.name» of «claim?.requirement.fullyQualifiedName»
+			[
+				sucess  0
+				fail 0
+				neutral 0
+				unknown 0
+				weight 1
+			    «FOR subclaim : claim?.subclaims»
+				«subclaim.generate»
+			    «ENDFOR»
+			    «claim.assert.generate»
+			]
+		'''
+	}
+
+	def generate(ArgumentExpr expr) {
+		switch expr {
+			AllExpr: expr.doGenerate
+			AndThenExpr: expr.doGenerate
+			FailThenExpr: expr.doGenerate
+			ConditionalExpr: expr.doGenerate
+			RefExpr: expr.doGenerate
+		}
+	}
+
+	def doGenerate(AllExpr expr) {
+		'''«FOR subexpr : expr.all»
+			«subexpr.generate»
+		«ENDFOR»
+		'''
+	}
+
+	def doGenerate(AndThenExpr expr) {
+		'''if 
+		  «expr.left.generate»
+		then
+		  «expr.right.generate»
+		'''
+	}
+
+	def doGenerate(FailThenExpr expr) {
+		'''fail 
+		  «expr.left.generate»
+		then
+		  «expr.right.generate»
+		'''
+	}
+
+	def doGenerate(ConditionalExpr expr) {
+		'''«IF expr.condition.evaluate»
+		«expr.generate»
+		«ENDIF»
+		'''
+	}
+
+	def doGenerate(RefExpr expr) {
+		'''
+			verification «expr.verification.name» of «expr.verification.fullyQualifiedName»
+			[
+				state todo
+				status tbd
+				weight «expr.theWeight»
+			«FOR vacond : expr.verification.method.conditions»
+				«vacond.generate»
+			«ENDFOR»
+			]
+		'''
+	}
+
+	def generate(Hazard ha) {
+		'''
+			hazard «ha.name» of «ha.fullyQualifiedName»
+			[
+				sucess  0
+				fail 0
+				neutral 0
+				unknown 0
+				weight 1
+			]
+		'''
+	}
+
+	def generate(VerificationCondition vc) {
+		'''
+			«vc.keyword» «vc.name» of «vc.fullyQualifiedName»
+			[
+				state todo
+				status tbd
+				weight 1
+			]
+		'''
+	}
+
+	def evaluate(ConditionExpr expr) {
+		true
+	}
+
+	def keyword(VerificationCondition vc) {
+		switch vc {
+			VerificationAssumption: '''assumption'''
+			VerificationPrecondition: '''precondition'''
+		}
+	}
+
+	def getTheWeight(RefExpr expr) {
+		switch expr {
+			case expr.weight == 0: 1
+			default: expr.weight
+		}
+	}
+
+	def List<Claim> getClaims(ComponentInstance io) {
+		val myplans = currentcase.plans.filter [ VerificationPlan vp |
+			vp.target.isSame(io.componentClassifier)
+		]
+		val List<Claim> resultlist = new ArrayList
+		myplans.forEach[resultlist.addAll(claims)]
+		return resultlist
+	}
+
+	def boolean hasPlan(ComponentInstance io) {
+		val myplans = currentcase.plans.filter [ VerificationPlan vp |
+			vp.target.isSame(io.componentClassifier)
+		]
+		! myplans.empty
 	}
 	
-	def boolean samereqs (ComponentClassifier cl1, ComponentClassifier cl2){
-		cl1.getQualifiedName().equalsIgnoreCase(cl2.getQualifiedName())
+	def isSame(ComponentClassifier cl1, ComponentClassifier cl2){
+		var lcl1 = cl1
+		var lcl2 = cl2
+		if (cl1 instanceof ComponentType && cl2 instanceof ComponentImplementation)
+		lcl2 = (cl2 as ComponentImplementation).type
+		if (cl2 instanceof ComponentType && cl1 instanceof ComponentImplementation)
+		lcl1 = (cl1 as ComponentImplementation).type
+		cl1.name.equalsIgnoreCase(cl2.name)
 	}
-	
-	def getVerificationActivities(Requirement reqspec){
-//		reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationContainer,null).
-//		map[EObjectOrProxy as VerificationContainer].filter[va | va.target == reqspec] 
-		reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationContainer)
-		[ed | (ed.EObjectOrProxy as VerificationContainer)?.target == reqspec] 
-		.map[ed|ed.EObjectOrProxy as VerificationContainer]
-	}
-	
-	def getRequirementTarget(Requirement req, InstanceObject io){
+
+	//	def getRequirements(ComponentInstance io){
+	//		val x = io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement,null)
+	//		
+	//		val y = x.map[EObjectOrProxy as Requirement]
+	//		for ( r : y) {
+	//			val cl1 = r.target
+	//			val ComponentClassifier t2 = (io as ComponentInstance).componentClassifier
+	//			val c1n = cl1.getQualifiedName()
+	//			val c2n = t2.getQualifiedName()
+	//			println(c1n + " "+c2n)
+	//		}
+	//		y.filter[req| samereqs((req as Requirement).target as ComponentClassifier, (io as ComponentInstance).componentClassifier )]//(req as Requirement).target.getQualifiedName().equalsIgnoreCase((io as ComponentInstance).componentClassifier.getQualifiedName())]
+	////		io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement)
+	////		 [IEObjectDescription ed | (ed.EObjectOrProxy as Requirement).target == (io as ComponentInstance).componentClassifier]
+	////		 .map[ed|ed.EObjectOrProxy as Requirement]
+	//	}
+	//	
+	//	def boolean samereqs (ComponentClassifier cl1, ComponentClassifier cl2){
+	//		cl1.getQualifiedName().equalsIgnoreCase(cl2.getQualifiedName())
+	//	}
+	//	
+	//	def getVerificationActivities(Requirement reqspec){
+	////		reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationContainer,null).
+	////		map[EObjectOrProxy as VerificationContainer].filter[va | va.target == reqspec] 
+	//		reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationContainer)
+	//		[ed | (ed.EObjectOrProxy as VerificationContainer)?.target == reqspec] 
+	//		.map[ed|ed.EObjectOrProxy as VerificationContainer]
+	//	}
+	def getRequirementTarget(Requirement req, InstanceObject io) {
 		io.findElementInstance(req.target)
 	}
-	
-	def findElementInstance(InstanceObject io, NamedElement element){
+
+	def findElementInstance(InstanceObject io, NamedElement element) {
 		switch io {
-			ComponentInstance : io.allOwnedElements.findFirst[ei| (ei as InstanceObject).name.equalsIgnoreCase(element.name)] as NamedElement
+			ComponentInstance: io.allOwnedElements.findFirst[ei|
+				(ei as InstanceObject).name.equalsIgnoreCase(element.name)] as NamedElement
 			default: io
 		}
 	}
-	
+
 }

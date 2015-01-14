@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.reqspec.reqSpec.SystemSpec;
+import org.osate.aadl2.ComponentClassifier;
 
 /**
  * <!-- begin-user-doc -->
@@ -64,12 +64,12 @@ public interface VerificationPlan extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(SystemSpec)
+   * @see #setTarget(ComponentClassifier)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Target()
    * @model
    * @generated
    */
-  SystemSpec getTarget();
+  ComponentClassifier getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getTarget <em>Target</em>}' reference.
@@ -79,7 +79,7 @@ public interface VerificationPlan extends EObject
    * @see #getTarget()
    * @generated
    */
-  void setTarget(SystemSpec value);
+  void setTarget(ComponentClassifier value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' attribute.

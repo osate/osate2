@@ -2,14 +2,21 @@
  */
 package org.osate.verify.verify.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.reqspec.reqSpec.Requirement;
 
@@ -28,6 +35,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRationale <em>Rationale</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getSubclaims <em>Subclaims</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,6 +102,16 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * @ordered
    */
   protected String rationale = RATIONALE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getSubclaims() <em>Subclaims</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSubclaims()
+   * @generated
+   * @ordered
+   */
+  protected EList<Claim> subclaims;
 
   /**
    * <!-- begin-user-doc -->
@@ -258,6 +276,20 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Claim> getSubclaims()
+  {
+    if (subclaims == null)
+    {
+      subclaims = new EObjectContainmentEList<Claim>(Claim.class, this, VerifyPackage.CLAIM__SUBCLAIMS);
+    }
+    return subclaims;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -265,6 +297,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     {
       case VerifyPackage.CLAIM__ASSERT:
         return basicSetAssert(null, msgs);
+      case VerifyPackage.CLAIM__SUBCLAIMS:
+        return ((InternalEList<?>)getSubclaims()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -288,6 +322,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return getAssert();
       case VerifyPackage.CLAIM__RATIONALE:
         return getRationale();
+      case VerifyPackage.CLAIM__SUBCLAIMS:
+        return getSubclaims();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -297,6 +333,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -313,6 +350,10 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return;
       case VerifyPackage.CLAIM__RATIONALE:
         setRationale((String)newValue);
+        return;
+      case VerifyPackage.CLAIM__SUBCLAIMS:
+        getSubclaims().clear();
+        getSubclaims().addAll((Collection<? extends Claim>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -340,6 +381,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__RATIONALE:
         setRationale(RATIONALE_EDEFAULT);
         return;
+      case VerifyPackage.CLAIM__SUBCLAIMS:
+        getSubclaims().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -362,6 +406,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return assert_ != null;
       case VerifyPackage.CLAIM__RATIONALE:
         return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
+      case VerifyPackage.CLAIM__SUBCLAIMS:
+        return subclaims != null && !subclaims.isEmpty();
     }
     return super.eIsSet(featureID);
   }

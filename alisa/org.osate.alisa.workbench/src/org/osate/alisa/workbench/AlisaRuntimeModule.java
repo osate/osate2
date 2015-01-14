@@ -8,4 +8,8 @@ package org.osate.alisa.workbench;
  */
 public class AlisaRuntimeModule extends org.osate.alisa.workbench.AbstractAlisaRuntimeModule {
 
+	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
+		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
+	}
+
 }

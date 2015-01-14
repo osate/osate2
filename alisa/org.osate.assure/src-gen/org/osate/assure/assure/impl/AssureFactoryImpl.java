@@ -73,9 +73,8 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.EVIDENCE_RESULT: return createEvidenceResult();
       case AssurePackage.CLAIM_RESULT: return createClaimResult();
       case AssurePackage.HAZARD_RESULT: return createHazardResult();
-      case AssurePackage.EVIDENCE_EXPR: return createEvidenceExpr();
-      case AssurePackage.FAIL_THEN: return createFailThen();
-      case AssurePackage.IF_THEN: return createIfThen();
+      case AssurePackage.FAIL_THEN_RESULT: return createFailThenResult();
+      case AssurePackage.IF_THEN_RESULT: return createIfThenResult();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -212,10 +211,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public EvidenceExpr createEvidenceExpr()
+  public FailThenResult createFailThenResult()
   {
-    EvidenceExprImpl evidenceExpr = new EvidenceExprImpl();
-    return evidenceExpr;
+    FailThenResultImpl failThenResult = new FailThenResultImpl();
+    return failThenResult;
   }
 
   /**
@@ -223,21 +222,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public FailThen createFailThen()
+  public IfThenResult createIfThenResult()
   {
-    FailThenImpl failThen = new FailThenImpl();
-    return failThen;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public IfThen createIfThen()
-  {
-    IfThenImpl ifThen = new IfThenImpl();
-    return ifThen;
+    IfThenResultImpl ifThenResult = new IfThenResultImpl();
+    return ifThenResult;
   }
 
   /**
