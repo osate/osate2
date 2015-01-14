@@ -218,7 +218,8 @@
             <reference
                   definitionId="org.osate.alisa.expressions.isSingleOutlineSelection">
             </reference>
-         </enabledWhen>
+        
+         </enabledWhen> 
       </handler>
      </extension>  
       
@@ -233,6 +234,7 @@
             description="Perform Test"
             name="Test Me">
      </command>
+     
       
     </extension>
     

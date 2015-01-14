@@ -140,6 +140,25 @@
             name="Copy Qualified Name">
       </command>
     </extension>
+    
+    
+    
+    
+    <extension
+         point="org.eclipse.ui.commands">
+     <category
+            id="org.osate.assure.category.commands"
+            name="Commands related to Assure">
+     </category>
+     <command categoryId="org.osate.assure.category.commands"
+            id="org.osate.assure.commands.Check"
+            description="Perform Validation"
+            name="Check Claims">
+     </command>
+    </extension>
+    
+    
+    
     <extension point="org.eclipse.ui.menus">
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
@@ -186,6 +205,21 @@
          </menuContribution>
     </extension>
     <extension point="org.eclipse.ui.menus">
+             <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+			<command commandId="org.osate.assure.commands.Check" 
+				style="push" tooltip="Copy Qualified Name2">
+         		<visibleWhen checkEnabled="false">
+	            	<and>
+	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
+         </menuContribution>
+         
+         
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
@@ -195,17 +229,79 @@
 			</command>
 		</menuContribution>
 	</extension>
+	
+	
+	    <extension point="org.eclipse.ui.menus">
+     <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="org.osate.alisa.toolbars.main">
+            <command
+                  commandId="org.osate.assure.commands.Check"
+                  id="org.osate.assure.menus.assure"
+                  style="push">
+            </command>
+         </toolbar>
+      </menuContribution>
+       <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.xtext.ui.outline?after=addition">
+         <command
+                commandId="org.osate.assure.commands.Check"
+                id="org.osate.assure.menus.assure"
+                mnemonic="a"
+                style="push"
+                tooltip="Perform Incremental Assurance">
+         </command>
+      </menuContribution>
+     
+</extension>
+	
+	
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.eclipse.xtext.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
-                <reference
-                    definitionId="org.osate.assure.Assure.Editor.opened">
-                </reference>
+            	<and>
+            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
+	                <iterate>
+						<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+					</iterate>
+				</and>
             </activeWhen>
         </handler>
     </extension>   
+    
+     	<extension point="org.eclipse.ui.handlers">
+            <handler
+            class="org.osate.assure.ui.handlers.AssureHandler" 
+            commandId="org.osate.assure.commands.Check">
+   
+      </handler>
+     </extension>  
+     
+         <extension point="org.eclipse.core.expressions.definitions">
+     <definition
+            id="org.osate.assure.expressions.isSingleOutlineSelection">
+         <with
+               variable="selection">
+            <and>
+               <count
+                     value="1">
+               </count>
+               <iterate
+                     ifEmpty="false"
+                     operator="or">
+                  <instanceof
+                        value="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+                  </instanceof>
+               </iterate>
+            </and>
+         </with>
+      </definition>
+</extension>
 
 <!-- adding resource factories -->
 

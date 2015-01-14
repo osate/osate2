@@ -89,7 +89,7 @@ public class AlisaLoader {
 					bundleLocation = "/" + bundleLocation + "bin/";
 				}
 
-//				System.out.println("loc2=" + loc);
+				System.out.println("bundleLocation=" + bundleLocation);
 				classPathFiles.add(bundleLocation);
 
 			}
@@ -111,9 +111,14 @@ public class AlisaLoader {
 			Thread.currentThread().setContextClassLoader(urlClassLoader);
 			Class c = Class.forName(className, true, urlClassLoader);
 			Object o = c.newInstance();
-			Class[] parametersTypes = new Class[args.length];
-			for (int i = 0; i < args.length; i++) {
-				parametersTypes[i] = args[i].getClass();
+			Class[] parametersTypes;
+			if (args != null) {
+				parametersTypes = new Class[args.length];
+				for (int i = 0; i < args.length; i++) {
+					parametersTypes[i] = args[i].getClass();
+				}
+			} else {
+				parametersTypes = null;
 			}
 			Method m = c.getMethod(methodName, parametersTypes);
 			m.invoke(o, args);
