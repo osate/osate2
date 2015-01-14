@@ -11,7 +11,7 @@ package org.osate.verify.verify;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.verify.verify.RefExpr#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.verify.verify.RefExpr#getVerification <em>Verification</em>}</li>
  *   <li>{@link org.osate.verify.verify.RefExpr#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
@@ -23,30 +23,30 @@ package org.osate.verify.verify;
 public interface RefExpr extends ArgumentExpr
 {
   /**
-   * Returns the value of the '<em><b>Reference</b></em>' reference.
+   * Returns the value of the '<em><b>Verification</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Reference</em>' reference isn't clear,
+   * If the meaning of the '<em>Verification</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Reference</em>' reference.
-   * @see #setReference(VerificationActivity)
-   * @see org.osate.verify.verify.VerifyPackage#getRefExpr_Reference()
+   * @return the value of the '<em>Verification</em>' reference.
+   * @see #setVerification(VerificationActivity)
+   * @see org.osate.verify.verify.VerifyPackage#getRefExpr_Verification()
    * @model
    * @generated
    */
-  VerificationActivity getReference();
+  VerificationActivity getVerification();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.RefExpr#getReference <em>Reference</em>}' reference.
+   * Sets the value of the '{@link org.osate.verify.verify.RefExpr#getVerification <em>Verification</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Reference</em>' reference.
-   * @see #getReference()
+   * @param value the new value of the '<em>Verification</em>' reference.
+   * @see #getVerification()
    * @generated
    */
-  void setReference(VerificationActivity value);
+  void setVerification(VerificationActivity value);
 
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.

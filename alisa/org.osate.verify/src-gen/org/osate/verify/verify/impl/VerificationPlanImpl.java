@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -18,7 +19,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.reqspec.reqSpec.SystemSpec;
+import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.VerificationPlan;
@@ -70,7 +71,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * @generated
    * @ordered
    */
-  protected SystemSpec target;
+  protected ComponentClassifier target;
 
   /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -151,12 +152,12 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public SystemSpec getTarget()
+  public ComponentClassifier getTarget()
   {
-    if (target != null && target.eIsProxy())
+    if (target != null && ((EObject)target).eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (SystemSpec)eResolveProxy(oldTarget);
+      target = (ComponentClassifier)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
@@ -171,7 +172,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public SystemSpec basicGetTarget()
+  public ComponentClassifier basicGetTarget()
   {
     return target;
   }
@@ -181,9 +182,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(SystemSpec newTarget)
+  public void setTarget(ComponentClassifier newTarget)
   {
-    SystemSpec oldTarget = target;
+    ComponentClassifier oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__TARGET, oldTarget, target));
@@ -280,7 +281,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         setName((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__TARGET:
-        setTarget((SystemSpec)newValue);
+        setTarget((ComponentClassifier)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription((String)newValue);
@@ -307,7 +308,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         setName(NAME_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_PLAN__TARGET:
-        setTarget((SystemSpec)null);
+        setTarget((ComponentClassifier)null);
         return;
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);

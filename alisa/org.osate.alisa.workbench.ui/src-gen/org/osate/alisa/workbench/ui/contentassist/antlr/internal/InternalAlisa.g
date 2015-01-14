@@ -667,7 +667,7 @@ rule__AssuranceCasePlan__Group__5__Impl
 :
 (
 { before(grammarAccess.getAssuranceCasePlanAccess().getPlansAssignment_5()); }
-(rule__AssuranceCasePlan__PlansAssignment_5)
+(rule__AssuranceCasePlan__PlansAssignment_5)*
 { after(grammarAccess.getAssuranceCasePlanAccess().getPlansAssignment_5()); }
 )
 

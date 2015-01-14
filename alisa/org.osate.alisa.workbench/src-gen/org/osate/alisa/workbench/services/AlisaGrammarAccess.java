@@ -68,11 +68,11 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AssuranceCasePlan:
 		//	"case" name=ID "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//	plans+=[Verify::VerificationPlan|QualifiedName] "]";
+		//	plans+=[Verify::VerificationPlan|QualifiedName]* "]";
 		public ParserRule getRule() { return rule; }
 
 		//"case" name=ID "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//plans+=[Verify::VerificationPlan|QualifiedName] "]"
+		//plans+=[Verify::VerificationPlan|QualifiedName]* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"case"
@@ -99,7 +99,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//plans+=[Verify::VerificationPlan|QualifiedName]
+		//plans+=[Verify::VerificationPlan|QualifiedName]*
 		public Assignment getPlansAssignment_5() { return cPlansAssignment_5; }
 
 		//[Verify::VerificationPlan|QualifiedName]
@@ -168,7 +168,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssuranceCasePlan:
 	//	"case" name=ID "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-	//	plans+=[Verify::VerificationPlan|QualifiedName] "]";
+	//	plans+=[Verify::VerificationPlan|QualifiedName]* "]";
 	public AssuranceCasePlanElements getAssuranceCasePlanAccess() {
 		return pAssuranceCasePlan;
 	}

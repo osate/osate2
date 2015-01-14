@@ -82,6 +82,7 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.ALL_EXPR: return createAllExpr();
       case VerifyPackage.AND_THEN_EXPR: return createAndThenExpr();
       case VerifyPackage.FAIL_THEN_EXPR: return createFailThenExpr();
+      case VerifyPackage.CONDITIONAL_EXPR: return createConditionalExpr();
       case VerifyPackage.REF_EXPR: return createRefExpr();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -307,6 +308,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     FailThenExprImpl failThenExpr = new FailThenExprImpl();
     return failThenExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ConditionalExpr createConditionalExpr()
+  {
+    ConditionalExprImpl conditionalExpr = new ConditionalExprImpl();
+    return conditionalExpr;
   }
 
   /**

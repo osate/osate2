@@ -127,7 +127,6 @@ public class AssureSwitch<T> extends Switch<T>
         ClaimResult claimResult = (ClaimResult)theEObject;
         T result = caseClaimResult(claimResult);
         if (result == null) result = caseAssuranceResult(claimResult);
-        if (result == null) result = caseEvidenceExpr(claimResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -139,25 +138,21 @@ public class AssureSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AssurePackage.EVIDENCE_EXPR:
+      case AssurePackage.FAIL_THEN_RESULT:
       {
-        EvidenceExpr evidenceExpr = (EvidenceExpr)theEObject;
-        T result = caseEvidenceExpr(evidenceExpr);
+        FailThenResult failThenResult = (FailThenResult)theEObject;
+        T result = caseFailThenResult(failThenResult);
+        if (result == null) result = caseClaimResult(failThenResult);
+        if (result == null) result = caseAssuranceResult(failThenResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AssurePackage.FAIL_THEN:
+      case AssurePackage.IF_THEN_RESULT:
       {
-        FailThen failThen = (FailThen)theEObject;
-        T result = caseFailThen(failThen);
-        if (result == null) result = caseEvidenceExpr(failThen);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AssurePackage.IF_THEN:
-      {
-        IfThen ifThen = (IfThen)theEObject;
-        T result = caseIfThen(ifThen);
+        IfThenResult ifThenResult = (IfThenResult)theEObject;
+        T result = caseIfThenResult(ifThenResult);
+        if (result == null) result = caseClaimResult(ifThenResult);
+        if (result == null) result = caseAssuranceResult(ifThenResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -294,49 +289,33 @@ public class AssureSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Evidence Expr</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Fail Then Result</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Evidence Expr</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Fail Then Result</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseEvidenceExpr(EvidenceExpr object)
+  public T caseFailThenResult(FailThenResult object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Fail Then</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>If Then Result</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Fail Then</em>'.
+   * @return the result of interpreting the object as an instance of '<em>If Then Result</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseFailThen(FailThen object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>If Then</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>If Then</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseIfThen(IfThen object)
+  public T caseIfThenResult(IfThenResult object)
   {
     return null;
   }

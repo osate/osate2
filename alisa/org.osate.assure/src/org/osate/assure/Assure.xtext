@@ -13,7 +13,7 @@ CaseResult:
 	'case' name=ID 
 	'for' target=[instance::InstanceObject|URIID]
 	'['
-	('pass'  passCount=INT)
+	('success'  passCount=INT)
 	('fail'  failCount=INT)
 	('neutral' neutralCount=INT)
 	('unknown' unknownCount=INT) 
@@ -21,7 +21,7 @@ CaseResult:
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
 	(subCaseResult += CaseResult)*
-	(claimResult += EvidenceExpr)*
+	(claimResult += ClaimExpr)*
 	(hazardResult += HazardResult)*
 	']'  
 ;
@@ -30,16 +30,16 @@ CaseResult:
 VerificationResult:
 	'verification' 	name=ID 
 	'of' verificationActivity=[Verify::VerificationActivity|QualifiedName]
-	'for' target=[instance::InstanceObject|URIID]
+	('for' target=[instance::InstanceObject|URIID])?
 	'['
-	('output'  title=STRING)?
-	('logfile'  description=STRING)?
-	('date'  date=STRING)?
-	('state'  state=VerificationResultState)?
 	('status'  status=VerificationResultStatus)? 
 	('weight' weight = INT)?
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
+	('output'  title=STRING)?
+	('logfile'  description=STRING)?
+	('date'  date=STRING)?
+	('state'  state=VerificationResultState)?
 	(assumptionResult+= AssumptionResult)*
 	(preconditionResult+= PreconditionResult)*
 	']'  
@@ -47,32 +47,32 @@ VerificationResult:
 AssumptionResult:
 	'assumption' 	name=ID 
 	'of' verificationActivity= [Verify::VerificationAssumption|QualifiedName]
-	'for' target=[instance::InstanceObject|URIID]
+	('for' target=[instance::InstanceObject|URIID])?
 	'['
-	('output'  title=STRING)?
-	('logfile'  description=STRING)?
-	('date'  date=STRING)?
 	('state'  state=VerificationResultState)?
 	('status'  status=VerificationResultStatus)? 
 	('weight' weight = INT)?
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
+	('output'  title=STRING)?
+	('logfile'  description=STRING)?
+	('date'  date=STRING)?
 	']'  
 ;
 
 PreconditionResult:
 	'precondition' 	name=ID 
 	'of' verificationActivity=[Verify::VerificationPrecondition|QualifiedName]
-	'for' target=[instance::InstanceObject|URIID]
+	('for' target=[instance::InstanceObject|URIID])?
 	'['
-	('output'  title=STRING)?
-	('logfile'  description=STRING)?
-	('date'  date=STRING)?
 	('state'  state=VerificationResultState)?
 	('status'  status=VerificationResultStatus)? 
 	('weight' weight = INT)?
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
+	('output'  title=STRING)?
+	('logfile'  description=STRING)?
+	('date'  date=STRING)?
 	']'  
 ;
 
@@ -82,14 +82,15 @@ EvidenceResult : VerificationResult | AssumptionResult | PreconditionResult;
 // Result of meeting a requirement
 ClaimResult:
 	'claim' name=ID 'of' requirement=[ReqSpec::Requirement|QualifiedName]
-	'for' target=[instance::InstanceObject|URIID]
+	('for' target=[instance::InstanceObject|URIID])?
 	'['
 	('success'  successCount=INT)
 	('fail'  failCount=INT)
 	('neutral' neutralCount=INT)
 	('unknown' unknownCount=INT) 
-	'successMsg' sucessMsg= MultiLineString
-	'failMsg' failMsg = MultiLineString
+	('weight' weight = INT)?
+	('successMsg' sucessMsg= MultiLineString)?
+	('failMsg' failMsg = MultiLineString)?
 	(subClaimResult += ClaimResult)*
 	(verificationResult+= VerificationResult)*
 	']'  
@@ -98,26 +99,20 @@ ClaimResult:
 // result of all requirements of a hazard being met
 HazardResult:
 	'hazard' name=ID 'of' hazard=[ReqSpec::Hazard|QualifiedName]
-	'for' target=[instance::InstanceObject|URIID]
+	('for' target=[instance::InstanceObject|URIID])?
 	'['
-	('pass'  passCount=INT)
+	('success'  passCount=INT)
 	('fail'  failCount=INT)
 	('neutral' neutralCount=INT)
 	('unknown' unknownCount=INT) 
+	('weight' weight = INT)?
 	(verificationResult+= VerificationResult)*
 	']'  
 ;
 
-EvidenceExpr:
-	FailThen | ClaimResult
-;
-
-FailThen:
-	'fail' first+=ClaimResult 'then' second+=ClaimResult
-;
-
-IfThen:
-	'if' first+=ClaimResult 'then' second+=ClaimResult
+ClaimExpr returns ClaimResult:
+	ClaimResult |
+	('fail' {FailThenResult}|'if' {IfThenResult}) first+=ClaimResult 'then' second+=ClaimResult
 ;
 
 

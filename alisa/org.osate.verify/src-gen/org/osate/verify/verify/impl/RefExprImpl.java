@@ -20,7 +20,7 @@ import org.osate.verify.verify.VerifyPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.RefExprImpl#getReference <em>Reference</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.RefExprImpl#getVerification <em>Verification</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.RefExprImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
@@ -30,14 +30,14 @@ import org.osate.verify.verify.VerifyPackage;
 public class RefExprImpl extends ArgumentExprImpl implements RefExpr
 {
   /**
-   * The cached value of the '{@link #getReference() <em>Reference</em>}' reference.
+   * The cached value of the '{@link #getVerification() <em>Verification</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getReference()
+   * @see #getVerification()
    * @generated
    * @ordered
    */
-  protected VerificationActivity reference;
+  protected VerificationActivity verification;
 
   /**
    * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -85,19 +85,19 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationActivity getReference()
+  public VerificationActivity getVerification()
   {
-    if (reference != null && reference.eIsProxy())
+    if (verification != null && verification.eIsProxy())
     {
-      InternalEObject oldReference = (InternalEObject)reference;
-      reference = (VerificationActivity)eResolveProxy(oldReference);
-      if (reference != oldReference)
+      InternalEObject oldVerification = (InternalEObject)verification;
+      verification = (VerificationActivity)eResolveProxy(oldVerification);
+      if (verification != oldVerification)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.REF_EXPR__REFERENCE, oldReference, reference));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.REF_EXPR__VERIFICATION, oldVerification, verification));
       }
     }
-    return reference;
+    return verification;
   }
 
   /**
@@ -105,9 +105,9 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationActivity basicGetReference()
+  public VerificationActivity basicGetVerification()
   {
-    return reference;
+    return verification;
   }
 
   /**
@@ -115,12 +115,12 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setReference(VerificationActivity newReference)
+  public void setVerification(VerificationActivity newVerification)
   {
-    VerificationActivity oldReference = reference;
-    reference = newReference;
+    VerificationActivity oldVerification = verification;
+    verification = newVerification;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.REF_EXPR__REFERENCE, oldReference, reference));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.REF_EXPR__VERIFICATION, oldVerification, verification));
   }
 
   /**
@@ -156,9 +156,9 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.REF_EXPR__REFERENCE:
-        if (resolve) return getReference();
-        return basicGetReference();
+      case VerifyPackage.REF_EXPR__VERIFICATION:
+        if (resolve) return getVerification();
+        return basicGetVerification();
       case VerifyPackage.REF_EXPR__WEIGHT:
         return getWeight();
     }
@@ -175,8 +175,8 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.REF_EXPR__REFERENCE:
-        setReference((VerificationActivity)newValue);
+      case VerifyPackage.REF_EXPR__VERIFICATION:
+        setVerification((VerificationActivity)newValue);
         return;
       case VerifyPackage.REF_EXPR__WEIGHT:
         setWeight((Integer)newValue);
@@ -195,8 +195,8 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.REF_EXPR__REFERENCE:
-        setReference((VerificationActivity)null);
+      case VerifyPackage.REF_EXPR__VERIFICATION:
+        setVerification((VerificationActivity)null);
         return;
       case VerifyPackage.REF_EXPR__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
@@ -215,8 +215,8 @@ public class RefExprImpl extends ArgumentExprImpl implements RefExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.REF_EXPR__REFERENCE:
-        return reference != null;
+      case VerifyPackage.REF_EXPR__VERIFICATION:
+        return verification != null;
       case VerifyPackage.REF_EXPR__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
     }

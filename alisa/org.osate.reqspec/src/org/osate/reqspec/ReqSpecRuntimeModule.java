@@ -12,7 +12,7 @@ import org.osate.reqspec.scoping.ReqSpecScopeProvider;
 public class ReqSpecRuntimeModule extends org.osate.reqspec.AbstractReqSpecRuntimeModule {
 
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
-		return org.osate.reqspec.naming.ReqSpecQualifiedNameConverter.class;
+		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
 	}
 
 	@Override

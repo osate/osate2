@@ -12,4 +12,7 @@ public class CommonRuntimeModule extends org.osate.alisa.common.AbstractCommonRu
 		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
 	}
 
+	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
+		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
+	}
 }
