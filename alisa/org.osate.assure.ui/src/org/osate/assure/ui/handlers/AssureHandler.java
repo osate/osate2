@@ -22,8 +22,6 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.alisa.workbench.ui.utils.AlisaLoader;
-import org.osate.assure.assure.AssureFactory;
 import org.osate.assure.assure.impl.CaseResultImpl;
 
 public class AssureHandler extends AbstractHandler {
@@ -127,11 +125,10 @@ public class AssureHandler extends AbstractHandler {
 		Object[] args;
 		args = new Object[1];
 
-		CaseResultImpl cr = (CaseResultImpl) AssureFactory.eINSTANCE.createCaseResult();
-		args[0] = cr;
-		System.out.println("root=" + cr);
-
-		AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
+		args[0] = obj;
+		System.out.println("root=" + obj);
+		AssureProcessing.processCaseResult(obj);
+//		AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");

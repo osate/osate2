@@ -24,7 +24,8 @@ Require-Bundle: org.osate.assure;visibility:=reexport,
 Import-Package: org.apache.log4j,
  org.osate.aadl2,
  org.osate.aadl2.instance,
- org.osate.alisa.workbench.ui.utils
+ org.osate.alisa.workbench.ui.utils,
+ org.osate.verify.verify
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.assure.ui.quickfix,
  org.osate.assure.ui.contentassist,
