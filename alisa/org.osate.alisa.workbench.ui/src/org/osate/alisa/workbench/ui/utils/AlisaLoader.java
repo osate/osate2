@@ -89,7 +89,7 @@ public class AlisaLoader {
 					bundleLocation = "/" + bundleLocation + "bin/";
 				}
 
-				System.out.println("bundleLocation=" + bundleLocation);
+//				System.out.println("bundleLocation=" + bundleLocation);
 				classPathFiles.add(bundleLocation);
 
 			}
@@ -106,22 +106,46 @@ public class AlisaLoader {
 			/**
 			 * Finally build the classloader and invoke the method.
 			 */
-			ClassLoader cl = Thread.currentThread().getContextClassLoader();
-			URLClassLoader urlClassLoader = new URLClassLoader(urllist, cl);
+			ClassLoader parentClassLoader;
+
+			if ((args == null) || (args.length == 0)) {
+				parentClassLoader = Thread.currentThread().getContextClassLoader();
+			} else {
+				parentClassLoader = args[0].getClass().getClassLoader();
+			}
+
+			URLClassLoader urlClassLoader = new URLClassLoader(urllist, parentClassLoader);
 			Thread.currentThread().setContextClassLoader(urlClassLoader);
 			Class c = Class.forName(className, true, urlClassLoader);
+
+			Method method;
+			method = null;
+//			for (Method m : c.getMethods()) {
+//
+//				if (m.getName().equalsIgnoreCase(methodName)) {
+//					System.out.println("method m=" + m.getName());
+//					for (Class paramType : m.getParameterTypes()) {
+//						System.out.println("   param p=" + paramType.getCanonicalName());
+//						System.out.println("   param p=" + paramType.getClassLoader());
+//
+//					}
+//					method = m;
+//				}
+//			}
 			Object o = c.newInstance();
 			Class[] parametersTypes;
+			parametersTypes = null;
 			if (args != null) {
 				parametersTypes = new Class[args.length];
 				for (int i = 0; i < args.length; i++) {
 					parametersTypes[i] = args[i].getClass();
+//					System.out.println("   args[" + i + "]=" + args[i].getClass().getCanonicalName());
+//					System.out.println("   args[" + i + "]=" + args[i].getClass().getClassLoader());
+
 				}
-			} else {
-				parametersTypes = null;
 			}
-			Method m = c.getMethod(methodName, parametersTypes);
-			m.invoke(o, args);
+			method = c.getMethod(methodName, parametersTypes);
+			method.invoke(o, args);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

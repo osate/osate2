@@ -23,6 +23,8 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.alisa.workbench.ui.utils.AlisaLoader;
+import org.osate.assure.assure.AssureFactory;
+import org.osate.assure.assure.impl.CaseResultImpl;
 
 public class AssureHandler extends AbstractHandler {
 	private static final String RERUN_ID = "org.osate.ilca.commands.rerunIlca";
@@ -69,9 +71,11 @@ public class AssureHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-
-						return runJob(eobj, monitor);
-
+						if (eobj instanceof CaseResultImpl) {
+							return runJob((CaseResultImpl) eobj, monitor);
+						} else {
+							return Status.CANCEL_STATUS;
+						}
 					}
 				});
 			}
@@ -116,15 +120,18 @@ public class AssureHandler extends AbstractHandler {
 		return "ASSURE verification";
 	}
 
-	protected IStatus runJob(Object obj, IProgressMonitor monitor) {
+	protected IStatus runJob(CaseResultImpl obj, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
 
 		Object[] args;
 		args = new Object[1];
-		args[0] = obj;
-		System.out.println("root=" + obj);
-		AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
+
+		CaseResultImpl cr = (CaseResultImpl) AssureFactory.eINSTANCE.createCaseResult();
+		args[0] = cr;
+		System.out.println("root=" + cr);
+
+		AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", null);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
