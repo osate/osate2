@@ -5,12 +5,9 @@ package org.osate.assure.assure.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.osate.aadl2.instance.InstanceObject;
 
 import org.osate.assure.assure.AssuranceResult;
 import org.osate.assure.assure.AssurePackage;
@@ -23,7 +20,7 @@ import org.osate.assure.assure.AssurePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssuranceResultImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceResultImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceResultImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,14 +49,24 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTarget()
+   * @see #getWeight()
    * @generated
    * @ordered
    */
-  protected InstanceObject target;
+  protected static final int WEIGHT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected int weight = WEIGHT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -110,19 +117,9 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceObject getTarget()
+  public int getWeight()
   {
-    if (target != null && target.eIsProxy())
-    {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = (InstanceObject)eResolveProxy(oldTarget);
-      if (target != oldTarget)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_RESULT__TARGET, oldTarget, target));
-      }
-    }
-    return target;
+    return weight;
   }
 
   /**
@@ -130,22 +127,12 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceObject basicGetTarget()
+  public void setWeight(int newWeight)
   {
-    return target;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTarget(InstanceObject newTarget)
-  {
-    InstanceObject oldTarget = target;
-    target = newTarget;
+    int oldWeight = weight;
+    weight = newWeight;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_RESULT__TARGET, oldTarget, target));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_RESULT__WEIGHT, oldWeight, weight));
   }
 
   /**
@@ -160,9 +147,8 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
     {
       case AssurePackage.ASSURANCE_RESULT__NAME:
         return getName();
-      case AssurePackage.ASSURANCE_RESULT__TARGET:
-        if (resolve) return getTarget();
-        return basicGetTarget();
+      case AssurePackage.ASSURANCE_RESULT__WEIGHT:
+        return getWeight();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -180,8 +166,8 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
       case AssurePackage.ASSURANCE_RESULT__NAME:
         setName((String)newValue);
         return;
-      case AssurePackage.ASSURANCE_RESULT__TARGET:
-        setTarget((InstanceObject)newValue);
+      case AssurePackage.ASSURANCE_RESULT__WEIGHT:
+        setWeight((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -200,8 +186,8 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
       case AssurePackage.ASSURANCE_RESULT__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case AssurePackage.ASSURANCE_RESULT__TARGET:
-        setTarget((InstanceObject)null);
+      case AssurePackage.ASSURANCE_RESULT__WEIGHT:
+        setWeight(WEIGHT_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -219,8 +205,8 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
     {
       case AssurePackage.ASSURANCE_RESULT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case AssurePackage.ASSURANCE_RESULT__TARGET:
-        return target != null;
+      case AssurePackage.ASSURANCE_RESULT__WEIGHT:
+        return weight != WEIGHT_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -238,6 +224,8 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", weight: ");
+    result.append(weight);
     result.append(')');
     return result.toString();
   }

@@ -13,6 +13,6 @@ package org.osate.assure.assure;
  * @model
  * @generated
  */
-public interface FailThenResult extends ClaimResult
+public interface FailThenResult extends VerificationResult
 {
 } // FailThenResult

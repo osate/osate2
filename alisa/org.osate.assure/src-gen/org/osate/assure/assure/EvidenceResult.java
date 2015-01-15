@@ -11,12 +11,8 @@ package org.osate.assure.assure;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.assure.assure.EvidenceResult#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.assure.assure.EvidenceResult#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.assure.assure.EvidenceResult#getDate <em>Date</em>}</li>
  *   <li>{@link org.osate.assure.assure.EvidenceResult#getState <em>State</em>}</li>
  *   <li>{@link org.osate.assure.assure.EvidenceResult#getStatus <em>Status</em>}</li>
- *   <li>{@link org.osate.assure.assure.EvidenceResult#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.EvidenceResult#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.EvidenceResult#getFailMsg <em>Fail Msg</em>}</li>
  * </ul>
@@ -28,84 +24,6 @@ package org.osate.assure.assure;
  */
 public interface EvidenceResult extends AssuranceResult
 {
-  /**
-   * Returns the value of the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Title</em>' attribute.
-   * @see #setTitle(String)
-   * @see org.osate.assure.assure.AssurePackage#getEvidenceResult_Title()
-   * @model
-   * @generated
-   */
-  String getTitle();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.EvidenceResult#getTitle <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Title</em>' attribute.
-   * @see #getTitle()
-   * @generated
-   */
-  void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' attribute.
-   * @see #setDescription(String)
-   * @see org.osate.assure.assure.AssurePackage#getEvidenceResult_Description()
-   * @model
-   * @generated
-   */
-  String getDescription();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.EvidenceResult#getDescription <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' attribute.
-   * @see #getDescription()
-   * @generated
-   */
-  void setDescription(String value);
-
-  /**
-   * Returns the value of the '<em><b>Date</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Date</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Date</em>' attribute.
-   * @see #setDate(String)
-   * @see org.osate.assure.assure.AssurePackage#getEvidenceResult_Date()
-   * @model
-   * @generated
-   */
-  String getDate();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.EvidenceResult#getDate <em>Date</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Date</em>' attribute.
-   * @see #getDate()
-   * @generated
-   */
-  void setDate(String value);
-
   /**
    * Returns the value of the '<em><b>State</b></em>' attribute.
    * The literals are from the enumeration {@link org.osate.assure.assure.VerificationResultState}.
@@ -163,32 +81,6 @@ public interface EvidenceResult extends AssuranceResult
    * @generated
    */
   void setStatus(VerificationResultStatus value);
-
-  /**
-   * Returns the value of the '<em><b>Weight</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Weight</em>' attribute.
-   * @see #setWeight(int)
-   * @see org.osate.assure.assure.AssurePackage#getEvidenceResult_Weight()
-   * @model
-   * @generated
-   */
-  int getWeight();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.EvidenceResult#getWeight <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Weight</em>' attribute.
-   * @see #getWeight()
-   * @generated
-   */
-  void setWeight(int value);
 
   /**
    * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.

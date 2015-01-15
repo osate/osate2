@@ -4,6 +4,10 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.osate.aadl2.Classifier;
+
+import org.osate.aadl2.instance.InstanceObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Case Result</b></em>'.
@@ -12,11 +16,12 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.osate.assure.assure.CaseResult#getSystem <em>System</em>}</li>
+ *   <li>{@link org.osate.assure.assure.CaseResult#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getPassCount <em>Pass Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getNeutralCount <em>Neutral Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getUnknownCount <em>Unknown Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.CaseResult#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getSubCaseResult <em>Sub Case Result</em>}</li>
@@ -31,6 +36,58 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface CaseResult extends AssuranceResult
 {
+  /**
+   * Returns the value of the '<em><b>System</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>System</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>System</em>' reference.
+   * @see #setSystem(Classifier)
+   * @see org.osate.assure.assure.AssurePackage#getCaseResult_System()
+   * @model
+   * @generated
+   */
+  Classifier getSystem();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getSystem <em>System</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>System</em>' reference.
+   * @see #getSystem()
+   * @generated
+   */
+  void setSystem(Classifier value);
+
+  /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(InstanceObject)
+   * @see org.osate.assure.assure.AssurePackage#getCaseResult_Target()
+   * @model
+   * @generated
+   */
+  InstanceObject getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(InstanceObject value);
+
   /**
    * Returns the value of the '<em><b>Pass Count</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -134,32 +191,6 @@ public interface CaseResult extends AssuranceResult
    * @generated
    */
   void setUnknownCount(int value);
-
-  /**
-   * Returns the value of the '<em><b>Weight</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Weight</em>' attribute.
-   * @see #setWeight(int)
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_Weight()
-   * @model
-   * @generated
-   */
-  int getWeight();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getWeight <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Weight</em>' attribute.
-   * @see #getWeight()
-   * @generated
-   */
-  void setWeight(int value);
 
   /**
    * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.

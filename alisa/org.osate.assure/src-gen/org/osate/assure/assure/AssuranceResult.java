@@ -4,8 +4,6 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.instance.InstanceObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Assurance Result</b></em>'.
@@ -15,7 +13,7 @@ import org.osate.aadl2.instance.InstanceObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.assure.assure.AssuranceResult#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssuranceResult#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.AssuranceResult#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,29 +50,29 @@ public interface AssuranceResult extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * Returns the value of the '<em><b>Weight</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(InstanceObject)
-   * @see org.osate.assure.assure.AssurePackage#getAssuranceResult_Target()
+   * @return the value of the '<em>Weight</em>' attribute.
+   * @see #setWeight(int)
+   * @see org.osate.assure.assure.AssurePackage#getAssuranceResult_Weight()
    * @model
    * @generated
    */
-  InstanceObject getTarget();
+  int getWeight();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssuranceResult#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.assure.assure.AssuranceResult#getWeight <em>Weight</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
+   * @param value the new value of the '<em>Weight</em>' attribute.
+   * @see #getWeight()
    * @generated
    */
-  void setTarget(InstanceObject value);
+  void setWeight(int value);
 
 } // AssuranceResult

@@ -24,6 +24,7 @@
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationLibrary">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationLibrary/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationLibrary/methodClasses"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationFolder">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationFolder/label"/>

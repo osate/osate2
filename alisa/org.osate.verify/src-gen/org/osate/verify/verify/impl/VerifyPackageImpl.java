@@ -351,6 +351,16 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getVerificationLibrary_MethodClasses()
+  {
+    return (EAttribute)verificationLibraryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getVerificationFolder()
   {
     return verificationFolderEClass;
@@ -997,6 +1007,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     verificationLibraryEClass = createEClass(VERIFICATION_LIBRARY);
     createEAttribute(verificationLibraryEClass, VERIFICATION_LIBRARY__NAME);
+    createEAttribute(verificationLibraryEClass, VERIFICATION_LIBRARY__METHOD_CLASSES);
 
     verificationFolderEClass = createEClass(VERIFICATION_FOLDER);
     createEAttribute(verificationFolderEClass, VERIFICATION_FOLDER__LABEL);
@@ -1137,6 +1148,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(verificationLibraryEClass, VerificationLibrary.class, "VerificationLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationLibrary_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVerificationLibrary_MethodClasses(), theEcorePackage.getEString(), "methodClasses", null, 0, -1, VerificationLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationFolderEClass, VerificationFolder.class, "VerificationFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationFolder_Label(), theEcorePackage.getEString(), "label", null, 0, 1, VerificationFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

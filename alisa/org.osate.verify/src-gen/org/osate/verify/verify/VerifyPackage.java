@@ -215,13 +215,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_LIBRARY__NAME = VERIFICATION_CONTAINER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Method Classes</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_LIBRARY__METHOD_CLASSES = VERIFICATION_CONTAINER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Verification Library</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_LIBRARY_FEATURE_COUNT = VERIFICATION_CONTAINER_FEATURE_COUNT + 1;
+  int VERIFICATION_LIBRARY_FEATURE_COUNT = VERIFICATION_CONTAINER_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationFolderImpl <em>Verification Folder</em>}' class.
@@ -1165,6 +1174,17 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationLibrary_Name();
 
   /**
+   * Returns the meta object for the attribute list '{@link org.osate.verify.verify.VerificationLibrary#getMethodClasses <em>Method Classes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Method Classes</em>'.
+   * @see org.osate.verify.verify.VerificationLibrary#getMethodClasses()
+   * @see #getVerificationLibrary()
+   * @generated
+   */
+  EAttribute getVerificationLibrary_MethodClasses();
+
+  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationFolder <em>Verification Folder</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1918,6 +1938,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute VERIFICATION_LIBRARY__NAME = eINSTANCE.getVerificationLibrary_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Method Classes</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_LIBRARY__METHOD_CLASSES = eINSTANCE.getVerificationLibrary_MethodClasses();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationFolderImpl <em>Verification Folder</em>}' class.

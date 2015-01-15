@@ -38,7 +38,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getVerificationAccess().getContentsAlternatives_0(), "rule__Verification__ContentsAlternatives_0");
-					put(grammarAccess.getVerificationLibraryAccess().getContentAlternatives_4_0(), "rule__VerificationLibrary__ContentAlternatives_4_0");
+					put(grammarAccess.getVerificationLibraryAccess().getContentAlternatives_5_0(), "rule__VerificationLibrary__ContentAlternatives_5_0");
 					put(grammarAccess.getVerificationFolderAccess().getContentAlternatives_4_0(), "rule__VerificationFolder__ContentAlternatives_4_0");
 					put(grammarAccess.getVerificationContainerAccess().getAlternatives(), "rule__VerificationContainer__Alternatives");
 					put(grammarAccess.getVerificationConditionAccess().getAlternatives_0(), "rule__VerificationCondition__Alternatives_0");
@@ -51,6 +51,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationPlanAccess().getGroup_5(), "rule__VerificationPlan__Group_5__0");
 					put(grammarAccess.getVerificationLibraryAccess().getGroup(), "rule__VerificationLibrary__Group__0");
 					put(grammarAccess.getVerificationLibraryAccess().getGroup_2(), "rule__VerificationLibrary__Group_2__0");
+					put(grammarAccess.getVerificationLibraryAccess().getGroup_4(), "rule__VerificationLibrary__Group_4__0");
 					put(grammarAccess.getVerificationFolderAccess().getGroup(), "rule__VerificationFolder__Group__0");
 					put(grammarAccess.getVerificationFolderAccess().getGroup_2(), "rule__VerificationFolder__Group_2__0");
 					put(grammarAccess.getClaimAccess().getGroup(), "rule__Claim__Group__0");
@@ -118,7 +119,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationPlanAccess().getClaimsAssignment_6(), "rule__VerificationPlan__ClaimsAssignment_6");
 					put(grammarAccess.getVerificationLibraryAccess().getNameAssignment_1(), "rule__VerificationLibrary__NameAssignment_1");
 					put(grammarAccess.getVerificationLibraryAccess().getTargetAssignment_2_1(), "rule__VerificationLibrary__TargetAssignment_2_1");
-					put(grammarAccess.getVerificationLibraryAccess().getContentAssignment_4(), "rule__VerificationLibrary__ContentAssignment_4");
+					put(grammarAccess.getVerificationLibraryAccess().getMethodClassesAssignment_4_1(), "rule__VerificationLibrary__MethodClassesAssignment_4_1");
+					put(grammarAccess.getVerificationLibraryAccess().getContentAssignment_5(), "rule__VerificationLibrary__ContentAssignment_5");
 					put(grammarAccess.getVerificationFolderAccess().getLabelAssignment_1(), "rule__VerificationFolder__LabelAssignment_1");
 					put(grammarAccess.getVerificationFolderAccess().getTargetAssignment_2_1(), "rule__VerificationFolder__TargetAssignment_2_1");
 					put(grammarAccess.getVerificationFolderAccess().getContentAssignment_4(), "rule__VerificationFolder__ContentAssignment_4");

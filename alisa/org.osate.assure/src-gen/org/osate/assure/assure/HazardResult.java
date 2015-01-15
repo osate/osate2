@@ -4,6 +4,8 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.osate.aadl2.instance.InstanceObject;
+
 import org.osate.reqspec.reqSpec.Hazard;
 
 /**
@@ -15,6 +17,7 @@ import org.osate.reqspec.reqSpec.Hazard;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.assure.assure.HazardResult#getHazard <em>Hazard</em>}</li>
+ *   <li>{@link org.osate.assure.assure.HazardResult#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.HazardResult#getPassCount <em>Pass Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.HazardResult#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.HazardResult#getNeutralCount <em>Neutral Count</em>}</li>
@@ -54,6 +57,32 @@ public interface HazardResult extends AssuranceResult
    * @generated
    */
   void setHazard(Hazard value);
+
+  /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(InstanceObject)
+   * @see org.osate.assure.assure.AssurePackage#getHazardResult_Target()
+   * @model
+   * @generated
+   */
+  InstanceObject getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.HazardResult#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(InstanceObject value);
 
   /**
    * Returns the value of the '<em><b>Pass Count</b></em>' attribute.

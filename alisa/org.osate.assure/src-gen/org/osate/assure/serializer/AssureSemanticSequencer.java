@@ -54,15 +54,14 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case AssurePackage.CLAIM_RESULT:
 				if(context == grammarAccess.getAssuranceResultRule() ||
-				   context == grammarAccess.getClaimExprRule() ||
 				   context == grammarAccess.getClaimResultRule()) {
 					sequence_ClaimResult(context, (ClaimResult) semanticObject); 
 					return; 
 				}
 				else break;
 			case AssurePackage.FAIL_THEN_RESULT:
-				if(context == grammarAccess.getClaimExprRule()) {
-					sequence_ClaimExpr(context, (FailThenResult) semanticObject); 
+				if(context == grammarAccess.getVerificationExprRule()) {
+					sequence_VerificationExpr(context, (FailThenResult) semanticObject); 
 					return; 
 				}
 				else break;
@@ -74,8 +73,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case AssurePackage.IF_THEN_RESULT:
-				if(context == grammarAccess.getClaimExprRule()) {
-					sequence_ClaimExpr(context, (IfThenResult) semanticObject); 
+				if(context == grammarAccess.getVerificationExprRule()) {
+					sequence_VerificationExpr(context, (IfThenResult) semanticObject); 
 					return; 
 				}
 				else break;
@@ -90,6 +89,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			case AssurePackage.VERIFICATION_RESULT:
 				if(context == grammarAccess.getAssuranceResultRule() ||
 				   context == grammarAccess.getEvidenceResultRule() ||
+				   context == grammarAccess.getVerificationExprRule() ||
 				   context == grammarAccess.getVerificationResultRule()) {
 					sequence_VerificationResult(context, (VerificationResult) semanticObject); 
 					return; 
@@ -148,10 +148,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         verificationActivity=[VerificationAssumption|QualifiedName] 
-	 *         target=[InstanceObject|URIID]? 
-	 *         title=STRING? 
-	 *         description=STRING? 
-	 *         date=STRING? 
 	 *         state=VerificationResultState? 
 	 *         status=VerificationResultStatus? 
 	 *         weight=INT? 
@@ -168,7 +164,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[InstanceObject|URIID] 
+	 *         system=[Classifier|AadlClassifierReference]? 
+	 *         target=[InstanceObject|URIID]? 
 	 *         passCount=INT 
 	 *         failCount=INT 
 	 *         neutralCount=INT 
@@ -177,7 +174,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         sucessMsg=MultiLineString? 
 	 *         failMsg=MultiLineString? 
 	 *         subCaseResult+=CaseResult* 
-	 *         claimResult+=ClaimExpr* 
+	 *         claimResult+=ClaimResult* 
 	 *         hazardResult+=HazardResult*
 	 *     )
 	 */
@@ -188,28 +185,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (first+=ClaimResult second+=ClaimResult)
-	 */
-	protected void sequence_ClaimExpr(EObject context, FailThenResult semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (first+=ClaimResult second+=ClaimResult)
-	 */
-	protected void sequence_ClaimExpr(EObject context, IfThenResult semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         requirement=[Requirement|QualifiedName] 
-	 *         target=[InstanceObject|URIID]? 
 	 *         successCount=INT 
 	 *         failCount=INT 
 	 *         neutralCount=INT 
@@ -218,7 +196,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         sucessMsg=MultiLineString? 
 	 *         failMsg=MultiLineString? 
 	 *         subClaimResult+=ClaimResult* 
-	 *         verificationResult+=VerificationResult*
+	 *         verificationResult+=VerificationExpr*
 	 *     )
 	 */
 	protected void sequence_ClaimResult(EObject context, ClaimResult semanticObject) {
@@ -236,6 +214,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         failCount=INT 
 	 *         neutralCount=INT 
 	 *         unknownCount=INT 
+	 *         weight=INT? 
 	 *         verificationResult+=VerificationResult*
 	 *     )
 	 */
@@ -249,10 +228,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         verificationActivity=[VerificationPrecondition|QualifiedName] 
-	 *         target=[InstanceObject|URIID]? 
-	 *         title=STRING? 
-	 *         description=STRING? 
-	 *         date=STRING? 
 	 *         state=VerificationResultState? 
 	 *         status=VerificationResultStatus? 
 	 *         weight=INT? 
@@ -267,13 +242,27 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (first+=VerificationResult second+=VerificationResult)
+	 */
+	protected void sequence_VerificationExpr(EObject context, FailThenResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (first+=VerificationResult second+=VerificationResult)
+	 */
+	protected void sequence_VerificationExpr(EObject context, IfThenResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         verificationActivity=[VerificationActivity|QualifiedName] 
-	 *         target=[InstanceObject|URIID]? 
-	 *         title=STRING? 
-	 *         description=STRING? 
-	 *         date=STRING? 
 	 *         state=VerificationResultState? 
 	 *         status=VerificationResultStatus? 
 	 *         weight=INT? 

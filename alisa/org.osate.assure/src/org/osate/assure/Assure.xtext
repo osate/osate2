@@ -11,7 +11,8 @@ import "http://www.osate.org/verify/Verify" as Verify
 // result for a system in the architecture hierarchy
 CaseResult:
 	'case' name=ID 
-	'for' target=[instance::InstanceObject|URIID]
+	('for' system=[aadl2::Classifier|AadlClassifierReference])?
+	('uri' target= [instance::InstanceObject|URIID])?
 	'['
 	('success'  passCount=INT)
 	('fail'  failCount=INT)
@@ -21,68 +22,15 @@ CaseResult:
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
 	(subCaseResult += CaseResult)*
-	(claimResult += ClaimExpr)*
+	(claimResult += ClaimResult)*
 	(hazardResult += HazardResult)*
 	']'  
 ;
 
-// result of executing a verification activity
-VerificationResult:
-	'verification' 	name=ID 
-	'of' verificationActivity=[Verify::VerificationActivity|QualifiedName]
-	('for' target=[instance::InstanceObject|URIID])?
-	'['
-	('status'  status=VerificationResultStatus)? 
-	('weight' weight = INT)?
-	('successMsg' sucessMsg= MultiLineString)?
-	('failMsg' failMsg = MultiLineString)?
-	('output'  title=STRING)?
-	('logfile'  description=STRING)?
-	('date'  date=STRING)?
-	('state'  state=VerificationResultState)?
-	(assumptionResult+= AssumptionResult)*
-	(preconditionResult+= PreconditionResult)*
-	']'  
-;
-AssumptionResult:
-	'assumption' 	name=ID 
-	'of' verificationActivity= [Verify::VerificationAssumption|QualifiedName]
-	('for' target=[instance::InstanceObject|URIID])?
-	'['
-	('state'  state=VerificationResultState)?
-	('status'  status=VerificationResultStatus)? 
-	('weight' weight = INT)?
-	('successMsg' sucessMsg= MultiLineString)?
-	('failMsg' failMsg = MultiLineString)?
-	('output'  title=STRING)?
-	('logfile'  description=STRING)?
-	('date'  date=STRING)?
-	']'  
-;
-
-PreconditionResult:
-	'precondition' 	name=ID 
-	'of' verificationActivity=[Verify::VerificationPrecondition|QualifiedName]
-	('for' target=[instance::InstanceObject|URIID])?
-	'['
-	('state'  state=VerificationResultState)?
-	('status'  status=VerificationResultStatus)? 
-	('weight' weight = INT)?
-	('successMsg' sucessMsg= MultiLineString)?
-	('failMsg' failMsg = MultiLineString)?
-	('output'  title=STRING)?
-	('logfile'  description=STRING)?
-	('date'  date=STRING)?
-	']'  
-;
-
-AssuranceResult: EvidenceResult | ClaimResult | HazardResult | CaseResult;
-EvidenceResult : VerificationResult | AssumptionResult | PreconditionResult;
-
 // Result of meeting a requirement
 ClaimResult:
 	'claim' name=ID 'of' requirement=[ReqSpec::Requirement|QualifiedName]
-	('for' target=[instance::InstanceObject|URIID])?
+//	('for' target=[instance::InstanceObject|URIID])?
 	'['
 	('success'  successCount=INT)
 	('fail'  failCount=INT)
@@ -92,9 +40,62 @@ ClaimResult:
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
 	(subClaimResult += ClaimResult)*
-	(verificationResult+= VerificationResult)*
+	(verificationResult+= VerificationExpr)*
 	']'  
 ;
+
+// result of executing a verification activity
+VerificationResult:
+	'verification' 	name=ID 
+	'of' verificationActivity=[Verify::VerificationActivity|QualifiedName]
+//	('for' target=[instance::InstanceObject|URIID])?
+	'['
+	('state'  state=VerificationResultState)?
+	('status'  status=VerificationResultStatus)? 
+	('weight' weight = INT)?
+	('successMsg' sucessMsg= MultiLineString)?
+	('failMsg' failMsg = MultiLineString)?
+//	('output'  title=STRING)?
+//	('logfile'  description=STRING)?
+//	('date'  date=STRING)?
+	(assumptionResult+= AssumptionResult)*
+	(preconditionResult+= PreconditionResult)*
+	']'  
+;
+AssumptionResult:
+	'assumption' 	name=ID 
+	'of' verificationActivity= [Verify::VerificationAssumption|QualifiedName]
+//	('for' target=[instance::InstanceObject|URIID])?
+	'['
+	('state'  state=VerificationResultState)?
+	('status'  status=VerificationResultStatus)? 
+	('weight' weight = INT)?
+	('successMsg' sucessMsg= MultiLineString)?
+	('failMsg' failMsg = MultiLineString)?
+//	('output'  title=STRING)?
+//	('logfile'  description=STRING)?
+//	('date'  date=STRING)?
+	']'  
+;
+
+PreconditionResult:
+	'precondition' 	name=ID 
+	'of' verificationActivity=[Verify::VerificationPrecondition|QualifiedName]
+//	('for' target=[instance::InstanceObject|URIID])?
+	'['
+	('state'  state=VerificationResultState)?
+	('status'  status=VerificationResultStatus)? 
+	('weight' weight = INT)?
+	('successMsg' sucessMsg= MultiLineString)?
+	('failMsg' failMsg = MultiLineString)?
+//	('output'  title=STRING)?
+//	('logfile'  description=STRING)?
+//	('date'  date=STRING)?
+	']'  
+;
+
+AssuranceResult: EvidenceResult | ClaimResult | HazardResult | CaseResult;
+EvidenceResult : VerificationResult | AssumptionResult | PreconditionResult;
 
 // result of all requirements of a hazard being met
 HazardResult:
@@ -110,9 +111,9 @@ HazardResult:
 	']'  
 ;
 
-ClaimExpr returns ClaimResult:
-	ClaimResult |
-	('fail' {FailThenResult}|'if' {IfThenResult}) first+=ClaimResult 'then' second+=ClaimResult
+VerificationExpr returns VerificationResult:
+	VerificationResult |
+	('fail' {FailThenResult}|'if' {IfThenResult}) first+=VerificationResult 'then' second+=VerificationResult
 ;
 
 

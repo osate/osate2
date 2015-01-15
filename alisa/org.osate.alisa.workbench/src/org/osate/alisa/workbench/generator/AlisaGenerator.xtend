@@ -58,24 +58,26 @@ class AlisaGenerator implements IGenerator {
 		]
 	}
 
-	@Inject
-	var IGlobalScopeProvider scopeProvider
 	
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
 
-	extension CommonGlobalScopeProvider cgsp = scopeProvider as CommonGlobalScopeProvider
+//	@Inject
+//	var IGlobalScopeProvider scopeProvider
+//
+//	extension CommonGlobalScopeProvider cgsp = scopeProvider as CommonGlobalScopeProvider
 
 	var AssuranceCasePlan currentcase
 
 	def generateCase(AssuranceCasePlan acp) {
 		currentcase = acp
 		val si = acp.system.buildInstanceModelFile
-		si.generate
+		si.generate(acp)
 	}
 
-	def String generate(ComponentInstance ci) {
+	def String generate(ComponentInstance ci, AssuranceCasePlan acp) {
 		'''
-			case «ci.name» for «ci.instanceObjectPath»
+			case «acp.name» for «ci.componentClassifier.getQualifiedName»
+				uri "«ci.URI.toString»"
 			[
 				success 0
 				fail 0
@@ -85,27 +87,27 @@ class AlisaGenerator implements IGenerator {
 				«FOR claim : ci.claims»
 				«claim.generate»
 				«ENDFOR»
-				«FOR subci : ci.componentInstances»
-				«subci.generateNonemptySubCase»
-				«ENDFOR»
+«««				«FOR subci : ci.componentInstances»
+«««				«subci.generateNonemptySubCase»
+«««				«ENDFOR»
 			]
 		'''
 	}
 	
-	def String generateNonemptySubCase(ComponentInstance ci){
-		val claimset = ci.claims
-		if (!claimset.empty){
-			ci.generate
-		}
-		''''''
-	}
+//	def String generateNonemptySubCase(ComponentInstance ci){
+//		val claimset = ci.claims
+//		if (!claimset.empty){
+//			ci.generate
+//		}
+//		''''''
+//	}
 
 	//io.getRelativeURIFragmentPath(null) for relative path
 	def String generate(Claim claim) {
 		'''
 			claim «claim.name» of «claim?.requirement.fullyQualifiedName»
 			[
-				sucess  0
+				success  0
 				fail 0
 				neutral 0
 				unknown 0

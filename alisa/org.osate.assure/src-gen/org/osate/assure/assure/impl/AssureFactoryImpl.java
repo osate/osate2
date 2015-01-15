@@ -66,12 +66,12 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
     switch (eClass.getClassifierID())
     {
       case AssurePackage.CASE_RESULT: return createCaseResult();
+      case AssurePackage.CLAIM_RESULT: return createClaimResult();
       case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       case AssurePackage.ASSUMPTION_RESULT: return createAssumptionResult();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.ASSURANCE_RESULT: return createAssuranceResult();
       case AssurePackage.EVIDENCE_RESULT: return createEvidenceResult();
-      case AssurePackage.CLAIM_RESULT: return createClaimResult();
       case AssurePackage.HAZARD_RESULT: return createHazardResult();
       case AssurePackage.FAIL_THEN_RESULT: return createFailThenResult();
       case AssurePackage.IF_THEN_RESULT: return createIfThenResult();
@@ -134,6 +134,17 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ClaimResult createClaimResult()
+  {
+    ClaimResultImpl claimResult = new ClaimResultImpl();
+    return claimResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VerificationResult createVerificationResult()
   {
     VerificationResultImpl verificationResult = new VerificationResultImpl();
@@ -182,17 +193,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     EvidenceResultImpl evidenceResult = new EvidenceResultImpl();
     return evidenceResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ClaimResult createClaimResult()
-  {
-    ClaimResultImpl claimResult = new ClaimResultImpl();
-    return claimResult;
   }
 
   /**

@@ -131,7 +131,7 @@ public class AssureHandler extends AbstractHandler {
 		args[0] = cr;
 		System.out.println("root=" + cr);
 
-		AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", null);
+		AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");

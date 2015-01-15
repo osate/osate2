@@ -34,6 +34,8 @@ import org.osate.verify.verify.VerificationActivity;
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getVerificationActivity <em>Verification Activity</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getAssumptionResult <em>Assumption Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getPreconditionResult <em>Precondition Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getFirst <em>First</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getSecond <em>Second</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +72,26 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
    * @ordered
    */
   protected EList<PreconditionResult> preconditionResult;
+
+  /**
+   * The cached value of the '{@link #getFirst() <em>First</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFirst()
+   * @generated
+   * @ordered
+   */
+  protected EList<VerificationResult> first;
+
+  /**
+   * The cached value of the '{@link #getSecond() <em>Second</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSecond()
+   * @generated
+   * @ordered
+   */
+  protected EList<VerificationResult> second;
 
   /**
    * <!-- begin-user-doc -->
@@ -168,6 +190,34 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<VerificationResult> getFirst()
+  {
+    if (first == null)
+    {
+      first = new EObjectContainmentEList<VerificationResult>(VerificationResult.class, this, AssurePackage.VERIFICATION_RESULT__FIRST);
+    }
+    return first;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<VerificationResult> getSecond()
+  {
+    if (second == null)
+    {
+      second = new EObjectContainmentEList<VerificationResult>(VerificationResult.class, this, AssurePackage.VERIFICATION_RESULT__SECOND);
+    }
+    return second;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -177,6 +227,10 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
         return ((InternalEList<?>)getAssumptionResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
         return ((InternalEList<?>)getPreconditionResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.VERIFICATION_RESULT__FIRST:
+        return ((InternalEList<?>)getFirst()).basicRemove(otherEnd, msgs);
+      case AssurePackage.VERIFICATION_RESULT__SECOND:
+        return ((InternalEList<?>)getSecond()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -198,6 +252,10 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
         return getAssumptionResult();
       case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
         return getPreconditionResult();
+      case AssurePackage.VERIFICATION_RESULT__FIRST:
+        return getFirst();
+      case AssurePackage.VERIFICATION_RESULT__SECOND:
+        return getSecond();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -224,6 +282,14 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
         getPreconditionResult().clear();
         getPreconditionResult().addAll((Collection<? extends PreconditionResult>)newValue);
         return;
+      case AssurePackage.VERIFICATION_RESULT__FIRST:
+        getFirst().clear();
+        getFirst().addAll((Collection<? extends VerificationResult>)newValue);
+        return;
+      case AssurePackage.VERIFICATION_RESULT__SECOND:
+        getSecond().clear();
+        getSecond().addAll((Collection<? extends VerificationResult>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -247,6 +313,12 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
       case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
         getPreconditionResult().clear();
         return;
+      case AssurePackage.VERIFICATION_RESULT__FIRST:
+        getFirst().clear();
+        return;
+      case AssurePackage.VERIFICATION_RESULT__SECOND:
+        getSecond().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -267,6 +339,10 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
         return assumptionResult != null && !assumptionResult.isEmpty();
       case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
         return preconditionResult != null && !preconditionResult.isEmpty();
+      case AssurePackage.VERIFICATION_RESULT__FIRST:
+        return first != null && !first.isEmpty();
+      case AssurePackage.VERIFICATION_RESULT__SECOND:
+        return second != null && !second.isEmpty();
     }
     return super.eIsSet(featureID);
   }

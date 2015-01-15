@@ -32,6 +32,15 @@ public interface AssureFactory extends EFactory
   CaseResult createCaseResult();
 
   /**
+   * Returns a new object of class '<em>Claim Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim Result</em>'.
+   * @generated
+   */
+  ClaimResult createClaimResult();
+
+  /**
    * Returns a new object of class '<em>Verification Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -75,15 +84,6 @@ public interface AssureFactory extends EFactory
    * @generated
    */
   EvidenceResult createEvidenceResult();
-
-  /**
-   * Returns a new object of class '<em>Claim Result</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Claim Result</em>'.
-   * @generated
-   */
-  ClaimResult createClaimResult();
 
   /**
    * Returns a new object of class '<em>Hazard Result</em>'.

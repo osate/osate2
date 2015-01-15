@@ -427,7 +427,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID target=[Requirement|QualifiedName]? (content+=VerificationActivity | content+=VerificationMethod | content+=VerificationFolder)*)
+	 *     (
+	 *         name=ID 
+	 *         target=[Requirement|QualifiedName]? 
+	 *         methodClasses+=QualifiedName* 
+	 *         (content+=VerificationActivity | content+=VerificationMethod | content+=VerificationFolder)*
+	 *     )
 	 */
 	protected void sequence_VerificationLibrary(EObject context, VerificationLibrary semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -440,7 +445,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=ValueString? 
 	 *         methodType=SupportedTypes 
-	 *         method=ValueString 
+	 *         method=QualifiedName 
 	 *         description=Description? 
 	 *         category=[VerificationCategory|CatRef]? 
 	 *         conditions+=VerificationCondition*

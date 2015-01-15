@@ -16,7 +16,7 @@ import org.osate.assure.assure.IfThenResult;
  *
  * @generated
  */
-public class IfThenResultImpl extends ClaimResultImpl implements IfThenResult
+public class IfThenResultImpl extends VerificationResultImpl implements IfThenResult
 {
   /**
    * <!-- begin-user-doc -->

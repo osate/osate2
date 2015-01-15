@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.instance.InstanceObject;
+
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.HazardResult;
 import org.osate.assure.assure.VerificationResult;
@@ -31,6 +33,7 @@ import org.osate.reqspec.reqSpec.Hazard;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getHazard <em>Hazard</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getPassCount <em>Pass Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getNeutralCount <em>Neutral Count</em>}</li>
@@ -52,6 +55,16 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
    * @ordered
    */
   protected Hazard hazard;
+
+  /**
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTarget()
+   * @generated
+   * @ordered
+   */
+  protected InstanceObject target;
 
   /**
    * The default value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
@@ -212,6 +225,49 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
    * <!-- end-user-doc -->
    * @generated
    */
+  public InstanceObject getTarget()
+  {
+    if (target != null && target.eIsProxy())
+    {
+      InternalEObject oldTarget = (InternalEObject)target;
+      target = (InstanceObject)eResolveProxy(oldTarget);
+      if (target != oldTarget)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.HAZARD_RESULT__TARGET, oldTarget, target));
+      }
+    }
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InstanceObject basicGetTarget()
+  {
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTarget(InstanceObject newTarget)
+  {
+    InstanceObject oldTarget = target;
+    target = newTarget;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.HAZARD_RESULT__TARGET, oldTarget, target));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getPassCount()
   {
     return passCount;
@@ -342,6 +398,9 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
       case AssurePackage.HAZARD_RESULT__HAZARD:
         if (resolve) return getHazard();
         return basicGetHazard();
+      case AssurePackage.HAZARD_RESULT__TARGET:
+        if (resolve) return getTarget();
+        return basicGetTarget();
       case AssurePackage.HAZARD_RESULT__PASS_COUNT:
         return getPassCount();
       case AssurePackage.HAZARD_RESULT__FAIL_COUNT:
@@ -369,6 +428,9 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
     {
       case AssurePackage.HAZARD_RESULT__HAZARD:
         setHazard((Hazard)newValue);
+        return;
+      case AssurePackage.HAZARD_RESULT__TARGET:
+        setTarget((InstanceObject)newValue);
         return;
       case AssurePackage.HAZARD_RESULT__PASS_COUNT:
         setPassCount((Integer)newValue);
@@ -403,6 +465,9 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
       case AssurePackage.HAZARD_RESULT__HAZARD:
         setHazard((Hazard)null);
         return;
+      case AssurePackage.HAZARD_RESULT__TARGET:
+        setTarget((InstanceObject)null);
+        return;
       case AssurePackage.HAZARD_RESULT__PASS_COUNT:
         setPassCount(PASS_COUNT_EDEFAULT);
         return;
@@ -434,6 +499,8 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
     {
       case AssurePackage.HAZARD_RESULT__HAZARD:
         return hazard != null;
+      case AssurePackage.HAZARD_RESULT__TARGET:
+        return target != null;
       case AssurePackage.HAZARD_RESULT__PASS_COUNT:
         return passCount != PASS_COUNT_EDEFAULT;
       case AssurePackage.HAZARD_RESULT__FAIL_COUNT:

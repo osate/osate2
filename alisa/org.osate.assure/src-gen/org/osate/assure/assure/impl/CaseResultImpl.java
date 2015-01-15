@@ -10,12 +10,17 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.Classifier;
+
+import org.osate.aadl2.instance.InstanceObject;
 
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.CaseResult;
@@ -29,11 +34,12 @@ import org.osate.assure.assure.HazardResult;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSystem <em>System</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getPassCount <em>Pass Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getNeutralCount <em>Neutral Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getUnknownCount <em>Unknown Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSubCaseResult <em>Sub Case Result</em>}</li>
@@ -46,6 +52,26 @@ import org.osate.assure.assure.HazardResult;
  */
 public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
 {
+  /**
+   * The cached value of the '{@link #getSystem() <em>System</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSystem()
+   * @generated
+   * @ordered
+   */
+  protected Classifier system;
+
+  /**
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTarget()
+   * @generated
+   * @ordered
+   */
+  protected InstanceObject target;
+
   /**
    * The default value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -125,26 +151,6 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * @ordered
    */
   protected int unknownCount = UNKNOWN_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected static final int WEIGHT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected int weight = WEIGHT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
@@ -242,6 +248,92 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
+  public Classifier getSystem()
+  {
+    if (system != null && ((EObject)system).eIsProxy())
+    {
+      InternalEObject oldSystem = (InternalEObject)system;
+      system = (Classifier)eResolveProxy(oldSystem);
+      if (system != oldSystem)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CASE_RESULT__SYSTEM, oldSystem, system));
+      }
+    }
+    return system;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Classifier basicGetSystem()
+  {
+    return system;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSystem(Classifier newSystem)
+  {
+    Classifier oldSystem = system;
+    system = newSystem;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__SYSTEM, oldSystem, system));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InstanceObject getTarget()
+  {
+    if (target != null && target.eIsProxy())
+    {
+      InternalEObject oldTarget = (InternalEObject)target;
+      target = (InstanceObject)eResolveProxy(oldTarget);
+      if (target != oldTarget)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CASE_RESULT__TARGET, oldTarget, target));
+      }
+    }
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InstanceObject basicGetTarget()
+  {
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTarget(InstanceObject newTarget)
+  {
+    InstanceObject oldTarget = target;
+    target = newTarget;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__TARGET, oldTarget, target));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getPassCount()
   {
     return passCount;
@@ -327,29 +419,6 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
     unknownCount = newUnknownCount;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__UNKNOWN_COUNT, oldUnknownCount, unknownCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getWeight()
-  {
-    return weight;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setWeight(int newWeight)
-  {
-    int oldWeight = weight;
-    weight = newWeight;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__WEIGHT, oldWeight, weight));
   }
 
   /**
@@ -470,6 +539,12 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
+      case AssurePackage.CASE_RESULT__SYSTEM:
+        if (resolve) return getSystem();
+        return basicGetSystem();
+      case AssurePackage.CASE_RESULT__TARGET:
+        if (resolve) return getTarget();
+        return basicGetTarget();
       case AssurePackage.CASE_RESULT__PASS_COUNT:
         return getPassCount();
       case AssurePackage.CASE_RESULT__FAIL_COUNT:
@@ -478,8 +553,6 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
         return getNeutralCount();
       case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
         return getUnknownCount();
-      case AssurePackage.CASE_RESULT__WEIGHT:
-        return getWeight();
       case AssurePackage.CASE_RESULT__SUCESS_MSG:
         return getSucessMsg();
       case AssurePackage.CASE_RESULT__FAIL_MSG:
@@ -505,6 +578,12 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
+      case AssurePackage.CASE_RESULT__SYSTEM:
+        setSystem((Classifier)newValue);
+        return;
+      case AssurePackage.CASE_RESULT__TARGET:
+        setTarget((InstanceObject)newValue);
+        return;
       case AssurePackage.CASE_RESULT__PASS_COUNT:
         setPassCount((Integer)newValue);
         return;
@@ -516,9 +595,6 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
         return;
       case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
         setUnknownCount((Integer)newValue);
-        return;
-      case AssurePackage.CASE_RESULT__WEIGHT:
-        setWeight((Integer)newValue);
         return;
       case AssurePackage.CASE_RESULT__SUCESS_MSG:
         setSucessMsg((String)newValue);
@@ -552,6 +628,12 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
+      case AssurePackage.CASE_RESULT__SYSTEM:
+        setSystem((Classifier)null);
+        return;
+      case AssurePackage.CASE_RESULT__TARGET:
+        setTarget((InstanceObject)null);
+        return;
       case AssurePackage.CASE_RESULT__PASS_COUNT:
         setPassCount(PASS_COUNT_EDEFAULT);
         return;
@@ -563,9 +645,6 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
         return;
       case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
         setUnknownCount(UNKNOWN_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.CASE_RESULT__WEIGHT:
-        setWeight(WEIGHT_EDEFAULT);
         return;
       case AssurePackage.CASE_RESULT__SUCESS_MSG:
         setSucessMsg(SUCESS_MSG_EDEFAULT);
@@ -596,6 +675,10 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
   {
     switch (featureID)
     {
+      case AssurePackage.CASE_RESULT__SYSTEM:
+        return system != null;
+      case AssurePackage.CASE_RESULT__TARGET:
+        return target != null;
       case AssurePackage.CASE_RESULT__PASS_COUNT:
         return passCount != PASS_COUNT_EDEFAULT;
       case AssurePackage.CASE_RESULT__FAIL_COUNT:
@@ -604,8 +687,6 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
         return neutralCount != NEUTRAL_COUNT_EDEFAULT;
       case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
         return unknownCount != UNKNOWN_COUNT_EDEFAULT;
-      case AssurePackage.CASE_RESULT__WEIGHT:
-        return weight != WEIGHT_EDEFAULT;
       case AssurePackage.CASE_RESULT__SUCESS_MSG:
         return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
       case AssurePackage.CASE_RESULT__FAIL_MSG:
@@ -639,8 +720,6 @@ public class CaseResultImpl extends AssuranceResultImpl implements CaseResult
     result.append(neutralCount);
     result.append(", unknownCount: ");
     result.append(unknownCount);
-    result.append(", weight: ");
-    result.append(weight);
     result.append(", sucessMsg: ");
     result.append(sucessMsg);
     result.append(", failMsg: ");

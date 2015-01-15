@@ -290,50 +290,72 @@ ruleVerificationLibrary returns [EObject current=null]
     {
     	newLeafNode(otherlv_4, grammarAccess.getVerificationLibraryAccess().getLeftSquareBracketKeyword_3());
     }
-(
+(	otherlv_5='class' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getVerificationLibraryAccess().getClassKeyword_4_0());
+    }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationLibraryAccess().getContentVerificationActivityParserRuleCall_4_0_0()); 
+	        newCompositeNode(grammarAccess.getVerificationLibraryAccess().getMethodClassesQualifiedNameParserRuleCall_4_1_0()); 
 	    }
-		lv_content_5_1=ruleVerificationActivity		{
+		lv_methodClasses_6_0=ruleQualifiedName		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVerificationLibraryRule());
+	        }
+       		add(
+       			$current, 
+       			"methodClasses",
+        		lv_methodClasses_6_0, 
+        		"QualifiedName");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+)?(
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationLibraryAccess().getContentVerificationActivityParserRuleCall_5_0_0()); 
+	    }
+		lv_content_7_1=ruleVerificationActivity		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationLibraryRule());
 	        }
        		add(
        			$current, 
        			"content",
-        		lv_content_5_1, 
+        		lv_content_7_1, 
         		"VerificationActivity");
 	        afterParserOrEnumRuleCall();
 	    }
 
     |		{ 
-	        newCompositeNode(grammarAccess.getVerificationLibraryAccess().getContentVerificationMethodParserRuleCall_4_0_1()); 
+	        newCompositeNode(grammarAccess.getVerificationLibraryAccess().getContentVerificationMethodParserRuleCall_5_0_1()); 
 	    }
-		lv_content_5_2=ruleVerificationMethod		{
+		lv_content_7_2=ruleVerificationMethod		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationLibraryRule());
 	        }
        		add(
        			$current, 
        			"content",
-        		lv_content_5_2, 
+        		lv_content_7_2, 
         		"VerificationMethod");
 	        afterParserOrEnumRuleCall();
 	    }
 
     |		{ 
-	        newCompositeNode(grammarAccess.getVerificationLibraryAccess().getContentVerificationFolderParserRuleCall_4_0_2()); 
+	        newCompositeNode(grammarAccess.getVerificationLibraryAccess().getContentVerificationFolderParserRuleCall_5_0_2()); 
 	    }
-		lv_content_5_3=ruleVerificationFolder		{
+		lv_content_7_3=ruleVerificationFolder		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationLibraryRule());
 	        }
        		add(
        			$current, 
        			"content",
-        		lv_content_5_3, 
+        		lv_content_7_3, 
         		"VerificationFolder");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -341,9 +363,9 @@ ruleVerificationLibrary returns [EObject current=null]
 )
 
 )
-)*	otherlv_6=']' 
+)*	otherlv_8=']' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getVerificationLibraryAccess().getRightSquareBracketKeyword_5());
+    	newLeafNode(otherlv_8, grammarAccess.getVerificationLibraryAccess().getRightSquareBracketKeyword_6());
     }
 )
 ;
@@ -1864,9 +1886,9 @@ ruleVerificationMethod returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodValueStringParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodQualifiedNameParserRuleCall_5_0()); 
 	    }
-		lv_method_6_0=ruleValueString		{
+		lv_method_6_0=ruleQualifiedName		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
@@ -1874,7 +1896,7 @@ ruleVerificationMethod returns [EObject current=null]
        			$current, 
        			"method",
         		lv_method_6_0, 
-        		"ValueString");
+        		"QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 

@@ -80,6 +80,11 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createCaseResultAdapter();
       }
       @Override
+      public Adapter caseClaimResult(ClaimResult object)
+      {
+        return createClaimResultAdapter();
+      }
+      @Override
       public Adapter caseVerificationResult(VerificationResult object)
       {
         return createVerificationResultAdapter();
@@ -103,11 +108,6 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
       public Adapter caseEvidenceResult(EvidenceResult object)
       {
         return createEvidenceResultAdapter();
-      }
-      @Override
-      public Adapter caseClaimResult(ClaimResult object)
-      {
-        return createClaimResultAdapter();
       }
       @Override
       public Adapter caseHazardResult(HazardResult object)
@@ -157,6 +157,21 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCaseResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.ClaimResult <em>Claim Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.ClaimResult
+   * @generated
+   */
+  public Adapter createClaimResultAdapter()
   {
     return null;
   }
@@ -232,21 +247,6 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEvidenceResultAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.ClaimResult <em>Claim Result</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.assure.assure.ClaimResult
-   * @generated
-   */
-  public Adapter createClaimResultAdapter()
   {
     return null;
   }

@@ -24,7 +24,9 @@ VerificationPlan :
 VerificationLibrary returns VerificationLibrary:
 	'library' name =ID 
 	('for' target=[ReqSpec::Requirement|QualifiedName])?
-	'[' (content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
+	'[' 
+	( 'class' methodClasses+=QualifiedName+)?
+	(content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
 	']'
 	;
 
@@ -125,10 +127,11 @@ AtomicConditionExpr:
 // Java based methods: all
 // interface methods to external or built-in
 
+
 VerificationMethod:
 	'method' name=ID (':'  title=ValueString)?
 	'['
- 	 methodType=SupportedTypes method = ValueString
+ 	 methodType=SupportedTypes method = QualifiedName
  	 // parameters (in addition to the model element
 	(('description'  description=Description)?
  	&('category'  category=[categories::VerificationCategory|CatRef])?

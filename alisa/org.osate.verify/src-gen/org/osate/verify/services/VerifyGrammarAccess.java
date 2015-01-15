@@ -135,20 +135,24 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cTargetRequirementCrossReference_2_1_0 = (CrossReference)cTargetAssignment_2_1.eContents().get(0);
 		private final RuleCall cTargetRequirementQualifiedNameParserRuleCall_2_1_0_1 = (RuleCall)cTargetRequirementCrossReference_2_1_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cContentAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final Alternatives cContentAlternatives_4_0 = (Alternatives)cContentAssignment_4.eContents().get(0);
-		private final RuleCall cContentVerificationActivityParserRuleCall_4_0_0 = (RuleCall)cContentAlternatives_4_0.eContents().get(0);
-		private final RuleCall cContentVerificationMethodParserRuleCall_4_0_1 = (RuleCall)cContentAlternatives_4_0.eContents().get(1);
-		private final RuleCall cContentVerificationFolderParserRuleCall_4_0_2 = (RuleCall)cContentAlternatives_4_0.eContents().get(2);
-		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cClassKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cMethodClassesAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cMethodClassesQualifiedNameParserRuleCall_4_1_0 = (RuleCall)cMethodClassesAssignment_4_1.eContents().get(0);
+		private final Assignment cContentAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final Alternatives cContentAlternatives_5_0 = (Alternatives)cContentAssignment_5.eContents().get(0);
+		private final RuleCall cContentVerificationActivityParserRuleCall_5_0_0 = (RuleCall)cContentAlternatives_5_0.eContents().get(0);
+		private final RuleCall cContentVerificationMethodParserRuleCall_5_0_1 = (RuleCall)cContentAlternatives_5_0.eContents().get(1);
+		private final RuleCall cContentVerificationFolderParserRuleCall_5_0_2 = (RuleCall)cContentAlternatives_5_0.eContents().get(2);
+		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationLibrary:
-		//	"library" name=ID ("for" target=[ReqSpec::Requirement|QualifiedName])? "[" content+=(VerificationActivity |
-		//	VerificationMethod | VerificationFolder)* "]";
+		//	"library" name=ID ("for" target=[ReqSpec::Requirement|QualifiedName])? "[" ("class" methodClasses+=QualifiedName+)?
+		//	content+=(VerificationActivity | VerificationMethod | VerificationFolder)* "]";
 		public ParserRule getRule() { return rule; }
 
-		//"library" name=ID ("for" target=[ReqSpec::Requirement|QualifiedName])? "[" content+=(VerificationActivity |
-		//VerificationMethod | VerificationFolder)* "]"
+		//"library" name=ID ("for" target=[ReqSpec::Requirement|QualifiedName])? "[" ("class" methodClasses+=QualifiedName+)?
+		//content+=(VerificationActivity | VerificationMethod | VerificationFolder)* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"library"
@@ -178,23 +182,35 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
+		//("class" methodClasses+=QualifiedName+)?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"class"
+		public Keyword getClassKeyword_4_0() { return cClassKeyword_4_0; }
+
+		//methodClasses+=QualifiedName+
+		public Assignment getMethodClassesAssignment_4_1() { return cMethodClassesAssignment_4_1; }
+
+		//QualifiedName
+		public RuleCall getMethodClassesQualifiedNameParserRuleCall_4_1_0() { return cMethodClassesQualifiedNameParserRuleCall_4_1_0; }
+
 		//content+=(VerificationActivity | VerificationMethod | VerificationFolder)*
-		public Assignment getContentAssignment_4() { return cContentAssignment_4; }
+		public Assignment getContentAssignment_5() { return cContentAssignment_5; }
 
 		//VerificationActivity | VerificationMethod | VerificationFolder
-		public Alternatives getContentAlternatives_4_0() { return cContentAlternatives_4_0; }
+		public Alternatives getContentAlternatives_5_0() { return cContentAlternatives_5_0; }
 
 		//VerificationActivity
-		public RuleCall getContentVerificationActivityParserRuleCall_4_0_0() { return cContentVerificationActivityParserRuleCall_4_0_0; }
+		public RuleCall getContentVerificationActivityParserRuleCall_5_0_0() { return cContentVerificationActivityParserRuleCall_5_0_0; }
 
 		//VerificationMethod
-		public RuleCall getContentVerificationMethodParserRuleCall_4_0_1() { return cContentVerificationMethodParserRuleCall_4_0_1; }
+		public RuleCall getContentVerificationMethodParserRuleCall_5_0_1() { return cContentVerificationMethodParserRuleCall_5_0_1; }
 
 		//VerificationFolder
-		public RuleCall getContentVerificationFolderParserRuleCall_4_0_2() { return cContentVerificationFolderParserRuleCall_4_0_2; }
+		public RuleCall getContentVerificationFolderParserRuleCall_5_0_2() { return cContentVerificationFolderParserRuleCall_5_0_2; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
+		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
 	}
 
 	public class VerificationFolderElements extends AbstractParserRuleElementFinder {
@@ -1125,7 +1141,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cMethodTypeAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cMethodTypeSupportedTypesEnumRuleCall_4_0 = (RuleCall)cMethodTypeAssignment_4.eContents().get(0);
 		private final Assignment cMethodAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cMethodValueStringParserRuleCall_5_0 = (RuleCall)cMethodAssignment_5.eContents().get(0);
+		private final RuleCall cMethodQualifiedNameParserRuleCall_5_0 = (RuleCall)cMethodAssignment_5.eContents().get(0);
 		private final UnorderedGroup cUnorderedGroup_6 = (UnorderedGroup)cGroup.eContents().get(6);
 		private final Group cGroup_6_0 = (Group)cUnorderedGroup_6.eContents().get(0);
 		private final Keyword cDescriptionKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
@@ -1145,12 +1161,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// Java based methods: all
 		//// interface methods to external or built-in
 		//VerificationMethod:
-		//	"method" name=ID (":" title=ValueString)? "[" methodType=SupportedTypes method=ValueString // parameters (in addition to the model element
+		//	"method" name=ID (":" title=ValueString)? "[" methodType=SupportedTypes method=QualifiedName // parameters (in addition to the model element
 		//	(("description" description=Description)? & ("category" category=[categories::VerificationCategory|CatRef])? &
 		//	conditions+=VerificationCondition*) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"method" name=ID (":" title=ValueString)? "[" methodType=SupportedTypes method=ValueString // parameters (in addition to the model element
+		//"method" name=ID (":" title=ValueString)? "[" methodType=SupportedTypes method=QualifiedName // parameters (in addition to the model element
 		//(("description" description=Description)? & ("category" category=[categories::VerificationCategory|CatRef])? &
 		//conditions+=VerificationCondition*) "]"
 		public Group getGroup() { return cGroup; }
@@ -1185,11 +1201,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//SupportedTypes
 		public RuleCall getMethodTypeSupportedTypesEnumRuleCall_4_0() { return cMethodTypeSupportedTypesEnumRuleCall_4_0; }
 
-		//method=ValueString
+		//method=QualifiedName
 		public Assignment getMethodAssignment_5() { return cMethodAssignment_5; }
 
-		//ValueString
-		public RuleCall getMethodValueStringParserRuleCall_5_0() { return cMethodValueStringParserRuleCall_5_0; }
+		//QualifiedName
+		public RuleCall getMethodQualifiedNameParserRuleCall_5_0() { return cMethodQualifiedNameParserRuleCall_5_0; }
 
 		//("description" description=Description)? & ("category" category=[categories::VerificationCategory|CatRef])? &
 		//conditions+=VerificationCondition*
@@ -1384,8 +1400,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationLibrary:
-	//	"library" name=ID ("for" target=[ReqSpec::Requirement|QualifiedName])? "[" content+=(VerificationActivity |
-	//	VerificationMethod | VerificationFolder)* "]";
+	//	"library" name=ID ("for" target=[ReqSpec::Requirement|QualifiedName])? "[" ("class" methodClasses+=QualifiedName+)?
+	//	content+=(VerificationActivity | VerificationMethod | VerificationFolder)* "]";
 	public VerificationLibraryElements getVerificationLibraryAccess() {
 		return pVerificationLibrary;
 	}
@@ -1561,7 +1577,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// Java based methods: all
 	//// interface methods to external or built-in
 	//VerificationMethod:
-	//	"method" name=ID (":" title=ValueString)? "[" methodType=SupportedTypes method=ValueString // parameters (in addition to the model element
+	//	"method" name=ID (":" title=ValueString)? "[" methodType=SupportedTypes method=QualifiedName // parameters (in addition to the model element
 	//	(("description" description=Description)? & ("category" category=[categories::VerificationCategory|CatRef])? &
 	//	conditions+=VerificationCondition*) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {

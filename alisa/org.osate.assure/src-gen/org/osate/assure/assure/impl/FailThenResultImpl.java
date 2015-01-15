@@ -16,7 +16,7 @@ import org.osate.assure.assure.FailThenResult;
  *
  * @generated
  */
-public class FailThenResultImpl extends ClaimResultImpl implements FailThenResult
+public class FailThenResultImpl extends VerificationResultImpl implements FailThenResult
 {
   /**
    * <!-- begin-user-doc -->

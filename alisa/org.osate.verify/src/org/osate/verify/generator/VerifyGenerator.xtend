@@ -6,6 +6,14 @@ package org.osate.verify.generator
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
+import org.osate.verify.verify.VerificationLibrary
+import org.osate.verify.verify.Verification
+import org.osate.verify.verify.VerificationFolder
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.impl.VerificationLibraryImpl
+import org.osate.verify.verify.impl.VerificationFolderImpl
+import org.osate.verify.verify.impl.VerificationActivityImpl
+import org.eclipse.emf.ecore.EObject
 
 /**
  * Generates code from your model files on save.
@@ -15,10 +23,52 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 class VerifyGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(typeof(Greeting))
-//				.map[name]
-//				.join(', '))
+		val content = (resource.contents.get(0) as Verification).contents
+		val vll = content.filter[el | el instanceof VerificationLibrary].map[vl| vl as VerificationLibrary]
+		vll.forEach[mylib|
+			fsa.generateFile('''fool/«mylib.name».java''', mylib.generate)
+		]
 	}
+	
+	def dispatch String generate(VerificationLibrary vl){
+'''
+package fool;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.junit.Test;
+import static org.junit.Assert.*;
+«FOR el : vl.methodClasses»
+import «el»;
+«ENDFOR»
+
+class «vl.name» {
+	«FOR el : vl.content»
+	«el.generateVLC»
+	«ENDFOR»
+}
+'''
+	}
+	
+	def String generateVLC(EObject eo){
+		switch eo {
+			VerificationFolder: eo.generate
+			VerificationActivity: eo.generate
+			}
+	}
+	
+	def dispatch String generate(VerificationFolder vf){
+		var result = ""
+		for (el : vf.content) result = result + el.generate
+		result
+	}
+	// should it be impl
+	def dispatch String generate(VerificationActivity va){
+		'''
+		@Test
+		public void «va.name» (ComponentInstance ci){
+			assertTrue(«va.method.method»(ci));
+		}
+		'''
+	}
+	
+	// need to collect all methods first so we can do import
 }
