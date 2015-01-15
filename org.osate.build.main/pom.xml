@@ -66,18 +66,18 @@
 				<module>../../osate2-plugins/org.osate.analysis.resource.management</module>
 				<module>../../osate2-plugins/org.osate.analysis.security</module>
 				<module>../../osate2-plugins/org.osate.analysis.arinc653</module>
+				<module>../../osate2-plugins/org.osate.analysis.binpacking</module>
 
 				<module>../../osate2-plugins/org.osate.importer</module>
 				<module>../../osate2-plugins/org.osate.importer.scade</module>
 				<module>../../osate2-plugins/org.osate.importer.simulink</module>
 				<module>../../osate2-plugins/org.osate.importer.lattix</module>
 
-				<module>../../osate2-plugins/org.osate.analysis.lute</module>
 				<module>../../osate2-plugins/org.osate.imv.osate</module>
 				<module>../../osate2-plugins/org.osate.imv.propertydecorations</module>
 				<module>../../osate2-plugins/org.osate.imv.ui</module>
 				<module>../../osate2-plugins/org.osate.imv.aadldiagram</module>
-				<module>../../osate2-plugins/org.osate.analysis.binpacking</module>
+
 				<module>../../osate2-plugins/org.osate.plugins.feature</module>
 				<module>../../osate2-plugins/org.osate.plugins.source.feature</module>
 
@@ -230,18 +230,18 @@
 				<module>../../osate2-plugins/org.osate.analysis.resource.management</module>
 				<module>../../osate2-plugins/org.osate.analysis.security</module>
 				<module>../../osate2-plugins/org.osate.analysis.arinc653</module>
+				<module>../../osate2-plugins/org.osate.analysis.binpacking</module>
 
 				<module>../../osate2-plugins/org.osate.importer</module>
 				<module>../../osate2-plugins/org.osate.importer.scade</module>
 				<module>../../osate2-plugins/org.osate.importer.simulink</module>
 				<module>../../osate2-plugins/org.osate.importer.lattix</module>
 
-				<module>../../osate2-plugins/org.osate.analysis.lute</module>
 				<module>../../osate2-plugins/org.osate.imv.osate</module>
 				<module>../../osate2-plugins/org.osate.imv.propertydecorations</module>
 				<module>../../osate2-plugins/org.osate.imv.ui</module>
 				<module>../../osate2-plugins/org.osate.imv.aadldiagram</module>
-				<module>../../osate2-plugins/org.osate.analysis.binpacking</module>
+
 				<module>../../osate2-plugins/org.osate.plugins.feature</module>
 				<module>../../osate2-plugins/org.osate.plugins.source.feature</module>
 
