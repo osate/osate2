@@ -65,7 +65,6 @@
 				<module>../../osate2-plugins/org.osate.analysis.resource.budgets</module>
 				<module>../../osate2-plugins/org.osate.analysis.resource.management</module>
 				<module>../../osate2-plugins/org.osate.analysis.security</module>
-				<module>../../osate2-plugins/org.osate.analysis.arinc653</module>
 				<module>../../osate2-plugins/org.osate.analysis.binpacking</module>
 
 				<module>../../osate2-plugins/org.osate.importer</module>
