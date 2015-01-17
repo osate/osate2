@@ -2203,9 +2203,9 @@ rule__QualifiedNameWithWildCard__Group__1__Impl
 :
 (
 { before(grammarAccess.getQualifiedNameWithWildCardAccess().getFullStopAsteriskKeyword_1()); }
-
+(
 	FullStopAsterisk 
-
+)?
 { after(grammarAccess.getQualifiedNameWithWildCardAccess().getFullStopAsteriskKeyword_1()); }
 )
 

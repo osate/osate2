@@ -99,7 +99,8 @@ Requirement:
 // TODO reference to EMV2 construct	
 Hazard:
 	'hazard'  name=ID   
-	'['(( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
+	'['
+	(( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
  	&('category'  category=[categories::HazardCategory|CatRef])?
 	&('title'  title=ValueString)? 
 	&('description'  description=Description)? 

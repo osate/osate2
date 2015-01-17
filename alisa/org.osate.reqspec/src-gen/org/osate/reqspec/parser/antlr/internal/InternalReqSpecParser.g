@@ -623,13 +623,13 @@ ruleQualifiedNameWithWildCard returns [AntlrDatatypeRuleToken current=new AntlrD
     { 
         afterParserOrEnumRuleCall();
     }
-
+(
 	kw=FullStopAsterisk 
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getQualifiedNameWithWildCardAccess().getFullStopAsteriskKeyword_1()); 
     }
-)
+)?)
     ;
 
 

@@ -407,16 +407,16 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopAsteriskKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//QualifiedNameWithWildCard:
-		//	QualifiedName ".*";
+		//	QualifiedName ".*"?;
 		public ParserRule getRule() { return rule; }
 
-		//QualifiedName ".*"
+		//QualifiedName ".*"?
 		public Group getGroup() { return cGroup; }
 
 		//QualifiedName
 		public RuleCall getQualifiedNameParserRuleCall_0() { return cQualifiedNameParserRuleCall_0; }
 
-		//".*"
+		//".*"?
 		public Keyword getFullStopAsteriskKeyword_1() { return cFullStopAsteriskKeyword_1; }
 	}
 
@@ -2172,7 +2172,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedNameWithWildCard:
-	//	QualifiedName ".*";
+	//	QualifiedName ".*"?;
 	public QualifiedNameWithWildCardElements getQualifiedNameWithWildCardAccess() {
 		return pQualifiedNameWithWildCard;
 	}
