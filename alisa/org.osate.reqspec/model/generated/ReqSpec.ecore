@@ -46,6 +46,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ReqDocument" eSuperTypes="#//ReqRoot"/>
   <eClassifiers xsi:type="ecore:EClass" name="ReqSpecLibrary" eSuperTypes="#//ReqSpecContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReqSpecFolder" eSuperTypes="#//ReqSpecContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

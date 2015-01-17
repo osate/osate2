@@ -7,17 +7,17 @@
     editorPluginID="org.osate.assure.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.aadl2/model/instance.genmodel#//instance platform:/resource/org.osate.reqspec/model/generated/ReqSpec.genmodel#//reqSpec platform:/resource/org.osate.verify/model/generated/Verify.genmodel#//verify">
   <genPackages prefix="Assure" basePackage="org.osate.assure" disposableProviderFactory="true"
       fileExtensions="assure" ecorePackage="Assure.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationResultState">
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TODO"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/RUNNING"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/REDO"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/COMPLETED"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationExecutionState">
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/TODO"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/RUNNING"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/REDO"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/COMPLETED"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationResultStatus">
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/TBD"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/SUCCESS"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/FAIL"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultStatus/UNKNOWN"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationResultState">
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TBD"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/SUCCESS"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/FAIL"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/UNKNOWN"/>
     </genEnums>
     <genClasses ecoreClass="Assure.ecore#//CaseResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//CaseResult/system"/>
@@ -45,6 +45,7 @@
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//VerificationResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/verificationActivity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/status"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/assumptionResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/preconditionResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/first"/>
@@ -52,9 +53,11 @@
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//AssumptionResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssumptionResult/verificationActivity"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssumptionResult/status"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//PreconditionResult">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//PreconditionResult/verificationActivity"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//PreconditionResult/status"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//AssuranceResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssuranceResult/name"/>
@@ -62,7 +65,6 @@
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//EvidenceResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//EvidenceResult/state"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//EvidenceResult/status"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//EvidenceResult/sucessMsg"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//EvidenceResult/failMsg"/>
     </genClasses>

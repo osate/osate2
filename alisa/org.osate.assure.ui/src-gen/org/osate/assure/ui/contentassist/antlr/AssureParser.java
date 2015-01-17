@@ -43,8 +43,8 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationExprAccess().getAlternatives_1_0(), "rule__VerificationExpr__Alternatives_1_0");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAlternatives_1_0(), "rule__PredicateExpression__OpAlternatives_1_0");
+					put(grammarAccess.getVerificationExecutionStateAccess().getAlternatives(), "rule__VerificationExecutionState__Alternatives");
 					put(grammarAccess.getVerificationResultStateAccess().getAlternatives(), "rule__VerificationResultState__Alternatives");
-					put(grammarAccess.getVerificationResultStatusAccess().getAlternatives(), "rule__VerificationResultStatus__Alternatives");
 					put(grammarAccess.getIssueTypeAccess().getAlternatives(), "rule__IssueType__Alternatives");
 					put(grammarAccess.getCaseResultAccess().getGroup(), "rule__CaseResult__Group__0");
 					put(grammarAccess.getCaseResultAccess().getGroup_2(), "rule__CaseResult__Group_2__0");

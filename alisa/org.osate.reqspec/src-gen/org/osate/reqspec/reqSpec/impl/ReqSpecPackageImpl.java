@@ -487,6 +487,16 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getReqSpecLibrary_ImportedNamespace()
+  {
+    return (EAttribute)reqSpecLibraryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getReqSpecFolder()
   {
     return reqSpecFolderEClass;
@@ -857,6 +867,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     reqSpecLibraryEClass = createEClass(REQ_SPEC_LIBRARY);
     createEAttribute(reqSpecLibraryEClass, REQ_SPEC_LIBRARY__NAME);
+    createEAttribute(reqSpecLibraryEClass, REQ_SPEC_LIBRARY__IMPORTED_NAMESPACE);
 
     reqSpecFolderEClass = createEClass(REQ_SPEC_FOLDER);
     createEAttribute(reqSpecFolderEClass, REQ_SPEC_FOLDER__LABEL);
@@ -975,6 +986,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     initEClass(reqSpecLibraryEClass, ReqSpecLibrary.class, "ReqSpecLibrary", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getReqSpecLibrary_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ReqSpecLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getReqSpecLibrary_ImportedNamespace(), theEcorePackage.getEString(), "importedNamespace", null, 0, 1, ReqSpecLibrary.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(reqSpecFolderEClass, ReqSpecFolder.class, "ReqSpecFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getReqSpecFolder_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ReqSpecFolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

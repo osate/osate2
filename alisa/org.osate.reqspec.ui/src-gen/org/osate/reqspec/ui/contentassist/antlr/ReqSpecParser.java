@@ -41,7 +41,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReqSpecContainerAccess().getAlternatives(), "rule__ReqSpecContainer__Alternatives");
 					put(grammarAccess.getContractualElementAccess().getAlternatives(), "rule__ContractualElement__Alternatives");
 					put(grammarAccess.getReqRootAccess().getAlternatives(), "rule__ReqRoot__Alternatives");
-					put(grammarAccess.getReqSpecLibraryAccess().getContentAlternatives_4_0(), "rule__ReqSpecLibrary__ContentAlternatives_4_0");
+					put(grammarAccess.getReqSpecLibraryAccess().getContentAlternatives_5_0(), "rule__ReqSpecLibrary__ContentAlternatives_5_0");
 					put(grammarAccess.getReqSpecFolderAccess().getContentAlternatives_4_0(), "rule__ReqSpecFolder__ContentAlternatives_4_0");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAlternatives_1_0(), "rule__PredicateExpression__OpAlternatives_1_0");
@@ -51,8 +51,10 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReqDocumentAccess().getGroup(), "rule__ReqDocument__Group__0");
 					put(grammarAccess.getReqSpecLibraryAccess().getGroup(), "rule__ReqSpecLibrary__Group__0");
 					put(grammarAccess.getReqSpecLibraryAccess().getGroup_2(), "rule__ReqSpecLibrary__Group_2__0");
-					put(grammarAccess.getReqSpecLibraryAccess().getGroup_5(), "rule__ReqSpecLibrary__Group_5__0");
-					put(grammarAccess.getReqSpecLibraryAccess().getGroup_5_3(), "rule__ReqSpecLibrary__Group_5_3__0");
+					put(grammarAccess.getReqSpecLibraryAccess().getGroup_3(), "rule__ReqSpecLibrary__Group_3__0");
+					put(grammarAccess.getReqSpecLibraryAccess().getGroup_6(), "rule__ReqSpecLibrary__Group_6__0");
+					put(grammarAccess.getReqSpecLibraryAccess().getGroup_6_3(), "rule__ReqSpecLibrary__Group_6_3__0");
+					put(grammarAccess.getQualifiedNameWithWildCardAccess().getGroup(), "rule__QualifiedNameWithWildCard__Group__0");
 					put(grammarAccess.getReqSpecFolderAccess().getGroup(), "rule__ReqSpecFolder__Group__0");
 					put(grammarAccess.getReqSpecFolderAccess().getGroup_2(), "rule__ReqSpecFolder__Group_2__0");
 					put(grammarAccess.getReqSpecFolderAccess().getGroup_5(), "rule__ReqSpecFolder__Group_5__0");
@@ -145,10 +147,11 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReqDocumentAccess().getNameAssignment_1(), "rule__ReqDocument__NameAssignment_1");
 					put(grammarAccess.getReqDocumentAccess().getConsistsOfAssignment_3(), "rule__ReqDocument__ConsistsOfAssignment_3");
 					put(grammarAccess.getReqSpecLibraryAccess().getNameAssignment_1(), "rule__ReqSpecLibrary__NameAssignment_1");
-					put(grammarAccess.getReqSpecLibraryAccess().getTargetAssignment_2_1(), "rule__ReqSpecLibrary__TargetAssignment_2_1");
-					put(grammarAccess.getReqSpecLibraryAccess().getContentAssignment_4(), "rule__ReqSpecLibrary__ContentAssignment_4");
-					put(grammarAccess.getReqSpecLibraryAccess().getIssueAssignment_5_2(), "rule__ReqSpecLibrary__IssueAssignment_5_2");
-					put(grammarAccess.getReqSpecLibraryAccess().getIssueAssignment_5_3_1(), "rule__ReqSpecLibrary__IssueAssignment_5_3_1");
+					put(grammarAccess.getReqSpecLibraryAccess().getImportedNamespaceAssignment_2_1(), "rule__ReqSpecLibrary__ImportedNamespaceAssignment_2_1");
+					put(grammarAccess.getReqSpecLibraryAccess().getTargetAssignment_3_1(), "rule__ReqSpecLibrary__TargetAssignment_3_1");
+					put(grammarAccess.getReqSpecLibraryAccess().getContentAssignment_5(), "rule__ReqSpecLibrary__ContentAssignment_5");
+					put(grammarAccess.getReqSpecLibraryAccess().getIssueAssignment_6_2(), "rule__ReqSpecLibrary__IssueAssignment_6_2");
+					put(grammarAccess.getReqSpecLibraryAccess().getIssueAssignment_6_3_1(), "rule__ReqSpecLibrary__IssueAssignment_6_3_1");
 					put(grammarAccess.getReqSpecFolderAccess().getLabelAssignment_1(), "rule__ReqSpecFolder__LabelAssignment_1");
 					put(grammarAccess.getReqSpecFolderAccess().getTargetAssignment_2_1(), "rule__ReqSpecFolder__TargetAssignment_2_1");
 					put(grammarAccess.getReqSpecFolderAccess().getContentAssignment_4(), "rule__ReqSpecFolder__ContentAssignment_4");

@@ -54,6 +54,8 @@ Folder : ('F'|'f')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
 
 Hazard : ('H'|'h')('A'|'a')('Z'|'z')('A'|'a')('R'|'r')('D'|'d');
 
+Import : ('I'|'i')('M'|'m')('P'|'p')('O'|'o')('R'|'r')('T'|'t');
+
 Issues : ('I'|'i')('S'|'s')('S'|'s')('U'|'u')('E'|'e')('S'|'s');
 
 Error : ('E'|'e')('R'|'r')('R'|'r')('O'|'o')('R'|'r');
@@ -75,6 +77,8 @@ For : ('F'|'f')('O'|'o')('R'|'r');
 See : ('S'|'s')('E'|'e')('E'|'e');
 
 ExclamationMarkEqualsSign : '!''=';
+
+FullStopAsterisk : '.''*';
 
 ColonColon : ':'':';
 

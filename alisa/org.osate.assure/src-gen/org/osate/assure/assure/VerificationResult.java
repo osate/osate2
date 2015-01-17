@@ -15,6 +15,7 @@ import org.osate.verify.verify.VerificationActivity;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getVerificationActivity <em>Verification Activity</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getStatus <em>Status</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getAssumptionResult <em>Assumption Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getPreconditionResult <em>Precondition Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getFirst <em>First</em>}</li>
@@ -53,6 +54,35 @@ public interface VerificationResult extends EvidenceResult
    * @generated
    */
   void setVerificationActivity(VerificationActivity value);
+
+  /**
+   * Returns the value of the '<em><b>Status</b></em>' attribute.
+   * The literals are from the enumeration {@link org.osate.assure.assure.VerificationResultState}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Status</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Status</em>' attribute.
+   * @see org.osate.assure.assure.VerificationResultState
+   * @see #setStatus(VerificationResultState)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Status()
+   * @model
+   * @generated
+   */
+  VerificationResultState getStatus();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getStatus <em>Status</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Status</em>' attribute.
+   * @see org.osate.assure.assure.VerificationResultState
+   * @see #getStatus()
+   * @generated
+   */
+  void setStatus(VerificationResultState value);
 
   /**
    * Returns the value of the '<em><b>Assumption Result</b></em>' containment reference list.

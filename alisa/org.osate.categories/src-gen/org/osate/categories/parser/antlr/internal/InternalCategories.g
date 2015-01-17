@@ -116,6 +116,26 @@ ruleCategories returns [EObject current=null]
         $current = $this_SelectionCategories_3.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getCategoriesAccess().getAssertFailCategoriesParserRuleCall_4()); 
+    }
+    this_AssertFailCategories_4=ruleAssertFailCategories
+    { 
+        $current = $this_AssertFailCategories_4.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getCategoriesAccess().getExecutionFailCategoriesParserRuleCall_5()); 
+    }
+    this_ExecutionFailCategories_5=ruleExecutionFailCategories
+    { 
+        $current = $this_ExecutionFailCategories_5.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -335,6 +355,116 @@ ruleSelectionCategories returns [EObject current=null]
 )+	otherlv_4=']' 
     {
     	newLeafNode(otherlv_4, grammarAccess.getSelectionCategoriesAccess().getRightSquareBracketKeyword_4());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleAssertFailCategories
+entryRuleAssertFailCategories returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAssertFailCategoriesRule()); }
+	 iv_ruleAssertFailCategories=ruleAssertFailCategories 
+	 { $current=$iv_ruleAssertFailCategories.current; } 
+	 EOF 
+;
+
+// Rule AssertFailCategories
+ruleAssertFailCategories returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='assertfail' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getAssertFailCategoriesAccess().getAssertfailKeyword_0());
+    }
+	otherlv_1='categories' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getAssertFailCategoriesAccess().getCategoriesKeyword_1());
+    }
+	otherlv_2='[' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getAssertFailCategoriesAccess().getLeftSquareBracketKeyword_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAssertFailCategoriesAccess().getCategoryAssertFailCategoryParserRuleCall_3_0()); 
+	    }
+		lv_category_3_0=ruleAssertFailCategory		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAssertFailCategoriesRule());
+	        }
+       		add(
+       			$current, 
+       			"category",
+        		lv_category_3_0, 
+        		"AssertFailCategory");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+	otherlv_4=']' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getAssertFailCategoriesAccess().getRightSquareBracketKeyword_4());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleExecutionFailCategories
+entryRuleExecutionFailCategories returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getExecutionFailCategoriesRule()); }
+	 iv_ruleExecutionFailCategories=ruleExecutionFailCategories 
+	 { $current=$iv_ruleExecutionFailCategories.current; } 
+	 EOF 
+;
+
+// Rule ExecutionFailCategories
+ruleExecutionFailCategories returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='executionfail' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getExecutionFailCategoriesAccess().getExecutionfailKeyword_0());
+    }
+	otherlv_1='categories' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getExecutionFailCategoriesAccess().getCategoriesKeyword_1());
+    }
+	otherlv_2='[' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getExecutionFailCategoriesAccess().getLeftSquareBracketKeyword_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getExecutionFailCategoriesAccess().getCategoryExecutionFailCategoryParserRuleCall_3_0()); 
+	    }
+		lv_category_3_0=ruleExecutionFailCategory		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getExecutionFailCategoriesRule());
+	        }
+       		add(
+       			$current, 
+       			"category",
+        		lv_category_3_0, 
+        		"ExecutionFailCategory");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+	otherlv_4=']' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getExecutionFailCategoriesAccess().getRightSquareBracketKeyword_4());
     }
 )
 ;
@@ -564,6 +694,122 @@ ruleSelectionCategory returns [EObject current=null]
         }
 		{ 
 	        newCompositeNode(grammarAccess.getSelectionCategoryAccess().getExtendsSelectionCategoryCrossReference_1_1_0()); 
+	    }
+		ruleCatRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
+;
+
+
+
+
+
+// Entry rule entryRuleAssertFailCategory
+entryRuleAssertFailCategory returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAssertFailCategoryRule()); }
+	 iv_ruleAssertFailCategory=ruleAssertFailCategory 
+	 { $current=$iv_ruleAssertFailCategory.current; } 
+	 EOF 
+;
+
+// Rule AssertFailCategory
+ruleAssertFailCategory returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_name_0_0=RULE_ID
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getAssertFailCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssertFailCategoryRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ID");
+	    }
+
+)
+)(	otherlv_1='extends' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getAssertFailCategoryAccess().getExtendsKeyword_1_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAssertFailCategoryRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getAssertFailCategoryAccess().getExtendsAssertFailCategoryCrossReference_1_1_0()); 
+	    }
+		ruleCatRef		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
+;
+
+
+
+
+
+// Entry rule entryRuleExecutionFailCategory
+entryRuleExecutionFailCategory returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getExecutionFailCategoryRule()); }
+	 iv_ruleExecutionFailCategory=ruleExecutionFailCategory 
+	 { $current=$iv_ruleExecutionFailCategory.current; } 
+	 EOF 
+;
+
+// Rule ExecutionFailCategory
+ruleExecutionFailCategory returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_name_0_0=RULE_ID
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getExecutionFailCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getExecutionFailCategoryRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ID");
+	    }
+
+)
+)(	otherlv_1='extends' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getExecutionFailCategoryAccess().getExtendsKeyword_1_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getExecutionFailCategoryRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getExecutionFailCategoryAccess().getExtendsExecutionFailCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();

@@ -12,4 +12,14 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 		return org.osate.assure.linking.AssureLinkingService.class;
 	}
 
+	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
+		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
+	}
+
+	// bind in the Alisa global scope provider for Validation to pick up the duplicates method
+	@Override
+	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
+	}
+
 }

@@ -39,5 +39,8 @@ class CategoriesFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap().before(verificationCategoryRule);
 		c.setLinewrap().before(requirementCategoryRule);
 		c.setLinewrap().before(hazardCategoryRule);
+		c.setLinewrap().before(selectionCategoryRule);
+		c.setLinewrap().before(assertFailCategoryRule);
+		c.setLinewrap().before(executionFailCategoryRule);
 	}
 }

@@ -68,6 +68,24 @@ public interface CategoriesFactory extends EFactory
   SelectionCategories createSelectionCategories();
 
   /**
+   * Returns a new object of class '<em>Assert Fail Categories</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Assert Fail Categories</em>'.
+   * @generated
+   */
+  AssertFailCategories createAssertFailCategories();
+
+  /**
+   * Returns a new object of class '<em>Execution Fail Categories</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Execution Fail Categories</em>'.
+   * @generated
+   */
+  ExecutionFailCategories createExecutionFailCategories();
+
+  /**
    * Returns a new object of class '<em>Category</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -111,6 +129,24 @@ public interface CategoriesFactory extends EFactory
    * @generated
    */
   SelectionCategory createSelectionCategory();
+
+  /**
+   * Returns a new object of class '<em>Assert Fail Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Assert Fail Category</em>'.
+   * @generated
+   */
+  AssertFailCategory createAssertFailCategory();
+
+  /**
+   * Returns a new object of class '<em>Execution Fail Category</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Execution Fail Category</em>'.
+   * @generated
+   */
+  ExecutionFailCategory createExecutionFailCategory();
 
   /**
    * Returns the package supported by this factory.

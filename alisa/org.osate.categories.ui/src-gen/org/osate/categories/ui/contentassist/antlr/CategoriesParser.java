@@ -43,6 +43,8 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getHazardCategoriesAccess().getGroup(), "rule__HazardCategories__Group__0");
 					put(grammarAccess.getVerificationCategoriesAccess().getGroup(), "rule__VerificationCategories__Group__0");
 					put(grammarAccess.getSelectionCategoriesAccess().getGroup(), "rule__SelectionCategories__Group__0");
+					put(grammarAccess.getAssertFailCategoriesAccess().getGroup(), "rule__AssertFailCategories__Group__0");
+					put(grammarAccess.getExecutionFailCategoriesAccess().getGroup(), "rule__ExecutionFailCategories__Group__0");
 					put(grammarAccess.getRequirementCategoryAccess().getGroup(), "rule__RequirementCategory__Group__0");
 					put(grammarAccess.getRequirementCategoryAccess().getGroup_1(), "rule__RequirementCategory__Group_1__0");
 					put(grammarAccess.getHazardCategoryAccess().getGroup(), "rule__HazardCategory__Group__0");
@@ -51,10 +53,16 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationCategoryAccess().getGroup_1(), "rule__VerificationCategory__Group_1__0");
 					put(grammarAccess.getSelectionCategoryAccess().getGroup(), "rule__SelectionCategory__Group__0");
 					put(grammarAccess.getSelectionCategoryAccess().getGroup_1(), "rule__SelectionCategory__Group_1__0");
+					put(grammarAccess.getAssertFailCategoryAccess().getGroup(), "rule__AssertFailCategory__Group__0");
+					put(grammarAccess.getAssertFailCategoryAccess().getGroup_1(), "rule__AssertFailCategory__Group_1__0");
+					put(grammarAccess.getExecutionFailCategoryAccess().getGroup(), "rule__ExecutionFailCategory__Group__0");
+					put(grammarAccess.getExecutionFailCategoryAccess().getGroup_1(), "rule__ExecutionFailCategory__Group_1__0");
 					put(grammarAccess.getRequirementCategoriesAccess().getCategoryAssignment_3(), "rule__RequirementCategories__CategoryAssignment_3");
 					put(grammarAccess.getHazardCategoriesAccess().getCategoryAssignment_3(), "rule__HazardCategories__CategoryAssignment_3");
 					put(grammarAccess.getVerificationCategoriesAccess().getCategoryAssignment_3(), "rule__VerificationCategories__CategoryAssignment_3");
 					put(grammarAccess.getSelectionCategoriesAccess().getCategoryAssignment_3(), "rule__SelectionCategories__CategoryAssignment_3");
+					put(grammarAccess.getAssertFailCategoriesAccess().getCategoryAssignment_3(), "rule__AssertFailCategories__CategoryAssignment_3");
+					put(grammarAccess.getExecutionFailCategoriesAccess().getCategoryAssignment_3(), "rule__ExecutionFailCategories__CategoryAssignment_3");
 					put(grammarAccess.getRequirementCategoryAccess().getNameAssignment_0(), "rule__RequirementCategory__NameAssignment_0");
 					put(grammarAccess.getRequirementCategoryAccess().getExtendsAssignment_1_1(), "rule__RequirementCategory__ExtendsAssignment_1_1");
 					put(grammarAccess.getHazardCategoryAccess().getNameAssignment_0(), "rule__HazardCategory__NameAssignment_0");
@@ -63,6 +71,10 @@ public class CategoriesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationCategoryAccess().getExtendsAssignment_1_1(), "rule__VerificationCategory__ExtendsAssignment_1_1");
 					put(grammarAccess.getSelectionCategoryAccess().getNameAssignment_0(), "rule__SelectionCategory__NameAssignment_0");
 					put(grammarAccess.getSelectionCategoryAccess().getExtendsAssignment_1_1(), "rule__SelectionCategory__ExtendsAssignment_1_1");
+					put(grammarAccess.getAssertFailCategoryAccess().getNameAssignment_0(), "rule__AssertFailCategory__NameAssignment_0");
+					put(grammarAccess.getAssertFailCategoryAccess().getExtendsAssignment_1_1(), "rule__AssertFailCategory__ExtendsAssignment_1_1");
+					put(grammarAccess.getExecutionFailCategoryAccess().getNameAssignment_0(), "rule__ExecutionFailCategory__NameAssignment_0");
+					put(grammarAccess.getExecutionFailCategoryAccess().getExtendsAssignment_1_1(), "rule__ExecutionFailCategory__ExtendsAssignment_1_1");
 				}
 			};
 		}

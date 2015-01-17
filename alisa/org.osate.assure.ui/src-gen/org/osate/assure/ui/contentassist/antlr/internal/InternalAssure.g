@@ -524,6 +524,25 @@ finally {
 
 
 
+// Rule VerificationExecutionState
+ruleVerificationExecutionState
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getVerificationExecutionStateAccess().getAlternatives()); }
+(rule__VerificationExecutionState__Alternatives)
+{ after(grammarAccess.getVerificationExecutionStateAccess().getAlternatives()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Rule VerificationResultState
 ruleVerificationResultState
     @init {
@@ -534,25 +553,6 @@ ruleVerificationResultState
 { before(grammarAccess.getVerificationResultStateAccess().getAlternatives()); }
 (rule__VerificationResultState__Alternatives)
 { after(grammarAccess.getVerificationResultStateAccess().getAlternatives()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
-// Rule VerificationResultStatus
-ruleVerificationResultStatus
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getVerificationResultStatusAccess().getAlternatives()); }
-(rule__VerificationResultStatus__Alternatives)
-{ after(grammarAccess.getVerificationResultStatusAccess().getAlternatives()); }
 )
 
 ;
@@ -677,37 +677,37 @@ finally {
 }
 
 
-rule__VerificationResultState__Alternatives
+rule__VerificationExecutionState__Alternatives
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationResultStateAccess().getTODOEnumLiteralDeclaration_0()); }
+{ before(grammarAccess.getVerificationExecutionStateAccess().getTODOEnumLiteralDeclaration_0()); }
 (	'todo' 
 )
-{ after(grammarAccess.getVerificationResultStateAccess().getTODOEnumLiteralDeclaration_0()); }
+{ after(grammarAccess.getVerificationExecutionStateAccess().getTODOEnumLiteralDeclaration_0()); }
 )
 
     |(
-{ before(grammarAccess.getVerificationResultStateAccess().getRUNNINGEnumLiteralDeclaration_1()); }
+{ before(grammarAccess.getVerificationExecutionStateAccess().getRUNNINGEnumLiteralDeclaration_1()); }
 (	'running' 
 )
-{ after(grammarAccess.getVerificationResultStateAccess().getRUNNINGEnumLiteralDeclaration_1()); }
+{ after(grammarAccess.getVerificationExecutionStateAccess().getRUNNINGEnumLiteralDeclaration_1()); }
 )
 
     |(
-{ before(grammarAccess.getVerificationResultStateAccess().getREDOEnumLiteralDeclaration_2()); }
+{ before(grammarAccess.getVerificationExecutionStateAccess().getREDOEnumLiteralDeclaration_2()); }
 (	'redo' 
 )
-{ after(grammarAccess.getVerificationResultStateAccess().getREDOEnumLiteralDeclaration_2()); }
+{ after(grammarAccess.getVerificationExecutionStateAccess().getREDOEnumLiteralDeclaration_2()); }
 )
 
     |(
-{ before(grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_3()); }
+{ before(grammarAccess.getVerificationExecutionStateAccess().getCOMPLETEDEnumLiteralDeclaration_3()); }
 (	'completed' 
 )
-{ after(grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_3()); }
+{ after(grammarAccess.getVerificationExecutionStateAccess().getCOMPLETEDEnumLiteralDeclaration_3()); }
 )
 
 ;
@@ -715,37 +715,37 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationResultStatus__Alternatives
+rule__VerificationResultState__Alternatives
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationResultStatusAccess().getTBDEnumLiteralDeclaration_0()); }
+{ before(grammarAccess.getVerificationResultStateAccess().getTBDEnumLiteralDeclaration_0()); }
 (	'tbd' 
 )
-{ after(grammarAccess.getVerificationResultStatusAccess().getTBDEnumLiteralDeclaration_0()); }
+{ after(grammarAccess.getVerificationResultStateAccess().getTBDEnumLiteralDeclaration_0()); }
 )
 
     |(
-{ before(grammarAccess.getVerificationResultStatusAccess().getSUCCESSEnumLiteralDeclaration_1()); }
+{ before(grammarAccess.getVerificationResultStateAccess().getSUCCESSEnumLiteralDeclaration_1()); }
 (	'success' 
 )
-{ after(grammarAccess.getVerificationResultStatusAccess().getSUCCESSEnumLiteralDeclaration_1()); }
+{ after(grammarAccess.getVerificationResultStateAccess().getSUCCESSEnumLiteralDeclaration_1()); }
 )
 
     |(
-{ before(grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_2()); }
+{ before(grammarAccess.getVerificationResultStateAccess().getFAILEnumLiteralDeclaration_2()); }
 (	'fail' 
 )
-{ after(grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_2()); }
+{ after(grammarAccess.getVerificationResultStateAccess().getFAILEnumLiteralDeclaration_2()); }
 )
 
     |(
-{ before(grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_3()); }
+{ before(grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3()); }
 (	'unknown' 
 )
-{ after(grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_3()); }
+{ after(grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3()); }
 )
 
 ;
@@ -6839,8 +6839,8 @@ rule__VerificationResult__StateAssignment_5_1
     }
 :
 (
-{ before(grammarAccess.getVerificationResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); }
-	ruleVerificationResultState{ after(grammarAccess.getVerificationResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); }
+{ before(grammarAccess.getVerificationResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); }
+	ruleVerificationExecutionState{ after(grammarAccess.getVerificationResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); }
 )
 
 ;
@@ -6854,8 +6854,8 @@ rule__VerificationResult__StatusAssignment_6_1
     }
 :
 (
-{ before(grammarAccess.getVerificationResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); }
-	ruleVerificationResultStatus{ after(grammarAccess.getVerificationResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); }
+{ before(grammarAccess.getVerificationResultAccess().getStatusVerificationResultStateEnumRuleCall_6_1_0()); }
+	ruleVerificationResultState{ after(grammarAccess.getVerificationResultAccess().getStatusVerificationResultStateEnumRuleCall_6_1_0()); }
 )
 
 ;
@@ -6978,8 +6978,8 @@ rule__AssumptionResult__StateAssignment_5_1
     }
 :
 (
-{ before(grammarAccess.getAssumptionResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); }
-	ruleVerificationResultState{ after(grammarAccess.getAssumptionResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); }
+{ before(grammarAccess.getAssumptionResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); }
+	ruleVerificationExecutionState{ after(grammarAccess.getAssumptionResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); }
 )
 
 ;
@@ -6993,8 +6993,8 @@ rule__AssumptionResult__StatusAssignment_6_1
     }
 :
 (
-{ before(grammarAccess.getAssumptionResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); }
-	ruleVerificationResultStatus{ after(grammarAccess.getAssumptionResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); }
+{ before(grammarAccess.getAssumptionResultAccess().getStatusVerificationResultParserRuleCall_6_1_0()); }
+	ruleVerificationResult{ after(grammarAccess.getAssumptionResultAccess().getStatusVerificationResultParserRuleCall_6_1_0()); }
 )
 
 ;
@@ -7087,8 +7087,8 @@ rule__PreconditionResult__StateAssignment_5_1
     }
 :
 (
-{ before(grammarAccess.getPreconditionResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); }
-	ruleVerificationResultState{ after(grammarAccess.getPreconditionResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); }
+{ before(grammarAccess.getPreconditionResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); }
+	ruleVerificationExecutionState{ after(grammarAccess.getPreconditionResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); }
 )
 
 ;
@@ -7102,8 +7102,8 @@ rule__PreconditionResult__StatusAssignment_6_1
     }
 :
 (
-{ before(grammarAccess.getPreconditionResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); }
-	ruleVerificationResultStatus{ after(grammarAccess.getPreconditionResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); }
+{ before(grammarAccess.getPreconditionResultAccess().getStatusVerificationResultParserRuleCall_6_1_0()); }
+	ruleVerificationResult{ after(grammarAccess.getPreconditionResultAccess().getStatusVerificationResultParserRuleCall_6_1_0()); }
 )
 
 ;

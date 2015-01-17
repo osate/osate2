@@ -11,13 +11,19 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.osate.aadl2.instance.InstancePackage;
+
+import com.google.inject.Inject;
 
 public class AssureLinkingService extends DefaultLinkingService {
 
 	public AssureLinkingService() {
 		super();
 	}
+
+	@Inject
+	private IGlobalScopeProvider scopeProvider;
 
 	@Override
 	public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)
@@ -41,6 +47,10 @@ public class AssureLinkingService extends DefaultLinkingService {
 					// TODO: handle exception
 				}
 			}
+//		} else if (Aadl2Package.eINSTANCE.getClassifier() == requiredType) {
+//			String qname = name.replace("::", ".");
+//			IEObjectDescription res = ((CommonGlobalScopeProvider) scopeProvider).getGlobalEObjectDescription(context,
+//					Aadl2Package.eINSTANCE.getClassifier(), qname);
 		}
 		return super.getLinkedObjects(context, reference, node);
 	}

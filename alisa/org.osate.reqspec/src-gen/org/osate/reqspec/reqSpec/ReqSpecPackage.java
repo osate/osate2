@@ -461,13 +461,22 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPEC_LIBRARY__NAME = REQ_SPEC_CONTAINER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_SPEC_LIBRARY__IMPORTED_NAMESPACE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Library</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPEC_LIBRARY_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
+  int REQ_SPEC_LIBRARY_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecFolderImpl <em>Folder</em>}' class.
@@ -1343,6 +1352,17 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getReqSpecLibrary_Name();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecLibrary#getImportedNamespace <em>Imported Namespace</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Imported Namespace</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqSpecLibrary#getImportedNamespace()
+   * @see #getReqSpecLibrary()
+   * @generated
+   */
+  EAttribute getReqSpecLibrary_ImportedNamespace();
+
+  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqSpecFolder <em>Folder</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1940,6 +1960,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute REQ_SPEC_LIBRARY__NAME = eINSTANCE.getReqSpecLibrary_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Imported Namespace</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQ_SPEC_LIBRARY__IMPORTED_NAMESPACE = eINSTANCE.getReqSpecLibrary_ImportedNamespace();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecFolderImpl <em>Folder</em>}' class.

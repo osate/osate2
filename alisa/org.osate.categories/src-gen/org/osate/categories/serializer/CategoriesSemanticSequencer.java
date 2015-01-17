@@ -10,7 +10,11 @@ import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequence
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.osate.categories.categories.AssertFailCategories;
+import org.osate.categories.categories.AssertFailCategory;
 import org.osate.categories.categories.CategoriesPackage;
+import org.osate.categories.categories.ExecutionFailCategories;
+import org.osate.categories.categories.ExecutionFailCategory;
 import org.osate.categories.categories.HazardCategories;
 import org.osate.categories.categories.HazardCategory;
 import org.osate.categories.categories.RequirementCategories;
@@ -29,6 +33,32 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CategoriesPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CategoriesPackage.ASSERT_FAIL_CATEGORIES:
+				if(context == grammarAccess.getAssertFailCategoriesRule() ||
+				   context == grammarAccess.getCategoriesRule()) {
+					sequence_AssertFailCategories(context, (AssertFailCategories) semanticObject); 
+					return; 
+				}
+				else break;
+			case CategoriesPackage.ASSERT_FAIL_CATEGORY:
+				if(context == grammarAccess.getAssertFailCategoryRule()) {
+					sequence_AssertFailCategory(context, (AssertFailCategory) semanticObject); 
+					return; 
+				}
+				else break;
+			case CategoriesPackage.EXECUTION_FAIL_CATEGORIES:
+				if(context == grammarAccess.getCategoriesRule() ||
+				   context == grammarAccess.getExecutionFailCategoriesRule()) {
+					sequence_ExecutionFailCategories(context, (ExecutionFailCategories) semanticObject); 
+					return; 
+				}
+				else break;
+			case CategoriesPackage.EXECUTION_FAIL_CATEGORY:
+				if(context == grammarAccess.getExecutionFailCategoryRule()) {
+					sequence_ExecutionFailCategory(context, (ExecutionFailCategory) semanticObject); 
+					return; 
+				}
+				else break;
 			case CategoriesPackage.HAZARD_CATEGORIES:
 				if(context == grammarAccess.getCategoriesRule() ||
 				   context == grammarAccess.getHazardCategoriesRule()) {
@@ -88,6 +118,42 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Constraint:
+	 *     category+=AssertFailCategory+
+	 */
+	protected void sequence_AssertFailCategories(EObject context, AssertFailCategories semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID extends=[AssertFailCategory|CatRef]?)
+	 */
+	protected void sequence_AssertFailCategory(EObject context, AssertFailCategory semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     category+=ExecutionFailCategory+
+	 */
+	protected void sequence_ExecutionFailCategories(EObject context, ExecutionFailCategories semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID extends=[ExecutionFailCategory|CatRef]?)
+	 */
+	protected void sequence_ExecutionFailCategory(EObject context, ExecutionFailCategory semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Constraint:

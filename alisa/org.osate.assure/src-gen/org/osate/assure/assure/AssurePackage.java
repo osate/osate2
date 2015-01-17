@@ -386,22 +386,13 @@ public interface AssurePackage extends EPackage
   int EVIDENCE_RESULT__STATE = ASSURANCE_RESULT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Status</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EVIDENCE_RESULT__STATUS = ASSURANCE_RESULT_FEATURE_COUNT + 1;
-
-  /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EVIDENCE_RESULT__SUCESS_MSG = ASSURANCE_RESULT_FEATURE_COUNT + 2;
+  int EVIDENCE_RESULT__SUCESS_MSG = ASSURANCE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Fail Msg</b></em>' attribute.
@@ -410,7 +401,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EVIDENCE_RESULT__FAIL_MSG = ASSURANCE_RESULT_FEATURE_COUNT + 3;
+  int EVIDENCE_RESULT__FAIL_MSG = ASSURANCE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Evidence Result</em>' class.
@@ -419,7 +410,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EVIDENCE_RESULT_FEATURE_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 4;
+  int EVIDENCE_RESULT_FEATURE_COUNT = ASSURANCE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
@@ -459,15 +450,6 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_RESULT__STATE = EVIDENCE_RESULT__STATE;
 
   /**
-   * The feature id for the '<em><b>Status</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_RESULT__STATUS = EVIDENCE_RESULT__STATUS;
-
-  /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -495,13 +477,22 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_RESULT__VERIFICATION_ACTIVITY = EVIDENCE_RESULT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Status</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_RESULT__STATUS = EVIDENCE_RESULT_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Assumption Result</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__ASSUMPTION_RESULT = EVIDENCE_RESULT_FEATURE_COUNT + 1;
+  int VERIFICATION_RESULT__ASSUMPTION_RESULT = EVIDENCE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Precondition Result</b></em>' containment reference list.
@@ -510,7 +501,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__PRECONDITION_RESULT = EVIDENCE_RESULT_FEATURE_COUNT + 2;
+  int VERIFICATION_RESULT__PRECONDITION_RESULT = EVIDENCE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>First</b></em>' containment reference list.
@@ -519,7 +510,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__FIRST = EVIDENCE_RESULT_FEATURE_COUNT + 3;
+  int VERIFICATION_RESULT__FIRST = EVIDENCE_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Second</b></em>' containment reference list.
@@ -528,7 +519,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__SECOND = EVIDENCE_RESULT_FEATURE_COUNT + 4;
+  int VERIFICATION_RESULT__SECOND = EVIDENCE_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Verification Result</em>' class.
@@ -537,7 +528,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT_FEATURE_COUNT = EVIDENCE_RESULT_FEATURE_COUNT + 5;
+  int VERIFICATION_RESULT_FEATURE_COUNT = EVIDENCE_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.AssumptionResultImpl <em>Assumption Result</em>}' class.
@@ -577,15 +568,6 @@ public interface AssurePackage extends EPackage
   int ASSUMPTION_RESULT__STATE = EVIDENCE_RESULT__STATE;
 
   /**
-   * The feature id for the '<em><b>Status</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSUMPTION_RESULT__STATUS = EVIDENCE_RESULT__STATUS;
-
-  /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -613,13 +595,22 @@ public interface AssurePackage extends EPackage
   int ASSUMPTION_RESULT__VERIFICATION_ACTIVITY = EVIDENCE_RESULT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Status</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSUMPTION_RESULT__STATUS = EVIDENCE_RESULT_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Assumption Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSUMPTION_RESULT_FEATURE_COUNT = EVIDENCE_RESULT_FEATURE_COUNT + 1;
+  int ASSUMPTION_RESULT_FEATURE_COUNT = EVIDENCE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
@@ -659,15 +650,6 @@ public interface AssurePackage extends EPackage
   int PRECONDITION_RESULT__STATE = EVIDENCE_RESULT__STATE;
 
   /**
-   * The feature id for the '<em><b>Status</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRECONDITION_RESULT__STATUS = EVIDENCE_RESULT__STATUS;
-
-  /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -695,13 +677,22 @@ public interface AssurePackage extends EPackage
   int PRECONDITION_RESULT__VERIFICATION_ACTIVITY = EVIDENCE_RESULT_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Status</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRECONDITION_RESULT__STATUS = EVIDENCE_RESULT_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Precondition Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PRECONDITION_RESULT_FEATURE_COUNT = EVIDENCE_RESULT_FEATURE_COUNT + 1;
+  int PRECONDITION_RESULT_FEATURE_COUNT = EVIDENCE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.HazardResultImpl <em>Hazard Result</em>}' class.
@@ -841,15 +832,6 @@ public interface AssurePackage extends EPackage
   int FAIL_THEN_RESULT__STATE = VERIFICATION_RESULT__STATE;
 
   /**
-   * The feature id for the '<em><b>Status</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FAIL_THEN_RESULT__STATUS = VERIFICATION_RESULT__STATUS;
-
-  /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -875,6 +857,15 @@ public interface AssurePackage extends EPackage
    * @ordered
    */
   int FAIL_THEN_RESULT__VERIFICATION_ACTIVITY = VERIFICATION_RESULT__VERIFICATION_ACTIVITY;
+
+  /**
+   * The feature id for the '<em><b>Status</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FAIL_THEN_RESULT__STATUS = VERIFICATION_RESULT__STATUS;
 
   /**
    * The feature id for the '<em><b>Assumption Result</b></em>' containment reference list.
@@ -959,15 +950,6 @@ public interface AssurePackage extends EPackage
   int IF_THEN_RESULT__STATE = VERIFICATION_RESULT__STATE;
 
   /**
-   * The feature id for the '<em><b>Status</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IF_THEN_RESULT__STATUS = VERIFICATION_RESULT__STATUS;
-
-  /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -993,6 +975,15 @@ public interface AssurePackage extends EPackage
    * @ordered
    */
   int IF_THEN_RESULT__VERIFICATION_ACTIVITY = VERIFICATION_RESULT__VERIFICATION_ACTIVITY;
+
+  /**
+   * The feature id for the '<em><b>Status</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_THEN_RESULT__STATUS = VERIFICATION_RESULT__STATUS;
 
   /**
    * The feature id for the '<em><b>Assumption Result</b></em>' containment reference list.
@@ -1040,6 +1031,16 @@ public interface AssurePackage extends EPackage
   int IF_THEN_RESULT_FEATURE_COUNT = VERIFICATION_RESULT_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.VerificationExecutionState
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExecutionState()
+   * @generated
+   */
+  int VERIFICATION_EXECUTION_STATE = 10;
+
+  /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1047,17 +1048,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
    * @generated
    */
-  int VERIFICATION_RESULT_STATE = 10;
-
-  /**
-   * The meta object id for the '{@link org.osate.assure.assure.VerificationResultStatus <em>Verification Result Status</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.assure.assure.VerificationResultStatus
-   * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultStatus()
-   * @generated
-   */
-  int VERIFICATION_RESULT_STATUS = 11;
+  int VERIFICATION_RESULT_STATE = 11;
 
 
   /**
@@ -1322,6 +1313,17 @@ public interface AssurePackage extends EPackage
   EReference getVerificationResult_VerificationActivity();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getStatus <em>Status</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Status</em>'.
+   * @see org.osate.assure.assure.VerificationResult#getStatus()
+   * @see #getVerificationResult()
+   * @generated
+   */
+  EAttribute getVerificationResult_Status();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.VerificationResult#getAssumptionResult <em>Assumption Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1387,6 +1389,17 @@ public interface AssurePackage extends EPackage
   EReference getAssumptionResult_VerificationActivity();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.AssumptionResult#getStatus <em>Status</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Status</em>'.
+   * @see org.osate.assure.assure.AssumptionResult#getStatus()
+   * @see #getAssumptionResult()
+   * @generated
+   */
+  EReference getAssumptionResult_Status();
+
+  /**
    * Returns the meta object for class '{@link org.osate.assure.assure.PreconditionResult <em>Precondition Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1406,6 +1419,17 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EReference getPreconditionResult_VerificationActivity();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.PreconditionResult#getStatus <em>Status</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Status</em>'.
+   * @see org.osate.assure.assure.PreconditionResult#getStatus()
+   * @see #getPreconditionResult()
+   * @generated
+   */
+  EReference getPreconditionResult_Status();
 
   /**
    * Returns the meta object for class '{@link org.osate.assure.assure.AssuranceResult <em>Assurance Result</em>}'.
@@ -1459,17 +1483,6 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EAttribute getEvidenceResult_State();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.EvidenceResult#getStatus <em>Status</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Status</em>'.
-   * @see org.osate.assure.assure.EvidenceResult#getStatus()
-   * @see #getEvidenceResult()
-   * @generated
-   */
-  EAttribute getEvidenceResult_Status();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.EvidenceResult#getSucessMsg <em>Sucess Msg</em>}'.
@@ -1601,6 +1614,16 @@ public interface AssurePackage extends EPackage
   EClass getIfThenResult();
 
   /**
+   * Returns the meta object for enum '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Verification Execution State</em>'.
+   * @see org.osate.assure.assure.VerificationExecutionState
+   * @generated
+   */
+  EEnum getVerificationExecutionState();
+
+  /**
    * Returns the meta object for enum '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1609,16 +1632,6 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EEnum getVerificationResultState();
-
-  /**
-   * Returns the meta object for enum '{@link org.osate.assure.assure.VerificationResultStatus <em>Verification Result Status</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Verification Result Status</em>'.
-   * @see org.osate.assure.assure.VerificationResultStatus
-   * @generated
-   */
-  EEnum getVerificationResultStatus();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1842,6 +1855,14 @@ public interface AssurePackage extends EPackage
     EReference VERIFICATION_RESULT__VERIFICATION_ACTIVITY = eINSTANCE.getVerificationResult_VerificationActivity();
 
     /**
+     * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_RESULT__STATUS = eINSTANCE.getVerificationResult_Status();
+
+    /**
      * The meta object literal for the '<em><b>Assumption Result</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1892,6 +1913,14 @@ public interface AssurePackage extends EPackage
     EReference ASSUMPTION_RESULT__VERIFICATION_ACTIVITY = eINSTANCE.getAssumptionResult_VerificationActivity();
 
     /**
+     * The meta object literal for the '<em><b>Status</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSUMPTION_RESULT__STATUS = eINSTANCE.getAssumptionResult_Status();
+
+    /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.PreconditionResultImpl <em>Precondition Result</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1908,6 +1937,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EReference PRECONDITION_RESULT__VERIFICATION_ACTIVITY = eINSTANCE.getPreconditionResult_VerificationActivity();
+
+    /**
+     * The meta object literal for the '<em><b>Status</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PRECONDITION_RESULT__STATUS = eINSTANCE.getPreconditionResult_Status();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.AssuranceResultImpl <em>Assurance Result</em>}' class.
@@ -1952,14 +1989,6 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute EVIDENCE_RESULT__STATE = eINSTANCE.getEvidenceResult_State();
-
-    /**
-     * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EVIDENCE_RESULT__STATUS = eINSTANCE.getEvidenceResult_Status();
 
     /**
      * The meta object literal for the '<em><b>Sucess Msg</b></em>' attribute feature.
@@ -2064,6 +2093,16 @@ public interface AssurePackage extends EPackage
     EClass IF_THEN_RESULT = eINSTANCE.getIfThenResult();
 
     /**
+     * The meta object literal for the '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.assure.assure.VerificationExecutionState
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExecutionState()
+     * @generated
+     */
+    EEnum VERIFICATION_EXECUTION_STATE = eINSTANCE.getVerificationExecutionState();
+
+    /**
      * The meta object literal for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2072,16 +2111,6 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EEnum VERIFICATION_RESULT_STATE = eINSTANCE.getVerificationResultState();
-
-    /**
-     * The meta object literal for the '{@link org.osate.assure.assure.VerificationResultStatus <em>Verification Result Status</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.assure.assure.VerificationResultStatus
-     * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultStatus()
-     * @generated
-     */
-    EEnum VERIFICATION_RESULT_STATUS = eINSTANCE.getVerificationResultStatus();
 
   }
 

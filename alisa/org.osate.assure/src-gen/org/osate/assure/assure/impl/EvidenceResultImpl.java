@@ -10,8 +10,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.EvidenceResult;
-import org.osate.assure.assure.VerificationResultState;
-import org.osate.assure.assure.VerificationResultStatus;
+import org.osate.assure.assure.VerificationExecutionState;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +20,6 @@ import org.osate.assure.assure.VerificationResultStatus;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.EvidenceResultImpl#getState <em>State</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.EvidenceResultImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.EvidenceResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.EvidenceResultImpl#getFailMsg <em>Fail Msg</em>}</li>
  * </ul>
@@ -39,7 +37,7 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
    * @generated
    * @ordered
    */
-  protected static final VerificationResultState STATE_EDEFAULT = VerificationResultState.TODO;
+  protected static final VerificationExecutionState STATE_EDEFAULT = VerificationExecutionState.TODO;
 
   /**
    * The cached value of the '{@link #getState() <em>State</em>}' attribute.
@@ -49,27 +47,7 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
    * @generated
    * @ordered
    */
-  protected VerificationResultState state = STATE_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getStatus()
-   * @generated
-   * @ordered
-   */
-  protected static final VerificationResultStatus STATUS_EDEFAULT = VerificationResultStatus.TBD;
-
-  /**
-   * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getStatus()
-   * @generated
-   * @ordered
-   */
-  protected VerificationResultStatus status = STATUS_EDEFAULT;
+  protected VerificationExecutionState state = STATE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
@@ -137,7 +115,7 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationResultState getState()
+  public VerificationExecutionState getState()
   {
     return state;
   }
@@ -147,35 +125,12 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setState(VerificationResultState newState)
+  public void setState(VerificationExecutionState newState)
   {
-    VerificationResultState oldState = state;
+    VerificationExecutionState oldState = state;
     state = newState == null ? STATE_EDEFAULT : newState;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.EVIDENCE_RESULT__STATE, oldState, state));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationResultStatus getStatus()
-  {
-    return status;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setStatus(VerificationResultStatus newStatus)
-  {
-    VerificationResultStatus oldStatus = status;
-    status = newStatus == null ? STATUS_EDEFAULT : newStatus;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.EVIDENCE_RESULT__STATUS, oldStatus, status));
   }
 
   /**
@@ -236,8 +191,6 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
     {
       case AssurePackage.EVIDENCE_RESULT__STATE:
         return getState();
-      case AssurePackage.EVIDENCE_RESULT__STATUS:
-        return getStatus();
       case AssurePackage.EVIDENCE_RESULT__SUCESS_MSG:
         return getSucessMsg();
       case AssurePackage.EVIDENCE_RESULT__FAIL_MSG:
@@ -257,10 +210,7 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
     switch (featureID)
     {
       case AssurePackage.EVIDENCE_RESULT__STATE:
-        setState((VerificationResultState)newValue);
-        return;
-      case AssurePackage.EVIDENCE_RESULT__STATUS:
-        setStatus((VerificationResultStatus)newValue);
+        setState((VerificationExecutionState)newValue);
         return;
       case AssurePackage.EVIDENCE_RESULT__SUCESS_MSG:
         setSucessMsg((String)newValue);
@@ -285,9 +235,6 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
       case AssurePackage.EVIDENCE_RESULT__STATE:
         setState(STATE_EDEFAULT);
         return;
-      case AssurePackage.EVIDENCE_RESULT__STATUS:
-        setStatus(STATUS_EDEFAULT);
-        return;
       case AssurePackage.EVIDENCE_RESULT__SUCESS_MSG:
         setSucessMsg(SUCESS_MSG_EDEFAULT);
         return;
@@ -310,8 +257,6 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
     {
       case AssurePackage.EVIDENCE_RESULT__STATE:
         return state != STATE_EDEFAULT;
-      case AssurePackage.EVIDENCE_RESULT__STATUS:
-        return status != STATUS_EDEFAULT;
       case AssurePackage.EVIDENCE_RESULT__SUCESS_MSG:
         return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
       case AssurePackage.EVIDENCE_RESULT__FAIL_MSG:
@@ -333,8 +278,6 @@ public class EvidenceResultImpl extends AssuranceResultImpl implements EvidenceR
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (state: ");
     result.append(state);
-    result.append(", status: ");
-    result.append(status);
     result.append(", sucessMsg: ");
     result.append(sucessMsg);
     result.append(", failMsg: ");

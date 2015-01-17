@@ -21,6 +21,8 @@ VerificationPlan :
 	']'
 ;
 
+// TODO weighted claim
+
 VerificationLibrary returns VerificationLibrary:
 	'library' name =ID 
 	('for' target=[ReqSpec::Requirement|QualifiedName])?
@@ -37,7 +39,8 @@ VerificationFolder returns VerificationFolder:
 	']'
 	;
  VerificationContainer : VerificationLibrary | VerificationFolder;
- 
+
+// TODO weights on claims, timeout condition on verification activity
  Claim :
  	'claim' name=ID 'for' requirement=[ReqSpec::Requirement|QualifiedName] 
  	'assert' assert=ArgumentExpr
@@ -102,6 +105,7 @@ AtomicEvidenceExpr returns ArgumentExpr:
 ConditionalEvidence returns ArgumentExpr:
 	VAReference (=>({ConditionalExpr.verification=current} op='when')  condition=OrConditionExpr )?
 ;
+
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]

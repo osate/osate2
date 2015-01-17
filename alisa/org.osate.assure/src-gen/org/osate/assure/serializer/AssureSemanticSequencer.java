@@ -148,8 +148,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         verificationActivity=[VerificationAssumption|QualifiedName] 
-	 *         state=VerificationResultState? 
-	 *         status=VerificationResultStatus? 
+	 *         state=VerificationExecutionState? 
+	 *         status=VerificationResult? 
 	 *         weight=INT? 
 	 *         sucessMsg=MultiLineString? 
 	 *         failMsg=MultiLineString?
@@ -228,8 +228,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         verificationActivity=[VerificationPrecondition|QualifiedName] 
-	 *         state=VerificationResultState? 
-	 *         status=VerificationResultStatus? 
+	 *         state=VerificationExecutionState? 
+	 *         status=VerificationResult? 
 	 *         weight=INT? 
 	 *         sucessMsg=MultiLineString? 
 	 *         failMsg=MultiLineString?
@@ -263,8 +263,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         verificationActivity=[VerificationActivity|QualifiedName] 
-	 *         state=VerificationResultState? 
-	 *         status=VerificationResultStatus? 
+	 *         state=VerificationExecutionState? 
+	 *         status=VerificationResultState? 
 	 *         weight=INT? 
 	 *         sucessMsg=MultiLineString? 
 	 *         failMsg=MultiLineString? 

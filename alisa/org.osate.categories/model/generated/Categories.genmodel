@@ -20,6 +20,12 @@
     <genClasses ecoreClass="Categories.ecore#//SelectionCategories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//SelectionCategories/category"/>
     </genClasses>
+    <genClasses ecoreClass="Categories.ecore#//AssertFailCategories">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//AssertFailCategories/category"/>
+    </genClasses>
+    <genClasses ecoreClass="Categories.ecore#//ExecutionFailCategories">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//ExecutionFailCategories/category"/>
+    </genClasses>
     <genClasses ecoreClass="Categories.ecore#//Category">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//Category/name"/>
     </genClasses>
@@ -34,6 +40,14 @@
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//SelectionCategory">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//SelectionCategory/extends"/>
+    </genClasses>
+    <genClasses ecoreClass="Categories.ecore#//AssertFailCategory">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//AssertFailCategory/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//AssertFailCategory/extends"/>
+    </genClasses>
+    <genClasses ecoreClass="Categories.ecore#//ExecutionFailCategory">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Categories.ecore#//ExecutionFailCategory/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//ExecutionFailCategory/extends"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

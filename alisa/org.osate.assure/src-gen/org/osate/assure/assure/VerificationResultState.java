@@ -20,104 +20,104 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum VerificationResultState implements Enumerator
 {
   /**
-   * The '<em><b>TODO</b></em>' literal object.
+   * The '<em><b>TBD</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #TODO_VALUE
+   * @see #TBD_VALUE
    * @generated
    * @ordered
    */
-  TODO(0, "TODO", "todo"),
+  TBD(0, "TBD", "tbd"),
 
   /**
-   * The '<em><b>RUNNING</b></em>' literal object.
+   * The '<em><b>SUCCESS</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #RUNNING_VALUE
+   * @see #SUCCESS_VALUE
    * @generated
    * @ordered
    */
-  RUNNING(1, "RUNNING", "running"),
+  SUCCESS(1, "SUCCESS", "success"),
 
   /**
-   * The '<em><b>REDO</b></em>' literal object.
+   * The '<em><b>FAIL</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #REDO_VALUE
+   * @see #FAIL_VALUE
    * @generated
    * @ordered
    */
-  REDO(2, "REDO", "redo"),
+  FAIL(2, "FAIL", "fail"),
 
   /**
-   * The '<em><b>COMPLETED</b></em>' literal object.
+   * The '<em><b>UNKNOWN</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #COMPLETED_VALUE
+   * @see #UNKNOWN_VALUE
    * @generated
    * @ordered
    */
-  COMPLETED(3, "COMPLETED", "completed");
+  UNKNOWN(3, "UNKNOWN", "unknown");
 
   /**
-   * The '<em><b>TODO</b></em>' literal value.
+   * The '<em><b>TBD</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>TODO</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>TBD</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #TODO
-   * @model literal="todo"
+   * @see #TBD
+   * @model literal="tbd"
    * @generated
    * @ordered
    */
-  public static final int TODO_VALUE = 0;
+  public static final int TBD_VALUE = 0;
 
   /**
-   * The '<em><b>RUNNING</b></em>' literal value.
+   * The '<em><b>SUCCESS</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>RUNNING</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #RUNNING
-   * @model literal="running"
+   * @see #SUCCESS
+   * @model literal="success"
    * @generated
    * @ordered
    */
-  public static final int RUNNING_VALUE = 1;
+  public static final int SUCCESS_VALUE = 1;
 
   /**
-   * The '<em><b>REDO</b></em>' literal value.
+   * The '<em><b>FAIL</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>REDO</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #REDO
-   * @model literal="redo"
+   * @see #FAIL
+   * @model literal="fail"
    * @generated
    * @ordered
    */
-  public static final int REDO_VALUE = 2;
+  public static final int FAIL_VALUE = 2;
 
   /**
-   * The '<em><b>COMPLETED</b></em>' literal value.
+   * The '<em><b>UNKNOWN</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>COMPLETED</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>UNKNOWN</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #COMPLETED
-   * @model literal="completed"
+   * @see #UNKNOWN
+   * @model literal="unknown"
    * @generated
    * @ordered
    */
-  public static final int COMPLETED_VALUE = 3;
+  public static final int UNKNOWN_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Verification Result State</b></em>' enumerators.
@@ -128,10 +128,10 @@ public enum VerificationResultState implements Enumerator
   private static final VerificationResultState[] VALUES_ARRAY =
     new VerificationResultState[]
     {
-      TODO,
-      RUNNING,
-      REDO,
-      COMPLETED,
+      TBD,
+      SUCCESS,
+      FAIL,
+      UNKNOWN,
     };
 
   /**
@@ -190,10 +190,10 @@ public enum VerificationResultState implements Enumerator
   {
     switch (value)
     {
-      case TODO_VALUE: return TODO;
-      case RUNNING_VALUE: return RUNNING;
-      case REDO_VALUE: return REDO;
-      case COMPLETED_VALUE: return COMPLETED;
+      case TBD_VALUE: return TBD;
+      case SUCCESS_VALUE: return SUCCESS;
+      case FAIL_VALUE: return FAIL;
+      case UNKNOWN_VALUE: return UNKNOWN;
     }
     return null;
   }

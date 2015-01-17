@@ -30,12 +30,13 @@ ReqDocument: 'document' name=ID
 
 ReqSpecLibrary returns ReqSpecLibrary:
 	'library' name =ID 
+	('import' importedNamespace=QualifiedNameWithWildCard)?
 	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
 	'[' (content+= (Goal | Requirement | Hazard |  ReqSpecFolder))*
 	('issues'  '[' issue+=MultiLineString (',' issue+=MultiLineString)* ']')? 
 	']'
 	;
-	
+QualifiedNameWithWildCard : QualifiedName ('.*')?;	
 
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:
@@ -95,7 +96,7 @@ Requirement:
 	']';
 
 	
-	
+// TODO reference to EMV2 construct	
 Hazard:
 	'hazard'  name=ID   
 	'['(( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?

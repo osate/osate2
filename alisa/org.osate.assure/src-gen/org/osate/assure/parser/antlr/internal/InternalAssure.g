@@ -687,9 +687,9 @@ ruleVerificationResult returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); 
 	    }
-		lv_state_6_0=ruleVerificationResultState		{
+		lv_state_6_0=ruleVerificationExecutionState		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationResultRule());
 	        }
@@ -697,7 +697,7 @@ ruleVerificationResult returns [EObject current=null]
        			$current, 
        			"state",
         		lv_state_6_0, 
-        		"VerificationResultState");
+        		"VerificationExecutionState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -709,9 +709,9 @@ ruleVerificationResult returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationResultAccess().getStatusVerificationResultStateEnumRuleCall_6_1_0()); 
 	    }
-		lv_status_8_0=ruleVerificationResultStatus		{
+		lv_status_8_0=ruleVerificationResultState		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationResultRule());
 	        }
@@ -719,7 +719,7 @@ ruleVerificationResult returns [EObject current=null]
        			$current, 
        			"status",
         		lv_status_8_0, 
-        		"VerificationResultStatus");
+        		"VerificationResultState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -903,9 +903,9 @@ ruleAssumptionResult returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssumptionResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); 
+	        newCompositeNode(grammarAccess.getAssumptionResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); 
 	    }
-		lv_state_6_0=ruleVerificationResultState		{
+		lv_state_6_0=ruleVerificationExecutionState		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAssumptionResultRule());
 	        }
@@ -913,7 +913,7 @@ ruleAssumptionResult returns [EObject current=null]
        			$current, 
        			"state",
         		lv_state_6_0, 
-        		"VerificationResultState");
+        		"VerificationExecutionState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -925,9 +925,9 @@ ruleAssumptionResult returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAssumptionResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getAssumptionResultAccess().getStatusVerificationResultParserRuleCall_6_1_0()); 
 	    }
-		lv_status_8_0=ruleVerificationResultStatus		{
+		lv_status_8_0=ruleVerificationResult		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAssumptionResultRule());
 	        }
@@ -935,7 +935,7 @@ ruleAssumptionResult returns [EObject current=null]
        			$current, 
        			"status",
         		lv_status_8_0, 
-        		"VerificationResultStatus");
+        		"VerificationResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1083,9 +1083,9 @@ rulePreconditionResult returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getStateVerificationResultStateEnumRuleCall_5_1_0()); 
+	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getStateVerificationExecutionStateEnumRuleCall_5_1_0()); 
 	    }
-		lv_state_6_0=ruleVerificationResultState		{
+		lv_state_6_0=ruleVerificationExecutionState		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPreconditionResultRule());
 	        }
@@ -1093,7 +1093,7 @@ rulePreconditionResult returns [EObject current=null]
        			$current, 
        			"state",
         		lv_state_6_0, 
-        		"VerificationResultState");
+        		"VerificationExecutionState");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1105,9 +1105,9 @@ rulePreconditionResult returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getStatusVerificationResultStatusEnumRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getPreconditionResultAccess().getStatusVerificationResultParserRuleCall_6_1_0()); 
 	    }
-		lv_status_8_0=ruleVerificationResultStatus		{
+		lv_status_8_0=ruleVerificationResult		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPreconditionResultRule());
 	        }
@@ -1115,7 +1115,7 @@ rulePreconditionResult returns [EObject current=null]
        			$current, 
        			"status",
         		lv_status_8_0, 
-        		"VerificationResultStatus");
+        		"VerificationResult");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1907,63 +1907,63 @@ ruleURIID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 
 
 
-// Rule VerificationResultState
-ruleVerificationResultState returns [Enumerator current=null] 
+// Rule VerificationExecutionState
+ruleVerificationExecutionState returns [Enumerator current=null] 
     @init { enterRule(); }
     @after { leaveRule(); }:
 ((	enumLiteral_0='todo' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getTODOEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStateAccess().getTODOEnumLiteralDeclaration_0()); 
+        $current = grammarAccess.getVerificationExecutionStateAccess().getTODOEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getVerificationExecutionStateAccess().getTODOEnumLiteralDeclaration_0()); 
     }
 )
     |(	enumLiteral_1='running' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getRUNNINGEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStateAccess().getRUNNINGEnumLiteralDeclaration_1()); 
+        $current = grammarAccess.getVerificationExecutionStateAccess().getRUNNINGEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getVerificationExecutionStateAccess().getRUNNINGEnumLiteralDeclaration_1()); 
     }
 )
     |(	enumLiteral_2='redo' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getREDOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStateAccess().getREDOEnumLiteralDeclaration_2()); 
+        $current = grammarAccess.getVerificationExecutionStateAccess().getREDOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getVerificationExecutionStateAccess().getREDOEnumLiteralDeclaration_2()); 
     }
 )
     |(	enumLiteral_3='completed' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getCOMPLETEDEnumLiteralDeclaration_3()); 
+        $current = grammarAccess.getVerificationExecutionStateAccess().getCOMPLETEDEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getVerificationExecutionStateAccess().getCOMPLETEDEnumLiteralDeclaration_3()); 
     }
 ));
 
 
 
-// Rule VerificationResultStatus
-ruleVerificationResultStatus returns [Enumerator current=null] 
+// Rule VerificationResultState
+ruleVerificationResultState returns [Enumerator current=null] 
     @init { enterRule(); }
     @after { leaveRule(); }:
 ((	enumLiteral_0='tbd' 
 	{
-        $current = grammarAccess.getVerificationResultStatusAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStatusAccess().getTBDEnumLiteralDeclaration_0()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getVerificationResultStateAccess().getTBDEnumLiteralDeclaration_0()); 
     }
 )
     |(	enumLiteral_1='success' 
 	{
-        $current = grammarAccess.getVerificationResultStatusAccess().getSUCCESSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStatusAccess().getSUCCESSEnumLiteralDeclaration_1()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getSUCCESSEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getVerificationResultStateAccess().getSUCCESSEnumLiteralDeclaration_1()); 
     }
 )
     |(	enumLiteral_2='fail' 
 	{
-        $current = grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStatusAccess().getFAILEnumLiteralDeclaration_2()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getFAILEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStateAccess().getFAILEnumLiteralDeclaration_2()); 
     }
 )
     |(	enumLiteral_3='unknown' 
 	{
-        $current = grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStatusAccess().getUNKNOWNEnumLiteralDeclaration_3()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3()); 
     }
 ));
 

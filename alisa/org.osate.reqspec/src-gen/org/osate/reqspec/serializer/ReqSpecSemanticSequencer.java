@@ -235,6 +235,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         importedNamespace=QualifiedNameWithWildCard? 
 	 *         target=[Classifier|AadlClassifierReference]? 
 	 *         (content+=Goal | content+=Requirement | content+=Hazard | content+=ReqSpecFolder)* 
 	 *         (issue+=MultiLineString issue+=MultiLineString*)?

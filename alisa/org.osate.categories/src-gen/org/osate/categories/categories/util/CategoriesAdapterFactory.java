@@ -100,6 +100,16 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
         return createSelectionCategoriesAdapter();
       }
       @Override
+      public Adapter caseAssertFailCategories(AssertFailCategories object)
+      {
+        return createAssertFailCategoriesAdapter();
+      }
+      @Override
+      public Adapter caseExecutionFailCategories(ExecutionFailCategories object)
+      {
+        return createExecutionFailCategoriesAdapter();
+      }
+      @Override
       public Adapter caseCategory(Category object)
       {
         return createCategoryAdapter();
@@ -123,6 +133,16 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
       public Adapter caseSelectionCategory(SelectionCategory object)
       {
         return createSelectionCategoryAdapter();
+      }
+      @Override
+      public Adapter caseAssertFailCategory(AssertFailCategory object)
+      {
+        return createAssertFailCategoryAdapter();
+      }
+      @Override
+      public Adapter caseExecutionFailCategory(ExecutionFailCategory object)
+      {
+        return createExecutionFailCategoryAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -222,6 +242,36 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.AssertFailCategories <em>Assert Fail Categories</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.AssertFailCategories
+   * @generated
+   */
+  public Adapter createAssertFailCategoriesAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.ExecutionFailCategories <em>Execution Fail Categories</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.ExecutionFailCategories
+   * @generated
+   */
+  public Adapter createExecutionFailCategoriesAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.categories.categories.Category <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -292,6 +342,36 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSelectionCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.AssertFailCategory <em>Assert Fail Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.AssertFailCategory
+   * @generated
+   */
+  public Adapter createAssertFailCategoryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.ExecutionFailCategory <em>Execution Fail Category</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.categories.categories.ExecutionFailCategory
+   * @generated
+   */
+  public Adapter createExecutionFailCategoryAdapter()
   {
     return null;
   }

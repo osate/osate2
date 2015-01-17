@@ -12,7 +12,6 @@ package org.osate.assure.assure;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.assure.assure.EvidenceResult#getState <em>State</em>}</li>
- *   <li>{@link org.osate.assure.assure.EvidenceResult#getStatus <em>Status</em>}</li>
  *   <li>{@link org.osate.assure.assure.EvidenceResult#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.EvidenceResult#getFailMsg <em>Fail Msg</em>}</li>
  * </ul>
@@ -26,7 +25,7 @@ public interface EvidenceResult extends AssuranceResult
 {
   /**
    * Returns the value of the '<em><b>State</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.assure.assure.VerificationResultState}.
+   * The literals are from the enumeration {@link org.osate.assure.assure.VerificationExecutionState}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>State</em>' attribute isn't clear,
@@ -34,53 +33,24 @@ public interface EvidenceResult extends AssuranceResult
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>State</em>' attribute.
-   * @see org.osate.assure.assure.VerificationResultState
-   * @see #setState(VerificationResultState)
+   * @see org.osate.assure.assure.VerificationExecutionState
+   * @see #setState(VerificationExecutionState)
    * @see org.osate.assure.assure.AssurePackage#getEvidenceResult_State()
    * @model
    * @generated
    */
-  VerificationResultState getState();
+  VerificationExecutionState getState();
 
   /**
    * Sets the value of the '{@link org.osate.assure.assure.EvidenceResult#getState <em>State</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>State</em>' attribute.
-   * @see org.osate.assure.assure.VerificationResultState
+   * @see org.osate.assure.assure.VerificationExecutionState
    * @see #getState()
    * @generated
    */
-  void setState(VerificationResultState value);
-
-  /**
-   * Returns the value of the '<em><b>Status</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.assure.assure.VerificationResultStatus}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Status</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Status</em>' attribute.
-   * @see org.osate.assure.assure.VerificationResultStatus
-   * @see #setStatus(VerificationResultStatus)
-   * @see org.osate.assure.assure.AssurePackage#getEvidenceResult_Status()
-   * @model
-   * @generated
-   */
-  VerificationResultStatus getStatus();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.EvidenceResult#getStatus <em>Status</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Status</em>' attribute.
-   * @see org.osate.assure.assure.VerificationResultStatus
-   * @see #getStatus()
-   * @generated
-   */
-  void setStatus(VerificationResultStatus value);
+  void setState(VerificationExecutionState value);
 
   /**
    * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.

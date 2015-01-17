@@ -40,6 +40,7 @@
     <genClasses ecoreClass="ReqSpec.ecore#//ReqDocument"/>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecLibrary">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecLibrary/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecLibrary/importedNamespace"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecFolder">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecFolder/label"/>

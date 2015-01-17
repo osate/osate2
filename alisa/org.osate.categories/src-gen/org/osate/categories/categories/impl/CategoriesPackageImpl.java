@@ -9,10 +9,14 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.osate.categories.categories.AssertFailCategories;
+import org.osate.categories.categories.AssertFailCategory;
 import org.osate.categories.categories.Categories;
 import org.osate.categories.categories.CategoriesFactory;
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.Category;
+import org.osate.categories.categories.ExecutionFailCategories;
+import org.osate.categories.categories.ExecutionFailCategory;
 import org.osate.categories.categories.HazardCategories;
 import org.osate.categories.categories.HazardCategory;
 import org.osate.categories.categories.RequirementCategories;
@@ -70,6 +74,20 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass assertFailCategoriesEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass executionFailCategoriesEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass categoryEClass = null;
 
   /**
@@ -99,6 +117,20 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * @generated
    */
   private EClass selectionCategoryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass assertFailCategoryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass executionFailCategoryEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -258,6 +290,46 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getAssertFailCategories()
+  {
+    return assertFailCategoriesEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAssertFailCategories_Category()
+  {
+    return (EReference)assertFailCategoriesEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExecutionFailCategories()
+  {
+    return executionFailCategoriesEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExecutionFailCategories_Category()
+  {
+    return (EReference)executionFailCategoriesEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getCategory()
   {
     return categoryEClass;
@@ -358,6 +430,66 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getAssertFailCategory()
+  {
+    return assertFailCategoryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAssertFailCategory_Name()
+  {
+    return (EAttribute)assertFailCategoryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAssertFailCategory_Extends()
+  {
+    return (EReference)assertFailCategoryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getExecutionFailCategory()
+  {
+    return executionFailCategoryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getExecutionFailCategory_Name()
+  {
+    return (EAttribute)executionFailCategoryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getExecutionFailCategory_Extends()
+  {
+    return (EReference)executionFailCategoryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public CategoriesFactory getCategoriesFactory()
   {
     return (CategoriesFactory)getEFactoryInstance();
@@ -397,6 +529,12 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     selectionCategoriesEClass = createEClass(SELECTION_CATEGORIES);
     createEReference(selectionCategoriesEClass, SELECTION_CATEGORIES__CATEGORY);
 
+    assertFailCategoriesEClass = createEClass(ASSERT_FAIL_CATEGORIES);
+    createEReference(assertFailCategoriesEClass, ASSERT_FAIL_CATEGORIES__CATEGORY);
+
+    executionFailCategoriesEClass = createEClass(EXECUTION_FAIL_CATEGORIES);
+    createEReference(executionFailCategoriesEClass, EXECUTION_FAIL_CATEGORIES__CATEGORY);
+
     categoryEClass = createEClass(CATEGORY);
     createEAttribute(categoryEClass, CATEGORY__NAME);
 
@@ -411,6 +549,14 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     selectionCategoryEClass = createEClass(SELECTION_CATEGORY);
     createEReference(selectionCategoryEClass, SELECTION_CATEGORY__EXTENDS);
+
+    assertFailCategoryEClass = createEClass(ASSERT_FAIL_CATEGORY);
+    createEAttribute(assertFailCategoryEClass, ASSERT_FAIL_CATEGORY__NAME);
+    createEReference(assertFailCategoryEClass, ASSERT_FAIL_CATEGORY__EXTENDS);
+
+    executionFailCategoryEClass = createEClass(EXECUTION_FAIL_CATEGORY);
+    createEAttribute(executionFailCategoryEClass, EXECUTION_FAIL_CATEGORY__NAME);
+    createEReference(executionFailCategoryEClass, EXECUTION_FAIL_CATEGORY__EXTENDS);
   }
 
   /**
@@ -446,6 +592,8 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     hazardCategoriesEClass.getESuperTypes().add(this.getCategories());
     verificationCategoriesEClass.getESuperTypes().add(this.getCategories());
     selectionCategoriesEClass.getESuperTypes().add(this.getCategories());
+    assertFailCategoriesEClass.getESuperTypes().add(this.getCategories());
+    executionFailCategoriesEClass.getESuperTypes().add(this.getCategories());
     requirementCategoryEClass.getESuperTypes().add(this.getCategory());
     hazardCategoryEClass.getESuperTypes().add(this.getCategory());
     verificationCategoryEClass.getESuperTypes().add(this.getCategory());
@@ -466,6 +614,12 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     initEClass(selectionCategoriesEClass, SelectionCategories.class, "SelectionCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSelectionCategories_Category(), this.getSelectionCategory(), null, "category", null, 0, -1, SelectionCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(assertFailCategoriesEClass, AssertFailCategories.class, "AssertFailCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAssertFailCategories_Category(), this.getAssertFailCategory(), null, "category", null, 0, -1, AssertFailCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(executionFailCategoriesEClass, ExecutionFailCategories.class, "ExecutionFailCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getExecutionFailCategories_Category(), this.getExecutionFailCategory(), null, "category", null, 0, -1, ExecutionFailCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -480,6 +634,14 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     initEClass(selectionCategoryEClass, SelectionCategory.class, "SelectionCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getSelectionCategory_Extends(), this.getSelectionCategory(), null, "extends", null, 0, 1, SelectionCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(assertFailCategoryEClass, AssertFailCategory.class, "AssertFailCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAssertFailCategory_Name(), ecorePackage.getEString(), "name", null, 0, 1, AssertFailCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssertFailCategory_Extends(), this.getAssertFailCategory(), null, "extends", null, 0, 1, AssertFailCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(executionFailCategoryEClass, ExecutionFailCategory.class, "ExecutionFailCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getExecutionFailCategory_Name(), ecorePackage.getEString(), "name", null, 0, 1, ExecutionFailCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExecutionFailCategory_Extends(), this.getExecutionFailCategory(), null, "extends", null, 0, 1, ExecutionFailCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

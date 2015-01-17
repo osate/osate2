@@ -434,11 +434,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cStateKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cStateAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cStateVerificationResultStateEnumRuleCall_5_1_0 = (RuleCall)cStateAssignment_5_1.eContents().get(0);
+		private final RuleCall cStateVerificationExecutionStateEnumRuleCall_5_1_0 = (RuleCall)cStateAssignment_5_1.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cStatusKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final Assignment cStatusAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cStatusVerificationResultStatusEnumRuleCall_6_1_0 = (RuleCall)cStatusAssignment_6_1.eContents().get(0);
+		private final RuleCall cStatusVerificationResultStateEnumRuleCall_6_1_0 = (RuleCall)cStatusAssignment_6_1.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cWeightKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Assignment cWeightAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
@@ -460,7 +460,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//// result of executing a verification activity
 		//VerificationResult:
 		//	"verification" name=ID "of" verificationActivity=[Verify::VerificationActivity|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-		//	"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
+		//	"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResultState)? ("weight" weight=INT)?
 		//	("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 		//	//	('logfile'  description=STRING)?
 		//	//	('date'  date=STRING)?
@@ -468,7 +468,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//"verification" name=ID "of" verificationActivity=[Verify::VerificationActivity|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-		//"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
+		//"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResultState)? ("weight" weight=INT)?
 		//("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 		////	('logfile'  description=STRING)?
 		////	('date'  date=STRING)?
@@ -500,29 +500,29 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//("state" state=VerificationResultState)?
+		//("state" state=VerificationExecutionState)?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//"state"
 		public Keyword getStateKeyword_5_0() { return cStateKeyword_5_0; }
 
-		//state=VerificationResultState
+		//state=VerificationExecutionState
 		public Assignment getStateAssignment_5_1() { return cStateAssignment_5_1; }
 
-		//VerificationResultState
-		public RuleCall getStateVerificationResultStateEnumRuleCall_5_1_0() { return cStateVerificationResultStateEnumRuleCall_5_1_0; }
+		//VerificationExecutionState
+		public RuleCall getStateVerificationExecutionStateEnumRuleCall_5_1_0() { return cStateVerificationExecutionStateEnumRuleCall_5_1_0; }
 
-		//("status" status=VerificationResultStatus)?
+		//("status" status=VerificationResultState)?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"status"
 		public Keyword getStatusKeyword_6_0() { return cStatusKeyword_6_0; }
 
-		//status=VerificationResultStatus
+		//status=VerificationResultState
 		public Assignment getStatusAssignment_6_1() { return cStatusAssignment_6_1; }
 
-		//VerificationResultStatus
-		public RuleCall getStatusVerificationResultStatusEnumRuleCall_6_1_0() { return cStatusVerificationResultStatusEnumRuleCall_6_1_0; }
+		//VerificationResultState
+		public RuleCall getStatusVerificationResultStateEnumRuleCall_6_1_0() { return cStatusVerificationResultStateEnumRuleCall_6_1_0; }
 
 		//("weight" weight=INT)?
 		public Group getGroup_7() { return cGroup_7; }
@@ -590,11 +590,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cStateKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cStateAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cStateVerificationResultStateEnumRuleCall_5_1_0 = (RuleCall)cStateAssignment_5_1.eContents().get(0);
+		private final RuleCall cStateVerificationExecutionStateEnumRuleCall_5_1_0 = (RuleCall)cStateAssignment_5_1.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cStatusKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final Assignment cStatusAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cStatusVerificationResultStatusEnumRuleCall_6_1_0 = (RuleCall)cStatusAssignment_6_1.eContents().get(0);
+		private final RuleCall cStatusVerificationResultParserRuleCall_6_1_0 = (RuleCall)cStatusAssignment_6_1.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cWeightKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Assignment cWeightAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
@@ -611,7 +611,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AssumptionResult:
 		//	"assumption" name=ID "of" verificationActivity=[Verify::VerificationAssumption|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-		//	"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
+		//	"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResult)? ("weight" weight=INT)?
 		//	("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 		//	//	('logfile'  description=STRING)?
 		//	//	('date'  date=STRING)?
@@ -619,7 +619,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//"assumption" name=ID "of" verificationActivity=[Verify::VerificationAssumption|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-		//"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
+		//"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResult)? ("weight" weight=INT)?
 		//("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 		////	('logfile'  description=STRING)?
 		////	('date'  date=STRING)?
@@ -651,29 +651,29 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//("state" state=VerificationResultState)?
+		//("state" state=VerificationExecutionState)?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//"state"
 		public Keyword getStateKeyword_5_0() { return cStateKeyword_5_0; }
 
-		//state=VerificationResultState
+		//state=VerificationExecutionState
 		public Assignment getStateAssignment_5_1() { return cStateAssignment_5_1; }
 
-		//VerificationResultState
-		public RuleCall getStateVerificationResultStateEnumRuleCall_5_1_0() { return cStateVerificationResultStateEnumRuleCall_5_1_0; }
+		//VerificationExecutionState
+		public RuleCall getStateVerificationExecutionStateEnumRuleCall_5_1_0() { return cStateVerificationExecutionStateEnumRuleCall_5_1_0; }
 
-		//("status" status=VerificationResultStatus)?
+		//("status" status=VerificationResult)?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"status"
 		public Keyword getStatusKeyword_6_0() { return cStatusKeyword_6_0; }
 
-		//status=VerificationResultStatus
+		//status=VerificationResult
 		public Assignment getStatusAssignment_6_1() { return cStatusAssignment_6_1; }
 
-		//VerificationResultStatus
-		public RuleCall getStatusVerificationResultStatusEnumRuleCall_6_1_0() { return cStatusVerificationResultStatusEnumRuleCall_6_1_0; }
+		//VerificationResult
+		public RuleCall getStatusVerificationResultParserRuleCall_6_1_0() { return cStatusVerificationResultParserRuleCall_6_1_0; }
 
 		//("weight" weight=INT)?
 		public Group getGroup_7() { return cGroup_7; }
@@ -732,11 +732,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cStateKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cStateAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final RuleCall cStateVerificationResultStateEnumRuleCall_5_1_0 = (RuleCall)cStateAssignment_5_1.eContents().get(0);
+		private final RuleCall cStateVerificationExecutionStateEnumRuleCall_5_1_0 = (RuleCall)cStateAssignment_5_1.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cStatusKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final Assignment cStatusAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cStatusVerificationResultStatusEnumRuleCall_6_1_0 = (RuleCall)cStatusAssignment_6_1.eContents().get(0);
+		private final RuleCall cStatusVerificationResultParserRuleCall_6_1_0 = (RuleCall)cStatusAssignment_6_1.eContents().get(0);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cWeightKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Assignment cWeightAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
@@ -753,16 +753,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//PreconditionResult:
 		//	"precondition" name=ID "of" verificationActivity=[Verify::VerificationPrecondition|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-		//	"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
-		//	("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
+		//	"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResult)? // TODO change keyword to result
+		//	("weight" weight=INT)? ("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 		//	//	('logfile'  description=STRING)?
 		//	//	('date'  date=STRING)?
 		//	"]";
 		public ParserRule getRule() { return rule; }
 
 		//"precondition" name=ID "of" verificationActivity=[Verify::VerificationPrecondition|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-		//"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
-		//("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
+		//"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResult)? // TODO change keyword to result
+		//("weight" weight=INT)? ("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 		////	('logfile'  description=STRING)?
 		////	('date'  date=STRING)?
 		//"]"
@@ -793,29 +793,29 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//("state" state=VerificationResultState)?
+		//("state" state=VerificationExecutionState)?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//"state"
 		public Keyword getStateKeyword_5_0() { return cStateKeyword_5_0; }
 
-		//state=VerificationResultState
+		//state=VerificationExecutionState
 		public Assignment getStateAssignment_5_1() { return cStateAssignment_5_1; }
 
-		//VerificationResultState
-		public RuleCall getStateVerificationResultStateEnumRuleCall_5_1_0() { return cStateVerificationResultStateEnumRuleCall_5_1_0; }
+		//VerificationExecutionState
+		public RuleCall getStateVerificationExecutionStateEnumRuleCall_5_1_0() { return cStateVerificationExecutionStateEnumRuleCall_5_1_0; }
 
-		//("status" status=VerificationResultStatus)?
+		//("status" status=VerificationResult)?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"status"
 		public Keyword getStatusKeyword_6_0() { return cStatusKeyword_6_0; }
 
-		//status=VerificationResultStatus
+		//status=VerificationResult
 		public Assignment getStatusAssignment_6_1() { return cStatusAssignment_6_1; }
 
-		//VerificationResultStatus
-		public RuleCall getStatusVerificationResultStatusEnumRuleCall_6_1_0() { return cStatusVerificationResultStatusEnumRuleCall_6_1_0; }
+		//VerificationResult
+		public RuleCall getStatusVerificationResultParserRuleCall_6_1_0() { return cStatusVerificationResultParserRuleCall_6_1_0; }
 
 		//("weight" weight=INT)?
 		public Group getGroup_7() { return cGroup_7; }
@@ -956,12 +956,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//HazardResult:
 		//	"hazard" name=ID "of" hazard=[ReqSpec::Hazard|QualifiedName] ("for" target=[instance::InstanceObject|URIID])? "["
 		//	("success" passCount=INT) ("fail" failCount=INT) ("neutral" neutralCount=INT) ("unknown" unknownCount=INT) ("weight"
-		//	weight=INT)? verificationResult+=VerificationResult* "]";
+		//	weight=INT)? verificationResult+=VerificationResult* // TODO should be claim results
+		//	"]";
 		public ParserRule getRule() { return rule; }
 
 		//"hazard" name=ID "of" hazard=[ReqSpec::Hazard|QualifiedName] ("for" target=[instance::InstanceObject|URIID])? "["
 		//("success" passCount=INT) ("fail" failCount=INT) ("neutral" neutralCount=INT) ("unknown" unknownCount=INT) ("weight"
-		//weight=INT)? verificationResult+=VerificationResult* "]"
+		//weight=INT)? verificationResult+=VerificationResult* // TODO should be claim results
+		//"]"
 		public Group getGroup() { return cGroup; }
 
 		//"hazard"
@@ -1069,6 +1071,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationResult
 		public RuleCall getVerificationResultVerificationResultParserRuleCall_11_0() { return cVerificationResultVerificationResultParserRuleCall_11_0; }
 
+		//// TODO should be claim results
 		//"]"
 		public Keyword getRightSquareBracketKeyword_12() { return cRightSquareBracketKeyword_12; }
 	}
@@ -1144,8 +1147,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	
-	public class VerificationResultStateElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationResultState");
+	public class VerificationExecutionStateElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationExecutionState");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cTODOEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cTODOTodoKeyword_0_0 = (Keyword)cTODOEnumLiteralDeclaration_0.eContents().get(0);
@@ -1156,7 +1159,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cCOMPLETEDEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
 		private final Keyword cCOMPLETEDCompletedKeyword_3_0 = (Keyword)cCOMPLETEDEnumLiteralDeclaration_3.eContents().get(0);
 		
-		//enum VerificationResultState:
+		//enum VerificationExecutionState:
 		//	TODO= // verification to be performed
 		//	"todo" | RUNNING= // verification in progress (background processing)
 		//	"running" | REDO= // invalidated while in progress. redo verification.
@@ -1204,8 +1207,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getCOMPLETEDCompletedKeyword_3_0() { return cCOMPLETEDCompletedKeyword_3_0; }
 	}
 
-	public class VerificationResultStatusElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationResultStatus");
+	public class VerificationResultStateElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationResultState");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cTBDEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cTBDTbdKeyword_0_0 = (Keyword)cTBDEnumLiteralDeclaration_0.eContents().get(0);
@@ -1216,7 +1219,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
 		private final Keyword cUNKNOWNUnknownKeyword_3_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_3.eContents().get(0);
 		
-		//enum VerificationResultStatus:
+		//enum VerificationResultState:
 		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
 		public EnumRule getRule() { return rule; }
 
@@ -1257,8 +1260,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	private final EvidenceResultElements pEvidenceResult;
 	private final HazardResultElements pHazardResult;
 	private final VerificationExprElements pVerificationExpr;
+	private final VerificationExecutionStateElements unknownRuleVerificationExecutionState;
 	private final VerificationResultStateElements unknownRuleVerificationResultState;
-	private final VerificationResultStatusElements unknownRuleVerificationResultStatus;
 	
 	private final Grammar grammar;
 
@@ -1278,8 +1281,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.pEvidenceResult = new EvidenceResultElements();
 		this.pHazardResult = new HazardResultElements();
 		this.pVerificationExpr = new VerificationExprElements();
+		this.unknownRuleVerificationExecutionState = new VerificationExecutionStateElements();
 		this.unknownRuleVerificationResultState = new VerificationResultStateElements();
-		this.unknownRuleVerificationResultStatus = new VerificationResultStatusElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1342,7 +1345,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//// result of executing a verification activity
 	//VerificationResult:
 	//	"verification" name=ID "of" verificationActivity=[Verify::VerificationActivity|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-	//	"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
+	//	"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResultState)? ("weight" weight=INT)?
 	//	("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 	//	//	('logfile'  description=STRING)?
 	//	//	('date'  date=STRING)?
@@ -1357,7 +1360,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssumptionResult:
 	//	"assumption" name=ID "of" verificationActivity=[Verify::VerificationAssumption|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-	//	"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
+	//	"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResult)? ("weight" weight=INT)?
 	//	("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 	//	//	('logfile'  description=STRING)?
 	//	//	('date'  date=STRING)?
@@ -1372,8 +1375,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PreconditionResult:
 	//	"precondition" name=ID "of" verificationActivity=[Verify::VerificationPrecondition|QualifiedName] //	('for' target=[instance::InstanceObject|URIID])?
-	//	"[" ("state" state=VerificationResultState)? ("status" status=VerificationResultStatus)? ("weight" weight=INT)?
-	//	("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
+	//	"[" ("state" state=VerificationExecutionState)? ("status" status=VerificationResult)? // TODO change keyword to result
+	//	("weight" weight=INT)? ("successMsg" sucessMsg=MultiLineString)? ("failMsg" failMsg=MultiLineString)? //	('output'  title=STRING)?
 	//	//	('logfile'  description=STRING)?
 	//	//	('date'  date=STRING)?
 	//	"]";
@@ -1409,7 +1412,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//HazardResult:
 	//	"hazard" name=ID "of" hazard=[ReqSpec::Hazard|QualifiedName] ("for" target=[instance::InstanceObject|URIID])? "["
 	//	("success" passCount=INT) ("fail" failCount=INT) ("neutral" neutralCount=INT) ("unknown" unknownCount=INT) ("weight"
-	//	weight=INT)? verificationResult+=VerificationResult* "]";
+	//	weight=INT)? verificationResult+=VerificationResult* // TODO should be claim results
+	//	"]";
 	public HazardResultElements getHazardResultAccess() {
 		return pHazardResult;
 	}
@@ -1429,28 +1433,28 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationExprAccess().getRule();
 	}
 
-	//enum VerificationResultState:
+	//enum VerificationExecutionState:
 	//	TODO= // verification to be performed
 	//	"todo" | RUNNING= // verification in progress (background processing)
 	//	"running" | REDO= // invalidated while in progress. redo verification.
 	//	"redo" | COMPLETED= // completed. verification result is valid
 	//	"completed";
+	public VerificationExecutionStateElements getVerificationExecutionStateAccess() {
+		return unknownRuleVerificationExecutionState;
+	}
+	
+	public EnumRule getVerificationExecutionStateRule() {
+		return getVerificationExecutionStateAccess().getRule();
+	}
+
+	//enum VerificationResultState:
+	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
 	public VerificationResultStateElements getVerificationResultStateAccess() {
 		return unknownRuleVerificationResultState;
 	}
 	
 	public EnumRule getVerificationResultStateRule() {
 		return getVerificationResultStateAccess().getRule();
-	}
-
-	//enum VerificationResultStatus:
-	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
-	public VerificationResultStatusElements getVerificationResultStatusAccess() {
-		return unknownRuleVerificationResultStatus;
-	}
-	
-	public EnumRule getVerificationResultStatusRule() {
-		return getVerificationResultStatusAccess().getRule();
 	}
 
 	//Model:

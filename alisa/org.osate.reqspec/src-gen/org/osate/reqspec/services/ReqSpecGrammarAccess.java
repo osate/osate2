@@ -271,36 +271,42 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cForKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cTargetAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final CrossReference cTargetClassifierCrossReference_2_1_0 = (CrossReference)cTargetAssignment_2_1.eContents().get(0);
-		private final RuleCall cTargetClassifierAadlClassifierReferenceParserRuleCall_2_1_0_1 = (RuleCall)cTargetClassifierCrossReference_2_1_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cContentAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final Alternatives cContentAlternatives_4_0 = (Alternatives)cContentAssignment_4.eContents().get(0);
-		private final RuleCall cContentGoalParserRuleCall_4_0_0 = (RuleCall)cContentAlternatives_4_0.eContents().get(0);
-		private final RuleCall cContentRequirementParserRuleCall_4_0_1 = (RuleCall)cContentAlternatives_4_0.eContents().get(1);
-		private final RuleCall cContentHazardParserRuleCall_4_0_2 = (RuleCall)cContentAlternatives_4_0.eContents().get(2);
-		private final RuleCall cContentReqSpecFolderParserRuleCall_4_0_3 = (RuleCall)cContentAlternatives_4_0.eContents().get(3);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cIssuesKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
-		private final Assignment cIssueAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
-		private final RuleCall cIssueMultiLineStringParserRuleCall_5_2_0 = (RuleCall)cIssueAssignment_5_2.eContents().get(0);
-		private final Group cGroup_5_3 = (Group)cGroup_5.eContents().get(3);
-		private final Keyword cCommaKeyword_5_3_0 = (Keyword)cGroup_5_3.eContents().get(0);
-		private final Assignment cIssueAssignment_5_3_1 = (Assignment)cGroup_5_3.eContents().get(1);
-		private final RuleCall cIssueMultiLineStringParserRuleCall_5_3_1_0 = (RuleCall)cIssueAssignment_5_3_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
-		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cImportKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cImportedNamespaceAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cImportedNamespaceQualifiedNameWithWildCardParserRuleCall_2_1_0 = (RuleCall)cImportedNamespaceAssignment_2_1.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cForKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cTargetAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cTargetClassifierCrossReference_3_1_0 = (CrossReference)cTargetAssignment_3_1.eContents().get(0);
+		private final RuleCall cTargetClassifierAadlClassifierReferenceParserRuleCall_3_1_0_1 = (RuleCall)cTargetClassifierCrossReference_3_1_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cContentAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final Alternatives cContentAlternatives_5_0 = (Alternatives)cContentAssignment_5.eContents().get(0);
+		private final RuleCall cContentGoalParserRuleCall_5_0_0 = (RuleCall)cContentAlternatives_5_0.eContents().get(0);
+		private final RuleCall cContentRequirementParserRuleCall_5_0_1 = (RuleCall)cContentAlternatives_5_0.eContents().get(1);
+		private final RuleCall cContentHazardParserRuleCall_5_0_2 = (RuleCall)cContentAlternatives_5_0.eContents().get(2);
+		private final RuleCall cContentReqSpecFolderParserRuleCall_5_0_3 = (RuleCall)cContentAlternatives_5_0.eContents().get(3);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cIssuesKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final Assignment cIssueAssignment_6_2 = (Assignment)cGroup_6.eContents().get(2);
+		private final RuleCall cIssueMultiLineStringParserRuleCall_6_2_0 = (RuleCall)cIssueAssignment_6_2.eContents().get(0);
+		private final Group cGroup_6_3 = (Group)cGroup_6.eContents().get(3);
+		private final Keyword cCommaKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
+		private final Assignment cIssueAssignment_6_3_1 = (Assignment)cGroup_6_3.eContents().get(1);
+		private final RuleCall cIssueMultiLineStringParserRuleCall_6_3_1_0 = (RuleCall)cIssueAssignment_6_3_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_6_4 = (Keyword)cGroup_6.eContents().get(4);
+		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ReqSpecLibrary:
-		//	"library" name=ID ("for" target=[aadl2::Classifier|AadlClassifierReference])? "[" content+=(Goal | Requirement |
-		//	Hazard | ReqSpecFolder)* ("issues" "[" issue+=MultiLineString ("," issue+=MultiLineString)* "]")? "]";
+		//	"library" name=ID ("import" importedNamespace=QualifiedNameWithWildCard)? ("for"
+		//	target=[aadl2::Classifier|AadlClassifierReference])? "[" content+=(Goal | Requirement | Hazard | ReqSpecFolder)*
+		//	("issues" "[" issue+=MultiLineString ("," issue+=MultiLineString)* "]")? "]";
 		public ParserRule getRule() { return rule; }
 
-		//"library" name=ID ("for" target=[aadl2::Classifier|AadlClassifierReference])? "[" content+=(Goal | Requirement | Hazard
-		//| ReqSpecFolder)* ("issues" "[" issue+=MultiLineString ("," issue+=MultiLineString)* "]")? "]"
+		//"library" name=ID ("import" importedNamespace=QualifiedNameWithWildCard)? ("for"
+		//target=[aadl2::Classifier|AadlClassifierReference])? "[" content+=(Goal | Requirement | Hazard | ReqSpecFolder)*
+		//("issues" "[" issue+=MultiLineString ("," issue+=MultiLineString)* "]")? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"library"
@@ -312,74 +318,106 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//("for" target=[aadl2::Classifier|AadlClassifierReference])?
+		//("import" importedNamespace=QualifiedNameWithWildCard)?
 		public Group getGroup_2() { return cGroup_2; }
 
+		//"import"
+		public Keyword getImportKeyword_2_0() { return cImportKeyword_2_0; }
+
+		//importedNamespace=QualifiedNameWithWildCard
+		public Assignment getImportedNamespaceAssignment_2_1() { return cImportedNamespaceAssignment_2_1; }
+
+		//QualifiedNameWithWildCard
+		public RuleCall getImportedNamespaceQualifiedNameWithWildCardParserRuleCall_2_1_0() { return cImportedNamespaceQualifiedNameWithWildCardParserRuleCall_2_1_0; }
+
+		//("for" target=[aadl2::Classifier|AadlClassifierReference])?
+		public Group getGroup_3() { return cGroup_3; }
+
 		//"for"
-		public Keyword getForKeyword_2_0() { return cForKeyword_2_0; }
+		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
 		//target=[aadl2::Classifier|AadlClassifierReference]
-		public Assignment getTargetAssignment_2_1() { return cTargetAssignment_2_1; }
+		public Assignment getTargetAssignment_3_1() { return cTargetAssignment_3_1; }
 
 		//[aadl2::Classifier|AadlClassifierReference]
-		public CrossReference getTargetClassifierCrossReference_2_1_0() { return cTargetClassifierCrossReference_2_1_0; }
+		public CrossReference getTargetClassifierCrossReference_3_1_0() { return cTargetClassifierCrossReference_3_1_0; }
 
 		//AadlClassifierReference
-		public RuleCall getTargetClassifierAadlClassifierReferenceParserRuleCall_2_1_0_1() { return cTargetClassifierAadlClassifierReferenceParserRuleCall_2_1_0_1; }
+		public RuleCall getTargetClassifierAadlClassifierReferenceParserRuleCall_3_1_0_1() { return cTargetClassifierAadlClassifierReferenceParserRuleCall_3_1_0_1; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
+		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
 		//content+=(Goal | Requirement | Hazard | ReqSpecFolder)*
-		public Assignment getContentAssignment_4() { return cContentAssignment_4; }
+		public Assignment getContentAssignment_5() { return cContentAssignment_5; }
 
 		//Goal | Requirement | Hazard | ReqSpecFolder
-		public Alternatives getContentAlternatives_4_0() { return cContentAlternatives_4_0; }
+		public Alternatives getContentAlternatives_5_0() { return cContentAlternatives_5_0; }
 
 		//Goal
-		public RuleCall getContentGoalParserRuleCall_4_0_0() { return cContentGoalParserRuleCall_4_0_0; }
+		public RuleCall getContentGoalParserRuleCall_5_0_0() { return cContentGoalParserRuleCall_5_0_0; }
 
 		//Requirement
-		public RuleCall getContentRequirementParserRuleCall_4_0_1() { return cContentRequirementParserRuleCall_4_0_1; }
+		public RuleCall getContentRequirementParserRuleCall_5_0_1() { return cContentRequirementParserRuleCall_5_0_1; }
 
 		//Hazard
-		public RuleCall getContentHazardParserRuleCall_4_0_2() { return cContentHazardParserRuleCall_4_0_2; }
+		public RuleCall getContentHazardParserRuleCall_5_0_2() { return cContentHazardParserRuleCall_5_0_2; }
 
 		//ReqSpecFolder
-		public RuleCall getContentReqSpecFolderParserRuleCall_4_0_3() { return cContentReqSpecFolderParserRuleCall_4_0_3; }
+		public RuleCall getContentReqSpecFolderParserRuleCall_5_0_3() { return cContentReqSpecFolderParserRuleCall_5_0_3; }
 
 		//("issues" "[" issue+=MultiLineString ("," issue+=MultiLineString)* "]")?
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_6() { return cGroup_6; }
 
 		//"issues"
-		public Keyword getIssuesKeyword_5_0() { return cIssuesKeyword_5_0; }
+		public Keyword getIssuesKeyword_6_0() { return cIssuesKeyword_6_0; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_5_1() { return cLeftSquareBracketKeyword_5_1; }
+		public Keyword getLeftSquareBracketKeyword_6_1() { return cLeftSquareBracketKeyword_6_1; }
 
 		//issue+=MultiLineString
-		public Assignment getIssueAssignment_5_2() { return cIssueAssignment_5_2; }
+		public Assignment getIssueAssignment_6_2() { return cIssueAssignment_6_2; }
 
 		//MultiLineString
-		public RuleCall getIssueMultiLineStringParserRuleCall_5_2_0() { return cIssueMultiLineStringParserRuleCall_5_2_0; }
+		public RuleCall getIssueMultiLineStringParserRuleCall_6_2_0() { return cIssueMultiLineStringParserRuleCall_6_2_0; }
 
 		//("," issue+=MultiLineString)*
-		public Group getGroup_5_3() { return cGroup_5_3; }
+		public Group getGroup_6_3() { return cGroup_6_3; }
 
 		//","
-		public Keyword getCommaKeyword_5_3_0() { return cCommaKeyword_5_3_0; }
+		public Keyword getCommaKeyword_6_3_0() { return cCommaKeyword_6_3_0; }
 
 		//issue+=MultiLineString
-		public Assignment getIssueAssignment_5_3_1() { return cIssueAssignment_5_3_1; }
+		public Assignment getIssueAssignment_6_3_1() { return cIssueAssignment_6_3_1; }
 
 		//MultiLineString
-		public RuleCall getIssueMultiLineStringParserRuleCall_5_3_1_0() { return cIssueMultiLineStringParserRuleCall_5_3_1_0; }
+		public RuleCall getIssueMultiLineStringParserRuleCall_6_3_1_0() { return cIssueMultiLineStringParserRuleCall_6_3_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_5_4() { return cRightSquareBracketKeyword_5_4; }
+		public Keyword getRightSquareBracketKeyword_6_4() { return cRightSquareBracketKeyword_6_4; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
+		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
+	}
+
+	public class QualifiedNameWithWildCardElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedNameWithWildCard");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cQualifiedNameParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopAsteriskKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//QualifiedNameWithWildCard:
+		//	QualifiedName ".*";
+		public ParserRule getRule() { return rule; }
+
+		//QualifiedName ".*"
+		public Group getGroup() { return cGroup; }
+
+		//QualifiedName
+		public RuleCall getQualifiedNameParserRuleCall_0() { return cQualifiedNameParserRuleCall_0; }
+
+		//".*"
+		public Keyword getFullStopAsteriskKeyword_1() { return cFullStopAsteriskKeyword_1; }
 	}
 
 	public class ReqSpecFolderElements extends AbstractParserRuleElementFinder {
@@ -1698,6 +1736,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssueMultiLineStringParserRuleCall_3_6_2_1_0 = (RuleCall)cIssueAssignment_3_6_2_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
+		//// TODO reference to EMV2 construct	
 		//Hazard:
 		//	"hazard" name=ID "[" (("for" target=[aadl2::NamedElement] ("of"
 		//	targetContext=[aadl2::Classifier|AadlClassifierReference])?)? & ("category"
@@ -1986,6 +2025,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	private final StakeholderGoalsElements pStakeholderGoals;
 	private final ReqDocumentElements pReqDocument;
 	private final ReqSpecLibraryElements pReqSpecLibrary;
+	private final QualifiedNameWithWildCardElements pQualifiedNameWithWildCard;
 	private final ReqSpecFolderElements pReqSpecFolder;
 	private final GoalElements pGoal;
 	private final RequirementElements pRequirement;
@@ -2011,6 +2051,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.pStakeholderGoals = new StakeholderGoalsElements();
 		this.pReqDocument = new ReqDocumentElements();
 		this.pReqSpecLibrary = new ReqSpecLibraryElements();
+		this.pQualifiedNameWithWildCard = new QualifiedNameWithWildCardElements();
 		this.pReqSpecFolder = new ReqSpecFolderElements();
 		this.pGoal = new GoalElements();
 		this.pRequirement = new RequirementElements();
@@ -2119,14 +2160,25 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReqSpecLibrary:
-	//	"library" name=ID ("for" target=[aadl2::Classifier|AadlClassifierReference])? "[" content+=(Goal | Requirement |
-	//	Hazard | ReqSpecFolder)* ("issues" "[" issue+=MultiLineString ("," issue+=MultiLineString)* "]")? "]";
+	//	"library" name=ID ("import" importedNamespace=QualifiedNameWithWildCard)? ("for"
+	//	target=[aadl2::Classifier|AadlClassifierReference])? "[" content+=(Goal | Requirement | Hazard | ReqSpecFolder)*
+	//	("issues" "[" issue+=MultiLineString ("," issue+=MultiLineString)* "]")? "]";
 	public ReqSpecLibraryElements getReqSpecLibraryAccess() {
 		return pReqSpecLibrary;
 	}
 	
 	public ParserRule getReqSpecLibraryRule() {
 		return getReqSpecLibraryAccess().getRule();
+	}
+
+	//QualifiedNameWithWildCard:
+	//	QualifiedName ".*";
+	public QualifiedNameWithWildCardElements getQualifiedNameWithWildCardAccess() {
+		return pQualifiedNameWithWildCard;
+	}
+	
+	public ParserRule getQualifiedNameWithWildCardRule() {
+		return getQualifiedNameWithWildCardAccess().getRule();
 	}
 
 	//// does not add to a qualified name
@@ -2190,6 +2242,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getRequirementAccess().getRule();
 	}
 
+	//// TODO reference to EMV2 construct	
 	//Hazard:
 	//	"hazard" name=ID "[" (("for" target=[aadl2::NamedElement] ("of"
 	//	targetContext=[aadl2::Classifier|AadlClassifierReference])?)? & ("category"

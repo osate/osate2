@@ -50,8 +50,8 @@ VerificationResult:
 	'of' verificationActivity=[Verify::VerificationActivity|QualifiedName]
 //	('for' target=[instance::InstanceObject|URIID])?
 	'['
-	('state'  state=VerificationResultState)?
-	('status'  status=VerificationResultStatus)? 
+	('state'  state=VerificationExecutionState)?
+	('status'  status=VerificationResultState)? 
 	('weight' weight = INT)?
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
@@ -67,8 +67,8 @@ AssumptionResult:
 	'of' verificationActivity= [Verify::VerificationAssumption|QualifiedName]
 //	('for' target=[instance::InstanceObject|URIID])?
 	'['
-	('state'  state=VerificationResultState)?
-	('status'  status=VerificationResultStatus)? 
+	('state'  state=VerificationExecutionState)?
+	('status'  status=VerificationResult)? 
 	('weight' weight = INT)?
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
@@ -83,8 +83,8 @@ PreconditionResult:
 	'of' verificationActivity=[Verify::VerificationPrecondition|QualifiedName]
 //	('for' target=[instance::InstanceObject|URIID])?
 	'['
-	('state'  state=VerificationResultState)?
-	('status'  status=VerificationResultStatus)? 
+	('state'  state=VerificationExecutionState)?
+	('status'  status=VerificationResult)? // TODO change keyword to result
 	('weight' weight = INT)?
 	('successMsg' sucessMsg= MultiLineString)?
 	('failMsg' failMsg = MultiLineString)?
@@ -108,6 +108,7 @@ HazardResult:
 	('unknown' unknownCount=INT) 
 	('weight' weight = INT)?
 	(verificationResult+= VerificationResult)*
+	// TODO should be claim results
 	']'  
 ;
 
@@ -118,13 +119,13 @@ VerificationExpr returns VerificationResult:
 
 
 
-enum  VerificationResultState:
+enum  VerificationExecutionState:
 	TODO='todo'  // verification to be performed
 	| RUNNING='running' // verification in progress (background processing)
 	| REDO='redo' // invalidated while in progress. redo verification.
 	| COMPLETED='completed' // completed. verification result is valid
 ;
 
-enum VerificationResultStatus:
+enum VerificationResultState:
 	TBD='tbd' | SUCCESS='success' | FAIL='fail' | UNKNOWN='unknown' 
 ;

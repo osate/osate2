@@ -10,149 +10,149 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Verification Result Status</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Verification Execution State</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.osate.assure.assure.AssurePackage#getVerificationResultStatus()
+ * @see org.osate.assure.assure.AssurePackage#getVerificationExecutionState()
  * @model
  * @generated
  */
-public enum VerificationResultStatus implements Enumerator
+public enum VerificationExecutionState implements Enumerator
 {
   /**
-   * The '<em><b>TBD</b></em>' literal object.
+   * The '<em><b>TODO</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #TBD_VALUE
+   * @see #TODO_VALUE
    * @generated
    * @ordered
    */
-  TBD(0, "TBD", "tbd"),
+  TODO(0, "TODO", "todo"),
 
   /**
-   * The '<em><b>SUCCESS</b></em>' literal object.
+   * The '<em><b>RUNNING</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #SUCCESS_VALUE
+   * @see #RUNNING_VALUE
    * @generated
    * @ordered
    */
-  SUCCESS(1, "SUCCESS", "success"),
+  RUNNING(1, "RUNNING", "running"),
 
   /**
-   * The '<em><b>FAIL</b></em>' literal object.
+   * The '<em><b>REDO</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #FAIL_VALUE
+   * @see #REDO_VALUE
    * @generated
    * @ordered
    */
-  FAIL(2, "FAIL", "fail"),
+  REDO(2, "REDO", "redo"),
 
   /**
-   * The '<em><b>UNKNOWN</b></em>' literal object.
+   * The '<em><b>COMPLETED</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #UNKNOWN_VALUE
+   * @see #COMPLETED_VALUE
    * @generated
    * @ordered
    */
-  UNKNOWN(3, "UNKNOWN", "unknown");
+  COMPLETED(3, "COMPLETED", "completed");
 
   /**
-   * The '<em><b>TBD</b></em>' literal value.
+   * The '<em><b>TODO</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>TBD</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>TODO</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #TBD
-   * @model literal="tbd"
+   * @see #TODO
+   * @model literal="todo"
    * @generated
    * @ordered
    */
-  public static final int TBD_VALUE = 0;
+  public static final int TODO_VALUE = 0;
 
   /**
-   * The '<em><b>SUCCESS</b></em>' literal value.
+   * The '<em><b>RUNNING</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>SUCCESS</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>RUNNING</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #SUCCESS
-   * @model literal="success"
+   * @see #RUNNING
+   * @model literal="running"
    * @generated
    * @ordered
    */
-  public static final int SUCCESS_VALUE = 1;
+  public static final int RUNNING_VALUE = 1;
 
   /**
-   * The '<em><b>FAIL</b></em>' literal value.
+   * The '<em><b>REDO</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>FAIL</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>REDO</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #FAIL
-   * @model literal="fail"
+   * @see #REDO
+   * @model literal="redo"
    * @generated
    * @ordered
    */
-  public static final int FAIL_VALUE = 2;
+  public static final int REDO_VALUE = 2;
 
   /**
-   * The '<em><b>UNKNOWN</b></em>' literal value.
+   * The '<em><b>COMPLETED</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>UNKNOWN</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>COMPLETED</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #UNKNOWN
-   * @model literal="unknown"
+   * @see #COMPLETED
+   * @model literal="completed"
    * @generated
    * @ordered
    */
-  public static final int UNKNOWN_VALUE = 3;
+  public static final int COMPLETED_VALUE = 3;
 
   /**
-   * An array of all the '<em><b>Verification Result Status</b></em>' enumerators.
+   * An array of all the '<em><b>Verification Execution State</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private static final VerificationResultStatus[] VALUES_ARRAY =
-    new VerificationResultStatus[]
+  private static final VerificationExecutionState[] VALUES_ARRAY =
+    new VerificationExecutionState[]
     {
-      TBD,
-      SUCCESS,
-      FAIL,
-      UNKNOWN,
+      TODO,
+      RUNNING,
+      REDO,
+      COMPLETED,
     };
 
   /**
-   * A public read-only list of all the '<em><b>Verification Result Status</b></em>' enumerators.
+   * A public read-only list of all the '<em><b>Verification Execution State</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static final List<VerificationResultStatus> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+  public static final List<VerificationExecutionState> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Verification Result Status</b></em>' literal with the specified literal value.
+   * Returns the '<em><b>Verification Execution State</b></em>' literal with the specified literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static VerificationResultStatus get(String literal)
+  public static VerificationExecutionState get(String literal)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
     {
-      VerificationResultStatus result = VALUES_ARRAY[i];
+      VerificationExecutionState result = VALUES_ARRAY[i];
       if (result.toString().equals(literal))
       {
         return result;
@@ -162,16 +162,16 @@ public enum VerificationResultStatus implements Enumerator
   }
 
   /**
-   * Returns the '<em><b>Verification Result Status</b></em>' literal with the specified name.
+   * Returns the '<em><b>Verification Execution State</b></em>' literal with the specified name.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static VerificationResultStatus getByName(String name)
+  public static VerificationExecutionState getByName(String name)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
     {
-      VerificationResultStatus result = VALUES_ARRAY[i];
+      VerificationExecutionState result = VALUES_ARRAY[i];
       if (result.getName().equals(name))
       {
         return result;
@@ -181,19 +181,19 @@ public enum VerificationResultStatus implements Enumerator
   }
 
   /**
-   * Returns the '<em><b>Verification Result Status</b></em>' literal with the specified integer value.
+   * Returns the '<em><b>Verification Execution State</b></em>' literal with the specified integer value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static VerificationResultStatus get(int value)
+  public static VerificationExecutionState get(int value)
   {
     switch (value)
     {
-      case TBD_VALUE: return TBD;
-      case SUCCESS_VALUE: return SUCCESS;
-      case FAIL_VALUE: return FAIL;
-      case UNKNOWN_VALUE: return UNKNOWN;
+      case TODO_VALUE: return TODO;
+      case RUNNING_VALUE: return RUNNING;
+      case REDO_VALUE: return REDO;
+      case COMPLETED_VALUE: return COMPLETED;
     }
     return null;
   }
@@ -225,7 +225,7 @@ public enum VerificationResultStatus implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
-  private VerificationResultStatus(int value, String name, String literal)
+  private VerificationExecutionState(int value, String name, String literal)
   {
     this.value = value;
     this.name = name;
@@ -274,4 +274,4 @@ public enum VerificationResultStatus implements Enumerator
     return literal;
   }
   
-} //VerificationResultStatus
+} //VerificationExecutionState

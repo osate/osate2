@@ -21,6 +21,7 @@ import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.VerificationResult;
+import org.osate.assure.assure.VerificationResultState;
 
 import org.osate.verify.verify.VerificationActivity;
 
@@ -32,6 +33,7 @@ import org.osate.verify.verify.VerificationActivity;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getVerificationActivity <em>Verification Activity</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getAssumptionResult <em>Assumption Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getPreconditionResult <em>Precondition Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getFirst <em>First</em>}</li>
@@ -52,6 +54,26 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
    * @ordered
    */
   protected VerificationActivity verificationActivity;
+
+  /**
+   * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStatus()
+   * @generated
+   * @ordered
+   */
+  protected static final VerificationResultState STATUS_EDEFAULT = VerificationResultState.TBD;
+
+  /**
+   * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStatus()
+   * @generated
+   * @ordered
+   */
+  protected VerificationResultState status = STATUS_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getAssumptionResult() <em>Assumption Result</em>}' containment reference list.
@@ -162,6 +184,29 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
    * <!-- end-user-doc -->
    * @generated
    */
+  public VerificationResultState getStatus()
+  {
+    return status;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setStatus(VerificationResultState newStatus)
+  {
+    VerificationResultState oldStatus = status;
+    status = newStatus == null ? STATUS_EDEFAULT : newStatus;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__STATUS, oldStatus, status));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<AssumptionResult> getAssumptionResult()
   {
     if (assumptionResult == null)
@@ -248,6 +293,8 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
       case AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY:
         if (resolve) return getVerificationActivity();
         return basicGetVerificationActivity();
+      case AssurePackage.VERIFICATION_RESULT__STATUS:
+        return getStatus();
       case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
         return getAssumptionResult();
       case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
@@ -273,6 +320,9 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
     {
       case AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY:
         setVerificationActivity((VerificationActivity)newValue);
+        return;
+      case AssurePackage.VERIFICATION_RESULT__STATUS:
+        setStatus((VerificationResultState)newValue);
         return;
       case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
         getAssumptionResult().clear();
@@ -307,6 +357,9 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
       case AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY:
         setVerificationActivity((VerificationActivity)null);
         return;
+      case AssurePackage.VERIFICATION_RESULT__STATUS:
+        setStatus(STATUS_EDEFAULT);
+        return;
       case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
         getAssumptionResult().clear();
         return;
@@ -335,6 +388,8 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
     {
       case AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY:
         return verificationActivity != null;
+      case AssurePackage.VERIFICATION_RESULT__STATUS:
+        return status != STATUS_EDEFAULT;
       case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
         return assumptionResult != null && !assumptionResult.isEmpty();
       case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
@@ -345,6 +400,23 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
         return second != null && !second.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (status: ");
+    result.append(status);
+    result.append(')');
+    return result.toString();
   }
 
 } //VerificationResultImpl
