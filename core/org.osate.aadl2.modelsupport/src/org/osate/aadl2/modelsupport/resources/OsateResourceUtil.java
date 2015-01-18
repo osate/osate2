@@ -80,6 +80,10 @@ public class OsateResourceUtil {
 	private static XtextResourceSet resourceSet;
 
 	public static XtextResourceSet getResourceSet() {
+		if (OsateCorePlugin.getDefault() == null) {
+			return null;
+		}
+
 		if (injector == null) {
 			injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
 			if (injector == null) {
