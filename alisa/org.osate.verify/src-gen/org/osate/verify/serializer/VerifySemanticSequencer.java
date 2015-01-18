@@ -19,7 +19,6 @@ import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.PredicateExpression;
 import org.osate.alisa.common.common.ReferencePath;
-import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.verify.services.VerifyGrammarAccess;
 import org.osate.verify.verify.AllExpr;
@@ -36,9 +35,11 @@ import org.osate.verify.verify.VerificationAssumption;
 import org.osate.verify.verify.VerificationFolder;
 import org.osate.verify.verify.VerificationLibrary;
 import org.osate.verify.verify.VerificationMethod;
+import org.osate.verify.verify.VerificationMethodRegistry;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerificationPrecondition;
 import org.osate.verify.verify.VerifyPackage;
+import org.osate.verify.verify.WeightedClaim;
 
 @SuppressWarnings("all")
 public class VerifySemanticSequencer extends CommonSemanticSequencer {
@@ -81,12 +82,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.REFERENCE_PATH:
 				if(context == grammarAccess.getReferencePathRule()) {
 					sequence_ReferencePath(context, (ReferencePath) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.RESULT_ISSUE:
-				if(context == grammarAccess.getResultIssueRule()) {
-					sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 					return; 
 				}
 				else break;
@@ -214,6 +209,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case VerifyPackage.VERIFICATION_METHOD_REGISTRY:
+				if(context == grammarAccess.getVerificationMethodRegistryRule()) {
+					sequence_VerificationMethodRegistry(context, (VerificationMethodRegistry) semanticObject); 
+					return; 
+				}
+				else break;
 			case VerifyPackage.VERIFICATION_PLAN:
 				if(context == grammarAccess.getVerificationPlanRule()) {
 					sequence_VerificationPlan(context, (VerificationPlan) semanticObject); 
@@ -223,6 +224,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.VERIFICATION_PRECONDITION:
 				if(context == grammarAccess.getVerificationConditionRule()) {
 					sequence_VerificationCondition(context, (VerificationPrecondition) semanticObject); 
+					return; 
+				}
+				else break;
+			case VerifyPackage.WEIGHTED_CLAIM:
+				if(context == grammarAccess.getWeightedClaimRule()) {
+					sequence_WeightedClaim(context, (WeightedClaim) semanticObject); 
 					return; 
 				}
 				else break;
@@ -306,7 +313,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID requirement=[Requirement|QualifiedName] assert=ArgumentExpr rationale=MultiLineString? subclaims+=Claim*)
+	 *     (name=ID requirement=[Requirement|QualifiedName] assert=ArgumentExpr rationale=STRING? subclaim+=Claim*)
 	 */
 	protected void sequence_Claim(EObject context, Claim semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -370,11 +377,13 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[ComponentClassifier|AadlClassifierReference] 
+	 *         requirement=[Requirement|QualifiedName]? 
 	 *         title=ValueString? 
 	 *         description=Description? 
-	 *         category=[SelectionCategory|CatRef]? 
-	 *         method=[VerificationMethod|QualifiedName]?
+	 *         category+=[SelectionCategory|CatRef]* 
+	 *         method=[VerificationMethod|QualifiedName]? 
+	 *         timeout=INT? 
+	 *         rationale=STRING?
 	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
@@ -384,15 +393,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=ValueString? 
-	 *         description=Description? 
-	 *         assert=ArgumentExpr? 
-	 *         metBy=[Requirement|QualifiedName]? 
-	 *         rationale=MultiLineString? 
-	 *         (issue+=MultiLineString issue+=MultiLineString*)?
-	 *     )
+	 *     (name=ID title=ValueString? description=Description? assert=ArgumentExpr? rationale=STRING?)
 	 */
 	protected void sequence_VerificationCondition(EObject context, VerificationAssumption semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -401,15 +402,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=ValueString? 
-	 *         description=Description? 
-	 *         assert=ArgumentExpr? 
-	 *         metBy=[Requirement|QualifiedName]? 
-	 *         rationale=MultiLineString? 
-	 *         (issue+=MultiLineString issue+=MultiLineString*)?
-	 *     )
+	 *     (name=ID title=ValueString? description=Description? assert=ArgumentExpr? rationale=STRING?)
 	 */
 	protected void sequence_VerificationCondition(EObject context, VerificationPrecondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -418,7 +411,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID target=[Requirement|QualifiedName]? (content+=VerificationActivity | content+=VerificationMethod | content+=VerificationFolder)*)
+	 *     (label=ID (content+=VerificationActivity | content+=VerificationFolder)*)
 	 */
 	protected void sequence_VerificationFolder(EObject context, VerificationFolder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -429,9 +422,10 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[Requirement|QualifiedName]? 
-	 *         methodClasses+=QualifiedName* 
-	 *         (content+=VerificationActivity | content+=VerificationMethod | content+=VerificationFolder)*
+	 *         target=[ComponentClassifier|AadlClassifierReference]? 
+	 *         title=ValueString? 
+	 *         description=Description? 
+	 *         (content+=VerificationActivity | content+=VerificationFolder)*
 	 *     )
 	 */
 	protected void sequence_VerificationLibrary(EObject context, VerificationLibrary semanticObject) {
@@ -441,11 +435,20 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (name=ID title=ValueString? description=Description? methods+=VerificationMethod*)
+	 */
+	protected void sequence_VerificationMethodRegistry(EObject context, VerificationMethodRegistry semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         title=ValueString? 
 	 *         methodType=SupportedTypes 
 	 *         method=QualifiedName 
+	 *         title=ValueString? 
 	 *         description=Description? 
 	 *         category=[VerificationCategory|CatRef]? 
 	 *         conditions+=VerificationCondition*
@@ -458,7 +461,15 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID target=[ComponentClassifier|AadlClassifierReference] description=STRING? claims+=Claim*)
+	 *     (
+	 *         name=ID 
+	 *         target=[ComponentClassifier|AadlClassifierReference] 
+	 *         title=ValueString? 
+	 *         description=Description? 
+	 *         claim+=Claim* 
+	 *         weightedClaim+=WeightedClaim? 
+	 *         rationale=STRING?
+	 *     )
 	 */
 	protected void sequence_VerificationPlan(EObject context, VerificationPlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -467,9 +478,18 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (contents+=VerificationLibrary | contents+=VerificationPlan)
+	 *     (contents+=VerificationLibrary | contents+=VerificationPlan | contents+=VerificationMethodRegistry)
 	 */
 	protected void sequence_Verification(EObject context, Verification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (claim=[Claim|QualifiedName] weight=INT?)
+	 */
+	protected void sequence_WeightedClaim(EObject context, WeightedClaim semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

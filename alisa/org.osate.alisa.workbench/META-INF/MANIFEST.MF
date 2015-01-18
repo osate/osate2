@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.reqspec;bundle-version="1.0.0",
  org.osate.verify;bundle-version="1.0.0",
  org.osate.alisa.common;bundle-version="1.0.0";visibility:=reexport,
- org.osate.aadl2.instantiation;bundle-version="1.0.0"
+ org.osate.aadl2.instantiation;bundle-version="1.0.0",
+ org.osate.categories;bundle-version="1.0.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.alisa.workbench,

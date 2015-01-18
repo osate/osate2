@@ -1,152 +1,140 @@
 grammar org.osate.verify.Verify with org.osate.alisa.common.Common
 
 generate verify "http://www.osate.org/verify/Verify"
-
 import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
-import  "http://www.osate.org/categories/Categories" as categories
+import "http://www.osate.org/categories/Categories" as categories
 
+Verification:
+	contents+=(VerificationLibrary | VerificationPlan | VerificationMethodRegistry);
 
-Verification: contents+=(VerificationLibrary | VerificationPlan );
-
-// plan for a classifier. WIll add import to allow for non-qualified requirement references
+	// plan for a classifier. Will add import to allow for non-qualified requirement references
 // Also allows for cross checking that we have covered requirements with claims
-VerificationPlan :
-	'plan' name=ID 
-	'for' target=  [aadl2::ComponentClassifier|AadlClassifierReference]  //      [ReqSpec::SystemSpec|QualifiedName]
+VerificationPlan:
+	'plan' name=ID
+	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
-	('description' description=STRING)?
-	(claims+=Claim)*
-//	subPlans +=VerificationPlan*
-	']'
-;
-
-// TODO weighted claim
-
-VerificationLibrary returns VerificationLibrary:
-	'library' name =ID 
-	('for' target=[ReqSpec::Requirement|QualifiedName])?
-	'[' 
-	( 'class' methodClasses+=QualifiedName+)?
-	(content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
-	']'
-	;
-
-VerificationFolder returns VerificationFolder:
-	'folder' label =ID 
-	('for' target=[ReqSpec::Requirement|QualifiedName])?
-	'[' (content+= ( VerificationActivity | VerificationMethod | VerificationFolder))*
-	']'
-	;
- VerificationContainer : VerificationLibrary | VerificationFolder;
-
-// TODO weights on claims, timeout condition on verification activity
- Claim :
- 	'claim' name=ID 'for' requirement=[ReqSpec::Requirement|QualifiedName] 
- 	'assert' assert=ArgumentExpr
-	('rationale'  rationale=MultiLineString)? 
-	('[' (subclaims+=Claim)* ']')?
- 	;	
-
-VerificationActivity:
-	'activity' name=ID 'for' target=[aadl2::ComponentClassifier|AadlClassifierReference]
-	// or should it be the requirement, which provides the predicate
-	'['(('title'  title=ValueString)?
-	&('description'  description=Description)?
- 	&('category'  category=[categories::SelectionCategory|CatRef])?
-	&('method'  method=[VerificationMethod|QualifiedName])?
-//	('parameters'  verificationParameters+=([ElementReference])*)? 
-// these are data parameters to the method in addition to what comes with the model
-// and via the requirement (predicate/limit values
-	)
-	']'  
-;
- 
-
-VerificationCondition:
-	('assumption' {VerificationAssumption}| 'precondition' {VerificationPrecondition} )name=ID  
-	'['( 
-	('title'  title=ValueString)? 
-	&('description'  description=Description)? 
-	 &('assert'  assert=ArgumentExpr )? 
-	&('met' 'by' metBy=[ReqSpec::Requirement|QualifiedName])?
-	&('rationale'  rationale=MultiLineString)? 
-	&('issues'  issue+=MultiLineString (','issue+=MultiLineString)* )? 
+	(('title' title=ValueString)?
+	& ('description' description=Description)?
+	& claim+=Claim*
+	& (weightedClaim+=WeightedClaim+)?
+	& ('rationale' rationale=STRING)?
 	)
 	']';
-  	
 
+Claim:
+	'claim' name=ID 'for' requirement=[ReqSpec::Requirement|QualifiedName]
+	'['
+	('assert' assert=ArgumentExpr
+	& ('rationale' rationale=STRING)?
+	& (subclaim+=Claim)*)
+	']';
+
+WeightedClaim:
+	'weights' claim=[Claim|QualifiedName] ('(' weight=INT ')')?;
+
+VerificationLibrary returns VerificationLibrary:
+	'library' name=ID
+	('for' target=[aadl2::ComponentClassifier|AadlClassifierReference])?
+	'['
+	(('title' title=ValueString)?
+	& ('description' description=Description)?
+	&(content+=(VerificationActivity |  VerificationFolder))*
+	)
+	']';
+
+VerificationFolder returns VerificationFolder:
+	'folder' label=ID
+	'[' (content+=(VerificationActivity | VerificationFolder))*
+	']';
+
+VerificationContainer:
+	VerificationLibrary | VerificationFolder;
+
+VerificationActivity:
+	'activity' name=ID 'for' (requirement=[ReqSpec::Requirement|QualifiedName] )?
+	// or should it be the requirement, which provides the predicate
+	'[' (('title' title=ValueString)?
+	&('description' description=Description)?
+	&('category' category+=[categories::SelectionCategory|CatRef]+)?
+	&('method' method=[VerificationMethod|QualifiedName])?
+	&('timeout' timeout=INT)?
+	//	('parameters'  verificationParameters+=([ElementReference])*)? 
+	// these are data parameters to the method in addition to what comes with the model
+	// and via the requirement (predicate/limit values
+	&('rationale' rationale=STRING)?
+)
+	']';
+
+VerificationCondition:
+	('assumption' {VerificationAssumption} | 'precondition' {VerificationPrecondition}) name=ID
+	'[' (
+		('title' title=ValueString)?
+	& ('description' description=Description)?
+	& ('assert' assert=ArgumentExpr)?
+	& ('rationale' rationale=STRING)?
+	)
+	']';
 
 ArgumentExpr:
-	AllEvidenceExpr
-;
-
+	AllEvidenceExpr;
 
 AllEvidenceExpr returns ArgumentExpr:
-	'all'{AllExpr} '[' all+=AndThenEvidenceExpr ( ',' all+=AndThenEvidenceExpr)* ']'
-;
+	'all' {AllExpr} '[' all+=AndThenEvidenceExpr (',' all+=AndThenEvidenceExpr)* ']';
 
 AndThenEvidenceExpr returns ArgumentExpr:
-	FailThenEvidenceExpr (=>({AndThenExpr.left=current} op='andthen') right=AndThenEvidenceExpr)*
-;
+	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} op='andthen') right=AndThenEvidenceExpr)*;
 
-// Execute as alternative if the first one fails.
+	// Execute as alternative if the first one fails.
 // The results of both are reported
 FailThenEvidenceExpr returns ArgumentExpr:
-	AtomicEvidenceExpr (=>({FailThenExpr.left=current} op='failthen') right=FailThenEvidenceExpr)*
-;
+	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} op='failthen') right=FailThenEvidenceExpr)*;
 
 AtomicEvidenceExpr returns ArgumentExpr:
 	ConditionalEvidence
-	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr 
-;
-
+	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr;
 
 ConditionalEvidence returns ArgumentExpr:
-	VAReference (=>({ConditionalExpr.verification=current} op='when')  condition=OrConditionExpr )?
-;
-
+	VAReference (=> ({ConditionalExpr.verification=current} op='when') condition=OrConditionExpr)?;
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]
-	('weight' weight=INT )?
-;
-
+	('(' weight=INT ')')?;
 
 OrConditionExpr returns ConditionExpr:
-		AndConditionExpr (=>({ConditionExpr.left=current} op='or') right=AndConditionExpr)*
-;
+	AndConditionExpr (=> ({ConditionExpr.left=current} op='or') right=AndConditionExpr)*;
 
 AndConditionExpr returns ConditionExpr:
-	AtomicConditionExpr (=>({ConditionExpr.left=current} op='and') right=AtomicConditionExpr)*
-;
+	AtomicConditionExpr (=> ({ConditionExpr.left=current} op='and') right=AtomicConditionExpr)*;
 
 AtomicConditionExpr:
-	cat=[categories::VerificationCategory|CatRef]
-;
+	cat=[categories::VerificationCategory|CatRef];
 
-
-// need to distinguish between method with/out predicate
+	// need to distinguish between method with/out predicate
 // method producing multiple results
 // Java based methods: all
 // interface methods to external or built-in
-
+VerificationMethodRegistry returns VerificationMethodRegistry:
+	'registry' name=ID
+	'[' (
+		('title' title=ValueString)?
+	& ('description' description=Description)?
+	& methods+=VerificationMethod*)
+	']';
 
 VerificationMethod:
-	'method' name=ID (':'  title=ValueString)?
+	'method' name=ID
 	'['
- 	 methodType=SupportedTypes method = QualifiedName
- 	 // parameters (in addition to the model element
-	(('description'  description=Description)?
- 	&('category'  category=[categories::VerificationCategory|CatRef])?
-	&(conditions+=VerificationCondition)*
- 	)
- 	']'
-;
+	methodType=SupportedTypes method=QualifiedName
+	// parameters (in addition to the model element
+	(
+		('title' title=ValueString)?
+	& ('description' description=Description)?
+	& ('category' category=[categories::VerificationCategory|CatRef])?
+	& (conditions+=VerificationCondition)*
+	)
+	']';
 
-enum SupportedTypes	:
-	SINGLEPREDICATE = "singlepredicate" | SINGLEANALYSIS = "singleanalysis" |
-	MULTIPREDICATE = "multipredicate" | MULTIANALYSIS = "multianalysis" 
-	
-//	XTEND = "Xtend" | LUTE = "lute" | AGREE= "agree" 
-;
+enum SupportedTypes:
+	SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" |
+	MULTIPREDICATE="multipredicate" | MULTIANALYSIS="multianalysis";

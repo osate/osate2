@@ -17,11 +17,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.instance.InstanceObject;
-
 import org.osate.assure.assure.AssurePackage;
+import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.HazardResult;
-import org.osate.assure.assure.VerificationResult;
 
 import org.osate.reqspec.reqSpec.Hazard;
 
@@ -32,30 +30,16 @@ import org.osate.reqspec.reqSpec.Hazard;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getHazard <em>Hazard</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getPassCount <em>Pass Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getNeutralCount <em>Neutral Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getUnknownCount <em>Unknown Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getVerificationResult <em>Verification Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.HazardResultImpl#getClaimResult <em>Claim Result</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class HazardResultImpl extends AssuranceResultImpl implements HazardResult
+public class HazardResultImpl extends AggregateResultImpl implements HazardResult
 {
-  /**
-   * The cached value of the '{@link #getHazard() <em>Hazard</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getHazard()
-   * @generated
-   * @ordered
-   */
-  protected Hazard hazard;
-
   /**
    * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
@@ -64,7 +48,7 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
    * @generated
    * @ordered
    */
-  protected InstanceObject target;
+  protected Hazard target;
 
   /**
    * The default value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
@@ -87,74 +71,14 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
   protected int passCount = PASS_COUNT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
+   * The cached value of the '{@link #getClaimResult() <em>Claim Result</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFailCount()
+   * @see #getClaimResult()
    * @generated
    * @ordered
    */
-  protected static final int FAIL_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailCount()
-   * @generated
-   * @ordered
-   */
-  protected int failCount = FAIL_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getNeutralCount() <em>Neutral Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNeutralCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int NEUTRAL_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getNeutralCount() <em>Neutral Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNeutralCount()
-   * @generated
-   * @ordered
-   */
-  protected int neutralCount = NEUTRAL_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnknownCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int UNKNOWN_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnknownCount()
-   * @generated
-   * @ordered
-   */
-  protected int unknownCount = UNKNOWN_COUNT_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getVerificationResult() <em>Verification Result</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVerificationResult()
-   * @generated
-   * @ordered
-   */
-  protected EList<VerificationResult> verificationResult;
+  protected EList<ClaimResult> claimResult;
 
   /**
    * <!-- begin-user-doc -->
@@ -182,55 +106,12 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
    * <!-- end-user-doc -->
    * @generated
    */
-  public Hazard getHazard()
-  {
-    if (hazard != null && hazard.eIsProxy())
-    {
-      InternalEObject oldHazard = (InternalEObject)hazard;
-      hazard = (Hazard)eResolveProxy(oldHazard);
-      if (hazard != oldHazard)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.HAZARD_RESULT__HAZARD, oldHazard, hazard));
-      }
-    }
-    return hazard;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Hazard basicGetHazard()
-  {
-    return hazard;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setHazard(Hazard newHazard)
-  {
-    Hazard oldHazard = hazard;
-    hazard = newHazard;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.HAZARD_RESULT__HAZARD, oldHazard, hazard));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public InstanceObject getTarget()
+  public Hazard getTarget()
   {
     if (target != null && target.eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (InstanceObject)eResolveProxy(oldTarget);
+      target = (Hazard)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
@@ -245,7 +126,7 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceObject basicGetTarget()
+  public Hazard basicGetTarget()
   {
     return target;
   }
@@ -255,9 +136,9 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(InstanceObject newTarget)
+  public void setTarget(Hazard newTarget)
   {
-    InstanceObject oldTarget = target;
+    Hazard oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.HAZARD_RESULT__TARGET, oldTarget, target));
@@ -291,82 +172,13 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getFailCount()
+  public EList<ClaimResult> getClaimResult()
   {
-    return failCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setFailCount(int newFailCount)
-  {
-    int oldFailCount = failCount;
-    failCount = newFailCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.HAZARD_RESULT__FAIL_COUNT, oldFailCount, failCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getNeutralCount()
-  {
-    return neutralCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setNeutralCount(int newNeutralCount)
-  {
-    int oldNeutralCount = neutralCount;
-    neutralCount = newNeutralCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.HAZARD_RESULT__NEUTRAL_COUNT, oldNeutralCount, neutralCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getUnknownCount()
-  {
-    return unknownCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setUnknownCount(int newUnknownCount)
-  {
-    int oldUnknownCount = unknownCount;
-    unknownCount = newUnknownCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.HAZARD_RESULT__UNKNOWN_COUNT, oldUnknownCount, unknownCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<VerificationResult> getVerificationResult()
-  {
-    if (verificationResult == null)
+    if (claimResult == null)
     {
-      verificationResult = new EObjectContainmentEList<VerificationResult>(VerificationResult.class, this, AssurePackage.HAZARD_RESULT__VERIFICATION_RESULT);
+      claimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.HAZARD_RESULT__CLAIM_RESULT);
     }
-    return verificationResult;
+    return claimResult;
   }
 
   /**
@@ -379,8 +191,8 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
   {
     switch (featureID)
     {
-      case AssurePackage.HAZARD_RESULT__VERIFICATION_RESULT:
-        return ((InternalEList<?>)getVerificationResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.HAZARD_RESULT__CLAIM_RESULT:
+        return ((InternalEList<?>)getClaimResult()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -395,22 +207,13 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
   {
     switch (featureID)
     {
-      case AssurePackage.HAZARD_RESULT__HAZARD:
-        if (resolve) return getHazard();
-        return basicGetHazard();
       case AssurePackage.HAZARD_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
       case AssurePackage.HAZARD_RESULT__PASS_COUNT:
         return getPassCount();
-      case AssurePackage.HAZARD_RESULT__FAIL_COUNT:
-        return getFailCount();
-      case AssurePackage.HAZARD_RESULT__NEUTRAL_COUNT:
-        return getNeutralCount();
-      case AssurePackage.HAZARD_RESULT__UNKNOWN_COUNT:
-        return getUnknownCount();
-      case AssurePackage.HAZARD_RESULT__VERIFICATION_RESULT:
-        return getVerificationResult();
+      case AssurePackage.HAZARD_RESULT__CLAIM_RESULT:
+        return getClaimResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -426,27 +229,15 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
   {
     switch (featureID)
     {
-      case AssurePackage.HAZARD_RESULT__HAZARD:
-        setHazard((Hazard)newValue);
-        return;
       case AssurePackage.HAZARD_RESULT__TARGET:
-        setTarget((InstanceObject)newValue);
+        setTarget((Hazard)newValue);
         return;
       case AssurePackage.HAZARD_RESULT__PASS_COUNT:
         setPassCount((Integer)newValue);
         return;
-      case AssurePackage.HAZARD_RESULT__FAIL_COUNT:
-        setFailCount((Integer)newValue);
-        return;
-      case AssurePackage.HAZARD_RESULT__NEUTRAL_COUNT:
-        setNeutralCount((Integer)newValue);
-        return;
-      case AssurePackage.HAZARD_RESULT__UNKNOWN_COUNT:
-        setUnknownCount((Integer)newValue);
-        return;
-      case AssurePackage.HAZARD_RESULT__VERIFICATION_RESULT:
-        getVerificationResult().clear();
-        getVerificationResult().addAll((Collection<? extends VerificationResult>)newValue);
+      case AssurePackage.HAZARD_RESULT__CLAIM_RESULT:
+        getClaimResult().clear();
+        getClaimResult().addAll((Collection<? extends ClaimResult>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -462,26 +253,14 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
   {
     switch (featureID)
     {
-      case AssurePackage.HAZARD_RESULT__HAZARD:
-        setHazard((Hazard)null);
-        return;
       case AssurePackage.HAZARD_RESULT__TARGET:
-        setTarget((InstanceObject)null);
+        setTarget((Hazard)null);
         return;
       case AssurePackage.HAZARD_RESULT__PASS_COUNT:
         setPassCount(PASS_COUNT_EDEFAULT);
         return;
-      case AssurePackage.HAZARD_RESULT__FAIL_COUNT:
-        setFailCount(FAIL_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.HAZARD_RESULT__NEUTRAL_COUNT:
-        setNeutralCount(NEUTRAL_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.HAZARD_RESULT__UNKNOWN_COUNT:
-        setUnknownCount(UNKNOWN_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.HAZARD_RESULT__VERIFICATION_RESULT:
-        getVerificationResult().clear();
+      case AssurePackage.HAZARD_RESULT__CLAIM_RESULT:
+        getClaimResult().clear();
         return;
     }
     super.eUnset(featureID);
@@ -497,20 +276,12 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
   {
     switch (featureID)
     {
-      case AssurePackage.HAZARD_RESULT__HAZARD:
-        return hazard != null;
       case AssurePackage.HAZARD_RESULT__TARGET:
         return target != null;
       case AssurePackage.HAZARD_RESULT__PASS_COUNT:
         return passCount != PASS_COUNT_EDEFAULT;
-      case AssurePackage.HAZARD_RESULT__FAIL_COUNT:
-        return failCount != FAIL_COUNT_EDEFAULT;
-      case AssurePackage.HAZARD_RESULT__NEUTRAL_COUNT:
-        return neutralCount != NEUTRAL_COUNT_EDEFAULT;
-      case AssurePackage.HAZARD_RESULT__UNKNOWN_COUNT:
-        return unknownCount != UNKNOWN_COUNT_EDEFAULT;
-      case AssurePackage.HAZARD_RESULT__VERIFICATION_RESULT:
-        return verificationResult != null && !verificationResult.isEmpty();
+      case AssurePackage.HAZARD_RESULT__CLAIM_RESULT:
+        return claimResult != null && !claimResult.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -528,12 +299,6 @@ public class HazardResultImpl extends AssuranceResultImpl implements HazardResul
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (passCount: ");
     result.append(passCount);
-    result.append(", failCount: ");
-    result.append(failCount);
-    result.append(", neutralCount: ");
-    result.append(neutralCount);
-    result.append(", unknownCount: ");
-    result.append(unknownCount);
     result.append(')');
     return result.toString();
   }

@@ -16,14 +16,9 @@ import org.osate.aadl2.instance.InstanceObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.assure.assure.CaseResult#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.CaseResult#getInstanceURI <em>Instance URI</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getPassCount <em>Pass Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.CaseResult#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.CaseResult#getNeutralCount <em>Neutral Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.CaseResult#getUnknownCount <em>Unknown Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.CaseResult#getSucessMsg <em>Sucess Msg</em>}</li>
- *   <li>{@link org.osate.assure.assure.CaseResult#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getSubCaseResult <em>Sub Case Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getClaimResult <em>Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getHazardResult <em>Hazard Result</em>}</li>
@@ -34,34 +29,8 @@ import org.osate.aadl2.instance.InstanceObject;
  * @model
  * @generated
  */
-public interface CaseResult extends AssuranceResult
+public interface CaseResult extends AggregateResult
 {
-  /**
-   * Returns the value of the '<em><b>System</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>System</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>System</em>' reference.
-   * @see #setSystem(Classifier)
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_System()
-   * @model
-   * @generated
-   */
-  Classifier getSystem();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getSystem <em>System</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>System</em>' reference.
-   * @see #getSystem()
-   * @generated
-   */
-  void setSystem(Classifier value);
-
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
@@ -71,12 +40,12 @@ public interface CaseResult extends AssuranceResult
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(InstanceObject)
+   * @see #setTarget(Classifier)
    * @see org.osate.assure.assure.AssurePackage#getCaseResult_Target()
    * @model
    * @generated
    */
-  InstanceObject getTarget();
+  Classifier getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getTarget <em>Target</em>}' reference.
@@ -86,7 +55,33 @@ public interface CaseResult extends AssuranceResult
    * @see #getTarget()
    * @generated
    */
-  void setTarget(InstanceObject value);
+  void setTarget(Classifier value);
+
+  /**
+   * Returns the value of the '<em><b>Instance URI</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Instance URI</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Instance URI</em>' reference.
+   * @see #setInstanceURI(InstanceObject)
+   * @see org.osate.assure.assure.AssurePackage#getCaseResult_InstanceURI()
+   * @model
+   * @generated
+   */
+  InstanceObject getInstanceURI();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getInstanceURI <em>Instance URI</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Instance URI</em>' reference.
+   * @see #getInstanceURI()
+   * @generated
+   */
+  void setInstanceURI(InstanceObject value);
 
   /**
    * Returns the value of the '<em><b>Pass Count</b></em>' attribute.
@@ -113,136 +108,6 @@ public interface CaseResult extends AssuranceResult
    * @generated
    */
   void setPassCount(int value);
-
-  /**
-   * Returns the value of the '<em><b>Fail Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Fail Count</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Fail Count</em>' attribute.
-   * @see #setFailCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_FailCount()
-   * @model
-   * @generated
-   */
-  int getFailCount();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getFailCount <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Fail Count</em>' attribute.
-   * @see #getFailCount()
-   * @generated
-   */
-  void setFailCount(int value);
-
-  /**
-   * Returns the value of the '<em><b>Neutral Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Neutral Count</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Neutral Count</em>' attribute.
-   * @see #setNeutralCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_NeutralCount()
-   * @model
-   * @generated
-   */
-  int getNeutralCount();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getNeutralCount <em>Neutral Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Neutral Count</em>' attribute.
-   * @see #getNeutralCount()
-   * @generated
-   */
-  void setNeutralCount(int value);
-
-  /**
-   * Returns the value of the '<em><b>Unknown Count</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Unknown Count</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Unknown Count</em>' attribute.
-   * @see #setUnknownCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_UnknownCount()
-   * @model
-   * @generated
-   */
-  int getUnknownCount();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getUnknownCount <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Unknown Count</em>' attribute.
-   * @see #getUnknownCount()
-   * @generated
-   */
-  void setUnknownCount(int value);
-
-  /**
-   * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Sucess Msg</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Sucess Msg</em>' attribute.
-   * @see #setSucessMsg(String)
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_SucessMsg()
-   * @model
-   * @generated
-   */
-  String getSucessMsg();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getSucessMsg <em>Sucess Msg</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Sucess Msg</em>' attribute.
-   * @see #getSucessMsg()
-   * @generated
-   */
-  void setSucessMsg(String value);
-
-  /**
-   * Returns the value of the '<em><b>Fail Msg</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Fail Msg</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Fail Msg</em>' attribute.
-   * @see #setFailMsg(String)
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_FailMsg()
-   * @model
-   * @generated
-   */
-  String getFailMsg();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getFailMsg <em>Fail Msg</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Fail Msg</em>' attribute.
-   * @see #getFailMsg()
-   * @generated
-   */
-  void setFailMsg(String value);
 
   /**
    * Returns the value of the '<em><b>Sub Case Result</b></em>' containment reference list.

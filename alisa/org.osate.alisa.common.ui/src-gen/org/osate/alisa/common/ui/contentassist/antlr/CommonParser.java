@@ -39,13 +39,10 @@ public class CommonParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAlternatives_1_0(), "rule__PredicateExpression__OpAlternatives_1_0");
-					put(grammarAccess.getIssueTypeAccess().getAlternatives(), "rule__IssueType__Alternatives");
 					put(grammarAccess.getReferencePathAccess().getGroup(), "rule__ReferencePath__Group__0");
 					put(grammarAccess.getReferencePathAccess().getGroup_1(), "rule__ReferencePath__Group_1__0");
 					put(grammarAccess.getPredicateExpressionAccess().getGroup(), "rule__PredicateExpression__Group__0");
 					put(grammarAccess.getFinalValueAccess().getGroup(), "rule__FinalValue__Group__0");
-					put(grammarAccess.getResultIssueAccess().getGroup(), "rule__ResultIssue__Group__0");
-					put(grammarAccess.getMultiLineStringAccess().getGroup(), "rule__MultiLineString__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_0(), "rule__AadlClassifierReference__Group_0__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
@@ -60,8 +57,6 @@ public class CommonParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPredicateExpressionAccess().getOpAssignment_1(), "rule__PredicateExpression__OpAssignment_1");
 					put(grammarAccess.getFinalValueAccess().getNameAssignment_0(), "rule__FinalValue__NameAssignment_0");
 					put(grammarAccess.getFinalValueAccess().getValueAssignment_2(), "rule__FinalValue__ValueAssignment_2");
-					put(grammarAccess.getResultIssueAccess().getTypeAssignment_0(), "rule__ResultIssue__TypeAssignment_0");
-					put(grammarAccess.getResultIssueAccess().getMsgAssignment_1(), "rule__ResultIssue__MsgAssignment_1");
 				}
 			};
 		}

@@ -3,7 +3,6 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 generate categories "http://www.osate.org/categories/Categories"
 
 Categories : RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories
-	| AssertFailCategories |ExecutionFailCategories
 ;
 /**
  * requirement categories uses a label instead of name to make the category itself global
@@ -14,7 +13,6 @@ RequirementCategories :
 	']'
 ;
 
-// TODO Success categories, failure categories, unknown result categories
 HazardCategories :
 	'hazard' 'categories' 
 	'[' category += HazardCategory+
@@ -33,17 +31,6 @@ SelectionCategories :
 	']'
 ;
 
-AssertFailCategories :
-	'assertfail' 'categories' 
-	'[' category += AssertFailCategory+
-	']'
-;
-
-ExecutionFailCategories :
-	'executionfail' 'categories' 
-	'[' category += ExecutionFailCategory+
-	']'
-;
 
 Category : RequirementCategory | VerificationCategory | HazardCategory | SelectionCategory;
 
@@ -77,19 +64,6 @@ SelectionCategory :
 	name = ID ('extends' extends=[SelectionCategory|CatRef])? 
 ;
 
-/**
- * assertfail category indicates the type of failing assertion
- */
- 
-AssertFailCategory :
-	name = ID ('extends' extends=[AssertFailCategory|CatRef])? 
-;
-/**
- * executionfail category indicates the type of failure to complete execution of a verification activity
- */
-ExecutionFailCategory :
-	name = ID ('extends' extends=[ExecutionFailCategory|CatRef])? 
-;
 
 // Category reference. Currently it is only a single ID
 CatRef:

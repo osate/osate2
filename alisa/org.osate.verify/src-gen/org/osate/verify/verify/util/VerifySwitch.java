@@ -86,6 +86,20 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.CLAIM:
+      {
+        Claim claim = (Claim)theEObject;
+        T result = caseClaim(claim);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.WEIGHTED_CLAIM:
+      {
+        WeightedClaim weightedClaim = (WeightedClaim)theEObject;
+        T result = caseWeightedClaim(weightedClaim);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.VERIFICATION_LIBRARY:
       {
         VerificationLibrary verificationLibrary = (VerificationLibrary)theEObject;
@@ -106,13 +120,6 @@ public class VerifySwitch<T> extends Switch<T>
       {
         VerificationContainer verificationContainer = (VerificationContainer)theEObject;
         T result = caseVerificationContainer(verificationContainer);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.CLAIM:
-      {
-        Claim claim = (Claim)theEObject;
-        T result = caseClaim(claim);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -149,6 +156,13 @@ public class VerifySwitch<T> extends Switch<T>
         AtomicConditionExpr atomicConditionExpr = (AtomicConditionExpr)theEObject;
         T result = caseAtomicConditionExpr(atomicConditionExpr);
         if (result == null) result = caseConditionExpr(atomicConditionExpr);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.VERIFICATION_METHOD_REGISTRY:
+      {
+        VerificationMethodRegistry verificationMethodRegistry = (VerificationMethodRegistry)theEObject;
+        T result = caseVerificationMethodRegistry(verificationMethodRegistry);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -252,6 +266,38 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Claim</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Claim</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseClaim(Claim object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Weighted Claim</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Weighted Claim</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseWeightedClaim(WeightedClaim object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Verification Library</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -295,22 +341,6 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVerificationContainer(VerificationContainer object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Claim</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Claim</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseClaim(Claim object)
   {
     return null;
   }
@@ -391,6 +421,22 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAtomicConditionExpr(AtomicConditionExpr object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Verification Method Registry</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Verification Method Registry</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVerificationMethodRegistry(VerificationMethodRegistry object)
   {
     return null;
   }

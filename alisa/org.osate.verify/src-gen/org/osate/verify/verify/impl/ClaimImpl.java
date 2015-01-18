@@ -35,7 +35,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRationale <em>Rationale</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getSubclaims <em>Subclaims</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getSubclaim <em>Subclaim</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,14 +104,14 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   protected String rationale = RATIONALE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSubclaims() <em>Subclaims</em>}' containment reference list.
+   * The cached value of the '{@link #getSubclaim() <em>Subclaim</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSubclaims()
+   * @see #getSubclaim()
    * @generated
    * @ordered
    */
-  protected EList<Claim> subclaims;
+  protected EList<Claim> subclaim;
 
   /**
    * <!-- begin-user-doc -->
@@ -276,13 +276,13 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Claim> getSubclaims()
+  public EList<Claim> getSubclaim()
   {
-    if (subclaims == null)
+    if (subclaim == null)
     {
-      subclaims = new EObjectContainmentEList<Claim>(Claim.class, this, VerifyPackage.CLAIM__SUBCLAIMS);
+      subclaim = new EObjectContainmentEList<Claim>(Claim.class, this, VerifyPackage.CLAIM__SUBCLAIM);
     }
-    return subclaims;
+    return subclaim;
   }
 
   /**
@@ -297,8 +297,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     {
       case VerifyPackage.CLAIM__ASSERT:
         return basicSetAssert(null, msgs);
-      case VerifyPackage.CLAIM__SUBCLAIMS:
-        return ((InternalEList<?>)getSubclaims()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.CLAIM__SUBCLAIM:
+        return ((InternalEList<?>)getSubclaim()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -322,8 +322,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return getAssert();
       case VerifyPackage.CLAIM__RATIONALE:
         return getRationale();
-      case VerifyPackage.CLAIM__SUBCLAIMS:
-        return getSubclaims();
+      case VerifyPackage.CLAIM__SUBCLAIM:
+        return getSubclaim();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -351,9 +351,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__RATIONALE:
         setRationale((String)newValue);
         return;
-      case VerifyPackage.CLAIM__SUBCLAIMS:
-        getSubclaims().clear();
-        getSubclaims().addAll((Collection<? extends Claim>)newValue);
+      case VerifyPackage.CLAIM__SUBCLAIM:
+        getSubclaim().clear();
+        getSubclaim().addAll((Collection<? extends Claim>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -381,8 +381,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__RATIONALE:
         setRationale(RATIONALE_EDEFAULT);
         return;
-      case VerifyPackage.CLAIM__SUBCLAIMS:
-        getSubclaims().clear();
+      case VerifyPackage.CLAIM__SUBCLAIM:
+        getSubclaim().clear();
         return;
     }
     super.eUnset(featureID);
@@ -406,8 +406,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return assert_ != null;
       case VerifyPackage.CLAIM__RATIONALE:
         return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
-      case VerifyPackage.CLAIM__SUBCLAIMS:
-        return subclaims != null && !subclaims.isEmpty();
+      case VerifyPackage.CLAIM__SUBCLAIM:
+        return subclaim != null && !subclaim.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -20,7 +20,6 @@ import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.PredicateExpression;
 import org.osate.alisa.common.common.ReferencePath;
-import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.services.CommonGrammarAccess;
 
 @SuppressWarnings("all")
@@ -64,12 +63,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 			case CommonPackage.REFERENCE_PATH:
 				if(context == grammarAccess.getReferencePathRule()) {
 					sequence_ReferencePath(context, (ReferencePath) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.RESULT_ISSUE:
-				if(context == grammarAccess.getResultIssueRule()) {
-					sequence_ResultIssue(context, (ResultIssue) semanticObject); 
 					return; 
 				}
 				else break;
@@ -161,25 +154,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getReferencePathAccess().getRefEObjectIDTerminalRuleCall_0_0_1(), semanticObject.getRef());
 		feeder.accept(grammarAccess.getReferencePathAccess().getSubpathReferencePathParserRuleCall_1_1_0(), semanticObject.getSubpath());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (type=IssueType msg=MultiLineString)
-	 */
-	protected void sequence_ResultIssue(EObject context, ResultIssue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.RESULT_ISSUE__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.RESULT_ISSUE__TYPE));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.RESULT_ISSUE__MSG) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.RESULT_ISSUE__MSG));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getResultIssueAccess().getTypeIssueTypeEnumRuleCall_0_0(), semanticObject.getType());
-		feeder.accept(grammarAccess.getResultIssueAccess().getMsgMultiLineStringParserRuleCall_1_0(), semanticObject.getMsg());
 		feeder.finish();
 	}
 }

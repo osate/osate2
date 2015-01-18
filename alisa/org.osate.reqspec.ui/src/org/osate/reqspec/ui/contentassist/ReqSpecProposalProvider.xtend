@@ -27,28 +27,5 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		);
 	}
 
-	override void completeReqSpecFolder_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
-		);
-	}
-
-	override void completeGoal_TargetContext(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
-		);
-	}
-
-	override void completeRequirement_TargetContext(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
-		);
-	}
-
-	override void completeHazard_TargetContext(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
-			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
-		);
-	}
 
 }

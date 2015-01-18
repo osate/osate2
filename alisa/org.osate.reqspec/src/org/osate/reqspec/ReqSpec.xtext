@@ -10,7 +10,7 @@ ReqSpec: contents +=(ReqSpecLibrary|SystemSpec|StakeholderGoals|ReqDocument)  ;
 
 ReqSpecContainer: ReqSpecLibrary  | ReqSpecFolder  ;
 
-ContractualElement: Goal | Requirement ;
+ContractualElement: Goal | Requirement | Hazard;
 
 ReqRoot: SystemSpec | StakeholderGoals | ReqDocument;
 
@@ -32,8 +32,9 @@ ReqSpecLibrary returns ReqSpecLibrary:
 	'library' name =ID 
 	('import' importedNamespace=QualifiedNameWithWildCard)?
 	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
-	'[' (content+= (Goal | Requirement | Hazard |  ReqSpecFolder))*
-	('issues'  '[' issue+=MultiLineString (',' issue+=MultiLineString)* ']')? 
+	'[' 
+	('constants' constants+=FinalValue+)?
+	(content+= (Goal | Requirement | Hazard |  ReqSpecFolder))*
 	']'
 	;
 QualifiedNameWithWildCard : QualifiedName ('.*')?;	
@@ -41,9 +42,7 @@ QualifiedNameWithWildCard : QualifiedName ('.*')?;
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:
 	'folder' label =ID 
-	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
 	'[' (content+= (Goal | Requirement | Hazard |  ReqSpecFolder))*
-	('issues'  '[' issue+=MultiLineString (',' issue+=MultiLineString)* ']')? 
 	']'
 	;
 
@@ -51,13 +50,14 @@ ReqSpecFolder returns ReqSpecFolder:
 
 Goal returns Goal:
 	'goal' name=ID (':'  title=ValueString )? // short string for title
-	( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
+	( 'for' target=[aadl2::NamedElement|ID] 
+//		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
+	)?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
 	 &('description'  description=Description)? 
 	 &('assert'  	assert=PredicateExpression )? 
-	 &('rationale'  rationale=MultiLineString)? 
-	 &('issues'  issue+=MultiLineString (','issue+=MultiLineString)* )? 
+	 &('rationale'  rationale=STRING)? 
 	 &('refined' 'to' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
 	 &( subgoal+=Goal*) 
 	 &('decomposed' 'to' decomposesReference+=[Goal|QualifiedName](',' decomposesReference+=[Goal|QualifiedName])*)? 
@@ -76,14 +76,15 @@ Goal returns Goal:
 Requirement:
 	'requirement'  name=ID   
 	(':'  title=ValueString)? 
- 	('('  category=[categories::RequirementCategory|CatRef] ')')?
-	( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
+	( 'for' target=[aadl2::NamedElement|ID] 
+//		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
+	)?
 '['	(
-	('description'  description=Description)? 
-	&('parameters' parameters+=FinalValue+)?
+ 	('category'  category=[categories::RequirementCategory|CatRef] )?
+	&('description'  description=Description)? 
+	&('constants' constants+=FinalValue+)?
 	&('assert'  assert=PredicateExpression)?  // predicate expression 
-	&('rationale'  rationale=MultiLineString)? 
-	&('issues'  issue+=MultiLineString (','issue+=MultiLineString)* )? 
+	&('rationale'  rationale=STRING)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName] (',' goalReference+=[Goal|QualifiedName])*)?
 	&('refined' 'to' refinedReference+=[Requirement|QualifiedName](',' refinesReference+=[Requirement|QualifiedName])*)? 
 	 &( subrequirement+=Requirement*) 
@@ -96,17 +97,18 @@ Requirement:
 	']';
 
 	
-// TODO reference to EMV2 construct	
+// TODO reference to EMV2 construct: namedelement has hazard property or should be a EMV2 reference	
 Hazard:
 	'hazard'  name=ID   
-	'['
-	(( 'for' target=[aadl2::NamedElement|ID] ('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?)?
- 	&('category'  category=[categories::HazardCategory|CatRef])?
-	&('title'  title=ValueString)? 
+	(':'  title=ValueString)? 
+	(( 'for' target=[aadl2::NamedElement|ID] 
+//		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
+	)?
+ 	'['
+ 	('category'  category=[categories::HazardCategory|CatRef])?
 	&('description'  description=Description)? 
 	&('mitigated' 'by' hazardReference+=[Requirement|QualifiedName] (',' hazardReference+=[Requirement|QualifiedName])*)? 
-	&('rationale'  rationale=MultiLineString)? 
-	&('issues'  issue+=MultiLineString (','issue+=MultiLineString)* )? 
+	&('rationale'  rationale=STRING)? 
 	)
 	']';
 

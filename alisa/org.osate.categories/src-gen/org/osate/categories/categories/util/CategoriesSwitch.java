@@ -111,22 +111,6 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.ASSERT_FAIL_CATEGORIES:
-      {
-        AssertFailCategories assertFailCategories = (AssertFailCategories)theEObject;
-        T result = caseAssertFailCategories(assertFailCategories);
-        if (result == null) result = caseCategories(assertFailCategories);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CategoriesPackage.EXECUTION_FAIL_CATEGORIES:
-      {
-        ExecutionFailCategories executionFailCategories = (ExecutionFailCategories)theEObject;
-        T result = caseExecutionFailCategories(executionFailCategories);
-        if (result == null) result = caseCategories(executionFailCategories);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CategoriesPackage.CATEGORY:
       {
         Category category = (Category)theEObject;
@@ -163,20 +147,6 @@ public class CategoriesSwitch<T> extends Switch<T>
         SelectionCategory selectionCategory = (SelectionCategory)theEObject;
         T result = caseSelectionCategory(selectionCategory);
         if (result == null) result = caseCategory(selectionCategory);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CategoriesPackage.ASSERT_FAIL_CATEGORY:
-      {
-        AssertFailCategory assertFailCategory = (AssertFailCategory)theEObject;
-        T result = caseAssertFailCategory(assertFailCategory);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CategoriesPackage.EXECUTION_FAIL_CATEGORY:
-      {
-        ExecutionFailCategory executionFailCategory = (ExecutionFailCategory)theEObject;
-        T result = caseExecutionFailCategory(executionFailCategory);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -265,38 +235,6 @@ public class CategoriesSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Assert Fail Categories</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Assert Fail Categories</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAssertFailCategories(AssertFailCategories object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Execution Fail Categories</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Execution Fail Categories</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseExecutionFailCategories(ExecutionFailCategories object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Category</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -372,38 +310,6 @@ public class CategoriesSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSelectionCategory(SelectionCategory object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Assert Fail Category</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Assert Fail Category</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAssertFailCategory(AssertFailCategory object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Execution Fail Category</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Execution Fail Category</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseExecutionFailCategory(ExecutionFailCategory object)
   {
     return null;
   }

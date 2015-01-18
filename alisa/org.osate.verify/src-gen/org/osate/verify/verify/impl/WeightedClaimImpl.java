@@ -1,52 +1,44 @@
 /**
  */
-package org.osate.assure.assure.impl;
+package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.osate.assure.assure.AssuranceResult;
-import org.osate.assure.assure.AssurePackage;
+import org.osate.verify.verify.Claim;
+import org.osate.verify.verify.VerifyPackage;
+import org.osate.verify.verify.WeightedClaim;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Assurance Result</b></em>'.
+ * An implementation of the model object '<em><b>Weighted Claim</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceResultImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssuranceResultImpl#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.WeightedClaimImpl#getClaim <em>Claim</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.WeightedClaimImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements AssuranceResult
+public class WeightedClaimImpl extends MinimalEObjectImpl.Container implements WeightedClaim
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getClaim() <em>Claim</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getClaim()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected Claim claim;
 
   /**
    * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -73,7 +65,7 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AssuranceResultImpl()
+  protected WeightedClaimImpl()
   {
     super();
   }
@@ -86,7 +78,7 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
   @Override
   protected EClass eStaticClass()
   {
-    return AssurePackage.Literals.ASSURANCE_RESULT;
+    return VerifyPackage.Literals.WEIGHTED_CLAIM;
   }
 
   /**
@@ -94,9 +86,19 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public Claim getClaim()
   {
-    return name;
+    if (claim != null && claim.eIsProxy())
+    {
+      InternalEObject oldClaim = (InternalEObject)claim;
+      claim = (Claim)eResolveProxy(oldClaim);
+      if (claim != oldClaim)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.WEIGHTED_CLAIM__CLAIM, oldClaim, claim));
+      }
+    }
+    return claim;
   }
 
   /**
@@ -104,12 +106,22 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public Claim basicGetClaim()
   {
-    String oldName = name;
-    name = newName;
+    return claim;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setClaim(Claim newClaim)
+  {
+    Claim oldClaim = claim;
+    claim = newClaim;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_RESULT__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.WEIGHTED_CLAIM__CLAIM, oldClaim, claim));
   }
 
   /**
@@ -132,7 +144,7 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
     int oldWeight = weight;
     weight = newWeight;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_RESULT__WEIGHT, oldWeight, weight));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.WEIGHTED_CLAIM__WEIGHT, oldWeight, weight));
   }
 
   /**
@@ -145,9 +157,10 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_RESULT__NAME:
-        return getName();
-      case AssurePackage.ASSURANCE_RESULT__WEIGHT:
+      case VerifyPackage.WEIGHTED_CLAIM__CLAIM:
+        if (resolve) return getClaim();
+        return basicGetClaim();
+      case VerifyPackage.WEIGHTED_CLAIM__WEIGHT:
         return getWeight();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -163,10 +176,10 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_RESULT__NAME:
-        setName((String)newValue);
+      case VerifyPackage.WEIGHTED_CLAIM__CLAIM:
+        setClaim((Claim)newValue);
         return;
-      case AssurePackage.ASSURANCE_RESULT__WEIGHT:
+      case VerifyPackage.WEIGHTED_CLAIM__WEIGHT:
         setWeight((Integer)newValue);
         return;
     }
@@ -183,10 +196,10 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_RESULT__NAME:
-        setName(NAME_EDEFAULT);
+      case VerifyPackage.WEIGHTED_CLAIM__CLAIM:
+        setClaim((Claim)null);
         return;
-      case AssurePackage.ASSURANCE_RESULT__WEIGHT:
+      case VerifyPackage.WEIGHTED_CLAIM__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
         return;
     }
@@ -203,9 +216,9 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
   {
     switch (featureID)
     {
-      case AssurePackage.ASSURANCE_RESULT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case AssurePackage.ASSURANCE_RESULT__WEIGHT:
+      case VerifyPackage.WEIGHTED_CLAIM__CLAIM:
+        return claim != null;
+      case VerifyPackage.WEIGHTED_CLAIM__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
     }
     return super.eIsSet(featureID);
@@ -222,12 +235,10 @@ public class AssuranceResultImpl extends MinimalEObjectImpl.Container implements
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", weight: ");
+    result.append(" (weight: ");
     result.append(weight);
     result.append(')');
     return result.toString();
   }
 
-} //AssuranceResultImpl
+} //WeightedClaimImpl

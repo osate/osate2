@@ -67,15 +67,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
     {
       case VerifyPackage.VERIFICATION: return createVerification();
       case VerifyPackage.VERIFICATION_PLAN: return createVerificationPlan();
+      case VerifyPackage.CLAIM: return createClaim();
+      case VerifyPackage.WEIGHTED_CLAIM: return createWeightedClaim();
       case VerifyPackage.VERIFICATION_LIBRARY: return createVerificationLibrary();
       case VerifyPackage.VERIFICATION_FOLDER: return createVerificationFolder();
       case VerifyPackage.VERIFICATION_CONTAINER: return createVerificationContainer();
-      case VerifyPackage.CLAIM: return createClaim();
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
       case VerifyPackage.CONDITION_EXPR: return createConditionExpr();
       case VerifyPackage.ATOMIC_CONDITION_EXPR: return createAtomicConditionExpr();
+      case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
       case VerifyPackage.VERIFICATION_ASSUMPTION: return createVerificationAssumption();
       case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
@@ -150,6 +152,28 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Claim createClaim()
+  {
+    ClaimImpl claim = new ClaimImpl();
+    return claim;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public WeightedClaim createWeightedClaim()
+  {
+    WeightedClaimImpl weightedClaim = new WeightedClaimImpl();
+    return weightedClaim;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VerificationLibrary createVerificationLibrary()
   {
     VerificationLibraryImpl verificationLibrary = new VerificationLibraryImpl();
@@ -176,17 +200,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     VerificationContainerImpl verificationContainer = new VerificationContainerImpl();
     return verificationContainer;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Claim createClaim()
-  {
-    ClaimImpl claim = new ClaimImpl();
-    return claim;
   }
 
   /**
@@ -242,6 +255,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     AtomicConditionExprImpl atomicConditionExpr = new AtomicConditionExprImpl();
     return atomicConditionExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationMethodRegistry createVerificationMethodRegistry()
+  {
+    VerificationMethodRegistryImpl verificationMethodRegistry = new VerificationMethodRegistryImpl();
+    return verificationMethodRegistry;
   }
 
   /**

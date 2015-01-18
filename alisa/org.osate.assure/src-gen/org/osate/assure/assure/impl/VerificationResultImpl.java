@@ -2,28 +2,18 @@
  */
 package org.osate.assure.assure.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
-
-import org.osate.verify.verify.VerificationActivity;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,88 +22,86 @@ import org.osate.verify.verify.VerificationActivity;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getVerificationActivity <em>Verification Activity</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getStatus <em>Status</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getAssumptionResult <em>Assumption Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getPreconditionResult <em>Precondition Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getSecond <em>Second</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResultState <em>Result State</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getFailMsg <em>Fail Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getFailTarget <em>Fail Target</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class VerificationResultImpl extends EvidenceResultImpl implements VerificationResult
+public class VerificationResultImpl extends MinimalEObjectImpl.Container implements VerificationResult
 {
   /**
-   * The cached value of the '{@link #getVerificationActivity() <em>Verification Activity</em>}' reference.
+   * The default value of the '{@link #getResultState() <em>Result State</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVerificationActivity()
+   * @see #getResultState()
    * @generated
    * @ordered
    */
-  protected VerificationActivity verificationActivity;
+  protected static final VerificationResultState RESULT_STATE_EDEFAULT = VerificationResultState.TBD;
 
   /**
-   * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
+   * The cached value of the '{@link #getResultState() <em>Result State</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStatus()
+   * @see #getResultState()
    * @generated
    * @ordered
    */
-  protected static final VerificationResultState STATUS_EDEFAULT = VerificationResultState.TBD;
+  protected VerificationResultState resultState = RESULT_STATE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getStatus() <em>Status</em>}' attribute.
+   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStatus()
+   * @see #getType()
    * @generated
    * @ordered
    */
-  protected VerificationResultState status = STATUS_EDEFAULT;
+  protected static final String TYPE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getAssumptionResult() <em>Assumption Result</em>}' containment reference list.
+   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAssumptionResult()
+   * @see #getType()
    * @generated
    * @ordered
    */
-  protected EList<AssumptionResult> assumptionResult;
+  protected String type = TYPE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getPreconditionResult() <em>Precondition Result</em>}' containment reference list.
+   * The default value of the '{@link #getFailMsg() <em>Fail Msg</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPreconditionResult()
+   * @see #getFailMsg()
    * @generated
    * @ordered
    */
-  protected EList<PreconditionResult> preconditionResult;
+  protected static final String FAIL_MSG_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getFirst() <em>First</em>}' containment reference list.
+   * The cached value of the '{@link #getFailMsg() <em>Fail Msg</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFirst()
+   * @see #getFailMsg()
    * @generated
    * @ordered
    */
-  protected EList<VerificationResult> first;
+  protected String failMsg = FAIL_MSG_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSecond() <em>Second</em>}' containment reference list.
+   * The cached value of the '{@link #getFailTarget() <em>Fail Target</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSecond()
+   * @see #getFailTarget()
    * @generated
    * @ordered
    */
-  protected EList<VerificationResult> second;
+  protected EObject failTarget;
 
   /**
    * <!-- begin-user-doc -->
@@ -141,19 +129,88 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationActivity getVerificationActivity()
+  public VerificationResultState getResultState()
   {
-    if (verificationActivity != null && verificationActivity.eIsProxy())
+    return resultState;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setResultState(VerificationResultState newResultState)
+  {
+    VerificationResultState oldResultState = resultState;
+    resultState = newResultState == null ? RESULT_STATE_EDEFAULT : newResultState;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__RESULT_STATE, oldResultState, resultState));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getType()
+  {
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(String newType)
+  {
+    String oldType = type;
+    type = newType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__TYPE, oldType, type));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getFailMsg()
+  {
+    return failMsg;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFailMsg(String newFailMsg)
+  {
+    String oldFailMsg = failMsg;
+    failMsg = newFailMsg;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__FAIL_MSG, oldFailMsg, failMsg));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EObject getFailTarget()
+  {
+    if (failTarget != null && failTarget.eIsProxy())
     {
-      InternalEObject oldVerificationActivity = (InternalEObject)verificationActivity;
-      verificationActivity = (VerificationActivity)eResolveProxy(oldVerificationActivity);
-      if (verificationActivity != oldVerificationActivity)
+      InternalEObject oldFailTarget = (InternalEObject)failTarget;
+      failTarget = eResolveProxy(oldFailTarget);
+      if (failTarget != oldFailTarget)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY, oldVerificationActivity, verificationActivity));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.VERIFICATION_RESULT__FAIL_TARGET, oldFailTarget, failTarget));
       }
     }
-    return verificationActivity;
+    return failTarget;
   }
 
   /**
@@ -161,9 +218,9 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationActivity basicGetVerificationActivity()
+  public EObject basicGetFailTarget()
   {
-    return verificationActivity;
+    return failTarget;
   }
 
   /**
@@ -171,113 +228,12 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVerificationActivity(VerificationActivity newVerificationActivity)
+  public void setFailTarget(EObject newFailTarget)
   {
-    VerificationActivity oldVerificationActivity = verificationActivity;
-    verificationActivity = newVerificationActivity;
+    EObject oldFailTarget = failTarget;
+    failTarget = newFailTarget;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY, oldVerificationActivity, verificationActivity));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationResultState getStatus()
-  {
-    return status;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setStatus(VerificationResultState newStatus)
-  {
-    VerificationResultState oldStatus = status;
-    status = newStatus == null ? STATUS_EDEFAULT : newStatus;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__STATUS, oldStatus, status));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<AssumptionResult> getAssumptionResult()
-  {
-    if (assumptionResult == null)
-    {
-      assumptionResult = new EObjectContainmentEList<AssumptionResult>(AssumptionResult.class, this, AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT);
-    }
-    return assumptionResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<PreconditionResult> getPreconditionResult()
-  {
-    if (preconditionResult == null)
-    {
-      preconditionResult = new EObjectContainmentEList<PreconditionResult>(PreconditionResult.class, this, AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT);
-    }
-    return preconditionResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<VerificationResult> getFirst()
-  {
-    if (first == null)
-    {
-      first = new EObjectContainmentEList<VerificationResult>(VerificationResult.class, this, AssurePackage.VERIFICATION_RESULT__FIRST);
-    }
-    return first;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<VerificationResult> getSecond()
-  {
-    if (second == null)
-    {
-      second = new EObjectContainmentEList<VerificationResult>(VerificationResult.class, this, AssurePackage.VERIFICATION_RESULT__SECOND);
-    }
-    return second;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
-        return ((InternalEList<?>)getAssumptionResult()).basicRemove(otherEnd, msgs);
-      case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
-        return ((InternalEList<?>)getPreconditionResult()).basicRemove(otherEnd, msgs);
-      case AssurePackage.VERIFICATION_RESULT__FIRST:
-        return ((InternalEList<?>)getFirst()).basicRemove(otherEnd, msgs);
-      case AssurePackage.VERIFICATION_RESULT__SECOND:
-        return ((InternalEList<?>)getSecond()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__FAIL_TARGET, oldFailTarget, failTarget));
   }
 
   /**
@@ -290,19 +246,15 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY:
-        if (resolve) return getVerificationActivity();
-        return basicGetVerificationActivity();
-      case AssurePackage.VERIFICATION_RESULT__STATUS:
-        return getStatus();
-      case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
-        return getAssumptionResult();
-      case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
-        return getPreconditionResult();
-      case AssurePackage.VERIFICATION_RESULT__FIRST:
-        return getFirst();
-      case AssurePackage.VERIFICATION_RESULT__SECOND:
-        return getSecond();
+      case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
+        return getResultState();
+      case AssurePackage.VERIFICATION_RESULT__TYPE:
+        return getType();
+      case AssurePackage.VERIFICATION_RESULT__FAIL_MSG:
+        return getFailMsg();
+      case AssurePackage.VERIFICATION_RESULT__FAIL_TARGET:
+        if (resolve) return getFailTarget();
+        return basicGetFailTarget();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -312,33 +264,22 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY:
-        setVerificationActivity((VerificationActivity)newValue);
+      case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
+        setResultState((VerificationResultState)newValue);
         return;
-      case AssurePackage.VERIFICATION_RESULT__STATUS:
-        setStatus((VerificationResultState)newValue);
+      case AssurePackage.VERIFICATION_RESULT__TYPE:
+        setType((String)newValue);
         return;
-      case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
-        getAssumptionResult().clear();
-        getAssumptionResult().addAll((Collection<? extends AssumptionResult>)newValue);
+      case AssurePackage.VERIFICATION_RESULT__FAIL_MSG:
+        setFailMsg((String)newValue);
         return;
-      case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
-        getPreconditionResult().clear();
-        getPreconditionResult().addAll((Collection<? extends PreconditionResult>)newValue);
-        return;
-      case AssurePackage.VERIFICATION_RESULT__FIRST:
-        getFirst().clear();
-        getFirst().addAll((Collection<? extends VerificationResult>)newValue);
-        return;
-      case AssurePackage.VERIFICATION_RESULT__SECOND:
-        getSecond().clear();
-        getSecond().addAll((Collection<? extends VerificationResult>)newValue);
+      case AssurePackage.VERIFICATION_RESULT__FAIL_TARGET:
+        setFailTarget((EObject)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -354,23 +295,17 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY:
-        setVerificationActivity((VerificationActivity)null);
+      case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
+        setResultState(RESULT_STATE_EDEFAULT);
         return;
-      case AssurePackage.VERIFICATION_RESULT__STATUS:
-        setStatus(STATUS_EDEFAULT);
+      case AssurePackage.VERIFICATION_RESULT__TYPE:
+        setType(TYPE_EDEFAULT);
         return;
-      case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
-        getAssumptionResult().clear();
+      case AssurePackage.VERIFICATION_RESULT__FAIL_MSG:
+        setFailMsg(FAIL_MSG_EDEFAULT);
         return;
-      case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
-        getPreconditionResult().clear();
-        return;
-      case AssurePackage.VERIFICATION_RESULT__FIRST:
-        getFirst().clear();
-        return;
-      case AssurePackage.VERIFICATION_RESULT__SECOND:
-        getSecond().clear();
+      case AssurePackage.VERIFICATION_RESULT__FAIL_TARGET:
+        setFailTarget((EObject)null);
         return;
     }
     super.eUnset(featureID);
@@ -386,18 +321,14 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_RESULT__VERIFICATION_ACTIVITY:
-        return verificationActivity != null;
-      case AssurePackage.VERIFICATION_RESULT__STATUS:
-        return status != STATUS_EDEFAULT;
-      case AssurePackage.VERIFICATION_RESULT__ASSUMPTION_RESULT:
-        return assumptionResult != null && !assumptionResult.isEmpty();
-      case AssurePackage.VERIFICATION_RESULT__PRECONDITION_RESULT:
-        return preconditionResult != null && !preconditionResult.isEmpty();
-      case AssurePackage.VERIFICATION_RESULT__FIRST:
-        return first != null && !first.isEmpty();
-      case AssurePackage.VERIFICATION_RESULT__SECOND:
-        return second != null && !second.isEmpty();
+      case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
+        return resultState != RESULT_STATE_EDEFAULT;
+      case AssurePackage.VERIFICATION_RESULT__TYPE:
+        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+      case AssurePackage.VERIFICATION_RESULT__FAIL_MSG:
+        return FAIL_MSG_EDEFAULT == null ? failMsg != null : !FAIL_MSG_EDEFAULT.equals(failMsg);
+      case AssurePackage.VERIFICATION_RESULT__FAIL_TARGET:
+        return failTarget != null;
     }
     return super.eIsSet(featureID);
   }
@@ -413,8 +344,12 @@ public class VerificationResultImpl extends EvidenceResultImpl implements Verifi
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (status: ");
-    result.append(status);
+    result.append(" (resultState: ");
+    result.append(resultState);
+    result.append(", type: ");
+    result.append(type);
+    result.append(", failMsg: ");
+    result.append(failMsg);
     result.append(')');
     return result.toString();
   }

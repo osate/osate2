@@ -39,15 +39,16 @@ public class AlisaParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAlternatives_1_0(), "rule__PredicateExpression__OpAlternatives_1_0");
-					put(grammarAccess.getIssueTypeAccess().getAlternatives(), "rule__IssueType__Alternatives");
 					put(grammarAccess.getAlisaWorkAreaAccess().getGroup(), "rule__AlisaWorkArea__Group__0");
 					put(grammarAccess.getAssuranceCasePlanAccess().getGroup(), "rule__AssuranceCasePlan__Group__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5_0(), "rule__AssuranceCasePlan__Group_5_0__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5_1(), "rule__AssuranceCasePlan__Group_5_1__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5_2(), "rule__AssuranceCasePlan__Group_5_2__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5_2_0(), "rule__AssuranceCasePlan__Group_5_2_0__0");
 					put(grammarAccess.getReferencePathAccess().getGroup(), "rule__ReferencePath__Group__0");
 					put(grammarAccess.getReferencePathAccess().getGroup_1(), "rule__ReferencePath__Group_1__0");
 					put(grammarAccess.getPredicateExpressionAccess().getGroup(), "rule__PredicateExpression__Group__0");
 					put(grammarAccess.getFinalValueAccess().getGroup(), "rule__FinalValue__Group__0");
-					put(grammarAccess.getResultIssueAccess().getGroup(), "rule__ResultIssue__Group__0");
-					put(grammarAccess.getMultiLineStringAccess().getGroup(), "rule__MultiLineString__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_0(), "rule__AadlClassifierReference__Group_0__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
@@ -57,7 +58,10 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAlisaWorkAreaAccess().getCasesAssignment_2(), "rule__AlisaWorkArea__CasesAssignment_2");
 					put(grammarAccess.getAssuranceCasePlanAccess().getNameAssignment_1(), "rule__AssuranceCasePlan__NameAssignment_1");
 					put(grammarAccess.getAssuranceCasePlanAccess().getSystemAssignment_3(), "rule__AssuranceCasePlan__SystemAssignment_3");
-					put(grammarAccess.getAssuranceCasePlanAccess().getPlansAssignment_5(), "rule__AssuranceCasePlan__PlansAssignment_5");
+					put(grammarAccess.getAssuranceCasePlanAccess().getTitleAssignment_5_0_1(), "rule__AssuranceCasePlan__TitleAssignment_5_0_1");
+					put(grammarAccess.getAssuranceCasePlanAccess().getDescriptionAssignment_5_1_1(), "rule__AssuranceCasePlan__DescriptionAssignment_5_1_1");
+					put(grammarAccess.getAssuranceCasePlanAccess().getConstantAssignment_5_2_0_1(), "rule__AssuranceCasePlan__ConstantAssignment_5_2_0_1");
+					put(grammarAccess.getAssuranceCasePlanAccess().getPlansAssignment_5_2_2(), "rule__AssuranceCasePlan__PlansAssignment_5_2_2");
 					put(grammarAccess.getModelAccess().getContentAssignment(), "rule__Model__ContentAssignment");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
@@ -67,8 +71,7 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPredicateExpressionAccess().getOpAssignment_1(), "rule__PredicateExpression__OpAssignment_1");
 					put(grammarAccess.getFinalValueAccess().getNameAssignment_0(), "rule__FinalValue__NameAssignment_0");
 					put(grammarAccess.getFinalValueAccess().getValueAssignment_2(), "rule__FinalValue__ValueAssignment_2");
-					put(grammarAccess.getResultIssueAccess().getTypeAssignment_0(), "rule__ResultIssue__TypeAssignment_0");
-					put(grammarAccess.getResultIssueAccess().getMsgAssignment_1(), "rule__ResultIssue__MsgAssignment_1");
+					put(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5(), "rule__AssuranceCasePlan__UnorderedGroup_5");
 				}
 			};
 		}

@@ -85,9 +85,14 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createClaimResultAdapter();
       }
       @Override
-      public Adapter caseVerificationResult(VerificationResult object)
+      public Adapter caseHazardResult(HazardResult object)
       {
-        return createVerificationResultAdapter();
+        return createHazardResultAdapter();
+      }
+      @Override
+      public Adapter caseAggregateResult(AggregateResult object)
+      {
+        return createAggregateResultAdapter();
       }
       @Override
       public Adapter caseAssumptionResult(AssumptionResult object)
@@ -100,19 +105,14 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createPreconditionResultAdapter();
       }
       @Override
-      public Adapter caseAssuranceResult(AssuranceResult object)
+      public Adapter caseVerificationActivityResult(VerificationActivityResult object)
       {
-        return createAssuranceResultAdapter();
+        return createVerificationActivityResultAdapter();
       }
       @Override
-      public Adapter caseEvidenceResult(EvidenceResult object)
+      public Adapter caseVerificationResult(VerificationResult object)
       {
-        return createEvidenceResultAdapter();
-      }
-      @Override
-      public Adapter caseHazardResult(HazardResult object)
-      {
-        return createHazardResultAdapter();
+        return createVerificationResultAdapter();
       }
       @Override
       public Adapter caseFailThenResult(FailThenResult object)
@@ -177,16 +177,31 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.VerificationResult <em>Verification Result</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.HazardResult <em>Hazard Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.VerificationResult
+   * @see org.osate.assure.assure.HazardResult
    * @generated
    */
-  public Adapter createVerificationResultAdapter()
+  public Adapter createHazardResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.AggregateResult <em>Aggregate Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.AggregateResult
+   * @generated
+   */
+  public Adapter createAggregateResultAdapter()
   {
     return null;
   }
@@ -222,46 +237,31 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.AssuranceResult <em>Assurance Result</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.VerificationActivityResult <em>Verification Activity Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.AssuranceResult
+   * @see org.osate.assure.assure.VerificationActivityResult
    * @generated
    */
-  public Adapter createAssuranceResultAdapter()
+  public Adapter createVerificationActivityResultAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.EvidenceResult <em>Evidence Result</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.VerificationResult <em>Verification Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.EvidenceResult
+   * @see org.osate.assure.assure.VerificationResult
    * @generated
    */
-  public Adapter createEvidenceResultAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.HazardResult <em>Hazard Result</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.assure.assure.HazardResult
-   * @generated
-   */
-  public Adapter createHazardResultAdapter()
+  public Adapter createVerificationResultAdapter()
   {
     return null;
   }

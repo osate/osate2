@@ -41,13 +41,22 @@ public interface AssureFactory extends EFactory
   ClaimResult createClaimResult();
 
   /**
-   * Returns a new object of class '<em>Verification Result</em>'.
+   * Returns a new object of class '<em>Hazard Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Result</em>'.
+   * @return a new object of class '<em>Hazard Result</em>'.
    * @generated
    */
-  VerificationResult createVerificationResult();
+  HazardResult createHazardResult();
+
+  /**
+   * Returns a new object of class '<em>Aggregate Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Aggregate Result</em>'.
+   * @generated
+   */
+  AggregateResult createAggregateResult();
 
   /**
    * Returns a new object of class '<em>Assumption Result</em>'.
@@ -68,31 +77,22 @@ public interface AssureFactory extends EFactory
   PreconditionResult createPreconditionResult();
 
   /**
-   * Returns a new object of class '<em>Assurance Result</em>'.
+   * Returns a new object of class '<em>Verification Activity Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Assurance Result</em>'.
+   * @return a new object of class '<em>Verification Activity Result</em>'.
    * @generated
    */
-  AssuranceResult createAssuranceResult();
+  VerificationActivityResult createVerificationActivityResult();
 
   /**
-   * Returns a new object of class '<em>Evidence Result</em>'.
+   * Returns a new object of class '<em>Verification Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Evidence Result</em>'.
+   * @return a new object of class '<em>Verification Result</em>'.
    * @generated
    */
-  EvidenceResult createEvidenceResult();
-
-  /**
-   * Returns a new object of class '<em>Hazard Result</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Hazard Result</em>'.
-   * @generated
-   */
-  HazardResult createHazardResult();
+  VerificationResult createVerificationResult();
 
   /**
    * Returns a new object of class '<em>Fail Then Result</em>'.

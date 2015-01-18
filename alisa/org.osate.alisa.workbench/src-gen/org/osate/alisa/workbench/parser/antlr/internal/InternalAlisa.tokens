@@ -1,14 +1,15 @@
-'.'=16
-'::'=18
+'.'=20
+'::'=22
+'='=21
 '['=14
-'\'\'\''=17
-']'=15
+']'=19
 'alisa'=11
 'case'=12
-'error'=19
+'constants'=17
+'description'=16
 'for'=13
-'info'=21
-'warning'=20
+'plans'=18
+'title'=15
 RULE_ANY_OTHER=10
 RULE_ID=4
 RULE_INT=6
@@ -27,3 +28,4 @@ T__18=18
 T__19=19
 T__20=20
 T__21=21
+T__22=22

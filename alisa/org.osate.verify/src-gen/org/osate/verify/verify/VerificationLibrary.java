@@ -2,7 +2,9 @@
  */
 package org.osate.verify.verify;
 
-import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ComponentClassifier;
+
+import org.osate.alisa.common.common.Description;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,7 +15,9 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationLibrary#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationLibrary#getMethodClasses <em>Method Classes</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationLibrary#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationLibrary#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationLibrary#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,19 +54,81 @@ public interface VerificationLibrary extends VerificationContainer
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Method Classes</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Method Classes</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Method Classes</em>' attribute list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationLibrary_MethodClasses()
-   * @model unique="false"
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(ComponentClassifier)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationLibrary_Target()
+   * @model
    * @generated
    */
-  EList<String> getMethodClasses();
+  ComponentClassifier getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationLibrary#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(ComponentClassifier value);
+
+  /**
+   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Title</em>' attribute.
+   * @see #setTitle(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationLibrary_Title()
+   * @model
+   * @generated
+   */
+  String getTitle();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationLibrary#getTitle <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Title</em>' attribute.
+   * @see #getTitle()
+   * @generated
+   */
+  void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Description</em>' containment reference.
+   * @see #setDescription(Description)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationLibrary_Description()
+   * @model containment="true"
+   * @generated
+   */
+  Description getDescription();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationLibrary#getDescription <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Description</em>' containment reference.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(Description value);
 
 } // VerificationLibrary

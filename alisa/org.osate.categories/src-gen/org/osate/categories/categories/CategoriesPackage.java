@@ -188,62 +188,6 @@ public interface CategoriesPackage extends EPackage
   int SELECTION_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.AssertFailCategoriesImpl <em>Assert Fail Categories</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.AssertFailCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getAssertFailCategories()
-   * @generated
-   */
-  int ASSERT_FAIL_CATEGORIES = 5;
-
-  /**
-   * The feature id for the '<em><b>Category</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSERT_FAIL_CATEGORIES__CATEGORY = CATEGORIES_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Assert Fail Categories</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSERT_FAIL_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.ExecutionFailCategoriesImpl <em>Execution Fail Categories</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.ExecutionFailCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getExecutionFailCategories()
-   * @generated
-   */
-  int EXECUTION_FAIL_CATEGORIES = 6;
-
-  /**
-   * The feature id for the '<em><b>Category</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXECUTION_FAIL_CATEGORIES__CATEGORY = CATEGORIES_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Execution Fail Categories</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXECUTION_FAIL_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.CategoryImpl <em>Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -251,7 +195,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getCategory()
    * @generated
    */
-  int CATEGORY = 7;
+  int CATEGORY = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -279,7 +223,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getRequirementCategory()
    * @generated
    */
-  int REQUIREMENT_CATEGORY = 8;
+  int REQUIREMENT_CATEGORY = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -316,7 +260,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getHazardCategory()
    * @generated
    */
-  int HAZARD_CATEGORY = 9;
+  int HAZARD_CATEGORY = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -353,7 +297,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getVerificationCategory()
    * @generated
    */
-  int VERIFICATION_CATEGORY = 10;
+  int VERIFICATION_CATEGORY = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -390,7 +334,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getSelectionCategory()
    * @generated
    */
-  int SELECTION_CATEGORY = 11;
+  int SELECTION_CATEGORY = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -418,80 +362,6 @@ public interface CategoriesPackage extends EPackage
    * @ordered
    */
   int SELECTION_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.AssertFailCategoryImpl <em>Assert Fail Category</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.AssertFailCategoryImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getAssertFailCategory()
-   * @generated
-   */
-  int ASSERT_FAIL_CATEGORY = 12;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSERT_FAIL_CATEGORY__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Extends</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSERT_FAIL_CATEGORY__EXTENDS = 1;
-
-  /**
-   * The number of structural features of the '<em>Assert Fail Category</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSERT_FAIL_CATEGORY_FEATURE_COUNT = 2;
-
-  /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.ExecutionFailCategoryImpl <em>Execution Fail Category</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.ExecutionFailCategoryImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getExecutionFailCategory()
-   * @generated
-   */
-  int EXECUTION_FAIL_CATEGORY = 13;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXECUTION_FAIL_CATEGORY__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Extends</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXECUTION_FAIL_CATEGORY__EXTENDS = 1;
-
-  /**
-   * The number of structural features of the '<em>Execution Fail Category</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXECUTION_FAIL_CATEGORY_FEATURE_COUNT = 2;
 
 
   /**
@@ -587,48 +457,6 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EReference getSelectionCategories_Category();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.AssertFailCategories <em>Assert Fail Categories</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Assert Fail Categories</em>'.
-   * @see org.osate.categories.categories.AssertFailCategories
-   * @generated
-   */
-  EClass getAssertFailCategories();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.categories.categories.AssertFailCategories#getCategory <em>Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Category</em>'.
-   * @see org.osate.categories.categories.AssertFailCategories#getCategory()
-   * @see #getAssertFailCategories()
-   * @generated
-   */
-  EReference getAssertFailCategories_Category();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.ExecutionFailCategories <em>Execution Fail Categories</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Execution Fail Categories</em>'.
-   * @see org.osate.categories.categories.ExecutionFailCategories
-   * @generated
-   */
-  EClass getExecutionFailCategories();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.categories.categories.ExecutionFailCategories#getCategory <em>Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Category</em>'.
-   * @see org.osate.categories.categories.ExecutionFailCategories#getCategory()
-   * @see #getExecutionFailCategories()
-   * @generated
-   */
-  EReference getExecutionFailCategories_Category();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.Category <em>Category</em>}'.
@@ -736,70 +564,6 @@ public interface CategoriesPackage extends EPackage
   EReference getSelectionCategory_Extends();
 
   /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.AssertFailCategory <em>Assert Fail Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Assert Fail Category</em>'.
-   * @see org.osate.categories.categories.AssertFailCategory
-   * @generated
-   */
-  EClass getAssertFailCategory();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.categories.categories.AssertFailCategory#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.categories.categories.AssertFailCategory#getName()
-   * @see #getAssertFailCategory()
-   * @generated
-   */
-  EAttribute getAssertFailCategory_Name();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.categories.categories.AssertFailCategory#getExtends <em>Extends</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Extends</em>'.
-   * @see org.osate.categories.categories.AssertFailCategory#getExtends()
-   * @see #getAssertFailCategory()
-   * @generated
-   */
-  EReference getAssertFailCategory_Extends();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.ExecutionFailCategory <em>Execution Fail Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Execution Fail Category</em>'.
-   * @see org.osate.categories.categories.ExecutionFailCategory
-   * @generated
-   */
-  EClass getExecutionFailCategory();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.categories.categories.ExecutionFailCategory#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.categories.categories.ExecutionFailCategory#getName()
-   * @see #getExecutionFailCategory()
-   * @generated
-   */
-  EAttribute getExecutionFailCategory_Name();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.categories.categories.ExecutionFailCategory#getExtends <em>Extends</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Extends</em>'.
-   * @see org.osate.categories.categories.ExecutionFailCategory#getExtends()
-   * @see #getExecutionFailCategory()
-   * @generated
-   */
-  EReference getExecutionFailCategory_Extends();
-
-  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -905,42 +669,6 @@ public interface CategoriesPackage extends EPackage
     EReference SELECTION_CATEGORIES__CATEGORY = eINSTANCE.getSelectionCategories_Category();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.AssertFailCategoriesImpl <em>Assert Fail Categories</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.AssertFailCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getAssertFailCategories()
-     * @generated
-     */
-    EClass ASSERT_FAIL_CATEGORIES = eINSTANCE.getAssertFailCategories();
-
-    /**
-     * The meta object literal for the '<em><b>Category</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSERT_FAIL_CATEGORIES__CATEGORY = eINSTANCE.getAssertFailCategories_Category();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.ExecutionFailCategoriesImpl <em>Execution Fail Categories</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.ExecutionFailCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getExecutionFailCategories()
-     * @generated
-     */
-    EClass EXECUTION_FAIL_CATEGORIES = eINSTANCE.getExecutionFailCategories();
-
-    /**
-     * The meta object literal for the '<em><b>Category</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXECUTION_FAIL_CATEGORIES__CATEGORY = eINSTANCE.getExecutionFailCategories_Category();
-
-    /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.CategoryImpl <em>Category</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1029,58 +757,6 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EReference SELECTION_CATEGORY__EXTENDS = eINSTANCE.getSelectionCategory_Extends();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.AssertFailCategoryImpl <em>Assert Fail Category</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.AssertFailCategoryImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getAssertFailCategory()
-     * @generated
-     */
-    EClass ASSERT_FAIL_CATEGORY = eINSTANCE.getAssertFailCategory();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ASSERT_FAIL_CATEGORY__NAME = eINSTANCE.getAssertFailCategory_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSERT_FAIL_CATEGORY__EXTENDS = eINSTANCE.getAssertFailCategory_Extends();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.ExecutionFailCategoryImpl <em>Execution Fail Category</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.ExecutionFailCategoryImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getExecutionFailCategory()
-     * @generated
-     */
-    EClass EXECUTION_FAIL_CATEGORY = eINSTANCE.getExecutionFailCategory();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EXECUTION_FAIL_CATEGORY__NAME = eINSTANCE.getExecutionFailCategory_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference EXECUTION_FAIL_CATEGORY__EXTENDS = eINSTANCE.getExecutionFailCategory_Extends();
 
   }
 

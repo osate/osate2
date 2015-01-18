@@ -7,32 +7,17 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReqSpecContainer">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="content" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="issue" unique="false" upperBound="-1"
-        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContractualElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetContext" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//PredicateExpression"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rationale" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="issue" unique="false" upperBound="-1"
-        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderRequirementReference"
-        unique="false" upperBound="-1" eType="#//Goal"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="systemRequirementReference"
-        unique="false" upperBound="-1" eType="#//ContractualElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="docReference" upperBound="-1"
-        eType="#//ExternalDocument" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReqRoot">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
@@ -47,11 +32,18 @@
   <eClassifiers xsi:type="ecore:EClass" name="ReqSpecLibrary" eSuperTypes="#//ReqSpecContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="importedNamespace" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//FinalValue"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReqSpecFolder" eSuperTypes="#//ReqSpecContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Goal" eSuperTypes="#//ContractualElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//PredicateExpression"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinesReference" unique="false"
         upperBound="-1" eType="#//Goal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subgoal" upperBound="-1"
@@ -64,10 +56,19 @@
         upperBound="-1" eType="#//Goal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderReference" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.organization/model/generated/Organization.ecore#//Stakeholder"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderRequirementReference"
+        unique="false" upperBound="-1" eType="#//Goal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemRequirementReference"
+        unique="false" upperBound="-1" eType="#//ContractualElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="docReference" upperBound="-1"
+        eType="#//ExternalDocument" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Requirement" eSuperTypes="#//ContractualElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//FinalValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//PredicateExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="goalReference" unique="false"
         upperBound="-1" eType="#//Goal"/>
@@ -83,20 +84,17 @@
         upperBound="-1" eType="#//Requirement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="evolvesReference" unique="false"
         upperBound="-1" eType="#//Requirement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderRequirementReference"
+        unique="false" upperBound="-1" eType="#//Goal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemRequirementReference"
+        unique="false" upperBound="-1" eType="#//ContractualElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="docReference" upperBound="-1"
+        eType="#//ExternalDocument" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Hazard">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetContext" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Hazard" eSuperTypes="#//ContractualElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//HazardCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hazardReference" unique="false"
         upperBound="-1" eType="#//Requirement"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rationale" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="issue" unique="false" upperBound="-1"
-        eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExternalDocument">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="docReference" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

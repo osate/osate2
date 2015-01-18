@@ -26,19 +26,23 @@ class VerifyFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(0, 1, 2).before(SL_COMMENTRule)
 		c.setLinewrap(0, 1, 2).before(ML_COMMENTRule)
 		c.setLinewrap(0, 1, 1).after(ML_COMMENTRule)
-	    for ( pair : findKeywordPairs("[", "]")) {
-		      c.setIndentationIncrement().after(pair.first);
-		      c.setLinewrap().after(pair.first);
-		      c.setIndentationDecrement().before(pair.second);
-		      c.setLinewrap().before(pair.second);
-		    }
+		for (pair : findKeywordPairs("[", "]")) {
+			c.setIndentationIncrement().after(pair.first);
+			c.setLinewrap().after(pair.first);
+			c.setIndentationDecrement().before(pair.second);
+			c.setLinewrap().before(pair.second);
+		}
 		c.setLinewrap().after(verificationMethodRule);
 		c.setLinewrap().before(verificationFolderRule);
-		for (kw : findKeywords("verification","folder")) {
+		c.setLinewrap().after(verificationLibraryRule);
+		c.setLinewrap().after(verificationPlanRule);
+		c.setLinewrap().after(verificationMethodRegistryRule);
+		for (kw : findKeywords("folder")) {
 			c.setLinewrap().before(kw);
 		}
-		for (kw : findKeywords("description","category","method","verified","asserted","rationale","issues")) {
+		for (kw : findKeywords("title", "description", "category", "assert", "weights", "class", "method", "verified",
+			"asserted", "rationale", "import", "timeout")) {
 			c.setLinewrap().before(kw);
 		}
-		}
+	}
 }

@@ -24,7 +24,6 @@ import org.eclipse.xtext.parser.*;
 import org.eclipse.xtext.parser.impl.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream.HiddenTokens;
@@ -185,6 +184,114 @@ ruleAssuranceCasePlan returns [EObject current=null]
     	newLeafNode(otherlv_4, grammarAccess.getAssuranceCasePlanAccess().getLeftSquareBracketKeyword_4());
     }
 (
+
+(
+	{ 
+	  getUnorderedGroupHelper().enter(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5());
+	}
+	(
+		(
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5(), 0)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5(), 0);
+	 				}
+					({true}?=>(	otherlv_6='title' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getAssuranceCasePlanAccess().getTitleKeyword_5_0_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAssuranceCasePlanAccess().getTitleValueStringParserRuleCall_5_0_1_0()); 
+	    }
+		lv_title_7_0=ruleValueString		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCasePlanRule());
+	        }
+       		set(
+       			$current, 
+       			"title",
+        		lv_title_7_0, 
+        		"ValueString");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5(), 1)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5(), 1);
+	 				}
+					({true}?=>(	otherlv_8='description' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getAssuranceCasePlanAccess().getDescriptionKeyword_5_1_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAssuranceCasePlanAccess().getDescriptionDescriptionParserRuleCall_5_1_1_0()); 
+	    }
+		lv_description_9_0=ruleDescription		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCasePlanRule());
+	        }
+       		set(
+       			$current, 
+       			"description",
+        		lv_description_9_0, 
+        		"Description");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5(), 2)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5(), 2);
+	 				}
+					({true}?=>((	otherlv_10='constants' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getAssuranceCasePlanAccess().getConstantsKeyword_5_2_0_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAssuranceCasePlanAccess().getConstantFinalValueParserRuleCall_5_2_0_1_0()); 
+	    }
+		lv_constant_11_0=ruleFinalValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAssuranceCasePlanRule());
+	        }
+       		add(
+       			$current, 
+       			"constant",
+        		lv_constant_11_0, 
+        		"FinalValue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+)?	otherlv_12='plans' 
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getAssuranceCasePlanAccess().getPlansKeyword_5_2_1());
+    }
+(
 (
 		{
 			if ($current==null) {
@@ -192,16 +299,31 @@ ruleAssuranceCasePlan returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAssuranceCasePlanAccess().getPlansVerificationPlanCrossReference_5_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceCasePlanAccess().getPlansVerificationPlanCrossReference_5_2_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_6=']' 
+)*))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5());
+	 				}
+ 				)
+			)  
+
+		)+
+	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5())}?	
+	)
+)
+	{ 
+	  getUnorderedGroupHelper().leave(grammarAccess.getAssuranceCasePlanAccess().getUnorderedGroup_5());
+	}
+
+)	otherlv_14=']' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getAssuranceCasePlanAccess().getRightSquareBracketKeyword_6());
+    	newLeafNode(otherlv_14, grammarAccess.getAssuranceCasePlanAccess().getRightSquareBracketKeyword_6());
     }
 )
 ;
@@ -362,45 +484,62 @@ ruleReferencePath returns [EObject current=null]
 
 
 
-
-
-
-
-// Entry rule entryRuleMultiLineString
-entryRuleMultiLineString returns [String current=null] 
+// Entry rule entryRuleFinalValue
+entryRuleFinalValue returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getMultiLineStringRule()); } 
-	 iv_ruleMultiLineString=ruleMultiLineString 
-	 { $current=$iv_ruleMultiLineString.current.getText(); }  
+	{ newCompositeNode(grammarAccess.getFinalValueRule()); }
+	 iv_ruleFinalValue=ruleFinalValue 
+	 { $current=$iv_ruleFinalValue.current; } 
 	 EOF 
 ;
 
-// Rule MultiLineString
-ruleMultiLineString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+// Rule FinalValue
+ruleFinalValue returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+((
 (
-	kw='\'\'\'' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getMultiLineStringAccess().getApostropheApostropheApostropheKeyword_0()); 
-    }
-(    this_STRING_1=RULE_STRING    {
-		$current.merge(this_STRING_1);
-    }
+		lv_name_0_0=RULE_ID
+		{
+			newLeafNode(lv_name_0_0, grammarAccess.getFinalValueAccess().getNameIDTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFinalValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_0_0, 
+        		"ID");
+	    }
 
-    { 
-    newLeafNode(this_STRING_1, grammarAccess.getMultiLineStringAccess().getSTRINGTerminalRuleCall_1()); 
-    }
-)*
-	kw='\'\'\'' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getMultiLineStringAccess().getApostropheApostropheApostropheKeyword_2()); 
-    }
 )
-    ;
+)	otherlv_1='=' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getFinalValueAccess().getEqualsSignKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFinalValueAccess().getValueValueStringParserRuleCall_2_0()); 
+	    }
+		lv_value_2_0=ruleValueString		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFinalValueRule());
+	        }
+       		set(
+       			$current, 
+       			"value",
+        		lv_value_2_0, 
+        		"ValueString");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
 
 
 
@@ -530,31 +669,6 @@ ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleT
 
 
 
-
-
-
-// Rule IssueType
-ruleIssueType returns [Enumerator current=null] 
-    @init { enterRule(); }
-    @after { leaveRule(); }:
-((	enumLiteral_0='error' 
-	{
-        $current = grammarAccess.getIssueTypeAccess().getERROREnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getIssueTypeAccess().getERROREnumLiteralDeclaration_0()); 
-    }
-)
-    |(	enumLiteral_1='warning' 
-	{
-        $current = grammarAccess.getIssueTypeAccess().getWARNINGEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getIssueTypeAccess().getWARNINGEnumLiteralDeclaration_1()); 
-    }
-)
-    |(	enumLiteral_2='info' 
-	{
-        $current = grammarAccess.getIssueTypeAccess().getINFOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getIssueTypeAccess().getINFOEnumLiteralDeclaration_2()); 
-    }
-));
 
 
 

@@ -69,15 +69,11 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
       case CategoriesPackage.HAZARD_CATEGORIES: return createHazardCategories();
       case CategoriesPackage.VERIFICATION_CATEGORIES: return createVerificationCategories();
       case CategoriesPackage.SELECTION_CATEGORIES: return createSelectionCategories();
-      case CategoriesPackage.ASSERT_FAIL_CATEGORIES: return createAssertFailCategories();
-      case CategoriesPackage.EXECUTION_FAIL_CATEGORIES: return createExecutionFailCategories();
       case CategoriesPackage.CATEGORY: return createCategory();
       case CategoriesPackage.REQUIREMENT_CATEGORY: return createRequirementCategory();
       case CategoriesPackage.HAZARD_CATEGORY: return createHazardCategory();
       case CategoriesPackage.VERIFICATION_CATEGORY: return createVerificationCategory();
       case CategoriesPackage.SELECTION_CATEGORY: return createSelectionCategory();
-      case CategoriesPackage.ASSERT_FAIL_CATEGORY: return createAssertFailCategory();
-      case CategoriesPackage.EXECUTION_FAIL_CATEGORY: return createExecutionFailCategory();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -143,28 +139,6 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssertFailCategories createAssertFailCategories()
-  {
-    AssertFailCategoriesImpl assertFailCategories = new AssertFailCategoriesImpl();
-    return assertFailCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExecutionFailCategories createExecutionFailCategories()
-  {
-    ExecutionFailCategoriesImpl executionFailCategories = new ExecutionFailCategoriesImpl();
-    return executionFailCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Category createCategory()
   {
     CategoryImpl category = new CategoryImpl();
@@ -213,28 +187,6 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     SelectionCategoryImpl selectionCategory = new SelectionCategoryImpl();
     return selectionCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AssertFailCategory createAssertFailCategory()
-  {
-    AssertFailCategoryImpl assertFailCategory = new AssertFailCategoryImpl();
-    return assertFailCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ExecutionFailCategory createExecutionFailCategory()
-  {
-    ExecutionFailCategoryImpl executionFailCategory = new ExecutionFailCategoryImpl();
-    return executionFailCategory;
   }
 
   /**

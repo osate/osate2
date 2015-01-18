@@ -77,15 +77,6 @@ public interface CommonFactory extends EFactory
   FinalValue createFinalValue();
 
   /**
-   * Returns a new object of class '<em>Result Issue</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Result Issue</em>'.
-   * @generated
-   */
-  ResultIssue createResultIssue();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

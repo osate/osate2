@@ -13,6 +13,6 @@ package org.osate.assure.assure;
  * @model
  * @generated
  */
-public interface IfThenResult extends VerificationResult
+public interface IfThenResult extends VerificationActivityResult
 {
 } // IfThenResult

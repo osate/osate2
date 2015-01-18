@@ -160,6 +160,7 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         Hazard hazard = (Hazard)theEObject;
         T result = caseHazard(hazard);
+        if (result == null) result = caseContractualElement(hazard);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }

@@ -122,13 +122,40 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_CASE_PLAN__SYSTEM = 1;
 
   /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_CASE_PLAN__TITLE = 2;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_CASE_PLAN__DESCRIPTION = 3;
+
+  /**
+   * The feature id for the '<em><b>Constant</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_CASE_PLAN__CONSTANT = 4;
+
+  /**
    * The feature id for the '<em><b>Plans</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_PLAN__PLANS = 2;
+  int ASSURANCE_CASE_PLAN__PLANS = 5;
 
   /**
    * The number of structural features of the '<em>Assurance Case Plan</em>' class.
@@ -137,7 +164,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_PLAN_FEATURE_COUNT = 3;
+  int ASSURANCE_CASE_PLAN_FEATURE_COUNT = 6;
 
 
   /**
@@ -203,6 +230,39 @@ public interface AlisaPackage extends EPackage
    * @generated
    */
   EReference getAssuranceCasePlan_System();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getTitle <em>Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Title</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceCasePlan#getTitle()
+   * @see #getAssuranceCasePlan()
+   * @generated
+   */
+  EAttribute getAssuranceCasePlan_Title();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Description</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceCasePlan#getDescription()
+   * @see #getAssuranceCasePlan()
+   * @generated
+   */
+  EReference getAssuranceCasePlan_Description();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getConstant <em>Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Constant</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceCasePlan#getConstant()
+   * @see #getAssuranceCasePlan()
+   * @generated
+   */
+  EReference getAssuranceCasePlan_Constant();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getPlans <em>Plans</em>}'.
@@ -289,6 +349,30 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EReference ASSURANCE_CASE_PLAN__SYSTEM = eINSTANCE.getAssuranceCasePlan_System();
+
+    /**
+     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ASSURANCE_CASE_PLAN__TITLE = eINSTANCE.getAssuranceCasePlan_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_CASE_PLAN__DESCRIPTION = eINSTANCE.getAssuranceCasePlan_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Constant</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_CASE_PLAN__CONSTANT = eINSTANCE.getAssuranceCasePlan_Constant();
 
     /**
      * The meta object literal for the '<em><b>Plans</b></em>' reference list feature.

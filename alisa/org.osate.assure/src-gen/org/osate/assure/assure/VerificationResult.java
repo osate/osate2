@@ -2,9 +2,7 @@
  */
 package org.osate.assure.assure;
 
-import org.eclipse.emf.common.util.EList;
-
-import org.osate.verify.verify.VerificationActivity;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,12 +12,10 @@ import org.osate.verify.verify.VerificationActivity;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.assure.assure.VerificationResult#getVerificationActivity <em>Verification Activity</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationResult#getStatus <em>Status</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationResult#getAssumptionResult <em>Assumption Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationResult#getPreconditionResult <em>Precondition Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationResult#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationResult#getSecond <em>Second</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getResultState <em>Result State</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getFailMsg <em>Fail Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getFailTarget <em>Fail Target</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,125 +23,113 @@ import org.osate.verify.verify.VerificationActivity;
  * @model
  * @generated
  */
-public interface VerificationResult extends EvidenceResult
+public interface VerificationResult extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Verification Activity</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Verification Activity</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Verification Activity</em>' reference.
-   * @see #setVerificationActivity(VerificationActivity)
-   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_VerificationActivity()
-   * @model
-   * @generated
-   */
-  VerificationActivity getVerificationActivity();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getVerificationActivity <em>Verification Activity</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Verification Activity</em>' reference.
-   * @see #getVerificationActivity()
-   * @generated
-   */
-  void setVerificationActivity(VerificationActivity value);
-
-  /**
-   * Returns the value of the '<em><b>Status</b></em>' attribute.
+   * Returns the value of the '<em><b>Result State</b></em>' attribute.
    * The literals are from the enumeration {@link org.osate.assure.assure.VerificationResultState}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Status</em>' attribute isn't clear,
+   * If the meaning of the '<em>Result State</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Status</em>' attribute.
+   * @return the value of the '<em>Result State</em>' attribute.
    * @see org.osate.assure.assure.VerificationResultState
-   * @see #setStatus(VerificationResultState)
-   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Status()
+   * @see #setResultState(VerificationResultState)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_ResultState()
    * @model
    * @generated
    */
-  VerificationResultState getStatus();
+  VerificationResultState getResultState();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getStatus <em>Status</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getResultState <em>Result State</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Status</em>' attribute.
+   * @param value the new value of the '<em>Result State</em>' attribute.
    * @see org.osate.assure.assure.VerificationResultState
-   * @see #getStatus()
+   * @see #getResultState()
    * @generated
    */
-  void setStatus(VerificationResultState value);
+  void setResultState(VerificationResultState value);
 
   /**
-   * Returns the value of the '<em><b>Assumption Result</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.AssumptionResult}.
+   * Returns the value of the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Assumption Result</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Type</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Assumption Result</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_AssumptionResult()
-   * @model containment="true"
+   * @return the value of the '<em>Type</em>' attribute.
+   * @see #setType(String)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Type()
+   * @model
    * @generated
    */
-  EList<AssumptionResult> getAssumptionResult();
+  String getType();
 
   /**
-   * Returns the value of the '<em><b>Precondition Result</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.PreconditionResult}.
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getType <em>Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type</em>' attribute.
+   * @see #getType()
+   * @generated
+   */
+  void setType(String value);
+
+  /**
+   * Returns the value of the '<em><b>Fail Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Precondition Result</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Fail Msg</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Precondition Result</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_PreconditionResult()
-   * @model containment="true"
+   * @return the value of the '<em>Fail Msg</em>' attribute.
+   * @see #setFailMsg(String)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_FailMsg()
+   * @model
    * @generated
    */
-  EList<PreconditionResult> getPreconditionResult();
+  String getFailMsg();
 
   /**
-   * Returns the value of the '<em><b>First</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.VerificationResult}.
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getFailMsg <em>Fail Msg</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Fail Msg</em>' attribute.
+   * @see #getFailMsg()
+   * @generated
+   */
+  void setFailMsg(String value);
+
+  /**
+   * Returns the value of the '<em><b>Fail Target</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>First</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Fail Target</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>First</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_First()
-   * @model containment="true"
+   * @return the value of the '<em>Fail Target</em>' reference.
+   * @see #setFailTarget(EObject)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_FailTarget()
+   * @model
    * @generated
    */
-  EList<VerificationResult> getFirst();
+  EObject getFailTarget();
 
   /**
-   * Returns the value of the '<em><b>Second</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.VerificationResult}.
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getFailTarget <em>Fail Target</em>}' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Second</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Second</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_Second()
-   * @model containment="true"
+   * @param value the new value of the '<em>Fail Target</em>' reference.
+   * @see #getFailTarget()
    * @generated
    */
-  EList<VerificationResult> getSecond();
+  void setFailTarget(EObject value);
 
 } // VerificationResult

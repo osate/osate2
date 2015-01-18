@@ -16,7 +16,6 @@ import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.PredicateExpression;
 import org.osate.alisa.common.common.ReferencePath;
-import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
@@ -81,12 +80,6 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case CommonPackage.RESULT_ISSUE:
-				if(context == grammarAccess.getResultIssueRule()) {
-					sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-					return; 
-				}
-				else break;
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
@@ -102,7 +95,14 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID system=[ComponentImplementation|AadlClassifierReference] plans+=[VerificationPlan|QualifiedName]*)
+	 *     (
+	 *         name=ID 
+	 *         system=[ComponentImplementation|AadlClassifierReference] 
+	 *         title=ValueString? 
+	 *         description=Description? 
+	 *         constant+=FinalValue* 
+	 *         plans+=[VerificationPlan|QualifiedName]*
+	 *     )
 	 */
 	protected void sequence_AssuranceCasePlan(EObject context, AssuranceCasePlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -2,17 +2,24 @@
  */
 package org.osate.assure.assure.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.PreconditionResult;
-import org.osate.assure.assure.VerificationResult;
+import org.osate.assure.assure.VerificationActivityResult;
 
 import org.osate.verify.verify.VerificationPrecondition;
 
@@ -23,34 +30,55 @@ import org.osate.verify.verify.VerificationPrecondition;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.PreconditionResultImpl#getVerificationActivity <em>Verification Activity</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.PreconditionResultImpl#getStatus <em>Status</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.PreconditionResultImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.PreconditionResultImpl#getSuccessCount <em>Success Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.PreconditionResultImpl#getVerificationResult <em>Verification Result</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PreconditionResultImpl extends EvidenceResultImpl implements PreconditionResult
+public class PreconditionResultImpl extends AggregateResultImpl implements PreconditionResult
 {
   /**
-   * The cached value of the '{@link #getVerificationActivity() <em>Verification Activity</em>}' reference.
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getVerificationActivity()
+   * @see #getTarget()
    * @generated
    * @ordered
    */
-  protected VerificationPrecondition verificationActivity;
+  protected VerificationPrecondition target;
 
   /**
-   * The cached value of the '{@link #getStatus() <em>Status</em>}' containment reference.
+   * The default value of the '{@link #getSuccessCount() <em>Success Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStatus()
+   * @see #getSuccessCount()
    * @generated
    * @ordered
    */
-  protected VerificationResult status;
+  protected static final int SUCCESS_COUNT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getSuccessCount() <em>Success Count</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSuccessCount()
+   * @generated
+   * @ordered
+   */
+  protected int successCount = SUCCESS_COUNT_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getVerificationResult() <em>Verification Result</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVerificationResult()
+   * @generated
+   * @ordered
+   */
+  protected EList<VerificationActivityResult> verificationResult;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,19 +106,19 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationPrecondition getVerificationActivity()
+  public VerificationPrecondition getTarget()
   {
-    if (verificationActivity != null && verificationActivity.eIsProxy())
+    if (target != null && target.eIsProxy())
     {
-      InternalEObject oldVerificationActivity = (InternalEObject)verificationActivity;
-      verificationActivity = (VerificationPrecondition)eResolveProxy(oldVerificationActivity);
-      if (verificationActivity != oldVerificationActivity)
+      InternalEObject oldTarget = (InternalEObject)target;
+      target = (VerificationPrecondition)eResolveProxy(oldTarget);
+      if (target != oldTarget)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.PRECONDITION_RESULT__VERIFICATION_ACTIVITY, oldVerificationActivity, verificationActivity));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.PRECONDITION_RESULT__TARGET, oldTarget, target));
       }
     }
-    return verificationActivity;
+    return target;
   }
 
   /**
@@ -98,9 +126,9 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationPrecondition basicGetVerificationActivity()
+  public VerificationPrecondition basicGetTarget()
   {
-    return verificationActivity;
+    return target;
   }
 
   /**
@@ -108,12 +136,12 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVerificationActivity(VerificationPrecondition newVerificationActivity)
+  public void setTarget(VerificationPrecondition newTarget)
   {
-    VerificationPrecondition oldVerificationActivity = verificationActivity;
-    verificationActivity = newVerificationActivity;
+    VerificationPrecondition oldTarget = target;
+    target = newTarget;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.PRECONDITION_RESULT__VERIFICATION_ACTIVITY, oldVerificationActivity, verificationActivity));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.PRECONDITION_RESULT__TARGET, oldTarget, target));
   }
 
   /**
@@ -121,9 +149,9 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationResult getStatus()
+  public int getSuccessCount()
   {
-    return status;
+    return successCount;
   }
 
   /**
@@ -131,16 +159,12 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetStatus(VerificationResult newStatus, NotificationChain msgs)
+  public void setSuccessCount(int newSuccessCount)
   {
-    VerificationResult oldStatus = status;
-    status = newStatus;
+    int oldSuccessCount = successCount;
+    successCount = newSuccessCount;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.PRECONDITION_RESULT__STATUS, oldStatus, newStatus);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.PRECONDITION_RESULT__SUCCESS_COUNT, oldSuccessCount, successCount));
   }
 
   /**
@@ -148,20 +172,13 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setStatus(VerificationResult newStatus)
+  public EList<VerificationActivityResult> getVerificationResult()
   {
-    if (newStatus != status)
+    if (verificationResult == null)
     {
-      NotificationChain msgs = null;
-      if (status != null)
-        msgs = ((InternalEObject)status).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.PRECONDITION_RESULT__STATUS, null, msgs);
-      if (newStatus != null)
-        msgs = ((InternalEObject)newStatus).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.PRECONDITION_RESULT__STATUS, null, msgs);
-      msgs = basicSetStatus(newStatus, msgs);
-      if (msgs != null) msgs.dispatch();
+      verificationResult = new EObjectContainmentEList<VerificationActivityResult>(VerificationActivityResult.class, this, AssurePackage.PRECONDITION_RESULT__VERIFICATION_RESULT);
     }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.PRECONDITION_RESULT__STATUS, newStatus, newStatus));
+    return verificationResult;
   }
 
   /**
@@ -174,8 +191,8 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__STATUS:
-        return basicSetStatus(null, msgs);
+      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_RESULT:
+        return ((InternalEList<?>)getVerificationResult()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -190,11 +207,13 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_ACTIVITY:
-        if (resolve) return getVerificationActivity();
-        return basicGetVerificationActivity();
-      case AssurePackage.PRECONDITION_RESULT__STATUS:
-        return getStatus();
+      case AssurePackage.PRECONDITION_RESULT__TARGET:
+        if (resolve) return getTarget();
+        return basicGetTarget();
+      case AssurePackage.PRECONDITION_RESULT__SUCCESS_COUNT:
+        return getSuccessCount();
+      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_RESULT:
+        return getVerificationResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -204,16 +223,21 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_ACTIVITY:
-        setVerificationActivity((VerificationPrecondition)newValue);
+      case AssurePackage.PRECONDITION_RESULT__TARGET:
+        setTarget((VerificationPrecondition)newValue);
         return;
-      case AssurePackage.PRECONDITION_RESULT__STATUS:
-        setStatus((VerificationResult)newValue);
+      case AssurePackage.PRECONDITION_RESULT__SUCCESS_COUNT:
+        setSuccessCount((Integer)newValue);
+        return;
+      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_RESULT:
+        getVerificationResult().clear();
+        getVerificationResult().addAll((Collection<? extends VerificationActivityResult>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -229,11 +253,14 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_ACTIVITY:
-        setVerificationActivity((VerificationPrecondition)null);
+      case AssurePackage.PRECONDITION_RESULT__TARGET:
+        setTarget((VerificationPrecondition)null);
         return;
-      case AssurePackage.PRECONDITION_RESULT__STATUS:
-        setStatus((VerificationResult)null);
+      case AssurePackage.PRECONDITION_RESULT__SUCCESS_COUNT:
+        setSuccessCount(SUCCESS_COUNT_EDEFAULT);
+        return;
+      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_RESULT:
+        getVerificationResult().clear();
         return;
     }
     super.eUnset(featureID);
@@ -249,12 +276,31 @@ public class PreconditionResultImpl extends EvidenceResultImpl implements Precon
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_ACTIVITY:
-        return verificationActivity != null;
-      case AssurePackage.PRECONDITION_RESULT__STATUS:
-        return status != null;
+      case AssurePackage.PRECONDITION_RESULT__TARGET:
+        return target != null;
+      case AssurePackage.PRECONDITION_RESULT__SUCCESS_COUNT:
+        return successCount != SUCCESS_COUNT_EDEFAULT;
+      case AssurePackage.PRECONDITION_RESULT__VERIFICATION_RESULT:
+        return verificationResult != null && !verificationResult.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (successCount: ");
+    result.append(successCount);
+    result.append(')');
+    return result.toString();
   }
 
 } //PreconditionResultImpl

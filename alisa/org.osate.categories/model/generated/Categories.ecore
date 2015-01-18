@@ -19,14 +19,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
         eType="#//SelectionCategory" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AssertFailCategories" eSuperTypes="#//Categories">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
-        eType="#//AssertFailCategory" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExecutionFailCategories" eSuperTypes="#//Categories">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
-        eType="#//ExecutionFailCategory" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Category">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -41,13 +33,5 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SelectionCategory" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//SelectionCategory"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AssertFailCategory">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//AssertFailCategory"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExecutionFailCategory">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//ExecutionFailCategory"/>
   </eClassifiers>
 </ecore:EPackage>

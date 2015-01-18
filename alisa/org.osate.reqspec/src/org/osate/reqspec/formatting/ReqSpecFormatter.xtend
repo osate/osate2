@@ -41,7 +41,7 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		for (kw : findKeywords("goal","requirement","hazard","folder")) {
 			c.setLinewrap().before(kw);
 		}
-		for (kw : findKeywords("description","assert","rationale","issues",
+		for (kw : findKeywords("description","assert","rationale",
 		"refines","decomposes","evolves","conflicts","mitigates","stakeholder","see")) {
 			c.setLinewrap().before(kw);
 		}

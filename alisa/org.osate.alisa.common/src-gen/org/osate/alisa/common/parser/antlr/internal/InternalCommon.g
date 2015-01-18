@@ -24,7 +24,6 @@ import org.eclipse.xtext.parser.*;
 import org.eclipse.xtext.parser.impl.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream.HiddenTokens;
@@ -255,48 +254,6 @@ ruleReferencePath returns [EObject current=null]
 
 
 
-
-
-// Entry rule entryRuleMultiLineString
-entryRuleMultiLineString returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getMultiLineStringRule()); } 
-	 iv_ruleMultiLineString=ruleMultiLineString 
-	 { $current=$iv_ruleMultiLineString.current.getText(); }  
-	 EOF 
-;
-
-// Rule MultiLineString
-ruleMultiLineString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-	kw='\'\'\'' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getMultiLineStringAccess().getApostropheApostropheApostropheKeyword_0()); 
-    }
-(    this_STRING_1=RULE_STRING    {
-		$current.merge(this_STRING_1);
-    }
-
-    { 
-    newLeafNode(this_STRING_1, grammarAccess.getMultiLineStringAccess().getSTRINGTerminalRuleCall_1()); 
-    }
-)*
-	kw='\'\'\'' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getMultiLineStringAccess().getApostropheApostropheApostropheKeyword_2()); 
-    }
-)
-    ;
-
-
-
-
-
 // Entry rule entryRuleValueString
 entryRuleValueString returns [String current=null] 
 	:
@@ -330,31 +287,6 @@ ruleValueString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
 
 
 
-
-
-
-// Rule IssueType
-ruleIssueType returns [Enumerator current=null] 
-    @init { enterRule(); }
-    @after { leaveRule(); }:
-((	enumLiteral_0='error' 
-	{
-        $current = grammarAccess.getIssueTypeAccess().getERROREnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getIssueTypeAccess().getERROREnumLiteralDeclaration_0()); 
-    }
-)
-    |(	enumLiteral_1='warning' 
-	{
-        $current = grammarAccess.getIssueTypeAccess().getWARNINGEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getIssueTypeAccess().getWARNINGEnumLiteralDeclaration_1()); 
-    }
-)
-    |(	enumLiteral_2='info' 
-	{
-        $current = grammarAccess.getIssueTypeAccess().getINFOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getIssueTypeAccess().getINFOEnumLiteralDeclaration_2()); 
-    }
-));
 
 
 

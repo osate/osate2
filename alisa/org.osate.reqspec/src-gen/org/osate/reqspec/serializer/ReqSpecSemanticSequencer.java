@@ -16,7 +16,6 @@ import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.PredicateExpression;
 import org.osate.alisa.common.common.ReferencePath;
-import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
@@ -75,12 +74,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case CommonPackage.RESULT_ISSUE:
-				if(context == grammarAccess.getResultIssueRule()) {
-					sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-					return; 
-				}
-				else break;
 			}
 		else if(semanticObject.eClass().getEPackage() == ReqSpecPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case ReqSpecPackage.EXTERNAL_DOCUMENT:
@@ -97,7 +90,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case ReqSpecPackage.HAZARD:
-				if(context == grammarAccess.getHazardRule()) {
+				if(context == grammarAccess.getContractualElementRule() ||
+				   context == grammarAccess.getHazardRule()) {
 					sequence_Hazard(context, (Hazard) semanticObject); 
 					return; 
 				}
@@ -168,12 +162,11 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=ValueString? 
-	 *         (target=[NamedElement|ID] targetContext=[Classifier|AadlClassifierReference]?)? 
+	 *         target=[NamedElement|ID]? 
 	 *         category=[RequirementCategory|CatRef]? 
 	 *         description=Description? 
 	 *         assert=PredicateExpression? 
-	 *         rationale=MultiLineString? 
-	 *         (issue+=MultiLineString issue+=MultiLineString*)? 
+	 *         rationale=STRING? 
 	 *         (refinesReference+=[Goal|QualifiedName] refinesReference+=[Goal|QualifiedName]*)? 
 	 *         subgoal+=Goal* 
 	 *         (decomposesReference+=[Goal|QualifiedName] decomposesReference+=[Goal|QualifiedName]*)? 
@@ -194,13 +187,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (target=[NamedElement|ID] targetContext=[Classifier|AadlClassifierReference]?)? 
-	 *         category=[HazardCategory|CatRef]? 
 	 *         title=ValueString? 
+	 *         target=[NamedElement|ID]? 
+	 *         category=[HazardCategory|CatRef]? 
 	 *         description=Description? 
 	 *         (hazardReference+=[Requirement|QualifiedName] hazardReference+=[Requirement|QualifiedName]*)? 
-	 *         rationale=MultiLineString? 
-	 *         (issue+=MultiLineString issue+=MultiLineString*)?
+	 *         rationale=STRING?
 	 *     )
 	 */
 	protected void sequence_Hazard(EObject context, Hazard semanticObject) {
@@ -219,12 +211,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         label=ID 
-	 *         target=[Classifier|AadlClassifierReference]? 
-	 *         (content+=Goal | content+=Requirement | content+=Hazard | content+=ReqSpecFolder)* 
-	 *         (issue+=MultiLineString issue+=MultiLineString*)?
-	 *     )
+	 *     (label=ID (content+=Goal | content+=Requirement | content+=Hazard | content+=ReqSpecFolder)*)
 	 */
 	protected void sequence_ReqSpecFolder(EObject context, ReqSpecFolder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -237,8 +224,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         importedNamespace=QualifiedNameWithWildCard? 
 	 *         target=[Classifier|AadlClassifierReference]? 
-	 *         (content+=Goal | content+=Requirement | content+=Hazard | content+=ReqSpecFolder)* 
-	 *         (issue+=MultiLineString issue+=MultiLineString*)?
+	 *         constants+=FinalValue* 
+	 *         (content+=Goal | content+=Requirement | content+=Hazard | content+=ReqSpecFolder)*
 	 *     )
 	 */
 	protected void sequence_ReqSpecLibrary(EObject context, ReqSpecLibrary semanticObject) {
@@ -260,13 +247,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=ValueString? 
+	 *         target=[NamedElement|ID]? 
 	 *         category=[RequirementCategory|CatRef]? 
-	 *         (target=[NamedElement|ID] targetContext=[Classifier|AadlClassifierReference]?)? 
 	 *         description=Description? 
-	 *         parameters+=FinalValue* 
+	 *         constants+=FinalValue* 
 	 *         assert=PredicateExpression? 
-	 *         rationale=MultiLineString? 
-	 *         (issue+=MultiLineString issue+=MultiLineString*)? 
+	 *         rationale=STRING? 
 	 *         (goalReference+=[Goal|QualifiedName] goalReference+=[Goal|QualifiedName]*)? 
 	 *         (refinedReference+=[Requirement|QualifiedName] refinesReference+=[Requirement|QualifiedName]*)? 
 	 *         subrequirement+=Requirement* 

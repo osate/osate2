@@ -1,8 +1,4 @@
-'.'=14
-'\'\'\''=15
-'error'=11
-'info'=13
-'warning'=12
+'.'=11
 RULE_ANY_OTHER=10
 RULE_ID=5
 RULE_INT=6
@@ -11,7 +7,3 @@ RULE_SL_COMMENT=8
 RULE_STRING=4
 RULE_WS=9
 T__11=11
-T__12=12
-T__13=13
-T__14=14
-T__15=15

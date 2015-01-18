@@ -19,9 +19,9 @@ import org.osate.categories.categories.VerificationCategory;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethod <em>Method</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getConditions <em>Conditions</em>}</li>
@@ -59,32 +59,6 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   void setName(String value);
-
-  /**
-   * Returns the value of the '<em><b>Title</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Title</em>' attribute.
-   * @see #setTitle(String)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Title()
-   * @model
-   * @generated
-   */
-  String getTitle();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Title</em>' attribute.
-   * @see #getTitle()
-   * @generated
-   */
-  void setTitle(String value);
 
   /**
    * Returns the value of the '<em><b>Method Type</b></em>' attribute.
@@ -140,6 +114,32 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   void setMethod(String value);
+
+  /**
+   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Title</em>' attribute.
+   * @see #setTitle(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Title()
+   * @model
+   * @generated
+   */
+  String getTitle();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Title</em>' attribute.
+   * @see #getTitle()
+   * @generated
+   */
+  void setTitle(String value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

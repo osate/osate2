@@ -26,9 +26,9 @@ Stakeholder : ('S'|'s')('T'|'t')('A'|'a')('K'|'k')('E'|'e')('H'|'h')('O'|'o')('L
 
 Decomposed : ('D'|'d')('E'|'e')('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('S'|'s')('E'|'e')('D'|'d');
 
-Parameters : ('P'|'p')('A'|'a')('R'|'r')('A'|'a')('M'|'m')('E'|'e')('T'|'t')('E'|'e')('R'|'r')('S'|'s');
-
 Conflicts : ('C'|'c')('O'|'o')('N'|'n')('F'|'f')('L'|'l')('I'|'i')('C'|'c')('T'|'t')('S'|'s');
+
+Constants : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t')('S'|'s');
 
 Mitigated : ('M'|'m')('I'|'i')('T'|'t')('I'|'i')('G'|'g')('A'|'a')('T'|'t')('E'|'e')('D'|'d');
 
@@ -46,8 +46,6 @@ Library : ('L'|'l')('I'|'i')('B'|'b')('R'|'r')('A'|'a')('R'|'r')('Y'|'y');
 
 Refined : ('R'|'r')('E'|'e')('F'|'f')('I'|'i')('N'|'n')('E'|'e')('D'|'d');
 
-Warning : ('W'|'w')('A'|'a')('R'|'r')('N'|'n')('I'|'i')('N'|'n')('G'|'g');
-
 Assert : ('A'|'a')('S'|'s')('S'|'s')('E'|'e')('R'|'r')('T'|'t');
 
 Folder : ('F'|'f')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
@@ -56,21 +54,11 @@ Hazard : ('H'|'h')('A'|'a')('Z'|'z')('A'|'a')('R'|'r')('D'|'d');
 
 Import : ('I'|'i')('M'|'m')('P'|'p')('O'|'o')('R'|'r')('T'|'t');
 
-Issues : ('I'|'i')('S'|'s')('S'|'s')('U'|'u')('E'|'e')('S'|'s');
-
-Error : ('E'|'e')('R'|'r')('R'|'r')('O'|'o')('R'|'r');
-
 Goals : ('G'|'g')('O'|'o')('A'|'a')('L'|'l')('S'|'s');
-
-Title : ('T'|'t')('I'|'i')('T'|'t')('L'|'l')('E'|'e');
 
 Goal : ('G'|'g')('O'|'o')('A'|'a')('L'|'l');
 
-Info : ('I'|'i')('N'|'n')('F'|'f')('O'|'o');
-
 With : ('W'|'w')('I'|'i')('T'|'t')('H'|'h');
-
-ApostropheApostropheApostrophe : '\'''\'''\'';
 
 For : ('F'|'f')('O'|'o')('R'|'r');
 
@@ -88,15 +76,9 @@ GreaterThanSignEqualsSign : '>''=';
 
 By : ('B'|'b')('Y'|'y');
 
-Of : ('O'|'o')('F'|'f');
-
 To : ('T'|'t')('O'|'o');
 
 NumberSign : '#';
-
-LeftParenthesis : '(';
-
-RightParenthesis : ')';
 
 Comma : ',';
 

@@ -2,12 +2,8 @@
  */
 package org.osate.verify.verify.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -15,11 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
-
 import org.osate.alisa.common.common.Description;
-
-import org.osate.reqspec.reqSpec.Requirement;
 
 import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.VerificationCondition;
@@ -36,9 +28,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getAssert <em>Assert</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getMetBy <em>Met By</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getRationale <em>Rationale</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getIssue <em>Issue</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,16 +97,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
   protected ArgumentExpr assert_;
 
   /**
-   * The cached value of the '{@link #getMetBy() <em>Met By</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getMetBy()
-   * @generated
-   * @ordered
-   */
-  protected Requirement metBy;
-
-  /**
    * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -135,16 +115,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * @ordered
    */
   protected String rationale = RATIONALE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getIssue() <em>Issue</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIssue()
-   * @generated
-   * @ordered
-   */
-  protected EList<String> issue;
 
   /**
    * <!-- begin-user-doc -->
@@ -314,49 +284,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public Requirement getMetBy()
-  {
-    if (metBy != null && metBy.eIsProxy())
-    {
-      InternalEObject oldMetBy = (InternalEObject)metBy;
-      metBy = (Requirement)eResolveProxy(oldMetBy);
-      if (metBy != oldMetBy)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_CONDITION__MET_BY, oldMetBy, metBy));
-      }
-    }
-    return metBy;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Requirement basicGetMetBy()
-  {
-    return metBy;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setMetBy(Requirement newMetBy)
-  {
-    Requirement oldMetBy = metBy;
-    metBy = newMetBy;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__MET_BY, oldMetBy, metBy));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getRationale()
   {
     return rationale;
@@ -373,20 +300,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
     rationale = newRationale;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__RATIONALE, oldRationale, rationale));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<String> getIssue()
-  {
-    if (issue == null)
-    {
-      issue = new EDataTypeEList<String>(String.class, this, VerifyPackage.VERIFICATION_CONDITION__ISSUE);
-    }
-    return issue;
   }
 
   /**
@@ -425,13 +338,8 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
         return getDescription();
       case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
         return getAssert();
-      case VerifyPackage.VERIFICATION_CONDITION__MET_BY:
-        if (resolve) return getMetBy();
-        return basicGetMetBy();
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         return getRationale();
-      case VerifyPackage.VERIFICATION_CONDITION__ISSUE:
-        return getIssue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -441,7 +349,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -459,15 +366,8 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
         setAssert((ArgumentExpr)newValue);
         return;
-      case VerifyPackage.VERIFICATION_CONDITION__MET_BY:
-        setMetBy((Requirement)newValue);
-        return;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         setRationale((String)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_CONDITION__ISSUE:
-        getIssue().clear();
-        getIssue().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -495,14 +395,8 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
         setAssert((ArgumentExpr)null);
         return;
-      case VerifyPackage.VERIFICATION_CONDITION__MET_BY:
-        setMetBy((Requirement)null);
-        return;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         setRationale(RATIONALE_EDEFAULT);
-        return;
-      case VerifyPackage.VERIFICATION_CONDITION__ISSUE:
-        getIssue().clear();
         return;
     }
     super.eUnset(featureID);
@@ -526,12 +420,8 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
         return description != null;
       case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
         return assert_ != null;
-      case VerifyPackage.VERIFICATION_CONDITION__MET_BY:
-        return metBy != null;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
-      case VerifyPackage.VERIFICATION_CONDITION__ISSUE:
-        return issue != null && !issue.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -553,8 +443,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
     result.append(title);
     result.append(", rationale: ");
     result.append(rationale);
-    result.append(", issue: ");
-    result.append(issue);
     result.append(')');
     return result.toString();
   }

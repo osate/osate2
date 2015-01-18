@@ -1,9 +1,7 @@
 '['=13
 ']'=14
-'assertfail'=18
 'categories'=12
-'executionfail'=19
-'extends'=20
+'extends'=18
 'hazard'=15
 'requirement'=11
 'selection'=17
@@ -23,5 +21,3 @@ T__15=15
 T__16=16
 T__17=17
 T__18=18
-T__19=19
-T__20=20

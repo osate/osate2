@@ -5,6 +5,7 @@ package org.osate.alisa.workbench.alisa.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -15,9 +16,14 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentImplementation;
+
+import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.FinalValue;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan;
@@ -33,6 +39,9 @@ import org.osate.verify.verify.VerificationPlan;
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getSystem <em>System</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getPlans <em>Plans</em>}</li>
  * </ul>
  * </p>
@@ -70,6 +79,46 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected ComponentImplementation system;
+
+  /**
+   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected static final String TITLE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected Description description;
+
+  /**
+   * The cached value of the '{@link #getConstant() <em>Constant</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConstant()
+   * @generated
+   * @ordered
+   */
+  protected EList<FinalValue> constant;
 
   /**
    * The cached value of the '{@link #getPlans() <em>Plans</em>}' reference list.
@@ -173,6 +222,91 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_PLAN__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Description getDescription()
+  {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
+  {
+    Description oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION, oldDescription, newDescription);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(Description newDescription)
+  {
+    if (newDescription != description)
+    {
+      NotificationChain msgs = null;
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION, newDescription, newDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<FinalValue> getConstant()
+  {
+    if (constant == null)
+    {
+      constant = new EObjectContainmentEList<FinalValue>(FinalValue.class, this, AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT);
+    }
+    return constant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<VerificationPlan> getPlans()
   {
     if (plans == null)
@@ -180,6 +314,24 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
       plans = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_CASE_PLAN__PLANS);
     }
     return plans;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
+        return basicSetDescription(null, msgs);
+      case AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT:
+        return ((InternalEList<?>)getConstant()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -197,6 +349,12 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
       case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
         if (resolve) return getSystem();
         return basicGetSystem();
+      case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
+        return getTitle();
+      case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
+        return getDescription();
+      case AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT:
+        return getConstant();
       case AlisaPackage.ASSURANCE_CASE_PLAN__PLANS:
         return getPlans();
     }
@@ -219,6 +377,16 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
         return;
       case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
         setSystem((ComponentImplementation)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
+        setTitle((String)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
+        setDescription((Description)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT:
+        getConstant().clear();
+        getConstant().addAll((Collection<? extends FinalValue>)newValue);
         return;
       case AlisaPackage.ASSURANCE_CASE_PLAN__PLANS:
         getPlans().clear();
@@ -244,6 +412,15 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
       case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
         setSystem((ComponentImplementation)null);
         return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
+        setTitle(TITLE_EDEFAULT);
+        return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
+        setDescription((Description)null);
+        return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT:
+        getConstant().clear();
+        return;
       case AlisaPackage.ASSURANCE_CASE_PLAN__PLANS:
         getPlans().clear();
         return;
@@ -265,6 +442,12 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
         return system != null;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
+        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
+        return description != null;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT:
+        return constant != null && !constant.isEmpty();
       case AlisaPackage.ASSURANCE_CASE_PLAN__PLANS:
         return plans != null && !plans.isEmpty();
     }
@@ -284,6 +467,8 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", title: ");
+    result.append(title);
     result.append(')');
     return result.toString();
   }

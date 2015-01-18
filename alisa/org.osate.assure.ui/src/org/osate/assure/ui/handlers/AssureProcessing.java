@@ -3,7 +3,7 @@ package org.osate.assure.ui.handlers;
 import org.osate.alisa.workbench.ui.utils.AlisaLoader;
 import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
-import org.osate.assure.assure.VerificationResult;
+import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.verify.verify.SupportedTypes;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -23,7 +23,7 @@ public class AssureProcessing {
 	public static void processClaimResult(ClaimResult claimResult) {
 		System.out.println("claim result=" + claimResult);
 
-		for (VerificationResult verificationResult : claimResult.getVerificationResult()) {
+		for (VerificationActivityResult verificationResult : claimResult.getVerificationActivityResult()) {
 			processVerificationResult(verificationResult);
 		}
 
@@ -32,11 +32,11 @@ public class AssureProcessing {
 		}
 	}
 
-	public static void processVerificationResult(VerificationResult verificationResult) {
-		VerificationActivity verificationActivity = verificationResult.getVerificationActivity();
+	public static void processVerificationResult(VerificationActivityResult verificationActivityResult) {
+		VerificationActivity verificationActivity = verificationActivityResult.getTarget();
 		if (verificationActivity != null) {
 
-			VerificationMethod method = verificationResult.getVerificationActivity().getMethod();
+			VerificationMethod method = verificationActivityResult.getTarget().getMethod();
 			System.out.println("verification method=" + method);
 			if (method.getMethodType() == SupportedTypes.SINGLEPREDICATE) {
 				System.out.println("title=" + method.getTitle());
@@ -49,7 +49,6 @@ public class AssureProcessing {
 
 			}
 		}
-//		AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
 
 	}
 

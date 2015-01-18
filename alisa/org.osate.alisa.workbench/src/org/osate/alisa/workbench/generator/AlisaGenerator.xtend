@@ -3,46 +3,30 @@
  */
 package org.osate.alisa.workbench.generator
 
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IGenerator
-import org.eclipse.xtext.generator.IFileSystemAccess
-
 import com.google.inject.Inject
-import org.osate.aadl2.ComponentClassifier
-import org.osate.aadl2.NamedElement
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.generator.IFileSystemAccess
+import org.eclipse.xtext.generator.IGenerator
+import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.InstanceObject
-import org.osate.aadl2.instance.SystemInstance
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
-import org.osate.reqspec.reqSpec.Hazard
-import org.osate.reqspec.reqSpec.ReqSpecPackage
-import org.osate.reqspec.reqSpec.Requirement
-import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationAssumption
-import org.osate.verify.verify.VerificationContainer
-import org.osate.verify.verify.VerifyPackage
-
-import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
-import org.osate.verify.verify.VerificationCondition
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
-import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan
-import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
-import org.osate.verify.verify.VerificationPlan
-import java.util.ArrayList
-import org.osate.verify.verify.Claim
-import java.util.List
-import org.osate.verify.verify.ArgumentExpr
+import org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension
+import org.osate.reqspec.reqSpec.Hazard
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.AndThenExpr
+import org.osate.verify.verify.ArgumentExpr
+import org.osate.verify.verify.Claim
+import org.osate.verify.verify.ConditionExpr
+import org.osate.verify.verify.ConditionalExpr
 import org.osate.verify.verify.FailThenExpr
 import org.osate.verify.verify.RefExpr
-import org.osate.verify.verify.ConditionalExpr
-import org.osate.verify.verify.ConditionExpr
+import org.osate.verify.verify.VerificationAssumption
+import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPrecondition
-import org.osate.aadl2.ComponentType
-import org.eclipse.xtext.naming.IQualifiedNameProvider
+
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
+import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 
 /**
  * Generates code from your model files on save.
@@ -61,66 +45,56 @@ class AlisaGenerator implements IGenerator {
 	
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
 
-//	@Inject
-//	var IGlobalScopeProvider scopeProvider
-//
-//	extension CommonGlobalScopeProvider cgsp = scopeProvider as CommonGlobalScopeProvider
-
-	var AssuranceCasePlan currentcase
+	extension AlisaWorkbenchUtilsExtension awue = new AlisaWorkbenchUtilsExtension
 
 	def generateCase(AssuranceCasePlan acp) {
-		currentcase = acp
 		val si = acp.system.buildInstanceModelFile
 		si.generate(acp)
 	}
 
-	def String generate(ComponentInstance ci, AssuranceCasePlan acp) {
-		'''
-			case «acp.name» for «ci.componentClassifier.getQualifiedName»
-				uri "«ci.URI.toString»"
-			[
-				success 0
-				fail 0
-				neutral 0
-				unknown 0
-				weight 1
-				«FOR claim : ci.claims»
-				«claim.generate»
-				«ENDFOR»
-«««				«FOR subci : ci.componentInstances»
-«««				«subci.generateNonemptySubCase»
-«««				«ENDFOR»
-			]
-		'''
-	}
-	
-//	def String generateNonemptySubCase(ComponentInstance ci){
-//		val claimset = ci.claims
-//		if (!claimset.empty){
-//			ci.generate
-//		}
-//		''''''
-//	}
-
-	//io.getRelativeURIFragmentPath(null) for relative path
-	def String generate(Claim claim) {
-		'''
-			claim «claim.name» of «claim?.requirement.fullyQualifiedName»
-			[
-				success  0
-				fail 0
-				neutral 0
-				unknown 0
-				weight 1
-			    «FOR subclaim : claim?.subclaims»
-				«subclaim.generate»
-			    «ENDFOR»
-			    «claim.assert.generate»
-			]
+	def CharSequence generate(ComponentInstance ci, AssuranceCasePlan acp) {
+		val myplans = ci.getVerificationPlans(acp);
+		'''	
+		«IF !myplans.empty»
+		case «acp.name» for «ci.componentClassifier.getQualifiedName»
+		uri "«ci.URI.toString»"
+		[
+			success 0
+			fail 0
+			unknown 0
+			tbd 0
+			weight 1
+			«FOR myplan : myplans»
+			«FOR claim : myplan.claim»
+			«claim.generate»
+			«ENDFOR»
+			«ENDFOR»
+			«FOR subci : ci.componentInstances»
+			«subci.generate(acp)»
+			«ENDFOR»
+		]
+		«ENDIF»
 		'''
 	}
 
-	def generate(ArgumentExpr expr) {
+	def CharSequence generate(Claim claim) {
+		'''
+		claim «claim.name» for «claim?.requirement.fullyQualifiedName»
+		[
+			success  0
+			fail 0
+			unknown 0
+			tbd 0
+			weight 1
+		    «FOR subclaim : claim?.subclaim»
+			«subclaim.generate»
+		    «ENDFOR»
+		    «claim.assert.generate»
+		]
+		'''
+	}
+
+	def CharSequence generate(ArgumentExpr expr) {
 		switch expr {
 			AllExpr: expr.doGenerate
 			AndThenExpr: expr.doGenerate
@@ -132,29 +106,32 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(AllExpr expr) {
 		'''«FOR subexpr : expr.all»
-			«subexpr.generate»
+		«subexpr.generate»
 		«ENDFOR»
 		'''
 	}
 
 	def doGenerate(AndThenExpr expr) {
-		'''if 
-		  «expr.left.generate»
+		'''
+		if
+			«expr.left.generate»
 		then
-		  «expr.right.generate»
+			«expr.right.generate»
 		'''
 	}
 
 	def doGenerate(FailThenExpr expr) {
-		'''fail 
-		  «expr.left.generate»
+		'''
+		fail 
+			«expr.left.generate»
 		then
-		  «expr.right.generate»
+			«expr.right.generate»
 		'''
 	}
 
 	def doGenerate(ConditionalExpr expr) {
-		'''«IF expr.condition.evaluate»
+		'''
+		«IF expr.condition.evaluate»
 		«expr.generate»
 		«ENDIF»
 		'''
@@ -162,21 +139,21 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(RefExpr expr) {
 		'''
-			verification «expr.verification.name» of «expr.verification.fullyQualifiedName»
-			[
-				state todo
-				status tbd
-				weight «expr.theWeight»
-			«FOR vacond : expr.verification.method.conditions»
-				«vacond.generate»
-			«ENDFOR»
-			]
+		verification «expr.verification.name» for «expr.verification.fullyQualifiedName»
+		[
+			executionstate todo
+			resultstate tbd
+			weight «expr.theWeight»
+		«FOR vacond : expr.verification?.method?.conditions»
+			«vacond.generate»
+		«ENDFOR»
+		]
 		'''
 	}
 
 	def generate(Hazard ha) {
 		'''
-			hazard «ha.name» of «ha.fullyQualifiedName»
+			hazard «ha.name» for «ha.fullyQualifiedName»
 			[
 				sucess  0
 				fail 0
@@ -189,10 +166,12 @@ class AlisaGenerator implements IGenerator {
 
 	def generate(VerificationCondition vc) {
 		'''
-			«vc.keyword» «vc.name» of «vc.fullyQualifiedName»
+			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
 			[
-				state todo
-				status tbd
+				sucess  0
+				fail 0
+				neutral 0
+				unknown 0
 				weight 1
 			]
 		'''
@@ -213,72 +192,6 @@ class AlisaGenerator implements IGenerator {
 		switch expr {
 			case expr.weight == 0: 1
 			default: expr.weight
-		}
-	}
-
-	def List<Claim> getClaims(ComponentInstance io) {
-		val myplans = currentcase.plans.filter [ VerificationPlan vp |
-			vp.target.isSame(io.componentClassifier)
-		]
-		val List<Claim> resultlist = new ArrayList
-		myplans.forEach[resultlist.addAll(claims)]
-		return resultlist
-	}
-
-	def boolean hasPlan(ComponentInstance io) {
-		val myplans = currentcase.plans.filter [ VerificationPlan vp |
-			vp.target.isSame(io.componentClassifier)
-		]
-		! myplans.empty
-	}
-	
-	def isSame(ComponentClassifier cl1, ComponentClassifier cl2){
-		var lcl1 = cl1
-		var lcl2 = cl2
-		if (cl1 instanceof ComponentType && cl2 instanceof ComponentImplementation)
-		lcl2 = (cl2 as ComponentImplementation).type
-		if (cl2 instanceof ComponentType && cl1 instanceof ComponentImplementation)
-		lcl1 = (cl1 as ComponentImplementation).type
-		cl1.name.equalsIgnoreCase(cl2.name)
-	}
-
-	//	def getRequirements(ComponentInstance io){
-	//		val x = io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement,null)
-	//		
-	//		val y = x.map[EObjectOrProxy as Requirement]
-	//		for ( r : y) {
-	//			val cl1 = r.target
-	//			val ComponentClassifier t2 = (io as ComponentInstance).componentClassifier
-	//			val c1n = cl1.getQualifiedName()
-	//			val c2n = t2.getQualifiedName()
-	//			println(c1n + " "+c2n)
-	//		}
-	//		y.filter[req| samereqs((req as Requirement).target as ComponentClassifier, (io as ComponentInstance).componentClassifier )]//(req as Requirement).target.getQualifiedName().equalsIgnoreCase((io as ComponentInstance).componentClassifier.getQualifiedName())]
-	////		io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement)
-	////		 [IEObjectDescription ed | (ed.EObjectOrProxy as Requirement).target == (io as ComponentInstance).componentClassifier]
-	////		 .map[ed|ed.EObjectOrProxy as Requirement]
-	//	}
-	//	
-	//	def boolean samereqs (ComponentClassifier cl1, ComponentClassifier cl2){
-	//		cl1.getQualifiedName().equalsIgnoreCase(cl2.getQualifiedName())
-	//	}
-	//	
-	//	def getVerificationActivities(Requirement reqspec){
-	////		reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationContainer,null).
-	////		map[EObjectOrProxy as VerificationContainer].filter[va | va.target == reqspec] 
-	//		reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationContainer)
-	//		[ed | (ed.EObjectOrProxy as VerificationContainer)?.target == reqspec] 
-	//		.map[ed|ed.EObjectOrProxy as VerificationContainer]
-	//	}
-	def getRequirementTarget(Requirement req, InstanceObject io) {
-		io.findElementInstance(req.target)
-	}
-
-	def findElementInstance(InstanceObject io, NamedElement element) {
-		switch io {
-			ComponentInstance: io.allOwnedElements.findFirst[ei|
-				(ei as InstanceObject).name.equalsIgnoreCase(element.name)] as NamedElement
-			default: io
 		}
 	}
 

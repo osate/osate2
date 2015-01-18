@@ -179,36 +179,6 @@ finally {
 
 
 
-
-
-// Entry rule entryRuleMultiLineString
-entryRuleMultiLineString 
-:
-{ before(grammarAccess.getMultiLineStringRule()); }
-	 ruleMultiLineString
-{ after(grammarAccess.getMultiLineStringRule()); } 
-	 EOF 
-;
-
-// Rule MultiLineString
-ruleMultiLineString
-    @init {
-		int stackSize = keepStackSize();
-    }
-	:
-(
-{ before(grammarAccess.getMultiLineStringAccess().getGroup()); }
-(rule__MultiLineString__Group__0)
-{ after(grammarAccess.getMultiLineStringAccess().getGroup()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
 // Entry rule entryRuleValueString
 entryRuleValueString 
 :
@@ -246,25 +216,6 @@ finally {
 
 
 
-// Rule IssueType
-ruleIssueType
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getIssueTypeAccess().getAlternatives()); }
-(rule__IssueType__Alternatives)
-{ after(grammarAccess.getIssueTypeAccess().getAlternatives()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
 rule__DescriptionElement__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -287,37 +238,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-
-rule__IssueType__Alternatives
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getIssueTypeAccess().getERROREnumLiteralDeclaration_0()); }
-(	'error' 
-)
-{ after(grammarAccess.getIssueTypeAccess().getERROREnumLiteralDeclaration_0()); }
-)
-
-    |(
-{ before(grammarAccess.getIssueTypeAccess().getWARNINGEnumLiteralDeclaration_1()); }
-(	'warning' 
-)
-{ after(grammarAccess.getIssueTypeAccess().getWARNINGEnumLiteralDeclaration_1()); }
-)
-
-    |(
-{ before(grammarAccess.getIssueTypeAccess().getINFOEnumLiteralDeclaration_2()); }
-(	'info' 
-)
-{ after(grammarAccess.getIssueTypeAccess().getINFOEnumLiteralDeclaration_2()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
 
 
 
@@ -448,103 +368,6 @@ finally {
 
 
 
-rule__MultiLineString__Group__0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__MultiLineString__Group__0__Impl
-	rule__MultiLineString__Group__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__MultiLineString__Group__0__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getMultiLineStringAccess().getApostropheApostropheApostropheKeyword_0()); }
-
-	'\'\'\'' 
-
-{ after(grammarAccess.getMultiLineStringAccess().getApostropheApostropheApostropheKeyword_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__MultiLineString__Group__1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__MultiLineString__Group__1__Impl
-	rule__MultiLineString__Group__2
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__MultiLineString__Group__1__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getMultiLineStringAccess().getSTRINGTerminalRuleCall_1()); }
-(	RULE_STRING)*
-{ after(grammarAccess.getMultiLineStringAccess().getSTRINGTerminalRuleCall_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__MultiLineString__Group__2
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__MultiLineString__Group__2__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__MultiLineString__Group__2__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getMultiLineStringAccess().getApostropheApostropheApostropheKeyword_2()); }
-
-	'\'\'\'' 
-
-{ after(grammarAccess.getMultiLineStringAccess().getApostropheApostropheApostropheKeyword_2()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -647,8 +470,6 @@ rule__ReferencePath__SubpathAssignment_1_1
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 

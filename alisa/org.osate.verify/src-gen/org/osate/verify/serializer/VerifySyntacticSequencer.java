@@ -7,7 +7,6 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
-import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
@@ -20,14 +19,14 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected VerifyGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a;
 	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p;
-	protected AbstractElementAlias match_Claim___LeftSquareBracketKeyword_7_0_RightSquareBracketKeyword_7_2__q;
+	protected AbstractElementAlias match_VerificationActivity_CategoryKeyword_5_2_0_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (VerifyGrammarAccess) access;
 		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a = new TokenAlias(true, true, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
 		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
-		match_Claim___LeftSquareBracketKeyword_7_0_RightSquareBracketKeyword_7_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getClaimAccess().getLeftSquareBracketKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getClaimAccess().getRightSquareBracketKeyword_7_2()));
+		match_VerificationActivity_CategoryKeyword_5_2_0_q = new TokenAlias(false, true, grammarAccess.getVerificationActivityAccess().getCategoryKeyword_5_2_0());
 	}
 	
 	@Override
@@ -56,8 +55,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p.equals(syntax))
 				emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Claim___LeftSquareBracketKeyword_7_0_RightSquareBracketKeyword_7_2__q.equals(syntax))
-				emit_Claim___LeftSquareBracketKeyword_7_0_RightSquareBracketKeyword_7_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_VerificationActivity_CategoryKeyword_5_2_0_q.equals(syntax))
+				emit_VerificationActivity_CategoryKeyword_5_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -80,9 +79,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     ('[' ']')?
+	 *     'category'?
 	 */
-	protected void emit_Claim___LeftSquareBracketKeyword_7_0_RightSquareBracketKeyword_7_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_VerificationActivity_CategoryKeyword_5_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

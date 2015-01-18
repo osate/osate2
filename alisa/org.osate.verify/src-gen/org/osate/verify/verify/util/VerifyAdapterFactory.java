@@ -85,6 +85,16 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createVerificationPlanAdapter();
       }
       @Override
+      public Adapter caseClaim(Claim object)
+      {
+        return createClaimAdapter();
+      }
+      @Override
+      public Adapter caseWeightedClaim(WeightedClaim object)
+      {
+        return createWeightedClaimAdapter();
+      }
+      @Override
       public Adapter caseVerificationLibrary(VerificationLibrary object)
       {
         return createVerificationLibraryAdapter();
@@ -98,11 +108,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
       public Adapter caseVerificationContainer(VerificationContainer object)
       {
         return createVerificationContainerAdapter();
-      }
-      @Override
-      public Adapter caseClaim(Claim object)
-      {
-        return createClaimAdapter();
       }
       @Override
       public Adapter caseVerificationActivity(VerificationActivity object)
@@ -128,6 +133,11 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAtomicConditionExpr(AtomicConditionExpr object)
       {
         return createAtomicConditionExprAdapter();
+      }
+      @Override
+      public Adapter caseVerificationMethodRegistry(VerificationMethodRegistry object)
+      {
+        return createVerificationMethodRegistryAdapter();
       }
       @Override
       public Adapter caseVerificationMethod(VerificationMethod object)
@@ -222,6 +232,36 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.Claim <em>Claim</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.Claim
+   * @generated
+   */
+  public Adapter createClaimAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.WeightedClaim <em>Weighted Claim</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.WeightedClaim
+   * @generated
+   */
+  public Adapter createWeightedClaimAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationLibrary <em>Verification Library</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -262,21 +302,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVerificationContainerAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.Claim <em>Claim</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.Claim
-   * @generated
-   */
-  public Adapter createClaimAdapter()
   {
     return null;
   }
@@ -352,6 +377,21 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAtomicConditionExprAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.VerificationMethodRegistry <em>Verification Method Registry</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.verify.verify.VerificationMethodRegistry
+   * @generated
+   */
+  public Adapter createVerificationMethodRegistryAdapter()
   {
     return null;
   }

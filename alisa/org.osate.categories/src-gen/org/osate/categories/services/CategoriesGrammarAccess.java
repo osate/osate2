@@ -25,16 +25,12 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cHazardCategoriesParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cVerificationCategoriesParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cSelectionCategoriesParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cAssertFailCategoriesParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cExecutionFailCategoriesParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//Categories:
-		//	RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories | AssertFailCategories |
-		//	ExecutionFailCategories;
+		//	RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories;
 		public ParserRule getRule() { return rule; }
 
-		//RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories | AssertFailCategories |
-		//ExecutionFailCategories
+		//RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//RequirementCategories
@@ -48,12 +44,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 		//SelectionCategories
 		public RuleCall getSelectionCategoriesParserRuleCall_3() { return cSelectionCategoriesParserRuleCall_3; }
-
-		//AssertFailCategories
-		public RuleCall getAssertFailCategoriesParserRuleCall_4() { return cAssertFailCategoriesParserRuleCall_4; }
-
-		//ExecutionFailCategories
-		public RuleCall getExecutionFailCategoriesParserRuleCall_5() { return cExecutionFailCategoriesParserRuleCall_5; }
 	}
 
 	public class RequirementCategoriesElements extends AbstractParserRuleElementFinder {
@@ -104,7 +94,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCategoryHazardCategoryParserRuleCall_3_0 = (RuleCall)cCategoryAssignment_3.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//// TODO Success categories, failure categories, unknown result categories
 		//HazardCategories:
 		//	"hazard" "categories" "[" category+=HazardCategory+ "]";
 		public ParserRule getRule() { return rule; }
@@ -198,78 +187,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 		//SelectionCategory
 		public RuleCall getCategorySelectionCategoryParserRuleCall_3_0() { return cCategorySelectionCategoryParserRuleCall_3_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
-	}
-
-	public class AssertFailCategoriesElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssertFailCategories");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAssertfailKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cCategoriesKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cCategoryAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cCategoryAssertFailCategoryParserRuleCall_3_0 = (RuleCall)cCategoryAssignment_3.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		
-		//AssertFailCategories:
-		//	"assertfail" "categories" "[" category+=AssertFailCategory+ "]";
-		public ParserRule getRule() { return rule; }
-
-		//"assertfail" "categories" "[" category+=AssertFailCategory+ "]"
-		public Group getGroup() { return cGroup; }
-
-		//"assertfail"
-		public Keyword getAssertfailKeyword_0() { return cAssertfailKeyword_0; }
-
-		//"categories"
-		public Keyword getCategoriesKeyword_1() { return cCategoriesKeyword_1; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
-
-		//category+=AssertFailCategory+
-		public Assignment getCategoryAssignment_3() { return cCategoryAssignment_3; }
-
-		//AssertFailCategory
-		public RuleCall getCategoryAssertFailCategoryParserRuleCall_3_0() { return cCategoryAssertFailCategoryParserRuleCall_3_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
-	}
-
-	public class ExecutionFailCategoriesElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExecutionFailCategories");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cExecutionfailKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Keyword cCategoriesKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cCategoryAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cCategoryExecutionFailCategoryParserRuleCall_3_0 = (RuleCall)cCategoryAssignment_3.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		
-		//ExecutionFailCategories:
-		//	"executionfail" "categories" "[" category+=ExecutionFailCategory+ "]";
-		public ParserRule getRule() { return rule; }
-
-		//"executionfail" "categories" "[" category+=ExecutionFailCategory+ "]"
-		public Group getGroup() { return cGroup; }
-
-		//"executionfail"
-		public Keyword getExecutionfailKeyword_0() { return cExecutionfailKeyword_0; }
-
-		//"categories"
-		public Keyword getCategoriesKeyword_1() { return cCategoriesKeyword_1; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
-
-		//category+=ExecutionFailCategory+
-		public Assignment getCategoryAssignment_3() { return cCategoryAssignment_3; }
-
-		//ExecutionFailCategory
-		public RuleCall getCategoryExecutionFailCategoryParserRuleCall_3_0() { return cCategoryExecutionFailCategoryParserRuleCall_3_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
@@ -471,90 +388,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getExtendsSelectionCategoryCatRefParserRuleCall_1_1_0_1() { return cExtendsSelectionCategoryCatRefParserRuleCall_1_1_0_1; }
 	}
 
-	public class AssertFailCategoryElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssertFailCategory");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cExtendsKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cExtendsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cExtendsAssertFailCategoryCrossReference_1_1_0 = (CrossReference)cExtendsAssignment_1_1.eContents().get(0);
-		private final RuleCall cExtendsAssertFailCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cExtendsAssertFailCategoryCrossReference_1_1_0.eContents().get(1);
-		
-		/// **
-		// * assertfail category indicates the type of failing assertion
-		// * / AssertFailCategory:
-		//	name=ID ("extends" extends=[AssertFailCategory|CatRef])?;
-		public ParserRule getRule() { return rule; }
-
-		//name=ID ("extends" extends=[AssertFailCategory|CatRef])?
-		public Group getGroup() { return cGroup; }
-
-		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
-
-		//("extends" extends=[AssertFailCategory|CatRef])?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"extends"
-		public Keyword getExtendsKeyword_1_0() { return cExtendsKeyword_1_0; }
-
-		//extends=[AssertFailCategory|CatRef]
-		public Assignment getExtendsAssignment_1_1() { return cExtendsAssignment_1_1; }
-
-		//[AssertFailCategory|CatRef]
-		public CrossReference getExtendsAssertFailCategoryCrossReference_1_1_0() { return cExtendsAssertFailCategoryCrossReference_1_1_0; }
-
-		//CatRef
-		public RuleCall getExtendsAssertFailCategoryCatRefParserRuleCall_1_1_0_1() { return cExtendsAssertFailCategoryCatRefParserRuleCall_1_1_0_1; }
-	}
-
-	public class ExecutionFailCategoryElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ExecutionFailCategory");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cExtendsKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cExtendsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cExtendsExecutionFailCategoryCrossReference_1_1_0 = (CrossReference)cExtendsAssignment_1_1.eContents().get(0);
-		private final RuleCall cExtendsExecutionFailCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cExtendsExecutionFailCategoryCrossReference_1_1_0.eContents().get(1);
-		
-		/// **
-		// * executionfail category indicates the type of failure to complete execution of a verification activity
-		// * / ExecutionFailCategory:
-		//	name=ID ("extends" extends=[ExecutionFailCategory|CatRef])?;
-		public ParserRule getRule() { return rule; }
-
-		//name=ID ("extends" extends=[ExecutionFailCategory|CatRef])?
-		public Group getGroup() { return cGroup; }
-
-		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
-
-		//("extends" extends=[ExecutionFailCategory|CatRef])?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"extends"
-		public Keyword getExtendsKeyword_1_0() { return cExtendsKeyword_1_0; }
-
-		//extends=[ExecutionFailCategory|CatRef]
-		public Assignment getExtendsAssignment_1_1() { return cExtendsAssignment_1_1; }
-
-		//[ExecutionFailCategory|CatRef]
-		public CrossReference getExtendsExecutionFailCategoryCrossReference_1_1_0() { return cExtendsExecutionFailCategoryCrossReference_1_1_0; }
-
-		//CatRef
-		public RuleCall getExtendsExecutionFailCategoryCatRefParserRuleCall_1_1_0_1() { return cExtendsExecutionFailCategoryCatRefParserRuleCall_1_1_0_1; }
-	}
-
 	public class CatRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CatRef");
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
@@ -575,15 +408,11 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	private final HazardCategoriesElements pHazardCategories;
 	private final VerificationCategoriesElements pVerificationCategories;
 	private final SelectionCategoriesElements pSelectionCategories;
-	private final AssertFailCategoriesElements pAssertFailCategories;
-	private final ExecutionFailCategoriesElements pExecutionFailCategories;
 	private final CategoryElements pCategory;
 	private final RequirementCategoryElements pRequirementCategory;
 	private final HazardCategoryElements pHazardCategory;
 	private final VerificationCategoryElements pVerificationCategory;
 	private final SelectionCategoryElements pSelectionCategory;
-	private final AssertFailCategoryElements pAssertFailCategory;
-	private final ExecutionFailCategoryElements pExecutionFailCategory;
 	private final CatRefElements pCatRef;
 	
 	private final Grammar grammar;
@@ -600,15 +429,11 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		this.pHazardCategories = new HazardCategoriesElements();
 		this.pVerificationCategories = new VerificationCategoriesElements();
 		this.pSelectionCategories = new SelectionCategoriesElements();
-		this.pAssertFailCategories = new AssertFailCategoriesElements();
-		this.pExecutionFailCategories = new ExecutionFailCategoriesElements();
 		this.pCategory = new CategoryElements();
 		this.pRequirementCategory = new RequirementCategoryElements();
 		this.pHazardCategory = new HazardCategoryElements();
 		this.pVerificationCategory = new VerificationCategoryElements();
 		this.pSelectionCategory = new SelectionCategoryElements();
-		this.pAssertFailCategory = new AssertFailCategoryElements();
-		this.pExecutionFailCategory = new ExecutionFailCategoryElements();
 		this.pCatRef = new CatRefElements();
 	}
 	
@@ -640,8 +465,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Categories:
-	//	RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories | AssertFailCategories |
-	//	ExecutionFailCategories;
+	//	RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories;
 	public CategoriesElements getCategoriesAccess() {
 		return pCategories;
 	}
@@ -662,7 +486,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getRequirementCategoriesAccess().getRule();
 	}
 
-	//// TODO Success categories, failure categories, unknown result categories
 	//HazardCategories:
 	//	"hazard" "categories" "[" category+=HazardCategory+ "]";
 	public HazardCategoriesElements getHazardCategoriesAccess() {
@@ -691,26 +514,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getSelectionCategoriesRule() {
 		return getSelectionCategoriesAccess().getRule();
-	}
-
-	//AssertFailCategories:
-	//	"assertfail" "categories" "[" category+=AssertFailCategory+ "]";
-	public AssertFailCategoriesElements getAssertFailCategoriesAccess() {
-		return pAssertFailCategories;
-	}
-	
-	public ParserRule getAssertFailCategoriesRule() {
-		return getAssertFailCategoriesAccess().getRule();
-	}
-
-	//ExecutionFailCategories:
-	//	"executionfail" "categories" "[" category+=ExecutionFailCategory+ "]";
-	public ExecutionFailCategoriesElements getExecutionFailCategoriesAccess() {
-		return pExecutionFailCategories;
-	}
-	
-	public ParserRule getExecutionFailCategoriesRule() {
-		return getExecutionFailCategoriesAccess().getRule();
 	}
 
 	//Category:
@@ -769,30 +572,6 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getSelectionCategoryRule() {
 		return getSelectionCategoryAccess().getRule();
-	}
-
-	/// **
-	// * assertfail category indicates the type of failing assertion
-	// * / AssertFailCategory:
-	//	name=ID ("extends" extends=[AssertFailCategory|CatRef])?;
-	public AssertFailCategoryElements getAssertFailCategoryAccess() {
-		return pAssertFailCategory;
-	}
-	
-	public ParserRule getAssertFailCategoryRule() {
-		return getAssertFailCategoryAccess().getRule();
-	}
-
-	/// **
-	// * executionfail category indicates the type of failure to complete execution of a verification activity
-	// * / ExecutionFailCategory:
-	//	name=ID ("extends" extends=[ExecutionFailCategory|CatRef])?;
-	public ExecutionFailCategoryElements getExecutionFailCategoryAccess() {
-		return pExecutionFailCategory;
-	}
-	
-	public ParserRule getExecutionFailCategoryRule() {
-		return getExecutionFailCategoryAccess().getRule();
 	}
 
 	//// Category reference. Currently it is only a single ID

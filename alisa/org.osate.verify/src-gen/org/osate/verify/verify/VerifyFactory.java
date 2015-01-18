@@ -41,6 +41,24 @@ public interface VerifyFactory extends EFactory
   VerificationPlan createVerificationPlan();
 
   /**
+   * Returns a new object of class '<em>Claim</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Claim</em>'.
+   * @generated
+   */
+  Claim createClaim();
+
+  /**
+   * Returns a new object of class '<em>Weighted Claim</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Weighted Claim</em>'.
+   * @generated
+   */
+  WeightedClaim createWeightedClaim();
+
+  /**
    * Returns a new object of class '<em>Verification Library</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -66,15 +84,6 @@ public interface VerifyFactory extends EFactory
    * @generated
    */
   VerificationContainer createVerificationContainer();
-
-  /**
-   * Returns a new object of class '<em>Claim</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Claim</em>'.
-   * @generated
-   */
-  Claim createClaim();
 
   /**
    * Returns a new object of class '<em>Verification Activity</em>'.
@@ -120,6 +129,15 @@ public interface VerifyFactory extends EFactory
    * @generated
    */
   AtomicConditionExpr createAtomicConditionExpr();
+
+  /**
+   * Returns a new object of class '<em>Verification Method Registry</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Method Registry</em>'.
+   * @generated
+   */
+  VerificationMethodRegistry createVerificationMethodRegistry();
 
   /**
    * Returns a new object of class '<em>Verification Method</em>'.

@@ -30,17 +30,7 @@ PredicateExpression: ID op=('='|"!=" |"<"|"=<"|">"|">=")ID;
 
 FinalValue: name = ID '=' value=ValueString;
 
-ResultIssue:
-	type=IssueType
-	msg=MultiLineString
-;
 
-enum IssueType: 	
-ERROR='error' | WARNING='warning' | INFO = 'info' ;
-
-MultiLineString :
-	"'''" STRING* "'''"
-;
 	
 ValueString :
 	// remove quotes from string in ValueConverter 

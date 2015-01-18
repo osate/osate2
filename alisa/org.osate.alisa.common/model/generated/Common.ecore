@@ -25,13 +25,4 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ResultIssue">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//IssueType"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="msg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="IssueType">
-    <eLiterals name="ERROR" literal="error"/>
-    <eLiterals name="WARNING" value="1" literal="warning"/>
-    <eLiterals name="INFO" value="2" literal="info"/>
-  </eClassifiers>
 </ecore:EPackage>

@@ -20,7 +20,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
- *   <li>{@link org.osate.verify.verify.Claim#getSubclaims <em>Subclaims</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getSubclaim <em>Subclaim</em>}</li>
  * </ul>
  * </p>
  *
@@ -135,19 +135,19 @@ public interface Claim extends EObject
   void setRationale(String value);
 
   /**
-   * Returns the value of the '<em><b>Subclaims</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Subclaim</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.verify.verify.Claim}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Subclaims</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Subclaim</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Subclaims</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getClaim_Subclaims()
+   * @return the value of the '<em>Subclaim</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Subclaim()
    * @model containment="true"
    * @generated
    */
-  EList<Claim> getSubclaims();
+  EList<Claim> getSubclaim();
 
 } // Claim

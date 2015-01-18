@@ -207,58 +207,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getValueValueStringParserRuleCall_2_0() { return cValueValueStringParserRuleCall_2_0; }
 	}
 
-	public class ResultIssueElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ResultIssue");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTypeIssueTypeEnumRuleCall_0_0 = (RuleCall)cTypeAssignment_0.eContents().get(0);
-		private final Assignment cMsgAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cMsgMultiLineStringParserRuleCall_1_0 = (RuleCall)cMsgAssignment_1.eContents().get(0);
-		
-		//ResultIssue:
-		//	type=IssueType msg=MultiLineString;
-		public ParserRule getRule() { return rule; }
-
-		//type=IssueType msg=MultiLineString
-		public Group getGroup() { return cGroup; }
-
-		//type=IssueType
-		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
-
-		//IssueType
-		public RuleCall getTypeIssueTypeEnumRuleCall_0_0() { return cTypeIssueTypeEnumRuleCall_0_0; }
-
-		//msg=MultiLineString
-		public Assignment getMsgAssignment_1() { return cMsgAssignment_1; }
-
-		//MultiLineString
-		public RuleCall getMsgMultiLineStringParserRuleCall_1_0() { return cMsgMultiLineStringParserRuleCall_1_0; }
-	}
-
-	public class MultiLineStringElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MultiLineString");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cApostropheApostropheApostropheKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cSTRINGTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Keyword cApostropheApostropheApostropheKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		
-		//MultiLineString:
-		//	"\'\'\'" STRING* "\'\'\'";
-		public ParserRule getRule() { return rule; }
-
-		//"\'\'\'" STRING* "\'\'\'"
-		public Group getGroup() { return cGroup; }
-
-		//"\'\'\'"
-		public Keyword getApostropheApostropheApostropheKeyword_0() { return cApostropheApostropheApostropheKeyword_0; }
-
-		//STRING*
-		public RuleCall getSTRINGTerminalRuleCall_1() { return cSTRINGTerminalRuleCall_1; }
-
-		//"\'\'\'"
-		public Keyword getApostropheApostropheApostropheKeyword_2() { return cApostropheApostropheApostropheKeyword_2; }
-	}
-
 	public class ValueStringElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ValueString");
 		private final RuleCall cSTRINGTerminalRuleCall = (RuleCall)rule.eContents().get(1);
@@ -368,51 +316,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	
-	public class IssueTypeElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "IssueType");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cERRORErrorKeyword_0_0 = (Keyword)cERROREnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cWARNINGEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cWARNINGWarningKeyword_1_0 = (Keyword)cWARNINGEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cINFOEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cINFOInfoKeyword_2_0 = (Keyword)cINFOEnumLiteralDeclaration_2.eContents().get(0);
-		
-		//enum IssueType:
-		//	ERROR="error" | WARNING="warning" | INFO="info";
-		public EnumRule getRule() { return rule; }
-
-		//ERROR="error" | WARNING="warning" | INFO="info"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//ERROR="error"
-		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_0() { return cERROREnumLiteralDeclaration_0; }
-
-		//"error"
-		public Keyword getERRORErrorKeyword_0_0() { return cERRORErrorKeyword_0_0; }
-
-		//WARNING="warning"
-		public EnumLiteralDeclaration getWARNINGEnumLiteralDeclaration_1() { return cWARNINGEnumLiteralDeclaration_1; }
-
-		//"warning"
-		public Keyword getWARNINGWarningKeyword_1_0() { return cWARNINGWarningKeyword_1_0; }
-
-		//INFO="info"
-		public EnumLiteralDeclaration getINFOEnumLiteralDeclaration_2() { return cINFOEnumLiteralDeclaration_2; }
-
-		//"info"
-		public Keyword getINFOInfoKeyword_2_0() { return cINFOInfoKeyword_2_0; }
-	}
-	
 	private final ModelElements pModel;
 	private final DescriptionElements pDescription;
 	private final DescriptionElementElements pDescriptionElement;
 	private final ReferencePathElements pReferencePath;
 	private final PredicateExpressionElements pPredicateExpression;
 	private final FinalValueElements pFinalValue;
-	private final ResultIssueElements pResultIssue;
-	private final IssueTypeElements unknownRuleIssueType;
-	private final MultiLineStringElements pMultiLineString;
 	private final ValueStringElements pValueString;
 	private final AadlClassifierReferenceElements pAadlClassifierReference;
 	private final CatRefElements pCatRef;
@@ -434,9 +343,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pReferencePath = new ReferencePathElements();
 		this.pPredicateExpression = new PredicateExpressionElements();
 		this.pFinalValue = new FinalValueElements();
-		this.pResultIssue = new ResultIssueElements();
-		this.unknownRuleIssueType = new IssueTypeElements();
-		this.pMultiLineString = new MultiLineStringElements();
 		this.pValueString = new ValueStringElements();
 		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
 		this.pCatRef = new CatRefElements();
@@ -530,36 +436,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getFinalValueRule() {
 		return getFinalValueAccess().getRule();
-	}
-
-	//ResultIssue:
-	//	type=IssueType msg=MultiLineString;
-	public ResultIssueElements getResultIssueAccess() {
-		return pResultIssue;
-	}
-	
-	public ParserRule getResultIssueRule() {
-		return getResultIssueAccess().getRule();
-	}
-
-	//enum IssueType:
-	//	ERROR="error" | WARNING="warning" | INFO="info";
-	public IssueTypeElements getIssueTypeAccess() {
-		return unknownRuleIssueType;
-	}
-	
-	public EnumRule getIssueTypeRule() {
-		return getIssueTypeAccess().getRule();
-	}
-
-	//MultiLineString:
-	//	"\'\'\'" STRING* "\'\'\'";
-	public MultiLineStringElements getMultiLineStringAccess() {
-		return pMultiLineString;
-	}
-	
-	public ParserRule getMultiLineStringRule() {
-		return getMultiLineStringAccess().getRule();
 	}
 
 	//ValueString: // remove quotes from string in ValueConverter 

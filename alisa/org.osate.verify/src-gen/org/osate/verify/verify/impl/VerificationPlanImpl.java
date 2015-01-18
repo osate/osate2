@@ -21,9 +21,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentClassifier;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerifyPackage;
+import org.osate.verify.verify.WeightedClaim;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,8 +37,11 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaims <em>Claims</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getWeightedClaim <em>Weighted Claim</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,34 +80,74 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
   protected ComponentClassifier target;
 
   /**
-   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected static final String TITLE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDescription()
    * @generated
    * @ordered
    */
-  protected static final String DESCRIPTION_EDEFAULT = null;
+  protected Description description;
 
   /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * The cached value of the '{@link #getClaim() <em>Claim</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDescription()
+   * @see #getClaim()
    * @generated
    * @ordered
    */
-  protected String description = DESCRIPTION_EDEFAULT;
+  protected EList<Claim> claim;
 
   /**
-   * The cached value of the '{@link #getClaims() <em>Claims</em>}' containment reference list.
+   * The cached value of the '{@link #getWeightedClaim() <em>Weighted Claim</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getClaims()
+   * @see #getWeightedClaim()
    * @generated
    * @ordered
    */
-  protected EList<Claim> claims;
+  protected EList<WeightedClaim> weightedClaim;
+
+  /**
+   * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRationale()
+   * @generated
+   * @ordered
+   */
+  protected static final String RATIONALE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRationale()
+   * @generated
+   * @ordered
+   */
+  protected String rationale = RATIONALE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -195,7 +241,30 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDescription()
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Description getDescription()
   {
     return description;
   }
@@ -205,12 +274,16 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDescription(String newDescription)
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
   {
-    String oldDescription = description;
+    Description oldDescription = description;
     description = newDescription;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__DESCRIPTION, oldDescription, description));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__DESCRIPTION, oldDescription, newDescription);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -218,13 +291,71 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Claim> getClaims()
+  public void setDescription(Description newDescription)
   {
-    if (claims == null)
+    if (newDescription != description)
     {
-      claims = new EObjectContainmentEList<Claim>(Claim.class, this, VerifyPackage.VERIFICATION_PLAN__CLAIMS);
+      NotificationChain msgs = null;
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_PLAN__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_PLAN__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
+      if (msgs != null) msgs.dispatch();
     }
-    return claims;
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__DESCRIPTION, newDescription, newDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Claim> getClaim()
+  {
+    if (claim == null)
+    {
+      claim = new EObjectContainmentEList<Claim>(Claim.class, this, VerifyPackage.VERIFICATION_PLAN__CLAIM);
+    }
+    return claim;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<WeightedClaim> getWeightedClaim()
+  {
+    if (weightedClaim == null)
+    {
+      weightedClaim = new EObjectContainmentEList<WeightedClaim>(WeightedClaim.class, this, VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM);
+    }
+    return weightedClaim;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getRationale()
+  {
+    return rationale;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRationale(String newRationale)
+  {
+    String oldRationale = rationale;
+    rationale = newRationale;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__RATIONALE, oldRationale, rationale));
   }
 
   /**
@@ -237,8 +368,12 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_PLAN__CLAIMS:
-        return ((InternalEList<?>)getClaims()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
+        return basicSetDescription(null, msgs);
+      case VerifyPackage.VERIFICATION_PLAN__CLAIM:
+        return ((InternalEList<?>)getClaim()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
+        return ((InternalEList<?>)getWeightedClaim()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -258,10 +393,16 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case VerifyPackage.VERIFICATION_PLAN__TITLE:
+        return getTitle();
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
         return getDescription();
-      case VerifyPackage.VERIFICATION_PLAN__CLAIMS:
-        return getClaims();
+      case VerifyPackage.VERIFICATION_PLAN__CLAIM:
+        return getClaim();
+      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
+        return getWeightedClaim();
+      case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
+        return getRationale();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -283,12 +424,22 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__TARGET:
         setTarget((ComponentClassifier)newValue);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
-        setDescription((String)newValue);
+      case VerifyPackage.VERIFICATION_PLAN__TITLE:
+        setTitle((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__CLAIMS:
-        getClaims().clear();
-        getClaims().addAll((Collection<? extends Claim>)newValue);
+      case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
+        setDescription((Description)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_PLAN__CLAIM:
+        getClaim().clear();
+        getClaim().addAll((Collection<? extends Claim>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
+        getWeightedClaim().clear();
+        getWeightedClaim().addAll((Collection<? extends WeightedClaim>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
+        setRationale((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -310,11 +461,20 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__TARGET:
         setTarget((ComponentClassifier)null);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
-        setDescription(DESCRIPTION_EDEFAULT);
+      case VerifyPackage.VERIFICATION_PLAN__TITLE:
+        setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__CLAIMS:
-        getClaims().clear();
+      case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
+        setDescription((Description)null);
+        return;
+      case VerifyPackage.VERIFICATION_PLAN__CLAIM:
+        getClaim().clear();
+        return;
+      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
+        getWeightedClaim().clear();
+        return;
+      case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
+        setRationale(RATIONALE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -334,10 +494,16 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_PLAN__TARGET:
         return target != null;
+      case VerifyPackage.VERIFICATION_PLAN__TITLE:
+        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_PLAN__DESCRIPTION:
-        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-      case VerifyPackage.VERIFICATION_PLAN__CLAIMS:
-        return claims != null && !claims.isEmpty();
+        return description != null;
+      case VerifyPackage.VERIFICATION_PLAN__CLAIM:
+        return claim != null && !claim.isEmpty();
+      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
+        return weightedClaim != null && !weightedClaim.isEmpty();
+      case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
+        return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
     }
     return super.eIsSet(featureID);
   }
@@ -355,8 +521,10 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", description: ");
-    result.append(description);
+    result.append(", title: ");
+    result.append(title);
+    result.append(", rationale: ");
+    result.append(rationale);
     result.append(')');
     return result.toString();
   }
