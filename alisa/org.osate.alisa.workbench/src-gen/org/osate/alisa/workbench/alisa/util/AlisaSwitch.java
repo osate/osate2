@@ -86,6 +86,29 @@ public class AlisaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AlisaPackage.SELECTION_CONDITION_EXPR:
+      {
+        SelectionConditionExpr selectionConditionExpr = (SelectionConditionExpr)theEObject;
+        T result = caseSelectionConditionExpr(selectionConditionExpr);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlisaPackage.SELECTION_CATEGORY_REFERENCE:
+      {
+        SelectionCategoryReference selectionCategoryReference = (SelectionCategoryReference)theEObject;
+        T result = caseSelectionCategoryReference(selectionCategoryReference);
+        if (result == null) result = caseSelectionConditionExpr(selectionCategoryReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR:
+      {
+        AndSelectionConditionExpr andSelectionConditionExpr = (AndSelectionConditionExpr)theEObject;
+        T result = caseAndSelectionConditionExpr(andSelectionConditionExpr);
+        if (result == null) result = caseSelectionConditionExpr(andSelectionConditionExpr);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -118,6 +141,54 @@ public class AlisaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAssuranceCasePlan(AssuranceCasePlan object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Selection Condition Expr</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Selection Condition Expr</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSelectionConditionExpr(SelectionConditionExpr object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Selection Category Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Selection Category Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSelectionCategoryReference(SelectionCategoryReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>And Selection Condition Expr</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>And Selection Condition Expr</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAndSelectionConditionExpr(AndSelectionConditionExpr object)
   {
     return null;
   }

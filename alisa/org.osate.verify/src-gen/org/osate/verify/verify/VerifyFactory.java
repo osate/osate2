@@ -113,22 +113,13 @@ public interface VerifyFactory extends EFactory
   ArgumentExpr createArgumentExpr();
 
   /**
-   * Returns a new object of class '<em>Condition Expr</em>'.
+   * Returns a new object of class '<em>Selection Category Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Condition Expr</em>'.
+   * @return a new object of class '<em>Selection Category Reference</em>'.
    * @generated
    */
-  ConditionExpr createConditionExpr();
-
-  /**
-   * Returns a new object of class '<em>Atomic Condition Expr</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Atomic Condition Expr</em>'.
-   * @generated
-   */
-  AtomicConditionExpr createAtomicConditionExpr();
+  SelectionCategoryReference createSelectionCategoryReference();
 
   /**
    * Returns a new object of class '<em>Verification Method Registry</em>'.
@@ -194,13 +185,13 @@ public interface VerifyFactory extends EFactory
   FailThenExpr createFailThenExpr();
 
   /**
-   * Returns a new object of class '<em>Conditional Expr</em>'.
+   * Returns a new object of class '<em>When Expr</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Conditional Expr</em>'.
+   * @return a new object of class '<em>When Expr</em>'.
    * @generated
    */
-  ConditionalExpr createConditionalExpr();
+  WhenExpr createWhenExpr();
 
   /**
    * Returns a new object of class '<em>Ref Expr</em>'.

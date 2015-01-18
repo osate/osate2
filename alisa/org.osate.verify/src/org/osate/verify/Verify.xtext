@@ -83,31 +83,26 @@ AllEvidenceExpr returns ArgumentExpr:
 	'all' {AllExpr} '[' all+=AndThenEvidenceExpr (',' all+=AndThenEvidenceExpr)* ']';
 
 AndThenEvidenceExpr returns ArgumentExpr:
-	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} op='andthen') right=AndThenEvidenceExpr)*;
+	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} 'andthen') right=AndThenEvidenceExpr)*;
 
 	// Execute as alternative if the first one fails.
 // The results of both are reported
 FailThenEvidenceExpr returns ArgumentExpr:
-	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} op='failthen') right=FailThenEvidenceExpr)*;
+	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} 'failthen') right=FailThenEvidenceExpr)*;
 
 AtomicEvidenceExpr returns ArgumentExpr:
 	ConditionalEvidence
 	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr;
 
 ConditionalEvidence returns ArgumentExpr:
-	VAReference (=> ({ConditionalExpr.verification=current} op='when') condition=OrConditionExpr)?;
+	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=SelectionCategoryReference+)?;
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]
 	('(' weight=INT ')')?;
 
-OrConditionExpr returns ConditionExpr:
-	AndConditionExpr (=> ({ConditionExpr.left=current} op='or') right=AndConditionExpr)*;
 
-AndConditionExpr returns ConditionExpr:
-	AtomicConditionExpr (=> ({ConditionExpr.left=current} op='and') right=AtomicConditionExpr)*;
-
-AtomicConditionExpr:
+SelectionCategoryReference:
 	cat=[categories::VerificationCategory|CatRef];
 
 	// need to distinguish between method with/out predicate

@@ -3,6 +3,7 @@ grammar org.osate.alisa.workbench.Alisa with org.osate.alisa.common.Common
 generate alisa "http://www.osate.org/alisa/workbench/Alisa"
 import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.osate.org/verify/Verify" as Verify
+import "http://www.osate.org/categories/Categories" as categories
 
 AlisaWorkArea:
 	'alisa' name=ID
@@ -13,9 +14,19 @@ AssuranceCasePlan:
 	'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(('title' title=ValueString)?
-	&('description' description=Description)?
-	&('constants' constant+=FinalValue+ )?
+	('description' description=Description)?
+	('constants' constant+=FinalValue+ )?
 	'plans' plans+=[Verify::VerificationPlan|QualifiedName]*
+	('select' selectionFilter=OrSelectionConditionExpr)?
 	)
 	']';
+	
+OrSelectionConditionExpr returns SelectionConditionExpr:
+	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
+
+AndSelectionConditionExpr returns SelectionConditionExpr:
+	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
+
+SelectionCategoryReference:
+	cat=[categories::VerificationCategory|CatRef];
 	

@@ -862,38 +862,34 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
 		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
 		private final Action cAndThenExprLeftAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
-		private final Assignment cOpAssignment_1_0_0_1 = (Assignment)cGroup_1_0_0.eContents().get(1);
-		private final Keyword cOpAndthenKeyword_1_0_0_1_0 = (Keyword)cOpAssignment_1_0_0_1.eContents().get(0);
+		private final Keyword cAndthenKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
 		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cRightAndThenEvidenceExprParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
 		
 		//AndThenEvidenceExpr returns ArgumentExpr:
-		//	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} op="andthen") right=AndThenEvidenceExpr)*;
+		//	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} "andthen") right=AndThenEvidenceExpr)*;
 		public ParserRule getRule() { return rule; }
 
-		//FailThenEvidenceExpr (=> ({AndThenExpr.left=current} op="andthen") right=AndThenEvidenceExpr)*
+		//FailThenEvidenceExpr (=> ({AndThenExpr.left=current} "andthen") right=AndThenEvidenceExpr)*
 		public Group getGroup() { return cGroup; }
 
 		//FailThenEvidenceExpr
 		public RuleCall getFailThenEvidenceExprParserRuleCall_0() { return cFailThenEvidenceExprParserRuleCall_0; }
 
-		//(=> ({AndThenExpr.left=current} op="andthen") right=AndThenEvidenceExpr)*
+		//(=> ({AndThenExpr.left=current} "andthen") right=AndThenEvidenceExpr)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> ({AndThenExpr.left=current} op="andthen")
+		//=> ({AndThenExpr.left=current} "andthen")
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{AndThenExpr.left=current} op="andthen"
+		//{AndThenExpr.left=current} "andthen"
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{AndThenExpr.left=current}
 		public Action getAndThenExprLeftAction_1_0_0_0() { return cAndThenExprLeftAction_1_0_0_0; }
 
-		//op="andthen"
-		public Assignment getOpAssignment_1_0_0_1() { return cOpAssignment_1_0_0_1; }
-
 		//"andthen"
-		public Keyword getOpAndthenKeyword_1_0_0_1_0() { return cOpAndthenKeyword_1_0_0_1_0; }
+		public Keyword getAndthenKeyword_1_0_0_1() { return cAndthenKeyword_1_0_0_1; }
 
 		//right=AndThenEvidenceExpr
 		public Assignment getRightAssignment_1_1() { return cRightAssignment_1_1; }
@@ -910,40 +906,36 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
 		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
 		private final Action cFailThenExprLeftAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
-		private final Assignment cOpAssignment_1_0_0_1 = (Assignment)cGroup_1_0_0.eContents().get(1);
-		private final Keyword cOpFailthenKeyword_1_0_0_1_0 = (Keyword)cOpAssignment_1_0_0_1.eContents().get(0);
+		private final Keyword cFailthenKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
 		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cRightFailThenEvidenceExprParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
 		
 		//// Execute as alternative if the first one fails.
 		//// The results of both are reported
 		//FailThenEvidenceExpr returns ArgumentExpr:
-		//	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} op="failthen") right=FailThenEvidenceExpr)*;
+		//	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} "failthen") right=FailThenEvidenceExpr)*;
 		public ParserRule getRule() { return rule; }
 
-		//AtomicEvidenceExpr (=> ({FailThenExpr.left=current} op="failthen") right=FailThenEvidenceExpr)*
+		//AtomicEvidenceExpr (=> ({FailThenExpr.left=current} "failthen") right=FailThenEvidenceExpr)*
 		public Group getGroup() { return cGroup; }
 
 		//AtomicEvidenceExpr
 		public RuleCall getAtomicEvidenceExprParserRuleCall_0() { return cAtomicEvidenceExprParserRuleCall_0; }
 
-		//(=> ({FailThenExpr.left=current} op="failthen") right=FailThenEvidenceExpr)*
+		//(=> ({FailThenExpr.left=current} "failthen") right=FailThenEvidenceExpr)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> ({FailThenExpr.left=current} op="failthen")
+		//=> ({FailThenExpr.left=current} "failthen")
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{FailThenExpr.left=current} op="failthen"
+		//{FailThenExpr.left=current} "failthen"
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{FailThenExpr.left=current}
 		public Action getFailThenExprLeftAction_1_0_0_0() { return cFailThenExprLeftAction_1_0_0_0; }
 
-		//op="failthen"
-		public Assignment getOpAssignment_1_0_0_1() { return cOpAssignment_1_0_0_1; }
-
 		//"failthen"
-		public Keyword getOpFailthenKeyword_1_0_0_1_0() { return cOpFailthenKeyword_1_0_0_1_0; }
+		public Keyword getFailthenKeyword_1_0_0_1() { return cFailthenKeyword_1_0_0_1; }
 
 		//right=FailThenEvidenceExpr
 		public Assignment getRightAssignment_1_1() { return cRightAssignment_1_1; }
@@ -995,45 +987,41 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
 		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
-		private final Action cConditionalExprVerificationAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
-		private final Assignment cOpAssignment_1_0_0_1 = (Assignment)cGroup_1_0_0.eContents().get(1);
-		private final Keyword cOpWhenKeyword_1_0_0_1_0 = (Keyword)cOpAssignment_1_0_0_1.eContents().get(0);
+		private final Action cWhenExprVerificationAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
+		private final Keyword cWhenKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
 		private final Assignment cConditionAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cConditionOrConditionExprParserRuleCall_1_1_0 = (RuleCall)cConditionAssignment_1_1.eContents().get(0);
+		private final RuleCall cConditionSelectionCategoryReferenceParserRuleCall_1_1_0 = (RuleCall)cConditionAssignment_1_1.eContents().get(0);
 		
 		//ConditionalEvidence returns ArgumentExpr:
-		//	VAReference (=> ({ConditionalExpr.verification=current} op="when") condition=OrConditionExpr)?;
+		//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=SelectionCategoryReference+)?;
 		public ParserRule getRule() { return rule; }
 
-		//VAReference (=> ({ConditionalExpr.verification=current} op="when") condition=OrConditionExpr)?
+		//VAReference (=> ({WhenExpr.verification=current} "when") condition+=SelectionCategoryReference+)?
 		public Group getGroup() { return cGroup; }
 
 		//VAReference
 		public RuleCall getVAReferenceParserRuleCall_0() { return cVAReferenceParserRuleCall_0; }
 
-		//(=> ({ConditionalExpr.verification=current} op="when") condition=OrConditionExpr)?
+		//(=> ({WhenExpr.verification=current} "when") condition+=SelectionCategoryReference+)?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> ({ConditionalExpr.verification=current} op="when")
+		//=> ({WhenExpr.verification=current} "when")
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ConditionalExpr.verification=current} op="when"
+		//{WhenExpr.verification=current} "when"
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
-		//{ConditionalExpr.verification=current}
-		public Action getConditionalExprVerificationAction_1_0_0_0() { return cConditionalExprVerificationAction_1_0_0_0; }
-
-		//op="when"
-		public Assignment getOpAssignment_1_0_0_1() { return cOpAssignment_1_0_0_1; }
+		//{WhenExpr.verification=current}
+		public Action getWhenExprVerificationAction_1_0_0_0() { return cWhenExprVerificationAction_1_0_0_0; }
 
 		//"when"
-		public Keyword getOpWhenKeyword_1_0_0_1_0() { return cOpWhenKeyword_1_0_0_1_0; }
+		public Keyword getWhenKeyword_1_0_0_1() { return cWhenKeyword_1_0_0_1; }
 
-		//condition=OrConditionExpr
+		//condition+=SelectionCategoryReference+
 		public Assignment getConditionAssignment_1_1() { return cConditionAssignment_1_1; }
 
-		//OrConditionExpr
-		public RuleCall getConditionOrConditionExprParserRuleCall_1_1_0() { return cConditionOrConditionExprParserRuleCall_1_1_0; }
+		//SelectionCategoryReference
+		public RuleCall getConditionSelectionCategoryReferenceParserRuleCall_1_1_0() { return cConditionSelectionCategoryReferenceParserRuleCall_1_1_0; }
 	}
 
 	public class VAReferenceElements extends AbstractParserRuleElementFinder {
@@ -1084,109 +1072,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
 	}
 
-	public class OrConditionExprElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OrConditionExpr");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAndConditionExprParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
-		private final Action cConditionExprLeftAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
-		private final Assignment cOpAssignment_1_0_0_1 = (Assignment)cGroup_1_0_0.eContents().get(1);
-		private final Keyword cOpOrKeyword_1_0_0_1_0 = (Keyword)cOpAssignment_1_0_0_1.eContents().get(0);
-		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cRightAndConditionExprParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
-		
-		//OrConditionExpr returns ConditionExpr:
-		//	AndConditionExpr (=> ({ConditionExpr.left=current} op="or") right=AndConditionExpr)*;
-		public ParserRule getRule() { return rule; }
-
-		//AndConditionExpr (=> ({ConditionExpr.left=current} op="or") right=AndConditionExpr)*
-		public Group getGroup() { return cGroup; }
-
-		//AndConditionExpr
-		public RuleCall getAndConditionExprParserRuleCall_0() { return cAndConditionExprParserRuleCall_0; }
-
-		//(=> ({ConditionExpr.left=current} op="or") right=AndConditionExpr)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//=> ({ConditionExpr.left=current} op="or")
-		public Group getGroup_1_0() { return cGroup_1_0; }
-
-		//{ConditionExpr.left=current} op="or"
-		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
-
-		//{ConditionExpr.left=current}
-		public Action getConditionExprLeftAction_1_0_0_0() { return cConditionExprLeftAction_1_0_0_0; }
-
-		//op="or"
-		public Assignment getOpAssignment_1_0_0_1() { return cOpAssignment_1_0_0_1; }
-
-		//"or"
-		public Keyword getOpOrKeyword_1_0_0_1_0() { return cOpOrKeyword_1_0_0_1_0; }
-
-		//right=AndConditionExpr
-		public Assignment getRightAssignment_1_1() { return cRightAssignment_1_1; }
-
-		//AndConditionExpr
-		public RuleCall getRightAndConditionExprParserRuleCall_1_1_0() { return cRightAndConditionExprParserRuleCall_1_1_0; }
-	}
-
-	public class AndConditionExprElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AndConditionExpr");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cAtomicConditionExprParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
-		private final Action cConditionExprLeftAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
-		private final Assignment cOpAssignment_1_0_0_1 = (Assignment)cGroup_1_0_0.eContents().get(1);
-		private final Keyword cOpAndKeyword_1_0_0_1_0 = (Keyword)cOpAssignment_1_0_0_1.eContents().get(0);
-		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cRightAtomicConditionExprParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
-		
-		//AndConditionExpr returns ConditionExpr:
-		//	AtomicConditionExpr (=> ({ConditionExpr.left=current} op="and") right=AtomicConditionExpr)*;
-		public ParserRule getRule() { return rule; }
-
-		//AtomicConditionExpr (=> ({ConditionExpr.left=current} op="and") right=AtomicConditionExpr)*
-		public Group getGroup() { return cGroup; }
-
-		//AtomicConditionExpr
-		public RuleCall getAtomicConditionExprParserRuleCall_0() { return cAtomicConditionExprParserRuleCall_0; }
-
-		//(=> ({ConditionExpr.left=current} op="and") right=AtomicConditionExpr)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//=> ({ConditionExpr.left=current} op="and")
-		public Group getGroup_1_0() { return cGroup_1_0; }
-
-		//{ConditionExpr.left=current} op="and"
-		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
-
-		//{ConditionExpr.left=current}
-		public Action getConditionExprLeftAction_1_0_0_0() { return cConditionExprLeftAction_1_0_0_0; }
-
-		//op="and"
-		public Assignment getOpAssignment_1_0_0_1() { return cOpAssignment_1_0_0_1; }
-
-		//"and"
-		public Keyword getOpAndKeyword_1_0_0_1_0() { return cOpAndKeyword_1_0_0_1_0; }
-
-		//right=AtomicConditionExpr
-		public Assignment getRightAssignment_1_1() { return cRightAssignment_1_1; }
-
-		//AtomicConditionExpr
-		public RuleCall getRightAtomicConditionExprParserRuleCall_1_1_0() { return cRightAtomicConditionExprParserRuleCall_1_1_0; }
-	}
-
-	public class AtomicConditionExprElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AtomicConditionExpr");
+	public class SelectionCategoryReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SelectionCategoryReference");
 		private final Assignment cCatAssignment = (Assignment)rule.eContents().get(1);
 		private final CrossReference cCatVerificationCategoryCrossReference_0 = (CrossReference)cCatAssignment.eContents().get(0);
 		private final RuleCall cCatVerificationCategoryCatRefParserRuleCall_0_1 = (RuleCall)cCatVerificationCategoryCrossReference_0.eContents().get(1);
 		
-		//AtomicConditionExpr:
+		//SelectionCategoryReference:
 		//	cat=[categories::VerificationCategory|CatRef];
 		public ParserRule getRule() { return rule; }
 
@@ -1462,9 +1354,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final AtomicEvidenceExprElements pAtomicEvidenceExpr;
 	private final ConditionalEvidenceElements pConditionalEvidence;
 	private final VAReferenceElements pVAReference;
-	private final OrConditionExprElements pOrConditionExpr;
-	private final AndConditionExprElements pAndConditionExpr;
-	private final AtomicConditionExprElements pAtomicConditionExpr;
+	private final SelectionCategoryReferenceElements pSelectionCategoryReference;
 	private final VerificationMethodRegistryElements pVerificationMethodRegistry;
 	private final VerificationMethodElements pVerificationMethod;
 	private final SupportedTypesElements unknownRuleSupportedTypes;
@@ -1494,9 +1384,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAtomicEvidenceExpr = new AtomicEvidenceExprElements();
 		this.pConditionalEvidence = new ConditionalEvidenceElements();
 		this.pVAReference = new VAReferenceElements();
-		this.pOrConditionExpr = new OrConditionExprElements();
-		this.pAndConditionExpr = new AndConditionExprElements();
-		this.pAtomicConditionExpr = new AtomicConditionExprElements();
+		this.pSelectionCategoryReference = new SelectionCategoryReferenceElements();
 		this.pVerificationMethodRegistry = new VerificationMethodRegistryElements();
 		this.pVerificationMethod = new VerificationMethodElements();
 		this.unknownRuleSupportedTypes = new SupportedTypesElements();
@@ -1655,7 +1543,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AndThenEvidenceExpr returns ArgumentExpr:
-	//	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} op="andthen") right=AndThenEvidenceExpr)*;
+	//	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} "andthen") right=AndThenEvidenceExpr)*;
 	public AndThenEvidenceExprElements getAndThenEvidenceExprAccess() {
 		return pAndThenEvidenceExpr;
 	}
@@ -1667,7 +1555,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// Execute as alternative if the first one fails.
 	//// The results of both are reported
 	//FailThenEvidenceExpr returns ArgumentExpr:
-	//	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} op="failthen") right=FailThenEvidenceExpr)*;
+	//	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} "failthen") right=FailThenEvidenceExpr)*;
 	public FailThenEvidenceExprElements getFailThenEvidenceExprAccess() {
 		return pFailThenEvidenceExpr;
 	}
@@ -1687,7 +1575,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConditionalEvidence returns ArgumentExpr:
-	//	VAReference (=> ({ConditionalExpr.verification=current} op="when") condition=OrConditionExpr)?;
+	//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=SelectionCategoryReference+)?;
 	public ConditionalEvidenceElements getConditionalEvidenceAccess() {
 		return pConditionalEvidence;
 	}
@@ -1706,34 +1594,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getVAReferenceAccess().getRule();
 	}
 
-	//OrConditionExpr returns ConditionExpr:
-	//	AndConditionExpr (=> ({ConditionExpr.left=current} op="or") right=AndConditionExpr)*;
-	public OrConditionExprElements getOrConditionExprAccess() {
-		return pOrConditionExpr;
-	}
-	
-	public ParserRule getOrConditionExprRule() {
-		return getOrConditionExprAccess().getRule();
-	}
-
-	//AndConditionExpr returns ConditionExpr:
-	//	AtomicConditionExpr (=> ({ConditionExpr.left=current} op="and") right=AtomicConditionExpr)*;
-	public AndConditionExprElements getAndConditionExprAccess() {
-		return pAndConditionExpr;
-	}
-	
-	public ParserRule getAndConditionExprRule() {
-		return getAndConditionExprAccess().getRule();
-	}
-
-	//AtomicConditionExpr:
+	//SelectionCategoryReference:
 	//	cat=[categories::VerificationCategory|CatRef];
-	public AtomicConditionExprElements getAtomicConditionExprAccess() {
-		return pAtomicConditionExpr;
+	public SelectionCategoryReferenceElements getSelectionCategoryReferenceAccess() {
+		return pSelectionCategoryReference;
 	}
 	
-	public ParserRule getAtomicConditionExprRule() {
-		return getAtomicConditionExprAccess().getRule();
+	public ParserRule getSelectionCategoryReferenceRule() {
+		return getSelectionCategoryReferenceAccess().getRule();
 	}
 
 	//// need to distinguish between method with/out predicate

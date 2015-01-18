@@ -27,6 +27,7 @@ import org.osate.alisa.common.common.FinalValue;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan;
+import org.osate.alisa.workbench.alisa.SelectionConditionExpr;
 
 import org.osate.verify.verify.VerificationPlan;
 
@@ -43,6 +44,7 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
  *
@@ -129,6 +131,16 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected EList<VerificationPlan> plans;
+
+  /**
+   * The cached value of the '{@link #getSelectionFilter() <em>Selection Filter</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSelectionFilter()
+   * @generated
+   * @ordered
+   */
+  protected SelectionConditionExpr selectionFilter;
 
   /**
    * <!-- begin-user-doc -->
@@ -321,6 +333,54 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  public SelectionConditionExpr getSelectionFilter()
+  {
+    return selectionFilter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetSelectionFilter(SelectionConditionExpr newSelectionFilter, NotificationChain msgs)
+  {
+    SelectionConditionExpr oldSelectionFilter = selectionFilter;
+    selectionFilter = newSelectionFilter;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER, oldSelectionFilter, newSelectionFilter);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSelectionFilter(SelectionConditionExpr newSelectionFilter)
+  {
+    if (newSelectionFilter != selectionFilter)
+    {
+      NotificationChain msgs = null;
+      if (selectionFilter != null)
+        msgs = ((InternalEObject)selectionFilter).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER, null, msgs);
+      if (newSelectionFilter != null)
+        msgs = ((InternalEObject)newSelectionFilter).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER, null, msgs);
+      msgs = basicSetSelectionFilter(newSelectionFilter, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER, newSelectionFilter, newSelectionFilter));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -330,6 +390,8 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
         return basicSetDescription(null, msgs);
       case AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT:
         return ((InternalEList<?>)getConstant()).basicRemove(otherEnd, msgs);
+      case AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER:
+        return basicSetSelectionFilter(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -357,6 +419,8 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
         return getConstant();
       case AlisaPackage.ASSURANCE_CASE_PLAN__PLANS:
         return getPlans();
+      case AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER:
+        return getSelectionFilter();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -392,6 +456,9 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
         getPlans().clear();
         getPlans().addAll((Collection<? extends VerificationPlan>)newValue);
         return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER:
+        setSelectionFilter((SelectionConditionExpr)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -424,6 +491,9 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
       case AlisaPackage.ASSURANCE_CASE_PLAN__PLANS:
         getPlans().clear();
         return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER:
+        setSelectionFilter((SelectionConditionExpr)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -450,6 +520,8 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
         return constant != null && !constant.isEmpty();
       case AlisaPackage.ASSURANCE_CASE_PLAN__PLANS:
         return plans != null && !plans.isEmpty();
+      case AlisaPackage.ASSURANCE_CASE_PLAN__SELECTION_FILTER:
+        return selectionFilter != null;
     }
     return super.eIsSet(featureID);
   }

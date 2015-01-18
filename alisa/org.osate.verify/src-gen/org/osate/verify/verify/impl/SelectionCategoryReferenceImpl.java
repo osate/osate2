@@ -8,26 +8,27 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.categories.categories.VerificationCategory;
 
-import org.osate.verify.verify.AtomicConditionExpr;
+import org.osate.verify.verify.SelectionCategoryReference;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Atomic Condition Expr</b></em>'.
+ * An implementation of the model object '<em><b>Selection Category Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.AtomicConditionExprImpl#getCat <em>Cat</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.SelectionCategoryReferenceImpl#getCat <em>Cat</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AtomicConditionExprImpl extends ConditionExprImpl implements AtomicConditionExpr
+public class SelectionCategoryReferenceImpl extends MinimalEObjectImpl.Container implements SelectionCategoryReference
 {
   /**
    * The cached value of the '{@link #getCat() <em>Cat</em>}' reference.
@@ -44,7 +45,7 @@ public class AtomicConditionExprImpl extends ConditionExprImpl implements Atomic
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AtomicConditionExprImpl()
+  protected SelectionCategoryReferenceImpl()
   {
     super();
   }
@@ -57,7 +58,7 @@ public class AtomicConditionExprImpl extends ConditionExprImpl implements Atomic
   @Override
   protected EClass eStaticClass()
   {
-    return VerifyPackage.Literals.ATOMIC_CONDITION_EXPR;
+    return VerifyPackage.Literals.SELECTION_CATEGORY_REFERENCE;
   }
 
   /**
@@ -74,7 +75,7 @@ public class AtomicConditionExprImpl extends ConditionExprImpl implements Atomic
       if (cat != oldCat)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.ATOMIC_CONDITION_EXPR__CAT, oldCat, cat));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.SELECTION_CATEGORY_REFERENCE__CAT, oldCat, cat));
       }
     }
     return cat;
@@ -100,7 +101,7 @@ public class AtomicConditionExprImpl extends ConditionExprImpl implements Atomic
     VerificationCategory oldCat = cat;
     cat = newCat;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.ATOMIC_CONDITION_EXPR__CAT, oldCat, cat));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.SELECTION_CATEGORY_REFERENCE__CAT, oldCat, cat));
   }
 
   /**
@@ -113,7 +114,7 @@ public class AtomicConditionExprImpl extends ConditionExprImpl implements Atomic
   {
     switch (featureID)
     {
-      case VerifyPackage.ATOMIC_CONDITION_EXPR__CAT:
+      case VerifyPackage.SELECTION_CATEGORY_REFERENCE__CAT:
         if (resolve) return getCat();
         return basicGetCat();
     }
@@ -130,7 +131,7 @@ public class AtomicConditionExprImpl extends ConditionExprImpl implements Atomic
   {
     switch (featureID)
     {
-      case VerifyPackage.ATOMIC_CONDITION_EXPR__CAT:
+      case VerifyPackage.SELECTION_CATEGORY_REFERENCE__CAT:
         setCat((VerificationCategory)newValue);
         return;
     }
@@ -147,7 +148,7 @@ public class AtomicConditionExprImpl extends ConditionExprImpl implements Atomic
   {
     switch (featureID)
     {
-      case VerifyPackage.ATOMIC_CONDITION_EXPR__CAT:
+      case VerifyPackage.SELECTION_CATEGORY_REFERENCE__CAT:
         setCat((VerificationCategory)null);
         return;
     }
@@ -164,10 +165,10 @@ public class AtomicConditionExprImpl extends ConditionExprImpl implements Atomic
   {
     switch (featureID)
     {
-      case VerifyPackage.ATOMIC_CONDITION_EXPR__CAT:
+      case VerifyPackage.SELECTION_CATEGORY_REFERENCE__CAT:
         return cat != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //AtomicConditionExprImpl
+} //SelectionCategoryReferenceImpl

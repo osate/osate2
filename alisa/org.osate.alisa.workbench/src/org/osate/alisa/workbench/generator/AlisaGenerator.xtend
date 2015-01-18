@@ -17,8 +17,6 @@ import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.AndThenExpr
 import org.osate.verify.verify.ArgumentExpr
 import org.osate.verify.verify.Claim
-import org.osate.verify.verify.ConditionExpr
-import org.osate.verify.verify.ConditionalExpr
 import org.osate.verify.verify.FailThenExpr
 import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.VerificationAssumption
@@ -27,6 +25,7 @@ import org.osate.verify.verify.VerificationPrecondition
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
+import org.osate.verify.verify.WhenExpr
 
 /**
  * Generates code from your model files on save.
@@ -99,7 +98,7 @@ class AlisaGenerator implements IGenerator {
 			AllExpr: expr.doGenerate
 			AndThenExpr: expr.doGenerate
 			FailThenExpr: expr.doGenerate
-			ConditionalExpr: expr.doGenerate
+			WhenExpr: expr.doGenerate
 			RefExpr: expr.doGenerate
 		}
 	}
@@ -129,9 +128,9 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 
-	def doGenerate(ConditionalExpr expr) {
+	def doGenerate(WhenExpr expr) {
 		'''
-		«IF expr.condition.evaluate»
+		«IF expr.evaluate»
 		«expr.generate»
 		«ENDIF»
 		'''
@@ -176,8 +175,8 @@ class AlisaGenerator implements IGenerator {
 			]
 		'''
 	}
-
-	def evaluate(ConditionExpr expr) {
+// XXX move
+	def evaluate(WhenExpr expr) {
 		true
 	}
 

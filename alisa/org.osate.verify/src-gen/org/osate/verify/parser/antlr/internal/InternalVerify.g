@@ -1563,34 +1563,18 @@ ruleAndThenEvidenceExpr returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 (((((
-)(
-(
-	'andthen' 
- 
-
-)
-)))=>((
+)	'andthen' 
+))=>((
     {
         $current = forceCreateModelElementAndSet(
             grammarAccess.getAndThenEvidenceExprAccess().getAndThenExprLeftAction_1_0_0_0(),
             $current);
     }
-)(
-(
-		lv_op_2_0=	'andthen' 
+)	otherlv_2='andthen' 
     {
-        newLeafNode(lv_op_2_0, grammarAccess.getAndThenEvidenceExprAccess().getOpAndthenKeyword_1_0_0_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getAndThenEvidenceExprAccess().getAndthenKeyword_1_0_0_1());
     }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAndThenEvidenceExprRule());
-	        }
-       		setWithLastConsumed($current, "op", lv_op_2_0, "andthen");
-	    }
-
-)
-)))(
+))(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getAndThenEvidenceExprAccess().getRightAndThenEvidenceExprParserRuleCall_1_1_0()); 
@@ -1639,34 +1623,18 @@ ruleFailThenEvidenceExpr returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 (((((
-)(
-(
-	'failthen' 
- 
-
-)
-)))=>((
+)	'failthen' 
+))=>((
     {
         $current = forceCreateModelElementAndSet(
             grammarAccess.getFailThenEvidenceExprAccess().getFailThenExprLeftAction_1_0_0_0(),
             $current);
     }
-)(
-(
-		lv_op_2_0=	'failthen' 
+)	otherlv_2='failthen' 
     {
-        newLeafNode(lv_op_2_0, grammarAccess.getFailThenEvidenceExprAccess().getOpFailthenKeyword_1_0_0_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getFailThenEvidenceExprAccess().getFailthenKeyword_1_0_0_1());
     }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFailThenEvidenceExprRule());
-	        }
-       		setWithLastConsumed($current, "op", lv_op_2_0, "failthen");
-	    }
-
-)
-)))(
+))(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getFailThenEvidenceExprAccess().getRightFailThenEvidenceExprParserRuleCall_1_1_0()); 
@@ -1773,52 +1741,36 @@ ruleConditionalEvidence returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 (((((
-)(
-(
-	'when' 
- 
-
-)
-)))=>((
+)	'when' 
+))=>((
     {
         $current = forceCreateModelElementAndSet(
-            grammarAccess.getConditionalEvidenceAccess().getConditionalExprVerificationAction_1_0_0_0(),
+            grammarAccess.getConditionalEvidenceAccess().getWhenExprVerificationAction_1_0_0_0(),
             $current);
     }
-)(
-(
-		lv_op_2_0=	'when' 
+)	otherlv_2='when' 
     {
-        newLeafNode(lv_op_2_0, grammarAccess.getConditionalEvidenceAccess().getOpWhenKeyword_1_0_0_1_0());
+    	newLeafNode(otherlv_2, grammarAccess.getConditionalEvidenceAccess().getWhenKeyword_1_0_0_1());
     }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getConditionalEvidenceRule());
-	        }
-       		setWithLastConsumed($current, "op", lv_op_2_0, "when");
-	    }
-
-)
-)))(
+))(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConditionalEvidenceAccess().getConditionOrConditionExprParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getConditionalEvidenceAccess().getConditionSelectionCategoryReferenceParserRuleCall_1_1_0()); 
 	    }
-		lv_condition_3_0=ruleOrConditionExpr		{
+		lv_condition_3_0=ruleSelectionCategoryReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConditionalEvidenceRule());
 	        }
-       		set(
+       		add(
        			$current, 
        			"condition",
         		lv_condition_3_0, 
-        		"OrConditionExpr");
+        		"SelectionCategoryReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))?)
+)+)?)
 ;
 
 
@@ -1893,169 +1845,17 @@ ruleVAReference returns [EObject current=null]
 
 
 
-// Entry rule entryRuleOrConditionExpr
-entryRuleOrConditionExpr returns [EObject current=null] 
+// Entry rule entryRuleSelectionCategoryReference
+entryRuleSelectionCategoryReference returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getOrConditionExprRule()); }
-	 iv_ruleOrConditionExpr=ruleOrConditionExpr 
-	 { $current=$iv_ruleOrConditionExpr.current; } 
+	{ newCompositeNode(grammarAccess.getSelectionCategoryReferenceRule()); }
+	 iv_ruleSelectionCategoryReference=ruleSelectionCategoryReference 
+	 { $current=$iv_ruleSelectionCategoryReference.current; } 
 	 EOF 
 ;
 
-// Rule OrConditionExpr
-ruleOrConditionExpr returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getOrConditionExprAccess().getAndConditionExprParserRuleCall_0()); 
-    }
-    this_AndConditionExpr_0=ruleAndConditionExpr
-    { 
-        $current = $this_AndConditionExpr_0.current; 
-        afterParserOrEnumRuleCall();
-    }
-(((((
-)(
-(
-	'or' 
- 
-
-)
-)))=>((
-    {
-        $current = forceCreateModelElementAndSet(
-            grammarAccess.getOrConditionExprAccess().getConditionExprLeftAction_1_0_0_0(),
-            $current);
-    }
-)(
-(
-		lv_op_2_0=	'or' 
-    {
-        newLeafNode(lv_op_2_0, grammarAccess.getOrConditionExprAccess().getOpOrKeyword_1_0_0_1_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getOrConditionExprRule());
-	        }
-       		setWithLastConsumed($current, "op", lv_op_2_0, "or");
-	    }
-
-)
-)))(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getOrConditionExprAccess().getRightAndConditionExprParserRuleCall_1_1_0()); 
-	    }
-		lv_right_3_0=ruleAndConditionExpr		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getOrConditionExprRule());
-	        }
-       		set(
-       			$current, 
-       			"right",
-        		lv_right_3_0, 
-        		"AndConditionExpr");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*)
-;
-
-
-
-
-
-// Entry rule entryRuleAndConditionExpr
-entryRuleAndConditionExpr returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getAndConditionExprRule()); }
-	 iv_ruleAndConditionExpr=ruleAndConditionExpr 
-	 { $current=$iv_ruleAndConditionExpr.current; } 
-	 EOF 
-;
-
-// Rule AndConditionExpr
-ruleAndConditionExpr returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getAndConditionExprAccess().getAtomicConditionExprParserRuleCall_0()); 
-    }
-    this_AtomicConditionExpr_0=ruleAtomicConditionExpr
-    { 
-        $current = $this_AtomicConditionExpr_0.current; 
-        afterParserOrEnumRuleCall();
-    }
-(((((
-)(
-(
-	'and' 
- 
-
-)
-)))=>((
-    {
-        $current = forceCreateModelElementAndSet(
-            grammarAccess.getAndConditionExprAccess().getConditionExprLeftAction_1_0_0_0(),
-            $current);
-    }
-)(
-(
-		lv_op_2_0=	'and' 
-    {
-        newLeafNode(lv_op_2_0, grammarAccess.getAndConditionExprAccess().getOpAndKeyword_1_0_0_1_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAndConditionExprRule());
-	        }
-       		setWithLastConsumed($current, "op", lv_op_2_0, "and");
-	    }
-
-)
-)))(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getAndConditionExprAccess().getRightAtomicConditionExprParserRuleCall_1_1_0()); 
-	    }
-		lv_right_3_0=ruleAtomicConditionExpr		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getAndConditionExprRule());
-	        }
-       		set(
-       			$current, 
-       			"right",
-        		lv_right_3_0, 
-        		"AtomicConditionExpr");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*)
-;
-
-
-
-
-
-// Entry rule entryRuleAtomicConditionExpr
-entryRuleAtomicConditionExpr returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getAtomicConditionExprRule()); }
-	 iv_ruleAtomicConditionExpr=ruleAtomicConditionExpr 
-	 { $current=$iv_ruleAtomicConditionExpr.current; } 
-	 EOF 
-;
-
-// Rule AtomicConditionExpr
-ruleAtomicConditionExpr returns [EObject current=null] 
+// Rule SelectionCategoryReference
+ruleSelectionCategoryReference returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
@@ -2063,11 +1863,11 @@ ruleAtomicConditionExpr returns [EObject current=null]
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAtomicConditionExprRule());
+	            $current = createModelElement(grammarAccess.getSelectionCategoryReferenceRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAtomicConditionExprAccess().getCatVerificationCategoryCrossReference_0()); 
+	        newCompositeNode(grammarAccess.getSelectionCategoryReferenceAccess().getCatVerificationCategoryCrossReference_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();

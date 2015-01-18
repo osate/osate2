@@ -1,26 +1,26 @@
 /**
  */
-package org.osate.verify.verify;
+package org.osate.alisa.workbench.alisa;
 
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Fail Then Expr</b></em>'.
+ * A representation of the model object '<em><b>And Selection Condition Expr</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.verify.verify.FailThenExpr#getLeft <em>Left</em>}</li>
- *   <li>{@link org.osate.verify.verify.FailThenExpr#getRight <em>Right</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getRight <em>Right</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.verify.verify.VerifyPackage#getFailThenExpr()
+ * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAndSelectionConditionExpr()
  * @model
  * @generated
  */
-public interface FailThenExpr extends ArgumentExpr
+public interface AndSelectionConditionExpr extends SelectionConditionExpr
 {
   /**
    * Returns the value of the '<em><b>Left</b></em>' containment reference.
@@ -31,22 +31,22 @@ public interface FailThenExpr extends ArgumentExpr
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Left</em>' containment reference.
-   * @see #setLeft(ArgumentExpr)
-   * @see org.osate.verify.verify.VerifyPackage#getFailThenExpr_Left()
+   * @see #setLeft(SelectionConditionExpr)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAndSelectionConditionExpr_Left()
    * @model containment="true"
    * @generated
    */
-  ArgumentExpr getLeft();
+  SelectionConditionExpr getLeft();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.FailThenExpr#getLeft <em>Left</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getLeft <em>Left</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Left</em>' containment reference.
    * @see #getLeft()
    * @generated
    */
-  void setLeft(ArgumentExpr value);
+  void setLeft(SelectionConditionExpr value);
 
   /**
    * Returns the value of the '<em><b>Right</b></em>' containment reference.
@@ -57,21 +57,21 @@ public interface FailThenExpr extends ArgumentExpr
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Right</em>' containment reference.
-   * @see #setRight(ArgumentExpr)
-   * @see org.osate.verify.verify.VerifyPackage#getFailThenExpr_Right()
+   * @see #setRight(SelectionConditionExpr)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAndSelectionConditionExpr_Right()
    * @model containment="true"
    * @generated
    */
-  ArgumentExpr getRight();
+  SelectionConditionExpr getRight();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.FailThenExpr#getRight <em>Right</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getRight <em>Right</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Right</em>' containment reference.
    * @see #getRight()
    * @generated
    */
-  void setRight(ArgumentExpr value);
+  void setRight(SelectionConditionExpr value);
 
-} // FailThenExpr
+} // AndSelectionConditionExpr

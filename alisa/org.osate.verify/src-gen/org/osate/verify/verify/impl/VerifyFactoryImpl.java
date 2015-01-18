@@ -75,8 +75,7 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
-      case VerifyPackage.CONDITION_EXPR: return createConditionExpr();
-      case VerifyPackage.ATOMIC_CONDITION_EXPR: return createAtomicConditionExpr();
+      case VerifyPackage.SELECTION_CATEGORY_REFERENCE: return createSelectionCategoryReference();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
       case VerifyPackage.VERIFICATION_ASSUMPTION: return createVerificationAssumption();
@@ -84,7 +83,7 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.ALL_EXPR: return createAllExpr();
       case VerifyPackage.AND_THEN_EXPR: return createAndThenExpr();
       case VerifyPackage.FAIL_THEN_EXPR: return createFailThenExpr();
-      case VerifyPackage.CONDITIONAL_EXPR: return createConditionalExpr();
+      case VerifyPackage.WHEN_EXPR: return createWhenExpr();
       case VerifyPackage.REF_EXPR: return createRefExpr();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -240,21 +239,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ConditionExpr createConditionExpr()
+  public SelectionCategoryReference createSelectionCategoryReference()
   {
-    ConditionExprImpl conditionExpr = new ConditionExprImpl();
-    return conditionExpr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AtomicConditionExpr createAtomicConditionExpr()
-  {
-    AtomicConditionExprImpl atomicConditionExpr = new AtomicConditionExprImpl();
-    return atomicConditionExpr;
+    SelectionCategoryReferenceImpl selectionCategoryReference = new SelectionCategoryReferenceImpl();
+    return selectionCategoryReference;
   }
 
   /**
@@ -339,10 +327,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ConditionalExpr createConditionalExpr()
+  public WhenExpr createWhenExpr()
   {
-    ConditionalExprImpl conditionalExpr = new ConditionalExprImpl();
-    return conditionalExpr;
+    WhenExprImpl whenExpr = new WhenExprImpl();
+    return whenExpr;
   }
 
   /**

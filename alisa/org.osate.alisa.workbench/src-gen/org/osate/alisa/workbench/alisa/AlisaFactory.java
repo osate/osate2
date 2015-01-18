@@ -41,6 +41,33 @@ public interface AlisaFactory extends EFactory
   AssuranceCasePlan createAssuranceCasePlan();
 
   /**
+   * Returns a new object of class '<em>Selection Condition Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Selection Condition Expr</em>'.
+   * @generated
+   */
+  SelectionConditionExpr createSelectionConditionExpr();
+
+  /**
+   * Returns a new object of class '<em>Selection Category Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Selection Category Reference</em>'.
+   * @generated
+   */
+  SelectionCategoryReference createSelectionCategoryReference();
+
+  /**
+   * Returns a new object of class '<em>And Selection Condition Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>And Selection Condition Expr</em>'.
+   * @generated
+   */
+  AndSelectionConditionExpr createAndSelectionConditionExpr();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

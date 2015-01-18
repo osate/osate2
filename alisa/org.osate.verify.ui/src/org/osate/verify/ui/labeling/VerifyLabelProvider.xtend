@@ -7,6 +7,7 @@ import com.google.inject.Inject
 import org.osate.verify.verify.FailThenExpr
 import org.osate.verify.verify.AndThenExpr
 import org.osate.verify.verify.AllExpr
+import org.osate.verify.verify.WhenExpr
 
 /**
  * Provides labels for a EObjects.
@@ -31,6 +32,9 @@ class VerifyLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	def text(AllExpr ele) {
 		'all'
+	}
+	def text(WhenExpr ele) {
+		'when'
 	}
 //
 //	def image(Greeting ele) {

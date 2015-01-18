@@ -27,6 +27,7 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
  *
@@ -171,5 +172,31 @@ public interface AssuranceCasePlan extends EObject
    * @generated
    */
   EList<VerificationPlan> getPlans();
+
+  /**
+   * Returns the value of the '<em><b>Selection Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Selection Filter</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Selection Filter</em>' containment reference.
+   * @see #setSelectionFilter(SelectionConditionExpr)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCasePlan_SelectionFilter()
+   * @model containment="true"
+   * @generated
+   */
+  SelectionConditionExpr getSelectionFilter();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSelectionFilter <em>Selection Filter</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Selection Filter</em>' containment reference.
+   * @see #getSelectionFilter()
+   * @generated
+   */
+  void setSelectionFilter(SelectionConditionExpr value);
 
 } // AssuranceCasePlan

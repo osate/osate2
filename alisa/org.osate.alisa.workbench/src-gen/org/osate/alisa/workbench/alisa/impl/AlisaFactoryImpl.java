@@ -66,6 +66,9 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
     {
       case AlisaPackage.ALISA_WORK_AREA: return createAlisaWorkArea();
       case AlisaPackage.ASSURANCE_CASE_PLAN: return createAssuranceCasePlan();
+      case AlisaPackage.SELECTION_CONDITION_EXPR: return createSelectionConditionExpr();
+      case AlisaPackage.SELECTION_CATEGORY_REFERENCE: return createSelectionCategoryReference();
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR: return createAndSelectionConditionExpr();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -91,6 +94,39 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
   {
     AssuranceCasePlanImpl assuranceCasePlan = new AssuranceCasePlanImpl();
     return assuranceCasePlan;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SelectionConditionExpr createSelectionConditionExpr()
+  {
+    SelectionConditionExprImpl selectionConditionExpr = new SelectionConditionExprImpl();
+    return selectionConditionExpr;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SelectionCategoryReference createSelectionCategoryReference()
+  {
+    SelectionCategoryReferenceImpl selectionCategoryReference = new SelectionCategoryReferenceImpl();
+    return selectionCategoryReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AndSelectionConditionExpr createAndSelectionConditionExpr()
+  {
+    AndSelectionConditionExprImpl andSelectionConditionExpr = new AndSelectionConditionExprImpl();
+    return andSelectionConditionExpr;
   }
 
   /**

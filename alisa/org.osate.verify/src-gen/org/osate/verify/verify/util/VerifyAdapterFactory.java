@@ -125,14 +125,9 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createArgumentExprAdapter();
       }
       @Override
-      public Adapter caseConditionExpr(ConditionExpr object)
+      public Adapter caseSelectionCategoryReference(SelectionCategoryReference object)
       {
-        return createConditionExprAdapter();
-      }
-      @Override
-      public Adapter caseAtomicConditionExpr(AtomicConditionExpr object)
-      {
-        return createAtomicConditionExprAdapter();
+        return createSelectionCategoryReferenceAdapter();
       }
       @Override
       public Adapter caseVerificationMethodRegistry(VerificationMethodRegistry object)
@@ -170,9 +165,9 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createFailThenExprAdapter();
       }
       @Override
-      public Adapter caseConditionalExpr(ConditionalExpr object)
+      public Adapter caseWhenExpr(WhenExpr object)
       {
-        return createConditionalExprAdapter();
+        return createWhenExprAdapter();
       }
       @Override
       public Adapter caseRefExpr(RefExpr object)
@@ -352,31 +347,16 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.ConditionExpr <em>Condition Expr</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.SelectionCategoryReference <em>Selection Category Reference</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.verify.verify.ConditionExpr
+   * @see org.osate.verify.verify.SelectionCategoryReference
    * @generated
    */
-  public Adapter createConditionExprAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.AtomicConditionExpr <em>Atomic Condition Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.AtomicConditionExpr
-   * @generated
-   */
-  public Adapter createAtomicConditionExprAdapter()
+  public Adapter createSelectionCategoryReferenceAdapter()
   {
     return null;
   }
@@ -487,16 +467,16 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.ConditionalExpr <em>Conditional Expr</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.WhenExpr <em>When Expr</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.verify.verify.ConditionalExpr
+   * @see org.osate.verify.verify.WhenExpr
    * @generated
    */
-  public Adapter createConditionalExprAdapter()
+  public Adapter createWhenExprAdapter()
   {
     return null;
   }

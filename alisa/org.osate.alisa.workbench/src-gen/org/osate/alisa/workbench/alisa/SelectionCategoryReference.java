@@ -1,26 +1,26 @@
 /**
  */
-package org.osate.verify.verify;
+package org.osate.alisa.workbench.alisa;
 
 import org.osate.categories.categories.VerificationCategory;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Atomic Condition Expr</b></em>'.
+ * A representation of the model object '<em><b>Selection Category Reference</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.verify.verify.AtomicConditionExpr#getCat <em>Cat</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.SelectionCategoryReference#getCat <em>Cat</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.verify.verify.VerifyPackage#getAtomicConditionExpr()
+ * @see org.osate.alisa.workbench.alisa.AlisaPackage#getSelectionCategoryReference()
  * @model
  * @generated
  */
-public interface AtomicConditionExpr extends ConditionExpr
+public interface SelectionCategoryReference extends SelectionConditionExpr
 {
   /**
    * Returns the value of the '<em><b>Cat</b></em>' reference.
@@ -32,14 +32,14 @@ public interface AtomicConditionExpr extends ConditionExpr
    * <!-- end-user-doc -->
    * @return the value of the '<em>Cat</em>' reference.
    * @see #setCat(VerificationCategory)
-   * @see org.osate.verify.verify.VerifyPackage#getAtomicConditionExpr_Cat()
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getSelectionCategoryReference_Cat()
    * @model
    * @generated
    */
   VerificationCategory getCat();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.AtomicConditionExpr#getCat <em>Cat</em>}' reference.
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.SelectionCategoryReference#getCat <em>Cat</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Cat</em>' reference.
@@ -48,4 +48,4 @@ public interface AtomicConditionExpr extends ConditionExpr
    */
   void setCat(VerificationCategory value);
 
-} // AtomicConditionExpr
+} // SelectionCategoryReference

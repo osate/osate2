@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.verify.verify.impl;
+package org.osate.alisa.workbench.alisa.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -10,25 +10,25 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.verify.verify.AndThenExpr;
-import org.osate.verify.verify.ArgumentExpr;
-import org.osate.verify.verify.VerifyPackage;
+import org.osate.alisa.workbench.alisa.AlisaPackage;
+import org.osate.alisa.workbench.alisa.AndSelectionConditionExpr;
+import org.osate.alisa.workbench.alisa.SelectionConditionExpr;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>And Then Expr</b></em>'.
+ * An implementation of the model object '<em><b>And Selection Condition Expr</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.AndThenExprImpl#getLeft <em>Left</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.AndThenExprImpl#getRight <em>Right</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl#getRight <em>Right</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
+public class AndSelectionConditionExprImpl extends SelectionConditionExprImpl implements AndSelectionConditionExpr
 {
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -38,7 +38,7 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * @generated
    * @ordered
    */
-  protected ArgumentExpr left;
+  protected SelectionConditionExpr left;
 
   /**
    * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
@@ -48,14 +48,14 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * @generated
    * @ordered
    */
-  protected ArgumentExpr right;
+  protected SelectionConditionExpr right;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AndThenExprImpl()
+  protected AndSelectionConditionExprImpl()
   {
     super();
   }
@@ -68,7 +68,7 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   @Override
   protected EClass eStaticClass()
   {
-    return VerifyPackage.Literals.AND_THEN_EXPR;
+    return AlisaPackage.Literals.AND_SELECTION_CONDITION_EXPR;
   }
 
   /**
@@ -76,7 +76,7 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentExpr getLeft()
+  public SelectionConditionExpr getLeft()
   {
     return left;
   }
@@ -86,13 +86,13 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetLeft(ArgumentExpr newLeft, NotificationChain msgs)
+  public NotificationChain basicSetLeft(SelectionConditionExpr newLeft, NotificationChain msgs)
   {
-    ArgumentExpr oldLeft = left;
+    SelectionConditionExpr oldLeft = left;
     left = newLeft;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.AND_THEN_EXPR__LEFT, oldLeft, newLeft);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT, oldLeft, newLeft);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -103,20 +103,20 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setLeft(ArgumentExpr newLeft)
+  public void setLeft(SelectionConditionExpr newLeft)
   {
     if (newLeft != left)
     {
       NotificationChain msgs = null;
       if (left != null)
-        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.AND_THEN_EXPR__LEFT, null, msgs);
+        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT, null, msgs);
       if (newLeft != null)
-        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.AND_THEN_EXPR__LEFT, null, msgs);
+        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT, null, msgs);
       msgs = basicSetLeft(newLeft, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.AND_THEN_EXPR__LEFT, newLeft, newLeft));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT, newLeft, newLeft));
   }
 
   /**
@@ -124,7 +124,7 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentExpr getRight()
+  public SelectionConditionExpr getRight()
   {
     return right;
   }
@@ -134,13 +134,13 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(ArgumentExpr newRight, NotificationChain msgs)
+  public NotificationChain basicSetRight(SelectionConditionExpr newRight, NotificationChain msgs)
   {
-    ArgumentExpr oldRight = right;
+    SelectionConditionExpr oldRight = right;
     right = newRight;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.AND_THEN_EXPR__RIGHT, oldRight, newRight);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT, oldRight, newRight);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -151,20 +151,20 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRight(ArgumentExpr newRight)
+  public void setRight(SelectionConditionExpr newRight)
   {
     if (newRight != right)
     {
       NotificationChain msgs = null;
       if (right != null)
-        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.AND_THEN_EXPR__RIGHT, null, msgs);
+        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT, null, msgs);
       if (newRight != null)
-        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.AND_THEN_EXPR__RIGHT, null, msgs);
+        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT, null, msgs);
       msgs = basicSetRight(newRight, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.AND_THEN_EXPR__RIGHT, newRight, newRight));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT, newRight, newRight));
   }
 
   /**
@@ -177,9 +177,9 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT:
         return basicSetLeft(null, msgs);
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT:
         return basicSetRight(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -195,9 +195,9 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT:
         return getLeft();
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT:
         return getRight();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -213,11 +213,11 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
-        setLeft((ArgumentExpr)newValue);
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT:
+        setLeft((SelectionConditionExpr)newValue);
         return;
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
-        setRight((ArgumentExpr)newValue);
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT:
+        setRight((SelectionConditionExpr)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -233,11 +233,11 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
-        setLeft((ArgumentExpr)null);
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT:
+        setLeft((SelectionConditionExpr)null);
         return;
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
-        setRight((ArgumentExpr)null);
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT:
+        setRight((SelectionConditionExpr)null);
         return;
     }
     super.eUnset(featureID);
@@ -253,12 +253,12 @@ public class AndThenExprImpl extends ArgumentExprImpl implements AndThenExpr
   {
     switch (featureID)
     {
-      case VerifyPackage.AND_THEN_EXPR__LEFT:
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__LEFT:
         return left != null;
-      case VerifyPackage.AND_THEN_EXPR__RIGHT:
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR__RIGHT:
         return right != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //AndThenExprImpl
+} //AndSelectionConditionExprImpl

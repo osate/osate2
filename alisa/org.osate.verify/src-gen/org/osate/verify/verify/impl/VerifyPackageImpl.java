@@ -22,12 +22,10 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.AndThenExpr;
 import org.osate.verify.verify.ArgumentExpr;
-import org.osate.verify.verify.AtomicConditionExpr;
 import org.osate.verify.verify.Claim;
-import org.osate.verify.verify.ConditionExpr;
-import org.osate.verify.verify.ConditionalExpr;
 import org.osate.verify.verify.FailThenExpr;
 import org.osate.verify.verify.RefExpr;
+import org.osate.verify.verify.SelectionCategoryReference;
 import org.osate.verify.verify.SupportedTypes;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
@@ -43,6 +41,7 @@ import org.osate.verify.verify.VerificationPrecondition;
 import org.osate.verify.verify.VerifyFactory;
 import org.osate.verify.verify.VerifyPackage;
 import org.osate.verify.verify.WeightedClaim;
+import org.osate.verify.verify.WhenExpr;
 
 /**
  * <!-- begin-user-doc -->
@@ -127,14 +126,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass conditionExprEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass atomicConditionExprEClass = null;
+  private EClass selectionCategoryReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -190,7 +182,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass conditionalExprEClass = null;
+  private EClass whenExprEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -717,9 +709,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConditionExpr()
+  public EClass getSelectionCategoryReference()
   {
-    return conditionExprEClass;
+    return selectionCategoryReferenceEClass;
   }
 
   /**
@@ -727,49 +719,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConditionExpr_Left()
+  public EReference getSelectionCategoryReference_Cat()
   {
-    return (EReference)conditionExprEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getConditionExpr_Op()
-  {
-    return (EAttribute)conditionExprEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConditionExpr_Right()
-  {
-    return (EReference)conditionExprEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAtomicConditionExpr()
-  {
-    return atomicConditionExprEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAtomicConditionExpr_Cat()
-  {
-    return (EReference)atomicConditionExprEClass.getEStructuralFeatures().get(0);
+    return (EReference)selectionCategoryReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -967,19 +919,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAndThenExpr_Op()
-  {
-    return (EAttribute)andThenExprEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getAndThenExpr_Right()
   {
-    return (EReference)andThenExprEClass.getEStructuralFeatures().get(2);
+    return (EReference)andThenExprEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1007,19 +949,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFailThenExpr_Op()
-  {
-    return (EAttribute)failThenExprEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getFailThenExpr_Right()
   {
-    return (EReference)failThenExprEClass.getEStructuralFeatures().get(2);
+    return (EReference)failThenExprEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1027,9 +959,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConditionalExpr()
+  public EClass getWhenExpr()
   {
-    return conditionalExprEClass;
+    return whenExprEClass;
   }
 
   /**
@@ -1037,9 +969,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConditionalExpr_Verification()
+  public EReference getWhenExpr_Verification()
   {
-    return (EReference)conditionalExprEClass.getEStructuralFeatures().get(0);
+    return (EReference)whenExprEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1047,19 +979,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getConditionalExpr_Op()
+  public EReference getWhenExpr_Condition()
   {
-    return (EAttribute)conditionalExprEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConditionalExpr_Condition()
-  {
-    return (EReference)conditionalExprEClass.getEStructuralFeatures().get(2);
+    return (EReference)whenExprEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1186,13 +1108,8 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     argumentExprEClass = createEClass(ARGUMENT_EXPR);
 
-    conditionExprEClass = createEClass(CONDITION_EXPR);
-    createEReference(conditionExprEClass, CONDITION_EXPR__LEFT);
-    createEAttribute(conditionExprEClass, CONDITION_EXPR__OP);
-    createEReference(conditionExprEClass, CONDITION_EXPR__RIGHT);
-
-    atomicConditionExprEClass = createEClass(ATOMIC_CONDITION_EXPR);
-    createEReference(atomicConditionExprEClass, ATOMIC_CONDITION_EXPR__CAT);
+    selectionCategoryReferenceEClass = createEClass(SELECTION_CATEGORY_REFERENCE);
+    createEReference(selectionCategoryReferenceEClass, SELECTION_CATEGORY_REFERENCE__CAT);
 
     verificationMethodRegistryEClass = createEClass(VERIFICATION_METHOD_REGISTRY);
     createEAttribute(verificationMethodRegistryEClass, VERIFICATION_METHOD_REGISTRY__NAME);
@@ -1218,18 +1135,15 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     andThenExprEClass = createEClass(AND_THEN_EXPR);
     createEReference(andThenExprEClass, AND_THEN_EXPR__LEFT);
-    createEAttribute(andThenExprEClass, AND_THEN_EXPR__OP);
     createEReference(andThenExprEClass, AND_THEN_EXPR__RIGHT);
 
     failThenExprEClass = createEClass(FAIL_THEN_EXPR);
     createEReference(failThenExprEClass, FAIL_THEN_EXPR__LEFT);
-    createEAttribute(failThenExprEClass, FAIL_THEN_EXPR__OP);
     createEReference(failThenExprEClass, FAIL_THEN_EXPR__RIGHT);
 
-    conditionalExprEClass = createEClass(CONDITIONAL_EXPR);
-    createEReference(conditionalExprEClass, CONDITIONAL_EXPR__VERIFICATION);
-    createEAttribute(conditionalExprEClass, CONDITIONAL_EXPR__OP);
-    createEReference(conditionalExprEClass, CONDITIONAL_EXPR__CONDITION);
+    whenExprEClass = createEClass(WHEN_EXPR);
+    createEReference(whenExprEClass, WHEN_EXPR__VERIFICATION);
+    createEReference(whenExprEClass, WHEN_EXPR__CONDITION);
 
     refExprEClass = createEClass(REF_EXPR);
     createEReference(refExprEClass, REF_EXPR__VERIFICATION);
@@ -1277,13 +1191,12 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     // Add supertypes to classes
     verificationLibraryEClass.getESuperTypes().add(this.getVerificationContainer());
     verificationFolderEClass.getESuperTypes().add(this.getVerificationContainer());
-    atomicConditionExprEClass.getESuperTypes().add(this.getConditionExpr());
     verificationAssumptionEClass.getESuperTypes().add(this.getVerificationCondition());
     verificationPreconditionEClass.getESuperTypes().add(this.getVerificationCondition());
     allExprEClass.getESuperTypes().add(this.getArgumentExpr());
     andThenExprEClass.getESuperTypes().add(this.getArgumentExpr());
     failThenExprEClass.getESuperTypes().add(this.getArgumentExpr());
-    conditionalExprEClass.getESuperTypes().add(this.getArgumentExpr());
+    whenExprEClass.getESuperTypes().add(this.getArgumentExpr());
     refExprEClass.getESuperTypes().add(this.getArgumentExpr());
 
     // Initialize classes and features; add operations and parameters
@@ -1341,13 +1254,8 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(argumentExprEClass, ArgumentExpr.class, "ArgumentExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(conditionExprEClass, ConditionExpr.class, "ConditionExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConditionExpr_Left(), this.getConditionExpr(), null, "left", null, 0, 1, ConditionExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getConditionExpr_Op(), theEcorePackage.getEString(), "op", null, 0, 1, ConditionExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionExpr_Right(), this.getConditionExpr(), null, "right", null, 0, 1, ConditionExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(atomicConditionExprEClass, AtomicConditionExpr.class, "AtomicConditionExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAtomicConditionExpr_Cat(), theCategoriesPackage.getVerificationCategory(), null, "cat", null, 0, 1, AtomicConditionExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(selectionCategoryReferenceEClass, SelectionCategoryReference.class, "SelectionCategoryReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSelectionCategoryReference_Cat(), theCategoriesPackage.getVerificationCategory(), null, "cat", null, 0, 1, SelectionCategoryReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationMethodRegistryEClass, VerificationMethodRegistry.class, "VerificationMethodRegistry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationMethodRegistry_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationMethodRegistry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1373,18 +1281,15 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(andThenExprEClass, AndThenExpr.class, "AndThenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAndThenExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, AndThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAndThenExpr_Op(), theEcorePackage.getEString(), "op", null, 0, 1, AndThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAndThenExpr_Right(), this.getArgumentExpr(), null, "right", null, 0, 1, AndThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(failThenExprEClass, FailThenExpr.class, "FailThenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getFailThenExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, FailThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFailThenExpr_Op(), theEcorePackage.getEString(), "op", null, 0, 1, FailThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFailThenExpr_Right(), this.getArgumentExpr(), null, "right", null, 0, 1, FailThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(conditionalExprEClass, ConditionalExpr.class, "ConditionalExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConditionalExpr_Verification(), this.getArgumentExpr(), null, "verification", null, 0, 1, ConditionalExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getConditionalExpr_Op(), theEcorePackage.getEString(), "op", null, 0, 1, ConditionalExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConditionalExpr_Condition(), this.getConditionExpr(), null, "condition", null, 0, 1, ConditionalExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(whenExprEClass, WhenExpr.class, "WhenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getWhenExpr_Verification(), this.getArgumentExpr(), null, "verification", null, 0, 1, WhenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getWhenExpr_Condition(), this.getSelectionCategoryReference(), null, "condition", null, 0, -1, WhenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(refExprEClass, RefExpr.class, "RefExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRefExpr_Verification(), this.getVerificationActivity(), null, "verification", null, 0, 1, RefExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

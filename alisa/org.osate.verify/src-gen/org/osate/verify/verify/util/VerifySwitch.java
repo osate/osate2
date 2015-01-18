@@ -144,18 +144,10 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.CONDITION_EXPR:
+      case VerifyPackage.SELECTION_CATEGORY_REFERENCE:
       {
-        ConditionExpr conditionExpr = (ConditionExpr)theEObject;
-        T result = caseConditionExpr(conditionExpr);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.ATOMIC_CONDITION_EXPR:
-      {
-        AtomicConditionExpr atomicConditionExpr = (AtomicConditionExpr)theEObject;
-        T result = caseAtomicConditionExpr(atomicConditionExpr);
-        if (result == null) result = caseConditionExpr(atomicConditionExpr);
+        SelectionCategoryReference selectionCategoryReference = (SelectionCategoryReference)theEObject;
+        T result = caseSelectionCategoryReference(selectionCategoryReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -213,11 +205,11 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.CONDITIONAL_EXPR:
+      case VerifyPackage.WHEN_EXPR:
       {
-        ConditionalExpr conditionalExpr = (ConditionalExpr)theEObject;
-        T result = caseConditionalExpr(conditionalExpr);
-        if (result == null) result = caseArgumentExpr(conditionalExpr);
+        WhenExpr whenExpr = (WhenExpr)theEObject;
+        T result = caseWhenExpr(whenExpr);
+        if (result == null) result = caseArgumentExpr(whenExpr);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -394,33 +386,17 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Condition Expr</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Selection Category Reference</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Condition Expr</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Selection Category Reference</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseConditionExpr(ConditionExpr object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Atomic Condition Expr</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Atomic Condition Expr</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAtomicConditionExpr(AtomicConditionExpr object)
+  public T caseSelectionCategoryReference(SelectionCategoryReference object)
   {
     return null;
   }
@@ -538,17 +514,17 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Conditional Expr</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>When Expr</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Conditional Expr</em>'.
+   * @return the result of interpreting the object as an instance of '<em>When Expr</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseConditionalExpr(ConditionalExpr object)
+  public T caseWhenExpr(WhenExpr object)
   {
     return null;
   }

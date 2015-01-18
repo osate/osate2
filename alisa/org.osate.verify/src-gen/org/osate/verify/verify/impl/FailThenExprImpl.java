@@ -22,7 +22,6 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#getLeft <em>Left</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#getOp <em>Op</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#getRight <em>Right</em>}</li>
  * </ul>
  * </p>
@@ -40,26 +39,6 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * @ordered
    */
   protected ArgumentExpr left;
-
-  /**
-   * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOp()
-   * @generated
-   * @ordered
-   */
-  protected static final String OP_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOp()
-   * @generated
-   * @ordered
-   */
-  protected String op = OP_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
@@ -145,29 +124,6 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getOp()
-  {
-    return op;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setOp(String newOp)
-  {
-    String oldOp = op;
-    op = newOp;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FAIL_THEN_EXPR__OP, oldOp, op));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ArgumentExpr getRight()
   {
     return right;
@@ -241,8 +197,6 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
     {
       case VerifyPackage.FAIL_THEN_EXPR__LEFT:
         return getLeft();
-      case VerifyPackage.FAIL_THEN_EXPR__OP:
-        return getOp();
       case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
         return getRight();
     }
@@ -261,9 +215,6 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
     {
       case VerifyPackage.FAIL_THEN_EXPR__LEFT:
         setLeft((ArgumentExpr)newValue);
-        return;
-      case VerifyPackage.FAIL_THEN_EXPR__OP:
-        setOp((String)newValue);
         return;
       case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
         setRight((ArgumentExpr)newValue);
@@ -285,9 +236,6 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
       case VerifyPackage.FAIL_THEN_EXPR__LEFT:
         setLeft((ArgumentExpr)null);
         return;
-      case VerifyPackage.FAIL_THEN_EXPR__OP:
-        setOp(OP_EDEFAULT);
-        return;
       case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
         setRight((ArgumentExpr)null);
         return;
@@ -307,29 +255,10 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
     {
       case VerifyPackage.FAIL_THEN_EXPR__LEFT:
         return left != null;
-      case VerifyPackage.FAIL_THEN_EXPR__OP:
-        return OP_EDEFAULT == null ? op != null : !OP_EDEFAULT.equals(op);
       case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
         return right != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (op: ");
-    result.append(op);
-    result.append(')');
-    return result.toString();
   }
 
 } //FailThenExprImpl

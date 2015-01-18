@@ -158,13 +158,106 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_CASE_PLAN__PLANS = 5;
 
   /**
+   * The feature id for the '<em><b>Selection Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_CASE_PLAN__SELECTION_FILTER = 6;
+
+  /**
    * The number of structural features of the '<em>Assurance Case Plan</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_PLAN_FEATURE_COUNT = 6;
+  int ASSURANCE_CASE_PLAN_FEATURE_COUNT = 7;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.SelectionConditionExprImpl <em>Selection Condition Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.workbench.alisa.impl.SelectionConditionExprImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getSelectionConditionExpr()
+   * @generated
+   */
+  int SELECTION_CONDITION_EXPR = 2;
+
+  /**
+   * The number of structural features of the '<em>Selection Condition Expr</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CONDITION_EXPR_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.SelectionCategoryReferenceImpl <em>Selection Category Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.workbench.alisa.impl.SelectionCategoryReferenceImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getSelectionCategoryReference()
+   * @generated
+   */
+  int SELECTION_CATEGORY_REFERENCE = 3;
+
+  /**
+   * The feature id for the '<em><b>Cat</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORY_REFERENCE__CAT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Selection Category Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORY_REFERENCE_FEATURE_COUNT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl <em>And Selection Condition Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAndSelectionConditionExpr()
+   * @generated
+   */
+  int AND_SELECTION_CONDITION_EXPR = 4;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND_SELECTION_CONDITION_EXPR__LEFT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND_SELECTION_CONDITION_EXPR__RIGHT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>And Selection Condition Expr</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND_SELECTION_CONDITION_EXPR_FEATURE_COUNT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 2;
 
 
   /**
@@ -276,6 +369,80 @@ public interface AlisaPackage extends EPackage
   EReference getAssuranceCasePlan_Plans();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSelectionFilter <em>Selection Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Selection Filter</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSelectionFilter()
+   * @see #getAssuranceCasePlan()
+   * @generated
+   */
+  EReference getAssuranceCasePlan_SelectionFilter();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.SelectionConditionExpr <em>Selection Condition Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Selection Condition Expr</em>'.
+   * @see org.osate.alisa.workbench.alisa.SelectionConditionExpr
+   * @generated
+   */
+  EClass getSelectionConditionExpr();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.SelectionCategoryReference <em>Selection Category Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Selection Category Reference</em>'.
+   * @see org.osate.alisa.workbench.alisa.SelectionCategoryReference
+   * @generated
+   */
+  EClass getSelectionCategoryReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.SelectionCategoryReference#getCat <em>Cat</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Cat</em>'.
+   * @see org.osate.alisa.workbench.alisa.SelectionCategoryReference#getCat()
+   * @see #getSelectionCategoryReference()
+   * @generated
+   */
+  EReference getSelectionCategoryReference_Cat();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr <em>And Selection Condition Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>And Selection Condition Expr</em>'.
+   * @see org.osate.alisa.workbench.alisa.AndSelectionConditionExpr
+   * @generated
+   */
+  EClass getAndSelectionConditionExpr();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getLeft()
+   * @see #getAndSelectionConditionExpr()
+   * @generated
+   */
+  EReference getAndSelectionConditionExpr_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getRight()
+   * @see #getAndSelectionConditionExpr()
+   * @generated
+   */
+  EReference getAndSelectionConditionExpr_Right();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -381,6 +548,68 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EReference ASSURANCE_CASE_PLAN__PLANS = eINSTANCE.getAssuranceCasePlan_Plans();
+
+    /**
+     * The meta object literal for the '<em><b>Selection Filter</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_CASE_PLAN__SELECTION_FILTER = eINSTANCE.getAssuranceCasePlan_SelectionFilter();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.SelectionConditionExprImpl <em>Selection Condition Expr</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.workbench.alisa.impl.SelectionConditionExprImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getSelectionConditionExpr()
+     * @generated
+     */
+    EClass SELECTION_CONDITION_EXPR = eINSTANCE.getSelectionConditionExpr();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.SelectionCategoryReferenceImpl <em>Selection Category Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.workbench.alisa.impl.SelectionCategoryReferenceImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getSelectionCategoryReference()
+     * @generated
+     */
+    EClass SELECTION_CATEGORY_REFERENCE = eINSTANCE.getSelectionCategoryReference();
+
+    /**
+     * The meta object literal for the '<em><b>Cat</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SELECTION_CATEGORY_REFERENCE__CAT = eINSTANCE.getSelectionCategoryReference_Cat();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl <em>And Selection Condition Expr</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAndSelectionConditionExpr()
+     * @generated
+     */
+    EClass AND_SELECTION_CONDITION_EXPR = eINSTANCE.getAndSelectionConditionExpr();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND_SELECTION_CONDITION_EXPR__LEFT = eINSTANCE.getAndSelectionConditionExpr_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND_SELECTION_CONDITION_EXPR__RIGHT = eINSTANCE.getAndSelectionConditionExpr_Right();
 
   }
 

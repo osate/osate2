@@ -17,7 +17,12 @@ import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.workbench.alisa.AlisaFactory;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
+import org.osate.alisa.workbench.alisa.AndSelectionConditionExpr;
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan;
+import org.osate.alisa.workbench.alisa.SelectionCategoryReference;
+import org.osate.alisa.workbench.alisa.SelectionConditionExpr;
+
+import org.osate.categories.categories.CategoriesPackage;
 
 import org.osate.verify.verify.VerifyPackage;
 
@@ -42,6 +47,27 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * @generated
    */
   private EClass assuranceCasePlanEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass selectionConditionExprEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass selectionCategoryReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass andSelectionConditionExprEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -214,6 +240,76 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getAssuranceCasePlan_SelectionFilter()
+  {
+    return (EReference)assuranceCasePlanEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSelectionConditionExpr()
+  {
+    return selectionConditionExprEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSelectionCategoryReference()
+  {
+    return selectionCategoryReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSelectionCategoryReference_Cat()
+  {
+    return (EReference)selectionCategoryReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getAndSelectionConditionExpr()
+  {
+    return andSelectionConditionExprEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAndSelectionConditionExpr_Left()
+  {
+    return (EReference)andSelectionConditionExprEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAndSelectionConditionExpr_Right()
+  {
+    return (EReference)andSelectionConditionExprEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AlisaFactory getAlisaFactory()
   {
     return (AlisaFactory)getEFactoryInstance();
@@ -250,6 +346,16 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__DESCRIPTION);
     createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__CONSTANT);
     createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__PLANS);
+    createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__SELECTION_FILTER);
+
+    selectionConditionExprEClass = createEClass(SELECTION_CONDITION_EXPR);
+
+    selectionCategoryReferenceEClass = createEClass(SELECTION_CATEGORY_REFERENCE);
+    createEReference(selectionCategoryReferenceEClass, SELECTION_CATEGORY_REFERENCE__CAT);
+
+    andSelectionConditionExprEClass = createEClass(AND_SELECTION_CONDITION_EXPR);
+    createEReference(andSelectionConditionExprEClass, AND_SELECTION_CONDITION_EXPR__LEFT);
+    createEReference(andSelectionConditionExprEClass, AND_SELECTION_CONDITION_EXPR__RIGHT);
   }
 
   /**
@@ -281,12 +387,15 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
     CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
     VerifyPackage theVerifyPackage = (VerifyPackage)EPackage.Registry.INSTANCE.getEPackage(VerifyPackage.eNS_URI);
+    CategoriesPackage theCategoriesPackage = (CategoriesPackage)EPackage.Registry.INSTANCE.getEPackage(CategoriesPackage.eNS_URI);
 
     // Create type parameters
 
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    selectionCategoryReferenceEClass.getESuperTypes().add(this.getSelectionConditionExpr());
+    andSelectionConditionExprEClass.getESuperTypes().add(this.getSelectionConditionExpr());
 
     // Initialize classes and features; add operations and parameters
     initEClass(alisaWorkAreaEClass, AlisaWorkArea.class, "AlisaWorkArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -300,6 +409,16 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     initEReference(getAssuranceCasePlan_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCasePlan_Constant(), theCommonPackage.getFinalValue(), null, "constant", null, 0, -1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCasePlan_Plans(), theVerifyPackage.getVerificationPlan(), null, "plans", null, 0, -1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCasePlan_SelectionFilter(), this.getSelectionConditionExpr(), null, "selectionFilter", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(selectionConditionExprEClass, SelectionConditionExpr.class, "SelectionConditionExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(selectionCategoryReferenceEClass, SelectionCategoryReference.class, "SelectionCategoryReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSelectionCategoryReference_Cat(), theCategoriesPackage.getVerificationCategory(), null, "cat", null, 0, 1, SelectionCategoryReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(andSelectionConditionExprEClass, AndSelectionConditionExpr.class, "AndSelectionConditionExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAndSelectionConditionExpr_Left(), this.getSelectionConditionExpr(), null, "left", null, 0, 1, AndSelectionConditionExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAndSelectionConditionExpr_Right(), this.getSelectionConditionExpr(), null, "right", null, 0, 1, AndSelectionConditionExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);
