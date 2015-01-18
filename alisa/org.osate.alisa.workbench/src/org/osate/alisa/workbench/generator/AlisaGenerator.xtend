@@ -113,18 +113,18 @@ class AlisaGenerator implements IGenerator {
 
 	def doGenerate(AndThenExpr expr) {
 		'''
-		if
+		andthen
 			«expr.left.generate»
-		then
+		do
 			«expr.right.generate»
 		'''
 	}
 
 	def doGenerate(FailThenExpr expr) {
 		'''
-		fail 
+		failthen 
 			«expr.left.generate»
-		then
+		do
 			«expr.right.generate»
 		'''
 	}

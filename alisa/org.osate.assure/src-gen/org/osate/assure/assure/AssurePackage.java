@@ -940,14 +940,14 @@ public interface AssurePackage extends EPackage
   int FAIL_THEN_RESULT_FEATURE_COUNT = VERIFICATION_ACTIVITY_RESULT_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.osate.assure.assure.impl.IfThenResultImpl <em>If Then Result</em>}' class.
+   * The meta object id for the '{@link org.osate.assure.assure.impl.AndThenResultImpl <em>And Then Result</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.assure.assure.impl.IfThenResultImpl
-   * @see org.osate.assure.assure.impl.AssurePackageImpl#getIfThenResult()
+   * @see org.osate.assure.assure.impl.AndThenResultImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getAndThenResult()
    * @generated
    */
-  int IF_THEN_RESULT = 9;
+  int AND_THEN_RESULT = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -956,7 +956,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__NAME = VERIFICATION_ACTIVITY_RESULT__NAME;
+  int AND_THEN_RESULT__NAME = VERIFICATION_ACTIVITY_RESULT__NAME;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -965,7 +965,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__TARGET = VERIFICATION_ACTIVITY_RESULT__TARGET;
+  int AND_THEN_RESULT__TARGET = VERIFICATION_ACTIVITY_RESULT__TARGET;
 
   /**
    * The feature id for the '<em><b>Execution State</b></em>' attribute.
@@ -974,7 +974,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__EXECUTION_STATE = VERIFICATION_ACTIVITY_RESULT__EXECUTION_STATE;
+  int AND_THEN_RESULT__EXECUTION_STATE = VERIFICATION_ACTIVITY_RESULT__EXECUTION_STATE;
 
   /**
    * The feature id for the '<em><b>Result</b></em>' containment reference.
@@ -983,7 +983,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__RESULT = VERIFICATION_ACTIVITY_RESULT__RESULT;
+  int AND_THEN_RESULT__RESULT = VERIFICATION_ACTIVITY_RESULT__RESULT;
 
   /**
    * The feature id for the '<em><b>Weight</b></em>' attribute.
@@ -992,7 +992,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__WEIGHT = VERIFICATION_ACTIVITY_RESULT__WEIGHT;
+  int AND_THEN_RESULT__WEIGHT = VERIFICATION_ACTIVITY_RESULT__WEIGHT;
 
   /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
@@ -1001,7 +1001,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__SUCESS_MSG = VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG;
+  int AND_THEN_RESULT__SUCESS_MSG = VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG;
 
   /**
    * The feature id for the '<em><b>Assumption Result</b></em>' containment reference list.
@@ -1010,7 +1010,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__ASSUMPTION_RESULT = VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT;
+  int AND_THEN_RESULT__ASSUMPTION_RESULT = VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT;
 
   /**
    * The feature id for the '<em><b>Precondition Result</b></em>' containment reference list.
@@ -1019,7 +1019,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__PRECONDITION_RESULT = VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT;
+  int AND_THEN_RESULT__PRECONDITION_RESULT = VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT;
 
   /**
    * The feature id for the '<em><b>First</b></em>' containment reference list.
@@ -1028,7 +1028,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__FIRST = VERIFICATION_ACTIVITY_RESULT__FIRST;
+  int AND_THEN_RESULT__FIRST = VERIFICATION_ACTIVITY_RESULT__FIRST;
 
   /**
    * The feature id for the '<em><b>Second</b></em>' containment reference list.
@@ -1037,16 +1037,16 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT__SECOND = VERIFICATION_ACTIVITY_RESULT__SECOND;
+  int AND_THEN_RESULT__SECOND = VERIFICATION_ACTIVITY_RESULT__SECOND;
 
   /**
-   * The number of structural features of the '<em>If Then Result</em>' class.
+   * The number of structural features of the '<em>And Then Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IF_THEN_RESULT_FEATURE_COUNT = VERIFICATION_ACTIVITY_RESULT_FEATURE_COUNT + 0;
+  int AND_THEN_RESULT_FEATURE_COUNT = VERIFICATION_ACTIVITY_RESULT_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
@@ -1589,14 +1589,14 @@ public interface AssurePackage extends EPackage
   EClass getFailThenResult();
 
   /**
-   * Returns the meta object for class '{@link org.osate.assure.assure.IfThenResult <em>If Then Result</em>}'.
+   * Returns the meta object for class '{@link org.osate.assure.assure.AndThenResult <em>And Then Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>If Then Result</em>'.
-   * @see org.osate.assure.assure.IfThenResult
+   * @return the meta object for class '<em>And Then Result</em>'.
+   * @see org.osate.assure.assure.AndThenResult
    * @generated
    */
-  EClass getIfThenResult();
+  EClass getAndThenResult();
 
   /**
    * Returns the meta object for enum '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}'.
@@ -2044,14 +2044,14 @@ public interface AssurePackage extends EPackage
     EClass FAIL_THEN_RESULT = eINSTANCE.getFailThenResult();
 
     /**
-     * The meta object literal for the '{@link org.osate.assure.assure.impl.IfThenResultImpl <em>If Then Result</em>}' class.
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.AndThenResultImpl <em>And Then Result</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.assure.assure.impl.IfThenResultImpl
-     * @see org.osate.assure.assure.impl.AssurePackageImpl#getIfThenResult()
+     * @see org.osate.assure.assure.impl.AndThenResultImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getAndThenResult()
      * @generated
      */
-    EClass IF_THEN_RESULT = eINSTANCE.getIfThenResult();
+    EClass AND_THEN_RESULT = eINSTANCE.getAndThenResult();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.

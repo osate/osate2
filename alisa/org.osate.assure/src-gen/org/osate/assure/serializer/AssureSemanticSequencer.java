@@ -17,13 +17,13 @@ import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.PredicateExpression;
 import org.osate.alisa.common.common.ReferencePath;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
+import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.FailThenResult;
 import org.osate.assure.assure.HazardResult;
-import org.osate.assure.assure.IfThenResult;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationResult;
@@ -37,6 +37,12 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == AssurePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case AssurePackage.AND_THEN_RESULT:
+				if(context == grammarAccess.getVerificationExprRule()) {
+					sequence_VerificationExpr(context, (AndThenResult) semanticObject); 
+					return; 
+				}
+				else break;
 			case AssurePackage.ASSUMPTION_RESULT:
 				if(context == grammarAccess.getAggregateResultRule() ||
 				   context == grammarAccess.getAssumptionResultRule()) {
@@ -68,12 +74,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				if(context == grammarAccess.getAggregateResultRule() ||
 				   context == grammarAccess.getHazardResultRule()) {
 					sequence_HazardResult(context, (HazardResult) semanticObject); 
-					return; 
-				}
-				else break;
-			case AssurePackage.IF_THEN_RESULT:
-				if(context == grammarAccess.getVerificationExprRule()) {
-					sequence_VerificationExpr(context, (IfThenResult) semanticObject); 
 					return; 
 				}
 				else break;
@@ -260,7 +260,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (first+=VerificationActivityResult second+=VerificationActivityResult)
 	 */
-	protected void sequence_VerificationExpr(EObject context, FailThenResult semanticObject) {
+	protected void sequence_VerificationExpr(EObject context, AndThenResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -269,7 +269,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (first+=VerificationActivityResult second+=VerificationActivityResult)
 	 */
-	protected void sequence_VerificationExpr(EObject context, IfThenResult semanticObject) {
+	protected void sequence_VerificationExpr(EObject context, FailThenResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

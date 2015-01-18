@@ -75,6 +75,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/failTarget"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//FailThenResult"/>
-    <genClasses ecoreClass="Assure.ecore#//IfThenResult"/>
+    <genClasses ecoreClass="Assure.ecore#//AndThenResult"/>
   </genPackages>
 </genmodel:GenModel>

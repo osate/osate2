@@ -4,6 +4,8 @@
 package org.osate.assure.ui.labeling
 
 import com.google.inject.Inject
+import org.osate.assure.assure.FailThenResult
+import org.osate.assure.assure.AndThenResult
 
 /**
  * Provides labels for a EObjects.
@@ -19,9 +21,12 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 
 	// Labels and icons can be computed like this:
 	
-//	def text(Greeting ele) {
-//		'A greeting to ' + ele.name
-//	}
+	def text(FailThenResult ele) {
+		'failthen'
+	}
+	def text(AndThenResult ele) {
+		'andthen'
+	}
 //
 //	def image(Greeting ele) {
 //		'Greeting.gif'

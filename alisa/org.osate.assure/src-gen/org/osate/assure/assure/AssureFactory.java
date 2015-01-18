@@ -104,13 +104,13 @@ public interface AssureFactory extends EFactory
   FailThenResult createFailThenResult();
 
   /**
-   * Returns a new object of class '<em>If Then Result</em>'.
+   * Returns a new object of class '<em>And Then Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>If Then Result</em>'.
+   * @return a new object of class '<em>And Then Result</em>'.
    * @generated
    */
-  IfThenResult createIfThenResult();
+  AndThenResult createAndThenResult();
 
   /**
    * Returns the package supported by this factory.

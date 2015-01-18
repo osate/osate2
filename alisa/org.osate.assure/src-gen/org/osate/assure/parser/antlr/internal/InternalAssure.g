@@ -1453,9 +1453,9 @@ ruleVerificationExpr returns [EObject current=null]
         afterParserOrEnumRuleCall();
     }
 
-    |(((	otherlv_1='fail' 
+    |(((	otherlv_1='failthen' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getVerificationExprAccess().getFailKeyword_1_0_0_0());
+    	newLeafNode(otherlv_1, grammarAccess.getVerificationExprAccess().getFailthenKeyword_1_0_0_0());
     }
 (
     {
@@ -1464,14 +1464,14 @@ ruleVerificationExpr returns [EObject current=null]
             $current);
     }
 ))
-    |(	otherlv_3='if' 
+    |(	otherlv_3='andthen' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getVerificationExprAccess().getIfKeyword_1_0_1_0());
+    	newLeafNode(otherlv_3, grammarAccess.getVerificationExprAccess().getAndthenKeyword_1_0_1_0());
     }
 (
     {
         $current = forceCreateModelElement(
-            grammarAccess.getVerificationExprAccess().getIfThenResultAction_1_0_1_1(),
+            grammarAccess.getVerificationExprAccess().getAndThenResultAction_1_0_1_1(),
             $current);
     }
 )))(
@@ -1492,9 +1492,9 @@ ruleVerificationExpr returns [EObject current=null]
 	    }
 
 )
-)	otherlv_6='then' 
+)	otherlv_6='do' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getVerificationExprAccess().getThenKeyword_1_2());
+    	newLeafNode(otherlv_6, grammarAccess.getVerificationExprAccess().getDoKeyword_1_2());
     }
 (
 (

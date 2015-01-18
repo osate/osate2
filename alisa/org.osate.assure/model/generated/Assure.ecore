@@ -82,5 +82,5 @@
     <eLiterals name="COMPLETED" value="3" literal="completed"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FailThenResult" eSuperTypes="#//VerificationActivityResult"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IfThenResult" eSuperTypes="#//VerificationActivityResult"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AndThenResult" eSuperTypes="#//VerificationActivityResult"/>
 </ecore:EPackage>

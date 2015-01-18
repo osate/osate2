@@ -4,26 +4,26 @@ package org.osate.assure.assure.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.IfThenResult;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>If Then Result</b></em>'.
+ * An implementation of the model object '<em><b>And Then Result</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class IfThenResultImpl extends VerificationActivityResultImpl implements IfThenResult
+public class AndThenResultImpl extends VerificationActivityResultImpl implements AndThenResult
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected IfThenResultImpl()
+  protected AndThenResultImpl()
   {
     super();
   }
@@ -36,7 +36,7 @@ public class IfThenResultImpl extends VerificationActivityResultImpl implements 
   @Override
   protected EClass eStaticClass()
   {
-    return AssurePackage.Literals.IF_THEN_RESULT;
+    return AssurePackage.Literals.AND_THEN_RESULT;
   }
 
-} //IfThenResultImpl
+} //AndThenResultImpl

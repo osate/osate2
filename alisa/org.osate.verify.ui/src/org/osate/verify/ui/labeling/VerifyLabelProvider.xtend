@@ -4,6 +4,9 @@
 package org.osate.verify.ui.labeling
 
 import com.google.inject.Inject
+import org.osate.verify.verify.FailThenExpr
+import org.osate.verify.verify.AndThenExpr
+import org.osate.verify.verify.AllExpr
 
 /**
  * Provides labels for a EObjects.
@@ -19,9 +22,16 @@ class VerifyLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 
 	// Labels and icons can be computed like this:
 	
-//	def text(Greeting ele) {
-//		'A greeting to ' + ele.name
-//	}
+	
+	def text(FailThenExpr ele) {
+		'failthen'
+	}
+	def text(AndThenExpr ele) {
+		'andthen'
+	}
+	def text(AllExpr ele) {
+		'all'
+	}
 //
 //	def image(Greeting ele) {
 //		'Greeting.gif'

@@ -104,7 +104,7 @@ VerificationActivityResult:
 
 VerificationExpr returns VerificationActivityResult:
 	VerificationActivityResult |
-	('fail' {FailThenResult}|'if' {IfThenResult}) first+=VerificationActivityResult 'then' second+=VerificationActivityResult
+	('failthen' {FailThenResult}|'andthen' {AndThenResult}) first+=VerificationActivityResult 'do' second+=VerificationActivityResult
 ;
 
 VerificationResult returns VerificationResult:

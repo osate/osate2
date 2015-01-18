@@ -74,7 +74,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
       case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       case AssurePackage.FAIL_THEN_RESULT: return createFailThenResult();
-      case AssurePackage.IF_THEN_RESULT: return createIfThenResult();
+      case AssurePackage.AND_THEN_RESULT: return createAndThenResult();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -222,10 +222,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public IfThenResult createIfThenResult()
+  public AndThenResult createAndThenResult()
   {
-    IfThenResultImpl ifThenResult = new IfThenResultImpl();
-    return ifThenResult;
+    AndThenResultImpl andThenResult = new AndThenResultImpl();
+    return andThenResult;
   }
 
   /**

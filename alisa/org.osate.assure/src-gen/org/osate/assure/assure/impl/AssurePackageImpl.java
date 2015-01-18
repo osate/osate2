@@ -16,6 +16,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.instance.InstancePackage;
 
 import org.osate.assure.assure.AggregateResult;
+import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssureFactory;
 import org.osate.assure.assure.AssurePackage;
@@ -23,7 +24,6 @@ import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.FailThenResult;
 import org.osate.assure.assure.HazardResult;
-import org.osate.assure.assure.IfThenResult;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExecutionState;
@@ -110,7 +110,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass ifThenResultEClass = null;
+  private EClass andThenResultEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -678,9 +678,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getIfThenResult()
+  public EClass getAndThenResult()
   {
-    return ifThenResultEClass;
+    return andThenResultEClass;
   }
 
   /**
@@ -790,7 +790,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     failThenResultEClass = createEClass(FAIL_THEN_RESULT);
 
-    ifThenResultEClass = createEClass(IF_THEN_RESULT);
+    andThenResultEClass = createEClass(AND_THEN_RESULT);
 
     // Create enums
     verificationResultStateEEnum = createEEnum(VERIFICATION_RESULT_STATE);
@@ -839,7 +839,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     assumptionResultEClass.getESuperTypes().add(this.getAggregateResult());
     preconditionResultEClass.getESuperTypes().add(this.getAggregateResult());
     failThenResultEClass.getESuperTypes().add(this.getVerificationActivityResult());
-    ifThenResultEClass.getESuperTypes().add(this.getVerificationActivityResult());
+    andThenResultEClass.getESuperTypes().add(this.getVerificationActivityResult());
 
     // Initialize classes and features; add operations and parameters
     initEClass(caseResultEClass, CaseResult.class, "CaseResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -899,7 +899,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     initEClass(failThenResultEClass, FailThenResult.class, "FailThenResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(ifThenResultEClass, IfThenResult.class, "IfThenResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(andThenResultEClass, AndThenResult.class, "AndThenResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Initialize enums and add enum literals
     initEEnum(verificationResultStateEEnum, VerificationResultState.class, "VerificationResultState");

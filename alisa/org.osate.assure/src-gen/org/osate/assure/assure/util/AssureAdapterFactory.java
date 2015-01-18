@@ -120,9 +120,9 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createFailThenResultAdapter();
       }
       @Override
-      public Adapter caseIfThenResult(IfThenResult object)
+      public Adapter caseAndThenResult(AndThenResult object)
       {
-        return createIfThenResultAdapter();
+        return createAndThenResultAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -282,16 +282,16 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.IfThenResult <em>If Then Result</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.AndThenResult <em>And Then Result</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.IfThenResult
+   * @see org.osate.assure.assure.AndThenResult
    * @generated
    */
-  public Adapter createIfThenResultAdapter()
+  public Adapter createAndThenResultAdapter()
   {
     return null;
   }

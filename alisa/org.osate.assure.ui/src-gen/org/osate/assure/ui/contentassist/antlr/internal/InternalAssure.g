@@ -5449,11 +5449,11 @@ rule__VerificationExpr__Group_1__2__Impl
     }
 :
 (
-{ before(grammarAccess.getVerificationExprAccess().getThenKeyword_1_2()); }
+{ before(grammarAccess.getVerificationExprAccess().getDoKeyword_1_2()); }
 
-	'then' 
+	'do' 
 
-{ after(grammarAccess.getVerificationExprAccess().getThenKeyword_1_2()); }
+{ after(grammarAccess.getVerificationExprAccess().getDoKeyword_1_2()); }
 )
 
 ;
@@ -5516,11 +5516,11 @@ rule__VerificationExpr__Group_1_0_0__0__Impl
     }
 :
 (
-{ before(grammarAccess.getVerificationExprAccess().getFailKeyword_1_0_0_0()); }
+{ before(grammarAccess.getVerificationExprAccess().getFailthenKeyword_1_0_0_0()); }
 
-	'fail' 
+	'failthen' 
 
-{ after(grammarAccess.getVerificationExprAccess().getFailKeyword_1_0_0_0()); }
+{ after(grammarAccess.getVerificationExprAccess().getFailthenKeyword_1_0_0_0()); }
 )
 
 ;
@@ -5581,11 +5581,11 @@ rule__VerificationExpr__Group_1_0_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getVerificationExprAccess().getIfKeyword_1_0_1_0()); }
+{ before(grammarAccess.getVerificationExprAccess().getAndthenKeyword_1_0_1_0()); }
 
-	'if' 
+	'andthen' 
 
-{ after(grammarAccess.getVerificationExprAccess().getIfKeyword_1_0_1_0()); }
+{ after(grammarAccess.getVerificationExprAccess().getAndthenKeyword_1_0_1_0()); }
 )
 
 ;
@@ -5611,11 +5611,11 @@ rule__VerificationExpr__Group_1_0_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getVerificationExprAccess().getIfThenResultAction_1_0_1_1()); }
+{ before(grammarAccess.getVerificationExprAccess().getAndThenResultAction_1_0_1_1()); }
 (
 
 )
-{ after(grammarAccess.getVerificationExprAccess().getIfThenResultAction_1_0_1_1()); }
+{ after(grammarAccess.getVerificationExprAccess().getAndThenResultAction_1_0_1_1()); }
 )
 
 ;

@@ -1012,53 +1012,53 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
 		private final Group cGroup_1_0_0 = (Group)cAlternatives_1_0.eContents().get(0);
-		private final Keyword cFailKeyword_1_0_0_0 = (Keyword)cGroup_1_0_0.eContents().get(0);
+		private final Keyword cFailthenKeyword_1_0_0_0 = (Keyword)cGroup_1_0_0.eContents().get(0);
 		private final Action cFailThenResultAction_1_0_0_1 = (Action)cGroup_1_0_0.eContents().get(1);
 		private final Group cGroup_1_0_1 = (Group)cAlternatives_1_0.eContents().get(1);
-		private final Keyword cIfKeyword_1_0_1_0 = (Keyword)cGroup_1_0_1.eContents().get(0);
-		private final Action cIfThenResultAction_1_0_1_1 = (Action)cGroup_1_0_1.eContents().get(1);
+		private final Keyword cAndthenKeyword_1_0_1_0 = (Keyword)cGroup_1_0_1.eContents().get(0);
+		private final Action cAndThenResultAction_1_0_1_1 = (Action)cGroup_1_0_1.eContents().get(1);
 		private final Assignment cFirstAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cFirstVerificationActivityResultParserRuleCall_1_1_0 = (RuleCall)cFirstAssignment_1_1.eContents().get(0);
-		private final Keyword cThenKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Keyword cDoKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		private final Assignment cSecondAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
 		private final RuleCall cSecondVerificationActivityResultParserRuleCall_1_3_0 = (RuleCall)cSecondAssignment_1_3.eContents().get(0);
 		
 		//VerificationExpr returns VerificationActivityResult:
-		//	VerificationActivityResult | ("fail" {FailThenResult} | "if" {IfThenResult}) first+=VerificationActivityResult "then"
-		//	second+=VerificationActivityResult;
+		//	VerificationActivityResult | ("failthen" {FailThenResult} | "andthen" {AndThenResult})
+		//	first+=VerificationActivityResult "do" second+=VerificationActivityResult;
 		public ParserRule getRule() { return rule; }
 
-		//VerificationActivityResult | ("fail" {FailThenResult} | "if" {IfThenResult}) first+=VerificationActivityResult "then"
-		//second+=VerificationActivityResult
+		//VerificationActivityResult | ("failthen" {FailThenResult} | "andthen" {AndThenResult}) first+=VerificationActivityResult
+		//"do" second+=VerificationActivityResult
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//VerificationActivityResult
 		public RuleCall getVerificationActivityResultParserRuleCall_0() { return cVerificationActivityResultParserRuleCall_0; }
 
-		//("fail" {FailThenResult} | "if" {IfThenResult}) first+=VerificationActivityResult "then"
+		//("failthen" {FailThenResult} | "andthen" {AndThenResult}) first+=VerificationActivityResult "do"
 		//second+=VerificationActivityResult
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"fail" {FailThenResult} | "if" {IfThenResult}
+		//"failthen" {FailThenResult} | "andthen" {AndThenResult}
 		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
 
-		//"fail" {FailThenResult}
+		//"failthen" {FailThenResult}
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
-		//"fail"
-		public Keyword getFailKeyword_1_0_0_0() { return cFailKeyword_1_0_0_0; }
+		//"failthen"
+		public Keyword getFailthenKeyword_1_0_0_0() { return cFailthenKeyword_1_0_0_0; }
 
 		//{FailThenResult}
 		public Action getFailThenResultAction_1_0_0_1() { return cFailThenResultAction_1_0_0_1; }
 
-		//"if" {IfThenResult}
+		//"andthen" {AndThenResult}
 		public Group getGroup_1_0_1() { return cGroup_1_0_1; }
 
-		//"if"
-		public Keyword getIfKeyword_1_0_1_0() { return cIfKeyword_1_0_1_0; }
+		//"andthen"
+		public Keyword getAndthenKeyword_1_0_1_0() { return cAndthenKeyword_1_0_1_0; }
 
-		//{IfThenResult}
-		public Action getIfThenResultAction_1_0_1_1() { return cIfThenResultAction_1_0_1_1; }
+		//{AndThenResult}
+		public Action getAndThenResultAction_1_0_1_1() { return cAndThenResultAction_1_0_1_1; }
 
 		//first+=VerificationActivityResult
 		public Assignment getFirstAssignment_1_1() { return cFirstAssignment_1_1; }
@@ -1066,8 +1066,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationActivityResult
 		public RuleCall getFirstVerificationActivityResultParserRuleCall_1_1_0() { return cFirstVerificationActivityResultParserRuleCall_1_1_0; }
 
-		//"then"
-		public Keyword getThenKeyword_1_2() { return cThenKeyword_1_2; }
+		//"do"
+		public Keyword getDoKeyword_1_2() { return cDoKeyword_1_2; }
 
 		//second+=VerificationActivityResult
 		public Assignment getSecondAssignment_1_3() { return cSecondAssignment_1_3; }
@@ -1409,8 +1409,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationExpr returns VerificationActivityResult:
-	//	VerificationActivityResult | ("fail" {FailThenResult} | "if" {IfThenResult}) first+=VerificationActivityResult "then"
-	//	second+=VerificationActivityResult;
+	//	VerificationActivityResult | ("failthen" {FailThenResult} | "andthen" {AndThenResult})
+	//	first+=VerificationActivityResult "do" second+=VerificationActivityResult;
 	public VerificationExprElements getVerificationExprAccess() {
 		return pVerificationExpr;
 	}
