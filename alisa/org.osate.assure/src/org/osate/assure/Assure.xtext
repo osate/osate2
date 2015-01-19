@@ -114,6 +114,8 @@ VerificationResult returns VerificationResult:
 	('failtarget' failTarget=[ecore::EObject|QualifiedName])?
 ;
 
+
+
 enum VerificationResultState :
 	TBD='tbd'| SUCCESS='success' | FAIL='fail' | UNKNOWN='unknown' ;
 

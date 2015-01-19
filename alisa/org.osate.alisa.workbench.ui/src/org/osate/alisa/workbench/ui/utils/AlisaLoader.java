@@ -146,7 +146,6 @@ public class AlisaLoader {
 			}
 			method = c.getMethod(methodName, parametersTypes);
 			Object obj = method.invoke(o, args);
-			System.out.println("Peter");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -46,7 +46,6 @@ class VerifyGenerator implements IGenerator {
 package «vl.name»;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.junit.Test;
-import static org.junit.Assert.*;
 ««««FOR el : vl.content»
 ««««el.generateImports»
 ««««ENDFOR»
@@ -76,7 +75,7 @@ class «vl.name» {
 		'''
 		@Test
 		public void «va.name» (ComponentInstance ci){
-			assertTrue(«va.method.method»(ci));
+			org.junit.Assert.assertTrue(«va.method.method»(ci));
 		}
 		'''
 	}
