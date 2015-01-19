@@ -55,9 +55,9 @@ HazardResult:
 	(claimResult+= ClaimResult)*
 	']'  
 ;
-AggregateResult:  ClaimResult | HazardResult | CaseResult
-	| AssumptionResult | PreconditionResult
-;
+//AggregateResult:  ClaimResult | HazardResult | CaseResult
+//	| AssumptionResult | PreconditionResult
+//;
 
 AssumptionResult:
 	'assumption' 	name=ID 

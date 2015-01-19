@@ -25,7 +25,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.impl.CaseResultImpl;
 
 public class AssureHandler extends AbstractHandler {
-	private static final String RERUN_ID = "org.osate.ilca.commands.rerunIlca";
+	private static final String RERUN_ID = "org.osate.alisa.commands.rerunAlisa";
 	private IHandlerActivation rerunActivation;
 
 	private IWorkbenchWindow window;
@@ -128,7 +128,6 @@ public class AssureHandler extends AbstractHandler {
 		args[0] = obj;
 		System.out.println("root=" + obj);
 		AssureProcessing.processCaseResult(obj);
-//		AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");

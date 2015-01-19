@@ -797,8 +797,6 @@ ruleHazardResult returns [EObject current=null]
 
 
 
-
-
 // Entry rule entryRuleAssumptionResult
 entryRuleAssumptionResult returns [EObject current=null] 
 	:

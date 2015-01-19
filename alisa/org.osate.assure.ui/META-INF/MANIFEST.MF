@@ -20,7 +20,8 @@ Require-Bundle: org.osate.assure;visibility:=reexport,
  org.osate.alisa.common;bundle-version="1.0.0",
  org.osate.alisa.common.ui;bundle-version="1.0.0",
  org.osate.aadl2.instantiation,
- org.osate.ui
+ org.osate.ui,
+ org.junit
 Import-Package: org.apache.log4j,
  org.osate.aadl2,
  org.osate.aadl2.instance,

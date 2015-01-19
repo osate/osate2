@@ -44,22 +44,19 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case AssurePackage.ASSUMPTION_RESULT:
-				if(context == grammarAccess.getAggregateResultRule() ||
-				   context == grammarAccess.getAssumptionResultRule()) {
+				if(context == grammarAccess.getAssumptionResultRule()) {
 					sequence_AssumptionResult(context, (AssumptionResult) semanticObject); 
 					return; 
 				}
 				else break;
 			case AssurePackage.CASE_RESULT:
-				if(context == grammarAccess.getAggregateResultRule() ||
-				   context == grammarAccess.getCaseResultRule()) {
+				if(context == grammarAccess.getCaseResultRule()) {
 					sequence_CaseResult(context, (CaseResult) semanticObject); 
 					return; 
 				}
 				else break;
 			case AssurePackage.CLAIM_RESULT:
-				if(context == grammarAccess.getAggregateResultRule() ||
-				   context == grammarAccess.getClaimResultRule()) {
+				if(context == grammarAccess.getClaimResultRule()) {
 					sequence_ClaimResult(context, (ClaimResult) semanticObject); 
 					return; 
 				}
@@ -71,15 +68,13 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case AssurePackage.HAZARD_RESULT:
-				if(context == grammarAccess.getAggregateResultRule() ||
-				   context == grammarAccess.getHazardResultRule()) {
+				if(context == grammarAccess.getHazardResultRule()) {
 					sequence_HazardResult(context, (HazardResult) semanticObject); 
 					return; 
 				}
 				else break;
 			case AssurePackage.PRECONDITION_RESULT:
-				if(context == grammarAccess.getAggregateResultRule() ||
-				   context == grammarAccess.getPreconditionResultRule()) {
+				if(context == grammarAccess.getPreconditionResultRule()) {
 					sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
 					return; 
 				}

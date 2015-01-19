@@ -76,7 +76,6 @@ public class AssureSwitch<T> extends Switch<T>
       {
         CaseResult caseResult = (CaseResult)theEObject;
         T result = caseCaseResult(caseResult);
-        if (result == null) result = caseAggregateResult(caseResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -84,7 +83,6 @@ public class AssureSwitch<T> extends Switch<T>
       {
         ClaimResult claimResult = (ClaimResult)theEObject;
         T result = caseClaimResult(claimResult);
-        if (result == null) result = caseAggregateResult(claimResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -92,14 +90,6 @@ public class AssureSwitch<T> extends Switch<T>
       {
         HazardResult hazardResult = (HazardResult)theEObject;
         T result = caseHazardResult(hazardResult);
-        if (result == null) result = caseAggregateResult(hazardResult);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AssurePackage.AGGREGATE_RESULT:
-      {
-        AggregateResult aggregateResult = (AggregateResult)theEObject;
-        T result = caseAggregateResult(aggregateResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -107,7 +97,6 @@ public class AssureSwitch<T> extends Switch<T>
       {
         AssumptionResult assumptionResult = (AssumptionResult)theEObject;
         T result = caseAssumptionResult(assumptionResult);
-        if (result == null) result = caseAggregateResult(assumptionResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -115,7 +104,6 @@ public class AssureSwitch<T> extends Switch<T>
       {
         PreconditionResult preconditionResult = (PreconditionResult)theEObject;
         T result = casePreconditionResult(preconditionResult);
-        if (result == null) result = caseAggregateResult(preconditionResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -197,22 +185,6 @@ public class AssureSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseHazardResult(HazardResult object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Aggregate Result</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Aggregate Result</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAggregateResult(AggregateResult object)
   {
     return null;
   }

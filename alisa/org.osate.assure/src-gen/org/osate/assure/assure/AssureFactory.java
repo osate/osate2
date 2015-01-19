@@ -50,15 +50,6 @@ public interface AssureFactory extends EFactory
   HazardResult createHazardResult();
 
   /**
-   * Returns a new object of class '<em>Aggregate Result</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Aggregate Result</em>'.
-   * @generated
-   */
-  AggregateResult createAggregateResult();
-
-  /**
    * Returns a new object of class '<em>Assumption Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

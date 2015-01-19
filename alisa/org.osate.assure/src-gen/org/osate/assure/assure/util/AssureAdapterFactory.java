@@ -90,11 +90,6 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createHazardResultAdapter();
       }
       @Override
-      public Adapter caseAggregateResult(AggregateResult object)
-      {
-        return createAggregateResultAdapter();
-      }
-      @Override
       public Adapter caseAssumptionResult(AssumptionResult object)
       {
         return createAssumptionResultAdapter();
@@ -187,21 +182,6 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createHazardResultAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.AggregateResult <em>Aggregate Result</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.assure.assure.AggregateResult
-   * @generated
-   */
-  public Adapter createAggregateResultAdapter()
   {
     return null;
   }

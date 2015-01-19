@@ -15,7 +15,6 @@ import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.instance.InstancePackage;
 
-import org.osate.assure.assure.AggregateResult;
 import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssureFactory;
@@ -62,13 +61,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * @generated
    */
   private EClass hazardResultEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass aggregateResultEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -208,9 +200,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCaseResult_Target()
+  public EAttribute getCaseResult_Name()
   {
-    return (EReference)caseResultEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)caseResultEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -218,7 +210,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCaseResult_InstanceURI()
+  public EReference getCaseResult_Target()
   {
     return (EReference)caseResultEClass.getEStructuralFeatures().get(1);
   }
@@ -228,9 +220,69 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getCaseResult_InstanceURI()
+  {
+    return (EReference)caseResultEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getCaseResult_PassCount()
   {
-    return (EAttribute)caseResultEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)caseResultEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCaseResult_FailCount()
+  {
+    return (EAttribute)caseResultEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCaseResult_UnknownCount()
+  {
+    return (EAttribute)caseResultEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCaseResult_TbdCount()
+  {
+    return (EAttribute)caseResultEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCaseResult_Weight()
+  {
+    return (EAttribute)caseResultEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCaseResult_SucessMsg()
+  {
+    return (EAttribute)caseResultEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -240,7 +292,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getCaseResult_SubCaseResult()
   {
-    return (EReference)caseResultEClass.getEStructuralFeatures().get(3);
+    return (EReference)caseResultEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -250,7 +302,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getCaseResult_ClaimResult()
   {
-    return (EReference)caseResultEClass.getEStructuralFeatures().get(4);
+    return (EReference)caseResultEClass.getEStructuralFeatures().get(10);
   }
 
   /**
@@ -260,7 +312,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getCaseResult_HazardResult()
   {
-    return (EReference)caseResultEClass.getEStructuralFeatures().get(5);
+    return (EReference)caseResultEClass.getEStructuralFeatures().get(11);
   }
 
   /**
@@ -278,9 +330,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getClaimResult_Name()
+  {
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getClaimResult_Target()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(0);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -290,7 +352,57 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EAttribute getClaimResult_SuccessCount()
   {
-    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClaimResult_FailCount()
+  {
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClaimResult_UnknownCount()
+  {
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClaimResult_TbdCount()
+  {
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClaimResult_Weight()
+  {
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClaimResult_SucessMsg()
+  {
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -300,7 +412,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_SubClaimResult()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(2);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -310,7 +422,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_VerificationActivityResult()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(3);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -328,9 +440,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getHazardResult_Name()
+  {
+    return (EAttribute)hazardResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getHazardResult_Target()
   {
-    return (EReference)hazardResultEClass.getEStructuralFeatures().get(0);
+    return (EReference)hazardResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -340,7 +462,57 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EAttribute getHazardResult_PassCount()
   {
-    return (EAttribute)hazardResultEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)hazardResultEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getHazardResult_FailCount()
+  {
+    return (EAttribute)hazardResultEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getHazardResult_UnknownCount()
+  {
+    return (EAttribute)hazardResultEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getHazardResult_TbdCount()
+  {
+    return (EAttribute)hazardResultEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getHazardResult_Weight()
+  {
+    return (EAttribute)hazardResultEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getHazardResult_SucessMsg()
+  {
+    return (EAttribute)hazardResultEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -350,77 +522,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getHazardResult_ClaimResult()
   {
-    return (EReference)hazardResultEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAggregateResult()
-  {
-    return aggregateResultEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAggregateResult_Name()
-  {
-    return (EAttribute)aggregateResultEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAggregateResult_FailCount()
-  {
-    return (EAttribute)aggregateResultEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAggregateResult_UnknownCount()
-  {
-    return (EAttribute)aggregateResultEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAggregateResult_TbdCount()
-  {
-    return (EAttribute)aggregateResultEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAggregateResult_Weight()
-  {
-    return (EAttribute)aggregateResultEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getAggregateResult_SucessMsg()
-  {
-    return (EAttribute)aggregateResultEClass.getEStructuralFeatures().get(5);
+    return (EReference)hazardResultEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -438,9 +540,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getAssumptionResult_Name()
+  {
+    return (EAttribute)assumptionResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getAssumptionResult_Target()
   {
-    return (EReference)assumptionResultEClass.getEStructuralFeatures().get(0);
+    return (EReference)assumptionResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -450,7 +562,57 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EAttribute getAssumptionResult_SuccessCount()
   {
-    return (EAttribute)assumptionResultEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)assumptionResultEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAssumptionResult_FailCount()
+  {
+    return (EAttribute)assumptionResultEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAssumptionResult_UnknownCount()
+  {
+    return (EAttribute)assumptionResultEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAssumptionResult_TbdCount()
+  {
+    return (EAttribute)assumptionResultEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAssumptionResult_Weight()
+  {
+    return (EAttribute)assumptionResultEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getAssumptionResult_SucessMsg()
+  {
+    return (EAttribute)assumptionResultEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -460,7 +622,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getAssumptionResult_VerificationResult()
   {
-    return (EReference)assumptionResultEClass.getEStructuralFeatures().get(2);
+    return (EReference)assumptionResultEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -478,9 +640,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPreconditionResult_Name()
+  {
+    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getPreconditionResult_Target()
   {
-    return (EReference)preconditionResultEClass.getEStructuralFeatures().get(0);
+    return (EReference)preconditionResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -490,7 +662,57 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EAttribute getPreconditionResult_SuccessCount()
   {
-    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPreconditionResult_FailCount()
+  {
+    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPreconditionResult_UnknownCount()
+  {
+    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPreconditionResult_TbdCount()
+  {
+    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPreconditionResult_Weight()
+  {
+    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPreconditionResult_SucessMsg()
+  {
+    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -500,7 +722,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getPreconditionResult_VerificationResult()
   {
-    return (EReference)preconditionResultEClass.getEStructuralFeatures().get(2);
+    return (EReference)preconditionResultEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -734,40 +956,62 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     // Create classes and their features
     caseResultEClass = createEClass(CASE_RESULT);
+    createEAttribute(caseResultEClass, CASE_RESULT__NAME);
     createEReference(caseResultEClass, CASE_RESULT__TARGET);
     createEReference(caseResultEClass, CASE_RESULT__INSTANCE_URI);
     createEAttribute(caseResultEClass, CASE_RESULT__PASS_COUNT);
+    createEAttribute(caseResultEClass, CASE_RESULT__FAIL_COUNT);
+    createEAttribute(caseResultEClass, CASE_RESULT__UNKNOWN_COUNT);
+    createEAttribute(caseResultEClass, CASE_RESULT__TBD_COUNT);
+    createEAttribute(caseResultEClass, CASE_RESULT__WEIGHT);
+    createEAttribute(caseResultEClass, CASE_RESULT__SUCESS_MSG);
     createEReference(caseResultEClass, CASE_RESULT__SUB_CASE_RESULT);
     createEReference(caseResultEClass, CASE_RESULT__CLAIM_RESULT);
     createEReference(caseResultEClass, CASE_RESULT__HAZARD_RESULT);
 
     claimResultEClass = createEClass(CLAIM_RESULT);
+    createEAttribute(claimResultEClass, CLAIM_RESULT__NAME);
     createEReference(claimResultEClass, CLAIM_RESULT__TARGET);
     createEAttribute(claimResultEClass, CLAIM_RESULT__SUCCESS_COUNT);
+    createEAttribute(claimResultEClass, CLAIM_RESULT__FAIL_COUNT);
+    createEAttribute(claimResultEClass, CLAIM_RESULT__UNKNOWN_COUNT);
+    createEAttribute(claimResultEClass, CLAIM_RESULT__TBD_COUNT);
+    createEAttribute(claimResultEClass, CLAIM_RESULT__WEIGHT);
+    createEAttribute(claimResultEClass, CLAIM_RESULT__SUCESS_MSG);
     createEReference(claimResultEClass, CLAIM_RESULT__SUB_CLAIM_RESULT);
     createEReference(claimResultEClass, CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT);
 
     hazardResultEClass = createEClass(HAZARD_RESULT);
+    createEAttribute(hazardResultEClass, HAZARD_RESULT__NAME);
     createEReference(hazardResultEClass, HAZARD_RESULT__TARGET);
     createEAttribute(hazardResultEClass, HAZARD_RESULT__PASS_COUNT);
+    createEAttribute(hazardResultEClass, HAZARD_RESULT__FAIL_COUNT);
+    createEAttribute(hazardResultEClass, HAZARD_RESULT__UNKNOWN_COUNT);
+    createEAttribute(hazardResultEClass, HAZARD_RESULT__TBD_COUNT);
+    createEAttribute(hazardResultEClass, HAZARD_RESULT__WEIGHT);
+    createEAttribute(hazardResultEClass, HAZARD_RESULT__SUCESS_MSG);
     createEReference(hazardResultEClass, HAZARD_RESULT__CLAIM_RESULT);
 
-    aggregateResultEClass = createEClass(AGGREGATE_RESULT);
-    createEAttribute(aggregateResultEClass, AGGREGATE_RESULT__NAME);
-    createEAttribute(aggregateResultEClass, AGGREGATE_RESULT__FAIL_COUNT);
-    createEAttribute(aggregateResultEClass, AGGREGATE_RESULT__UNKNOWN_COUNT);
-    createEAttribute(aggregateResultEClass, AGGREGATE_RESULT__TBD_COUNT);
-    createEAttribute(aggregateResultEClass, AGGREGATE_RESULT__WEIGHT);
-    createEAttribute(aggregateResultEClass, AGGREGATE_RESULT__SUCESS_MSG);
-
     assumptionResultEClass = createEClass(ASSUMPTION_RESULT);
+    createEAttribute(assumptionResultEClass, ASSUMPTION_RESULT__NAME);
     createEReference(assumptionResultEClass, ASSUMPTION_RESULT__TARGET);
     createEAttribute(assumptionResultEClass, ASSUMPTION_RESULT__SUCCESS_COUNT);
+    createEAttribute(assumptionResultEClass, ASSUMPTION_RESULT__FAIL_COUNT);
+    createEAttribute(assumptionResultEClass, ASSUMPTION_RESULT__UNKNOWN_COUNT);
+    createEAttribute(assumptionResultEClass, ASSUMPTION_RESULT__TBD_COUNT);
+    createEAttribute(assumptionResultEClass, ASSUMPTION_RESULT__WEIGHT);
+    createEAttribute(assumptionResultEClass, ASSUMPTION_RESULT__SUCESS_MSG);
     createEReference(assumptionResultEClass, ASSUMPTION_RESULT__VERIFICATION_RESULT);
 
     preconditionResultEClass = createEClass(PRECONDITION_RESULT);
+    createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__NAME);
     createEReference(preconditionResultEClass, PRECONDITION_RESULT__TARGET);
     createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__SUCCESS_COUNT);
+    createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__FAIL_COUNT);
+    createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__UNKNOWN_COUNT);
+    createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__TBD_COUNT);
+    createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__WEIGHT);
+    createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__SUCESS_MSG);
     createEReference(preconditionResultEClass, PRECONDITION_RESULT__VERIFICATION_RESULT);
 
     verificationActivityResultEClass = createEClass(VERIFICATION_ACTIVITY_RESULT);
@@ -822,9 +1066,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     setNsURI(eNS_URI);
 
     // Obtain other dependent packages
+    EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
     InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
-    EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     ReqSpecPackage theReqSpecPackage = (ReqSpecPackage)EPackage.Registry.INSTANCE.getEPackage(ReqSpecPackage.eNS_URI);
     VerifyPackage theVerifyPackage = (VerifyPackage)EPackage.Registry.INSTANCE.getEPackage(VerifyPackage.eNS_URI);
 
@@ -833,50 +1077,67 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    caseResultEClass.getESuperTypes().add(this.getAggregateResult());
-    claimResultEClass.getESuperTypes().add(this.getAggregateResult());
-    hazardResultEClass.getESuperTypes().add(this.getAggregateResult());
-    assumptionResultEClass.getESuperTypes().add(this.getAggregateResult());
-    preconditionResultEClass.getESuperTypes().add(this.getAggregateResult());
     failThenResultEClass.getESuperTypes().add(this.getVerificationActivityResult());
     andThenResultEClass.getESuperTypes().add(this.getVerificationActivityResult());
 
     // Initialize classes and features; add operations and parameters
     initEClass(caseResultEClass, CaseResult.class, "CaseResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCaseResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCaseResult_Target(), theAadl2Package.getClassifier(), null, "target", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCaseResult_InstanceURI(), theInstancePackage.getInstanceObject(), null, "instanceURI", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCaseResult_PassCount(), theEcorePackage.getEInt(), "passCount", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCaseResult_FailCount(), theEcorePackage.getEInt(), "failCount", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCaseResult_UnknownCount(), theEcorePackage.getEInt(), "unknownCount", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCaseResult_TbdCount(), theEcorePackage.getEInt(), "tbdCount", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCaseResult_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCaseResult_SucessMsg(), theEcorePackage.getEString(), "sucessMsg", null, 0, 1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCaseResult_SubCaseResult(), this.getCaseResult(), null, "subCaseResult", null, 0, -1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCaseResult_ClaimResult(), this.getClaimResult(), null, "claimResult", null, 0, -1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCaseResult_HazardResult(), this.getHazardResult(), null, "hazardResult", null, 0, -1, CaseResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(claimResultEClass, ClaimResult.class, "ClaimResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getClaimResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_Target(), theReqSpecPackage.getRequirement(), null, "target", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClaimResult_SuccessCount(), theEcorePackage.getEInt(), "successCount", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClaimResult_FailCount(), theEcorePackage.getEInt(), "failCount", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClaimResult_UnknownCount(), theEcorePackage.getEInt(), "unknownCount", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClaimResult_TbdCount(), theEcorePackage.getEInt(), "tbdCount", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClaimResult_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClaimResult_SucessMsg(), theEcorePackage.getEString(), "sucessMsg", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_SubClaimResult(), this.getClaimResult(), null, "subClaimResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_VerificationActivityResult(), this.getVerificationActivityResult(), null, "verificationActivityResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(hazardResultEClass, HazardResult.class, "HazardResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getHazardResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getHazardResult_Target(), theReqSpecPackage.getHazard(), null, "target", null, 0, 1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getHazardResult_PassCount(), theEcorePackage.getEInt(), "passCount", null, 0, 1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getHazardResult_FailCount(), theEcorePackage.getEInt(), "failCount", null, 0, 1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getHazardResult_UnknownCount(), theEcorePackage.getEInt(), "unknownCount", null, 0, 1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getHazardResult_TbdCount(), theEcorePackage.getEInt(), "tbdCount", null, 0, 1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getHazardResult_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getHazardResult_SucessMsg(), theEcorePackage.getEString(), "sucessMsg", null, 0, 1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getHazardResult_ClaimResult(), this.getClaimResult(), null, "claimResult", null, 0, -1, HazardResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(aggregateResultEClass, AggregateResult.class, "AggregateResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAggregateResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AggregateResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAggregateResult_FailCount(), theEcorePackage.getEInt(), "failCount", null, 0, 1, AggregateResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAggregateResult_UnknownCount(), theEcorePackage.getEInt(), "unknownCount", null, 0, 1, AggregateResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAggregateResult_TbdCount(), theEcorePackage.getEInt(), "tbdCount", null, 0, 1, AggregateResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAggregateResult_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, AggregateResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAggregateResult_SucessMsg(), theEcorePackage.getEString(), "sucessMsg", null, 0, 1, AggregateResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(assumptionResultEClass, AssumptionResult.class, "AssumptionResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAssumptionResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssumptionResult_Target(), theVerifyPackage.getVerificationAssumption(), null, "target", null, 0, 1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAssumptionResult_SuccessCount(), theEcorePackage.getEInt(), "successCount", null, 0, 1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAssumptionResult_FailCount(), theEcorePackage.getEInt(), "failCount", null, 0, 1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAssumptionResult_UnknownCount(), theEcorePackage.getEInt(), "unknownCount", null, 0, 1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAssumptionResult_TbdCount(), theEcorePackage.getEInt(), "tbdCount", null, 0, 1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAssumptionResult_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAssumptionResult_SucessMsg(), theEcorePackage.getEString(), "sucessMsg", null, 0, 1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssumptionResult_VerificationResult(), this.getVerificationActivityResult(), null, "verificationResult", null, 0, -1, AssumptionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(preconditionResultEClass, PreconditionResult.class, "PreconditionResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPreconditionResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPreconditionResult_Target(), theVerifyPackage.getVerificationPrecondition(), null, "target", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPreconditionResult_SuccessCount(), theEcorePackage.getEInt(), "successCount", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPreconditionResult_FailCount(), theEcorePackage.getEInt(), "failCount", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPreconditionResult_UnknownCount(), theEcorePackage.getEInt(), "unknownCount", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPreconditionResult_TbdCount(), theEcorePackage.getEInt(), "tbdCount", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPreconditionResult_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPreconditionResult_SucessMsg(), theEcorePackage.getEString(), "sucessMsg", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPreconditionResult_VerificationResult(), this.getVerificationActivityResult(), null, "verificationResult", null, 0, -1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationActivityResultEClass, VerificationActivityResult.class, "VerificationActivityResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -536,38 +536,6 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_12() { return cRightSquareBracketKeyword_12; }
 	}
 
-	public class AggregateResultElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AggregateResult");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cClaimResultParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cHazardResultParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cCaseResultParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cAssumptionResultParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cPreconditionResultParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		
-		//AggregateResult:
-		//	ClaimResult | HazardResult | CaseResult | AssumptionResult | PreconditionResult;
-		public ParserRule getRule() { return rule; }
-
-		//ClaimResult | HazardResult | CaseResult | AssumptionResult | PreconditionResult
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//ClaimResult
-		public RuleCall getClaimResultParserRuleCall_0() { return cClaimResultParserRuleCall_0; }
-
-		//HazardResult
-		public RuleCall getHazardResultParserRuleCall_1() { return cHazardResultParserRuleCall_1; }
-
-		//CaseResult
-		public RuleCall getCaseResultParserRuleCall_2() { return cCaseResultParserRuleCall_2; }
-
-		//AssumptionResult
-		public RuleCall getAssumptionResultParserRuleCall_3() { return cAssumptionResultParserRuleCall_3; }
-
-		//PreconditionResult
-		public RuleCall getPreconditionResultParserRuleCall_4() { return cPreconditionResultParserRuleCall_4; }
-	}
-
 	public class AssumptionResultElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssumptionResult");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -607,6 +575,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVerificationResultVerificationExprParserRuleCall_11_0 = (RuleCall)cVerificationResultAssignment_11.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		
+		////AggregateResult:  ClaimResult | HazardResult | CaseResult
+		////	| AssumptionResult | PreconditionResult
+		////;
 		//AssumptionResult:
 		//	"assumption" name=ID "for" target=[Verify::VerificationAssumption|QualifiedName] "[" ("success" successCount=INT)
 		//	("fail" failCount=INT) ("unknown" unknownCount=INT) ("tbd" tbdCount=INT) ("weight" weight=INT)? ("message"
@@ -1262,7 +1233,6 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	private final CaseResultElements pCaseResult;
 	private final ClaimResultElements pClaimResult;
 	private final HazardResultElements pHazardResult;
-	private final AggregateResultElements pAggregateResult;
 	private final AssumptionResultElements pAssumptionResult;
 	private final PreconditionResultElements pPreconditionResult;
 	private final VerificationActivityResultElements pVerificationActivityResult;
@@ -1283,7 +1253,6 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.pCaseResult = new CaseResultElements();
 		this.pClaimResult = new ClaimResultElements();
 		this.pHazardResult = new HazardResultElements();
-		this.pAggregateResult = new AggregateResultElements();
 		this.pAssumptionResult = new AssumptionResultElements();
 		this.pPreconditionResult = new PreconditionResultElements();
 		this.pVerificationActivityResult = new VerificationActivityResultElements();
@@ -1361,16 +1330,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getHazardResultAccess().getRule();
 	}
 
-	//AggregateResult:
-	//	ClaimResult | HazardResult | CaseResult | AssumptionResult | PreconditionResult;
-	public AggregateResultElements getAggregateResultAccess() {
-		return pAggregateResult;
-	}
-	
-	public ParserRule getAggregateResultRule() {
-		return getAggregateResultAccess().getRule();
-	}
-
+	////AggregateResult:  ClaimResult | HazardResult | CaseResult
+	////	| AssumptionResult | PreconditionResult
+	////;
 	//AssumptionResult:
 	//	"assumption" name=ID "for" target=[Verify::VerificationAssumption|QualifiedName] "[" ("success" successCount=INT)
 	//	("fail" failCount=INT) ("unknown" unknownCount=INT) ("tbd" tbdCount=INT) ("weight" weight=INT)? ("message"

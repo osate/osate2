@@ -68,7 +68,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.CASE_RESULT: return createCaseResult();
       case AssurePackage.CLAIM_RESULT: return createClaimResult();
       case AssurePackage.HAZARD_RESULT: return createHazardResult();
-      case AssurePackage.AGGREGATE_RESULT: return createAggregateResult();
       case AssurePackage.ASSUMPTION_RESULT: return createAssumptionResult();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
@@ -149,17 +148,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     HazardResultImpl hazardResult = new HazardResultImpl();
     return hazardResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AggregateResult createAggregateResult()
-  {
-    AggregateResultImpl aggregateResult = new AggregateResultImpl();
-    return aggregateResult;
   }
 
   /**

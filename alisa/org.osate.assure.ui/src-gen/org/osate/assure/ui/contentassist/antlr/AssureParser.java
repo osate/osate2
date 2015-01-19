@@ -37,7 +37,6 @@ public class AssureParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getAggregateResultAccess().getAlternatives(), "rule__AggregateResult__Alternatives");
 					put(grammarAccess.getVerificationExprAccess().getAlternatives(), "rule__VerificationExpr__Alternatives");
 					put(grammarAccess.getVerificationExprAccess().getAlternatives_1_0(), "rule__VerificationExpr__Alternatives_1_0");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");

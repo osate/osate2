@@ -140,8 +140,6 @@ finally {
 
 
 
-
-
 // Entry rule entryRuleAssumptionResult
 entryRuleAssumptionResult 
 :
@@ -529,7 +527,6 @@ ruleVerificationExecutionState
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 
 
