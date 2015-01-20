@@ -12,20 +12,13 @@ Require-Bundle: org.osate.alisa.common;visibility:=reexport,
  org.eclipse.xtext.ui.shared,
  org.eclipse.ui,
  org.eclipse.xtext.builder,
- org.eclipse.xtext.xbase.lib,
  org.antlr.runtime,
- org.eclipse.xtext.common.types.ui,
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.compare,
- org.eclipse.xtext.xbase.ui,
  org.osate.aadl2;bundle-version="1.0.0",
  org.osate.aadl2.instantiation,
  org.osate.ui,
- org.eclipse.ui.console;bundle-version="3.5.300",
- org.junit,
- org.osate.units.test,
- org.eclipse.xtext.xbase.junit,
- org.eclipse.jdt.debug.ui
+ org.eclipse.ui.console;bundle-version="3.5.300"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.alisa.common.ui.contentassist,

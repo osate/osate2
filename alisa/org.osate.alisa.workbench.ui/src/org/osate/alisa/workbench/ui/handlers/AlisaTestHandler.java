@@ -39,12 +39,11 @@ public class AlisaTestHandler extends AadlHandler {
 			Dialog.showError("Model Instantiate", "You must select a Component Implementation to instantiate");
 			return Status.CANCEL_STATUS;
 		}
-		// TODO: reflectively call method
 
 //		InstantiateCase mycase = new InstantiateCase();
 //		String result = mycase.generate(si);
 //		System.out.println(result);
-
+//
 		Object[] args;
 		args = new Object[1];
 		args[0] = si;

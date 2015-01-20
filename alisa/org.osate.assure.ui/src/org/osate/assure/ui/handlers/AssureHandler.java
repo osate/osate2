@@ -24,6 +24,9 @@ import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.impl.CaseResultImpl;
 import org.osate.assure.evaluator.AssureProcessing;
+import org.osate.assure.evaluator.IAssureProcessor;
+
+import com.google.inject.Inject;
 
 public class AssureHandler extends AbstractHandler {
 	private static final String RERUN_ID = "org.osate.alisa.commands.rerunAlisa";
@@ -31,6 +34,9 @@ public class AssureHandler extends AbstractHandler {
 
 	private IWorkbenchWindow window;
 	private ExecutionEvent executionEvent;
+
+	@Inject
+	private IAssureProcessor assureProcessor;
 
 	protected ExecutionEvent getExecutionEvent() {
 		return this.executionEvent;
@@ -123,6 +129,8 @@ public class AssureHandler extends AbstractHandler {
 
 		long start = System.currentTimeMillis();
 		AssureProcessing.processCaseResult(obj);
+
+		assureProcessor.process(obj);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
