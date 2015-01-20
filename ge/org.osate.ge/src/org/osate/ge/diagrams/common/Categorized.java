@@ -8,7 +8,8 @@ public interface Categorized {
 		FLOWS,
 		MODES,
 		RELATIONSHIPS,
-		SUBCOMPONENTS
+		SUBCOMPONENTS,
+		SUBPROGRAM_CALLS
 	}
 	
 	Category getCategory();

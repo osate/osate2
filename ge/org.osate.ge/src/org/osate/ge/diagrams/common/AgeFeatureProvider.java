@@ -90,6 +90,8 @@ import org.osate.ge.diagrams.componentImplementation.features.RefineSubcomponent
 import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetSubcomponentClassifierFeature;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallPattern;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallSequencePattern;
 import org.osate.ge.diagrams.componentImplementation.patterns.ConnectionPattern;
 import org.osate.ge.diagrams.pkg.features.PackageSetExtendedClassifierFeature;
 import org.osate.ge.diagrams.pkg.features.PackageUpdateDiagramFeature;
@@ -143,6 +145,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Classifiers
 		addPattern(createClassifierPattern(null));
 		addSubcomponentPatterns();		
+		
+		// Subprogram Calls
+		addPattern(make(SubprogramCallSequencePattern.class));
+		addPattern(make(SubprogramCallPattern.class));
 	}
 	
 	private IEclipseContext getContext() {

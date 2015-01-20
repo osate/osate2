@@ -95,5 +95,7 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		addImageFilePath(p.getSubprogramProxy(), p.getSubprogramAccess());
 		addImageFilePath(p.getFlowSpecification(), p.getModeTransition());
 		addImageFilePath(p.getGeneralization(), p.getModeTransition());
+		addImageFilePath(p.getSubprogramCall(), p.getSubprogramSubcomponent());
+		addImageFilePath(p.getSubprogramCallSequence());
 	}
 }

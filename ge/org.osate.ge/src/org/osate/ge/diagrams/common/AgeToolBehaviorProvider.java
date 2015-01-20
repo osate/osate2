@@ -198,6 +198,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			private final PaletteCompartmentEntry modesCompartmentEntry = createComparmentEntry( "Modes");
 			private final PaletteCompartmentEntry relationshipsCompartmentEntry = createComparmentEntry("Relationships");
 			private final PaletteCompartmentEntry subcomponentCompartmentEntry = createComparmentEntry("Subcomponents");
+			private final PaletteCompartmentEntry subprogramCallsCompartmentEntry = createComparmentEntry("Subprogram Calls");
 			private final PaletteCompartmentEntry miscCompartmentEntry = createComparmentEntry("Misc");
 			
 			private PaletteCompartmentEntry createComparmentEntry(final String label) {
@@ -238,6 +239,10 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 					case SUBCOMPONENTS:
 						compartmentEntry = subcomponentCompartmentEntry;
 						break;	
+						
+					case SUBPROGRAM_CALLS:
+						compartmentEntry = subprogramCallsCompartmentEntry;
+						break;
 						
 					default:
 						compartmentEntry = miscCompartmentEntry;
