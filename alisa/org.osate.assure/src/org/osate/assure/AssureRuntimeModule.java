@@ -12,6 +12,10 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 		return org.osate.assure.linking.AssureLinkingService.class;
 	}
 
+//	public Class<? extends org.osate.assure.util.IVerificationMethodDispatcher> bindIVerificationMethodDispatcher() {
+//		return org.osate.assure.util.DefaultVerificationMethodDispatcher.class;
+//	}
+
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
 	}

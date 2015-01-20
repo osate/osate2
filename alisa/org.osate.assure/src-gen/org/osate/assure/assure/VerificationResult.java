@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.VerificationResult#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationResult#getFailTarget <em>Fail Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.VerificationResult#getResultReport <em>Result Report</em>}</li>
  * </ul>
  * </p>
  *
@@ -131,5 +132,31 @@ public interface VerificationResult extends EObject
    * @generated
    */
   void setFailTarget(EObject value);
+
+  /**
+   * Returns the value of the '<em><b>Result Report</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Result Report</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Result Report</em>' reference.
+   * @see #setResultReport(EObject)
+   * @see org.osate.assure.assure.AssurePackage#getVerificationResult_ResultReport()
+   * @model
+   * @generated
+   */
+  EObject getResultReport();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getResultReport <em>Result Report</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Result Report</em>' reference.
+   * @see #getResultReport()
+   * @generated
+   */
+  void setResultReport(EObject value);
 
 } // VerificationResult

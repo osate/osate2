@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -37,12 +36,7 @@ import org.osate.assure.assure.HazardResult;
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getInstanceURI <em>Instance URI</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getPassCount <em>Pass Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getUnknownCount <em>Unknown Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getTbdCount <em>Tbd Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getInstance <em>Instance</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSubCaseResult <em>Sub Case Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getClaimResult <em>Claim Result</em>}</li>
@@ -52,7 +46,7 @@ import org.osate.assure.assure.HazardResult;
  *
  * @generated
  */
-public class CaseResultImpl extends MinimalEObjectImpl.Container implements CaseResult
+public class CaseResultImpl extends AssureResultImpl implements CaseResult
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -85,114 +79,14 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
   protected Classifier target;
 
   /**
-   * The cached value of the '{@link #getInstanceURI() <em>Instance URI</em>}' reference.
+   * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getInstanceURI()
+   * @see #getInstance()
    * @generated
    * @ordered
    */
-  protected InstanceObject instanceURI;
-
-  /**
-   * The default value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPassCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int PASS_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getPassCount() <em>Pass Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPassCount()
-   * @generated
-   * @ordered
-   */
-  protected int passCount = PASS_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int FAIL_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getFailCount() <em>Fail Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFailCount()
-   * @generated
-   * @ordered
-   */
-  protected int failCount = FAIL_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnknownCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int UNKNOWN_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnknownCount()
-   * @generated
-   * @ordered
-   */
-  protected int unknownCount = UNKNOWN_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getTbdCount() <em>Tbd Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTbdCount()
-   * @generated
-   * @ordered
-   */
-  protected static final int TBD_COUNT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getTbdCount() <em>Tbd Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTbdCount()
-   * @generated
-   * @ordered
-   */
-  protected int tbdCount = TBD_COUNT_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected static final int WEIGHT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected int weight = WEIGHT_EDEFAULT;
+  protected InstanceObject instance;
 
   /**
    * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
@@ -336,19 +230,19 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceObject getInstanceURI()
+  public InstanceObject getInstance()
   {
-    if (instanceURI != null && instanceURI.eIsProxy())
+    if (instance != null && instance.eIsProxy())
     {
-      InternalEObject oldInstanceURI = (InternalEObject)instanceURI;
-      instanceURI = (InstanceObject)eResolveProxy(oldInstanceURI);
-      if (instanceURI != oldInstanceURI)
+      InternalEObject oldInstance = (InternalEObject)instance;
+      instance = (InstanceObject)eResolveProxy(oldInstance);
+      if (instance != oldInstance)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CASE_RESULT__INSTANCE_URI, oldInstanceURI, instanceURI));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CASE_RESULT__INSTANCE, oldInstance, instance));
       }
     }
-    return instanceURI;
+    return instance;
   }
 
   /**
@@ -356,9 +250,9 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
    * <!-- end-user-doc -->
    * @generated
    */
-  public InstanceObject basicGetInstanceURI()
+  public InstanceObject basicGetInstance()
   {
-    return instanceURI;
+    return instance;
   }
 
   /**
@@ -366,127 +260,12 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setInstanceURI(InstanceObject newInstanceURI)
+  public void setInstance(InstanceObject newInstance)
   {
-    InstanceObject oldInstanceURI = instanceURI;
-    instanceURI = newInstanceURI;
+    InstanceObject oldInstance = instance;
+    instance = newInstance;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__INSTANCE_URI, oldInstanceURI, instanceURI));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getPassCount()
-  {
-    return passCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPassCount(int newPassCount)
-  {
-    int oldPassCount = passCount;
-    passCount = newPassCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__PASS_COUNT, oldPassCount, passCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getFailCount()
-  {
-    return failCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setFailCount(int newFailCount)
-  {
-    int oldFailCount = failCount;
-    failCount = newFailCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__FAIL_COUNT, oldFailCount, failCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getUnknownCount()
-  {
-    return unknownCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setUnknownCount(int newUnknownCount)
-  {
-    int oldUnknownCount = unknownCount;
-    unknownCount = newUnknownCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__UNKNOWN_COUNT, oldUnknownCount, unknownCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getTbdCount()
-  {
-    return tbdCount;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTbdCount(int newTbdCount)
-  {
-    int oldTbdCount = tbdCount;
-    tbdCount = newTbdCount;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__TBD_COUNT, oldTbdCount, tbdCount));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getWeight()
-  {
-    return weight;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setWeight(int newWeight)
-  {
-    int oldWeight = weight;
-    weight = newWeight;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__WEIGHT, oldWeight, weight));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__INSTANCE, oldInstance, instance));
   }
 
   /**
@@ -589,19 +368,9 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
       case AssurePackage.CASE_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case AssurePackage.CASE_RESULT__INSTANCE_URI:
-        if (resolve) return getInstanceURI();
-        return basicGetInstanceURI();
-      case AssurePackage.CASE_RESULT__PASS_COUNT:
-        return getPassCount();
-      case AssurePackage.CASE_RESULT__FAIL_COUNT:
-        return getFailCount();
-      case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
-        return getUnknownCount();
-      case AssurePackage.CASE_RESULT__TBD_COUNT:
-        return getTbdCount();
-      case AssurePackage.CASE_RESULT__WEIGHT:
-        return getWeight();
+      case AssurePackage.CASE_RESULT__INSTANCE:
+        if (resolve) return getInstance();
+        return basicGetInstance();
       case AssurePackage.CASE_RESULT__SUCESS_MSG:
         return getSucessMsg();
       case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
@@ -631,23 +400,8 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
       case AssurePackage.CASE_RESULT__TARGET:
         setTarget((Classifier)newValue);
         return;
-      case AssurePackage.CASE_RESULT__INSTANCE_URI:
-        setInstanceURI((InstanceObject)newValue);
-        return;
-      case AssurePackage.CASE_RESULT__PASS_COUNT:
-        setPassCount((Integer)newValue);
-        return;
-      case AssurePackage.CASE_RESULT__FAIL_COUNT:
-        setFailCount((Integer)newValue);
-        return;
-      case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
-        setUnknownCount((Integer)newValue);
-        return;
-      case AssurePackage.CASE_RESULT__TBD_COUNT:
-        setTbdCount((Integer)newValue);
-        return;
-      case AssurePackage.CASE_RESULT__WEIGHT:
-        setWeight((Integer)newValue);
+      case AssurePackage.CASE_RESULT__INSTANCE:
+        setInstance((InstanceObject)newValue);
         return;
       case AssurePackage.CASE_RESULT__SUCESS_MSG:
         setSucessMsg((String)newValue);
@@ -684,23 +438,8 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
       case AssurePackage.CASE_RESULT__TARGET:
         setTarget((Classifier)null);
         return;
-      case AssurePackage.CASE_RESULT__INSTANCE_URI:
-        setInstanceURI((InstanceObject)null);
-        return;
-      case AssurePackage.CASE_RESULT__PASS_COUNT:
-        setPassCount(PASS_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.CASE_RESULT__FAIL_COUNT:
-        setFailCount(FAIL_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
-        setUnknownCount(UNKNOWN_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.CASE_RESULT__TBD_COUNT:
-        setTbdCount(TBD_COUNT_EDEFAULT);
-        return;
-      case AssurePackage.CASE_RESULT__WEIGHT:
-        setWeight(WEIGHT_EDEFAULT);
+      case AssurePackage.CASE_RESULT__INSTANCE:
+        setInstance((InstanceObject)null);
         return;
       case AssurePackage.CASE_RESULT__SUCESS_MSG:
         setSucessMsg(SUCESS_MSG_EDEFAULT);
@@ -732,18 +471,8 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.CASE_RESULT__TARGET:
         return target != null;
-      case AssurePackage.CASE_RESULT__INSTANCE_URI:
-        return instanceURI != null;
-      case AssurePackage.CASE_RESULT__PASS_COUNT:
-        return passCount != PASS_COUNT_EDEFAULT;
-      case AssurePackage.CASE_RESULT__FAIL_COUNT:
-        return failCount != FAIL_COUNT_EDEFAULT;
-      case AssurePackage.CASE_RESULT__UNKNOWN_COUNT:
-        return unknownCount != UNKNOWN_COUNT_EDEFAULT;
-      case AssurePackage.CASE_RESULT__TBD_COUNT:
-        return tbdCount != TBD_COUNT_EDEFAULT;
-      case AssurePackage.CASE_RESULT__WEIGHT:
-        return weight != WEIGHT_EDEFAULT;
+      case AssurePackage.CASE_RESULT__INSTANCE:
+        return instance != null;
       case AssurePackage.CASE_RESULT__SUCESS_MSG:
         return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
       case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
@@ -769,16 +498,6 @@ public class CaseResultImpl extends MinimalEObjectImpl.Container implements Case
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", passCount: ");
-    result.append(passCount);
-    result.append(", failCount: ");
-    result.append(failCount);
-    result.append(", unknownCount: ");
-    result.append(unknownCount);
-    result.append(", tbdCount: ");
-    result.append(tbdCount);
-    result.append(", weight: ");
-    result.append(weight);
     result.append(", sucessMsg: ");
     result.append(sucessMsg);
     result.append(')');

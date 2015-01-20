@@ -15,7 +15,7 @@ import org.osate.categories.categories.HazardCategory;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.Hazard#getCategory <em>Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Hazard#getHazardReference <em>Hazard Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Hazard#getRequirementReference <em>Requirement Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,19 +52,19 @@ public interface Hazard extends ContractualElement
   void setCategory(HazardCategory value);
 
   /**
-   * Returns the value of the '<em><b>Hazard Reference</b></em>' reference list.
+   * Returns the value of the '<em><b>Requirement Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Hazard Reference</em>' reference list isn't clear,
+   * If the meaning of the '<em>Requirement Reference</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Hazard Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getHazard_HazardReference()
+   * @return the value of the '<em>Requirement Reference</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getHazard_RequirementReference()
    * @model
    * @generated
    */
-  EList<Requirement> getHazardReference();
+  EList<Requirement> getRequirementReference();
 
 } // Hazard

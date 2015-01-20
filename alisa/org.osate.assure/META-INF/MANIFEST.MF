@@ -28,13 +28,15 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.alisa.common.ui;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties,
  org.eclipse.core.resources;bundle-version="3.9.1",
- org.osate.aadl2.modelsupport;bundle-version="1.0.0"
+ org.osate.aadl2.modelsupport;bundle-version="1.0.0",
+ org.junit;bundle-version="4.11.0"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.assure,
  org.osate.assure.assure,
  org.osate.assure.assure.impl,
  org.osate.assure.assure.util,
+ org.osate.assure.evaluator,
  org.osate.assure.formatting,
  org.osate.assure.generator,
  org.osate.assure.parser.antlr,

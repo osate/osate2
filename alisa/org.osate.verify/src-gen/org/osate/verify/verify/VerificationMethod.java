@@ -20,7 +20,7 @@ import org.osate.categories.categories.VerificationCategory;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethod <em>Method</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
@@ -90,30 +90,30 @@ public interface VerificationMethod extends EObject
   void setMethodType(SupportedTypes value);
 
   /**
-   * Returns the value of the '<em><b>Method</b></em>' attribute.
+   * Returns the value of the '<em><b>Method Path</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Method</em>' attribute isn't clear,
+   * If the meaning of the '<em>Method Path</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Method</em>' attribute.
-   * @see #setMethod(String)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Method()
+   * @return the value of the '<em>Method Path</em>' attribute.
+   * @see #setMethodPath(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_MethodPath()
    * @model
    * @generated
    */
-  String getMethod();
+  String getMethodPath();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getMethod <em>Method</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Method</em>' attribute.
-   * @see #getMethod()
+   * @param value the new value of the '<em>Method Path</em>' attribute.
+   * @see #getMethodPath()
    * @generated
    */
-  void setMethod(String value);
+  void setMethodPath(String value);
 
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.

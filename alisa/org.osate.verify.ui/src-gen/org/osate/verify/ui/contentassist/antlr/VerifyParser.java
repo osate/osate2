@@ -156,7 +156,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationMethodRegistryAccess().getMethodsAssignment_3_2(), "rule__VerificationMethodRegistry__MethodsAssignment_3_2");
 					put(grammarAccess.getVerificationMethodAccess().getNameAssignment_1(), "rule__VerificationMethod__NameAssignment_1");
 					put(grammarAccess.getVerificationMethodAccess().getMethodTypeAssignment_3(), "rule__VerificationMethod__MethodTypeAssignment_3");
-					put(grammarAccess.getVerificationMethodAccess().getMethodAssignment_4(), "rule__VerificationMethod__MethodAssignment_4");
+					put(grammarAccess.getVerificationMethodAccess().getMethodPathAssignment_4(), "rule__VerificationMethod__MethodPathAssignment_4");
 					put(grammarAccess.getVerificationMethodAccess().getTitleAssignment_5_0_1(), "rule__VerificationMethod__TitleAssignment_5_0_1");
 					put(grammarAccess.getVerificationMethodAccess().getDescriptionAssignment_5_1_1(), "rule__VerificationMethod__DescriptionAssignment_5_1_1");
 					put(grammarAccess.getVerificationMethodAccess().getCategoryAssignment_5_2_1(), "rule__VerificationMethod__CategoryAssignment_5_2_1");

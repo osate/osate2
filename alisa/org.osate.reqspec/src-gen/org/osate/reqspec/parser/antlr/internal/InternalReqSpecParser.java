@@ -5572,7 +5572,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    	        }
             	            
             	     
-            	    	        newCompositeNode(grammarAccess.getHazardAccess().getHazardReferenceRequirementCrossReference_3_2_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getHazardAccess().getRequirementReferenceRequirementCrossReference_3_2_2_0()); 
             	    	    
             	    pushFollow(FOLLOW_ruleQualifiedName_in_ruleHazard5297);
             	    ruleQualifiedName();
@@ -5619,7 +5619,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    	    	        }
             	    	            
             	    	     
-            	    	    	        newCompositeNode(grammarAccess.getHazardAccess().getHazardReferenceRequirementCrossReference_3_2_3_1_0()); 
+            	    	    	        newCompositeNode(grammarAccess.getHazardAccess().getRequirementReferenceRequirementCrossReference_3_2_3_1_0()); 
             	    	    	    
             	    	    pushFollow(FOLLOW_ruleQualifiedName_in_ruleHazard5333);
             	    	    ruleQualifiedName();

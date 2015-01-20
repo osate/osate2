@@ -2352,7 +2352,7 @@ ruleHazard returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getHazardAccess().getHazardReferenceRequirementCrossReference_3_2_2_0()); 
+	        newCompositeNode(grammarAccess.getHazardAccess().getRequirementReferenceRequirementCrossReference_3_2_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -2372,7 +2372,7 @@ ruleHazard returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getHazardAccess().getHazardReferenceRequirementCrossReference_3_2_3_1_0()); 
+	        newCompositeNode(grammarAccess.getHazardAccess().getRequirementReferenceRequirementCrossReference_3_2_3_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();

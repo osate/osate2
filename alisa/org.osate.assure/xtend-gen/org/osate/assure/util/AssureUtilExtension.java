@@ -2,6 +2,7 @@ package org.osate.assure.util;
 
 import com.google.common.base.Objects;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -14,18 +15,29 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.assure.assure.AndThenResult;
+import org.osate.assure.assure.AssumptionResult;
+import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.CaseResult;
+import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.FailThenResult;
+import org.osate.assure.assure.HazardResult;
+import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.VerificationActivityResult;
+import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
+import org.osate.verify.verify.RefExpr;
 
 @SuppressWarnings("all")
 public class AssureUtilExtension {
-  public static CaseResult getEnclosingCaseResult(final EObject assureObject) {
+  public CaseResult getEnclosingCaseResult(final EObject assureObject) {
     EObject result = assureObject;
     while ((!(result instanceof CaseResult))) {
       EObject _eContainer = result.eContainer();
@@ -38,7 +50,16 @@ public class AssureUtilExtension {
     return ((CaseResult) result);
   }
   
-  public static void addErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
+  public InstanceObject getCaseSubject(final EObject assureObject) {
+    final CaseResult context = this.getEnclosingCaseResult(assureObject);
+    boolean _equals = Objects.equal(context, null);
+    if (_equals) {
+      return null;
+    }
+    return context.getInstance();
+  }
+  
+  public void addErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
     try {
       final Resource res = instance.eResource();
       final EList<Resource.Diagnostic> err = res.getErrors();
@@ -79,7 +100,7 @@ public class AssureUtilExtension {
     }
   }
   
-  public static void addFailure(final VerificationActivityResult verificationActivityResult, final Throwable e) {
+  public void addFailure(final VerificationActivityResult verificationActivityResult, final Throwable e) {
     final VerificationResult res = verificationActivityResult.getResult();
     res.setResultState(VerificationResultState.FAIL);
     String _message = e.getMessage();
@@ -90,14 +111,333 @@ public class AssureUtilExtension {
     verificationActivityResult.setResult(res);
   }
   
-  public static void addError(final VerificationActivityResult verificationActivityResult, final Throwable e) {
+  public void addError(final VerificationActivityResult verificationActivityResult, final Throwable e) {
     final VerificationResult res = verificationActivityResult.getResult();
-    res.setResultState(VerificationResultState.UNKNOWN);
+    res.setResultState(VerificationResultState.ERROR);
     String _message = e.getMessage();
     res.setFailMsg(_message);
     Class<? extends Throwable> _class = e.getClass();
     String _name = _class.getName();
     res.setType(_name);
+  }
+  
+  /**
+   * add all subelement counts without reevaluating them
+   */
+  public AssureResult addAllTo(final List<? extends AssureResult> parts, final AssureResult result) {
+    int _failCount = result.getFailCount();
+    final Function1<AssureResult, Integer> _function = new Function1<AssureResult, Integer>() {
+      public Integer apply(final AssureResult it) {
+        return Integer.valueOf(it.getFailCount());
+      }
+    };
+    List<Integer> _map = ListExtensions.map(parts, _function);
+    final Function2<Integer, Integer, Integer> _function_1 = new Function2<Integer, Integer, Integer>() {
+      public Integer apply(final Integer a, final Integer b) {
+        return Integer.valueOf(((a).intValue() + (b).intValue()));
+      }
+    };
+    Integer _reduce = IterableExtensions.<Integer>reduce(_map, _function_1);
+    int _plus = (_failCount + (_reduce).intValue());
+    result.setFailCount(_plus);
+    int _successCount = result.getSuccessCount();
+    final Function1<AssureResult, Integer> _function_2 = new Function1<AssureResult, Integer>() {
+      public Integer apply(final AssureResult it) {
+        return Integer.valueOf(it.getSuccessCount());
+      }
+    };
+    List<Integer> _map_1 = ListExtensions.map(parts, _function_2);
+    final Function2<Integer, Integer, Integer> _function_3 = new Function2<Integer, Integer, Integer>() {
+      public Integer apply(final Integer a, final Integer b) {
+        return Integer.valueOf(((a).intValue() + (b).intValue()));
+      }
+    };
+    Integer _reduce_1 = IterableExtensions.<Integer>reduce(_map_1, _function_3);
+    int _plus_1 = (_successCount + (_reduce_1).intValue());
+    result.setSuccessCount(_plus_1);
+    int _errorCount = result.getErrorCount();
+    final Function1<AssureResult, Integer> _function_4 = new Function1<AssureResult, Integer>() {
+      public Integer apply(final AssureResult it) {
+        return Integer.valueOf(it.getErrorCount());
+      }
+    };
+    List<Integer> _map_2 = ListExtensions.map(parts, _function_4);
+    final Function2<Integer, Integer, Integer> _function_5 = new Function2<Integer, Integer, Integer>() {
+      public Integer apply(final Integer a, final Integer b) {
+        return Integer.valueOf(((a).intValue() + (b).intValue()));
+      }
+    };
+    Integer _reduce_2 = IterableExtensions.<Integer>reduce(_map_2, _function_5);
+    int _plus_2 = (_errorCount + (_reduce_2).intValue());
+    result.setErrorCount(_plus_2);
+    int _skippedCount = result.getSkippedCount();
+    final Function1<AssureResult, Integer> _function_6 = new Function1<AssureResult, Integer>() {
+      public Integer apply(final AssureResult it) {
+        return Integer.valueOf(it.getSkippedCount());
+      }
+    };
+    List<Integer> _map_3 = ListExtensions.map(parts, _function_6);
+    final Function2<Integer, Integer, Integer> _function_7 = new Function2<Integer, Integer, Integer>() {
+      public Integer apply(final Integer a, final Integer b) {
+        return Integer.valueOf(((a).intValue() + (b).intValue()));
+      }
+    };
+    Integer _reduce_3 = IterableExtensions.<Integer>reduce(_map_3, _function_7);
+    int _plus_3 = (_skippedCount + (_reduce_3).intValue());
+    result.setSkippedCount(_plus_3);
+    int _failthenCount = result.getFailthenCount();
+    final Function1<AssureResult, Integer> _function_8 = new Function1<AssureResult, Integer>() {
+      public Integer apply(final AssureResult it) {
+        return Integer.valueOf(it.getFailthenCount());
+      }
+    };
+    List<Integer> _map_4 = ListExtensions.map(parts, _function_8);
+    final Function2<Integer, Integer, Integer> _function_9 = new Function2<Integer, Integer, Integer>() {
+      public Integer apply(final Integer a, final Integer b) {
+        return Integer.valueOf(((a).intValue() + (b).intValue()));
+      }
+    };
+    Integer _reduce_4 = IterableExtensions.<Integer>reduce(_map_4, _function_9);
+    int _plus_4 = (_failthenCount + (_reduce_4).intValue());
+    result.setFailthenCount(_plus_4);
+    int _totalCount = result.getTotalCount();
+    final Function1<AssureResult, Integer> _function_10 = new Function1<AssureResult, Integer>() {
+      public Integer apply(final AssureResult it) {
+        return Integer.valueOf(it.getTotalCount());
+      }
+    };
+    List<Integer> _map_5 = ListExtensions.map(parts, _function_10);
+    final Function2<Integer, Integer, Integer> _function_11 = new Function2<Integer, Integer, Integer>() {
+      public Integer apply(final Integer a, final Integer b) {
+        return Integer.valueOf(((a).intValue() + (b).intValue()));
+      }
+    };
+    Integer _reduce_5 = IterableExtensions.<Integer>reduce(_map_5, _function_11);
+    int _plus_5 = (_totalCount + (_reduce_5).intValue());
+    result.setTotalCount(_plus_5);
+    return result;
+  }
+  
+  public void initialize(final AssureResult result) {
+    result.setFailCount(0);
+    result.setSuccessCount(0);
+    result.setErrorCount(0);
+    result.setSkippedCount(0);
+    result.setFailthenCount(0);
+    int _countElements = this.countElements(result);
+    result.setTotalCount(_countElements);
+  }
+  
+  public FailThenResult recordFailThen(final FailThenResult result) {
+    FailThenResult _xblockexpression = null;
+    {
+      int _failCount = result.getFailCount();
+      int _errorCount = result.getErrorCount();
+      int _plus = (_failCount + _errorCount);
+      result.setFailthenCount(_plus);
+      result.setFailCount(0);
+      result.setErrorCount(0);
+      _xblockexpression = result;
+    }
+    return _xblockexpression;
+  }
+  
+  public AndThenResult recordSkip(final AndThenResult result) {
+    AndThenResult _xblockexpression = null;
+    {
+      EList<VerificationExpr> _second = result.getSecond();
+      final Function1<VerificationExpr, Integer> _function = new Function1<VerificationExpr, Integer>() {
+        public Integer apply(final VerificationExpr exp) {
+          return Integer.valueOf(exp.getTotalCount());
+        }
+      };
+      List<Integer> _map = ListExtensions.<VerificationExpr, Integer>map(_second, _function);
+      final Function2<Integer, Integer, Integer> _function_1 = new Function2<Integer, Integer, Integer>() {
+        public Integer apply(final Integer a, final Integer b) {
+          return Integer.valueOf(((a).intValue() + (b).intValue()));
+        }
+      };
+      Integer _reduce = IterableExtensions.<Integer>reduce(_map, _function_1);
+      result.setSkippedCount((_reduce).intValue());
+      _xblockexpression = result;
+    }
+    return _xblockexpression;
+  }
+  
+  public VerificationActivityResult addOwnResult(final VerificationActivityResult ar) {
+    VerificationActivityResult _xblockexpression = null;
+    {
+      VerificationResult _result = ar.getResult();
+      VerificationResultState _resultState = _result.getResultState();
+      if (_resultState != null) {
+        switch (_resultState) {
+          case SUCCESS:
+            int _successCount = ar.getSuccessCount();
+            int _plus = (_successCount + 1);
+            ar.setSuccessCount(_plus);
+            break;
+          case FAIL:
+            int _failCount = ar.getFailCount();
+            int _plus_1 = (_failCount + 1);
+            ar.setFailCount(_plus_1);
+            break;
+          case ERROR:
+            int _errorCount = ar.getErrorCount();
+            int _plus_2 = (_errorCount + 1);
+            ar.setErrorCount(_plus_2);
+            break;
+          case TBD:
+            break;
+          default:
+            break;
+        }
+      }
+      _xblockexpression = ar;
+    }
+    return _xblockexpression;
+  }
+  
+  public int countElements(final AssureResult ar) {
+    int _xblockexpression = (int) 0;
+    {
+      boolean _matched = false;
+      if (!_matched) {
+        if (ar instanceof CaseResult) {
+          _matched=true;
+          EList<CaseResult> _subCaseResult = ((CaseResult)ar).getSubCaseResult();
+          int _length = ((Object[])Conversions.unwrapArray(_subCaseResult, Object.class)).length;
+          EList<ClaimResult> _claimResult = ((CaseResult)ar).getClaimResult();
+          int _length_1 = ((Object[])Conversions.unwrapArray(_claimResult, Object.class)).length;
+          int _plus = (_length + _length_1);
+          EList<HazardResult> _hazardResult = ((CaseResult)ar).getHazardResult();
+          int _length_2 = ((Object[])Conversions.unwrapArray(_hazardResult, Object.class)).length;
+          /* (_plus + _length_2); */
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof ClaimResult) {
+          _matched=true;
+          EList<ClaimResult> _subClaimResult = ((ClaimResult)ar).getSubClaimResult();
+          int _length = ((Object[])Conversions.unwrapArray(_subClaimResult, Object.class)).length;
+          EList<VerificationExpr> _verificationActivityResult = ((ClaimResult)ar).getVerificationActivityResult();
+          int _length_1 = ((Object[])Conversions.unwrapArray(_verificationActivityResult, Object.class)).length;
+          /* (_length + _length_1); */
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof HazardResult) {
+          _matched=true;
+          EList<ClaimResult> _claimResult = ((HazardResult)ar).getClaimResult();
+          /* ((Object[])Conversions.unwrapArray(_claimResult, Object.class)).length; */
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof AssumptionResult) {
+          _matched=true;
+          EList<VerificationExpr> _verificationActivityResult = ((AssumptionResult)ar).getVerificationActivityResult();
+          /* ((Object[])Conversions.unwrapArray(_verificationActivityResult, Object.class)).length; */
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof PreconditionResult) {
+          _matched=true;
+          EList<VerificationExpr> _verificationActivityResult = ((PreconditionResult)ar).getVerificationActivityResult();
+          /* ((Object[])Conversions.unwrapArray(_verificationActivityResult, Object.class)).length; */
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof VerificationActivityResult) {
+          _matched=true;
+          EList<AssumptionResult> _assumptionResult = ((VerificationActivityResult)ar).getAssumptionResult();
+          int _length = ((Object[])Conversions.unwrapArray(_assumptionResult, Object.class)).length;
+          int _plus = (1 + _length);
+          EList<PreconditionResult> _preconditionResult = ((VerificationActivityResult)ar).getPreconditionResult();
+          int _length_1 = ((Object[])Conversions.unwrapArray(_preconditionResult, Object.class)).length;
+          /* (_plus + _length_1); */
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof FailThenResult) {
+          _matched=true;
+          EList<VerificationExpr> _first = ((FailThenResult)ar).getFirst();
+          int _length = ((Object[])Conversions.unwrapArray(_first, Object.class)).length;
+          EList<VerificationExpr> _second = ((FailThenResult)ar).getSecond();
+          int _length_1 = ((Object[])Conversions.unwrapArray(_second, Object.class)).length;
+          /* (_length + _length_1); */
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof AndThenResult) {
+          _matched=true;
+          EList<VerificationExpr> _first = ((AndThenResult)ar).getFirst();
+          int _length = ((Object[])Conversions.unwrapArray(_first, Object.class)).length;
+          EList<VerificationExpr> _second = ((AndThenResult)ar).getSecond();
+          int _length_1 = ((Object[])Conversions.unwrapArray(_second, Object.class)).length;
+          /* (_length + _length_1); */
+        }
+      }
+      _xblockexpression = 0;
+    }
+    return _xblockexpression;
+  }
+  
+  public int getTBDCount(final AssureResult ar) {
+    int _totalCount = ar.getTotalCount();
+    int _successCount = ar.getSuccessCount();
+    int _minus = (_totalCount - _successCount);
+    int _failCount = ar.getFailCount();
+    int _minus_1 = (_minus - _failCount);
+    int _errorCount = ar.getErrorCount();
+    int _minus_2 = (_minus_1 - _errorCount);
+    int _failthenCount = ar.getFailthenCount();
+    int _minus_3 = (_minus_2 - _failthenCount);
+    int _skippedCount = ar.getSkippedCount();
+    return (_minus_3 - _skippedCount);
+  }
+  
+  public boolean isSuccessFul(final AssureResult ar) {
+    boolean _and = false;
+    int _failCount = ar.getFailCount();
+    boolean _equals = (_failCount == 0);
+    if (!_equals) {
+      _and = false;
+    } else {
+      int _errorCount = ar.getErrorCount();
+      boolean _equals_1 = (_errorCount == 0);
+      _and = _equals_1;
+    }
+    return _and;
+  }
+  
+  public boolean hasFailedOrError(final AssureResult ar) {
+    boolean _or = false;
+    int _failCount = ar.getFailCount();
+    boolean _greaterThan = (_failCount > 0);
+    if (_greaterThan) {
+      _or = true;
+    } else {
+      int _errorCount = ar.getErrorCount();
+      boolean _greaterThan_1 = (_errorCount > 0);
+      _or = _greaterThan_1;
+    }
+    return _or;
+  }
+  
+  public int getTheWeight(final RefExpr expr) {
+    int _switchResult = (int) 0;
+    boolean _matched = false;
+    if (!_matched) {
+      int _weight = expr.getWeight();
+      boolean _equals = (_weight == 0);
+      if (_equals) {
+        _matched=true;
+        _switchResult = 1;
+      }
+    }
+    if (!_matched) {
+      _switchResult = expr.getWeight();
+    }
+    return _switchResult;
   }
   
   private final static Map<Object, Object> hasRunRecord = Collections.<Object, Object>synchronizedMap(CollectionLiterals.<Object, Object>newHashMap());

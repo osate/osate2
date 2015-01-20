@@ -93,7 +93,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Hazard" eSuperTypes="#//ContractualElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//HazardCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="hazardReference" unique="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requirementReference" unique="false"
         upperBound="-1" eType="#//Requirement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExternalDocument">

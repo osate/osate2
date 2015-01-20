@@ -5246,9 +5246,9 @@ rule__VerificationMethod__Group__4__Impl
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodAccess().getMethodAssignment_4()); }
-(rule__VerificationMethod__MethodAssignment_4)
-{ after(grammarAccess.getVerificationMethodAccess().getMethodAssignment_4()); }
+{ before(grammarAccess.getVerificationMethodAccess().getMethodPathAssignment_4()); }
+(rule__VerificationMethod__MethodPathAssignment_4)
+{ after(grammarAccess.getVerificationMethodAccess().getMethodPathAssignment_4()); }
 )
 
 ;
@@ -7908,14 +7908,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__VerificationMethod__MethodAssignment_4
+rule__VerificationMethod__MethodPathAssignment_4
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodAccess().getMethodQualifiedNameParserRuleCall_4_0()); }
-	ruleQualifiedName{ after(grammarAccess.getVerificationMethodAccess().getMethodQualifiedNameParserRuleCall_4_0()); }
+{ before(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_4_0()); }
+	ruleQualifiedName{ after(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_4_0()); }
 )
 
 ;

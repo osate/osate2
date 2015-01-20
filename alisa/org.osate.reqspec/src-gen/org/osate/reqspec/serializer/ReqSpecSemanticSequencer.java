@@ -191,7 +191,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         target=[NamedElement|ID]? 
 	 *         category=[HazardCategory|CatRef]? 
 	 *         description=Description? 
-	 *         (hazardReference+=[Requirement|QualifiedName] hazardReference+=[Requirement|QualifiedName]*)? 
+	 *         (requirementReference+=[Requirement|QualifiedName] requirementReference+=[Requirement|QualifiedName]*)? 
 	 *         rationale=STRING?
 	 *     )
 	 */

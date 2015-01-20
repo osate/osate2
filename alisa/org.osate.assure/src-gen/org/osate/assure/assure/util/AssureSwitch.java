@@ -76,6 +76,7 @@ public class AssureSwitch<T> extends Switch<T>
       {
         CaseResult caseResult = (CaseResult)theEObject;
         T result = caseCaseResult(caseResult);
+        if (result == null) result = caseAssureResult(caseResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -83,6 +84,7 @@ public class AssureSwitch<T> extends Switch<T>
       {
         ClaimResult claimResult = (ClaimResult)theEObject;
         T result = caseClaimResult(claimResult);
+        if (result == null) result = caseAssureResult(claimResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -90,6 +92,7 @@ public class AssureSwitch<T> extends Switch<T>
       {
         HazardResult hazardResult = (HazardResult)theEObject;
         T result = caseHazardResult(hazardResult);
+        if (result == null) result = caseAssureResult(hazardResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -97,6 +100,7 @@ public class AssureSwitch<T> extends Switch<T>
       {
         AssumptionResult assumptionResult = (AssumptionResult)theEObject;
         T result = caseAssumptionResult(assumptionResult);
+        if (result == null) result = caseAssureResult(assumptionResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -104,6 +108,7 @@ public class AssureSwitch<T> extends Switch<T>
       {
         PreconditionResult preconditionResult = (PreconditionResult)theEObject;
         T result = casePreconditionResult(preconditionResult);
+        if (result == null) result = caseAssureResult(preconditionResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -111,6 +116,23 @@ public class AssureSwitch<T> extends Switch<T>
       {
         VerificationActivityResult verificationActivityResult = (VerificationActivityResult)theEObject;
         T result = caseVerificationActivityResult(verificationActivityResult);
+        if (result == null) result = caseVerificationExpr(verificationActivityResult);
+        if (result == null) result = caseAssureResult(verificationActivityResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AssurePackage.ASSURE_RESULT:
+      {
+        AssureResult assureResult = (AssureResult)theEObject;
+        T result = caseAssureResult(assureResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AssurePackage.VERIFICATION_EXPR:
+      {
+        VerificationExpr verificationExpr = (VerificationExpr)theEObject;
+        T result = caseVerificationExpr(verificationExpr);
+        if (result == null) result = caseAssureResult(verificationExpr);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -125,7 +147,8 @@ public class AssureSwitch<T> extends Switch<T>
       {
         FailThenResult failThenResult = (FailThenResult)theEObject;
         T result = caseFailThenResult(failThenResult);
-        if (result == null) result = caseVerificationActivityResult(failThenResult);
+        if (result == null) result = caseVerificationExpr(failThenResult);
+        if (result == null) result = caseAssureResult(failThenResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -133,7 +156,8 @@ public class AssureSwitch<T> extends Switch<T>
       {
         AndThenResult andThenResult = (AndThenResult)theEObject;
         T result = caseAndThenResult(andThenResult);
-        if (result == null) result = caseVerificationActivityResult(andThenResult);
+        if (result == null) result = caseVerificationExpr(andThenResult);
+        if (result == null) result = caseAssureResult(andThenResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -233,6 +257,38 @@ public class AssureSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVerificationActivityResult(VerificationActivityResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAssureResult(AssureResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Verification Expr</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Verification Expr</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVerificationExpr(VerificationExpr object)
   {
     return null;
   }

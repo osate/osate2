@@ -1183,8 +1183,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cMethodTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cMethodTypeSupportedTypesEnumRuleCall_3_0 = (RuleCall)cMethodTypeAssignment_3.eContents().get(0);
-		private final Assignment cMethodAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cMethodQualifiedNameParserRuleCall_4_0 = (RuleCall)cMethodAssignment_4.eContents().get(0);
+		private final Assignment cMethodPathAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cMethodPathQualifiedNameParserRuleCall_4_0 = (RuleCall)cMethodPathAssignment_4.eContents().get(0);
 		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cUnorderedGroup_5.eContents().get(0);
 		private final Keyword cTitleKeyword_5_0_0 = (Keyword)cGroup_5_0.eContents().get(0);
@@ -1204,12 +1204,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationMethod:
-		//	"method" name=ID "[" methodType=SupportedTypes method=QualifiedName // parameters (in addition to the model element
+		//	"method" name=ID "[" methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
 		//	(("title" title=ValueString)? & ("description" description=Description)? & ("category"
 		//	category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"method" name=ID "[" methodType=SupportedTypes method=QualifiedName // parameters (in addition to the model element
+		//"method" name=ID "[" methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
 		//(("title" title=ValueString)? & ("description" description=Description)? & ("category"
 		//category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]"
 		public Group getGroup() { return cGroup; }
@@ -1232,11 +1232,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//SupportedTypes
 		public RuleCall getMethodTypeSupportedTypesEnumRuleCall_3_0() { return cMethodTypeSupportedTypesEnumRuleCall_3_0; }
 
-		//method=QualifiedName
-		public Assignment getMethodAssignment_4() { return cMethodAssignment_4; }
+		//methodPath=QualifiedName
+		public Assignment getMethodPathAssignment_4() { return cMethodPathAssignment_4; }
 
 		//QualifiedName
-		public RuleCall getMethodQualifiedNameParserRuleCall_4_0() { return cMethodQualifiedNameParserRuleCall_4_0; }
+		public RuleCall getMethodPathQualifiedNameParserRuleCall_4_0() { return cMethodPathQualifiedNameParserRuleCall_4_0; }
 
 		//("title" title=ValueString)? & ("description" description=Description)? & ("category"
 		//category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*
@@ -1620,7 +1620,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationMethod:
-	//	"method" name=ID "[" methodType=SupportedTypes method=QualifiedName // parameters (in addition to the model element
+	//	"method" name=ID "[" methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
 	//	(("title" title=ValueString)? & ("description" description=Description)? & ("category"
 	//	category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {

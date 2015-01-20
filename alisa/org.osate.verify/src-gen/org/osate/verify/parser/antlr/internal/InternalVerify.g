@@ -2107,16 +2107,16 @@ ruleVerificationMethod returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodQualifiedNameParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_4_0()); 
 	    }
-		lv_method_4_0=ruleQualifiedName		{
+		lv_methodPath_4_0=ruleQualifiedName		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
        		set(
        			$current, 
-       			"method",
-        		lv_method_4_0, 
+       			"methodPath",
+        		lv_methodPath_4_0, 
         		"QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }

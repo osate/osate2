@@ -9,7 +9,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
-import org.osate.alisa.workbench.ui.utils.AlisaLoader;
+import org.osate.alisa.common.ui.util.AlisaLoader;
 import org.osate.ui.dialogs.Dialog;
 
 public class AlisaTestHandler extends AadlHandler {

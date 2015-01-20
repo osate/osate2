@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -38,18 +37,15 @@ import org.osate.verify.verify.VerificationActivity;
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getExecutionState <em>Execution State</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getResult <em>Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getAssumptionResult <em>Assumption Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getPreconditionResult <em>Precondition Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getSecond <em>Second</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container implements VerificationActivityResult
+public class VerificationActivityResultImpl extends VerificationExprImpl implements VerificationActivityResult
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -112,26 +108,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
   protected VerificationResult result;
 
   /**
-   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected static final int WEIGHT_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeight()
-   * @generated
-   * @ordered
-   */
-  protected int weight = WEIGHT_EDEFAULT;
-
-  /**
    * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -170,26 +146,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
    * @ordered
    */
   protected EList<PreconditionResult> preconditionResult;
-
-  /**
-   * The cached value of the '{@link #getFirst() <em>First</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getFirst()
-   * @generated
-   * @ordered
-   */
-  protected EList<VerificationActivityResult> first;
-
-  /**
-   * The cached value of the '{@link #getSecond() <em>Second</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSecond()
-   * @generated
-   * @ordered
-   */
-  protected EList<VerificationActivityResult> second;
 
   /**
    * <!-- begin-user-doc -->
@@ -354,29 +310,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getWeight()
-  {
-    return weight;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setWeight(int newWeight)
-  {
-    int oldWeight = weight;
-    weight = newWeight;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__WEIGHT, oldWeight, weight));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getSucessMsg()
   {
     return sucessMsg;
@@ -428,34 +361,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationActivityResult> getFirst()
-  {
-    if (first == null)
-    {
-      first = new EObjectContainmentEList<VerificationActivityResult>(VerificationActivityResult.class, this, AssurePackage.VERIFICATION_ACTIVITY_RESULT__FIRST);
-    }
-    return first;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<VerificationActivityResult> getSecond()
-  {
-    if (second == null)
-    {
-      second = new EObjectContainmentEList<VerificationActivityResult>(VerificationActivityResult.class, this, AssurePackage.VERIFICATION_ACTIVITY_RESULT__SECOND);
-    }
-    return second;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -467,10 +372,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
         return ((InternalEList<?>)getAssumptionResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         return ((InternalEList<?>)getPreconditionResult()).basicRemove(otherEnd, msgs);
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__FIRST:
-        return ((InternalEList<?>)getFirst()).basicRemove(otherEnd, msgs);
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SECOND:
-        return ((InternalEList<?>)getSecond()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -494,18 +395,12 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
         return getExecutionState();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
         return getResult();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__WEIGHT:
-        return getWeight();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
         return getSucessMsg();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
         return getAssumptionResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         return getPreconditionResult();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__FIRST:
-        return getFirst();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SECOND:
-        return getSecond();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -533,9 +428,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
         setResult((VerificationResult)newValue);
         return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__WEIGHT:
-        setWeight((Integer)newValue);
-        return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
         setSucessMsg((String)newValue);
         return;
@@ -546,14 +438,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         getPreconditionResult().clear();
         getPreconditionResult().addAll((Collection<? extends PreconditionResult>)newValue);
-        return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__FIRST:
-        getFirst().clear();
-        getFirst().addAll((Collection<? extends VerificationActivityResult>)newValue);
-        return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SECOND:
-        getSecond().clear();
-        getSecond().addAll((Collection<? extends VerificationActivityResult>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -581,9 +465,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
         setResult((VerificationResult)null);
         return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__WEIGHT:
-        setWeight(WEIGHT_EDEFAULT);
-        return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
         setSucessMsg(SUCESS_MSG_EDEFAULT);
         return;
@@ -592,12 +473,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
         return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         getPreconditionResult().clear();
-        return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__FIRST:
-        getFirst().clear();
-        return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SECOND:
-        getSecond().clear();
         return;
     }
     super.eUnset(featureID);
@@ -621,18 +496,12 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
         return executionState != EXECUTION_STATE_EDEFAULT;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
         return result != null;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__WEIGHT:
-        return weight != WEIGHT_EDEFAULT;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
         return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
         return assumptionResult != null && !assumptionResult.isEmpty();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
         return preconditionResult != null && !preconditionResult.isEmpty();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__FIRST:
-        return first != null && !first.isEmpty();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SECOND:
-        return second != null && !second.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -652,8 +521,6 @@ public class VerificationActivityResultImpl extends MinimalEObjectImpl.Container
     result.append(name);
     result.append(", executionState: ");
     result.append(executionState);
-    result.append(", weight: ");
-    result.append(weight);
     result.append(", sucessMsg: ");
     result.append(sucessMsg);
     result.append(')');

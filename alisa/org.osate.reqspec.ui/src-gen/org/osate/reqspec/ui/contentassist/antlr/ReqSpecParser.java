@@ -190,8 +190,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getHazardAccess().getTargetAssignment_3_0_0_1(), "rule__Hazard__TargetAssignment_3_0_0_1");
 					put(grammarAccess.getHazardAccess().getCategoryAssignment_3_0_2_1(), "rule__Hazard__CategoryAssignment_3_0_2_1");
 					put(grammarAccess.getHazardAccess().getDescriptionAssignment_3_1_1(), "rule__Hazard__DescriptionAssignment_3_1_1");
-					put(grammarAccess.getHazardAccess().getHazardReferenceAssignment_3_2_2(), "rule__Hazard__HazardReferenceAssignment_3_2_2");
-					put(grammarAccess.getHazardAccess().getHazardReferenceAssignment_3_2_3_1(), "rule__Hazard__HazardReferenceAssignment_3_2_3_1");
+					put(grammarAccess.getHazardAccess().getRequirementReferenceAssignment_3_2_2(), "rule__Hazard__RequirementReferenceAssignment_3_2_2");
+					put(grammarAccess.getHazardAccess().getRequirementReferenceAssignment_3_2_3_1(), "rule__Hazard__RequirementReferenceAssignment_3_2_3_1");
 					put(grammarAccess.getHazardAccess().getRationaleAssignment_3_3_1(), "rule__Hazard__RationaleAssignment_3_3_1");
 					put(grammarAccess.getExternalDocumentAccess().getDocReferenceAssignment_0(), "rule__ExternalDocument__DocReferenceAssignment_0");
 					put(grammarAccess.getExternalDocumentAccess().getDocFragmentAssignment_1_1(), "rule__ExternalDocument__DocFragmentAssignment_1_1");

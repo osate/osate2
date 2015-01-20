@@ -3,22 +3,15 @@
  */
 package org.osate.verify.generator
 
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IGenerator
-import org.eclipse.xtext.generator.IFileSystemAccess
-import org.osate.verify.verify.VerificationLibrary
-import org.osate.verify.verify.Verification
-import org.osate.verify.verify.VerificationFolder
-import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.impl.VerificationLibraryImpl
-import org.osate.verify.verify.impl.VerificationFolderImpl
-import org.osate.verify.verify.impl.VerificationActivityImpl
-import org.eclipse.emf.ecore.EObject
-import org.osate.verify.verify.VerificationMethodRegistry
-import org.osate.verify.verify.VerificationMethod
-import java.util.List
-import java.util.ArrayList
 import java.util.HashSet
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.generator.IFileSystemAccess
+import org.eclipse.xtext.generator.IGenerator
+import org.osate.verify.verify.Verification
+import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationFolder
+import org.osate.verify.verify.VerificationLibrary
+import org.osate.verify.verify.VerificationMethodRegistry
 
 /**
  * Generates code from your model files on save.
@@ -75,7 +68,7 @@ class «vl.name» {
 		'''
 		@Test
 		public void «va.name» (ComponentInstance ci){
-			org.junit.Assert.assertTrue(«va.method.method»(ci));
+			org.junit.Assert.assertTrue(«va.method.methodPath»(ci));
 		}
 		'''
 	}
@@ -88,7 +81,7 @@ class «vl.name» {
 	}
 	
 	def dispatch String generateImports(VerificationActivity va){
-		val themethod = va.method?.method
+		val themethod = va.method?.methodPath
 		if (themethod != null && addedImports.add(themethod)) {
 			val substr = themethod.lastIndexOf('.');
 			'''import «themethod.substring(0,themethod.lastIndexOf('.'))»;

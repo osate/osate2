@@ -28,8 +28,9 @@ Require-Bundle: org.osate.alisa.common;visibility:=reexport,
  org.eclipse.jdt.debug.ui
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.osate.alisa.common.ui.quickfix,
- org.osate.alisa.common.ui.contentassist,
+Export-Package: org.osate.alisa.common.ui.contentassist,
  org.osate.alisa.common.ui.contentassist.antlr,
- org.osate.alisa.common.ui.internal
+ org.osate.alisa.common.ui.internal,
+ org.osate.alisa.common.ui.quickfix,
+ org.osate.alisa.common.ui.util
 Bundle-Activator: org.osate.alisa.common.ui.internal.CommonActivator

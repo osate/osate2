@@ -29,7 +29,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.HazardImpl#getCategory <em>Category</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.HazardImpl#getHazardReference <em>Hazard Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.HazardImpl#getRequirementReference <em>Requirement Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,14 +48,14 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
   protected HazardCategory category;
 
   /**
-   * The cached value of the '{@link #getHazardReference() <em>Hazard Reference</em>}' reference list.
+   * The cached value of the '{@link #getRequirementReference() <em>Requirement Reference</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getHazardReference()
+   * @see #getRequirementReference()
    * @generated
    * @ordered
    */
-  protected EList<Requirement> hazardReference;
+  protected EList<Requirement> requirementReference;
 
   /**
    * <!-- begin-user-doc -->
@@ -126,13 +126,13 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Requirement> getHazardReference()
+  public EList<Requirement> getRequirementReference()
   {
-    if (hazardReference == null)
+    if (requirementReference == null)
     {
-      hazardReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.HAZARD__HAZARD_REFERENCE);
+      requirementReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.HAZARD__REQUIREMENT_REFERENCE);
     }
-    return hazardReference;
+    return requirementReference;
   }
 
   /**
@@ -148,8 +148,8 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
       case ReqSpecPackage.HAZARD__CATEGORY:
         if (resolve) return getCategory();
         return basicGetCategory();
-      case ReqSpecPackage.HAZARD__HAZARD_REFERENCE:
-        return getHazardReference();
+      case ReqSpecPackage.HAZARD__REQUIREMENT_REFERENCE:
+        return getRequirementReference();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -168,9 +168,9 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
       case ReqSpecPackage.HAZARD__CATEGORY:
         setCategory((HazardCategory)newValue);
         return;
-      case ReqSpecPackage.HAZARD__HAZARD_REFERENCE:
-        getHazardReference().clear();
-        getHazardReference().addAll((Collection<? extends Requirement>)newValue);
+      case ReqSpecPackage.HAZARD__REQUIREMENT_REFERENCE:
+        getRequirementReference().clear();
+        getRequirementReference().addAll((Collection<? extends Requirement>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -189,8 +189,8 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
       case ReqSpecPackage.HAZARD__CATEGORY:
         setCategory((HazardCategory)null);
         return;
-      case ReqSpecPackage.HAZARD__HAZARD_REFERENCE:
-        getHazardReference().clear();
+      case ReqSpecPackage.HAZARD__REQUIREMENT_REFERENCE:
+        getRequirementReference().clear();
         return;
     }
     super.eUnset(featureID);
@@ -208,8 +208,8 @@ public class HazardImpl extends ContractualElementImpl implements Hazard
     {
       case ReqSpecPackage.HAZARD__CATEGORY:
         return category != null;
-      case ReqSpecPackage.HAZARD__HAZARD_REFERENCE:
-        return hazardReference != null && !hazardReference.isEmpty();
+      case ReqSpecPackage.HAZARD__REQUIREMENT_REFERENCE:
+        return requirementReference != null && !requirementReference.isEmpty();
     }
     return super.eIsSet(featureID);
   }

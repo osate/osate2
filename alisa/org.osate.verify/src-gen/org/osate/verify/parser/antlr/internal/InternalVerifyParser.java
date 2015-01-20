@@ -5616,7 +5616,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationMethod"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2059:1: ruleVerificationMethod returns [EObject current=null] : (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_method_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']' ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2059:1: ruleVerificationMethod returns [EObject current=null] : (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_methodPath_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']' ) ;
     public final EObject ruleVerificationMethod() throws RecognitionException {
         EObject current = null;
 
@@ -5629,7 +5629,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         Token otherlv_13=null;
         Enumerator lv_methodType_3_0 = null;
 
-        AntlrDatatypeRuleToken lv_method_4_0 = null;
+        AntlrDatatypeRuleToken lv_methodPath_4_0 = null;
 
         AntlrDatatypeRuleToken lv_title_7_0 = null;
 
@@ -5641,11 +5641,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2062:28: ( (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_method_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']' ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2063:1: (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_method_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2062:28: ( (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_methodPath_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2063:1: (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_methodPath_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']' )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2063:1: (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_method_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']' )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2063:3: otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_method_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']'
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2063:1: (otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_methodPath_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']' )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2063:3: otherlv_0= 'method' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_methodType_3_0= ruleSupportedTypes ) ) ( (lv_methodPath_4_0= ruleQualifiedName ) ) ( ( ( ( ({...}? => ( ({...}? => (otherlv_6= 'title' ( (lv_title_7_0= ruleValueString ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= 'description' ( (lv_description_9_0= ruleDescription ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= 'category' ( ( ruleCatRef ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (lv_conditions_12_0= ruleVerificationCondition ) ) )+ ) ) )* ) ) ) otherlv_13= ']'
             {
             otherlv_0=(Token)match(input,27,FOLLOW_27_in_ruleVerificationMethod4982); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -5724,19 +5724,19 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2107:2: ( (lv_method_4_0= ruleQualifiedName ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2108:1: (lv_method_4_0= ruleQualifiedName )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2107:2: ( (lv_methodPath_4_0= ruleQualifiedName ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2108:1: (lv_methodPath_4_0= ruleQualifiedName )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2108:1: (lv_method_4_0= ruleQualifiedName )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2109:3: lv_method_4_0= ruleQualifiedName
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2108:1: (lv_methodPath_4_0= ruleQualifiedName )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:2109:3: lv_methodPath_4_0= ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodQualifiedNameParserRuleCall_4_0()); 
+              	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_4_0()); 
               	    
             }
             pushFollow(FOLLOW_ruleQualifiedName_in_ruleVerificationMethod5058);
-            lv_method_4_0=ruleQualifiedName();
+            lv_methodPath_4_0=ruleQualifiedName();
 
             state._fsp--;
             if (state.failed) return current;
@@ -5747,8 +5747,8 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
               	        }
                      		set(
                      			current, 
-                     			"method",
-                      		lv_method_4_0, 
+                     			"methodPath",
+                      		lv_methodPath_4_0, 
                       		"QualifiedName");
               	        afterParserOrEnumRuleCall();
               	    

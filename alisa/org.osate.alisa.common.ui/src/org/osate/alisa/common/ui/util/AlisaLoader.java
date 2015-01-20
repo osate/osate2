@@ -1,4 +1,4 @@
-package org.osate.alisa.workbench.ui.utils;
+package org.osate.alisa.common.ui.util;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.osate.alisa.workbench.ui.internal.AlisaActivator;
+import org.osate.alisa.common.ui.internal.CommonActivator;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -68,7 +68,7 @@ public class AlisaLoader {
 			/**
 			 * Get all bundles and add them to the classpath as well.
 			 */
-			BundleContext bundleContext = AlisaActivator.getInstance().getBundle().getBundleContext();
+			BundleContext bundleContext = CommonActivator.getInstance().getBundle().getBundleContext();
 			Bundle[] allBundles = bundleContext.getBundles();
 			for (Bundle bundle : allBundles) {
 				String bundleLocation = bundle.getLocation();

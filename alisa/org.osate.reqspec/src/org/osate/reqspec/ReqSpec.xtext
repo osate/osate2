@@ -107,7 +107,7 @@ Hazard:
  	'['
  	('category'  category=[categories::HazardCategory|CatRef])?
 	&('description'  description=Description)? 
-	&('mitigated' 'by' hazardReference+=[Requirement|QualifiedName] (',' hazardReference+=[Requirement|QualifiedName])*)? 
+	&('mitigated' 'by' requirementReference+=[Requirement|QualifiedName] (',' requirementReference+=[Requirement|QualifiedName])*)? 
 	&('rationale'  rationale=STRING)? 
 	)
 	']';

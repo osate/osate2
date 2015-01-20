@@ -71,6 +71,8 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.ASSUMPTION_RESULT: return createAssumptionResult();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
+      case AssurePackage.ASSURE_RESULT: return createAssureResult();
+      case AssurePackage.VERIFICATION_EXPR: return createVerificationExpr();
       case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       case AssurePackage.FAIL_THEN_RESULT: return createFailThenResult();
       case AssurePackage.AND_THEN_RESULT: return createAndThenResult();
@@ -181,6 +183,28 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     VerificationActivityResultImpl verificationActivityResult = new VerificationActivityResultImpl();
     return verificationActivityResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AssureResult createAssureResult()
+  {
+    AssureResultImpl assureResult = new AssureResultImpl();
+    return assureResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationExpr createVerificationExpr()
+  {
+    VerificationExprImpl verificationExpr = new VerificationExprImpl();
+    return verificationExpr;
   }
 
   /**

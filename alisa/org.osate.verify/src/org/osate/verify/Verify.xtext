@@ -120,7 +120,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 VerificationMethod:
 	'method' name=ID
 	'['
-	methodType=SupportedTypes method=QualifiedName
+	methodType=SupportedTypes methodPath=QualifiedName
 	// parameters (in addition to the model element
 	(
 		('title' title=ValueString)?

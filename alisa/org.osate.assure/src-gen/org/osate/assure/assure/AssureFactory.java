@@ -77,6 +77,24 @@ public interface AssureFactory extends EFactory
   VerificationActivityResult createVerificationActivityResult();
 
   /**
+   * Returns a new object of class '<em>Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result</em>'.
+   * @generated
+   */
+  AssureResult createAssureResult();
+
+  /**
+   * Returns a new object of class '<em>Verification Expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Expr</em>'.
+   * @generated
+   */
+  VerificationExpr createVerificationExpr();
+
+  /**
    * Returns a new object of class '<em>Verification Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

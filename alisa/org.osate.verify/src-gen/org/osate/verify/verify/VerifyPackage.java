@@ -683,13 +683,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__METHOD_TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Method</b></em>' attribute.
+   * The feature id for the '<em><b>Method Path</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD = 2;
+  int VERIFICATION_METHOD__METHOD_PATH = 2;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -1633,15 +1633,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethod_MethodType();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethod <em>Method</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Method</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getMethod()
+   * @return the meta object for the attribute '<em>Method Path</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getMethodPath()
    * @see #getVerificationMethod()
    * @generated
    */
-  EAttribute getVerificationMethod_Method();
+  EAttribute getVerificationMethod_MethodPath();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}'.
@@ -2348,12 +2348,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD__METHOD_TYPE = eINSTANCE.getVerificationMethod_MethodType();
 
     /**
-     * The meta object literal for the '<em><b>Method</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Method Path</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_METHOD__METHOD = eINSTANCE.getVerificationMethod_Method();
+    EAttribute VERIFICATION_METHOD__METHOD_PATH = eINSTANCE.getVerificationMethod_MethodPath();
 
     /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.

@@ -13,12 +13,14 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 CaseResult:
 	'case' name=ID 
 	'for' target=[aadl2::Classifier|AadlClassifierReference]
-	('uri' instanceURI= [instance::InstanceObject|URIID])?
+	('instance' instance= [instance::InstanceObject|URIID])?
 	'['
-	('success'  passCount=INT)
-	('fail'  failCount=INT)
-	('unknown' unknownCount=INT) 
-	('tbd' tbdCount=INT)
+	('success'  successCount=INT)?
+	('fail'  failCount=INT)?
+	('error' errorCount=INT)? 
+	('failthen' failthenCount=INT)?
+	('skipped' skippedCount=INT)?
+	('total' totalCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
 	(subCaseResult += CaseResult)*
@@ -31,10 +33,12 @@ CaseResult:
 ClaimResult:
 	'claim' name=ID 'for' target=[ReqSpec::Requirement|QualifiedName]
 	'['
-	('success'  successCount=INT)
-	('fail'  failCount=INT)
-	('unknown' unknownCount=INT) 
-	('tbd' tbdCount=INT)
+	('success'  successCount=INT)?
+	('fail'  failCount=INT)?
+	('error' errorCount=INT)? 
+	('failthen' failthenCount=INT)?
+	('skipped' skippedCount=INT)?
+	('total' totalCount=INT)?
 	('weight' weight = INT)?
 	('successMsg' sucessMsg= STRING)?
 	(subClaimResult += ClaimResult)*
@@ -46,30 +50,31 @@ ClaimResult:
 HazardResult:
 	'hazard' name=ID 'for' target=[ReqSpec::Hazard|QualifiedName]
 	'['
-	('success'  passCount=INT)
-	('fail'  failCount=INT)
-	('unknown' unknownCount=INT) 
-	('tbd' tbdCount=INT)
+	('success'  successCount=INT)?
+	('fail'  failCount=INT)?
+	('error' errorCount=INT)? 
+	('failthen' failthenCount=INT)?
+	('skipped' skippedCount=INT)?
+	('total' totalCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
 	(claimResult+= ClaimResult)*
 	']'  
 ;
-//AggregateResult:  ClaimResult | HazardResult | CaseResult
-//	| AssumptionResult | PreconditionResult
-//;
 
 AssumptionResult:
 	'assumption' 	name=ID 
 	'for' target= [Verify::VerificationAssumption|QualifiedName]
 	'['
-	('success'  successCount=INT)
-	('fail'  failCount=INT)
-	('unknown' unknownCount=INT) 
-	('tbd' tbdCount=INT)
+	('success'  successCount=INT)?
+	('fail'  failCount=INT)?
+	('error' errorCount=INT)? 
+	('failthen' failthenCount=INT)?
+	('skipped' skippedCount=INT)?
+	('total' totalCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
-	(verificationResult+= VerificationExpr)*
+	(verificationActivityResult+= VerificationExpr)*
 	']'  
 ;
 
@@ -77,13 +82,15 @@ PreconditionResult:
 	'precondition' 	name=ID 
 	'for' target=[Verify::VerificationPrecondition|QualifiedName]
 	'['
-	('success'  successCount=INT)
-	('fail'  failCount=INT)
-	('unknown' unknownCount=INT) 
-	('tbd' tbdCount=INT)
+	('success'  successCount=INT)?
+	('fail'  failCount=INT)?
+	('error' errorCount=INT)?
+	('failthen' failthenCount=INT)?
+	('skipped' skippedCount=INT)?
+	('total' totalCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
-	(verificationResult+= VerificationExpr)*
+	(verificationActivityResult+= VerificationExpr)*
 	']'  
 ;
 
@@ -95,6 +102,12 @@ VerificationActivityResult:
 	'['
 	('executionstate'  executionState=VerificationExecutionState)
 	(result=VerificationResult)
+	('success'  successCount=INT)?
+	('fail'  failCount=INT)?
+	('error' errorCount=INT)? 
+	('failthen' failthenCount=INT)?
+	('skipped' skippedCount=INT)?
+	('total' totalCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
 	(assumptionResult+= AssumptionResult)*
@@ -102,9 +115,23 @@ VerificationActivityResult:
 	']'  
 ;
 
-VerificationExpr returns VerificationActivityResult:
+AssureResult:
+	VerificationExpr |
+		CaseResult | ClaimResult | HazardResult | PreconditionResult | AssumptionResult
+	;
+
+VerificationExpr returns VerificationExpr:
 	VerificationActivityResult |
-	('failthen' {FailThenResult}|'andthen' {AndThenResult}) first+=VerificationActivityResult 'do' second+=VerificationActivityResult
+	('failthen' {FailThenResult}|'andthen' {AndThenResult}) first+=VerificationExpr 'do' second+=VerificationExpr
+	'['
+	('success'  successCount=INT)?
+	('fail'  failCount=INT)?
+	('error' errorCount=INT)? 
+	('failthen' failthenCount=INT)?
+	('skipped' skippedCount=INT)?
+	('total' totalCount=INT)?
+	('weight' weight = INT)?
+	']'
 ;
 
 VerificationResult returns VerificationResult:
@@ -112,12 +139,13 @@ VerificationResult returns VerificationResult:
 	('failtype' type=STRING)?
 	('failmessage' failMsg=STRING)?
 	('failtarget' failTarget=[ecore::EObject|QualifiedName])?
+	('report' resultReport=[ecore::EObject|QualifiedName])? // pointer to separate report
 ;
 
 
 
 enum VerificationResultState :
-	TBD='tbd'| SUCCESS='success' | FAIL='fail' | UNKNOWN='unknown' ;
+	TBD='tbd'| SUCCESS='success' | FAIL='fail' | error='error' ;
 
 
 

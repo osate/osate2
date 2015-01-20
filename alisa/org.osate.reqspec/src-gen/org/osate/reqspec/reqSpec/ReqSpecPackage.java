@@ -843,13 +843,13 @@ public interface ReqSpecPackage extends EPackage
   int HAZARD__CATEGORY = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Hazard Reference</b></em>' reference list.
+   * The feature id for the '<em><b>Requirement Reference</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int HAZARD__HAZARD_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
+  int HAZARD__REQUIREMENT_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Hazard</em>' class.
@@ -1459,15 +1459,15 @@ public interface ReqSpecPackage extends EPackage
   EReference getHazard_Category();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Hazard#getHazardReference <em>Hazard Reference</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Hazard#getRequirementReference <em>Requirement Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Hazard Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.Hazard#getHazardReference()
+   * @return the meta object for the reference list '<em>Requirement Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.Hazard#getRequirementReference()
    * @see #getHazard()
    * @generated
    */
-  EReference getHazard_HazardReference();
+  EReference getHazard_RequirementReference();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ExternalDocument <em>External Document</em>}'.
@@ -1965,12 +1965,12 @@ public interface ReqSpecPackage extends EPackage
     EReference HAZARD__CATEGORY = eINSTANCE.getHazard_Category();
 
     /**
-     * The meta object literal for the '<em><b>Hazard Reference</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Requirement Reference</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference HAZARD__HAZARD_REFERENCE = eINSTANCE.getHazard_HazardReference();
+    EReference HAZARD__REQUIREMENT_REFERENCE = eINSTANCE.getHazard_RequirementReference();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.

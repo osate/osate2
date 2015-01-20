@@ -23,6 +23,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.impl.CaseResultImpl;
+import org.osate.assure.evaluator.AssureProcessing;
 
 public class AssureHandler extends AbstractHandler {
 	private static final String RERUN_ID = "org.osate.alisa.commands.rerunAlisa";
@@ -121,12 +122,6 @@ public class AssureHandler extends AbstractHandler {
 	protected IStatus runJob(CaseResultImpl obj, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
-
-		Object[] args;
-		args = new Object[1];
-
-		args[0] = obj;
-		System.out.println("root=" + obj);
 		AssureProcessing.processCaseResult(obj);
 
 		long stop = System.currentTimeMillis();

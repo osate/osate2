@@ -4,8 +4,6 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.osate.verify.verify.VerificationActivity;
 
 /**
@@ -20,12 +18,9 @@ import org.osate.verify.verify.VerificationActivity;
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getExecutionState <em>Execution State</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getResult <em>Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getAssumptionResult <em>Assumption Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getPreconditionResult <em>Precondition Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.assure.assure.VerificationActivityResult#getSecond <em>Second</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,7 +28,7 @@ import org.osate.verify.verify.VerificationActivity;
  * @model
  * @generated
  */
-public interface VerificationActivityResult extends EObject
+public interface VerificationActivityResult extends VerificationExpr
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -143,32 +138,6 @@ public interface VerificationActivityResult extends EObject
   void setResult(VerificationResult value);
 
   /**
-   * Returns the value of the '<em><b>Weight</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Weight</em>' attribute.
-   * @see #setWeight(int)
-   * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult_Weight()
-   * @model
-   * @generated
-   */
-  int getWeight();
-
-  /**
-   * Sets the value of the '{@link org.osate.assure.assure.VerificationActivityResult#getWeight <em>Weight</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Weight</em>' attribute.
-   * @see #getWeight()
-   * @generated
-   */
-  void setWeight(int value);
-
-  /**
    * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -225,37 +194,5 @@ public interface VerificationActivityResult extends EObject
    * @generated
    */
   EList<PreconditionResult> getPreconditionResult();
-
-  /**
-   * Returns the value of the '<em><b>First</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.VerificationActivityResult}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>First</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>First</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult_First()
-   * @model containment="true"
-   * @generated
-   */
-  EList<VerificationActivityResult> getFirst();
-
-  /**
-   * Returns the value of the '<em><b>Second</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.VerificationActivityResult}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Second</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Second</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getVerificationActivityResult_Second()
-   * @model containment="true"
-   * @generated
-   */
-  EList<VerificationActivityResult> getSecond();
 
 } // VerificationActivityResult

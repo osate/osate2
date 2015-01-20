@@ -6775,9 +6775,9 @@ rule__Hazard__Group_3_2__2__Impl
     }
 :
 (
-{ before(grammarAccess.getHazardAccess().getHazardReferenceAssignment_3_2_2()); }
-(rule__Hazard__HazardReferenceAssignment_3_2_2)
-{ after(grammarAccess.getHazardAccess().getHazardReferenceAssignment_3_2_2()); }
+{ before(grammarAccess.getHazardAccess().getRequirementReferenceAssignment_3_2_2()); }
+(rule__Hazard__RequirementReferenceAssignment_3_2_2)
+{ after(grammarAccess.getHazardAccess().getRequirementReferenceAssignment_3_2_2()); }
 )
 
 ;
@@ -6870,9 +6870,9 @@ rule__Hazard__Group_3_2_3__1__Impl
     }
 :
 (
-{ before(grammarAccess.getHazardAccess().getHazardReferenceAssignment_3_2_3_1()); }
-(rule__Hazard__HazardReferenceAssignment_3_2_3_1)
-{ after(grammarAccess.getHazardAccess().getHazardReferenceAssignment_3_2_3_1()); }
+{ before(grammarAccess.getHazardAccess().getRequirementReferenceAssignment_3_2_3_1()); }
+(rule__Hazard__RequirementReferenceAssignment_3_2_3_1)
+{ after(grammarAccess.getHazardAccess().getRequirementReferenceAssignment_3_2_3_1()); }
 )
 
 ;
@@ -10350,18 +10350,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Hazard__HazardReferenceAssignment_3_2_2
+rule__Hazard__RequirementReferenceAssignment_3_2_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getHazardAccess().getHazardReferenceRequirementCrossReference_3_2_2_0()); }
+{ before(grammarAccess.getHazardAccess().getRequirementReferenceRequirementCrossReference_3_2_2_0()); }
 (
-{ before(grammarAccess.getHazardAccess().getHazardReferenceRequirementQualifiedNameParserRuleCall_3_2_2_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getHazardAccess().getHazardReferenceRequirementQualifiedNameParserRuleCall_3_2_2_0_1()); }
+{ before(grammarAccess.getHazardAccess().getRequirementReferenceRequirementQualifiedNameParserRuleCall_3_2_2_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getHazardAccess().getRequirementReferenceRequirementQualifiedNameParserRuleCall_3_2_2_0_1()); }
 )
-{ after(grammarAccess.getHazardAccess().getHazardReferenceRequirementCrossReference_3_2_2_0()); }
+{ after(grammarAccess.getHazardAccess().getRequirementReferenceRequirementCrossReference_3_2_2_0()); }
 )
 
 ;
@@ -10369,18 +10369,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Hazard__HazardReferenceAssignment_3_2_3_1
+rule__Hazard__RequirementReferenceAssignment_3_2_3_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getHazardAccess().getHazardReferenceRequirementCrossReference_3_2_3_1_0()); }
+{ before(grammarAccess.getHazardAccess().getRequirementReferenceRequirementCrossReference_3_2_3_1_0()); }
 (
-{ before(grammarAccess.getHazardAccess().getHazardReferenceRequirementQualifiedNameParserRuleCall_3_2_3_1_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getHazardAccess().getHazardReferenceRequirementQualifiedNameParserRuleCall_3_2_3_1_0_1()); }
+{ before(grammarAccess.getHazardAccess().getRequirementReferenceRequirementQualifiedNameParserRuleCall_3_2_3_1_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getHazardAccess().getRequirementReferenceRequirementQualifiedNameParserRuleCall_3_2_3_1_0_1()); }
 )
-{ after(grammarAccess.getHazardAccess().getHazardReferenceRequirementCrossReference_3_2_3_1_0()); }
+{ after(grammarAccess.getHazardAccess().getRequirementReferenceRequirementCrossReference_3_2_3_1_0()); }
 )
 
 ;

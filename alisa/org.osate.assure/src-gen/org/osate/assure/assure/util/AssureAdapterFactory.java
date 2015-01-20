@@ -105,6 +105,16 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createVerificationActivityResultAdapter();
       }
       @Override
+      public Adapter caseAssureResult(AssureResult object)
+      {
+        return createAssureResultAdapter();
+      }
+      @Override
+      public Adapter caseVerificationExpr(VerificationExpr object)
+      {
+        return createVerificationExprAdapter();
+      }
+      @Override
       public Adapter caseVerificationResult(VerificationResult object)
       {
         return createVerificationResultAdapter();
@@ -227,6 +237,36 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVerificationActivityResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.AssureResult <em>Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.AssureResult
+   * @generated
+   */
+  public Adapter createAssureResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.VerificationExpr <em>Verification Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.VerificationExpr
+   * @generated
+   */
+  public Adapter createVerificationExprAdapter()
   {
     return null;
   }

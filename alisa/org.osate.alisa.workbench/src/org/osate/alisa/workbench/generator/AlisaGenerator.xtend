@@ -26,6 +26,7 @@ import org.osate.verify.verify.VerificationPrecondition
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import org.osate.verify.verify.WhenExpr
+import org.osate.reqspec.reqSpec.Requirement
 
 /**
  * Generates code from your model files on save.
@@ -56,13 +57,8 @@ class AlisaGenerator implements IGenerator {
 		'''	
 		«IF !myplans.empty»
 		case «acp.name» for «ci.componentClassifier.getQualifiedName»
-		uri "«ci.URI.toString»"
+		instance "«ci.URI.toString»"
 		[
-			success 0
-			fail 0
-			unknown 0
-			tbd 0
-			weight 1
 			«FOR myplan : myplans»
 			«FOR claim : myplan.claim»
 			«claim.generate»
@@ -74,21 +70,26 @@ class AlisaGenerator implements IGenerator {
 		]
 		«ENDIF»
 		'''
+		// XXX add in hazards for system
 	}
 
 	def CharSequence generate(Claim claim) {
 		'''
 		claim «claim.name» for «claim?.requirement.fullyQualifiedName»
 		[
-			success  0
-			fail 0
-			unknown 0
-			tbd 0
-			weight 1
 		    «FOR subclaim : claim?.subclaim»
 			«subclaim.generate»
 		    «ENDFOR»
 		    «claim.assert.generate»
+		]
+		'''
+	}
+
+	def CharSequence generate(Requirement req) {
+		'''
+		claim «req.name» for «req.fullyQualifiedName»
+		[
+«««	assert is part of claim not req	    «claim.assert.generate»
 		]
 		'''
 	}
@@ -104,7 +105,8 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def doGenerate(AllExpr expr) {
-		'''«FOR subexpr : expr.all»
+		'''
+		«FOR subexpr : expr.all»
 		«subexpr.generate»
 		«ENDFOR»
 		'''
@@ -116,6 +118,8 @@ class AlisaGenerator implements IGenerator {
 			«expr.left.generate»
 		do
 			«expr.right.generate»
+		[
+		]
 		'''
 	}
 
@@ -125,6 +129,8 @@ class AlisaGenerator implements IGenerator {
 			«expr.left.generate»
 		do
 			«expr.right.generate»
+		[
+		]
 		'''
 	}
 
@@ -142,40 +148,34 @@ class AlisaGenerator implements IGenerator {
 		[
 			executionstate todo
 			resultstate tbd
-			weight «expr.theWeight»
-		«FOR vacond : expr.verification?.method?.conditions»
+			«FOR vacond : expr.verification?.method?.conditions»
 			«vacond.generate»
-		«ENDFOR»
+			«ENDFOR»
 		]
 		'''
 	}
 
 	def generate(Hazard ha) {
 		'''
-			hazard «ha.name» for «ha.fullyQualifiedName»
-			[
-				sucess  0
-				fail 0
-				neutral 0
-				unknown 0
-				weight 1
-			]
+		hazard «ha.name» for «ha.fullyQualifiedName»
+		[
+			«FOR req : ha.requirementReference»
+			«req.generate»
+			«ENDFOR»
+		]
 		'''
+		// add mitigated by requirement as claim
 	}
 
 	def generate(VerificationCondition vc) {
 		'''
-			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
-			[
-				sucess  0
-				fail 0
-				neutral 0
-				unknown 0
-				weight 1
-			]
+		«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
+		[
+			«vc.assert.generate»
+		]
 		'''
 	}
-// XXX move
+
 	def evaluate(WhenExpr expr) {
 		true
 	}
@@ -184,13 +184,6 @@ class AlisaGenerator implements IGenerator {
 		switch vc {
 			VerificationAssumption: '''assumption'''
 			VerificationPrecondition: '''precondition'''
-		}
-	}
-
-	def getTheWeight(RefExpr expr) {
-		switch expr {
-			case expr.weight == 0: 1
-			default: expr.weight
 		}
 	}
 

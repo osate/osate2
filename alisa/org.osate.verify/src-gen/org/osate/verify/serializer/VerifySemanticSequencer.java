@@ -384,7 +384,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         methodType=SupportedTypes 
-	 *         method=QualifiedName 
+	 *         methodPath=QualifiedName 
 	 *         title=ValueString? 
 	 *         description=Description? 
 	 *         category=[VerificationCategory|CatRef]? 

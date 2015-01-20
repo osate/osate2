@@ -26,6 +26,7 @@ import org.osate.assure.assure.VerificationResultState;
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getFailMsg <em>Fail Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getFailTarget <em>Fail Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResultReport <em>Result Report</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,6 +103,16 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected EObject failTarget;
+
+  /**
+   * The cached value of the '{@link #getResultReport() <em>Result Report</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResultReport()
+   * @generated
+   * @ordered
+   */
+  protected EObject resultReport;
 
   /**
    * <!-- begin-user-doc -->
@@ -241,6 +252,49 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EObject getResultReport()
+  {
+    if (resultReport != null && resultReport.eIsProxy())
+    {
+      InternalEObject oldResultReport = (InternalEObject)resultReport;
+      resultReport = eResolveProxy(oldResultReport);
+      if (resultReport != oldResultReport)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.VERIFICATION_RESULT__RESULT_REPORT, oldResultReport, resultReport));
+      }
+    }
+    return resultReport;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EObject basicGetResultReport()
+  {
+    return resultReport;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setResultReport(EObject newResultReport)
+  {
+    EObject oldResultReport = resultReport;
+    resultReport = newResultReport;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__RESULT_REPORT, oldResultReport, resultReport));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -255,6 +309,9 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
       case AssurePackage.VERIFICATION_RESULT__FAIL_TARGET:
         if (resolve) return getFailTarget();
         return basicGetFailTarget();
+      case AssurePackage.VERIFICATION_RESULT__RESULT_REPORT:
+        if (resolve) return getResultReport();
+        return basicGetResultReport();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -280,6 +337,9 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
         return;
       case AssurePackage.VERIFICATION_RESULT__FAIL_TARGET:
         setFailTarget((EObject)newValue);
+        return;
+      case AssurePackage.VERIFICATION_RESULT__RESULT_REPORT:
+        setResultReport((EObject)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -307,6 +367,9 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
       case AssurePackage.VERIFICATION_RESULT__FAIL_TARGET:
         setFailTarget((EObject)null);
         return;
+      case AssurePackage.VERIFICATION_RESULT__RESULT_REPORT:
+        setResultReport((EObject)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -329,6 +392,8 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
         return FAIL_MSG_EDEFAULT == null ? failMsg != null : !FAIL_MSG_EDEFAULT.equals(failMsg);
       case AssurePackage.VERIFICATION_RESULT__FAIL_TARGET:
         return failTarget != null;
+      case AssurePackage.VERIFICATION_RESULT__RESULT_REPORT:
+        return resultReport != null;
     }
     return super.eIsSet(featureID);
   }

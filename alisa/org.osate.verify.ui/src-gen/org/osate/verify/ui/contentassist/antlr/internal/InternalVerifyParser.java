@@ -14332,26 +14332,26 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationMethod__Group__4__Impl"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5243:1: rule__VerificationMethod__Group__4__Impl : ( ( rule__VerificationMethod__MethodAssignment_4 ) ) ;
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5243:1: rule__VerificationMethod__Group__4__Impl : ( ( rule__VerificationMethod__MethodPathAssignment_4 ) ) ;
     public final void rule__VerificationMethod__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5247:1: ( ( ( rule__VerificationMethod__MethodAssignment_4 ) ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5248:1: ( ( rule__VerificationMethod__MethodAssignment_4 ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5247:1: ( ( ( rule__VerificationMethod__MethodPathAssignment_4 ) ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5248:1: ( ( rule__VerificationMethod__MethodPathAssignment_4 ) )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5248:1: ( ( rule__VerificationMethod__MethodAssignment_4 ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5249:1: ( rule__VerificationMethod__MethodAssignment_4 )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5248:1: ( ( rule__VerificationMethod__MethodPathAssignment_4 ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5249:1: ( rule__VerificationMethod__MethodPathAssignment_4 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationMethodAccess().getMethodAssignment_4()); 
+               before(grammarAccess.getVerificationMethodAccess().getMethodPathAssignment_4()); 
             }
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5250:1: ( rule__VerificationMethod__MethodAssignment_4 )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5250:2: rule__VerificationMethod__MethodAssignment_4
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5250:1: ( rule__VerificationMethod__MethodPathAssignment_4 )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:5250:2: rule__VerificationMethod__MethodPathAssignment_4
             {
-            pushFollow(FOLLOW_rule__VerificationMethod__MethodAssignment_4_in_rule__VerificationMethod__Group__4__Impl10422);
-            rule__VerificationMethod__MethodAssignment_4();
+            pushFollow(FOLLOW_rule__VerificationMethod__MethodPathAssignment_4_in_rule__VerificationMethod__Group__4__Impl10422);
+            rule__VerificationMethod__MethodPathAssignment_4();
 
             state._fsp--;
             if (state.failed) return ;
@@ -14359,7 +14359,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationMethodAccess().getMethodAssignment_4()); 
+               after(grammarAccess.getVerificationMethodAccess().getMethodPathAssignment_4()); 
             }
 
             }
@@ -22601,9 +22601,9 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__VerificationMethod__MethodTypeAssignment_3"
 
 
-    // $ANTLR start "rule__VerificationMethod__MethodAssignment_4"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:7911:1: rule__VerificationMethod__MethodAssignment_4 : ( ruleQualifiedName ) ;
-    public final void rule__VerificationMethod__MethodAssignment_4() throws RecognitionException {
+    // $ANTLR start "rule__VerificationMethod__MethodPathAssignment_4"
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:7911:1: rule__VerificationMethod__MethodPathAssignment_4 : ( ruleQualifiedName ) ;
+    public final void rule__VerificationMethod__MethodPathAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -22615,15 +22615,15 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
             // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:7917:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationMethodAccess().getMethodQualifiedNameParserRuleCall_4_0()); 
+               before(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_4_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationMethod__MethodAssignment_417480);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationMethod__MethodPathAssignment_417480);
             ruleQualifiedName();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationMethodAccess().getMethodQualifiedNameParserRuleCall_4_0()); 
+               after(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_4_0()); 
             }
 
             }
@@ -22643,7 +22643,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__VerificationMethod__MethodAssignment_4"
+    // $ANTLR end "rule__VerificationMethod__MethodPathAssignment_4"
 
 
     // $ANTLR start "rule__VerificationMethod__TitleAssignment_5_0_1"
@@ -25837,7 +25837,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__VerificationMethod__MethodTypeAssignment_3_in_rule__VerificationMethod__Group__3__Impl10362 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group__4__Impl_in_rule__VerificationMethod__Group__410392 = new BitSet(new long[]{0x0000000640180000L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group__5_in_rule__VerificationMethod__Group__410395 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationMethod__MethodAssignment_4_in_rule__VerificationMethod__Group__4__Impl10422 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationMethod__MethodPathAssignment_4_in_rule__VerificationMethod__Group__4__Impl10422 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group__5__Impl_in_rule__VerificationMethod__Group__510452 = new BitSet(new long[]{0x0000000000040000L});
     public static final BitSet FOLLOW_rule__VerificationMethod__Group__6_in_rule__VerificationMethod__Group__510455 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationMethod__UnorderedGroup_5_in_rule__VerificationMethod__Group__5__Impl10482 = new BitSet(new long[]{0x0000000000000002L});
@@ -26034,7 +26034,7 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleVerificationMethod_in_rule__VerificationMethodRegistry__MethodsAssignment_3_217387 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__VerificationMethod__NameAssignment_117418 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleSupportedTypes_in_rule__VerificationMethod__MethodTypeAssignment_317449 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationMethod__MethodAssignment_417480 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationMethod__MethodPathAssignment_417480 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleValueString_in_rule__VerificationMethod__TitleAssignment_5_0_117511 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleDescription_in_rule__VerificationMethod__DescriptionAssignment_5_1_117542 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleCatRef_in_rule__VerificationMethod__CategoryAssignment_5_2_117577 = new BitSet(new long[]{0x0000000000000002L});
