@@ -31,6 +31,7 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
           String _plus = ((methodpath + "@@") + _name);
           InstanceObject _caseSubject = this.aue.getCaseSubject(verificationActivityResult);
           this.dispatchVerificationMethod(_plus, _caseSubject);
+          this.aue.addSuccess(verificationActivityResult);
         } catch (final Throwable _t) {
           if (_t instanceof AssertionFailedError) {
             final AssertionFailedError e = (AssertionFailedError)_t;

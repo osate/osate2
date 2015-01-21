@@ -28,39 +28,41 @@ class AssureProcessor implements IAssureProcessor {
 	extension AssureUtilExtension aue = new AssureUtilExtension()
 
 	def AssureResult doProcess(CaseResult caseResult) {
-		caseResult.initialize
+		caseResult.resetCounts
 		caseResult.claimResult.map[claimResult|claimResult.process].addAllTo(caseResult)
 		caseResult.hazardResult.map[hazardResult|hazardResult.process].addAllTo(caseResult)
 		caseResult.subCaseResult.map[subcaseResult|subcaseResult.process].addAllTo(caseResult)
+		caseResult
 	}
 
 	def AssureResult doProcess(ClaimResult claimResult) {
-		claimResult.initialize
+		claimResult.resetCounts
 		claimResult.verificationActivityResult.map[vaResult|vaResult.process].addAllTo(claimResult)
 		claimResult.subClaimResult.map[subclaimResult|subclaimResult.process].addAllTo(claimResult)
+		claimResult
 	}
 
 	def AssureResult doProcess(VerificationActivityResult vaResult) {
-		vaResult.initialize
-		val xx = vaResult.assumptionResult.map[assumptionResult|assumptionResult.process]
-		xx.addAllTo(vaResult)
+		vaResult.resetCounts
+		vaResult.assumptionResult.map[assumptionResult|assumptionResult.process].addAllTo(vaResult)
 		vaResult.preconditionResult.map[preconditionResult|preconditionResult.process].addAllTo(vaResult)
 		dispatcher.runVerificationMethod( vaResult)
 		vaResult.addOwnResult
+		vaResult
 	}
 
 	def AssureResult doProcess(FailThenResult vaResult) {
-		vaResult.initialize
+		vaResult.resetCounts
 		vaResult.first.map[expr|expr.process].addAllTo(vaResult)
 		if (vaResult.hasFailedOrError) {
-			vaResult.initialize
+			vaResult.resetCounts
 			vaResult.recordFailThen
 			vaResult.second.map[expr|expr.process].addAllTo(vaResult)
 		}
 	}
 
 	def AssureResult doProcess(AndThenResult vaResult) {
-		vaResult.initialize
+		vaResult.resetCounts
 		vaResult.first.map[expr|expr.process].addAllTo(vaResult)
 		if (vaResult.isSuccessFul) {
 			vaResult.second.map[expr|expr.process].addAllTo(vaResult)
@@ -70,17 +72,17 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def AssureResult doProcess(HazardResult hazardResult) {
-		hazardResult.initialize
+		hazardResult.resetCounts
 		hazardResult.claimResult.map[subclaimResult|subclaimResult.process].addAllTo(hazardResult)
 	}
 
 	def AssureResult doProcess(AssumptionResult assumptionResult) {
-		assumptionResult.initialize
+		assumptionResult.resetCounts
 		assumptionResult.verificationActivityResult.map[vaResult|vaResult.process].addAllTo(assumptionResult)
 	}
 
 	def AssureResult doProcess(PreconditionResult preconditionResult) {
-		preconditionResult.initialize
+		preconditionResult.resetCounts
 		preconditionResult.verificationActivityResult.map[vaResult|vaResult.process].addAllTo(preconditionResult)
 	}
 

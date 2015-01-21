@@ -22,6 +22,7 @@ import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.FailThenResult
 import org.osate.assure.assure.AndThenResult
+import org.eclipse.emf.common.util.EList
 
 class AssureUtilExtension {
 
@@ -60,6 +61,10 @@ class AssureUtilExtension {
 		verificationActivityResult.setResult(vr);
 //		]
 	}
+	
+	def void addSuccess(VerificationActivityResult verificationActivityResult){
+		verificationActivityResult.result.setResultState(VerificationResultState.SUCCESS);
+	}
 
 	def void addFailure(VerificationActivityResult verificationActivityResult, Throwable e) {
 		val VerificationResult res = verificationActivityResult.result //AssureFactory.eINSTANCE.createVerificationResult();
@@ -90,19 +95,84 @@ class AssureUtilExtension {
 		result.errorCount = result.errorCount + parts.map[errorCount].sum
 		result.skippedCount = result.skippedCount + parts.map[skippedCount].sum
 		result.failthenCount = result.failthenCount + parts.map[failthenCount].sum
-		result.totalCount = result.totalCount + parts.map[totalCount].sum
 		return result
 	}
 
 
-	def void initialize(AssureResult result) {
+	def void resetCounts(AssureResult result) {
 		result.failCount = 0
 		result.successCount = 0
 		result.errorCount = 0
 		result.skippedCount = 0
 		result.failthenCount = 0
-		result.totalCount = result.countElements
 	}
+	
+	
+	def AssureResult computeAndSetTotals(CaseResult caseResult) {
+		caseResult.totalCount = 0
+		caseResult.addAllTotals(caseResult.claimResult)
+		caseResult.addAllTotals(caseResult.hazardResult)
+		caseResult.addAllTotals(caseResult.subCaseResult)
+	}
+
+	def AssureResult computeAndSetTotals(ClaimResult claimResult) {
+		claimResult.totalCount = 0
+		claimResult.addAllTotals(claimResult.verificationActivityResult)
+		claimResult.addAllTotals(claimResult.subClaimResult)
+	}
+
+	def AssureResult computeAndSetTotals(VerificationActivityResult vaResult) {
+		vaResult.totalCount = 1 // count self 
+		vaResult.addAllTotals(vaResult.assumptionResult)
+		vaResult.addAllTotals(vaResult.preconditionResult)
+		vaResult
+	}
+
+	def AssureResult computeAndSetTotals(FailThenResult vaResult) {
+		vaResult.totalCount = 0
+		vaResult.addAllTotals(vaResult.first)
+		vaResult.addAllTotals(vaResult.second)
+	}
+
+	def AssureResult computeAndSetTotals(AndThenResult vaResult) {
+		vaResult.totalCount = 0
+		vaResult.addAllTotals(vaResult.first)
+		vaResult.addAllTotals(vaResult.second)
+	}
+
+	def AssureResult computeAndSetTotals(HazardResult hazardResult) {
+		hazardResult.totalCount = 0
+		hazardResult.addAllTotals(hazardResult.claimResult)
+	}
+
+	def AssureResult computeAndSetTotals(AssumptionResult assumptionResult) {
+		assumptionResult.totalCount = 0
+		assumptionResult.addAllTotals(assumptionResult.verificationActivityResult)
+	}
+
+	def AssureResult computeAndSetTotals(PreconditionResult preconditionResult) {
+		preconditionResult.totalCount = 0
+		preconditionResult.addAllTotals(preconditionResult.verificationActivityResult)
+	}
+
+	def AssureResult computeAndSetTotals(AssureResult assureResult) {
+		switch (assureResult) {
+			CaseResult: assureResult.computeAndSetTotals
+			ClaimResult: assureResult.computeAndSetTotals
+			VerificationActivityResult: assureResult.computeAndSetTotals
+			FailThenResult: assureResult.computeAndSetTotals
+			AndThenResult: assureResult.computeAndSetTotals
+			HazardResult: assureResult.computeAndSetTotals
+			AssumptionResult: assureResult.computeAndSetTotals
+			PreconditionResult: assureResult.computeAndSetTotals
+		}
+	}
+
+	def AssureResult addAllTotals(AssureResult result, EList<? extends AssureResult> parts) {
+		result.totalCount = result.totalCount + parts.map[e|e.computeAndSetTotals.totalCount].sum
+		return result
+	}
+	
 	
 	def FailThenResult recordFailThen(FailThenResult result){
 		result.failthenCount = result.failCount + result.errorCount
@@ -112,7 +182,7 @@ class AssureUtilExtension {
 	}
 	
 	def AndThenResult recordSkip(AndThenResult result){
-		result.skippedCount = result.second.map[exp| exp.totalCount].reduce[a,b|a+b]
+		result.skippedCount = result.second.map[exp| exp.totalCount].sum
 		result
 	}
 
@@ -121,7 +191,7 @@ class AssureUtilExtension {
 			case VerificationResultState.SUCCESS: ar.successCount = ar.successCount + 1
 			case VerificationResultState.FAIL: ar.failCount = ar.failCount + 1
 			case VerificationResultState.ERROR: ar.errorCount = ar.errorCount + 1
-			case VerificationResultState.TBD: {}
+			case VerificationResultState.TBD: {} // calculated from the others
 		}
 		ar
 	}

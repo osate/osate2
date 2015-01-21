@@ -17,8 +17,7 @@ Require-Bundle: org.osate.assure;visibility:=reexport,
  org.eclipse.compare,
  org.osate.alisa.common;bundle-version="1.0.0",
  org.osate.alisa.common.ui;bundle-version="1.0.0",
- org.osate.ui,
- org.eclipse.xtext.xbase.lib
+ org.osate.ui
 Import-Package: org.apache.log4j,
  org.osate.aadl2,
  org.osate.aadl2.instance,

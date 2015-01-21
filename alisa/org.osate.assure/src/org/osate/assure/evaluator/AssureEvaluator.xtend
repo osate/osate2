@@ -16,20 +16,20 @@ class AssureEvaluator {
 	extension AssureUtilExtension aue  = new AssureUtilExtension
 
 	def AssureResult evaluate(CaseResult caseResult) {
-		caseResult.initialize
+		caseResult.resetCounts
 		caseResult.addAllEvaluate(caseResult.claimResult)
 		caseResult.addAllEvaluate(caseResult.hazardResult)
 		caseResult.addAllEvaluate(caseResult.subCaseResult)
 	}
 
 	def AssureResult evaluate(ClaimResult claimResult) {
-		claimResult.initialize
+		claimResult.resetCounts
 		claimResult.addAllEvaluate(claimResult.verificationActivityResult)
 		claimResult.addAllEvaluate(claimResult.subClaimResult)
 	}
 
 	def AssureResult evaluate(VerificationActivityResult vaResult) {
-		vaResult.initialize
+		vaResult.resetCounts
 		vaResult.addAllEvaluate(vaResult.assumptionResult)
 		vaResult.addAllEvaluate(vaResult.preconditionResult)
 		vaResult.addOwnResult()
@@ -37,32 +37,32 @@ class AssureEvaluator {
 	}
 
 	def AssureResult evaluate(FailThenResult vaResult) {
-		vaResult.initialize
+		vaResult.resetCounts
 		vaResult.addAllEvaluate(vaResult.first)
 		if (vaResult.hasFailedOrError){
-			vaResult.initialize
+			vaResult.resetCounts
 			vaResult.addAllEvaluate(vaResult.second)
 		}
 	}
 
 	def AssureResult evaluate(AndThenResult vaResult) {
-		vaResult.initialize
+		vaResult.resetCounts
 		vaResult.addAllEvaluate(vaResult.first)
 		vaResult.addAllEvaluate(vaResult.second)
 	}
 
 	def AssureResult evaluate(HazardResult hazardResult) {
-		hazardResult.initialize
+		hazardResult.resetCounts
 		hazardResult.addAllEvaluate(hazardResult.claimResult)
 	}
 
 	def AssureResult evaluate(AssumptionResult assumptionResult) {
-		assumptionResult.initialize
+		assumptionResult.resetCounts
 		assumptionResult.addAllEvaluate(assumptionResult.verificationActivityResult)
 	}
 
 	def AssureResult evaluate(PreconditionResult preconditionResult) {
-		preconditionResult.initialize
+		preconditionResult.resetCounts
 		preconditionResult.addAllEvaluate(preconditionResult.verificationActivityResult)
 	}
 
@@ -83,11 +83,11 @@ class AssureEvaluator {
 	 * recursively evaluate and then add all sub element counts
 	 */
 	def AssureResult addAllEvaluate(AssureResult result, EList<? extends AssureResult> parts) {
-		result.failCount = result.failCount + parts.map[evaluate.failCount].reduce[a, b|a + b]
-		result.successCount = result.successCount + parts.map[evaluate.successCount].reduce[a, b|a + b]
-		result.errorCount = result.errorCount + parts.map[evaluate.errorCount].reduce[a, b|a + b]
-		result.failthenCount = result.failthenCount + parts.map[evaluate.failthenCount].reduce[a, b|a + b]
-		result.skippedCount = result.skippedCount + parts.map[evaluate.skippedCount].reduce[a, b|a + b]
+		result.failCount = result.failCount + parts.map[evaluate.failCount].sum
+		result.successCount = result.successCount + parts.map[evaluate.successCount].sum
+		result.errorCount = result.errorCount + parts.map[evaluate.errorCount].sum
+		result.failthenCount = result.failthenCount + parts.map[evaluate.failthenCount].sum
+		result.skippedCount = result.skippedCount + parts.map[evaluate.skippedCount].sum
 		return result
 	}
 	

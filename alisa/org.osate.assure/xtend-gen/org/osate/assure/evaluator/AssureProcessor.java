@@ -33,9 +33,9 @@ public class AssureProcessor implements IAssureProcessor {
   private AssureUtilExtension aue = new AssureUtilExtension();
   
   public AssureResult doProcess(final CaseResult caseResult) {
-    AssureResult _xblockexpression = null;
+    CaseResult _xblockexpression = null;
     {
-      this.aue.initialize(caseResult);
+      this.aue.resetCounts(caseResult);
       EList<ClaimResult> _claimResult = caseResult.getClaimResult();
       final Function1<ClaimResult, AssureResult> _function = new Function1<ClaimResult, AssureResult>() {
         public AssureResult apply(final ClaimResult claimResult) {
@@ -59,15 +59,16 @@ public class AssureProcessor implements IAssureProcessor {
         }
       };
       List<AssureResult> _map_2 = ListExtensions.<CaseResult, AssureResult>map(_subCaseResult, _function_2);
-      _xblockexpression = this.aue.addAllTo(_map_2, caseResult);
+      this.aue.addAllTo(_map_2, caseResult);
+      _xblockexpression = caseResult;
     }
     return _xblockexpression;
   }
   
   public AssureResult doProcess(final ClaimResult claimResult) {
-    AssureResult _xblockexpression = null;
+    ClaimResult _xblockexpression = null;
     {
-      this.aue.initialize(claimResult);
+      this.aue.resetCounts(claimResult);
       EList<VerificationExpr> _verificationActivityResult = claimResult.getVerificationActivityResult();
       final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
         public AssureResult apply(final VerificationExpr vaResult) {
@@ -83,7 +84,8 @@ public class AssureProcessor implements IAssureProcessor {
         }
       };
       List<AssureResult> _map_1 = ListExtensions.<ClaimResult, AssureResult>map(_subClaimResult, _function_1);
-      _xblockexpression = this.aue.addAllTo(_map_1, claimResult);
+      this.aue.addAllTo(_map_1, claimResult);
+      _xblockexpression = claimResult;
     }
     return _xblockexpression;
   }
@@ -91,25 +93,26 @@ public class AssureProcessor implements IAssureProcessor {
   public AssureResult doProcess(final VerificationActivityResult vaResult) {
     VerificationActivityResult _xblockexpression = null;
     {
-      this.aue.initialize(vaResult);
+      this.aue.resetCounts(vaResult);
       EList<AssumptionResult> _assumptionResult = vaResult.getAssumptionResult();
       final Function1<AssumptionResult, AssureResult> _function = new Function1<AssumptionResult, AssureResult>() {
         public AssureResult apply(final AssumptionResult assumptionResult) {
           return AssureProcessor.this.process(assumptionResult);
         }
       };
-      final List<AssureResult> xx = ListExtensions.<AssumptionResult, AssureResult>map(_assumptionResult, _function);
-      this.aue.addAllTo(xx, vaResult);
+      List<AssureResult> _map = ListExtensions.<AssumptionResult, AssureResult>map(_assumptionResult, _function);
+      this.aue.addAllTo(_map, vaResult);
       EList<PreconditionResult> _preconditionResult = vaResult.getPreconditionResult();
       final Function1<PreconditionResult, AssureResult> _function_1 = new Function1<PreconditionResult, AssureResult>() {
         public AssureResult apply(final PreconditionResult preconditionResult) {
           return AssureProcessor.this.process(preconditionResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<PreconditionResult, AssureResult>map(_preconditionResult, _function_1);
-      this.aue.addAllTo(_map, vaResult);
+      List<AssureResult> _map_1 = ListExtensions.<PreconditionResult, AssureResult>map(_preconditionResult, _function_1);
+      this.aue.addAllTo(_map_1, vaResult);
       this.dispatcher.runVerificationMethod(vaResult);
-      _xblockexpression = this.aue.addOwnResult(vaResult);
+      this.aue.addOwnResult(vaResult);
+      _xblockexpression = vaResult;
     }
     return _xblockexpression;
   }
@@ -117,7 +120,7 @@ public class AssureProcessor implements IAssureProcessor {
   public AssureResult doProcess(final FailThenResult vaResult) {
     AssureResult _xblockexpression = null;
     {
-      this.aue.initialize(vaResult);
+      this.aue.resetCounts(vaResult);
       EList<VerificationExpr> _first = vaResult.getFirst();
       final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
         public AssureResult apply(final VerificationExpr expr) {
@@ -131,7 +134,7 @@ public class AssureProcessor implements IAssureProcessor {
       if (_hasFailedOrError) {
         AssureResult _xblockexpression_1 = null;
         {
-          this.aue.initialize(vaResult);
+          this.aue.resetCounts(vaResult);
           this.aue.recordFailThen(vaResult);
           EList<VerificationExpr> _second = vaResult.getSecond();
           final Function1<VerificationExpr, AssureResult> _function_1 = new Function1<VerificationExpr, AssureResult>() {
@@ -152,7 +155,7 @@ public class AssureProcessor implements IAssureProcessor {
   public AssureResult doProcess(final AndThenResult vaResult) {
     AssureResult _xblockexpression = null;
     {
-      this.aue.initialize(vaResult);
+      this.aue.resetCounts(vaResult);
       EList<VerificationExpr> _first = vaResult.getFirst();
       final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
         public AssureResult apply(final VerificationExpr expr) {
@@ -183,7 +186,7 @@ public class AssureProcessor implements IAssureProcessor {
   public AssureResult doProcess(final HazardResult hazardResult) {
     AssureResult _xblockexpression = null;
     {
-      this.aue.initialize(hazardResult);
+      this.aue.resetCounts(hazardResult);
       EList<ClaimResult> _claimResult = hazardResult.getClaimResult();
       final Function1<ClaimResult, AssureResult> _function = new Function1<ClaimResult, AssureResult>() {
         public AssureResult apply(final ClaimResult subclaimResult) {
@@ -199,7 +202,7 @@ public class AssureProcessor implements IAssureProcessor {
   public AssureResult doProcess(final AssumptionResult assumptionResult) {
     AssureResult _xblockexpression = null;
     {
-      this.aue.initialize(assumptionResult);
+      this.aue.resetCounts(assumptionResult);
       EList<VerificationExpr> _verificationActivityResult = assumptionResult.getVerificationActivityResult();
       final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
         public AssureResult apply(final VerificationExpr vaResult) {
@@ -215,7 +218,7 @@ public class AssureProcessor implements IAssureProcessor {
   public AssureResult doProcess(final PreconditionResult preconditionResult) {
     AssureResult _xblockexpression = null;
     {
-      this.aue.initialize(preconditionResult);
+      this.aue.resetCounts(preconditionResult);
       EList<VerificationExpr> _verificationActivityResult = preconditionResult.getVerificationActivityResult();
       final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
         public AssureResult apply(final VerificationExpr vaResult) {

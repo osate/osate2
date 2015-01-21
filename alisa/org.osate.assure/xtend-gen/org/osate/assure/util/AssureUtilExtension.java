@@ -100,6 +100,11 @@ public class AssureUtilExtension {
     }
   }
   
+  public void addSuccess(final VerificationActivityResult verificationActivityResult) {
+    VerificationResult _result = verificationActivityResult.getResult();
+    _result.setResultState(VerificationResultState.SUCCESS);
+  }
+  
   public void addFailure(final VerificationActivityResult verificationActivityResult, final Throwable e) {
     final VerificationResult res = verificationActivityResult.getResult();
     res.setResultState(VerificationResultState.FAIL);
@@ -191,27 +196,177 @@ public class AssureUtilExtension {
     int _sum_4 = this.sum(_map_4);
     int _plus_4 = (_failthenCount + _sum_4);
     result.setFailthenCount(_plus_4);
-    int _totalCount = result.getTotalCount();
-    final Function1<AssureResult, Integer> _function_5 = new Function1<AssureResult, Integer>() {
-      public Integer apply(final AssureResult it) {
-        return Integer.valueOf(it.getTotalCount());
-      }
-    };
-    List<Integer> _map_5 = ListExtensions.map(parts, _function_5);
-    int _sum_5 = this.sum(_map_5);
-    int _plus_5 = (_totalCount + _sum_5);
-    result.setTotalCount(_plus_5);
     return result;
   }
   
-  public void initialize(final AssureResult result) {
+  public void resetCounts(final AssureResult result) {
     result.setFailCount(0);
     result.setSuccessCount(0);
     result.setErrorCount(0);
     result.setSkippedCount(0);
     result.setFailthenCount(0);
-    int _countElements = this.countElements(result);
-    result.setTotalCount(_countElements);
+  }
+  
+  public AssureResult computeAndSetTotals(final CaseResult caseResult) {
+    AssureResult _xblockexpression = null;
+    {
+      caseResult.setTotalCount(0);
+      EList<ClaimResult> _claimResult = caseResult.getClaimResult();
+      this.addAllTotals(caseResult, _claimResult);
+      EList<HazardResult> _hazardResult = caseResult.getHazardResult();
+      this.addAllTotals(caseResult, _hazardResult);
+      EList<CaseResult> _subCaseResult = caseResult.getSubCaseResult();
+      _xblockexpression = this.addAllTotals(caseResult, _subCaseResult);
+    }
+    return _xblockexpression;
+  }
+  
+  public AssureResult computeAndSetTotals(final ClaimResult claimResult) {
+    AssureResult _xblockexpression = null;
+    {
+      claimResult.setTotalCount(0);
+      EList<VerificationExpr> _verificationActivityResult = claimResult.getVerificationActivityResult();
+      this.addAllTotals(claimResult, _verificationActivityResult);
+      EList<ClaimResult> _subClaimResult = claimResult.getSubClaimResult();
+      _xblockexpression = this.addAllTotals(claimResult, _subClaimResult);
+    }
+    return _xblockexpression;
+  }
+  
+  public AssureResult computeAndSetTotals(final VerificationActivityResult vaResult) {
+    VerificationActivityResult _xblockexpression = null;
+    {
+      vaResult.setTotalCount(1);
+      EList<AssumptionResult> _assumptionResult = vaResult.getAssumptionResult();
+      this.addAllTotals(vaResult, _assumptionResult);
+      EList<PreconditionResult> _preconditionResult = vaResult.getPreconditionResult();
+      this.addAllTotals(vaResult, _preconditionResult);
+      _xblockexpression = vaResult;
+    }
+    return _xblockexpression;
+  }
+  
+  public AssureResult computeAndSetTotals(final FailThenResult vaResult) {
+    AssureResult _xblockexpression = null;
+    {
+      vaResult.setTotalCount(0);
+      EList<VerificationExpr> _first = vaResult.getFirst();
+      this.addAllTotals(vaResult, _first);
+      EList<VerificationExpr> _second = vaResult.getSecond();
+      _xblockexpression = this.addAllTotals(vaResult, _second);
+    }
+    return _xblockexpression;
+  }
+  
+  public AssureResult computeAndSetTotals(final AndThenResult vaResult) {
+    AssureResult _xblockexpression = null;
+    {
+      vaResult.setTotalCount(0);
+      EList<VerificationExpr> _first = vaResult.getFirst();
+      this.addAllTotals(vaResult, _first);
+      EList<VerificationExpr> _second = vaResult.getSecond();
+      _xblockexpression = this.addAllTotals(vaResult, _second);
+    }
+    return _xblockexpression;
+  }
+  
+  public AssureResult computeAndSetTotals(final HazardResult hazardResult) {
+    AssureResult _xblockexpression = null;
+    {
+      hazardResult.setTotalCount(0);
+      EList<ClaimResult> _claimResult = hazardResult.getClaimResult();
+      _xblockexpression = this.addAllTotals(hazardResult, _claimResult);
+    }
+    return _xblockexpression;
+  }
+  
+  public AssureResult computeAndSetTotals(final AssumptionResult assumptionResult) {
+    AssureResult _xblockexpression = null;
+    {
+      assumptionResult.setTotalCount(0);
+      EList<VerificationExpr> _verificationActivityResult = assumptionResult.getVerificationActivityResult();
+      _xblockexpression = this.addAllTotals(assumptionResult, _verificationActivityResult);
+    }
+    return _xblockexpression;
+  }
+  
+  public AssureResult computeAndSetTotals(final PreconditionResult preconditionResult) {
+    AssureResult _xblockexpression = null;
+    {
+      preconditionResult.setTotalCount(0);
+      EList<VerificationExpr> _verificationActivityResult = preconditionResult.getVerificationActivityResult();
+      _xblockexpression = this.addAllTotals(preconditionResult, _verificationActivityResult);
+    }
+    return _xblockexpression;
+  }
+  
+  public AssureResult computeAndSetTotals(final AssureResult assureResult) {
+    AssureResult _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (assureResult instanceof CaseResult) {
+        _matched=true;
+        _switchResult = this.computeAndSetTotals(((CaseResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof ClaimResult) {
+        _matched=true;
+        _switchResult = this.computeAndSetTotals(((ClaimResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof VerificationActivityResult) {
+        _matched=true;
+        _switchResult = this.computeAndSetTotals(((VerificationActivityResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof FailThenResult) {
+        _matched=true;
+        _switchResult = this.computeAndSetTotals(((FailThenResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof AndThenResult) {
+        _matched=true;
+        _switchResult = this.computeAndSetTotals(((AndThenResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof HazardResult) {
+        _matched=true;
+        _switchResult = this.computeAndSetTotals(((HazardResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof AssumptionResult) {
+        _matched=true;
+        _switchResult = this.computeAndSetTotals(((AssumptionResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof PreconditionResult) {
+        _matched=true;
+        _switchResult = this.computeAndSetTotals(((PreconditionResult)assureResult));
+      }
+    }
+    return _switchResult;
+  }
+  
+  public AssureResult addAllTotals(final AssureResult result, final EList<? extends AssureResult> parts) {
+    int _totalCount = result.getTotalCount();
+    final Function1<AssureResult, Integer> _function = new Function1<AssureResult, Integer>() {
+      public Integer apply(final AssureResult e) {
+        AssureResult _computeAndSetTotals = AssureUtilExtension.this.computeAndSetTotals(e);
+        return Integer.valueOf(_computeAndSetTotals.getTotalCount());
+      }
+    };
+    List<Integer> _map = ListExtensions.map(parts, _function);
+    int _sum = this.sum(_map);
+    int _plus = (_totalCount + _sum);
+    result.setTotalCount(_plus);
+    return result;
   }
   
   public FailThenResult recordFailThen(final FailThenResult result) {
@@ -238,13 +393,8 @@ public class AssureUtilExtension {
         }
       };
       List<Integer> _map = ListExtensions.<VerificationExpr, Integer>map(_second, _function);
-      final Function2<Integer, Integer, Integer> _function_1 = new Function2<Integer, Integer, Integer>() {
-        public Integer apply(final Integer a, final Integer b) {
-          return Integer.valueOf(((a).intValue() + (b).intValue()));
-        }
-      };
-      Integer _reduce = IterableExtensions.<Integer>reduce(_map, _function_1);
-      result.setSkippedCount((_reduce).intValue());
+      int _sum = this.sum(_map);
+      result.setSkippedCount(_sum);
       _xblockexpression = result;
     }
     return _xblockexpression;
