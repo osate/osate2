@@ -27,8 +27,10 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
       if (_equals) {
         final String methodpath = method.getMethodPath();
         try {
+          String _name = verificationActivityResult.getName();
+          String _plus = ((methodpath + " ") + _name);
           InstanceObject _caseSubject = this.aue.getCaseSubject(verificationActivityResult);
-          this.dispatchVerificationMethod(methodpath, _caseSubject);
+          this.dispatchVerificationMethod(_plus, _caseSubject);
         } catch (final Throwable _t) {
           if (_t instanceof AssertionFailedError) {
             final AssertionFailedError e = (AssertionFailedError)_t;
@@ -50,9 +52,8 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
   }
   
   public void dispatchVerificationMethod(final String methodPath, final InstanceObject target) {
-    String _componentInstancePath = target.getComponentInstancePath();
-    String _plus = ((("Dispatching " + methodPath) + " on ") + _componentInstancePath);
+    String _qualifiedName = target.getQualifiedName();
+    String _plus = ((("Dispatching " + methodPath) + " on ") + _qualifiedName);
     InputOutput.<String>println(_plus);
-    throw new UnsupportedOperationException("TODO: implement verificaiton method dispatcher");
   }
 }

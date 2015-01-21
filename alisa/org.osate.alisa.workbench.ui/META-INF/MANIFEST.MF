@@ -12,19 +12,17 @@ Require-Bundle: org.osate.alisa.workbench;visibility:=reexport,
  org.eclipse.xtext.ui.shared,
  org.eclipse.ui,
  org.eclipse.xtext.builder,
- org.eclipse.xtext.xbase.lib,
  org.antlr.runtime,
  org.eclipse.xtext.ui.codetemplates.ui,
  org.eclipse.compare,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.xtend,
- org.eclipse.xpand,
  org.osate.aadl2,
  org.osate.aadl2.instantiation,
  org.osate.ui,
  org.osate.alisa.common.ui;bundle-version="1.0.0",
- org.osate.assure
+ org.osate.assure,
+ org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.commons.lang,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

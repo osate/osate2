@@ -121,6 +121,22 @@ public class AssureUtilExtension {
     res.setType(_name);
   }
   
+  public int sum(final List<Integer> l) {
+    Integer _elvis = null;
+    final Function2<Integer, Integer, Integer> _function = new Function2<Integer, Integer, Integer>() {
+      public Integer apply(final Integer a, final Integer b) {
+        return Integer.valueOf(((a).intValue() + (b).intValue()));
+      }
+    };
+    Integer _reduce = IterableExtensions.<Integer>reduce(l, _function);
+    if (_reduce != null) {
+      _elvis = _reduce;
+    } else {
+      _elvis = Integer.valueOf(0);
+    }
+    return (int) _elvis;
+  }
+  
   /**
    * add all subelement counts without reevaluating them
    */
@@ -132,88 +148,58 @@ public class AssureUtilExtension {
       }
     };
     List<Integer> _map = ListExtensions.map(parts, _function);
-    final Function2<Integer, Integer, Integer> _function_1 = new Function2<Integer, Integer, Integer>() {
-      public Integer apply(final Integer a, final Integer b) {
-        return Integer.valueOf(((a).intValue() + (b).intValue()));
-      }
-    };
-    Integer _reduce = IterableExtensions.<Integer>reduce(_map, _function_1);
-    int _plus = (_failCount + (_reduce).intValue());
+    int _sum = this.sum(_map);
+    int _plus = (_failCount + _sum);
     result.setFailCount(_plus);
     int _successCount = result.getSuccessCount();
-    final Function1<AssureResult, Integer> _function_2 = new Function1<AssureResult, Integer>() {
+    final Function1<AssureResult, Integer> _function_1 = new Function1<AssureResult, Integer>() {
       public Integer apply(final AssureResult it) {
         return Integer.valueOf(it.getSuccessCount());
       }
     };
-    List<Integer> _map_1 = ListExtensions.map(parts, _function_2);
-    final Function2<Integer, Integer, Integer> _function_3 = new Function2<Integer, Integer, Integer>() {
-      public Integer apply(final Integer a, final Integer b) {
-        return Integer.valueOf(((a).intValue() + (b).intValue()));
-      }
-    };
-    Integer _reduce_1 = IterableExtensions.<Integer>reduce(_map_1, _function_3);
-    int _plus_1 = (_successCount + (_reduce_1).intValue());
+    List<Integer> _map_1 = ListExtensions.map(parts, _function_1);
+    int _sum_1 = this.sum(_map_1);
+    int _plus_1 = (_successCount + _sum_1);
     result.setSuccessCount(_plus_1);
     int _errorCount = result.getErrorCount();
-    final Function1<AssureResult, Integer> _function_4 = new Function1<AssureResult, Integer>() {
+    final Function1<AssureResult, Integer> _function_2 = new Function1<AssureResult, Integer>() {
       public Integer apply(final AssureResult it) {
         return Integer.valueOf(it.getErrorCount());
       }
     };
-    List<Integer> _map_2 = ListExtensions.map(parts, _function_4);
-    final Function2<Integer, Integer, Integer> _function_5 = new Function2<Integer, Integer, Integer>() {
-      public Integer apply(final Integer a, final Integer b) {
-        return Integer.valueOf(((a).intValue() + (b).intValue()));
-      }
-    };
-    Integer _reduce_2 = IterableExtensions.<Integer>reduce(_map_2, _function_5);
-    int _plus_2 = (_errorCount + (_reduce_2).intValue());
+    List<Integer> _map_2 = ListExtensions.map(parts, _function_2);
+    int _sum_2 = this.sum(_map_2);
+    int _plus_2 = (_errorCount + _sum_2);
     result.setErrorCount(_plus_2);
     int _skippedCount = result.getSkippedCount();
-    final Function1<AssureResult, Integer> _function_6 = new Function1<AssureResult, Integer>() {
+    final Function1<AssureResult, Integer> _function_3 = new Function1<AssureResult, Integer>() {
       public Integer apply(final AssureResult it) {
         return Integer.valueOf(it.getSkippedCount());
       }
     };
-    List<Integer> _map_3 = ListExtensions.map(parts, _function_6);
-    final Function2<Integer, Integer, Integer> _function_7 = new Function2<Integer, Integer, Integer>() {
-      public Integer apply(final Integer a, final Integer b) {
-        return Integer.valueOf(((a).intValue() + (b).intValue()));
-      }
-    };
-    Integer _reduce_3 = IterableExtensions.<Integer>reduce(_map_3, _function_7);
-    int _plus_3 = (_skippedCount + (_reduce_3).intValue());
+    List<Integer> _map_3 = ListExtensions.map(parts, _function_3);
+    int _sum_3 = this.sum(_map_3);
+    int _plus_3 = (_skippedCount + _sum_3);
     result.setSkippedCount(_plus_3);
     int _failthenCount = result.getFailthenCount();
-    final Function1<AssureResult, Integer> _function_8 = new Function1<AssureResult, Integer>() {
+    final Function1<AssureResult, Integer> _function_4 = new Function1<AssureResult, Integer>() {
       public Integer apply(final AssureResult it) {
         return Integer.valueOf(it.getFailthenCount());
       }
     };
-    List<Integer> _map_4 = ListExtensions.map(parts, _function_8);
-    final Function2<Integer, Integer, Integer> _function_9 = new Function2<Integer, Integer, Integer>() {
-      public Integer apply(final Integer a, final Integer b) {
-        return Integer.valueOf(((a).intValue() + (b).intValue()));
-      }
-    };
-    Integer _reduce_4 = IterableExtensions.<Integer>reduce(_map_4, _function_9);
-    int _plus_4 = (_failthenCount + (_reduce_4).intValue());
+    List<Integer> _map_4 = ListExtensions.map(parts, _function_4);
+    int _sum_4 = this.sum(_map_4);
+    int _plus_4 = (_failthenCount + _sum_4);
     result.setFailthenCount(_plus_4);
     int _totalCount = result.getTotalCount();
-    final Function1<AssureResult, Integer> _function_10 = new Function1<AssureResult, Integer>() {
+    final Function1<AssureResult, Integer> _function_5 = new Function1<AssureResult, Integer>() {
       public Integer apply(final AssureResult it) {
         return Integer.valueOf(it.getTotalCount());
       }
     };
-    List<Integer> _map_5 = ListExtensions.map(parts, _function_10);
-    final Function2<Integer, Integer, Integer> _function_11 = new Function2<Integer, Integer, Integer>() {
-      public Integer apply(final Integer a, final Integer b) {
-        return Integer.valueOf(((a).intValue() + (b).intValue()));
-      }
-    };
-    Integer _reduce_5 = IterableExtensions.<Integer>reduce(_map_5, _function_11);
-    int _plus_5 = (_totalCount + (_reduce_5).intValue());
+    List<Integer> _map_5 = ListExtensions.map(parts, _function_5);
+    int _sum_5 = this.sum(_map_5);
+    int _plus_5 = (_totalCount + _sum_5);
     result.setTotalCount(_plus_5);
     return result;
   }

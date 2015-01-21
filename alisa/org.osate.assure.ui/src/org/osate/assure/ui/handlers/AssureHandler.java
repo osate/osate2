@@ -23,7 +23,6 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.impl.CaseResultImpl;
-import org.osate.assure.evaluator.AssureProcessing;
 import org.osate.assure.evaluator.IAssureProcessor;
 
 import com.google.inject.Inject;
@@ -128,7 +127,7 @@ public class AssureHandler extends AbstractHandler {
 	protected IStatus runJob(CaseResultImpl obj, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
-		AssureProcessing.processCaseResult(obj);
+//		AssureProcessing.processCaseResult(obj);
 
 		assureProcessor.process(obj);
 

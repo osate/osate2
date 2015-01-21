@@ -25,11 +25,12 @@ interface IAssureProcessor {
  */
 class AssureProcessor implements IAssureProcessor {
 	@Inject IVerificationMethodDispatcher dispatcher
-	extension AssureUtilExtension aue // imports methods
+	extension AssureUtilExtension aue = new AssureUtilExtension()
 
 	def AssureResult doProcess(CaseResult caseResult) {
 		caseResult.initialize
-		val x = caseResult.claimResult.map[claimResult|claimResult.process].addAllTo(caseResult)
+		val x = caseResult.claimResult.map[claimResult|claimResult.process]
+		val y= x.addAllTo(caseResult)
 		caseResult.hazardResult.map[hazardResult|hazardResult.process].addAllTo(caseResult)
 		caseResult.subCaseResult.map[subcaseResult|subcaseResult.process].addAllTo(caseResult)
 	}
@@ -42,7 +43,8 @@ class AssureProcessor implements IAssureProcessor {
 
 	def AssureResult doProcess(VerificationActivityResult vaResult) {
 		vaResult.initialize
-		vaResult.assumptionResult.map[assumptionResult|assumptionResult.process].addAllTo(vaResult)
+		val xx = vaResult.assumptionResult.map[assumptionResult|assumptionResult.process]
+		xx.addAllTo(vaResult)
 		vaResult.preconditionResult.map[preconditionResult|preconditionResult.process].addAllTo(vaResult)
 		val path = vaResult.target?.method?.methodPath
 		dispatcher.dispatchVerificationMethod(path, vaResult.caseSubject)

@@ -188,10 +188,5 @@ public abstract class AbstractAlisaUiModule extends DefaultUiModule {
 		return org.eclipse.xtext.ui.compare.DefaultViewerCreator.class;
 	}
 
-	// contributed by org.eclipse.xtext.ui.generator.projectWizard.SimpleProjectWizardFragment
-	public Class<? extends org.eclipse.xtext.ui.wizard.IProjectCreator> bindIProjectCreator() {
-		return org.osate.alisa.workbench.ui.wizard.AlisaProjectCreator.class;
-	}
-
 
 }

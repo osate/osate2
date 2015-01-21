@@ -76,17 +76,21 @@ class AssureUtilExtension {
 		res.setFailMsg(e.getMessage());
 		res.setType(e.getClass().getName());
 	}
+	
+	def int sum(List<Integer> l){
+		l.reduce[a,b|a + b]?:0
+	}
 
 	/**
 	 * add all subelement counts without reevaluating them
 	 */
 	def AssureResult addAllTo(List<? extends AssureResult> parts,AssureResult result) {
-		result.failCount = result.failCount + parts.map[failCount].reduce[a, b|a + b]
-		result.successCount = result.successCount + parts.map[successCount].reduce[a, b|a + b]
-		result.errorCount = result.errorCount + parts.map[errorCount].reduce[a, b|a + b]
-		result.skippedCount = result.skippedCount + parts.map[skippedCount].reduce[a, b|a + b]
-		result.failthenCount = result.failthenCount + parts.map[failthenCount].reduce[a, b|a + b]
-		result.totalCount = result.totalCount + parts.map[totalCount].reduce[a, b|a + b]
+		result.failCount = result.failCount + parts.map[failCount].sum
+		result.successCount = result.successCount + parts.map[successCount].sum
+		result.errorCount = result.errorCount + parts.map[errorCount].sum
+		result.skippedCount = result.skippedCount + parts.map[skippedCount].sum
+		result.failthenCount = result.failthenCount + parts.map[failthenCount].sum
+		result.totalCount = result.totalCount + parts.map[totalCount].sum
 		return result
 	}
 

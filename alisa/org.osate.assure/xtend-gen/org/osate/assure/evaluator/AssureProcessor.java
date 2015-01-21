@@ -33,7 +33,7 @@ public class AssureProcessor implements IAssureProcessor {
   private IVerificationMethodDispatcher dispatcher;
   
   @Extension
-  private AssureUtilExtension aue;
+  private AssureUtilExtension aue = new AssureUtilExtension();
   
   public AssureResult doProcess(final CaseResult caseResult) {
     AssureResult _xblockexpression = null;
@@ -45,24 +45,24 @@ public class AssureProcessor implements IAssureProcessor {
           return AssureProcessor.this.process(claimResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<ClaimResult, AssureResult>map(_claimResult, _function);
-      final AssureResult x = this.aue.addAllTo(_map, caseResult);
+      final List<AssureResult> x = ListExtensions.<ClaimResult, AssureResult>map(_claimResult, _function);
+      final AssureResult y = this.aue.addAllTo(x, caseResult);
       EList<HazardResult> _hazardResult = caseResult.getHazardResult();
       final Function1<HazardResult, AssureResult> _function_1 = new Function1<HazardResult, AssureResult>() {
         public AssureResult apply(final HazardResult hazardResult) {
           return AssureProcessor.this.process(hazardResult);
         }
       };
-      List<AssureResult> _map_1 = ListExtensions.<HazardResult, AssureResult>map(_hazardResult, _function_1);
-      this.aue.addAllTo(_map_1, caseResult);
+      List<AssureResult> _map = ListExtensions.<HazardResult, AssureResult>map(_hazardResult, _function_1);
+      this.aue.addAllTo(_map, caseResult);
       EList<CaseResult> _subCaseResult = caseResult.getSubCaseResult();
       final Function1<CaseResult, AssureResult> _function_2 = new Function1<CaseResult, AssureResult>() {
         public AssureResult apply(final CaseResult subcaseResult) {
           return AssureProcessor.this.process(subcaseResult);
         }
       };
-      List<AssureResult> _map_2 = ListExtensions.<CaseResult, AssureResult>map(_subCaseResult, _function_2);
-      _xblockexpression = this.aue.addAllTo(_map_2, caseResult);
+      List<AssureResult> _map_1 = ListExtensions.<CaseResult, AssureResult>map(_subCaseResult, _function_2);
+      _xblockexpression = this.aue.addAllTo(_map_1, caseResult);
     }
     return _xblockexpression;
   }
@@ -101,16 +101,16 @@ public class AssureProcessor implements IAssureProcessor {
           return AssureProcessor.this.process(assumptionResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<AssumptionResult, AssureResult>map(_assumptionResult, _function);
-      this.aue.addAllTo(_map, vaResult);
+      final List<AssureResult> xx = ListExtensions.<AssumptionResult, AssureResult>map(_assumptionResult, _function);
+      this.aue.addAllTo(xx, vaResult);
       EList<PreconditionResult> _preconditionResult = vaResult.getPreconditionResult();
       final Function1<PreconditionResult, AssureResult> _function_1 = new Function1<PreconditionResult, AssureResult>() {
         public AssureResult apply(final PreconditionResult preconditionResult) {
           return AssureProcessor.this.process(preconditionResult);
         }
       };
-      List<AssureResult> _map_1 = ListExtensions.<PreconditionResult, AssureResult>map(_preconditionResult, _function_1);
-      this.aue.addAllTo(_map_1, vaResult);
+      List<AssureResult> _map = ListExtensions.<PreconditionResult, AssureResult>map(_preconditionResult, _function_1);
+      this.aue.addAllTo(_map, vaResult);
       VerificationActivity _target = vaResult.getTarget();
       VerificationMethod _method = null;
       if (_target!=null) {

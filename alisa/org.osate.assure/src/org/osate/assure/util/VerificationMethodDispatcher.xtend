@@ -22,8 +22,8 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 		val method = verificationActivityResult.getTarget().getMethod();
 		if (method.getMethodType() == SupportedTypes.SINGLEPREDICATE) {
 			val methodpath = method.getMethodPath();
-			try {
-				dispatchVerificationMethod(methodpath, verificationActivityResult.caseSubject)
+			try { // XXX remove the activity name from the method
+				dispatchVerificationMethod(methodpath+" "+verificationActivityResult.name, verificationActivityResult.caseSubject)
 			} catch (AssertionFailedError e) {
 				addFailure(verificationActivityResult, e);
 			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
@@ -36,8 +36,8 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 	}
 	
 	override dispatchVerificationMethod(String methodPath, InstanceObject target) {
-		println("Dispatching "+methodPath + " on "+target.componentInstancePath)
-		throw new UnsupportedOperationException("TODO: implement verificaiton method dispatcher")
+		println("Dispatching "+methodPath + " on "+target.getQualifiedName)
+
 	}
 	
 }

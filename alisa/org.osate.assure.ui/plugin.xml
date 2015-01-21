@@ -276,7 +276,7 @@
     
      	<extension point="org.eclipse.ui.handlers">
             <handler
-            class="org.osate.assure.ui.handlers.AssureHandler" 
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureHandler" 
             commandId="org.osate.assure.commands.Check">
    
       </handler>

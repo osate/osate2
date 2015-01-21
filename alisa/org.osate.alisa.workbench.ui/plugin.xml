@@ -212,7 +212,7 @@
     
  	<extension point="org.eclipse.ui.handlers">
             <handler
-            class="org.osate.alisa.workbench.ui.handlers.AlisaTestHandler"
+            class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.handlers.AlisaTestHandler"
             commandId="org.osate.alisa.commands.TestMe">
          <enabledWhen>
             <reference

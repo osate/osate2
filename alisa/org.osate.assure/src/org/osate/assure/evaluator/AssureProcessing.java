@@ -48,7 +48,7 @@ public class AssureProcessing {
 				processVerificationExpr(ve);
 			}
 		} else if (verificationExpr instanceof AndThenResult) {
-			FailThenResult ftr = (FailThenResult) verificationExpr;
+			AndThenResult ftr = (AndThenResult) verificationExpr;
 			for (VerificationExpr ve : ftr.getFirst()) {
 				processVerificationExpr(ve);
 			}

@@ -395,15 +395,4 @@
     </provider>
   </extension>
 
-   <extension
-         point="org.eclipse.ui.newWizards">
-      <wizard
-            category="org.eclipse.xtext.projectwiz"
-            class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.wizard.AlisaNewProjectWizard"
-            id="org.osate.alisa.workbench.ui.wizard.AlisaNewProjectWizard"
-            name="Alisa Project"
-            project="true">
-      </wizard>
-   </extension>
-
 </plugin>
