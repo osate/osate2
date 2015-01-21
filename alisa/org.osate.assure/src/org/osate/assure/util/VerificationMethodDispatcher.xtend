@@ -16,14 +16,14 @@ interface IVerificationMethodDispatcher {
 
 class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher{
 	
-	extension AssureUtilExtension aue
+	extension AssureUtilExtension aue = new AssureUtilExtension
 	
 	override runVerificationMethod(VerificationActivityResult verificationActivityResult) {
 		val method = verificationActivityResult.getTarget().getMethod();
 		if (method.getMethodType() == SupportedTypes.SINGLEPREDICATE) {
 			val methodpath = method.getMethodPath();
 			try { // XXX remove the activity name from the method
-				dispatchVerificationMethod(methodpath+" "+verificationActivityResult.name, verificationActivityResult.caseSubject)
+				dispatchVerificationMethod(methodpath+"@@"+verificationActivityResult.name, verificationActivityResult.caseSubject)
 			} catch (AssertionFailedError e) {
 				addFailure(verificationActivityResult, e);
 			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident

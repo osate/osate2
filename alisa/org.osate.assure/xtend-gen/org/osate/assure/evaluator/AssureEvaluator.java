@@ -22,7 +22,7 @@ import org.osate.assure.util.AssureUtilExtension;
 @SuppressWarnings("all")
 public class AssureEvaluator {
   @Extension
-  private AssureUtilExtension aue;
+  private AssureUtilExtension aue = new AssureUtilExtension();
   
   public AssureResult evaluate(final CaseResult caseResult) {
     AssureResult _xblockexpression = null;

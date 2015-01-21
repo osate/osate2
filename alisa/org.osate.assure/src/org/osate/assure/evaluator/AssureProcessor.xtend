@@ -29,8 +29,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	def AssureResult doProcess(CaseResult caseResult) {
 		caseResult.initialize
-		val x = caseResult.claimResult.map[claimResult|claimResult.process]
-		val y= x.addAllTo(caseResult)
+		caseResult.claimResult.map[claimResult|claimResult.process].addAllTo(caseResult)
 		caseResult.hazardResult.map[hazardResult|hazardResult.process].addAllTo(caseResult)
 		caseResult.subCaseResult.map[subcaseResult|subcaseResult.process].addAllTo(caseResult)
 	}
@@ -46,8 +45,7 @@ class AssureProcessor implements IAssureProcessor {
 		val xx = vaResult.assumptionResult.map[assumptionResult|assumptionResult.process]
 		xx.addAllTo(vaResult)
 		vaResult.preconditionResult.map[preconditionResult|preconditionResult.process].addAllTo(vaResult)
-		val path = vaResult.target?.method?.methodPath
-		dispatcher.dispatchVerificationMethod(path, vaResult.caseSubject)
+		dispatcher.runVerificationMethod( vaResult)
 		vaResult.addOwnResult
 	}
 

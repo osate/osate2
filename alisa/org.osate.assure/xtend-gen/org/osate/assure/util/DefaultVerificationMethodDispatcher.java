@@ -16,7 +16,7 @@ import org.osate.verify.verify.VerificationMethod;
 @SuppressWarnings("all")
 public class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
   @Extension
-  private AssureUtilExtension aue;
+  private AssureUtilExtension aue = new AssureUtilExtension();
   
   public void runVerificationMethod(final VerificationActivityResult verificationActivityResult) {
     try {
@@ -28,7 +28,7 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
         final String methodpath = method.getMethodPath();
         try {
           String _name = verificationActivityResult.getName();
-          String _plus = ((methodpath + " ") + _name);
+          String _plus = ((methodpath + "@@") + _name);
           InstanceObject _caseSubject = this.aue.getCaseSubject(verificationActivityResult);
           this.dispatchVerificationMethod(_plus, _caseSubject);
         } catch (final Throwable _t) {

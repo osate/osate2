@@ -13,7 +13,7 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.util.AssureUtilExtension
 
 class AssureEvaluator {
-	extension AssureUtilExtension aue  // imports methods
+	extension AssureUtilExtension aue  = new AssureUtilExtension
 
 	def AssureResult evaluate(CaseResult caseResult) {
 		caseResult.initialize
