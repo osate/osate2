@@ -23,6 +23,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.impl.CaseResultImpl;
+import org.osate.assure.evaluator.AssureProcessing;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
 
@@ -128,10 +129,10 @@ public class AssureHandler extends AbstractHandler {
 	protected IStatus runJob(CaseResultImpl obj, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
-//		AssureProcessing.processCaseResult(obj);
 		AssureUtilExtension aue = new AssureUtilExtension();
 		aue.computeAndSetTotals(obj);
-		assureProcessor.process(obj);
+		AssureProcessing.processCaseResult(obj);
+//		assureProcessor.process(obj);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");

@@ -1,5 +1,10 @@
 package org.osate.assure.evaluator;
 
+import junit.framework.AssertionFailedError;
+
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.alisa.common.ui.util.AlisaLoader;
 import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.CaseResult;
@@ -9,7 +14,10 @@ import org.osate.assure.assure.HazardResult;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
+import org.osate.assure.util.AssureUtilExtension;
+import org.osate.verify.verify.SupportedTypes;
 import org.osate.verify.verify.VerificationActivity;
+import org.osate.verify.verify.VerificationMethod;
 
 public class AssureProcessing {
 	public static void processCaseResult(CaseResult caseResult) {
@@ -65,36 +73,37 @@ public class AssureProcessing {
 		for (PreconditionResult preResult : verificationActivityResult.getPreconditionResult()) {
 			processPreconditionResult(preResult);
 		}
-//		if (verificationActivity != null) {
-//			VerificationMethod method = verificationActivityResult.getTarget().getMethod();
-//			System.out.println("verification method=" + method.getName());
-//			if (method.getMethodType() == SupportedTypes.SINGLEPREDICATE) {
-//				System.out.println("title=" + method.getTitle());
-//				System.out.println("method=" + method.getMethodPath());
-//				String methodpath = method.getMethodPath();
-//				String className = methodpath.substring(0, methodpath.lastIndexOf("."));
-//				String methodName = methodpath.substring(methodpath.lastIndexOf(".") + 1, methodpath.length());
-//				Object[] args;
-//				args = new Object[0];
-//				try {
-////					AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
-//					args = new Object[1];
-////					CaseResult cr = AssureUtilExtension.getEnclosingCaseResult(verificationActivityResult);
-//					InstanceObject obj = cr.getInstance();
-////					args[0] = (ComponentInstance) obj;
-////					AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "julien", args);
+		if (verificationActivity != null) {
+			VerificationMethod method = verificationActivityResult.getTarget().getMethod();
+			System.out.println("verification method=" + method.getName());
+			if (method.getMethodType() == SupportedTypes.SINGLEPREDICATE) {
+				System.out.println("title=" + method.getTitle());
+				System.out.println("method=" + method.getMethodPath());
+				String methodpath = method.getMethodPath();
+				String className = methodpath.substring(0, methodpath.lastIndexOf("."));
+				String methodName = methodpath.substring(methodpath.lastIndexOf(".") + 1, methodpath.length());
+				Object[] args;
+				args = new Object[0];
+				AssureUtilExtension aue = new AssureUtilExtension();
+				try {
+//					AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
+					args = new Object[1];
+					CaseResult cr = aue.getEnclosingCaseResult(verificationActivityResult);
+					InstanceObject obj = cr.getInstance();
 //					args[0] = (ComponentInstance) obj;
-//					AlisaLoader.alisaInvoke(className, methodName, args);
-//				} catch (AssertionFailedError e) {
-//					AssureUtilExtension.addFailure(verificationActivityResult, e);
-//				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-//					throw e;
-//				} catch (Throwable e) {
-//					AssureUtilExtension.addError(verificationActivityResult, e);
-//				}
-//
-//			}
-//		}
+//					AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "julien", args);
+					args[0] = (ComponentInstance) obj;
+					AlisaLoader.alisaInvoke(className, methodName, args);
+				} catch (AssertionFailedError e) {
+					aue.addFailure(verificationActivityResult, e);
+				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+					throw e;
+				} catch (Throwable e) {
+					aue.addError(verificationActivityResult, e);
+				}
+
+			}
+		}
 
 	}
 
