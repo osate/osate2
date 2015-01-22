@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.instance.InstanceObject;
+
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.VerificationExpr;
@@ -32,6 +34,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getInstance <em>Instance</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
@@ -71,6 +74,16 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * @ordered
    */
   protected Requirement target;
+
+  /**
+   * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInstance()
+   * @generated
+   * @ordered
+   */
+  protected InstanceObject instance;
 
   /**
    * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
@@ -204,6 +217,49 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
+  public InstanceObject getInstance()
+  {
+    if (instance != null && instance.eIsProxy())
+    {
+      InternalEObject oldInstance = (InternalEObject)instance;
+      instance = (InstanceObject)eResolveProxy(oldInstance);
+      if (instance != oldInstance)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CLAIM_RESULT__INSTANCE, oldInstance, instance));
+      }
+    }
+    return instance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InstanceObject basicGetInstance()
+  {
+    return instance;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInstance(InstanceObject newInstance)
+  {
+    InstanceObject oldInstance = instance;
+    instance = newInstance;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__INSTANCE, oldInstance, instance));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getSucessMsg()
   {
     return sucessMsg;
@@ -283,6 +339,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case AssurePackage.CLAIM_RESULT__INSTANCE:
+        if (resolve) return getInstance();
+        return basicGetInstance();
       case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
         return getSucessMsg();
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
@@ -309,6 +368,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
         return;
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)newValue);
+        return;
+      case AssurePackage.CLAIM_RESULT__INSTANCE:
+        setInstance((InstanceObject)newValue);
         return;
       case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
         setSucessMsg((String)newValue);
@@ -341,6 +403,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)null);
         return;
+      case AssurePackage.CLAIM_RESULT__INSTANCE:
+        setInstance((InstanceObject)null);
+        return;
       case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
         setSucessMsg(SUCESS_MSG_EDEFAULT);
         return;
@@ -368,6 +433,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.CLAIM_RESULT__TARGET:
         return target != null;
+      case AssurePackage.CLAIM_RESULT__INSTANCE:
+        return instance != null;
       case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
         return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:

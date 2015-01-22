@@ -1,5 +1,7 @@
 package org.osate.assure.ui.handlers;
 
+import static org.osate.assure.util.AssureUtilExtension.computeAndSetTotals;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -23,9 +25,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.impl.CaseResultImpl;
-import org.osate.assure.evaluator.AssureProcessing;
 import org.osate.assure.evaluator.IAssureProcessor;
-import org.osate.assure.util.AssureUtilExtension;
 
 import com.google.inject.Inject;
 
@@ -129,10 +129,9 @@ public class AssureHandler extends AbstractHandler {
 	protected IStatus runJob(CaseResultImpl obj, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
-		AssureUtilExtension aue = new AssureUtilExtension();
-		aue.computeAndSetTotals(obj);
-		AssureProcessing.processCaseResult(obj);
-//		assureProcessor.process(obj);
+		computeAndSetTotals(obj);
+//		AssureProcessing.processCaseResult(obj);
+		assureProcessor.process(obj);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");

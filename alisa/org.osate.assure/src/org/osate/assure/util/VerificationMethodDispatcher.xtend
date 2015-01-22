@@ -7,7 +7,6 @@ import junit.framework.AssertionFailedError
 import org.osate.aadl2.instance.InstanceObject
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import com.google.inject.ImplementedBy
-import org.osate.assure.assure.VerificationResultState
 
 @ImplementedBy(DefaultVerificationMethodDispatcher)
 interface IVerificationMethodDispatcher {
@@ -17,14 +16,13 @@ interface IVerificationMethodDispatcher {
 
 class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher{
 	
-	extension AssureUtilExtension aue = new AssureUtilExtension
-	
 	override runVerificationMethod(VerificationActivityResult verificationActivityResult) {
 		val method = verificationActivityResult.getTarget().getMethod();
 		if (method.getMethodType() == SupportedTypes.SINGLEPREDICATE) {
 			val methodpath = method.getMethodPath();
 			try { // XXX remove the activity name from the method
-				dispatchVerificationMethod(methodpath+"@@"+verificationActivityResult.name, verificationActivityResult.caseSubject)
+			val path = verificationActivityResult.namePath
+				dispatchVerificationMethod(methodpath+"@@"+path, verificationActivityResult.caseSubject)
 				addSuccess(verificationActivityResult)
 			} catch (AssertionFailedError e) {
 				addFailure(verificationActivityResult, e);

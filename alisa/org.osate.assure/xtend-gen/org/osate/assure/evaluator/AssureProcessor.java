@@ -1,11 +1,9 @@
 package org.osate.assure.evaluator;
 
 import com.google.inject.Inject;
-import java.util.List;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssureResult;
@@ -29,37 +27,34 @@ public class AssureProcessor implements IAssureProcessor {
   @Inject
   private IVerificationMethodDispatcher dispatcher;
   
-  @Extension
-  private AssureUtilExtension aue = new AssureUtilExtension();
-  
   public AssureResult doProcess(final CaseResult caseResult) {
     CaseResult _xblockexpression = null;
     {
-      this.aue.resetCounts(caseResult);
+      AssureUtilExtension.resetCounts(caseResult);
       EList<ClaimResult> _claimResult = caseResult.getClaimResult();
-      final Function1<ClaimResult, AssureResult> _function = new Function1<ClaimResult, AssureResult>() {
-        public AssureResult apply(final ClaimResult claimResult) {
-          return AssureProcessor.this.process(claimResult);
+      final Procedure1<ClaimResult> _function = new Procedure1<ClaimResult>() {
+        public void apply(final ClaimResult claimResult) {
+          AssureResult _process = AssureProcessor.this.process(claimResult);
+          AssureUtilExtension.addTo(_process, caseResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<ClaimResult, AssureResult>map(_claimResult, _function);
-      this.aue.addAllTo(_map, caseResult);
+      IterableExtensions.<ClaimResult>forEach(_claimResult, _function);
       EList<HazardResult> _hazardResult = caseResult.getHazardResult();
-      final Function1<HazardResult, AssureResult> _function_1 = new Function1<HazardResult, AssureResult>() {
-        public AssureResult apply(final HazardResult hazardResult) {
-          return AssureProcessor.this.process(hazardResult);
+      final Procedure1<HazardResult> _function_1 = new Procedure1<HazardResult>() {
+        public void apply(final HazardResult hazardResult) {
+          AssureResult _process = AssureProcessor.this.process(hazardResult);
+          AssureUtilExtension.addTo(_process, caseResult);
         }
       };
-      List<AssureResult> _map_1 = ListExtensions.<HazardResult, AssureResult>map(_hazardResult, _function_1);
-      this.aue.addAllTo(_map_1, caseResult);
+      IterableExtensions.<HazardResult>forEach(_hazardResult, _function_1);
       EList<CaseResult> _subCaseResult = caseResult.getSubCaseResult();
-      final Function1<CaseResult, AssureResult> _function_2 = new Function1<CaseResult, AssureResult>() {
-        public AssureResult apply(final CaseResult subcaseResult) {
-          return AssureProcessor.this.process(subcaseResult);
+      final Procedure1<CaseResult> _function_2 = new Procedure1<CaseResult>() {
+        public void apply(final CaseResult subcaseResult) {
+          AssureResult _process = AssureProcessor.this.process(subcaseResult);
+          AssureUtilExtension.addTo(_process, caseResult);
         }
       };
-      List<AssureResult> _map_2 = ListExtensions.<CaseResult, AssureResult>map(_subCaseResult, _function_2);
-      this.aue.addAllTo(_map_2, caseResult);
+      IterableExtensions.<CaseResult>forEach(_subCaseResult, _function_2);
       _xblockexpression = caseResult;
     }
     return _xblockexpression;
@@ -68,23 +63,23 @@ public class AssureProcessor implements IAssureProcessor {
   public AssureResult doProcess(final ClaimResult claimResult) {
     ClaimResult _xblockexpression = null;
     {
-      this.aue.resetCounts(claimResult);
+      AssureUtilExtension.resetCounts(claimResult);
       EList<VerificationExpr> _verificationActivityResult = claimResult.getVerificationActivityResult();
-      final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
-        public AssureResult apply(final VerificationExpr vaResult) {
-          return AssureProcessor.this.process(vaResult);
+      final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
+        public void apply(final VerificationExpr vaResult) {
+          AssureResult _process = AssureProcessor.this.process(vaResult);
+          AssureUtilExtension.addTo(_process, claimResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<VerificationExpr, AssureResult>map(_verificationActivityResult, _function);
-      this.aue.addAllTo(_map, claimResult);
+      IterableExtensions.<VerificationExpr>forEach(_verificationActivityResult, _function);
       EList<ClaimResult> _subClaimResult = claimResult.getSubClaimResult();
-      final Function1<ClaimResult, AssureResult> _function_1 = new Function1<ClaimResult, AssureResult>() {
-        public AssureResult apply(final ClaimResult subclaimResult) {
-          return AssureProcessor.this.process(subclaimResult);
+      final Procedure1<ClaimResult> _function_1 = new Procedure1<ClaimResult>() {
+        public void apply(final ClaimResult subclaimResult) {
+          AssureResult _process = AssureProcessor.this.process(subclaimResult);
+          AssureUtilExtension.addTo(_process, claimResult);
         }
       };
-      List<AssureResult> _map_1 = ListExtensions.<ClaimResult, AssureResult>map(_subClaimResult, _function_1);
-      this.aue.addAllTo(_map_1, claimResult);
+      IterableExtensions.<ClaimResult>forEach(_subClaimResult, _function_1);
       _xblockexpression = claimResult;
     }
     return _xblockexpression;
@@ -93,140 +88,137 @@ public class AssureProcessor implements IAssureProcessor {
   public AssureResult doProcess(final VerificationActivityResult vaResult) {
     VerificationActivityResult _xblockexpression = null;
     {
-      this.aue.resetCounts(vaResult);
+      AssureUtilExtension.resetCounts(vaResult);
       EList<AssumptionResult> _assumptionResult = vaResult.getAssumptionResult();
-      final Function1<AssumptionResult, AssureResult> _function = new Function1<AssumptionResult, AssureResult>() {
-        public AssureResult apply(final AssumptionResult assumptionResult) {
-          return AssureProcessor.this.process(assumptionResult);
+      final Procedure1<AssumptionResult> _function = new Procedure1<AssumptionResult>() {
+        public void apply(final AssumptionResult assumptionResult) {
+          AssureResult _process = AssureProcessor.this.process(assumptionResult);
+          AssureUtilExtension.addTo(_process, vaResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<AssumptionResult, AssureResult>map(_assumptionResult, _function);
-      this.aue.addAllTo(_map, vaResult);
+      IterableExtensions.<AssumptionResult>forEach(_assumptionResult, _function);
       EList<PreconditionResult> _preconditionResult = vaResult.getPreconditionResult();
-      final Function1<PreconditionResult, AssureResult> _function_1 = new Function1<PreconditionResult, AssureResult>() {
-        public AssureResult apply(final PreconditionResult preconditionResult) {
-          return AssureProcessor.this.process(preconditionResult);
+      final Procedure1<PreconditionResult> _function_1 = new Procedure1<PreconditionResult>() {
+        public void apply(final PreconditionResult preconditionResult) {
+          AssureResult _process = AssureProcessor.this.process(preconditionResult);
+          AssureUtilExtension.addTo(_process, vaResult);
         }
       };
-      List<AssureResult> _map_1 = ListExtensions.<PreconditionResult, AssureResult>map(_preconditionResult, _function_1);
-      this.aue.addAllTo(_map_1, vaResult);
+      IterableExtensions.<PreconditionResult>forEach(_preconditionResult, _function_1);
       this.dispatcher.runVerificationMethod(vaResult);
-      this.aue.addOwnResult(vaResult);
+      AssureUtilExtension.addOwnResult(vaResult);
       _xblockexpression = vaResult;
     }
     return _xblockexpression;
   }
   
   public AssureResult doProcess(final FailThenResult vaResult) {
-    AssureResult _xblockexpression = null;
+    FailThenResult _xblockexpression = null;
     {
-      this.aue.resetCounts(vaResult);
+      AssureUtilExtension.resetCounts(vaResult);
       EList<VerificationExpr> _first = vaResult.getFirst();
-      final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
-        public AssureResult apply(final VerificationExpr expr) {
-          return AssureProcessor.this.process(expr);
+      final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
+        public void apply(final VerificationExpr expr) {
+          AssureResult _process = AssureProcessor.this.process(expr);
+          AssureUtilExtension.addTo(_process, vaResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<VerificationExpr, AssureResult>map(_first, _function);
-      this.aue.addAllTo(_map, vaResult);
-      AssureResult _xifexpression = null;
-      boolean _hasFailedOrError = this.aue.hasFailedOrError(vaResult);
+      IterableExtensions.<VerificationExpr>forEach(_first, _function);
+      boolean _hasFailedOrError = AssureUtilExtension.hasFailedOrError(vaResult);
       if (_hasFailedOrError) {
-        AssureResult _xblockexpression_1 = null;
-        {
-          this.aue.resetCounts(vaResult);
-          this.aue.recordFailThen(vaResult);
-          EList<VerificationExpr> _second = vaResult.getSecond();
-          final Function1<VerificationExpr, AssureResult> _function_1 = new Function1<VerificationExpr, AssureResult>() {
-            public AssureResult apply(final VerificationExpr expr) {
-              return AssureProcessor.this.process(expr);
-            }
-          };
-          List<AssureResult> _map_1 = ListExtensions.<VerificationExpr, AssureResult>map(_second, _function_1);
-          _xblockexpression_1 = this.aue.addAllTo(_map_1, vaResult);
-        }
-        _xifexpression = _xblockexpression_1;
+        AssureUtilExtension.resetCounts(vaResult);
+        AssureUtilExtension.recordFailThen(vaResult);
+        EList<VerificationExpr> _second = vaResult.getSecond();
+        final Procedure1<VerificationExpr> _function_1 = new Procedure1<VerificationExpr>() {
+          public void apply(final VerificationExpr expr) {
+            AssureResult _process = AssureProcessor.this.process(expr);
+            AssureUtilExtension.addTo(_process, vaResult);
+          }
+        };
+        IterableExtensions.<VerificationExpr>forEach(_second, _function_1);
       }
-      _xblockexpression = _xifexpression;
+      _xblockexpression = vaResult;
     }
     return _xblockexpression;
   }
   
   public AssureResult doProcess(final AndThenResult vaResult) {
-    AssureResult _xblockexpression = null;
+    AndThenResult _xblockexpression = null;
     {
-      this.aue.resetCounts(vaResult);
+      AssureUtilExtension.resetCounts(vaResult);
       EList<VerificationExpr> _first = vaResult.getFirst();
-      final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
-        public AssureResult apply(final VerificationExpr expr) {
-          return AssureProcessor.this.process(expr);
+      final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
+        public void apply(final VerificationExpr expr) {
+          AssureResult _process = AssureProcessor.this.process(expr);
+          AssureUtilExtension.addTo(_process, vaResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<VerificationExpr, AssureResult>map(_first, _function);
-      this.aue.addAllTo(_map, vaResult);
-      AssureResult _xifexpression = null;
-      boolean _isSuccessFul = this.aue.isSuccessFul(vaResult);
+      IterableExtensions.<VerificationExpr>forEach(_first, _function);
+      boolean _isSuccessFul = AssureUtilExtension.isSuccessFul(vaResult);
       if (_isSuccessFul) {
         EList<VerificationExpr> _second = vaResult.getSecond();
-        final Function1<VerificationExpr, AssureResult> _function_1 = new Function1<VerificationExpr, AssureResult>() {
-          public AssureResult apply(final VerificationExpr expr) {
-            return AssureProcessor.this.process(expr);
+        final Procedure1<VerificationExpr> _function_1 = new Procedure1<VerificationExpr>() {
+          public void apply(final VerificationExpr expr) {
+            AssureResult _process = AssureProcessor.this.process(expr);
+            AssureUtilExtension.addTo(_process, vaResult);
           }
         };
-        List<AssureResult> _map_1 = ListExtensions.<VerificationExpr, AssureResult>map(_second, _function_1);
-        _xifexpression = this.aue.addAllTo(_map_1, vaResult);
+        IterableExtensions.<VerificationExpr>forEach(_second, _function_1);
       } else {
-        _xifexpression = this.aue.recordSkip(vaResult);
+        AssureUtilExtension.recordSkip(vaResult);
       }
-      _xblockexpression = _xifexpression;
+      _xblockexpression = vaResult;
     }
     return _xblockexpression;
   }
   
   public AssureResult doProcess(final HazardResult hazardResult) {
-    AssureResult _xblockexpression = null;
+    HazardResult _xblockexpression = null;
     {
-      this.aue.resetCounts(hazardResult);
+      AssureUtilExtension.resetCounts(hazardResult);
       EList<ClaimResult> _claimResult = hazardResult.getClaimResult();
-      final Function1<ClaimResult, AssureResult> _function = new Function1<ClaimResult, AssureResult>() {
-        public AssureResult apply(final ClaimResult subclaimResult) {
-          return AssureProcessor.this.process(subclaimResult);
+      final Procedure1<ClaimResult> _function = new Procedure1<ClaimResult>() {
+        public void apply(final ClaimResult subclaimResult) {
+          AssureResult _process = AssureProcessor.this.process(subclaimResult);
+          AssureUtilExtension.addTo(_process, hazardResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<ClaimResult, AssureResult>map(_claimResult, _function);
-      _xblockexpression = this.aue.addAllTo(_map, hazardResult);
+      IterableExtensions.<ClaimResult>forEach(_claimResult, _function);
+      _xblockexpression = hazardResult;
     }
     return _xblockexpression;
   }
   
   public AssureResult doProcess(final AssumptionResult assumptionResult) {
-    AssureResult _xblockexpression = null;
+    AssumptionResult _xblockexpression = null;
     {
-      this.aue.resetCounts(assumptionResult);
+      AssureUtilExtension.resetCounts(assumptionResult);
       EList<VerificationExpr> _verificationActivityResult = assumptionResult.getVerificationActivityResult();
-      final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
-        public AssureResult apply(final VerificationExpr vaResult) {
-          return AssureProcessor.this.process(vaResult);
+      final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
+        public void apply(final VerificationExpr vaResult) {
+          AssureResult _process = AssureProcessor.this.process(vaResult);
+          AssureUtilExtension.addTo(_process, assumptionResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<VerificationExpr, AssureResult>map(_verificationActivityResult, _function);
-      _xblockexpression = this.aue.addAllTo(_map, assumptionResult);
+      IterableExtensions.<VerificationExpr>forEach(_verificationActivityResult, _function);
+      _xblockexpression = assumptionResult;
     }
     return _xblockexpression;
   }
   
   public AssureResult doProcess(final PreconditionResult preconditionResult) {
-    AssureResult _xblockexpression = null;
+    PreconditionResult _xblockexpression = null;
     {
-      this.aue.resetCounts(preconditionResult);
+      AssureUtilExtension.resetCounts(preconditionResult);
       EList<VerificationExpr> _verificationActivityResult = preconditionResult.getVerificationActivityResult();
-      final Function1<VerificationExpr, AssureResult> _function = new Function1<VerificationExpr, AssureResult>() {
-        public AssureResult apply(final VerificationExpr vaResult) {
-          return AssureProcessor.this.process(vaResult);
+      final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
+        public void apply(final VerificationExpr vaResult) {
+          AssureResult _process = AssureProcessor.this.process(vaResult);
+          AssureUtilExtension.addTo(_process, preconditionResult);
         }
       };
-      List<AssureResult> _map = ListExtensions.<VerificationExpr, AssureResult>map(_verificationActivityResult, _function);
-      _xblockexpression = this.aue.addAllTo(_map, preconditionResult);
+      IterableExtensions.<VerificationExpr>forEach(_verificationActivityResult, _function);
+      _xblockexpression = preconditionResult;
     }
     return _xblockexpression;
   }

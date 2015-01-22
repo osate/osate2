@@ -11,7 +11,6 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan
-import org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension
 import org.osate.reqspec.reqSpec.Hazard
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.AndThenExpr
@@ -27,6 +26,8 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import org.osate.verify.verify.WhenExpr
 import org.osate.reqspec.reqSpec.Requirement
+import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
+import static extension org.osate.assure.util.AssureUtilExtension.*
 
 /**
  * Generates code from your model files on save.
@@ -45,8 +46,6 @@ class AlisaGenerator implements IGenerator {
 	
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
 
-	extension AlisaWorkbenchUtilsExtension awue = new AlisaWorkbenchUtilsExtension
-
 	def generateCase(AssuranceCasePlan acp) {
 		val si = acp.system.buildInstanceModelFile
 		si.generate(acp)
@@ -61,24 +60,30 @@ class AlisaGenerator implements IGenerator {
 		[
 			«FOR myplan : myplans»
 			«FOR claim : myplan.claim»
-			«claim.generate»
+			«claim.generate(ci)»
 			«ENDFOR»
 			«ENDFOR»
 			«FOR subci : ci.componentInstances»
 			«subci.generate(acp)»
 			«ENDFOR»
+«««			«FOR hazard : myplan.claim»
+«««			«hazard.generate(ci)»
+«««			«ENDFOR»
 		]
 		«ENDIF»
 		'''
 		// XXX add in hazards for system
 	}
 
-	def CharSequence generate(Claim claim) {
+	def CharSequence generate(Claim claim,ComponentInstance ci) {
 		'''
-		claim «claim.name» for «claim?.requirement.fullyQualifiedName»
+		claim «claim.name» for «claim.requirement.fullyQualifiedName»
+		«IF claim.requirement.target != null»
+		instance "«claim.requirement.getRequirementTarget(ci)»"
+		«ENDIF»
 		[
 		    «FOR subclaim : claim?.subclaim»
-			«subclaim.generate»
+			«subclaim.generate(ci)»
 		    «ENDFOR»
 		    «claim.assert.generate»
 		]

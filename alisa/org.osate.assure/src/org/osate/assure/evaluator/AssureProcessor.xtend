@@ -12,7 +12,7 @@ import org.osate.assure.assure.FailThenResult
 import org.osate.assure.assure.AndThenResult
 import org.osate.assure.assure.AssureResult
 import com.google.inject.ImplementedBy
-import org.osate.assure.util.AssureUtilExtension
+import static extension org.osate.assure.util.AssureUtilExtension.*
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -25,27 +25,26 @@ interface IAssureProcessor {
  */
 class AssureProcessor implements IAssureProcessor {
 	@Inject IVerificationMethodDispatcher dispatcher
-	extension AssureUtilExtension aue = new AssureUtilExtension()
 
 	def AssureResult doProcess(CaseResult caseResult) {
 		caseResult.resetCounts
-		caseResult.claimResult.map[claimResult|claimResult.process].addAllTo(caseResult)
-		caseResult.hazardResult.map[hazardResult|hazardResult.process].addAllTo(caseResult)
-		caseResult.subCaseResult.map[subcaseResult|subcaseResult.process].addAllTo(caseResult)
+		caseResult.claimResult.forEach[claimResult|claimResult.process.addTo(caseResult)]
+		caseResult.hazardResult.forEach[hazardResult|hazardResult.process.addTo(caseResult)]
+		caseResult.subCaseResult.forEach[subcaseResult|subcaseResult.process.addTo(caseResult)]
 		caseResult
 	}
 
 	def AssureResult doProcess(ClaimResult claimResult) {
 		claimResult.resetCounts
-		claimResult.verificationActivityResult.map[vaResult|vaResult.process].addAllTo(claimResult)
-		claimResult.subClaimResult.map[subclaimResult|subclaimResult.process].addAllTo(claimResult)
+		claimResult.verificationActivityResult.forEach[vaResult|vaResult.process.addTo(claimResult)]
+		claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process.addTo(claimResult)]
 		claimResult
 	}
 
 	def AssureResult doProcess(VerificationActivityResult vaResult) {
 		vaResult.resetCounts
-		vaResult.assumptionResult.map[assumptionResult|assumptionResult.process].addAllTo(vaResult)
-		vaResult.preconditionResult.map[preconditionResult|preconditionResult.process].addAllTo(vaResult)
+		vaResult.assumptionResult.forEach[assumptionResult|assumptionResult.process.addTo(vaResult)]
+		vaResult.preconditionResult.forEach[preconditionResult|preconditionResult.process.addTo(vaResult)]
 		dispatcher.runVerificationMethod( vaResult)
 		vaResult.addOwnResult
 		vaResult
@@ -53,37 +52,42 @@ class AssureProcessor implements IAssureProcessor {
 
 	def AssureResult doProcess(FailThenResult vaResult) {
 		vaResult.resetCounts
-		vaResult.first.map[expr|expr.process].addAllTo(vaResult)
+		vaResult.first.forEach[expr|expr.process.addTo(vaResult)]
 		if (vaResult.hasFailedOrError) {
 			vaResult.resetCounts
 			vaResult.recordFailThen
-			vaResult.second.map[expr|expr.process].addAllTo(vaResult)
+			vaResult.second.forEach[expr|expr.process.addTo(vaResult)]
 		}
+		vaResult
 	}
 
 	def AssureResult doProcess(AndThenResult vaResult) {
 		vaResult.resetCounts
-		vaResult.first.map[expr|expr.process].addAllTo(vaResult)
+		vaResult.first.forEach[expr|expr.process.addTo(vaResult)]
 		if (vaResult.isSuccessFul) {
-			vaResult.second.map[expr|expr.process].addAllTo(vaResult)
+			vaResult.second.forEach[expr|expr.process.addTo(vaResult)]
 		} else {
 			vaResult.recordSkip
 		}
+		vaResult
 	}
 
 	def AssureResult doProcess(HazardResult hazardResult) {
 		hazardResult.resetCounts
-		hazardResult.claimResult.map[subclaimResult|subclaimResult.process].addAllTo(hazardResult)
+		hazardResult.claimResult.forEach[subclaimResult|subclaimResult.process.addTo(hazardResult)]
+		hazardResult
 	}
 
 	def AssureResult doProcess(AssumptionResult assumptionResult) {
 		assumptionResult.resetCounts
-		assumptionResult.verificationActivityResult.map[vaResult|vaResult.process].addAllTo(assumptionResult)
+		assumptionResult.verificationActivityResult.forEach[vaResult|vaResult.process.addTo(assumptionResult)]
+		assumptionResult
 	}
 
 	def AssureResult doProcess(PreconditionResult preconditionResult) {
 		preconditionResult.resetCounts
-		preconditionResult.verificationActivityResult.map[vaResult|vaResult.process].addAllTo(preconditionResult)
+		preconditionResult.verificationActivityResult.forEach[vaResult|vaResult.process.addTo(preconditionResult)]
+		preconditionResult
 	}
 
 	override AssureResult process(AssureResult assureResult) {

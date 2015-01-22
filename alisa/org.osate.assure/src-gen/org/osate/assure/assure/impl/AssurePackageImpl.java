@@ -316,9 +316,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getClaimResult_Instance()
+  {
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getClaimResult_SucessMsg()
   {
-    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -328,7 +338,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_SubClaimResult()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(3);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -338,7 +348,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_VerificationActivityResult()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(4);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -843,6 +853,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     claimResultEClass = createEClass(CLAIM_RESULT);
     createEAttribute(claimResultEClass, CLAIM_RESULT__NAME);
     createEReference(claimResultEClass, CLAIM_RESULT__TARGET);
+    createEReference(claimResultEClass, CLAIM_RESULT__INSTANCE);
     createEAttribute(claimResultEClass, CLAIM_RESULT__SUCESS_MSG);
     createEReference(claimResultEClass, CLAIM_RESULT__SUB_CLAIM_RESULT);
     createEReference(claimResultEClass, CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT);
@@ -964,6 +975,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEClass(claimResultEClass, ClaimResult.class, "ClaimResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getClaimResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_Target(), theReqSpecPackage.getRequirement(), null, "target", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClaimResult_Instance(), theInstancePackage.getInstanceObject(), null, "instance", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClaimResult_SucessMsg(), theEcorePackage.getEString(), "sucessMsg", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_SubClaimResult(), this.getClaimResult(), null, "subClaimResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_VerificationActivityResult(), this.getVerificationExpr(), null, "verificationActivityResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

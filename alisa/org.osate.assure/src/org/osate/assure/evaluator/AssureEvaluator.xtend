@@ -10,10 +10,9 @@ import org.osate.assure.assure.FailThenResult
 import org.osate.assure.assure.HazardResult
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.util.AssureUtilExtension
+import static extension org.osate.assure.util.AssureUtilExtension.*
 
 class AssureEvaluator {
-	extension AssureUtilExtension aue  = new AssureUtilExtension
 
 	def AssureResult evaluate(CaseResult caseResult) {
 		caseResult.resetCounts

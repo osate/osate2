@@ -19,14 +19,13 @@ import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.HazardResult
 import org.osate.assure.assure.AssumptionResult
 import org.osate.assure.assure.PreconditionResult
-import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.FailThenResult
 import org.osate.assure.assure.AndThenResult
 import org.eclipse.emf.common.util.EList
 
 class AssureUtilExtension {
 
-	def CaseResult getEnclosingCaseResult(EObject assureObject) {
+	def static CaseResult getEnclosingCaseResult(EObject assureObject) {
 		var result = assureObject
 		while (!(result instanceof CaseResult)) {
 			result = result.eContainer
@@ -34,39 +33,53 @@ class AssureUtilExtension {
 		if(result == null) return null
 		return result as CaseResult
 	}
-	
-	def InstanceObject getCaseSubject(EObject assureObject) {
-		val context = assureObject.enclosingCaseResult
-		if(context == null) return null
-		return context.instance
+
+	def static CaseResult getEnclosingClaimResult(EObject assureObject) {
+		var result = assureObject
+		while (!(result instanceof ClaimResult)) {
+			result = result.eContainer
+		}
+		if(result == null) return null
+		return result as CaseResult
 	}
 
-	def void addErrorMarkers(VerificationActivityResult verificationActivityResult,InstanceObject instance, String markertype) {
+	def static InstanceObject getClaimSubject(EObject assureObject) {
+		assureObject.enclosingClaimResult.instance ?: assureObject.claimSubject
+	}
+
+	def static InstanceObject getCaseSubject(EObject assureObject) {
+		assureObject.enclosingCaseResult?.instance
+	}
+
+	def static void addErrorMarkers(VerificationActivityResult verificationActivityResult, InstanceObject instance,
+		String markertype) {
 		val res = instance.eResource
 		val err = res.errors
 		val mt = "org.osate.analysis.flows.FlowLatencyObjectMarker"
 		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
 		val markersforanalysis = irsrc.findMarkers(mt, true, IResource.DEPTH_INFINITE) // analysisMarkerType
-		val markers = markersforanalysis.filter[IMarker m|
+		val markers = markersforanalysis.filter [ IMarker m |
 			m.getAttribute(AadlConstants.AADLURI) == EcoreUtil.getURI(instance).toString() &&
-			m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR
+				m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR
 		]
-//		markers.forEach[m|
-// first one only
+
+		//		markers.forEach[m|
+		// first one only
 		val m = markers.head
-		val VerificationResult vr = verificationActivityResult.result//AssureFactory.eINSTANCE.createVerificationResult();
+		val VerificationResult vr = verificationActivityResult.result //AssureFactory.eINSTANCE.createVerificationResult();
 		vr.setResultState(VerificationResultState.FAIL);
 		vr.setFailMsg(m.getAttribute(IMarker.MESSAGE) as String);
 		vr.setType(markertype);
 		verificationActivityResult.setResult(vr);
-//		]
+
+	//		]
 	}
-	
-	def void addSuccess(VerificationActivityResult verificationActivityResult){
+
+	def static void addSuccess(VerificationActivityResult verificationActivityResult) {
 		verificationActivityResult.result.setResultState(VerificationResultState.SUCCESS);
 	}
 
-	def void addFailure(VerificationActivityResult verificationActivityResult, Throwable e) {
+	def static void addFailure(VerificationActivityResult verificationActivityResult, Throwable e) {
 		val VerificationResult res = verificationActivityResult.result //AssureFactory.eINSTANCE.createVerificationResult();
 		res.setResultState(VerificationResultState.FAIL);
 		res.setFailMsg(e.getMessage());
@@ -74,22 +87,23 @@ class AssureUtilExtension {
 		verificationActivityResult.setResult(res);
 	}
 
-	def void addError(VerificationActivityResult verificationActivityResult, Throwable e) {
+	def static void addError(VerificationActivityResult verificationActivityResult, Throwable e) {
 		val VerificationResult res = verificationActivityResult.result
+
 		//verificationActivityResult.setResult(AssureFactory.eINSTANCE.createVerificationResult());
 		res.setResultState(VerificationResultState.ERROR);
 		res.setFailMsg(e.getMessage());
 		res.setType(e.getClass().getName());
 	}
-	
-	def int sum(List<Integer> l){
-		l.reduce[a,b|a + b]?:0
+
+	def static int sum(List<Integer> l) {
+		l.reduce[a, b|a + b] ?: 0
 	}
 
 	/**
 	 * add all subelement counts without reevaluating them
 	 */
-	def AssureResult addAllTo(List<? extends AssureResult> parts,AssureResult result) {
+	def static AssureResult addAllTo(List<? extends AssureResult> parts, AssureResult result) {
 		result.failCount = result.failCount + parts.map[failCount].sum
 		result.successCount = result.successCount + parts.map[successCount].sum
 		result.errorCount = result.errorCount + parts.map[errorCount].sum
@@ -97,65 +111,71 @@ class AssureUtilExtension {
 		result.failthenCount = result.failthenCount + parts.map[failthenCount].sum
 		return result
 	}
+	def static AssureResult addTo(AssureResult subresult, AssureResult result) {
+		result.failCount = result.failCount + subresult.failCount
+		result.successCount = result.successCount + subresult.successCount
+		result.errorCount = result.errorCount + subresult.errorCount
+		result.skippedCount = result.skippedCount + subresult.skippedCount
+		result.failthenCount = result.failthenCount + subresult.failthenCount
+		return result
+	}
 
-
-	def void resetCounts(AssureResult result) {
+	def static void resetCounts(AssureResult result) {
 		result.failCount = 0
 		result.successCount = 0
 		result.errorCount = 0
 		result.skippedCount = 0
 		result.failthenCount = 0
 	}
-	
-	
-	def AssureResult computeAndSetTotals(CaseResult caseResult) {
+
+	def static AssureResult computeAndSetTotals(CaseResult caseResult) {
 		caseResult.totalCount = 0
 		caseResult.addAllTotals(caseResult.claimResult)
 		caseResult.addAllTotals(caseResult.hazardResult)
 		caseResult.addAllTotals(caseResult.subCaseResult)
 	}
 
-	def AssureResult computeAndSetTotals(ClaimResult claimResult) {
+	def static AssureResult computeAndSetTotals(ClaimResult claimResult) {
 		claimResult.totalCount = 0
 		claimResult.addAllTotals(claimResult.verificationActivityResult)
 		claimResult.addAllTotals(claimResult.subClaimResult)
 	}
 
-	def AssureResult computeAndSetTotals(VerificationActivityResult vaResult) {
+	def static AssureResult computeAndSetTotals(VerificationActivityResult vaResult) {
 		vaResult.totalCount = 1 // count self 
 		vaResult.addAllTotals(vaResult.assumptionResult)
 		vaResult.addAllTotals(vaResult.preconditionResult)
 		vaResult
 	}
 
-	def AssureResult computeAndSetTotals(FailThenResult vaResult) {
+	def static AssureResult computeAndSetTotals(FailThenResult vaResult) {
 		vaResult.totalCount = 0
 		vaResult.addAllTotals(vaResult.first)
 		vaResult.addAllTotals(vaResult.second)
 	}
 
-	def AssureResult computeAndSetTotals(AndThenResult vaResult) {
+	def static AssureResult computeAndSetTotals(AndThenResult vaResult) {
 		vaResult.totalCount = 0
 		vaResult.addAllTotals(vaResult.first)
 		vaResult.addAllTotals(vaResult.second)
 	}
 
-	def AssureResult computeAndSetTotals(HazardResult hazardResult) {
+	def static AssureResult computeAndSetTotals(HazardResult hazardResult) {
 		hazardResult.totalCount = 0
 		hazardResult.addAllTotals(hazardResult.claimResult)
 	}
 
-	def AssureResult computeAndSetTotals(AssumptionResult assumptionResult) {
+	def static AssureResult computeAndSetTotals(AssumptionResult assumptionResult) {
 		assumptionResult.totalCount = 0
 		assumptionResult.addAllTotals(assumptionResult.verificationActivityResult)
 	}
 
-	def AssureResult computeAndSetTotals(PreconditionResult preconditionResult) {
+	def static AssureResult computeAndSetTotals(PreconditionResult preconditionResult) {
 		preconditionResult.totalCount = 0
 		preconditionResult.addAllTotals(preconditionResult.verificationActivityResult)
 	}
 
-	def AssureResult computeAndSetTotals(AssureResult assureResult) {
+	def static AssureResult computeAndSetTotals(AssureResult assureResult) {
 		switch (assureResult) {
 			CaseResult: assureResult.computeAndSetTotals
 			ClaimResult: assureResult.computeAndSetTotals
@@ -168,36 +188,39 @@ class AssureUtilExtension {
 		}
 	}
 
-	def AssureResult addAllTotals(AssureResult result, EList<? extends AssureResult> parts) {
+	def static AssureResult addAllTotals(AssureResult result, EList<? extends AssureResult> parts) {
 		result.totalCount = result.totalCount + parts.map[e|e.computeAndSetTotals.totalCount].sum
 		return result
 	}
-	
-	
-	def FailThenResult recordFailThen(FailThenResult result){
+
+	def static FailThenResult recordFailThen(FailThenResult result) {
 		result.failthenCount = result.failCount + result.errorCount
 		result.failCount = 0
 		result.errorCount = 0
 		result
 	}
-	
-	def AndThenResult recordSkip(AndThenResult result){
-		result.skippedCount = result.second.map[exp| exp.totalCount].sum
+
+	def static AndThenResult recordSkip(AndThenResult result) {
+		result.skippedCount = result.second.map[exp|exp.totalCount].sum
 		result
 	}
 
-	def VerificationActivityResult addOwnResult(VerificationActivityResult ar) {
+	def static VerificationActivityResult addOwnResult(VerificationActivityResult ar) {
 		switch (ar.result.resultState) {
-			case VerificationResultState.SUCCESS: ar.successCount = ar.successCount + 1
-			case VerificationResultState.FAIL: ar.failCount = ar.failCount + 1
-			case VerificationResultState.ERROR: ar.errorCount = ar.errorCount + 1
-			case VerificationResultState.TBD: {} // calculated from the others
+			case VerificationResultState.SUCCESS:
+				ar.successCount = ar.successCount + 1
+			case VerificationResultState.FAIL:
+				ar.failCount = ar.failCount + 1
+			case VerificationResultState.ERROR:
+				ar.errorCount = ar.errorCount + 1
+			case VerificationResultState.TBD: {
+			} // calculated from the others
 		}
 		ar
 	}
-	
-	def int countElements(AssureResult ar){
-		switch (ar){
+
+	def static int countElements(AssureResult ar) {
+		switch (ar) {
 			CaseResult: ar.subCaseResult.length + ar.claimResult.length + ar.hazardResult.length
 			ClaimResult: ar.subClaimResult.length + ar.verificationActivityResult.length
 			HazardResult: ar.claimResult.length
@@ -209,43 +232,64 @@ class AssureUtilExtension {
 		}
 		0
 	}
-	
-	def int getTBDCount(AssureResult ar){
-		ar.totalCount - ar.successCount - ar.failCount - ar.errorCount - ar.failthenCount - ar.skippedCount 
+
+	def static int getTBDCount(AssureResult ar) {
+		ar.totalCount - ar.successCount - ar.failCount - ar.errorCount - ar.failthenCount - ar.skippedCount
 	}
-	
-	def boolean isSuccessFul(AssureResult ar){
-		ar.failCount == 0 && ar.errorCount == 0 
+
+	def static boolean isSuccessFul(AssureResult ar) {
+		ar.failCount == 0 && ar.errorCount == 0
 	}
-	
-	def boolean hasFailedOrError(AssureResult ar){
+
+	def static boolean hasFailedOrError(AssureResult ar) {
 		ar.failCount > 0 || ar.errorCount > 0
 	}
 
-	def getTheWeight(RefExpr expr) {
+	def static getTheWeight(RefExpr expr) {
 		switch expr {
 			case expr.weight == 0: 1
 			default: expr.weight
 		}
 	}
-	
+
+	def static String getNamePath(AssureResult ar) {
+		if (ar.eContainer == null) {
+			return ar.printableName
+		} else {
+			return (ar.eContainer as AssureResult).namePath + "." + ar.printableName
+		}
+	}
+
+	def static getPrintableName(AssureResult ar) {
+		switch (ar) {
+			CaseResult: return ar.name
+			ClaimResult: return ar.name
+			VerificationActivityResult: return ar.name
+			AssumptionResult: return ar.name
+			PreconditionResult: return ar.name
+			HazardResult: return ar.name
+			FailThenResult: return "FailThen"
+			AndThenResult: return "AndThen"
+		}
+	}
+
 	static val hasRunRecord = Collections.synchronizedMap(newHashMap)
-	
-	def static boolean hasRun(String analysisID, EObject target){
+
+	def static boolean hasRun(String analysisID, EObject target) {
 		try {
-			hasRunRecord.put(analysisID, target)?:runme(analysisID,target)
-			} catch (Exception e) {
-				hasRunRecord.remove(analysisID)
-				return false
-			}
+			hasRunRecord.put(analysisID, target) ?: runme(analysisID, target)
+		} catch (Exception e) {
+			hasRunRecord.remove(analysisID)
+			return false
+		}
 		return true
 	}
-	
-	def static void clearHasRunRecords(){
+
+	def static void clearHasRunRecords() {
 		hasRunRecord.clear
 	}
-	
-	def static EObject runme(String analysisID,EObject eo){
+
+	def static EObject runme(String analysisID, EObject eo) {
 		return eo
 	}
 

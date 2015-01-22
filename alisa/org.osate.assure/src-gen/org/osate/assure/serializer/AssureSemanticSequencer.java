@@ -168,7 +168,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         target=[Classifier|AadlClassifierReference] 
-	 *         instance=[InstanceObject|URIID]? 
+	 *         instance=[InstanceObject|URIID] 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
 	 *         errorCount=INT? 
@@ -192,6 +192,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         target=[Requirement|QualifiedName] 
+	 *         instance=[InstanceObject|URIID]? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
 	 *         errorCount=INT? 

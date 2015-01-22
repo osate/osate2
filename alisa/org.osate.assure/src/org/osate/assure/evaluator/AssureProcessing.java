@@ -1,5 +1,8 @@
 package org.osate.assure.evaluator;
 
+import static org.osate.assure.util.AssureUtilExtension.addError;
+import static org.osate.assure.util.AssureUtilExtension.addFailure;
+import static org.osate.assure.util.AssureUtilExtension.getEnclosingCaseResult;
 import junit.framework.AssertionFailedError;
 
 import org.osate.aadl2.instance.ComponentInstance;
@@ -14,7 +17,6 @@ import org.osate.assure.assure.HazardResult;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
-import org.osate.assure.util.AssureUtilExtension;
 import org.osate.verify.verify.SupportedTypes;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -84,22 +86,21 @@ public class AssureProcessing {
 				String methodName = methodpath.substring(methodpath.lastIndexOf(".") + 1, methodpath.length());
 				Object[] args;
 				args = new Object[0];
-				AssureUtilExtension aue = new AssureUtilExtension();
 				try {
 //					AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "juliensimple", args);
 					args = new Object[1];
-					CaseResult cr = aue.getEnclosingCaseResult(verificationActivityResult);
+					CaseResult cr = getEnclosingCaseResult(verificationActivityResult);
 					InstanceObject obj = cr.getInstance();
 //					args[0] = (ComponentInstance) obj;
 //					AlisaLoader.alisaInvoke("testresourcebudget.JulienTest", "julien", args);
 					args[0] = (ComponentInstance) obj;
 					AlisaLoader.alisaInvoke(className, methodName, args);
 				} catch (AssertionFailedError e) {
-					aue.addFailure(verificationActivityResult, e);
+					addFailure(verificationActivityResult, e);
 				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 					throw e;
 				} catch (Throwable e) {
-					aue.addError(verificationActivityResult, e);
+					addError(verificationActivityResult, e);
 				}
 
 			}

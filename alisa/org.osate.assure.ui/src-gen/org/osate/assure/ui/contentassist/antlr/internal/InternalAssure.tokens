@@ -1,7 +1,7 @@
 '.'=43
 '::'=44
-'['=21
-']'=22
+'['=22
+']'=23
 'andthen'=37
 'assumption'=32
 'case'=19
@@ -17,7 +17,7 @@
 'failtype'=39
 'for'=20
 'hazard'=31
-'instance'=23
+'instance'=21
 'message'=28
 'precondition'=33
 'redo'=17

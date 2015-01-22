@@ -376,13 +376,22 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Instance</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM_RESULT__INSTANCE = ASSURE_RESULT_FEATURE_COUNT + 2;
+
+  /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__SUCESS_MSG = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int CLAIM_RESULT__SUCESS_MSG = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Sub Claim Result</b></em>' containment reference list.
@@ -391,7 +400,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__SUB_CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int CLAIM_RESULT__SUB_CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Verification Activity Result</b></em>' containment reference list.
@@ -400,7 +409,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
+  int CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT = ASSURE_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Claim Result</em>' class.
@@ -409,7 +418,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int CLAIM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.HazardResultImpl <em>Hazard Result</em>}' class.
@@ -1397,6 +1406,17 @@ public interface AssurePackage extends EPackage
   EReference getClaimResult_Target();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.ClaimResult#getInstance <em>Instance</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Instance</em>'.
+   * @see org.osate.assure.assure.ClaimResult#getInstance()
+   * @see #getClaimResult()
+   * @generated
+   */
+  EReference getClaimResult_Instance();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getSucessMsg <em>Sucess Msg</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2038,6 +2058,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EReference CLAIM_RESULT__TARGET = eINSTANCE.getClaimResult_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Instance</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLAIM_RESULT__INSTANCE = eINSTANCE.getClaimResult_Instance();
 
     /**
      * The meta object literal for the '<em><b>Sucess Msg</b></em>' attribute feature.

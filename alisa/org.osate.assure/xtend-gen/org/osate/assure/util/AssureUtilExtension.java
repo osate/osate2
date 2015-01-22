@@ -37,7 +37,7 @@ import org.osate.verify.verify.RefExpr;
 
 @SuppressWarnings("all")
 public class AssureUtilExtension {
-  public CaseResult getEnclosingCaseResult(final EObject assureObject) {
+  public static CaseResult getEnclosingCaseResult(final EObject assureObject) {
     EObject result = assureObject;
     while ((!(result instanceof CaseResult))) {
       EObject _eContainer = result.eContainer();
@@ -50,16 +50,42 @@ public class AssureUtilExtension {
     return ((CaseResult) result);
   }
   
-  public InstanceObject getCaseSubject(final EObject assureObject) {
-    final CaseResult context = this.getEnclosingCaseResult(assureObject);
-    boolean _equals = Objects.equal(context, null);
+  public static CaseResult getEnclosingClaimResult(final EObject assureObject) {
+    EObject result = assureObject;
+    while ((!(result instanceof ClaimResult))) {
+      EObject _eContainer = result.eContainer();
+      result = _eContainer;
+    }
+    boolean _equals = Objects.equal(result, null);
     if (_equals) {
       return null;
     }
-    return context.getInstance();
+    return ((CaseResult) result);
   }
   
-  public void addErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
+  public static InstanceObject getClaimSubject(final EObject assureObject) {
+    InstanceObject _elvis = null;
+    CaseResult _enclosingClaimResult = AssureUtilExtension.getEnclosingClaimResult(assureObject);
+    InstanceObject _instance = _enclosingClaimResult.getInstance();
+    if (_instance != null) {
+      _elvis = _instance;
+    } else {
+      InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(assureObject);
+      _elvis = _claimSubject;
+    }
+    return _elvis;
+  }
+  
+  public static InstanceObject getCaseSubject(final EObject assureObject) {
+    CaseResult _enclosingCaseResult = AssureUtilExtension.getEnclosingCaseResult(assureObject);
+    InstanceObject _instance = null;
+    if (_enclosingCaseResult!=null) {
+      _instance=_enclosingCaseResult.getInstance();
+    }
+    return _instance;
+  }
+  
+  public static void addErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
     try {
       final Resource res = instance.eResource();
       final EList<Resource.Diagnostic> err = res.getErrors();
@@ -100,12 +126,12 @@ public class AssureUtilExtension {
     }
   }
   
-  public void addSuccess(final VerificationActivityResult verificationActivityResult) {
+  public static void addSuccess(final VerificationActivityResult verificationActivityResult) {
     VerificationResult _result = verificationActivityResult.getResult();
     _result.setResultState(VerificationResultState.SUCCESS);
   }
   
-  public void addFailure(final VerificationActivityResult verificationActivityResult, final Throwable e) {
+  public static void addFailure(final VerificationActivityResult verificationActivityResult, final Throwable e) {
     final VerificationResult res = verificationActivityResult.getResult();
     res.setResultState(VerificationResultState.FAIL);
     String _message = e.getMessage();
@@ -116,7 +142,7 @@ public class AssureUtilExtension {
     verificationActivityResult.setResult(res);
   }
   
-  public void addError(final VerificationActivityResult verificationActivityResult, final Throwable e) {
+  public static void addError(final VerificationActivityResult verificationActivityResult, final Throwable e) {
     final VerificationResult res = verificationActivityResult.getResult();
     res.setResultState(VerificationResultState.ERROR);
     String _message = e.getMessage();
@@ -126,7 +152,7 @@ public class AssureUtilExtension {
     res.setType(_name);
   }
   
-  public int sum(final List<Integer> l) {
+  public static int sum(final List<Integer> l) {
     Integer _elvis = null;
     final Function2<Integer, Integer, Integer> _function = new Function2<Integer, Integer, Integer>() {
       public Integer apply(final Integer a, final Integer b) {
@@ -145,7 +171,7 @@ public class AssureUtilExtension {
   /**
    * add all subelement counts without reevaluating them
    */
-  public AssureResult addAllTo(final List<? extends AssureResult> parts, final AssureResult result) {
+  public static AssureResult addAllTo(final List<? extends AssureResult> parts, final AssureResult result) {
     int _failCount = result.getFailCount();
     final Function1<AssureResult, Integer> _function = new Function1<AssureResult, Integer>() {
       public Integer apply(final AssureResult it) {
@@ -153,7 +179,7 @@ public class AssureUtilExtension {
       }
     };
     List<Integer> _map = ListExtensions.map(parts, _function);
-    int _sum = this.sum(_map);
+    int _sum = AssureUtilExtension.sum(_map);
     int _plus = (_failCount + _sum);
     result.setFailCount(_plus);
     int _successCount = result.getSuccessCount();
@@ -163,7 +189,7 @@ public class AssureUtilExtension {
       }
     };
     List<Integer> _map_1 = ListExtensions.map(parts, _function_1);
-    int _sum_1 = this.sum(_map_1);
+    int _sum_1 = AssureUtilExtension.sum(_map_1);
     int _plus_1 = (_successCount + _sum_1);
     result.setSuccessCount(_plus_1);
     int _errorCount = result.getErrorCount();
@@ -173,7 +199,7 @@ public class AssureUtilExtension {
       }
     };
     List<Integer> _map_2 = ListExtensions.map(parts, _function_2);
-    int _sum_2 = this.sum(_map_2);
+    int _sum_2 = AssureUtilExtension.sum(_map_2);
     int _plus_2 = (_errorCount + _sum_2);
     result.setErrorCount(_plus_2);
     int _skippedCount = result.getSkippedCount();
@@ -183,7 +209,7 @@ public class AssureUtilExtension {
       }
     };
     List<Integer> _map_3 = ListExtensions.map(parts, _function_3);
-    int _sum_3 = this.sum(_map_3);
+    int _sum_3 = AssureUtilExtension.sum(_map_3);
     int _plus_3 = (_skippedCount + _sum_3);
     result.setSkippedCount(_plus_3);
     int _failthenCount = result.getFailthenCount();
@@ -193,13 +219,37 @@ public class AssureUtilExtension {
       }
     };
     List<Integer> _map_4 = ListExtensions.map(parts, _function_4);
-    int _sum_4 = this.sum(_map_4);
+    int _sum_4 = AssureUtilExtension.sum(_map_4);
     int _plus_4 = (_failthenCount + _sum_4);
     result.setFailthenCount(_plus_4);
     return result;
   }
   
-  public void resetCounts(final AssureResult result) {
+  public static AssureResult addTo(final AssureResult subresult, final AssureResult result) {
+    int _failCount = result.getFailCount();
+    int _failCount_1 = subresult.getFailCount();
+    int _plus = (_failCount + _failCount_1);
+    result.setFailCount(_plus);
+    int _successCount = result.getSuccessCount();
+    int _successCount_1 = subresult.getSuccessCount();
+    int _plus_1 = (_successCount + _successCount_1);
+    result.setSuccessCount(_plus_1);
+    int _errorCount = result.getErrorCount();
+    int _errorCount_1 = subresult.getErrorCount();
+    int _plus_2 = (_errorCount + _errorCount_1);
+    result.setErrorCount(_plus_2);
+    int _skippedCount = result.getSkippedCount();
+    int _skippedCount_1 = subresult.getSkippedCount();
+    int _plus_3 = (_skippedCount + _skippedCount_1);
+    result.setSkippedCount(_plus_3);
+    int _failthenCount = result.getFailthenCount();
+    int _failthenCount_1 = subresult.getFailthenCount();
+    int _plus_4 = (_failthenCount + _failthenCount_1);
+    result.setFailthenCount(_plus_4);
+    return result;
+  }
+  
+  public static void resetCounts(final AssureResult result) {
     result.setFailCount(0);
     result.setSuccessCount(0);
     result.setErrorCount(0);
@@ -207,169 +257,169 @@ public class AssureUtilExtension {
     result.setFailthenCount(0);
   }
   
-  public AssureResult computeAndSetTotals(final CaseResult caseResult) {
+  public static AssureResult computeAndSetTotals(final CaseResult caseResult) {
     AssureResult _xblockexpression = null;
     {
       caseResult.setTotalCount(0);
       EList<ClaimResult> _claimResult = caseResult.getClaimResult();
-      this.addAllTotals(caseResult, _claimResult);
+      AssureUtilExtension.addAllTotals(caseResult, _claimResult);
       EList<HazardResult> _hazardResult = caseResult.getHazardResult();
-      this.addAllTotals(caseResult, _hazardResult);
+      AssureUtilExtension.addAllTotals(caseResult, _hazardResult);
       EList<CaseResult> _subCaseResult = caseResult.getSubCaseResult();
-      _xblockexpression = this.addAllTotals(caseResult, _subCaseResult);
+      _xblockexpression = AssureUtilExtension.addAllTotals(caseResult, _subCaseResult);
     }
     return _xblockexpression;
   }
   
-  public AssureResult computeAndSetTotals(final ClaimResult claimResult) {
+  public static AssureResult computeAndSetTotals(final ClaimResult claimResult) {
     AssureResult _xblockexpression = null;
     {
       claimResult.setTotalCount(0);
       EList<VerificationExpr> _verificationActivityResult = claimResult.getVerificationActivityResult();
-      this.addAllTotals(claimResult, _verificationActivityResult);
+      AssureUtilExtension.addAllTotals(claimResult, _verificationActivityResult);
       EList<ClaimResult> _subClaimResult = claimResult.getSubClaimResult();
-      _xblockexpression = this.addAllTotals(claimResult, _subClaimResult);
+      _xblockexpression = AssureUtilExtension.addAllTotals(claimResult, _subClaimResult);
     }
     return _xblockexpression;
   }
   
-  public AssureResult computeAndSetTotals(final VerificationActivityResult vaResult) {
+  public static AssureResult computeAndSetTotals(final VerificationActivityResult vaResult) {
     VerificationActivityResult _xblockexpression = null;
     {
       vaResult.setTotalCount(1);
       EList<AssumptionResult> _assumptionResult = vaResult.getAssumptionResult();
-      this.addAllTotals(vaResult, _assumptionResult);
+      AssureUtilExtension.addAllTotals(vaResult, _assumptionResult);
       EList<PreconditionResult> _preconditionResult = vaResult.getPreconditionResult();
-      this.addAllTotals(vaResult, _preconditionResult);
+      AssureUtilExtension.addAllTotals(vaResult, _preconditionResult);
       _xblockexpression = vaResult;
     }
     return _xblockexpression;
   }
   
-  public AssureResult computeAndSetTotals(final FailThenResult vaResult) {
+  public static AssureResult computeAndSetTotals(final FailThenResult vaResult) {
     AssureResult _xblockexpression = null;
     {
       vaResult.setTotalCount(0);
       EList<VerificationExpr> _first = vaResult.getFirst();
-      this.addAllTotals(vaResult, _first);
+      AssureUtilExtension.addAllTotals(vaResult, _first);
       EList<VerificationExpr> _second = vaResult.getSecond();
-      _xblockexpression = this.addAllTotals(vaResult, _second);
+      _xblockexpression = AssureUtilExtension.addAllTotals(vaResult, _second);
     }
     return _xblockexpression;
   }
   
-  public AssureResult computeAndSetTotals(final AndThenResult vaResult) {
+  public static AssureResult computeAndSetTotals(final AndThenResult vaResult) {
     AssureResult _xblockexpression = null;
     {
       vaResult.setTotalCount(0);
       EList<VerificationExpr> _first = vaResult.getFirst();
-      this.addAllTotals(vaResult, _first);
+      AssureUtilExtension.addAllTotals(vaResult, _first);
       EList<VerificationExpr> _second = vaResult.getSecond();
-      _xblockexpression = this.addAllTotals(vaResult, _second);
+      _xblockexpression = AssureUtilExtension.addAllTotals(vaResult, _second);
     }
     return _xblockexpression;
   }
   
-  public AssureResult computeAndSetTotals(final HazardResult hazardResult) {
+  public static AssureResult computeAndSetTotals(final HazardResult hazardResult) {
     AssureResult _xblockexpression = null;
     {
       hazardResult.setTotalCount(0);
       EList<ClaimResult> _claimResult = hazardResult.getClaimResult();
-      _xblockexpression = this.addAllTotals(hazardResult, _claimResult);
+      _xblockexpression = AssureUtilExtension.addAllTotals(hazardResult, _claimResult);
     }
     return _xblockexpression;
   }
   
-  public AssureResult computeAndSetTotals(final AssumptionResult assumptionResult) {
+  public static AssureResult computeAndSetTotals(final AssumptionResult assumptionResult) {
     AssureResult _xblockexpression = null;
     {
       assumptionResult.setTotalCount(0);
       EList<VerificationExpr> _verificationActivityResult = assumptionResult.getVerificationActivityResult();
-      _xblockexpression = this.addAllTotals(assumptionResult, _verificationActivityResult);
+      _xblockexpression = AssureUtilExtension.addAllTotals(assumptionResult, _verificationActivityResult);
     }
     return _xblockexpression;
   }
   
-  public AssureResult computeAndSetTotals(final PreconditionResult preconditionResult) {
+  public static AssureResult computeAndSetTotals(final PreconditionResult preconditionResult) {
     AssureResult _xblockexpression = null;
     {
       preconditionResult.setTotalCount(0);
       EList<VerificationExpr> _verificationActivityResult = preconditionResult.getVerificationActivityResult();
-      _xblockexpression = this.addAllTotals(preconditionResult, _verificationActivityResult);
+      _xblockexpression = AssureUtilExtension.addAllTotals(preconditionResult, _verificationActivityResult);
     }
     return _xblockexpression;
   }
   
-  public AssureResult computeAndSetTotals(final AssureResult assureResult) {
+  public static AssureResult computeAndSetTotals(final AssureResult assureResult) {
     AssureResult _switchResult = null;
     boolean _matched = false;
     if (!_matched) {
       if (assureResult instanceof CaseResult) {
         _matched=true;
-        _switchResult = this.computeAndSetTotals(((CaseResult)assureResult));
+        _switchResult = AssureUtilExtension.computeAndSetTotals(((CaseResult)assureResult));
       }
     }
     if (!_matched) {
       if (assureResult instanceof ClaimResult) {
         _matched=true;
-        _switchResult = this.computeAndSetTotals(((ClaimResult)assureResult));
+        _switchResult = AssureUtilExtension.computeAndSetTotals(((ClaimResult)assureResult));
       }
     }
     if (!_matched) {
       if (assureResult instanceof VerificationActivityResult) {
         _matched=true;
-        _switchResult = this.computeAndSetTotals(((VerificationActivityResult)assureResult));
+        _switchResult = AssureUtilExtension.computeAndSetTotals(((VerificationActivityResult)assureResult));
       }
     }
     if (!_matched) {
       if (assureResult instanceof FailThenResult) {
         _matched=true;
-        _switchResult = this.computeAndSetTotals(((FailThenResult)assureResult));
+        _switchResult = AssureUtilExtension.computeAndSetTotals(((FailThenResult)assureResult));
       }
     }
     if (!_matched) {
       if (assureResult instanceof AndThenResult) {
         _matched=true;
-        _switchResult = this.computeAndSetTotals(((AndThenResult)assureResult));
+        _switchResult = AssureUtilExtension.computeAndSetTotals(((AndThenResult)assureResult));
       }
     }
     if (!_matched) {
       if (assureResult instanceof HazardResult) {
         _matched=true;
-        _switchResult = this.computeAndSetTotals(((HazardResult)assureResult));
+        _switchResult = AssureUtilExtension.computeAndSetTotals(((HazardResult)assureResult));
       }
     }
     if (!_matched) {
       if (assureResult instanceof AssumptionResult) {
         _matched=true;
-        _switchResult = this.computeAndSetTotals(((AssumptionResult)assureResult));
+        _switchResult = AssureUtilExtension.computeAndSetTotals(((AssumptionResult)assureResult));
       }
     }
     if (!_matched) {
       if (assureResult instanceof PreconditionResult) {
         _matched=true;
-        _switchResult = this.computeAndSetTotals(((PreconditionResult)assureResult));
+        _switchResult = AssureUtilExtension.computeAndSetTotals(((PreconditionResult)assureResult));
       }
     }
     return _switchResult;
   }
   
-  public AssureResult addAllTotals(final AssureResult result, final EList<? extends AssureResult> parts) {
+  public static AssureResult addAllTotals(final AssureResult result, final EList<? extends AssureResult> parts) {
     int _totalCount = result.getTotalCount();
     final Function1<AssureResult, Integer> _function = new Function1<AssureResult, Integer>() {
       public Integer apply(final AssureResult e) {
-        AssureResult _computeAndSetTotals = AssureUtilExtension.this.computeAndSetTotals(e);
+        AssureResult _computeAndSetTotals = AssureUtilExtension.computeAndSetTotals(e);
         return Integer.valueOf(_computeAndSetTotals.getTotalCount());
       }
     };
     List<Integer> _map = ListExtensions.map(parts, _function);
-    int _sum = this.sum(_map);
+    int _sum = AssureUtilExtension.sum(_map);
     int _plus = (_totalCount + _sum);
     result.setTotalCount(_plus);
     return result;
   }
   
-  public FailThenResult recordFailThen(final FailThenResult result) {
+  public static FailThenResult recordFailThen(final FailThenResult result) {
     FailThenResult _xblockexpression = null;
     {
       int _failCount = result.getFailCount();
@@ -383,7 +433,7 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  public AndThenResult recordSkip(final AndThenResult result) {
+  public static AndThenResult recordSkip(final AndThenResult result) {
     AndThenResult _xblockexpression = null;
     {
       EList<VerificationExpr> _second = result.getSecond();
@@ -393,14 +443,14 @@ public class AssureUtilExtension {
         }
       };
       List<Integer> _map = ListExtensions.<VerificationExpr, Integer>map(_second, _function);
-      int _sum = this.sum(_map);
+      int _sum = AssureUtilExtension.sum(_map);
       result.setSkippedCount(_sum);
       _xblockexpression = result;
     }
     return _xblockexpression;
   }
   
-  public VerificationActivityResult addOwnResult(final VerificationActivityResult ar) {
+  public static VerificationActivityResult addOwnResult(final VerificationActivityResult ar) {
     VerificationActivityResult _xblockexpression = null;
     {
       VerificationResult _result = ar.getResult();
@@ -433,7 +483,7 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  public int countElements(final AssureResult ar) {
+  public static int countElements(final AssureResult ar) {
     int _xblockexpression = (int) 0;
     {
       boolean _matched = false;
@@ -517,7 +567,7 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  public int getTBDCount(final AssureResult ar) {
+  public static int getTBDCount(final AssureResult ar) {
     int _totalCount = ar.getTotalCount();
     int _successCount = ar.getSuccessCount();
     int _minus = (_totalCount - _successCount);
@@ -531,7 +581,7 @@ public class AssureUtilExtension {
     return (_minus_3 - _skippedCount);
   }
   
-  public boolean isSuccessFul(final AssureResult ar) {
+  public static boolean isSuccessFul(final AssureResult ar) {
     boolean _and = false;
     int _failCount = ar.getFailCount();
     boolean _equals = (_failCount == 0);
@@ -545,7 +595,7 @@ public class AssureUtilExtension {
     return _and;
   }
   
-  public boolean hasFailedOrError(final AssureResult ar) {
+  public static boolean hasFailedOrError(final AssureResult ar) {
     boolean _or = false;
     int _failCount = ar.getFailCount();
     boolean _greaterThan = (_failCount > 0);
@@ -559,7 +609,7 @@ public class AssureUtilExtension {
     return _or;
   }
   
-  public int getTheWeight(final RefExpr expr) {
+  public static int getTheWeight(final RefExpr expr) {
     int _switchResult = (int) 0;
     boolean _matched = false;
     if (!_matched) {
@@ -574,6 +624,73 @@ public class AssureUtilExtension {
       _switchResult = expr.getWeight();
     }
     return _switchResult;
+  }
+  
+  public static String getNamePath(final AssureResult ar) {
+    EObject _eContainer = ar.eContainer();
+    boolean _equals = Objects.equal(_eContainer, null);
+    if (_equals) {
+      return AssureUtilExtension.getPrintableName(ar);
+    } else {
+      EObject _eContainer_1 = ar.eContainer();
+      String _namePath = AssureUtilExtension.getNamePath(((AssureResult) _eContainer_1));
+      String _plus = (_namePath + ".");
+      String _printableName = AssureUtilExtension.getPrintableName(ar);
+      return (_plus + _printableName);
+    }
+  }
+  
+  public static String getPrintableName(final AssureResult ar) {
+    boolean _matched = false;
+    if (!_matched) {
+      if (ar instanceof CaseResult) {
+        _matched=true;
+        return ((CaseResult)ar).getName();
+      }
+    }
+    if (!_matched) {
+      if (ar instanceof ClaimResult) {
+        _matched=true;
+        return ((ClaimResult)ar).getName();
+      }
+    }
+    if (!_matched) {
+      if (ar instanceof VerificationActivityResult) {
+        _matched=true;
+        return ((VerificationActivityResult)ar).getName();
+      }
+    }
+    if (!_matched) {
+      if (ar instanceof AssumptionResult) {
+        _matched=true;
+        return ((AssumptionResult)ar).getName();
+      }
+    }
+    if (!_matched) {
+      if (ar instanceof PreconditionResult) {
+        _matched=true;
+        return ((PreconditionResult)ar).getName();
+      }
+    }
+    if (!_matched) {
+      if (ar instanceof HazardResult) {
+        _matched=true;
+        return ((HazardResult)ar).getName();
+      }
+    }
+    if (!_matched) {
+      if (ar instanceof FailThenResult) {
+        _matched=true;
+        return "FailThen";
+      }
+    }
+    if (!_matched) {
+      if (ar instanceof AndThenResult) {
+        _matched=true;
+        return "AndThen";
+      }
+    }
+    return null;
   }
   
   private final static Map<Object, Object> hasRunRecord = Collections.<Object, Object>synchronizedMap(CollectionLiterals.<Object, Object>newHashMap());

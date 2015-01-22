@@ -6,13 +6,17 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan;
+import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.verify.verify.VerificationPlan;
 
 @SuppressWarnings("all")
 public class AlisaWorkbenchUtilsExtension {
-  public Iterable<VerificationPlan> getVerificationPlans(final ComponentInstance io, final AssuranceCasePlan acp) {
+  public static Iterable<VerificationPlan> getVerificationPlans(final ComponentInstance io, final AssuranceCasePlan acp) {
     Iterable<VerificationPlan> _xblockexpression = null;
     {
       EList<VerificationPlan> _plans = acp.getPlans();
@@ -20,7 +24,7 @@ public class AlisaWorkbenchUtilsExtension {
         public Boolean apply(final VerificationPlan vp) {
           ComponentClassifier _target = vp.getTarget();
           ComponentClassifier _componentClassifier = io.getComponentClassifier();
-          return Boolean.valueOf(AlisaWorkbenchUtilsExtension.this.isSame(_target, _componentClassifier));
+          return Boolean.valueOf(AlisaWorkbenchUtilsExtension.isSame(_target, _componentClassifier));
         }
       };
       final Iterable<VerificationPlan> myplans = IterableExtensions.<VerificationPlan>filter(_plans, _function);
@@ -29,7 +33,7 @@ public class AlisaWorkbenchUtilsExtension {
     return _xblockexpression;
   }
   
-  public boolean isSame(final ComponentClassifier cl1, final ComponentClassifier cl2) {
+  public static boolean isSame(final ComponentClassifier cl1, final ComponentClassifier cl2) {
     boolean _xblockexpression = false;
     {
       ComponentClassifier lcl1 = cl1;
@@ -59,5 +63,34 @@ public class AlisaWorkbenchUtilsExtension {
       _xblockexpression = _name.equalsIgnoreCase(_name_1);
     }
     return _xblockexpression;
+  }
+  
+  public static NamedElement getRequirementTarget(final Requirement req, final ComponentInstance io) {
+    NamedElement _target = req.getTarget();
+    return AlisaWorkbenchUtilsExtension.findElementInstance(io, _target);
+  }
+  
+  public static NamedElement findElementInstance(final ComponentInstance io, final NamedElement element) {
+    NamedElement _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (io instanceof ComponentInstance) {
+        _matched=true;
+        EList<Element> _allOwnedElements = io.allOwnedElements();
+        final Function1<Element, Boolean> _function = new Function1<Element, Boolean>() {
+          public Boolean apply(final Element ei) {
+            String _name = ((InstanceObject) ei).getName();
+            String _name_1 = element.getName();
+            return Boolean.valueOf(_name.equalsIgnoreCase(_name_1));
+          }
+        };
+        Element _findFirst = IterableExtensions.<Element>findFirst(_allOwnedElements, _function);
+        _switchResult = ((NamedElement) _findFirst);
+      }
+    }
+    if (!_matched) {
+      _switchResult = io;
+    }
+    return _switchResult;
   }
 }
