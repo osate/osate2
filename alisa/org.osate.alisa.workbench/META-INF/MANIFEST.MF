@@ -21,18 +21,20 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.alisa.common;bundle-version="1.0.0";visibility:=reexport,
  org.osate.aadl2.instantiation;bundle-version="1.0.0",
  org.osate.categories;bundle-version="1.0.0",
- org.osate.assure;bundle-version="1.0.0"
+ org.osate.assure;bundle-version="1.0.0",
+ org.eclipse.xtext.ui;bundle-version="2.7.3"
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.alisa.workbench,
- org.osate.alisa.workbench.services,
  org.osate.alisa.workbench.alisa,
  org.osate.alisa.workbench.alisa.impl,
  org.osate.alisa.workbench.alisa.util,
- org.osate.alisa.workbench.serializer,
+ org.osate.alisa.workbench.formatting,
+ org.osate.alisa.workbench.generator,
  org.osate.alisa.workbench.parser.antlr,
  org.osate.alisa.workbench.parser.antlr.internal,
- org.osate.alisa.workbench.validation,
  org.osate.alisa.workbench.scoping,
- org.osate.alisa.workbench.generator,
- org.osate.alisa.workbench.formatting
+ org.osate.alisa.workbench.serializer,
+ org.osate.alisa.workbench.services,
+ org.osate.alisa.workbench.util,
+ org.osate.alisa.workbench.validation

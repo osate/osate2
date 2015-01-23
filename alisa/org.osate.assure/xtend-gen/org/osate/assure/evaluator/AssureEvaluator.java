@@ -16,6 +16,9 @@ import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.util.AssureUtilExtension;
 
+/**
+ * (re)-evaluate the result counts of the complete case (other than the total count)
+ */
 @SuppressWarnings("all")
 public class AssureEvaluator {
   public AssureResult evaluate(final CaseResult caseResult) {

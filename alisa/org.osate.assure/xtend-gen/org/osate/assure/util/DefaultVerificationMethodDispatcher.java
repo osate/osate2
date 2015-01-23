@@ -23,9 +23,8 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
       if (_equals) {
         final String methodpath = method.getMethodPath();
         try {
-          final String path = AssureUtilExtension.getNamePath(verificationActivityResult);
           InstanceObject _caseSubject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
-          this.dispatchVerificationMethod(((methodpath + "@@") + path), _caseSubject);
+          this.dispatchVerificationMethod(methodpath, _caseSubject);
           AssureUtilExtension.addSuccess(verificationActivityResult);
         } catch (final Throwable _t) {
           if (_t instanceof AssertionFailedError) {

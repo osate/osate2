@@ -97,20 +97,10 @@ class AssureUtilExtension {
 	}
 
 	def static int sum(List<Integer> l) {
-		l.reduce[a, b|a + b] ?: 0
+		l.fold(0)[a, b|a + b] 
 	}
 
-	/**
-	 * add all subelement counts without reevaluating them
-	 */
-	def static AssureResult addAllTo(List<? extends AssureResult> parts, AssureResult result) {
-		result.failCount = result.failCount + parts.map[failCount].sum
-		result.successCount = result.successCount + parts.map[successCount].sum
-		result.errorCount = result.errorCount + parts.map[errorCount].sum
-		result.skippedCount = result.skippedCount + parts.map[skippedCount].sum
-		result.failthenCount = result.failthenCount + parts.map[failthenCount].sum
-		return result
-	}
+	
 	def static AssureResult addTo(AssureResult subresult, AssureResult result) {
 		result.failCount = result.failCount + subresult.failCount
 		result.successCount = result.successCount + subresult.successCount
@@ -128,6 +118,11 @@ class AssureUtilExtension {
 		result.failthenCount = 0
 	}
 
+	/**
+	 * the total counts are (re)calculated with this method. 
+	 * The other counts are not touched and can be updated 
+	 * using process from Processor or evaluate from Evaluator
+	 */
 	def static AssureResult computeAndSetTotals(CaseResult caseResult) {
 		caseResult.totalCount = 0
 		caseResult.addAllTotals(caseResult.claimResult)
@@ -189,10 +184,92 @@ class AssureUtilExtension {
 	}
 
 	def static AssureResult addAllTotals(AssureResult result, EList<? extends AssureResult> parts) {
-		result.totalCount = result.totalCount + parts.map[e|e.computeAndSetTotals.totalCount].sum
+		parts.forEach[e|result.addToTotal(e.computeAndSetTotals.totalCount)]
 		return result
 	}
+	def static void addToTotal (AssureResult result, int count){
+		result.totalCount = result.totalCount + count
+	}
+/**
+ * the next set of methods update the counts other than total count
+ */
+ 
+ 
+	def AssureResult computeAndSetCounts(CaseResult caseResult) {
+		caseResult.resetCounts
+		caseResult.computeAndAddAllCounts(caseResult.claimResult)
+		caseResult.computeAndAddAllCounts(caseResult.hazardResult)
+		caseResult.computeAndAddAllCounts(caseResult.subCaseResult)
+	}
 
+	def AssureResult computeAndSetCounts(ClaimResult claimResult) {
+		claimResult.resetCounts
+		claimResult.computeAndAddAllCounts(claimResult.verificationActivityResult)
+		claimResult.computeAndAddAllCounts(claimResult.subClaimResult)
+	}
+
+	def AssureResult computeAndSetCounts(VerificationActivityResult vaResult) {
+		vaResult.resetCounts
+		vaResult.computeAndAddAllCounts(vaResult.assumptionResult)
+		vaResult.computeAndAddAllCounts(vaResult.preconditionResult)
+		vaResult.addOwnResult()
+		vaResult
+	}
+
+	def AssureResult computeAndSetCounts(FailThenResult vaResult) {
+		vaResult.resetCounts
+		vaResult.computeAndAddAllCounts(vaResult.first)
+		if (vaResult.hasFailedOrError){
+			vaResult.resetCounts
+			vaResult.computeAndAddAllCounts(vaResult.second)
+		}
+	}
+
+	def AssureResult computeAndSetCounts(AndThenResult vaResult) {
+		vaResult.resetCounts
+		vaResult.computeAndAddAllCounts(vaResult.first)
+		vaResult.computeAndAddAllCounts(vaResult.second)
+	}
+
+	def AssureResult computeAndSetCounts(HazardResult hazardResult) {
+		hazardResult.resetCounts
+		hazardResult.computeAndAddAllCounts(hazardResult.claimResult)
+	}
+
+	def AssureResult computeAndSetCounts(AssumptionResult assumptionResult) {
+		assumptionResult.resetCounts
+		assumptionResult.computeAndAddAllCounts(assumptionResult.verificationActivityResult)
+	}
+
+	def AssureResult computeAndSetCounts(PreconditionResult preconditionResult) {
+		preconditionResult.resetCounts
+		preconditionResult.computeAndAddAllCounts(preconditionResult.verificationActivityResult)
+	}
+
+	def AssureResult computeAndSetCounts(AssureResult assureResult) {
+		switch (assureResult) {
+			CaseResult: assureResult.computeAndSetCounts
+			ClaimResult: assureResult.computeAndSetCounts
+			VerificationActivityResult: assureResult.computeAndSetCounts
+			FailThenResult: assureResult.computeAndSetCounts
+			AndThenResult: assureResult.computeAndSetCounts
+			HazardResult: assureResult.computeAndSetCounts
+			AssumptionResult: assureResult.computeAndSetCounts
+			PreconditionResult: assureResult.computeAndSetCounts
+		}
+	}
+
+	/*
+	 * recursively compute and then add all sub element counts but total count
+	 */
+	def AssureResult computeAndAddAllCounts(AssureResult result, EList<? extends AssureResult> parts) {
+		parts.forEach[e|e.computeAndSetCounts.addTo(result)]
+		return result
+	}
+ 
+ /**
+  * the next methods update the counts for FailThen and AndThen
+  */
 	def static FailThenResult recordFailThen(FailThenResult result) {
 		result.failthenCount = result.failCount + result.errorCount
 		result.failCount = 0
@@ -217,6 +294,86 @@ class AssureUtilExtension {
 			} // calculated from the others
 		}
 		ar
+	}
+
+	def static AssureResult addAllCounts(AssureResult result,List<? extends AssureResult> parts) {
+		parts.forEach[e|e.addTo(result)]
+		return result
+	}
+ 
+	def static AssureResult addAllCounts(CaseResult caseResult) {
+		caseResult.resetCounts
+		caseResult.addAllCounts(caseResult.claimResult)
+		caseResult.addAllCounts(caseResult.hazardResult)
+		caseResult.addAllCounts(caseResult.subCaseResult)
+	}
+
+	def static AssureResult addAllCounts(ClaimResult claimResult) {
+		claimResult.resetCounts
+		claimResult.addAllCounts(claimResult.verificationActivityResult)
+		claimResult.addAllCounts(claimResult.subClaimResult)
+	}
+
+	def static AssureResult addAllCounts(VerificationActivityResult vaResult) {
+		vaResult.resetCounts
+		vaResult.addAllCounts(vaResult.assumptionResult)
+		vaResult.addAllCounts(vaResult.preconditionResult)
+		vaResult.addOwnResult()
+		vaResult
+	}
+
+	def static AssureResult addAllCounts(FailThenResult vaResult) {
+		vaResult.resetCounts
+		vaResult.addAllCounts(vaResult.first)
+		if (vaResult.hasFailedOrError){
+			vaResult.resetCounts
+			vaResult.addAllCounts(vaResult.second)
+		}
+	}
+
+	def static AssureResult addAllCounts(AndThenResult vaResult) {
+		vaResult.resetCounts
+		vaResult.addAllCounts(vaResult.first)
+		vaResult.addAllCounts(vaResult.second)
+	}
+
+	def static AssureResult addAllCounts(HazardResult hazardResult) {
+		hazardResult.resetCounts
+		hazardResult.addAllCounts(hazardResult.claimResult)
+	}
+
+	def static AssureResult addAllCounts(AssumptionResult assumptionResult) {
+		assumptionResult.resetCounts
+		assumptionResult.addAllCounts(assumptionResult.verificationActivityResult)
+	}
+
+	def static AssureResult addAllCounts(PreconditionResult preconditionResult) {
+		preconditionResult.resetCounts
+		preconditionResult.addAllCounts(preconditionResult.verificationActivityResult)
+	}
+
+	def static AssureResult addAllCounts(AssureResult assureResult) {
+		switch (assureResult) {
+			CaseResult: assureResult.addAllCounts
+			ClaimResult: assureResult.addAllCounts
+			VerificationActivityResult: assureResult.addAllCounts
+			FailThenResult: assureResult.addAllCounts
+			AndThenResult: assureResult.addAllCounts
+			HazardResult: assureResult.addAllCounts
+			AssumptionResult: assureResult.addAllCounts
+			PreconditionResult: assureResult.addAllCounts
+		}
+	}
+
+	
+	def static VerificationActivityResult addOwnResultAndRecomputeUp(VerificationActivityResult ar) {
+		ar.addOwnResult
+		var parent = ar.eContainer 
+		while (parent != null && parent instanceof AssureResult){
+			 val parentResult = (parent as AssureResult)
+			 parentResult.addAllCounts
+		}
+		null
 	}
 
 	def static int countElements(AssureResult ar) {

@@ -15,14 +15,12 @@ interface IVerificationMethodDispatcher {
 }
 
 class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher{
-	
 	override runVerificationMethod(VerificationActivityResult verificationActivityResult) {
 		val method = verificationActivityResult.getTarget().getMethod();
 		if (method.getMethodType() == SupportedTypes.SINGLEPREDICATE) {
 			val methodpath = method.getMethodPath();
-			try { // XXX remove the activity name from the method
-			val path = verificationActivityResult.namePath
-				dispatchVerificationMethod(methodpath+"@@"+path, verificationActivityResult.caseSubject)
+			try { 
+				dispatchVerificationMethod(methodpath, verificationActivityResult.caseSubject)
 				addSuccess(verificationActivityResult)
 			} catch (AssertionFailedError e) {
 				addFailure(verificationActivityResult, e);
@@ -35,9 +33,10 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			}
 	}
 	
+	
 	override dispatchVerificationMethod(String methodPath, InstanceObject target) {
 		println("Dispatching "+methodPath + " on "+target.getQualifiedName)
-
+		
 	}
 	
 }
