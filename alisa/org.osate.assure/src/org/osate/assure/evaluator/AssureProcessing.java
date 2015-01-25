@@ -1,8 +1,8 @@
 package org.osate.assure.evaluator;
 
-import static org.osate.assure.util.AssureUtilExtension.addError;
-import static org.osate.assure.util.AssureUtilExtension.addFailure;
 import static org.osate.assure.util.AssureUtilExtension.getEnclosingCaseResult;
+import static org.osate.assure.util.AssureUtilExtension.setToError;
+import static org.osate.assure.util.AssureUtilExtension.setToFail;
 import junit.framework.AssertionFailedError;
 
 import org.osate.aadl2.instance.ComponentInstance;
@@ -13,7 +13,6 @@ import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.FailThenResult;
-import org.osate.assure.assure.HazardResult;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
@@ -27,9 +26,6 @@ public class AssureProcessing {
 
 		for (ClaimResult claimResult : caseResult.getClaimResult()) {
 			processClaimResult(claimResult);
-		}
-		for (HazardResult claimResult : caseResult.getHazardResult()) {
-			processHazardResult(claimResult);
 		}
 		for (CaseResult subCaseResult : caseResult.getSubCaseResult()) {
 			processCaseResult(subCaseResult);
@@ -96,28 +92,16 @@ public class AssureProcessing {
 					args[0] = (ComponentInstance) obj;
 					AlisaLoader.alisaInvoke(className, methodName, args);
 				} catch (AssertionFailedError e) {
-					addFailure(verificationActivityResult, e);
+					setToFail(verificationActivityResult, e);
 				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 					throw e;
 				} catch (Throwable e) {
-					addError(verificationActivityResult, e);
+					setToError(verificationActivityResult, e);
 				}
 
 			}
 		}
 
-	}
-
-	public static void processHazardResult(HazardResult hazardResult) {
-		System.out.println("hazard result=" + hazardResult);
-
-//		for (VerificationActivityResult verificationResult : hazardResult.getVerificationActivityResult()) {
-//			processVerificationResult(verificationResult);
-//		}
-//
-//		for (ClaimResult subClaimResult : hazardResult.getSubClaimResult()) {
-//			processClaimResult(subClaimResult);
-//		}
 	}
 
 	public static void processAssumptionResult(AssumptionResult assumptionResult) {

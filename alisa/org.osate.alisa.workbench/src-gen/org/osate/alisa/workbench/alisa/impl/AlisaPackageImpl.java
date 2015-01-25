@@ -190,9 +190,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceCasePlan_System()
+  public EAttribute getAssuranceCasePlan_Title()
   {
-    return (EReference)assuranceCasePlanEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)assuranceCasePlanEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -200,9 +200,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAssuranceCasePlan_Title()
+  public EReference getAssuranceCasePlan_System()
   {
-    return (EAttribute)assuranceCasePlanEClass.getEStructuralFeatures().get(2);
+    return (EReference)assuranceCasePlanEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -341,8 +341,8 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
 
     assuranceCasePlanEClass = createEClass(ASSURANCE_CASE_PLAN);
     createEAttribute(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__NAME);
-    createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__SYSTEM);
     createEAttribute(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__TITLE);
+    createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__SYSTEM);
     createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__DESCRIPTION);
     createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__CONSTANT);
     createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__PLANS);
@@ -404,8 +404,8 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
 
     initEClass(assuranceCasePlanEClass, AssuranceCasePlan.class, "AssuranceCasePlan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAssuranceCasePlan_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceCasePlan_System(), theAadl2Package.getComponentImplementation(), null, "system", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAssuranceCasePlan_Title(), theEcorePackage.getEString(), "title", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCasePlan_System(), theAadl2Package.getComponentImplementation(), null, "system", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCasePlan_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCasePlan_Constant(), theCommonPackage.getFinalValue(), null, "constant", null, 0, -1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCasePlan_Plans(), theVerifyPackage.getVerificationPlan(), null, "plans", null, 0, -1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -22,7 +22,6 @@ import org.osate.aadl2.instance.InstanceObject;
  *   <li>{@link org.osate.assure.assure.CaseResult#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getSubCaseResult <em>Sub Case Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getClaimResult <em>Claim Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.CaseResult#getHazardResult <em>Hazard Result</em>}</li>
  * </ul>
  * </p>
  *
@@ -167,21 +166,5 @@ public interface CaseResult extends AssureResult
    * @generated
    */
   EList<ClaimResult> getClaimResult();
-
-  /**
-   * Returns the value of the '<em><b>Hazard Result</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.assure.assure.HazardResult}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Hazard Result</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Hazard Result</em>' containment reference list.
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_HazardResult()
-   * @model containment="true"
-   * @generated
-   */
-  EList<HazardResult> getHazardResult();
 
 } // CaseResult

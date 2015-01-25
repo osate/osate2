@@ -2,11 +2,13 @@
  */
 package org.osate.reqspec.reqSpec;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.NamedElement;
 
-import org.osate.alisa.common.common.Description;
+import org.osate.categories.categories.RequirementCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,8 +21,11 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetDescription <em>Target Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,30 +114,56 @@ public interface ContractualElement extends EObject
   void setTarget(NamedElement value);
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' containment reference.
+   * Returns the value of the '<em><b>Target Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Target Description</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' containment reference.
-   * @see #setDescription(Description)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Description()
-   * @model containment="true"
+   * @return the value of the '<em>Target Description</em>' attribute.
+   * @see #setTargetDescription(String)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_TargetDescription()
+   * @model
    * @generated
    */
-  Description getDescription();
+  String getTargetDescription();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetDescription <em>Target Description</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' containment reference.
-   * @see #getDescription()
+   * @param value the new value of the '<em>Target Description</em>' attribute.
+   * @see #getTargetDescription()
    * @generated
    */
-  void setDescription(Description value);
+  void setTargetDescription(String value);
+
+  /**
+   * Returns the value of the '<em><b>Category</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Category</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Category</em>' reference.
+   * @see #setCategory(RequirementCategory)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Category()
+   * @model
+   * @generated
+   */
+  RequirementCategory getCategory();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Category</em>' reference.
+   * @see #getCategory()
+   * @generated
+   */
+  void setCategory(RequirementCategory value);
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' attribute.
@@ -159,5 +190,37 @@ public interface ContractualElement extends EObject
    * @generated
    */
   void setRationale(String value);
+
+  /**
+   * Returns the value of the '<em><b>Document Requirement</b></em>' reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.ContractualElement}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Document Requirement</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Document Requirement</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_DocumentRequirement()
+   * @model
+   * @generated
+   */
+  EList<ContractualElement> getDocumentRequirement();
+
+  /**
+   * Returns the value of the '<em><b>Doc Reference</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.ExternalDocument}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Doc Reference</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Doc Reference</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_DocReference()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ExternalDocument> getDocReference();
 
 } // ContractualElement

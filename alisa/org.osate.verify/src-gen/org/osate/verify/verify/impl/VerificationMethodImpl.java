@@ -22,6 +22,8 @@ import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.VerificationCategory;
 
+import org.osate.reqspec.reqSpec.Requirement;
+
 import org.osate.verify.verify.SupportedTypes;
 import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
@@ -35,6 +37,7 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodPath <em>Method Path</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
@@ -67,6 +70,16 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRequirement()
+   * @generated
+   * @ordered
+   */
+  protected Requirement requirement;
 
   /**
    * The default value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
@@ -200,6 +213,49 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Requirement getRequirement()
+  {
+    if (requirement != null && requirement.eIsProxy())
+    {
+      InternalEObject oldRequirement = (InternalEObject)requirement;
+      requirement = (Requirement)eResolveProxy(oldRequirement);
+      if (requirement != oldRequirement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_METHOD__REQUIREMENT, oldRequirement, requirement));
+      }
+    }
+    return requirement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Requirement basicGetRequirement()
+  {
+    return requirement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRequirement(Requirement newRequirement)
+  {
+    Requirement oldRequirement = requirement;
+    requirement = newRequirement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__REQUIREMENT, oldRequirement, requirement));
   }
 
   /**
@@ -406,6 +462,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         return getName();
+      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
+        if (resolve) return getRequirement();
+        return basicGetRequirement();
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         return getMethodType();
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
@@ -436,6 +495,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         setName((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
+        setRequirement((Requirement)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         setMethodType((SupportedTypes)newValue);
@@ -473,6 +535,9 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
+        setRequirement((Requirement)null);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         setMethodType(METHOD_TYPE_EDEFAULT);
         return;
@@ -507,6 +572,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
+        return requirement != null;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         return methodType != METHOD_TYPE_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:

@@ -141,13 +141,31 @@ public interface CommonPackage extends EPackage
   int DESCRIPTION_ELEMENT__REF = 1;
 
   /**
+   * The feature id for the '<em><b>Newline</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DESCRIPTION_ELEMENT__NEWLINE = 2;
+
+  /**
+   * The feature id for the '<em><b>This Target</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DESCRIPTION_ELEMENT__THIS_TARGET = 3;
+
+  /**
    * The number of structural features of the '<em>Description Element</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DESCRIPTION_ELEMENT_FEATURE_COUNT = 2;
+  int DESCRIPTION_ELEMENT_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ReferencePathImpl <em>Reference Path</em>}' class.
@@ -251,6 +269,71 @@ public interface CommonPackage extends EPackage
    */
   int FINAL_VALUE_FEATURE_COUNT = 2;
 
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.MultiLineStringImpl <em>Multi Line String</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.MultiLineStringImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getMultiLineString()
+   * @generated
+   */
+  int MULTI_LINE_STRING = 6;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTI_LINE_STRING__DESCRIPTION = 0;
+
+  /**
+   * The number of structural features of the '<em>Multi Line String</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTI_LINE_STRING_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.TextElementImpl <em>Text Element</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.TextElementImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getTextElement()
+   * @generated
+   */
+  int TEXT_ELEMENT = 7;
+
+  /**
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEXT_ELEMENT__TEXT = 0;
+
+  /**
+   * The feature id for the '<em><b>Newline</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEXT_ELEMENT__NEWLINE = 1;
+
+  /**
+   * The number of structural features of the '<em>Text Element</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEXT_ELEMENT_FEATURE_COUNT = 2;
+
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.Model <em>Model</em>}'.
@@ -325,6 +408,28 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getDescriptionElement_Ref();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.DescriptionElement#isNewline <em>Newline</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Newline</em>'.
+   * @see org.osate.alisa.common.common.DescriptionElement#isNewline()
+   * @see #getDescriptionElement()
+   * @generated
+   */
+  EAttribute getDescriptionElement_Newline();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.DescriptionElement#isThisTarget <em>This Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>This Target</em>'.
+   * @see org.osate.alisa.common.common.DescriptionElement#isThisTarget()
+   * @see #getDescriptionElement()
+   * @generated
+   */
+  EAttribute getDescriptionElement_ThisTarget();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ReferencePath <em>Reference Path</em>}'.
@@ -412,6 +517,59 @@ public interface CommonPackage extends EPackage
   EAttribute getFinalValue_Value();
 
   /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.MultiLineString <em>Multi Line String</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Multi Line String</em>'.
+   * @see org.osate.alisa.common.common.MultiLineString
+   * @generated
+   */
+  EClass getMultiLineString();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.common.common.MultiLineString#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Description</em>'.
+   * @see org.osate.alisa.common.common.MultiLineString#getDescription()
+   * @see #getMultiLineString()
+   * @generated
+   */
+  EReference getMultiLineString_Description();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.TextElement <em>Text Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Text Element</em>'.
+   * @see org.osate.alisa.common.common.TextElement
+   * @generated
+   */
+  EClass getTextElement();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.TextElement#getText <em>Text</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Text</em>'.
+   * @see org.osate.alisa.common.common.TextElement#getText()
+   * @see #getTextElement()
+   * @generated
+   */
+  EAttribute getTextElement_Text();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.TextElement#isNewline <em>Newline</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Newline</em>'.
+   * @see org.osate.alisa.common.common.TextElement#isNewline()
+   * @see #getTextElement()
+   * @generated
+   */
+  EAttribute getTextElement_Newline();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -497,6 +655,22 @@ public interface CommonPackage extends EPackage
     EReference DESCRIPTION_ELEMENT__REF = eINSTANCE.getDescriptionElement_Ref();
 
     /**
+     * The meta object literal for the '<em><b>Newline</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DESCRIPTION_ELEMENT__NEWLINE = eINSTANCE.getDescriptionElement_Newline();
+
+    /**
+     * The meta object literal for the '<em><b>This Target</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DESCRIPTION_ELEMENT__THIS_TARGET = eINSTANCE.getDescriptionElement_ThisTarget();
+
+    /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ReferencePathImpl <em>Reference Path</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -565,6 +739,50 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute FINAL_VALUE__VALUE = eINSTANCE.getFinalValue_Value();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.MultiLineStringImpl <em>Multi Line String</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.MultiLineStringImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getMultiLineString()
+     * @generated
+     */
+    EClass MULTI_LINE_STRING = eINSTANCE.getMultiLineString();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MULTI_LINE_STRING__DESCRIPTION = eINSTANCE.getMultiLineString_Description();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.TextElementImpl <em>Text Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.TextElementImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getTextElement()
+     * @generated
+     */
+    EClass TEXT_ELEMENT = eINSTANCE.getTextElement();
+
+    /**
+     * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TEXT_ELEMENT__TEXT = eINSTANCE.getTextElement_Text();
+
+    /**
+     * The meta object literal for the '<em><b>Newline</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TEXT_ELEMENT__NEWLINE = eINSTANCE.getTextElement_Newline();
 
   }
 

@@ -68,14 +68,14 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.REQ_SPEC_CONTAINER: return createReqSpecContainer();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT: return createContractualElement();
       case ReqSpecPackage.REQ_ROOT: return createReqRoot();
-      case ReqSpecPackage.SYSTEM_SPEC: return createSystemSpec();
       case ReqSpecPackage.STAKEHOLDER_GOALS: return createStakeholderGoals();
       case ReqSpecPackage.REQ_DOCUMENT: return createReqDocument();
-      case ReqSpecPackage.REQ_SPEC_LIBRARY: return createReqSpecLibrary();
+      case ReqSpecPackage.DOCUMENT_SECTION: return createDocumentSection();
+      case ReqSpecPackage.REQ_SPECS: return createReqSpecs();
       case ReqSpecPackage.REQ_SPEC_FOLDER: return createReqSpecFolder();
+      case ReqSpecPackage.GOAL_FOLDER: return createGoalFolder();
       case ReqSpecPackage.GOAL: return createGoal();
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
-      case ReqSpecPackage.HAZARD: return createHazard();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -131,17 +131,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public SystemSpec createSystemSpec()
-  {
-    SystemSpecImpl systemSpec = new SystemSpecImpl();
-    return systemSpec;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public StakeholderGoals createStakeholderGoals()
   {
     StakeholderGoalsImpl stakeholderGoals = new StakeholderGoalsImpl();
@@ -164,10 +153,21 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ReqSpecLibrary createReqSpecLibrary()
+  public DocumentSection createDocumentSection()
   {
-    ReqSpecLibraryImpl reqSpecLibrary = new ReqSpecLibraryImpl();
-    return reqSpecLibrary;
+    DocumentSectionImpl documentSection = new DocumentSectionImpl();
+    return documentSection;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqSpecs createReqSpecs()
+  {
+    ReqSpecsImpl reqSpecs = new ReqSpecsImpl();
+    return reqSpecs;
   }
 
   /**
@@ -179,6 +179,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     ReqSpecFolderImpl reqSpecFolder = new ReqSpecFolderImpl();
     return reqSpecFolder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public GoalFolder createGoalFolder()
+  {
+    GoalFolderImpl goalFolder = new GoalFolderImpl();
+    return goalFolder;
   }
 
   /**
@@ -201,17 +212,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     RequirementImpl requirement = new RequirementImpl();
     return requirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Hazard createHazard()
-  {
-    HazardImpl hazard = new HazardImpl();
-    return hazard;
   }
 
   /**

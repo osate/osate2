@@ -1,7 +1,6 @@
 package org.osate.assure.util;
 
 import com.google.common.base.Objects;
-import junit.framework.AssertionFailedError;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.osate.aadl2.instance.InstanceObject;
@@ -25,17 +24,17 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
         try {
           InstanceObject _caseSubject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
           this.dispatchVerificationMethod(methodpath, _caseSubject);
-          AssureUtilExtension.addSuccess(verificationActivityResult);
+          AssureUtilExtension.setToSuccess(verificationActivityResult);
         } catch (final Throwable _t) {
-          if (_t instanceof AssertionFailedError) {
-            final AssertionFailedError e = (AssertionFailedError)_t;
-            AssureUtilExtension.addFailure(verificationActivityResult, e);
+          if (_t instanceof AssertionError) {
+            final AssertionError e = (AssertionError)_t;
+            AssureUtilExtension.setToFail(verificationActivityResult, e);
           } else if (_t instanceof ThreadDeath) {
             final ThreadDeath e_1 = (ThreadDeath)_t;
             throw e_1;
           } else if (_t instanceof Throwable) {
             final Throwable e_2 = (Throwable)_t;
-            AssureUtilExtension.addError(verificationActivityResult, e_2);
+            AssureUtilExtension.setToError(verificationActivityResult, e_2);
           } else {
             throw Exceptions.sneakyThrow(_t);
           }

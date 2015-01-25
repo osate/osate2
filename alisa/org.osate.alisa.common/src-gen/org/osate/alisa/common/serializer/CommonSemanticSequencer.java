@@ -18,8 +18,10 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.Model;
+import org.osate.alisa.common.common.MultiLineString;
 import org.osate.alisa.common.common.PredicateExpression;
 import org.osate.alisa.common.common.ReferencePath;
+import org.osate.alisa.common.common.TextElement;
 import org.osate.alisa.common.services.CommonGrammarAccess;
 
 @SuppressWarnings("all")
@@ -54,6 +56,12 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 					return; 
 				}
 				else break;
+			case CommonPackage.MULTI_LINE_STRING:
+				if(context == grammarAccess.getMultiLineStringRule()) {
+					sequence_MultiLineString(context, (MultiLineString) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.PREDICATE_EXPRESSION:
 				if(context == grammarAccess.getPredicateExpressionRule()) {
 					sequence_PredicateExpression(context, (PredicateExpression) semanticObject); 
@@ -66,13 +74,19 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 					return; 
 				}
 				else break;
+			case CommonPackage.TEXT_ELEMENT:
+				if(context == grammarAccess.getTextElementRule()) {
+					sequence_TextElement(context, (TextElement) semanticObject); 
+					return; 
+				}
+				else break;
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
 	 * Constraint:
-	 *     (text=STRING | ref=[EObject|ID])
+	 *     (text=STRING | ref=[EObject|ID] | newline?='&' | thisTarget?='this')
 	 */
 	protected void sequence_DescriptionElement(EObject context, DescriptionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -125,6 +139,15 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
+	 *     description+=TextElement+
+	 */
+	protected void sequence_MultiLineString(EObject context, MultiLineString semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         op='=' | 
 	 *         op='!=' | 
@@ -155,5 +178,14 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 		feeder.accept(grammarAccess.getReferencePathAccess().getRefEObjectIDTerminalRuleCall_0_0_1(), semanticObject.getRef());
 		feeder.accept(grammarAccess.getReferencePathAccess().getSubpathReferencePathParserRuleCall_1_1_0(), semanticObject.getSubpath());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (text=STRING | newline?='&')
+	 */
+	protected void sequence_TextElement(EObject context, TextElement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 }

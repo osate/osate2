@@ -113,22 +113,22 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_CASE_PLAN__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>System</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_CASE_PLAN__SYSTEM = 1;
-
-  /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_PLAN__TITLE = 2;
+  int ASSURANCE_CASE_PLAN__TITLE = 1;
+
+  /**
+   * The feature id for the '<em><b>System</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_CASE_PLAN__SYSTEM = 2;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -314,17 +314,6 @@ public interface AlisaPackage extends EPackage
   EAttribute getAssuranceCasePlan_Name();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSystem <em>System</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>System</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSystem()
-   * @see #getAssuranceCasePlan()
-   * @generated
-   */
-  EReference getAssuranceCasePlan_System();
-
-  /**
    * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getTitle <em>Title</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -334,6 +323,17 @@ public interface AlisaPackage extends EPackage
    * @generated
    */
   EAttribute getAssuranceCasePlan_Title();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSystem <em>System</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>System</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSystem()
+   * @see #getAssuranceCasePlan()
+   * @generated
+   */
+  EReference getAssuranceCasePlan_System();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getDescription <em>Description</em>}'.
@@ -510,20 +510,20 @@ public interface AlisaPackage extends EPackage
     EAttribute ASSURANCE_CASE_PLAN__NAME = eINSTANCE.getAssuranceCasePlan_Name();
 
     /**
-     * The meta object literal for the '<em><b>System</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ASSURANCE_CASE_PLAN__SYSTEM = eINSTANCE.getAssuranceCasePlan_System();
-
-    /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute ASSURANCE_CASE_PLAN__TITLE = eINSTANCE.getAssuranceCasePlan_Title();
+
+    /**
+     * The meta object literal for the '<em><b>System</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_CASE_PLAN__SYSTEM = eINSTANCE.getAssuranceCasePlan_System();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.

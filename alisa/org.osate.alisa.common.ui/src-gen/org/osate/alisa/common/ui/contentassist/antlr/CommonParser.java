@@ -39,6 +39,7 @@ public class CommonParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAlternatives_1_0(), "rule__PredicateExpression__OpAlternatives_1_0");
+					put(grammarAccess.getTextElementAccess().getAlternatives(), "rule__TextElement__Alternatives");
 					put(grammarAccess.getReferencePathAccess().getGroup(), "rule__ReferencePath__Group__0");
 					put(grammarAccess.getReferencePathAccess().getGroup_1(), "rule__ReferencePath__Group_1__0");
 					put(grammarAccess.getPredicateExpressionAccess().getGroup(), "rule__PredicateExpression__Group__0");
@@ -52,11 +53,16 @@ public class CommonParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getRefAssignment_1(), "rule__DescriptionElement__RefAssignment_1");
+					put(grammarAccess.getDescriptionElementAccess().getNewlineAssignment_2(), "rule__DescriptionElement__NewlineAssignment_2");
+					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_3(), "rule__DescriptionElement__ThisTargetAssignment_3");
 					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
 					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAssignment_1(), "rule__PredicateExpression__OpAssignment_1");
 					put(grammarAccess.getFinalValueAccess().getNameAssignment_0(), "rule__FinalValue__NameAssignment_0");
 					put(grammarAccess.getFinalValueAccess().getValueAssignment_2(), "rule__FinalValue__ValueAssignment_2");
+					put(grammarAccess.getMultiLineStringAccess().getDescriptionAssignment(), "rule__MultiLineString__DescriptionAssignment");
+					put(grammarAccess.getTextElementAccess().getTextAssignment_0(), "rule__TextElement__TextAssignment_0");
+					put(grammarAccess.getTextElementAccess().getNewlineAssignment_1(), "rule__TextElement__NewlineAssignment_1");
 				}
 			};
 		}

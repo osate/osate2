@@ -4,12 +4,15 @@ package org.osate.assure.assure.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -27,6 +30,7 @@ import org.osate.assure.assure.VerificationExpr;
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#getFirst <em>First</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#getSecond <em>Second</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#isDidFailThenFail <em>Did Fail Then Fail</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,6 +57,26 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
    * @ordered
    */
   protected EList<VerificationExpr> second;
+
+  /**
+   * The default value of the '{@link #isDidFailThenFail() <em>Did Fail Then Fail</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDidFailThenFail()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean DID_FAIL_THEN_FAIL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isDidFailThenFail() <em>Did Fail Then Fail</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDidFailThenFail()
+   * @generated
+   * @ordered
+   */
+  protected boolean didFailThenFail = DID_FAIL_THEN_FAIL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -108,6 +132,29 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isDidFailThenFail()
+  {
+    return didFailThenFail;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDidFailThenFail(boolean newDidFailThenFail)
+  {
+    boolean oldDidFailThenFail = didFailThenFail;
+    didFailThenFail = newDidFailThenFail;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.FAIL_THEN_RESULT__DID_FAIL_THEN_FAIL, oldDidFailThenFail, didFailThenFail));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -135,6 +182,8 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
         return getFirst();
       case AssurePackage.FAIL_THEN_RESULT__SECOND:
         return getSecond();
+      case AssurePackage.FAIL_THEN_RESULT__DID_FAIL_THEN_FAIL:
+        return isDidFailThenFail();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -158,6 +207,9 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
         getSecond().clear();
         getSecond().addAll((Collection<? extends VerificationExpr>)newValue);
         return;
+      case AssurePackage.FAIL_THEN_RESULT__DID_FAIL_THEN_FAIL:
+        setDidFailThenFail((Boolean)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -178,6 +230,9 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
       case AssurePackage.FAIL_THEN_RESULT__SECOND:
         getSecond().clear();
         return;
+      case AssurePackage.FAIL_THEN_RESULT__DID_FAIL_THEN_FAIL:
+        setDidFailThenFail(DID_FAIL_THEN_FAIL_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -196,8 +251,27 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
         return first != null && !first.isEmpty();
       case AssurePackage.FAIL_THEN_RESULT__SECOND:
         return second != null && !second.isEmpty();
+      case AssurePackage.FAIL_THEN_RESULT__DID_FAIL_THEN_FAIL:
+        return didFailThenFail != DID_FAIL_THEN_FAIL_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (didFailThenFail: ");
+    result.append(didFailThenFail);
+    result.append(')');
+    return result.toString();
   }
 
 } //FailThenResultImpl

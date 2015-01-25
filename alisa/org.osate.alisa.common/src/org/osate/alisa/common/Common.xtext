@@ -14,7 +14,7 @@ Description :
 ;
 
 DescriptionElement :
- 	text = STRING | ref = [ecore::EObject|ID]
+ 	text = STRING | ref = [ecore::EObject|ID] | newline?='&' |thisTarget?='this'
  ;	
  
  ReferencePath: 
@@ -29,7 +29,12 @@ PredicateExpression: ID op=('='|"!=" |"<"|"=<"|">"|">=")ID;
 
 FinalValue: name = ID '=' value=ValueString;
 
-
+MultiLineString : 
+ 	( description += TextElement  )+
+ 	;
+ 	TextElement:
+ 	text = STRING | newline?='&'
+;
 	
 ValueString :
 	// remove quotes from string in ValueConverter 

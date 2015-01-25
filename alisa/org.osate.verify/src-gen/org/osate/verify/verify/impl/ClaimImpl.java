@@ -32,6 +32,7 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRationale <em>Rationale</em>}</li>
@@ -62,6 +63,26 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected static final String TITLE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected String title = TITLE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
@@ -155,6 +176,29 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__TITLE, oldTitle, title));
   }
 
   /**
@@ -315,6 +359,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     {
       case VerifyPackage.CLAIM__NAME:
         return getName();
+      case VerifyPackage.CLAIM__TITLE:
+        return getTitle();
       case VerifyPackage.CLAIM__REQUIREMENT:
         if (resolve) return getRequirement();
         return basicGetRequirement();
@@ -341,6 +387,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     {
       case VerifyPackage.CLAIM__NAME:
         setName((String)newValue);
+        return;
+      case VerifyPackage.CLAIM__TITLE:
+        setTitle((String)newValue);
         return;
       case VerifyPackage.CLAIM__REQUIREMENT:
         setRequirement((Requirement)newValue);
@@ -372,6 +421,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case VerifyPackage.CLAIM__TITLE:
+        setTitle(TITLE_EDEFAULT);
+        return;
       case VerifyPackage.CLAIM__REQUIREMENT:
         setRequirement((Requirement)null);
         return;
@@ -400,6 +452,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     {
       case VerifyPackage.CLAIM__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.CLAIM__TITLE:
+        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.CLAIM__REQUIREMENT:
         return requirement != null;
       case VerifyPackage.CLAIM__ASSERT:
@@ -425,6 +479,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", title: ");
+    result.append(title);
     result.append(", rationale: ");
     result.append(rationale);
     result.append(')');

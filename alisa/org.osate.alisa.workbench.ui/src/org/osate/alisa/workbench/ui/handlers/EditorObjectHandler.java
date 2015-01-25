@@ -21,13 +21,12 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.osate.aadl2.Element;
 
-public abstract class AadlHandler extends AbstractHandler {
+public abstract class EditorObjectHandler extends AbstractHandler {
 	private IWorkbenchWindow window;
 	private ExecutionEvent executionEvent;
 
-	abstract protected IStatus runJob(Element sel, IProgressMonitor monitor);
+	abstract protected IStatus runJob(EObject sel, IProgressMonitor monitor);
 
 	abstract protected String getJobName();
 
@@ -69,8 +68,8 @@ public abstract class AadlHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						if (eobj instanceof Element) {
-							return runJob((Element) eobj, monitor);
+						if (eobj != null && !eobj.eIsProxy()) {
+							return runJob(eobj, monitor);
 						} else {
 							return Status.CANCEL_STATUS;
 						}

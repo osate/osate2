@@ -23,8 +23,8 @@ import org.osate.assure.assure.AssureResult;
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getErrorCount <em>Error Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getFailthenCount <em>Failthen Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getSkippedCount <em>Skipped Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getTotalCount <em>Total Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getAndthenCount <em>Andthen Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getTbdCount <em>Tbd Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
@@ -114,44 +114,44 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
   protected int failthenCount = FAILTHEN_COUNT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getSkippedCount() <em>Skipped Count</em>}' attribute.
+   * The default value of the '{@link #getAndthenCount() <em>Andthen Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSkippedCount()
+   * @see #getAndthenCount()
    * @generated
    * @ordered
    */
-  protected static final int SKIPPED_COUNT_EDEFAULT = 0;
+  protected static final int ANDTHEN_COUNT_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getSkippedCount() <em>Skipped Count</em>}' attribute.
+   * The cached value of the '{@link #getAndthenCount() <em>Andthen Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSkippedCount()
+   * @see #getAndthenCount()
    * @generated
    * @ordered
    */
-  protected int skippedCount = SKIPPED_COUNT_EDEFAULT;
+  protected int andthenCount = ANDTHEN_COUNT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTotalCount() <em>Total Count</em>}' attribute.
+   * The default value of the '{@link #getTbdCount() <em>Tbd Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTotalCount()
+   * @see #getTbdCount()
    * @generated
    * @ordered
    */
-  protected static final int TOTAL_COUNT_EDEFAULT = 0;
+  protected static final int TBD_COUNT_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getTotalCount() <em>Total Count</em>}' attribute.
+   * The cached value of the '{@link #getTbdCount() <em>Tbd Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTotalCount()
+   * @see #getTbdCount()
    * @generated
    * @ordered
    */
-  protected int totalCount = TOTAL_COUNT_EDEFAULT;
+  protected int tbdCount = TBD_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -291,9 +291,9 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getSkippedCount()
+  public int getAndthenCount()
   {
-    return skippedCount;
+    return andthenCount;
   }
 
   /**
@@ -301,12 +301,12 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSkippedCount(int newSkippedCount)
+  public void setAndthenCount(int newAndthenCount)
   {
-    int oldSkippedCount = skippedCount;
-    skippedCount = newSkippedCount;
+    int oldAndthenCount = andthenCount;
+    andthenCount = newAndthenCount;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__SKIPPED_COUNT, oldSkippedCount, skippedCount));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT, oldAndthenCount, andthenCount));
   }
 
   /**
@@ -314,9 +314,9 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getTotalCount()
+  public int getTbdCount()
   {
-    return totalCount;
+    return tbdCount;
   }
 
   /**
@@ -324,12 +324,12 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTotalCount(int newTotalCount)
+  public void setTbdCount(int newTbdCount)
   {
-    int oldTotalCount = totalCount;
-    totalCount = newTotalCount;
+    int oldTbdCount = tbdCount;
+    tbdCount = newTbdCount;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__TOTAL_COUNT, oldTotalCount, totalCount));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__TBD_COUNT, oldTbdCount, tbdCount));
   }
 
   /**
@@ -373,10 +373,10 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
         return getErrorCount();
       case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
         return getFailthenCount();
-      case AssurePackage.ASSURE_RESULT__SKIPPED_COUNT:
-        return getSkippedCount();
-      case AssurePackage.ASSURE_RESULT__TOTAL_COUNT:
-        return getTotalCount();
+      case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
+        return getAndthenCount();
+      case AssurePackage.ASSURE_RESULT__TBD_COUNT:
+        return getTbdCount();
       case AssurePackage.ASSURE_RESULT__WEIGHT:
         return getWeight();
     }
@@ -405,11 +405,11 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
       case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
         setFailthenCount((Integer)newValue);
         return;
-      case AssurePackage.ASSURE_RESULT__SKIPPED_COUNT:
-        setSkippedCount((Integer)newValue);
+      case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
+        setAndthenCount((Integer)newValue);
         return;
-      case AssurePackage.ASSURE_RESULT__TOTAL_COUNT:
-        setTotalCount((Integer)newValue);
+      case AssurePackage.ASSURE_RESULT__TBD_COUNT:
+        setTbdCount((Integer)newValue);
         return;
       case AssurePackage.ASSURE_RESULT__WEIGHT:
         setWeight((Integer)newValue);
@@ -440,11 +440,11 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
       case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
         setFailthenCount(FAILTHEN_COUNT_EDEFAULT);
         return;
-      case AssurePackage.ASSURE_RESULT__SKIPPED_COUNT:
-        setSkippedCount(SKIPPED_COUNT_EDEFAULT);
+      case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
+        setAndthenCount(ANDTHEN_COUNT_EDEFAULT);
         return;
-      case AssurePackage.ASSURE_RESULT__TOTAL_COUNT:
-        setTotalCount(TOTAL_COUNT_EDEFAULT);
+      case AssurePackage.ASSURE_RESULT__TBD_COUNT:
+        setTbdCount(TBD_COUNT_EDEFAULT);
         return;
       case AssurePackage.ASSURE_RESULT__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
@@ -471,10 +471,10 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
         return errorCount != ERROR_COUNT_EDEFAULT;
       case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
         return failthenCount != FAILTHEN_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__SKIPPED_COUNT:
-        return skippedCount != SKIPPED_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__TOTAL_COUNT:
-        return totalCount != TOTAL_COUNT_EDEFAULT;
+      case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
+        return andthenCount != ANDTHEN_COUNT_EDEFAULT;
+      case AssurePackage.ASSURE_RESULT__TBD_COUNT:
+        return tbdCount != TBD_COUNT_EDEFAULT;
       case AssurePackage.ASSURE_RESULT__WEIGHT:
         return weight != WEIGHT_EDEFAULT;
     }
@@ -500,10 +500,10 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
     result.append(errorCount);
     result.append(", failthenCount: ");
     result.append(failthenCount);
-    result.append(", skippedCount: ");
-    result.append(skippedCount);
-    result.append(", totalCount: ");
-    result.append(totalCount);
+    result.append(", andthenCount: ");
+    result.append(andthenCount);
+    result.append(", tbdCount: ");
+    result.append(tbdCount);
     result.append(", weight: ");
     result.append(weight);
     result.append(')');

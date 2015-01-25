@@ -35,17 +35,23 @@ public class InternalAssureLexer extends Lexer {
     public static final int T__14=14;
     public static final int T__13=13;
     public static final int RULE_INT=5;
+    public static final int T__50=50;
     public static final int T__42=42;
     public static final int T__43=43;
     public static final int T__40=40;
     public static final int T__41=41;
+    public static final int T__46=46;
+    public static final int T__47=47;
     public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int T__48=48;
+    public static final int T__49=49;
     public static final int RULE_SL_COMMENT=8;
     public static final int RULE_ML_COMMENT=7;
     public static final int T__30=30;
     public static final int T__31=31;
-    public static final int T__32=32;
     public static final int RULE_STRING=6;
+    public static final int T__32=32;
     public static final int T__33=33;
     public static final int T__34=34;
     public static final int T__35=35;
@@ -156,10 +162,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:15:7: ( 'success' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:15:9: 'success'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:15:7: ( 'successcount' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:15:9: 'successcount'
             {
-            match("success"); 
+            match("successcount"); 
 
 
             }
@@ -177,10 +183,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:16:7: ( 'fail' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:16:9: 'fail'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:16:7: ( 'failcount' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:16:9: 'failcount'
             {
-            match("fail"); 
+            match("failcount"); 
 
 
             }
@@ -198,10 +204,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:17:7: ( 'error' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:17:9: 'error'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:17:7: ( 'errorcount' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:17:9: 'errorcount'
             {
-            match("error"); 
+            match("errorcount"); 
 
 
             }
@@ -219,10 +225,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:18:7: ( 'failthen' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:18:9: 'failthen'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:18:7: ( 'failthencount' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:18:9: 'failthencount'
             {
-            match("failthen"); 
+            match("failthencount"); 
 
 
             }
@@ -240,10 +246,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:19:7: ( 'skipped' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:19:9: 'skipped'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:19:7: ( 'andthencount' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:19:9: 'andthencount'
             {
-            match("skipped"); 
+            match("andthencount"); 
 
 
             }
@@ -261,10 +267,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:20:7: ( 'total' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:20:9: 'total'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:20:7: ( 'tbd' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:20:9: 'tbd'
             {
-            match("total"); 
+            match("tbd"); 
 
 
             }
@@ -386,10 +392,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:26:7: ( 'hazard' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:26:9: 'hazard'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:26:7: ( 'assumption' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:26:9: 'assumption'
             {
-            match("hazard"); 
+            match("assumption"); 
 
 
             }
@@ -407,10 +413,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:27:7: ( 'assumption' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:27:9: 'assumption'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:27:7: ( 'precondition' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:27:9: 'precondition'
             {
-            match("assumption"); 
+            match("precondition"); 
 
 
             }
@@ -428,10 +434,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:28:7: ( 'precondition' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:28:9: 'precondition'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:28:7: ( 'verification' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:28:9: 'verification'
             {
-            match("precondition"); 
+            match("verification"); 
 
 
             }
@@ -449,10 +455,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:29:7: ( 'verification' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:29:9: 'verification'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:29:7: ( 'executionstate' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:29:9: 'executionstate'
             {
-            match("verification"); 
+            match("executionstate"); 
 
 
             }
@@ -470,10 +476,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:30:7: ( 'executionstate' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:30:9: 'executionstate'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:30:7: ( 'failthen' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:30:9: 'failthen'
             {
-            match("executionstate"); 
+            match("failthen"); 
 
 
             }
@@ -491,10 +497,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:31:7: ( 'andthen' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:31:9: 'andthen'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:31:7: ( 'do' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:31:9: 'do'
             {
-            match("andthen"); 
+            match("do"); 
 
 
             }
@@ -512,10 +518,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:32:7: ( 'do' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:32:9: 'do'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:32:7: ( 'failthenfailed' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:32:9: 'failthenfailed'
             {
-            match("do"); 
+            match("failthenfailed"); 
 
 
             }
@@ -533,10 +539,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:33:7: ( 'resultstate' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:33:9: 'resultstate'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:33:7: ( 'andthen' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:33:9: 'andthen'
             {
-            match("resultstate"); 
+            match("andthen"); 
 
 
             }
@@ -554,10 +560,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:34:7: ( 'failtype' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:34:9: 'failtype'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:34:7: ( 'andthenfailed' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:34:9: 'andthenfailed'
             {
-            match("failtype"); 
+            match("andthenfailed"); 
 
 
             }
@@ -575,10 +581,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:35:7: ( 'failmessage' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:35:9: 'failmessage'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:35:7: ( 'resultstate' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:35:9: 'resultstate'
             {
-            match("failmessage"); 
+            match("resultstate"); 
 
 
             }
@@ -596,10 +602,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:36:7: ( 'failtarget' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:36:9: 'failtarget'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:36:7: ( 'failtype' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:36:9: 'failtype'
             {
-            match("failtarget"); 
+            match("failtype"); 
 
 
             }
@@ -617,10 +623,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:37:7: ( 'report' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:37:9: 'report'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:37:7: ( 'failmessage' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:37:9: 'failmessage'
             {
-            match("report"); 
+            match("failmessage"); 
 
 
             }
@@ -638,10 +644,11 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:38:7: ( '.' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:38:9: '.'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:38:7: ( 'failtarget' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:38:9: 'failtarget'
             {
-            match('.'); 
+            match("failtarget"); 
+
 
             }
 
@@ -658,10 +665,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:39:7: ( '::' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:39:9: '::'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:39:7: ( 'report' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:39:9: 'report'
             {
-            match("::"); 
+            match("report"); 
 
 
             }
@@ -679,11 +686,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:40:7: ( 'tbd' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:40:9: 'tbd'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:40:7: ( '&' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:40:9: '&'
             {
-            match("tbd"); 
-
+            match('&'); 
 
             }
 
@@ -700,10 +706,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:41:7: ( 'todo' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:41:9: 'todo'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:41:7: ( 'this' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:41:9: 'this'
             {
-            match("todo"); 
+            match("this"); 
 
 
             }
@@ -721,11 +727,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:42:7: ( 'running' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:42:9: 'running'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:42:7: ( '.' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:42:9: '.'
             {
-            match("running"); 
-
+            match('.'); 
 
             }
 
@@ -742,10 +747,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:43:7: ( 'redo' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:43:9: 'redo'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:43:7: ( '::' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:43:9: '::'
             {
-            match("redo"); 
+            match("::"); 
 
 
             }
@@ -763,10 +768,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:44:7: ( 'completed' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:44:9: 'completed'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:44:7: ( 'success' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:44:9: 'success'
             {
-            match("completed"); 
+            match("success"); 
 
 
             }
@@ -779,15 +784,141 @@ public class InternalAssureLexer extends Lexer {
     }
     // $ANTLR end "T__44"
 
+    // $ANTLR start "T__45"
+    public final void mT__45() throws RecognitionException {
+        try {
+            int _type = T__45;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:45:7: ( 'fail' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:45:9: 'fail'
+            {
+            match("fail"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__45"
+
+    // $ANTLR start "T__46"
+    public final void mT__46() throws RecognitionException {
+        try {
+            int _type = T__46;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:46:7: ( 'error' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:46:9: 'error'
+            {
+            match("error"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__46"
+
+    // $ANTLR start "T__47"
+    public final void mT__47() throws RecognitionException {
+        try {
+            int _type = T__47;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:47:7: ( 'todo' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:47:9: 'todo'
+            {
+            match("todo"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__47"
+
+    // $ANTLR start "T__48"
+    public final void mT__48() throws RecognitionException {
+        try {
+            int _type = T__48;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:48:7: ( 'running' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:48:9: 'running'
+            {
+            match("running"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__48"
+
+    // $ANTLR start "T__49"
+    public final void mT__49() throws RecognitionException {
+        try {
+            int _type = T__49;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:49:7: ( 'redo' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:49:9: 'redo'
+            {
+            match("redo"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__49"
+
+    // $ANTLR start "T__50"
+    public final void mT__50() throws RecognitionException {
+        try {
+            int _type = T__50;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:50:7: ( 'completed' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:50:9: 'completed'
+            {
+            match("completed"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__50"
+
     // $ANTLR start "RULE_ID"
     public final void mRULE_ID() throws RecognitionException {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2551:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2551:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2638:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2638:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2551:11: ( '^' )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2638:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -796,7 +927,7 @@ public class InternalAssureLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2551:11: '^'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2638:11: '^'
                     {
                     match('^'); 
 
@@ -814,7 +945,7 @@ public class InternalAssureLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2551:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2638:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -863,10 +994,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2553:10: ( ( '0' .. '9' )+ )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2553:12: ( '0' .. '9' )+
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2640:10: ( ( '0' .. '9' )+ )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2640:12: ( '0' .. '9' )+
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2553:12: ( '0' .. '9' )+
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2640:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -880,7 +1011,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2553:13: '0' .. '9'
+            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2640:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -912,10 +1043,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -933,10 +1064,10 @@ public class InternalAssureLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -952,7 +1083,7 @@ public class InternalAssureLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:21: '\\\\' .
+                    	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -960,7 +1091,7 @@ public class InternalAssureLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -985,10 +1116,10 @@ public class InternalAssureLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -1004,7 +1135,7 @@ public class InternalAssureLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:54: '\\\\' .
+                    	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1012,7 +1143,7 @@ public class InternalAssureLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2555:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2642:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1055,12 +1186,12 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2557:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2557:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2644:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2644:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2557:24: ( options {greedy=false; } : . )*
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2644:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -1085,7 +1216,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2557:52: .
+            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2644:52: .
             	    {
             	    matchAny(); 
 
@@ -1115,12 +1246,12 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2559:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2559:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2646:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2646:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2559:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2646:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -1133,7 +1264,7 @@ public class InternalAssureLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2559:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2646:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1153,7 +1284,7 @@ public class InternalAssureLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2559:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2646:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1162,9 +1293,9 @@ public class InternalAssureLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2559:41: ( '\\r' )? '\\n'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2646:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2559:41: ( '\\r' )?
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2646:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -1173,7 +1304,7 @@ public class InternalAssureLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2559:41: '\\r'
+                            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2646:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1205,10 +1336,10 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2561:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2561:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2648:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2648:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2561:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2648:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -1262,8 +1393,8 @@ public class InternalAssureLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2563:16: ( . )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2563:18: .
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2650:16: ( . )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2650:18: .
             {
             matchAny(); 
 
@@ -1278,8 +1409,8 @@ public class InternalAssureLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt12=41;
+        // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt12=47;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
@@ -1521,49 +1652,91 @@ public class InternalAssureLexer extends Lexer {
                 }
                 break;
             case 35 :
-                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:214: RULE_ID
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:214: T__45
+                {
+                mT__45(); 
+
+                }
+                break;
+            case 36 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:220: T__46
+                {
+                mT__46(); 
+
+                }
+                break;
+            case 37 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:226: T__47
+                {
+                mT__47(); 
+
+                }
+                break;
+            case 38 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:232: T__48
+                {
+                mT__48(); 
+
+                }
+                break;
+            case 39 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:238: T__49
+                {
+                mT__49(); 
+
+                }
+                break;
+            case 40 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:244: T__50
+                {
+                mT__50(); 
+
+                }
+                break;
+            case 41 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:250: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 36 :
-                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:222: RULE_INT
+            case 42 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:258: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 37 :
-                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:231: RULE_STRING
+            case 43 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:267: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 38 :
-                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:243: RULE_ML_COMMENT
+            case 44 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:279: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 39 :
-                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:259: RULE_SL_COMMENT
+            case 45 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:295: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 40 :
-                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:275: RULE_WS
+            case 46 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:311: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 41 :
-                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:283: RULE_ANY_OTHER
+            case 47 :
+                // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1:319: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -1577,96 +1750,101 @@ public class InternalAssureLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\3\36\1\uffff\5\36\1\uffff\6\36\1\uffff\2\32\2\uffff\3"+
-        "\32\2\uffff\3\36\1\uffff\3\36\1\uffff\10\36\1\uffff\5\36\1\117\2"+
-        "\36\7\uffff\3\36\1\127\10\36\1\140\7\36\1\uffff\4\36\1\154\2\36"+
-        "\1\uffff\1\161\6\36\1\170\1\uffff\11\36\1\u0082\1\36\1\uffff\1\u0084"+
-        "\3\36\1\uffff\3\36\1\u008d\1\36\1\u008f\1\uffff\11\36\1\uffff\1"+
-        "\36\1\uffff\10\36\1\uffff\1\36\1\uffff\1\u00a3\1\36\1\u00a5\5\36"+
-        "\1\u00ab\7\36\1\u00b4\1\u00b5\1\36\1\uffff\1\u00b7\1\uffff\1\36"+
-        "\1\u00b9\3\36\1\uffff\1\u00bd\1\36\1\u00bf\1\u00c0\2\36\1\u00c3"+
-        "\1\36\2\uffff\1\36\1\uffff\1\36\1\uffff\3\36\1\uffff\1\u00ca\2\uffff"+
-        "\2\36\1\uffff\6\36\1\uffff\1\u00d3\1\36\1\u00d5\1\36\1\u00d7\3\36"+
-        "\1\uffff\1\u00db\1\uffff\1\36\1\uffff\2\36\1\u00df\1\uffff\1\36"+
-        "\1\u00e1\1\u00e2\1\uffff\1\36\2\uffff\1\u00e4\1\uffff";
+        "\1\uffff\3\36\1\uffff\6\36\1\uffff\4\36\2\uffff\2\32\2\uffff\3"+
+        "\32\2\uffff\3\36\1\uffff\3\36\1\uffff\12\36\1\uffff\2\36\1\115\2"+
+        "\36\10\uffff\3\36\1\125\7\36\1\135\6\36\1\uffff\4\36\1\150\2\36"+
+        "\1\uffff\1\156\6\36\1\uffff\1\165\1\166\6\36\1\175\1\36\1\uffff"+
+        "\1\177\4\36\1\uffff\2\36\1\u0089\3\36\2\uffff\6\36\1\uffff\1\36"+
+        "\1\uffff\11\36\1\uffff\3\36\1\u00a0\4\36\1\u00a5\10\36\1\u00b0\2"+
+        "\36\1\u00b5\1\36\1\uffff\1\u00b7\3\36\1\uffff\1\u00bb\2\36\1\u00c0"+
+        "\1\u00c1\2\36\1\u00c4\2\36\1\uffff\4\36\1\uffff\1\36\1\uffff\3\36"+
+        "\1\uffff\1\u00cf\1\u00d0\2\36\2\uffff\2\36\1\uffff\12\36\2\uffff"+
+        "\2\36\1\u00e1\2\36\1\u00e4\1\u00e5\3\36\1\u00e9\5\36\1\uffff\1\u00ef"+
+        "\1\36\2\uffff\3\36\1\uffff\2\36\1\u00f6\2\36\1\uffff\1\u00f9\1\36"+
+        "\1\u00fb\1\36\1\u00fd\1\u00fe\1\uffff\1\u00ff\1\36\1\uffff\1\36"+
+        "\1\uffff\1\u0102\3\uffff\1\u0103\1\u0104\3\uffff";
     static final String DFA12_eofS =
-        "\u00e5\uffff";
+        "\u0105\uffff";
     static final String DFA12_minS =
-        "\1\0\2\141\1\156\1\uffff\1\153\1\162\1\142\2\145\1\uffff\1\141"+
-        "\1\156\1\162\1\145\1\157\1\145\1\uffff\1\72\1\101\2\uffff\2\0\1"+
-        "\52\2\uffff\1\163\1\141\1\155\1\uffff\1\162\1\151\1\163\1\uffff"+
-        "\1\143\1\151\1\162\1\145\2\144\1\151\1\163\1\uffff\1\172\1\163\1"+
-        "\144\1\145\1\162\1\60\1\144\1\156\7\uffff\1\145\1\151\1\160\1\60"+
-        "\1\154\1\164\1\143\1\160\1\157\1\143\1\141\1\157\1\60\1\147\1\163"+
-        "\1\141\1\165\1\164\1\143\1\151\1\uffff\1\165\2\157\1\156\1\60\1"+
-        "\155\1\154\1\uffff\1\60\1\141\1\145\1\160\1\162\1\165\1\154\1\60"+
-        "\1\uffff\1\150\1\141\1\162\1\155\1\150\1\157\1\146\1\154\1\162\1"+
-        "\60\1\151\1\uffff\1\60\1\145\1\141\1\145\1\uffff\1\156\1\163\1\145"+
-        "\1\60\1\164\1\60\1\uffff\1\164\1\147\1\144\1\160\1\145\1\156\1\151"+
-        "\2\164\1\uffff\1\156\1\uffff\1\164\1\145\1\160\1\162\1\163\1\143"+
-        "\1\163\1\144\1\uffff\1\151\1\uffff\1\60\1\145\1\60\1\164\1\156\1"+
-        "\144\1\143\1\163\1\60\1\147\1\145\1\156\1\145\1\147\1\163\1\145"+
-        "\2\60\1\157\1\uffff\1\60\1\uffff\1\151\1\60\1\151\1\141\1\164\1"+
-        "\uffff\1\60\1\144\2\60\1\145\1\141\1\60\1\163\2\uffff\1\156\1\uffff"+
-        "\1\157\1\uffff\2\164\1\141\1\uffff\1\60\2\uffff\1\164\1\147\1\uffff"+
-        "\1\147\1\163\1\156\2\151\1\164\1\uffff\1\60\1\145\1\60\1\164\1\60"+
-        "\2\157\1\145\1\uffff\1\60\1\uffff\1\141\1\uffff\2\156\1\60\1\uffff"+
-        "\1\164\2\60\1\uffff\1\145\2\uffff\1\60\1\uffff";
+        "\1\0\2\141\1\156\1\uffff\1\165\1\162\1\156\1\142\2\145\1\uffff"+
+        "\1\162\1\145\1\157\1\145\2\uffff\1\72\1\101\2\uffff\2\0\1\52\2\uffff"+
+        "\1\163\1\141\1\155\1\uffff\1\162\1\151\1\163\1\uffff\1\143\1\162"+
+        "\1\145\1\144\1\163\1\144\1\151\1\144\1\151\1\163\1\uffff\1\145\1"+
+        "\162\1\60\1\144\1\156\10\uffff\1\145\1\151\1\160\1\60\1\154\1\164"+
+        "\1\143\1\157\1\143\1\164\1\165\1\60\1\163\1\157\1\147\1\163\1\143"+
+        "\1\151\1\uffff\1\165\2\157\1\156\1\60\1\155\1\154\1\uffff\1\60\1"+
+        "\141\1\145\1\162\1\165\1\150\1\155\1\uffff\2\60\1\150\1\141\1\157"+
+        "\1\146\1\154\1\162\1\60\1\151\1\uffff\1\60\1\145\1\157\1\141\1\145"+
+        "\1\uffff\1\156\1\163\1\60\1\164\1\145\1\160\2\uffff\1\164\1\147"+
+        "\1\156\1\151\2\164\1\uffff\1\156\1\uffff\1\164\1\165\1\145\1\160"+
+        "\1\162\1\163\1\143\1\163\1\157\1\uffff\1\151\1\156\1\164\1\60\1"+
+        "\145\1\144\1\143\1\163\1\60\1\147\1\145\2\156\1\145\1\147\1\163"+
+        "\1\145\1\60\1\165\1\157\1\60\1\151\1\uffff\1\60\1\151\1\141\1\164"+
+        "\1\uffff\1\60\1\144\1\164\2\60\1\145\1\141\1\60\1\157\1\163\1\uffff"+
+        "\2\156\1\157\1\141\1\uffff\1\157\1\uffff\2\164\1\141\1\uffff\2\60"+
+        "\1\157\1\141\2\uffff\1\164\1\147\1\uffff\1\165\1\147\1\164\1\163"+
+        "\1\165\1\151\1\156\2\151\1\164\2\uffff\1\165\1\151\1\60\1\145\1"+
+        "\156\2\60\1\164\1\156\1\154\1\60\2\157\1\145\1\156\1\154\1\uffff"+
+        "\1\60\1\164\2\uffff\1\141\1\164\1\145\1\uffff\2\156\1\60\1\164\1"+
+        "\145\1\uffff\1\60\1\164\1\60\1\144\2\60\1\uffff\1\60\1\144\1\uffff"+
+        "\1\145\1\uffff\1\60\3\uffff\2\60\3\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\2\157\1\156\1\uffff\1\165\1\170\1\157\2\145\1\uffff\1"+
-        "\141\1\163\1\162\1\145\1\157\1\165\1\uffff\1\72\1\172\2\uffff\2"+
-        "\uffff\1\57\2\uffff\1\163\1\141\1\155\1\uffff\1\162\1\151\1\163"+
-        "\1\uffff\1\143\1\151\1\162\1\145\1\164\1\144\1\151\1\163\1\uffff"+
-        "\1\172\1\163\1\144\1\145\1\162\1\172\1\163\1\156\7\uffff\1\145\1"+
-        "\151\1\160\1\172\1\154\1\164\1\143\1\160\1\157\1\143\1\141\1\157"+
-        "\1\172\1\147\1\163\1\141\1\165\1\164\1\143\1\151\1\uffff\1\165\2"+
-        "\157\1\156\1\172\1\155\1\154\1\uffff\1\172\1\141\1\145\1\160\1\162"+
-        "\1\165\1\154\1\172\1\uffff\1\150\1\141\1\162\1\155\1\150\1\157\1"+
-        "\146\1\154\1\162\1\172\1\151\1\uffff\1\172\1\145\1\171\1\145\1\uffff"+
-        "\1\156\1\163\1\145\1\172\1\164\1\172\1\uffff\1\164\1\147\1\144\1"+
-        "\160\1\145\1\156\1\151\2\164\1\uffff\1\156\1\uffff\1\164\1\145\1"+
-        "\160\1\162\1\163\1\143\1\163\1\144\1\uffff\1\151\1\uffff\1\172\1"+
-        "\145\1\172\1\164\1\156\1\144\1\143\1\163\1\172\1\147\1\145\1\156"+
-        "\1\145\1\147\1\163\1\145\2\172\1\157\1\uffff\1\172\1\uffff\1\151"+
-        "\1\172\1\151\1\141\1\164\1\uffff\1\172\1\144\2\172\1\145\1\141\1"+
-        "\172\1\163\2\uffff\1\156\1\uffff\1\157\1\uffff\2\164\1\141\1\uffff"+
-        "\1\172\2\uffff\1\164\1\147\1\uffff\1\147\1\163\1\156\2\151\1\164"+
-        "\1\uffff\1\172\1\145\1\172\1\164\1\172\2\157\1\145\1\uffff\1\172"+
-        "\1\uffff\1\141\1\uffff\2\156\1\172\1\uffff\1\164\2\172\1\uffff\1"+
-        "\145\2\uffff\1\172\1\uffff";
+        "\1\uffff\2\157\1\156\1\uffff\1\165\1\170\1\163\1\157\2\145\1\uffff"+
+        "\1\162\1\145\1\157\1\165\2\uffff\1\72\1\172\2\uffff\2\uffff\1\57"+
+        "\2\uffff\1\163\1\141\1\155\1\uffff\1\162\1\151\1\163\1\uffff\1\143"+
+        "\1\162\1\145\1\144\1\163\1\144\1\151\1\144\1\151\1\163\1\uffff\1"+
+        "\145\1\162\1\172\1\163\1\156\10\uffff\1\145\1\151\1\160\1\172\1"+
+        "\154\1\164\1\143\1\157\1\143\1\164\1\165\1\172\1\163\1\157\1\147"+
+        "\1\163\1\143\1\151\1\uffff\1\165\2\157\1\156\1\172\1\155\1\154\1"+
+        "\uffff\1\172\1\141\1\145\1\162\1\165\1\150\1\155\1\uffff\2\172\1"+
+        "\150\1\141\1\157\1\146\1\154\1\162\1\172\1\151\1\uffff\1\172\1\145"+
+        "\1\157\1\171\1\145\1\uffff\1\156\1\163\1\172\1\164\1\145\1\160\2"+
+        "\uffff\1\164\1\147\1\156\1\151\2\164\1\uffff\1\156\1\uffff\1\164"+
+        "\1\165\1\145\1\160\1\162\1\163\1\143\1\163\1\157\1\uffff\1\151\1"+
+        "\156\1\164\1\172\1\145\1\144\1\143\1\163\1\172\1\147\1\145\2\156"+
+        "\1\145\1\147\1\163\1\145\1\172\1\165\1\157\1\172\1\151\1\uffff\1"+
+        "\172\1\151\1\141\1\164\1\uffff\1\172\1\144\1\164\2\172\1\145\1\141"+
+        "\1\172\1\157\1\163\1\uffff\2\156\1\157\1\141\1\uffff\1\157\1\uffff"+
+        "\2\164\1\141\1\uffff\2\172\1\157\1\141\2\uffff\1\164\1\147\1\uffff"+
+        "\1\165\1\147\1\164\1\163\1\165\1\151\1\156\2\151\1\164\2\uffff\1"+
+        "\165\1\151\1\172\1\145\1\156\2\172\1\164\1\156\1\154\1\172\2\157"+
+        "\1\145\1\156\1\154\1\uffff\1\172\1\164\2\uffff\1\141\1\164\1\145"+
+        "\1\uffff\2\156\1\172\1\164\1\145\1\uffff\1\172\1\164\1\172\1\144"+
+        "\2\172\1\uffff\1\172\1\144\1\uffff\1\145\1\uffff\1\172\3\uffff\2"+
+        "\172\3\uffff";
     static final String DFA12_acceptS =
-        "\4\uffff\1\4\5\uffff\1\15\6\uffff\1\34\2\uffff\1\43\1\44\3\uffff"+
-        "\1\50\1\51\3\uffff\1\43\3\uffff\1\4\10\uffff\1\15\10\uffff\1\34"+
-        "\1\35\1\44\1\45\1\46\1\47\1\50\24\uffff\1\26\7\uffff\1\2\10\uffff"+
-        "\1\36\13\uffff\1\1\4\uffff\1\6\6\uffff\1\37\11\uffff\1\41\1\uffff"+
-        "\1\16\10\uffff\1\7\1\uffff\1\12\23\uffff\1\13\1\uffff\1\20\5\uffff"+
-        "\1\33\10\uffff\1\5\1\11\1\uffff\1\14\1\uffff\1\25\3\uffff\1\40\1"+
-        "\uffff\1\10\1\30\2\uffff\1\3\6\uffff\1\42\10\uffff\1\32\1\uffff"+
-        "\1\17\1\uffff\1\21\3\uffff\1\31\3\uffff\1\27\1\uffff\1\22\1\23\1"+
-        "\uffff\1\24";
+        "\4\uffff\1\4\6\uffff\1\15\4\uffff\1\36\1\40\2\uffff\1\51\1\52\3"+
+        "\uffff\1\56\1\57\3\uffff\1\51\3\uffff\1\4\12\uffff\1\15\5\uffff"+
+        "\1\36\1\40\1\41\1\52\1\53\1\54\1\55\1\56\22\uffff\1\25\7\uffff\1"+
+        "\2\7\uffff\1\12\12\uffff\1\1\5\uffff\1\43\6\uffff\1\37\1\45\6\uffff"+
+        "\1\47\1\uffff\1\16\11\uffff\1\44\26\uffff\1\13\4\uffff\1\35\12\uffff"+
+        "\1\42\4\uffff\1\27\1\uffff\1\14\3\uffff\1\46\4\uffff\1\24\1\32\2"+
+        "\uffff\1\3\12\uffff\1\50\1\6\20\uffff\1\34\2\uffff\1\17\1\7\3\uffff"+
+        "\1\20\5\uffff\1\33\6\uffff\1\31\2\uffff\1\5\1\uffff\1\11\1\uffff"+
+        "\1\21\1\22\1\10\2\uffff\1\30\1\26\1\23";
     static final String DFA12_specialS =
-        "\1\2\25\uffff\1\0\1\1\u00cd\uffff}>";
+        "\1\1\25\uffff\1\2\1\0\u00ed\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\32\2\31\2\32\1\31\22\32\1\31\1\32\1\26\4\32\1\27\6\32\1"+
-            "\21\1\30\12\25\1\22\6\32\32\24\1\4\1\32\1\12\1\23\1\24\1\32"+
-            "\1\14\1\24\1\1\1\17\1\6\1\2\1\24\1\13\1\3\3\24\1\11\2\24\1\15"+
-            "\1\24\1\20\1\5\1\7\1\24\1\16\1\10\3\24\uff85\32",
+            "\11\32\2\31\2\32\1\31\22\32\1\31\1\32\1\26\3\32\1\20\1\27\6"+
+            "\32\1\21\1\30\12\25\1\22\6\32\32\24\1\4\1\32\1\13\1\23\1\24"+
+            "\1\32\1\7\1\24\1\1\1\16\1\6\1\2\2\24\1\3\3\24\1\12\2\24\1\14"+
+            "\1\24\1\17\1\5\1\10\1\24\1\15\1\11\3\24\uff85\32",
             "\1\33\12\uffff\1\34\2\uffff\1\35",
             "\1\40\15\uffff\1\37",
             "\1\41",
             "",
-            "\1\44\11\uffff\1\43",
-            "\1\45\5\uffff\1\46",
-            "\1\50\14\uffff\1\47",
-            "\1\51",
-            "\1\52",
-            "",
+            "\1\43",
+            "\1\44\5\uffff\1\45",
+            "\1\46\4\uffff\1\47",
+            "\1\50\5\uffff\1\51\6\uffff\1\52",
+            "\1\53",
             "\1\54",
-            "\1\56\4\uffff\1\55",
+            "",
+            "\1\56",
             "\1\57",
             "\1\60",
-            "\1\61",
-            "\1\62\17\uffff\1\63",
+            "\1\61\17\uffff\1\62",
+            "",
             "",
             "\1\65",
             "\32\36\4\uffff\1\36\1\uffff\32\36",
@@ -1689,113 +1867,114 @@ public class InternalAssureLexer extends Lexer {
             "\1\102",
             "\1\103",
             "\1\104",
-            "\1\106\17\uffff\1\105",
+            "\1\105",
+            "\1\106",
             "\1\107",
             "\1\110",
             "\1\111",
-            "",
             "\1\112",
+            "",
             "\1\113",
             "\1\114",
-            "\1\115",
-            "\1\116",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\122\13\uffff\1\121\2\uffff\1\120",
+            "\1\120\13\uffff\1\117\2\uffff\1\116",
+            "\1\121",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\122",
             "\1\123",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\124",
-            "\1\125",
-            "\1\126",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\126",
+            "\1\127",
             "\1\130",
             "\1\131",
             "\1\132",
             "\1\133",
             "\1\134",
-            "\1\135",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\136",
             "\1\137",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\140",
             "\1\141",
             "\1\142",
             "\1\143",
+            "",
             "\1\144",
             "\1\145",
             "\1\146",
             "\1\147",
-            "",
-            "\1\150",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\151",
             "\1\152",
-            "\1\153",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\155",
-            "\1\156",
             "",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\14\36\1\160\6\36"+
-            "\1\157\6\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\2\36\1\153\11\36"+
+            "\1\155\6\36\1\154\6\36",
+            "\1\157",
+            "\1\160",
+            "\1\161",
             "\1\162",
             "\1\163",
             "\1\164",
-            "\1\165",
-            "\1\166",
-            "\1\167",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\167",
+            "\1\170",
             "\1\171",
             "\1\172",
             "\1\173",
             "\1\174",
-            "\1\175",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\176",
-            "\1\177",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u0080",
             "\1\u0081",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\u0083",
-            "",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u0084\6\uffff\1\u0082\20\uffff\1\u0083",
             "\1\u0085",
-            "\1\u0088\6\uffff\1\u0086\20\uffff\1\u0087",
-            "\1\u0089",
             "",
+            "\1\u0086",
+            "\1\u0087",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\2\36\1\u0088\27"+
+            "\36",
             "\1\u008a",
             "\1\u008b",
             "\1\u008c",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\u008e",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "",
+            "",
+            "\1\u008d",
+            "\1\u008e",
+            "\1\u008f",
             "\1\u0090",
             "\1\u0091",
             "\1\u0092",
+            "",
             "\1\u0093",
+            "",
             "\1\u0094",
             "\1\u0095",
             "\1\u0096",
             "\1\u0097",
             "\1\u0098",
-            "",
             "\1\u0099",
-            "",
             "\1\u009a",
             "\1\u009b",
             "\1\u009c",
+            "",
             "\1\u009d",
             "\1\u009e",
             "\1\u009f",
-            "\1\u00a0",
-            "\1\u00a1",
-            "",
-            "\1\u00a2",
-            "",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00a1",
+            "\1\u00a2",
+            "\1\u00a3",
             "\1\u00a4",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00a6",
@@ -1803,83 +1982,117 @@ public class InternalAssureLexer extends Lexer {
             "\1\u00a8",
             "\1\u00a9",
             "\1\u00aa",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00ab",
             "\1\u00ac",
             "\1\u00ad",
-            "\1\u00ae",
-            "\1\u00af",
-            "\1\u00b0",
+            "\12\36\7\uffff\14\36\1\u00af\15\36\4\uffff\1\36\1\uffff\2"+
+            "\36\1\u00ae\27\36",
             "\1\u00b1",
             "\1\u00b2",
-            "\12\36\7\uffff\14\36\1\u00b3\15\36\4\uffff\1\36\1\uffff\32"+
-            "\36",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\2\36\1\u00b3\2\36"+
+            "\1\u00b4\24\36",
             "\1\u00b6",
             "",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "",
             "\1\u00b8",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00b9",
             "\1\u00ba",
-            "\1\u00bb",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00bc",
-            "",
+            "\1\u00bd",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\2\36\1\u00be\2\36"+
+            "\1\u00bf\24\36",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\u00be",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\u00c1",
             "\1\u00c2",
+            "\1\u00c3",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\1\u00c4",
-            "",
-            "",
             "\1\u00c5",
-            "",
             "\1\u00c6",
             "",
             "\1\u00c7",
             "\1\u00c8",
             "\1\u00c9",
-            "",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "",
+            "\1\u00ca",
             "",
             "\1\u00cb",
-            "\1\u00cc",
             "",
+            "\1\u00cc",
             "\1\u00cd",
             "\1\u00ce",
-            "\1\u00cf",
-            "\1\u00d0",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\u00d1",
             "\1\u00d2",
             "",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "\1\u00d3",
             "\1\u00d4",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "\1\u00d5",
             "\1\u00d6",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00d7",
             "\1\u00d8",
             "\1\u00d9",
             "\1\u00da",
-            "",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "",
+            "\1\u00db",
             "\1\u00dc",
-            "",
             "\1\u00dd",
             "\1\u00de",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "",
+            "",
+            "\1\u00df",
             "\1\u00e0",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
-            "",
+            "\1\u00e2",
             "\1\u00e3",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00e6",
+            "\1\u00e7",
+            "\1\u00e8",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00ea",
+            "\1\u00eb",
+            "\1\u00ec",
+            "\1\u00ed",
+            "\1\u00ee",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00f0",
+            "",
+            "",
+            "\1\u00f1",
+            "\1\u00f2",
+            "\1\u00f3",
+            "",
+            "\1\u00f4",
+            "\1\u00f5",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00f7",
+            "\1\u00f8",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00fa",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u00fc",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\u0100",
+            "",
+            "\1\u0101",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
             "",
             "",
             "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "",
             ""
     };
 
@@ -1913,23 +2126,13 @@ public class InternalAssureLexer extends Lexer {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA12_22 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_22>='\u0000' && LA12_22<='\uFFFF')) ) {s = 55;}
-
-                        else s = 26;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
                         int LA12_23 = input.LA(1);
 
                         s = -1;
@@ -1939,7 +2142,7 @@ public class InternalAssureLexer extends Lexer {
 
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
+                    case 1 : 
                         int LA12_0 = input.LA(1);
 
                         s = -1;
@@ -1955,25 +2158,25 @@ public class InternalAssureLexer extends Lexer {
 
                         else if ( (LA12_0=='e') ) {s = 6;}
 
-                        else if ( (LA12_0=='t') ) {s = 7;}
+                        else if ( (LA12_0=='a') ) {s = 7;}
 
-                        else if ( (LA12_0=='w') ) {s = 8;}
+                        else if ( (LA12_0=='t') ) {s = 8;}
 
-                        else if ( (LA12_0=='m') ) {s = 9;}
+                        else if ( (LA12_0=='w') ) {s = 9;}
 
-                        else if ( (LA12_0==']') ) {s = 10;}
+                        else if ( (LA12_0=='m') ) {s = 10;}
 
-                        else if ( (LA12_0=='h') ) {s = 11;}
+                        else if ( (LA12_0==']') ) {s = 11;}
 
-                        else if ( (LA12_0=='a') ) {s = 12;}
+                        else if ( (LA12_0=='p') ) {s = 12;}
 
-                        else if ( (LA12_0=='p') ) {s = 13;}
+                        else if ( (LA12_0=='v') ) {s = 13;}
 
-                        else if ( (LA12_0=='v') ) {s = 14;}
+                        else if ( (LA12_0=='d') ) {s = 14;}
 
-                        else if ( (LA12_0=='d') ) {s = 15;}
+                        else if ( (LA12_0=='r') ) {s = 15;}
 
-                        else if ( (LA12_0=='r') ) {s = 16;}
+                        else if ( (LA12_0=='&') ) {s = 16;}
 
                         else if ( (LA12_0=='.') ) {s = 17;}
 
@@ -1981,7 +2184,7 @@ public class InternalAssureLexer extends Lexer {
 
                         else if ( (LA12_0=='^') ) {s = 19;}
 
-                        else if ( ((LA12_0>='A' && LA12_0<='Z')||LA12_0=='_'||LA12_0=='b'||LA12_0=='g'||(LA12_0>='j' && LA12_0<='l')||(LA12_0>='n' && LA12_0<='o')||LA12_0=='q'||LA12_0=='u'||(LA12_0>='x' && LA12_0<='z')) ) {s = 20;}
+                        else if ( ((LA12_0>='A' && LA12_0<='Z')||LA12_0=='_'||LA12_0=='b'||(LA12_0>='g' && LA12_0<='h')||(LA12_0>='j' && LA12_0<='l')||(LA12_0>='n' && LA12_0<='o')||LA12_0=='q'||LA12_0=='u'||(LA12_0>='x' && LA12_0<='z')) ) {s = 20;}
 
                         else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 21;}
 
@@ -1993,7 +2196,17 @@ public class InternalAssureLexer extends Lexer {
 
                         else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 25;}
 
-                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='-')||(LA12_0>=';' && LA12_0<='@')||LA12_0=='\\'||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 26;}
+                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='%')||(LA12_0>='(' && LA12_0<='-')||(LA12_0>=';' && LA12_0<='@')||LA12_0=='\\'||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 26;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA12_22 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_22>='\u0000' && LA12_22<='\uFFFF')) ) {s = 55;}
+
+                        else s = 26;
 
                         if ( s>=0 ) return s;
                         break;

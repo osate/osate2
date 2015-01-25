@@ -3,7 +3,6 @@ package org.osate.assure.util
 
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.verify.verify.SupportedTypes
-import junit.framework.AssertionFailedError
 import org.osate.aadl2.instance.InstanceObject
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import com.google.inject.ImplementedBy
@@ -21,13 +20,13 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			val methodpath = method.getMethodPath();
 			try { 
 				dispatchVerificationMethod(methodpath, verificationActivityResult.caseSubject)
-				addSuccess(verificationActivityResult)
-			} catch (AssertionFailedError e) {
-				addFailure(verificationActivityResult, e);
+				setToSuccess(verificationActivityResult)
+			} catch (AssertionError e) {
+				setToFail(verificationActivityResult, e);
 			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 				throw e;
 			} catch (Throwable e) {
-				addError(verificationActivityResult, e);
+				setToError(verificationActivityResult, e);
 			}
 			
 			}

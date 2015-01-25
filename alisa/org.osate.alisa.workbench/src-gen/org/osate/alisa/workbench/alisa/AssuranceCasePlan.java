@@ -22,8 +22,8 @@ import org.osate.verify.verify.VerificationPlan;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getPlans <em>Plans</em>}</li>
@@ -64,32 +64,6 @@ public interface AssuranceCasePlan extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>System</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>System</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>System</em>' reference.
-   * @see #setSystem(ComponentImplementation)
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCasePlan_System()
-   * @model
-   * @generated
-   */
-  ComponentImplementation getSystem();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSystem <em>System</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>System</em>' reference.
-   * @see #getSystem()
-   * @generated
-   */
-  void setSystem(ComponentImplementation value);
-
-  /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -114,6 +88,32 @@ public interface AssuranceCasePlan extends EObject
    * @generated
    */
   void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>System</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>System</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>System</em>' reference.
+   * @see #setSystem(ComponentImplementation)
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCasePlan_System()
+   * @model
+   * @generated
+   */
+  ComponentImplementation getSystem();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceCasePlan#getSystem <em>System</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>System</em>' reference.
+   * @see #getSystem()
+   * @generated
+   */
+  void setSystem(ComponentImplementation value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

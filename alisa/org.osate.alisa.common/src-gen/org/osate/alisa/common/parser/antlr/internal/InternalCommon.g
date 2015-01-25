@@ -187,6 +187,38 @@ ruleDescriptionElement returns [EObject current=null]
 	}
 
 )
+)
+    |(
+(
+		lv_newline_2_0=	'&' 
+    {
+        newLeafNode(lv_newline_2_0, grammarAccess.getDescriptionElementAccess().getNewlineAmpersandKeyword_2_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDescriptionElementRule());
+	        }
+       		setWithLastConsumed($current, "newline", true, "&");
+	    }
+
+)
+)
+    |(
+(
+		lv_thisTarget_3_0=	'this' 
+    {
+        newLeafNode(lv_thisTarget_3_0, grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_3_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDescriptionElementRule());
+	        }
+       		setWithLastConsumed($current, "thisTarget", true, "this");
+	    }
+
+)
 ))
 ;
 
@@ -249,6 +281,63 @@ ruleReferencePath returns [EObject current=null]
 
 
 
+
+
+
+
+
+
+
+// Entry rule entryRuleTextElement
+entryRuleTextElement returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTextElementRule()); }
+	 iv_ruleTextElement=ruleTextElement 
+	 { $current=$iv_ruleTextElement.current; } 
+	 EOF 
+;
+
+// Rule TextElement
+ruleTextElement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_text_0_0=RULE_STRING
+		{
+			newLeafNode(lv_text_0_0, grammarAccess.getTextElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTextElementRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"text",
+        		lv_text_0_0, 
+        		"STRING");
+	    }
+
+)
+)
+    |(
+(
+		lv_newline_1_0=	'&' 
+    {
+        newLeafNode(lv_newline_1_0, grammarAccess.getTextElementAccess().getNewlineAmpersandKeyword_1_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTextElementRule());
+	        }
+       		setWithLastConsumed($current, "newline", true, "&");
+	    }
+
+)
+))
+;
 
 
 

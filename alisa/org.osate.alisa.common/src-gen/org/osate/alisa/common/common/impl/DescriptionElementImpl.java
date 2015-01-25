@@ -23,6 +23,8 @@ import org.osate.alisa.common.common.DescriptionElement;
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getText <em>Text</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getRef <em>Ref</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isNewline <em>Newline</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isThisTarget <em>This Target</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,6 +61,46 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected EObject ref;
+
+  /**
+   * The default value of the '{@link #isNewline() <em>Newline</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isNewline()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean NEWLINE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isNewline() <em>Newline</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isNewline()
+   * @generated
+   * @ordered
+   */
+  protected boolean newline = NEWLINE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isThisTarget() <em>This Target</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isThisTarget()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean THIS_TARGET_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isThisTarget() <em>This Target</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isThisTarget()
+   * @generated
+   * @ordered
+   */
+  protected boolean thisTarget = THIS_TARGET_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -152,6 +194,52 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isNewline()
+  {
+    return newline;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNewline(boolean newNewline)
+  {
+    boolean oldNewline = newline;
+    newline = newNewline;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__NEWLINE, oldNewline, newline));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isThisTarget()
+  {
+    return thisTarget;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setThisTarget(boolean newThisTarget)
+  {
+    boolean oldThisTarget = thisTarget;
+    thisTarget = newThisTarget;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET, oldThisTarget, thisTarget));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -162,6 +250,10 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
       case CommonPackage.DESCRIPTION_ELEMENT__REF:
         if (resolve) return getRef();
         return basicGetRef();
+      case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
+        return isNewline();
+      case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
+        return isThisTarget();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -181,6 +273,12 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case CommonPackage.DESCRIPTION_ELEMENT__REF:
         setRef((EObject)newValue);
+        return;
+      case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
+        setNewline((Boolean)newValue);
+        return;
+      case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
+        setThisTarget((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -202,6 +300,12 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
       case CommonPackage.DESCRIPTION_ELEMENT__REF:
         setRef((EObject)null);
         return;
+      case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
+        setNewline(NEWLINE_EDEFAULT);
+        return;
+      case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
+        setThisTarget(THIS_TARGET_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -220,6 +324,10 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
         return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
       case CommonPackage.DESCRIPTION_ELEMENT__REF:
         return ref != null;
+      case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
+        return newline != NEWLINE_EDEFAULT;
+      case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
+        return thisTarget != THIS_TARGET_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -237,6 +345,10 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (text: ");
     result.append(text);
+    result.append(", newline: ");
+    result.append(newline);
+    result.append(", thisTarget: ");
+    result.append(thisTarget);
     result.append(')');
     return result.toString();
   }

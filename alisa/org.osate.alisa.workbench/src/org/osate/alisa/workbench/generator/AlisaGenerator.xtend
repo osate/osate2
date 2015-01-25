@@ -11,7 +11,6 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan
-import org.osate.reqspec.reqSpec.Hazard
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.AndThenExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -27,7 +26,6 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import org.osate.verify.verify.WhenExpr
 import org.osate.reqspec.reqSpec.Requirement
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
-import static extension org.osate.assure.util.AssureUtilExtension.*
 
 /**
  * Generates code from your model files on save.
@@ -160,17 +158,6 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 
-	def generate(Hazard ha) {
-		'''
-		hazard «ha.name» for «ha.fullyQualifiedName»
-		[
-			«FOR req : ha.requirementReference»
-			«req.generate»
-			«ENDFOR»
-		]
-		'''
-		// add mitigated by requirement as claim
-	}
 
 	def generate(VerificationCondition vc) {
 		'''

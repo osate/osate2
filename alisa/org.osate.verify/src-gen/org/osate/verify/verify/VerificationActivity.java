@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.MultiLineString;
 
 import org.osate.categories.categories.SelectionCategory;
 
@@ -21,8 +22,8 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
@@ -64,32 +65,6 @@ public interface VerificationActivity extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Requirement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirement</em>' reference.
-   * @see #setRequirement(Requirement)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Requirement()
-   * @model
-   * @generated
-   */
-  Requirement getRequirement();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRequirement <em>Requirement</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirement</em>' reference.
-   * @see #getRequirement()
-   * @generated
-   */
-  void setRequirement(Requirement value);
-
-  /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -114,6 +89,32 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Requirement</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Requirement</em>' reference.
+   * @see #setRequirement(Requirement)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Requirement()
+   * @model
+   * @generated
+   */
+  Requirement getRequirement();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRequirement <em>Requirement</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Requirement</em>' reference.
+   * @see #getRequirement()
+   * @generated
+   */
+  void setRequirement(Requirement value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
@@ -210,29 +211,29 @@ public interface VerificationActivity extends EObject
   void setTimeout(int value);
 
   /**
-   * Returns the value of the '<em><b>Rationale</b></em>' attribute.
+   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rationale</em>' attribute isn't clear,
+   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' attribute.
-   * @see #setRationale(String)
+   * @return the value of the '<em>Rationale</em>' containment reference.
+   * @see #setRationale(MultiLineString)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Rationale()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getRationale();
+  MultiLineString getRationale();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' attribute.
+   * @param value the new value of the '<em>Rationale</em>' containment reference.
    * @see #getRationale()
    * @generated
    */
-  void setRationale(String value);
+  void setRationale(MultiLineString value);
 
 } // VerificationActivity

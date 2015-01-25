@@ -4,10 +4,11 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
+import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.PredicateExpression;
-
-import org.osate.categories.categories.RequirementCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,19 +18,15 @@ import org.osate.categories.categories.RequirementCategory;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinedReference <em>Refined Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getSubrequirement <em>Subrequirement</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDecomposedReference <em>Decomposed Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDecomposesReference <em>Decomposes Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getEvolvesReference <em>Evolves Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getSystemRequirementReference <em>System Requirement Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDocReference <em>Doc Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,30 +37,30 @@ import org.osate.categories.categories.RequirementCategory;
 public interface Requirement extends ContractualElement
 {
   /**
-   * Returns the value of the '<em><b>Category</b></em>' reference.
+   * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Category</em>' reference isn't clear,
+   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Category</em>' reference.
-   * @see #setCategory(RequirementCategory)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Category()
-   * @model
+   * @return the value of the '<em>Description</em>' containment reference.
+   * @see #setDescription(Description)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Description()
+   * @model containment="true"
    * @generated
    */
-  RequirementCategory getCategory();
+  Description getDescription();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getCategory <em>Category</em>}' reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getDescription <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Category</em>' reference.
-   * @see #getCategory()
+   * @param value the new value of the '<em>Description</em>' containment reference.
+   * @see #getDescription()
    * @generated
    */
-  void setCategory(RequirementCategory value);
+  void setDescription(Description value);
 
   /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
@@ -124,6 +121,58 @@ public interface Requirement extends ContractualElement
   EList<Goal> getGoalReference();
 
   /**
+   * Returns the value of the '<em><b>Exception</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Exception</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Exception</em>' reference.
+   * @see #setException(EObject)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Exception()
+   * @model
+   * @generated
+   */
+  EObject getException();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Exception</em>' reference.
+   * @see #getException()
+   * @generated
+   */
+  void setException(EObject value);
+
+  /**
+   * Returns the value of the '<em><b>Exception Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Exception Text</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Exception Text</em>' attribute.
+   * @see #setExceptionText(String)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_ExceptionText()
+   * @model
+   * @generated
+   */
+  String getExceptionText();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Exception Text</em>' attribute.
+   * @see #getExceptionText()
+   * @generated
+   */
+  void setExceptionText(String value);
+
+  /**
    * Returns the value of the '<em><b>Refined Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
@@ -156,70 +205,6 @@ public interface Requirement extends ContractualElement
   EList<Requirement> getRefinesReference();
 
   /**
-   * Returns the value of the '<em><b>Subrequirement</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Subrequirement</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Subrequirement</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Subrequirement()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Requirement> getSubrequirement();
-
-  /**
-   * Returns the value of the '<em><b>Decomposed Reference</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Decomposed Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Decomposed Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_DecomposedReference()
-   * @model
-   * @generated
-   */
-  EList<Requirement> getDecomposedReference();
-
-  /**
-   * Returns the value of the '<em><b>Decomposes Reference</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Decomposes Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Decomposes Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_DecomposesReference()
-   * @model
-   * @generated
-   */
-  EList<Requirement> getDecomposesReference();
-
-  /**
-   * Returns the value of the '<em><b>Evolves Reference</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Evolves Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Evolves Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_EvolvesReference()
-   * @model
-   * @generated
-   */
-  EList<Requirement> getEvolvesReference();
-
-  /**
    * Returns the value of the '<em><b>Stakeholder Requirement Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
    * <!-- begin-user-doc -->
@@ -234,37 +219,5 @@ public interface Requirement extends ContractualElement
    * @generated
    */
   EList<Goal> getStakeholderRequirementReference();
-
-  /**
-   * Returns the value of the '<em><b>System Requirement Reference</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.ContractualElement}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>System Requirement Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>System Requirement Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_SystemRequirementReference()
-   * @model
-   * @generated
-   */
-  EList<ContractualElement> getSystemRequirementReference();
-
-  /**
-   * Returns the value of the '<em><b>Doc Reference</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.ExternalDocument}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Doc Reference</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Doc Reference</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_DocReference()
-   * @model containment="true"
-   * @generated
-   */
-  EList<ExternalDocument> getDocReference();
 
 } // Requirement

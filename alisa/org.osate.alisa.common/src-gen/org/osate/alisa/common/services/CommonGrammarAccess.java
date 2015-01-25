@@ -58,12 +58,16 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cRefAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final CrossReference cRefEObjectCrossReference_1_0 = (CrossReference)cRefAssignment_1.eContents().get(0);
 		private final RuleCall cRefEObjectIDTerminalRuleCall_1_0_1 = (RuleCall)cRefEObjectCrossReference_1_0.eContents().get(1);
+		private final Assignment cNewlineAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final Keyword cNewlineAmpersandKeyword_2_0 = (Keyword)cNewlineAssignment_2.eContents().get(0);
+		private final Assignment cThisTargetAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final Keyword cThisTargetThisKeyword_3_0 = (Keyword)cThisTargetAssignment_3.eContents().get(0);
 		
 		//DescriptionElement:
-		//	text=STRING | ref=[ecore::EObject];
+		//	text=STRING | ref=[ecore::EObject] | newline?="&" | thisTarget?="this";
 		public ParserRule getRule() { return rule; }
 
-		//text=STRING | ref=[ecore::EObject]
+		//text=STRING | ref=[ecore::EObject] | newline?="&" | thisTarget?="this"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//text=STRING
@@ -80,6 +84,18 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getRefEObjectIDTerminalRuleCall_1_0_1() { return cRefEObjectIDTerminalRuleCall_1_0_1; }
+
+		//newline?="&"
+		public Assignment getNewlineAssignment_2() { return cNewlineAssignment_2; }
+
+		//"&"
+		public Keyword getNewlineAmpersandKeyword_2_0() { return cNewlineAmpersandKeyword_2_0; }
+
+		//thisTarget?="this"
+		public Assignment getThisTargetAssignment_3() { return cThisTargetAssignment_3; }
+
+		//"this"
+		public Keyword getThisTargetThisKeyword_3_0() { return cThisTargetThisKeyword_3_0; }
 	}
 
 	public class ReferencePathElements extends AbstractParserRuleElementFinder {
@@ -207,6 +223,50 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getValueValueStringParserRuleCall_2_0() { return cValueValueStringParserRuleCall_2_0; }
 	}
 
+	public class MultiLineStringElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MultiLineString");
+		private final Assignment cDescriptionAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDescriptionTextElementParserRuleCall_0 = (RuleCall)cDescriptionAssignment.eContents().get(0);
+		
+		//MultiLineString:
+		//	description+=TextElement+;
+		public ParserRule getRule() { return rule; }
+
+		//description+=TextElement+
+		public Assignment getDescriptionAssignment() { return cDescriptionAssignment; }
+
+		//TextElement
+		public RuleCall getDescriptionTextElementParserRuleCall_0() { return cDescriptionTextElementParserRuleCall_0; }
+	}
+
+	public class TextElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TextElement");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Assignment cTextAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cTextSTRINGTerminalRuleCall_0_0 = (RuleCall)cTextAssignment_0.eContents().get(0);
+		private final Assignment cNewlineAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final Keyword cNewlineAmpersandKeyword_1_0 = (Keyword)cNewlineAssignment_1.eContents().get(0);
+		
+		//TextElement:
+		//	text=STRING | newline?="&";
+		public ParserRule getRule() { return rule; }
+
+		//text=STRING | newline?="&"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//text=STRING
+		public Assignment getTextAssignment_0() { return cTextAssignment_0; }
+
+		//STRING
+		public RuleCall getTextSTRINGTerminalRuleCall_0_0() { return cTextSTRINGTerminalRuleCall_0_0; }
+
+		//newline?="&"
+		public Assignment getNewlineAssignment_1() { return cNewlineAssignment_1; }
+
+		//"&"
+		public Keyword getNewlineAmpersandKeyword_1_0() { return cNewlineAmpersandKeyword_1_0; }
+	}
+
 	public class ValueStringElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ValueString");
 		private final RuleCall cSTRINGTerminalRuleCall = (RuleCall)rule.eContents().get(1);
@@ -322,6 +382,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final ReferencePathElements pReferencePath;
 	private final PredicateExpressionElements pPredicateExpression;
 	private final FinalValueElements pFinalValue;
+	private final MultiLineStringElements pMultiLineString;
+	private final TextElementElements pTextElement;
 	private final ValueStringElements pValueString;
 	private final AadlClassifierReferenceElements pAadlClassifierReference;
 	private final CatRefElements pCatRef;
@@ -343,6 +405,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pReferencePath = new ReferencePathElements();
 		this.pPredicateExpression = new PredicateExpressionElements();
 		this.pFinalValue = new FinalValueElements();
+		this.pMultiLineString = new MultiLineStringElements();
+		this.pTextElement = new TextElementElements();
 		this.pValueString = new ValueStringElements();
 		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
 		this.pCatRef = new CatRefElements();
@@ -398,7 +462,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | ref=[ecore::EObject];
+	//	text=STRING | ref=[ecore::EObject] | newline?="&" | thisTarget?="this";
 	public DescriptionElementElements getDescriptionElementAccess() {
 		return pDescriptionElement;
 	}
@@ -436,6 +500,26 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getFinalValueRule() {
 		return getFinalValueAccess().getRule();
+	}
+
+	//MultiLineString:
+	//	description+=TextElement+;
+	public MultiLineStringElements getMultiLineStringAccess() {
+		return pMultiLineString;
+	}
+	
+	public ParserRule getMultiLineStringRule() {
+		return getMultiLineStringAccess().getRule();
+	}
+
+	//TextElement:
+	//	text=STRING | newline?="&";
+	public TextElementElements getTextElementAccess() {
+		return pTextElement;
+	}
+	
+	public ParserRule getTextElementRule() {
+		return getTextElementAccess().getRule();
 	}
 
 	//ValueString: // remove quotes from string in ValueConverter 

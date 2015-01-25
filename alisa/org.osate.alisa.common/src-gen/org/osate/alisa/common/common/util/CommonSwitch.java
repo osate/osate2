@@ -114,6 +114,20 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.MULTI_LINE_STRING:
+      {
+        MultiLineString multiLineString = (MultiLineString)theEObject;
+        T result = caseMultiLineString(multiLineString);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.TEXT_ELEMENT:
+      {
+        TextElement textElement = (TextElement)theEObject;
+        T result = caseTextElement(textElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -210,6 +224,38 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseFinalValue(FinalValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Multi Line String</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Multi Line String</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMultiLineString(MultiLineString object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Text Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Text Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTextElement(TextElement object)
   {
     return null;
   }

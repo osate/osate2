@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -18,13 +19,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.PredicateExpression;
 
-import org.osate.categories.categories.RequirementCategory;
-
-import org.osate.reqspec.reqSpec.ContractualElement;
-import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
@@ -36,19 +34,15 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getExceptionText <em>Exception Text</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinedReference <em>Refined Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinesReference <em>Refines Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getSubrequirement <em>Subrequirement</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDecomposedReference <em>Decomposed Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDecomposesReference <em>Decomposes Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getEvolvesReference <em>Evolves Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getSystemRequirementReference <em>System Requirement Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDocReference <em>Doc Reference</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,14 +51,14 @@ import org.osate.reqspec.reqSpec.Requirement;
 public class RequirementImpl extends ContractualElementImpl implements Requirement
 {
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCategory()
+   * @see #getDescription()
    * @generated
    * @ordered
    */
-  protected RequirementCategory category;
+  protected Description description;
 
   /**
    * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
@@ -97,6 +91,36 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EList<Goal> goalReference;
 
   /**
+   * The cached value of the '{@link #getException() <em>Exception</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getException()
+   * @generated
+   * @ordered
+   */
+  protected EObject exception;
+
+  /**
+   * The default value of the '{@link #getExceptionText() <em>Exception Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExceptionText()
+   * @generated
+   * @ordered
+   */
+  protected static final String EXCEPTION_TEXT_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getExceptionText() <em>Exception Text</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getExceptionText()
+   * @generated
+   * @ordered
+   */
+  protected String exceptionText = EXCEPTION_TEXT_EDEFAULT;
+
+  /**
    * The cached value of the '{@link #getRefinedReference() <em>Refined Reference</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -117,46 +141,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EList<Requirement> refinesReference;
 
   /**
-   * The cached value of the '{@link #getSubrequirement() <em>Subrequirement</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSubrequirement()
-   * @generated
-   * @ordered
-   */
-  protected EList<Requirement> subrequirement;
-
-  /**
-   * The cached value of the '{@link #getDecomposedReference() <em>Decomposed Reference</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDecomposedReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<Requirement> decomposedReference;
-
-  /**
-   * The cached value of the '{@link #getDecomposesReference() <em>Decomposes Reference</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDecomposesReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<Requirement> decomposesReference;
-
-  /**
-   * The cached value of the '{@link #getEvolvesReference() <em>Evolves Reference</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getEvolvesReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<Requirement> evolvesReference;
-
-  /**
    * The cached value of the '{@link #getStakeholderRequirementReference() <em>Stakeholder Requirement Reference</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -165,26 +149,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected EList<Goal> stakeholderRequirementReference;
-
-  /**
-   * The cached value of the '{@link #getSystemRequirementReference() <em>System Requirement Reference</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSystemRequirementReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<ContractualElement> systemRequirementReference;
-
-  /**
-   * The cached value of the '{@link #getDocReference() <em>Doc Reference</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDocReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<ExternalDocument> docReference;
 
   /**
    * <!-- begin-user-doc -->
@@ -212,19 +176,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public RequirementCategory getCategory()
+  public Description getDescription()
   {
-    if (category != null && category.eIsProxy())
-    {
-      InternalEObject oldCategory = (InternalEObject)category;
-      category = (RequirementCategory)eResolveProxy(oldCategory);
-      if (category != oldCategory)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.REQUIREMENT__CATEGORY, oldCategory, category));
-      }
-    }
-    return category;
+    return description;
   }
 
   /**
@@ -232,22 +186,37 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public RequirementCategory basicGetCategory()
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
   {
-    return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCategory(RequirementCategory newCategory)
-  {
-    RequirementCategory oldCategory = category;
-    category = newCategory;
+    Description oldDescription = description;
+    description = newDescription;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__CATEGORY, oldCategory, category));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__DESCRIPTION, oldDescription, newDescription);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(Description newDescription)
+  {
+    if (newDescription != description)
+    {
+      NotificationChain msgs = null;
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__DESCRIPTION, newDescription, newDescription));
   }
 
   /**
@@ -331,6 +300,72 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EObject getException()
+  {
+    if (exception != null && exception.eIsProxy())
+    {
+      InternalEObject oldException = (InternalEObject)exception;
+      exception = eResolveProxy(oldException);
+      if (exception != oldException)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.REQUIREMENT__EXCEPTION, oldException, exception));
+      }
+    }
+    return exception;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EObject basicGetException()
+  {
+    return exception;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setException(EObject newException)
+  {
+    EObject oldException = exception;
+    exception = newException;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__EXCEPTION, oldException, exception));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getExceptionText()
+  {
+    return exceptionText;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setExceptionText(String newExceptionText)
+  {
+    String oldExceptionText = exceptionText;
+    exceptionText = newExceptionText;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT, oldExceptionText, exceptionText));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Requirement> getRefinedReference()
   {
     if (refinedReference == null)
@@ -359,62 +394,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Requirement> getSubrequirement()
-  {
-    if (subrequirement == null)
-    {
-      subrequirement = new EObjectContainmentEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__SUBREQUIREMENT);
-    }
-    return subrequirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Requirement> getDecomposedReference()
-  {
-    if (decomposedReference == null)
-    {
-      decomposedReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__DECOMPOSED_REFERENCE);
-    }
-    return decomposedReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Requirement> getDecomposesReference()
-  {
-    if (decomposesReference == null)
-    {
-      decomposesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE);
-    }
-    return decomposesReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Requirement> getEvolvesReference()
-  {
-    if (evolvesReference == null)
-    {
-      evolvesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__EVOLVES_REFERENCE);
-    }
-    return evolvesReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Goal> getStakeholderRequirementReference()
   {
     if (stakeholderRequirementReference == null)
@@ -429,47 +408,17 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ContractualElement> getSystemRequirementReference()
-  {
-    if (systemRequirementReference == null)
-    {
-      systemRequirementReference = new EObjectResolvingEList<ContractualElement>(ContractualElement.class, this, ReqSpecPackage.REQUIREMENT__SYSTEM_REQUIREMENT_REFERENCE);
-    }
-    return systemRequirementReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<ExternalDocument> getDocReference()
-  {
-    if (docReference == null)
-    {
-      docReference = new EObjectContainmentEList<ExternalDocument>(ExternalDocument.class, this, ReqSpecPackage.REQUIREMENT__DOC_REFERENCE);
-    }
-    return docReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
+        return basicSetDescription(null, msgs);
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQUIREMENT__ASSERT:
         return basicSetAssert(null, msgs);
-      case ReqSpecPackage.REQUIREMENT__SUBREQUIREMENT:
-        return ((InternalEList<?>)getSubrequirement()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.REQUIREMENT__DOC_REFERENCE:
-        return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -484,33 +433,25 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__CATEGORY:
-        if (resolve) return getCategory();
-        return basicGetCategory();
+      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
+        return getDescription();
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return getConstants();
       case ReqSpecPackage.REQUIREMENT__ASSERT:
         return getAssert();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return getGoalReference();
+      case ReqSpecPackage.REQUIREMENT__EXCEPTION:
+        if (resolve) return getException();
+        return basicGetException();
+      case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
+        return getExceptionText();
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         return getRefinedReference();
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         return getRefinesReference();
-      case ReqSpecPackage.REQUIREMENT__SUBREQUIREMENT:
-        return getSubrequirement();
-      case ReqSpecPackage.REQUIREMENT__DECOMPOSED_REFERENCE:
-        return getDecomposedReference();
-      case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
-        return getDecomposesReference();
-      case ReqSpecPackage.REQUIREMENT__EVOLVES_REFERENCE:
-        return getEvolvesReference();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         return getStakeholderRequirementReference();
-      case ReqSpecPackage.REQUIREMENT__SYSTEM_REQUIREMENT_REFERENCE:
-        return getSystemRequirementReference();
-      case ReqSpecPackage.REQUIREMENT__DOC_REFERENCE:
-        return getDocReference();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -526,8 +467,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__CATEGORY:
-        setCategory((RequirementCategory)newValue);
+      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
+        setDescription((Description)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         getConstants().clear();
@@ -540,6 +481,12 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         getGoalReference().clear();
         getGoalReference().addAll((Collection<? extends Goal>)newValue);
         return;
+      case ReqSpecPackage.REQUIREMENT__EXCEPTION:
+        setException((EObject)newValue);
+        return;
+      case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
+        setExceptionText((String)newValue);
+        return;
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         getRefinedReference().clear();
         getRefinedReference().addAll((Collection<? extends Requirement>)newValue);
@@ -548,33 +495,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         getRefinesReference().clear();
         getRefinesReference().addAll((Collection<? extends Requirement>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENT__SUBREQUIREMENT:
-        getSubrequirement().clear();
-        getSubrequirement().addAll((Collection<? extends Requirement>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__DECOMPOSED_REFERENCE:
-        getDecomposedReference().clear();
-        getDecomposedReference().addAll((Collection<? extends Requirement>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
-        getDecomposesReference().clear();
-        getDecomposesReference().addAll((Collection<? extends Requirement>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__EVOLVES_REFERENCE:
-        getEvolvesReference().clear();
-        getEvolvesReference().addAll((Collection<? extends Requirement>)newValue);
-        return;
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         getStakeholderRequirementReference().clear();
         getStakeholderRequirementReference().addAll((Collection<? extends Goal>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__SYSTEM_REQUIREMENT_REFERENCE:
-        getSystemRequirementReference().clear();
-        getSystemRequirementReference().addAll((Collection<? extends ContractualElement>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__DOC_REFERENCE:
-        getDocReference().clear();
-        getDocReference().addAll((Collection<? extends ExternalDocument>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -590,8 +513,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__CATEGORY:
-        setCategory((RequirementCategory)null);
+      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
+        setDescription((Description)null);
         return;
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         getConstants().clear();
@@ -602,32 +525,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
         return;
+      case ReqSpecPackage.REQUIREMENT__EXCEPTION:
+        setException((EObject)null);
+        return;
+      case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
+        setExceptionText(EXCEPTION_TEXT_EDEFAULT);
+        return;
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         getRefinedReference().clear();
         return;
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         getRefinesReference().clear();
         return;
-      case ReqSpecPackage.REQUIREMENT__SUBREQUIREMENT:
-        getSubrequirement().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENT__DECOMPOSED_REFERENCE:
-        getDecomposedReference().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
-        getDecomposesReference().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENT__EVOLVES_REFERENCE:
-        getEvolvesReference().clear();
-        return;
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         getStakeholderRequirementReference().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENT__SYSTEM_REQUIREMENT_REFERENCE:
-        getSystemRequirementReference().clear();
-        return;
-      case ReqSpecPackage.REQUIREMENT__DOC_REFERENCE:
-        getDocReference().clear();
         return;
     }
     super.eUnset(featureID);
@@ -643,34 +554,43 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__CATEGORY:
-        return category != null;
+      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
+        return description != null;
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return constants != null && !constants.isEmpty();
       case ReqSpecPackage.REQUIREMENT__ASSERT:
         return assert_ != null;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return goalReference != null && !goalReference.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__EXCEPTION:
+        return exception != null;
+      case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
+        return EXCEPTION_TEXT_EDEFAULT == null ? exceptionText != null : !EXCEPTION_TEXT_EDEFAULT.equals(exceptionText);
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         return refinedReference != null && !refinedReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
         return refinesReference != null && !refinesReference.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__SUBREQUIREMENT:
-        return subrequirement != null && !subrequirement.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__DECOMPOSED_REFERENCE:
-        return decomposedReference != null && !decomposedReference.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__DECOMPOSES_REFERENCE:
-        return decomposesReference != null && !decomposesReference.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__EVOLVES_REFERENCE:
-        return evolvesReference != null && !evolvesReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         return stakeholderRequirementReference != null && !stakeholderRequirementReference.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__SYSTEM_REQUIREMENT_REFERENCE:
-        return systemRequirementReference != null && !systemRequirementReference.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__DOC_REFERENCE:
-        return docReference != null && !docReference.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (exceptionText: ");
+    result.append(exceptionText);
+    result.append(')');
+    return result.toString();
   }
 
 } //RequirementImpl

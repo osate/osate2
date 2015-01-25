@@ -14,16 +14,19 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.assure.util.DefaultVerificationMethodDispatcher;
+import org.osate.assure.util.IVerificationMethodDispatcher;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 @SuppressWarnings("all")
-public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher {
+public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
   /**
    * normal constructor
    */
   public PlatformResourceBudgets() {
+    super();
   }
   
   /**
@@ -67,7 +70,7 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
     EList<ComponentInstance> _allComponentInstances = ci.getAllComponentInstances();
     final Function1<ComponentInstance, Double> _function = new Function1<ComponentInstance, Double>() {
       public Double apply(final ComponentInstance it) {
-        return Double.valueOf(GetProperties.getMIPSBudgetInMIPS(it, 0.0));
+        return Double.valueOf(GetProperties.getGrossWeight(it, 0.0));
       }
     };
     List<Double> _map = ListExtensions.<ComponentInstance, Double>map(_allComponentInstances, _function);
@@ -121,21 +124,21 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
     return true;
   }
   
-  public Double dispatchVerificationMethod(final String methodPath, final ComponentInstance target) {
-    double _switchResult = (double) 0;
-    boolean _matched = false;
-    if (!_matched) {
-      if (Objects.equal(methodPath, "org.osate.verify.PlatformResourceBudsgets.assertSumSubBudgets")) {
-        _matched=true;
-        this.assertSumSubBudgets(target);
+  public void dispatchVerificationMethod(final String methodPath, final InstanceObject target) {
+    if ((target instanceof ComponentInstance)) {
+      boolean _matched = false;
+      if (!_matched) {
+        if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets")) {
+          _matched=true;
+          this.assertSumSubBudgets(((ComponentInstance)target));
+        }
+      }
+      if (!_matched) {
+        if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.sumSubBudgets")) {
+          _matched=true;
+          this.sumSubBudgets(((ComponentInstance)target));
+        }
       }
     }
-    if (!_matched) {
-      if (Objects.equal(methodPath, "org.osate.verify.PlatformResourceBudsgets.sumSubBudgets")) {
-        _matched=true;
-        _switchResult = this.sumSubBudgets(target);
-      }
-    }
-    return Double.valueOf(_switchResult);
   }
 }

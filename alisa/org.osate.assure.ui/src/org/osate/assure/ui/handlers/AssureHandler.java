@@ -1,6 +1,6 @@
 package org.osate.assure.ui.handlers;
 
-import static org.osate.assure.util.AssureUtilExtension.computeAndSetTotals;
+import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -24,6 +24,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.impl.CaseResultImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 
@@ -126,10 +127,10 @@ public class AssureHandler extends AbstractHandler {
 		return "ASSURE verification";
 	}
 
-	protected IStatus runJob(CaseResultImpl obj, IProgressMonitor monitor) {
+	protected IStatus runJob(CaseResult obj, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
-		computeAndSetTotals(obj);
+		recomputeAllCounts(obj);
 //		AssureProcessing.processCaseResult(obj);
 		assureProcessor.process(obj);
 

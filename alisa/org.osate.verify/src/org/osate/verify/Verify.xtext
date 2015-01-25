@@ -11,34 +11,34 @@ Verification:
 	// plan for a classifier. Will add import to allow for non-qualified requirement references
 // Also allows for cross checking that we have covered requirements with claims
 VerificationPlan:
-	'plan' name=ID
+	'plan' name=ID (':' title=ValueString)?
 	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
-	(('title' title=ValueString)?
-	& ('description' description=Description)?
+	(
+		('description' description=MultiLineString)?
 	& claim+=Claim*
 	& (weightedClaim+=WeightedClaim+)?
-	& ('rationale' rationale=STRING)?
+	& ('rationale' rationale=MultiLineString)?
 	)
 	']';
 
 Claim:
-	'claim' name=ID 'for' requirement=[ReqSpec::Requirement|QualifiedName]
+	'claim' name=ID (':' title=ValueString)?
+	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
 	('assert' assert=ArgumentExpr
 	& ('rationale' rationale=STRING)?
-	& (subclaim+=Claim)*)
+	& (subclaim+=Claim)*)  // if we have a requirement with refined requirements and we verify each
 	']';
 
 WeightedClaim:
 	'weights' claim=[Claim|QualifiedName] ('(' weight=INT ')')?;
 
 VerificationLibrary returns VerificationLibrary:
-	'library' name=ID
+	'library' name=ID (':' title=ValueString)?
 	('for' target=[aadl2::ComponentClassifier|AadlClassifierReference])?
 	'['
-	(('title' title=ValueString)?
-	& ('description' description=Description)?
+	( ('description' description=Description)?
 	&(content+=(VerificationActivity |  VerificationFolder))*
 	)
 	']';
@@ -52,27 +52,28 @@ VerificationContainer:
 	VerificationLibrary | VerificationFolder;
 
 VerificationActivity:
-	'activity' name=ID 'for' (requirement=[ReqSpec::Requirement|QualifiedName] )?
+	'activity' name=ID (':' title=ValueString)?
+	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?
 	// or should it be the requirement, which provides the predicate
-	'[' (('title' title=ValueString)?
-	&('description' description=Description)?
+	'[' (
+	('description' description=Description)?
 	&('category' category+=[categories::SelectionCategory|CatRef]+)?
 	&('method' method=[VerificationMethod|QualifiedName])?
 	&('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model
 	// and via the requirement (predicate/limit values
-	&('rationale' rationale=STRING)?
+	&('rationale' rationale=MultiLineString)?
 )
 	']';
 
 VerificationCondition:
 	('assumption' {VerificationAssumption} | 'precondition' {VerificationPrecondition}) name=ID
+	(':' title=ValueString)?
 	'[' (
-		('title' title=ValueString)?
-	& ('description' description=Description)?
+	 ('description' description=Description)?
 	& ('assert' assert=ArgumentExpr)?
-	& ('rationale' rationale=STRING)?
+	& ('rationale' rationale=MultiLineString)?
 	)
 	']';
 
@@ -111,6 +112,7 @@ SelectionCategoryReference:
 // interface methods to external or built-in
 VerificationMethodRegistry returns VerificationMethodRegistry:
 	'registry' name=ID
+	(':' title=ValueString)?
 	'[' (
 		('title' title=ValueString)?
 	& ('description' description=Description)?
@@ -119,7 +121,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 
 VerificationMethod:
 	'method' name=ID
-	'['
+	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?	'['
 	methodType=SupportedTypes methodPath=QualifiedName
 	// parameters (in addition to the model element
 	(
@@ -132,4 +134,4 @@ VerificationMethod:
 
 enum SupportedTypes:
 	SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" |
-	MULTIPREDICATE="multipredicate" | MULTIANALYSIS="multianalysis";
+	MULTIPREDICATE="multipredicate" | MULTIANALYSIS="multianalysis" | MANUAL="manual";

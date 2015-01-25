@@ -34,15 +34,15 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		    }
 		    // top-level objects get newline at end
 		c.setLinewrap(1,2,2).after(stakeholderGoalsRule);
-		c.setLinewrap(1,2,2).after(systemSpecRule);
+		c.setLinewrap(1,2,2).after(goalFolderRule);
 		c.setLinewrap(1,2,2).after(reqDocumentRule);
-		c.setLinewrap(1,2,2).after(reqSpecLibraryRule);
+		c.setLinewrap(1,2,2).after(reqSpecsRule);
 		c.setLinewrap().before(reqSpecFolderRule);
-		for (kw : findKeywords("goal","requirement","hazard","folder")) {
+		for (kw : findKeywords("goal","requirement","requirements","folder","section",'constants')) {
 			c.setLinewrap().before(kw);
 		}
 		for (kw : findKeywords("description","assert","rationale",
-		"refines","decomposes","evolves","conflicts","mitigates","stakeholder","see")) {
+		"refines","conflicts","mitigates","stakeholder","see")) {
 			c.setLinewrap().before(kw);
 		}
 	}

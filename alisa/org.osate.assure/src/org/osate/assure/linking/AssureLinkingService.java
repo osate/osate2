@@ -11,10 +11,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.osate.aadl2.instance.InstancePackage;
-
-import com.google.inject.Inject;
 
 public class AssureLinkingService extends DefaultLinkingService {
 
@@ -22,8 +19,8 @@ public class AssureLinkingService extends DefaultLinkingService {
 		super();
 	}
 
-	@Inject
-	private IGlobalScopeProvider scopeProvider;
+//	@Inject
+//	private IGlobalScopeProvider scopeProvider;
 
 	@Override
 	public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)

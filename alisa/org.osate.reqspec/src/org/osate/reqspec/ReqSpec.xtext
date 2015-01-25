@@ -5,44 +5,56 @@ generate reqSpec "http://www.osate.org/reqspec/ReqSpec"
 import "http://aadl.info/AADL/2.0" as aadl2
 import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/organization/Organization" as org
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-ReqSpec: contents +=(ReqSpecLibrary|SystemSpec|StakeholderGoals|ReqDocument)  ;
+ReqSpec: contents +=(ReqSpecs|StakeholderGoals|ReqDocument)  ;
 
-ReqSpecContainer: ReqSpecLibrary  | ReqSpecFolder  ;
+ReqSpecContainer: ReqSpecs  | ReqSpecFolder  |GoalFolder | StakeholderGoals | ReqDocument;
 
-ContractualElement: Goal | Requirement | Hazard;
+ContractualElement: Goal | Requirement ;
 
-ReqRoot: SystemSpec | StakeholderGoals | ReqDocument;
+ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
 
-SystemSpec: 'specification' name=ID
-	'for' target=[aadl2::Classifier|AadlClassifierReference]
-	'[' consistsOf+=[ReqSpecLibrary|QualifiedName] ']'
+
+StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=ValueString)?
+	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
+	 ('description'  description=MultiLineString)? 
+	'[' consistsOf+=[GoalFolder|QualifiedName] ']'
 ;
 
-
-StakeholderGoals: 'goals' name=ID
-	'[' consistsOf+=[ReqSpecLibrary|QualifiedName] ']'
+ReqDocument: 'document' name=ID (':' title=ValueString)?
+	 ('description'  description=MultiLineString)? 
+	'[' content+=DocumentSection ']'
 ;
+DocumentSection returns DocumentSection:
+	'section' label =ID (':' title=ValueString)?
+	 ('description'  description=MultiLineString)? 
+	'[' (content+= (Goal | Requirement |  DocumentSection))*
+	']'
+	;
 
-ReqDocument: 'document' name=ID
-	'[' consistsOf+=[ReqSpecLibrary|QualifiedName] ']'
-;
-
-ReqSpecLibrary returns ReqSpecLibrary:
-	'library' name =ID 
-	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
+ReqSpecs returns ReqSpecs:
+	'requirements' 'specification' name =ID (':' title=ValueString)?
+//	('import' importedNamespace=QualifiedNameWithWildCard)?
+	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
 	'[' 
 	('constants' constants+=FinalValue+)?
-	(content+= (Goal | Requirement | Hazard |  ReqSpecFolder))*
+	(content+= (Requirement |  ReqSpecFolder))*
 	']'
 	;
 QualifiedNameWithWildCard : QualifiedName ('.*')?;	
 
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:
-	'folder' label =ID 
-	'[' (content+= (Goal | Requirement | Hazard |  ReqSpecFolder))*
+	'folder' label =ID (':' title=ValueString)?
+	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
+	']'
+	;
+
+// does not add to a qualified name
+GoalFolder returns GoalFolder:
+	'folder' label =ID (':' title=ValueString)?
+	'[' (content+= (Goal |  GoalFolder))*
 	']'
 	;
 
@@ -50,22 +62,17 @@ ReqSpecFolder returns ReqSpecFolder:
 
 Goal returns Goal:
 	'goal' name=ID (':'  title=ValueString )? // short string for title
-	( 'for' target=[aadl2::NamedElement|ID] 
+	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=ValueString) 
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
-	 &('description'  description=Description)? 
-	 &('assert'  	assert=PredicateExpression )? 
-	 &('rationale'  rationale=STRING)? 
-	 &('refined' 'to' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
-	 &( subgoal+=Goal*) 
-	 &('decomposed' 'to' decomposesReference+=[Goal|QualifiedName](',' decomposesReference+=[Goal|QualifiedName])*)? 
-	 &('evolved' 'to' evolvesReference+=[Goal|QualifiedName](',' evolvesReference+=[Goal|QualifiedName])*)? 
+	 &('description'  description=MultiLineString)? 
+	 &('rationale'  rationale=ValueString)? 
+	 &('refines' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
 	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName](',' conflictsReference+=[Goal|QualifiedName])*)? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName] (',' stakeholderReference+=[org::Stakeholder|QualifiedName])*)?
-	 &('see' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
-	 &('see' 'requirement'  systemRequirementReference+=[ContractualElement|QualifiedName] (',' systemRequirementReference+=[ContractualElement|QualifiedName])*)?
+	 &('see' 'documented''requirement'  documentRequirement+=[ContractualElement|QualifiedName] (',' documentRequirement+=[ContractualElement|QualifiedName])*)?
 	 &('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
 	)
 	 ']';
@@ -76,7 +83,7 @@ Goal returns Goal:
 Requirement:
 	'requirement'  name=ID   
 	(':'  title=ValueString)? 
-	( 'for' target=[aadl2::NamedElement|ID] 
+	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=ValueString)
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['	(
@@ -86,32 +93,15 @@ Requirement:
 	&('assert'  assert=PredicateExpression)?  // predicate expression 
 	&('rationale'  rationale=STRING)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName] (',' goalReference+=[Goal|QualifiedName])*)?
-	&('refined' 'to' refinedReference+=[Requirement|QualifiedName](',' refinesReference+=[Requirement|QualifiedName])*)? 
-	 &( subrequirement+=Requirement*) 
-	&('decomposed' 'to' decomposedReference+=[Requirement|QualifiedName](',' decomposesReference+=[Requirement|QualifiedName])*)? 
-	&('evolves'  evolvesReference+=[Requirement|QualifiedName](',' evolvesReference+=[Requirement|QualifiedName])*)? 
-	&('see' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
-	&('see' 'requirement'  systemRequirementReference+=[ContractualElement|QualifiedName] (',' systemRequirementReference+=[ContractualElement|QualifiedName])*)?
-	&('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
+	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=ValueString))? 
+	&('refines' refinedReference+=[Requirement|QualifiedName](',' refinesReference+=[Requirement|QualifiedName])*)? 
+	&('see' 'stakeholder' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
+	 &('see' 'documented''requirement'  documentRequirement+=[ContractualElement|QualifiedName] (',' documentRequirement+=[ContractualElement|QualifiedName])*)?
+	 &('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
 	)
 	']';
 
 	
-// TODO reference to EMV2 construct: namedelement has hazard property or should be a EMV2 reference	
-Hazard:
-	'hazard'  name=ID   
-	(':'  title=ValueString)? 
-	(( 'for' target=[aadl2::NamedElement|ID] 
-//		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
-	)?
- 	'['
- 	('category'  category=[categories::HazardCategory|CatRef])?
-	&('description'  description=Description)? 
-	&('mitigated' 'by' requirementReference+=[Requirement|QualifiedName] (',' requirementReference+=[Requirement|QualifiedName])*)? 
-	&('rationale'  rationale=STRING)? 
-	)
-	']';
-
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?

@@ -25,7 +25,6 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
-import org.osate.assure.assure.HazardResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,7 +39,6 @@ import org.osate.assure.assure.HazardResult;
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSubCaseResult <em>Sub Case Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getClaimResult <em>Claim Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getHazardResult <em>Hazard Result</em>}</li>
  * </ul>
  * </p>
  *
@@ -127,16 +125,6 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
    * @ordered
    */
   protected EList<ClaimResult> claimResult;
-
-  /**
-   * The cached value of the '{@link #getHazardResult() <em>Hazard Result</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getHazardResult()
-   * @generated
-   * @ordered
-   */
-  protected EList<HazardResult> hazardResult;
 
   /**
    * <!-- begin-user-doc -->
@@ -324,20 +312,6 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<HazardResult> getHazardResult()
-  {
-    if (hazardResult == null)
-    {
-      hazardResult = new EObjectContainmentEList<HazardResult>(HazardResult.class, this, AssurePackage.CASE_RESULT__HAZARD_RESULT);
-    }
-    return hazardResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -347,8 +321,6 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
         return ((InternalEList<?>)getSubCaseResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         return ((InternalEList<?>)getClaimResult()).basicRemove(otherEnd, msgs);
-      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
-        return ((InternalEList<?>)getHazardResult()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -377,8 +349,6 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
         return getSubCaseResult();
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         return getClaimResult();
-      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
-        return getHazardResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -414,10 +384,6 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
         getClaimResult().clear();
         getClaimResult().addAll((Collection<? extends ClaimResult>)newValue);
         return;
-      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
-        getHazardResult().clear();
-        getHazardResult().addAll((Collection<? extends HazardResult>)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -450,9 +416,6 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         getClaimResult().clear();
         return;
-      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
-        getHazardResult().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -479,8 +442,6 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
         return subCaseResult != null && !subCaseResult.isEmpty();
       case AssurePackage.CASE_RESULT__CLAIM_RESULT:
         return claimResult != null && !claimResult.isEmpty();
-      case AssurePackage.CASE_RESULT__HAZARD_RESULT:
-        return hazardResult != null && !hazardResult.isEmpty();
     }
     return super.eIsSet(featureID);
   }

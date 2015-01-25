@@ -15,8 +15,8 @@ import org.osate.alisa.common.common.Description;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationLibrary#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationLibrary#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationLibrary#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationLibrary#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationLibrary#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
@@ -54,32 +54,6 @@ public interface VerificationLibrary extends VerificationContainer
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(ComponentClassifier)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationLibrary_Target()
-   * @model
-   * @generated
-   */
-  ComponentClassifier getTarget();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationLibrary#getTarget <em>Target</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
-   * @generated
-   */
-  void setTarget(ComponentClassifier value);
-
-  /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -104,6 +78,32 @@ public interface VerificationLibrary extends VerificationContainer
    * @generated
    */
   void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(ComponentClassifier)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationLibrary_Target()
+   * @model
+   * @generated
+   */
+  ComponentClassifier getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationLibrary#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(ComponentClassifier value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

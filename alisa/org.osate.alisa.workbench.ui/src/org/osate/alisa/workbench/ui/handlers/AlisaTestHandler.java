@@ -3,16 +3,16 @@ package org.osate.alisa.workbench.ui.handlers;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.alisa.common.ui.util.AlisaLoader;
 import org.osate.ui.dialogs.Dialog;
 
-public class AlisaTestHandler extends AadlHandler {
+public class AlisaTestHandler extends EditorObjectHandler {
 	private static final String RERUN_ID = "org.osate.ilca.commands.rerunIlca";
 	private IHandlerActivation rerunActivation;
 
@@ -22,7 +22,7 @@ public class AlisaTestHandler extends AadlHandler {
 	}
 
 	@Override
-	protected IStatus runJob(Element root, IProgressMonitor monitor) {
+	protected IStatus runJob(EObject root, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
 

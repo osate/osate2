@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.assure.assure.FailThenResult#getFirst <em>First</em>}</li>
  *   <li>{@link org.osate.assure.assure.FailThenResult#getSecond <em>Second</em>}</li>
+ *   <li>{@link org.osate.assure.assure.FailThenResult#isDidFailThenFail <em>Did Fail Then Fail</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,5 +55,31 @@ public interface FailThenResult extends VerificationExpr
    * @generated
    */
   EList<VerificationExpr> getSecond();
+
+  /**
+   * Returns the value of the '<em><b>Did Fail Then Fail</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Did Fail Then Fail</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Did Fail Then Fail</em>' attribute.
+   * @see #setDidFailThenFail(boolean)
+   * @see org.osate.assure.assure.AssurePackage#getFailThenResult_DidFailThenFail()
+   * @model
+   * @generated
+   */
+  boolean isDidFailThenFail();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.FailThenResult#isDidFailThenFail <em>Did Fail Then Fail</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Did Fail Then Fail</em>' attribute.
+   * @see #isDidFailThenFail()
+   * @generated
+   */
+  void setDidFailThenFail(boolean value);
 
 } // FailThenResult

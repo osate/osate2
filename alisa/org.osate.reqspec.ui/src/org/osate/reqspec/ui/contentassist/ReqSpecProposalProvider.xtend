@@ -16,12 +16,12 @@ import org.eclipse.xtext.CrossReference
 class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 	
 
-	override void completeSystemSpec_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	override void completeStakeholderGoals_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
 			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
 		);
 	}
-	override void completeReqSpecLibrary_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+	override void completeReqSpecs_Target(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
 			[description | !description.EObjectURI.toString.contains("Plugin_Resources")]
 		);

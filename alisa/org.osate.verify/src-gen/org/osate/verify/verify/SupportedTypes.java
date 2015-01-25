@@ -57,7 +57,17 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  MULTIANALYSIS(3, "MULTIANALYSIS", "multianalysis");
+  MULTIANALYSIS(3, "MULTIANALYSIS", "multianalysis"),
+
+  /**
+   * The '<em><b>MANUAL</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #MANUAL_VALUE
+   * @generated
+   * @ordered
+   */
+  MANUAL(4, "MANUAL", "manual");
 
   /**
    * The '<em><b>SINGLEPREDICATE</b></em>' literal value.
@@ -120,6 +130,21 @@ public enum SupportedTypes implements Enumerator
   public static final int MULTIANALYSIS_VALUE = 3;
 
   /**
+   * The '<em><b>MANUAL</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>MANUAL</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #MANUAL
+   * @model literal="manual"
+   * @generated
+   * @ordered
+   */
+  public static final int MANUAL_VALUE = 4;
+
+  /**
    * An array of all the '<em><b>Supported Types</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -132,6 +157,7 @@ public enum SupportedTypes implements Enumerator
       SINGLEANALYSIS,
       MULTIPREDICATE,
       MULTIANALYSIS,
+      MANUAL,
     };
 
   /**
@@ -194,6 +220,7 @@ public enum SupportedTypes implements Enumerator
       case SINGLEANALYSIS_VALUE: return SINGLEANALYSIS;
       case MULTIPREDICATE_VALUE: return MULTIPREDICATE;
       case MULTIANALYSIS_VALUE: return MULTIANALYSIS;
+      case MANUAL_VALUE: return MANUAL;
     }
     return null;
   }

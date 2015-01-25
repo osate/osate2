@@ -39,13 +39,14 @@ public class AlisaParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAlternatives_1_0(), "rule__PredicateExpression__OpAlternatives_1_0");
+					put(grammarAccess.getTextElementAccess().getAlternatives(), "rule__TextElement__Alternatives");
 					put(grammarAccess.getAlisaWorkAreaAccess().getGroup(), "rule__AlisaWorkArea__Group__0");
 					put(grammarAccess.getAssuranceCasePlanAccess().getGroup(), "rule__AssuranceCasePlan__Group__0");
-					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5(), "rule__AssuranceCasePlan__Group_5__0");
-					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5_0(), "rule__AssuranceCasePlan__Group_5_0__0");
-					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5_1(), "rule__AssuranceCasePlan__Group_5_1__0");
-					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5_2(), "rule__AssuranceCasePlan__Group_5_2__0");
-					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_5_5(), "rule__AssuranceCasePlan__Group_5_5__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_2(), "rule__AssuranceCasePlan__Group_2__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_6(), "rule__AssuranceCasePlan__Group_6__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_6_0(), "rule__AssuranceCasePlan__Group_6_0__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_6_1(), "rule__AssuranceCasePlan__Group_6_1__0");
+					put(grammarAccess.getAssuranceCasePlanAccess().getGroup_6_4(), "rule__AssuranceCasePlan__Group_6_4__0");
 					put(grammarAccess.getOrSelectionConditionExprAccess().getGroup(), "rule__OrSelectionConditionExpr__Group__0");
 					put(grammarAccess.getOrSelectionConditionExprAccess().getGroup_1(), "rule__OrSelectionConditionExpr__Group_1__0");
 					put(grammarAccess.getOrSelectionConditionExprAccess().getGroup_1_0(), "rule__OrSelectionConditionExpr__Group_1_0__0");
@@ -66,12 +67,12 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAlisaWorkAreaAccess().getNameAssignment_1(), "rule__AlisaWorkArea__NameAssignment_1");
 					put(grammarAccess.getAlisaWorkAreaAccess().getCasesAssignment_2(), "rule__AlisaWorkArea__CasesAssignment_2");
 					put(grammarAccess.getAssuranceCasePlanAccess().getNameAssignment_1(), "rule__AssuranceCasePlan__NameAssignment_1");
-					put(grammarAccess.getAssuranceCasePlanAccess().getSystemAssignment_3(), "rule__AssuranceCasePlan__SystemAssignment_3");
-					put(grammarAccess.getAssuranceCasePlanAccess().getTitleAssignment_5_0_1(), "rule__AssuranceCasePlan__TitleAssignment_5_0_1");
-					put(grammarAccess.getAssuranceCasePlanAccess().getDescriptionAssignment_5_1_1(), "rule__AssuranceCasePlan__DescriptionAssignment_5_1_1");
-					put(grammarAccess.getAssuranceCasePlanAccess().getConstantAssignment_5_2_1(), "rule__AssuranceCasePlan__ConstantAssignment_5_2_1");
-					put(grammarAccess.getAssuranceCasePlanAccess().getPlansAssignment_5_4(), "rule__AssuranceCasePlan__PlansAssignment_5_4");
-					put(grammarAccess.getAssuranceCasePlanAccess().getSelectionFilterAssignment_5_5_1(), "rule__AssuranceCasePlan__SelectionFilterAssignment_5_5_1");
+					put(grammarAccess.getAssuranceCasePlanAccess().getTitleAssignment_2_1(), "rule__AssuranceCasePlan__TitleAssignment_2_1");
+					put(grammarAccess.getAssuranceCasePlanAccess().getSystemAssignment_4(), "rule__AssuranceCasePlan__SystemAssignment_4");
+					put(grammarAccess.getAssuranceCasePlanAccess().getDescriptionAssignment_6_0_1(), "rule__AssuranceCasePlan__DescriptionAssignment_6_0_1");
+					put(grammarAccess.getAssuranceCasePlanAccess().getConstantAssignment_6_1_1(), "rule__AssuranceCasePlan__ConstantAssignment_6_1_1");
+					put(grammarAccess.getAssuranceCasePlanAccess().getPlansAssignment_6_3(), "rule__AssuranceCasePlan__PlansAssignment_6_3");
+					put(grammarAccess.getAssuranceCasePlanAccess().getSelectionFilterAssignment_6_4_1(), "rule__AssuranceCasePlan__SelectionFilterAssignment_6_4_1");
 					put(grammarAccess.getOrSelectionConditionExprAccess().getRightAssignment_1_1(), "rule__OrSelectionConditionExpr__RightAssignment_1_1");
 					put(grammarAccess.getAndSelectionConditionExprAccess().getRightAssignment_1_1(), "rule__AndSelectionConditionExpr__RightAssignment_1_1");
 					put(grammarAccess.getSelectionCategoryReferenceAccess().getCatAssignment(), "rule__SelectionCategoryReference__CatAssignment");
@@ -79,11 +80,16 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getRefAssignment_1(), "rule__DescriptionElement__RefAssignment_1");
+					put(grammarAccess.getDescriptionElementAccess().getNewlineAssignment_2(), "rule__DescriptionElement__NewlineAssignment_2");
+					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_3(), "rule__DescriptionElement__ThisTargetAssignment_3");
 					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
 					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAssignment_1(), "rule__PredicateExpression__OpAssignment_1");
 					put(grammarAccess.getFinalValueAccess().getNameAssignment_0(), "rule__FinalValue__NameAssignment_0");
 					put(grammarAccess.getFinalValueAccess().getValueAssignment_2(), "rule__FinalValue__ValueAssignment_2");
+					put(grammarAccess.getMultiLineStringAccess().getDescriptionAssignment(), "rule__MultiLineString__DescriptionAssignment");
+					put(grammarAccess.getTextElementAccess().getTextAssignment_0(), "rule__TextElement__TextAssignment_0");
+					put(grammarAccess.getTextElementAccess().getNewlineAssignment_1(), "rule__TextElement__NewlineAssignment_1");
 				}
 			};
 		}

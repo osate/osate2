@@ -21,12 +21,18 @@ Require-Bundle: org.osate.alisa.workbench;visibility:=reexport,
  org.osate.aadl2.instantiation,
  org.osate.ui,
  org.osate.alisa.common.ui;bundle-version="1.0.0",
- org.osate.assure
+ org.osate.assure,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.xbase.junit
 Import-Package: org.apache.commons.lang,
  org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.osate.alisa.workbench.ui.contentassist,
+Export-Package: org.osate.alisa.workbench.ui,
+ org.osate.alisa.workbench.ui.contentassist,
  org.osate.alisa.workbench.ui.contentassist.antlr,
+ org.osate.alisa.workbench.ui.handlers,
  org.osate.alisa.workbench.ui.internal,
+ org.osate.alisa.workbench.ui.labeling,
+ org.osate.alisa.workbench.ui.outline,
  org.osate.alisa.workbench.ui.quickfix
 Bundle-Activator: org.osate.alisa.workbench.ui.internal.AlisaActivator

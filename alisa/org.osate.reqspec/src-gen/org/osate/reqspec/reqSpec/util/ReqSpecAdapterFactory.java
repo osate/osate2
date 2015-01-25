@@ -95,11 +95,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createReqRootAdapter();
       }
       @Override
-      public Adapter caseSystemSpec(SystemSpec object)
-      {
-        return createSystemSpecAdapter();
-      }
-      @Override
       public Adapter caseStakeholderGoals(StakeholderGoals object)
       {
         return createStakeholderGoalsAdapter();
@@ -110,14 +105,24 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createReqDocumentAdapter();
       }
       @Override
-      public Adapter caseReqSpecLibrary(ReqSpecLibrary object)
+      public Adapter caseDocumentSection(DocumentSection object)
       {
-        return createReqSpecLibraryAdapter();
+        return createDocumentSectionAdapter();
+      }
+      @Override
+      public Adapter caseReqSpecs(ReqSpecs object)
+      {
+        return createReqSpecsAdapter();
       }
       @Override
       public Adapter caseReqSpecFolder(ReqSpecFolder object)
       {
         return createReqSpecFolderAdapter();
+      }
+      @Override
+      public Adapter caseGoalFolder(GoalFolder object)
+      {
+        return createGoalFolderAdapter();
       }
       @Override
       public Adapter caseGoal(Goal object)
@@ -128,11 +133,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
       public Adapter caseRequirement(Requirement object)
       {
         return createRequirementAdapter();
-      }
-      @Override
-      public Adapter caseHazard(Hazard object)
-      {
-        return createHazardAdapter();
       }
       @Override
       public Adapter caseExternalDocument(ExternalDocument object)
@@ -222,21 +222,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.SystemSpec <em>System Spec</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.SystemSpec
-   * @generated
-   */
-  public Adapter createSystemSpecAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.StakeholderGoals <em>Stakeholder Goals</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -267,16 +252,31 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ReqSpecLibrary <em>Library</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.DocumentSection <em>Document Section</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.ReqSpecLibrary
+   * @see org.osate.reqspec.reqSpec.DocumentSection
    * @generated
    */
-  public Adapter createReqSpecLibraryAdapter()
+  public Adapter createDocumentSectionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ReqSpecs <em>Req Specs</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.ReqSpecs
+   * @generated
+   */
+  public Adapter createReqSpecsAdapter()
   {
     return null;
   }
@@ -292,6 +292,21 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createReqSpecFolderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.GoalFolder <em>Goal Folder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.GoalFolder
+   * @generated
+   */
+  public Adapter createGoalFolderAdapter()
   {
     return null;
   }
@@ -322,21 +337,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createRequirementAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.Hazard <em>Hazard</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.Hazard
-   * @generated
-   */
-  public Adapter createHazardAdapter()
   {
     return null;
   }

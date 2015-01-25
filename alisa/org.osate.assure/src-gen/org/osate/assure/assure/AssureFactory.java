@@ -41,15 +41,6 @@ public interface AssureFactory extends EFactory
   ClaimResult createClaimResult();
 
   /**
-   * Returns a new object of class '<em>Hazard Result</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Hazard Result</em>'.
-   * @generated
-   */
-  HazardResult createHazardResult();
-
-  /**
    * Returns a new object of class '<em>Assumption Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -95,15 +86,6 @@ public interface AssureFactory extends EFactory
   VerificationExpr createVerificationExpr();
 
   /**
-   * Returns a new object of class '<em>Verification Result</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Result</em>'.
-   * @generated
-   */
-  VerificationResult createVerificationResult();
-
-  /**
    * Returns a new object of class '<em>Fail Then Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -120,6 +102,15 @@ public interface AssureFactory extends EFactory
    * @generated
    */
   AndThenResult createAndThenResult();
+
+  /**
+   * Returns a new object of class '<em>Verification Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Result</em>'.
+   * @generated
+   */
+  VerificationResult createVerificationResult();
 
   /**
    * Returns the package supported by this factory.

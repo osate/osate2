@@ -13,8 +13,8 @@
     </genClasses>
     <genClasses ecoreClass="Alisa.ecore#//AssuranceCasePlan">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceCasePlan/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/system"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceCasePlan/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/system"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/constant"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/plans"/>

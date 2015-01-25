@@ -77,6 +77,24 @@ public interface CommonFactory extends EFactory
   FinalValue createFinalValue();
 
   /**
+   * Returns a new object of class '<em>Multi Line String</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Multi Line String</em>'.
+   * @generated
+   */
+  MultiLineString createMultiLineString();
+
+  /**
+   * Returns a new object of class '<em>Text Element</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Text Element</em>'.
+   * @generated
+   */
+  TextElement createTextElement();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

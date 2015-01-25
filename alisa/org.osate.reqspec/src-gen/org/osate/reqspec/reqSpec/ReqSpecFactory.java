@@ -59,15 +59,6 @@ public interface ReqSpecFactory extends EFactory
   ReqRoot createReqRoot();
 
   /**
-   * Returns a new object of class '<em>System Spec</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>System Spec</em>'.
-   * @generated
-   */
-  SystemSpec createSystemSpec();
-
-  /**
    * Returns a new object of class '<em>Stakeholder Goals</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -86,13 +77,22 @@ public interface ReqSpecFactory extends EFactory
   ReqDocument createReqDocument();
 
   /**
-   * Returns a new object of class '<em>Library</em>'.
+   * Returns a new object of class '<em>Document Section</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Library</em>'.
+   * @return a new object of class '<em>Document Section</em>'.
    * @generated
    */
-  ReqSpecLibrary createReqSpecLibrary();
+  DocumentSection createDocumentSection();
+
+  /**
+   * Returns a new object of class '<em>Req Specs</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Req Specs</em>'.
+   * @generated
+   */
+  ReqSpecs createReqSpecs();
 
   /**
    * Returns a new object of class '<em>Folder</em>'.
@@ -102,6 +102,15 @@ public interface ReqSpecFactory extends EFactory
    * @generated
    */
   ReqSpecFolder createReqSpecFolder();
+
+  /**
+   * Returns a new object of class '<em>Goal Folder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Goal Folder</em>'.
+   * @generated
+   */
+  GoalFolder createGoalFolder();
 
   /**
    * Returns a new object of class '<em>Goal</em>'.
@@ -120,15 +129,6 @@ public interface ReqSpecFactory extends EFactory
    * @generated
    */
   Requirement createRequirement();
-
-  /**
-   * Returns a new object of class '<em>Hazard</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Hazard</em>'.
-   * @generated
-   */
-  Hazard createHazard();
 
   /**
    * Returns a new object of class '<em>External Document</em>'.

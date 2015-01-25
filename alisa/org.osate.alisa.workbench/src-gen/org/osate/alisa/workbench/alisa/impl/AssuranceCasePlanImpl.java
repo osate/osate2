@@ -39,8 +39,8 @@ import org.osate.verify.verify.VerificationPlan;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getConstant <em>Constant</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCasePlanImpl#getPlans <em>Plans</em>}</li>
@@ -73,16 +73,6 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSystem() <em>System</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSystem()
-   * @generated
-   * @ordered
-   */
-  protected ComponentImplementation system;
-
-  /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -101,6 +91,16 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getSystem() <em>System</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSystem()
+   * @generated
+   * @ordered
+   */
+  protected ComponentImplementation system;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -191,6 +191,29 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_PLAN__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ComponentImplementation getSystem()
   {
     if (system != null && ((EObject)system).eIsProxy())
@@ -227,29 +250,6 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
     system = newSystem;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM, oldSystem, system));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getTitle()
-  {
-    return title;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTitle(String newTitle)
-  {
-    String oldTitle = title;
-    title = newTitle;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_PLAN__TITLE, oldTitle, title));
   }
 
   /**
@@ -408,11 +408,11 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
     {
       case AlisaPackage.ASSURANCE_CASE_PLAN__NAME:
         return getName();
+      case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
+        return getTitle();
       case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
         if (resolve) return getSystem();
         return basicGetSystem();
-      case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
-        return getTitle();
       case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
         return getDescription();
       case AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT:
@@ -439,11 +439,11 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
       case AlisaPackage.ASSURANCE_CASE_PLAN__NAME:
         setName((String)newValue);
         return;
-      case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
-        setSystem((ComponentImplementation)newValue);
-        return;
       case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
         setTitle((String)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
+        setSystem((ComponentImplementation)newValue);
         return;
       case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
         setDescription((Description)newValue);
@@ -476,11 +476,11 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
       case AlisaPackage.ASSURANCE_CASE_PLAN__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
-        setSystem((ComponentImplementation)null);
-        return;
       case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
         setTitle(TITLE_EDEFAULT);
+        return;
+      case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
+        setSystem((ComponentImplementation)null);
         return;
       case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
         setDescription((Description)null);
@@ -510,10 +510,10 @@ public class AssuranceCasePlanImpl extends MinimalEObjectImpl.Container implemen
     {
       case AlisaPackage.ASSURANCE_CASE_PLAN__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
-        return system != null;
       case AlisaPackage.ASSURANCE_CASE_PLAN__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case AlisaPackage.ASSURANCE_CASE_PLAN__SYSTEM:
+        return system != null;
       case AlisaPackage.ASSURANCE_CASE_PLAN__DESCRIPTION:
         return description != null;
       case AlisaPackage.ASSURANCE_CASE_PLAN__CONSTANT:

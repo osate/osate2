@@ -10,13 +10,13 @@ AlisaWorkArea:
 	cases+=AssuranceCasePlan*;
 
 AssuranceCasePlan:
-	'case' name=ID 
+	'case' name=ID (':' title=ValueString)?
 	'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
-	(('title' title=ValueString)?
+	(
 	('description' description=Description)?
 	('constants' constant+=FinalValue+ )?
-	'plans' plans+=[Verify::VerificationPlan|QualifiedName]*
+	'plans' plans+=[Verify::VerificationPlan|QualifiedName]+
 	('select' selectionFilter=OrSelectionConditionExpr)?
 	)
 	']';

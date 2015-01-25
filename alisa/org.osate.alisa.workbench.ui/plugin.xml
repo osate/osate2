@@ -485,5 +485,72 @@
             project="true">
       </wizard>
    </extension>
+   
+   
+   
+       	<!-- Execute assurance case -->
+   	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.handlers.ExecuteAssuranceCaseHandler"
+			commandId="org.osate.alisa.workbench.ui.executeAssuranceCase">
+		<!--	<activeWhen>
+				<reference
+                     definitionId="org.osate.alisa.workbench.Alisa.Editor.opened">
+				</reference>
+			</activeWhen> -->
+		</handler>
+	</extension>
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="Execute Assurance Case"
+			id="org.osate.alisa.workbench.ui.executeAssuranceCase"
+			name="Execute Assurance Case">
+		</command>
+	</extension>
+    <extension point="org.eclipse.ui.menus">
+    <!-- in editor window -->
+         <menuContribution
+		 allPopups="false"
+         locationURI="popup:#TextEditorContext?after=additions">
+        <command commandId="org.osate.alisa.workbench.ui.executeAssuranceCase"
+         icon="icons/alisahead.png"
+		 tooltip="Do Execute Assurance Case" 
+		 style="push">
+         <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.alisa.workbench.Alisa.Editor.opened">
+               </reference>
+         </visibleWhen>
+        </command>
+      </menuContribution> 
+    <!-- in editor outline -->
+		<menuContribution 
+		allPopups="false"
+		locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+		<command
+		commandId="org.osate.alisa.workbench.ui.executeAssuranceCase"
+        icon="icons/alisahead.png"
+		tooltip="Do Execute Assurance Case" 
+		style="push">
+		         <visibleWhen checkEnabled="false">
+
+         </visibleWhen>
+		</command>
+	</menuContribution>
+    <!-- in navigator -->
+       <menuContribution
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+         <command
+		commandId="org.osate.alisa.workbench.ui.executeAssuranceCase"
+        label="Execute All Assurance Cases"
+        icon="icons/alisahead.png"
+		tooltip="Do Execute All Assurance Cases" 
+               style="push">
+         </command>
+      </menuContribution>
+   </extension> 
+   
 
 </plugin>

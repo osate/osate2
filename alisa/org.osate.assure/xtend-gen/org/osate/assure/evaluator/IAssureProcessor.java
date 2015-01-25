@@ -7,5 +7,5 @@ import org.osate.assure.evaluator.AssureProcessor;
 @ImplementedBy(AssureProcessor.class)
 @SuppressWarnings("all")
 public interface IAssureProcessor {
-  public abstract AssureResult process(final AssureResult assureResult);
+  public abstract void process(final AssureResult assureResult);
 }

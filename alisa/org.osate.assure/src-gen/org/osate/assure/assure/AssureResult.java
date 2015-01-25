@@ -16,8 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.assure.assure.AssureResult#getFailCount <em>Fail Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssureResult#getErrorCount <em>Error Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssureResult#getFailthenCount <em>Failthen Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssureResult#getSkippedCount <em>Skipped Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssureResult#getTotalCount <em>Total Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.AssureResult#getAndthenCount <em>Andthen Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.AssureResult#getTbdCount <em>Tbd Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssureResult#getWeight <em>Weight</em>}</li>
  * </ul>
  * </p>
@@ -133,56 +133,56 @@ public interface AssureResult extends EObject
   void setFailthenCount(int value);
 
   /**
-   * Returns the value of the '<em><b>Skipped Count</b></em>' attribute.
+   * Returns the value of the '<em><b>Andthen Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Skipped Count</em>' attribute isn't clear,
+   * If the meaning of the '<em>Andthen Count</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Skipped Count</em>' attribute.
-   * @see #setSkippedCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getAssureResult_SkippedCount()
+   * @return the value of the '<em>Andthen Count</em>' attribute.
+   * @see #setAndthenCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getAssureResult_AndthenCount()
    * @model
    * @generated
    */
-  int getSkippedCount();
+  int getAndthenCount();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssureResult#getSkippedCount <em>Skipped Count</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.AssureResult#getAndthenCount <em>Andthen Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Skipped Count</em>' attribute.
-   * @see #getSkippedCount()
+   * @param value the new value of the '<em>Andthen Count</em>' attribute.
+   * @see #getAndthenCount()
    * @generated
    */
-  void setSkippedCount(int value);
+  void setAndthenCount(int value);
 
   /**
-   * Returns the value of the '<em><b>Total Count</b></em>' attribute.
+   * Returns the value of the '<em><b>Tbd Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Total Count</em>' attribute isn't clear,
+   * If the meaning of the '<em>Tbd Count</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Total Count</em>' attribute.
-   * @see #setTotalCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getAssureResult_TotalCount()
+   * @return the value of the '<em>Tbd Count</em>' attribute.
+   * @see #setTbdCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getAssureResult_TbdCount()
    * @model
    * @generated
    */
-  int getTotalCount();
+  int getTbdCount();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssureResult#getTotalCount <em>Total Count</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.AssureResult#getTbdCount <em>Tbd Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Total Count</em>' attribute.
-   * @see #getTotalCount()
+   * @param value the new value of the '<em>Tbd Count</em>' attribute.
+   * @see #getTbdCount()
    * @generated
    */
-  void setTotalCount(int value);
+  void setTbdCount(int value);
 
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.

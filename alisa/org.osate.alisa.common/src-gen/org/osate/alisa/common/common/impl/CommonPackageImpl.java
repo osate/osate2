@@ -15,8 +15,10 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.FinalValue;
 import org.osate.alisa.common.common.Model;
+import org.osate.alisa.common.common.MultiLineString;
 import org.osate.alisa.common.common.PredicateExpression;
 import org.osate.alisa.common.common.ReferencePath;
+import org.osate.alisa.common.common.TextElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -67,6 +69,20 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass finalValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass multiLineStringEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass textElementEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -206,6 +222,26 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getDescriptionElement_Newline()
+  {
+    return (EAttribute)descriptionElementEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDescriptionElement_ThisTarget()
+  {
+    return (EAttribute)descriptionElementEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getReferencePath()
   {
     return referencePathEClass;
@@ -286,6 +322,56 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getMultiLineString()
+  {
+    return multiLineStringEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getMultiLineString_Description()
+  {
+    return (EReference)multiLineStringEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTextElement()
+  {
+    return textElementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTextElement_Text()
+  {
+    return (EAttribute)textElementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTextElement_Newline()
+  {
+    return (EAttribute)textElementEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public CommonFactory getCommonFactory()
   {
     return (CommonFactory)getEFactoryInstance();
@@ -320,6 +406,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     descriptionElementEClass = createEClass(DESCRIPTION_ELEMENT);
     createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__TEXT);
     createEReference(descriptionElementEClass, DESCRIPTION_ELEMENT__REF);
+    createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__NEWLINE);
+    createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__THIS_TARGET);
 
     referencePathEClass = createEClass(REFERENCE_PATH);
     createEReference(referencePathEClass, REFERENCE_PATH__REF);
@@ -331,6 +419,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     finalValueEClass = createEClass(FINAL_VALUE);
     createEAttribute(finalValueEClass, FINAL_VALUE__NAME);
     createEAttribute(finalValueEClass, FINAL_VALUE__VALUE);
+
+    multiLineStringEClass = createEClass(MULTI_LINE_STRING);
+    createEReference(multiLineStringEClass, MULTI_LINE_STRING__DESCRIPTION);
+
+    textElementEClass = createEClass(TEXT_ELEMENT);
+    createEAttribute(textElementEClass, TEXT_ELEMENT__TEXT);
+    createEAttribute(textElementEClass, TEXT_ELEMENT__NEWLINE);
   }
 
   /**
@@ -373,6 +468,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEClass(descriptionElementEClass, DescriptionElement.class, "DescriptionElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDescriptionElement_Text(), ecorePackage.getEString(), "text", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getDescriptionElement_Ref(), ecorePackage.getEObject(), null, "ref", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDescriptionElement_Newline(), ecorePackage.getEBoolean(), "newline", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDescriptionElement_ThisTarget(), ecorePackage.getEBoolean(), "thisTarget", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(referencePathEClass, ReferencePath.class, "ReferencePath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getReferencePath_Ref(), ecorePackage.getEObject(), null, "ref", null, 0, 1, ReferencePath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -384,6 +481,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEClass(finalValueEClass, FinalValue.class, "FinalValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getFinalValue_Name(), ecorePackage.getEString(), "name", null, 0, 1, FinalValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFinalValue_Value(), ecorePackage.getEString(), "value", null, 0, 1, FinalValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(multiLineStringEClass, MultiLineString.class, "MultiLineString", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMultiLineString_Description(), this.getTextElement(), null, "description", null, 0, -1, MultiLineString.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(textElementEClass, TextElement.class, "TextElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTextElement_Text(), ecorePackage.getEString(), "text", null, 0, 1, TextElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTextElement_Newline(), ecorePackage.getEBoolean(), "newline", null, 0, 1, TextElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

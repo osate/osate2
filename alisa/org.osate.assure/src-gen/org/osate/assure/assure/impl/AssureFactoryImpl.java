@@ -67,15 +67,14 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
     {
       case AssurePackage.CASE_RESULT: return createCaseResult();
       case AssurePackage.CLAIM_RESULT: return createClaimResult();
-      case AssurePackage.HAZARD_RESULT: return createHazardResult();
       case AssurePackage.ASSUMPTION_RESULT: return createAssumptionResult();
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
       case AssurePackage.ASSURE_RESULT: return createAssureResult();
       case AssurePackage.VERIFICATION_EXPR: return createVerificationExpr();
-      case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       case AssurePackage.FAIL_THEN_RESULT: return createFailThenResult();
       case AssurePackage.AND_THEN_RESULT: return createAndThenResult();
+      case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -146,17 +145,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public HazardResult createHazardResult()
-  {
-    HazardResultImpl hazardResult = new HazardResultImpl();
-    return hazardResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public AssumptionResult createAssumptionResult()
   {
     AssumptionResultImpl assumptionResult = new AssumptionResultImpl();
@@ -212,17 +200,6 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationResult createVerificationResult()
-  {
-    VerificationResultImpl verificationResult = new VerificationResultImpl();
-    return verificationResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public FailThenResult createFailThenResult()
   {
     FailThenResultImpl failThenResult = new FailThenResultImpl();
@@ -238,6 +215,17 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     AndThenResultImpl andThenResult = new AndThenResultImpl();
     return andThenResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationResult createVerificationResult()
+  {
+    VerificationResultImpl verificationResult = new VerificationResultImpl();
+    return verificationResult;
   }
 
   /**

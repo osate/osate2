@@ -17,6 +17,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.Claim#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
@@ -55,6 +56,32 @@ public interface Claim extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Title</em>' attribute.
+   * @see #setTitle(String)
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Title()
+   * @model
+   * @generated
+   */
+  String getTitle();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.Claim#getTitle <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Title</em>' attribute.
+   * @see #getTitle()
+   * @generated
+   */
+  void setTitle(String value);
 
   /**
    * Returns the value of the '<em><b>Requirement</b></em>' reference.

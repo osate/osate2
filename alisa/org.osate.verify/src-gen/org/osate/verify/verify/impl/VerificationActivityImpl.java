@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.MultiLineString;
 
 import org.osate.categories.categories.SelectionCategory;
 
@@ -35,8 +36,8 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
@@ -70,16 +71,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRequirement()
-   * @generated
-   * @ordered
-   */
-  protected Requirement requirement;
-
-  /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -98,6 +89,16 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRequirement()
+   * @generated
+   * @ordered
+   */
+  protected Requirement requirement;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -150,24 +151,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected int timeout = TIMEOUT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getRationale()
    * @generated
    * @ordered
    */
-  protected static final String RATIONALE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRationale()
-   * @generated
-   * @ordered
-   */
-  protected String rationale = RATIONALE_EDEFAULT;
+  protected MultiLineString rationale;
 
   /**
    * <!-- begin-user-doc -->
@@ -218,6 +209,29 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Requirement getRequirement()
   {
     if (requirement != null && requirement.eIsProxy())
@@ -254,29 +268,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     requirement = newRequirement;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT, oldRequirement, requirement));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getTitle()
-  {
-    return title;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTitle(String newTitle)
-  {
-    String oldTitle = title;
-    title = newTitle;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TITLE, oldTitle, title));
   }
 
   /**
@@ -412,7 +403,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getRationale()
+  public MultiLineString getRationale()
   {
     return rationale;
   }
@@ -422,12 +413,37 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRationale(String newRationale)
+  public NotificationChain basicSetRationale(MultiLineString newRationale, NotificationChain msgs)
   {
-    String oldRationale = rationale;
+    MultiLineString oldRationale = rationale;
     rationale = newRationale;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, oldRationale, rationale));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, oldRationale, newRationale);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRationale(MultiLineString newRationale)
+  {
+    if (newRationale != rationale)
+    {
+      NotificationChain msgs = null;
+      if (rationale != null)
+        msgs = ((InternalEObject)rationale).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, null, msgs);
+      if (newRationale != null)
+        msgs = ((InternalEObject)newRationale).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, null, msgs);
+      msgs = basicSetRationale(newRationale, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, newRationale, newRationale));
   }
 
   /**
@@ -442,6 +458,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         return basicSetDescription(null, msgs);
+      case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
+        return basicSetRationale(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -458,11 +476,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         return getName();
+      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
+        return getTitle();
       case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
         if (resolve) return getRequirement();
         return basicGetRequirement();
-      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
-        return getTitle();
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
@@ -492,11 +510,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         setName((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
-        setRequirement((Requirement)newValue);
-        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         setTitle((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
+        setRequirement((Requirement)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         setDescription((Description)newValue);
@@ -512,7 +530,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         setTimeout((Integer)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        setRationale((String)newValue);
+        setRationale((MultiLineString)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -531,11 +549,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
-        setRequirement((Requirement)null);
-        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         setTitle(TITLE_EDEFAULT);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
+        setRequirement((Requirement)null);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         setDescription((Description)null);
@@ -550,7 +568,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         setTimeout(TIMEOUT_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        setRationale(RATIONALE_EDEFAULT);
+        setRationale((MultiLineString)null);
         return;
     }
     super.eUnset(featureID);
@@ -568,10 +586,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
-        return requirement != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
+        return requirement != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         return description != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
@@ -581,7 +599,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
+        return rationale != null;
     }
     return super.eIsSet(featureID);
   }
@@ -603,8 +621,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     result.append(title);
     result.append(", timeout: ");
     result.append(timeout);
-    result.append(", rationale: ");
-    result.append(rationale);
     result.append(')');
     return result.toString();
   }

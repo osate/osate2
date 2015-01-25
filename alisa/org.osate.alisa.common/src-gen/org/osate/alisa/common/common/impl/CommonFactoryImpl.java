@@ -70,6 +70,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.REFERENCE_PATH: return createReferencePath();
       case CommonPackage.PREDICATE_EXPRESSION: return createPredicateExpression();
       case CommonPackage.FINAL_VALUE: return createFinalValue();
+      case CommonPackage.MULTI_LINE_STRING: return createMultiLineString();
+      case CommonPackage.TEXT_ELEMENT: return createTextElement();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -139,6 +141,28 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     FinalValueImpl finalValue = new FinalValueImpl();
     return finalValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public MultiLineString createMultiLineString()
+  {
+    MultiLineStringImpl multiLineString = new MultiLineStringImpl();
+    return multiLineString;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TextElement createTextElement()
+  {
+    TextElementImpl textElement = new TextElementImpl();
+    return textElement;
   }
 
   /**

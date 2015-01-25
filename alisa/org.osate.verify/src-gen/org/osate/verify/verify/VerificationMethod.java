@@ -10,6 +10,8 @@ import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.VerificationCategory;
 
+import org.osate.reqspec.reqSpec.Requirement;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Method</b></em>'.
@@ -19,6 +21,7 @@ import org.osate.categories.categories.VerificationCategory;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
@@ -59,6 +62,32 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Requirement</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Requirement</em>' reference.
+   * @see #setRequirement(Requirement)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Requirement()
+   * @model
+   * @generated
+   */
+  Requirement getRequirement();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getRequirement <em>Requirement</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Requirement</em>' reference.
+   * @see #getRequirement()
+   * @generated
+   */
+  void setRequirement(Requirement value);
 
   /**
    * Returns the value of the '<em><b>Method Type</b></em>' attribute.
