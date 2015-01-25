@@ -26457,21 +26457,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10028:1: ( ( ruleQualifiedName ) )
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10029:1: ( ruleQualifiedName )
             {
-             before(grammarAccess.getVerificationResultAccess().getResultReportResultReportsCrossReference_5_1_0()); 
+             before(grammarAccess.getVerificationResultAccess().getResultReportResultReportCrossReference_5_1_0()); 
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10030:1: ( ruleQualifiedName )
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10031:1: ruleQualifiedName
             {
-             before(grammarAccess.getVerificationResultAccess().getResultReportResultReportsQualifiedNameParserRuleCall_5_1_0_1()); 
+             before(grammarAccess.getVerificationResultAccess().getResultReportResultReportQualifiedNameParserRuleCall_5_1_0_1()); 
             pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationResult__ResultReportAssignment_5_120012);
             ruleQualifiedName();
 
             state._fsp--;
 
-             after(grammarAccess.getVerificationResultAccess().getResultReportResultReportsQualifiedNameParserRuleCall_5_1_0_1()); 
+             after(grammarAccess.getVerificationResultAccess().getResultReportResultReportQualifiedNameParserRuleCall_5_1_0_1()); 
 
             }
 
-             after(grammarAccess.getVerificationResultAccess().getResultReportResultReportsCrossReference_5_1_0()); 
+             after(grammarAccess.getVerificationResultAccess().getResultReportResultReportCrossReference_5_1_0()); 
 
             }
 

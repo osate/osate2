@@ -86,24 +86,32 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
    * This method invokes the summation and then evaluates the result against the predicate
    * The predicate is a lambda function with the limit bound to an external value
    */
-  public void evaluateSubBudget(final ComponentInstance ne, final Function1<? super Double, ? extends Boolean> pred) {
-    final double actualBudget = this.sumSubBudgets(ne);
-    String _name = ne.getName();
-    String _plus = (_name + " is over budget ");
-    String _plus_1 = (_plus + Double.valueOf(actualBudget));
-    Boolean _apply = pred.apply(Double.valueOf(actualBudget));
-    Assert.assertTrue(_plus_1, (_apply).booleanValue());
+  public Boolean evaluateSubBudget(final ComponentInstance ne, final Function1<? super Double, ? extends Boolean> pred) {
+    boolean _xblockexpression = false;
+    {
+      final double actualBudget = this.sumSubBudgets(ne);
+      String _name = ne.getName();
+      String _plus = (_name + " is over budget ");
+      String _plus_1 = (_plus + Double.valueOf(actualBudget));
+      Boolean _apply = pred.apply(Double.valueOf(actualBudget));
+      Assert.assertTrue(_plus_1, (_apply).booleanValue());
+      _xblockexpression = true;
+    }
+    return Boolean.valueOf(_xblockexpression);
   }
   
-  public void assertSumSubBudgets(final ComponentInstance root) {
-    final double BudgetLimit = 0.5;
-    final String Description = ("R1: Sub budgets must be within " + Double.valueOf(BudgetLimit));
-    final Function1<Double, Boolean> _function = new Function1<Double, Boolean>() {
-      public Boolean apply(final Double actualBudget) {
-        return Boolean.valueOf(((actualBudget).doubleValue() <= BudgetLimit));
-      }
-    };
-    this.evaluateSubBudget(root, _function);
+  public Boolean assertSumSubBudgets(final ComponentInstance root) {
+    Boolean _xblockexpression = null;
+    {
+      final double BudgetLimit = 0.5;
+      final Function1<Double, Boolean> _function = new Function1<Double, Boolean>() {
+        public Boolean apply(final Double actualBudget) {
+          return Boolean.valueOf(((actualBudget).doubleValue() <= BudgetLimit));
+        }
+      };
+      _xblockexpression = this.evaluateSubBudget(root, _function);
+    }
+    return _xblockexpression;
   }
   
   public void assertSumSubBudgetsMax(final ComponentInstance root, final int max) {
@@ -124,21 +132,25 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
     return true;
   }
   
-  public void dispatchVerificationMethod(final String methodPath, final InstanceObject target) {
+  public Object dispatchVerificationMethod(final String methodPath, final InstanceObject target) {
+    Object _xifexpression = null;
     if ((target instanceof ComponentInstance)) {
+      Object _switchResult = null;
       boolean _matched = false;
       if (!_matched) {
         if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets")) {
           _matched=true;
-          this.assertSumSubBudgets(((ComponentInstance)target));
+          _switchResult = this.assertSumSubBudgets(((ComponentInstance)target));
         }
       }
       if (!_matched) {
         if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.sumSubBudgets")) {
           _matched=true;
-          this.sumSubBudgets(((ComponentInstance)target));
+          _switchResult = Double.valueOf(this.sumSubBudgets(((ComponentInstance)target)));
         }
       }
+      _xifexpression = ((Object)_switchResult);
     }
+    return ((Comparable<?>)_xifexpression);
   }
 }

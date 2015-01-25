@@ -142,7 +142,7 @@ VerificationResult returns VerificationResult:
 	('failtype' type=STRING)?
 	('failmessage' failMsg=STRING)?
 	('failtarget' failTarget=[ecore::EObject|QualifiedName])?
-	('report' resultReport=[results::ResultReports|QualifiedName])? // pointer to separate report
+	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 ;
 
 

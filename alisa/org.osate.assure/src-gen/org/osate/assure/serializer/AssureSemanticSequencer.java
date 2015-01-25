@@ -304,7 +304,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (resultState=VerificationResultState type=STRING? failMsg=STRING? failTarget=[EObject|QualifiedName]? resultReport=[ResultReports|QualifiedName]?)
+	 *     (resultState=VerificationResultState type=STRING? failMsg=STRING? failTarget=[EObject|QualifiedName]? resultReport=[ResultReport|QualifiedName]?)
 	 */
 	protected void sequence_VerificationResult(EObject context, VerificationResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

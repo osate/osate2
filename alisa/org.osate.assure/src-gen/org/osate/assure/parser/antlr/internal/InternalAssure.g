@@ -2163,7 +2163,7 @@ ruleVerificationResult returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVerificationResultAccess().getResultReportResultReportsCrossReference_5_1_0()); 
+	        newCompositeNode(grammarAccess.getVerificationResultAccess().getResultReportResultReportCrossReference_5_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();

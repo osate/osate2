@@ -13,41 +13,68 @@ import org.osate.verify.verify.VerificationMethod;
 
 @SuppressWarnings("all")
 public class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
-  public void runVerificationMethod(final VerificationActivityResult verificationActivityResult) {
+  public Object runVerificationMethod(final VerificationActivityResult verificationActivityResult) {
     try {
-      VerificationActivity _target = verificationActivityResult.getTarget();
-      final VerificationMethod method = _target.getMethod();
-      SupportedTypes _methodType = method.getMethodType();
-      boolean _equals = Objects.equal(_methodType, SupportedTypes.SINGLEPREDICATE);
-      if (_equals) {
-        final String methodpath = method.getMethodPath();
-        try {
-          InstanceObject _caseSubject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
-          this.dispatchVerificationMethod(methodpath, _caseSubject);
-          AssureUtilExtension.setToSuccess(verificationActivityResult);
-        } catch (final Throwable _t) {
-          if (_t instanceof AssertionError) {
-            final AssertionError e = (AssertionError)_t;
-            AssureUtilExtension.setToFail(verificationActivityResult, e);
-          } else if (_t instanceof ThreadDeath) {
-            final ThreadDeath e_1 = (ThreadDeath)_t;
-            throw e_1;
-          } else if (_t instanceof Throwable) {
-            final Throwable e_2 = (Throwable)_t;
-            AssureUtilExtension.setToError(verificationActivityResult, e_2);
-          } else {
-            throw Exceptions.sneakyThrow(_t);
+      Object _xblockexpression = null;
+      {
+        VerificationActivity _target = verificationActivityResult.getTarget();
+        final VerificationMethod method = _target.getMethod();
+        Object _xifexpression = null;
+        SupportedTypes _methodType = method.getMethodType();
+        boolean _equals = Objects.equal(_methodType, SupportedTypes.SINGLEPREDICATE);
+        if (_equals) {
+          Object _xblockexpression_1 = null;
+          {
+            final String methodpath = method.getMethodPath();
+            Object _xtrycatchfinallyexpression = null;
+            try {
+              Object _xblockexpression_2 = null;
+              {
+                InstanceObject _caseSubject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
+                final Object res = this.dispatchVerificationMethod(methodpath, _caseSubject);
+                AssureUtilExtension.setToSuccess(verificationActivityResult);
+                _xblockexpression_2 = res;
+              }
+              _xtrycatchfinallyexpression = _xblockexpression_2;
+            } catch (final Throwable _t) {
+              if (_t instanceof AssertionError) {
+                final AssertionError e = (AssertionError)_t;
+                Object _xblockexpression_3 = null;
+                {
+                  AssureUtilExtension.setToFail(verificationActivityResult, e);
+                  _xblockexpression_3 = null;
+                }
+                _xtrycatchfinallyexpression = _xblockexpression_3;
+              } else if (_t instanceof ThreadDeath) {
+                final ThreadDeath e_1 = (ThreadDeath)_t;
+                throw e_1;
+              } else if (_t instanceof Throwable) {
+                final Throwable e_2 = (Throwable)_t;
+                Object _xblockexpression_4 = null;
+                {
+                  AssureUtilExtension.setToError(verificationActivityResult, e_2);
+                  _xblockexpression_4 = null;
+                }
+                _xtrycatchfinallyexpression = _xblockexpression_4;
+              } else {
+                throw Exceptions.sneakyThrow(_t);
+              }
+            }
+            _xblockexpression_1 = _xtrycatchfinallyexpression;
           }
+          _xifexpression = _xblockexpression_1;
         }
+        _xblockexpression = _xifexpression;
       }
+      return _xblockexpression;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
   
-  public void dispatchVerificationMethod(final String methodPath, final InstanceObject target) {
+  public Object dispatchVerificationMethod(final String methodPath, final InstanceObject target) {
     String _qualifiedName = target.getQualifiedName();
     String _plus = ((("Dispatching " + methodPath) + " on ") + _qualifiedName);
-    InputOutput.<String>println(_plus);
+    return InputOutput.<Object>println(_plus);
   }
 }

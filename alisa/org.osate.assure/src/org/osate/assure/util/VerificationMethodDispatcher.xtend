@@ -9,8 +9,8 @@ import com.google.inject.ImplementedBy
 
 @ImplementedBy(DefaultVerificationMethodDispatcher)
 interface IVerificationMethodDispatcher {
-	def void dispatchVerificationMethod(String methodPath, InstanceObject target);
-	def void runVerificationMethod(VerificationActivityResult verificationActivityResult);
+	def Object dispatchVerificationMethod(String methodPath, InstanceObject target);
+	def Object runVerificationMethod(VerificationActivityResult verificationActivityResult);
 }
 
 class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher{
@@ -19,14 +19,17 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 		if (method.getMethodType() == SupportedTypes.SINGLEPREDICATE) {
 			val methodpath = method.getMethodPath();
 			try { 
-				dispatchVerificationMethod(methodpath, verificationActivityResult.caseSubject)
+				val res = dispatchVerificationMethod(methodpath, verificationActivityResult.caseSubject)
 				setToSuccess(verificationActivityResult)
+				res
 			} catch (AssertionError e) {
 				setToFail(verificationActivityResult, e);
+				null
 			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 				throw e;
 			} catch (Throwable e) {
 				setToError(verificationActivityResult, e);
+				null
 			}
 			
 			}

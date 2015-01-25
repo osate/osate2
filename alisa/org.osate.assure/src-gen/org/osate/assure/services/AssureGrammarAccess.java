@@ -1476,19 +1476,19 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cReportKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cResultReportAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final CrossReference cResultReportResultReportsCrossReference_5_1_0 = (CrossReference)cResultReportAssignment_5_1.eContents().get(0);
-		private final RuleCall cResultReportResultReportsQualifiedNameParserRuleCall_5_1_0_1 = (RuleCall)cResultReportResultReportsCrossReference_5_1_0.eContents().get(1);
+		private final CrossReference cResultReportResultReportCrossReference_5_1_0 = (CrossReference)cResultReportAssignment_5_1.eContents().get(0);
+		private final RuleCall cResultReportResultReportQualifiedNameParserRuleCall_5_1_0_1 = (RuleCall)cResultReportResultReportCrossReference_5_1_0.eContents().get(1);
 		
 		//VerificationResult:
 		//	"resultstate" resultState=VerificationResultState ("failtype" type=STRING)? ("failmessage" failMsg=STRING)?
 		//	("failtarget" failTarget=[ecore::EObject|QualifiedName])? ("report"
-		//	resultReport=[results::ResultReports|QualifiedName])? // pointer to separate report
+		//	resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//;
 		public ParserRule getRule() { return rule; }
 
 		//"resultstate" resultState=VerificationResultState ("failtype" type=STRING)? ("failmessage" failMsg=STRING)?
 		//("failtarget" failTarget=[ecore::EObject|QualifiedName])? ("report"
-		//resultReport=[results::ResultReports|QualifiedName])? // pointer to separate report
+		//resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		public Group getGroup() { return cGroup; }
 
 		//"resultstate"
@@ -1539,20 +1539,20 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getFailTargetEObjectQualifiedNameParserRuleCall_4_1_0_1() { return cFailTargetEObjectQualifiedNameParserRuleCall_4_1_0_1; }
 
-		//("report" resultReport=[results::ResultReports|QualifiedName])?
+		//("report" resultReport=[results::ResultReport|QualifiedName])?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//"report"
 		public Keyword getReportKeyword_5_0() { return cReportKeyword_5_0; }
 
-		//resultReport=[results::ResultReports|QualifiedName]
+		//resultReport=[results::ResultReport|QualifiedName]
 		public Assignment getResultReportAssignment_5_1() { return cResultReportAssignment_5_1; }
 
-		//[results::ResultReports|QualifiedName]
-		public CrossReference getResultReportResultReportsCrossReference_5_1_0() { return cResultReportResultReportsCrossReference_5_1_0; }
+		//[results::ResultReport|QualifiedName]
+		public CrossReference getResultReportResultReportCrossReference_5_1_0() { return cResultReportResultReportCrossReference_5_1_0; }
 
 		//QualifiedName
-		public RuleCall getResultReportResultReportsQualifiedNameParserRuleCall_5_1_0_1() { return cResultReportResultReportsQualifiedNameParserRuleCall_5_1_0_1; }
+		public RuleCall getResultReportResultReportQualifiedNameParserRuleCall_5_1_0_1() { return cResultReportResultReportQualifiedNameParserRuleCall_5_1_0_1; }
 	}
 	
 	
@@ -1842,7 +1842,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//VerificationResult:
 	//	"resultstate" resultState=VerificationResultState ("failtype" type=STRING)? ("failmessage" failMsg=STRING)?
 	//	("failtarget" failTarget=[ecore::EObject|QualifiedName])? ("report"
-	//	resultReport=[results::ResultReports|QualifiedName])? // pointer to separate report
+	//	resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//;
 	public VerificationResultElements getVerificationResultAccess() {
 		return pVerificationResult;

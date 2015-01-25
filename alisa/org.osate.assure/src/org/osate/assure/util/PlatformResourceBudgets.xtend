@@ -53,15 +53,15 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 	 * This method invokes the summation and then evaluates the result against the predicate
 	 * The predicate is a lambda function with the limit bound to an external value
 	 */
-	def evaluateSubBudget(ComponentInstance ne, (double)=>boolean pred) {
+	def Boolean evaluateSubBudget(ComponentInstance ne, (double)=>boolean pred) {
 		val actualBudget = ne.sumSubBudgets
 		assertTrue(ne.name + " is over budget " + actualBudget, pred.apply(actualBudget))
+		true
 	}
 
 	//	@For SCS.tier0 == prove declaration == for in ReqSpec 
-	def void assertSumSubBudgets(ComponentInstance root) {
+	def Boolean assertSumSubBudgets(ComponentInstance root) {
 		val BudgetLimit = 0.5
-		val Description = "R1: Sub budgets must be within " + BudgetLimit
 		root.evaluateSubBudget[actualBudget|actualBudget <= BudgetLimit]
 	}
 
@@ -79,7 +79,7 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 		true
 	}
 
-	override dispatchVerificationMethod(String methodPath, InstanceObject target) {
+	override Object dispatchVerificationMethod(String methodPath, InstanceObject target) {
 		if (target instanceof ComponentInstance) {
 			switch (methodPath) {
 				case "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets": {

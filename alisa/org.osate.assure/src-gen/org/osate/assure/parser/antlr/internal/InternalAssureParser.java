@@ -4856,7 +4856,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     	        }
                             
                      
-                    	        newCompositeNode(grammarAccess.getVerificationResultAccess().getResultReportResultReportsCrossReference_5_1_0()); 
+                    	        newCompositeNode(grammarAccess.getVerificationResultAccess().getResultReportResultReportCrossReference_5_1_0()); 
                     	    
                     pushFollow(FOLLOW_ruleQualifiedName_in_ruleVerificationResult3948);
                     ruleQualifiedName();

@@ -15,7 +15,7 @@ import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
 
-import org.osate.results.results.ResultReports;
+import org.osate.results.results.ResultReport;
 
 /**
  * <!-- begin-user-doc -->
@@ -114,7 +114,7 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    * @ordered
    */
-  protected ResultReports resultReport;
+  protected ResultReport resultReport;
 
   /**
    * <!-- begin-user-doc -->
@@ -254,12 +254,12 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public ResultReports getResultReport()
+  public ResultReport getResultReport()
   {
     if (resultReport != null && resultReport.eIsProxy())
     {
       InternalEObject oldResultReport = (InternalEObject)resultReport;
-      resultReport = (ResultReports)eResolveProxy(oldResultReport);
+      resultReport = (ResultReport)eResolveProxy(oldResultReport);
       if (resultReport != oldResultReport)
       {
         if (eNotificationRequired())
@@ -274,7 +274,7 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public ResultReports basicGetResultReport()
+  public ResultReport basicGetResultReport()
   {
     return resultReport;
   }
@@ -284,9 +284,9 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setResultReport(ResultReports newResultReport)
+  public void setResultReport(ResultReport newResultReport)
   {
-    ResultReports oldResultReport = resultReport;
+    ResultReport oldResultReport = resultReport;
     resultReport = newResultReport;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__RESULT_REPORT, oldResultReport, resultReport));
@@ -341,7 +341,7 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
         setFailTarget((EObject)newValue);
         return;
       case AssurePackage.VERIFICATION_RESULT__RESULT_REPORT:
-        setResultReport((ResultReports)newValue);
+        setResultReport((ResultReport)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -370,7 +370,7 @@ public class VerificationResultImpl extends MinimalEObjectImpl.Container impleme
         setFailTarget((EObject)null);
         return;
       case AssurePackage.VERIFICATION_RESULT__RESULT_REPORT:
-        setResultReport((ResultReports)null);
+        setResultReport((ResultReport)null);
         return;
     }
     super.eUnset(featureID);

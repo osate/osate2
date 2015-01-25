@@ -4,7 +4,7 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.results.results.ResultReports;
+import org.osate.results.results.ResultReport;
 
 /**
  * <!-- begin-user-doc -->
@@ -144,12 +144,12 @@ public interface VerificationResult extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Result Report</em>' reference.
-   * @see #setResultReport(ResultReports)
+   * @see #setResultReport(ResultReport)
    * @see org.osate.assure.assure.AssurePackage#getVerificationResult_ResultReport()
    * @model
    * @generated
    */
-  ResultReports getResultReport();
+  ResultReport getResultReport();
 
   /**
    * Sets the value of the '{@link org.osate.assure.assure.VerificationResult#getResultReport <em>Result Report</em>}' reference.
@@ -159,6 +159,6 @@ public interface VerificationResult extends EObject
    * @see #getResultReport()
    * @generated
    */
-  void setResultReport(ResultReports value);
+  void setResultReport(ResultReport value);
 
 } // VerificationResult
