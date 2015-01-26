@@ -12,9 +12,6 @@ import org.osate.assure.assure.AndThenResult
 import org.osate.assure.assure.AssureResult
 import com.google.inject.ImplementedBy
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.assure.assure.VerificationResult
-import org.osate.assure.assure.VerificationResultState
-import java.util.List
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {

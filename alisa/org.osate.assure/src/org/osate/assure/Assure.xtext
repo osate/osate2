@@ -89,7 +89,12 @@ VerificationActivityResult:
 	'for' target=[Verify::VerificationActivity|QualifiedName]
 	'['
 	('executionstate'  executionState=VerificationExecutionState)
-	(result=VerificationResult)
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
 	('errorcount' errorCount=INT)? 
@@ -137,14 +142,18 @@ AndThenResult returns AndThenResult:
 	']'
 ;
 
-VerificationResult returns VerificationResult:
-	'resultstate' resultState=VerificationResultState
-	('failtype' type=STRING)?
-	('failmessage' failMsg=STRING)?
-	('failtarget' failTarget=[ecore::EObject|QualifiedName])?
-	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+
+ResultIssue:
+	issueType=ResultIssueType ':'
+	message=STRING
+	('exception' exceptionType = STRING)?
+	('target' target=[ecore::EObject|URIID])?
+	('[' issues +=ResultIssue+']')?
 ;
 
+enum ResultIssueType:
+	ERROR='error' | WARNING='warning'| SUCCESS='success' | INFO='info'
+;
 
 
 enum VerificationResultState :

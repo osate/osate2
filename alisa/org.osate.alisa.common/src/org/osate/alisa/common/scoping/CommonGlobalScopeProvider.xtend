@@ -76,14 +76,14 @@ class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
 		eod.EObjectURI
 	}
 	
-	def EObject getPropertyDefinition(EObject context, String qname){
-		val eod = context.getGlobalEObjectDescription(Aadl2Package.eINSTANCE.getProperty(), qname)
-		eod.EObjectOrProxy
-	}
-		
-	def EObject getClassifier(EObject context, String qname){
-		val eod = context.getGlobalEObjectDescription(Aadl2Package.eINSTANCE.classifier, qname)
-		eod.EObjectOrProxy
-	}
+//	def EObject getPropertyDefinition(EObject context, String qname){
+//		val eod = context.getGlobalEObjectDescription(Aadl2Package.eINSTANCE.getProperty(), qname)
+//		eod.EObjectOrProxy
+//	}
+//		
+//	def EObject getClassifier(EObject context, String qname){
+//		val eod = context.getGlobalEObjectDescription(Aadl2Package.eINSTANCE.classifier, qname)
+//		eod.EObjectOrProxy
+//	}
 
 }

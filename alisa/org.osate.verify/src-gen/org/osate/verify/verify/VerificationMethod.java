@@ -21,10 +21,11 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getMarker <em>Marker</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getConditions <em>Conditions</em>}</li>
@@ -62,6 +63,32 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Title</em>' attribute.
+   * @see #setTitle(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Title()
+   * @model
+   * @generated
+   */
+  String getTitle();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Title</em>' attribute.
+   * @see #getTitle()
+   * @generated
+   */
+  void setTitle(String value);
 
   /**
    * Returns the value of the '<em><b>Requirement</b></em>' reference.
@@ -145,30 +172,30 @@ public interface VerificationMethod extends EObject
   void setMethodPath(String value);
 
   /**
-   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * Returns the value of the '<em><b>Marker</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * If the meaning of the '<em>Marker</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Title</em>' attribute.
-   * @see #setTitle(String)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Title()
+   * @return the value of the '<em>Marker</em>' attribute.
+   * @see #setMarker(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Marker()
    * @model
    * @generated
    */
-  String getTitle();
+  String getMarker();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getMarker <em>Marker</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Title</em>' attribute.
-   * @see #getTitle()
+   * @param value the new value of the '<em>Marker</em>' attribute.
+   * @see #getMarker()
    * @generated
    */
-  void setTitle(String value);
+  void setMarker(String value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.

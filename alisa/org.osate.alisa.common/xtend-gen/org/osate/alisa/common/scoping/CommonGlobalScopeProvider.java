@@ -23,7 +23,6 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.osate.aadl2.Aadl2Package;
 
 @SuppressWarnings("all")
 public class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
@@ -131,26 +130,6 @@ public class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
     {
       final IEObjectDescription eod = this.getGlobalEObjectDescription(context, eClass, qname);
       _xblockexpression = eod.getEObjectURI();
-    }
-    return _xblockexpression;
-  }
-  
-  public EObject getPropertyDefinition(final EObject context, final String qname) {
-    EObject _xblockexpression = null;
-    {
-      EClass _property = Aadl2Package.eINSTANCE.getProperty();
-      final IEObjectDescription eod = this.getGlobalEObjectDescription(context, _property, qname);
-      _xblockexpression = eod.getEObjectOrProxy();
-    }
-    return _xblockexpression;
-  }
-  
-  public EObject getClassifier(final EObject context, final String qname) {
-    EObject _xblockexpression = null;
-    {
-      EClass _classifier = Aadl2Package.eINSTANCE.getClassifier();
-      final IEObjectDescription eod = this.getGlobalEObjectDescription(context, _classifier, qname);
-      _xblockexpression = eod.getEObjectOrProxy();
     }
     return _xblockexpression;
   }

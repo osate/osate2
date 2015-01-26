@@ -74,7 +74,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.VERIFICATION_EXPR: return createVerificationExpr();
       case AssurePackage.FAIL_THEN_RESULT: return createFailThenResult();
       case AssurePackage.AND_THEN_RESULT: return createAndThenResult();
-      case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
+      case AssurePackage.RESULT_ISSUE: return createResultIssue();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -90,6 +90,8 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     switch (eDataType.getClassifierID())
     {
+      case AssurePackage.RESULT_ISSUE_TYPE:
+        return createResultIssueTypeFromString(eDataType, initialValue);
       case AssurePackage.VERIFICATION_RESULT_STATE:
         return createVerificationResultStateFromString(eDataType, initialValue);
       case AssurePackage.VERIFICATION_EXECUTION_STATE:
@@ -109,6 +111,8 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     switch (eDataType.getClassifierID())
     {
+      case AssurePackage.RESULT_ISSUE_TYPE:
+        return convertResultIssueTypeToString(eDataType, instanceValue);
       case AssurePackage.VERIFICATION_RESULT_STATE:
         return convertVerificationResultStateToString(eDataType, instanceValue);
       case AssurePackage.VERIFICATION_EXECUTION_STATE:
@@ -222,10 +226,32 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationResult createVerificationResult()
+  public ResultIssue createResultIssue()
   {
-    VerificationResultImpl verificationResult = new VerificationResultImpl();
-    return verificationResult;
+    ResultIssueImpl resultIssue = new ResultIssueImpl();
+    return resultIssue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultIssueType createResultIssueTypeFromString(EDataType eDataType, String initialValue)
+  {
+    ResultIssueType result = ResultIssueType.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertResultIssueTypeToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

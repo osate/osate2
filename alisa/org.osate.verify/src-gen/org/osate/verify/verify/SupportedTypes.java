@@ -40,24 +40,54 @@ public enum SupportedTypes implements Enumerator
   SINGLEANALYSIS(1, "SINGLEANALYSIS", "singleanalysis"),
 
   /**
-   * The '<em><b>MULTIPREDICATE</b></em>' literal object.
+   * The '<em><b>ASSERTIONEXCEPTION</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #MULTIPREDICATE_VALUE
+   * @see #ASSERTIONEXCEPTION_VALUE
    * @generated
    * @ordered
    */
-  MULTIPREDICATE(2, "MULTIPREDICATE", "multipredicate"),
+  ASSERTIONEXCEPTION(2, "ASSERTIONEXCEPTION", "assertionexception"),
 
   /**
-   * The '<em><b>MULTIANALYSIS</b></em>' literal object.
+   * The '<em><b>MULTIMARKER</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #MULTIANALYSIS_VALUE
+   * @see #MULTIMARKER_VALUE
    * @generated
    * @ordered
    */
-  MULTIANALYSIS(3, "MULTIANALYSIS", "multianalysis"),
+  MULTIMARKER(3, "MULTIMARKER", "multimarker"),
+
+  /**
+   * The '<em><b>MULTIDIAGNOSTICS</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #MULTIDIAGNOSTICS_VALUE
+   * @generated
+   * @ordered
+   */
+  MULTIDIAGNOSTICS(4, "MULTIDIAGNOSTICS", "multidiagnostics"),
+
+  /**
+   * The '<em><b>MULTIRESULTREPORT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #MULTIRESULTREPORT_VALUE
+   * @generated
+   * @ordered
+   */
+  MULTIRESULTREPORT(5, "MULTIRESULTREPORT", "multiresultreport"),
+
+  /**
+   * The '<em><b>RESOLUTEPROVE</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #RESOLUTEPROVE_VALUE
+   * @generated
+   * @ordered
+   */
+  RESOLUTEPROVE(6, "RESOLUTEPROVE", "resoluteprove"),
 
   /**
    * The '<em><b>MANUAL</b></em>' literal object.
@@ -67,7 +97,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  MANUAL(4, "MANUAL", "manual");
+  MANUAL(7, "MANUAL", "manual");
 
   /**
    * The '<em><b>SINGLEPREDICATE</b></em>' literal value.
@@ -100,34 +130,79 @@ public enum SupportedTypes implements Enumerator
   public static final int SINGLEANALYSIS_VALUE = 1;
 
   /**
-   * The '<em><b>MULTIPREDICATE</b></em>' literal value.
+   * The '<em><b>ASSERTIONEXCEPTION</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>MULTIPREDICATE</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>ASSERTIONEXCEPTION</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #MULTIPREDICATE
-   * @model literal="multipredicate"
+   * @see #ASSERTIONEXCEPTION
+   * @model literal="assertionexception"
    * @generated
    * @ordered
    */
-  public static final int MULTIPREDICATE_VALUE = 2;
+  public static final int ASSERTIONEXCEPTION_VALUE = 2;
 
   /**
-   * The '<em><b>MULTIANALYSIS</b></em>' literal value.
+   * The '<em><b>MULTIMARKER</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>MULTIANALYSIS</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>MULTIMARKER</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #MULTIANALYSIS
-   * @model literal="multianalysis"
+   * @see #MULTIMARKER
+   * @model literal="multimarker"
    * @generated
    * @ordered
    */
-  public static final int MULTIANALYSIS_VALUE = 3;
+  public static final int MULTIMARKER_VALUE = 3;
+
+  /**
+   * The '<em><b>MULTIDIAGNOSTICS</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>MULTIDIAGNOSTICS</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #MULTIDIAGNOSTICS
+   * @model literal="multidiagnostics"
+   * @generated
+   * @ordered
+   */
+  public static final int MULTIDIAGNOSTICS_VALUE = 4;
+
+  /**
+   * The '<em><b>MULTIRESULTREPORT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>MULTIRESULTREPORT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #MULTIRESULTREPORT
+   * @model literal="multiresultreport"
+   * @generated
+   * @ordered
+   */
+  public static final int MULTIRESULTREPORT_VALUE = 5;
+
+  /**
+   * The '<em><b>RESOLUTEPROVE</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>RESOLUTEPROVE</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #RESOLUTEPROVE
+   * @model literal="resoluteprove"
+   * @generated
+   * @ordered
+   */
+  public static final int RESOLUTEPROVE_VALUE = 6;
 
   /**
    * The '<em><b>MANUAL</b></em>' literal value.
@@ -142,7 +217,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MANUAL_VALUE = 4;
+  public static final int MANUAL_VALUE = 7;
 
   /**
    * An array of all the '<em><b>Supported Types</b></em>' enumerators.
@@ -155,8 +230,11 @@ public enum SupportedTypes implements Enumerator
     {
       SINGLEPREDICATE,
       SINGLEANALYSIS,
-      MULTIPREDICATE,
-      MULTIANALYSIS,
+      ASSERTIONEXCEPTION,
+      MULTIMARKER,
+      MULTIDIAGNOSTICS,
+      MULTIRESULTREPORT,
+      RESOLUTEPROVE,
       MANUAL,
     };
 
@@ -218,8 +296,11 @@ public enum SupportedTypes implements Enumerator
     {
       case SINGLEPREDICATE_VALUE: return SINGLEPREDICATE;
       case SINGLEANALYSIS_VALUE: return SINGLEANALYSIS;
-      case MULTIPREDICATE_VALUE: return MULTIPREDICATE;
-      case MULTIANALYSIS_VALUE: return MULTIANALYSIS;
+      case ASSERTIONEXCEPTION_VALUE: return ASSERTIONEXCEPTION;
+      case MULTIMARKER_VALUE: return MULTIMARKER;
+      case MULTIDIAGNOSTICS_VALUE: return MULTIDIAGNOSTICS;
+      case MULTIRESULTREPORT_VALUE: return MULTIRESULTREPORT;
+      case RESOLUTEPROVE_VALUE: return RESOLUTEPROVE;
       case MANUAL_VALUE: return MANUAL;
     }
     return null;

@@ -683,13 +683,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_METHOD__TITLE = 1;
+
+  /**
    * The feature id for the '<em><b>Requirement</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__REQUIREMENT = 1;
+  int VERIFICATION_METHOD__REQUIREMENT = 2;
 
   /**
    * The feature id for the '<em><b>Method Type</b></em>' attribute.
@@ -698,7 +707,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_TYPE = 2;
+  int VERIFICATION_METHOD__METHOD_TYPE = 3;
 
   /**
    * The feature id for the '<em><b>Method Path</b></em>' attribute.
@@ -707,16 +716,16 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__METHOD_PATH = 3;
+  int VERIFICATION_METHOD__METHOD_PATH = 4;
 
   /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * The feature id for the '<em><b>Marker</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__TITLE = 4;
+  int VERIFICATION_METHOD__MARKER = 5;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -725,7 +734,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__DESCRIPTION = 5;
+  int VERIFICATION_METHOD__DESCRIPTION = 6;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference.
@@ -734,7 +743,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CATEGORY = 6;
+  int VERIFICATION_METHOD__CATEGORY = 7;
 
   /**
    * The feature id for the '<em><b>Conditions</b></em>' containment reference list.
@@ -743,7 +752,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD__CONDITIONS = 7;
+  int VERIFICATION_METHOD__CONDITIONS = 8;
 
   /**
    * The number of structural features of the '<em>Verification Method</em>' class.
@@ -752,7 +761,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_METHOD_FEATURE_COUNT = 8;
+  int VERIFICATION_METHOD_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationAssumptionImpl <em>Verification Assumption</em>}' class.
@@ -1651,6 +1660,17 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethod_Name();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Title</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getTitle()
+   * @see #getVerificationMethod()
+   * @generated
+   */
+  EAttribute getVerificationMethod_Title();
+
+  /**
    * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationMethod#getRequirement <em>Requirement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1684,15 +1704,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethod_MethodPath();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMarker <em>Marker</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Title</em>'.
-   * @see org.osate.verify.verify.VerificationMethod#getTitle()
+   * @return the meta object for the attribute '<em>Marker</em>'.
+   * @see org.osate.verify.verify.VerificationMethod#getMarker()
    * @see #getVerificationMethod()
    * @generated
    */
-  EAttribute getVerificationMethod_Title();
+  EAttribute getVerificationMethod_Marker();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}'.
@@ -2388,6 +2408,14 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD__NAME = eINSTANCE.getVerificationMethod_Name();
 
     /**
+     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_METHOD__TITLE = eINSTANCE.getVerificationMethod_Title();
+
+    /**
      * The meta object literal for the '<em><b>Requirement</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2412,12 +2440,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD__METHOD_PATH = eINSTANCE.getVerificationMethod_MethodPath();
 
     /**
-     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Marker</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_METHOD__TITLE = eINSTANCE.getVerificationMethod_Title();
+    EAttribute VERIFICATION_METHOD__MARKER = eINSTANCE.getVerificationMethod_Marker();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.

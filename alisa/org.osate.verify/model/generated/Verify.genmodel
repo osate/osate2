@@ -10,8 +10,11 @@
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Verify.ecore#//SupportedTypes">
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/SINGLEPREDICATE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/SINGLEANALYSIS"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIPREDICATE"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIANALYSIS"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/ASSERTIONEXCEPTION"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIMARKER"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIDIAGNOSTICS"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIRESULTREPORT"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/RESOLUTEPROVE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MANUAL"/>
     </genEnums>
     <genClasses ecoreClass="Verify.ecore#//Verification">
@@ -79,10 +82,11 @@
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationMethod">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/requirement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/methodType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/methodPath"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/marker"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/category"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/conditions"/>

@@ -146,10 +146,10 @@ public class AssureSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AssurePackage.VERIFICATION_RESULT:
+      case AssurePackage.RESULT_ISSUE:
       {
-        VerificationResult verificationResult = (VerificationResult)theEObject;
-        T result = caseVerificationResult(verificationResult);
+        ResultIssue resultIssue = (ResultIssue)theEObject;
+        T result = caseResultIssue(resultIssue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -302,17 +302,17 @@ public class AssureSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Result</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Result Issue</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Result</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Result Issue</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseVerificationResult(VerificationResult object)
+  public T caseResultIssue(ResultIssue object)
   {
     return null;
   }

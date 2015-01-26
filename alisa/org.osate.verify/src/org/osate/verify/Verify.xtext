@@ -114,24 +114,25 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 	'registry' name=ID
 	(':' title=ValueString)?
 	'[' (
-		('title' title=ValueString)?
-	& ('description' description=Description)?
-	& methods+=VerificationMethod*)
+	('description' description=Description)?
+	methods+=VerificationMethod*)
 	']';
 
 VerificationMethod:
-	'method' name=ID
-	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?	'['
+	'method' name=ID (':' title=ValueString)?
+	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?	
+	'['
 	methodType=SupportedTypes methodPath=QualifiedName
 	// parameters (in addition to the model element
 	(
-		('title' title=ValueString)?
-	& ('description' description=Description)?
+		'marker' marker=ValueString
+	&('description' description=Description)?
 	& ('category' category=[categories::VerificationCategory|CatRef])?
 	& (conditions+=VerificationCondition)*
 	)
 	']';
 
 enum SupportedTypes:
-	SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" |
-	MULTIPREDICATE="multipredicate" | MULTIANALYSIS="multianalysis" | MANUAL="manual";
+	SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" | ASSERTIONEXCEPTION="assertionexception"|
+	MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" |MULTIRESULTREPORT="multiresultreport" 
+	| RESOLUTEPROVE="resoluteprove"|MANUAL="manual";

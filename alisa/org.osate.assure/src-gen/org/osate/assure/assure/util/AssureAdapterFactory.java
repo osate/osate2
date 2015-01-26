@@ -120,9 +120,9 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createAndThenResultAdapter();
       }
       @Override
-      public Adapter caseVerificationResult(VerificationResult object)
+      public Adapter caseResultIssue(ResultIssue object)
       {
-        return createVerificationResultAdapter();
+        return createResultIssueAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -282,16 +282,16 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.VerificationResult <em>Verification Result</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.ResultIssue <em>Result Issue</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.VerificationResult
+   * @see org.osate.assure.assure.ResultIssue
    * @generated
    */
-  public Adapter createVerificationResultAdapter()
+  public Adapter createResultIssueAdapter()
   {
     return null;
   }

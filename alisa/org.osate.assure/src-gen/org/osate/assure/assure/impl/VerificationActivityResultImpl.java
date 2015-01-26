@@ -20,9 +20,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.ResultIssue;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExecutionState;
-import org.osate.assure.assure.VerificationResult;
+import org.osate.assure.assure.VerificationResultState;
+
+import org.osate.results.results.ResultReport;
 
 import org.osate.verify.verify.VerificationActivity;
 
@@ -36,7 +39,9 @@ import org.osate.verify.verify.VerificationActivity;
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getExecutionState <em>Execution State</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getResult <em>Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getResultState <em>Result State</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getIssues <em>Issues</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getResultReport <em>Result Report</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getAssumptionResult <em>Assumption Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getPreconditionResult <em>Precondition Result</em>}</li>
@@ -98,14 +103,44 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
   protected VerificationExecutionState executionState = EXECUTION_STATE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
+   * The default value of the '{@link #getResultState() <em>Result State</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getResult()
+   * @see #getResultState()
    * @generated
    * @ordered
    */
-  protected VerificationResult result;
+  protected static final VerificationResultState RESULT_STATE_EDEFAULT = VerificationResultState.TBD;
+
+  /**
+   * The cached value of the '{@link #getResultState() <em>Result State</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResultState()
+   * @generated
+   * @ordered
+   */
+  protected VerificationResultState resultState = RESULT_STATE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<ResultIssue> issues;
+
+  /**
+   * The cached value of the '{@link #getResultReport() <em>Result Report</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResultReport()
+   * @generated
+   * @ordered
+   */
+  protected ResultReport resultReport;
 
   /**
    * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
@@ -262,9 +297,9 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationResult getResult()
+  public VerificationResultState getResultState()
   {
-    return result;
+    return resultState;
   }
 
   /**
@@ -272,16 +307,12 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetResult(VerificationResult newResult, NotificationChain msgs)
+  public void setResultState(VerificationResultState newResultState)
   {
-    VerificationResult oldResult = result;
-    result = newResult;
+    VerificationResultState oldResultState = resultState;
+    resultState = newResultState == null ? RESULT_STATE_EDEFAULT : newResultState;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT, oldResult, newResult);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_STATE, oldResultState, resultState));
   }
 
   /**
@@ -289,20 +320,56 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setResult(VerificationResult newResult)
+  public EList<ResultIssue> getIssues()
   {
-    if (newResult != result)
+    if (issues == null)
     {
-      NotificationChain msgs = null;
-      if (result != null)
-        msgs = ((InternalEObject)result).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT, null, msgs);
-      if (newResult != null)
-        msgs = ((InternalEObject)newResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT, null, msgs);
-      msgs = basicSetResult(newResult, msgs);
-      if (msgs != null) msgs.dispatch();
+      issues = new EObjectContainmentEList<ResultIssue>(ResultIssue.class, this, AssurePackage.VERIFICATION_ACTIVITY_RESULT__ISSUES);
     }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT, newResult, newResult));
+    return issues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultReport getResultReport()
+  {
+    if (resultReport != null && resultReport.eIsProxy())
+    {
+      InternalEObject oldResultReport = (InternalEObject)resultReport;
+      resultReport = (ResultReport)eResolveProxy(oldResultReport);
+      if (resultReport != oldResultReport)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT, oldResultReport, resultReport));
+      }
+    }
+    return resultReport;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultReport basicGetResultReport()
+  {
+    return resultReport;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setResultReport(ResultReport newResultReport)
+  {
+    ResultReport oldResultReport = resultReport;
+    resultReport = newResultReport;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT, oldResultReport, resultReport));
   }
 
   /**
@@ -366,8 +433,8 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
-        return basicSetResult(null, msgs);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ISSUES:
+        return ((InternalEList<?>)getIssues()).basicRemove(otherEnd, msgs);
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
         return ((InternalEList<?>)getAssumptionResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
@@ -393,8 +460,13 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
         return basicGetTarget();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__EXECUTION_STATE:
         return getExecutionState();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
-        return getResult();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_STATE:
+        return getResultState();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ISSUES:
+        return getIssues();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT:
+        if (resolve) return getResultReport();
+        return basicGetResultReport();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
         return getSucessMsg();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
@@ -425,8 +497,15 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__EXECUTION_STATE:
         setExecutionState((VerificationExecutionState)newValue);
         return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
-        setResult((VerificationResult)newValue);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_STATE:
+        setResultState((VerificationResultState)newValue);
+        return;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends ResultIssue>)newValue);
+        return;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT:
+        setResultReport((ResultReport)newValue);
         return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
         setSucessMsg((String)newValue);
@@ -462,8 +541,14 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__EXECUTION_STATE:
         setExecutionState(EXECUTION_STATE_EDEFAULT);
         return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
-        setResult((VerificationResult)null);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_STATE:
+        setResultState(RESULT_STATE_EDEFAULT);
+        return;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ISSUES:
+        getIssues().clear();
+        return;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT:
+        setResultReport((ResultReport)null);
         return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
         setSucessMsg(SUCESS_MSG_EDEFAULT);
@@ -494,8 +579,12 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
         return target != null;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__EXECUTION_STATE:
         return executionState != EXECUTION_STATE_EDEFAULT;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT:
-        return result != null;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_STATE:
+        return resultState != RESULT_STATE_EDEFAULT;
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ISSUES:
+        return issues != null && !issues.isEmpty();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT:
+        return resultReport != null;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
         return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
@@ -521,6 +610,8 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
     result.append(name);
     result.append(", executionState: ");
     result.append(executionState);
+    result.append(", resultState: ");
+    result.append(resultState);
     result.append(", sucessMsg: ");
     result.append(sucessMsg);
     result.append(')');

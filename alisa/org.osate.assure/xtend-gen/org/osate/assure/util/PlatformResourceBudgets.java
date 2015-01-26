@@ -2,6 +2,7 @@ package org.osate.assure.util;
 
 import com.google.common.base.Objects;
 import java.util.List;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.DoubleExtensions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -14,8 +15,13 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.analysis.flows.actions.CheckFlowLatency;
+import org.osate.assure.assure.VerificationActivityResult;
+import org.osate.assure.util.AssureUtilExtension;
 import org.osate.assure.util.DefaultVerificationMethodDispatcher;
 import org.osate.assure.util.IVerificationMethodDispatcher;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -132,25 +138,89 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
     return true;
   }
   
-  public Object dispatchVerificationMethod(final String methodPath, final InstanceObject target) {
-    Object _xifexpression = null;
-    if ((target instanceof ComponentInstance)) {
-      Object _switchResult = null;
-      boolean _matched = false;
-      if (!_matched) {
-        if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets")) {
-          _matched=true;
-          _switchResult = this.assertSumSubBudgets(((ComponentInstance)target));
-        }
+  public String allFlowLatencyAnalysis(final SystemInstance instance) {
+    String _xblockexpression = null;
+    {
+      final CheckFlowLatency checker = new CheckFlowLatency();
+      final String markerType = checker.getMarkerType();
+      boolean _hasRun = AssureUtilExtension.hasRun(markerType, instance);
+      boolean _not = (!_hasRun);
+      if (_not) {
+        EList<SystemOperationMode> _systemOperationModes = instance.getSystemOperationModes();
+        final SystemOperationMode som = IterableExtensions.<SystemOperationMode>head(_systemOperationModes);
+        NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
+        checker.invoke(_nullProgressMonitor, null, instance, som);
       }
-      if (!_matched) {
-        if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.sumSubBudgets")) {
-          _matched=true;
-          _switchResult = Double.valueOf(this.sumSubBudgets(((ComponentInstance)target)));
-        }
-      }
-      _xifexpression = ((Object)_switchResult);
+      _xblockexpression = markerType;
     }
-    return ((Comparable<?>)_xifexpression);
+    return _xblockexpression;
+  }
+  
+  public String flowLatencyAnalysis(final EndToEndFlowInstance etefi) {
+    String _xblockexpression = null;
+    {
+      final CheckFlowLatency checker = new CheckFlowLatency();
+      final String markerType = checker.getMarkerType();
+      NamedElement _elementRoot = etefi.getElementRoot();
+      final SystemInstance instance = ((SystemInstance) _elementRoot);
+      boolean _hasRun = AssureUtilExtension.hasRun(markerType, instance);
+      boolean _not = (!_hasRun);
+      if (_not) {
+        EList<SystemOperationMode> _systemOperationModes = instance.getSystemOperationModes();
+        final SystemOperationMode som = IterableExtensions.<SystemOperationMode>head(_systemOperationModes);
+        NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
+        checker.invoke(_nullProgressMonitor, null, instance, som);
+      }
+      _xblockexpression = markerType;
+    }
+    return _xblockexpression;
+  }
+  
+  public Object dispatchVerificationMethod(final String methodPath, final VerificationActivityResult vr) {
+    Object _xblockexpression = null;
+    {
+      final InstanceObject target = AssureUtilExtension.getClaimSubject(vr);
+      Object _xifexpression = null;
+      if ((target instanceof ComponentInstance)) {
+        Object _switchResult = null;
+        boolean _matched = false;
+        if (!_matched) {
+          if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets")) {
+            _matched=true;
+            _switchResult = this.assertSumSubBudgets(((ComponentInstance)target));
+          }
+        }
+        if (!_matched) {
+          if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.sumSubBudgets")) {
+            _matched=true;
+            _switchResult = Double.valueOf(this.sumSubBudgets(((ComponentInstance)target)));
+          }
+        }
+        if (!_matched) {
+          if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis")) {
+            _matched=true;
+            if ((target instanceof SystemInstance)) {
+              final String mt = this.allFlowLatencyAnalysis(((SystemInstance)target));
+              return Boolean.valueOf(AssureUtilExtension.addAllErrorMarkers(vr, target, mt));
+            }
+            return null;
+          }
+        }
+        _xifexpression = ((Object)_switchResult);
+      } else {
+        if ((target instanceof EndToEndFlowInstance)) {
+          boolean _matched_1 = false;
+          if (!_matched_1) {
+            if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis")) {
+              _matched_1=true;
+              final String mt_1 = this.flowLatencyAnalysis(((EndToEndFlowInstance)target));
+              return Boolean.valueOf(AssureUtilExtension.addErrorMarkers(vr, target, mt_1));
+            }
+          }
+        }
+      }
+      _xblockexpression = ((Object)_xifexpression);
+    }
+    return ((Comparable<?>)_xblockexpression);
   }
 }

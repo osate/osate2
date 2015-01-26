@@ -104,13 +104,13 @@ public interface AssureFactory extends EFactory
   AndThenResult createAndThenResult();
 
   /**
-   * Returns a new object of class '<em>Verification Result</em>'.
+   * Returns a new object of class '<em>Result Issue</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Result</em>'.
+   * @return a new object of class '<em>Result Issue</em>'.
    * @generated
    */
-  VerificationResult createVerificationResult();
+  ResultIssue createResultIssue();
 
   /**
    * Returns the package supported by this factory.

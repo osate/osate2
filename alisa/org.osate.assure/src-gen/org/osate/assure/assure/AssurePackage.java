@@ -830,13 +830,31 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_ACTIVITY_RESULT__EXECUTION_STATE = VERIFICATION_EXPR_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Result</b></em>' containment reference.
+   * The feature id for the '<em><b>Result State</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__RESULT = VERIFICATION_EXPR_FEATURE_COUNT + 3;
+  int VERIFICATION_ACTIVITY_RESULT__RESULT_STATE = VERIFICATION_EXPR_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY_RESULT__ISSUES = VERIFICATION_EXPR_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Result Report</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT = VERIFICATION_EXPR_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
@@ -845,7 +863,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG = VERIFICATION_EXPR_FEATURE_COUNT + 4;
+  int VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG = VERIFICATION_EXPR_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Assumption Result</b></em>' containment reference list.
@@ -854,7 +872,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT = VERIFICATION_EXPR_FEATURE_COUNT + 5;
+  int VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT = VERIFICATION_EXPR_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Precondition Result</b></em>' containment reference list.
@@ -863,7 +881,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT = VERIFICATION_EXPR_FEATURE_COUNT + 6;
+  int VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT = VERIFICATION_EXPR_FEATURE_COUNT + 8;
 
   /**
    * The number of structural features of the '<em>Verification Activity Result</em>' class.
@@ -872,7 +890,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT_FEATURE_COUNT = VERIFICATION_EXPR_FEATURE_COUNT + 7;
+  int VERIFICATION_ACTIVITY_RESULT_FEATURE_COUNT = VERIFICATION_EXPR_FEATURE_COUNT + 9;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.FailThenResultImpl <em>Fail Then Result</em>}' class.
@@ -1093,68 +1111,78 @@ public interface AssurePackage extends EPackage
   int AND_THEN_RESULT_FEATURE_COUNT = VERIFICATION_EXPR_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
+   * The meta object id for the '{@link org.osate.assure.assure.impl.ResultIssueImpl <em>Result Issue</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.assure.assure.impl.VerificationResultImpl
-   * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResult()
+   * @see org.osate.assure.assure.impl.ResultIssueImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getResultIssue()
    * @generated
    */
-  int VERIFICATION_RESULT = 9;
+  int RESULT_ISSUE = 9;
 
   /**
-   * The feature id for the '<em><b>Result State</b></em>' attribute.
+   * The feature id for the '<em><b>Issue Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__RESULT_STATE = 0;
+  int RESULT_ISSUE__ISSUE_TYPE = 0;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__TYPE = 1;
+  int RESULT_ISSUE__MESSAGE = 1;
 
   /**
-   * The feature id for the '<em><b>Fail Msg</b></em>' attribute.
+   * The feature id for the '<em><b>Exception Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__FAIL_MSG = 2;
+  int RESULT_ISSUE__EXCEPTION_TYPE = 2;
 
   /**
-   * The feature id for the '<em><b>Fail Target</b></em>' reference.
+   * The feature id for the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__FAIL_TARGET = 3;
+  int RESULT_ISSUE__TARGET = 3;
 
   /**
-   * The feature id for the '<em><b>Result Report</b></em>' reference.
+   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__RESULT_REPORT = 4;
+  int RESULT_ISSUE__ISSUES = 4;
 
   /**
-   * The number of structural features of the '<em>Verification Result</em>' class.
+   * The number of structural features of the '<em>Result Issue</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT_FEATURE_COUNT = 5;
+  int RESULT_ISSUE_FEATURE_COUNT = 5;
+
+  /**
+   * The meta object id for the '{@link org.osate.assure.assure.ResultIssueType <em>Result Issue Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.ResultIssueType
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getResultIssueType()
+   * @generated
+   */
+  int RESULT_ISSUE_TYPE = 10;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
@@ -1164,7 +1192,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
    * @generated
    */
-  int VERIFICATION_RESULT_STATE = 10;
+  int VERIFICATION_RESULT_STATE = 11;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}' enum.
@@ -1174,7 +1202,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExecutionState()
    * @generated
    */
-  int VERIFICATION_EXECUTION_STATE = 11;
+  int VERIFICATION_EXECUTION_STATE = 12;
 
 
   /**
@@ -1481,15 +1509,37 @@ public interface AssurePackage extends EPackage
   EAttribute getVerificationActivityResult_ExecutionState();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.VerificationActivityResult#getResult <em>Result</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationActivityResult#getResultState <em>Result State</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Result</em>'.
-   * @see org.osate.assure.assure.VerificationActivityResult#getResult()
+   * @return the meta object for the attribute '<em>Result State</em>'.
+   * @see org.osate.assure.assure.VerificationActivityResult#getResultState()
    * @see #getVerificationActivityResult()
    * @generated
    */
-  EReference getVerificationActivityResult_Result();
+  EAttribute getVerificationActivityResult_ResultState();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.VerificationActivityResult#getIssues <em>Issues</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Issues</em>'.
+   * @see org.osate.assure.assure.VerificationActivityResult#getIssues()
+   * @see #getVerificationActivityResult()
+   * @generated
+   */
+  EReference getVerificationActivityResult_Issues();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.VerificationActivityResult#getResultReport <em>Result Report</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Result Report</em>'.
+   * @see org.osate.assure.assure.VerificationActivityResult#getResultReport()
+   * @see #getVerificationActivityResult()
+   * @generated
+   */
+  EReference getVerificationActivityResult_ResultReport();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationActivityResult#getSucessMsg <em>Sucess Msg</em>}'.
@@ -1708,69 +1758,79 @@ public interface AssurePackage extends EPackage
   EAttribute getAndThenResult_DidAndThenFail();
 
   /**
-   * Returns the meta object for class '{@link org.osate.assure.assure.VerificationResult <em>Verification Result</em>}'.
+   * Returns the meta object for class '{@link org.osate.assure.assure.ResultIssue <em>Result Issue</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Result</em>'.
-   * @see org.osate.assure.assure.VerificationResult
+   * @return the meta object for class '<em>Result Issue</em>'.
+   * @see org.osate.assure.assure.ResultIssue
    * @generated
    */
-  EClass getVerificationResult();
+  EClass getResultIssue();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getResultState <em>Result State</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getIssueType <em>Issue Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Result State</em>'.
-   * @see org.osate.assure.assure.VerificationResult#getResultState()
-   * @see #getVerificationResult()
+   * @return the meta object for the attribute '<em>Issue Type</em>'.
+   * @see org.osate.assure.assure.ResultIssue#getIssueType()
+   * @see #getResultIssue()
    * @generated
    */
-  EAttribute getVerificationResult_ResultState();
+  EAttribute getResultIssue_IssueType();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getType <em>Type</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.osate.assure.assure.VerificationResult#getType()
-   * @see #getVerificationResult()
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.assure.assure.ResultIssue#getMessage()
+   * @see #getResultIssue()
    * @generated
    */
-  EAttribute getVerificationResult_Type();
+  EAttribute getResultIssue_Message();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getFailMsg <em>Fail Msg</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getExceptionType <em>Exception Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Fail Msg</em>'.
-   * @see org.osate.assure.assure.VerificationResult#getFailMsg()
-   * @see #getVerificationResult()
+   * @return the meta object for the attribute '<em>Exception Type</em>'.
+   * @see org.osate.assure.assure.ResultIssue#getExceptionType()
+   * @see #getResultIssue()
    * @generated
    */
-  EAttribute getVerificationResult_FailMsg();
+  EAttribute getResultIssue_ExceptionType();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.VerificationResult#getFailTarget <em>Fail Target</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.ResultIssue#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Fail Target</em>'.
-   * @see org.osate.assure.assure.VerificationResult#getFailTarget()
-   * @see #getVerificationResult()
+   * @return the meta object for the reference '<em>Target</em>'.
+   * @see org.osate.assure.assure.ResultIssue#getTarget()
+   * @see #getResultIssue()
    * @generated
    */
-  EReference getVerificationResult_FailTarget();
+  EReference getResultIssue_Target();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.VerificationResult#getResultReport <em>Result Report</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ResultIssue#getIssues <em>Issues</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Result Report</em>'.
-   * @see org.osate.assure.assure.VerificationResult#getResultReport()
-   * @see #getVerificationResult()
+   * @return the meta object for the containment reference list '<em>Issues</em>'.
+   * @see org.osate.assure.assure.ResultIssue#getIssues()
+   * @see #getResultIssue()
    * @generated
    */
-  EReference getVerificationResult_ResultReport();
+  EReference getResultIssue_Issues();
+
+  /**
+   * Returns the meta object for enum '{@link org.osate.assure.assure.ResultIssueType <em>Result Issue Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Result Issue Type</em>'.
+   * @see org.osate.assure.assure.ResultIssueType
+   * @generated
+   */
+  EEnum getResultIssueType();
 
   /**
    * Returns the meta object for enum '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}'.
@@ -2050,12 +2110,28 @@ public interface AssurePackage extends EPackage
     EAttribute VERIFICATION_ACTIVITY_RESULT__EXECUTION_STATE = eINSTANCE.getVerificationActivityResult_ExecutionState();
 
     /**
-     * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Result State</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_ACTIVITY_RESULT__RESULT = eINSTANCE.getVerificationActivityResult_Result();
+    EAttribute VERIFICATION_ACTIVITY_RESULT__RESULT_STATE = eINSTANCE.getVerificationActivityResult_ResultState();
+
+    /**
+     * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY_RESULT__ISSUES = eINSTANCE.getVerificationActivityResult_Issues();
+
+    /**
+     * The meta object literal for the '<em><b>Result Report</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT = eINSTANCE.getVerificationActivityResult_ResultReport();
 
     /**
      * The meta object literal for the '<em><b>Sucess Msg</b></em>' attribute feature.
@@ -2226,54 +2302,64 @@ public interface AssurePackage extends EPackage
     EAttribute AND_THEN_RESULT__DID_AND_THEN_FAIL = eINSTANCE.getAndThenResult_DidAndThenFail();
 
     /**
-     * The meta object literal for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.ResultIssueImpl <em>Result Issue</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.assure.assure.impl.VerificationResultImpl
-     * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResult()
+     * @see org.osate.assure.assure.impl.ResultIssueImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getResultIssue()
      * @generated
      */
-    EClass VERIFICATION_RESULT = eINSTANCE.getVerificationResult();
+    EClass RESULT_ISSUE = eINSTANCE.getResultIssue();
 
     /**
-     * The meta object literal for the '<em><b>Result State</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Issue Type</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_RESULT__RESULT_STATE = eINSTANCE.getVerificationResult_ResultState();
+    EAttribute RESULT_ISSUE__ISSUE_TYPE = eINSTANCE.getResultIssue_IssueType();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_RESULT__TYPE = eINSTANCE.getVerificationResult_Type();
+    EAttribute RESULT_ISSUE__MESSAGE = eINSTANCE.getResultIssue_Message();
 
     /**
-     * The meta object literal for the '<em><b>Fail Msg</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Exception Type</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_RESULT__FAIL_MSG = eINSTANCE.getVerificationResult_FailMsg();
+    EAttribute RESULT_ISSUE__EXCEPTION_TYPE = eINSTANCE.getResultIssue_ExceptionType();
 
     /**
-     * The meta object literal for the '<em><b>Fail Target</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Target</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_RESULT__FAIL_TARGET = eINSTANCE.getVerificationResult_FailTarget();
+    EReference RESULT_ISSUE__TARGET = eINSTANCE.getResultIssue_Target();
 
     /**
-     * The meta object literal for the '<em><b>Result Report</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Issues</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_RESULT__RESULT_REPORT = eINSTANCE.getVerificationResult_ResultReport();
+    EReference RESULT_ISSUE__ISSUES = eINSTANCE.getResultIssue_Issues();
+
+    /**
+     * The meta object literal for the '{@link org.osate.assure.assure.ResultIssueType <em>Result Issue Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.assure.assure.ResultIssueType
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getResultIssueType()
+     * @generated
+     */
+    EEnum RESULT_ISSUE_TYPE = eINSTANCE.getResultIssueType();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.

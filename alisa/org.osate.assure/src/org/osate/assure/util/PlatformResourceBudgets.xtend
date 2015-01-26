@@ -8,6 +8,11 @@ import org.osate.aadl2.ComponentImplementation
 import org.junit.Test
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.instance.InstanceObject
+import org.eclipse.core.runtime.NullProgressMonitor
+import org.osate.analysis.flows.actions.CheckFlowLatency
+import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.aadl2.instance.EndToEndFlowInstance
+import org.osate.assure.assure.VerificationActivityResult
 
 class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
@@ -45,7 +50,8 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 	 * that each subcomponent has an assigned budget
 	 */
 	def double sumSubBudgets(ComponentInstance ci) {
-//		ci.allComponentInstances.map[getMIPSBudgetInMIPS(0.0)].reduce[a, b|a + b]
+
+		//		ci.allComponentInstances.map[getMIPSBudgetInMIPS(0.0)].reduce[a, b|a + b]
 		ci.allComponentInstances.map[getGrossWeight(0.0)].reduce[a, b|a + b]
 	}
 
@@ -79,7 +85,29 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 		true
 	}
 
-	override Object dispatchVerificationMethod(String methodPath, InstanceObject target) {
+	def String allFlowLatencyAnalysis(SystemInstance instance) {
+		val checker = new CheckFlowLatency()
+		val markerType = checker.getMarkerType
+		if (!hasRun(markerType, instance)) {
+			val som = instance.systemOperationModes.head
+			checker.invoke(new NullProgressMonitor, null, instance, som)
+		}
+		markerType
+	}
+
+	def String flowLatencyAnalysis(EndToEndFlowInstance etefi) {
+			val checker = new CheckFlowLatency()
+		val markerType = checker.getMarkerType
+		val instance = etefi.elementRoot as SystemInstance
+		if (!hasRun(markerType, instance)) {
+			val som = instance.systemOperationModes.head
+			checker.invoke(new NullProgressMonitor, null, instance, som)
+		}
+		markerType
+	}
+
+	override Object dispatchVerificationMethod(String methodPath, VerificationActivityResult vr) {
+		val target = vr.claimSubject
 		if (target instanceof ComponentInstance) {
 			switch (methodPath) {
 				case "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets": {
@@ -87,6 +115,20 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 				}
 				case "org.osate.assure.util.PlatformResourceBudgets.sumSubBudgets": {
 					target.sumSubBudgets
+				}
+				case "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis": {
+					if (target instanceof SystemInstance) {
+						val mt = target.allFlowLatencyAnalysis
+						return vr.addAllErrorMarkers(target,mt)
+					}
+					return null
+				}
+			}
+		} else if (target instanceof EndToEndFlowInstance){
+			switch (methodPath) {
+				case "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis": {
+					val mt = target.flowLatencyAnalysis
+					return vr.addErrorMarkers(target,mt)
 				}
 			}
 		}
