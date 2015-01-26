@@ -1234,13 +1234,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationMethod:
 		//	"method" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 		//	methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-		//	("marker" marker=ValueString & ("description" description=Description)? & ("category"
+		//	(("marker" marker=ValueString)? & ("description" description=Description)? & ("category"
 		//	category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"method" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 		//methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-		//("marker" marker=ValueString & ("description" description=Description)? & ("category"
+		//(("marker" marker=ValueString)? & ("description" description=Description)? & ("category"
 		//category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -1295,11 +1295,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getMethodPathQualifiedNameParserRuleCall_6_0() { return cMethodPathQualifiedNameParserRuleCall_6_0; }
 
-		//"marker" marker=ValueString & ("description" description=Description)? & ("category"
+		//("marker" marker=ValueString)? & ("description" description=Description)? & ("category"
 		//category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
-		//"marker" marker=ValueString
+		//("marker" marker=ValueString)?
 		public Group getGroup_7_0() { return cGroup_7_0; }
 
 		//"marker"
@@ -1713,7 +1713,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//VerificationMethod:
 	//	"method" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 	//	methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-	//	("marker" marker=ValueString & ("description" description=Description)? & ("category"
+	//	(("marker" marker=ValueString)? & ("description" description=Description)? & ("category"
 	//	category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {
 		return pVerificationMethod;

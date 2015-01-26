@@ -408,7 +408,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         requirement=[Requirement|QualifiedName]? 
 	 *         methodType=SupportedTypes 
 	 *         methodPath=QualifiedName 
-	 *         marker=ValueString 
+	 *         marker=ValueString? 
 	 *         description=Description? 
 	 *         category=[VerificationCategory|CatRef]? 
 	 *         conditions+=VerificationCondition*

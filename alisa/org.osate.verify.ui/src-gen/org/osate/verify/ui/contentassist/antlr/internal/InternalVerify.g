@@ -7368,8 +7368,7 @@ rule__VerificationMethod__UnorderedGroup_7
     }
 :
 	rule__VerificationMethod__UnorderedGroup_7__0
-	
-	{getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7())}?
+	?
 	
 ;
 finally {

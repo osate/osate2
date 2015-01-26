@@ -125,7 +125,7 @@ VerificationMethod:
 	methodType=SupportedTypes methodPath=QualifiedName
 	// parameters (in addition to the model element
 	(
-		'marker' marker=ValueString
+	('marker' marker=ValueString)?
 	&('description' description=Description)?
 	& ('category' category=[categories::VerificationCategory|CatRef])?
 	& (conditions+=VerificationCondition)*

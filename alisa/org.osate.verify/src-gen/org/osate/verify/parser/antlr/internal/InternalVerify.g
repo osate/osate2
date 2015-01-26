@@ -2223,8 +2223,7 @@ ruleVerificationMethod returns [EObject current=null]
  				)
 			)  
 
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationMethodAccess().getUnorderedGroup_7())}?	
+		)*	
 	)
 )
 	{ 
