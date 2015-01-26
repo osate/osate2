@@ -16,6 +16,10 @@ import com.google.inject.Inject
 import org.osate.assure.linking.AssureLinkingService
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 import com.rockwellcollins.atc.resolute.analysis.results.FailResult
+import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider
+import org.osate.assure.assure.ResultIssue
+import org.osate.assure.assure.impl.ResultIssueImpl
+import org.osate.assure.assure.AssureFactory
 
 @ImplementedBy(DefaultVerificationMethodDispatcher)
 interface IVerificationMethodDispatcher {
@@ -78,12 +82,9 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			if (proof.valid){
 				setToSuccess(verificationActivityResult)
 			} else {
-				// XXX need to handle the way fail results are sub results.
-				// may be recursive
-				val fails = proof.children.filter[r|r instanceof FailResult]
-				val fail = fails.head as FailResult
-				val failmsg = fail.text
-				setToFail(verificationActivityResult, proof.location, proof.text)
+				val proveri = AssureFactory.eINSTANCE.createResultIssue
+				proof.doResoluteResults(proveri)
+				setToFail(verificationActivityResult, proveri.issues)
 			}
 		}
 		}

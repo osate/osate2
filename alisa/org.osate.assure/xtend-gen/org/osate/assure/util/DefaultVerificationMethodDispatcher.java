@@ -6,7 +6,6 @@ import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext;
 import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsMap;
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter;
 import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult;
-import com.rockwellcollins.atc.resolute.analysis.results.FailResult;
 import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult;
 import com.rockwellcollins.atc.resolute.resolute.Expr;
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr;
@@ -14,18 +13,16 @@ import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement;
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory;
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr;
-import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.assure.assure.AssureFactory;
+import org.osate.assure.assure.ResultIssue;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.linking.AssureLinkingService;
 import org.osate.assure.util.AssureUtilExtension;
@@ -138,19 +135,10 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
             if (_isValid) {
               AssureUtilExtension.setToSuccess(verificationActivityResult);
             } else {
-              List<ResoluteResult> _children = proof.getChildren();
-              final Function1<ResoluteResult, Boolean> _function = new Function1<ResoluteResult, Boolean>() {
-                public Boolean apply(final ResoluteResult r) {
-                  return Boolean.valueOf((r instanceof FailResult));
-                }
-              };
-              final Iterable<ResoluteResult> fails = IterableExtensions.<ResoluteResult>filter(_children, _function);
-              ResoluteResult _head = IterableExtensions.<ResoluteResult>head(fails);
-              final FailResult fail = ((FailResult) _head);
-              final String failmsg = fail.getText();
-              EObject _location = proof.getLocation();
-              String _text = proof.getText();
-              AssureUtilExtension.setToFail(verificationActivityResult, _location, _text);
+              final ResultIssue proveri = AssureFactory.eINSTANCE.createResultIssue();
+              AssureUtilExtension.doResoluteResults(proof, proveri);
+              EList<ResultIssue> _issues = proveri.getIssues();
+              AssureUtilExtension.setToFail(verificationActivityResult, _issues);
             }
             break;
           default:

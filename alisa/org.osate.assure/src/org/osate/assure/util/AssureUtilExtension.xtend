@@ -38,6 +38,8 @@ import java.util.TreeSet
 import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator
 import org.osate.aadl2.instance.ConnectionInstance
 import com.rockwellcollins.atc.resolute.validation.BaseType;
+import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider
+import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult
 
 class AssureUtilExtension {
 
@@ -123,6 +125,16 @@ class AssureUtilExtension {
 	}
 	
 	
+	static val resoluteContent = new ResoluteResultContentProvider
+	
+	def static void doResoluteResults(ResoluteResult rr, ResultIssue ri){
+		val subrrs = resoluteContent.getChildren(rr)
+		subrrs.forEach[subrr | val subclaim = subrr as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
+			val subri = ri.addErrorIssue(subclaim.location, subclaim.text)
+			subclaim.doResoluteResults(subri)
+		]
+	}
+	
 	
 	def static ResultIssue addErrorIssue(VerificationActivityResult vr, EObject target, String message){
 		val issue = AssureFactory.eINSTANCE.createResultIssue
@@ -131,6 +143,33 @@ class AssureUtilExtension {
 		issue.issueType = ResultIssueType.ERROR;
 		issue.target = target
 		vr.issues.add(issue)
+		issue
+	}
+	
+	def static ResultIssue addErrorIssue(ResultIssue ri, EObject target, String message){
+		val issue = AssureFactory.eINSTANCE.createResultIssue
+		issue.message = message
+		issue.issueType = ResultIssueType.ERROR;
+		issue.target = target
+		ri.issues.add(issue)
+		issue
+	}
+	
+	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message){
+		val issue = AssureFactory.eINSTANCE.createResultIssue
+		issue.message = message
+		issue.issueType = ResultIssueType.SUCCESS;
+		issue.target = target
+		ri.issues.add(issue)
+		issue
+	}
+	
+	def static ResultIssue addWarningIssue(ResultIssue ri, EObject target, String message){
+		val issue = AssureFactory.eINSTANCE.createResultIssue
+		issue.message = message
+		issue.issueType = ResultIssueType.WARNING;
+		issue.target = target
+		ri.issues.add(issue)
 		issue
 	}
 	
@@ -404,6 +443,11 @@ class AssureUtilExtension {
 	def static void setToSuccess(VerificationActivityResult verificationActivityResult) {
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS)) verificationActivityResult.propagateCountChangeUp
 	}
+	 
+	def static void setToSuccess(VerificationActivityResult verificationActivityResult, List<ResultIssue> rl) {
+		verificationActivityResult.issues.addAll(rl);
+		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS)) verificationActivityResult.propagateCountChangeUp
+	}
 
 	def static void setToTBD(VerificationActivityResult verificationActivityResult) {
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.TBD))verificationActivityResult.propagateCountChangeUp
@@ -411,6 +455,11 @@ class AssureUtilExtension {
 
 	def static void setToFail(VerificationActivityResult verificationActivityResult, String message) {
 		verificationActivityResult.addErrorIssue(null,message,null);
+		if(verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL)) verificationActivityResult.propagateCountChangeUp
+	}
+
+	def static void setToFail(VerificationActivityResult verificationActivityResult, List<ResultIssue> rl) {
+		verificationActivityResult.issues.addAll(rl);
 		if(verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL)) verificationActivityResult.propagateCountChangeUp
 	}
 

@@ -142,7 +142,7 @@ AndThenResult returns AndThenResult:
 	']'
 ;
 
-
+// use it for failures, warnings and successes.
 ResultIssue:
 	issueType=ResultIssueType ':'
 	message=STRING
