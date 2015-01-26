@@ -73,7 +73,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	}
 
 	@Override
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.flows.FlowLatencyObjectMarker";
 	}
 
