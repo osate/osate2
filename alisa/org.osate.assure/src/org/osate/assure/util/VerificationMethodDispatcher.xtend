@@ -79,6 +79,7 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 				setToSuccess(verificationActivityResult)
 			} else {
 				// XXX need to handle the way fail results are sub results.
+				// may be recursive
 				val fails = proof.children.filter[r|r instanceof FailResult]
 				val fail = fails.head as FailResult
 				val failmsg = fail.text
