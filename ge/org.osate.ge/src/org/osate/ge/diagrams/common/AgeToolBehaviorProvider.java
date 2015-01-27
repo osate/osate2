@@ -122,7 +122,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		} else if(originalPe instanceof Shape) {					
 			// Return the first shape that has a business object
 			Shape shape = (Shape)originalPe;
-			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null || propertyService.isInnerShape(shape) || propertyService.isUnselectable(originalPe))) {
+			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null || propertyService.isInnerShape(shape) || propertyService.isUnselectable(shape))) {
 				shape = shape.getContainer();
 			}
 			return shape;
@@ -302,5 +302,24 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		compartments.removeEmpty();
 
 		return compartments.toArray();
+	}
+	
+	/**
+	 * Overrides the mechanism to get the graphics algorithm used to determine the chop box location so that if the graphics algorithm that would normally be used for the chopbox is 
+	 * invisible and has a single visible child, then it uses the child instead. 
+	 * @param pe
+	 * @return
+	 */
+	@Override
+	public GraphicsAlgorithm getChopboxAnchorArea(final PictogramElement pe) {
+		final GraphicsAlgorithm ga = super.getChopboxAnchorArea(pe);
+		if(!ga.getFilled() && !ga.getLineVisible() && ga.getGraphicsAlgorithmChildren().size() == 1) {
+			final GraphicsAlgorithm childGa = ga.getGraphicsAlgorithmChildren().get(0);
+			if(childGa.getLineVisible() || childGa.getFilled()) {
+				return childGa;
+			}
+		}
+		
+		return ga;
 	}
 }

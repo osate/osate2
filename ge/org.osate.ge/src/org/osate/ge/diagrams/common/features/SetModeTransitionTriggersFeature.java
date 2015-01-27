@@ -26,6 +26,7 @@ import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ComponentImplementationService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
@@ -39,14 +40,17 @@ public class SetModeTransitionTriggersFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final ShapeService shapeService;
+	private final ComponentImplementationService componentImplementationService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public SetModeTransitionTriggersFeature(final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public SetModeTransitionTriggersFeature(final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final ShapeService shapeService, 
+			final ComponentImplementationService componentImplementationService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		super(fp);
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.shapeService = shapeService;
+		this.componentImplementationService = componentImplementationService;
 		this.bor = bor;
 	}
 	
@@ -108,7 +112,7 @@ public class SetModeTransitionTriggersFeature extends AbstractCustomFeature {
 		}
 		
 		final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(pe);
-		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, mt);
+		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, mt, componentImplementationService);
 		if(selectedTriggers != null) {
 			// Make the modification to the mode	
 			aadlModService.modify(mt, new AbstractModifier<ModeTransition, Object>() {

@@ -80,6 +80,14 @@ public interface PropertyService {
 	boolean isTransient(PictogramElement pe);
 	void setIsTransient(PictogramElement pe, boolean value);
 	
+	/**
+	 * Sets whether the shape is a "background" shape. Background shapes are inner shape that are used when a non-selectable inner shape that will be behind other features is needed. Disables overlap checks.
+	 * @param pe
+	 * @return
+	 */
+	boolean isBackground(PictogramElement pe);
+	void setIsBackground(PictogramElement pe, boolean value);
+	
 	// Bindings
 	BindingType getBindingType(Connection c);
 	void setBindingType(Connection c, BindingType value);

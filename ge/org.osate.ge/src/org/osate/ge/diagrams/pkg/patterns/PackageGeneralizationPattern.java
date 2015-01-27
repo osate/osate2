@@ -165,7 +165,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	private boolean areSrcAndDestCompatible(final Object srcBo, final Object dstBo) {
 		// Ensure they are valid and are not the same
-		if (srcBo == null || dstBo == null || srcBo == dstBo) {
+		if (srcBo == null || dstBo == null || bor.areBusinessObjectsEqual(srcBo, dstBo)) {
 			return false;
 		}
 
@@ -355,7 +355,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 			dstBo = newBo;
 		}
 
-		if (oldBo == newBo || otherBo == newBo || !areSrcAndDestCompatible(srcBo, dstBo)) {
+		if (bor.areBusinessObjectsEqual(oldBo, newBo) || bor.areBusinessObjectsEqual(otherBo, newBo) || !areSrcAndDestCompatible(srcBo, dstBo)) {
 			return false;
 		}
 

@@ -108,7 +108,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		}
 				
 		// Prune Invalid Generalizations
-		ghostingService.ghostInvalidConnections(diagram);
+		ghostingService.ghostConnections(diagram);
 
 		// Prune Invalid Shapes
 		ghostingService.ghostInvalidChildShapes(diagram);

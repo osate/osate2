@@ -57,6 +57,7 @@ import org.osate.ge.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionT
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ComponentImplementationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.NamingService;
@@ -82,12 +83,13 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	private final BusinessObjectResolutionService bor;
 	private final PropertyService propertyService;
 	private final SubcomponentService subcomponentService;
+	private final ComponentImplementationService componentImplementationService;
 	
 	@Inject
 	public ModeTransitionPattern(final GhostingService ghostingService, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
 			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService,
-			final SubcomponentService subcomponentService) {
+			final SubcomponentService subcomponentService, final ComponentImplementationService componentImplementationService) {
 		super(ghostingService, connectionHelper, bor);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
@@ -100,6 +102,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 		this.bor = bor;
 		this.propertyService = propertyService;
 		this.subcomponentService = subcomponentService;
+		this.componentImplementationService = componentImplementationService;		
 	}
 
 	@Override
@@ -497,7 +500,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 		// Determine the name for the new mode transition
 		final String newElementName = namingService.buildUniqueIdentifier(cc, "new_transition");
 
-		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, null);
+		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, null, componentImplementationService);
 		if(selectedTriggers != null) {
 			// Make the modification
 			aadlModService.modify(cc, new AbstractModifier<ComponentClassifier, ModeTransition>() {

@@ -55,6 +55,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -81,6 +82,7 @@ import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ComponentImplementationService;
 import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
@@ -98,7 +100,6 @@ import org.osate.ge.services.SubcomponentService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.ui.util.ComponentImplementationHelper;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -131,6 +132,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
 	private final RefactoringService refactoringService;
+	private final ComponentImplementationService componentImplementationService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType; // The subcomponent the pattern is responsible for handling. null if the pattern is for handling a classifier.
 	
@@ -165,7 +167,8 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final PropertyService propertyService, final AadlArrayService arrayService,
 			final HighlightingService highlightingService, final AnchorService anchorService, final AadlModificationService aadlModService, final NamingService namingService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final RefactoringService refactoringService, 
-			final ConnectionService connectionService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
+			final ConnectionService connectionService, final ComponentImplementationService componentImplementationService, final BusinessObjectResolutionService bor, 
+			final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.ghostingService = ghostingService;
 		this.layoutService = layoutService;
 		this.shapeService = shapeService;
@@ -185,6 +188,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		this.userInputService = userInputService;
 		this.refactoringService = refactoringService;
 		this.connectionService = connectionService;
+		this.componentImplementationService = componentImplementationService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -285,7 +289,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
         link(shape, new AadlElementWrapper(bo));       
         
         // Finish creating
-        refresh(shape, bo, context.getX(), context.getY(), 0, 0);
+        refresh(shape, bo, context.getX(), context.getY());
         
         return shape;
 	}
@@ -297,18 +301,15 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		
 		if(pe instanceof ContainerShape) {
 			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
-			final int x, y, width, height;
+			final int x, y;
 			if(ga == null) {
 				x = 25;
 				y = 25;
-				width = height = 0;
 			} else {
 				x = ga.getX();
 				y = ga.getY();
-				width = ga.getWidth();
-				height = ga.getHeight();
 			}
-			this.refresh((ContainerShape)pe, bo, x, y, width, height);
+			this.refresh((ContainerShape)pe, bo, x, y);
 		}
 		return true;
 	}	
@@ -329,7 +330,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		return classifier;
 	}
 	
-	private void refresh(final ContainerShape shape, final Object bo, final int x, final int y, final int minWidth, final int minHeight) {
+	private void refresh(final ContainerShape shape, final Object bo, final int x, final int y) {
 		ghostingService.setIsGhost(shape, false);
 		anchorService.removeAnchorsWithoutConnections(shape);
 		
@@ -341,8 +342,8 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		ghostingService.ghostInvalidChildShapes(shape);
 		
 		// Ghost all invalid connections owned by the shape
-		ghostingService.ghostInvalidConnections(shape);
-
+		ghostingService.ghostConnections(shape);
+		
 		// Ghost descendant connections if contents should not be shown. Flow specs will be unghosted when they are updated.
 		if(!showContents) {
 			ghostDescendantConnections(shape);
@@ -354,16 +355,21 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 
 		final List<Shape> touchedShapes = new ArrayList<Shape>();
 		if(classifier != null) {
-			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllOwnedFeatures(classifier), touchedShapes);
+			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllDeclaredFeatures(classifier), touchedShapes);
 		}
 		
 		if(showContents) {
 			// Create component implementation specific shapes
 			if(classifier instanceof ComponentImplementation) {
 				final ComponentImplementation ci = (ComponentImplementation)classifier;
-				shapeCreationService.createUpdateFeatureShapes(shape, ComponentImplementationHelper.getAllInternalFeatures(ci), touchedShapes);
-				shapeCreationService.createUpdateFeatureShapes(shape, ComponentImplementationHelper.getAllProcessorFeatures(ci), touchedShapes);
-				shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20, touchedShapes);
+				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllInternalFeatures(ci), touchedShapes);
+				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllProcessorFeatures(ci), touchedShapes);
+				shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20, touchedShapes);		
+			}
+			
+			if(classifier instanceof BehavioredImplementation) {
+				final BehavioredImplementation bi = (BehavioredImplementation)classifier;
+				shapeCreationService.createUpdateShapesForElements(shape, componentImplementationService.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20, touchedShapes);
 			}
 			
 			// Create/Update Modes and Mode Transitions
@@ -431,7 +437,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	        graphicsAlgorithmCreator.createMultiLineLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
 		}	
 
-		layout(shape, bo, x, y, minWidth, minHeight);
+		layout(shape, bo, x, y);
 
 		// Create/update the chopbox anchor
 		anchorService.createOrUpdateChopboxAnchor(shape, chopboxAnchorName);
@@ -752,12 +758,10 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
 		final int x = shape.getGraphicsAlgorithm().getX();
 		final int y = shape.getGraphicsAlgorithm().getY();
-		final int minWidth = shape.getGraphicsAlgorithm().getWidth();
-		final int minHeight = shape.getGraphicsAlgorithm().getHeight();
-		return layout(shape, bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), x , y, minWidth, minHeight);
+		return layout(shape, bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), x , y);
 	}
 	
-	private boolean layout(final ContainerShape shape, final Object bo, final int x, final int y, int minWidth, int minHeight) {
+	private boolean layout(final ContainerShape shape, final Object bo, final int x, final int y) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga;			
 		
@@ -791,7 +795,6 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			// Set the position and size of the text	        
 			gaService.setLocation(labelBackground, (ga.getWidth() - paddedLabelTextWidth) / 2, 2);
 			gaService.setLocation(subcomponentTypeLabelBackground, (ga.getWidth() - paddedTypeTextWidth) / 2, labelText.getY()+paddedLabelTextHeight);
-
 			
 			// Set color based on current mode
 			highlightingService.highlight((Subcomponent)bo, null, ga);
@@ -1021,11 +1024,16 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
 	
-	// Renaming
+	// Renaming	
 	@Override
 	public int getEditingType() {
         return TYPE_TEXT;
     }
+
+	@Override
+	public boolean stretchFieldToFitText() {
+		return true;
+	}
 	
     @Override
     public String checkValueValid(final String value, final IDirectEditingContext context) {

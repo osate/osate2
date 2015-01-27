@@ -17,9 +17,11 @@ import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
+import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
@@ -34,6 +36,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ProcessorFeature;
+import org.osate.ge.diagrams.common.AgeResizeConfiguration;
 import org.osate.ge.layout.MonteCarloLayout;
 import org.osate.ge.layout.MonteCarloLayout.LayoutOperation;
 import org.osate.ge.layout.Shape.PositionMode;
@@ -43,6 +46,12 @@ import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.util.Log;
 
+/**
+ * Lays out the pictogram elements included in a diagram using an algorithm.
+ * To specify a minimum size for a shape, the resize feature or pattern for the shape must return a resize configuration that implements AgeResizeConfiguration.
+ * @author philip.alldredge
+ *
+ */
 public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private static String relayoutShapesPropertyKey = "relayout";
 	// Settings that determine how many different layouts to test. See usage for more details.
@@ -171,7 +180,7 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	private org.osate.ge.layout.Shape createLayoutShape(final Shape diagramShape, Map<Object, Object> shapeMap, final org.osate.ge.layout.Shape parentLayoutShape, final boolean relayoutShapes) {
 		// Restrict what shapes are positioned
 		final Object bo = bor.getBusinessObjectForPictogramElement(diagramShape);
-
+		
 		// Determine the position mode to use for the new layout shape			
 		// Don't change the position of shapes that have already been positioned if not repositioning all shapes
 		final PositionMode positionMode;
@@ -187,7 +196,19 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		
 		// Create the layout shape
 		final GraphicsAlgorithm ga = diagramShape.getGraphicsAlgorithm();
-		final org.osate.ge.layout.Shape newLayoutShape = new org.osate.ge.layout.Shape(parentLayoutShape, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight(), canResize(diagramShape), positionMode); 
+		final IResizeShapeContext resizeContext = createNoOpResizeShapeContext(diagramShape);
+		final IResizeShapeFeature resizeFeature = getFeatureProvider().getResizeShapeFeature(resizeContext);
+		final boolean canResize = resizeFeature != null && resizeFeature.canResizeShape(resizeContext);
+		final org.osate.ge.layout.Shape newLayoutShape = new org.osate.ge.layout.Shape(parentLayoutShape, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight(), canResize, positionMode);
+
+		final IResizeConfiguration resizeConfiguration = resizeFeature == null ? null : resizeFeature.getResizeConfiguration(resizeContext);
+		if(resizeConfiguration instanceof AgeResizeConfiguration) {
+			final AgeResizeConfiguration ageConf = (AgeResizeConfiguration)resizeConfiguration;
+			if(ageConf.hasMinimumSize()) {
+				newLayoutShape.setMinimumSize(ageConf.getMinimumWidth(), ageConf.getMinimumHeight());
+			}
+		}		
+		
 		shapeMap.put(newLayoutShape, diagramShape);
 		shapeMap.put(diagramShape, newLayoutShape);
 
@@ -216,18 +237,22 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 		return false;
 	}
 	
-	private boolean canResize(final Shape shape) {
+	/** 
+	 * Creates a resize shape context that uses the shapes existing location and size. Useful for determining if resizing is supported.
+	 * @param shape
+	 * @return
+	 */
+	private IResizeShapeContext createNoOpResizeShapeContext(final Shape shape) {
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		if(ga == null) {
-			return false;
+			return null;
 		}
 		
 		final ResizeShapeContext context = new ResizeShapeContext(shape);
 		context.setSize(ga.getWidth(), ga.getHeight());
 		context.setLocation(ga.getX(), ga.getY());
 		
-		final IResizeShapeFeature feature = getFeatureProvider().getResizeShapeFeature(context);
-		return feature != null && feature.canResizeShape(context);
+		return context;
 	}
 	
 	private void updateShape(final org.osate.ge.layout.Shape layoutShape, final Map<Object, Object> shapeMap) {

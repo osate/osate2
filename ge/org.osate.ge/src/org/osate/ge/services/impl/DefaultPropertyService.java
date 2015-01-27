@@ -28,6 +28,7 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String IS_INNER_SHAPE_KEY = "is_inner_shape"; // Inner shapes are shapes that are a child of an are considered part of another shape. They may be related to the same business object. They may be active for practical reasons 
 	private static final String IS_UNSELECTABLE_KEY = "is_unselectable";
 	private static final String IS_TRANSIENT_KEY = "is_transient";
+	private static final String IS_BACKGROUND_KEY = "is_background";
 	private static final String BINDING_TYPE_KEY = "binding_type";
 	private static final String SHOW_BINDING_TYPE_KEY_BASE = "show_binding_type";
 
@@ -211,6 +212,16 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public void setIsTransient(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_TRANSIENT_KEY, value ? "true" : "false");
+	}
+	
+	@Override
+	public boolean isBackground(PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_BACKGROUND_KEY));
+	}
+	
+	@Override
+	public void setIsBackground(PictogramElement pe, boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_BACKGROUND_KEY, value ? "true" : "false");
 	}
 	
 	// Bindings

@@ -193,7 +193,7 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
 			final Object dstBo = bor.getBusinessObjectForPictogramElement(dc);
 			for(final Connection sc : srcShapeConnections) {
 				final Object srcBo = bor.getBusinessObjectForPictogramElement(sc);
-				if(dstBo != null && dstBo == srcBo) {
+				if(dstBo != null && bor.areBusinessObjectsEqual(dstBo, srcBo)) {
 					// Adjust bendpoints of free form connections
 					if(dc instanceof FreeFormConnection && sc instanceof FreeFormConnection) {						
 						final FreeFormConnection dstFfc = (FreeFormConnection)dc;

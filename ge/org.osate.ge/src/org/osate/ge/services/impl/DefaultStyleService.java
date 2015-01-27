@@ -262,6 +262,11 @@ public class DefaultStyleService implements StyleService {
 		return getStyle("subprogram_group_access");
     }
 	
+	@Override
+	public Style getSubprogramCallOrderStyle() {
+		return getStyle("subprogram_call_order");
+    }
+	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.StyleService#getBackgroundStyle(org.eclipse.graphiti.mm.pictograms.Diagram)
 	 */

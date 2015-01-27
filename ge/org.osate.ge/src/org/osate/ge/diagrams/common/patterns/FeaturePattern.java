@@ -71,6 +71,7 @@ import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.ThreadGroupImplementation;
 import org.osate.aadl2.ThreadImplementation;
@@ -106,8 +107,6 @@ import org.osate.ge.util.StringUtil;
  * Note: With the exception of child feature shapes, child shapes are recreated during updates so they should not be referenced.
  * @author philip.alldredge
  */
-// TODO: Not a leaf shape since it may contain children associated with business objects. Rename the leaf shape pattern
-// or do not extend AgeLeafShapePattern. The latter may be preferable due to the way this class interacts with its children.
 public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	private static final String featureShapeName = "feature";
 	private static final String labelShapeName = "label";	
@@ -207,20 +206,6 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		return featureType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
 	}
-	
-	@Override
-	public boolean canMoveShape(final IMoveShapeContext ctx) {
-		if(ctx.getPictogramElement() instanceof Shape){
-			final Shape shape = (Shape)ctx.getPictogramElement();
-			final ContainerShape container = shape.getContainer();
-			final Object containerBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(container));
-			if(containerBo instanceof Classifier || containerBo instanceof Subcomponent) {
-				return super.canMoveShape(ctx);
-			}
-		}
-
-		return false;
-	}
 
 	@Override
 	public boolean canAdd(final IAddContext context) {
@@ -236,23 +221,38 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		return false;
 	}
 	
+	// Move
 	@Override
-	protected void preMoveShape(final IMoveShapeContext context) {
-		super.preMoveShape(context);
+	public boolean canMoveShape(final IMoveShapeContext ctx) {
+		if(ctx.getPictogramElement() instanceof Shape){
+			final Shape shape = (Shape)ctx.getPictogramElement();
+			final ContainerShape container = shape.getContainer();
+			final Object containerBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(container));
+			if(containerBo instanceof Classifier || containerBo instanceof Subcomponent || containerBo instanceof SubprogramCall) {
+				return super.canMoveShape(ctx);
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	protected void preMoveShape(final IMoveShapeContext ctx) {
+		super.preMoveShape(ctx);
 		
-		final Shape shape = context.getShape();
+		final Shape shape = ctx.getShape();
 		final int containerWidth = shape.getContainer().getGraphicsAlgorithm().getWidth();
 		final int containerHeight = shape.getContainer().getGraphicsAlgorithm().getHeight();
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
-		final boolean isLeft = calculateIsLeft(shape.getContainer(), context.getX(), shapeGa.getWidth());
-		final MoveShapeContext mutableContext = (MoveShapeContext)context;
+		final boolean isLeft = calculateIsLeft(shape.getContainer(), ctx.getX(), shapeGa.getWidth());
+		final MoveShapeContext mutableContext = (MoveShapeContext)ctx;
 		mutableContext.setX(isLeft ? 0 : containerWidth-shapeGa.getWidth());
-		
+		 
 		// Snap to the top/bottom instead of resizing container
-		if(context.getY() < 0) {
+		if(ctx.getY() < 0) {
 			mutableContext.setY(0);
 		} else {
-			final int bottomY = context.getY() + shapeGa.getHeight();
+			final int bottomY = ctx.getY() + shapeGa.getHeight();
 			if(bottomY > containerHeight) {
 				mutableContext.setY(containerHeight - shapeGa.getHeight());
 			}
@@ -260,9 +260,9 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	}
 
 	@Override 
-	protected void postMoveShape(final IMoveShapeContext context) {
-		super.postMoveShape(context);
-		final ContainerShape shape = (ContainerShape)context.getShape();		
+	protected void postMoveShape(final IMoveShapeContext ctx) {
+		super.postMoveShape(ctx);
+		final ContainerShape shape = (ContainerShape)ctx.getShape();		
 
 		// Update whether or not the shape is on the left or not
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
@@ -272,7 +272,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		layoutAll(shape);
 		updateAnchors(shape);
 		
-		if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
+		if(layoutService.checkContainerSize((ContainerShape)ctx.getPictogramElement())) {
 			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
 		}
 		
@@ -280,6 +280,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		connectionService.updateConnectionAnchors(shape);
 	}
 
+	// Layout
 	@Override
 	public boolean canLayout(final ILayoutContext context) {
 		return isPatternControlled(context.getPictogramElement());
@@ -683,7 +684,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 			}
 			
 			final Object containerBo = AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(container));
-			if(containerBo instanceof Classifier || containerBo instanceof Subcomponent) {
+			if(containerBo instanceof Classifier || containerBo instanceof Subcomponent || containerBo instanceof SubprogramCall) {
 				break;
 			}
 			shape = container;

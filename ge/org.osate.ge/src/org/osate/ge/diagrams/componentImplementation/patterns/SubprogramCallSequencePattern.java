@@ -1,10 +1,37 @@
+/*******************************************************************************
+ * Copyright (C) 2015 University of Alabama in Huntsville (UAH)
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package org.osate.ge.diagrams.componentImplementation.patterns;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.graphiti.features.IResizeConfiguration;
+import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IDirectEditingContext;
+import org.eclipse.graphiti.features.context.ILayoutContext;
+import org.eclipse.graphiti.features.context.IMoveShapeContext;
+import org.eclipse.graphiti.features.context.IResizeShapeContext;
+import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Aadl2Factory;
@@ -12,9 +39,12 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.DefaultAgeResizeConfiguration;
 import org.osate.ge.diagrams.common.AgeImageProvider;
 import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgePattern;
@@ -23,27 +53,58 @@ import org.osate.ge.dialogs.SelectSubprogramDialog;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.ComponentImplementationService;
+import org.osate.ge.services.ConnectionCreationService;
 import org.osate.ge.services.DiagramModificationService;
+import org.osate.ge.services.LabelService;
+import org.osate.ge.services.LayoutService;
+import org.osate.ge.services.PropertyService;
+import org.osate.ge.services.RefactoringService;
+import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeCreationService;
+import org.osate.ge.services.StyleService;
 
 public class SubprogramCallSequencePattern extends AgePattern implements Categorized {
+	private static final String nameShapeName = "label";
 	private final NamingService namingService;
 	private final ShapeCreationService shapeCreationService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final AadlFeatureService featureService;
+	private final ComponentImplementationService componentImplementationService;
+	private final GhostingService ghostingService;
+	private final StyleService styleService;
+	private final LayoutService layoutService;
+	private final ShapeService shapeService;
+	private final LabelService labelService;
+	private final ConnectionCreationService connectionCreationService;
+	private final PropertyService propertyService;
+	private final RefactoringService refactoringService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public SubprogramCallSequencePattern(final NamingService namingService, final ShapeCreationService shapeCreationService, final AadlModificationService aadlModService,
-			final DiagramModificationService diagramModService, final AadlFeatureService featureService, final BusinessObjectResolutionService bor) {
+			final DiagramModificationService diagramModService, final AadlFeatureService featureService, final ComponentImplementationService componentImplementationService,
+			final GhostingService ghostingService, final StyleService styleService, final LayoutService layoutService, 
+			final ShapeService shapeService, final LabelService labelService, final ConnectionCreationService connectionCreationService, 
+			final PropertyService propertyService, final RefactoringService refactoringService, final BusinessObjectResolutionService bor) {
 		this.namingService = namingService;
 		this.shapeCreationService = shapeCreationService;
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.featureService = featureService;
+		this.componentImplementationService = componentImplementationService;
+		this.ghostingService = ghostingService;
+		this.styleService = styleService;
+		this.shapeService = shapeService;
+		this.layoutService = layoutService;
+		this.labelService = labelService;
+		this.connectionCreationService = connectionCreationService;
+		this.propertyService = propertyService;
+		this.refactoringService = refactoringService;
 		this.bor = bor;		
 	}
 	
@@ -56,6 +117,173 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		final Object bo = AadlElementWrapper.unwrap(mainBusinessObject);
 		return bo instanceof SubprogramCallSequence;
+	}
+	
+	// Add
+	@Override
+	public boolean canAdd(final IAddContext context) {
+		if(isMainBusinessObjectApplicable(context.getNewObject())) {
+			final Object targetBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
+			return targetBo instanceof BehavioredImplementation;
+		}
+
+		return false;
+	}
+	
+	@Override
+	public final PictogramElement add(final IAddContext context) {
+		final SubprogramCallSequence cs = (SubprogramCallSequence)AadlElementWrapper.unwrap(context.getNewObject());
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		
+        // Create the container shape
+        final ContainerShape shape = peCreateService.createContainerShape(context.getTargetContainer(), true);
+        link(shape, new AadlElementWrapper(cs));       
+        
+        // Finish creating
+        refresh(shape, cs, context.getX(), context.getY(), layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+        
+        return shape;
+	}
+	
+	// Update
+	@Override
+	public final boolean update(final IUpdateContext context) {
+		final PictogramElement pe = context.getPictogramElement();
+		final SubprogramCallSequence cs = (SubprogramCallSequence)bor.getBusinessObjectForPictogramElement(pe);
+		
+		if(pe instanceof ContainerShape) {
+			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
+			if(ga == null) {
+				refresh((ContainerShape)pe, cs, 255, 255, layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+			} else {
+				refresh((ContainerShape)pe, cs, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight());
+			}
+		}
+		return true;
+	}
+	
+	private List<SubprogramCallOrder> getSubprogramCallOrders(List<SubprogramCall> subprogramCalls) {
+		final List<SubprogramCallOrder> callOrders = new ArrayList<SubprogramCallOrder>();
+		
+		// Create SubprogramCallOrder objects to store the order of the subprogram calls
+		for(int i = 1; i < subprogramCalls.size(); i++) {
+			callOrders.add(new SubprogramCallOrder(subprogramCalls.get(i-1), subprogramCalls.get(i)));
+		}
+		
+		return callOrders;
+	}
+	
+	// Shared Between add and update
+	private void refresh(final ContainerShape shape, final SubprogramCallSequence cs, final int x, final int y, final int minWidth, final int minHeight) {
+		// Handle ghosting
+		ghostingService.setIsGhost(shape, false);
+		ghostingService.ghostInvalidChildShapes(shape);				
+		ghostingService.ghostConnections(shape);
+		
+		final List<Shape> touchedShapes = new ArrayList<Shape>();
+		final Set<Shape> childShapesToGhost = new HashSet<Shape>();
+		childShapesToGhost.addAll(shapeService.getNonGhostChildren(shape));
+
+		final List<SubprogramCall> subprogramCalls = cs.getOwnedSubprogramCalls();
+
+		// Create/Update subprogram call shapes
+		shapeCreationService.createUpdateShapesForElements(shape, subprogramCalls, 25, true, 30, 25, true, 20, touchedShapes);
+		
+		// Ghost children that haven't been updated
+		childShapesToGhost.removeAll(touchedShapes);
+		for(final Shape child : childShapesToGhost) {
+			ghostingService.setIsGhost(child, true);
+		}
+		
+		// Create connections to represent the order of the subprogram calls
+		connectionCreationService.createUpdateConnections(shape, getSubprogramCallOrders(subprogramCalls));
+
+		// Create labels
+        labelService.createLabelShape(shape, nameShapeName, cs, getName(cs));
+        
+        // Create appropriate symbol
+        final IGaService gaService = Graphiti.getGaService();
+        final GraphicsAlgorithm ga = gaService.createPlainRectangle(shape);
+        ga.setStyle(styleService.getStyle("subprogram_call_sequence"));
+        ga.setFilled(false);
+        
+        // Layout the contents of the graphics algorithm. This sets the position and size of the graphics algorithm
+		layout(shape, cs, x, y);    
+	}
+	
+	// Move
+	@Override 
+	protected void postMoveShape(final IMoveShapeContext context) {
+		super.postMoveShape(context);
+
+		if(layoutService.checkContainerSize((ContainerShape)context.getPictogramElement())) {
+			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+		}
+	}
+	
+	// Resize
+	@Override
+	public boolean canResizeShape(final IResizeShapeContext context) {
+		return !propertyService.isTransient(context.getPictogramElement()); // Don't allow resizing of transient shapes such as labels
+	}
+	
+	@Override
+	public IResizeConfiguration getResizeConfiguration(IResizeShapeContext context) {
+		final DefaultAgeResizeConfiguration conf = new DefaultAgeResizeConfiguration();
+		conf.setMinimumSize(layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+		return conf;		
+	}
+
+	@Override
+	public void resizeShape(final IResizeShapeContext context) {
+		final ContainerShape shape = (ContainerShape)context.getPictogramElement();			
+		super.resizeShape(context);
+
+		layoutService.checkContainerSize(shape);
+		
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
+
+		// When the graphics algorithm is recreated, the selection is lost. This triggers the selection to be restored on the next editor refresh 
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements());
+	}
+	
+	// Layout
+	public boolean canLayout(ILayoutContext context) {
+		return isMainBusinessObjectApplicable(getBusinessObjectForPictogramElement(context.getPictogramElement())) && context.getPictogramElement() instanceof ContainerShape;
+	}
+	
+	@Override
+	public boolean layout(ILayoutContext context) {
+		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
+		final int x = shape.getGraphicsAlgorithm().getX();
+		final int y = shape.getGraphicsAlgorithm().getY();
+		return layout(shape, bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), x , y);
+	}
+	
+	private boolean layout(final ContainerShape shape, final Object bo, final int x, final int y) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Shape nameShape = getNameShape(shape);
+		
+		// Create the graphics algorithm for the shape
+		final int newSize[] = layoutService.adjustChildShapePositions(shape);
+		if(nameShape != null) {
+			newSize[0] = Math.max(Math.max(newSize[0], layoutService.getMinimumWidth()), nameShape.getGraphicsAlgorithm().getWidth() + 30);
+			newSize[1] = Math.max(Math.max(newSize[1], layoutService.getMinimumHeight()), nameShape.getGraphicsAlgorithm().getHeight() + 30);
+		}
+		
+		gaService.setLocationAndSize(shape.getGraphicsAlgorithm(), x, y, newSize[0], newSize[1]);
+		
+        // Layout labels
+		if(nameShape != null) {
+			final int shapeWidth = shape.getGraphicsAlgorithm().getWidth();
+			gaService.setLocation(nameShape.getGraphicsAlgorithm(), (shapeWidth - nameShape.getGraphicsAlgorithm().getWidth()) / 2, 5);
+		}
+		
+		return true;	
+	}
+	
+	private Shape getNameShape(final ContainerShape shape) {
+		return shapeService.getChildShapeByName(shape, nameShapeName);
 	}
 	
 	// Create
@@ -76,7 +304,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	}
 	
 	@Override
-	public boolean canCreate(final ICreateContext context) {		
+	public boolean canCreate(final ICreateContext context) {	
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
 		return !(context.getTargetContainer() instanceof Diagram) && containerBo instanceof BehavioredImplementation;
 	}
@@ -88,7 +316,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 			return EMPTY;
 		}
 		
-		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, bi);
+		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, componentImplementationService, bi);
 
 		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
 		if(dlg.open() == Dialog.CANCEL) {
@@ -139,4 +367,59 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		// Return the new call sequence if it was created
 		return newScs == null ? EMPTY : new Object[] {newScs};
 	}
+	
+	// Direct Edit / Rename
+    @Override
+    public boolean canDirectEdit(final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+        final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+        final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
+
+        if (bo instanceof SubprogramCallSequence && pe instanceof Shape && ga instanceof Text && nameShapeName.equals(propertyService.getName(pe))) {
+        	final SubprogramCallSequence cs = (SubprogramCallSequence)bo;
+        	return cs.getContainingClassifier() == getComponentImplementation((Shape)pe);
+        }
+        
+        return false;
+    }
+    
+	@Override
+	public int getEditingType() {
+        return TYPE_TEXT;
+    }
+	
+	@Override
+	public boolean stretchFieldToFitText() {
+		return true;
+	}
+		
+    @Override
+    public String checkValueValid(final String value, final IDirectEditingContext context) {
+    	return namingService.checkNameValidity((NamedElement)bor.getBusinessObjectForPictogramElement(context.getPictogramElement()), value);
+    }
+    
+    public String getInitialValue(final IDirectEditingContext context) {
+    	final SubprogramCallSequence cs = (SubprogramCallSequence)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+    	return getName(cs);
+    }
+    
+    public void setValue(final String value, final IDirectEditingContext context) {
+    	final PictogramElement pe = context.getPictogramElement();
+    	final SubprogramCallSequence cs = (SubprogramCallSequence)bor.getBusinessObjectForPictogramElement(pe);  	
+    	refactoringService.renameElement(cs, value);
+    }
+    
+    // Shared
+	/**
+	 * Returns the first component implementation associated with the specified or a containing shape.
+	 * @param shape
+	 * @return
+	 */
+	private ComponentImplementation getComponentImplementation(final Shape shape) {
+		return shapeService.getClosestBusinessObjectOfType(shape, ComponentImplementation.class);
+	}
+	
+	private String getName(final SubprogramCallSequence cs) {
+		return cs.getName() == null ? "" : cs.getName();
+	}	
 }

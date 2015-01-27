@@ -297,9 +297,9 @@ public class MonteCarloLayout
 	private void adjustShapeSizes(final List<Shape> shapes) {
 		for(Shape shape : shapes) {
 			adjustShapeSizes(shape.getChildren());
-
+			
 			if(shape.isResizable()) {
-				final int[] minContainerSize = getMinimumContainerSize(shape.getChildren());
+				final int[] minContainerSize = getMinimumContainerSize(shape);
 				if(shape.getPositionMode() == PositionMode.LOCKED) {
 					// This interferes with setting size of shape...
 					shape.setWidth(Math.max(shape.getWidth(), minContainerSize[0]));
@@ -310,11 +310,23 @@ public class MonteCarloLayout
 					final int squareSize = (int)Math.sqrt(targetArea);
 					final int width = (int)(squareSize * 1.5);
 					final int height = (int)(targetArea / width);
+				
 					shape.setWidth((int)Math.max(minContainerSize[0], width));
 					shape.setHeight((int)Math.max(minContainerSize[1], height));
 				}
 			}
 		}
+	}
+	
+	private int[] getMinimumContainerSize(final Shape container) {
+		final int[] result = getMinimumContainerSize(container.getChildren());
+		
+		if(container.hasMinimumSize()) {
+			result[0] = Math.max(result[0], container.getMinimumWidth());
+			result[1] = Math.max(result[1], container.getMinimumHeight());
+		}
+		
+		return result;
 	}
 	
 	private int[] getMinimumContainerSize(final List<Shape> shapes) {

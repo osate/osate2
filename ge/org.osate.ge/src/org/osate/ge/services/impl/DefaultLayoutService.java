@@ -31,6 +31,8 @@ public class DefaultLayoutService implements LayoutService {
 	private final ShapeService shapeService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
+	private final static int minimumWidth = 150;
+	private final static int minimumHeight = 50;
 	
 	public DefaultLayoutService(final PropertyService propertyService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.propertyService = propertyService;
@@ -101,6 +103,16 @@ public class DefaultLayoutService implements LayoutService {
 				feature.layout(ctx);
 			}
 		}
+	}
+	
+	@Override
+	public int getMinimumWidth() {
+		return minimumWidth;
+	}
+	
+	@Override
+	public int getMinimumHeight() {
+		return minimumHeight;
 	}
 	
 	/* (non-Javadoc)

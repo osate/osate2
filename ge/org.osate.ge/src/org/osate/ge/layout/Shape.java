@@ -29,6 +29,9 @@ public final class Shape
 	private int y;
 	private int width;
 	private int height;
+	private boolean minimumSizeIsSet = false;
+	private int minimumWidth;
+	private int minimumHeight;
 	private boolean resizable;
 	private PositionMode positionMode;
 	private final List<Shape> children = new ArrayList<Shape>();
@@ -100,6 +103,24 @@ public final class Shape
 	
 	public final boolean isResizable() {
 		return this.resizable;
+	}
+	
+	public final boolean hasMinimumSize() {
+		return this.minimumSizeIsSet;
+	}
+	
+	public final int getMinimumWidth() {
+		return minimumWidth;
+	}
+	
+	public final int getMinimumHeight() {
+		return minimumHeight;
+	}
+	
+	public final void setMinimumSize(final int width, final int height) {
+		this.minimumWidth = width;
+		this.minimumHeight = height;
+		this.minimumSizeIsSet = true;
 	}
 	
 	public final List<Shape> getChildren() {

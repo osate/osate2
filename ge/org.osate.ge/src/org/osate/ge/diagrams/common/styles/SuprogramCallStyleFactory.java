@@ -16,7 +16,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.osate.ge.styles.StyleFactory;
 
-public class ClassifierStyleFactory implements StyleFactory {
+public class SuprogramCallStyleFactory implements StyleFactory {
 	@Override
 	public Style create(final String styleId, final Diagram diagram) {
 		final IGaService gaService = Graphiti.getGaService();
@@ -25,11 +25,11 @@ public class ClassifierStyleFactory implements StyleFactory {
         // Set the style
         style.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
         style.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
-        style.setLineStyle(LineStyle.SOLID);
+        style.setLineStyle(LineStyle.DOT);
         style.setLineVisible(true);
-        style.setLineWidth(1);
+        style.setLineWidth(2);
         style.setTransparency(0.0);
-        
+
         return style;
 	}
 }

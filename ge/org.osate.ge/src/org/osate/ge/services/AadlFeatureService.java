@@ -29,7 +29,7 @@ public interface AadlFeatureService {
 	 * @param fgt
 	 * @return
 	 */
-	EList<Feature> getAllOwnedFeatures(Classifier classifier);
+	EList<Feature> getAllDeclaredFeatures(Classifier classifier);
 
 	EList<Feature> getAllFeatures(FeatureGroupType fgt);
 

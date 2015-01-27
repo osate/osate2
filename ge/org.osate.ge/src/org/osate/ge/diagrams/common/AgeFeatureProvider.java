@@ -90,6 +90,8 @@ import org.osate.ge.diagrams.componentImplementation.features.RefineSubcomponent
 import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetSubcomponentClassifierFeature;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrderPattern;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallPattern;
 import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallSequencePattern;
 import org.osate.ge.diagrams.componentImplementation.patterns.ConnectionPattern;
@@ -149,6 +151,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Subprogram Calls
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
+		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 	}
 	
 	private IEclipseContext getContext() {
@@ -481,7 +484,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
-		return bor.getBusinessObjectForPictogramElement(pe) instanceof org.osate.aadl2.Connection;
+		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+		return bo instanceof org.osate.aadl2.Connection || bo instanceof SubprogramCallOrder;
 	}
 	
 	// ComponentImplementation
