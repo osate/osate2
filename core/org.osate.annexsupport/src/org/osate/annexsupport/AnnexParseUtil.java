@@ -4,6 +4,8 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -20,6 +22,8 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 public class AnnexParseUtil {
 
+	private static Map<EObject, IParseResult> parseResults = new WeakHashMap<EObject, IParseResult>();
+
 	public static EObject parse(AbstractAntlrParser parser, String editString, ParserRule parserRule, String filename,
 			int line, int offset, ParseErrorReporter err) {
 
@@ -27,6 +31,9 @@ public class AnnexParseUtil {
 			editString = genWhitespace(offset) + editString + "\n\r";
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
 
+			if (parseResult.getRootASTElement() != null) {
+				parseResults.put(parseResult.getRootASTElement(), parseResult);
+			}
 			EObject result = null;
 			if (isValidParseResult(parseResult)) {
 				result = parseResult.getRootASTElement();
@@ -43,6 +50,10 @@ public class AnnexParseUtil {
 		} catch (Exception exc) {
 			return null;
 		}
+	}
+
+	public static IParseResult getParseResult(EObject annexObject) {
+		return parseResults.get(annexObject);
 	}
 
 	public static String genWhitespace(int length) {
