@@ -66,7 +66,7 @@ public class AssureUtilExtension {
     return ((CaseResult) result);
   }
   
-  public static CaseResult getEnclosingClaimResult(final EObject assureObject) {
+  public static ClaimResult getEnclosingClaimResult(final EObject assureObject) {
     EObject result = assureObject;
     while ((!(result instanceof ClaimResult))) {
       EObject _eContainer = result.eContainer();
@@ -76,18 +76,18 @@ public class AssureUtilExtension {
     if (_equals) {
       return null;
     }
-    return ((CaseResult) result);
+    return ((ClaimResult) result);
   }
   
   public static InstanceObject getClaimSubject(final EObject assureObject) {
     InstanceObject _elvis = null;
-    CaseResult _enclosingClaimResult = AssureUtilExtension.getEnclosingClaimResult(assureObject);
+    ClaimResult _enclosingClaimResult = AssureUtilExtension.getEnclosingClaimResult(assureObject);
     InstanceObject _instance = _enclosingClaimResult.getInstance();
     if (_instance != null) {
       _elvis = _instance;
     } else {
-      InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(assureObject);
-      _elvis = _claimSubject;
+      InstanceObject _caseSubject = AssureUtilExtension.getCaseSubject(assureObject);
+      _elvis = _caseSubject;
     }
     return _elvis;
   }
@@ -107,9 +107,12 @@ public class AssureUtilExtension {
       VerificationActivity _target = vr.getTarget();
       VerificationMethod _method = _target.getMethod();
       final String methodpath = _method.getMethodPath();
-      int _lastIndexOf = methodpath.lastIndexOf(".");
-      final String methodName = methodpath.substring(_lastIndexOf);
-      _xblockexpression = methodName;
+      final int x = methodpath.lastIndexOf(".");
+      if ((x != (-1))) {
+        final String methodName = methodpath.substring(x);
+        return methodName;
+      }
+      _xblockexpression = methodpath;
     }
     return _xblockexpression;
   }
@@ -466,19 +469,39 @@ public class AssureUtilExtension {
   
   private static FeatureToConnectionsMap featToConnsMap;
   
+  private static SystemInstance systemroot;
+  
   public static FeatureToConnectionsMap getFeatToConnsMap() {
+    boolean _equals = Objects.equal(AssureUtilExtension.featToConnsMap, null);
+    if (_equals) {
+      AssureUtilExtension.populateResoluteContext();
+    }
     return AssureUtilExtension.featToConnsMap;
   }
   
   public static Map<String, SortedSet<NamedElement>> getSets() {
+    boolean _equals = Objects.equal(AssureUtilExtension.sets, null);
+    if (_equals) {
+      AssureUtilExtension.populateResoluteContext();
+    }
     return AssureUtilExtension.sets;
   }
   
-  public static void initializeResolute(final SystemInstance si) {
+  public static SystemInstance initializeResoluteContext(final SystemInstance si) {
+    SystemInstance _xblockexpression = null;
+    {
+      AssureUtilExtension.sets = null;
+      AssureUtilExtension.featToConnsMap = null;
+      _xblockexpression = AssureUtilExtension.systemroot = si;
+    }
+    return _xblockexpression;
+  }
+  
+  private static void populateResoluteContext() {
     HashMap<String, SortedSet<NamedElement>> _hashMap = new HashMap<String, SortedSet<NamedElement>>();
     AssureUtilExtension.sets = _hashMap;
-    AssureUtilExtension.initializeSets(si, AssureUtilExtension.sets);
-    FeatureToConnectionsMap _featureToConnectionsMap = new FeatureToConnectionsMap(si);
+    AssureUtilExtension.initializeSets(AssureUtilExtension.systemroot, AssureUtilExtension.sets);
+    FeatureToConnectionsMap _featureToConnectionsMap = new FeatureToConnectionsMap(AssureUtilExtension.systemroot);
     AssureUtilExtension.featToConnsMap = _featureToConnectionsMap;
   }
   
@@ -844,6 +867,14 @@ public class AssureUtilExtension {
     Class<? extends Throwable> _class = e.getClass();
     String _name = _class.getName();
     AssureUtilExtension.addErrorIssue(verificationActivityResult, null, _message, _name);
+    boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
+    if (_updateOwnResultState) {
+      AssureUtilExtension.propagateCountChangeUp(verificationActivityResult);
+    }
+  }
+  
+  public static void setToError(final VerificationActivityResult verificationActivityResult, final String message) {
+    AssureUtilExtension.addErrorIssue(verificationActivityResult, null, message, null);
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
     if (_updateOwnResultState) {
       AssureUtilExtension.propagateCountChangeUp(verificationActivityResult);

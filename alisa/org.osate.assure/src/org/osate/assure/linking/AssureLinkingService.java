@@ -11,16 +11,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.osate.aadl2.instance.InstancePackage;
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider;
-import org.osate.xtext.aadl2.properties.util.PSNode;
-
-import com.google.inject.Inject;
-import com.rockwellcollins.atc.resolute.linking.ResoluteLinkingService;
-import com.rockwellcollins.atc.resolute.resolute.FnCallExpr;
-import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
-import com.rockwellcollins.atc.resolute.resolute.ResolutePackage;
 
 public class AssureLinkingService extends DefaultLinkingService {
 
@@ -32,8 +23,6 @@ public class AssureLinkingService extends DefaultLinkingService {
 //	private IGlobalScopeProvider scopeProvider;
 
 	// XXX may want to use our own global lookup service
-	@Inject
-	public ResoluteLinkingService resoluteLinkingService;
 
 	@Override
 	public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)
@@ -63,27 +52,6 @@ public class AssureLinkingService extends DefaultLinkingService {
 //					Aadl2Package.eINSTANCE.getClassifier(), qname);
 		}
 		return super.getLinkedObjects(context, reference, node);
-	}
-
-	final static PSNode psNode = new PSNode();
-
-	public FunctionDefinition resolveResoluteFunction(FnCallExpr proof, String resoluteFunctionName) {
-		psNode.setText(resoluteFunctionName);
-		List<EObject> boundList = resoluteLinkingService.getLinkedObjects(proof,
-				ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), psNode);
-		if (boundList.size() > 0) {
-			return (FunctionDefinition) boundList.get(0);
-		}
-		return null;
-	}
-
-	@Inject
-	private IGlobalScopeProvider scopeProvider;
-
-	public FunctionDefinition findResoluteFunction(FnCallExpr proof, String resoluteFunctionName) {
-		FunctionDefinition fd = (FunctionDefinition) ((CommonGlobalScopeProvider) scopeProvider).getGlobalEObject(
-				proof, ResolutePackage.eINSTANCE.getFunctionDefinition(), resoluteFunctionName);
-		return fd;
 	}
 
 }

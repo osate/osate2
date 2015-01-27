@@ -52,17 +52,17 @@ class AssureUtilExtension {
 		return result as CaseResult
 	}
 
-	def static CaseResult getEnclosingClaimResult(EObject assureObject) {
+	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
 		var result = assureObject
 		while (!(result instanceof ClaimResult)) {
 			result = result.eContainer
 		}
 		if(result == null) return null
-		return result as CaseResult
+		return result as ClaimResult
 	}
 
 	def static InstanceObject getClaimSubject(EObject assureObject) {
-		assureObject.enclosingClaimResult.instance ?: assureObject.claimSubject
+		assureObject.enclosingClaimResult.instance ?: assureObject.caseSubject
 	}
 
 	def static InstanceObject getCaseSubject(EObject assureObject) {
@@ -71,8 +71,12 @@ class AssureUtilExtension {
 	
 	def static getMethodName(VerificationActivityResult vr){
 		val methodpath = vr.target.method.methodPath
-		val methodName = methodpath.substring(methodpath.lastIndexOf("."))   
-		methodName
+		val x = methodpath.lastIndexOf(".")
+		if (x != -1){
+			val methodName = methodpath.substring(x)  
+			return methodName 
+		}
+		methodpath 
 	}
 	
 	/**
@@ -252,18 +256,33 @@ class AssureUtilExtension {
 	static var Map<String, SortedSet<NamedElement>> sets 
 	static var FeatureToConnectionsMap featToConnsMap 
 	
+	
+	static var SystemInstance systemroot
+	
 	def static FeatureToConnectionsMap getFeatToConnsMap(){
+		if (featToConnsMap == null){
+			populateResoluteContext
+		}
 		return featToConnsMap
 	}
 	
 	def static Map<String, SortedSet<NamedElement>> getSets(){
+		if (sets == null){
+			populateResoluteContext
+		}
 		return sets
 	}
+	
+	def static initializeResoluteContext(SystemInstance si){
+		sets = null
+		featToConnsMap = null
+		systemroot = si
+	}
 
-	def static void initializeResolute(SystemInstance si){
+	def private static void populateResoluteContext(){
 		sets = new HashMap<String, SortedSet<NamedElement>>()
-		si.initializeSets(sets);
-		featToConnsMap = new FeatureToConnectionsMap(si);
+		systemroot.initializeSets(sets);
+		featToConnsMap = new FeatureToConnectionsMap(systemroot);
 	}
 
 	def private static void initializeSets(ComponentInstance ci, Map<String, SortedSet<NamedElement>> sets) {
@@ -475,6 +494,11 @@ class AssureUtilExtension {
 
 	def static void setToError(VerificationActivityResult verificationActivityResult, Throwable e) {
 		verificationActivityResult.addErrorIssue(null,e.getMessage(),e.getClass().getName());
+		if(verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))verificationActivityResult.propagateCountChangeUp
+	}
+
+	def static void setToError(VerificationActivityResult verificationActivityResult, String message) {
+		verificationActivityResult.addErrorIssue(null,message,null);
 		if(verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))verificationActivityResult.propagateCountChangeUp
 	}
 

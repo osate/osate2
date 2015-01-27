@@ -103,6 +103,19 @@ public class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
     return _xblockexpression;
   }
   
+  public IEObjectDescription getGlobalEObjectDescription(final EObject context, final EClass eClass, final String qname, final Predicate<IEObjectDescription> filter) {
+    IEObjectDescription _xblockexpression = null;
+    {
+      final IScope gscope = this.getGlobalScope(context, eClass, filter);
+      QualifiedName _qualifiedName = null;
+      if (this.qualifiedNameConverter!=null) {
+        _qualifiedName=this.qualifiedNameConverter.toQualifiedName(qname);
+      }
+      _xblockexpression = gscope.getSingleElement(_qualifiedName);
+    }
+    return _xblockexpression;
+  }
+  
   public IEObjectDescription getGlobalEObjectDescription(final EObject context, final EClass eClass, final String qname) {
     IEObjectDescription _xblockexpression = null;
     {
@@ -116,11 +129,28 @@ public class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
     return _xblockexpression;
   }
   
+  public EObject getGlobalEObject(final EObject context, final EClass eClass, final String qname, final Predicate<IEObjectDescription> filter) {
+    EObject _xblockexpression = null;
+    {
+      final IEObjectDescription eod = this.getGlobalEObjectDescription(context, eClass, qname, filter);
+      EObject _eObjectOrProxy = null;
+      if (eod!=null) {
+        _eObjectOrProxy=eod.getEObjectOrProxy();
+      }
+      _xblockexpression = _eObjectOrProxy;
+    }
+    return _xblockexpression;
+  }
+  
   public EObject getGlobalEObject(final EObject context, final EClass eClass, final String qname) {
     EObject _xblockexpression = null;
     {
       final IEObjectDescription eod = this.getGlobalEObjectDescription(context, eClass, qname);
-      _xblockexpression = eod.getEObjectOrProxy();
+      EObject _eObjectOrProxy = null;
+      if (eod!=null) {
+        _eObjectOrProxy=eod.getEObjectOrProxy();
+      }
+      _xblockexpression = _eObjectOrProxy;
     }
     return _xblockexpression;
   }
@@ -129,7 +159,11 @@ public class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
     URI _xblockexpression = null;
     {
       final IEObjectDescription eod = this.getGlobalEObjectDescription(context, eClass, qname);
-      _xblockexpression = eod.getEObjectURI();
+      URI _eObjectURI = null;
+      if (eod!=null) {
+        _eObjectURI=eod.getEObjectURI();
+      }
+      _xblockexpression = _eObjectURI;
     }
     return _xblockexpression;
   }

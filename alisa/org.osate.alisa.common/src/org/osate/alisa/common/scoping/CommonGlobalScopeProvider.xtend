@@ -61,19 +61,29 @@ class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
 		gscope.getAllElements()
 	}
 		
+	def IEObjectDescription getGlobalEObjectDescription(EObject context, EClass eClass, String qname, Predicate<IEObjectDescription> filter){
+		val gscope = context.getGlobalScope(eClass, filter)
+		gscope.getSingleElement(qualifiedNameConverter?.toQualifiedName(qname))
+	}
+		
 	def IEObjectDescription getGlobalEObjectDescription(EObject context, EClass eClass, String qname){
 		val gscope = context.getGlobalScope(eClass, null)
 		gscope.getSingleElement(qualifiedNameConverter?.toQualifiedName(qname))
 	}
 	
+	def EObject getGlobalEObject(EObject context, EClass eClass, String qname, Predicate<IEObjectDescription> filter){
+		val eod = context.getGlobalEObjectDescription(eClass, qname, filter)
+		eod?.EObjectOrProxy
+	}
+	
 	def EObject getGlobalEObject(EObject context, EClass eClass, String qname){
 		val eod = context.getGlobalEObjectDescription(eClass, qname)
-		eod.EObjectOrProxy
+		eod?.EObjectOrProxy
 	}
 	
 	def URI getGlobalEObjectURI(EObject context, EClass eClass, String qname){
 		val eod = context.getGlobalEObjectDescription(eClass, qname)
-		eod.EObjectURI
+		eod?.EObjectURI
 	}
 	
 //	def EObject getPropertyDefinition(EObject context, String qname){

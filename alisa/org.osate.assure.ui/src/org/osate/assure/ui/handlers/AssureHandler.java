@@ -24,6 +24,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.impl.CaseResultImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
@@ -128,13 +129,14 @@ public class AssureHandler extends AbstractHandler {
 		return "ASSURE verification";
 	}
 
-	protected IStatus runJob(CaseResult obj, IProgressMonitor monitor) {
+	protected IStatus runJob(CaseResult rootCaseResult, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
-		recomputeAllCounts(obj);
+		recomputeAllCounts(rootCaseResult);
 		AssureUtilExtension.clearHasRunRecords();
-//		AssureProcessing.processCaseResult(obj);
-		assureProcessor.process(obj);
+		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
+//		AssureProcessing.processCaseResult(rootCaseResult);
+		assureProcessor.process(rootCaseResult);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
