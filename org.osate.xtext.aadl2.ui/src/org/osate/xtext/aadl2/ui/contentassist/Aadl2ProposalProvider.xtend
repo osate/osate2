@@ -32,11 +32,48 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties.ui.contentassist;
+package org.osate.xtext.aadl2.ui.contentassist;
+
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.jface.viewers.StyledString
+import org.eclipse.xtext.Assignment
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+import org.osate.aadl2.modelsupport.util.AadlUtil
+import org.osate.annexsupport.AnnexContentAssistRegistry
+import org.osate.annexsupport.AnnexRegistry
 
 /**
- * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
+ * see
+ * http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on
+ * how to customize content assistant
  */
-public class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
+class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
+	var package AnnexContentAssistRegistry annexContentAssistRegistry
 
+	def protected void initAnnexContentAssistRegistry() {
+		if (annexContentAssistRegistry == null) {
+			annexContentAssistRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_CONTENT_ASSIST_EXT_ID) as AnnexContentAssistRegistry
+		}
+	}
+
+	override completeDefaultAnnexSubclause_SourceText(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		val annexName = AadlUtil.getContainingAnnex(model)?.name
+		if (annexName != null) {
+			if (annexContentAssistRegistry == null) {
+				initAnnexContentAssistRegistry
+			}
+			val contentAssist = annexContentAssistRegistry?.getAnnexContentAssist(annexName)
+			if (contentAssist != null) {
+				val results = contentAssist.annexCompletionSuggestions(model, context.offset)
+				super.completeDefaultAnnexLibrary_SourceText(model, assignment, context, acceptor)
+				val prefix = context.prefix
+				results.forEach[acceptor.accept(createCompletionProposal(prefix + it, new StyledString(it), null, context))]
+			}
+		}
+	}
+
+	override completeDefaultAnnexLibrary_SourceText(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeDefaultAnnexSubclause_SourceText(model, assignment, context, acceptor)
+	}
 }
