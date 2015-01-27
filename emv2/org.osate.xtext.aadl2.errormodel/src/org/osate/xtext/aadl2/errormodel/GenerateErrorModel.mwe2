@@ -168,6 +168,7 @@ Workflow {
 //        			backtrack=true
 					classSplitting = true
 				}
+				partialParsing = true
 			}
 
 			// generates junit test support classes into Generator#pathTestProject

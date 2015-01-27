@@ -424,9 +424,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//";")? ("error" "propagations" propagations+=ErrorPropagation* ("flows" flows+=ErrorFlow+)? "end" "propagations" ";")?
 		//("component" "error" "behavior" ("use" "transformations" useTransformation=[TypeTransformationSet|QEMREF] ";")?
 		//("events" events+=ErrorBehaviorEvent+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("propagations"
-		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)?
-		//("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error"
-		//"behavior" ("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
+		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)? ("mode"
+		//"mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")? ("composite" "error" "behavior"
+		//("states" states+=CompositeState+)? "end" "composite" ";")? ("connection" "error" ("use" "transformations"
 		//typeTransformationSet=[TypeTransformationSet|QEMREF] ";")? connectionErrorSources+=ConnectionErrorSource* "end"
 		//"connection" ";")? ("propagation" "paths" points+=PropagationPoint* paths+=PropagationPath* "end" "paths" ";")?
 		//("properties" properties+=ContainedPropertyAssociation+)?
@@ -578,8 +578,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("component" "error" "behavior" ("use" "transformations" useTransformation=[TypeTransformationSet|QEMREF] ";")?
 		//("events" events+=ErrorBehaviorEvent+)? ("transitions" transitions+=ErrorBehaviorTransition+)? ("propagations"
-		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)?
-		//("mode" "mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")?
+		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ("detections" errorDetections+=ErrorDetection+)? ("mode"
+		//"mappings" errorStateToModeMappings+=ErrorStateToModeMapping+)? "end" "component" ";")?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//"component"
@@ -847,9 +847,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ErrorModelLibrary:
 		//	{ErrorModelLibrary} //    '{**' 
 		//	("error" "types" ("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-		//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)?
-		//	"end" "types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
-		//	transformations+=TypeTransformationSet*;
+		//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+		//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*;
 		public ParserRule getRule() { return rule; }
 
 		//{ErrorModelLibrary} //    '{**' 
@@ -2218,8 +2217,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorPath:
 		//	name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
-		//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
-		//	allOutgoing?="all") (targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
+		//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
+		//	(targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
 		public ParserRule getRule() { return rule; }
 
 		//name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
@@ -3018,8 +3017,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":")? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?="all") "-["
-		//condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state"
-		//| "(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";"
+		//condition=ConditionExpression "]->" (target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?="same" "state" |
+		//"(" destinationBranches+=TransitionBranch ("," destinationBranches+=TransitionBranch)+ ")") ";"
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ":")?
@@ -4799,9 +4798,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorModelLibrary:
 	//	{ErrorModelLibrary} //    '{**' 
 	//	("error" "types" ("extends" extends+=[ErrorModelLibrary|QEMREF] ("," extends+=[ErrorModelLibrary|QEMREF])* "with")?
-	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)?
-	//	"end" "types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet*
-	//	transformations+=TypeTransformationSet*;
+	//	(types+=TypeDefinition | typesets+=TypeSetDefinition)* ("properties" properties+=ContainedPropertyAssociation+)? "end"
+	//	"types" ";")? behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet*;
 	public ErrorModelLibraryElements getErrorModelLibraryAccess() {
 		return pErrorModelLibrary;
 	}
@@ -5070,8 +5068,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorPath:
 	//	name=ID ":" "error" "path" (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?="all")
-	//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
-	//	allOutgoing?="all") (targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
+	//	typeTokenConstraint=TypeTokenConstraint? "->" (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?="all")
+	//	(targetToken=TypeToken | "use" "mappings" typeMappingSet=[TypeMappingSet|QEMREF])? ";";
 	public ErrorPathElements getErrorPathAccess() {
 		return pErrorPath;
 	}

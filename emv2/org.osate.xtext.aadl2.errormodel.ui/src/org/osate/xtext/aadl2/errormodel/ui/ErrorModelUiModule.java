@@ -18,6 +18,7 @@
 package org.osate.xtext.aadl2.errormodel.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.AnnexAwareEntryPointFinder;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -27,6 +28,8 @@ public class ErrorModelUiModule extends org.osate.xtext.aadl2.errormodel.ui.Abst
 		super(plugin);
 	}
 
-
+	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.antlr.EntryPointFinder> bindEntryPointFinder() {
+		return AnnexAwareEntryPointFinder.class;
+	}
 
 }
