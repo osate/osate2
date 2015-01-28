@@ -293,8 +293,6 @@ class AadlPropertyView extends ViewPart {
 			layout = new GridLayout
 			val gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 			filteredTree.setLayoutData(gd);
-			//			layout = treeColumnLayout
-			//			treeViewer = new TreeViewer(it, SWT.VIRTUAL.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.FULL_SELECTION)) => [treeViewer |
 			treeViewer = filteredTree.getViewer();
 			treeViewer => [ treeViewer |
 				new TreeViewerColumn(treeViewer, SWT.LEFT) => [
