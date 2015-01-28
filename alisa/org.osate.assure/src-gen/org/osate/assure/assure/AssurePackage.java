@@ -1130,13 +1130,22 @@ public interface AssurePackage extends EPackage
   int RESULT_ISSUE__ISSUE_TYPE = 0;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_ISSUE__NAME = 1;
+
+  /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE__MESSAGE = 1;
+  int RESULT_ISSUE__MESSAGE = 2;
 
   /**
    * The feature id for the '<em><b>Exception Type</b></em>' attribute.
@@ -1145,7 +1154,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE__EXCEPTION_TYPE = 2;
+  int RESULT_ISSUE__EXCEPTION_TYPE = 3;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -1154,7 +1163,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE__TARGET = 3;
+  int RESULT_ISSUE__TARGET = 4;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' containment reference list.
@@ -1163,7 +1172,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE__ISSUES = 4;
+  int RESULT_ISSUE__ISSUES = 5;
 
   /**
    * The number of structural features of the '<em>Result Issue</em>' class.
@@ -1172,7 +1181,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_ISSUE_FEATURE_COUNT = 5;
+  int RESULT_ISSUE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.ResultIssueType <em>Result Issue Type</em>}' enum.
@@ -1779,6 +1788,17 @@ public interface AssurePackage extends EPackage
   EAttribute getResultIssue_IssueType();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.assure.assure.ResultIssue#getName()
+   * @see #getResultIssue()
+   * @generated
+   */
+  EAttribute getResultIssue_Name();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.ResultIssue#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2318,6 +2338,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EAttribute RESULT_ISSUE__ISSUE_TYPE = eINSTANCE.getResultIssue_IssueType();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESULT_ISSUE__NAME = eINSTANCE.getResultIssue_Name();
 
     /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.

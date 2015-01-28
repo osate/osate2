@@ -26,4 +26,8 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
 	}
 
+	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
+		return org.osate.assure.serializer.AssureCrossReferenceSerializer.class;
+	}
+
 }

@@ -31,6 +31,7 @@ import org.osate.assure.assure.ResultIssueType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getIssueType <em>Issue Type</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getExceptionType <em>Exception Type</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ResultIssueImpl#getTarget <em>Target</em>}</li>
@@ -61,6 +62,26 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
    * @ordered
    */
   protected ResultIssueType issueType = ISSUE_TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
@@ -164,6 +185,29 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     issueType = newIssueType == null ? ISSUE_TYPE_EDEFAULT : newIssueType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.RESULT_ISSUE__ISSUE_TYPE, oldIssueType, issueType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.RESULT_ISSUE__NAME, oldName, name));
   }
 
   /**
@@ -297,6 +341,8 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     {
       case AssurePackage.RESULT_ISSUE__ISSUE_TYPE:
         return getIssueType();
+      case AssurePackage.RESULT_ISSUE__NAME:
+        return getName();
       case AssurePackage.RESULT_ISSUE__MESSAGE:
         return getMessage();
       case AssurePackage.RESULT_ISSUE__EXCEPTION_TYPE:
@@ -323,6 +369,9 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     {
       case AssurePackage.RESULT_ISSUE__ISSUE_TYPE:
         setIssueType((ResultIssueType)newValue);
+        return;
+      case AssurePackage.RESULT_ISSUE__NAME:
+        setName((String)newValue);
         return;
       case AssurePackage.RESULT_ISSUE__MESSAGE:
         setMessage((String)newValue);
@@ -354,6 +403,9 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
       case AssurePackage.RESULT_ISSUE__ISSUE_TYPE:
         setIssueType(ISSUE_TYPE_EDEFAULT);
         return;
+      case AssurePackage.RESULT_ISSUE__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case AssurePackage.RESULT_ISSUE__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
         return;
@@ -382,6 +434,8 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     {
       case AssurePackage.RESULT_ISSUE__ISSUE_TYPE:
         return issueType != ISSUE_TYPE_EDEFAULT;
+      case AssurePackage.RESULT_ISSUE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.RESULT_ISSUE__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.RESULT_ISSUE__EXCEPTION_TYPE:
@@ -407,6 +461,8 @@ public class ResultIssueImpl extends MinimalEObjectImpl.Container implements Res
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (issueType: ");
     result.append(issueType);
+    result.append(", name: ");
+    result.append(name);
     result.append(", message: ");
     result.append(message);
     result.append(", exceptionType: ");

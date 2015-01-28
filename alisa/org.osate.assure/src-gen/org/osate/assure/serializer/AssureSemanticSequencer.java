@@ -280,7 +280,14 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (issueType=ResultIssueType message=STRING exceptionType=STRING? target=[EObject|URIID]? issues+=ResultIssue*)
+	 *     (
+	 *         issueType=ResultIssueType 
+	 *         name=ID? 
+	 *         message=STRING 
+	 *         exceptionType=STRING? 
+	 *         target=[EObject|URIID]? 
+	 *         issues+=ResultIssue*
+	 *     )
 	 */
 	protected void sequence_ResultIssue(EObject context, ResultIssue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

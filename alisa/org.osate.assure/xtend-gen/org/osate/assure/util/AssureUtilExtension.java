@@ -5,6 +5,8 @@ import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsM
 import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator;
 import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult;
 import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider;
+import com.rockwellcollins.atc.resolute.resolute.FailExpr;
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
 import com.rockwellcollins.atc.resolute.validation.BaseType;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,6 +47,7 @@ import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.ResultIssue;
 import org.osate.assure.assure.ResultIssueType;
 import org.osate.assure.assure.VerificationActivityResult;
+import org.osate.assure.assure.VerificationExecutionState;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResultState;
 import org.osate.verify.verify.RefExpr;
@@ -221,9 +224,18 @@ public class AssureUtilExtension {
     final Procedure1<Object> _function = new Procedure1<Object>() {
       public void apply(final Object subrr) {
         final com.rockwellcollins.atc.resolute.analysis.results.ClaimResult subclaim = ((com.rockwellcollins.atc.resolute.analysis.results.ClaimResult) subrr);
-        EObject _location = subclaim.getLocation();
-        String _text = subclaim.getText();
-        final ResultIssue subri = AssureUtilExtension.addErrorIssue(ri, _location, _text);
+        ResultIssue _xifexpression = null;
+        boolean _isValid = subclaim.isValid();
+        if (_isValid) {
+          EObject _location = subclaim.getLocation();
+          String _text = subclaim.getText();
+          _xifexpression = AssureUtilExtension.addSuccessIssue(ri, _location, _text);
+        } else {
+          EObject _location_1 = subclaim.getLocation();
+          String _text_1 = subclaim.getText();
+          _xifexpression = AssureUtilExtension.addErrorIssue(ri, _location_1, _text_1);
+        }
+        final ResultIssue subri = _xifexpression;
         AssureUtilExtension.doResoluteResults(subclaim, subri);
       }
     };
@@ -231,13 +243,25 @@ public class AssureUtilExtension {
   }
   
   public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message) {
+    return AssureUtilExtension.addErrorIssue(vr, target, message, null);
+  }
+  
+  public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message, final String issueSource) {
     ResultIssue _xblockexpression = null;
     {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
       AssureUtilExtension.updateOwnResultState(vr, VerificationResultState.FAIL);
       issue.setMessage(message);
       issue.setIssueType(ResultIssueType.ERROR);
-      issue.setTarget(target);
+      issue.setExceptionType(issueSource);
+      if ((target instanceof FunctionDefinition)) {
+        String _name = ((FunctionDefinition)target).getName();
+        issue.setName(_name);
+      } else {
+        if ((!(target instanceof FailExpr))) {
+          issue.setTarget(target);
+        }
+      }
       EList<ResultIssue> _issues = vr.getIssues();
       _issues.add(issue);
       _xblockexpression = issue;
@@ -246,12 +270,24 @@ public class AssureUtilExtension {
   }
   
   public static ResultIssue addErrorIssue(final ResultIssue ri, final EObject target, final String message) {
+    return AssureUtilExtension.addErrorIssue(ri, target, message, null);
+  }
+  
+  public static ResultIssue addErrorIssue(final ResultIssue ri, final EObject target, final String message, final String issueSource) {
     ResultIssue _xblockexpression = null;
     {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
       issue.setMessage(message);
       issue.setIssueType(ResultIssueType.ERROR);
-      issue.setTarget(target);
+      issue.setExceptionType(issueSource);
+      if ((target instanceof FunctionDefinition)) {
+        String _name = ((FunctionDefinition)target).getName();
+        issue.setName(_name);
+      } else {
+        if ((!(target instanceof FailExpr))) {
+          issue.setTarget(target);
+        }
+      }
       EList<ResultIssue> _issues = ri.getIssues();
       _issues.add(issue);
       _xblockexpression = issue;
@@ -260,12 +296,24 @@ public class AssureUtilExtension {
   }
   
   public static ResultIssue addSuccessIssue(final ResultIssue ri, final EObject target, final String message) {
+    return AssureUtilExtension.addSuccessIssue(ri, target, message, null);
+  }
+  
+  public static ResultIssue addSuccessIssue(final ResultIssue ri, final EObject target, final String message, final String issueSource) {
     ResultIssue _xblockexpression = null;
     {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
       issue.setMessage(message);
       issue.setIssueType(ResultIssueType.SUCCESS);
-      issue.setTarget(target);
+      issue.setExceptionType(issueSource);
+      if ((target instanceof FunctionDefinition)) {
+        String _name = ((FunctionDefinition)target).getName();
+        issue.setName(_name);
+      } else {
+        if ((!(target instanceof FailExpr))) {
+          issue.setTarget(target);
+        }
+      }
       EList<ResultIssue> _issues = ri.getIssues();
       _issues.add(issue);
       _xblockexpression = issue;
@@ -279,19 +327,16 @@ public class AssureUtilExtension {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
       issue.setMessage(message);
       issue.setIssueType(ResultIssueType.WARNING);
-      issue.setTarget(target);
+      if ((target instanceof FunctionDefinition)) {
+        String _name = ((FunctionDefinition)target).getName();
+        issue.setName(_name);
+      } else {
+        if ((!(target instanceof FailExpr))) {
+          issue.setTarget(target);
+        }
+      }
       EList<ResultIssue> _issues = ri.getIssues();
       _issues.add(issue);
-      _xblockexpression = issue;
-    }
-    return _xblockexpression;
-  }
-  
-  public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message, final String exceptionType) {
-    ResultIssue _xblockexpression = null;
-    {
-      final ResultIssue issue = AssureUtilExtension.addErrorIssue(vr, target, message);
-      issue.setExceptionType(exceptionType);
       _xblockexpression = issue;
     }
     return _xblockexpression;
@@ -309,6 +354,64 @@ public class AssureUtilExtension {
     int _plus_3 = (_plus_2 + _failthenCount);
     int _andthenCount = ar.getAndthenCount();
     return (_plus_3 + _andthenCount);
+  }
+  
+  public static boolean isSuccessful(final AssureResult ar) {
+    boolean _and = false;
+    boolean _and_1 = false;
+    int _failCount = ar.getFailCount();
+    boolean _equals = (_failCount == 0);
+    if (!_equals) {
+      _and_1 = false;
+    } else {
+      int _errorCount = ar.getErrorCount();
+      boolean _equals_1 = (_errorCount == 0);
+      _and_1 = _equals_1;
+    }
+    if (!_and_1) {
+      _and = false;
+    } else {
+      int _tbdCount = ar.getTbdCount();
+      boolean _equals_2 = (_tbdCount == 0);
+      _and = _equals_2;
+    }
+    return _and;
+  }
+  
+  public static boolean hasFailedorError(final AssureResult ar) {
+    boolean _or = false;
+    int _failCount = ar.getFailCount();
+    boolean _notEquals = (_failCount != 0);
+    if (_notEquals) {
+      _or = true;
+    } else {
+      int _errorCount = ar.getErrorCount();
+      boolean _notEquals_1 = (_errorCount != 0);
+      _or = _notEquals_1;
+    }
+    return _or;
+  }
+  
+  public static boolean isTBD(final AssureResult ar) {
+    boolean _and = false;
+    boolean _and_1 = false;
+    int _failCount = ar.getFailCount();
+    boolean _equals = (_failCount == 0);
+    if (!_equals) {
+      _and_1 = false;
+    } else {
+      int _errorCount = ar.getErrorCount();
+      boolean _equals_1 = (_errorCount == 0);
+      _and_1 = _equals_1;
+    }
+    if (!_and_1) {
+      _and = false;
+    } else {
+      int _tbdCount = ar.getTbdCount();
+      boolean _greaterThan = (_tbdCount > 0);
+      _and = _greaterThan;
+    }
+    return _and;
   }
   
   /**
@@ -549,6 +652,9 @@ public class AssureUtilExtension {
     final Procedure1<VerificationActivityResult> _function = new Procedure1<VerificationActivityResult>() {
       public void apply(final VerificationActivityResult vr) {
         vr.setResultState(VerificationResultState.TBD);
+        vr.setExecutionState(VerificationExecutionState.TODO);
+        EList<ResultIssue> _issues = vr.getIssues();
+        _issues.clear();
       }
     };
     IterableExtensions.<VerificationActivityResult>forEach(vrlist, _function);
@@ -885,16 +991,15 @@ public class AssureUtilExtension {
    * the next methods update the counts for FailThen and AndThen
    * returns true if change of state
    */
-  public static boolean recordFailThen(final FailThenResult result) {
+  public static void recordFailThen(final FailThenResult result) {
     boolean _isDidFailThenFail = result.isDidFailThenFail();
     if (_isDidFailThenFail) {
-      return false;
     } else {
       result.setDidFailThenFail(true);
       int _failthenCount = result.getFailthenCount();
       int _plus = (_failthenCount + 1);
       result.setFailthenCount(_plus);
-      return true;
+      AssureUtilExtension.propagateCountChangeUp(result);
     }
   }
   
@@ -902,16 +1007,15 @@ public class AssureUtilExtension {
    * the next methods update the counts for FailThen and AndThen
    * returns true if change of state
    */
-  public static boolean recordNoFailThen(final FailThenResult result) {
+  public static void recordNoFailThen(final FailThenResult result) {
     boolean _isDidFailThenFail = result.isDidFailThenFail();
     if (_isDidFailThenFail) {
       result.setDidFailThenFail(false);
       int _failthenCount = result.getFailthenCount();
       int _minus = (_failthenCount - 1);
       result.setFailthenCount(_minus);
-      return true;
+      AssureUtilExtension.propagateCountChangeUp(result);
     } else {
-      return false;
     }
   }
   
@@ -919,16 +1023,15 @@ public class AssureUtilExtension {
    * the next methods update the counts for FailThen and AndThen
    * returns true if change of state
    */
-  public static boolean recordSkip(final AndThenResult result) {
+  public static void recordSkip(final AndThenResult result) {
     boolean _isDidAndThenFail = result.isDidAndThenFail();
     if (_isDidAndThenFail) {
-      return false;
     } else {
       result.setDidAndThenFail(true);
       int _andthenCount = result.getAndthenCount();
       int _plus = (_andthenCount + 1);
       result.setAndthenCount(_plus);
-      return true;
+      AssureUtilExtension.propagateCountChangeUp(result);
     }
   }
   
@@ -936,16 +1039,15 @@ public class AssureUtilExtension {
    * the next methods update the counts for FailThen and AndThen
    * returns true if change of state
    */
-  public static boolean recordNoSkip(final AndThenResult result) {
+  public static void recordNoSkip(final AndThenResult result) {
     boolean _isDidAndThenFail = result.isDidAndThenFail();
     if (_isDidAndThenFail) {
       result.setDidAndThenFail(false);
       int _andthenCount = result.getAndthenCount();
       int _minus = (_andthenCount - 1);
       result.setAndthenCount(_minus);
-      return true;
+      AssureUtilExtension.propagateCountChangeUp(result);
     } else {
-      return false;
     }
   }
   
@@ -967,6 +1069,7 @@ public class AssureUtilExtension {
         int _tbdCount = ar.getTbdCount();
         int _minus = (_tbdCount - 1);
         ar.setTbdCount(_minus);
+        ar.setExecutionState(VerificationExecutionState.COMPLETED);
         if (newState != null) {
           switch (newState) {
             case SUCCESS:
@@ -996,6 +1099,7 @@ public class AssureUtilExtension {
           int _tbdCount_1 = ar.getTbdCount();
           int _plus_3 = (_tbdCount_1 + 1);
           ar.setTbdCount(_plus_3);
+          ar.setExecutionState(VerificationExecutionState.TODO);
           VerificationResultState _resultState_2 = ar.getResultState();
           if (_resultState_2 != null) {
             switch (_resultState_2) {
@@ -1035,7 +1139,7 @@ public class AssureUtilExtension {
   /**
    * Given the state (and count) change to ar, propagate the counts up the hierarchy
    */
-  public static void propagateCountChangeUp(final AssureResult ar) {
+  private static void propagateCountChangeUp(final AssureResult ar) {
     EObject parent = ar.eContainer();
     while (((!Objects.equal(parent, null)) && (parent instanceof AssureResult))) {
       {

@@ -144,7 +144,7 @@ AndThenResult returns AndThenResult:
 
 // use it for failures, warnings and successes.
 ResultIssue:
-	issueType=ResultIssueType ':'
+	issueType=ResultIssueType (':' name=ID)?
 	message=STRING
 	('exception' exceptionType = STRING)?
 	('target' target=[ecore::EObject|URIID])?

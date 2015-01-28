@@ -46,10 +46,10 @@ class AssureProcessor implements IAssureProcessor {
 	def void doProcess(FailThenResult vaResult) {
 		vaResult.first.forEach[expr|expr.process]
 		if (vaResult.first.hasFailedOrError) { 
-			if (vaResult.recordFailThen) vaResult.propagateCountChangeUp
+			vaResult.recordFailThen
 			vaResult.second.forEach[expr|expr.process]
 		} else {
-			if (vaResult.recordNoFailThen) vaResult.propagateCountChangeUp
+			vaResult.recordNoFailThen
 		}
 	}
 
@@ -57,9 +57,9 @@ class AssureProcessor implements IAssureProcessor {
 		vaResult.first.forEach[expr|expr.process]
 		if (vaResult.first.isSuccessFul) {
 			vaResult.second.forEach[expr|expr.process]
-			if (vaResult.recordNoSkip) vaResult.propagateCountChangeUp
+			vaResult.recordNoSkip
 		} else {
-			if(vaResult.recordSkip) vaResult.propagateCountChangeUp
+			vaResult.recordSkip
 		}
 	}
 

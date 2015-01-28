@@ -739,7 +739,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultIssue_Message()
+  public EAttribute getResultIssue_Name()
   {
     return (EAttribute)resultIssueEClass.getEStructuralFeatures().get(1);
   }
@@ -749,7 +749,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultIssue_ExceptionType()
+  public EAttribute getResultIssue_Message()
   {
     return (EAttribute)resultIssueEClass.getEStructuralFeatures().get(2);
   }
@@ -759,9 +759,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getResultIssue_ExceptionType()
+  {
+    return (EAttribute)resultIssueEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getResultIssue_Target()
   {
-    return (EReference)resultIssueEClass.getEStructuralFeatures().get(3);
+    return (EReference)resultIssueEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -771,7 +781,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getResultIssue_Issues()
   {
-    return (EReference)resultIssueEClass.getEStructuralFeatures().get(4);
+    return (EReference)resultIssueEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -896,6 +906,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     resultIssueEClass = createEClass(RESULT_ISSUE);
     createEAttribute(resultIssueEClass, RESULT_ISSUE__ISSUE_TYPE);
+    createEAttribute(resultIssueEClass, RESULT_ISSUE__NAME);
     createEAttribute(resultIssueEClass, RESULT_ISSUE__MESSAGE);
     createEAttribute(resultIssueEClass, RESULT_ISSUE__EXCEPTION_TYPE);
     createEReference(resultIssueEClass, RESULT_ISSUE__TARGET);
@@ -1016,6 +1027,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
 
     initEClass(resultIssueEClass, ResultIssue.class, "ResultIssue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getResultIssue_IssueType(), this.getResultIssueType(), "issueType", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultIssue_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResultIssue_Message(), theEcorePackage.getEString(), "message", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResultIssue_ExceptionType(), theEcorePackage.getEString(), "exceptionType", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultIssue_Target(), theEcorePackage.getEObject(), null, "target", null, 0, 1, ResultIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

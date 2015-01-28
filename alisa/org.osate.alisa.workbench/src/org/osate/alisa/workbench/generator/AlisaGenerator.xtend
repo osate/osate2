@@ -4,6 +4,7 @@
 package org.osate.alisa.workbench.generator
 
 import com.google.inject.Inject
+import java.util.List
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
@@ -11,6 +12,12 @@ import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
 import org.osate.alisa.workbench.alisa.AssuranceCasePlan
+import org.osate.assure.assure.AssureFactory
+import org.osate.assure.assure.CaseResult
+import org.osate.assure.assure.ClaimResult
+import org.osate.assure.assure.VerificationExecutionState
+import org.osate.assure.assure.VerificationExpr
+import org.osate.assure.assure.VerificationResultState
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.AndThenExpr
 import org.osate.verify.verify.ArgumentExpr
@@ -20,11 +27,10 @@ import org.osate.verify.verify.RefExpr
 import org.osate.verify.verify.VerificationAssumption
 import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPrecondition
+import org.osate.verify.verify.WhenExpr
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
-import org.osate.verify.verify.WhenExpr
-import org.osate.reqspec.reqSpec.Requirement
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
 
 /**
@@ -41,60 +47,112 @@ class AlisaGenerator implements IGenerator {
 		]
 	}
 
-	
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
+
+	val factory = AssureFactory.eINSTANCE
+
+	def constructCase(AssuranceCasePlan acp) {
+		val si = acp.system.buildInstanceModelFile
+		si.construct(acp)
+	}
 
 	def generateCase(AssuranceCasePlan acp) {
 		val si = acp.system.buildInstanceModelFile
 		si.generate(acp)
 	}
 
+	def CaseResult construct(ComponentInstance ci, AssuranceCasePlan acp) {
+		val myplans = ci.getVerificationPlans(acp);
+		var CaseResult acase = null
+		if (!myplans.empty) {
+			acase = factory.createCaseResult
+			acase.name = acp.name
+			acase.target = ci.componentClassifier
+			acase.instance = ci
+			for (myplan : myplans) {
+				for (claim : myplan.claim) {
+					acase.claimResult += claim.construct(ci)
+				}
+			}
+			for (subci : ci.componentInstances) {
+				acase.subCaseResult += subci.construct(acp)
+			}
+		}
+		acase
+	}
+
 	def CharSequence generate(ComponentInstance ci, AssuranceCasePlan acp) {
 		val myplans = ci.getVerificationPlans(acp);
 		'''	
-		«IF !myplans.empty»
-		case «acp.name» for «ci.componentClassifier.getQualifiedName»
-		instance "«ci.URI.toString»"
-		[
-			«FOR myplan : myplans»
-			«FOR claim : myplan.claim»
-			«claim.generate(ci)»
-			«ENDFOR»
-			«ENDFOR»
-			«FOR subci : ci.componentInstances»
-			«subci.generate(acp)»
-			«ENDFOR»
-«««			«FOR hazard : myplan.claim»
-«««			«hazard.generate(ci)»
-«««			«ENDFOR»
-		]
-		«ENDIF»
-		'''
-		// XXX add in hazards for system
-	}
-
-	def CharSequence generate(Claim claim,ComponentInstance ci) {
-		'''
-		claim «claim.name» for «claim.requirement.fullyQualifiedName»
-		«IF claim.requirement.target != null»
-		instance "«claim.requirement.getRequirementTarget(ci)»"
-		«ENDIF»
-		[
-		    «FOR subclaim : claim?.subclaim»
-			«subclaim.generate(ci)»
-		    «ENDFOR»
-		    «claim.assert.generate»
-		]
+			«IF !myplans.empty»
+				case «acp.name» for «ci.componentClassifier.getQualifiedName»
+				instance "«ci.URI.toString»"
+				[
+					«FOR myplan : myplans»
+						«FOR claim : myplan.claim»
+							«claim.generate(ci)»
+						«ENDFOR»
+					«ENDFOR»
+					«FOR subci : ci.componentInstances»
+						«subci.generate(acp)»
+					«ENDFOR»
+				]
+			«ENDIF»
 		'''
 	}
 
-	def CharSequence generate(Requirement req) {
+	def ClaimResult construct(Claim claim, ComponentInstance ci) {
+		val claimresult = factory.createClaimResult
+		claimresult.name = claim.name
+		claimresult.target = claim.requirement
+		if (claim.requirement.target != null) {
+			claimresult.instance = claim.requirement.getRequirementTarget(ci)
+		}
+		for (subclaim : claim?.subclaim) {
+			claimresult.subClaimResult += subclaim.construct(ci)
+		}
+		claimresult.verificationActivityResult.construct(claim.assert)
+		claimresult
+	}
+
+	def CharSequence generate(Claim claim, ComponentInstance ci) {
 		'''
-		claim «req.name» for «req.fullyQualifiedName»
-		[
-«««	assert is part of claim not req	    «claim.assert.generate»
-		]
-		'''
+			claim «claim.name» for «claim.requirement.fullyQualifiedName»
+			«IF claim.requirement.target != null»
+				instance "«claim.requirement.getRequirementTarget(ci)»"
+			«ENDIF»
+			[
+			    «FOR subclaim : claim?.subclaim»
+				«subclaim.generate(ci)»
+				«ENDFOR»
+				«claim.assert.generate»
+				]
+			'''
+	}
+
+	//
+	//	def ClaimResult construct(Requirement req) {
+	//		val claimresult = factory.createClaimResult
+	//		claimresult.name = req.name
+	//		claimresult
+	//	}
+	//
+	//	def CharSequence generate(Requirement req) {
+	//		'''
+	//		claim «req.name» for «req.fullyQualifiedName»
+	//		[
+	//«««	assert is part of claim not req	    «claim.assert.generate»
+	//		]
+	//		'''
+	//	}
+	def void construct(List<VerificationExpr> arl, ArgumentExpr expr) {
+		switch expr {
+			AllExpr: arl.doConstruct(expr)
+			AndThenExpr: arl.doConstruct(expr)
+			FailThenExpr: arl.doConstruct(expr)
+			WhenExpr: arl.doConstruct(expr)
+			RefExpr: arl.doConstruct(expr)
+		}
 	}
 
 	def CharSequence generate(ArgumentExpr expr) {
@@ -107,68 +165,119 @@ class AlisaGenerator implements IGenerator {
 		}
 	}
 
+	def void doConstruct(List<VerificationExpr> arl, AllExpr expr) {
+		for (subexpr : expr.all) {
+			arl.construct(subexpr)
+		}
+	}
+
 	def doGenerate(AllExpr expr) {
 		'''
-		«FOR subexpr : expr.all»
-		«subexpr.generate»
-		«ENDFOR»
+			«FOR subexpr : expr.all»
+				«subexpr.generate»
+			«ENDFOR»
 		'''
+	}
+
+	def void doConstruct(List<VerificationExpr> arl, AndThenExpr expr) {
+		val andres = factory.createAndThenResult
+		andres.first.construct(expr.left)
+		andres.second.construct(expr.right)
+		arl += andres
 	}
 
 	def doGenerate(AndThenExpr expr) {
 		'''
-		andthen
-			«expr.left.generate»
-		do
-			«expr.right.generate»
-		[
-		]
+			andthen
+				«expr.left.generate»
+			do
+				«expr.right.generate»
+			[
+			]
 		'''
+	}
+
+	def void doConstruct(List<VerificationExpr> arl, FailThenExpr expr) {
+		val failthenres = factory.createFailThenResult
+		failthenres.first.construct(expr.left)
+		failthenres.second.construct(expr.right)
+		arl += failthenres
 	}
 
 	def doGenerate(FailThenExpr expr) {
 		'''
-		failthen 
-			«expr.left.generate»
-		do
-			«expr.right.generate»
-		[
-		]
+			failthen 
+				«expr.left.generate»
+			do
+				«expr.right.generate»
+			[
+			]
 		'''
+	}
+
+	def void doConstruct(List<VerificationExpr> arl, WhenExpr expr) {
+		if (expr.evaluateCondition) {
+			arl.construct(expr.verification)
+		}
 	}
 
 	def doGenerate(WhenExpr expr) {
 		'''
-		«IF expr.evaluate»
-		«expr.generate»
-		«ENDIF»
+			«IF expr.evaluateCondition»
+				«expr.verification.generate»
+			«ENDIF»
 		'''
+	}
+
+	def void doConstruct(List<VerificationExpr> arl, RefExpr expr) {
+		val vr = factory.createVerificationActivityResult
+		vr.resultState = VerificationResultState.TBD
+		vr.executionState = VerificationExecutionState.TODO
+		val conds = expr.verification?.method?.conditions
+		if (conds != null) {
+			for (vacond : conds) {
+			}
+		}
 	}
 
 	def doGenerate(RefExpr expr) {
 		'''
-		verification «expr.verification.name» for «expr.verification.fullyQualifiedName»
-		[
-			executionstate todo
-			resultstate tbd
-			«FOR vacond : expr.verification?.method?.conditions»
-			«vacond.generate»
-			«ENDFOR»
-		]
+			verification «expr.verification.name» for «expr.verification.fullyQualifiedName»
+			[
+				executionstate todo
+				resultstate tbd
+				«FOR vacond : expr.verification?.method?.conditions»
+					«vacond.generate»
+				«ENDFOR»
+			]
 		'''
 	}
 
+	def void doConstruct(List<VerificationExpr> arl, VerificationCondition vc) {
+		switch (vc) {
+			VerificationAssumption: {
+				val vcr = factory.createAssumptionResult
+				vcr.verificationActivityResult.construct(vc.assert)
+			}
+			VerificationPrecondition: {
+				val vcr = factory.createPreconditionResult
+				vcr.verificationActivityResult.construct(vc.assert)
+			}
+		}
+	}
 
 	def generate(VerificationCondition vc) {
 		'''
-		«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
-		[
-			«vc.assert.generate»
-		]
+			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
+			[
+				«vc.assert.generate»
+			]
 		'''
 	}
 
-	def evaluate(WhenExpr expr) {
+	def evaluateCondition(WhenExpr expr) {
+
+		// expre.condition evaluation
 		true
 	}
 

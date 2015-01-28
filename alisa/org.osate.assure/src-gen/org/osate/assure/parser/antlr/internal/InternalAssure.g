@@ -2137,15 +2137,33 @@ ruleResultIssue returns [EObject current=null]
 	    }
 
 )
-)	otherlv_1=':' 
+)(	otherlv_1=':' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getResultIssueAccess().getColonKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getResultIssueAccess().getColonKeyword_1_0());
     }
 (
 (
-		lv_message_2_0=RULE_STRING
+		lv_name_2_0=RULE_ID
 		{
-			newLeafNode(lv_message_2_0, grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_2_0()); 
+			newLeafNode(lv_name_2_0, grammarAccess.getResultIssueAccess().getNameIDTerminalRuleCall_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getResultIssueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_2_0, 
+        		"ID");
+	    }
+
+)
+))?(
+(
+		lv_message_3_0=RULE_STRING
+		{
+			newLeafNode(lv_message_3_0, grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_2_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -2154,20 +2172,20 @@ ruleResultIssue returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"message",
-        		lv_message_2_0, 
+        		lv_message_3_0, 
         		"STRING");
 	    }
 
 )
-)(	otherlv_3='exception' 
+)(	otherlv_4='exception' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getResultIssueAccess().getExceptionKeyword_3_0());
+    	newLeafNode(otherlv_4, grammarAccess.getResultIssueAccess().getExceptionKeyword_3_0());
     }
 (
 (
-		lv_exceptionType_4_0=RULE_STRING
+		lv_exceptionType_5_0=RULE_STRING
 		{
-			newLeafNode(lv_exceptionType_4_0, grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_3_1_0()); 
+			newLeafNode(lv_exceptionType_5_0, grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_3_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -2176,14 +2194,14 @@ ruleResultIssue returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"exceptionType",
-        		lv_exceptionType_4_0, 
+        		lv_exceptionType_5_0, 
         		"STRING");
 	    }
 
 )
-))?(	otherlv_5='target' 
+))?(	otherlv_6='target' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getResultIssueAccess().getTargetKeyword_4_0());
+    	newLeafNode(otherlv_6, grammarAccess.getResultIssueAccess().getTargetKeyword_4_0());
     }
 (
 (
@@ -2200,31 +2218,31 @@ ruleResultIssue returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_7='[' 
+))?(	otherlv_8='[' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0());
+    	newLeafNode(otherlv_8, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
 	    }
-		lv_issues_8_0=ruleResultIssue		{
+		lv_issues_9_0=ruleResultIssue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getResultIssueRule());
 	        }
        		add(
        			$current, 
        			"issues",
-        		lv_issues_8_0, 
+        		lv_issues_9_0, 
         		"ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)+	otherlv_9=']' 
+)+	otherlv_10=']' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2());
+    	newLeafNode(otherlv_10, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2());
     }
 )?)
 ;

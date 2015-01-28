@@ -1,45 +1,47 @@
 package org.osate.assure.util
 
+import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsMap
+import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator
+import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult
+import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider
+import com.rockwellcollins.atc.resolute.resolute.FailExpr
+import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition
+import com.rockwellcollins.atc.resolute.validation.BaseType
 import java.util.Collections
+import java.util.HashMap
 import java.util.List
-import org.eclipse.core.resources.IMarker
-import org.eclipse.core.resources.IResource
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.osate.aadl2.instance.InstanceObject
-import org.osate.aadl2.modelsupport.AadlConstants
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
-import org.osate.assure.assure.AssureResult
-import org.osate.assure.assure.CaseResult
-import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.VerificationResultState
-import org.osate.verify.verify.RefExpr
-import org.osate.assure.assure.ClaimResult
-import org.osate.assure.assure.AssumptionResult
-import org.osate.assure.assure.PreconditionResult
-import org.osate.assure.assure.FailThenResult
-import org.osate.assure.assure.AndThenResult
-import org.eclipse.emf.common.util.EList
-import org.osate.assure.assure.VerificationExpr
-import org.osate.assure.assure.ResultIssue
-import org.osate.assure.assure.AssureFactory
-import org.osate.assure.assure.ResultIssueType
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.EcoreUtil2
 import java.util.Map
 import java.util.SortedSet
-import org.osate.aadl2.NamedElement
-import java.util.HashMap
-import com.rockwellcollins.atc.resolute.analysis.execution.FeatureToConnectionsMap
-import org.osate.aadl2.instance.SystemInstance
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.ComponentCategory
 import java.util.TreeSet
-import com.rockwellcollins.atc.resolute.analysis.execution.NamedElementComparator
+import org.eclipse.core.resources.IMarker
+import org.eclipse.core.resources.IResource
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.EcoreUtil2
+import org.osate.aadl2.ComponentCategory
+import org.osate.aadl2.NamedElement
+import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
-import com.rockwellcollins.atc.resolute.validation.BaseType;
-import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProvider
-import com.rockwellcollins.atc.resolute.analysis.results.ResoluteResult
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.SystemInstance
+import org.osate.aadl2.modelsupport.AadlConstants
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
+import org.osate.assure.assure.AndThenResult
+import org.osate.assure.assure.AssumptionResult
+import org.osate.assure.assure.AssureFactory
+import org.osate.assure.assure.AssureResult
+import org.osate.assure.assure.CaseResult
+import org.osate.assure.assure.ClaimResult
+import org.osate.assure.assure.FailThenResult
+import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.ResultIssue
+import org.osate.assure.assure.ResultIssueType
+import org.osate.assure.assure.VerificationActivityResult
+import org.osate.assure.assure.VerificationExecutionState
+import org.osate.assure.assure.VerificationExpr
+import org.osate.assure.assure.VerificationResultState
+import org.osate.verify.verify.RefExpr
 
 class AssureUtilExtension {
 
@@ -134,36 +136,61 @@ class AssureUtilExtension {
 	def static void doResoluteResults(ResoluteResult rr, ResultIssue ri){
 		val subrrs = resoluteContent.getChildren(rr)
 		subrrs.forEach[subrr | val subclaim = subrr as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-			val subri = ri.addErrorIssue(subclaim.location, subclaim.text)
+			val subri = if(subclaim.isValid) ri.addSuccessIssue(subclaim.location, subclaim.text) else ri.addErrorIssue(subclaim.location, subclaim.text)
 			subclaim.doResoluteResults(subri)
 		]
 	}
 	
-	
 	def static ResultIssue addErrorIssue(VerificationActivityResult vr, EObject target, String message){
+		addErrorIssue(vr,target,message,null)
+	}
+	
+	def static ResultIssue addErrorIssue(VerificationActivityResult vr, EObject target, String message,  String issueSource){
 		val issue = AssureFactory.eINSTANCE.createResultIssue
 		vr.updateOwnResultState(VerificationResultState.FAIL);
 		issue.message = message
 		issue.issueType = ResultIssueType.ERROR;
-		issue.target = target
+		issue.exceptionType = issueSource
+		if (target instanceof FunctionDefinition){
+			issue.name = target.name
+		} else if (!(target instanceof FailExpr)){
+			issue.target = target
+		}
 		vr.issues.add(issue)
 		issue
 	}
 	
 	def static ResultIssue addErrorIssue(ResultIssue ri, EObject target, String message){
+		addErrorIssue(ri,target,message,null)
+	}
+	
+	def static ResultIssue addErrorIssue(ResultIssue ri, EObject target, String message, String issueSource){
 		val issue = AssureFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.ERROR;
-		issue.target = target
+		issue.exceptionType = issueSource
+		if (target instanceof FunctionDefinition){
+			issue.name = target.name
+		} else if (!(target instanceof FailExpr)){
+			issue.target = target
+		}
 		ri.issues.add(issue)
 		issue
 	}
-	
 	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message){
+		addSuccessIssue(ri,target,message,null)
+	}
+	
+	def static ResultIssue addSuccessIssue(ResultIssue ri, EObject target, String message, String issueSource){
 		val issue = AssureFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.SUCCESS;
-		issue.target = target
+		issue.exceptionType = issueSource
+		if (target instanceof FunctionDefinition){
+			issue.name = target.name
+		} else if (!(target instanceof FailExpr)){
+			issue.target = target
+		}
 		ri.issues.add(issue)
 		issue
 	}
@@ -172,21 +199,31 @@ class AssureUtilExtension {
 		val issue = AssureFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.WARNING;
-		issue.target = target
+		if (target instanceof FunctionDefinition){
+			issue.name = target.name
+		} else if (!(target instanceof FailExpr)){
+			issue.target = target
+		}
 		ri.issues.add(issue)
 		issue
 	}
 	
-	
-	def static ResultIssue addErrorIssue(VerificationActivityResult vr, EObject target, String message, String exceptionType){
-		val issue = vr.addErrorIssue(target, message)
-		issue.exceptionType = exceptionType
-		issue
-	}
 
 	
 	def static getTotalCount(AssureResult ar){
 		ar.errorCount + ar.failCount + ar.successCount + ar.tbdCount + ar.failthenCount + ar.andthenCount
+	}
+	
+	def static isSuccessful(AssureResult ar){
+		ar.failCount == 0 && ar.errorCount == 0 && ar.tbdCount == 0
+	}
+	
+	def static hasFailedorError(AssureResult ar){
+		ar.failCount != 0 || ar.errorCount != 0
+	}
+	
+	def static isTBD(AssureResult ar){
+		ar.failCount == 0 && ar.errorCount == 0 && ar.tbdCount > 0
 	}
 
 	/**
@@ -324,7 +361,10 @@ class AssureUtilExtension {
 	  */
 	  def static void resetToTBD(CaseResult root){
 	  	val vrlist = EcoreUtil2.eAllOfType(root,VerificationActivityResult)
-	  	vrlist.forEach[vr | vr.resultState = VerificationResultState.TBD]
+	  	vrlist.forEach[vr | vr.resultState = VerificationResultState.TBD
+	  		vr.executionState = VerificationExecutionState.TODO
+	  		vr.issues.clear
+	  	]
 	  }
 	
 		/**
@@ -506,14 +546,13 @@ class AssureUtilExtension {
   * the next methods update the counts for FailThen and AndThen
   * returns true if change of state
   */
-	def static boolean recordFailThen(FailThenResult result) {
+	def static void recordFailThen(FailThenResult result) {
 		if (result.didFailThenFail){
 			// was didthen from previous time
-			return false
 		} else {
 			result.didFailThenFail = true
 			result.failthenCount = result.failthenCount + 1
-			return true
+			result.propagateCountChangeUp
 		}
 	}
 
@@ -521,14 +560,13 @@ class AssureUtilExtension {
   * the next methods update the counts for FailThen and AndThen
   * returns true if change of state
   */
-	def static boolean recordNoFailThen(FailThenResult result) {
+	def static void recordNoFailThen(FailThenResult result) {
 		if (result.didFailThenFail){
 			result.didFailThenFail = false
 			result.failthenCount = result.failthenCount - 1
-			return true
+			result.propagateCountChangeUp
 		} else {
 			// was already no didThen
-			return false
 		}
 	}
 
@@ -536,14 +574,13 @@ class AssureUtilExtension {
   * the next methods update the counts for FailThen and AndThen
   * returns true if change of state
   */
-	def static boolean recordSkip(AndThenResult result) {
+	def static void recordSkip(AndThenResult result) {
 		if (result.didAndThenFail){
 			// was didAndThenFail from previous time
-			return false
 		} else {
 			result.didAndThenFail = true
 			result.andthenCount = result.andthenCount + 1
-			return true
+			result.propagateCountChangeUp
 		}
 	}
 
@@ -551,14 +588,13 @@ class AssureUtilExtension {
   * the next methods update the counts for FailThen and AndThen
   * returns true if change of state
   */
-	def static boolean recordNoSkip(AndThenResult result) {
+	def static void recordNoSkip(AndThenResult result) {
 		if (result.didAndThenFail){
 			result.didAndThenFail = false
 			result.andthenCount = result.andthenCount - 1
-			return true
+			result.propagateCountChangeUp
 		} else {
 			// was already no didThen
-			return false
 		}
 	}
 	
@@ -571,6 +607,7 @@ class AssureUtilExtension {
 		if (ar.resultState == newState)return false
 		if (ar.resultState == VerificationResultState.TBD){
 			ar.tbdCount = ar.tbdCount - 1
+			ar.executionState = VerificationExecutionState.COMPLETED
 			switch (newState) {
 			case VerificationResultState.SUCCESS: 
 				ar.successCount = ar.successCount + 1
@@ -582,6 +619,7 @@ class AssureUtilExtension {
 			}
 		} else if (newState == VerificationResultState.TBD){
 			ar.tbdCount = ar.tbdCount + 1
+			ar.executionState = VerificationExecutionState.TODO
 		  	switch (ar.resultState) {
 			case VerificationResultState.SUCCESS: 
 				ar.successCount = ar.successCount - 1
@@ -602,7 +640,7 @@ class AssureUtilExtension {
 	/**
 	 * Given the state (and count) change to ar, propagate the counts up the hierarchy
 	 */
-	def static void propagateCountChangeUp(AssureResult ar) {
+	private def static void propagateCountChangeUp(AssureResult ar) {
 		var parent = ar.eContainer
 		while (parent != null && parent instanceof AssureResult) {
 			val parentResult = (parent as AssureResult)

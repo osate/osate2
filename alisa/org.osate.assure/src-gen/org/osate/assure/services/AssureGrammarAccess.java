@@ -1509,7 +1509,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cIssueTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cIssueTypeResultIssueTypeEnumRuleCall_0_0 = (RuleCall)cIssueTypeAssignment_0.eContents().get(0);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cNameAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_1_0 = (RuleCall)cNameAssignment_1_1.eContents().get(0);
 		private final Assignment cMessageAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cMessageSTRINGTerminalRuleCall_2_0 = (RuleCall)cMessageAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
@@ -1527,12 +1530,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIssuesResultIssueParserRuleCall_5_1_0 = (RuleCall)cIssuesAssignment_5_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
 		
+		//// use it for failures, warnings and successes.
 		//ResultIssue:
-		//	issueType=ResultIssueType ":" message=STRING ("exception" exceptionType=STRING)? ("target"
+		//	issueType=ResultIssueType (":" name=ID)? message=STRING ("exception" exceptionType=STRING)? ("target"
 		//	target=[ecore::EObject|URIID])? ("[" issues+=ResultIssue+ "]")?;
 		public ParserRule getRule() { return rule; }
 
-		//issueType=ResultIssueType ":" message=STRING ("exception" exceptionType=STRING)? ("target"
+		//issueType=ResultIssueType (":" name=ID)? message=STRING ("exception" exceptionType=STRING)? ("target"
 		//target=[ecore::EObject|URIID])? ("[" issues+=ResultIssue+ "]")?
 		public Group getGroup() { return cGroup; }
 
@@ -1542,8 +1546,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//ResultIssueType
 		public RuleCall getIssueTypeResultIssueTypeEnumRuleCall_0_0() { return cIssueTypeResultIssueTypeEnumRuleCall_0_0; }
 
+		//(":" name=ID)?
+		public Group getGroup_1() { return cGroup_1; }
+
 		//":"
-		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
+		public Keyword getColonKeyword_1_0() { return cColonKeyword_1_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_1_1() { return cNameAssignment_1_1; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_1_0() { return cNameIDTerminalRuleCall_1_1_0; }
 
 		//message=STRING
 		public Assignment getMessageAssignment_2() { return cMessageAssignment_2; }
@@ -1925,8 +1938,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getAndThenResultAccess().getRule();
 	}
 
+	//// use it for failures, warnings and successes.
 	//ResultIssue:
-	//	issueType=ResultIssueType ":" message=STRING ("exception" exceptionType=STRING)? ("target"
+	//	issueType=ResultIssueType (":" name=ID)? message=STRING ("exception" exceptionType=STRING)? ("target"
 	//	target=[ecore::EObject|URIID])? ("[" issues+=ResultIssue+ "]")?;
 	public ResultIssueElements getResultIssueAccess() {
 		return pResultIssue;

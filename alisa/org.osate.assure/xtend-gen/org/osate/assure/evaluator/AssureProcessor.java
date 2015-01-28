@@ -91,10 +91,7 @@ public class AssureProcessor implements IAssureProcessor {
     EList<VerificationExpr> _first_1 = vaResult.getFirst();
     boolean _hasFailedOrError = AssureUtilExtension.hasFailedOrError(_first_1);
     if (_hasFailedOrError) {
-      boolean _recordFailThen = AssureUtilExtension.recordFailThen(vaResult);
-      if (_recordFailThen) {
-        AssureUtilExtension.propagateCountChangeUp(vaResult);
-      }
+      AssureUtilExtension.recordFailThen(vaResult);
       EList<VerificationExpr> _second = vaResult.getSecond();
       final Procedure1<VerificationExpr> _function_1 = new Procedure1<VerificationExpr>() {
         public void apply(final VerificationExpr expr) {
@@ -103,10 +100,7 @@ public class AssureProcessor implements IAssureProcessor {
       };
       IterableExtensions.<VerificationExpr>forEach(_second, _function_1);
     } else {
-      boolean _recordNoFailThen = AssureUtilExtension.recordNoFailThen(vaResult);
-      if (_recordNoFailThen) {
-        AssureUtilExtension.propagateCountChangeUp(vaResult);
-      }
+      AssureUtilExtension.recordNoFailThen(vaResult);
     }
   }
   
@@ -128,15 +122,9 @@ public class AssureProcessor implements IAssureProcessor {
         }
       };
       IterableExtensions.<VerificationExpr>forEach(_second, _function_1);
-      boolean _recordNoSkip = AssureUtilExtension.recordNoSkip(vaResult);
-      if (_recordNoSkip) {
-        AssureUtilExtension.propagateCountChangeUp(vaResult);
-      }
+      AssureUtilExtension.recordNoSkip(vaResult);
     } else {
-      boolean _recordSkip = AssureUtilExtension.recordSkip(vaResult);
-      if (_recordSkip) {
-        AssureUtilExtension.propagateCountChangeUp(vaResult);
-      }
+      AssureUtilExtension.recordSkip(vaResult);
     }
   }
   

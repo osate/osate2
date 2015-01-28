@@ -8165,11 +8165,9 @@ rule__ResultIssue__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getResultIssueAccess().getColonKeyword_1()); }
-
-	':' 
-
-{ after(grammarAccess.getResultIssueAccess().getColonKeyword_1()); }
+{ before(grammarAccess.getResultIssueAccess().getGroup_1()); }
+(rule__ResultIssue__Group_1__0)?
+{ after(grammarAccess.getResultIssueAccess().getGroup_1()); }
 )
 
 ;
@@ -8299,6 +8297,69 @@ finally {
 
 
 
+
+
+
+
+
+
+rule__ResultIssue__Group_1__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ResultIssue__Group_1__0__Impl
+	rule__ResultIssue__Group_1__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ResultIssue__Group_1__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getResultIssueAccess().getColonKeyword_1_0()); }
+
+	':' 
+
+{ after(grammarAccess.getResultIssueAccess().getColonKeyword_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__ResultIssue__Group_1__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ResultIssue__Group_1__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ResultIssue__Group_1__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getResultIssueAccess().getNameAssignment_1_1()); }
+(rule__ResultIssue__NameAssignment_1_1)
+{ after(grammarAccess.getResultIssueAccess().getNameAssignment_1_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -10319,6 +10380,21 @@ rule__ResultIssue__IssueTypeAssignment_0
 (
 { before(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_0_0()); }
 	ruleResultIssueType{ after(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ResultIssue__NameAssignment_1_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getResultIssueAccess().getNameIDTerminalRuleCall_1_1_0()); }
+	RULE_ID{ after(grammarAccess.getResultIssueAccess().getNameIDTerminalRuleCall_1_1_0()); }
 )
 
 ;

@@ -65,13 +65,13 @@ public class AlisaWorkbenchUtilsExtension {
     return _xblockexpression;
   }
   
-  public static NamedElement getRequirementTarget(final Requirement req, final ComponentInstance io) {
+  public static InstanceObject getRequirementTarget(final Requirement req, final ComponentInstance io) {
     NamedElement _target = req.getTarget();
     return AlisaWorkbenchUtilsExtension.findElementInstance(io, _target);
   }
   
-  public static NamedElement findElementInstance(final ComponentInstance io, final NamedElement element) {
-    NamedElement _switchResult = null;
+  public static InstanceObject findElementInstance(final ComponentInstance io, final NamedElement element) {
+    InstanceObject _switchResult = null;
     boolean _matched = false;
     if (!_matched) {
       if (io instanceof ComponentInstance) {
@@ -85,7 +85,7 @@ public class AlisaWorkbenchUtilsExtension {
           }
         };
         Element _findFirst = IterableExtensions.<Element>findFirst(_allOwnedElements, _function);
-        _switchResult = ((NamedElement) _findFirst);
+        _switchResult = ((InstanceObject) _findFirst);
       }
     }
     if (!_matched) {

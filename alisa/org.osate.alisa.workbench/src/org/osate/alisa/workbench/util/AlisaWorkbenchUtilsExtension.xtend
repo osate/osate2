@@ -35,7 +35,7 @@ class AlisaWorkbenchUtilsExtension {
 	def static findElementInstance(ComponentInstance io, NamedElement element) {
 		switch io {
 			ComponentInstance: io.allOwnedElements.findFirst[ei|
-				(ei as InstanceObject).name.equalsIgnoreCase(element.name)] as NamedElement
+				(ei as InstanceObject).name.equalsIgnoreCase(element.name)] as InstanceObject
 			default: io
 		}
 	}

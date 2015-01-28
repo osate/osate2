@@ -139,7 +139,7 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 //		if (boundList.size() > 0) {
 //			return  boundList.get(0) as FunctionDefinition;
 //		}
-		val res =getNamedElementByType(context, resoluteFunctionName, ResolutePackage.eINSTANCE.getFunctionDefinition())
+		val res = getNamedElementByType(context, resoluteFunctionName, ResolutePackage.eINSTANCE.getFunctionDefinition())
 		return res as FunctionDefinition
 	}
 	def EObject getNamedElementByType(EObject context, String name, EClass eclass) {

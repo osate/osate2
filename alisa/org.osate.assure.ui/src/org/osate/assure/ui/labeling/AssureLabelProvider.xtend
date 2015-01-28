@@ -6,6 +6,12 @@ package org.osate.assure.ui.labeling
 import com.google.inject.Inject
 import org.osate.assure.assure.FailThenResult
 import org.osate.assure.assure.AndThenResult
+import org.osate.assure.assure.ResultIssue
+import org.osate.assure.assure.ResultIssueType
+import org.osate.assure.assure.ClaimResult
+import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.assure.assure.VerificationActivityResult
+import org.osate.assure.assure.CaseResult
 
 /**
  * Provides labels for a EObjects.
@@ -27,8 +33,45 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	def text(AndThenResult ele) {
 		'andthen'
 	}
-//
-//	def image(Greeting ele) {
-//		'Greeting.gif'
-//	}
+
+	def image(ResultIssue ele) {
+		switch(ele.issueType){
+			case ResultIssueType.ERROR: 'error.png'
+			case ResultIssueType.SUCCESS: 'valid.png'
+			case ResultIssueType.WARNING: 'warning.png'
+			case ResultIssueType.INFO: 'info.png'
+		}
+	}
+	
+	
+	def image(ClaimResult ele) {
+		if (ele.isSuccessful) return 'claimsuccess.png'
+		if (ele.hasFailedorError) return 'claimfail.png'
+		return 'claim.png'
+	}
+	
+	def image(VerificationActivityResult ele) {
+		if (ele.isSuccessful) return 'verifysuccess.png'
+		if (ele.hasFailedorError) return 'verifyfail.png'
+		return 'verify.png'
+	}
+	
+	def image(CaseResult ele) {
+		if (ele.isSuccessful) return 'assuresuccess.png'
+		if (ele.hasFailedorError) return 'assurefail.png'
+		return 'assure.png'
+	}
+	
+	def image(AndThenResult ele) {
+		if (ele.isSuccessful) return 'valid.png'
+		if (ele.hasFailedorError) return 'error.png'
+		return 'questionmark.png'
+	}
+	
+	def image(FailThenResult ele) {
+		if (ele.isSuccessful) return 'valid.png'
+		if (ele.hasFailedorError) return 'error.png'
+		return 'questionmark.png'
+	}
+	
 }
