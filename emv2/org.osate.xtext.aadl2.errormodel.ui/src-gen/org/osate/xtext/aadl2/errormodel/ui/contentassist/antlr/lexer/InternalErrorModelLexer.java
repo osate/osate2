@@ -15,23 +15,22 @@ public class InternalErrorModelLexer extends Lexer {
     public static final int Orless=33;
     public static final int RULE_ID=99;
     public static final int RULE_REAL_LIT=95;
-    public static final int RightParenthesis=77;
-    public static final int ExclamationMark=75;
+    public static final int RightParenthesis=78;
+    public static final int ExclamationMark=76;
     public static final int Repair=36;
     public static final int Path=50;
-    public static final int LeftParenthesis=76;
-    public static final int RightSquareBracket=86;
+    public static final int LeftParenthesis=77;
+    public static final int RightSquareBracket=87;
     public static final int Extends=24;
     public static final int Library=26;
     public static final int EOF=-1;
     public static final int Modes=44;
-    public static final int FullStop=82;
+    public static final int FullStop=83;
     public static final int Binding=22;
-    public static final int RULE_CONDITION=89;
     public static final int Point=46;
     public static final int Out=64;
     public static final int Recover=28;
-    public static final int To=74;
+    public static final int To=75;
     public static final int Mode=49;
     public static final int When=56;
     public static final int FullStopFullStop=69;
@@ -42,8 +41,8 @@ public class InternalErrorModelLexer extends Lexer {
     public static final int Noerror=27;
     public static final int Properties=12;
     public static final int Ormore=34;
-    public static final int Colon=83;
-    public static final int LeftCurlyBracket=87;
+    public static final int Colon=84;
+    public static final int LeftCurlyBracket=88;
     public static final int With=57;
     public static final int RULE_STRING=98;
     public static final int Propagations=5;
@@ -54,11 +53,11 @@ public class InternalErrorModelLexer extends Lexer {
     public static final int RULE_DIGIT=92;
     public static final int PlusSignEqualsSignGreaterThanSign=58;
     public static final int HyphenMinusGreaterThanSign=67;
-    public static final int RightCurlyBracket=88;
+    public static final int RightCurlyBracket=89;
     public static final int Types=48;
     public static final int End=62;
     public static final int RULE_INTEGER_LIT=91;
-    public static final int HyphenMinus=81;
+    public static final int HyphenMinus=82;
     public static final int Self=52;
     public static final int All=60;
     public static final int False=42;
@@ -75,28 +74,29 @@ public class InternalErrorModelLexer extends Lexer {
     public static final int EqualsSignGreaterThanSign=71;
     public static final int States=38;
     public static final int Source=37;
-    public static final int Or=73;
-    public static final int LeftSquareBracket=85;
+    public static final int Or=74;
+    public static final int LeftSquareBracket=86;
     public static final int True=54;
     public static final int Reference=16;
     public static final int Paths=45;
+    public static final int If=72;
     public static final int Propagation=7;
     public static final int And=61;
     public static final int Composite=14;
-    public static final int Asterisk=78;
-    public static final int In=72;
+    public static final int Asterisk=79;
+    public static final int In=73;
     public static final int Type=55;
     public static final int Delta=39;
     public static final int Connection=10;
     public static final int RULE_BASED_INTEGER=97;
-    public static final int Semicolon=84;
+    public static final int Semicolon=85;
     public static final int Flows=43;
     public static final int RULE_SL_COMMENT=90;
     public static final int Processor=15;
     public static final int ColonColon=70;
     public static final int RightSquareBracketHyphenMinusGreaterThanSign=59;
     public static final int Detections=11;
-    public static final int PlusSign=79;
+    public static final int PlusSign=80;
     public static final int Events=31;
     public static final int Transitions=8;
     public static final int Bindings=18;
@@ -108,7 +108,7 @@ public class InternalErrorModelLexer extends Lexer {
     public static final int State=47;
     public static final int Same=51;
     public static final int RULE_WS=100;
-    public static final int Comma=80;
+    public static final int Comma=81;
     public static final int Compute=23;
 
     // delegates
@@ -4960,13 +4960,50 @@ public class InternalErrorModelLexer extends Lexer {
     }
     // $ANTLR end "EqualsSignGreaterThanSign"
 
+    // $ANTLR start "If"
+    public final void mIf() throws RecognitionException {
+        try {
+            int _type = If;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:155:4: ( ( 'I' | 'i' ) ( 'F' | 'f' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:155:6: ( 'I' | 'i' ) ( 'F' | 'f' )
+            {
+            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "If"
+
     // $ANTLR start "In"
     public final void mIn() throws RecognitionException {
         try {
             int _type = In;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:155:4: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:155:6: ( 'I' | 'i' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:157:4: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:157:6: ( 'I' | 'i' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -5002,8 +5039,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Or;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:157:4: ( ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:157:6: ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:159:4: ( ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:159:6: ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -5039,8 +5076,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = To;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:159:4: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:159:6: ( 'T' | 't' ) ( 'O' | 'o' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:161:4: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:161:6: ( 'T' | 't' ) ( 'O' | 'o' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -5076,8 +5113,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = ExclamationMark;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:161:17: ( '!' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:161:19: '!'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:163:17: ( '!' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:163:19: '!'
             {
             match('!'); 
 
@@ -5096,8 +5133,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = LeftParenthesis;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:163:17: ( '(' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:163:19: '('
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:165:17: ( '(' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:165:19: '('
             {
             match('('); 
 
@@ -5116,8 +5153,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RightParenthesis;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:165:18: ( ')' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:165:20: ')'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:167:18: ( ')' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:167:20: ')'
             {
             match(')'); 
 
@@ -5136,8 +5173,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Asterisk;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:167:10: ( '*' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:167:12: '*'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:169:10: ( '*' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:169:12: '*'
             {
             match('*'); 
 
@@ -5156,8 +5193,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = PlusSign;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:169:10: ( '+' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:169:12: '+'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:171:10: ( '+' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:171:12: '+'
             {
             match('+'); 
 
@@ -5176,8 +5213,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Comma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:171:7: ( ',' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:171:9: ','
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:173:7: ( ',' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:173:9: ','
             {
             match(','); 
 
@@ -5196,8 +5233,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = HyphenMinus;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:173:13: ( '-' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:173:15: '-'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:175:13: ( '-' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:175:15: '-'
             {
             match('-'); 
 
@@ -5216,8 +5253,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = FullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:175:10: ( '.' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:175:12: '.'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:177:10: ( '.' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:177:12: '.'
             {
             match('.'); 
 
@@ -5236,8 +5273,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:177:7: ( ':' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:177:9: ':'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:179:7: ( ':' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:179:9: ':'
             {
             match(':'); 
 
@@ -5256,8 +5293,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = Semicolon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:179:11: ( ';' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:179:13: ';'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:181:11: ( ';' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:181:13: ';'
             {
             match(';'); 
 
@@ -5276,8 +5313,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = LeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:181:19: ( '[' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:181:21: '['
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:183:19: ( '[' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:183:21: '['
             {
             match('['); 
 
@@ -5296,8 +5333,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RightSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:183:20: ( ']' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:183:22: ']'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:185:20: ( ']' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:185:22: ']'
             {
             match(']'); 
 
@@ -5316,8 +5353,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = LeftCurlyBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:185:18: ( '{' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:185:20: '{'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:187:18: ( '{' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:187:20: '{'
             {
             match('{'); 
 
@@ -5336,8 +5373,8 @@ public class InternalErrorModelLexer extends Lexer {
         try {
             int _type = RightCurlyBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:187:19: ( '}' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:187:21: '}'
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:189:19: ( '}' )
+            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:189:21: '}'
             {
             match('}'); 
 
@@ -5351,66 +5388,6 @@ public class InternalErrorModelLexer extends Lexer {
     }
     // $ANTLR end "RightCurlyBracket"
 
-    // $ANTLR start "RULE_CONDITION"
-    public final void mRULE_CONDITION() throws RecognitionException {
-        try {
-            int _type = RULE_CONDITION;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:191:16: ( 'if' ( options {greedy=false; } : . )* '*;' )
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:191:18: 'if' ( options {greedy=false; } : . )* '*;'
-            {
-            match("if"); 
-
-            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:191:23: ( options {greedy=false; } : . )*
-            loop1:
-            do {
-                int alt1=2;
-                int LA1_0 = input.LA(1);
-
-                if ( (LA1_0=='*') ) {
-                    int LA1_1 = input.LA(2);
-
-                    if ( (LA1_1==';') ) {
-                        alt1=2;
-                    }
-                    else if ( ((LA1_1>='\u0000' && LA1_1<=':')||(LA1_1>='<' && LA1_1<='\uFFFF')) ) {
-                        alt1=1;
-                    }
-
-
-                }
-                else if ( ((LA1_0>='\u0000' && LA1_0<=')')||(LA1_0>='+' && LA1_0<='\uFFFF')) ) {
-                    alt1=1;
-                }
-
-
-                switch (alt1) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:191:51: .
-            	    {
-            	    matchAny(); 
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop1;
-                }
-            } while (true);
-
-            match("*;"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "RULE_CONDITION"
-
     // $ANTLR start "RULE_SL_COMMENT"
     public final void mRULE_SL_COMMENT() throws RecognitionException {
         try {
@@ -5422,17 +5399,17 @@ public class InternalErrorModelLexer extends Lexer {
             match("--"); 
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:24: (~ ( ( '\\n' | '\\r' ) ) )*
-            loop2:
+            loop1:
             do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+                int alt1=2;
+                int LA1_0 = input.LA(1);
 
-                if ( ((LA2_0>='\u0000' && LA2_0<='\t')||(LA2_0>='\u000B' && LA2_0<='\f')||(LA2_0>='\u000E' && LA2_0<='\uFFFF')) ) {
-                    alt2=1;
+                if ( ((LA1_0>='\u0000' && LA1_0<='\t')||(LA1_0>='\u000B' && LA1_0<='\f')||(LA1_0>='\u000E' && LA1_0<='\uFFFF')) ) {
+                    alt1=1;
                 }
 
 
-                switch (alt2) {
+                switch (alt1) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
@@ -5450,29 +5427,29 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop2;
+            	    break loop1;
                 }
             } while (true);
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:40: ( ( '\\r' )? '\\n' )?
-            int alt4=2;
-            int LA4_0 = input.LA(1);
+            int alt3=2;
+            int LA3_0 = input.LA(1);
 
-            if ( (LA4_0=='\n'||LA4_0=='\r') ) {
-                alt4=1;
+            if ( (LA3_0=='\n'||LA3_0=='\r') ) {
+                alt3=1;
             }
-            switch (alt4) {
+            switch (alt3) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:41: ( '\\r' )? '\\n'
                     {
                     // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:41: ( '\\r' )?
-                    int alt3=2;
-                    int LA3_0 = input.LA(1);
+                    int alt2=2;
+                    int LA2_0 = input.LA(1);
 
-                    if ( (LA3_0=='\r') ) {
-                        alt3=1;
+                    if ( (LA2_0=='\r') ) {
+                        alt2=1;
                     }
-                    switch (alt3) {
+                    switch (alt2) {
                         case 1 :
                             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:193:41: '\\r'
                             {
@@ -5510,18 +5487,18 @@ public class InternalErrorModelLexer extends Lexer {
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:20: ( '0' .. '9' )+
             {
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:20: ( '0' .. '9' )+
-            int cnt5=0;
-            loop5:
+            int cnt4=0;
+            loop4:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt4=2;
+                int LA4_0 = input.LA(1);
 
-                if ( ((LA5_0>='0' && LA5_0<='9')) ) {
-                    alt5=1;
+                if ( ((LA4_0>='0' && LA4_0<='9')) ) {
+                    alt4=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt4) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:195:21: '0' .. '9'
             	    {
@@ -5531,12 +5508,12 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt5 >= 1 ) break loop5;
+            	    if ( cnt4 >= 1 ) break loop4;
                         EarlyExitException eee =
-                            new EarlyExitException(5, input);
+                            new EarlyExitException(4, input);
                         throw eee;
                 }
-                cnt5++;
+                cnt4++;
             } while (true);
 
 
@@ -5566,13 +5543,13 @@ public class InternalErrorModelLexer extends Lexer {
                 throw mse;}
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:36: ( '+' | '-' )?
-            int alt6=2;
-            int LA6_0 = input.LA(1);
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-            if ( (LA6_0=='+'||LA6_0=='-') ) {
-                alt6=1;
+            if ( (LA5_0=='+'||LA5_0=='-') ) {
+                alt5=1;
             }
-            switch (alt6) {
+            switch (alt5) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:
                     {
@@ -5592,18 +5569,18 @@ public class InternalErrorModelLexer extends Lexer {
             }
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:47: ( RULE_DIGIT )+
-            int cnt7=0;
-            loop7:
+            int cnt6=0;
+            loop6:
             do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( ((LA7_0>='0' && LA7_0<='9')) ) {
-                    alt7=1;
+                if ( ((LA6_0>='0' && LA6_0<='9')) ) {
+                    alt6=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt6) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:197:47: RULE_DIGIT
             	    {
@@ -5613,12 +5590,12 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt7 >= 1 ) break loop7;
+            	    if ( cnt6 >= 1 ) break loop6;
                         EarlyExitException eee =
-                            new EarlyExitException(7, input);
+                            new EarlyExitException(6, input);
                         throw eee;
                 }
-                cnt7++;
+                cnt6++;
             } while (true);
 
 
@@ -5646,13 +5623,13 @@ public class InternalErrorModelLexer extends Lexer {
                 throw mse;}
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:40: ( '+' )?
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+            int alt7=2;
+            int LA7_0 = input.LA(1);
 
-            if ( (LA8_0=='+') ) {
-                alt8=1;
+            if ( (LA7_0=='+') ) {
+                alt7=1;
             }
-            switch (alt8) {
+            switch (alt7) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:40: '+'
                     {
@@ -5664,18 +5641,18 @@ public class InternalErrorModelLexer extends Lexer {
             }
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:45: ( RULE_DIGIT )+
-            int cnt9=0;
-            loop9:
+            int cnt8=0;
+            loop8:
             do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( ((LA9_0>='0' && LA9_0<='9')) ) {
-                    alt9=1;
+                if ( ((LA8_0>='0' && LA8_0<='9')) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt9) {
+                switch (alt8) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:199:45: RULE_DIGIT
             	    {
@@ -5685,12 +5662,12 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt9 >= 1 ) break loop9;
+            	    if ( cnt8 >= 1 ) break loop8;
                         EarlyExitException eee =
-                            new EarlyExitException(9, input);
+                            new EarlyExitException(8, input);
                         throw eee;
                 }
-                cnt9++;
+                cnt8++;
             } while (true);
 
 
@@ -5711,18 +5688,18 @@ public class InternalErrorModelLexer extends Lexer {
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
             {
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:17: ( RULE_DIGIT )+
-            int cnt10=0;
-            loop10:
+            int cnt9=0;
+            loop9:
             do {
-                int alt10=2;
-                int LA10_0 = input.LA(1);
+                int alt9=2;
+                int LA9_0 = input.LA(1);
 
-                if ( ((LA10_0>='0' && LA10_0<='9')) ) {
-                    alt10=1;
+                if ( ((LA9_0>='0' && LA9_0<='9')) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt10) {
+                switch (alt9) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:17: RULE_DIGIT
             	    {
@@ -5732,43 +5709,43 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt10 >= 1 ) break loop10;
+            	    if ( cnt9 >= 1 ) break loop9;
                         EarlyExitException eee =
-                            new EarlyExitException(10, input);
+                            new EarlyExitException(9, input);
                         throw eee;
                 }
-                cnt10++;
+                cnt9++;
             } while (true);
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:29: ( '_' ( RULE_DIGIT )+ )*
-            loop12:
+            loop11:
             do {
-                int alt12=2;
-                int LA12_0 = input.LA(1);
+                int alt11=2;
+                int LA11_0 = input.LA(1);
 
-                if ( (LA12_0=='_') ) {
-                    alt12=1;
+                if ( (LA11_0=='_') ) {
+                    alt11=1;
                 }
 
 
-                switch (alt12) {
+                switch (alt11) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:30: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:34: ( RULE_DIGIT )+
-            	    int cnt11=0;
-            	    loop11:
+            	    int cnt10=0;
+            	    loop10:
             	    do {
-            	        int alt11=2;
-            	        int LA11_0 = input.LA(1);
+            	        int alt10=2;
+            	        int LA10_0 = input.LA(1);
 
-            	        if ( ((LA11_0>='0' && LA11_0<='9')) ) {
-            	            alt11=1;
+            	        if ( ((LA10_0>='0' && LA10_0<='9')) ) {
+            	            alt10=1;
             	        }
 
 
-            	        switch (alt11) {
+            	        switch (alt10) {
             	    	case 1 :
             	    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:34: RULE_DIGIT
             	    	    {
@@ -5778,12 +5755,12 @@ public class InternalErrorModelLexer extends Lexer {
             	    	    break;
 
             	    	default :
-            	    	    if ( cnt11 >= 1 ) break loop11;
+            	    	    if ( cnt10 >= 1 ) break loop10;
             	                EarlyExitException eee =
-            	                    new EarlyExitException(11, input);
+            	                    new EarlyExitException(10, input);
             	                throw eee;
             	        }
-            	        cnt11++;
+            	        cnt10++;
             	    } while (true);
 
 
@@ -5791,24 +5768,24 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop12;
+            	    break loop11;
                 }
             } while (true);
 
             match('.'); 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:52: ( RULE_DIGIT )+
-            int cnt13=0;
-            loop13:
+            int cnt12=0;
+            loop12:
             do {
-                int alt13=2;
-                int LA13_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( ((LA13_0>='0' && LA13_0<='9')) ) {
-                    alt13=1;
+                if ( ((LA12_0>='0' && LA12_0<='9')) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt13) {
+                switch (alt12) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:52: RULE_DIGIT
             	    {
@@ -5818,43 +5795,43 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt13 >= 1 ) break loop13;
+            	    if ( cnt12 >= 1 ) break loop12;
                         EarlyExitException eee =
-                            new EarlyExitException(13, input);
+                            new EarlyExitException(12, input);
                         throw eee;
                 }
-                cnt13++;
+                cnt12++;
             } while (true);
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:64: ( '_' ( RULE_DIGIT )+ )*
-            loop15:
+            loop14:
             do {
-                int alt15=2;
-                int LA15_0 = input.LA(1);
+                int alt14=2;
+                int LA14_0 = input.LA(1);
 
-                if ( (LA15_0=='_') ) {
-                    alt15=1;
+                if ( (LA14_0=='_') ) {
+                    alt14=1;
                 }
 
 
-                switch (alt15) {
+                switch (alt14) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:65: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:69: ( RULE_DIGIT )+
-            	    int cnt14=0;
-            	    loop14:
+            	    int cnt13=0;
+            	    loop13:
             	    do {
-            	        int alt14=2;
-            	        int LA14_0 = input.LA(1);
+            	        int alt13=2;
+            	        int LA13_0 = input.LA(1);
 
-            	        if ( ((LA14_0>='0' && LA14_0<='9')) ) {
-            	            alt14=1;
+            	        if ( ((LA13_0>='0' && LA13_0<='9')) ) {
+            	            alt13=1;
             	        }
 
 
-            	        switch (alt14) {
+            	        switch (alt13) {
             	    	case 1 :
             	    	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:69: RULE_DIGIT
             	    	    {
@@ -5864,12 +5841,12 @@ public class InternalErrorModelLexer extends Lexer {
             	    	    break;
 
             	    	default :
-            	    	    if ( cnt14 >= 1 ) break loop14;
+            	    	    if ( cnt13 >= 1 ) break loop13;
             	                EarlyExitException eee =
-            	                    new EarlyExitException(14, input);
+            	                    new EarlyExitException(13, input);
             	                throw eee;
             	        }
-            	        cnt14++;
+            	        cnt13++;
             	    } while (true);
 
 
@@ -5877,18 +5854,18 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop15;
+            	    break loop14;
                 }
             } while (true);
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:83: ( RULE_EXPONENT )?
-            int alt16=2;
-            int LA16_0 = input.LA(1);
+            int alt15=2;
+            int LA15_0 = input.LA(1);
 
-            if ( (LA16_0=='E'||LA16_0=='e') ) {
-                alt16=1;
+            if ( (LA15_0=='E'||LA15_0=='e') ) {
+                alt15=1;
             }
-            switch (alt16) {
+            switch (alt15) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:201:83: RULE_EXPONENT
                     {
@@ -5958,28 +5935,28 @@ public class InternalErrorModelLexer extends Lexer {
             {
             mRULE_EXTENDED_DIGIT(); 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
-            loop18:
+            loop17:
             do {
-                int alt18=2;
-                int LA18_0 = input.LA(1);
+                int alt17=2;
+                int LA17_0 = input.LA(1);
 
-                if ( ((LA18_0>='0' && LA18_0<='9')||(LA18_0>='A' && LA18_0<='F')||LA18_0=='_'||(LA18_0>='a' && LA18_0<='f')) ) {
-                    alt18=1;
+                if ( ((LA17_0>='0' && LA17_0<='9')||(LA17_0>='A' && LA17_0<='F')||LA17_0=='_'||(LA17_0>='a' && LA17_0<='f')) ) {
+                    alt17=1;
                 }
 
 
-                switch (alt18) {
+                switch (alt17) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:52: ( '_' )? RULE_EXTENDED_DIGIT
             	    {
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:52: ( '_' )?
-            	    int alt17=2;
-            	    int LA17_0 = input.LA(1);
+            	    int alt16=2;
+            	    int LA16_0 = input.LA(1);
 
-            	    if ( (LA17_0=='_') ) {
-            	        alt17=1;
+            	    if ( (LA16_0=='_') ) {
+            	        alt16=1;
             	    }
-            	    switch (alt17) {
+            	    switch (alt16) {
             	        case 1 :
             	            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:207:52: '_'
             	            {
@@ -5996,7 +5973,7 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop18;
+            	    break loop17;
                 }
             } while (true);
 
@@ -6018,41 +5995,41 @@ public class InternalErrorModelLexer extends Lexer {
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
-            int alt21=2;
-            int LA21_0 = input.LA(1);
+            int alt20=2;
+            int LA20_0 = input.LA(1);
 
-            if ( (LA21_0=='\"') ) {
-                alt21=1;
+            if ( (LA20_0=='\"') ) {
+                alt20=1;
             }
-            else if ( (LA21_0=='\'') ) {
-                alt21=2;
+            else if ( (LA20_0=='\'') ) {
+                alt20=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 21, 0, input);
+                    new NoViableAltException("", 20, 0, input);
 
                 throw nvae;
             }
-            switch (alt21) {
+            switch (alt20) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
                     // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
-                    loop19:
+                    loop18:
                     do {
-                        int alt19=3;
-                        int LA19_0 = input.LA(1);
+                        int alt18=3;
+                        int LA18_0 = input.LA(1);
 
-                        if ( (LA19_0=='\\') ) {
-                            alt19=1;
+                        if ( (LA18_0=='\\') ) {
+                            alt18=1;
                         }
-                        else if ( ((LA19_0>='\u0000' && LA19_0<='!')||(LA19_0>='#' && LA19_0<='[')||(LA19_0>=']' && LA19_0<='\uFFFF')) ) {
-                            alt19=2;
+                        else if ( ((LA18_0>='\u0000' && LA18_0<='!')||(LA18_0>='#' && LA18_0<='[')||(LA18_0>=']' && LA18_0<='\uFFFF')) ) {
+                            alt18=2;
                         }
 
 
-                        switch (alt19) {
+                        switch (alt18) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
@@ -6086,7 +6063,7 @@ public class InternalErrorModelLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop19;
+                    	    break loop18;
                         }
                     } while (true);
 
@@ -6099,20 +6076,20 @@ public class InternalErrorModelLexer extends Lexer {
                     {
                     match('\''); 
                     // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
-                    loop20:
+                    loop19:
                     do {
-                        int alt20=3;
-                        int LA20_0 = input.LA(1);
+                        int alt19=3;
+                        int LA19_0 = input.LA(1);
 
-                        if ( (LA20_0=='\\') ) {
-                            alt20=1;
+                        if ( (LA19_0=='\\') ) {
+                            alt19=1;
                         }
-                        else if ( ((LA20_0>='\u0000' && LA20_0<='&')||(LA20_0>='(' && LA20_0<='[')||(LA20_0>=']' && LA20_0<='\uFFFF')) ) {
-                            alt20=2;
+                        else if ( ((LA19_0>='\u0000' && LA19_0<='&')||(LA19_0>='(' && LA19_0<='[')||(LA19_0>=']' && LA19_0<='\uFFFF')) ) {
+                            alt19=2;
                         }
 
 
-                        switch (alt20) {
+                        switch (alt19) {
                     	case 1 :
                     	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:209:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
@@ -6146,7 +6123,7 @@ public class InternalErrorModelLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop20;
+                    	    break loop19;
                         }
                     } while (true);
 
@@ -6186,28 +6163,28 @@ public class InternalErrorModelLexer extends Lexer {
                 throw mse;}
 
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
-            loop23:
+            loop22:
             do {
-                int alt23=2;
-                int LA23_0 = input.LA(1);
+                int alt22=2;
+                int LA22_0 = input.LA(1);
 
-                if ( ((LA23_0>='0' && LA23_0<='9')||(LA23_0>='A' && LA23_0<='Z')||LA23_0=='_'||(LA23_0>='a' && LA23_0<='z')) ) {
-                    alt23=1;
+                if ( ((LA22_0>='0' && LA22_0<='9')||(LA22_0>='A' && LA22_0<='Z')||LA22_0=='_'||(LA22_0>='a' && LA22_0<='z')) ) {
+                    alt22=1;
                 }
 
 
-                switch (alt23) {
+                switch (alt22) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
             	    {
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:32: ( '_' )?
-            	    int alt22=2;
-            	    int LA22_0 = input.LA(1);
+            	    int alt21=2;
+            	    int LA21_0 = input.LA(1);
 
-            	    if ( (LA22_0=='_') ) {
-            	        alt22=1;
+            	    if ( (LA21_0=='_') ) {
+            	        alt21=1;
             	    }
-            	    switch (alt22) {
+            	    switch (alt21) {
             	        case 1 :
             	            // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:211:32: '_'
             	            {
@@ -6232,7 +6209,7 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop23;
+            	    break loop22;
                 }
             } while (true);
 
@@ -6256,18 +6233,18 @@ public class InternalErrorModelLexer extends Lexer {
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
             // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:213:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
-            int cnt24=0;
-            loop24:
+            int cnt23=0;
+            loop23:
             do {
-                int alt24=2;
-                int LA24_0 = input.LA(1);
+                int alt23=2;
+                int LA23_0 = input.LA(1);
 
-                if ( ((LA24_0>='\t' && LA24_0<='\n')||LA24_0=='\r'||LA24_0==' ') ) {
-                    alt24=1;
+                if ( ((LA23_0>='\t' && LA23_0<='\n')||LA23_0=='\r'||LA23_0==' ') ) {
+                    alt23=1;
                 }
 
 
-                switch (alt24) {
+                switch (alt23) {
             	case 1 :
             	    // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:
             	    {
@@ -6285,12 +6262,12 @@ public class InternalErrorModelLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt24 >= 1 ) break loop24;
+            	    if ( cnt23 >= 1 ) break loop23;
                         EarlyExitException eee =
-                            new EarlyExitException(24, input);
+                            new EarlyExitException(23, input);
                         throw eee;
                 }
-                cnt24++;
+                cnt23++;
             } while (true);
 
 
@@ -6305,10 +6282,10 @@ public class InternalErrorModelLexer extends Lexer {
     // $ANTLR end "RULE_WS"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:8: ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Repair | Source | States | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Self | Sink | True | Type | When | With | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_CONDITION | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS )
-        int alt25=92;
-        alt25 = dfa25.predict(input);
-        switch (alt25) {
+        // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:8: ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Repair | Source | States | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Self | Sink | True | Type | When | With | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | If | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS )
+        int alt24=92;
+        alt24 = dfa24.predict(input);
+        switch (alt24) {
             case 1 :
                 // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:10: Transformations
                 {
@@ -6786,168 +6763,168 @@ public class InternalErrorModelLexer extends Lexer {
                 }
                 break;
             case 69 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:652: In
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:652: If
+                {
+                mIf(); 
+
+                }
+                break;
+            case 70 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:655: In
                 {
                 mIn(); 
 
                 }
                 break;
-            case 70 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:655: Or
+            case 71 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:658: Or
                 {
                 mOr(); 
 
                 }
                 break;
-            case 71 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:658: To
+            case 72 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:661: To
                 {
                 mTo(); 
 
                 }
                 break;
-            case 72 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:661: ExclamationMark
+            case 73 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:664: ExclamationMark
                 {
                 mExclamationMark(); 
 
                 }
                 break;
-            case 73 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:677: LeftParenthesis
+            case 74 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:680: LeftParenthesis
                 {
                 mLeftParenthesis(); 
 
                 }
                 break;
-            case 74 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:693: RightParenthesis
+            case 75 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:696: RightParenthesis
                 {
                 mRightParenthesis(); 
 
                 }
                 break;
-            case 75 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:710: Asterisk
+            case 76 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:713: Asterisk
                 {
                 mAsterisk(); 
 
                 }
                 break;
-            case 76 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:719: PlusSign
+            case 77 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:722: PlusSign
                 {
                 mPlusSign(); 
 
                 }
                 break;
-            case 77 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:728: Comma
+            case 78 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:731: Comma
                 {
                 mComma(); 
 
                 }
                 break;
-            case 78 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:734: HyphenMinus
+            case 79 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:737: HyphenMinus
                 {
                 mHyphenMinus(); 
 
                 }
                 break;
-            case 79 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:746: FullStop
+            case 80 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:749: FullStop
                 {
                 mFullStop(); 
 
                 }
                 break;
-            case 80 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:755: Colon
+            case 81 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:758: Colon
                 {
                 mColon(); 
 
                 }
                 break;
-            case 81 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:761: Semicolon
+            case 82 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:764: Semicolon
                 {
                 mSemicolon(); 
 
                 }
                 break;
-            case 82 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:771: LeftSquareBracket
+            case 83 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:774: LeftSquareBracket
                 {
                 mLeftSquareBracket(); 
 
                 }
                 break;
-            case 83 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:789: RightSquareBracket
+            case 84 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:792: RightSquareBracket
                 {
                 mRightSquareBracket(); 
 
                 }
                 break;
-            case 84 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:808: LeftCurlyBracket
+            case 85 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:811: LeftCurlyBracket
                 {
                 mLeftCurlyBracket(); 
 
                 }
                 break;
-            case 85 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:825: RightCurlyBracket
+            case 86 :
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:828: RightCurlyBracket
                 {
                 mRightCurlyBracket(); 
 
                 }
                 break;
-            case 86 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:843: RULE_CONDITION
-                {
-                mRULE_CONDITION(); 
-
-                }
-                break;
             case 87 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:858: RULE_SL_COMMENT
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:846: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
             case 88 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:874: RULE_INTEGER_LIT
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:862: RULE_INTEGER_LIT
                 {
                 mRULE_INTEGER_LIT(); 
 
                 }
                 break;
             case 89 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:891: RULE_REAL_LIT
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:879: RULE_REAL_LIT
                 {
                 mRULE_REAL_LIT(); 
 
                 }
                 break;
             case 90 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:905: RULE_STRING
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:893: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
             case 91 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:917: RULE_ID
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:905: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
             case 92 :
-                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:925: RULE_WS
+                // ../org.osate.xtext.aadl2.errormodel.ui/src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/lexer/InternalErrorModelLexer.g:1:913: RULE_WS
                 {
                 mRULE_WS(); 
 
@@ -6959,43 +6936,148 @@ public class InternalErrorModelLexer extends Lexer {
     }
 
 
-    protected DFA25 dfa25 = new DFA25(this);
-    static final String DFA25_eotS =
-        "\1\uffff\20\44\1\117\1\121\1\44\1\126\1\130\1\132\12\uffff\1\44\1\133\3\uffff\2\44\1\140\25\44\1\174\3\44\1\u0085\13\44\4\uffff\1\44\12\uffff\3\44\1\uffff\7\44\1\u009e\20\44\1\u00b0\1\u00b1\1\44\3\uffff\3\44\1\u00b5\2\44\1\uffff\1\44\1\u00b9\4\44\1\u00be\5\44\1\u00c4\1\44\1\u00c6\1\u00c8\2\44\1\u00cd\5\44\1\uffff\16\44\1\u00e3\2\44\2\uffff\3\44\1\uffff\3\44\1\uffff\2\44\1\u00ee\1\u00ef\1\uffff\1\u00f0\2\44\1\u00f3\1\u00f4\1\uffff\1\44\1\uffff\1\u00f7\1\uffff\3\44\1\u00fb\1\uffff\1\u00fc\2\44\1\u0100\1\u0101\6\44\1\u0109\10\44\1\u0112\1\uffff\11\44\1\u011d\3\uffff\1\u011e\1\u011f\2\uffff\2\44\1\uffff\3\44\2\uffff\2\44\1\u0127\2\uffff\7\44\1\uffff\3\44\1\u0132\3\44\1\u0136\1\uffff\1\44\1\u0138\3\44\1\u013c\1\u013d\1\u013e\1\u013f\1\u0140\3\uffff\6\44\1\u0147\1\uffff\5\44\1\u014d\2\44\1\u0150\1\u0151\1\uffff\1\44\1\u0154\1\44\1\uffff\1\u0156\1\uffff\1\u0157\1\u0158\1\u0159\5\uffff\6\44\1\uffff\2\44\1\u0162\2\44\1\uffff\2\44\2\uffff\1\u0167\1\u0168\1\uffff\1\u0169\4\uffff\4\44\1\u016e\3\44\1\uffff\1\u0172\1\u0173\1\44\1\u0175\3\uffff\3\44\1\u0179\1\uffff\1\44\1\u017b\1\u017c\2\uffff\1\u017d\1\uffff\1\44\1\u017f\1\u0181\1\uffff\1\u0182\3\uffff\1\44\1\uffff\1\u0184\2\uffff\1\44\1\uffff\1\44\1\u0187\1\uffff";
-    static final String DFA25_eofS =
-        "\u0188\uffff";
-    static final String DFA25_minS =
-        "\1\11\1\117\1\101\1\116\1\114\3\105\1\101\1\103\1\116\1\111\1\117\1\122\2\101\1\110\1\75\1\55\1\123\1\55\1\56\1\72\12\uffff\1\116\1\56\3\uffff\1\101\1\120\1\60\1\117\1\124\1\111\1\125\1\124\1\105\1\122\1\104\1\101\1\115\1\114\1\103\1\110\1\116\1\120\1\115\1\104\1\120\1\103\1\114\1\104\1\60\1\0\1\102\1\105\1\60\1\110\1\124\1\125\1\101\1\115\1\114\1\116\1\114\1\117\1\105\1\124\4\uffff\1\105\12\uffff\1\116\2\105\1\uffff\1\103\1\110\1\116\1\111\1\105\1\116\1\117\1\60\1\123\1\116\1\120\1\105\1\124\1\105\1\117\3\101\1\104\1\120\1\117\1\105\1\114\1\105\2\60\1\124\2\uffff\2\0\2\122\1\60\1\105\1\117\1\uffff\1\105\1\60\1\122\1\124\1\105\1\106\1\60\1\113\1\123\1\127\1\116\1\110\1\60\1\123\2\60\1\101\1\105\1\60\1\124\1\126\1\116\1\124\1\122\1\uffff\1\123\1\105\1\124\1\117\1\103\1\101\1\122\1\126\1\115\1\111\1\126\2\111\1\122\1\60\1\111\1\123\2\uffff\1\111\1\101\1\122\1\uffff\1\123\2\122\1\uffff\1\103\1\105\2\60\1\uffff\1\60\1\105\1\123\2\60\1\uffff\1\106\1\uffff\1\60\1\uffff\1\107\1\122\1\123\1\60\1\uffff\1\60\1\101\1\104\2\60\1\111\1\103\1\101\1\116\2\124\1\60\3\105\1\122\1\111\2\116\1\131\1\60\1\uffff\1\105\1\123\1\101\1\122\1\117\1\123\1\105\1\123\1\105\1\60\3\uffff\2\60\2\uffff\1\117\1\124\1\uffff\1\101\1\124\1\123\2\uffff\1\114\1\123\1\60\2\uffff\1\106\1\124\1\116\1\105\1\111\1\105\1\111\1\uffff\1\116\1\122\1\123\1\60\1\117\2\107\1\60\1\uffff\1\123\1\60\1\114\1\131\1\122\5\60\3\uffff\1\122\1\111\1\124\1\111\1\117\1\105\1\60\1\uffff\2\111\1\124\1\116\1\124\1\60\1\117\1\103\2\60\1\uffff\1\122\1\60\1\123\1\uffff\1\60\1\uffff\3\60\5\uffff\1\115\1\117\1\111\1\105\1\122\1\116\1\uffff\1\105\1\117\1\60\1\124\1\105\1\uffff\1\116\1\105\2\uffff\2\60\1\uffff\1\60\4\uffff\1\101\1\116\1\117\1\123\1\60\1\103\1\122\1\116\1\uffff\2\60\1\123\1\60\3\uffff\1\124\1\123\1\116\1\60\1\uffff\1\105\2\60\2\uffff\1\60\1\uffff\1\111\2\60\1\uffff\1\60\3\uffff\1\117\1\uffff\1\60\2\uffff\1\116\1\uffff\1\123\1\60\1\uffff";
-    static final String DFA25_maxS =
-        "\1\175\1\171\1\162\1\170\1\157\2\145\1\151\1\157\1\160\1\156\1\151\1\157\1\165\1\164\1\154\1\151\1\75\1\55\1\163\1\133\1\56\1\72\12\uffff\1\156\1\137\3\uffff\1\165\1\160\1\172\1\157\1\164\1\151\1\165\1\164\1\145\1\162\1\144\1\141\1\156\1\164\1\160\1\150\1\156\1\160\1\155\1\144\1\160\1\143\1\154\1\144\1\172\1\uffff\1\142\1\164\1\172\1\150\1\164\1\165\1\141\1\155\1\164\1\156\1\154\1\157\1\145\1\164\4\uffff\1\145\12\uffff\1\156\2\145\1\uffff\1\160\1\150\1\156\1\151\1\145\1\156\1\157\1\172\2\163\1\160\1\145\1\164\1\145\1\157\3\141\1\144\1\160\1\157\1\145\1\154\1\145\2\172\1\164\2\uffff\2\uffff\2\162\1\172\1\145\1\157\1\uffff\1\145\1\172\1\162\1\164\1\145\1\146\1\172\1\153\1\163\1\167\1\156\1\150\1\172\1\163\2\172\2\145\1\172\1\164\1\166\1\156\1\164\1\162\1\uffff\1\163\1\145\1\164\1\165\1\143\1\141\1\162\1\166\1\155\1\151\1\166\2\151\1\162\1\172\1\151\1\163\2\uffff\1\151\1\141\1\162\1\uffff\1\163\2\162\1\uffff\1\143\1\145\2\172\1\uffff\1\172\1\145\1\163\2\172\1\uffff\1\151\1\uffff\1\172\1\uffff\1\147\1\162\1\163\1\172\1\uffff\1\172\1\141\1\144\2\172\1\151\1\143\1\141\1\163\2\164\1\172\3\145\1\162\1\151\2\156\1\171\1\172\1\uffff\1\145\1\163\1\141\1\162\1\157\1\163\1\145\1\163\1\145\1\172\3\uffff\2\172\2\uffff\1\157\1\164\1\uffff\1\141\1\164\1\163\2\uffff\1\154\1\163\1\172\2\uffff\1\146\1\164\1\156\1\145\1\151\1\145\1\151\1\uffff\1\156\1\162\1\163\1\172\1\157\2\147\1\172\1\uffff\1\163\1\172\1\154\1\171\1\162\5\172\3\uffff\1\162\1\151\1\164\1\151\1\157\1\145\1\172\1\uffff\2\151\1\164\1\156\1\164\1\172\1\157\1\143\2\172\1\uffff\1\162\1\172\1\163\1\uffff\1\172\1\uffff\3\172\5\uffff\1\155\1\157\1\151\1\145\1\162\1\156\1\uffff\1\145\1\157\1\172\1\164\1\145\1\uffff\1\156\1\145\2\uffff\2\172\1\uffff\1\172\4\uffff\1\141\1\156\1\157\1\163\1\172\1\143\1\162\1\156\1\uffff\2\172\1\163\1\172\3\uffff\1\164\1\163\1\156\1\172\1\uffff\1\145\2\172\2\uffff\1\172\1\uffff\1\151\2\172\1\uffff\1\172\3\uffff\1\157\1\uffff\1\172\2\uffff\1\156\1\uffff\1\163\1\172\1\uffff";
-    static final String DFA25_acceptS =
-        "\27\uffff\1\104\1\110\1\111\1\112\1\113\1\115\1\121\1\122\1\124\1\125\2\uffff\1\132\1\133\1\134\50\uffff\1\67\1\114\1\70\1\123\1\uffff\1\100\1\101\1\127\1\116\1\102\1\117\1\103\1\120\1\130\1\131\3\uffff\1\107\33\uffff\1\105\1\126\7\uffff\1\106\30\uffff\1\73\21\uffff\1\71\1\72\3\uffff\1\74\3\uffff\1\75\4\uffff\1\76\5\uffff\1\77\1\uffff\1\63\1\uffff\1\64\4\uffff\1\57\25\uffff\1\56\12\uffff\1\60\1\61\1\62\2\uffff\1\65\1\66\2\uffff\1\55\3\uffff\1\52\1\53\3\uffff\1\46\1\45\7\uffff\1\44\10\uffff\1\51\12\uffff\1\54\1\47\1\50\7\uffff\1\34\12\uffff\1\41\3\uffff\1\35\1\uffff\1\33\3\uffff\1\36\1\37\1\40\1\42\1\43\6\uffff\1\25\5\uffff\1\24\2\uffff\1\31\1\32\2\uffff\1\23\1\uffff\1\22\1\26\1\27\1\30\10\uffff\1\20\4\uffff\1\16\1\17\1\21\4\uffff\1\14\3\uffff\1\12\1\13\1\uffff\1\15\3\uffff\1\11\1\uffff\1\6\1\7\1\10\1\uffff\1\5\1\uffff\1\4\1\3\1\uffff\1\2\2\uffff\1\1";
-    static final String DFA25_specialS =
-        "\77\uffff\1\1\76\uffff\1\2\1\0\u0108\uffff}>";
-    static final String[] DFA25_transitionS = {
-            "\2\45\2\uffff\1\45\22\uffff\1\45\1\30\1\43\4\uffff\1\43\1\31\1\32\1\33\1\21\1\34\1\24\1\25\1\uffff\12\42\1\26\1\35\1\uffff\1\27\3\uffff\1\11\1\7\1\4\1\5\1\3\1\17\2\44\1\41\2\44\1\13\1\10\1\14\1\15\1\2\1\44\1\6\1\16\1\1\1\23\1\44\1\20\3\44\1\36\1\uffff\1\22\3\uffff\1\11\1\7\1\4\1\5\1\3\1\17\2\44\1\12\2\44\1\13\1\10\1\14\1\15\1\2\1\44\1\6\1\16\1\1\1\23\1\44\1\20\3\44\1\37\1\uffff\1\40",
-            "\1\50\2\uffff\1\46\6\uffff\1\47\25\uffff\1\50\2\uffff\1\46\6\uffff\1\47",
-            "\1\52\15\uffff\1\53\2\uffff\1\51\16\uffff\1\52\15\uffff\1\53\2\uffff\1\51",
-            "\1\60\2\uffff\1\54\1\57\3\uffff\1\56\1\uffff\1\55\25\uffff\1\60\2\uffff\1\54\1\57\3\uffff\1\56\1\uffff\1\55",
-            "\1\61\2\uffff\1\62\34\uffff\1\61\2\uffff\1\62",
+    protected DFA24 dfa24 = new DFA24(this);
+    static final String DFA24_eotS =
+        "\1\uffff\20\43\1\116\1\120\1\43\1\125\1\127\1\131\12\uffff\1\132"+
+        "\3\uffff\2\43\1\137\25\43\1\173\1\174\2\43\1\u0082\13\43\4\uffff"+
+        "\1\43\12\uffff\3\43\1\uffff\7\43\1\u009b\20\43\1\u00ad\1\u00ae\1"+
+        "\43\2\uffff\2\43\1\u00b2\2\43\1\uffff\1\43\1\u00b6\4\43\1\u00bb"+
+        "\5\43\1\u00c1\1\43\1\u00c3\1\u00c5\2\43\1\u00ca\5\43\1\uffff\16"+
+        "\43\1\u00e0\2\43\2\uffff\3\43\1\uffff\3\43\1\uffff\2\43\1\u00eb"+
+        "\1\u00ec\1\uffff\1\u00ed\2\43\1\u00f0\1\u00f1\1\uffff\1\43\1\uffff"+
+        "\1\u00f4\1\uffff\3\43\1\u00f8\1\uffff\1\u00f9\2\43\1\u00fd\1\u00fe"+
+        "\6\43\1\u0106\10\43\1\u010f\1\uffff\11\43\1\u011a\3\uffff\1\u011b"+
+        "\1\u011c\2\uffff\2\43\1\uffff\3\43\2\uffff\2\43\1\u0124\2\uffff"+
+        "\7\43\1\uffff\3\43\1\u012f\3\43\1\u0133\1\uffff\1\43\1\u0135\3\43"+
+        "\1\u0139\1\u013a\1\u013b\1\u013c\1\u013d\3\uffff\6\43\1\u0144\1"+
+        "\uffff\5\43\1\u014a\2\43\1\u014d\1\u014e\1\uffff\1\43\1\u0151\1"+
+        "\43\1\uffff\1\u0153\1\uffff\1\u0154\1\u0155\1\u0156\5\uffff\6\43"+
+        "\1\uffff\2\43\1\u015f\2\43\1\uffff\2\43\2\uffff\1\u0164\1\u0165"+
+        "\1\uffff\1\u0166\4\uffff\4\43\1\u016b\3\43\1\uffff\1\u016f\1\u0170"+
+        "\1\43\1\u0172\3\uffff\3\43\1\u0176\1\uffff\1\43\1\u0178\1\u0179"+
+        "\2\uffff\1\u017a\1\uffff\1\43\1\u017c\1\u017e\1\uffff\1\u017f\3"+
+        "\uffff\1\43\1\uffff\1\u0181\2\uffff\1\43\1\uffff\1\43\1\u0184\1"+
+        "\uffff";
+    static final String DFA24_eofS =
+        "\u0185\uffff";
+    static final String DFA24_minS =
+        "\1\11\1\117\1\101\1\116\1\114\3\105\1\101\1\103\1\106\1\111\1\117"+
+        "\1\122\2\101\1\110\1\75\1\55\1\123\1\55\1\56\1\72\12\uffff\1\56"+
+        "\3\uffff\1\101\1\120\1\60\1\117\1\124\1\111\1\125\1\124\1\105\1"+
+        "\122\1\104\1\101\1\115\1\114\1\103\1\110\1\116\1\120\1\115\1\104"+
+        "\1\120\1\103\1\114\1\104\2\60\1\102\1\105\1\60\1\110\1\124\1\125"+
+        "\1\101\1\115\1\114\1\116\1\114\1\117\1\105\1\124\4\uffff\1\105\12"+
+        "\uffff\1\116\2\105\1\uffff\1\103\1\110\1\116\1\111\1\105\1\116\1"+
+        "\117\1\60\1\123\1\116\1\120\1\105\1\124\1\105\1\117\3\101\1\104"+
+        "\1\120\1\117\1\105\1\114\1\105\2\60\1\124\2\uffff\2\122\1\60\1\105"+
+        "\1\117\1\uffff\1\105\1\60\1\122\1\124\1\105\1\106\1\60\1\113\1\123"+
+        "\1\127\1\116\1\110\1\60\1\123\2\60\1\101\1\105\1\60\1\124\1\126"+
+        "\1\116\1\124\1\122\1\uffff\1\123\1\105\1\124\1\117\1\103\1\101\1"+
+        "\122\1\126\1\115\1\111\1\126\2\111\1\122\1\60\1\111\1\123\2\uffff"+
+        "\1\111\1\101\1\122\1\uffff\1\123\2\122\1\uffff\1\103\1\105\2\60"+
+        "\1\uffff\1\60\1\105\1\123\2\60\1\uffff\1\106\1\uffff\1\60\1\uffff"+
+        "\1\107\1\122\1\123\1\60\1\uffff\1\60\1\101\1\104\2\60\1\111\1\103"+
+        "\1\101\1\116\2\124\1\60\3\105\1\122\1\111\2\116\1\131\1\60\1\uffff"+
+        "\1\105\1\123\1\101\1\122\1\117\1\123\1\105\1\123\1\105\1\60\3\uffff"+
+        "\2\60\2\uffff\1\117\1\124\1\uffff\1\101\1\124\1\123\2\uffff\1\114"+
+        "\1\123\1\60\2\uffff\1\106\1\124\1\116\1\105\1\111\1\105\1\111\1"+
+        "\uffff\1\116\1\122\1\123\1\60\1\117\2\107\1\60\1\uffff\1\123\1\60"+
+        "\1\114\1\131\1\122\5\60\3\uffff\1\122\1\111\1\124\1\111\1\117\1"+
+        "\105\1\60\1\uffff\2\111\1\124\1\116\1\124\1\60\1\117\1\103\2\60"+
+        "\1\uffff\1\122\1\60\1\123\1\uffff\1\60\1\uffff\3\60\5\uffff\1\115"+
+        "\1\117\1\111\1\105\1\122\1\116\1\uffff\1\105\1\117\1\60\1\124\1"+
+        "\105\1\uffff\1\116\1\105\2\uffff\2\60\1\uffff\1\60\4\uffff\1\101"+
+        "\1\116\1\117\1\123\1\60\1\103\1\122\1\116\1\uffff\2\60\1\123\1\60"+
+        "\3\uffff\1\124\1\123\1\116\1\60\1\uffff\1\105\2\60\2\uffff\1\60"+
+        "\1\uffff\1\111\2\60\1\uffff\1\60\3\uffff\1\117\1\uffff\1\60\2\uffff"+
+        "\1\116\1\uffff\1\123\1\60\1\uffff";
+    static final String DFA24_maxS =
+        "\1\175\1\171\1\162\1\170\1\157\2\145\1\151\1\157\1\160\1\156\1"+
+        "\151\1\157\1\165\1\164\1\154\1\151\1\75\1\55\1\163\1\133\1\56\1"+
+        "\72\12\uffff\1\137\3\uffff\1\165\1\160\1\172\1\157\1\164\1\151\1"+
+        "\165\1\164\1\145\1\162\1\144\1\141\1\156\1\164\1\160\1\150\1\156"+
+        "\1\160\1\155\1\144\1\160\1\143\1\154\1\144\2\172\1\142\1\164\1\172"+
+        "\1\150\1\164\1\165\1\141\1\155\1\164\1\156\1\154\1\157\1\145\1\164"+
+        "\4\uffff\1\145\12\uffff\1\156\2\145\1\uffff\1\160\1\150\1\156\1"+
+        "\151\1\145\1\156\1\157\1\172\2\163\1\160\1\145\1\164\1\145\1\157"+
+        "\3\141\1\144\1\160\1\157\1\145\1\154\1\145\2\172\1\164\2\uffff\2"+
+        "\162\1\172\1\145\1\157\1\uffff\1\145\1\172\1\162\1\164\1\145\1\146"+
+        "\1\172\1\153\1\163\1\167\1\156\1\150\1\172\1\163\2\172\2\145\1\172"+
+        "\1\164\1\166\1\156\1\164\1\162\1\uffff\1\163\1\145\1\164\1\165\1"+
+        "\143\1\141\1\162\1\166\1\155\1\151\1\166\2\151\1\162\1\172\1\151"+
+        "\1\163\2\uffff\1\151\1\141\1\162\1\uffff\1\163\2\162\1\uffff\1\143"+
+        "\1\145\2\172\1\uffff\1\172\1\145\1\163\2\172\1\uffff\1\151\1\uffff"+
+        "\1\172\1\uffff\1\147\1\162\1\163\1\172\1\uffff\1\172\1\141\1\144"+
+        "\2\172\1\151\1\143\1\141\1\163\2\164\1\172\3\145\1\162\1\151\2\156"+
+        "\1\171\1\172\1\uffff\1\145\1\163\1\141\1\162\1\157\1\163\1\145\1"+
+        "\163\1\145\1\172\3\uffff\2\172\2\uffff\1\157\1\164\1\uffff\1\141"+
+        "\1\164\1\163\2\uffff\1\154\1\163\1\172\2\uffff\1\146\1\164\1\156"+
+        "\1\145\1\151\1\145\1\151\1\uffff\1\156\1\162\1\163\1\172\1\157\2"+
+        "\147\1\172\1\uffff\1\163\1\172\1\154\1\171\1\162\5\172\3\uffff\1"+
+        "\162\1\151\1\164\1\151\1\157\1\145\1\172\1\uffff\2\151\1\164\1\156"+
+        "\1\164\1\172\1\157\1\143\2\172\1\uffff\1\162\1\172\1\163\1\uffff"+
+        "\1\172\1\uffff\3\172\5\uffff\1\155\1\157\1\151\1\145\1\162\1\156"+
+        "\1\uffff\1\145\1\157\1\172\1\164\1\145\1\uffff\1\156\1\145\2\uffff"+
+        "\2\172\1\uffff\1\172\4\uffff\1\141\1\156\1\157\1\163\1\172\1\143"+
+        "\1\162\1\156\1\uffff\2\172\1\163\1\172\3\uffff\1\164\1\163\1\156"+
+        "\1\172\1\uffff\1\145\2\172\2\uffff\1\172\1\uffff\1\151\2\172\1\uffff"+
+        "\1\172\3\uffff\1\157\1\uffff\1\172\2\uffff\1\156\1\uffff\1\163\1"+
+        "\172\1\uffff";
+    static final String DFA24_acceptS =
+        "\27\uffff\1\104\1\111\1\112\1\113\1\114\1\116\1\122\1\123\1\125"+
+        "\1\126\1\uffff\1\132\1\133\1\134\50\uffff\1\67\1\115\1\70\1\124"+
+        "\1\uffff\1\100\1\101\1\127\1\117\1\102\1\120\1\103\1\121\1\130\1"+
+        "\131\3\uffff\1\110\33\uffff\1\106\1\105\5\uffff\1\107\30\uffff\1"+
+        "\73\21\uffff\1\71\1\72\3\uffff\1\74\3\uffff\1\75\4\uffff\1\76\5"+
+        "\uffff\1\77\1\uffff\1\63\1\uffff\1\64\4\uffff\1\57\25\uffff\1\56"+
+        "\12\uffff\1\60\1\61\1\62\2\uffff\1\65\1\66\2\uffff\1\55\3\uffff"+
+        "\1\52\1\53\3\uffff\1\46\1\45\7\uffff\1\44\10\uffff\1\51\12\uffff"+
+        "\1\54\1\47\1\50\7\uffff\1\34\12\uffff\1\41\3\uffff\1\35\1\uffff"+
+        "\1\33\3\uffff\1\36\1\37\1\40\1\42\1\43\6\uffff\1\25\5\uffff\1\24"+
+        "\2\uffff\1\31\1\32\2\uffff\1\23\1\uffff\1\22\1\26\1\27\1\30\10\uffff"+
+        "\1\20\4\uffff\1\16\1\17\1\21\4\uffff\1\14\3\uffff\1\12\1\13\1\uffff"+
+        "\1\15\3\uffff\1\11\1\uffff\1\6\1\7\1\10\1\uffff\1\5\1\uffff\1\4"+
+        "\1\3\1\uffff\1\2\2\uffff\1\1";
+    static final String DFA24_specialS =
+        "\u0185\uffff}>";
+    static final String[] DFA24_transitionS = {
+            "\2\44\2\uffff\1\44\22\uffff\1\44\1\30\1\42\4\uffff\1\42\1\31"+
+            "\1\32\1\33\1\21\1\34\1\24\1\25\1\uffff\12\41\1\26\1\35\1\uffff"+
+            "\1\27\3\uffff\1\11\1\7\1\4\1\5\1\3\1\17\2\43\1\12\2\43\1\13"+
+            "\1\10\1\14\1\15\1\2\1\43\1\6\1\16\1\1\1\23\1\43\1\20\3\43\1"+
+            "\36\1\uffff\1\22\3\uffff\1\11\1\7\1\4\1\5\1\3\1\17\2\43\1\12"+
+            "\2\43\1\13\1\10\1\14\1\15\1\2\1\43\1\6\1\16\1\1\1\23\1\43\1"+
+            "\20\3\43\1\37\1\uffff\1\40",
+            "\1\47\2\uffff\1\45\6\uffff\1\46\25\uffff\1\47\2\uffff\1\45"+
+            "\6\uffff\1\46",
+            "\1\51\15\uffff\1\52\2\uffff\1\50\16\uffff\1\51\15\uffff\1"+
+            "\52\2\uffff\1\50",
+            "\1\57\2\uffff\1\53\1\56\3\uffff\1\55\1\uffff\1\54\25\uffff"+
+            "\1\57\2\uffff\1\53\1\56\3\uffff\1\55\1\uffff\1\54",
+            "\1\60\2\uffff\1\61\34\uffff\1\60\2\uffff\1\61",
+            "\1\62\37\uffff\1\62",
             "\1\63\37\uffff\1\63",
-            "\1\64\37\uffff\1\64",
-            "\1\65\3\uffff\1\66\33\uffff\1\65\3\uffff\1\66",
-            "\1\67\3\uffff\1\70\11\uffff\1\71\21\uffff\1\67\3\uffff\1\70\11\uffff\1\71",
-            "\1\73\10\uffff\1\74\1\uffff\1\75\1\uffff\1\72\22\uffff\1\73\10\uffff\1\74\1\uffff\1\75\1\uffff\1\72",
-            "\1\76\27\uffff\1\77\7\uffff\1\76",
+            "\1\64\3\uffff\1\65\33\uffff\1\64\3\uffff\1\65",
+            "\1\66\3\uffff\1\67\11\uffff\1\70\21\uffff\1\66\3\uffff\1\67"+
+            "\11\uffff\1\70",
+            "\1\72\10\uffff\1\73\1\uffff\1\74\1\uffff\1\71\22\uffff\1\72"+
+            "\10\uffff\1\73\1\uffff\1\74\1\uffff\1\71",
+            "\1\76\7\uffff\1\75\27\uffff\1\76\7\uffff\1\75",
+            "\1\77\37\uffff\1\77",
             "\1\100\37\uffff\1\100",
-            "\1\101\37\uffff\1\101",
-            "\1\102\1\uffff\1\103\1\104\34\uffff\1\102\1\uffff\1\103\1\104",
-            "\1\107\3\uffff\1\110\3\uffff\1\111\5\uffff\1\105\4\uffff\1\106\14\uffff\1\107\3\uffff\1\110\3\uffff\1\111\5\uffff\1\105\4\uffff\1\106",
-            "\1\112\12\uffff\1\113\24\uffff\1\112\12\uffff\1\113",
-            "\1\114\1\115\36\uffff\1\114\1\115",
-            "\1\116",
-            "\1\120",
-            "\1\122\37\uffff\1\122",
-            "\1\125\20\uffff\1\123\34\uffff\1\124",
-            "\1\127",
-            "\1\131",
+            "\1\101\1\uffff\1\102\1\103\34\uffff\1\101\1\uffff\1\102\1"+
+            "\103",
+            "\1\106\3\uffff\1\107\3\uffff\1\110\5\uffff\1\104\4\uffff\1"+
+            "\105\14\uffff\1\106\3\uffff\1\107\3\uffff\1\110\5\uffff\1\104"+
+            "\4\uffff\1\105",
+            "\1\111\12\uffff\1\112\24\uffff\1\111\12\uffff\1\112",
+            "\1\113\1\114\36\uffff\1\113\1\114",
+            "\1\115",
+            "\1\117",
+            "\1\121\37\uffff\1\121",
+            "\1\124\20\uffff\1\122\34\uffff\1\123",
+            "\1\126",
+            "\1\130",
             "",
             "",
             "",
@@ -7006,14 +7088,14 @@ public class InternalErrorModelLexer extends Lexer {
             "",
             "",
             "",
-            "\1\76\37\uffff\1\76",
-            "\1\134\1\uffff\12\42\45\uffff\1\134",
+            "\1\133\1\uffff\12\41\45\uffff\1\133",
             "",
             "",
             "",
-            "\1\135\23\uffff\1\136\13\uffff\1\135\23\uffff\1\136",
-            "\1\137\37\uffff\1\137",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\134\23\uffff\1\135\13\uffff\1\134\23\uffff\1\135",
+            "\1\136\37\uffff\1\136",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\140\37\uffff\1\140",
             "\1\141\37\uffff\1\141",
             "\1\142\37\uffff\1\142",
             "\1\143\37\uffff\1\143",
@@ -7022,10 +7104,11 @@ public class InternalErrorModelLexer extends Lexer {
             "\1\146\37\uffff\1\146",
             "\1\147\37\uffff\1\147",
             "\1\150\37\uffff\1\150",
-            "\1\151\37\uffff\1\151",
-            "\1\153\1\152\36\uffff\1\153\1\152",
-            "\1\155\7\uffff\1\154\27\uffff\1\155\7\uffff\1\154",
-            "\1\157\2\uffff\1\156\7\uffff\1\160\1\uffff\1\161\22\uffff\1\157\2\uffff\1\156\7\uffff\1\160\1\uffff\1\161",
+            "\1\152\1\151\36\uffff\1\152\1\151",
+            "\1\154\7\uffff\1\153\27\uffff\1\154\7\uffff\1\153",
+            "\1\156\2\uffff\1\155\7\uffff\1\157\1\uffff\1\160\22\uffff"+
+            "\1\156\2\uffff\1\155\7\uffff\1\157\1\uffff\1\160",
+            "\1\161\37\uffff\1\161",
             "\1\162\37\uffff\1\162",
             "\1\163\37\uffff\1\163",
             "\1\164\37\uffff\1\164",
@@ -7034,52 +7117,56 @@ public class InternalErrorModelLexer extends Lexer {
             "\1\167\37\uffff\1\167",
             "\1\170\37\uffff\1\170",
             "\1\171\37\uffff\1\171",
-            "\1\172\37\uffff\1\172",
-            "\12\44\7\uffff\10\44\1\173\21\44\4\uffff\1\44\1\uffff\10\44\1\173\21\44",
-            "\60\175\12\177\7\175\32\177\4\175\1\176\1\175\32\177\uff85\175",
-            "\1\u0080\37\uffff\1\u0080",
-            "\1\u0081\16\uffff\1\u0082\20\uffff\1\u0081\16\uffff\1\u0082",
-            "\12\44\7\uffff\13\44\1\u0083\1\u0084\15\44\4\uffff\1\44\1\uffff\13\44\1\u0083\1\u0084\15\44",
+            "\12\43\7\uffff\10\43\1\172\21\43\4\uffff\1\43\1\uffff\10\43"+
+            "\1\172\21\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\175\37\uffff\1\175",
+            "\1\176\16\uffff\1\177\20\uffff\1\176\16\uffff\1\177",
+            "\12\43\7\uffff\13\43\1\u0080\1\u0081\15\43\4\uffff\1\43\1"+
+            "\uffff\13\43\1\u0080\1\u0081\15\43",
+            "\1\u0083\37\uffff\1\u0083",
+            "\1\u0084\37\uffff\1\u0084",
+            "\1\u0085\37\uffff\1\u0085",
             "\1\u0086\37\uffff\1\u0086",
             "\1\u0087\37\uffff\1\u0087",
-            "\1\u0088\37\uffff\1\u0088",
-            "\1\u0089\37\uffff\1\u0089",
+            "\1\u0088\7\uffff\1\u0089\27\uffff\1\u0088\7\uffff\1\u0089",
             "\1\u008a\37\uffff\1\u008a",
-            "\1\u008b\7\uffff\1\u008c\27\uffff\1\u008b\7\uffff\1\u008c",
+            "\1\u008b\37\uffff\1\u008b",
+            "\1\u008c\37\uffff\1\u008c",
             "\1\u008d\37\uffff\1\u008d",
             "\1\u008e\37\uffff\1\u008e",
+            "",
+            "",
+            "",
+            "",
             "\1\u008f\37\uffff\1\u008f",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\u0090\37\uffff\1\u0090",
             "\1\u0091\37\uffff\1\u0091",
-            "",
-            "",
-            "",
-            "",
             "\1\u0092\37\uffff\1\u0092",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\u0093\37\uffff\1\u0093",
-            "\1\u0094\37\uffff\1\u0094",
+            "\1\u0094\14\uffff\1\u0093\22\uffff\1\u0094\14\uffff\1\u0093",
             "\1\u0095\37\uffff\1\u0095",
-            "",
-            "\1\u0097\14\uffff\1\u0096\22\uffff\1\u0097\14\uffff\1\u0096",
+            "\1\u0096\37\uffff\1\u0096",
+            "\1\u0097\37\uffff\1\u0097",
             "\1\u0098\37\uffff\1\u0098",
             "\1\u0099\37\uffff\1\u0099",
             "\1\u009a\37\uffff\1\u009a",
-            "\1\u009b\37\uffff\1\u009b",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u009c\37\uffff\1\u009c",
-            "\1\u009d\37\uffff\1\u009d",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u009d\4\uffff\1\u009e\32\uffff\1\u009d\4\uffff\1\u009e",
             "\1\u009f\37\uffff\1\u009f",
-            "\1\u00a0\4\uffff\1\u00a1\32\uffff\1\u00a0\4\uffff\1\u00a1",
+            "\1\u00a0\37\uffff\1\u00a0",
+            "\1\u00a1\37\uffff\1\u00a1",
             "\1\u00a2\37\uffff\1\u00a2",
             "\1\u00a3\37\uffff\1\u00a3",
             "\1\u00a4\37\uffff\1\u00a4",
@@ -7091,51 +7178,51 @@ public class InternalErrorModelLexer extends Lexer {
             "\1\u00aa\37\uffff\1\u00aa",
             "\1\u00ab\37\uffff\1\u00ab",
             "\1\u00ac\37\uffff\1\u00ac",
-            "\1\u00ad\37\uffff\1\u00ad",
-            "\1\u00ae\37\uffff\1\u00ae",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00af\37\uffff\1\u00af",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u00b2\37\uffff\1\u00b2",
             "",
             "",
-            "\60\175\12\177\7\175\32\177\6\175\32\177\uff85\175",
-            "\60\175\12\177\7\175\32\177\4\175\1\176\1\175\32\177\uff85\175",
+            "\1\u00b0\37\uffff\1\u00b0",
+            "\1\u00b1\37\uffff\1\u00b1",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00b3\37\uffff\1\u00b3",
             "\1\u00b4\37\uffff\1\u00b4",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u00b6\37\uffff\1\u00b6",
-            "\1\u00b7\37\uffff\1\u00b7",
             "",
+            "\1\u00b5\37\uffff\1\u00b5",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00b7\37\uffff\1\u00b7",
             "\1\u00b8\37\uffff\1\u00b8",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u00b9\37\uffff\1\u00b9",
             "\1\u00ba\37\uffff\1\u00ba",
-            "\1\u00bb\37\uffff\1\u00bb",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00bc\37\uffff\1\u00bc",
             "\1\u00bd\37\uffff\1\u00bd",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u00be\37\uffff\1\u00be",
             "\1\u00bf\37\uffff\1\u00bf",
             "\1\u00c0\37\uffff\1\u00c0",
-            "\1\u00c1\37\uffff\1\u00c1",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00c2\37\uffff\1\u00c2",
-            "\1\u00c3\37\uffff\1\u00c3",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u00c5\37\uffff\1\u00c5",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\22\44\1\u00c7\7\44\4\uffff\1\44\1\uffff\22\44\1\u00c7\7\44",
-            "\1\u00c9\3\uffff\1\u00ca\33\uffff\1\u00c9\3\uffff\1\u00ca",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\22\43\1\u00c4\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u00c4\7\43",
+            "\1\u00c6\3\uffff\1\u00c7\33\uffff\1\u00c6\3\uffff\1\u00c7",
+            "\1\u00c8\37\uffff\1\u00c8",
+            "\12\43\7\uffff\22\43\1\u00c9\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u00c9\7\43",
             "\1\u00cb\37\uffff\1\u00cb",
-            "\12\44\7\uffff\22\44\1\u00cc\7\44\4\uffff\1\44\1\uffff\22\44\1\u00cc\7\44",
+            "\1\u00cc\37\uffff\1\u00cc",
+            "\1\u00cd\37\uffff\1\u00cd",
             "\1\u00ce\37\uffff\1\u00ce",
             "\1\u00cf\37\uffff\1\u00cf",
+            "",
             "\1\u00d0\37\uffff\1\u00d0",
             "\1\u00d1\37\uffff\1\u00d1",
             "\1\u00d2\37\uffff\1\u00d2",
-            "",
-            "\1\u00d3\37\uffff\1\u00d3",
-            "\1\u00d4\37\uffff\1\u00d4",
+            "\1\u00d3\5\uffff\1\u00d4\31\uffff\1\u00d3\5\uffff\1\u00d4",
             "\1\u00d5\37\uffff\1\u00d5",
-            "\1\u00d6\5\uffff\1\u00d7\31\uffff\1\u00d6\5\uffff\1\u00d7",
+            "\1\u00d6\37\uffff\1\u00d6",
+            "\1\u00d7\37\uffff\1\u00d7",
             "\1\u00d8\37\uffff\1\u00d8",
             "\1\u00d9\37\uffff\1\u00d9",
             "\1\u00da\37\uffff\1\u00da",
@@ -7143,13 +7230,15 @@ public class InternalErrorModelLexer extends Lexer {
             "\1\u00dc\37\uffff\1\u00dc",
             "\1\u00dd\37\uffff\1\u00dd",
             "\1\u00de\37\uffff\1\u00de",
-            "\1\u00df\37\uffff\1\u00df",
-            "\1\u00e0\37\uffff\1\u00e0",
+            "\12\43\7\uffff\22\43\1\u00df\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u00df\7\43",
             "\1\u00e1\37\uffff\1\u00e1",
-            "\12\44\7\uffff\22\44\1\u00e2\7\44\4\uffff\1\44\1\uffff\22\44\1\u00e2\7\44",
+            "\1\u00e2\37\uffff\1\u00e2",
+            "",
+            "",
+            "\1\u00e3\37\uffff\1\u00e3",
             "\1\u00e4\37\uffff\1\u00e4",
             "\1\u00e5\37\uffff\1\u00e5",
-            "",
             "",
             "\1\u00e6\37\uffff\1\u00e6",
             "\1\u00e7\37\uffff\1\u00e7",
@@ -7157,295 +7246,247 @@ public class InternalErrorModelLexer extends Lexer {
             "",
             "\1\u00e9\37\uffff\1\u00e9",
             "\1\u00ea\37\uffff\1\u00ea",
-            "\1\u00eb\37\uffff\1\u00eb",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\1\u00ec\37\uffff\1\u00ec",
-            "\1\u00ed\37\uffff\1\u00ed",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00ee\37\uffff\1\u00ee",
+            "\1\u00ef\37\uffff\1\u00ef",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u00f1\37\uffff\1\u00f1",
-            "\1\u00f2\37\uffff\1\u00f2",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u00f2\2\uffff\1\u00f3\34\uffff\1\u00f2\2\uffff\1\u00f3",
             "",
-            "\1\u00f5\2\uffff\1\u00f6\34\uffff\1\u00f5\2\uffff\1\u00f6",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u00f5\37\uffff\1\u00f5",
+            "\1\u00f6\37\uffff\1\u00f6",
+            "\1\u00f7\37\uffff\1\u00f7",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\1\u00f8\37\uffff\1\u00f8",
-            "\1\u00f9\37\uffff\1\u00f9",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u00fa\37\uffff\1\u00fa",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u00fd\37\uffff\1\u00fd",
-            "\1\u00fe\37\uffff\1\u00fe",
-            "\12\44\7\uffff\22\44\1\u00ff\7\44\4\uffff\1\44\1\uffff\22\44\1\u00ff\7\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u0102\37\uffff\1\u0102",
-            "\1\u0103\37\uffff\1\u0103",
+            "\1\u00fb\37\uffff\1\u00fb",
+            "\12\43\7\uffff\22\43\1\u00fc\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u00fc\7\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u00ff\37\uffff\1\u00ff",
+            "\1\u0100\37\uffff\1\u0100",
+            "\1\u0101\37\uffff\1\u0101",
+            "\1\u0102\4\uffff\1\u0103\32\uffff\1\u0102\4\uffff\1\u0103",
             "\1\u0104\37\uffff\1\u0104",
-            "\1\u0105\4\uffff\1\u0106\32\uffff\1\u0105\4\uffff\1\u0106",
+            "\1\u0105\37\uffff\1\u0105",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u0107\37\uffff\1\u0107",
             "\1\u0108\37\uffff\1\u0108",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u0109\37\uffff\1\u0109",
             "\1\u010a\37\uffff\1\u010a",
             "\1\u010b\37\uffff\1\u010b",
             "\1\u010c\37\uffff\1\u010c",
             "\1\u010d\37\uffff\1\u010d",
             "\1\u010e\37\uffff\1\u010e",
-            "\1\u010f\37\uffff\1\u010f",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
             "\1\u0110\37\uffff\1\u0110",
             "\1\u0111\37\uffff\1\u0111",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "",
+            "\1\u0112\37\uffff\1\u0112",
             "\1\u0113\37\uffff\1\u0113",
             "\1\u0114\37\uffff\1\u0114",
             "\1\u0115\37\uffff\1\u0115",
             "\1\u0116\37\uffff\1\u0116",
             "\1\u0117\37\uffff\1\u0117",
             "\1\u0118\37\uffff\1\u0118",
-            "\1\u0119\37\uffff\1\u0119",
-            "\1\u011a\37\uffff\1\u011a",
-            "\1\u011b\37\uffff\1\u011b",
-            "\12\44\7\uffff\22\44\1\u011c\7\44\4\uffff\1\44\1\uffff\22\44\1\u011c\7\44",
+            "\12\43\7\uffff\22\43\1\u0119\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u0119\7\43",
             "",
             "",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
+            "\1\u011d\37\uffff\1\u011d",
+            "\1\u011e\37\uffff\1\u011e",
+            "",
+            "\1\u011f\37\uffff\1\u011f",
             "\1\u0120\37\uffff\1\u0120",
             "\1\u0121\37\uffff\1\u0121",
             "",
+            "",
             "\1\u0122\37\uffff\1\u0122",
             "\1\u0123\37\uffff\1\u0123",
-            "\1\u0124\37\uffff\1\u0124",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
             "\1\u0125\37\uffff\1\u0125",
             "\1\u0126\37\uffff\1\u0126",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "",
-            "",
+            "\1\u0127\37\uffff\1\u0127",
             "\1\u0128\37\uffff\1\u0128",
             "\1\u0129\37\uffff\1\u0129",
             "\1\u012a\37\uffff\1\u012a",
             "\1\u012b\37\uffff\1\u012b",
+            "",
             "\1\u012c\37\uffff\1\u012c",
             "\1\u012d\37\uffff\1\u012d",
             "\1\u012e\37\uffff\1\u012e",
-            "",
-            "\1\u012f\37\uffff\1\u012f",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u0130\37\uffff\1\u0130",
             "\1\u0131\37\uffff\1\u0131",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u0133\37\uffff\1\u0133",
+            "\1\u0132\37\uffff\1\u0132",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
             "\1\u0134\37\uffff\1\u0134",
-            "\1\u0135\37\uffff\1\u0135",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\1\u0136\37\uffff\1\u0136",
             "\1\u0137\37\uffff\1\u0137",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u0139\37\uffff\1\u0139",
-            "\1\u013a\37\uffff\1\u013a",
-            "\1\u013b\37\uffff\1\u013b",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u0138\37\uffff\1\u0138",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
             "",
+            "\1\u013e\37\uffff\1\u013e",
+            "\1\u013f\37\uffff\1\u013f",
+            "\1\u0140\37\uffff\1\u0140",
             "\1\u0141\37\uffff\1\u0141",
             "\1\u0142\37\uffff\1\u0142",
             "\1\u0143\37\uffff\1\u0143",
-            "\1\u0144\37\uffff\1\u0144",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
             "\1\u0145\37\uffff\1\u0145",
             "\1\u0146\37\uffff\1\u0146",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "",
+            "\1\u0147\37\uffff\1\u0147",
             "\1\u0148\37\uffff\1\u0148",
             "\1\u0149\37\uffff\1\u0149",
-            "\1\u014a\37\uffff\1\u014a",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u014b\37\uffff\1\u014b",
             "\1\u014c\37\uffff\1\u014c",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u014e\37\uffff\1\u014e",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
             "\1\u014f\37\uffff\1\u014f",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "",
+            "\12\43\7\uffff\22\43\1\u0150\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u0150\7\43",
             "\1\u0152\37\uffff\1\u0152",
-            "\12\44\7\uffff\22\44\1\u0153\7\44\4\uffff\1\44\1\uffff\22\44\1\u0153\7\44",
-            "\1\u0155\37\uffff\1\u0155",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
             "",
             "",
             "",
+            "\1\u0157\37\uffff\1\u0157",
+            "\1\u0158\37\uffff\1\u0158",
+            "\1\u0159\37\uffff\1\u0159",
             "\1\u015a\37\uffff\1\u015a",
             "\1\u015b\37\uffff\1\u015b",
             "\1\u015c\37\uffff\1\u015c",
+            "",
             "\1\u015d\37\uffff\1\u015d",
             "\1\u015e\37\uffff\1\u015e",
-            "\1\u015f\37\uffff\1\u015f",
-            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u0160\37\uffff\1\u0160",
             "\1\u0161\37\uffff\1\u0161",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "",
+            "\1\u0162\37\uffff\1\u0162",
             "\1\u0163\37\uffff\1\u0163",
-            "\1\u0164\37\uffff\1\u0164",
-            "",
-            "\1\u0165\37\uffff\1\u0165",
-            "\1\u0166\37\uffff\1\u0166",
             "",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
             "",
             "",
+            "\1\u0167\37\uffff\1\u0167",
+            "\1\u0168\37\uffff\1\u0168",
+            "\1\u0169\37\uffff\1\u0169",
             "\1\u016a\37\uffff\1\u016a",
-            "\1\u016b\37\uffff\1\u016b",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u016c\37\uffff\1\u016c",
             "\1\u016d\37\uffff\1\u016d",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u016f\37\uffff\1\u016f",
-            "\1\u0170\37\uffff\1\u0170",
+            "\1\u016e\37\uffff\1\u016e",
+            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "\1\u0171\37\uffff\1\u0171",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "",
+            "",
+            "\1\u0173\37\uffff\1\u0173",
             "\1\u0174\37\uffff\1\u0174",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u0175\37\uffff\1\u0175",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "",
-            "",
-            "\1\u0176\37\uffff\1\u0176",
             "\1\u0177\37\uffff\1\u0177",
-            "\1\u0178\37\uffff\1\u0178",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "",
-            "\1\u017a\37\uffff\1\u017a",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
-            "\1\u017e\37\uffff\1\u017e",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\12\44\7\uffff\22\44\1\u0180\7\44\4\uffff\1\44\1\uffff\22\44\1\u0180\7\44",
+            "\1\u017b\37\uffff\1\u017b",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "\12\43\7\uffff\22\43\1\u017d\7\43\4\uffff\1\43\1\uffff\22"+
+            "\43\1\u017d\7\43",
             "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             "",
             "",
+            "",
+            "\1\u0180\37\uffff\1\u0180",
+            "",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
+            "",
+            "",
+            "\1\u0182\37\uffff\1\u0182",
             "",
             "\1\u0183\37\uffff\1\u0183",
-            "",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "",
-            "",
-            "\1\u0185\37\uffff\1\u0185",
-            "",
-            "\1\u0186\37\uffff\1\u0186",
-            "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\12\43\7\uffff\32\43\4\uffff\1\43\1\uffff\32\43",
             ""
     };
 
-    static final short[] DFA25_eot = DFA.unpackEncodedString(DFA25_eotS);
-    static final short[] DFA25_eof = DFA.unpackEncodedString(DFA25_eofS);
-    static final char[] DFA25_min = DFA.unpackEncodedStringToUnsignedChars(DFA25_minS);
-    static final char[] DFA25_max = DFA.unpackEncodedStringToUnsignedChars(DFA25_maxS);
-    static final short[] DFA25_accept = DFA.unpackEncodedString(DFA25_acceptS);
-    static final short[] DFA25_special = DFA.unpackEncodedString(DFA25_specialS);
-    static final short[][] DFA25_transition;
+    static final short[] DFA24_eot = DFA.unpackEncodedString(DFA24_eotS);
+    static final short[] DFA24_eof = DFA.unpackEncodedString(DFA24_eofS);
+    static final char[] DFA24_min = DFA.unpackEncodedStringToUnsignedChars(DFA24_minS);
+    static final char[] DFA24_max = DFA.unpackEncodedStringToUnsignedChars(DFA24_maxS);
+    static final short[] DFA24_accept = DFA.unpackEncodedString(DFA24_acceptS);
+    static final short[] DFA24_special = DFA.unpackEncodedString(DFA24_specialS);
+    static final short[][] DFA24_transition;
 
     static {
-        int numStates = DFA25_transitionS.length;
-        DFA25_transition = new short[numStates][];
+        int numStates = DFA24_transitionS.length;
+        DFA24_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA25_transition[i] = DFA.unpackEncodedString(DFA25_transitionS[i]);
+            DFA24_transition[i] = DFA.unpackEncodedString(DFA24_transitionS[i]);
         }
     }
 
-    static class DFA25 extends DFA {
+    class DFA24 extends DFA {
 
-        public DFA25(BaseRecognizer recognizer) {
+        public DFA24(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 25;
-            this.eot = DFA25_eot;
-            this.eof = DFA25_eof;
-            this.min = DFA25_min;
-            this.max = DFA25_max;
-            this.accept = DFA25_accept;
-            this.special = DFA25_special;
-            this.transition = DFA25_transition;
+            this.decisionNumber = 24;
+            this.eot = DFA24_eot;
+            this.eof = DFA24_eof;
+            this.min = DFA24_min;
+            this.max = DFA24_max;
+            this.accept = DFA24_accept;
+            this.special = DFA24_special;
+            this.transition = DFA24_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Repair | Source | States | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Self | Sink | True | Type | When | With | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_CONDITION | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS );";
-        }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            IntStream input = _input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA25_127 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA25_127>='\u0000' && LA25_127<='/')||(LA25_127>=':' && LA25_127<='@')||(LA25_127>='[' && LA25_127<='^')||LA25_127=='`'||(LA25_127>='{' && LA25_127<='\uFFFF')) ) {s = 125;}
-
-                        else if ( (LA25_127=='_') ) {s = 126;}
-
-                        else if ( ((LA25_127>='0' && LA25_127<='9')||(LA25_127>='A' && LA25_127<='Z')||(LA25_127>='a' && LA25_127<='z')) ) {s = 127;}
-
-                        else s = 36;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA25_63 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA25_63>='\u0000' && LA25_63<='/')||(LA25_63>=':' && LA25_63<='@')||(LA25_63>='[' && LA25_63<='^')||LA25_63=='`'||(LA25_63>='{' && LA25_63<='\uFFFF')) ) {s = 125;}
-
-                        else if ( (LA25_63=='_') ) {s = 126;}
-
-                        else if ( ((LA25_63>='0' && LA25_63<='9')||(LA25_63>='A' && LA25_63<='Z')||(LA25_63>='a' && LA25_63<='z')) ) {s = 127;}
-
-                        else s = 36;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA25_126 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA25_126>='0' && LA25_126<='9')||(LA25_126>='A' && LA25_126<='Z')||(LA25_126>='a' && LA25_126<='z')) ) {s = 127;}
-
-                        else if ( ((LA25_126>='\u0000' && LA25_126<='/')||(LA25_126>=':' && LA25_126<='@')||(LA25_126>='[' && LA25_126<='`')||(LA25_126>='{' && LA25_126<='\uFFFF')) ) {s = 125;}
-
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 25, _s, input);
-            error(nvae);
-            throw nvae;
+            return "1:1: Tokens : ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Repair | Source | States | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Self | Sink | True | Type | When | With | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | If | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS );";
         }
     }
  

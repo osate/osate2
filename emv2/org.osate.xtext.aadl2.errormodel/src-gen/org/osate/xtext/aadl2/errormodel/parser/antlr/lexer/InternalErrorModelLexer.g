@@ -152,6 +152,8 @@ ColonColon : ':'':';
 
 EqualsSignGreaterThanSign : '=''>';
 
+If : ('I'|'i')('F'|'f');
+
 In : ('I'|'i')('N'|'n');
 
 Or : ('O'|'o')('R'|'r');
@@ -187,8 +189,6 @@ LeftCurlyBracket : '{';
 RightCurlyBracket : '}';
 
 
-
-RULE_CONDITION : 'if' ( options {greedy=false;} : . )*'*;';
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 

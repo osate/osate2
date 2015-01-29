@@ -2643,31 +2643,35 @@ ruleErrorSource returns [EObject current=null]
 	    }
 
 )
-)))?((
+)))?(
+	otherlv_12=If
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getErrorSourceAccess().getIfKeyword_7_0());
+    }
 (
-		lv_condition_12_0=RULE_CONDITION
-		{
-			newLeafNode(lv_condition_12_0, grammarAccess.getErrorSourceAccess().getConditionCONDITIONTerminalRuleCall_7_0_0()); 
-		}
-		{
+(
+		{ 
+	        newCompositeNode(grammarAccess.getErrorSourceAccess().getConditionCONDITIONParserRuleCall_7_1_0()); 
+	    }
+		lv_condition_13_0=ruleCONDITION		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getErrorSourceRule());
+	            $current = createModelElementForParent(grammarAccess.getErrorSourceRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"condition",
-        		lv_condition_12_0, 
+        		lv_condition_13_0, 
         		"CONDITION");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-    |
-	otherlv_13=Semicolon
+))?
+	otherlv_14=Semicolon
     {
-    	newLeafNode(otherlv_13, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_7_1());
+    	newLeafNode(otherlv_14, grammarAccess.getErrorSourceAccess().getSemicolonKeyword_8());
     }
-))
+)
 ;
 
 
@@ -3586,31 +3590,35 @@ ruleErrorEvent returns [EObject current=null]
 	    }
 
 )
-)?((
+)?(
+	otherlv_5=If
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getErrorEventAccess().getIfKeyword_5_0());
+    }
 (
-		lv_condition_5_0=RULE_CONDITION
-		{
-			newLeafNode(lv_condition_5_0, grammarAccess.getErrorEventAccess().getConditionCONDITIONTerminalRuleCall_5_0_0()); 
-		}
-		{
+(
+		{ 
+	        newCompositeNode(grammarAccess.getErrorEventAccess().getConditionCONDITIONParserRuleCall_5_1_0()); 
+	    }
+		lv_condition_6_0=ruleCONDITION		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getErrorEventRule());
+	            $current = createModelElementForParent(grammarAccess.getErrorEventRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"condition",
-        		lv_condition_5_0, 
+        		lv_condition_6_0, 
         		"CONDITION");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-    |
-	otherlv_6=Semicolon
+))?
+	otherlv_7=Semicolon
     {
-    	newLeafNode(otherlv_6, grammarAccess.getErrorEventAccess().getSemicolonKeyword_5_1());
+    	newLeafNode(otherlv_7, grammarAccess.getErrorEventAccess().getSemicolonKeyword_6());
     }
-))
+)
 ;
 
 
@@ -3795,31 +3803,35 @@ ruleRecoverEvent returns [EObject current=null]
 	}
 
 )
-))*)?((
+))*)?(
+	otherlv_8=If
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getRecoverEventAccess().getIfKeyword_5_0());
+    }
 (
-		lv_condition_8_0=RULE_CONDITION
-		{
-			newLeafNode(lv_condition_8_0, grammarAccess.getRecoverEventAccess().getConditionCONDITIONTerminalRuleCall_5_0_0()); 
-		}
-		{
+(
+		{ 
+	        newCompositeNode(grammarAccess.getRecoverEventAccess().getConditionCONDITIONParserRuleCall_5_1_0()); 
+	    }
+		lv_condition_9_0=ruleCONDITION		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getRecoverEventRule());
+	            $current = createModelElementForParent(grammarAccess.getRecoverEventRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"condition",
-        		lv_condition_8_0, 
+        		lv_condition_9_0, 
         		"CONDITION");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-    |
-	otherlv_9=Semicolon
+))?
+	otherlv_10=Semicolon
     {
-    	newLeafNode(otherlv_9, grammarAccess.getRecoverEventAccess().getSemicolonKeyword_5_1());
+    	newLeafNode(otherlv_10, grammarAccess.getRecoverEventAccess().getSemicolonKeyword_6());
     }
-))
+)
 ;
 
 
@@ -4456,31 +4468,35 @@ ruleConnectionErrorSource returns [EObject current=null]
 	    }
 
 )
-)))?((
+)))?(
+	otherlv_10=If
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getConnectionErrorSourceAccess().getIfKeyword_7_0());
+    }
 (
-		lv_condition_10_0=RULE_CONDITION
-		{
-			newLeafNode(lv_condition_10_0, grammarAccess.getConnectionErrorSourceAccess().getConditionCONDITIONTerminalRuleCall_7_0_0()); 
-		}
-		{
+(
+		{ 
+	        newCompositeNode(grammarAccess.getConnectionErrorSourceAccess().getConditionCONDITIONParserRuleCall_7_1_0()); 
+	    }
+		lv_condition_11_0=ruleCONDITION		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getConnectionErrorSourceRule());
+	            $current = createModelElementForParent(grammarAccess.getConnectionErrorSourceRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"condition",
-        		lv_condition_10_0, 
+        		lv_condition_11_0, 
         		"CONDITION");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-    |
-	otherlv_11=Semicolon
+))?
+	otherlv_12=Semicolon
     {
-    	newLeafNode(otherlv_11, grammarAccess.getConnectionErrorSourceAccess().getSemicolonKeyword_7_1());
+    	newLeafNode(otherlv_12, grammarAccess.getConnectionErrorSourceAccess().getSemicolonKeyword_8());
     }
-))
+)
 ;
 
 
@@ -6251,6 +6267,35 @@ ruleSubcomponentElement returns [EObject current=null]
 )
 )
 ;
+
+
+
+
+
+// Entry rule entryRuleCONDITION
+entryRuleCONDITION returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getCONDITIONRule()); } 
+	 iv_ruleCONDITION=ruleCONDITION 
+	 { $current=$iv_ruleCONDITION.current.getText(); }  
+	 EOF 
+;
+
+// Rule CONDITION
+ruleCONDITION returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+    this_STRING_0=RULE_STRING    {
+		$current.merge(this_STRING_0);
+    }
+
+    { 
+    newLeafNode(this_STRING_0, grammarAccess.getCONDITIONAccess().getSTRINGTerminalRuleCall()); 
+    }
+
+    ;
 
 
 
