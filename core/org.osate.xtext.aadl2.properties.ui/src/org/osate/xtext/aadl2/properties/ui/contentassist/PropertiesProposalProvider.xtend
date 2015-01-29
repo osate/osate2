@@ -43,10 +43,12 @@ import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.EnumerationLiteral
+import org.osate.aadl2.ModalPropertyValue
+import org.osate.aadl2.Mode
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyConstant
-import org.osate.aadl2.PropertyType
+import org.osate.aadl2.RecordValue
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -63,6 +65,24 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 	override completeConstantValue_NamedValue(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 			showCrossReference(model)
+		])
+	}
+
+	override completeFieldPropertyAssociation_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [
+			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
+			switch model {
+				RecordValue: ! model.ownedFieldValues.exists[property == proposedObj]
+				default: false
+			}
+		])
+	}
+
+	override completeOptionalModalPropertyValue_InMode(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [
+			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
+			val propertyAssoc = model.eContainer as PropertyAssociation
+			! propertyAssoc.ownedValues.map[inModes].flatten.exists[it == proposedObj]
 		])
 	}
 	
@@ -99,5 +119,5 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 			default: {false}
 		 }
 	}
-		
+	
 }
