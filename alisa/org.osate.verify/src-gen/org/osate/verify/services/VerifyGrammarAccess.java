@@ -74,6 +74,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRationaleKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
 		private final Assignment cRationaleAssignment_6_3_1 = (Assignment)cGroup_6_3.eContents().get(1);
 		private final RuleCall cRationaleMultiLineStringParserRuleCall_6_3_1_0 = (RuleCall)cRationaleAssignment_6_3_1.eContents().get(0);
+		private final Group cGroup_6_4 = (Group)cUnorderedGroup_6.eContents().get(4);
+		private final Keyword cPlanKeyword_6_4_0 = (Keyword)cGroup_6_4.eContents().get(0);
+		private final Keyword cAssumptionKeyword_6_4_1 = (Keyword)cGroup_6_4.eContents().get(1);
+		private final Assignment cPlanAssumptionAssignment_6_4_2 = (Assignment)cGroup_6_4.eContents().get(2);
+		private final CrossReference cPlanAssumptionVerificationPlanCrossReference_6_4_2_0 = (CrossReference)cPlanAssumptionAssignment_6_4_2.eContents().get(0);
+		private final RuleCall cPlanAssumptionVerificationPlanQualifiedNameParserRuleCall_6_4_2_0_1 = (RuleCall)cPlanAssumptionVerificationPlanCrossReference_6_4_2_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//// plan for a classifier. Will add import to allow for non-qualified requirement references
@@ -81,12 +87,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationPlan:
 		//	"plan" name=ID (":" title=ValueString)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 		//	[aadl2::ComponentClassifier|AadlClassifierReference] "[" (("description" description=MultiLineString)? & claim+=Claim*
-		//	& weightedClaim+=WeightedClaim? & ("rationale" rationale=MultiLineString)?) "]";
+		//	& weightedClaim+=WeightedClaim? & ("rationale" rationale=MultiLineString)? & ("plan" "assumption"
+		//	planAssumption+=[VerificationPlan|QualifiedName]+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"plan" name=ID (":" title=ValueString)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 		//[aadl2::ComponentClassifier|AadlClassifierReference] "[" (("description" description=MultiLineString)? & claim+=Claim* &
-		//weightedClaim+=WeightedClaim? & ("rationale" rationale=MultiLineString)?) "]"
+		//weightedClaim+=WeightedClaim? & ("rationale" rationale=MultiLineString)? & ("plan" "assumption"
+		//planAssumption+=[VerificationPlan|QualifiedName]+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"plan"
@@ -128,7 +136,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
 		//("description" description=MultiLineString)? & claim+=Claim* & weightedClaim+=WeightedClaim? & ("rationale"
-		//rationale=MultiLineString)?
+		//rationale=MultiLineString)? & ("plan" "assumption" planAssumption+=[VerificationPlan|QualifiedName]+)?
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
 		//("description" description=MultiLineString)?
@@ -166,6 +174,24 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//MultiLineString
 		public RuleCall getRationaleMultiLineStringParserRuleCall_6_3_1_0() { return cRationaleMultiLineStringParserRuleCall_6_3_1_0; }
+
+		//("plan" "assumption" planAssumption+=[VerificationPlan|QualifiedName]+)?
+		public Group getGroup_6_4() { return cGroup_6_4; }
+
+		//"plan"
+		public Keyword getPlanKeyword_6_4_0() { return cPlanKeyword_6_4_0; }
+
+		//"assumption"
+		public Keyword getAssumptionKeyword_6_4_1() { return cAssumptionKeyword_6_4_1; }
+
+		//planAssumption+=[VerificationPlan|QualifiedName]+
+		public Assignment getPlanAssumptionAssignment_6_4_2() { return cPlanAssumptionAssignment_6_4_2; }
+
+		//[VerificationPlan|QualifiedName]
+		public CrossReference getPlanAssumptionVerificationPlanCrossReference_6_4_2_0() { return cPlanAssumptionVerificationPlanCrossReference_6_4_2_0; }
+
+		//QualifiedName
+		public RuleCall getPlanAssumptionVerificationPlanQualifiedNameParserRuleCall_6_4_2_0_1() { return cPlanAssumptionVerificationPlanQualifiedNameParserRuleCall_6_4_2_0_1; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
@@ -1009,19 +1035,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cWhenExprVerificationAction_1_0_0_0 = (Action)cGroup_1_0_0.eContents().get(0);
 		private final Keyword cWhenKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
 		private final Assignment cConditionAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cConditionSelectionCategoryReferenceParserRuleCall_1_1_0 = (RuleCall)cConditionAssignment_1_1.eContents().get(0);
+		private final CrossReference cConditionVerificationCategoryCrossReference_1_1_0 = (CrossReference)cConditionAssignment_1_1.eContents().get(0);
+		private final RuleCall cConditionVerificationCategoryCatRefParserRuleCall_1_1_0_1 = (RuleCall)cConditionVerificationCategoryCrossReference_1_1_0.eContents().get(1);
 		
 		//ConditionalEvidence returns ArgumentExpr:
-		//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=SelectionCategoryReference+)?;
+		//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory|CatRef]+)?;
 		public ParserRule getRule() { return rule; }
 
-		//VAReference (=> ({WhenExpr.verification=current} "when") condition+=SelectionCategoryReference+)?
+		//VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory|CatRef]+)?
 		public Group getGroup() { return cGroup; }
 
 		//VAReference
 		public RuleCall getVAReferenceParserRuleCall_0() { return cVAReferenceParserRuleCall_0; }
 
-		//(=> ({WhenExpr.verification=current} "when") condition+=SelectionCategoryReference+)?
+		//(=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory|CatRef]+)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//=> ({WhenExpr.verification=current} "when")
@@ -1036,11 +1063,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"when"
 		public Keyword getWhenKeyword_1_0_0_1() { return cWhenKeyword_1_0_0_1; }
 
-		//condition+=SelectionCategoryReference+
+		//condition+=[categories::VerificationCategory|CatRef]+
 		public Assignment getConditionAssignment_1_1() { return cConditionAssignment_1_1; }
 
-		//SelectionCategoryReference
-		public RuleCall getConditionSelectionCategoryReferenceParserRuleCall_1_1_0() { return cConditionSelectionCategoryReferenceParserRuleCall_1_1_0; }
+		//[categories::VerificationCategory|CatRef]
+		public CrossReference getConditionVerificationCategoryCrossReference_1_1_0() { return cConditionVerificationCategoryCrossReference_1_1_0; }
+
+		//CatRef
+		public RuleCall getConditionVerificationCategoryCatRefParserRuleCall_1_1_0_1() { return cConditionVerificationCategoryCatRefParserRuleCall_1_1_0_1; }
 	}
 
 	public class VAReferenceElements extends AbstractParserRuleElementFinder {
@@ -1091,26 +1121,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
 	}
 
-	public class SelectionCategoryReferenceElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SelectionCategoryReference");
-		private final Assignment cCatAssignment = (Assignment)rule.eContents().get(1);
-		private final CrossReference cCatVerificationCategoryCrossReference_0 = (CrossReference)cCatAssignment.eContents().get(0);
-		private final RuleCall cCatVerificationCategoryCatRefParserRuleCall_0_1 = (RuleCall)cCatVerificationCategoryCrossReference_0.eContents().get(1);
-		
-		//SelectionCategoryReference:
-		//	cat=[categories::VerificationCategory|CatRef];
-		public ParserRule getRule() { return rule; }
-
-		//cat=[categories::VerificationCategory|CatRef]
-		public Assignment getCatAssignment() { return cCatAssignment; }
-
-		//[categories::VerificationCategory|CatRef]
-		public CrossReference getCatVerificationCategoryCrossReference_0() { return cCatVerificationCategoryCrossReference_0; }
-
-		//CatRef
-		public RuleCall getCatVerificationCategoryCatRefParserRuleCall_0_1() { return cCatVerificationCategoryCatRefParserRuleCall_0_1; }
-	}
-
 	public class VerificationMethodRegistryElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationMethodRegistry");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1131,6 +1141,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMethodsVerificationMethodParserRuleCall_4_1_0 = (RuleCall)cMethodsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
+		////SelectionCategoryReference:
+		////	cat=[categories::VerificationCategory|CatRef];
 		//// need to distinguish between method with/out predicate
 		//// method producing multiple results
 		//// Java based methods: all
@@ -1445,7 +1457,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final AtomicEvidenceExprElements pAtomicEvidenceExpr;
 	private final ConditionalEvidenceElements pConditionalEvidence;
 	private final VAReferenceElements pVAReference;
-	private final SelectionCategoryReferenceElements pSelectionCategoryReference;
 	private final VerificationMethodRegistryElements pVerificationMethodRegistry;
 	private final VerificationMethodElements pVerificationMethod;
 	private final SupportedTypesElements unknownRuleSupportedTypes;
@@ -1475,7 +1486,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAtomicEvidenceExpr = new AtomicEvidenceExprElements();
 		this.pConditionalEvidence = new ConditionalEvidenceElements();
 		this.pVAReference = new VAReferenceElements();
-		this.pSelectionCategoryReference = new SelectionCategoryReferenceElements();
 		this.pVerificationMethodRegistry = new VerificationMethodRegistryElements();
 		this.pVerificationMethod = new VerificationMethodElements();
 		this.unknownRuleSupportedTypes = new SupportedTypesElements();
@@ -1523,7 +1533,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//VerificationPlan:
 	//	"plan" name=ID (":" title=ValueString)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 	//	[aadl2::ComponentClassifier|AadlClassifierReference] "[" (("description" description=MultiLineString)? & claim+=Claim*
-	//	& weightedClaim+=WeightedClaim? & ("rationale" rationale=MultiLineString)?) "]";
+	//	& weightedClaim+=WeightedClaim? & ("rationale" rationale=MultiLineString)? & ("plan" "assumption"
+	//	planAssumption+=[VerificationPlan|QualifiedName]+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
 	}
@@ -1666,7 +1677,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConditionalEvidence returns ArgumentExpr:
-	//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=SelectionCategoryReference+)?;
+	//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory|CatRef]+)?;
 	public ConditionalEvidenceElements getConditionalEvidenceAccess() {
 		return pConditionalEvidence;
 	}
@@ -1685,16 +1696,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getVAReferenceAccess().getRule();
 	}
 
-	//SelectionCategoryReference:
-	//	cat=[categories::VerificationCategory|CatRef];
-	public SelectionCategoryReferenceElements getSelectionCategoryReferenceAccess() {
-		return pSelectionCategoryReference;
-	}
-	
-	public ParserRule getSelectionCategoryReferenceRule() {
-		return getSelectionCategoryReferenceAccess().getRule();
-	}
-
+	////SelectionCategoryReference:
+	////	cat=[categories::VerificationCategory|CatRef];
 	//// need to distinguish between method with/out predicate
 	//// method producing multiple results
 	//// Java based methods: all

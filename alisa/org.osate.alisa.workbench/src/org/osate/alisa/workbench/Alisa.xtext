@@ -7,9 +7,9 @@ import "http://www.osate.org/categories/Categories" as categories
 
 AlisaWorkArea:
 	'alisa' name=ID
-	cases+=AssuranceCasePlan*;
+	cases+=AssuranceCaseConfiguration*;
 
-AssuranceCasePlan:
+AssuranceCaseConfiguration:
 	'case' name=ID (':' title=ValueString)?
 	'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
@@ -17,16 +17,16 @@ AssuranceCasePlan:
 	('description' description=Description)?
 	('constants' constant+=FinalValue+ )?
 	'plans' plans+=[Verify::VerificationPlan|QualifiedName]+
-	('select' selectionFilter=OrSelectionConditionExpr)?
+	('select' (selectionFilter+=[categories::VerificationCategory|CatRef])+)?
 	)
 	']';
 	
-OrSelectionConditionExpr returns SelectionConditionExpr:
-	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
-
-AndSelectionConditionExpr returns SelectionConditionExpr:
-	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
-
-SelectionCategoryReference:
-	cat=[categories::VerificationCategory|CatRef];
+//OrSelectionConditionExpr returns SelectionConditionExpr:
+//	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
+//
+//AndSelectionConditionExpr returns SelectionConditionExpr:
+//	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
+//
+//SelectionCategoryReference:
+//	cat=[categories::VerificationCategory|CatRef];
 	

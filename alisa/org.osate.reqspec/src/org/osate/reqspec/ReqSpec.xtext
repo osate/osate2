@@ -7,7 +7,8 @@ import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/organization/Organization" as org
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-ReqSpec: contents +=(ReqSpecs|StakeholderGoals|ReqDocument)  ;
+//ReqSpec: contents +=(ReqSpecs|StakeholderGoals|ReqDocument)  ;
+ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
 
 ReqSpecContainer: ReqSpecs  | ReqSpecFolder  |GoalFolder | StakeholderGoals | ReqDocument;
 

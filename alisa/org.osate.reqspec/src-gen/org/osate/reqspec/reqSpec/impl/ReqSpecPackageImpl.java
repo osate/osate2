@@ -217,16 +217,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getReqSpec_Contents()
-  {
-    return (EReference)reqSpecEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getReqSpecContainer()
   {
     return reqSpecContainerEClass;
@@ -863,7 +853,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     // Create classes and their features
     reqSpecEClass = createEClass(REQ_SPEC);
-    createEReference(reqSpecEClass, REQ_SPEC__CONTENTS);
 
     reqSpecContainerEClass = createEClass(REQ_SPEC_CONTAINER);
 
@@ -975,10 +964,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    stakeholderGoalsEClass.getESuperTypes().add(this.getReqSpec());
     stakeholderGoalsEClass.getESuperTypes().add(this.getReqSpecContainer());
     stakeholderGoalsEClass.getESuperTypes().add(this.getReqRoot());
+    reqDocumentEClass.getESuperTypes().add(this.getReqSpec());
     reqDocumentEClass.getESuperTypes().add(this.getReqSpecContainer());
     reqDocumentEClass.getESuperTypes().add(this.getReqRoot());
+    reqSpecsEClass.getESuperTypes().add(this.getReqSpec());
     reqSpecsEClass.getESuperTypes().add(this.getReqSpecContainer());
     reqSpecsEClass.getESuperTypes().add(this.getReqRoot());
     reqSpecFolderEClass.getESuperTypes().add(this.getReqSpecContainer());
@@ -988,7 +980,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     // Initialize classes and features; add operations and parameters
     initEClass(reqSpecEClass, ReqSpec.class, "ReqSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getReqSpec_Contents(), theEcorePackage.getEObject(), null, "contents", null, 0, -1, ReqSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(reqSpecContainerEClass, ReqSpecContainer.class, "ReqSpecContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

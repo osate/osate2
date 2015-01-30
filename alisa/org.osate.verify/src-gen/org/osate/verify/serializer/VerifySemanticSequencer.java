@@ -28,7 +28,6 @@ import org.osate.verify.verify.AndThenExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.FailThenExpr;
 import org.osate.verify.verify.RefExpr;
-import org.osate.verify.verify.SelectionCategoryReference;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationAssumption;
@@ -148,12 +147,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				   context == grammarAccess.getFailThenEvidenceExprAccess().getFailThenExprLeftAction_1_0_0_0() ||
 				   context == grammarAccess.getVAReferenceRule()) {
 					sequence_VAReference(context, (RefExpr) semanticObject); 
-					return; 
-				}
-				else break;
-			case VerifyPackage.SELECTION_CATEGORY_REFERENCE:
-				if(context == grammarAccess.getSelectionCategoryReferenceRule()) {
-					sequence_SelectionCategoryReference(context, (SelectionCategoryReference) semanticObject); 
 					return; 
 				}
 				else break;
@@ -280,7 +273,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verification=ConditionalEvidence_WhenExpr_1_0_0_0 condition+=SelectionCategoryReference+)
+	 *     (verification=ConditionalEvidence_WhenExpr_1_0_0_0 condition+=[VerificationCategory|CatRef]+)
 	 */
 	protected void sequence_ConditionalEvidence(EObject context, WhenExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -302,22 +295,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getFailThenEvidenceExprAccess().getFailThenExprLeftAction_1_0_0_0(), semanticObject.getLeft());
 		feeder.accept(grammarAccess.getFailThenEvidenceExprAccess().getRightFailThenEvidenceExprParserRuleCall_1_1_0(), semanticObject.getRight());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     cat=[VerificationCategory|CatRef]
-	 */
-	protected void sequence_SelectionCategoryReference(EObject context, SelectionCategoryReference semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.SELECTION_CATEGORY_REFERENCE__CAT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.SELECTION_CATEGORY_REFERENCE__CAT));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getSelectionCategoryReferenceAccess().getCatVerificationCategoryCatRefParserRuleCall_0_1(), semanticObject.getCat());
 		feeder.finish();
 	}
 	
@@ -428,7 +405,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=MultiLineString? 
 	 *         claim+=Claim* 
 	 *         weightedClaim+=WeightedClaim? 
-	 *         rationale=MultiLineString?
+	 *         rationale=MultiLineString? 
+	 *         planAssumption+=[VerificationPlan|QualifiedName]*
 	 *     )
 	 */
 	protected void sequence_VerificationPlan(EObject context, VerificationPlan semanticObject) {

@@ -39,7 +39,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *
  * @generated
  */
-public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
+public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

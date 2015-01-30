@@ -17,10 +17,7 @@ import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.workbench.alisa.AlisaFactory;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
-import org.osate.alisa.workbench.alisa.AndSelectionConditionExpr;
-import org.osate.alisa.workbench.alisa.AssuranceCasePlan;
-import org.osate.alisa.workbench.alisa.SelectionCategoryReference;
-import org.osate.alisa.workbench.alisa.SelectionConditionExpr;
+import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration;
 
 import org.osate.categories.categories.CategoriesPackage;
 
@@ -46,28 +43,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass assuranceCasePlanEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass selectionConditionExprEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass selectionCategoryReferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass andSelectionConditionExprEClass = null;
+  private EClass assuranceCaseConfigurationEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -170,9 +146,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAssuranceCasePlan()
+  public EClass getAssuranceCaseConfiguration()
   {
-    return assuranceCasePlanEClass;
+    return assuranceCaseConfigurationEClass;
   }
 
   /**
@@ -180,9 +156,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAssuranceCasePlan_Name()
+  public EAttribute getAssuranceCaseConfiguration_Name()
   {
-    return (EAttribute)assuranceCasePlanEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)assuranceCaseConfigurationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -190,9 +166,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAssuranceCasePlan_Title()
+  public EAttribute getAssuranceCaseConfiguration_Title()
   {
-    return (EAttribute)assuranceCasePlanEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)assuranceCaseConfigurationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -200,9 +176,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceCasePlan_System()
+  public EReference getAssuranceCaseConfiguration_System()
   {
-    return (EReference)assuranceCasePlanEClass.getEStructuralFeatures().get(2);
+    return (EReference)assuranceCaseConfigurationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -210,9 +186,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceCasePlan_Description()
+  public EReference getAssuranceCaseConfiguration_Description()
   {
-    return (EReference)assuranceCasePlanEClass.getEStructuralFeatures().get(3);
+    return (EReference)assuranceCaseConfigurationEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -220,9 +196,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceCasePlan_Constant()
+  public EReference getAssuranceCaseConfiguration_Constant()
   {
-    return (EReference)assuranceCasePlanEClass.getEStructuralFeatures().get(4);
+    return (EReference)assuranceCaseConfigurationEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -230,9 +206,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceCasePlan_Plans()
+  public EReference getAssuranceCaseConfiguration_Plans()
   {
-    return (EReference)assuranceCasePlanEClass.getEStructuralFeatures().get(5);
+    return (EReference)assuranceCaseConfigurationEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -240,69 +216,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceCasePlan_SelectionFilter()
+  public EReference getAssuranceCaseConfiguration_SelectionFilter()
   {
-    return (EReference)assuranceCasePlanEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSelectionConditionExpr()
-  {
-    return selectionConditionExprEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSelectionCategoryReference()
-  {
-    return selectionCategoryReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSelectionCategoryReference_Cat()
-  {
-    return (EReference)selectionCategoryReferenceEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getAndSelectionConditionExpr()
-  {
-    return andSelectionConditionExprEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAndSelectionConditionExpr_Left()
-  {
-    return (EReference)andSelectionConditionExprEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getAndSelectionConditionExpr_Right()
-  {
-    return (EReference)andSelectionConditionExprEClass.getEStructuralFeatures().get(1);
+    return (EReference)assuranceCaseConfigurationEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -339,23 +255,14 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     createEAttribute(alisaWorkAreaEClass, ALISA_WORK_AREA__NAME);
     createEReference(alisaWorkAreaEClass, ALISA_WORK_AREA__CASES);
 
-    assuranceCasePlanEClass = createEClass(ASSURANCE_CASE_PLAN);
-    createEAttribute(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__NAME);
-    createEAttribute(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__TITLE);
-    createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__SYSTEM);
-    createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__DESCRIPTION);
-    createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__CONSTANT);
-    createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__PLANS);
-    createEReference(assuranceCasePlanEClass, ASSURANCE_CASE_PLAN__SELECTION_FILTER);
-
-    selectionConditionExprEClass = createEClass(SELECTION_CONDITION_EXPR);
-
-    selectionCategoryReferenceEClass = createEClass(SELECTION_CATEGORY_REFERENCE);
-    createEReference(selectionCategoryReferenceEClass, SELECTION_CATEGORY_REFERENCE__CAT);
-
-    andSelectionConditionExprEClass = createEClass(AND_SELECTION_CONDITION_EXPR);
-    createEReference(andSelectionConditionExprEClass, AND_SELECTION_CONDITION_EXPR__LEFT);
-    createEReference(andSelectionConditionExprEClass, AND_SELECTION_CONDITION_EXPR__RIGHT);
+    assuranceCaseConfigurationEClass = createEClass(ASSURANCE_CASE_CONFIGURATION);
+    createEAttribute(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__NAME);
+    createEAttribute(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__TITLE);
+    createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__SYSTEM);
+    createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__DESCRIPTION);
+    createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__CONSTANT);
+    createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__PLANS);
+    createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER);
   }
 
   /**
@@ -394,31 +301,20 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    selectionCategoryReferenceEClass.getESuperTypes().add(this.getSelectionConditionExpr());
-    andSelectionConditionExprEClass.getESuperTypes().add(this.getSelectionConditionExpr());
 
     // Initialize classes and features; add operations and parameters
     initEClass(alisaWorkAreaEClass, AlisaWorkArea.class, "AlisaWorkArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAlisaWorkArea_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AlisaWorkArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAlisaWorkArea_Cases(), this.getAssuranceCasePlan(), null, "cases", null, 0, -1, AlisaWorkArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAlisaWorkArea_Cases(), this.getAssuranceCaseConfiguration(), null, "cases", null, 0, -1, AlisaWorkArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(assuranceCasePlanEClass, AssuranceCasePlan.class, "AssuranceCasePlan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAssuranceCasePlan_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAssuranceCasePlan_Title(), theEcorePackage.getEString(), "title", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceCasePlan_System(), theAadl2Package.getComponentImplementation(), null, "system", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceCasePlan_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceCasePlan_Constant(), theCommonPackage.getFinalValue(), null, "constant", null, 0, -1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceCasePlan_Plans(), theVerifyPackage.getVerificationPlan(), null, "plans", null, 0, -1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceCasePlan_SelectionFilter(), this.getSelectionConditionExpr(), null, "selectionFilter", null, 0, 1, AssuranceCasePlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(selectionConditionExprEClass, SelectionConditionExpr.class, "SelectionConditionExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(selectionCategoryReferenceEClass, SelectionCategoryReference.class, "SelectionCategoryReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSelectionCategoryReference_Cat(), theCategoriesPackage.getVerificationCategory(), null, "cat", null, 0, 1, SelectionCategoryReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(andSelectionConditionExprEClass, AndSelectionConditionExpr.class, "AndSelectionConditionExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAndSelectionConditionExpr_Left(), this.getSelectionConditionExpr(), null, "left", null, 0, 1, AndSelectionConditionExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAndSelectionConditionExpr_Right(), this.getSelectionConditionExpr(), null, "right", null, 0, 1, AndSelectionConditionExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(assuranceCaseConfigurationEClass, AssuranceCaseConfiguration.class, "AssuranceCaseConfiguration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAssuranceCaseConfiguration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAssuranceCaseConfiguration_Title(), theEcorePackage.getEString(), "title", null, 0, 1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCaseConfiguration_System(), theAadl2Package.getComponentImplementation(), null, "system", null, 0, 1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCaseConfiguration_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCaseConfiguration_Constant(), theCommonPackage.getFinalValue(), null, "constant", null, 0, -1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCaseConfiguration_Plans(), theVerifyPackage.getVerificationPlan(), null, "plans", null, 0, -1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCaseConfiguration_SelectionFilter(), theCategoriesPackage.getVerificationCategory(), null, "selectionFilter", null, 0, -1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

@@ -267,8 +267,6 @@ public class AssureUtilExtension {
             if (_greaterThan) {
               String _substring = message.substring(15);
               issue.setMessage(_substring);
-              String _message = issue.getMessage();
-              issue.setName(_message);
             }
           }
         }
@@ -304,8 +302,6 @@ public class AssureUtilExtension {
             if (_greaterThan) {
               String _substring = message.substring(15);
               issue.setMessage(_substring);
-              String _message = issue.getMessage();
-              issue.setName(_message);
             }
           }
         }

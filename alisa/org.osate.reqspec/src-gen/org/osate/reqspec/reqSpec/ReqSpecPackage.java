@@ -67,22 +67,13 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPEC = 0;
 
   /**
-   * The feature id for the '<em><b>Contents</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQ_SPEC__CONTENTS = 0;
-
-  /**
    * The number of structural features of the '<em>Req Spec</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPEC_FEATURE_COUNT = 1;
+  int REQ_SPEC_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecContainerImpl <em>Container</em>}' class.
@@ -230,7 +221,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__NAME = REQ_SPEC_CONTAINER_FEATURE_COUNT + 0;
+  int STAKEHOLDER_GOALS__NAME = REQ_SPEC_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -239,7 +230,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__TITLE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
+  int STAKEHOLDER_GOALS__TITLE = REQ_SPEC_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -248,7 +239,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
+  int STAKEHOLDER_GOALS__TARGET = REQ_SPEC_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Target Description</b></em>' attribute.
@@ -257,7 +248,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__TARGET_DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
+  int STAKEHOLDER_GOALS__TARGET_DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -266,7 +257,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Consists Of</b></em>' reference list.
@@ -275,7 +266,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__CONSISTS_OF = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int STAKEHOLDER_GOALS__CONSISTS_OF = REQ_SPEC_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Stakeholder Goals</em>' class.
@@ -284,7 +275,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int STAKEHOLDER_GOALS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl <em>Req Document</em>}' class.
@@ -303,7 +294,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_DOCUMENT__NAME = REQ_SPEC_CONTAINER_FEATURE_COUNT + 0;
+  int REQ_DOCUMENT__NAME = REQ_SPEC_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -312,7 +303,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_DOCUMENT__TITLE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
+  int REQ_DOCUMENT__TITLE = REQ_SPEC_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -321,7 +312,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_DOCUMENT__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
+  int REQ_DOCUMENT__DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -330,7 +321,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_DOCUMENT__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
+  int REQ_DOCUMENT__CONTENT = REQ_SPEC_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Req Document</em>' class.
@@ -339,7 +330,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_DOCUMENT_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int REQ_DOCUMENT_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.DocumentSectionImpl <em>Document Section</em>}' class.
@@ -413,7 +404,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__NAME = REQ_SPEC_CONTAINER_FEATURE_COUNT + 0;
+  int REQ_SPECS__NAME = REQ_SPEC_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -422,7 +413,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__TITLE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
+  int REQ_SPECS__TITLE = REQ_SPEC_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -431,7 +422,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__TARGET = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
+  int REQ_SPECS__TARGET = REQ_SPEC_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Target Description</b></em>' attribute.
@@ -440,7 +431,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__TARGET_DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
+  int REQ_SPECS__TARGET_DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -449,7 +440,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
+  int REQ_SPECS__CONSTANTS = REQ_SPEC_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -458,7 +449,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
+  int REQ_SPECS__CONTENT = REQ_SPEC_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Req Specs</em>' class.
@@ -467,7 +458,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecFolderImpl <em>Folder</em>}' class.
@@ -907,17 +898,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EClass getReqSpec();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpec#getContents <em>Contents</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Contents</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpec#getContents()
-   * @see #getReqSpec()
-   * @generated
-   */
-  EReference getReqSpec_Contents();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqSpecContainer <em>Container</em>}'.
@@ -1610,14 +1590,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EClass REQ_SPEC = eINSTANCE.getReqSpec();
-
-    /**
-     * The meta object literal for the '<em><b>Contents</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference REQ_SPEC__CONTENTS = eINSTANCE.getReqSpec_Contents();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecContainerImpl <em>Container</em>}' class.

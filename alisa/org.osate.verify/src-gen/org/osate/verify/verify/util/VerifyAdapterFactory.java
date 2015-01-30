@@ -125,11 +125,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createArgumentExprAdapter();
       }
       @Override
-      public Adapter caseSelectionCategoryReference(SelectionCategoryReference object)
-      {
-        return createSelectionCategoryReferenceAdapter();
-      }
-      @Override
       public Adapter caseVerificationMethodRegistry(VerificationMethodRegistry object)
       {
         return createVerificationMethodRegistryAdapter();
@@ -342,21 +337,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createArgumentExprAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.SelectionCategoryReference <em>Selection Category Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.SelectionCategoryReference
-   * @generated
-   */
-  public Adapter createSelectionCategoryReferenceAdapter()
   {
     return null;
   }

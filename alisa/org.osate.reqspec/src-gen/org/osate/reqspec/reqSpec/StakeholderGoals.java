@@ -29,7 +29,7 @@ import org.osate.alisa.common.common.MultiLineString;
  * @model
  * @generated
  */
-public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
+public interface StakeholderGoals extends ReqSpec, ReqSpecContainer, ReqRoot
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

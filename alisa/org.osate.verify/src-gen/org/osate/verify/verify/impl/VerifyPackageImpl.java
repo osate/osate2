@@ -25,7 +25,6 @@ import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.FailThenExpr;
 import org.osate.verify.verify.RefExpr;
-import org.osate.verify.verify.SelectionCategoryReference;
 import org.osate.verify.verify.SupportedTypes;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
@@ -120,13 +119,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * @generated
    */
   private EClass argumentExprEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass selectionCategoryReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -362,6 +354,16 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
   public EReference getVerificationPlan_Rationale()
   {
     return (EReference)verificationPlanEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVerificationPlan_PlanAssumption()
+  {
+    return (EReference)verificationPlanEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -712,26 +714,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
   public EClass getArgumentExpr()
   {
     return argumentExprEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getSelectionCategoryReference()
-  {
-    return selectionCategoryReferenceEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSelectionCategoryReference_Cat()
-  {
-    return (EReference)selectionCategoryReferenceEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1095,6 +1077,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__CLAIM);
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__WEIGHTED_CLAIM);
     createEReference(verificationPlanEClass, VERIFICATION_PLAN__RATIONALE);
+    createEReference(verificationPlanEClass, VERIFICATION_PLAN__PLAN_ASSUMPTION);
 
     claimEClass = createEClass(CLAIM);
     createEAttribute(claimEClass, CLAIM__NAME);
@@ -1138,9 +1121,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEReference(verificationConditionEClass, VERIFICATION_CONDITION__RATIONALE);
 
     argumentExprEClass = createEClass(ARGUMENT_EXPR);
-
-    selectionCategoryReferenceEClass = createEClass(SELECTION_CATEGORY_REFERENCE);
-    createEReference(selectionCategoryReferenceEClass, SELECTION_CATEGORY_REFERENCE__CAT);
 
     verificationMethodRegistryEClass = createEClass(VERIFICATION_METHOD_REGISTRY);
     createEAttribute(verificationMethodRegistryEClass, VERIFICATION_METHOD_REGISTRY__NAME);
@@ -1244,6 +1224,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEReference(getVerificationPlan_Claim(), this.getClaim(), null, "claim", null, 0, -1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationPlan_WeightedClaim(), this.getWeightedClaim(), null, "weightedClaim", null, 0, -1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationPlan_Rationale(), theCommonPackage.getMultiLineString(), null, "rationale", null, 0, 1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationPlan_PlanAssumption(), this.getVerificationPlan(), null, "planAssumption", null, 0, -1, VerificationPlan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(claimEClass, Claim.class, "Claim", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getClaim_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1288,9 +1269,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(argumentExprEClass, ArgumentExpr.class, "ArgumentExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(selectionCategoryReferenceEClass, SelectionCategoryReference.class, "SelectionCategoryReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSelectionCategoryReference_Cat(), theCategoriesPackage.getVerificationCategory(), null, "cat", null, 0, 1, SelectionCategoryReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(verificationMethodRegistryEClass, VerificationMethodRegistry.class, "VerificationMethodRegistry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationMethodRegistry_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationMethodRegistry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationMethodRegistry_Title(), theEcorePackage.getEString(), "title", null, 0, 1, VerificationMethodRegistry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1325,7 +1303,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(whenExprEClass, WhenExpr.class, "WhenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getWhenExpr_Verification(), this.getArgumentExpr(), null, "verification", null, 0, 1, WhenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getWhenExpr_Condition(), this.getSelectionCategoryReference(), null, "condition", null, 0, -1, WhenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getWhenExpr_Condition(), theCategoriesPackage.getVerificationCategory(), null, "condition", null, 0, -1, WhenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(refExprEClass, RefExpr.class, "RefExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRefExpr_Verification(), this.getVerificationActivity(), null, "verification", null, 0, 1, RefExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

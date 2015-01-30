@@ -112,9 +112,9 @@ ruleReqSpec
     }
     :
 (
-{ before(grammarAccess.getReqSpecAccess().getContentsAssignment()); }
-(rule__ReqSpec__ContentsAssignment)
-{ after(grammarAccess.getReqSpecAccess().getContentsAssignment()); }
+{ before(grammarAccess.getReqSpecAccess().getAlternatives()); }
+(rule__ReqSpec__Alternatives)
+{ after(grammarAccess.getReqSpecAccess().getAlternatives()); }
 )
 
 ;
@@ -767,27 +767,27 @@ finally {
 
 
 
-rule__ReqSpec__ContentsAlternatives_0
+rule__ReqSpec__Alternatives
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getReqSpecAccess().getContentsReqSpecsParserRuleCall_0_0()); }
+{ before(grammarAccess.getReqSpecAccess().getReqSpecsParserRuleCall_0()); }
 	ruleReqSpecs
-{ after(grammarAccess.getReqSpecAccess().getContentsReqSpecsParserRuleCall_0_0()); }
+{ after(grammarAccess.getReqSpecAccess().getReqSpecsParserRuleCall_0()); }
 )
 
     |(
-{ before(grammarAccess.getReqSpecAccess().getContentsStakeholderGoalsParserRuleCall_0_1()); }
+{ before(grammarAccess.getReqSpecAccess().getStakeholderGoalsParserRuleCall_1()); }
 	ruleStakeholderGoals
-{ after(grammarAccess.getReqSpecAccess().getContentsStakeholderGoalsParserRuleCall_0_1()); }
+{ after(grammarAccess.getReqSpecAccess().getStakeholderGoalsParserRuleCall_1()); }
 )
 
     |(
-{ before(grammarAccess.getReqSpecAccess().getContentsReqDocumentParserRuleCall_0_2()); }
+{ before(grammarAccess.getReqSpecAccess().getReqDocumentParserRuleCall_2()); }
 	ruleReqDocument
-{ after(grammarAccess.getReqSpecAccess().getContentsReqDocumentParserRuleCall_0_2()); }
+{ after(grammarAccess.getReqSpecAccess().getReqDocumentParserRuleCall_2()); }
 )
 
 ;
@@ -8273,22 +8273,6 @@ finally {
 
 
 
-
-rule__ReqSpec__ContentsAssignment
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getReqSpecAccess().getContentsAlternatives_0()); }
-(rule__ReqSpec__ContentsAlternatives_0)
-{ after(grammarAccess.getReqSpecAccess().getContentsAlternatives_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
 
 rule__StakeholderGoals__NameAssignment_2
     @init {

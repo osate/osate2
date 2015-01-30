@@ -186,31 +186,31 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleReqSpec"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:109:1: ruleReqSpec : ( ( rule__ReqSpec__ContentsAssignment ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:109:1: ruleReqSpec : ( ( rule__ReqSpec__Alternatives ) ) ;
     public final void ruleReqSpec() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:113:5: ( ( ( rule__ReqSpec__ContentsAssignment ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:114:1: ( ( rule__ReqSpec__ContentsAssignment ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:113:5: ( ( ( rule__ReqSpec__Alternatives ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:114:1: ( ( rule__ReqSpec__Alternatives ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:114:1: ( ( rule__ReqSpec__ContentsAssignment ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:115:1: ( rule__ReqSpec__ContentsAssignment )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:114:1: ( ( rule__ReqSpec__Alternatives ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:115:1: ( rule__ReqSpec__Alternatives )
             {
-             before(grammarAccess.getReqSpecAccess().getContentsAssignment()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:116:1: ( rule__ReqSpec__ContentsAssignment )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:116:2: rule__ReqSpec__ContentsAssignment
+             before(grammarAccess.getReqSpecAccess().getAlternatives()); 
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:116:1: ( rule__ReqSpec__Alternatives )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:116:2: rule__ReqSpec__Alternatives
             {
-            pushFollow(FOLLOW_rule__ReqSpec__ContentsAssignment_in_ruleReqSpec91);
-            rule__ReqSpec__ContentsAssignment();
+            pushFollow(FOLLOW_rule__ReqSpec__Alternatives_in_ruleReqSpec91);
+            rule__ReqSpec__Alternatives();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getReqSpecAccess().getContentsAssignment()); 
+             after(grammarAccess.getReqSpecAccess().getAlternatives()); 
 
             }
 
@@ -1992,9 +1992,9 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleQualifiedName"
 
 
-    // $ANTLR start "rule__ReqSpec__ContentsAlternatives_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:770:1: rule__ReqSpec__ContentsAlternatives_0 : ( ( ruleReqSpecs ) | ( ruleStakeholderGoals ) | ( ruleReqDocument ) );
-    public final void rule__ReqSpec__ContentsAlternatives_0() throws RecognitionException {
+    // $ANTLR start "rule__ReqSpec__Alternatives"
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:770:1: rule__ReqSpec__Alternatives : ( ( ruleReqSpecs ) | ( ruleStakeholderGoals ) | ( ruleReqDocument ) );
+    public final void rule__ReqSpec__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -2031,13 +2031,13 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
                     // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:775:1: ( ruleReqSpecs )
                     // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:776:1: ruleReqSpecs
                     {
-                     before(grammarAccess.getReqSpecAccess().getContentsReqSpecsParserRuleCall_0_0()); 
-                    pushFollow(FOLLOW_ruleReqSpecs_in_rule__ReqSpec__ContentsAlternatives_01579);
+                     before(grammarAccess.getReqSpecAccess().getReqSpecsParserRuleCall_0()); 
+                    pushFollow(FOLLOW_ruleReqSpecs_in_rule__ReqSpec__Alternatives1579);
                     ruleReqSpecs();
 
                     state._fsp--;
 
-                     after(grammarAccess.getReqSpecAccess().getContentsReqSpecsParserRuleCall_0_0()); 
+                     after(grammarAccess.getReqSpecAccess().getReqSpecsParserRuleCall_0()); 
 
                     }
 
@@ -2050,13 +2050,13 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
                     // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:781:6: ( ruleStakeholderGoals )
                     // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:782:1: ruleStakeholderGoals
                     {
-                     before(grammarAccess.getReqSpecAccess().getContentsStakeholderGoalsParserRuleCall_0_1()); 
-                    pushFollow(FOLLOW_ruleStakeholderGoals_in_rule__ReqSpec__ContentsAlternatives_01596);
+                     before(grammarAccess.getReqSpecAccess().getStakeholderGoalsParserRuleCall_1()); 
+                    pushFollow(FOLLOW_ruleStakeholderGoals_in_rule__ReqSpec__Alternatives1596);
                     ruleStakeholderGoals();
 
                     state._fsp--;
 
-                     after(grammarAccess.getReqSpecAccess().getContentsStakeholderGoalsParserRuleCall_0_1()); 
+                     after(grammarAccess.getReqSpecAccess().getStakeholderGoalsParserRuleCall_1()); 
 
                     }
 
@@ -2069,13 +2069,13 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
                     // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:787:6: ( ruleReqDocument )
                     // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:788:1: ruleReqDocument
                     {
-                     before(grammarAccess.getReqSpecAccess().getContentsReqDocumentParserRuleCall_0_2()); 
-                    pushFollow(FOLLOW_ruleReqDocument_in_rule__ReqSpec__ContentsAlternatives_01613);
+                     before(grammarAccess.getReqSpecAccess().getReqDocumentParserRuleCall_2()); 
+                    pushFollow(FOLLOW_ruleReqDocument_in_rule__ReqSpec__Alternatives1613);
                     ruleReqDocument();
 
                     state._fsp--;
 
-                     after(grammarAccess.getReqSpecAccess().getContentsReqDocumentParserRuleCall_0_2()); 
+                     after(grammarAccess.getReqSpecAccess().getReqDocumentParserRuleCall_2()); 
 
                     }
 
@@ -2096,7 +2096,7 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ReqSpec__ContentsAlternatives_0"
+    // $ANTLR end "rule__ReqSpec__Alternatives"
 
 
     // $ANTLR start "rule__StakeholderGoals__Alternatives_4_1"
@@ -22054,68 +22054,21 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Requirement__UnorderedGroup_5__10"
 
 
-    // $ANTLR start "rule__ReqSpec__ContentsAssignment"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8277:1: rule__ReqSpec__ContentsAssignment : ( ( rule__ReqSpec__ContentsAlternatives_0 ) ) ;
-    public final void rule__ReqSpec__ContentsAssignment() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8281:1: ( ( ( rule__ReqSpec__ContentsAlternatives_0 ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8282:1: ( ( rule__ReqSpec__ContentsAlternatives_0 ) )
-            {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8282:1: ( ( rule__ReqSpec__ContentsAlternatives_0 ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8283:1: ( rule__ReqSpec__ContentsAlternatives_0 )
-            {
-             before(grammarAccess.getReqSpecAccess().getContentsAlternatives_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8284:1: ( rule__ReqSpec__ContentsAlternatives_0 )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8284:2: rule__ReqSpec__ContentsAlternatives_0
-            {
-            pushFollow(FOLLOW_rule__ReqSpec__ContentsAlternatives_0_in_rule__ReqSpec__ContentsAssignment17564);
-            rule__ReqSpec__ContentsAlternatives_0();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getReqSpecAccess().getContentsAlternatives_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__ReqSpec__ContentsAssignment"
-
-
     // $ANTLR start "rule__StakeholderGoals__NameAssignment_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8293:1: rule__StakeholderGoals__NameAssignment_2 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8277:1: rule__StakeholderGoals__NameAssignment_2 : ( RULE_ID ) ;
     public final void rule__StakeholderGoals__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8297:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8298:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8281:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8282:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8298:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8299:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8282:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8283:1: RULE_ID
             {
              before(grammarAccess.getStakeholderGoalsAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__StakeholderGoals__NameAssignment_217597); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__StakeholderGoals__NameAssignment_217564); 
              after(grammarAccess.getStakeholderGoalsAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
@@ -22139,20 +22092,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StakeholderGoals__TitleAssignment_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8308:1: rule__StakeholderGoals__TitleAssignment_3_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8292:1: rule__StakeholderGoals__TitleAssignment_3_1 : ( ruleValueString ) ;
     public final void rule__StakeholderGoals__TitleAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8312:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8313:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8296:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8297:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8313:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8314:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8297:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8298:1: ruleValueString
             {
              before(grammarAccess.getStakeholderGoalsAccess().getTitleValueStringParserRuleCall_3_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__StakeholderGoals__TitleAssignment_3_117628);
+            pushFollow(FOLLOW_ruleValueString_in_rule__StakeholderGoals__TitleAssignment_3_117595);
             ruleValueString();
 
             state._fsp--;
@@ -22180,24 +22133,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StakeholderGoals__TargetAssignment_4_1_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8323:1: rule__StakeholderGoals__TargetAssignment_4_1_0 : ( ( ruleAadlClassifierReference ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8307:1: rule__StakeholderGoals__TargetAssignment_4_1_0 : ( ( ruleAadlClassifierReference ) ) ;
     public final void rule__StakeholderGoals__TargetAssignment_4_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8327:1: ( ( ( ruleAadlClassifierReference ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8328:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8311:1: ( ( ( ruleAadlClassifierReference ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8312:1: ( ( ruleAadlClassifierReference ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8328:1: ( ( ruleAadlClassifierReference ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8329:1: ( ruleAadlClassifierReference )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8312:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8313:1: ( ruleAadlClassifierReference )
             {
              before(grammarAccess.getStakeholderGoalsAccess().getTargetClassifierCrossReference_4_1_0_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8330:1: ( ruleAadlClassifierReference )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8331:1: ruleAadlClassifierReference
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8314:1: ( ruleAadlClassifierReference )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8315:1: ruleAadlClassifierReference
             {
              before(grammarAccess.getStakeholderGoalsAccess().getTargetClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1()); 
-            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__StakeholderGoals__TargetAssignment_4_1_017663);
+            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__StakeholderGoals__TargetAssignment_4_1_017630);
             ruleAadlClassifierReference();
 
             state._fsp--;
@@ -22229,20 +22182,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StakeholderGoals__TargetDescriptionAssignment_4_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8342:1: rule__StakeholderGoals__TargetDescriptionAssignment_4_1_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8326:1: rule__StakeholderGoals__TargetDescriptionAssignment_4_1_1 : ( ruleValueString ) ;
     public final void rule__StakeholderGoals__TargetDescriptionAssignment_4_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8346:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8347:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8330:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8331:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8347:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8348:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8331:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8332:1: ruleValueString
             {
              before(grammarAccess.getStakeholderGoalsAccess().getTargetDescriptionValueStringParserRuleCall_4_1_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__StakeholderGoals__TargetDescriptionAssignment_4_1_117698);
+            pushFollow(FOLLOW_ruleValueString_in_rule__StakeholderGoals__TargetDescriptionAssignment_4_1_117665);
             ruleValueString();
 
             state._fsp--;
@@ -22270,20 +22223,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StakeholderGoals__DescriptionAssignment_5_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8357:1: rule__StakeholderGoals__DescriptionAssignment_5_1 : ( ruleMultiLineString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8341:1: rule__StakeholderGoals__DescriptionAssignment_5_1 : ( ruleMultiLineString ) ;
     public final void rule__StakeholderGoals__DescriptionAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8361:1: ( ( ruleMultiLineString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8362:1: ( ruleMultiLineString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8345:1: ( ( ruleMultiLineString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8346:1: ( ruleMultiLineString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8362:1: ( ruleMultiLineString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8363:1: ruleMultiLineString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8346:1: ( ruleMultiLineString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8347:1: ruleMultiLineString
             {
              before(grammarAccess.getStakeholderGoalsAccess().getDescriptionMultiLineStringParserRuleCall_5_1_0()); 
-            pushFollow(FOLLOW_ruleMultiLineString_in_rule__StakeholderGoals__DescriptionAssignment_5_117729);
+            pushFollow(FOLLOW_ruleMultiLineString_in_rule__StakeholderGoals__DescriptionAssignment_5_117696);
             ruleMultiLineString();
 
             state._fsp--;
@@ -22311,24 +22264,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StakeholderGoals__ConsistsOfAssignment_7"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8372:1: rule__StakeholderGoals__ConsistsOfAssignment_7 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8356:1: rule__StakeholderGoals__ConsistsOfAssignment_7 : ( ( ruleQualifiedName ) ) ;
     public final void rule__StakeholderGoals__ConsistsOfAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8376:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8377:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8360:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8361:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8377:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8378:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8361:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8362:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getStakeholderGoalsAccess().getConsistsOfGoalFolderCrossReference_7_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8379:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8380:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8363:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8364:1: ruleQualifiedName
             {
              before(grammarAccess.getStakeholderGoalsAccess().getConsistsOfGoalFolderQualifiedNameParserRuleCall_7_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__StakeholderGoals__ConsistsOfAssignment_717764);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__StakeholderGoals__ConsistsOfAssignment_717731);
             ruleQualifiedName();
 
             state._fsp--;
@@ -22360,20 +22313,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqDocument__NameAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8391:1: rule__ReqDocument__NameAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8375:1: rule__ReqDocument__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__ReqDocument__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8395:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8396:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8379:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8380:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8396:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8397:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8380:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8381:1: RULE_ID
             {
              before(grammarAccess.getReqDocumentAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReqDocument__NameAssignment_117799); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReqDocument__NameAssignment_117766); 
              after(grammarAccess.getReqDocumentAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -22397,20 +22350,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqDocument__TitleAssignment_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8406:1: rule__ReqDocument__TitleAssignment_2_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8390:1: rule__ReqDocument__TitleAssignment_2_1 : ( ruleValueString ) ;
     public final void rule__ReqDocument__TitleAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8410:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8411:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8394:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8395:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8411:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8412:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8395:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8396:1: ruleValueString
             {
              before(grammarAccess.getReqDocumentAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__ReqDocument__TitleAssignment_2_117830);
+            pushFollow(FOLLOW_ruleValueString_in_rule__ReqDocument__TitleAssignment_2_117797);
             ruleValueString();
 
             state._fsp--;
@@ -22438,20 +22391,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqDocument__DescriptionAssignment_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8421:1: rule__ReqDocument__DescriptionAssignment_3_1 : ( ruleMultiLineString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8405:1: rule__ReqDocument__DescriptionAssignment_3_1 : ( ruleMultiLineString ) ;
     public final void rule__ReqDocument__DescriptionAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8425:1: ( ( ruleMultiLineString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8426:1: ( ruleMultiLineString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8409:1: ( ( ruleMultiLineString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8410:1: ( ruleMultiLineString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8426:1: ( ruleMultiLineString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8427:1: ruleMultiLineString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8410:1: ( ruleMultiLineString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8411:1: ruleMultiLineString
             {
              before(grammarAccess.getReqDocumentAccess().getDescriptionMultiLineStringParserRuleCall_3_1_0()); 
-            pushFollow(FOLLOW_ruleMultiLineString_in_rule__ReqDocument__DescriptionAssignment_3_117861);
+            pushFollow(FOLLOW_ruleMultiLineString_in_rule__ReqDocument__DescriptionAssignment_3_117828);
             ruleMultiLineString();
 
             state._fsp--;
@@ -22479,20 +22432,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqDocument__ContentAssignment_5"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8436:1: rule__ReqDocument__ContentAssignment_5 : ( ruleDocumentSection ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8420:1: rule__ReqDocument__ContentAssignment_5 : ( ruleDocumentSection ) ;
     public final void rule__ReqDocument__ContentAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8440:1: ( ( ruleDocumentSection ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8441:1: ( ruleDocumentSection )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8424:1: ( ( ruleDocumentSection ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8425:1: ( ruleDocumentSection )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8441:1: ( ruleDocumentSection )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8442:1: ruleDocumentSection
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8425:1: ( ruleDocumentSection )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8426:1: ruleDocumentSection
             {
              before(grammarAccess.getReqDocumentAccess().getContentDocumentSectionParserRuleCall_5_0()); 
-            pushFollow(FOLLOW_ruleDocumentSection_in_rule__ReqDocument__ContentAssignment_517892);
+            pushFollow(FOLLOW_ruleDocumentSection_in_rule__ReqDocument__ContentAssignment_517859);
             ruleDocumentSection();
 
             state._fsp--;
@@ -22520,20 +22473,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DocumentSection__LabelAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8451:1: rule__DocumentSection__LabelAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8435:1: rule__DocumentSection__LabelAssignment_1 : ( RULE_ID ) ;
     public final void rule__DocumentSection__LabelAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8455:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8456:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8439:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8440:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8456:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8457:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8440:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8441:1: RULE_ID
             {
              before(grammarAccess.getDocumentSectionAccess().getLabelIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__DocumentSection__LabelAssignment_117923); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__DocumentSection__LabelAssignment_117890); 
              after(grammarAccess.getDocumentSectionAccess().getLabelIDTerminalRuleCall_1_0()); 
 
             }
@@ -22557,20 +22510,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DocumentSection__TitleAssignment_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8466:1: rule__DocumentSection__TitleAssignment_2_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8450:1: rule__DocumentSection__TitleAssignment_2_1 : ( ruleValueString ) ;
     public final void rule__DocumentSection__TitleAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8470:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8471:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8454:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8455:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8471:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8472:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8455:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8456:1: ruleValueString
             {
              before(grammarAccess.getDocumentSectionAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__DocumentSection__TitleAssignment_2_117954);
+            pushFollow(FOLLOW_ruleValueString_in_rule__DocumentSection__TitleAssignment_2_117921);
             ruleValueString();
 
             state._fsp--;
@@ -22598,20 +22551,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DocumentSection__DescriptionAssignment_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8481:1: rule__DocumentSection__DescriptionAssignment_3_1 : ( ruleMultiLineString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8465:1: rule__DocumentSection__DescriptionAssignment_3_1 : ( ruleMultiLineString ) ;
     public final void rule__DocumentSection__DescriptionAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8485:1: ( ( ruleMultiLineString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8486:1: ( ruleMultiLineString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8469:1: ( ( ruleMultiLineString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8470:1: ( ruleMultiLineString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8486:1: ( ruleMultiLineString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8487:1: ruleMultiLineString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8470:1: ( ruleMultiLineString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8471:1: ruleMultiLineString
             {
              before(grammarAccess.getDocumentSectionAccess().getDescriptionMultiLineStringParserRuleCall_3_1_0()); 
-            pushFollow(FOLLOW_ruleMultiLineString_in_rule__DocumentSection__DescriptionAssignment_3_117985);
+            pushFollow(FOLLOW_ruleMultiLineString_in_rule__DocumentSection__DescriptionAssignment_3_117952);
             ruleMultiLineString();
 
             state._fsp--;
@@ -22639,23 +22592,23 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DocumentSection__ContentAssignment_5"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8496:1: rule__DocumentSection__ContentAssignment_5 : ( ( rule__DocumentSection__ContentAlternatives_5_0 ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8480:1: rule__DocumentSection__ContentAssignment_5 : ( ( rule__DocumentSection__ContentAlternatives_5_0 ) ) ;
     public final void rule__DocumentSection__ContentAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8500:1: ( ( ( rule__DocumentSection__ContentAlternatives_5_0 ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8501:1: ( ( rule__DocumentSection__ContentAlternatives_5_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8484:1: ( ( ( rule__DocumentSection__ContentAlternatives_5_0 ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8485:1: ( ( rule__DocumentSection__ContentAlternatives_5_0 ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8501:1: ( ( rule__DocumentSection__ContentAlternatives_5_0 ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8502:1: ( rule__DocumentSection__ContentAlternatives_5_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8485:1: ( ( rule__DocumentSection__ContentAlternatives_5_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8486:1: ( rule__DocumentSection__ContentAlternatives_5_0 )
             {
              before(grammarAccess.getDocumentSectionAccess().getContentAlternatives_5_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8503:1: ( rule__DocumentSection__ContentAlternatives_5_0 )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8503:2: rule__DocumentSection__ContentAlternatives_5_0
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8487:1: ( rule__DocumentSection__ContentAlternatives_5_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8487:2: rule__DocumentSection__ContentAlternatives_5_0
             {
-            pushFollow(FOLLOW_rule__DocumentSection__ContentAlternatives_5_0_in_rule__DocumentSection__ContentAssignment_518016);
+            pushFollow(FOLLOW_rule__DocumentSection__ContentAlternatives_5_0_in_rule__DocumentSection__ContentAssignment_517983);
             rule__DocumentSection__ContentAlternatives_5_0();
 
             state._fsp--;
@@ -22686,20 +22639,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecs__NameAssignment_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8512:1: rule__ReqSpecs__NameAssignment_2 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8496:1: rule__ReqSpecs__NameAssignment_2 : ( RULE_ID ) ;
     public final void rule__ReqSpecs__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8516:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8517:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8500:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8501:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8517:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8518:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8501:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8502:1: RULE_ID
             {
              before(grammarAccess.getReqSpecsAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReqSpecs__NameAssignment_218049); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReqSpecs__NameAssignment_218016); 
              after(grammarAccess.getReqSpecsAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
@@ -22723,20 +22676,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecs__TitleAssignment_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8527:1: rule__ReqSpecs__TitleAssignment_3_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8511:1: rule__ReqSpecs__TitleAssignment_3_1 : ( ruleValueString ) ;
     public final void rule__ReqSpecs__TitleAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8531:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8532:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8515:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8516:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8532:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8533:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8516:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8517:1: ruleValueString
             {
              before(grammarAccess.getReqSpecsAccess().getTitleValueStringParserRuleCall_3_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__ReqSpecs__TitleAssignment_3_118080);
+            pushFollow(FOLLOW_ruleValueString_in_rule__ReqSpecs__TitleAssignment_3_118047);
             ruleValueString();
 
             state._fsp--;
@@ -22764,24 +22717,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecs__TargetAssignment_4_1_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8542:1: rule__ReqSpecs__TargetAssignment_4_1_0 : ( ( ruleAadlClassifierReference ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8526:1: rule__ReqSpecs__TargetAssignment_4_1_0 : ( ( ruleAadlClassifierReference ) ) ;
     public final void rule__ReqSpecs__TargetAssignment_4_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8546:1: ( ( ( ruleAadlClassifierReference ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8547:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8530:1: ( ( ( ruleAadlClassifierReference ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8531:1: ( ( ruleAadlClassifierReference ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8547:1: ( ( ruleAadlClassifierReference ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8548:1: ( ruleAadlClassifierReference )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8531:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8532:1: ( ruleAadlClassifierReference )
             {
              before(grammarAccess.getReqSpecsAccess().getTargetClassifierCrossReference_4_1_0_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8549:1: ( ruleAadlClassifierReference )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8550:1: ruleAadlClassifierReference
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8533:1: ( ruleAadlClassifierReference )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8534:1: ruleAadlClassifierReference
             {
              before(grammarAccess.getReqSpecsAccess().getTargetClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1()); 
-            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__ReqSpecs__TargetAssignment_4_1_018115);
+            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__ReqSpecs__TargetAssignment_4_1_018082);
             ruleAadlClassifierReference();
 
             state._fsp--;
@@ -22813,20 +22766,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecs__TargetDescriptionAssignment_4_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8561:1: rule__ReqSpecs__TargetDescriptionAssignment_4_1_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8545:1: rule__ReqSpecs__TargetDescriptionAssignment_4_1_1 : ( ruleValueString ) ;
     public final void rule__ReqSpecs__TargetDescriptionAssignment_4_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8565:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8566:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8549:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8550:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8566:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8567:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8550:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8551:1: ruleValueString
             {
              before(grammarAccess.getReqSpecsAccess().getTargetDescriptionValueStringParserRuleCall_4_1_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__ReqSpecs__TargetDescriptionAssignment_4_1_118150);
+            pushFollow(FOLLOW_ruleValueString_in_rule__ReqSpecs__TargetDescriptionAssignment_4_1_118117);
             ruleValueString();
 
             state._fsp--;
@@ -22854,20 +22807,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecs__ConstantsAssignment_6_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8576:1: rule__ReqSpecs__ConstantsAssignment_6_1 : ( ruleFinalValue ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8560:1: rule__ReqSpecs__ConstantsAssignment_6_1 : ( ruleFinalValue ) ;
     public final void rule__ReqSpecs__ConstantsAssignment_6_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8580:1: ( ( ruleFinalValue ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8581:1: ( ruleFinalValue )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8564:1: ( ( ruleFinalValue ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8565:1: ( ruleFinalValue )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8581:1: ( ruleFinalValue )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8582:1: ruleFinalValue
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8565:1: ( ruleFinalValue )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8566:1: ruleFinalValue
             {
              before(grammarAccess.getReqSpecsAccess().getConstantsFinalValueParserRuleCall_6_1_0()); 
-            pushFollow(FOLLOW_ruleFinalValue_in_rule__ReqSpecs__ConstantsAssignment_6_118181);
+            pushFollow(FOLLOW_ruleFinalValue_in_rule__ReqSpecs__ConstantsAssignment_6_118148);
             ruleFinalValue();
 
             state._fsp--;
@@ -22895,23 +22848,23 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecs__ContentAssignment_7"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8591:1: rule__ReqSpecs__ContentAssignment_7 : ( ( rule__ReqSpecs__ContentAlternatives_7_0 ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8575:1: rule__ReqSpecs__ContentAssignment_7 : ( ( rule__ReqSpecs__ContentAlternatives_7_0 ) ) ;
     public final void rule__ReqSpecs__ContentAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8595:1: ( ( ( rule__ReqSpecs__ContentAlternatives_7_0 ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8596:1: ( ( rule__ReqSpecs__ContentAlternatives_7_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8579:1: ( ( ( rule__ReqSpecs__ContentAlternatives_7_0 ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8580:1: ( ( rule__ReqSpecs__ContentAlternatives_7_0 ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8596:1: ( ( rule__ReqSpecs__ContentAlternatives_7_0 ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8597:1: ( rule__ReqSpecs__ContentAlternatives_7_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8580:1: ( ( rule__ReqSpecs__ContentAlternatives_7_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8581:1: ( rule__ReqSpecs__ContentAlternatives_7_0 )
             {
              before(grammarAccess.getReqSpecsAccess().getContentAlternatives_7_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8598:1: ( rule__ReqSpecs__ContentAlternatives_7_0 )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8598:2: rule__ReqSpecs__ContentAlternatives_7_0
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8582:1: ( rule__ReqSpecs__ContentAlternatives_7_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8582:2: rule__ReqSpecs__ContentAlternatives_7_0
             {
-            pushFollow(FOLLOW_rule__ReqSpecs__ContentAlternatives_7_0_in_rule__ReqSpecs__ContentAssignment_718212);
+            pushFollow(FOLLOW_rule__ReqSpecs__ContentAlternatives_7_0_in_rule__ReqSpecs__ContentAssignment_718179);
             rule__ReqSpecs__ContentAlternatives_7_0();
 
             state._fsp--;
@@ -22942,20 +22895,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecFolder__LabelAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8607:1: rule__ReqSpecFolder__LabelAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8591:1: rule__ReqSpecFolder__LabelAssignment_1 : ( RULE_ID ) ;
     public final void rule__ReqSpecFolder__LabelAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8611:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8612:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8595:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8596:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8612:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8613:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8596:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8597:1: RULE_ID
             {
              before(grammarAccess.getReqSpecFolderAccess().getLabelIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReqSpecFolder__LabelAssignment_118245); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReqSpecFolder__LabelAssignment_118212); 
              after(grammarAccess.getReqSpecFolderAccess().getLabelIDTerminalRuleCall_1_0()); 
 
             }
@@ -22979,20 +22932,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecFolder__TitleAssignment_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8622:1: rule__ReqSpecFolder__TitleAssignment_2_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8606:1: rule__ReqSpecFolder__TitleAssignment_2_1 : ( ruleValueString ) ;
     public final void rule__ReqSpecFolder__TitleAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8626:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8627:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8610:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8611:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8627:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8628:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8611:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8612:1: ruleValueString
             {
              before(grammarAccess.getReqSpecFolderAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__ReqSpecFolder__TitleAssignment_2_118276);
+            pushFollow(FOLLOW_ruleValueString_in_rule__ReqSpecFolder__TitleAssignment_2_118243);
             ruleValueString();
 
             state._fsp--;
@@ -23020,23 +22973,23 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReqSpecFolder__ContentAssignment_4"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8637:1: rule__ReqSpecFolder__ContentAssignment_4 : ( ( rule__ReqSpecFolder__ContentAlternatives_4_0 ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8621:1: rule__ReqSpecFolder__ContentAssignment_4 : ( ( rule__ReqSpecFolder__ContentAlternatives_4_0 ) ) ;
     public final void rule__ReqSpecFolder__ContentAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8641:1: ( ( ( rule__ReqSpecFolder__ContentAlternatives_4_0 ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8642:1: ( ( rule__ReqSpecFolder__ContentAlternatives_4_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8625:1: ( ( ( rule__ReqSpecFolder__ContentAlternatives_4_0 ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8626:1: ( ( rule__ReqSpecFolder__ContentAlternatives_4_0 ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8642:1: ( ( rule__ReqSpecFolder__ContentAlternatives_4_0 ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8643:1: ( rule__ReqSpecFolder__ContentAlternatives_4_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8626:1: ( ( rule__ReqSpecFolder__ContentAlternatives_4_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8627:1: ( rule__ReqSpecFolder__ContentAlternatives_4_0 )
             {
              before(grammarAccess.getReqSpecFolderAccess().getContentAlternatives_4_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8644:1: ( rule__ReqSpecFolder__ContentAlternatives_4_0 )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8644:2: rule__ReqSpecFolder__ContentAlternatives_4_0
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8628:1: ( rule__ReqSpecFolder__ContentAlternatives_4_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8628:2: rule__ReqSpecFolder__ContentAlternatives_4_0
             {
-            pushFollow(FOLLOW_rule__ReqSpecFolder__ContentAlternatives_4_0_in_rule__ReqSpecFolder__ContentAssignment_418307);
+            pushFollow(FOLLOW_rule__ReqSpecFolder__ContentAlternatives_4_0_in_rule__ReqSpecFolder__ContentAssignment_418274);
             rule__ReqSpecFolder__ContentAlternatives_4_0();
 
             state._fsp--;
@@ -23067,20 +23020,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__GoalFolder__LabelAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8653:1: rule__GoalFolder__LabelAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8637:1: rule__GoalFolder__LabelAssignment_1 : ( RULE_ID ) ;
     public final void rule__GoalFolder__LabelAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8657:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8658:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8641:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8642:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8658:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8659:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8642:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8643:1: RULE_ID
             {
              before(grammarAccess.getGoalFolderAccess().getLabelIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__GoalFolder__LabelAssignment_118340); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__GoalFolder__LabelAssignment_118307); 
              after(grammarAccess.getGoalFolderAccess().getLabelIDTerminalRuleCall_1_0()); 
 
             }
@@ -23104,20 +23057,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__GoalFolder__TitleAssignment_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8668:1: rule__GoalFolder__TitleAssignment_2_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8652:1: rule__GoalFolder__TitleAssignment_2_1 : ( ruleValueString ) ;
     public final void rule__GoalFolder__TitleAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8672:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8673:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8656:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8657:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8673:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8674:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8657:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8658:1: ruleValueString
             {
              before(grammarAccess.getGoalFolderAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__GoalFolder__TitleAssignment_2_118371);
+            pushFollow(FOLLOW_ruleValueString_in_rule__GoalFolder__TitleAssignment_2_118338);
             ruleValueString();
 
             state._fsp--;
@@ -23145,23 +23098,23 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__GoalFolder__ContentAssignment_4"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8683:1: rule__GoalFolder__ContentAssignment_4 : ( ( rule__GoalFolder__ContentAlternatives_4_0 ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8667:1: rule__GoalFolder__ContentAssignment_4 : ( ( rule__GoalFolder__ContentAlternatives_4_0 ) ) ;
     public final void rule__GoalFolder__ContentAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8687:1: ( ( ( rule__GoalFolder__ContentAlternatives_4_0 ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8688:1: ( ( rule__GoalFolder__ContentAlternatives_4_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8671:1: ( ( ( rule__GoalFolder__ContentAlternatives_4_0 ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8672:1: ( ( rule__GoalFolder__ContentAlternatives_4_0 ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8688:1: ( ( rule__GoalFolder__ContentAlternatives_4_0 ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8689:1: ( rule__GoalFolder__ContentAlternatives_4_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8672:1: ( ( rule__GoalFolder__ContentAlternatives_4_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8673:1: ( rule__GoalFolder__ContentAlternatives_4_0 )
             {
              before(grammarAccess.getGoalFolderAccess().getContentAlternatives_4_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8690:1: ( rule__GoalFolder__ContentAlternatives_4_0 )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8690:2: rule__GoalFolder__ContentAlternatives_4_0
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8674:1: ( rule__GoalFolder__ContentAlternatives_4_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8674:2: rule__GoalFolder__ContentAlternatives_4_0
             {
-            pushFollow(FOLLOW_rule__GoalFolder__ContentAlternatives_4_0_in_rule__GoalFolder__ContentAssignment_418402);
+            pushFollow(FOLLOW_rule__GoalFolder__ContentAlternatives_4_0_in_rule__GoalFolder__ContentAssignment_418369);
             rule__GoalFolder__ContentAlternatives_4_0();
 
             state._fsp--;
@@ -23192,20 +23145,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__NameAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8699:1: rule__Goal__NameAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8683:1: rule__Goal__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Goal__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8703:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8704:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8687:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8688:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8704:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8705:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8688:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8689:1: RULE_ID
             {
              before(grammarAccess.getGoalAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Goal__NameAssignment_118435); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Goal__NameAssignment_118402); 
              after(grammarAccess.getGoalAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -23229,20 +23182,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__TitleAssignment_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8714:1: rule__Goal__TitleAssignment_2_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8698:1: rule__Goal__TitleAssignment_2_1 : ( ruleValueString ) ;
     public final void rule__Goal__TitleAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8718:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8719:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8702:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8703:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8719:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8720:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8703:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8704:1: ruleValueString
             {
              before(grammarAccess.getGoalAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__Goal__TitleAssignment_2_118466);
+            pushFollow(FOLLOW_ruleValueString_in_rule__Goal__TitleAssignment_2_118433);
             ruleValueString();
 
             state._fsp--;
@@ -23270,24 +23223,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__TargetAssignment_3_1_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8729:1: rule__Goal__TargetAssignment_3_1_0 : ( ( RULE_ID ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8713:1: rule__Goal__TargetAssignment_3_1_0 : ( ( RULE_ID ) ) ;
     public final void rule__Goal__TargetAssignment_3_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8733:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8734:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8717:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8718:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8734:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8735:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8718:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8719:1: ( RULE_ID )
             {
              before(grammarAccess.getGoalAccess().getTargetNamedElementCrossReference_3_1_0_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8736:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8737:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8720:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8721:1: RULE_ID
             {
              before(grammarAccess.getGoalAccess().getTargetNamedElementIDTerminalRuleCall_3_1_0_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Goal__TargetAssignment_3_1_018501); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Goal__TargetAssignment_3_1_018468); 
              after(grammarAccess.getGoalAccess().getTargetNamedElementIDTerminalRuleCall_3_1_0_0_1()); 
 
             }
@@ -23315,20 +23268,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__TargetDescriptionAssignment_3_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8748:1: rule__Goal__TargetDescriptionAssignment_3_1_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8732:1: rule__Goal__TargetDescriptionAssignment_3_1_1 : ( ruleValueString ) ;
     public final void rule__Goal__TargetDescriptionAssignment_3_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8752:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8753:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8736:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8737:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8753:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8754:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8737:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8738:1: ruleValueString
             {
              before(grammarAccess.getGoalAccess().getTargetDescriptionValueStringParserRuleCall_3_1_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__Goal__TargetDescriptionAssignment_3_1_118536);
+            pushFollow(FOLLOW_ruleValueString_in_rule__Goal__TargetDescriptionAssignment_3_1_118503);
             ruleValueString();
 
             state._fsp--;
@@ -23356,24 +23309,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__CategoryAssignment_5_0_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8763:1: rule__Goal__CategoryAssignment_5_0_1 : ( ( ruleCatRef ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8747:1: rule__Goal__CategoryAssignment_5_0_1 : ( ( ruleCatRef ) ) ;
     public final void rule__Goal__CategoryAssignment_5_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8767:1: ( ( ( ruleCatRef ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8768:1: ( ( ruleCatRef ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8751:1: ( ( ( ruleCatRef ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8752:1: ( ( ruleCatRef ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8768:1: ( ( ruleCatRef ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8769:1: ( ruleCatRef )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8752:1: ( ( ruleCatRef ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8753:1: ( ruleCatRef )
             {
              before(grammarAccess.getGoalAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8770:1: ( ruleCatRef )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8771:1: ruleCatRef
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8754:1: ( ruleCatRef )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8755:1: ruleCatRef
             {
              before(grammarAccess.getGoalAccess().getCategoryRequirementCategoryCatRefParserRuleCall_5_0_1_0_1()); 
-            pushFollow(FOLLOW_ruleCatRef_in_rule__Goal__CategoryAssignment_5_0_118571);
+            pushFollow(FOLLOW_ruleCatRef_in_rule__Goal__CategoryAssignment_5_0_118538);
             ruleCatRef();
 
             state._fsp--;
@@ -23405,20 +23358,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__DescriptionAssignment_5_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8782:1: rule__Goal__DescriptionAssignment_5_1_1 : ( ruleMultiLineString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8766:1: rule__Goal__DescriptionAssignment_5_1_1 : ( ruleMultiLineString ) ;
     public final void rule__Goal__DescriptionAssignment_5_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8786:1: ( ( ruleMultiLineString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8787:1: ( ruleMultiLineString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8770:1: ( ( ruleMultiLineString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8771:1: ( ruleMultiLineString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8787:1: ( ruleMultiLineString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8788:1: ruleMultiLineString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8771:1: ( ruleMultiLineString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8772:1: ruleMultiLineString
             {
              before(grammarAccess.getGoalAccess().getDescriptionMultiLineStringParserRuleCall_5_1_1_0()); 
-            pushFollow(FOLLOW_ruleMultiLineString_in_rule__Goal__DescriptionAssignment_5_1_118606);
+            pushFollow(FOLLOW_ruleMultiLineString_in_rule__Goal__DescriptionAssignment_5_1_118573);
             ruleMultiLineString();
 
             state._fsp--;
@@ -23446,20 +23399,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__RationaleAssignment_5_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8797:1: rule__Goal__RationaleAssignment_5_2_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8781:1: rule__Goal__RationaleAssignment_5_2_1 : ( ruleValueString ) ;
     public final void rule__Goal__RationaleAssignment_5_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8801:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8802:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8785:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8786:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8802:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8803:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8786:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8787:1: ruleValueString
             {
              before(grammarAccess.getGoalAccess().getRationaleValueStringParserRuleCall_5_2_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__Goal__RationaleAssignment_5_2_118637);
+            pushFollow(FOLLOW_ruleValueString_in_rule__Goal__RationaleAssignment_5_2_118604);
             ruleValueString();
 
             state._fsp--;
@@ -23487,24 +23440,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__RefinesReferenceAssignment_5_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8812:1: rule__Goal__RefinesReferenceAssignment_5_3_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8796:1: rule__Goal__RefinesReferenceAssignment_5_3_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Goal__RefinesReferenceAssignment_5_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8816:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8817:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8800:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8801:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8817:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8818:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8801:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8802:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getGoalAccess().getRefinesReferenceGoalCrossReference_5_3_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8819:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8820:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8803:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8804:1: ruleQualifiedName
             {
              before(grammarAccess.getGoalAccess().getRefinesReferenceGoalQualifiedNameParserRuleCall_5_3_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__RefinesReferenceAssignment_5_3_118672);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__RefinesReferenceAssignment_5_3_118639);
             ruleQualifiedName();
 
             state._fsp--;
@@ -23536,24 +23489,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__RefinesReferenceAssignment_5_3_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8831:1: rule__Goal__RefinesReferenceAssignment_5_3_2_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8815:1: rule__Goal__RefinesReferenceAssignment_5_3_2_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Goal__RefinesReferenceAssignment_5_3_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8835:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8836:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8819:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8820:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8836:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8837:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8820:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8821:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getGoalAccess().getRefinesReferenceGoalCrossReference_5_3_2_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8838:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8839:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8822:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8823:1: ruleQualifiedName
             {
              before(grammarAccess.getGoalAccess().getRefinesReferenceGoalQualifiedNameParserRuleCall_5_3_2_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__RefinesReferenceAssignment_5_3_2_118711);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__RefinesReferenceAssignment_5_3_2_118678);
             ruleQualifiedName();
 
             state._fsp--;
@@ -23585,24 +23538,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__ConflictsReferenceAssignment_5_4_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8850:1: rule__Goal__ConflictsReferenceAssignment_5_4_2 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8834:1: rule__Goal__ConflictsReferenceAssignment_5_4_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Goal__ConflictsReferenceAssignment_5_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8854:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8855:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8838:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8839:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8855:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8856:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8839:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8840:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getGoalAccess().getConflictsReferenceGoalCrossReference_5_4_2_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8857:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8858:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8841:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8842:1: ruleQualifiedName
             {
              before(grammarAccess.getGoalAccess().getConflictsReferenceGoalQualifiedNameParserRuleCall_5_4_2_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__ConflictsReferenceAssignment_5_4_218750);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__ConflictsReferenceAssignment_5_4_218717);
             ruleQualifiedName();
 
             state._fsp--;
@@ -23634,24 +23587,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__ConflictsReferenceAssignment_5_4_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8869:1: rule__Goal__ConflictsReferenceAssignment_5_4_3_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8853:1: rule__Goal__ConflictsReferenceAssignment_5_4_3_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Goal__ConflictsReferenceAssignment_5_4_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8873:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8874:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8857:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8858:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8874:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8875:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8858:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8859:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getGoalAccess().getConflictsReferenceGoalCrossReference_5_4_3_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8876:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8877:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8860:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8861:1: ruleQualifiedName
             {
              before(grammarAccess.getGoalAccess().getConflictsReferenceGoalQualifiedNameParserRuleCall_5_4_3_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__ConflictsReferenceAssignment_5_4_3_118789);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__ConflictsReferenceAssignment_5_4_3_118756);
             ruleQualifiedName();
 
             state._fsp--;
@@ -23683,24 +23636,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__StakeholderReferenceAssignment_5_5_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8888:1: rule__Goal__StakeholderReferenceAssignment_5_5_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8872:1: rule__Goal__StakeholderReferenceAssignment_5_5_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Goal__StakeholderReferenceAssignment_5_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8892:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8893:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8876:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8877:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8893:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8894:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8877:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8878:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getGoalAccess().getStakeholderReferenceStakeholderCrossReference_5_5_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8895:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8896:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8879:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8880:1: ruleQualifiedName
             {
              before(grammarAccess.getGoalAccess().getStakeholderReferenceStakeholderQualifiedNameParserRuleCall_5_5_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__StakeholderReferenceAssignment_5_5_118828);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__StakeholderReferenceAssignment_5_5_118795);
             ruleQualifiedName();
 
             state._fsp--;
@@ -23732,24 +23685,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__StakeholderReferenceAssignment_5_5_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8907:1: rule__Goal__StakeholderReferenceAssignment_5_5_2_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8891:1: rule__Goal__StakeholderReferenceAssignment_5_5_2_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Goal__StakeholderReferenceAssignment_5_5_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8911:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8912:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8895:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8896:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8912:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8913:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8896:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8897:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getGoalAccess().getStakeholderReferenceStakeholderCrossReference_5_5_2_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8914:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8915:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8898:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8899:1: ruleQualifiedName
             {
              before(grammarAccess.getGoalAccess().getStakeholderReferenceStakeholderQualifiedNameParserRuleCall_5_5_2_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__StakeholderReferenceAssignment_5_5_2_118867);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__StakeholderReferenceAssignment_5_5_2_118834);
             ruleQualifiedName();
 
             state._fsp--;
@@ -23781,24 +23734,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__DocumentRequirementAssignment_5_6_3"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8926:1: rule__Goal__DocumentRequirementAssignment_5_6_3 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8910:1: rule__Goal__DocumentRequirementAssignment_5_6_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Goal__DocumentRequirementAssignment_5_6_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8930:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8931:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8914:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8915:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8931:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8932:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8915:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8916:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getGoalAccess().getDocumentRequirementContractualElementCrossReference_5_6_3_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8933:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8934:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8917:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8918:1: ruleQualifiedName
             {
              before(grammarAccess.getGoalAccess().getDocumentRequirementContractualElementQualifiedNameParserRuleCall_5_6_3_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__DocumentRequirementAssignment_5_6_318906);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__DocumentRequirementAssignment_5_6_318873);
             ruleQualifiedName();
 
             state._fsp--;
@@ -23830,24 +23783,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__DocumentRequirementAssignment_5_6_4_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8945:1: rule__Goal__DocumentRequirementAssignment_5_6_4_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8929:1: rule__Goal__DocumentRequirementAssignment_5_6_4_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Goal__DocumentRequirementAssignment_5_6_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8949:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8950:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8933:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8934:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8950:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8951:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8934:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8935:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getGoalAccess().getDocumentRequirementContractualElementCrossReference_5_6_4_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8952:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8953:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8936:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8937:1: ruleQualifiedName
             {
              before(grammarAccess.getGoalAccess().getDocumentRequirementContractualElementQualifiedNameParserRuleCall_5_6_4_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__DocumentRequirementAssignment_5_6_4_118945);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Goal__DocumentRequirementAssignment_5_6_4_118912);
             ruleQualifiedName();
 
             state._fsp--;
@@ -23879,20 +23832,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__DocReferenceAssignment_5_7_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8964:1: rule__Goal__DocReferenceAssignment_5_7_2 : ( ruleExternalDocument ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8948:1: rule__Goal__DocReferenceAssignment_5_7_2 : ( ruleExternalDocument ) ;
     public final void rule__Goal__DocReferenceAssignment_5_7_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8968:1: ( ( ruleExternalDocument ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8969:1: ( ruleExternalDocument )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8952:1: ( ( ruleExternalDocument ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8953:1: ( ruleExternalDocument )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8969:1: ( ruleExternalDocument )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8970:1: ruleExternalDocument
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8953:1: ( ruleExternalDocument )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8954:1: ruleExternalDocument
             {
              before(grammarAccess.getGoalAccess().getDocReferenceExternalDocumentParserRuleCall_5_7_2_0()); 
-            pushFollow(FOLLOW_ruleExternalDocument_in_rule__Goal__DocReferenceAssignment_5_7_218980);
+            pushFollow(FOLLOW_ruleExternalDocument_in_rule__Goal__DocReferenceAssignment_5_7_218947);
             ruleExternalDocument();
 
             state._fsp--;
@@ -23920,20 +23873,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Goal__DocReferenceAssignment_5_7_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8979:1: rule__Goal__DocReferenceAssignment_5_7_3_1 : ( ruleExternalDocument ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8963:1: rule__Goal__DocReferenceAssignment_5_7_3_1 : ( ruleExternalDocument ) ;
     public final void rule__Goal__DocReferenceAssignment_5_7_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8983:1: ( ( ruleExternalDocument ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8984:1: ( ruleExternalDocument )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8967:1: ( ( ruleExternalDocument ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8968:1: ( ruleExternalDocument )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8984:1: ( ruleExternalDocument )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8985:1: ruleExternalDocument
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8968:1: ( ruleExternalDocument )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8969:1: ruleExternalDocument
             {
              before(grammarAccess.getGoalAccess().getDocReferenceExternalDocumentParserRuleCall_5_7_3_1_0()); 
-            pushFollow(FOLLOW_ruleExternalDocument_in_rule__Goal__DocReferenceAssignment_5_7_3_119011);
+            pushFollow(FOLLOW_ruleExternalDocument_in_rule__Goal__DocReferenceAssignment_5_7_3_118978);
             ruleExternalDocument();
 
             state._fsp--;
@@ -23961,20 +23914,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__NameAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8994:1: rule__Requirement__NameAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8978:1: rule__Requirement__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Requirement__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8998:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8999:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8982:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8983:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8999:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9000:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8983:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8984:1: RULE_ID
             {
              before(grammarAccess.getRequirementAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Requirement__NameAssignment_119042); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Requirement__NameAssignment_119009); 
              after(grammarAccess.getRequirementAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -23998,20 +23951,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__TitleAssignment_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9009:1: rule__Requirement__TitleAssignment_2_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8993:1: rule__Requirement__TitleAssignment_2_1 : ( ruleValueString ) ;
     public final void rule__Requirement__TitleAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9013:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9014:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8997:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8998:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9014:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9015:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8998:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:8999:1: ruleValueString
             {
              before(grammarAccess.getRequirementAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__Requirement__TitleAssignment_2_119073);
+            pushFollow(FOLLOW_ruleValueString_in_rule__Requirement__TitleAssignment_2_119040);
             ruleValueString();
 
             state._fsp--;
@@ -24039,24 +23992,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__TargetAssignment_3_1_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9024:1: rule__Requirement__TargetAssignment_3_1_0 : ( ( RULE_ID ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9008:1: rule__Requirement__TargetAssignment_3_1_0 : ( ( RULE_ID ) ) ;
     public final void rule__Requirement__TargetAssignment_3_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9028:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9029:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9012:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9013:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9029:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9030:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9013:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9014:1: ( RULE_ID )
             {
              before(grammarAccess.getRequirementAccess().getTargetNamedElementCrossReference_3_1_0_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9031:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9032:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9015:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9016:1: RULE_ID
             {
              before(grammarAccess.getRequirementAccess().getTargetNamedElementIDTerminalRuleCall_3_1_0_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Requirement__TargetAssignment_3_1_019108); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Requirement__TargetAssignment_3_1_019075); 
              after(grammarAccess.getRequirementAccess().getTargetNamedElementIDTerminalRuleCall_3_1_0_0_1()); 
 
             }
@@ -24084,20 +24037,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__TargetDescriptionAssignment_3_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9043:1: rule__Requirement__TargetDescriptionAssignment_3_1_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9027:1: rule__Requirement__TargetDescriptionAssignment_3_1_1 : ( ruleValueString ) ;
     public final void rule__Requirement__TargetDescriptionAssignment_3_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9047:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9048:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9031:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9032:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9048:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9049:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9032:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9033:1: ruleValueString
             {
              before(grammarAccess.getRequirementAccess().getTargetDescriptionValueStringParserRuleCall_3_1_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__Requirement__TargetDescriptionAssignment_3_1_119143);
+            pushFollow(FOLLOW_ruleValueString_in_rule__Requirement__TargetDescriptionAssignment_3_1_119110);
             ruleValueString();
 
             state._fsp--;
@@ -24125,24 +24078,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__CategoryAssignment_5_0_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9058:1: rule__Requirement__CategoryAssignment_5_0_1 : ( ( ruleCatRef ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9042:1: rule__Requirement__CategoryAssignment_5_0_1 : ( ( ruleCatRef ) ) ;
     public final void rule__Requirement__CategoryAssignment_5_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9062:1: ( ( ( ruleCatRef ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9063:1: ( ( ruleCatRef ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9046:1: ( ( ( ruleCatRef ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9047:1: ( ( ruleCatRef ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9063:1: ( ( ruleCatRef ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9064:1: ( ruleCatRef )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9047:1: ( ( ruleCatRef ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9048:1: ( ruleCatRef )
             {
              before(grammarAccess.getRequirementAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9065:1: ( ruleCatRef )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9066:1: ruleCatRef
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9049:1: ( ruleCatRef )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9050:1: ruleCatRef
             {
              before(grammarAccess.getRequirementAccess().getCategoryRequirementCategoryCatRefParserRuleCall_5_0_1_0_1()); 
-            pushFollow(FOLLOW_ruleCatRef_in_rule__Requirement__CategoryAssignment_5_0_119178);
+            pushFollow(FOLLOW_ruleCatRef_in_rule__Requirement__CategoryAssignment_5_0_119145);
             ruleCatRef();
 
             state._fsp--;
@@ -24174,20 +24127,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__DescriptionAssignment_5_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9077:1: rule__Requirement__DescriptionAssignment_5_1_1 : ( ruleDescription ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9061:1: rule__Requirement__DescriptionAssignment_5_1_1 : ( ruleDescription ) ;
     public final void rule__Requirement__DescriptionAssignment_5_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9081:1: ( ( ruleDescription ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9082:1: ( ruleDescription )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9065:1: ( ( ruleDescription ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9066:1: ( ruleDescription )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9082:1: ( ruleDescription )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9083:1: ruleDescription
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9066:1: ( ruleDescription )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9067:1: ruleDescription
             {
              before(grammarAccess.getRequirementAccess().getDescriptionDescriptionParserRuleCall_5_1_1_0()); 
-            pushFollow(FOLLOW_ruleDescription_in_rule__Requirement__DescriptionAssignment_5_1_119213);
+            pushFollow(FOLLOW_ruleDescription_in_rule__Requirement__DescriptionAssignment_5_1_119180);
             ruleDescription();
 
             state._fsp--;
@@ -24215,20 +24168,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__ConstantsAssignment_5_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9092:1: rule__Requirement__ConstantsAssignment_5_2_1 : ( ruleFinalValue ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9076:1: rule__Requirement__ConstantsAssignment_5_2_1 : ( ruleFinalValue ) ;
     public final void rule__Requirement__ConstantsAssignment_5_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9096:1: ( ( ruleFinalValue ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9097:1: ( ruleFinalValue )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9080:1: ( ( ruleFinalValue ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9081:1: ( ruleFinalValue )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9097:1: ( ruleFinalValue )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9098:1: ruleFinalValue
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9081:1: ( ruleFinalValue )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9082:1: ruleFinalValue
             {
              before(grammarAccess.getRequirementAccess().getConstantsFinalValueParserRuleCall_5_2_1_0()); 
-            pushFollow(FOLLOW_ruleFinalValue_in_rule__Requirement__ConstantsAssignment_5_2_119244);
+            pushFollow(FOLLOW_ruleFinalValue_in_rule__Requirement__ConstantsAssignment_5_2_119211);
             ruleFinalValue();
 
             state._fsp--;
@@ -24256,20 +24209,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__AssertAssignment_5_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9107:1: rule__Requirement__AssertAssignment_5_3_1 : ( rulePredicateExpression ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9091:1: rule__Requirement__AssertAssignment_5_3_1 : ( rulePredicateExpression ) ;
     public final void rule__Requirement__AssertAssignment_5_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9111:1: ( ( rulePredicateExpression ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9112:1: ( rulePredicateExpression )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9095:1: ( ( rulePredicateExpression ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9096:1: ( rulePredicateExpression )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9112:1: ( rulePredicateExpression )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9113:1: rulePredicateExpression
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9096:1: ( rulePredicateExpression )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9097:1: rulePredicateExpression
             {
              before(grammarAccess.getRequirementAccess().getAssertPredicateExpressionParserRuleCall_5_3_1_0()); 
-            pushFollow(FOLLOW_rulePredicateExpression_in_rule__Requirement__AssertAssignment_5_3_119275);
+            pushFollow(FOLLOW_rulePredicateExpression_in_rule__Requirement__AssertAssignment_5_3_119242);
             rulePredicateExpression();
 
             state._fsp--;
@@ -24297,20 +24250,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__RationaleAssignment_5_4_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9122:1: rule__Requirement__RationaleAssignment_5_4_1 : ( RULE_STRING ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9106:1: rule__Requirement__RationaleAssignment_5_4_1 : ( RULE_STRING ) ;
     public final void rule__Requirement__RationaleAssignment_5_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9126:1: ( ( RULE_STRING ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9127:1: ( RULE_STRING )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9110:1: ( ( RULE_STRING ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9111:1: ( RULE_STRING )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9127:1: ( RULE_STRING )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9128:1: RULE_STRING
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9111:1: ( RULE_STRING )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9112:1: RULE_STRING
             {
              before(grammarAccess.getRequirementAccess().getRationaleSTRINGTerminalRuleCall_5_4_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Requirement__RationaleAssignment_5_4_119306); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Requirement__RationaleAssignment_5_4_119273); 
              after(grammarAccess.getRequirementAccess().getRationaleSTRINGTerminalRuleCall_5_4_1_0()); 
 
             }
@@ -24334,24 +24287,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__GoalReferenceAssignment_5_5_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9137:1: rule__Requirement__GoalReferenceAssignment_5_5_2 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9121:1: rule__Requirement__GoalReferenceAssignment_5_5_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Requirement__GoalReferenceAssignment_5_5_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9141:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9142:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9125:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9126:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9142:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9143:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9126:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9127:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getRequirementAccess().getGoalReferenceGoalCrossReference_5_5_2_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9144:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9145:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9128:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9129:1: ruleQualifiedName
             {
              before(grammarAccess.getRequirementAccess().getGoalReferenceGoalQualifiedNameParserRuleCall_5_5_2_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__GoalReferenceAssignment_5_5_219341);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__GoalReferenceAssignment_5_5_219308);
             ruleQualifiedName();
 
             state._fsp--;
@@ -24383,24 +24336,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__GoalReferenceAssignment_5_5_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9156:1: rule__Requirement__GoalReferenceAssignment_5_5_3_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9140:1: rule__Requirement__GoalReferenceAssignment_5_5_3_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Requirement__GoalReferenceAssignment_5_5_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9160:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9161:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9144:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9145:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9161:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9162:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9145:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9146:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getRequirementAccess().getGoalReferenceGoalCrossReference_5_5_3_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9163:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9164:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9147:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9148:1: ruleQualifiedName
             {
              before(grammarAccess.getRequirementAccess().getGoalReferenceGoalQualifiedNameParserRuleCall_5_5_3_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__GoalReferenceAssignment_5_5_3_119380);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__GoalReferenceAssignment_5_5_3_119347);
             ruleQualifiedName();
 
             state._fsp--;
@@ -24432,24 +24385,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__ExceptionAssignment_5_6_1_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9175:1: rule__Requirement__ExceptionAssignment_5_6_1_0 : ( ( RULE_ID ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9159:1: rule__Requirement__ExceptionAssignment_5_6_1_0 : ( ( RULE_ID ) ) ;
     public final void rule__Requirement__ExceptionAssignment_5_6_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9179:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9180:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9163:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9164:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9180:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9181:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9164:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9165:1: ( RULE_ID )
             {
              before(grammarAccess.getRequirementAccess().getExceptionEObjectCrossReference_5_6_1_0_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9182:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9183:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9166:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9167:1: RULE_ID
             {
              before(grammarAccess.getRequirementAccess().getExceptionEObjectIDTerminalRuleCall_5_6_1_0_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Requirement__ExceptionAssignment_5_6_1_019419); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Requirement__ExceptionAssignment_5_6_1_019386); 
              after(grammarAccess.getRequirementAccess().getExceptionEObjectIDTerminalRuleCall_5_6_1_0_0_1()); 
 
             }
@@ -24477,20 +24430,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__ExceptionTextAssignment_5_6_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9194:1: rule__Requirement__ExceptionTextAssignment_5_6_1_1 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9178:1: rule__Requirement__ExceptionTextAssignment_5_6_1_1 : ( ruleValueString ) ;
     public final void rule__Requirement__ExceptionTextAssignment_5_6_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9198:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9199:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9182:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9183:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9199:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9200:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9183:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9184:1: ruleValueString
             {
              before(grammarAccess.getRequirementAccess().getExceptionTextValueStringParserRuleCall_5_6_1_1_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__Requirement__ExceptionTextAssignment_5_6_1_119454);
+            pushFollow(FOLLOW_ruleValueString_in_rule__Requirement__ExceptionTextAssignment_5_6_1_119421);
             ruleValueString();
 
             state._fsp--;
@@ -24518,24 +24471,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__RefinedReferenceAssignment_5_7_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9209:1: rule__Requirement__RefinedReferenceAssignment_5_7_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9193:1: rule__Requirement__RefinedReferenceAssignment_5_7_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Requirement__RefinedReferenceAssignment_5_7_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9213:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9214:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9197:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9198:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9214:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9215:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9198:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9199:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getRequirementAccess().getRefinedReferenceRequirementCrossReference_5_7_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9216:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9217:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9200:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9201:1: ruleQualifiedName
             {
              before(grammarAccess.getRequirementAccess().getRefinedReferenceRequirementQualifiedNameParserRuleCall_5_7_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__RefinedReferenceAssignment_5_7_119489);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__RefinedReferenceAssignment_5_7_119456);
             ruleQualifiedName();
 
             state._fsp--;
@@ -24567,24 +24520,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__RefinesReferenceAssignment_5_7_2_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9228:1: rule__Requirement__RefinesReferenceAssignment_5_7_2_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9212:1: rule__Requirement__RefinesReferenceAssignment_5_7_2_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Requirement__RefinesReferenceAssignment_5_7_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9232:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9233:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9216:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9217:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9233:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9234:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9217:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9218:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getRequirementAccess().getRefinesReferenceRequirementCrossReference_5_7_2_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9235:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9236:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9219:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9220:1: ruleQualifiedName
             {
              before(grammarAccess.getRequirementAccess().getRefinesReferenceRequirementQualifiedNameParserRuleCall_5_7_2_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__RefinesReferenceAssignment_5_7_2_119528);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__RefinesReferenceAssignment_5_7_2_119495);
             ruleQualifiedName();
 
             state._fsp--;
@@ -24616,24 +24569,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_3"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9247:1: rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_3 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9231:1: rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9251:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9252:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9235:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9236:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9252:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9253:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9236:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9237:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getRequirementAccess().getStakeholderRequirementReferenceGoalCrossReference_5_8_3_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9254:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9255:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9238:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9239:1: ruleQualifiedName
             {
              before(grammarAccess.getRequirementAccess().getStakeholderRequirementReferenceGoalQualifiedNameParserRuleCall_5_8_3_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_319567);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_319534);
             ruleQualifiedName();
 
             state._fsp--;
@@ -24665,24 +24618,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_4_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9266:1: rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_4_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9250:1: rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_4_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9270:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9271:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9254:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9255:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9271:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9272:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9255:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9256:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getRequirementAccess().getStakeholderRequirementReferenceGoalCrossReference_5_8_4_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9273:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9274:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9257:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9258:1: ruleQualifiedName
             {
              before(grammarAccess.getRequirementAccess().getStakeholderRequirementReferenceGoalQualifiedNameParserRuleCall_5_8_4_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_4_119606);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_4_119573);
             ruleQualifiedName();
 
             state._fsp--;
@@ -24714,24 +24667,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__DocumentRequirementAssignment_5_9_3"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9285:1: rule__Requirement__DocumentRequirementAssignment_5_9_3 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9269:1: rule__Requirement__DocumentRequirementAssignment_5_9_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Requirement__DocumentRequirementAssignment_5_9_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9289:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9290:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9273:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9274:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9290:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9291:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9274:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9275:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getRequirementAccess().getDocumentRequirementContractualElementCrossReference_5_9_3_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9292:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9293:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9276:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9277:1: ruleQualifiedName
             {
              before(grammarAccess.getRequirementAccess().getDocumentRequirementContractualElementQualifiedNameParserRuleCall_5_9_3_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__DocumentRequirementAssignment_5_9_319645);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__DocumentRequirementAssignment_5_9_319612);
             ruleQualifiedName();
 
             state._fsp--;
@@ -24763,24 +24716,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__DocumentRequirementAssignment_5_9_4_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9304:1: rule__Requirement__DocumentRequirementAssignment_5_9_4_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9288:1: rule__Requirement__DocumentRequirementAssignment_5_9_4_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Requirement__DocumentRequirementAssignment_5_9_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9308:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9309:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9292:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9293:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9309:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9310:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9293:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9294:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getRequirementAccess().getDocumentRequirementContractualElementCrossReference_5_9_4_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9311:1: ( ruleQualifiedName )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9312:1: ruleQualifiedName
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9295:1: ( ruleQualifiedName )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9296:1: ruleQualifiedName
             {
              before(grammarAccess.getRequirementAccess().getDocumentRequirementContractualElementQualifiedNameParserRuleCall_5_9_4_1_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__DocumentRequirementAssignment_5_9_4_119684);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__Requirement__DocumentRequirementAssignment_5_9_4_119651);
             ruleQualifiedName();
 
             state._fsp--;
@@ -24812,20 +24765,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__DocReferenceAssignment_5_10_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9323:1: rule__Requirement__DocReferenceAssignment_5_10_2 : ( ruleExternalDocument ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9307:1: rule__Requirement__DocReferenceAssignment_5_10_2 : ( ruleExternalDocument ) ;
     public final void rule__Requirement__DocReferenceAssignment_5_10_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9327:1: ( ( ruleExternalDocument ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9328:1: ( ruleExternalDocument )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9311:1: ( ( ruleExternalDocument ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9312:1: ( ruleExternalDocument )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9328:1: ( ruleExternalDocument )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9329:1: ruleExternalDocument
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9312:1: ( ruleExternalDocument )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9313:1: ruleExternalDocument
             {
              before(grammarAccess.getRequirementAccess().getDocReferenceExternalDocumentParserRuleCall_5_10_2_0()); 
-            pushFollow(FOLLOW_ruleExternalDocument_in_rule__Requirement__DocReferenceAssignment_5_10_219719);
+            pushFollow(FOLLOW_ruleExternalDocument_in_rule__Requirement__DocReferenceAssignment_5_10_219686);
             ruleExternalDocument();
 
             state._fsp--;
@@ -24853,20 +24806,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Requirement__DocReferenceAssignment_5_10_3_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9338:1: rule__Requirement__DocReferenceAssignment_5_10_3_1 : ( ruleExternalDocument ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9322:1: rule__Requirement__DocReferenceAssignment_5_10_3_1 : ( ruleExternalDocument ) ;
     public final void rule__Requirement__DocReferenceAssignment_5_10_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9342:1: ( ( ruleExternalDocument ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9343:1: ( ruleExternalDocument )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9326:1: ( ( ruleExternalDocument ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9327:1: ( ruleExternalDocument )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9343:1: ( ruleExternalDocument )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9344:1: ruleExternalDocument
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9327:1: ( ruleExternalDocument )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9328:1: ruleExternalDocument
             {
              before(grammarAccess.getRequirementAccess().getDocReferenceExternalDocumentParserRuleCall_5_10_3_1_0()); 
-            pushFollow(FOLLOW_ruleExternalDocument_in_rule__Requirement__DocReferenceAssignment_5_10_3_119750);
+            pushFollow(FOLLOW_ruleExternalDocument_in_rule__Requirement__DocReferenceAssignment_5_10_3_119717);
             ruleExternalDocument();
 
             state._fsp--;
@@ -24894,20 +24847,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExternalDocument__DocReferenceAssignment_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9353:1: rule__ExternalDocument__DocReferenceAssignment_0 : ( ruleDOCPATH ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9337:1: rule__ExternalDocument__DocReferenceAssignment_0 : ( ruleDOCPATH ) ;
     public final void rule__ExternalDocument__DocReferenceAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9357:1: ( ( ruleDOCPATH ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9358:1: ( ruleDOCPATH )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9341:1: ( ( ruleDOCPATH ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9342:1: ( ruleDOCPATH )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9358:1: ( ruleDOCPATH )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9359:1: ruleDOCPATH
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9342:1: ( ruleDOCPATH )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9343:1: ruleDOCPATH
             {
              before(grammarAccess.getExternalDocumentAccess().getDocReferenceDOCPATHParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleDOCPATH_in_rule__ExternalDocument__DocReferenceAssignment_019781);
+            pushFollow(FOLLOW_ruleDOCPATH_in_rule__ExternalDocument__DocReferenceAssignment_019748);
             ruleDOCPATH();
 
             state._fsp--;
@@ -24935,20 +24888,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExternalDocument__DocFragmentAssignment_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9368:1: rule__ExternalDocument__DocFragmentAssignment_1_1 : ( ruleDOCFRAGMENT ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9352:1: rule__ExternalDocument__DocFragmentAssignment_1_1 : ( ruleDOCFRAGMENT ) ;
     public final void rule__ExternalDocument__DocFragmentAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9372:1: ( ( ruleDOCFRAGMENT ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9373:1: ( ruleDOCFRAGMENT )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9356:1: ( ( ruleDOCFRAGMENT ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9357:1: ( ruleDOCFRAGMENT )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9373:1: ( ruleDOCFRAGMENT )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9374:1: ruleDOCFRAGMENT
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9357:1: ( ruleDOCFRAGMENT )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9358:1: ruleDOCFRAGMENT
             {
              before(grammarAccess.getExternalDocumentAccess().getDocFragmentDOCFRAGMENTParserRuleCall_1_1_0()); 
-            pushFollow(FOLLOW_ruleDOCFRAGMENT_in_rule__ExternalDocument__DocFragmentAssignment_1_119812);
+            pushFollow(FOLLOW_ruleDOCFRAGMENT_in_rule__ExternalDocument__DocFragmentAssignment_1_119779);
             ruleDOCFRAGMENT();
 
             state._fsp--;
@@ -24976,20 +24929,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Description__DescriptionAssignment"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9384:1: rule__Description__DescriptionAssignment : ( ruleDescriptionElement ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9368:1: rule__Description__DescriptionAssignment : ( ruleDescriptionElement ) ;
     public final void rule__Description__DescriptionAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9388:1: ( ( ruleDescriptionElement ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9389:1: ( ruleDescriptionElement )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9372:1: ( ( ruleDescriptionElement ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9373:1: ( ruleDescriptionElement )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9389:1: ( ruleDescriptionElement )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9390:1: ruleDescriptionElement
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9373:1: ( ruleDescriptionElement )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9374:1: ruleDescriptionElement
             {
              before(grammarAccess.getDescriptionAccess().getDescriptionDescriptionElementParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment19844);
+            pushFollow(FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment19811);
             ruleDescriptionElement();
 
             state._fsp--;
@@ -25017,20 +24970,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__TextAssignment_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9399:1: rule__DescriptionElement__TextAssignment_0 : ( RULE_STRING ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9383:1: rule__DescriptionElement__TextAssignment_0 : ( RULE_STRING ) ;
     public final void rule__DescriptionElement__TextAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9403:1: ( ( RULE_STRING ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9404:1: ( RULE_STRING )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9387:1: ( ( RULE_STRING ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9388:1: ( RULE_STRING )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9404:1: ( RULE_STRING )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9405:1: RULE_STRING
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9388:1: ( RULE_STRING )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9389:1: RULE_STRING
             {
              before(grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_019875); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_019842); 
              after(grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
 
             }
@@ -25054,24 +25007,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__RefAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9414:1: rule__DescriptionElement__RefAssignment_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9398:1: rule__DescriptionElement__RefAssignment_1 : ( ( RULE_ID ) ) ;
     public final void rule__DescriptionElement__RefAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9418:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9419:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9402:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9403:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9419:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9420:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9403:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9404:1: ( RULE_ID )
             {
              before(grammarAccess.getDescriptionElementAccess().getRefEObjectCrossReference_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9421:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9422:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9405:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9406:1: RULE_ID
             {
              before(grammarAccess.getDescriptionElementAccess().getRefEObjectIDTerminalRuleCall_1_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__DescriptionElement__RefAssignment_119910); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__DescriptionElement__RefAssignment_119877); 
              after(grammarAccess.getDescriptionElementAccess().getRefEObjectIDTerminalRuleCall_1_0_1()); 
 
             }
@@ -25099,24 +25052,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__NewlineAssignment_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9433:1: rule__DescriptionElement__NewlineAssignment_2 : ( ( Ampersand ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9417:1: rule__DescriptionElement__NewlineAssignment_2 : ( ( Ampersand ) ) ;
     public final void rule__DescriptionElement__NewlineAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9437:1: ( ( ( Ampersand ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9438:1: ( ( Ampersand ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9421:1: ( ( ( Ampersand ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9422:1: ( ( Ampersand ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9438:1: ( ( Ampersand ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9439:1: ( Ampersand )
-            {
-             before(grammarAccess.getDescriptionElementAccess().getNewlineAmpersandKeyword_2_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9440:1: ( Ampersand )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9441:1: Ampersand
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9422:1: ( ( Ampersand ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9423:1: ( Ampersand )
             {
              before(grammarAccess.getDescriptionElementAccess().getNewlineAmpersandKeyword_2_0()); 
-            match(input,Ampersand,FOLLOW_Ampersand_in_rule__DescriptionElement__NewlineAssignment_219950); 
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9424:1: ( Ampersand )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9425:1: Ampersand
+            {
+             before(grammarAccess.getDescriptionElementAccess().getNewlineAmpersandKeyword_2_0()); 
+            match(input,Ampersand,FOLLOW_Ampersand_in_rule__DescriptionElement__NewlineAssignment_219917); 
              after(grammarAccess.getDescriptionElementAccess().getNewlineAmpersandKeyword_2_0()); 
 
             }
@@ -25144,24 +25097,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__ThisTargetAssignment_3"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9456:1: rule__DescriptionElement__ThisTargetAssignment_3 : ( ( This ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9440:1: rule__DescriptionElement__ThisTargetAssignment_3 : ( ( This ) ) ;
     public final void rule__DescriptionElement__ThisTargetAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9460:1: ( ( ( This ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9461:1: ( ( This ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9444:1: ( ( ( This ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9445:1: ( ( This ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9461:1: ( ( This ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9462:1: ( This )
-            {
-             before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_3_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9463:1: ( This )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9464:1: This
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9445:1: ( ( This ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9446:1: ( This )
             {
              before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_3_0()); 
-            match(input,This,FOLLOW_This_in_rule__DescriptionElement__ThisTargetAssignment_319994); 
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9447:1: ( This )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9448:1: This
+            {
+             before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_3_0()); 
+            match(input,This,FOLLOW_This_in_rule__DescriptionElement__ThisTargetAssignment_319961); 
              after(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_3_0()); 
 
             }
@@ -25189,24 +25142,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReferencePath__RefAssignment_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9479:1: rule__ReferencePath__RefAssignment_0 : ( ( RULE_ID ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9463:1: rule__ReferencePath__RefAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__ReferencePath__RefAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9483:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9484:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9467:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9468:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9484:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9485:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9468:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9469:1: ( RULE_ID )
             {
              before(grammarAccess.getReferencePathAccess().getRefEObjectCrossReference_0_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9486:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9487:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9470:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9471:1: RULE_ID
             {
              before(grammarAccess.getReferencePathAccess().getRefEObjectIDTerminalRuleCall_0_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReferencePath__RefAssignment_020037); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ReferencePath__RefAssignment_020004); 
              after(grammarAccess.getReferencePathAccess().getRefEObjectIDTerminalRuleCall_0_0_1()); 
 
             }
@@ -25234,20 +25187,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ReferencePath__SubpathAssignment_1_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9498:1: rule__ReferencePath__SubpathAssignment_1_1 : ( ruleReferencePath ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9482:1: rule__ReferencePath__SubpathAssignment_1_1 : ( ruleReferencePath ) ;
     public final void rule__ReferencePath__SubpathAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9502:1: ( ( ruleReferencePath ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9503:1: ( ruleReferencePath )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9486:1: ( ( ruleReferencePath ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9487:1: ( ruleReferencePath )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9503:1: ( ruleReferencePath )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9504:1: ruleReferencePath
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9487:1: ( ruleReferencePath )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9488:1: ruleReferencePath
             {
              before(grammarAccess.getReferencePathAccess().getSubpathReferencePathParserRuleCall_1_1_0()); 
-            pushFollow(FOLLOW_ruleReferencePath_in_rule__ReferencePath__SubpathAssignment_1_120072);
+            pushFollow(FOLLOW_ruleReferencePath_in_rule__ReferencePath__SubpathAssignment_1_120039);
             ruleReferencePath();
 
             state._fsp--;
@@ -25275,23 +25228,23 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PredicateExpression__OpAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9513:1: rule__PredicateExpression__OpAssignment_1 : ( ( rule__PredicateExpression__OpAlternatives_1_0 ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9497:1: rule__PredicateExpression__OpAssignment_1 : ( ( rule__PredicateExpression__OpAlternatives_1_0 ) ) ;
     public final void rule__PredicateExpression__OpAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9517:1: ( ( ( rule__PredicateExpression__OpAlternatives_1_0 ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9518:1: ( ( rule__PredicateExpression__OpAlternatives_1_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9501:1: ( ( ( rule__PredicateExpression__OpAlternatives_1_0 ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9502:1: ( ( rule__PredicateExpression__OpAlternatives_1_0 ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9518:1: ( ( rule__PredicateExpression__OpAlternatives_1_0 ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9519:1: ( rule__PredicateExpression__OpAlternatives_1_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9502:1: ( ( rule__PredicateExpression__OpAlternatives_1_0 ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9503:1: ( rule__PredicateExpression__OpAlternatives_1_0 )
             {
              before(grammarAccess.getPredicateExpressionAccess().getOpAlternatives_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9520:1: ( rule__PredicateExpression__OpAlternatives_1_0 )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9520:2: rule__PredicateExpression__OpAlternatives_1_0
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9504:1: ( rule__PredicateExpression__OpAlternatives_1_0 )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9504:2: rule__PredicateExpression__OpAlternatives_1_0
             {
-            pushFollow(FOLLOW_rule__PredicateExpression__OpAlternatives_1_0_in_rule__PredicateExpression__OpAssignment_120103);
+            pushFollow(FOLLOW_rule__PredicateExpression__OpAlternatives_1_0_in_rule__PredicateExpression__OpAssignment_120070);
             rule__PredicateExpression__OpAlternatives_1_0();
 
             state._fsp--;
@@ -25322,20 +25275,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FinalValue__NameAssignment_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9529:1: rule__FinalValue__NameAssignment_0 : ( RULE_ID ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9513:1: rule__FinalValue__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__FinalValue__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9533:1: ( ( RULE_ID ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9534:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9517:1: ( ( RULE_ID ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9518:1: ( RULE_ID )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9534:1: ( RULE_ID )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9535:1: RULE_ID
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9518:1: ( RULE_ID )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9519:1: RULE_ID
             {
              before(grammarAccess.getFinalValueAccess().getNameIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FinalValue__NameAssignment_020136); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__FinalValue__NameAssignment_020103); 
              after(grammarAccess.getFinalValueAccess().getNameIDTerminalRuleCall_0_0()); 
 
             }
@@ -25359,20 +25312,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FinalValue__ValueAssignment_2"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9544:1: rule__FinalValue__ValueAssignment_2 : ( ruleValueString ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9528:1: rule__FinalValue__ValueAssignment_2 : ( ruleValueString ) ;
     public final void rule__FinalValue__ValueAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9548:1: ( ( ruleValueString ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9549:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9532:1: ( ( ruleValueString ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9533:1: ( ruleValueString )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9549:1: ( ruleValueString )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9550:1: ruleValueString
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9533:1: ( ruleValueString )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9534:1: ruleValueString
             {
              before(grammarAccess.getFinalValueAccess().getValueValueStringParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleValueString_in_rule__FinalValue__ValueAssignment_220167);
+            pushFollow(FOLLOW_ruleValueString_in_rule__FinalValue__ValueAssignment_220134);
             ruleValueString();
 
             state._fsp--;
@@ -25400,20 +25353,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MultiLineString__DescriptionAssignment"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9559:1: rule__MultiLineString__DescriptionAssignment : ( ruleTextElement ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9543:1: rule__MultiLineString__DescriptionAssignment : ( ruleTextElement ) ;
     public final void rule__MultiLineString__DescriptionAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9563:1: ( ( ruleTextElement ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9564:1: ( ruleTextElement )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9547:1: ( ( ruleTextElement ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9548:1: ( ruleTextElement )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9564:1: ( ruleTextElement )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9565:1: ruleTextElement
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9548:1: ( ruleTextElement )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9549:1: ruleTextElement
             {
              before(grammarAccess.getMultiLineStringAccess().getDescriptionTextElementParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleTextElement_in_rule__MultiLineString__DescriptionAssignment20198);
+            pushFollow(FOLLOW_ruleTextElement_in_rule__MultiLineString__DescriptionAssignment20165);
             ruleTextElement();
 
             state._fsp--;
@@ -25441,20 +25394,20 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TextElement__TextAssignment_0"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9574:1: rule__TextElement__TextAssignment_0 : ( RULE_STRING ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9558:1: rule__TextElement__TextAssignment_0 : ( RULE_STRING ) ;
     public final void rule__TextElement__TextAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9578:1: ( ( RULE_STRING ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9579:1: ( RULE_STRING )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9562:1: ( ( RULE_STRING ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9563:1: ( RULE_STRING )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9579:1: ( RULE_STRING )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9580:1: RULE_STRING
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9563:1: ( RULE_STRING )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9564:1: RULE_STRING
             {
              before(grammarAccess.getTextElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__TextElement__TextAssignment_020229); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__TextElement__TextAssignment_020196); 
              after(grammarAccess.getTextElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
 
             }
@@ -25478,24 +25431,24 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TextElement__NewlineAssignment_1"
-    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9589:1: rule__TextElement__NewlineAssignment_1 : ( ( Ampersand ) ) ;
+    // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9573:1: rule__TextElement__NewlineAssignment_1 : ( ( Ampersand ) ) ;
     public final void rule__TextElement__NewlineAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9593:1: ( ( ( Ampersand ) ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9594:1: ( ( Ampersand ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9577:1: ( ( ( Ampersand ) ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9578:1: ( ( Ampersand ) )
             {
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9594:1: ( ( Ampersand ) )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9595:1: ( Ampersand )
-            {
-             before(grammarAccess.getTextElementAccess().getNewlineAmpersandKeyword_1_0()); 
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9596:1: ( Ampersand )
-            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9597:1: Ampersand
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9578:1: ( ( Ampersand ) )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9579:1: ( Ampersand )
             {
              before(grammarAccess.getTextElementAccess().getNewlineAmpersandKeyword_1_0()); 
-            match(input,Ampersand,FOLLOW_Ampersand_in_rule__TextElement__NewlineAssignment_120265); 
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9580:1: ( Ampersand )
+            // ../org.osate.reqspec.ui/src-gen/org/osate/reqspec/ui/contentassist/antlr/internal/InternalReqSpecParser.g:9581:1: Ampersand
+            {
+             before(grammarAccess.getTextElementAccess().getNewlineAmpersandKeyword_1_0()); 
+            match(input,Ampersand,FOLLOW_Ampersand_in_rule__TextElement__NewlineAssignment_120232); 
              after(grammarAccess.getTextElementAccess().getNewlineAmpersandKeyword_1_0()); 
 
             }
@@ -25546,9 +25499,9 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
     static final String DFA55_maxS =
         "\1\31\6\uffff\1\17\2\uffff";
     static final String DFA55_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\uffff\1\10\1\7";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\uffff\1\7\1\10";
     static final String DFA55_specialS =
-        "\1\1\6\uffff\1\0\2\uffff}>";
+        "\1\0\6\uffff\1\1\2\uffff}>";
     static final String[] DFA55_transitionS = {
             "\1\2\1\uffff\1\6\1\uffff\1\5\2\uffff\1\3\1\1\1\uffff\1\4\10"+
             "\uffff\1\7",
@@ -25558,7 +25511,7 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
             "",
             "",
             "",
-            "\1\11\5\uffff\1\10",
+            "\1\10\5\uffff\1\11",
             "",
             ""
     };
@@ -25600,21 +25553,6 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA55_7 = input.LA(1);
-
-                         
-                        int index55_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( LA55_7 ==Document && getUnorderedGroupHelper().canSelect(grammarAccess.getGoalAccess().getUnorderedGroup_5(), 7) ) {s = 8;}
-
-                        else if ( LA55_7 ==Documented && getUnorderedGroupHelper().canSelect(grammarAccess.getGoalAccess().getUnorderedGroup_5(), 6) ) {s = 9;}
-
-                         
-                        input.seek(index55_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
                         int LA55_0 = input.LA(1);
 
                          
@@ -25637,6 +25575,21 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index55_0);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA55_7 = input.LA(1);
+
+                         
+                        int index55_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( LA55_7 ==Documented && getUnorderedGroupHelper().canSelect(grammarAccess.getGoalAccess().getUnorderedGroup_5(), 6) ) {s = 8;}
+
+                        else if ( LA55_7 ==Document && getUnorderedGroupHelper().canSelect(grammarAccess.getGoalAccess().getUnorderedGroup_5(), 7) ) {s = 9;}
+
+                         
+                        input.seek(index55_7);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -25753,7 +25706,8 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
     static final String DFA64_maxS =
         "\1\31\5\uffff\1\25\6\uffff";
     static final String DFA64_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\uffff\1\7\1\10\1\11\1\6\1\12\1\13";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\uffff\1\7\1\10\1\13\1\12\1\11\1"+
+        "\6";
     static final String DFA64_specialS =
         "\1\0\5\uffff\1\1\6\uffff}>";
     static final String[] DFA64_transitionS = {
@@ -25764,7 +25718,7 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
             "",
             "",
             "",
-            "\1\11\1\13\5\uffff\1\14\5\uffff\1\12",
+            "\1\13\1\12\5\uffff\1\11\5\uffff\1\14",
             "",
             "",
             "",
@@ -25843,13 +25797,13 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
                         int index64_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( LA64_6 ==Stakeholder && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 8) ) {s = 9;}
+                        if ( LA64_6 ==Document && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 10) ) {s = 9;}
 
-                        else if ( LA64_6 ==Goal && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 5) ) {s = 10;}
+                        else if ( LA64_6 ==Documented && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 9) ) {s = 10;}
 
-                        else if ( LA64_6 ==Documented && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 9) ) {s = 11;}
+                        else if ( LA64_6 ==Stakeholder && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 8) ) {s = 11;}
 
-                        else if ( LA64_6 ==Document && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 10) ) {s = 12;}
+                        else if ( LA64_6 ==Goal && getUnorderedGroupHelper().canSelect(grammarAccess.getRequirementAccess().getUnorderedGroup_5(), 5) ) {s = 12;}
 
                          
                         input.seek(index64_6);
@@ -26846,7 +26800,7 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
 
     public static final BitSet FOLLOW_ruleReqSpec_in_entryRuleReqSpec54 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleReqSpec61 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ReqSpec__ContentsAssignment_in_ruleReqSpec91 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ReqSpec__Alternatives_in_ruleReqSpec91 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleStakeholderGoals_in_entryRuleStakeholderGoals124 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleStakeholderGoals131 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__StakeholderGoals__Group__0_in_ruleStakeholderGoals161 = new BitSet(new long[]{0x0000000000000002L});
@@ -26915,9 +26869,9 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName1504 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName1511 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__QualifiedName__Group__0_in_ruleQualifiedName1541 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleReqSpecs_in_rule__ReqSpec__ContentsAlternatives_01579 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStakeholderGoals_in_rule__ReqSpec__ContentsAlternatives_01596 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleReqDocument_in_rule__ReqSpec__ContentsAlternatives_01613 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleReqSpecs_in_rule__ReqSpec__Alternatives1579 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleStakeholderGoals_in_rule__ReqSpec__Alternatives1596 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleReqDocument_in_rule__ReqSpec__Alternatives1613 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__StakeholderGoals__TargetAssignment_4_1_0_in_rule__StakeholderGoals__Alternatives_4_11648 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__StakeholderGoals__TargetDescriptionAssignment_4_1_1_in_rule__StakeholderGoals__Alternatives_4_11666 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleGoal_in_rule__DocumentSection__ContentAlternatives_5_01699 = new BitSet(new long[]{0x0000000000000002L});
@@ -27550,85 +27504,84 @@ public class InternalReqSpecParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__Requirement__UnorderedGroup_5__Impl_in_rule__Requirement__UnorderedGroup_5__917486 = new BitSet(new long[]{0x0000000002057842L});
     public static final BitSet FOLLOW_rule__Requirement__UnorderedGroup_5__10_in_rule__Requirement__UnorderedGroup_5__917489 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Requirement__UnorderedGroup_5__Impl_in_rule__Requirement__UnorderedGroup_5__1017514 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ReqSpec__ContentsAlternatives_0_in_rule__ReqSpec__ContentsAssignment17564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__StakeholderGoals__NameAssignment_217597 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__StakeholderGoals__TitleAssignment_3_117628 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__StakeholderGoals__TargetAssignment_4_1_017663 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__StakeholderGoals__TargetDescriptionAssignment_4_1_117698 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiLineString_in_rule__StakeholderGoals__DescriptionAssignment_5_117729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__StakeholderGoals__ConsistsOfAssignment_717764 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ReqDocument__NameAssignment_117799 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__ReqDocument__TitleAssignment_2_117830 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiLineString_in_rule__ReqDocument__DescriptionAssignment_3_117861 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDocumentSection_in_rule__ReqDocument__ContentAssignment_517892 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__DocumentSection__LabelAssignment_117923 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__DocumentSection__TitleAssignment_2_117954 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiLineString_in_rule__DocumentSection__DescriptionAssignment_3_117985 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__DocumentSection__ContentAlternatives_5_0_in_rule__DocumentSection__ContentAssignment_518016 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ReqSpecs__NameAssignment_218049 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__ReqSpecs__TitleAssignment_3_118080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__ReqSpecs__TargetAssignment_4_1_018115 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__ReqSpecs__TargetDescriptionAssignment_4_1_118150 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFinalValue_in_rule__ReqSpecs__ConstantsAssignment_6_118181 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ReqSpecs__ContentAlternatives_7_0_in_rule__ReqSpecs__ContentAssignment_718212 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ReqSpecFolder__LabelAssignment_118245 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__ReqSpecFolder__TitleAssignment_2_118276 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ReqSpecFolder__ContentAlternatives_4_0_in_rule__ReqSpecFolder__ContentAssignment_418307 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__GoalFolder__LabelAssignment_118340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__GoalFolder__TitleAssignment_2_118371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__GoalFolder__ContentAlternatives_4_0_in_rule__GoalFolder__ContentAssignment_418402 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Goal__NameAssignment_118435 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__Goal__TitleAssignment_2_118466 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Goal__TargetAssignment_3_1_018501 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__Goal__TargetDescriptionAssignment_3_1_118536 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCatRef_in_rule__Goal__CategoryAssignment_5_0_118571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiLineString_in_rule__Goal__DescriptionAssignment_5_1_118606 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__Goal__RationaleAssignment_5_2_118637 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__RefinesReferenceAssignment_5_3_118672 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__RefinesReferenceAssignment_5_3_2_118711 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__ConflictsReferenceAssignment_5_4_218750 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__ConflictsReferenceAssignment_5_4_3_118789 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__StakeholderReferenceAssignment_5_5_118828 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__StakeholderReferenceAssignment_5_5_2_118867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__DocumentRequirementAssignment_5_6_318906 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__DocumentRequirementAssignment_5_6_4_118945 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExternalDocument_in_rule__Goal__DocReferenceAssignment_5_7_218980 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExternalDocument_in_rule__Goal__DocReferenceAssignment_5_7_3_119011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Requirement__NameAssignment_119042 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__Requirement__TitleAssignment_2_119073 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Requirement__TargetAssignment_3_1_019108 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__Requirement__TargetDescriptionAssignment_3_1_119143 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCatRef_in_rule__Requirement__CategoryAssignment_5_0_119178 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDescription_in_rule__Requirement__DescriptionAssignment_5_1_119213 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFinalValue_in_rule__Requirement__ConstantsAssignment_5_2_119244 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePredicateExpression_in_rule__Requirement__AssertAssignment_5_3_119275 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__Requirement__RationaleAssignment_5_4_119306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__GoalReferenceAssignment_5_5_219341 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__GoalReferenceAssignment_5_5_3_119380 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Requirement__ExceptionAssignment_5_6_1_019419 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__Requirement__ExceptionTextAssignment_5_6_1_119454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__RefinedReferenceAssignment_5_7_119489 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__RefinesReferenceAssignment_5_7_2_119528 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_319567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_4_119606 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__DocumentRequirementAssignment_5_9_319645 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__DocumentRequirementAssignment_5_9_4_119684 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExternalDocument_in_rule__Requirement__DocReferenceAssignment_5_10_219719 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleExternalDocument_in_rule__Requirement__DocReferenceAssignment_5_10_3_119750 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDOCPATH_in_rule__ExternalDocument__DocReferenceAssignment_019781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDOCFRAGMENT_in_rule__ExternalDocument__DocFragmentAssignment_1_119812 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment19844 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_019875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__DescriptionElement__RefAssignment_119910 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ampersand_in_rule__DescriptionElement__NewlineAssignment_219950 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_This_in_rule__DescriptionElement__ThisTargetAssignment_319994 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ReferencePath__RefAssignment_020037 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleReferencePath_in_rule__ReferencePath__SubpathAssignment_1_120072 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PredicateExpression__OpAlternatives_1_0_in_rule__PredicateExpression__OpAssignment_120103 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__FinalValue__NameAssignment_020136 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValueString_in_rule__FinalValue__ValueAssignment_220167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTextElement_in_rule__MultiLineString__DescriptionAssignment20198 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__TextElement__TextAssignment_020229 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ampersand_in_rule__TextElement__NewlineAssignment_120265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__StakeholderGoals__NameAssignment_217564 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__StakeholderGoals__TitleAssignment_3_117595 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__StakeholderGoals__TargetAssignment_4_1_017630 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__StakeholderGoals__TargetDescriptionAssignment_4_1_117665 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiLineString_in_rule__StakeholderGoals__DescriptionAssignment_5_117696 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__StakeholderGoals__ConsistsOfAssignment_717731 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ReqDocument__NameAssignment_117766 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__ReqDocument__TitleAssignment_2_117797 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiLineString_in_rule__ReqDocument__DescriptionAssignment_3_117828 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDocumentSection_in_rule__ReqDocument__ContentAssignment_517859 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__DocumentSection__LabelAssignment_117890 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__DocumentSection__TitleAssignment_2_117921 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiLineString_in_rule__DocumentSection__DescriptionAssignment_3_117952 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__DocumentSection__ContentAlternatives_5_0_in_rule__DocumentSection__ContentAssignment_517983 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ReqSpecs__NameAssignment_218016 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__ReqSpecs__TitleAssignment_3_118047 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__ReqSpecs__TargetAssignment_4_1_018082 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__ReqSpecs__TargetDescriptionAssignment_4_1_118117 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFinalValue_in_rule__ReqSpecs__ConstantsAssignment_6_118148 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ReqSpecs__ContentAlternatives_7_0_in_rule__ReqSpecs__ContentAssignment_718179 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ReqSpecFolder__LabelAssignment_118212 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__ReqSpecFolder__TitleAssignment_2_118243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ReqSpecFolder__ContentAlternatives_4_0_in_rule__ReqSpecFolder__ContentAssignment_418274 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__GoalFolder__LabelAssignment_118307 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__GoalFolder__TitleAssignment_2_118338 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__GoalFolder__ContentAlternatives_4_0_in_rule__GoalFolder__ContentAssignment_418369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Goal__NameAssignment_118402 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__Goal__TitleAssignment_2_118433 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Goal__TargetAssignment_3_1_018468 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__Goal__TargetDescriptionAssignment_3_1_118503 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCatRef_in_rule__Goal__CategoryAssignment_5_0_118538 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiLineString_in_rule__Goal__DescriptionAssignment_5_1_118573 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__Goal__RationaleAssignment_5_2_118604 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__RefinesReferenceAssignment_5_3_118639 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__RefinesReferenceAssignment_5_3_2_118678 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__ConflictsReferenceAssignment_5_4_218717 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__ConflictsReferenceAssignment_5_4_3_118756 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__StakeholderReferenceAssignment_5_5_118795 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__StakeholderReferenceAssignment_5_5_2_118834 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__DocumentRequirementAssignment_5_6_318873 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Goal__DocumentRequirementAssignment_5_6_4_118912 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExternalDocument_in_rule__Goal__DocReferenceAssignment_5_7_218947 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExternalDocument_in_rule__Goal__DocReferenceAssignment_5_7_3_118978 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Requirement__NameAssignment_119009 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__Requirement__TitleAssignment_2_119040 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Requirement__TargetAssignment_3_1_019075 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__Requirement__TargetDescriptionAssignment_3_1_119110 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleCatRef_in_rule__Requirement__CategoryAssignment_5_0_119145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDescription_in_rule__Requirement__DescriptionAssignment_5_1_119180 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleFinalValue_in_rule__Requirement__ConstantsAssignment_5_2_119211 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePredicateExpression_in_rule__Requirement__AssertAssignment_5_3_119242 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__Requirement__RationaleAssignment_5_4_119273 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__GoalReferenceAssignment_5_5_219308 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__GoalReferenceAssignment_5_5_3_119347 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Requirement__ExceptionAssignment_5_6_1_019386 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__Requirement__ExceptionTextAssignment_5_6_1_119421 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__RefinedReferenceAssignment_5_7_119456 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__RefinesReferenceAssignment_5_7_2_119495 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_319534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__StakeholderRequirementReferenceAssignment_5_8_4_119573 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__DocumentRequirementAssignment_5_9_319612 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__Requirement__DocumentRequirementAssignment_5_9_4_119651 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExternalDocument_in_rule__Requirement__DocReferenceAssignment_5_10_219686 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleExternalDocument_in_rule__Requirement__DocReferenceAssignment_5_10_3_119717 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDOCPATH_in_rule__ExternalDocument__DocReferenceAssignment_019748 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDOCFRAGMENT_in_rule__ExternalDocument__DocFragmentAssignment_1_119779 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment19811 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_019842 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__DescriptionElement__RefAssignment_119877 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ampersand_in_rule__DescriptionElement__NewlineAssignment_219917 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_This_in_rule__DescriptionElement__ThisTargetAssignment_319961 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ReferencePath__RefAssignment_020004 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleReferencePath_in_rule__ReferencePath__SubpathAssignment_1_120039 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PredicateExpression__OpAlternatives_1_0_in_rule__PredicateExpression__OpAssignment_120070 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__FinalValue__NameAssignment_020103 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValueString_in_rule__FinalValue__ValueAssignment_220134 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTextElement_in_rule__MultiLineString__DescriptionAssignment20165 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__TextElement__TextAssignment_020196 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ampersand_in_rule__TextElement__NewlineAssignment_120232 = new BitSet(new long[]{0x0000000000000002L});
 
 }

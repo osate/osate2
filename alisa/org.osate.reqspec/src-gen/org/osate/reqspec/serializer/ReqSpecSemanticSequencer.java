@@ -24,7 +24,6 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.GoalFolder;
 import org.osate.reqspec.reqSpec.ReqDocument;
-import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
@@ -119,14 +118,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.REQ_DOCUMENT:
 				if(context == grammarAccess.getReqDocumentRule() ||
 				   context == grammarAccess.getReqRootRule() ||
+				   context == grammarAccess.getReqSpecRule() ||
 				   context == grammarAccess.getReqSpecContainerRule()) {
 					sequence_ReqDocument(context, (ReqDocument) semanticObject); 
-					return; 
-				}
-				else break;
-			case ReqSpecPackage.REQ_SPEC:
-				if(context == grammarAccess.getReqSpecRule()) {
-					sequence_ReqSpec(context, (ReqSpec) semanticObject); 
 					return; 
 				}
 				else break;
@@ -139,6 +133,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case ReqSpecPackage.REQ_SPECS:
 				if(context == grammarAccess.getReqRootRule() ||
+				   context == grammarAccess.getReqSpecRule() ||
 				   context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getReqSpecsRule()) {
 					sequence_ReqSpecs(context, (ReqSpecs) semanticObject); 
@@ -154,6 +149,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case ReqSpecPackage.STAKEHOLDER_GOALS:
 				if(context == grammarAccess.getReqRootRule() ||
+				   context == grammarAccess.getReqSpecRule() ||
 				   context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getStakeholderGoalsRule()) {
 					sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
@@ -226,15 +222,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (label=ID title=ValueString? (content+=Goal | content+=Requirement | content+=ReqSpecFolder)*)
 	 */
 	protected void sequence_ReqSpecFolder(EObject context, ReqSpecFolder semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (contents+=ReqSpecs | contents+=StakeholderGoals | contents+=ReqDocument)
-	 */
-	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

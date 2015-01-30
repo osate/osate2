@@ -113,15 +113,6 @@ public interface VerifyFactory extends EFactory
   ArgumentExpr createArgumentExpr();
 
   /**
-   * Returns a new object of class '<em>Selection Category Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Selection Category Reference</em>'.
-   * @generated
-   */
-  SelectionCategoryReference createSelectionCategoryReference();
-
-  /**
    * Returns a new object of class '<em>Verification Method Registry</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

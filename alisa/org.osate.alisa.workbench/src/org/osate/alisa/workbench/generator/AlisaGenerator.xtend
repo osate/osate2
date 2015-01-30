@@ -11,7 +11,7 @@ import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
-import org.osate.alisa.workbench.alisa.AssuranceCasePlan
+import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.CaseResult
 import org.osate.assure.assure.ClaimResult
@@ -32,6 +32,8 @@ import org.osate.verify.verify.WhenExpr
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
+import org.eclipse.emf.common.util.EList
+import org.osate.categories.categories.VerificationCategory
 
 /**
  * Generates code from your model files on save.
@@ -50,18 +52,22 @@ class AlisaGenerator implements IGenerator {
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider
 
 	val factory = AssureFactory.eINSTANCE
+	
+	var EList<VerificationCategory> selectionCriteria 
 
-	def constructCase(AssuranceCasePlan acp) {
+	def constructCase(AssuranceCaseConfiguration acp) {
 		val si = acp.system.buildInstanceModelFile
+		selectionCriteria = acp.selectionFilter
 		si.construct(acp)
 	}
 
-	def generateCase(AssuranceCasePlan acp) {
+	def generateCase(AssuranceCaseConfiguration acp) {
 		val si = acp.system.buildInstanceModelFile
+		selectionCriteria = acp.selectionFilter
 		si.generate(acp)
 	}
 
-	def CaseResult construct(ComponentInstance ci, AssuranceCasePlan acp) {
+	def CaseResult construct(ComponentInstance ci, AssuranceCaseConfiguration acp) {
 		val myplans = ci.getVerificationPlans(acp);
 		var CaseResult acase = null
 		if (!myplans.empty) {
@@ -81,7 +87,7 @@ class AlisaGenerator implements IGenerator {
 		acase
 	}
 
-	def CharSequence generate(ComponentInstance ci, AssuranceCasePlan acp) {
+	def CharSequence generate(ComponentInstance ci, AssuranceCaseConfiguration acp) {
 		val myplans = ci.getVerificationPlans(acp);
 		'''	
 			«IF !myplans.empty»
@@ -282,9 +288,9 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def evaluateCondition(WhenExpr expr) {
-
-		// expre.condition evaluation
-		true
+		val intersect = expr.condition.copyAll
+		intersect.retainAll(selectionCriteria) 
+		!intersect.isEmpty
 	}
 
 	def keyword(VerificationCondition vc) {

@@ -37,7 +37,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getReqSpecAccess().getContentsAlternatives_0(), "rule__ReqSpec__ContentsAlternatives_0");
+					put(grammarAccess.getReqSpecAccess().getAlternatives(), "rule__ReqSpec__Alternatives");
 					put(grammarAccess.getReqSpecContainerAccess().getAlternatives(), "rule__ReqSpecContainer__Alternatives");
 					put(grammarAccess.getContractualElementAccess().getAlternatives(), "rule__ContractualElement__Alternatives");
 					put(grammarAccess.getReqRootAccess().getAlternatives(), "rule__ReqRoot__Alternatives");
@@ -122,7 +122,6 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2(), "rule__AadlClassifierReference__Group_2__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
-					put(grammarAccess.getReqSpecAccess().getContentsAssignment(), "rule__ReqSpec__ContentsAssignment");
 					put(grammarAccess.getStakeholderGoalsAccess().getNameAssignment_2(), "rule__StakeholderGoals__NameAssignment_2");
 					put(grammarAccess.getStakeholderGoalsAccess().getTitleAssignment_3_1(), "rule__StakeholderGoals__TitleAssignment_3_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getTargetAssignment_4_1_0(), "rule__StakeholderGoals__TargetAssignment_4_1_0");

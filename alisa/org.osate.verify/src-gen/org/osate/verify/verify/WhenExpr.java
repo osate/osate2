@@ -4,6 +4,8 @@ package org.osate.verify.verify;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.osate.categories.categories.VerificationCategory;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>When Expr</b></em>'.
@@ -50,19 +52,19 @@ public interface WhenExpr extends ArgumentExpr
   void setVerification(ArgumentExpr value);
 
   /**
-   * Returns the value of the '<em><b>Condition</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.verify.verify.SelectionCategoryReference}.
+   * Returns the value of the '<em><b>Condition</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.VerificationCategory}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Condition</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Condition</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Condition</em>' containment reference list.
+   * @return the value of the '<em>Condition</em>' reference list.
    * @see org.osate.verify.verify.VerifyPackage#getWhenExpr_Condition()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  EList<SelectionCategoryReference> getCondition();
+  EList<VerificationCategory> getCondition();
 
 } // WhenExpr

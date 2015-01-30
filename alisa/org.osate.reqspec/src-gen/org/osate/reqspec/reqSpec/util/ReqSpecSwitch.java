@@ -104,6 +104,7 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         StakeholderGoals stakeholderGoals = (StakeholderGoals)theEObject;
         T result = caseStakeholderGoals(stakeholderGoals);
+        if (result == null) result = caseReqSpec(stakeholderGoals);
         if (result == null) result = caseReqSpecContainer(stakeholderGoals);
         if (result == null) result = caseReqRoot(stakeholderGoals);
         if (result == null) result = defaultCase(theEObject);
@@ -113,6 +114,7 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         ReqDocument reqDocument = (ReqDocument)theEObject;
         T result = caseReqDocument(reqDocument);
+        if (result == null) result = caseReqSpec(reqDocument);
         if (result == null) result = caseReqSpecContainer(reqDocument);
         if (result == null) result = caseReqRoot(reqDocument);
         if (result == null) result = defaultCase(theEObject);
@@ -129,6 +131,7 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         ReqSpecs reqSpecs = (ReqSpecs)theEObject;
         T result = caseReqSpecs(reqSpecs);
+        if (result == null) result = caseReqSpec(reqSpecs);
         if (result == null) result = caseReqSpecContainer(reqSpecs);
         if (result == null) result = caseReqRoot(reqSpecs);
         if (result == null) result = defaultCase(theEObject);

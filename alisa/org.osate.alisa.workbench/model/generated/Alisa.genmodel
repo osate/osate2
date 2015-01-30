@@ -11,22 +11,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AlisaWorkArea/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AlisaWorkArea/cases"/>
     </genClasses>
-    <genClasses ecoreClass="Alisa.ecore#//AssuranceCasePlan">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceCasePlan/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceCasePlan/title"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/system"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/constant"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/plans"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCasePlan/selectionFilter"/>
-    </genClasses>
-    <genClasses ecoreClass="Alisa.ecore#//SelectionConditionExpr"/>
-    <genClasses ecoreClass="Alisa.ecore#//SelectionCategoryReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//SelectionCategoryReference/cat"/>
-    </genClasses>
-    <genClasses ecoreClass="Alisa.ecore#//AndSelectionConditionExpr">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AndSelectionConditionExpr/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AndSelectionConditionExpr/right"/>
+    <genClasses ecoreClass="Alisa.ecore#//AssuranceCaseConfiguration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceCaseConfiguration/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceCaseConfiguration/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/system"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/constant"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/plans"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/selectionFilter"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

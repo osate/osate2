@@ -4,15 +4,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.alisa.workbench.alisa.AssuranceCasePlan;
+import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration;
 import org.osate.ui.dialogs.Dialog;
 
 public class ExecuteAssuranceCaseHandler extends EditorObjectHandler {
 
 	@Override
 	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
-		if (sel instanceof AssuranceCasePlan) {
-			AssuranceCasePlan plan = (AssuranceCasePlan) sel;
+		if (sel instanceof AssuranceCaseConfiguration) {
+			AssuranceCaseConfiguration plan = (AssuranceCaseConfiguration) sel;
 			try {
 //				ac = InstantiateModel.buildInstanceModelFile(compImpl);
 			} catch (Exception e) {

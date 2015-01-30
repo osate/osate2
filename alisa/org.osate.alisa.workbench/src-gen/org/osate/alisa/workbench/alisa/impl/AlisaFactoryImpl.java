@@ -65,10 +65,7 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
     switch (eClass.getClassifierID())
     {
       case AlisaPackage.ALISA_WORK_AREA: return createAlisaWorkArea();
-      case AlisaPackage.ASSURANCE_CASE_PLAN: return createAssuranceCasePlan();
-      case AlisaPackage.SELECTION_CONDITION_EXPR: return createSelectionConditionExpr();
-      case AlisaPackage.SELECTION_CATEGORY_REFERENCE: return createSelectionCategoryReference();
-      case AlisaPackage.AND_SELECTION_CONDITION_EXPR: return createAndSelectionConditionExpr();
+      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION: return createAssuranceCaseConfiguration();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -90,43 +87,10 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssuranceCasePlan createAssuranceCasePlan()
+  public AssuranceCaseConfiguration createAssuranceCaseConfiguration()
   {
-    AssuranceCasePlanImpl assuranceCasePlan = new AssuranceCasePlanImpl();
-    return assuranceCasePlan;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SelectionConditionExpr createSelectionConditionExpr()
-  {
-    SelectionConditionExprImpl selectionConditionExpr = new SelectionConditionExprImpl();
-    return selectionConditionExpr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SelectionCategoryReference createSelectionCategoryReference()
-  {
-    SelectionCategoryReferenceImpl selectionCategoryReference = new SelectionCategoryReferenceImpl();
-    return selectionCategoryReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AndSelectionConditionExpr createAndSelectionConditionExpr()
-  {
-    AndSelectionConditionExprImpl andSelectionConditionExpr = new AndSelectionConditionExprImpl();
-    return andSelectionConditionExpr;
+    AssuranceCaseConfigurationImpl assuranceCaseConfiguration = new AssuranceCaseConfigurationImpl();
+    return assuranceCaseConfiguration;
   }
 
   /**

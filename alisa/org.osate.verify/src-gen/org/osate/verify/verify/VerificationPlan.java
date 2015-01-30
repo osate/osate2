@@ -25,6 +25,7 @@ import org.osate.alisa.common.common.MultiLineString;
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getWeightedClaim <em>Weighted Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationPlan#getPlanAssumption <em>Plan Assumption</em>}</li>
  * </ul>
  * </p>
  *
@@ -195,5 +196,21 @@ public interface VerificationPlan extends EObject
    * @generated
    */
   void setRationale(MultiLineString value);
+
+  /**
+   * Returns the value of the '<em><b>Plan Assumption</b></em>' reference list.
+   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Plan Assumption</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Plan Assumption</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_PlanAssumption()
+   * @model
+   * @generated
+   */
+  EList<VerificationPlan> getPlanAssumption();
 
 } // VerificationPlan

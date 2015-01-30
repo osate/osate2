@@ -72,56 +72,34 @@ ruleReqSpec returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getReqSpecAccess().getContentsReqSpecsParserRuleCall_0_0()); 
-	    }
-		lv_contents_0_1=ruleReqSpecs		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getReqSpecRule());
-	        }
-       		add(
-       			$current, 
-       			"contents",
-        		lv_contents_0_1, 
-        		"ReqSpecs");
-	        afterParserOrEnumRuleCall();
-	    }
+    { 
+        newCompositeNode(grammarAccess.getReqSpecAccess().getReqSpecsParserRuleCall_0()); 
+    }
+    this_ReqSpecs_0=ruleReqSpecs
+    {
+        $current = $this_ReqSpecs_0.current;
+        afterParserOrEnumRuleCall();
+    }
 
-    |		{ 
-	        newCompositeNode(grammarAccess.getReqSpecAccess().getContentsStakeholderGoalsParserRuleCall_0_1()); 
-	    }
-		lv_contents_0_2=ruleStakeholderGoals		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getReqSpecRule());
-	        }
-       		add(
-       			$current, 
-       			"contents",
-        		lv_contents_0_2, 
-        		"StakeholderGoals");
-	        afterParserOrEnumRuleCall();
-	    }
+    |
+    { 
+        newCompositeNode(grammarAccess.getReqSpecAccess().getStakeholderGoalsParserRuleCall_1()); 
+    }
+    this_StakeholderGoals_1=ruleStakeholderGoals
+    {
+        $current = $this_StakeholderGoals_1.current;
+        afterParserOrEnumRuleCall();
+    }
 
-    |		{ 
-	        newCompositeNode(grammarAccess.getReqSpecAccess().getContentsReqDocumentParserRuleCall_0_2()); 
-	    }
-		lv_contents_0_3=ruleReqDocument		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getReqSpecRule());
-	        }
-       		add(
-       			$current, 
-       			"contents",
-        		lv_contents_0_3, 
-        		"ReqDocument");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-
-)
+    |
+    { 
+        newCompositeNode(grammarAccess.getReqSpecAccess().getReqDocumentParserRuleCall_2()); 
+    }
+    this_ReqDocument_2=ruleReqDocument
+    {
+        $current = $this_ReqDocument_2.current;
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 

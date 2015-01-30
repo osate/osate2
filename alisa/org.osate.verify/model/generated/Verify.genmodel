@@ -28,6 +28,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/claim"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/weightedClaim"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/rationale"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/planAssumption"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//Claim">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/name"/>
@@ -71,9 +72,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/rationale"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ArgumentExpr"/>
-    <genClasses ecoreClass="Verify.ecore#//SelectionCategoryReference">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//SelectionCategoryReference/cat"/>
-    </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationMethodRegistry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/title"/>
@@ -106,7 +104,7 @@
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//WhenExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//WhenExpr/verification"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//WhenExpr/condition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//WhenExpr/condition"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//RefExpr">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//RefExpr/verification"/>

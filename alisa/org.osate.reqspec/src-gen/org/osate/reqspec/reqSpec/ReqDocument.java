@@ -25,7 +25,7 @@ import org.osate.alisa.common.common.MultiLineString;
  * @model
  * @generated
  */
-public interface ReqDocument extends ReqSpecContainer, ReqRoot
+public interface ReqDocument extends ReqSpec, ReqSpecContainer, ReqRoot
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

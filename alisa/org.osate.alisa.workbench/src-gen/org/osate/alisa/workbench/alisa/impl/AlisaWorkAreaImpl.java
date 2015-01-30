@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
-import org.osate.alisa.workbench.alisa.AssuranceCasePlan;
+import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration;
 
 /**
  * <!-- begin-user-doc -->
@@ -66,7 +66,7 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
    * @generated
    * @ordered
    */
-  protected EList<AssuranceCasePlan> cases;
+  protected EList<AssuranceCaseConfiguration> cases;
 
   /**
    * <!-- begin-user-doc -->
@@ -117,11 +117,11 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AssuranceCasePlan> getCases()
+  public EList<AssuranceCaseConfiguration> getCases()
   {
     if (cases == null)
     {
-      cases = new EObjectContainmentEList<AssuranceCasePlan>(AssuranceCasePlan.class, this, AlisaPackage.ALISA_WORK_AREA__CASES);
+      cases = new EObjectContainmentEList<AssuranceCaseConfiguration>(AssuranceCaseConfiguration.class, this, AlisaPackage.ALISA_WORK_AREA__CASES);
     }
     return cases;
   }
@@ -176,7 +176,7 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
         return;
       case AlisaPackage.ALISA_WORK_AREA__CASES:
         getCases().clear();
-        getCases().addAll((Collection<? extends AssuranceCasePlan>)newValue);
+        getCases().addAll((Collection<? extends AssuranceCaseConfiguration>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

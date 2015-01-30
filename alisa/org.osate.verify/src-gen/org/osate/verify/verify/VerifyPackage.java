@@ -159,13 +159,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__RATIONALE = 6;
 
   /**
+   * The feature id for the '<em><b>Plan Assumption</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_PLAN__PLAN_ASSUMPTION = 7;
+
+  /**
    * The number of structural features of the '<em>Verification Plan</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN_FEATURE_COUNT = 7;
+  int VERIFICATION_PLAN_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ClaimImpl <em>Claim</em>}' class.
@@ -581,34 +590,6 @@ public interface VerifyPackage extends EPackage
   int ARGUMENT_EXPR_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.SelectionCategoryReferenceImpl <em>Selection Category Reference</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.SelectionCategoryReferenceImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSelectionCategoryReference()
-   * @generated
-   */
-  int SELECTION_CATEGORY_REFERENCE = 10;
-
-  /**
-   * The feature id for the '<em><b>Cat</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SELECTION_CATEGORY_REFERENCE__CAT = 0;
-
-  /**
-   * The number of structural features of the '<em>Selection Category Reference</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SELECTION_CATEGORY_REFERENCE_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -616,7 +597,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodRegistry()
    * @generated
    */
-  int VERIFICATION_METHOD_REGISTRY = 11;
+  int VERIFICATION_METHOD_REGISTRY = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -671,7 +652,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethod()
    * @generated
    */
-  int VERIFICATION_METHOD = 12;
+  int VERIFICATION_METHOD = 11;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -771,7 +752,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationAssumption()
    * @generated
    */
-  int VERIFICATION_ASSUMPTION = 13;
+  int VERIFICATION_ASSUMPTION = 12;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -835,7 +816,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 14;
+  int VERIFICATION_PRECONDITION = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -899,7 +880,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 15;
+  int ALL_EXPR = 14;
 
   /**
    * The feature id for the '<em><b>All</b></em>' containment reference list.
@@ -927,7 +908,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAndThenExpr()
    * @generated
    */
-  int AND_THEN_EXPR = 16;
+  int AND_THEN_EXPR = 15;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -964,7 +945,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getFailThenExpr()
    * @generated
    */
-  int FAIL_THEN_EXPR = 17;
+  int FAIL_THEN_EXPR = 16;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -1001,7 +982,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getWhenExpr()
    * @generated
    */
-  int WHEN_EXPR = 18;
+  int WHEN_EXPR = 17;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' containment reference.
@@ -1013,7 +994,7 @@ public interface VerifyPackage extends EPackage
   int WHEN_EXPR__VERIFICATION = ARGUMENT_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference list.
+   * The feature id for the '<em><b>Condition</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1038,7 +1019,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 19;
+  int REF_EXPR = 18;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -1075,7 +1056,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedTypes()
    * @generated
    */
-  int SUPPORTED_TYPES = 20;
+  int SUPPORTED_TYPES = 19;
 
 
   /**
@@ -1185,6 +1166,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getVerificationPlan_Rationale();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationPlan#getPlanAssumption <em>Plan Assumption</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Plan Assumption</em>'.
+   * @see org.osate.verify.verify.VerificationPlan#getPlanAssumption()
+   * @see #getVerificationPlan()
+   * @generated
+   */
+  EReference getVerificationPlan_PlanAssumption();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.Claim <em>Claim</em>}'.
@@ -1564,27 +1556,6 @@ public interface VerifyPackage extends EPackage
   EClass getArgumentExpr();
 
   /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.SelectionCategoryReference <em>Selection Category Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Selection Category Reference</em>'.
-   * @see org.osate.verify.verify.SelectionCategoryReference
-   * @generated
-   */
-  EClass getSelectionCategoryReference();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.SelectionCategoryReference#getCat <em>Cat</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Cat</em>'.
-   * @see org.osate.verify.verify.SelectionCategoryReference#getCat()
-   * @see #getSelectionCategoryReference()
-   * @generated
-   */
-  EReference getSelectionCategoryReference_Cat();
-
-  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationMethodRegistry <em>Verification Method Registry</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1874,10 +1845,10 @@ public interface VerifyPackage extends EPackage
   EReference getWhenExpr_Verification();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.WhenExpr#getCondition <em>Condition</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.WhenExpr#getCondition <em>Condition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Condition</em>'.
+   * @return the meta object for the reference list '<em>Condition</em>'.
    * @see org.osate.verify.verify.WhenExpr#getCondition()
    * @see #getWhenExpr()
    * @generated
@@ -2032,6 +2003,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_PLAN__RATIONALE = eINSTANCE.getVerificationPlan_Rationale();
+
+    /**
+     * The meta object literal for the '<em><b>Plan Assumption</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_PLAN__PLAN_ASSUMPTION = eINSTANCE.getVerificationPlan_PlanAssumption();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ClaimImpl <em>Claim</em>}' class.
@@ -2330,24 +2309,6 @@ public interface VerifyPackage extends EPackage
     EClass ARGUMENT_EXPR = eINSTANCE.getArgumentExpr();
 
     /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.SelectionCategoryReferenceImpl <em>Selection Category Reference</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.SelectionCategoryReferenceImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSelectionCategoryReference()
-     * @generated
-     */
-    EClass SELECTION_CATEGORY_REFERENCE = eINSTANCE.getSelectionCategoryReference();
-
-    /**
-     * The meta object literal for the '<em><b>Cat</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SELECTION_CATEGORY_REFERENCE__CAT = eINSTANCE.getSelectionCategoryReference_Cat();
-
-    /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationMethodRegistryImpl <em>Verification Method Registry</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2580,7 +2541,7 @@ public interface VerifyPackage extends EPackage
     EReference WHEN_EXPR__VERIFICATION = eINSTANCE.getWhenExpr_Verification();
 
     /**
-     * The meta object literal for the '<em><b>Condition</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Condition</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

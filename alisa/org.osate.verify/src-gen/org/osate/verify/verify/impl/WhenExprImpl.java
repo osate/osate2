@@ -14,11 +14,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.osate.categories.categories.VerificationCategory;
 
 import org.osate.verify.verify.ArgumentExpr;
-import org.osate.verify.verify.SelectionCategoryReference;
 import org.osate.verify.verify.VerifyPackage;
 import org.osate.verify.verify.WhenExpr;
 
@@ -49,14 +49,14 @@ public class WhenExprImpl extends ArgumentExprImpl implements WhenExpr
   protected ArgumentExpr verification;
 
   /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference list.
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected EList<SelectionCategoryReference> condition;
+  protected EList<VerificationCategory> condition;
 
   /**
    * <!-- begin-user-doc -->
@@ -132,11 +132,11 @@ public class WhenExprImpl extends ArgumentExprImpl implements WhenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<SelectionCategoryReference> getCondition()
+  public EList<VerificationCategory> getCondition()
   {
     if (condition == null)
     {
-      condition = new EObjectContainmentEList<SelectionCategoryReference>(SelectionCategoryReference.class, this, VerifyPackage.WHEN_EXPR__CONDITION);
+      condition = new EObjectResolvingEList<VerificationCategory>(VerificationCategory.class, this, VerifyPackage.WHEN_EXPR__CONDITION);
     }
     return condition;
   }
@@ -153,8 +153,6 @@ public class WhenExprImpl extends ArgumentExprImpl implements WhenExpr
     {
       case VerifyPackage.WHEN_EXPR__VERIFICATION:
         return basicSetVerification(null, msgs);
-      case VerifyPackage.WHEN_EXPR__CONDITION:
-        return ((InternalEList<?>)getCondition()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -193,7 +191,7 @@ public class WhenExprImpl extends ArgumentExprImpl implements WhenExpr
         return;
       case VerifyPackage.WHEN_EXPR__CONDITION:
         getCondition().clear();
-        getCondition().addAll((Collection<? extends SelectionCategoryReference>)newValue);
+        getCondition().addAll((Collection<? extends VerificationCategory>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

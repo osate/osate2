@@ -51,6 +51,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationPlanAccess().getGroup_2(), "rule__VerificationPlan__Group_2__0");
 					put(grammarAccess.getVerificationPlanAccess().getGroup_6_0(), "rule__VerificationPlan__Group_6_0__0");
 					put(grammarAccess.getVerificationPlanAccess().getGroup_6_3(), "rule__VerificationPlan__Group_6_3__0");
+					put(grammarAccess.getVerificationPlanAccess().getGroup_6_4(), "rule__VerificationPlan__Group_6_4__0");
 					put(grammarAccess.getClaimAccess().getGroup(), "rule__Claim__Group__0");
 					put(grammarAccess.getClaimAccess().getGroup_2(), "rule__Claim__Group_2__0");
 					put(grammarAccess.getClaimAccess().getGroup_6_0(), "rule__Claim__Group_6_0__0");
@@ -121,6 +122,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationPlanAccess().getClaimAssignment_6_1(), "rule__VerificationPlan__ClaimAssignment_6_1");
 					put(grammarAccess.getVerificationPlanAccess().getWeightedClaimAssignment_6_2(), "rule__VerificationPlan__WeightedClaimAssignment_6_2");
 					put(grammarAccess.getVerificationPlanAccess().getRationaleAssignment_6_3_1(), "rule__VerificationPlan__RationaleAssignment_6_3_1");
+					put(grammarAccess.getVerificationPlanAccess().getPlanAssumptionAssignment_6_4_2(), "rule__VerificationPlan__PlanAssumptionAssignment_6_4_2");
 					put(grammarAccess.getClaimAccess().getNameAssignment_1(), "rule__Claim__NameAssignment_1");
 					put(grammarAccess.getClaimAccess().getTitleAssignment_2_1(), "rule__Claim__TitleAssignment_2_1");
 					put(grammarAccess.getClaimAccess().getRequirementAssignment_4(), "rule__Claim__RequirementAssignment_4");
@@ -156,7 +158,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConditionalEvidenceAccess().getConditionAssignment_1_1(), "rule__ConditionalEvidence__ConditionAssignment_1_1");
 					put(grammarAccess.getVAReferenceAccess().getVerificationAssignment_1(), "rule__VAReference__VerificationAssignment_1");
 					put(grammarAccess.getVAReferenceAccess().getWeightAssignment_2_1(), "rule__VAReference__WeightAssignment_2_1");
-					put(grammarAccess.getSelectionCategoryReferenceAccess().getCatAssignment(), "rule__SelectionCategoryReference__CatAssignment");
 					put(grammarAccess.getVerificationMethodRegistryAccess().getNameAssignment_1(), "rule__VerificationMethodRegistry__NameAssignment_1");
 					put(grammarAccess.getVerificationMethodRegistryAccess().getTitleAssignment_2_1(), "rule__VerificationMethodRegistry__TitleAssignment_2_1");
 					put(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionAssignment_4_0_1(), "rule__VerificationMethodRegistry__DescriptionAssignment_4_0_1");

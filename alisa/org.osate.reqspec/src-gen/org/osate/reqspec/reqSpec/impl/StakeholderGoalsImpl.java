@@ -43,7 +43,7 @@ import org.osate.reqspec.reqSpec.StakeholderGoals;
  *
  * @generated
  */
-public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements StakeholderGoals
+public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoals
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

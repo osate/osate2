@@ -32,40 +32,13 @@ public interface AlisaFactory extends EFactory
   AlisaWorkArea createAlisaWorkArea();
 
   /**
-   * Returns a new object of class '<em>Assurance Case Plan</em>'.
+   * Returns a new object of class '<em>Assurance Case Configuration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Assurance Case Plan</em>'.
+   * @return a new object of class '<em>Assurance Case Configuration</em>'.
    * @generated
    */
-  AssuranceCasePlan createAssuranceCasePlan();
-
-  /**
-   * Returns a new object of class '<em>Selection Condition Expr</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Selection Condition Expr</em>'.
-   * @generated
-   */
-  SelectionConditionExpr createSelectionConditionExpr();
-
-  /**
-   * Returns a new object of class '<em>Selection Category Reference</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Selection Category Reference</em>'.
-   * @generated
-   */
-  SelectionCategoryReference createSelectionCategoryReference();
-
-  /**
-   * Returns a new object of class '<em>And Selection Condition Expr</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>And Selection Condition Expr</em>'.
-   * @generated
-   */
-  AndSelectionConditionExpr createAndSelectionConditionExpr();
+  AssuranceCaseConfiguration createAssuranceCaseConfiguration();
 
   /**
    * Returns the package supported by this factory.

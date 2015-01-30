@@ -43,7 +43,7 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
  *
  * @generated
  */
-public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
+public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

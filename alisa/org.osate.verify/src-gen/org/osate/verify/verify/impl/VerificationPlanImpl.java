@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentClassifier;
@@ -42,6 +43,7 @@ import org.osate.verify.verify.WeightedClaim;
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getWeightedClaim <em>Weighted Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getPlanAssumption <em>Plan Assumption</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,6 +140,16 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected MultiLineString rationale;
+
+  /**
+   * The cached value of the '{@link #getPlanAssumption() <em>Plan Assumption</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPlanAssumption()
+   * @generated
+   * @ordered
+   */
+  protected EList<VerificationPlan> planAssumption;
 
   /**
    * <!-- begin-user-doc -->
@@ -378,6 +390,20 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<VerificationPlan> getPlanAssumption()
+  {
+    if (planAssumption == null)
+    {
+      planAssumption = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION);
+    }
+    return planAssumption;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -420,6 +446,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return getWeightedClaim();
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         return getRationale();
+      case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
+        return getPlanAssumption();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -458,6 +486,10 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         setRationale((MultiLineString)newValue);
         return;
+      case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
+        getPlanAssumption().clear();
+        getPlanAssumption().addAll((Collection<? extends VerificationPlan>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -493,6 +525,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         setRationale((MultiLineString)null);
         return;
+      case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
+        getPlanAssumption().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -521,6 +556,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return weightedClaim != null && !weightedClaim.isEmpty();
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         return rationale != null;
+      case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
+        return planAssumption != null && !planAssumption.isEmpty();
     }
     return super.eIsSet(featureID);
   }

@@ -20,30 +20,27 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public class ReqSpecElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReqSpec");
-		private final Assignment cContentsAssignment = (Assignment)rule.eContents().get(1);
-		private final Alternatives cContentsAlternatives_0 = (Alternatives)cContentsAssignment.eContents().get(0);
-		private final RuleCall cContentsReqSpecsParserRuleCall_0_0 = (RuleCall)cContentsAlternatives_0.eContents().get(0);
-		private final RuleCall cContentsStakeholderGoalsParserRuleCall_0_1 = (RuleCall)cContentsAlternatives_0.eContents().get(1);
-		private final RuleCall cContentsReqDocumentParserRuleCall_0_2 = (RuleCall)cContentsAlternatives_0.eContents().get(2);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cReqSpecsParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cStakeholderGoalsParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cReqDocumentParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
+		////ReqSpec: contents +=(ReqSpecs|StakeholderGoals|ReqDocument)  ;
 		//ReqSpec:
-		//	contents+=(ReqSpecs | StakeholderGoals | ReqDocument);
+		//	ReqSpecs | StakeholderGoals | ReqDocument;
 		public ParserRule getRule() { return rule; }
 
-		//contents+=(ReqSpecs | StakeholderGoals | ReqDocument)
-		public Assignment getContentsAssignment() { return cContentsAssignment; }
-
 		//ReqSpecs | StakeholderGoals | ReqDocument
-		public Alternatives getContentsAlternatives_0() { return cContentsAlternatives_0; }
+		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ReqSpecs
-		public RuleCall getContentsReqSpecsParserRuleCall_0_0() { return cContentsReqSpecsParserRuleCall_0_0; }
+		public RuleCall getReqSpecsParserRuleCall_0() { return cReqSpecsParserRuleCall_0; }
 
 		//StakeholderGoals
-		public RuleCall getContentsStakeholderGoalsParserRuleCall_0_1() { return cContentsStakeholderGoalsParserRuleCall_0_1; }
+		public RuleCall getStakeholderGoalsParserRuleCall_1() { return cStakeholderGoalsParserRuleCall_1; }
 
 		//ReqDocument
-		public RuleCall getContentsReqDocumentParserRuleCall_0_2() { return cContentsReqDocumentParserRuleCall_0_2; }
+		public RuleCall getReqDocumentParserRuleCall_2() { return cReqDocumentParserRuleCall_2; }
 	}
 
 	public class ReqSpecContainerElements extends AbstractParserRuleElementFinder {
@@ -1666,8 +1663,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
+	////ReqSpec: contents +=(ReqSpecs|StakeholderGoals|ReqDocument)  ;
 	//ReqSpec:
-	//	contents+=(ReqSpecs | StakeholderGoals | ReqDocument);
+	//	ReqSpecs | StakeholderGoals | ReqDocument;
 	public ReqSpecElements getReqSpecAccess() {
 		return pReqSpec;
 	}

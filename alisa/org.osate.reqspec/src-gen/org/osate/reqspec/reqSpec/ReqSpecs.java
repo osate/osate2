@@ -31,7 +31,7 @@ import org.osate.alisa.common.common.FinalValue;
  * @model
  * @generated
  */
-public interface ReqSpecs extends ReqSpecContainer, ReqRoot
+public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

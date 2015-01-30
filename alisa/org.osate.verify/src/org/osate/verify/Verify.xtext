@@ -19,6 +19,7 @@ VerificationPlan:
 	& claim+=Claim*
 	& (weightedClaim+=WeightedClaim+)?
 	& ('rationale' rationale=MultiLineString)?
+	& ('plan' 'assumption' planAssumption+=[VerificationPlan|QualifiedName]+)?
 	)
 	']';
 
@@ -96,15 +97,15 @@ AtomicEvidenceExpr returns ArgumentExpr:
 	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr;
 
 ConditionalEvidence returns ArgumentExpr:
-	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=SelectionCategoryReference+)?;
+	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|CatRef]+)?;
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]
 	('(' weight=INT ')')?;
 
 
-SelectionCategoryReference:
-	cat=[categories::VerificationCategory|CatRef];
+//SelectionCategoryReference:
+//	cat=[categories::VerificationCategory|CatRef];
 
 	// need to distinguish between method with/out predicate
 // method producing multiple results
