@@ -250,14 +250,6 @@
 				<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel.ui</module>
 				<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel</module>
 
-				<module>../../ErrorModelV1/edu.cmu.sei.aadl.errorannex</module>
-				<module>../../ErrorModelV1/edu.cmu.sei.aadl.errorannex.edit</module>
-				<module>../../ErrorModelV1/edu.cmu.sei.aadl.errorannex.feature</module>
-				<module>../../ErrorModelV1/edu.cmu.sei.aadl.errorannex.parser</module>
-				<module>../../ErrorModelV1/edu.laas.aadl.aadl2gspn</module>
-				<module>../../ErrorModelV1/edu.laas.aadl.dependency</module>
-				<module>../../ErrorModelV1/edu.laas.aadl.gspn.model</module>
-
 				<module>../../osate2-ba/org.osate.ba</module>
 				<module>../../osate2-ba/org.osate.ba.feature</module>
 				<module>../../osate2-ba/org.osate.ba.edit</module>

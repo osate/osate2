@@ -34,6 +34,7 @@
  */
 package org.osate.xtext.aadl2.ui;
 
+import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
@@ -41,6 +42,7 @@ import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.shared.Access;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
+import org.osate.xtext.aadl2.ui.contentassist.AnnexAwareContentAssistProcessor;
 import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
 import org.osate.xtext.aadl2.ui.refactoring.impl.Aadl2RenameStrategy;
@@ -106,4 +108,10 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	public Class<? extends Aadl2ProjectsStateHelper> bindWorkspaceProjectsStateHelper() {
 		return Aadl2ProjectsStateHelper.class;
 	}
+
+	@Override
+	public Class<? extends IContentAssistProcessor> bindIContentAssistProcessor() {
+		return AnnexAwareContentAssistProcessor.class;
+	}
+
 }
