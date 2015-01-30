@@ -34,9 +34,90 @@
  */
 package org.osate.xtext.aadl2.properties.ui.contentassist;
 
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.Assignment
+import org.eclipse.xtext.CrossReference
+import org.eclipse.xtext.resource.IEObjectDescription
+import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+import org.osate.aadl2.BasicPropertyAssociation
+import org.osate.aadl2.EnumerationLiteral
+import org.osate.aadl2.ModalPropertyValue
+import org.osate.aadl2.Mode
+import org.osate.aadl2.Property
+import org.osate.aadl2.PropertyAssociation
+import org.osate.aadl2.PropertyConstant
+import org.osate.aadl2.RecordValue
+
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
 class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
+	
+	override completeLiteralorReferenceTerm_NamedValue(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
+			showCrossReference(model)
+		])
+		
+	}
+	
+	override completeConstantValue_NamedValue(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
+			showCrossReference(model)
+		])
+	}
 
+	override completeFieldPropertyAssociation_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [
+			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
+			switch model {
+				RecordValue: ! model.ownedFieldValues.exists[property == proposedObj]
+				default: false
+			}
+		])
+	}
+
+	override completeOptionalModalPropertyValue_InMode(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [
+			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
+			val propertyAssoc = model.eContainer as PropertyAssociation
+			! propertyAssoc.ownedValues.map[inModes].flatten.exists[it == proposedObj]
+		])
+	}
+	
+	def private showCrossReference(IEObjectDescription objDesc, EObject model){
+		val expectedPropertyType = 
+			switch model {
+				PropertyAssociation: model.property.propertyType
+				BasicPropertyAssociation: model.property.propertyType
+				Property: model.propertyType
+				PropertyConstant: model.propertyType
+			}
+		
+		switch proposedObj:  EcoreUtil.resolve(objDesc.EObjectOrProxy, model){
+		 	EnumerationLiteral: true
+		 	PropertyConstant: {
+		 		expectedPropertyType == proposedObj.propertyType &&
+		 		(	
+		 			switch model {
+						PropertyConstant: model != proposedObj
+						default: true
+					}
+				)		 		
+		 	}
+		 	Property: {
+		 		expectedPropertyType == proposedObj.propertyType &&
+		 		(	
+		 			switch model {
+						PropertyAssociation: model.property != proposedObj
+						Property: model != proposedObj
+						default: true
+					}
+				)
+			}
+			default: {false}
+		 }
+	}
+	
 }
