@@ -57,6 +57,7 @@ import org.eclipse.jface.action.IAction
 import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.text.ITextSelection
+import org.eclipse.jface.viewers.ColumnLabelProvider
 import org.eclipse.jface.viewers.ColumnPixelData
 import org.eclipse.jface.viewers.ColumnWeightData
 import org.eclipse.jface.viewers.IPostSelectionProvider
@@ -66,14 +67,19 @@ import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
+import org.eclipse.jface.viewers.Viewer
 import org.eclipse.swt.SWT
 import org.eclipse.swt.graphics.GC
+import org.eclipse.swt.layout.GridData
+import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.IPartListener
 import org.eclipse.ui.ISelectionListener
 import org.eclipse.ui.IWorkbenchActionConstants
 import org.eclipse.ui.IWorkbenchPart
+import org.eclipse.ui.dialogs.FilteredTree
+import org.eclipse.ui.dialogs.PatternFilter
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
@@ -116,15 +122,6 @@ import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
-import org.eclipse.ui.dialogs.FilteredTree
-import org.eclipse.ui.dialogs.PatternFilter
-import org.eclipse.jface.viewers.Viewer
-import org.eclipse.jface.viewers.ColumnLabelProvider
-import java.awt.FlowLayout
-import org.eclipse.swt.widgets.Control
-import org.eclipse.swt.layout.RowLayout
-import org.eclipse.swt.layout.GridLayout
-import org.eclipse.swt.layout.GridData
 
 /**
  * View that displays the AADL property value associations within a given AADL
