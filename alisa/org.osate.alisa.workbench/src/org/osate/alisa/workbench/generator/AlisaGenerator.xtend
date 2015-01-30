@@ -88,6 +88,7 @@ class AlisaGenerator implements IGenerator {
 				case «acp.name» for «ci.componentClassifier.getQualifiedName»
 				instance "«ci.URI.toString»"
 				[
+					tbdcount 1
 					«FOR myplan : myplans»
 						«FOR claim : myplan.claim»
 							«claim.generate(ci)»
@@ -122,6 +123,7 @@ class AlisaGenerator implements IGenerator {
 				instance "«claim.requirement.getRequirementTarget(ci)»"
 			«ENDIF»
 			[
+				tbdcount 1
 			    «FOR subclaim : claim?.subclaim»
 				«subclaim.generate(ci)»
 				«ENDFOR»
@@ -193,6 +195,7 @@ class AlisaGenerator implements IGenerator {
 			do
 				«expr.right.generate»
 			[
+				tbdcount 1
 			]
 		'''
 	}
@@ -211,6 +214,7 @@ class AlisaGenerator implements IGenerator {
 			do
 				«expr.right.generate»
 			[
+				tbdcount 1
 			]
 		'''
 	}
@@ -246,6 +250,7 @@ class AlisaGenerator implements IGenerator {
 			[
 				executionstate todo
 				resultstate tbd
+				tbdcount 1
 				«FOR vacond : expr.verification?.method?.conditions»
 					«vacond.generate»
 				«ENDFOR»
@@ -270,6 +275,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
 			[
+				tbdcount 1
 				«vc.assert.generate»
 			]
 		'''
