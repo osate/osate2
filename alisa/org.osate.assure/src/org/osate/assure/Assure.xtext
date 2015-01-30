@@ -23,7 +23,7 @@ CaseResult:
 	('errorcount' errorCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
-	('tbd' tbdCount=INT)?
+	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
 	(subCaseResult += CaseResult)*
@@ -41,7 +41,7 @@ ClaimResult:
 	('errorcount' errorCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
-	('tbd' tbdCount=INT)?
+	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	('successMsg' sucessMsg= STRING)?
 	(subClaimResult += ClaimResult)*
@@ -59,7 +59,7 @@ AssumptionResult:
 	('errorcount' errorCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
-	('tbd' tbdCount=INT)?
+	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
 	(verificationActivityResult+= VerificationExpr)*
@@ -75,7 +75,7 @@ PreconditionResult:
 	('errorcount' errorCount=INT)?
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
-	('tbd' tbdCount=INT)?
+	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
 	(verificationActivityResult+= VerificationExpr)*
@@ -100,7 +100,7 @@ VerificationActivityResult:
 	('errorcount' errorCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
-	('tbd' tbdCount=INT)?
+	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	('message' sucessMsg= STRING)?
 	(assumptionResult+= AssumptionResult)*
@@ -124,7 +124,7 @@ FailThenResult returns FailThenResult:
 	('errorcount' errorCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
-	('tbd' tbdCount=INT)?
+	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	']'
 ;
@@ -137,7 +137,7 @@ AndThenResult returns AndThenResult:
 	('errorcount' errorCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
-	('tbd' tbdCount=INT)?
+	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	']'
 ;

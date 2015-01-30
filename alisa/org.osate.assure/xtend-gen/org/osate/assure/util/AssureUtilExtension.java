@@ -260,6 +260,17 @@ public class AssureUtilExtension {
       } else {
         if ((!(target instanceof FailExpr))) {
           issue.setTarget(target);
+        } else {
+          if ((target instanceof FailExpr)) {
+            int _length = message.length();
+            boolean _greaterThan = (_length > 14);
+            if (_greaterThan) {
+              String _substring = message.substring(15);
+              issue.setMessage(_substring);
+              String _message = issue.getMessage();
+              issue.setName(_message);
+            }
+          }
         }
       }
       EList<ResultIssue> _issues = vr.getIssues();
@@ -286,6 +297,17 @@ public class AssureUtilExtension {
       } else {
         if ((!(target instanceof FailExpr))) {
           issue.setTarget(target);
+        } else {
+          if ((target instanceof FailExpr)) {
+            int _length = message.length();
+            boolean _greaterThan = (_length > 14);
+            if (_greaterThan) {
+              String _substring = message.substring(15);
+              issue.setMessage(_substring);
+              String _message = issue.getMessage();
+              issue.setName(_message);
+            }
+          }
         }
       }
       EList<ResultIssue> _issues = ri.getIssues();

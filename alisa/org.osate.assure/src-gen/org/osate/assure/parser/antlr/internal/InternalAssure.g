@@ -252,9 +252,9 @@ ruleCaseResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_17='tbd' 
+))?(	otherlv_17='tbdcount' 
     {
-    	newLeafNode(otherlv_17, grammarAccess.getCaseResultAccess().getTbdKeyword_12_0());
+    	newLeafNode(otherlv_17, grammarAccess.getCaseResultAccess().getTbdcountKeyword_12_0());
     }
 (
 (
@@ -553,9 +553,9 @@ ruleClaimResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_17='tbd' 
+))?(	otherlv_17='tbdcount' 
     {
-    	newLeafNode(otherlv_17, grammarAccess.getClaimResultAccess().getTbdKeyword_11_0());
+    	newLeafNode(otherlv_17, grammarAccess.getClaimResultAccess().getTbdcountKeyword_11_0());
     }
 (
 (
@@ -835,9 +835,9 @@ ruleAssumptionResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_15='tbd' 
+))?(	otherlv_15='tbdcount' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getAssumptionResultAccess().getTbdKeyword_10_0());
+    	newLeafNode(otherlv_15, grammarAccess.getAssumptionResultAccess().getTbdcountKeyword_10_0());
     }
 (
 (
@@ -1099,9 +1099,9 @@ rulePreconditionResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_15='tbd' 
+))?(	otherlv_15='tbdcount' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getPreconditionResultAccess().getTbdKeyword_10_0());
+    	newLeafNode(otherlv_15, grammarAccess.getPreconditionResultAccess().getTbdcountKeyword_10_0());
     }
 (
 (
@@ -1456,9 +1456,9 @@ ruleVerificationActivityResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_25='tbd' 
+))?(	otherlv_25='tbdcount' 
     {
-    	newLeafNode(otherlv_25, grammarAccess.getVerificationActivityResultAccess().getTbdKeyword_15_0());
+    	newLeafNode(otherlv_25, grammarAccess.getVerificationActivityResultAccess().getTbdcountKeyword_15_0());
     }
 (
 (
@@ -1808,9 +1808,9 @@ ruleFailThenResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_16='tbd' 
+))?(	otherlv_16='tbdcount' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getFailThenResultAccess().getTbdKeyword_11_0());
+    	newLeafNode(otherlv_16, grammarAccess.getFailThenResultAccess().getTbdcountKeyword_11_0());
     }
 (
 (
@@ -2050,9 +2050,9 @@ ruleAndThenResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_16='tbd' 
+))?(	otherlv_16='tbdcount' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getAndThenResultAccess().getTbdKeyword_11_0());
+    	newLeafNode(otherlv_16, grammarAccess.getAndThenResultAccess().getTbdcountKeyword_11_0());
     }
 (
 (
