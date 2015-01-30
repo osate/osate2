@@ -38,17 +38,20 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.CrossReference
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.osate.aadl2.BasicPropertyAssociation
+import org.osate.aadl2.ClassifierType
+import org.osate.aadl2.ClassifierValue
 import org.osate.aadl2.EnumerationLiteral
-import org.osate.aadl2.ModalPropertyValue
-import org.osate.aadl2.Mode
+import org.osate.aadl2.MetaclassReference
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.RecordValue
+import org.osate.aadl2.modelsupport.util.AadlUtil
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -119,5 +122,26 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 			default: {false}
 		 }
 	}
+	
+	override completeComponentClassifierTerm_Classifier(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		val propertyType = AadlUtil.getBasePropertyType((model as ClassifierValue).propertyType)
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [
+			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
+			switch propertyType {
+				 ClassifierType case propertyType.classifierReferences.nullOrEmpty : true
+				 ClassifierType : propertyType.classifierReferences.exists([it.metaclass.isSuperTypeOf(proposedObj.eClass)])
+				 default : false
+			}
+		])
+	}
+
+		
+	def private getPropertyType(ClassifierValue model){
+		EcoreUtil2.getContainerOfType(model, BasicPropertyAssociation)?.property?.propertyType ?:
+			EcoreUtil2.getContainerOfType(model, PropertyAssociation)?.property?.propertyType ?:
+			EcoreUtil2.getContainerOfType(model, Property)?.propertyType ?:
+			EcoreUtil2.getContainerOfType(model, PropertyConstant).propertyType
+	}
+	
 	
 }
