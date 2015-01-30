@@ -35,7 +35,7 @@
 package org.osate.xtext.aadl2.ui.propertyview
 
 import org.eclipse.emf.common.util.URI
-import org.eclipse.jface.viewers.ILazyTreeContentProvider
+import org.eclipse.jface.viewers.ITreeContentProvider
 import org.eclipse.jface.viewers.Viewer
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ListValue
@@ -52,9 +52,8 @@ import org.osate.aadl2.RecordValue
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
-import org.eclipse.jface.viewers.ITreeContentProvider
 
-package class PropertyViewContentProvider implements ITreeContentProvider /* ILazyTreeContentProvider */ {
+package class PropertyViewContentProvider implements ITreeContentProvider {
 	val AadlPropertyView propertyView
 	
 	package new(AadlPropertyView propertyView) {
