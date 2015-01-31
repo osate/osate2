@@ -181,6 +181,7 @@ class AssureUtilExtension {
 		} else if (target instanceof FailExpr){
 			if (message.length >14) {
 				ri.message = message.substring(15)
+				return ri
 				}
 		}
 		ri.issues.add(issue)

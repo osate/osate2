@@ -303,6 +303,7 @@ public class AssureUtilExtension {
             if (_greaterThan) {
               String _substring = message.substring(15);
               ri.setMessage(_substring);
+              return ri;
             }
           }
         }
