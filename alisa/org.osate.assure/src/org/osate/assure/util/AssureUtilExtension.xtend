@@ -158,6 +158,7 @@ class AssureUtilExtension {
 		} else if (target instanceof FailExpr){
 			if (message.length >14) {
 				issue.message = message.substring(15)
+				issue.name = "Failstatement"
 				}
 		}
 		vr.issues.add(issue)
@@ -179,7 +180,7 @@ class AssureUtilExtension {
 			issue.target = target
 		} else if (target instanceof FailExpr){
 			if (message.length >14) {
-				issue.message = message.substring(15)
+				ri.message = message.substring(15)
 				}
 		}
 		ri.issues.add(issue)

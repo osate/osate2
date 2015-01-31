@@ -267,6 +267,7 @@ public class AssureUtilExtension {
             if (_greaterThan) {
               String _substring = message.substring(15);
               issue.setMessage(_substring);
+              issue.setName("Failstatement");
             }
           }
         }
@@ -301,7 +302,7 @@ public class AssureUtilExtension {
             boolean _greaterThan = (_length > 14);
             if (_greaterThan) {
               String _substring = message.substring(15);
-              issue.setMessage(_substring);
+              ri.setMessage(_substring);
             }
           }
         }
