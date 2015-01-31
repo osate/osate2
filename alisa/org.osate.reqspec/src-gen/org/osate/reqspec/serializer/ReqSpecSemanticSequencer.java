@@ -24,6 +24,7 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.GoalFolder;
 import org.osate.reqspec.reqSpec.ReqDocument;
+import org.osate.reqspec.reqSpec.ReqLib;
 import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
@@ -124,6 +125,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case ReqSpecPackage.REQ_LIB:
+				if(context == grammarAccess.getReqLibRule()) {
+					sequence_ReqLib(context, (ReqLib) semanticObject); 
+					return; 
+				}
+				else break;
 			case ReqSpecPackage.REQ_SPEC_FOLDER:
 				if(context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getReqSpecFolderRule()) {
@@ -219,6 +226,21 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         title=ValueString? 
+	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
+	 *         constants+=FinalValue* 
+	 *         (content+=Requirement | content+=ReqSpecFolder)*
+	 *     )
+	 */
+	protected void sequence_ReqLib(EObject context, ReqLib semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (label=ID title=ValueString? (content+=Goal | content+=Requirement | content+=ReqSpecFolder)*)
 	 */
 	protected void sequence_ReqSpecFolder(EObject context, ReqSpecFolder semanticObject) {
@@ -232,6 +254,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=ValueString? 
 	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
+	 *         libraries+=[ReqLib|QualifiedName]* 
 	 *         constants+=FinalValue* 
 	 *         (content+=Requirement | content+=ReqSpecFolder)*
 	 *     )

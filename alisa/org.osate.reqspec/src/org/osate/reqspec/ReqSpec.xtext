@@ -35,15 +35,24 @@ DocumentSection returns DocumentSection:
 	;
 
 ReqSpecs returns ReqSpecs:
-	'requirements' 'specification' name =ID (':' title=ValueString)?
+	'requirement' 'specification' name =ID (':' title=ValueString)?
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
 	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
+	('include' libraries += [ReqLib|QualifiedName]+)?
 	'[' 
 	('constants' constants+=FinalValue+)?
 	(content+= (Requirement |  ReqSpecFolder))*
 	']'
 	;
 QualifiedNameWithWildCard : QualifiedName ('.*')?;	
+ReqLib returns ReqLib:
+	'requirement' 'library' name =ID (':' title=ValueString)?
+	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
+	'[' 
+	('constants' constants+=FinalValue+)?
+	(content+= (Requirement |  ReqSpecFolder))*
+	']'
+	;
 
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:

@@ -16,12 +16,14 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.Classifier;
 
 import org.osate.alisa.common.common.FinalValue;
 
+import org.osate.reqspec.reqSpec.ReqLib;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 
@@ -36,6 +38,7 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTargetDescription <em>Target Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getLibraries <em>Libraries</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getContent <em>Content</em>}</li>
  * </ul>
@@ -114,6 +117,16 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * @ordered
    */
   protected String targetDescription = TARGET_DESCRIPTION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getLibraries() <em>Libraries</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLibraries()
+   * @generated
+   * @ordered
+   */
+  protected EList<ReqLib> libraries;
 
   /**
    * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
@@ -273,6 +286,20 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ReqLib> getLibraries()
+  {
+    if (libraries == null)
+    {
+      libraries = new EObjectResolvingEList<ReqLib>(ReqLib.class, this, ReqSpecPackage.REQ_SPECS__LIBRARIES);
+    }
+    return libraries;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<FinalValue> getConstants()
   {
     if (constants == null)
@@ -333,6 +360,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return basicGetTarget();
       case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
         return getTargetDescription();
+      case ReqSpecPackage.REQ_SPECS__LIBRARIES:
+        return getLibraries();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return getConstants();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
@@ -363,6 +392,10 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return;
       case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
         setTargetDescription((String)newValue);
+        return;
+      case ReqSpecPackage.REQ_SPECS__LIBRARIES:
+        getLibraries().clear();
+        getLibraries().addAll((Collection<? extends ReqLib>)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
@@ -398,6 +431,9 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
         setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
         return;
+      case ReqSpecPackage.REQ_SPECS__LIBRARIES:
+        getLibraries().clear();
+        return;
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
         return;
@@ -426,6 +462,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return target != null;
       case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
         return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
+      case ReqSpecPackage.REQ_SPECS__LIBRARIES:
+        return libraries != null && !libraries.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return constants != null && !constants.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONTENT:

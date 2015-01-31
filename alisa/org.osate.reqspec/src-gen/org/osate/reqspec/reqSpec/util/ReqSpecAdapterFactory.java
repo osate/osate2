@@ -115,6 +115,11 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createReqSpecsAdapter();
       }
       @Override
+      public Adapter caseReqLib(ReqLib object)
+      {
+        return createReqLibAdapter();
+      }
+      @Override
       public Adapter caseReqSpecFolder(ReqSpecFolder object)
       {
         return createReqSpecFolderAdapter();
@@ -277,6 +282,21 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createReqSpecsAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ReqLib <em>Req Lib</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.ReqLib
+   * @generated
+   */
+  public Adapter createReqLibAdapter()
   {
     return null;
   }
