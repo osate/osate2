@@ -479,6 +479,8 @@ finally {
 
 
 
+
+
 // Entry rule entryRuleVerificationMethodRegistry
 entryRuleVerificationMethodRegistry 
 :
@@ -951,6 +953,7 @@ rule__AtomicEvidenceExpr__Alternatives
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 rule__DescriptionElement__Alternatives
     @init {
@@ -8308,12 +8311,12 @@ rule__VAReference__VerificationAssignment_1
     }
 :
 (
-{ before(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityCrossReference_1_0()); }
+{ before(grammarAccess.getVAReferenceAccess().getVerificationVerificationActionCrossReference_1_0()); }
 (
-{ before(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1()); }
+{ before(grammarAccess.getVAReferenceAccess().getVerificationVerificationActionQualifiedNameParserRuleCall_1_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getVAReferenceAccess().getVerificationVerificationActionQualifiedNameParserRuleCall_1_0_1()); }
 )
-{ after(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityCrossReference_1_0()); }
+{ after(grammarAccess.getVAReferenceAccess().getVerificationVerificationActionCrossReference_1_0()); }
 )
 
 ;

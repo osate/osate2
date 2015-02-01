@@ -157,7 +157,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case VerifyPackage.VERIFICATION_ACTIVITY:
-				if(context == grammarAccess.getVerificationActivityRule()) {
+				if(context == grammarAccess.getVerificationActionRule() ||
+				   context == grammarAccess.getVerificationActivityRule()) {
 					sequence_VerificationActivity(context, (VerificationActivity) semanticObject); 
 					return; 
 				}
@@ -183,7 +184,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case VerifyPackage.VERIFICATION_METHOD:
-				if(context == grammarAccess.getVerificationMethodRule()) {
+				if(context == grammarAccess.getVerificationActionRule() ||
+				   context == grammarAccess.getVerificationMethodRule()) {
 					sequence_VerificationMethod(context, (VerificationMethod) semanticObject); 
 					return; 
 				}
@@ -301,7 +303,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verification=[VerificationActivity|QualifiedName] weight=INT?)
+	 *     (verification=[VerificationAction|QualifiedName] weight=INT?)
 	 */
 	protected void sequence_VAReference(EObject context, RefExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

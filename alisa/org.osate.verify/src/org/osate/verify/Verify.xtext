@@ -100,9 +100,10 @@ ConditionalEvidence returns ArgumentExpr:
 	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|CatRef]+)?;
 
 VAReference returns ArgumentExpr:
-	{RefExpr} verification=[VerificationActivity|QualifiedName]
+	{RefExpr} verification=[VerificationAction|QualifiedName]
 	('(' weight=INT ')')?;
 
+VerificationAction : VerificationActivity | VerificationMethod;
 
 //SelectionCategoryReference:
 //	cat=[categories::VerificationCategory|CatRef];

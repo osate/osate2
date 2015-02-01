@@ -1078,8 +1078,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cRefExprAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cVerificationAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cVerificationVerificationActivityCrossReference_1_0 = (CrossReference)cVerificationAssignment_1.eContents().get(0);
-		private final RuleCall cVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cVerificationVerificationActivityCrossReference_1_0.eContents().get(1);
+		private final CrossReference cVerificationVerificationActionCrossReference_1_0 = (CrossReference)cVerificationAssignment_1.eContents().get(0);
+		private final RuleCall cVerificationVerificationActionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cVerificationVerificationActionCrossReference_1_0.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cWeightAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
@@ -1087,23 +1087,23 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		
 		//VAReference returns ArgumentExpr:
-		//	{RefExpr} verification=[VerificationActivity|QualifiedName] ("(" weight=INT ")")?;
+		//	{RefExpr} verification=[VerificationAction|QualifiedName] ("(" weight=INT ")")?;
 		public ParserRule getRule() { return rule; }
 
-		//{RefExpr} verification=[VerificationActivity|QualifiedName] ("(" weight=INT ")")?
+		//{RefExpr} verification=[VerificationAction|QualifiedName] ("(" weight=INT ")")?
 		public Group getGroup() { return cGroup; }
 
 		//{RefExpr}
 		public Action getRefExprAction_0() { return cRefExprAction_0; }
 
-		//verification=[VerificationActivity|QualifiedName]
+		//verification=[VerificationAction|QualifiedName]
 		public Assignment getVerificationAssignment_1() { return cVerificationAssignment_1; }
 
-		//[VerificationActivity|QualifiedName]
-		public CrossReference getVerificationVerificationActivityCrossReference_1_0() { return cVerificationVerificationActivityCrossReference_1_0; }
+		//[VerificationAction|QualifiedName]
+		public CrossReference getVerificationVerificationActionCrossReference_1_0() { return cVerificationVerificationActionCrossReference_1_0; }
 
 		//QualifiedName
-		public RuleCall getVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1() { return cVerificationVerificationActivityQualifiedNameParserRuleCall_1_0_1; }
+		public RuleCall getVerificationVerificationActionQualifiedNameParserRuleCall_1_0_1() { return cVerificationVerificationActionQualifiedNameParserRuleCall_1_0_1; }
 
 		//("(" weight=INT ")")?
 		public Group getGroup_2() { return cGroup_2; }
@@ -1119,6 +1119,26 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//")"
 		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
+	}
+
+	public class VerificationActionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationAction");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cVerificationActivityParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cVerificationMethodParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		
+		//VerificationAction:
+		//	VerificationActivity | VerificationMethod;
+		public ParserRule getRule() { return rule; }
+
+		//VerificationActivity | VerificationMethod
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//VerificationActivity
+		public RuleCall getVerificationActivityParserRuleCall_0() { return cVerificationActivityParserRuleCall_0; }
+
+		//VerificationMethod
+		public RuleCall getVerificationMethodParserRuleCall_1() { return cVerificationMethodParserRuleCall_1; }
 	}
 
 	public class VerificationMethodRegistryElements extends AbstractParserRuleElementFinder {
@@ -1457,6 +1477,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final AtomicEvidenceExprElements pAtomicEvidenceExpr;
 	private final ConditionalEvidenceElements pConditionalEvidence;
 	private final VAReferenceElements pVAReference;
+	private final VerificationActionElements pVerificationAction;
 	private final VerificationMethodRegistryElements pVerificationMethodRegistry;
 	private final VerificationMethodElements pVerificationMethod;
 	private final SupportedTypesElements unknownRuleSupportedTypes;
@@ -1486,6 +1507,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAtomicEvidenceExpr = new AtomicEvidenceExprElements();
 		this.pConditionalEvidence = new ConditionalEvidenceElements();
 		this.pVAReference = new VAReferenceElements();
+		this.pVerificationAction = new VerificationActionElements();
 		this.pVerificationMethodRegistry = new VerificationMethodRegistryElements();
 		this.pVerificationMethod = new VerificationMethodElements();
 		this.unknownRuleSupportedTypes = new SupportedTypesElements();
@@ -1687,13 +1709,23 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VAReference returns ArgumentExpr:
-	//	{RefExpr} verification=[VerificationActivity|QualifiedName] ("(" weight=INT ")")?;
+	//	{RefExpr} verification=[VerificationAction|QualifiedName] ("(" weight=INT ")")?;
 	public VAReferenceElements getVAReferenceAccess() {
 		return pVAReference;
 	}
 	
 	public ParserRule getVAReferenceRule() {
 		return getVAReferenceAccess().getRule();
+	}
+
+	//VerificationAction:
+	//	VerificationActivity | VerificationMethod;
+	public VerificationActionElements getVerificationActionAccess() {
+		return pVerificationAction;
+	}
+	
+	public ParserRule getVerificationActionRule() {
+		return getVerificationActionAccess().getRule();
 	}
 
 	////SelectionCategoryReference:

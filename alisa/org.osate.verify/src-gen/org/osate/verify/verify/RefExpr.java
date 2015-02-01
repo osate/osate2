@@ -31,12 +31,12 @@ public interface RefExpr extends ArgumentExpr
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Verification</em>' reference.
-   * @see #setVerification(VerificationActivity)
+   * @see #setVerification(VerificationAction)
    * @see org.osate.verify.verify.VerifyPackage#getRefExpr_Verification()
    * @model
    * @generated
    */
-  VerificationActivity getVerification();
+  VerificationAction getVerification();
 
   /**
    * Sets the value of the '{@link org.osate.verify.verify.RefExpr#getVerification <em>Verification</em>}' reference.
@@ -46,7 +46,7 @@ public interface RefExpr extends ArgumentExpr
    * @see #getVerification()
    * @generated
    */
-  void setVerification(VerificationActivity value);
+  void setVerification(VerificationAction value);
 
   /**
    * Returns the value of the '<em><b>Weight</b></em>' attribute.

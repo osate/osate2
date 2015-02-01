@@ -1811,7 +1811,7 @@ ruleVAReference returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityCrossReference_1_0()); 
+	        newCompositeNode(grammarAccess.getVAReferenceAccess().getVerificationVerificationActionCrossReference_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1846,6 +1846,8 @@ ruleVAReference returns [EObject current=null]
     }
 )?)
 ;
+
+
 
 
 
