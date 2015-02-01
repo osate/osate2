@@ -46,7 +46,7 @@ ReqSpecs returns ReqSpecs:
 	;
 QualifiedNameWithWildCard : QualifiedName ('.*')?;	
 ReqLib returns ReqLib:
-	'requirement' 'library' name =ID (':' title=ValueString)?
+	'library' name =ID (':' title=ValueString)?
 	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
 	'[' 
 	('constants' constants+=FinalValue+)?
