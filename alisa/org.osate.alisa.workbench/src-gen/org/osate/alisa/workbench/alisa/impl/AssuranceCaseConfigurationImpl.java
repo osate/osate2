@@ -22,8 +22,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentImplementation;
 
+import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.Description;
-import org.osate.alisa.common.common.FinalValue;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration;
@@ -121,7 +121,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
    * @generated
    * @ordered
    */
-  protected EList<FinalValue> constant;
+  protected EList<ConstantDecl> constant;
 
   /**
    * The cached value of the '{@link #getPlans() <em>Plans</em>}' reference list.
@@ -306,11 +306,11 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<FinalValue> getConstant()
+  public EList<ConstantDecl> getConstant()
   {
     if (constant == null)
     {
-      constant = new EObjectContainmentEList<FinalValue>(FinalValue.class, this, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT);
+      constant = new EObjectContainmentEList<ConstantDecl>(ConstantDecl.class, this, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT);
     }
     return constant;
   }
@@ -415,7 +415,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
         return;
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT:
         getConstant().clear();
-        getConstant().addAll((Collection<? extends FinalValue>)newValue);
+        getConstant().addAll((Collection<? extends ConstantDecl>)newValue);
         return;
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
         getPlans().clear();

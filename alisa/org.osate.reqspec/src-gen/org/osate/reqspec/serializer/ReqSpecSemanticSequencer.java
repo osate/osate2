@@ -10,13 +10,17 @@ import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
-import org.osate.alisa.common.common.FinalValue;
+import org.osate.alisa.common.common.IntegerTerm;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.MultiLineString;
 import org.osate.alisa.common.common.PredicateExpression;
+import org.osate.alisa.common.common.RealTerm;
 import org.osate.alisa.common.common.ReferencePath;
+import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.StringTerm;
 import org.osate.alisa.common.common.TextElement;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.reqspec.reqSpec.DocumentSection;
@@ -40,6 +44,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.CONSTANT_DECL:
+				if(context == grammarAccess.getConstantDeclRule()) {
+					sequence_ConstantDecl(context, (ConstantDecl) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.DESCRIPTION:
 				if(context == grammarAccess.getDescriptionRule()) {
 					sequence_Description(context, (Description) semanticObject); 
@@ -52,9 +62,10 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case CommonPackage.FINAL_VALUE:
-				if(context == grammarAccess.getFinalValueRule()) {
-					sequence_FinalValue(context, (FinalValue) semanticObject); 
+			case CommonPackage.INTEGER_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getIntegerTermRule()) {
+					sequence_IntegerTerm(context, (IntegerTerm) semanticObject); 
 					return; 
 				}
 				else break;
@@ -76,9 +87,29 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case CommonPackage.REAL_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getRealTermRule()) {
+					sequence_RealTerm(context, (RealTerm) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.REFERENCE_PATH:
 				if(context == grammarAccess.getReferencePathRule()) {
 					sequence_ReferencePath(context, (ReferencePath) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.SHOW_VALUE:
+				if(context == grammarAccess.getShowValueRule()) {
+					sequence_ShowValue(context, (ShowValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.STRING_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getStringTermRule()) {
+					sequence_StringTerm(context, (StringTerm) semanticObject); 
 					return; 
 				}
 				else break;
@@ -201,13 +232,13 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=ValueString? 
 	 *         (target=[NamedElement|ID] | targetDescription=ValueString)? 
 	 *         category=[RequirementCategory|CatRef]? 
-	 *         description=MultiLineString? 
+	 *         description=Description? 
 	 *         rationale=ValueString? 
-	 *         (refinesReference+=[Goal|QualifiedName] refinesReference+=[Goal|QualifiedName]*)? 
-	 *         (conflictsReference+=[Goal|QualifiedName] conflictsReference+=[Goal|QualifiedName]*)? 
-	 *         (stakeholderReference+=[Stakeholder|QualifiedName] stakeholderReference+=[Stakeholder|QualifiedName]*)? 
-	 *         (documentRequirement+=[ContractualElement|QualifiedName] documentRequirement+=[ContractualElement|QualifiedName]*)? 
-	 *         (docReference+=ExternalDocument docReference+=ExternalDocument*)?
+	 *         refinesReference+=[Goal|QualifiedName]* 
+	 *         conflictsReference+=[Goal|QualifiedName]* 
+	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
+	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *         docReference+=ExternalDocument*
 	 *     )
 	 */
 	protected void sequence_Goal(EObject context, Goal semanticObject) {
@@ -230,7 +261,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=ValueString? 
 	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
-	 *         constants+=FinalValue* 
+	 *         constants+=ConstantDecl* 
 	 *         (content+=Requirement | content+=ReqSpecFolder)*
 	 *     )
 	 */
@@ -255,7 +286,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=ValueString? 
 	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
 	 *         libraries+=[ReqLib|QualifiedName]* 
-	 *         constants+=FinalValue* 
+	 *         constants+=ConstantDecl* 
 	 *         (content+=Requirement | content+=ReqSpecFolder)*
 	 *     )
 	 */
@@ -272,15 +303,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (target=[NamedElement|ID] | targetDescription=ValueString)? 
 	 *         category=[RequirementCategory|CatRef]? 
 	 *         description=Description? 
-	 *         constants+=FinalValue* 
+	 *         constants+=ConstantDecl* 
 	 *         assert=PredicateExpression? 
 	 *         rationale=STRING? 
-	 *         (goalReference+=[Goal|QualifiedName] goalReference+=[Goal|QualifiedName]*)? 
+	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         (exception=[EObject|ID] | exceptionText=ValueString)? 
-	 *         (refinedReference+=[Requirement|QualifiedName] refinesReference+=[Requirement|QualifiedName]*)? 
-	 *         (stakeholderRequirementReference+=[Goal|QualifiedName] stakeholderRequirementReference+=[Goal|QualifiedName]*)? 
-	 *         (documentRequirement+=[ContractualElement|QualifiedName] documentRequirement+=[ContractualElement|QualifiedName]*)? 
-	 *         (docReference+=ExternalDocument docReference+=ExternalDocument*)?
+	 *         refinedReference+=[Requirement|QualifiedName]* 
+	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
+	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
+	 *         docReference+=ExternalDocument*
 	 *     )
 	 */
 	protected void sequence_Requirement(EObject context, Requirement semanticObject) {

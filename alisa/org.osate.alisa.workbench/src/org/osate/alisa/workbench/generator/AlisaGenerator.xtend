@@ -32,6 +32,7 @@ import org.osate.verify.verify.WhenExpr
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.eclipse.emf.common.util.EList
 import org.osate.categories.categories.VerificationCategory
 
@@ -138,21 +139,6 @@ class AlisaGenerator implements IGenerator {
 			'''
 	}
 
-	//
-	//	def ClaimResult construct(Requirement req) {
-	//		val claimresult = factory.createClaimResult
-	//		claimresult.name = req.name
-	//		claimresult
-	//	}
-	//
-	//	def CharSequence generate(Requirement req) {
-	//		'''
-	//		claim «req.name» for «req.fullyQualifiedName»
-	//		[
-	//«««	assert is part of claim not req	    «claim.assert.generate»
-	//		]
-	//		'''
-	//	}
 	def void construct(List<VerificationExpr> arl, ArgumentExpr expr) {
 		switch expr {
 			AllExpr: arl.doConstruct(expr)
@@ -246,6 +232,7 @@ class AlisaGenerator implements IGenerator {
 		val conds = expr.verification?.method?.conditions
 		if (conds != null) {
 			for (vacond : conds) {
+				// XXX
 			}
 		}
 	}

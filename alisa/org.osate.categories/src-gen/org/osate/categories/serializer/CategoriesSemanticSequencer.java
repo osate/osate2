@@ -11,8 +11,6 @@ import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.categories.categories.CategoriesPackage;
-import org.osate.categories.categories.HazardCategories;
-import org.osate.categories.categories.HazardCategory;
 import org.osate.categories.categories.RequirementCategories;
 import org.osate.categories.categories.RequirementCategory;
 import org.osate.categories.categories.SelectionCategories;
@@ -29,20 +27,6 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CategoriesPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case CategoriesPackage.HAZARD_CATEGORIES:
-				if(context == grammarAccess.getCategoriesRule() ||
-				   context == grammarAccess.getHazardCategoriesRule()) {
-					sequence_HazardCategories(context, (HazardCategories) semanticObject); 
-					return; 
-				}
-				else break;
-			case CategoriesPackage.HAZARD_CATEGORY:
-				if(context == grammarAccess.getCategoryRule() ||
-				   context == grammarAccess.getHazardCategoryRule()) {
-					sequence_HazardCategory(context, (HazardCategory) semanticObject); 
-					return; 
-				}
-				else break;
 			case CategoriesPackage.REQUIREMENT_CATEGORIES:
 				if(context == grammarAccess.getCategoriesRule() ||
 				   context == grammarAccess.getRequirementCategoriesRule()) {
@@ -88,24 +72,6 @@ public class CategoriesSemanticSequencer extends AbstractDelegatingSemanticSeque
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
-	
-	/**
-	 * Constraint:
-	 *     category+=HazardCategory+
-	 */
-	protected void sequence_HazardCategories(EObject context, HazardCategories semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID extends=[HazardCategory|CatRef]?)
-	 */
-	protected void sequence_HazardCategory(EObject context, HazardCategory semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
 	
 	/**
 	 * Constraint:

@@ -40,7 +40,7 @@ ReqSpecs returns ReqSpecs:
 	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
 	('include' libraries += [ReqLib|QualifiedName]+)?
 	'[' 
-	('constants' constants+=FinalValue+)?
+	('constants' constants+=ConstantDecl+)?
 	(content+= (Requirement |  ReqSpecFolder))*
 	']'
 	;
@@ -49,7 +49,7 @@ ReqLib returns ReqLib:
 	'library' name =ID (':' title=ValueString)?
 	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
 	'[' 
-	('constants' constants+=FinalValue+)?
+	('constants' constants+=ConstantDecl+)?
 	(content+= (Requirement |  ReqSpecFolder))*
 	']'
 	;
@@ -77,13 +77,13 @@ Goal returns Goal:
 	)?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
-	 &('description'  description=MultiLineString)? 
+	 &('description'  description=Description)? 
 	 &('rationale'  rationale=ValueString)? 
-	 &('refines' refinesReference+=[Goal|QualifiedName](',' refinesReference+=[Goal|QualifiedName])*)? 
-	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName](',' conflictsReference+=[Goal|QualifiedName])*)? 
-	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName] (',' stakeholderReference+=[org::Stakeholder|QualifiedName])*)?
-	 &('see' 'documented''requirement'  documentRequirement+=[ContractualElement|QualifiedName] (',' documentRequirement+=[ContractualElement|QualifiedName])*)?
-	 &('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
+	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
+	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
+	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
+	 &('see' 'document''requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
+	 &('see' 'document'  docReference+=ExternalDocument+)? 
 	)
 	 ']';
 
@@ -99,15 +99,15 @@ Requirement:
 '['	(
  	('category'  category=[categories::RequirementCategory|CatRef] )?
 	&('description'  description=Description)? 
-	&('constants' constants+=FinalValue+)?
+	&('constants' constants+=ConstantDecl+)?
 	&('assert'  assert=PredicateExpression)?  // predicate expression 
 	&('rationale'  rationale=STRING)? 
-	&('see' 'goal'  goalReference+=[Goal|QualifiedName] (',' goalReference+=[Goal|QualifiedName])*)?
+	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=ValueString))? 
-	&('refines' refinedReference+=[Requirement|QualifiedName](',' refinesReference+=[Requirement|QualifiedName])*)? 
-	&('see' 'stakeholder' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName] (',' stakeholderRequirementReference+=[Goal|QualifiedName])*)?
-	 &('see' 'documented''requirement'  documentRequirement+=[ContractualElement|QualifiedName] (',' documentRequirement+=[ContractualElement|QualifiedName])*)?
-	 &('see' 'document'  docReference+=ExternalDocument (',' docReference+=ExternalDocument)*)? 
+	&('refines' refinedReference+=[Requirement|QualifiedName]+)? 
+	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
+	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
+	 &('see' 'document'  docReference+=ExternalDocument+)? 
 	)
 	']';
 

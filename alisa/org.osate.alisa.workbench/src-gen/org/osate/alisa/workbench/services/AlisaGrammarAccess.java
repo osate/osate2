@@ -73,7 +73,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_6_1 = (Group)cGroup_6.eContents().get(1);
 		private final Keyword cConstantsKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Assignment cConstantAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
-		private final RuleCall cConstantFinalValueParserRuleCall_6_1_1_0 = (RuleCall)cConstantAssignment_6_1_1.eContents().get(0);
+		private final RuleCall cConstantConstantDeclParserRuleCall_6_1_1_0 = (RuleCall)cConstantAssignment_6_1_1.eContents().get(0);
 		private final Keyword cPlansKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
 		private final Assignment cPlansAssignment_6_3 = (Assignment)cGroup_6.eContents().get(3);
 		private final CrossReference cPlansVerificationPlanCrossReference_6_3_0 = (CrossReference)cPlansAssignment_6_3.eContents().get(0);
@@ -95,13 +95,13 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		////	cat=[categories::VerificationCategory|CatRef];
 		//AssuranceCaseConfiguration:
 		//	"case" name=ID (":" title=ValueString)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//	(("description" description=Description)? ("constants" constant+=FinalValue+)? "plans"
+		//	(("description" description=Description)? ("constants" constant+=ConstantDecl+)? "plans"
 		//	plans+=[Verify::VerificationPlan|QualifiedName]+ ("select"
 		//	selectionFilter+=[categories::VerificationCategory|CatRef]+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"case" name=ID (":" title=ValueString)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//(("description" description=Description)? ("constants" constant+=FinalValue+)? "plans"
+		//(("description" description=Description)? ("constants" constant+=ConstantDecl+)? "plans"
 		//plans+=[Verify::VerificationPlan|QualifiedName]+ ("select"
 		//selectionFilter+=[categories::VerificationCategory|CatRef]+)?) "]" //OrSelectionConditionExpr returns SelectionConditionExpr:
 		////	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
@@ -149,7 +149,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//("description" description=Description)? ("constants" constant+=FinalValue+)? "plans"
+		//("description" description=Description)? ("constants" constant+=ConstantDecl+)? "plans"
 		//plans+=[Verify::VerificationPlan|QualifiedName]+ ("select"
 		//selectionFilter+=[categories::VerificationCategory|CatRef]+)?
 		public Group getGroup_6() { return cGroup_6; }
@@ -166,17 +166,17 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_1_0() { return cDescriptionDescriptionParserRuleCall_6_0_1_0; }
 
-		//("constants" constant+=FinalValue+)?
+		//("constants" constant+=ConstantDecl+)?
 		public Group getGroup_6_1() { return cGroup_6_1; }
 
 		//"constants"
 		public Keyword getConstantsKeyword_6_1_0() { return cConstantsKeyword_6_1_0; }
 
-		//constant+=FinalValue+
+		//constant+=ConstantDecl+
 		public Assignment getConstantAssignment_6_1_1() { return cConstantAssignment_6_1_1; }
 
-		//FinalValue
-		public RuleCall getConstantFinalValueParserRuleCall_6_1_1_0() { return cConstantFinalValueParserRuleCall_6_1_1_0; }
+		//ConstantDecl
+		public RuleCall getConstantConstantDeclParserRuleCall_6_1_1_0() { return cConstantConstantDeclParserRuleCall_6_1_1_0; }
 
 		//"plans"
 		public Keyword getPlansKeyword_6_2() { return cPlansKeyword_6_2; }
@@ -281,7 +281,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	////	cat=[categories::VerificationCategory|CatRef];
 	//AssuranceCaseConfiguration:
 	//	"case" name=ID (":" title=ValueString)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-	//	(("description" description=Description)? ("constants" constant+=FinalValue+)? "plans"
+	//	(("description" description=Description)? ("constants" constant+=ConstantDecl+)? "plans"
 	//	plans+=[Verify::VerificationPlan|QualifiedName]+ ("select"
 	//	selectionFilter+=[categories::VerificationCategory|CatRef]+)?) "]";
 	public AssuranceCaseConfigurationElements getAssuranceCaseConfigurationAccess() {
@@ -313,13 +313,23 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | ref=[ecore::EObject] | newline?="&" | thisTarget?="this";
+	//	text=STRING | value=ShowValue | newline?="&" | thisTarget?="this";
 	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
 		return gaCommon.getDescriptionElementAccess();
 	}
 	
 	public ParserRule getDescriptionElementRule() {
 		return getDescriptionElementAccess().getRule();
+	}
+
+	//ShowValue:
+	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
+		return gaCommon.getShowValueAccess();
+	}
+	
+	public ParserRule getShowValueRule() {
+		return getShowValueAccess().getRule();
 	}
 
 	//ReferencePath:
@@ -334,7 +344,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Dummy placeholder for comparison conditions
 	//PredicateExpression:
-	//	ID op=("=" | "!=" | "<" | "=<" | ">" | ">=") ID;
+	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
 	public CommonGrammarAccess.PredicateExpressionElements getPredicateExpressionAccess() {
 		return gaCommon.getPredicateExpressionAccess();
 	}
@@ -343,14 +353,64 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getPredicateExpressionAccess().getRule();
 	}
 
-	//FinalValue:
+	//ConstantDecl:
 	//	name=ID "=" value=ValueString;
-	public CommonGrammarAccess.FinalValueElements getFinalValueAccess() {
-		return gaCommon.getFinalValueAccess();
+	public CommonGrammarAccess.ConstantDeclElements getConstantDeclAccess() {
+		return gaCommon.getConstantDeclAccess();
 	}
 	
-	public ParserRule getFinalValueRule() {
-		return getFinalValueAccess().getRule();
+	public ParserRule getConstantDeclRule() {
+		return getConstantDeclAccess().getRule();
+	}
+
+	//ConstantValue:
+	//	StringTerm | RealTerm | IntegerTerm;
+	public CommonGrammarAccess.ConstantValueElements getConstantValueAccess() {
+		return gaCommon.getConstantValueAccess();
+	}
+	
+	public ParserRule getConstantValueRule() {
+		return getConstantValueAccess().getRule();
+	}
+
+	//StringTerm:
+	//	value=STRING;
+	public CommonGrammarAccess.StringTermElements getStringTermAccess() {
+		return gaCommon.getStringTermAccess();
+	}
+	
+	public ParserRule getStringTermRule() {
+		return getStringTermAccess().getRule();
+	}
+
+	//RealTerm:
+	//	value=REAL unit=ID?;
+	public CommonGrammarAccess.RealTermElements getRealTermAccess() {
+		return gaCommon.getRealTermAccess();
+	}
+	
+	public ParserRule getRealTermRule() {
+		return getRealTermAccess().getRule();
+	}
+
+	//REAL:
+	//	INT "." INT;
+	public CommonGrammarAccess.REALElements getREALAccess() {
+		return gaCommon.getREALAccess();
+	}
+	
+	public ParserRule getREALRule() {
+		return getREALAccess().getRule();
+	}
+
+	//IntegerTerm:
+	//	value=INT unit=ID?;
+	public CommonGrammarAccess.IntegerTermElements getIntegerTermAccess() {
+		return gaCommon.getIntegerTermAccess();
+	}
+	
+	public ParserRule getIntegerTermRule() {
+		return getIntegerTermAccess().getRule();
 	}
 
 	//MultiLineString:

@@ -66,12 +66,10 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
     {
       case CategoriesPackage.CATEGORIES: return createCategories();
       case CategoriesPackage.REQUIREMENT_CATEGORIES: return createRequirementCategories();
-      case CategoriesPackage.HAZARD_CATEGORIES: return createHazardCategories();
       case CategoriesPackage.VERIFICATION_CATEGORIES: return createVerificationCategories();
       case CategoriesPackage.SELECTION_CATEGORIES: return createSelectionCategories();
       case CategoriesPackage.CATEGORY: return createCategory();
       case CategoriesPackage.REQUIREMENT_CATEGORY: return createRequirementCategory();
-      case CategoriesPackage.HAZARD_CATEGORY: return createHazardCategory();
       case CategoriesPackage.VERIFICATION_CATEGORY: return createVerificationCategory();
       case CategoriesPackage.SELECTION_CATEGORY: return createSelectionCategory();
       default:
@@ -99,17 +97,6 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     RequirementCategoriesImpl requirementCategories = new RequirementCategoriesImpl();
     return requirementCategories;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public HazardCategories createHazardCategories()
-  {
-    HazardCategoriesImpl hazardCategories = new HazardCategoriesImpl();
-    return hazardCategories;
   }
 
   /**
@@ -154,17 +141,6 @@ public class CategoriesFactoryImpl extends EFactoryImpl implements CategoriesFac
   {
     RequirementCategoryImpl requirementCategory = new RequirementCategoryImpl();
     return requirementCategory;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public HazardCategory createHazardCategory()
-  {
-    HazardCategoryImpl hazardCategory = new HazardCategoryImpl();
-    return hazardCategory;
   }
 
   /**

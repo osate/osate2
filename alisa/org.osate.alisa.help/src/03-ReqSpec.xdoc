@@ -1,0 +1,140 @@
+chapter:ReqSpec[Requirement Specification]
+
+e[ReqSpec] is a notation for specifying e[stakeholder goals] and e[system requirements]. ReqSpecs are
+created in files with the extension e[reqspec].
+
+Stakeholder goals represent the interests of stakeholders, also known as stakeholder requirements.
+They may be specified ambiguously, may ot be verifiable, and
+may be in conflict with each other. We use the term e[goal] to refer to the concept of stakeholder requirements. 
+
+System requirements represent a system specification that becomes a contract that system implementation
+will be verified against. In other words, system requirements may not have conflicts and must be verifiable.
+We will use the term e[requirement] to refer to this concept.
+
+ReqSpec can be used in two ways to organize stakeholder goals and system requirements.
+ul[
+item[to reflect the structure of a requirement documents. This representation will be typically used
+to import existing requirement documents into the Alisa workbench. It may also be used to define a reporting
+structure for goals and requirements different from goal and requirement specifications aligned with
+the architecture expressed in the AADL model. This allows us to interface with existing document-based requirement engineering
+practices with traceability tools such as DOORS. ]
+item[to align goal and requirement specifications in an e[architecture-led way] with an AADL model of the system.]
+]
+
+section:Goals[Stakeholder Goals]
+
+This section describes the elements of a e[stakeholder goal specification]. 
+
+A e[goal] construct has the following syntax:
+
+code[ReqSpec][
+goal
+	( :  "short descriptive title" )?
+	( for ComponentElement | "Target description" )?
+	\[  
+	 (category guarantee )?
+	 (description  "Textline" & "second line")? 
+	 (rationale "explanation")? 
+	 (refines ( docx.goal1 )+ )? 
+	 (conflicts with docx.goal15 )+)? 
+	 (stakeholder  ( SEI.Feiler )+ )?
+	 (see document requirement ( ReqDoc.Req14 )+)?
+	 (see document ( filepath/file.doc#path.within.doc )+)? 
+	\]
+]
+
+e[Note:] The items declared between the square brackets can be specified in any order.
+
+ul[
+item[The e[for] attribute either points to an element in an AADL componenbt classifier (the classifier
+itself is identified in the enclosing container), or it provides a string description of the target of
+the goal.]
+item[The e[category] attribute identifies a requirment category. Requirement categories are user-definable
+and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
+]
+item[The e[description] attribute allows user to provide a description that spans multiple lines. The description consists of a sequence of strings,
+name of the model element the requirement applies to (e[this]), and the newline operator 
+e[&] to create multi line strings.]
+item[The e[rationale] attributes is a text field]
+item[The e[refines] attribute is a list of one or more references to other goals. The referenced goal
+is identified by its qualified name.]
+item[The e[conflicts with] attribute identifies goals this goal conflicts with. The references uses a
+qualified name.]
+item[The e[stakeholder] attribute refers to a steakholder. Stakeholders are defined in a separate files
+using the e[organization] notation. The stakeholder is qualified by the organization name.]
+item[The e[see document requirement] attribute identifies a stakeholder requirement in an imported stakeholder
+requirement document.]
+item[The e[see document] attribute is a reference to an external document that may not be in a format
+importable to Alisa.]
+]
+
+Goals can used to represent stakeholder requirements imported from existing documents, or aligned with
+the architecture model using the architecture-led requirement specification process. 
+
+section:Requirements[System Requirements]
+
+This section describes the elements of a e[system requirement specification]. 
+
+A e[requirement] construct has the following syntax:
+
+code[ReqSpec][
+requirement
+	( :  "short descriptive title" )?
+	( for ComponentElement | "Target description" )?
+	\[  
+	 (category guarantee )?
+	 (description  this " shall not exceed " limit%sec " latency")? 
+	 (constants ( limit = "200 ms" )+ )?
+	 (assert actual <= limit )?
+	 (rationale "explanation")? 
+	 (see goal (docx.goal2 )+ )?
+	 (mitigates ( model.hazard3 )+ )? 
+	 (refines ( docx.goal1 )+ )? 
+	 (stakeholder  ( SEI.Feiler )+ )?
+	 (see document goal ( ReqDoc.goal12 )+)?
+	 (see document requirement ( ReqDoc.Req14 )+)?
+	 (see document ( filepath/file.doc#path.within.doc )+)? 
+	\]
+]
+
+e[Note:] The items declared between the square brackets can be specified in any order.
+
+ul[
+item[The e[for] attribute either points to an element in an AADL componenbt classifier (the classifier
+itself is identified in the enclosing container), or it provides a string description of the target of
+the goal.]
+item[The e[category] attribute identifies a requirment category. Requirement categories are user-definable
+and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
+]
+item[The e[description] attribute allows user to provide a description that spans multiple lines. The description consists of a sequence of strings,
+name of the model element the requirement applies to (e[this]), a reference to one of the constants defined in the requirement,
+and the newline operator 
+e[&] to create multi line strings. The optional e[%ID] is used to specify the measurement unit to be
+used for showing the value of numeric constants.]
+item[The e[constants] field allows users to define values to be used in the requirement specification. These
+may be values that the user may want to change and are used in more than one location. They can be referenced
+in the predicate of the e[assert] or in the e[description].
+]
+item[The e[rationale] attributes is a text field]
+item[The e[refines] attribute is a list of one or more references to other goals. The referenced goal
+is identified by its qualified name.]
+item[The e[conflicts with] attribute identifies goals this goal conflicts with. The references uses a
+qualified name.]
+item[The e[stakeholder] attribute refers to a steakholder. Stakeholders are defined in a separate files
+using the e[organization] notation. The stakeholder is qualified by the organization name.]
+item[The e[see document requirement] attribute identifies a stakeholder requirement in an imported stakeholder
+requirement document.]
+item[The e[see document] attribute is a reference to an external document that may not be in a format
+importable to Alisa.]
+]
+
+Goals can used to represent stakeholder requirements imported from existing documents, or aligned with
+the architecture model using the architecture-led requirement specification process. 
+
+
+section:RequirementDocuments[Requirement Documents]
+
+
+section:ALRS[Architecture-led Goal and Requirement Specifications]
+
+section:ReqCategory[User Definable Requirement Categories]

@@ -9,7 +9,11 @@ Require-Bundle: org.osate.alisa.workbench,
  org.osate.alisa.workbench.ui,
  org.eclipse.core.runtime,
  org.eclipse.xtext.junit4,
- org.eclipse.ui.workbench;resolution:=optional
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j,
  org.junit;version="4.5.0",
  org.junit.runner;version="4.5.0",

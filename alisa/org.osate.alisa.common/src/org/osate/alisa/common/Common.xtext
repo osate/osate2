@@ -14,8 +14,10 @@ Description :
 ;
 
 DescriptionElement :
- 	text = STRING | ref = [ecore::EObject|ID] | newline?='&' |thisTarget?='this'
- ;	
+ 	text = STRING | value = ShowValue | newline?='&' |thisTarget?='this'
+ ;
+ 
+ ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
  
  ReferencePath: 
  	ref = [ecore::EObject|ID] ('.' subpath=ReferencePath)
@@ -23,11 +25,28 @@ DescriptionElement :
 
 
 // Dummy placeholder for comparison conditions
-PredicateExpression: ID op=('='|"!=" |"<"|"=<"|">"|">=")ID;
+PredicateExpression: ID op=('='|"!=" |"<"|"<="|">"|">=")ID;
 
 
 
-FinalValue: name = ID '=' value=ValueString;
+ConstantDecl: name = ID '=' value=ValueString;
+
+ConstantValue: StringTerm | RealTerm | IntegerTerm;
+
+StringTerm: value=STRING;
+
+RealTerm :
+	value=REAL (unit=ID)?
+;
+
+
+REAL: INT '.' INT;
+
+IntegerTerm :
+	value=INT (unit=ID)?
+;
+
+
 
 MultiLineString : 
  	( description += TextElement  )+

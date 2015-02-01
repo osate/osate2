@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.NamedElement;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.categories.categories.RequirementCategory;
 
 import org.osate.reqspec.reqSpec.ContractualElement;
@@ -40,6 +42,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocReference <em>Doc Reference</em>}</li>
@@ -129,6 +132,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected RequirementCategory category;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected Description description;
 
   /**
    * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
@@ -351,6 +364,54 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public Description getDescription()
+  {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
+  {
+    Description oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION, oldDescription, newDescription);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(Description newDescription)
+  {
+    if (newDescription != description)
+    {
+      NotificationChain msgs = null;
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION, newDescription, newDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getRationale()
   {
     return rationale;
@@ -407,6 +468,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
+        return basicSetDescription(null, msgs);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
     }
@@ -435,6 +498,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         if (resolve) return getCategory();
         return basicGetCategory();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
+        return getDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return getRationale();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
@@ -470,6 +535,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         setCategory((RequirementCategory)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
+        setDescription((Description)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale((String)newValue);
@@ -511,6 +579,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         setCategory((RequirementCategory)null);
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
+        setDescription((Description)null);
+        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale(RATIONALE_EDEFAULT);
         return;
@@ -544,6 +615,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         return category != null;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
+        return description != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:

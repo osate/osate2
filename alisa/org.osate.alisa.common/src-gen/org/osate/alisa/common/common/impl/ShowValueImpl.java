@@ -5,75 +5,67 @@ package org.osate.alisa.common.common.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.FinalValue;
+import org.osate.alisa.common.common.ShowValue;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Final Value</b></em>'.
+ * An implementation of the model object '<em><b>Show Value</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.FinalValueImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.FinalValueImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ShowValueImpl#getRef <em>Ref</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ShowValueImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FinalValueImpl extends MinimalEObjectImpl.Container implements FinalValue
+public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowValue
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getRef() <em>Ref</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getRef()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected EObject ref;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The default value of the '{@link #getUnit() <em>Unit</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getUnit()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
+  protected static final String UNIT_EDEFAULT = null;
 
   /**
-   * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+   * The cached value of the '{@link #getUnit() <em>Unit</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValue()
+   * @see #getUnit()
    * @generated
    * @ordered
    */
-  protected static final String VALUE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getValue()
-   * @generated
-   * @ordered
-   */
-  protected String value = VALUE_EDEFAULT;
+  protected String unit = UNIT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected FinalValueImpl()
+  protected ShowValueImpl()
   {
     super();
   }
@@ -86,7 +78,7 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
   @Override
   protected EClass eStaticClass()
   {
-    return CommonPackage.Literals.FINAL_VALUE;
+    return CommonPackage.Literals.SHOW_VALUE;
   }
 
   /**
@@ -94,9 +86,19 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public EObject getRef()
   {
-    return name;
+    if (ref != null && ref.eIsProxy())
+    {
+      InternalEObject oldRef = (InternalEObject)ref;
+      ref = eResolveProxy(oldRef);
+      if (ref != oldRef)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.SHOW_VALUE__REF, oldRef, ref));
+      }
+    }
+    return ref;
   }
 
   /**
@@ -104,12 +106,22 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public EObject basicGetRef()
   {
-    String oldName = name;
-    name = newName;
+    return ref;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRef(EObject newRef)
+  {
+    EObject oldRef = ref;
+    ref = newRef;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.FINAL_VALUE__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SHOW_VALUE__REF, oldRef, ref));
   }
 
   /**
@@ -117,9 +129,9 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getValue()
+  public String getUnit()
   {
-    return value;
+    return unit;
   }
 
   /**
@@ -127,12 +139,12 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(String newValue)
+  public void setUnit(String newUnit)
   {
-    String oldValue = value;
-    value = newValue;
+    String oldUnit = unit;
+    unit = newUnit;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.FINAL_VALUE__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SHOW_VALUE__UNIT, oldUnit, unit));
   }
 
   /**
@@ -145,10 +157,11 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
   {
     switch (featureID)
     {
-      case CommonPackage.FINAL_VALUE__NAME:
-        return getName();
-      case CommonPackage.FINAL_VALUE__VALUE:
-        return getValue();
+      case CommonPackage.SHOW_VALUE__REF:
+        if (resolve) return getRef();
+        return basicGetRef();
+      case CommonPackage.SHOW_VALUE__UNIT:
+        return getUnit();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -163,11 +176,11 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
   {
     switch (featureID)
     {
-      case CommonPackage.FINAL_VALUE__NAME:
-        setName((String)newValue);
+      case CommonPackage.SHOW_VALUE__REF:
+        setRef((EObject)newValue);
         return;
-      case CommonPackage.FINAL_VALUE__VALUE:
-        setValue((String)newValue);
+      case CommonPackage.SHOW_VALUE__UNIT:
+        setUnit((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -183,11 +196,11 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
   {
     switch (featureID)
     {
-      case CommonPackage.FINAL_VALUE__NAME:
-        setName(NAME_EDEFAULT);
+      case CommonPackage.SHOW_VALUE__REF:
+        setRef((EObject)null);
         return;
-      case CommonPackage.FINAL_VALUE__VALUE:
-        setValue(VALUE_EDEFAULT);
+      case CommonPackage.SHOW_VALUE__UNIT:
+        setUnit(UNIT_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -203,10 +216,10 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
   {
     switch (featureID)
     {
-      case CommonPackage.FINAL_VALUE__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case CommonPackage.FINAL_VALUE__VALUE:
-        return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+      case CommonPackage.SHOW_VALUE__REF:
+        return ref != null;
+      case CommonPackage.SHOW_VALUE__UNIT:
+        return UNIT_EDEFAULT == null ? unit != null : !UNIT_EDEFAULT.equals(unit);
     }
     return super.eIsSet(featureID);
   }
@@ -222,12 +235,10 @@ public class FinalValueImpl extends MinimalEObjectImpl.Container implements Fina
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", value: ");
-    result.append(value);
+    result.append(" (unit: ");
+    result.append(unit);
     result.append(')');
     return result.toString();
   }
 
-} //FinalValueImpl
+} //ShowValueImpl

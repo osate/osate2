@@ -7,10 +7,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
         eType="#//RequirementCategory" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HazardCategories" eSuperTypes="#//Categories">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
-        eType="#//HazardCategory" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationCategories" eSuperTypes="#//Categories">
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" upperBound="-1"
         eType="#//VerificationCategory" containment="true"/>
@@ -24,9 +20,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RequirementCategory" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//RequirementCategory"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HazardCategory" eSuperTypes="#//Category">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//HazardCategory"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationCategory" eSuperTypes="#//Category">
     <eStructuralFeatures xsi:type="ecore:EReference" name="extends" eType="#//VerificationCategory"/>

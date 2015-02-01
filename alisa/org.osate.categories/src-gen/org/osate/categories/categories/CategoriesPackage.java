@@ -104,34 +104,6 @@ public interface CategoriesPackage extends EPackage
   int REQUIREMENT_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.HazardCategoriesImpl <em>Hazard Categories</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.HazardCategoriesImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getHazardCategories()
-   * @generated
-   */
-  int HAZARD_CATEGORIES = 2;
-
-  /**
-   * The feature id for the '<em><b>Category</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HAZARD_CATEGORIES__CATEGORY = CATEGORIES_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Hazard Categories</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HAZARD_CATEGORIES_FEATURE_COUNT = CATEGORIES_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.VerificationCategoriesImpl <em>Verification Categories</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -139,7 +111,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getVerificationCategories()
    * @generated
    */
-  int VERIFICATION_CATEGORIES = 3;
+  int VERIFICATION_CATEGORIES = 2;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -167,7 +139,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getSelectionCategories()
    * @generated
    */
-  int SELECTION_CATEGORIES = 4;
+  int SELECTION_CATEGORIES = 3;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' containment reference list.
@@ -195,7 +167,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getCategory()
    * @generated
    */
-  int CATEGORY = 5;
+  int CATEGORY = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -223,7 +195,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getRequirementCategory()
    * @generated
    */
-  int REQUIREMENT_CATEGORY = 6;
+  int REQUIREMENT_CATEGORY = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -253,43 +225,6 @@ public interface CategoriesPackage extends EPackage
   int REQUIREMENT_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.categories.categories.impl.HazardCategoryImpl <em>Hazard Category</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.categories.categories.impl.HazardCategoryImpl
-   * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getHazardCategory()
-   * @generated
-   */
-  int HAZARD_CATEGORY = 7;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HAZARD_CATEGORY__NAME = CATEGORY__NAME;
-
-  /**
-   * The feature id for the '<em><b>Extends</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HAZARD_CATEGORY__EXTENDS = CATEGORY_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Hazard Category</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HAZARD_CATEGORY_FEATURE_COUNT = CATEGORY_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.osate.categories.categories.impl.VerificationCategoryImpl <em>Verification Category</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -297,7 +232,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getVerificationCategory()
    * @generated
    */
-  int VERIFICATION_CATEGORY = 8;
+  int VERIFICATION_CATEGORY = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -334,7 +269,7 @@ public interface CategoriesPackage extends EPackage
    * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getSelectionCategory()
    * @generated
    */
-  int SELECTION_CATEGORY = 9;
+  int SELECTION_CATEGORY = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -394,27 +329,6 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EReference getRequirementCategories_Category();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.HazardCategories <em>Hazard Categories</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Hazard Categories</em>'.
-   * @see org.osate.categories.categories.HazardCategories
-   * @generated
-   */
-  EClass getHazardCategories();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.osate.categories.categories.HazardCategories#getCategory <em>Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Category</em>'.
-   * @see org.osate.categories.categories.HazardCategories#getCategory()
-   * @see #getHazardCategories()
-   * @generated
-   */
-  EReference getHazardCategories_Category();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.VerificationCategories <em>Verification Categories</em>}'.
@@ -499,27 +413,6 @@ public interface CategoriesPackage extends EPackage
    * @generated
    */
   EReference getRequirementCategory_Extends();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.categories.categories.HazardCategory <em>Hazard Category</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Hazard Category</em>'.
-   * @see org.osate.categories.categories.HazardCategory
-   * @generated
-   */
-  EClass getHazardCategory();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.categories.categories.HazardCategory#getExtends <em>Extends</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Extends</em>'.
-   * @see org.osate.categories.categories.HazardCategory#getExtends()
-   * @see #getHazardCategory()
-   * @generated
-   */
-  EReference getHazardCategory_Extends();
 
   /**
    * Returns the meta object for class '{@link org.osate.categories.categories.VerificationCategory <em>Verification Category</em>}'.
@@ -615,24 +508,6 @@ public interface CategoriesPackage extends EPackage
     EReference REQUIREMENT_CATEGORIES__CATEGORY = eINSTANCE.getRequirementCategories_Category();
 
     /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.HazardCategoriesImpl <em>Hazard Categories</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.HazardCategoriesImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getHazardCategories()
-     * @generated
-     */
-    EClass HAZARD_CATEGORIES = eINSTANCE.getHazardCategories();
-
-    /**
-     * The meta object literal for the '<em><b>Category</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference HAZARD_CATEGORIES__CATEGORY = eINSTANCE.getHazardCategories_Category();
-
-    /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.VerificationCategoriesImpl <em>Verification Categories</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -703,24 +578,6 @@ public interface CategoriesPackage extends EPackage
      * @generated
      */
     EReference REQUIREMENT_CATEGORY__EXTENDS = eINSTANCE.getRequirementCategory_Extends();
-
-    /**
-     * The meta object literal for the '{@link org.osate.categories.categories.impl.HazardCategoryImpl <em>Hazard Category</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.categories.categories.impl.HazardCategoryImpl
-     * @see org.osate.categories.categories.impl.CategoriesPackageImpl#getHazardCategory()
-     * @generated
-     */
-    EClass HAZARD_CATEGORY = eINSTANCE.getHazardCategory();
-
-    /**
-     * The meta object literal for the '<em><b>Extends</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference HAZARD_CATEGORY__EXTENDS = eINSTANCE.getHazardCategory_Extends();
 
     /**
      * The meta object literal for the '{@link org.osate.categories.categories.impl.VerificationCategoryImpl <em>Verification Category</em>}' class.

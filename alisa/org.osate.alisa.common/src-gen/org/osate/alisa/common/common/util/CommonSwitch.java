@@ -93,6 +93,13 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.SHOW_VALUE:
+      {
+        ShowValue showValue = (ShowValue)theEObject;
+        T result = caseShowValue(showValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.REFERENCE_PATH:
       {
         ReferencePath referencePath = (ReferencePath)theEObject;
@@ -107,10 +114,41 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.FINAL_VALUE:
+      case CommonPackage.CONSTANT_DECL:
       {
-        FinalValue finalValue = (FinalValue)theEObject;
-        T result = caseFinalValue(finalValue);
+        ConstantDecl constantDecl = (ConstantDecl)theEObject;
+        T result = caseConstantDecl(constantDecl);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.CONSTANT_VALUE:
+      {
+        ConstantValue constantValue = (ConstantValue)theEObject;
+        T result = caseConstantValue(constantValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.STRING_TERM:
+      {
+        StringTerm stringTerm = (StringTerm)theEObject;
+        T result = caseStringTerm(stringTerm);
+        if (result == null) result = caseConstantValue(stringTerm);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.REAL_TERM:
+      {
+        RealTerm realTerm = (RealTerm)theEObject;
+        T result = caseRealTerm(realTerm);
+        if (result == null) result = caseConstantValue(realTerm);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.INTEGER_TERM:
+      {
+        IntegerTerm integerTerm = (IntegerTerm)theEObject;
+        T result = caseIntegerTerm(integerTerm);
+        if (result == null) result = caseConstantValue(integerTerm);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -181,6 +219,22 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Show Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Show Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseShowValue(ShowValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Reference Path</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -213,17 +267,81 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Final Value</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Constant Decl</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Final Value</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Constant Decl</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseFinalValue(FinalValue object)
+  public T caseConstantDecl(ConstantDecl object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Constant Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constant Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstantValue(ConstantValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>String Term</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>String Term</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseStringTerm(StringTerm object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Real Term</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Real Term</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseRealTerm(RealTerm object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Integer Term</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Integer Term</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIntegerTerm(IntegerTerm object)
   {
     return null;
   }

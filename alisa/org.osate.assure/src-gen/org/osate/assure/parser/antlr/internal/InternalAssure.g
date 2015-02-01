@@ -2327,15 +2327,20 @@ ruleDescriptionElement returns [EObject current=null]
 )
     |(
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDescriptionElementRule());
+		{ 
+	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getValueShowValueParserRuleCall_1_0()); 
+	    }
+		lv_value_1_0=ruleShowValue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDescriptionElementRule());
 	        }
-        }
-	otherlv_1=RULE_ID
-	{
-		newLeafNode(otherlv_1, grammarAccess.getDescriptionElementAccess().getRefEObjectCrossReference_1_0()); 
-	}
+       		set(
+       			$current, 
+       			"value",
+        		lv_value_1_0, 
+        		"ShowValue");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )
@@ -2371,6 +2376,62 @@ ruleDescriptionElement returns [EObject current=null]
 
 )
 ))
+;
+
+
+
+
+
+// Entry rule entryRuleShowValue
+entryRuleShowValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getShowValueRule()); }
+	 iv_ruleShowValue=ruleShowValue 
+	 { $current=$iv_ruleShowValue.current; } 
+	 EOF 
+;
+
+// Rule ShowValue
+ruleShowValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getShowValueRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefEObjectCrossReference_0_0()); 
+	}
+
+)
+)(	otherlv_1='%' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
+    }
+(
+(
+		lv_unit_2_0=RULE_ID
+		{
+			newLeafNode(lv_unit_2_0, grammarAccess.getShowValueAccess().getUnitIDTerminalRuleCall_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getShowValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"unit",
+        		lv_unit_2_0, 
+        		"ID");
+	    }
+
+)
+))?)
 ;
 
 
@@ -2432,6 +2493,202 @@ ruleReferencePath returns [EObject current=null]
 
 
 
+
+
+
+
+
+
+
+// Entry rule entryRuleStringTerm
+entryRuleStringTerm returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getStringTermRule()); }
+	 iv_ruleStringTerm=ruleStringTerm 
+	 { $current=$iv_ruleStringTerm.current; } 
+	 EOF 
+;
+
+// Rule StringTerm
+ruleStringTerm returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_value_0_0=RULE_STRING
+		{
+			newLeafNode(lv_value_0_0, grammarAccess.getStringTermAccess().getValueSTRINGTerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStringTermRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"value",
+        		lv_value_0_0, 
+        		"STRING");
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleRealTerm
+entryRuleRealTerm returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getRealTermRule()); }
+	 iv_ruleRealTerm=ruleRealTerm 
+	 { $current=$iv_ruleRealTerm.current; } 
+	 EOF 
+;
+
+// Rule RealTerm
+ruleRealTerm returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getRealTermAccess().getValueREALParserRuleCall_0_0()); 
+	    }
+		lv_value_0_0=ruleREAL		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getRealTermRule());
+	        }
+       		set(
+       			$current, 
+       			"value",
+        		lv_value_0_0, 
+        		"REAL");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		lv_unit_1_0=RULE_ID
+		{
+			newLeafNode(lv_unit_1_0, grammarAccess.getRealTermAccess().getUnitIDTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRealTermRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"unit",
+        		lv_unit_1_0, 
+        		"ID");
+	    }
+
+)
+)?)
+;
+
+
+
+
+
+// Entry rule entryRuleREAL
+entryRuleREAL returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getREALRule()); } 
+	 iv_ruleREAL=ruleREAL 
+	 { $current=$iv_ruleREAL.current.getText(); }  
+	 EOF 
+;
+
+// Rule REAL
+ruleREAL returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(    this_INT_0=RULE_INT    {
+		$current.merge(this_INT_0);
+    }
+
+    { 
+    newLeafNode(this_INT_0, grammarAccess.getREALAccess().getINTTerminalRuleCall_0()); 
+    }
+
+	kw='.' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getREALAccess().getFullStopKeyword_1()); 
+    }
+    this_INT_2=RULE_INT    {
+		$current.merge(this_INT_2);
+    }
+
+    { 
+    newLeafNode(this_INT_2, grammarAccess.getREALAccess().getINTTerminalRuleCall_2()); 
+    }
+)
+    ;
+
+
+
+
+
+// Entry rule entryRuleIntegerTerm
+entryRuleIntegerTerm returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getIntegerTermRule()); }
+	 iv_ruleIntegerTerm=ruleIntegerTerm 
+	 { $current=$iv_ruleIntegerTerm.current; } 
+	 EOF 
+;
+
+// Rule IntegerTerm
+ruleIntegerTerm returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_value_0_0=RULE_INT
+		{
+			newLeafNode(lv_value_0_0, grammarAccess.getIntegerTermAccess().getValueINTTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntegerTermRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"value",
+        		lv_value_0_0, 
+        		"INT");
+	    }
+
+)
+)(
+(
+		lv_unit_1_0=RULE_ID
+		{
+			newLeafNode(lv_unit_1_0, grammarAccess.getIntegerTermAccess().getUnitIDTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getIntegerTermRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"unit",
+        		lv_unit_1_0, 
+        		"ID");
+	    }
+
+)
+)?)
+;
 
 
 

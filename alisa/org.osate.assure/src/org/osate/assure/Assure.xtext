@@ -9,8 +9,6 @@ import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/results/Results" as results
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-// We assume that conditional selection has occurred during instantiation
-
  
 // result for a system in the architecture hierarchy
 CaseResult:

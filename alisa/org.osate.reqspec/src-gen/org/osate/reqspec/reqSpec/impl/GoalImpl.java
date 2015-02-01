@@ -4,19 +4,11 @@ package org.osate.reqspec.reqSpec.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
-import org.osate.alisa.common.common.MultiLineString;
 
 import org.osate.organization.organization.Stakeholder;
 
@@ -30,7 +22,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.GoalImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.GoalImpl#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.GoalImpl#getConflictsReference <em>Conflicts Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.GoalImpl#getStakeholderReference <em>Stakeholder Reference</em>}</li>
@@ -41,16 +32,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  */
 public class GoalImpl extends ContractualElementImpl implements Goal
 {
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected MultiLineString description;
-
   /**
    * The cached value of the '{@link #getRefinesReference() <em>Refines Reference</em>}' reference list.
    * <!-- begin-user-doc -->
@@ -107,54 +88,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
-  public MultiLineString getDescription()
-  {
-    return description;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetDescription(MultiLineString newDescription, NotificationChain msgs)
-  {
-    MultiLineString oldDescription = description;
-    description = newDescription;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.GOAL__DESCRIPTION, oldDescription, newDescription);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDescription(MultiLineString newDescription)
-  {
-    if (newDescription != description)
-    {
-      NotificationChain msgs = null;
-      if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.GOAL__DESCRIPTION, null, msgs);
-      if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.GOAL__DESCRIPTION, null, msgs);
-      msgs = basicSetDescription(newDescription, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.GOAL__DESCRIPTION, newDescription, newDescription));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Goal> getRefinesReference()
   {
     if (refinesReference == null)
@@ -198,28 +131,10 @@ public class GoalImpl extends ContractualElementImpl implements Goal
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case ReqSpecPackage.GOAL__DESCRIPTION:
-        return basicSetDescription(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
-      case ReqSpecPackage.GOAL__DESCRIPTION:
-        return getDescription();
       case ReqSpecPackage.GOAL__REFINES_REFERENCE:
         return getRefinesReference();
       case ReqSpecPackage.GOAL__CONFLICTS_REFERENCE:
@@ -241,9 +156,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
   {
     switch (featureID)
     {
-      case ReqSpecPackage.GOAL__DESCRIPTION:
-        setDescription((MultiLineString)newValue);
-        return;
       case ReqSpecPackage.GOAL__REFINES_REFERENCE:
         getRefinesReference().clear();
         getRefinesReference().addAll((Collection<? extends Goal>)newValue);
@@ -270,9 +182,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
   {
     switch (featureID)
     {
-      case ReqSpecPackage.GOAL__DESCRIPTION:
-        setDescription((MultiLineString)null);
-        return;
       case ReqSpecPackage.GOAL__REFINES_REFERENCE:
         getRefinesReference().clear();
         return;
@@ -296,8 +205,6 @@ public class GoalImpl extends ContractualElementImpl implements Goal
   {
     switch (featureID)
     {
-      case ReqSpecPackage.GOAL__DESCRIPTION:
-        return description != null;
       case ReqSpecPackage.GOAL__REFINES_REFERENCE:
         return refinesReference != null && !refinesReference.isEmpty();
       case ReqSpecPackage.GOAL__CONFLICTS_REFERENCE:

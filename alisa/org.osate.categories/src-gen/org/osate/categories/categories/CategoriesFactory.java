@@ -41,15 +41,6 @@ public interface CategoriesFactory extends EFactory
   RequirementCategories createRequirementCategories();
 
   /**
-   * Returns a new object of class '<em>Hazard Categories</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Hazard Categories</em>'.
-   * @generated
-   */
-  HazardCategories createHazardCategories();
-
-  /**
    * Returns a new object of class '<em>Verification Categories</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -84,15 +75,6 @@ public interface CategoriesFactory extends EFactory
    * @generated
    */
   RequirementCategory createRequirementCategory();
-
-  /**
-   * Returns a new object of class '<em>Hazard Category</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Hazard Category</em>'.
-   * @generated
-   */
-  HazardCategory createHazardCategory();
 
   /**
    * Returns a new object of class '<em>Verification Category</em>'.

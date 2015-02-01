@@ -13,8 +13,6 @@ import org.osate.categories.categories.Categories;
 import org.osate.categories.categories.CategoriesFactory;
 import org.osate.categories.categories.CategoriesPackage;
 import org.osate.categories.categories.Category;
-import org.osate.categories.categories.HazardCategories;
-import org.osate.categories.categories.HazardCategory;
 import org.osate.categories.categories.RequirementCategories;
 import org.osate.categories.categories.RequirementCategory;
 import org.osate.categories.categories.SelectionCategories;
@@ -49,13 +47,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass hazardCategoriesEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass verificationCategoriesEClass = null;
 
   /**
@@ -78,13 +69,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * @generated
    */
   private EClass requirementCategoryEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass hazardCategoryEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -198,26 +182,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getHazardCategories()
-  {
-    return hazardCategoriesEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getHazardCategories_Category()
-  {
-    return (EReference)hazardCategoriesEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getVerificationCategories()
   {
     return verificationCategoriesEClass;
@@ -298,26 +262,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getHazardCategory()
-  {
-    return hazardCategoryEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getHazardCategory_Extends()
-  {
-    return (EReference)hazardCategoryEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getVerificationCategory()
   {
     return verificationCategoryEClass;
@@ -388,9 +332,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
     requirementCategoriesEClass = createEClass(REQUIREMENT_CATEGORIES);
     createEReference(requirementCategoriesEClass, REQUIREMENT_CATEGORIES__CATEGORY);
 
-    hazardCategoriesEClass = createEClass(HAZARD_CATEGORIES);
-    createEReference(hazardCategoriesEClass, HAZARD_CATEGORIES__CATEGORY);
-
     verificationCategoriesEClass = createEClass(VERIFICATION_CATEGORIES);
     createEReference(verificationCategoriesEClass, VERIFICATION_CATEGORIES__CATEGORY);
 
@@ -402,9 +343,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     requirementCategoryEClass = createEClass(REQUIREMENT_CATEGORY);
     createEReference(requirementCategoryEClass, REQUIREMENT_CATEGORY__EXTENDS);
-
-    hazardCategoryEClass = createEClass(HAZARD_CATEGORY);
-    createEReference(hazardCategoryEClass, HAZARD_CATEGORY__EXTENDS);
 
     verificationCategoryEClass = createEClass(VERIFICATION_CATEGORY);
     createEReference(verificationCategoryEClass, VERIFICATION_CATEGORY__EXTENDS);
@@ -443,11 +381,9 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     // Add supertypes to classes
     requirementCategoriesEClass.getESuperTypes().add(this.getCategories());
-    hazardCategoriesEClass.getESuperTypes().add(this.getCategories());
     verificationCategoriesEClass.getESuperTypes().add(this.getCategories());
     selectionCategoriesEClass.getESuperTypes().add(this.getCategories());
     requirementCategoryEClass.getESuperTypes().add(this.getCategory());
-    hazardCategoryEClass.getESuperTypes().add(this.getCategory());
     verificationCategoryEClass.getESuperTypes().add(this.getCategory());
     selectionCategoryEClass.getESuperTypes().add(this.getCategory());
 
@@ -456,9 +392,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     initEClass(requirementCategoriesEClass, RequirementCategories.class, "RequirementCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRequirementCategories_Category(), this.getRequirementCategory(), null, "category", null, 0, -1, RequirementCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(hazardCategoriesEClass, HazardCategories.class, "HazardCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getHazardCategories_Category(), this.getHazardCategory(), null, "category", null, 0, -1, HazardCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationCategoriesEClass, VerificationCategories.class, "VerificationCategories", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVerificationCategories_Category(), this.getVerificationCategory(), null, "category", null, 0, -1, VerificationCategories.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -471,9 +404,6 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
 
     initEClass(requirementCategoryEClass, RequirementCategory.class, "RequirementCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRequirementCategory_Extends(), this.getRequirementCategory(), null, "extends", null, 0, 1, RequirementCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(hazardCategoryEClass, HazardCategory.class, "HazardCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getHazardCategory_Extends(), this.getHazardCategory(), null, "extends", null, 0, 1, HazardCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationCategoryEClass, VerificationCategory.class, "VerificationCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVerificationCategory_Extends(), this.getVerificationCategory(), null, "extends", null, 0, 1, VerificationCategory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

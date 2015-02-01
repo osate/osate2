@@ -19,8 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.common.common.Description;
-import org.osate.alisa.common.common.FinalValue;
+import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.PredicateExpression;
 
 import org.osate.reqspec.reqSpec.Goal;
@@ -34,14 +33,12 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getExceptionText <em>Exception Text</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinedReference <em>Refined Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
  * </ul>
  * </p>
@@ -51,16 +48,6 @@ import org.osate.reqspec.reqSpec.Requirement;
 public class RequirementImpl extends ContractualElementImpl implements Requirement
 {
   /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected Description description;
-
-  /**
    * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -68,7 +55,7 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @generated
    * @ordered
    */
-  protected EList<FinalValue> constants;
+  protected EList<ConstantDecl> constants;
 
   /**
    * The cached value of the '{@link #getAssert() <em>Assert</em>}' containment reference.
@@ -131,16 +118,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EList<Requirement> refinedReference;
 
   /**
-   * The cached value of the '{@link #getRefinesReference() <em>Refines Reference</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRefinesReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<Requirement> refinesReference;
-
-  /**
    * The cached value of the '{@link #getStakeholderRequirementReference() <em>Stakeholder Requirement Reference</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -176,59 +153,11 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public Description getDescription()
-  {
-    return description;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
-  {
-    Description oldDescription = description;
-    description = newDescription;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__DESCRIPTION, oldDescription, newDescription);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDescription(Description newDescription)
-  {
-    if (newDescription != description)
-    {
-      NotificationChain msgs = null;
-      if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__DESCRIPTION, null, msgs);
-      if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__DESCRIPTION, null, msgs);
-      msgs = basicSetDescription(newDescription, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__DESCRIPTION, newDescription, newDescription));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<FinalValue> getConstants()
+  public EList<ConstantDecl> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<FinalValue>(FinalValue.class, this, ReqSpecPackage.REQUIREMENT__CONSTANTS);
+      constants = new EObjectContainmentEList<ConstantDecl>(ConstantDecl.class, this, ReqSpecPackage.REQUIREMENT__CONSTANTS);
     }
     return constants;
   }
@@ -380,20 +309,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Requirement> getRefinesReference()
-  {
-    if (refinesReference == null)
-    {
-      refinesReference = new EObjectResolvingEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE);
-    }
-    return refinesReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Goal> getStakeholderRequirementReference()
   {
     if (stakeholderRequirementReference == null)
@@ -413,8 +328,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
-        return basicSetDescription(null, msgs);
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQUIREMENT__ASSERT:
@@ -433,8 +346,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
-        return getDescription();
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return getConstants();
       case ReqSpecPackage.REQUIREMENT__ASSERT:
@@ -448,8 +359,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getExceptionText();
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         return getRefinedReference();
-      case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
-        return getRefinesReference();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         return getStakeholderRequirementReference();
     }
@@ -467,12 +376,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
-        setDescription((Description)newValue);
-        return;
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends FinalValue>)newValue);
+        getConstants().addAll((Collection<? extends ConstantDecl>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__ASSERT:
         setAssert((PredicateExpression)newValue);
@@ -490,10 +396,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         getRefinedReference().clear();
         getRefinedReference().addAll((Collection<? extends Requirement>)newValue);
-        return;
-      case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
-        getRefinesReference().clear();
-        getRefinesReference().addAll((Collection<? extends Requirement>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         getStakeholderRequirementReference().clear();
@@ -513,9 +415,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
-        setDescription((Description)null);
-        return;
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         getConstants().clear();
         return;
@@ -534,9 +433,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         getRefinedReference().clear();
         return;
-      case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
-        getRefinesReference().clear();
-        return;
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         getStakeholderRequirementReference().clear();
         return;
@@ -554,8 +450,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQUIREMENT__DESCRIPTION:
-        return description != null;
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return constants != null && !constants.isEmpty();
       case ReqSpecPackage.REQUIREMENT__ASSERT:
@@ -568,8 +462,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return EXCEPTION_TEXT_EDEFAULT == null ? exceptionText != null : !EXCEPTION_TEXT_EDEFAULT.equals(exceptionText);
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         return refinedReference != null && !refinedReference.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__REFINES_REFERENCE:
-        return refinesReference != null && !refinesReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         return stakeholderRequirementReference != null && !stakeholderRequirementReference.isEmpty();
     }

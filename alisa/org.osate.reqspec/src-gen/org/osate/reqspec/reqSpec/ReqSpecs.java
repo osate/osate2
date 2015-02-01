@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Classifier;
 
-import org.osate.alisa.common.common.FinalValue;
+import org.osate.alisa.common.common.ConstantDecl;
 
 /**
  * <!-- begin-user-doc -->
@@ -156,7 +156,7 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
 
   /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.FinalValue}.
+   * The list contents are of type {@link org.osate.alisa.common.common.ConstantDecl}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
@@ -168,7 +168,7 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
    * @model containment="true"
    * @generated
    */
-  EList<FinalValue> getConstants();
+  EList<ConstantDecl> getConstants();
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

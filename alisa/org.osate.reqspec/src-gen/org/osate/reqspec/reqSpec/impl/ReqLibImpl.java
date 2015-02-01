@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.Classifier;
 
-import org.osate.alisa.common.common.FinalValue;
+import org.osate.alisa.common.common.ConstantDecl;
 
 import org.osate.reqspec.reqSpec.ReqLib;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -124,7 +124,7 @@ public class ReqLibImpl extends MinimalEObjectImpl.Container implements ReqLib
    * @generated
    * @ordered
    */
-  protected EList<FinalValue> constants;
+  protected EList<ConstantDecl> constants;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -274,11 +274,11 @@ public class ReqLibImpl extends MinimalEObjectImpl.Container implements ReqLib
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<FinalValue> getConstants()
+  public EList<ConstantDecl> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<FinalValue>(FinalValue.class, this, ReqSpecPackage.REQ_LIB__CONSTANTS);
+      constants = new EObjectContainmentEList<ConstantDecl>(ConstantDecl.class, this, ReqSpecPackage.REQ_LIB__CONSTANTS);
     }
     return constants;
   }
@@ -367,7 +367,7 @@ public class ReqLibImpl extends MinimalEObjectImpl.Container implements ReqLib
         return;
       case ReqSpecPackage.REQ_LIB__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends FinalValue>)newValue);
+        getConstants().addAll((Collection<? extends ConstantDecl>)newValue);
         return;
       case ReqSpecPackage.REQ_LIB__CONTENT:
         getContent().clear();

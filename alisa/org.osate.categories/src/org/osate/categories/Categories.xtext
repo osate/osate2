@@ -2,7 +2,7 @@ grammar org.osate.categories.Categories with org.eclipse.xtext.common.Terminals
 
 generate categories "http://www.osate.org/categories/Categories"
 
-Categories : RequirementCategories | HazardCategories | VerificationCategories | SelectionCategories
+Categories : RequirementCategories  | VerificationCategories | SelectionCategories
 ;
 /**
  * requirement categories uses a label instead of name to make the category itself global
@@ -10,12 +10,6 @@ Categories : RequirementCategories | HazardCategories | VerificationCategories |
 RequirementCategories :
 	'requirement''categories' 
 	'[' category += RequirementCategory+
-	']'
-;
-
-HazardCategories :
-	'hazard' 'categories' 
-	'[' category += HazardCategory+
 	']'
 ;
 
@@ -32,7 +26,7 @@ SelectionCategories :
 ;
 
 
-Category : RequirementCategory | VerificationCategory | HazardCategory | SelectionCategory;
+Category : RequirementCategory | VerificationCategory  | SelectionCategory;
 
 /**
  * Requirement category indicates the kind of requirement we are dealing with
@@ -42,12 +36,6 @@ RequirementCategory :
 ;
 
 
-/**
- * Hazard category indicates the kind of hazard we are dealing with
- */
-HazardCategory :
-	name = ID ('extends' extends=[HazardCategory|CatRef])? 
-;
 
 
 /**

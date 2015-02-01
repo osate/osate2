@@ -55,19 +55,18 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Assignment cTextAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final RuleCall cTextSTRINGTerminalRuleCall_0_0 = (RuleCall)cTextAssignment_0.eContents().get(0);
-		private final Assignment cRefAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final CrossReference cRefEObjectCrossReference_1_0 = (CrossReference)cRefAssignment_1.eContents().get(0);
-		private final RuleCall cRefEObjectIDTerminalRuleCall_1_0_1 = (RuleCall)cRefEObjectCrossReference_1_0.eContents().get(1);
+		private final Assignment cValueAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cValueShowValueParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
 		private final Assignment cNewlineAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final Keyword cNewlineAmpersandKeyword_2_0 = (Keyword)cNewlineAssignment_2.eContents().get(0);
 		private final Assignment cThisTargetAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
 		private final Keyword cThisTargetThisKeyword_3_0 = (Keyword)cThisTargetAssignment_3.eContents().get(0);
 		
 		//DescriptionElement:
-		//	text=STRING | ref=[ecore::EObject] | newline?="&" | thisTarget?="this";
+		//	text=STRING | value=ShowValue | newline?="&" | thisTarget?="this";
 		public ParserRule getRule() { return rule; }
 
-		//text=STRING | ref=[ecore::EObject] | newline?="&" | thisTarget?="this"
+		//text=STRING | value=ShowValue | newline?="&" | thisTarget?="this"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//text=STRING
@@ -76,14 +75,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTextSTRINGTerminalRuleCall_0_0() { return cTextSTRINGTerminalRuleCall_0_0; }
 
-		//ref=[ecore::EObject]
-		public Assignment getRefAssignment_1() { return cRefAssignment_1; }
+		//value=ShowValue
+		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
 
-		//[ecore::EObject]
-		public CrossReference getRefEObjectCrossReference_1_0() { return cRefEObjectCrossReference_1_0; }
-
-		//ID
-		public RuleCall getRefEObjectIDTerminalRuleCall_1_0_1() { return cRefEObjectIDTerminalRuleCall_1_0_1; }
+		//ShowValue
+		public RuleCall getValueShowValueParserRuleCall_1_0() { return cValueShowValueParserRuleCall_1_0; }
 
 		//newline?="&"
 		public Assignment getNewlineAssignment_2() { return cNewlineAssignment_2; }
@@ -96,6 +92,46 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"this"
 		public Keyword getThisTargetThisKeyword_3_0() { return cThisTargetThisKeyword_3_0; }
+	}
+
+	public class ShowValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ShowValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cRefAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cRefEObjectCrossReference_0_0 = (CrossReference)cRefAssignment_0.eContents().get(0);
+		private final RuleCall cRefEObjectIDTerminalRuleCall_0_0_1 = (RuleCall)cRefEObjectCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cPercentSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cUnitAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cUnitIDTerminalRuleCall_1_1_0 = (RuleCall)cUnitAssignment_1_1.eContents().get(0);
+		
+		//ShowValue:
+		//	ref=[ecore::EObject] ("%" unit=ID)?;
+		public ParserRule getRule() { return rule; }
+
+		//ref=[ecore::EObject] ("%" unit=ID)?
+		public Group getGroup() { return cGroup; }
+
+		//ref=[ecore::EObject]
+		public Assignment getRefAssignment_0() { return cRefAssignment_0; }
+
+		//[ecore::EObject]
+		public CrossReference getRefEObjectCrossReference_0_0() { return cRefEObjectCrossReference_0_0; }
+
+		//ID
+		public RuleCall getRefEObjectIDTerminalRuleCall_0_0_1() { return cRefEObjectIDTerminalRuleCall_0_0_1; }
+
+		//("%" unit=ID)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"%"
+		public Keyword getPercentSignKeyword_1_0() { return cPercentSignKeyword_1_0; }
+
+		//unit=ID
+		public Assignment getUnitAssignment_1_1() { return cUnitAssignment_1_1; }
+
+		//ID
+		public RuleCall getUnitIDTerminalRuleCall_1_1_0() { return cUnitIDTerminalRuleCall_1_1_0; }
 	}
 
 	public class ReferencePathElements extends AbstractParserRuleElementFinder {
@@ -147,26 +183,26 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOpEqualsSignKeyword_1_0_0 = (Keyword)cOpAlternatives_1_0.eContents().get(0);
 		private final Keyword cOpExclamationMarkEqualsSignKeyword_1_0_1 = (Keyword)cOpAlternatives_1_0.eContents().get(1);
 		private final Keyword cOpLessThanSignKeyword_1_0_2 = (Keyword)cOpAlternatives_1_0.eContents().get(2);
-		private final Keyword cOpEqualsSignLessThanSignKeyword_1_0_3 = (Keyword)cOpAlternatives_1_0.eContents().get(3);
+		private final Keyword cOpLessThanSignEqualsSignKeyword_1_0_3 = (Keyword)cOpAlternatives_1_0.eContents().get(3);
 		private final Keyword cOpGreaterThanSignKeyword_1_0_4 = (Keyword)cOpAlternatives_1_0.eContents().get(4);
 		private final Keyword cOpGreaterThanSignEqualsSignKeyword_1_0_5 = (Keyword)cOpAlternatives_1_0.eContents().get(5);
 		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
 		//// Dummy placeholder for comparison conditions
 		//PredicateExpression:
-		//	ID op=("=" | "!=" | "<" | "=<" | ">" | ">=") ID;
+		//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
 		public ParserRule getRule() { return rule; }
 
-		//ID op=("=" | "!=" | "<" | "=<" | ">" | ">=") ID
+		//ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID
 		public Group getGroup() { return cGroup; }
 
 		//ID
 		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
 
-		//op=("=" | "!=" | "<" | "=<" | ">" | ">=")
+		//op=("=" | "!=" | "<" | "<=" | ">" | ">=")
 		public Assignment getOpAssignment_1() { return cOpAssignment_1; }
 
-		//"=" | "!=" | "<" | "=<" | ">" | ">="
+		//"=" | "!=" | "<" | "<=" | ">" | ">="
 		public Alternatives getOpAlternatives_1_0() { return cOpAlternatives_1_0; }
 
 		//"="
@@ -178,8 +214,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"<"
 		public Keyword getOpLessThanSignKeyword_1_0_2() { return cOpLessThanSignKeyword_1_0_2; }
 
-		//"=<"
-		public Keyword getOpEqualsSignLessThanSignKeyword_1_0_3() { return cOpEqualsSignLessThanSignKeyword_1_0_3; }
+		//"<="
+		public Keyword getOpLessThanSignEqualsSignKeyword_1_0_3() { return cOpLessThanSignEqualsSignKeyword_1_0_3; }
 
 		//">"
 		public Keyword getOpGreaterThanSignKeyword_1_0_4() { return cOpGreaterThanSignKeyword_1_0_4; }
@@ -191,8 +227,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
 	}
 
-	public class FinalValueElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FinalValue");
+	public class ConstantDeclElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstantDecl");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
@@ -200,7 +236,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cValueValueStringParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
-		//FinalValue:
+		//ConstantDecl:
 		//	name=ID "=" value=ValueString;
 		public ParserRule getRule() { return rule; }
 
@@ -221,6 +257,126 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ValueString
 		public RuleCall getValueValueStringParserRuleCall_2_0() { return cValueValueStringParserRuleCall_2_0; }
+	}
+
+	public class ConstantValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstantValue");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cStringTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cRealTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cIntegerTermParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		
+		//ConstantValue:
+		//	StringTerm | RealTerm | IntegerTerm;
+		public ParserRule getRule() { return rule; }
+
+		//StringTerm | RealTerm | IntegerTerm
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//StringTerm
+		public RuleCall getStringTermParserRuleCall_0() { return cStringTermParserRuleCall_0; }
+
+		//RealTerm
+		public RuleCall getRealTermParserRuleCall_1() { return cRealTermParserRuleCall_1; }
+
+		//IntegerTerm
+		public RuleCall getIntegerTermParserRuleCall_2() { return cIntegerTermParserRuleCall_2; }
+	}
+
+	public class StringTermElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "StringTerm");
+		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cValueSTRINGTerminalRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		
+		//StringTerm:
+		//	value=STRING;
+		public ParserRule getRule() { return rule; }
+
+		//value=STRING
+		public Assignment getValueAssignment() { return cValueAssignment; }
+
+		//STRING
+		public RuleCall getValueSTRINGTerminalRuleCall_0() { return cValueSTRINGTerminalRuleCall_0; }
+	}
+
+	public class RealTermElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "RealTerm");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cValueREALParserRuleCall_0_0 = (RuleCall)cValueAssignment_0.eContents().get(0);
+		private final Assignment cUnitAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cUnitIDTerminalRuleCall_1_0 = (RuleCall)cUnitAssignment_1.eContents().get(0);
+		
+		//RealTerm:
+		//	value=REAL unit=ID?;
+		public ParserRule getRule() { return rule; }
+
+		//value=REAL unit=ID?
+		public Group getGroup() { return cGroup; }
+
+		//value=REAL
+		public Assignment getValueAssignment_0() { return cValueAssignment_0; }
+
+		//REAL
+		public RuleCall getValueREALParserRuleCall_0_0() { return cValueREALParserRuleCall_0_0; }
+
+		//unit=ID?
+		public Assignment getUnitAssignment_1() { return cUnitAssignment_1; }
+
+		//ID
+		public RuleCall getUnitIDTerminalRuleCall_1_0() { return cUnitIDTerminalRuleCall_1_0; }
+	}
+
+	public class REALElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "REAL");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		
+		//REAL:
+		//	INT "." INT;
+		public ParserRule getRule() { return rule; }
+
+		//INT "." INT
+		public Group getGroup() { return cGroup; }
+
+		//INT
+		public RuleCall getINTTerminalRuleCall_0() { return cINTTerminalRuleCall_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+
+		//INT
+		public RuleCall getINTTerminalRuleCall_2() { return cINTTerminalRuleCall_2; }
+	}
+
+	public class IntegerTermElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IntegerTerm");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cValueINTTerminalRuleCall_0_0 = (RuleCall)cValueAssignment_0.eContents().get(0);
+		private final Assignment cUnitAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cUnitIDTerminalRuleCall_1_0 = (RuleCall)cUnitAssignment_1.eContents().get(0);
+		
+		//IntegerTerm:
+		//	value=INT unit=ID?;
+		public ParserRule getRule() { return rule; }
+
+		//value=INT unit=ID?
+		public Group getGroup() { return cGroup; }
+
+		//value=INT
+		public Assignment getValueAssignment_0() { return cValueAssignment_0; }
+
+		//INT
+		public RuleCall getValueINTTerminalRuleCall_0_0() { return cValueINTTerminalRuleCall_0_0; }
+
+		//unit=ID?
+		public Assignment getUnitAssignment_1() { return cUnitAssignment_1; }
+
+		//ID
+		public RuleCall getUnitIDTerminalRuleCall_1_0() { return cUnitIDTerminalRuleCall_1_0; }
 	}
 
 	public class MultiLineStringElements extends AbstractParserRuleElementFinder {
@@ -379,9 +535,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final ModelElements pModel;
 	private final DescriptionElements pDescription;
 	private final DescriptionElementElements pDescriptionElement;
+	private final ShowValueElements pShowValue;
 	private final ReferencePathElements pReferencePath;
 	private final PredicateExpressionElements pPredicateExpression;
-	private final FinalValueElements pFinalValue;
+	private final ConstantDeclElements pConstantDecl;
+	private final ConstantValueElements pConstantValue;
+	private final StringTermElements pStringTerm;
+	private final RealTermElements pRealTerm;
+	private final REALElements pREAL;
+	private final IntegerTermElements pIntegerTerm;
 	private final MultiLineStringElements pMultiLineString;
 	private final TextElementElements pTextElement;
 	private final ValueStringElements pValueString;
@@ -402,9 +564,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pModel = new ModelElements();
 		this.pDescription = new DescriptionElements();
 		this.pDescriptionElement = new DescriptionElementElements();
+		this.pShowValue = new ShowValueElements();
 		this.pReferencePath = new ReferencePathElements();
 		this.pPredicateExpression = new PredicateExpressionElements();
-		this.pFinalValue = new FinalValueElements();
+		this.pConstantDecl = new ConstantDeclElements();
+		this.pConstantValue = new ConstantValueElements();
+		this.pStringTerm = new StringTermElements();
+		this.pRealTerm = new RealTermElements();
+		this.pREAL = new REALElements();
+		this.pIntegerTerm = new IntegerTermElements();
 		this.pMultiLineString = new MultiLineStringElements();
 		this.pTextElement = new TextElementElements();
 		this.pValueString = new ValueStringElements();
@@ -462,13 +630,23 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | ref=[ecore::EObject] | newline?="&" | thisTarget?="this";
+	//	text=STRING | value=ShowValue | newline?="&" | thisTarget?="this";
 	public DescriptionElementElements getDescriptionElementAccess() {
 		return pDescriptionElement;
 	}
 	
 	public ParserRule getDescriptionElementRule() {
 		return getDescriptionElementAccess().getRule();
+	}
+
+	//ShowValue:
+	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	public ShowValueElements getShowValueAccess() {
+		return pShowValue;
+	}
+	
+	public ParserRule getShowValueRule() {
+		return getShowValueAccess().getRule();
 	}
 
 	//ReferencePath:
@@ -483,7 +661,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Dummy placeholder for comparison conditions
 	//PredicateExpression:
-	//	ID op=("=" | "!=" | "<" | "=<" | ">" | ">=") ID;
+	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
 	public PredicateExpressionElements getPredicateExpressionAccess() {
 		return pPredicateExpression;
 	}
@@ -492,14 +670,64 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getPredicateExpressionAccess().getRule();
 	}
 
-	//FinalValue:
+	//ConstantDecl:
 	//	name=ID "=" value=ValueString;
-	public FinalValueElements getFinalValueAccess() {
-		return pFinalValue;
+	public ConstantDeclElements getConstantDeclAccess() {
+		return pConstantDecl;
 	}
 	
-	public ParserRule getFinalValueRule() {
-		return getFinalValueAccess().getRule();
+	public ParserRule getConstantDeclRule() {
+		return getConstantDeclAccess().getRule();
+	}
+
+	//ConstantValue:
+	//	StringTerm | RealTerm | IntegerTerm;
+	public ConstantValueElements getConstantValueAccess() {
+		return pConstantValue;
+	}
+	
+	public ParserRule getConstantValueRule() {
+		return getConstantValueAccess().getRule();
+	}
+
+	//StringTerm:
+	//	value=STRING;
+	public StringTermElements getStringTermAccess() {
+		return pStringTerm;
+	}
+	
+	public ParserRule getStringTermRule() {
+		return getStringTermAccess().getRule();
+	}
+
+	//RealTerm:
+	//	value=REAL unit=ID?;
+	public RealTermElements getRealTermAccess() {
+		return pRealTerm;
+	}
+	
+	public ParserRule getRealTermRule() {
+		return getRealTermAccess().getRule();
+	}
+
+	//REAL:
+	//	INT "." INT;
+	public REALElements getREALAccess() {
+		return pREAL;
+	}
+	
+	public ParserRule getREALRule() {
+		return getREALAccess().getRule();
+	}
+
+	//IntegerTerm:
+	//	value=INT unit=ID?;
+	public IntegerTermElements getIntegerTermAccess() {
+		return pIntegerTerm;
+	}
+	
+	public ParserRule getIntegerTermRule() {
+		return getIntegerTermAccess().getRule();
 	}
 
 	//MultiLineString:

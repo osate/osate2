@@ -1791,13 +1791,23 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | ref=[ecore::EObject] | newline?="&" | thisTarget?="this";
+	//	text=STRING | value=ShowValue | newline?="&" | thisTarget?="this";
 	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
 		return gaCommon.getDescriptionElementAccess();
 	}
 	
 	public ParserRule getDescriptionElementRule() {
 		return getDescriptionElementAccess().getRule();
+	}
+
+	//ShowValue:
+	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
+		return gaCommon.getShowValueAccess();
+	}
+	
+	public ParserRule getShowValueRule() {
+		return getShowValueAccess().getRule();
 	}
 
 	//ReferencePath:
@@ -1812,7 +1822,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Dummy placeholder for comparison conditions
 	//PredicateExpression:
-	//	ID op=("=" | "!=" | "<" | "=<" | ">" | ">=") ID;
+	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
 	public CommonGrammarAccess.PredicateExpressionElements getPredicateExpressionAccess() {
 		return gaCommon.getPredicateExpressionAccess();
 	}
@@ -1821,14 +1831,64 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getPredicateExpressionAccess().getRule();
 	}
 
-	//FinalValue:
+	//ConstantDecl:
 	//	name=ID "=" value=ValueString;
-	public CommonGrammarAccess.FinalValueElements getFinalValueAccess() {
-		return gaCommon.getFinalValueAccess();
+	public CommonGrammarAccess.ConstantDeclElements getConstantDeclAccess() {
+		return gaCommon.getConstantDeclAccess();
 	}
 	
-	public ParserRule getFinalValueRule() {
-		return getFinalValueAccess().getRule();
+	public ParserRule getConstantDeclRule() {
+		return getConstantDeclAccess().getRule();
+	}
+
+	//ConstantValue:
+	//	StringTerm | RealTerm | IntegerTerm;
+	public CommonGrammarAccess.ConstantValueElements getConstantValueAccess() {
+		return gaCommon.getConstantValueAccess();
+	}
+	
+	public ParserRule getConstantValueRule() {
+		return getConstantValueAccess().getRule();
+	}
+
+	//StringTerm:
+	//	value=STRING;
+	public CommonGrammarAccess.StringTermElements getStringTermAccess() {
+		return gaCommon.getStringTermAccess();
+	}
+	
+	public ParserRule getStringTermRule() {
+		return getStringTermAccess().getRule();
+	}
+
+	//RealTerm:
+	//	value=REAL unit=ID?;
+	public CommonGrammarAccess.RealTermElements getRealTermAccess() {
+		return gaCommon.getRealTermAccess();
+	}
+	
+	public ParserRule getRealTermRule() {
+		return getRealTermAccess().getRule();
+	}
+
+	//REAL:
+	//	INT "." INT;
+	public CommonGrammarAccess.REALElements getREALAccess() {
+		return gaCommon.getREALAccess();
+	}
+	
+	public ParserRule getREALRule() {
+		return getREALAccess().getRule();
+	}
+
+	//IntegerTerm:
+	//	value=INT unit=ID?;
+	public CommonGrammarAccess.IntegerTermElements getIntegerTermAccess() {
+		return gaCommon.getIntegerTermAccess();
+	}
+	
+	public ParserRule getIntegerTermRule() {
+		return getIntegerTermAccess().getRule();
 	}
 
 	//MultiLineString:

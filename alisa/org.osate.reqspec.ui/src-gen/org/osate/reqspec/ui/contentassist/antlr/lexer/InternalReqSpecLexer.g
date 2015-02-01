@@ -24,8 +24,6 @@ Requirement : ('R'|'r')('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('R'|'r')('E'|'e')('M
 
 Stakeholder : ('S'|'s')('T'|'t')('A'|'a')('K'|'k')('E'|'e')('H'|'h')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
 
-Documented : ('D'|'d')('O'|'o')('C'|'c')('U'|'u')('M'|'m')('E'|'e')('N'|'n')('T'|'t')('E'|'e')('D'|'d');
-
 Conflicts : ('C'|'c')('O'|'o')('N'|'n')('F'|'f')('L'|'l')('I'|'i')('C'|'c')('T'|'t')('S'|'s');
 
 Constants : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t')('S'|'s');
@@ -68,15 +66,15 @@ FullStopAsterisk : '.''*';
 
 ColonColon : ':'':';
 
-EqualsSignLessThanSign : '=''<';
+LessThanSignEqualsSign : '<''=';
 
 GreaterThanSignEqualsSign : '>''=';
 
 NumberSign : '#';
 
-Ampersand : '&';
+PercentSign : '%';
 
-Comma : ',';
+Ampersand : '&';
 
 FullStop : '.';
 

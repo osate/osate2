@@ -11,9 +11,6 @@
     <genClasses ecoreClass="Categories.ecore#//RequirementCategories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategories/category"/>
     </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//HazardCategories">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//HazardCategories/category"/>
-    </genClasses>
     <genClasses ecoreClass="Categories.ecore#//VerificationCategories">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategories/category"/>
     </genClasses>
@@ -25,9 +22,6 @@
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//RequirementCategory">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//RequirementCategory/extends"/>
-    </genClasses>
-    <genClasses ecoreClass="Categories.ecore#//HazardCategory">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//HazardCategory/extends"/>
     </genClasses>
     <genClasses ecoreClass="Categories.ecore#//VerificationCategory">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Categories.ecore#//VerificationCategory/extends"/>

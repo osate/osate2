@@ -9,6 +9,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetDescription" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="category" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rationale" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="documentRequirement" unique="false"
         upperBound="-1" eType="#//ContractualElement"/>
@@ -51,7 +53,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="libraries" unique="false"
         upperBound="-1" eType="#//ReqLib"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//FinalValue"
+        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ConstantDecl"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="content" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
@@ -63,7 +65,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetDescription" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//FinalValue"
+        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ConstantDecl"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="content" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
@@ -84,8 +86,6 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Goal" eSuperTypes="#//ContractualElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//MultiLineString"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinesReference" unique="false"
         upperBound="-1" eType="#//Goal"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="conflictsReference" unique="false"
@@ -94,10 +94,8 @@
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.organization/model/generated/Organization.ecore#//Stakeholder"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Requirement" eSuperTypes="#//ContractualElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//FinalValue"
+        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ConstantDecl"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//PredicateExpression"
         containment="true"/>
@@ -106,8 +104,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="exception" eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="exceptionText" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinedReference" unique="false"
-        upperBound="-1" eType="#//Requirement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="refinesReference" unique="false"
         upperBound="-1" eType="#//Requirement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderRequirementReference"
         unique="false" upperBound="-1" eType="#//Goal"/>

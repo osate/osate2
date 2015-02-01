@@ -3,9 +3,9 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.ShowValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +23,7 @@ import org.osate.alisa.common.common.DescriptionElement;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getText <em>Text</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getRef <em>Ref</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getValue <em>Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isNewline <em>Newline</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isThisTarget <em>This Target</em>}</li>
  * </ul>
@@ -53,14 +54,14 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
   protected String text = TEXT_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRef() <em>Ref</em>}' reference.
+   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRef()
+   * @see #getValue()
    * @generated
    * @ordered
    */
-  protected EObject ref;
+  protected ShowValue value;
 
   /**
    * The default value of the '{@link #isNewline() <em>Newline</em>}' attribute.
@@ -151,19 +152,9 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EObject getRef()
+  public ShowValue getValue()
   {
-    if (ref != null && ref.eIsProxy())
-    {
-      InternalEObject oldRef = (InternalEObject)ref;
-      ref = eResolveProxy(oldRef);
-      if (ref != oldRef)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.DESCRIPTION_ELEMENT__REF, oldRef, ref));
-      }
-    }
-    return ref;
+    return value;
   }
 
   /**
@@ -171,22 +162,37 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EObject basicGetRef()
+  public NotificationChain basicSetValue(ShowValue newValue, NotificationChain msgs)
   {
-    return ref;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRef(EObject newRef)
-  {
-    EObject oldRef = ref;
-    ref = newRef;
+    ShowValue oldValue = value;
+    value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__REF, oldRef, ref));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__VALUE, oldValue, newValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValue(ShowValue newValue)
+  {
+    if (newValue != value)
+    {
+      NotificationChain msgs = null;
+      if (value != null)
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.DESCRIPTION_ELEMENT__VALUE, null, msgs);
+      if (newValue != null)
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.DESCRIPTION_ELEMENT__VALUE, null, msgs);
+      msgs = basicSetValue(newValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__VALUE, newValue, newValue));
   }
 
   /**
@@ -241,15 +247,30 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
+        return basicSetValue(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
       case CommonPackage.DESCRIPTION_ELEMENT__TEXT:
         return getText();
-      case CommonPackage.DESCRIPTION_ELEMENT__REF:
-        if (resolve) return getRef();
-        return basicGetRef();
+      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
+        return getValue();
       case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
         return isNewline();
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
@@ -271,8 +292,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
       case CommonPackage.DESCRIPTION_ELEMENT__TEXT:
         setText((String)newValue);
         return;
-      case CommonPackage.DESCRIPTION_ELEMENT__REF:
-        setRef((EObject)newValue);
+      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
+        setValue((ShowValue)newValue);
         return;
       case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
         setNewline((Boolean)newValue);
@@ -297,8 +318,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
       case CommonPackage.DESCRIPTION_ELEMENT__TEXT:
         setText(TEXT_EDEFAULT);
         return;
-      case CommonPackage.DESCRIPTION_ELEMENT__REF:
-        setRef((EObject)null);
+      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
+        setValue((ShowValue)null);
         return;
       case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
         setNewline(NEWLINE_EDEFAULT);
@@ -322,8 +343,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
     {
       case CommonPackage.DESCRIPTION_ELEMENT__TEXT:
         return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
-      case CommonPackage.DESCRIPTION_ELEMENT__REF:
-        return ref != null;
+      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
+        return value != null;
       case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
         return newline != NEWLINE_EDEFAULT;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:

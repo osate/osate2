@@ -50,6 +50,15 @@ public interface CommonFactory extends EFactory
   DescriptionElement createDescriptionElement();
 
   /**
+   * Returns a new object of class '<em>Show Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Show Value</em>'.
+   * @generated
+   */
+  ShowValue createShowValue();
+
+  /**
    * Returns a new object of class '<em>Reference Path</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -68,13 +77,49 @@ public interface CommonFactory extends EFactory
   PredicateExpression createPredicateExpression();
 
   /**
-   * Returns a new object of class '<em>Final Value</em>'.
+   * Returns a new object of class '<em>Constant Decl</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Final Value</em>'.
+   * @return a new object of class '<em>Constant Decl</em>'.
    * @generated
    */
-  FinalValue createFinalValue();
+  ConstantDecl createConstantDecl();
+
+  /**
+   * Returns a new object of class '<em>Constant Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constant Value</em>'.
+   * @generated
+   */
+  ConstantValue createConstantValue();
+
+  /**
+   * Returns a new object of class '<em>String Term</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>String Term</em>'.
+   * @generated
+   */
+  StringTerm createStringTerm();
+
+  /**
+   * Returns a new object of class '<em>Real Term</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Real Term</em>'.
+   * @generated
+   */
+  RealTerm createRealTerm();
+
+  /**
+   * Returns a new object of class '<em>Integer Term</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Integer Term</em>'.
+   * @generated
+   */
+  IntegerTerm createIntegerTerm();
 
   /**
    * Returns a new object of class '<em>Multi Line String</em>'.

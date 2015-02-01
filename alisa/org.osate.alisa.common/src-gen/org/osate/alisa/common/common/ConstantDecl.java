@@ -6,22 +6,22 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Final Value</b></em>'.
+ * A representation of the model object '<em><b>Constant Decl</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.FinalValue#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.FinalValue#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ConstantDecl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ConstantDecl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.alisa.common.common.CommonPackage#getFinalValue()
+ * @see org.osate.alisa.common.common.CommonPackage#getConstantDecl()
  * @model
  * @generated
  */
-public interface FinalValue extends EObject
+public interface ConstantDecl extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -33,14 +33,14 @@ public interface FinalValue extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getFinalValue_Name()
+   * @see org.osate.alisa.common.common.CommonPackage#getConstantDecl_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.FinalValue#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ConstantDecl#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -59,14 +59,14 @@ public interface FinalValue extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
    * @see #setValue(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getFinalValue_Value()
+   * @see org.osate.alisa.common.common.CommonPackage#getConstantDecl_Value()
    * @model
    * @generated
    */
   String getValue();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.FinalValue#getValue <em>Value</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ConstantDecl#getValue <em>Value</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Value</em>' attribute.
@@ -75,4 +75,4 @@ public interface FinalValue extends EObject
    */
   void setValue(String value);
 
-} // FinalValue
+} // ConstantDecl

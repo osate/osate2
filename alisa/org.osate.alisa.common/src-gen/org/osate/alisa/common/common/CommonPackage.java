@@ -132,13 +132,13 @@ public interface CommonPackage extends EPackage
   int DESCRIPTION_ELEMENT__TEXT = 0;
 
   /**
-   * The feature id for the '<em><b>Ref</b></em>' reference.
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DESCRIPTION_ELEMENT__REF = 1;
+  int DESCRIPTION_ELEMENT__VALUE = 1;
 
   /**
    * The feature id for the '<em><b>Newline</b></em>' attribute.
@@ -168,6 +168,43 @@ public interface CommonPackage extends EPackage
   int DESCRIPTION_ELEMENT_FEATURE_COUNT = 4;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ShowValueImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getShowValue()
+   * @generated
+   */
+  int SHOW_VALUE = 3;
+
+  /**
+   * The feature id for the '<em><b>Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SHOW_VALUE__REF = 0;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SHOW_VALUE__UNIT = 1;
+
+  /**
+   * The number of structural features of the '<em>Show Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SHOW_VALUE_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ReferencePathImpl <em>Reference Path</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -175,7 +212,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getReferencePath()
    * @generated
    */
-  int REFERENCE_PATH = 3;
+  int REFERENCE_PATH = 4;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -212,7 +249,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getPredicateExpression()
    * @generated
    */
-  int PREDICATE_EXPRESSION = 4;
+  int PREDICATE_EXPRESSION = 5;
 
   /**
    * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -233,14 +270,14 @@ public interface CommonPackage extends EPackage
   int PREDICATE_EXPRESSION_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.FinalValueImpl <em>Final Value</em>}' class.
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ConstantDeclImpl <em>Constant Decl</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.FinalValueImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getFinalValue()
+   * @see org.osate.alisa.common.common.impl.ConstantDeclImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getConstantDecl()
    * @generated
    */
-  int FINAL_VALUE = 5;
+  int CONSTANT_DECL = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -249,7 +286,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FINAL_VALUE__NAME = 0;
+  int CONSTANT_DECL__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -258,16 +295,137 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FINAL_VALUE__VALUE = 1;
+  int CONSTANT_DECL__VALUE = 1;
 
   /**
-   * The number of structural features of the '<em>Final Value</em>' class.
+   * The number of structural features of the '<em>Constant Decl</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FINAL_VALUE_FEATURE_COUNT = 2;
+  int CONSTANT_DECL_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ConstantValueImpl <em>Constant Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ConstantValueImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getConstantValue()
+   * @generated
+   */
+  int CONSTANT_VALUE = 7;
+
+  /**
+   * The number of structural features of the '<em>Constant Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTANT_VALUE_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.StringTermImpl <em>String Term</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.StringTermImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getStringTerm()
+   * @generated
+   */
+  int STRING_TERM = 8;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_TERM__VALUE = CONSTANT_VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>String Term</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_TERM_FEATURE_COUNT = CONSTANT_VALUE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.RealTermImpl <em>Real Term</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.RealTermImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getRealTerm()
+   * @generated
+   */
+  int REAL_TERM = 9;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REAL_TERM__VALUE = CONSTANT_VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REAL_TERM__UNIT = CONSTANT_VALUE_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Real Term</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REAL_TERM_FEATURE_COUNT = CONSTANT_VALUE_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.IntegerTermImpl <em>Integer Term</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.IntegerTermImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getIntegerTerm()
+   * @generated
+   */
+  int INTEGER_TERM = 10;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTEGER_TERM__VALUE = CONSTANT_VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTEGER_TERM__UNIT = CONSTANT_VALUE_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Integer Term</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTEGER_TERM_FEATURE_COUNT = CONSTANT_VALUE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.MultiLineStringImpl <em>Multi Line String</em>}' class.
@@ -277,7 +435,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getMultiLineString()
    * @generated
    */
-  int MULTI_LINE_STRING = 6;
+  int MULTI_LINE_STRING = 11;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference list.
@@ -305,7 +463,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getTextElement()
    * @generated
    */
-  int TEXT_ELEMENT = 7;
+  int TEXT_ELEMENT = 12;
 
   /**
    * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -399,15 +557,15 @@ public interface CommonPackage extends EPackage
   EAttribute getDescriptionElement_Text();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.DescriptionElement#getRef <em>Ref</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.DescriptionElement#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Ref</em>'.
-   * @see org.osate.alisa.common.common.DescriptionElement#getRef()
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see org.osate.alisa.common.common.DescriptionElement#getValue()
    * @see #getDescriptionElement()
    * @generated
    */
-  EReference getDescriptionElement_Ref();
+  EReference getDescriptionElement_Value();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.DescriptionElement#isNewline <em>Newline</em>}'.
@@ -430,6 +588,38 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EAttribute getDescriptionElement_ThisTarget();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Show Value</em>'.
+   * @see org.osate.alisa.common.common.ShowValue
+   * @generated
+   */
+  EClass getShowValue();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.ShowValue#getRef <em>Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Ref</em>'.
+   * @see org.osate.alisa.common.common.ShowValue#getRef()
+   * @see #getShowValue()
+   * @generated
+   */
+  EReference getShowValue_Ref();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ShowValue#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Unit</em>'.
+   * @see org.osate.alisa.common.common.ShowValue#getUnit()
+   * @see #getShowValue()
+   * @generated
+   */
+  EAttribute getShowValue_Unit();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ReferencePath <em>Reference Path</em>}'.
@@ -485,36 +675,131 @@ public interface CommonPackage extends EPackage
   EAttribute getPredicateExpression_Op();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.FinalValue <em>Final Value</em>}'.
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ConstantDecl <em>Constant Decl</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Final Value</em>'.
-   * @see org.osate.alisa.common.common.FinalValue
+   * @return the meta object for class '<em>Constant Decl</em>'.
+   * @see org.osate.alisa.common.common.ConstantDecl
    * @generated
    */
-  EClass getFinalValue();
+  EClass getConstantDecl();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.FinalValue#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ConstantDecl#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.common.common.FinalValue#getName()
-   * @see #getFinalValue()
+   * @see org.osate.alisa.common.common.ConstantDecl#getName()
+   * @see #getConstantDecl()
    * @generated
    */
-  EAttribute getFinalValue_Name();
+  EAttribute getConstantDecl_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.FinalValue#getValue <em>Value</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ConstantDecl#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.osate.alisa.common.common.FinalValue#getValue()
-   * @see #getFinalValue()
+   * @see org.osate.alisa.common.common.ConstantDecl#getValue()
+   * @see #getConstantDecl()
    * @generated
    */
-  EAttribute getFinalValue_Value();
+  EAttribute getConstantDecl_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ConstantValue <em>Constant Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Constant Value</em>'.
+   * @see org.osate.alisa.common.common.ConstantValue
+   * @generated
+   */
+  EClass getConstantValue();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.StringTerm <em>String Term</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>String Term</em>'.
+   * @see org.osate.alisa.common.common.StringTerm
+   * @generated
+   */
+  EClass getStringTerm();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.StringTerm#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.osate.alisa.common.common.StringTerm#getValue()
+   * @see #getStringTerm()
+   * @generated
+   */
+  EAttribute getStringTerm_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.RealTerm <em>Real Term</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Real Term</em>'.
+   * @see org.osate.alisa.common.common.RealTerm
+   * @generated
+   */
+  EClass getRealTerm();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.RealTerm#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.osate.alisa.common.common.RealTerm#getValue()
+   * @see #getRealTerm()
+   * @generated
+   */
+  EAttribute getRealTerm_Value();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.RealTerm#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Unit</em>'.
+   * @see org.osate.alisa.common.common.RealTerm#getUnit()
+   * @see #getRealTerm()
+   * @generated
+   */
+  EAttribute getRealTerm_Unit();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.IntegerTerm <em>Integer Term</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Integer Term</em>'.
+   * @see org.osate.alisa.common.common.IntegerTerm
+   * @generated
+   */
+  EClass getIntegerTerm();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.IntegerTerm#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.osate.alisa.common.common.IntegerTerm#getValue()
+   * @see #getIntegerTerm()
+   * @generated
+   */
+  EAttribute getIntegerTerm_Value();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.IntegerTerm#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Unit</em>'.
+   * @see org.osate.alisa.common.common.IntegerTerm#getUnit()
+   * @see #getIntegerTerm()
+   * @generated
+   */
+  EAttribute getIntegerTerm_Unit();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.MultiLineString <em>Multi Line String</em>}'.
@@ -647,12 +932,12 @@ public interface CommonPackage extends EPackage
     EAttribute DESCRIPTION_ELEMENT__TEXT = eINSTANCE.getDescriptionElement_Text();
 
     /**
-     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference DESCRIPTION_ELEMENT__REF = eINSTANCE.getDescriptionElement_Ref();
+    EReference DESCRIPTION_ELEMENT__VALUE = eINSTANCE.getDescriptionElement_Value();
 
     /**
      * The meta object literal for the '<em><b>Newline</b></em>' attribute feature.
@@ -669,6 +954,32 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute DESCRIPTION_ELEMENT__THIS_TARGET = eINSTANCE.getDescriptionElement_ThisTarget();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ShowValueImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getShowValue()
+     * @generated
+     */
+    EClass SHOW_VALUE = eINSTANCE.getShowValue();
+
+    /**
+     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SHOW_VALUE__REF = eINSTANCE.getShowValue_Ref();
+
+    /**
+     * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SHOW_VALUE__UNIT = eINSTANCE.getShowValue_Unit();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ReferencePathImpl <em>Reference Path</em>}' class.
@@ -715,14 +1026,14 @@ public interface CommonPackage extends EPackage
     EAttribute PREDICATE_EXPRESSION__OP = eINSTANCE.getPredicateExpression_Op();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.FinalValueImpl <em>Final Value</em>}' class.
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ConstantDeclImpl <em>Constant Decl</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.FinalValueImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getFinalValue()
+     * @see org.osate.alisa.common.common.impl.ConstantDeclImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getConstantDecl()
      * @generated
      */
-    EClass FINAL_VALUE = eINSTANCE.getFinalValue();
+    EClass CONSTANT_DECL = eINSTANCE.getConstantDecl();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -730,7 +1041,7 @@ public interface CommonPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute FINAL_VALUE__NAME = eINSTANCE.getFinalValue_Name();
+    EAttribute CONSTANT_DECL__NAME = eINSTANCE.getConstantDecl_Name();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
@@ -738,7 +1049,87 @@ public interface CommonPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute FINAL_VALUE__VALUE = eINSTANCE.getFinalValue_Value();
+    EAttribute CONSTANT_DECL__VALUE = eINSTANCE.getConstantDecl_Value();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ConstantValueImpl <em>Constant Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ConstantValueImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getConstantValue()
+     * @generated
+     */
+    EClass CONSTANT_VALUE = eINSTANCE.getConstantValue();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.StringTermImpl <em>String Term</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.StringTermImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getStringTerm()
+     * @generated
+     */
+    EClass STRING_TERM = eINSTANCE.getStringTerm();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute STRING_TERM__VALUE = eINSTANCE.getStringTerm_Value();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.RealTermImpl <em>Real Term</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.RealTermImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getRealTerm()
+     * @generated
+     */
+    EClass REAL_TERM = eINSTANCE.getRealTerm();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REAL_TERM__VALUE = eINSTANCE.getRealTerm_Value();
+
+    /**
+     * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REAL_TERM__UNIT = eINSTANCE.getRealTerm_Unit();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.IntegerTermImpl <em>Integer Term</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.IntegerTermImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getIntegerTerm()
+     * @generated
+     */
+    EClass INTEGER_TERM = eINSTANCE.getIntegerTerm();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INTEGER_TERM__VALUE = eINSTANCE.getIntegerTerm_Value();
+
+    /**
+     * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INTEGER_TERM__UNIT = eINSTANCE.getIntegerTerm_Unit();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.MultiLineStringImpl <em>Multi Line String</em>}' class.

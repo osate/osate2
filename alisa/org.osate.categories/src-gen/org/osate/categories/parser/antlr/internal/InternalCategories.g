@@ -89,31 +89,21 @@ ruleCategories returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getCategoriesAccess().getHazardCategoriesParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getCategoriesAccess().getVerificationCategoriesParserRuleCall_1()); 
     }
-    this_HazardCategories_1=ruleHazardCategories
+    this_VerificationCategories_1=ruleVerificationCategories
     { 
-        $current = $this_HazardCategories_1.current; 
+        $current = $this_VerificationCategories_1.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getCategoriesAccess().getVerificationCategoriesParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getCategoriesAccess().getSelectionCategoriesParserRuleCall_2()); 
     }
-    this_VerificationCategories_2=ruleVerificationCategories
+    this_SelectionCategories_2=ruleSelectionCategories
     { 
-        $current = $this_VerificationCategories_2.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getCategoriesAccess().getSelectionCategoriesParserRuleCall_3()); 
-    }
-    this_SelectionCategories_3=ruleSelectionCategories
-    { 
-        $current = $this_SelectionCategories_3.current; 
+        $current = $this_SelectionCategories_2.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -170,61 +160,6 @@ ruleRequirementCategories returns [EObject current=null]
 )+	otherlv_4=']' 
     {
     	newLeafNode(otherlv_4, grammarAccess.getRequirementCategoriesAccess().getRightSquareBracketKeyword_4());
-    }
-)
-;
-
-
-
-
-
-// Entry rule entryRuleHazardCategories
-entryRuleHazardCategories returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getHazardCategoriesRule()); }
-	 iv_ruleHazardCategories=ruleHazardCategories 
-	 { $current=$iv_ruleHazardCategories.current; } 
-	 EOF 
-;
-
-// Rule HazardCategories
-ruleHazardCategories returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(	otherlv_0='hazard' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getHazardCategoriesAccess().getHazardKeyword_0());
-    }
-	otherlv_1='categories' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getHazardCategoriesAccess().getCategoriesKeyword_1());
-    }
-	otherlv_2='[' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getHazardCategoriesAccess().getLeftSquareBracketKeyword_2());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getHazardCategoriesAccess().getCategoryHazardCategoryParserRuleCall_3_0()); 
-	    }
-		lv_category_3_0=ruleHazardCategory		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getHazardCategoriesRule());
-	        }
-       		add(
-       			$current, 
-       			"category",
-        		lv_category_3_0, 
-        		"HazardCategory");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+	otherlv_4=']' 
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getHazardCategoriesAccess().getRightSquareBracketKeyword_4());
     }
 )
 ;
@@ -390,64 +325,6 @@ ruleRequirementCategory returns [EObject current=null]
         }
 		{ 
 	        newCompositeNode(grammarAccess.getRequirementCategoryAccess().getExtendsRequirementCategoryCrossReference_1_1_0()); 
-	    }
-		ruleCatRef		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))?)
-;
-
-
-
-
-
-// Entry rule entryRuleHazardCategory
-entryRuleHazardCategory returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getHazardCategoryRule()); }
-	 iv_ruleHazardCategory=ruleHazardCategory 
-	 { $current=$iv_ruleHazardCategory.current; } 
-	 EOF 
-;
-
-// Rule HazardCategory
-ruleHazardCategory returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		lv_name_0_0=RULE_ID
-		{
-			newLeafNode(lv_name_0_0, grammarAccess.getHazardCategoryAccess().getNameIDTerminalRuleCall_0_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getHazardCategoryRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_0_0, 
-        		"ID");
-	    }
-
-)
-)(	otherlv_1='extends' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getHazardCategoryAccess().getExtendsKeyword_1_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getHazardCategoryRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getHazardCategoryAccess().getExtendsHazardCategoryCrossReference_1_1_0()); 
 	    }
 		ruleCatRef		{ 
 	        afterParserOrEnumRuleCall();

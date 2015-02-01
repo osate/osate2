@@ -14,13 +14,17 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
-import org.osate.alisa.common.common.FinalValue;
+import org.osate.alisa.common.common.IntegerTerm;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.MultiLineString;
 import org.osate.alisa.common.common.PredicateExpression;
+import org.osate.alisa.common.common.RealTerm;
 import org.osate.alisa.common.common.ReferencePath;
+import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.StringTerm;
 import org.osate.alisa.common.common.TextElement;
 import org.osate.alisa.common.services.CommonGrammarAccess;
 
@@ -32,6 +36,12 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.CONSTANT_DECL:
+				if(context == grammarAccess.getConstantDeclRule()) {
+					sequence_ConstantDecl(context, (ConstantDecl) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.DESCRIPTION:
 				if(context == grammarAccess.getDescriptionRule()) {
 					sequence_Description(context, (Description) semanticObject); 
@@ -44,9 +54,10 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 					return; 
 				}
 				else break;
-			case CommonPackage.FINAL_VALUE:
-				if(context == grammarAccess.getFinalValueRule()) {
-					sequence_FinalValue(context, (FinalValue) semanticObject); 
+			case CommonPackage.INTEGER_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getIntegerTermRule()) {
+					sequence_IntegerTerm(context, (IntegerTerm) semanticObject); 
 					return; 
 				}
 				else break;
@@ -68,9 +79,29 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 					return; 
 				}
 				else break;
+			case CommonPackage.REAL_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getRealTermRule()) {
+					sequence_RealTerm(context, (RealTerm) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.REFERENCE_PATH:
 				if(context == grammarAccess.getReferencePathRule()) {
 					sequence_ReferencePath(context, (ReferencePath) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.SHOW_VALUE:
+				if(context == grammarAccess.getShowValueRule()) {
+					sequence_ShowValue(context, (ShowValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.STRING_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getStringTermRule()) {
+					sequence_StringTerm(context, (StringTerm) semanticObject); 
 					return; 
 				}
 				else break;
@@ -86,7 +117,26 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (text=STRING | ref=[EObject|ID] | newline?='&' | thisTarget?='this')
+	 *     (name=ID value=ValueString)
+	 */
+	protected void sequence_ConstantDecl(EObject context, ConstantDecl semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.CONSTANT_DECL__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.CONSTANT_DECL__NAME));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.CONSTANT_DECL__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.CONSTANT_DECL__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getConstantDeclAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getConstantDeclAccess().getValueValueStringParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (text=STRING | value=ShowValue | newline?='&' | thisTarget?='this')
 	 */
 	protected void sequence_DescriptionElement(EObject context, DescriptionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -104,20 +154,10 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID value=ValueString)
+	 *     (value=INT unit=ID?)
 	 */
-	protected void sequence_FinalValue(EObject context, FinalValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.FINAL_VALUE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.FINAL_VALUE__NAME));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.FINAL_VALUE__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.FINAL_VALUE__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getFinalValueAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getFinalValueAccess().getValueValueStringParserRuleCall_2_0(), semanticObject.getValue());
-		feeder.finish();
+	protected void sequence_IntegerTerm(EObject context, IntegerTerm semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -152,12 +192,21 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         op='=' | 
 	 *         op='!=' | 
 	 *         op='<' | 
-	 *         op='=<' | 
+	 *         op='<=' | 
 	 *         op='>' | 
 	 *         op='>='
 	 *     )
 	 */
 	protected void sequence_PredicateExpression(EObject context, PredicateExpression semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value=REAL unit=ID?)
+	 */
+	protected void sequence_RealTerm(EObject context, RealTerm semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -177,6 +226,31 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getReferencePathAccess().getRefEObjectIDTerminalRuleCall_0_0_1(), semanticObject.getRef());
 		feeder.accept(grammarAccess.getReferencePathAccess().getSubpathReferencePathParserRuleCall_1_1_0(), semanticObject.getSubpath());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ref=[EObject|ID] unit=ID?)
+	 */
+	protected void sequence_ShowValue(EObject context, ShowValue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=STRING
+	 */
+	protected void sequence_StringTerm(EObject context, StringTerm semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.STRING_TERM__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.STRING_TERM__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getStringTermAccess().getValueSTRINGTerminalRuleCall_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

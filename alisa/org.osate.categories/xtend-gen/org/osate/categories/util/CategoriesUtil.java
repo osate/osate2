@@ -4,10 +4,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.categories.categories.Categories;
 import org.osate.categories.categories.Category;
-import org.osate.categories.categories.HazardCategories;
-import org.osate.categories.categories.HazardCategory;
 import org.osate.categories.categories.RequirementCategories;
 import org.osate.categories.categories.RequirementCategory;
+import org.osate.categories.categories.SelectionCategories;
+import org.osate.categories.categories.SelectionCategory;
 import org.osate.categories.categories.VerificationCategories;
 import org.osate.categories.categories.VerificationCategory;
 
@@ -34,9 +34,9 @@ public class CategoriesUtil {
       }
     }
     if (!_matched) {
-      if (cats instanceof HazardCategories) {
+      if (cats instanceof SelectionCategories) {
         _matched=true;
-        _switchResult = ((HazardCategories)cats).getCategory();
+        _switchResult = ((SelectionCategories)cats).getCategory();
       }
     }
     return _switchResult;
@@ -58,9 +58,9 @@ public class CategoriesUtil {
       }
     }
     if (!_matched) {
-      if (cat instanceof HazardCategory) {
+      if (cat instanceof SelectionCategory) {
         _matched=true;
-        _switchResult = ((HazardCategory)cat).getExtends();
+        _switchResult = ((SelectionCategory)cat).getExtends();
       }
     }
     return _switchResult;
@@ -81,9 +81,9 @@ public class CategoriesUtil {
       }
     }
     if (!_matched) {
-      if (cat instanceof HazardCategory) {
+      if (cat instanceof SelectionCategory) {
         _matched=true;
-        ((HazardCategory)cat).setExtends(((HazardCategory) value));
+        ((SelectionCategory)cat).setExtends(((SelectionCategory) value));
       }
     }
   }

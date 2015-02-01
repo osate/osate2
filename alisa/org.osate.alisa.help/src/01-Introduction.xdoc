@@ -1,0 +1,54 @@
+chapter:Introduction[Introduction]
+
+Architecture-led Incremental System Assurance (ALISA) is an incremental life-cycle assurance workbench
+for high-assurance software reliant systems. It utlizes architecture abstractions in models to manage
+requirements across multiple layer of a system architecture and the verification of a system implementation
+agains tthese requirements. The workbench complements the capabilities of an architecture-centric virtual
+system integration workbench for the development of such systems.
+
+Alisa utilizes SAE AADL as an architecture modeling language. Alisa provides three notations for users
+to specify requirements and verification plans, and the results of the verification activities througout
+the life cycle to incrementally build an assurance case concurrent with the development process.
+
+img[images/doublev.png][Building the Assurance Case][][]
+
+The three notations are:
+ul[
+	item[e[ReqSpec:] a notation for specifying stakeholder goals and system requirements.]
+	item[e[Verify:] a notation for registering verification methods, specifying verification activities,
+	and verification plans with claims that requirements are satisfied by the results of verivication
+	activities.]
+	item[e[Assure:] a notation that represents the assurance results, i.e., the results of executing verification
+	plans on a system instance.]
+]
+
+These notations are supported by three additional notations:
+ul[
+item[e[Organization:] a notation for defining the stakeholders of a system.]
+item[e[Categories:] a notation for defining  requirement categories, verification categories, and selection
+categories]
+item[e[Alisa:] a notation for defining the working context for building an assurance case.]
+]
+
+The notations use a simple syntax. Each construct introduces an instance of a particular Alisa concept,
+which we will refer to as e[entity], 
+and identifies it with a unique name. The name is a identifier that is qualified with the name of a container
+entity, such as a library. 
+
+As the identifier may take the form of a label such as Req1, each entity optionally also has a title
+field that provides a short descriptive label. This label may be used instead of or an additon to the identifier for
+presentation in views.
+
+An entity may identify a model element that it is associated with. 
+
+An entity may contain a number of attributes, i.e., labelled values or references to other model elements.
+These are enclosed in square brackets.
+
+When describing the syntax of Alisa notations we will use BNF-like syntax markers to indicate optional
+constructs, such as e[( construct )?] for an optional construct, e[( construct )*] for a construct repeated
+zero or more times, e[( construct )+] for a construct repeated one or more times, and e[ a | b ] to represent altenatives. 
+
+Note that we will be providing a user interface that presents the Alisa information in a grpahical or
+structured navigator view with the details of a selected entity shown in a properties view. The user
+will be able to create entities within the navigator view and edit its atttributes in the properties
+view. In other words, in the future users of Alisa may not have to learn the details of the textual syntax of the Alisa notations.

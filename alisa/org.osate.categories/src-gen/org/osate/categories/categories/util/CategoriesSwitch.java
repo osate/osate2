@@ -87,14 +87,6 @@ public class CategoriesSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CategoriesPackage.HAZARD_CATEGORIES:
-      {
-        HazardCategories hazardCategories = (HazardCategories)theEObject;
-        T result = caseHazardCategories(hazardCategories);
-        if (result == null) result = caseCategories(hazardCategories);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CategoriesPackage.VERIFICATION_CATEGORIES:
       {
         VerificationCategories verificationCategories = (VerificationCategories)theEObject;
@@ -123,14 +115,6 @@ public class CategoriesSwitch<T> extends Switch<T>
         RequirementCategory requirementCategory = (RequirementCategory)theEObject;
         T result = caseRequirementCategory(requirementCategory);
         if (result == null) result = caseCategory(requirementCategory);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CategoriesPackage.HAZARD_CATEGORY:
-      {
-        HazardCategory hazardCategory = (HazardCategory)theEObject;
-        T result = caseHazardCategory(hazardCategory);
-        if (result == null) result = caseCategory(hazardCategory);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -182,22 +166,6 @@ public class CategoriesSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseRequirementCategories(RequirementCategories object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Hazard Categories</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Hazard Categories</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseHazardCategories(HazardCategories object)
   {
     return null;
   }
@@ -262,22 +230,6 @@ public class CategoriesSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseRequirementCategory(RequirementCategory object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Hazard Category</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Hazard Category</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseHazardCategory(HazardCategory object)
   {
     return null;
   }

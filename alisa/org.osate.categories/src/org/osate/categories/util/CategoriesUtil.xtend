@@ -4,11 +4,11 @@ import org.osate.categories.categories.Category
 import org.osate.categories.categories.Categories
 import org.osate.categories.categories.RequirementCategories
 import org.osate.categories.categories.VerificationCategories
-import org.osate.categories.categories.HazardCategories
 import org.osate.categories.categories.RequirementCategory
 import org.osate.categories.categories.VerificationCategory
-import org.osate.categories.categories.HazardCategory
 import org.eclipse.emf.ecore.EObject
+import org.osate.categories.categories.SelectionCategories
+import org.osate.categories.categories.SelectionCategory
 
 class CategoriesUtil {
 	
@@ -20,7 +20,7 @@ class CategoriesUtil {
 		switch (cats) {
 			RequirementCategories: cats.category
 			VerificationCategories: cats.category
-			HazardCategories: cats.category
+			SelectionCategories: cats.category
 		}
 	}
 	
@@ -28,7 +28,7 @@ class CategoriesUtil {
 		switch (cat) {
 			RequirementCategory: cat.extends
 			VerificationCategory: cat.extends
-			HazardCategory: cat.extends
+			SelectionCategory: cat.extends
 		}
 	}
 	
@@ -36,7 +36,7 @@ class CategoriesUtil {
 		switch (cat) {
 			RequirementCategory: cat.extends = (value as RequirementCategory)
 			VerificationCategory: cat.extends = (value as VerificationCategory)
-			HazardCategory: cat.extends = (value as HazardCategory)
+			SelectionCategory: cat.extends = (value as SelectionCategory)
 		}
 	}
 	

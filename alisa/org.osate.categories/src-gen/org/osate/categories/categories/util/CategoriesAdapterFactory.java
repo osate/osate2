@@ -85,11 +85,6 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
         return createRequirementCategoriesAdapter();
       }
       @Override
-      public Adapter caseHazardCategories(HazardCategories object)
-      {
-        return createHazardCategoriesAdapter();
-      }
-      @Override
       public Adapter caseVerificationCategories(VerificationCategories object)
       {
         return createVerificationCategoriesAdapter();
@@ -108,11 +103,6 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
       public Adapter caseRequirementCategory(RequirementCategory object)
       {
         return createRequirementCategoryAdapter();
-      }
-      @Override
-      public Adapter caseHazardCategory(HazardCategory object)
-      {
-        return createHazardCategoryAdapter();
       }
       @Override
       public Adapter caseVerificationCategory(VerificationCategory object)
@@ -177,21 +167,6 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.HazardCategories <em>Hazard Categories</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.categories.categories.HazardCategories
-   * @generated
-   */
-  public Adapter createHazardCategoriesAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.categories.categories.VerificationCategories <em>Verification Categories</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -247,21 +222,6 @@ public class CategoriesAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createRequirementCategoryAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.categories.categories.HazardCategory <em>Hazard Category</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.categories.categories.HazardCategory
-   * @generated
-   */
-  public Adapter createHazardCategoryAdapter()
   {
     return null;
   }

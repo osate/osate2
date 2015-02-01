@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.NamedElement;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.categories.categories.RequirementCategory;
 
 /**
@@ -23,6 +25,7 @@ import org.osate.categories.categories.RequirementCategory;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}</li>
@@ -164,6 +167,32 @@ public interface ContractualElement extends EObject
    * @generated
    */
   void setCategory(RequirementCategory value);
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Description</em>' containment reference.
+   * @see #setDescription(Description)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Description()
+   * @model containment="true"
+   * @generated
+   */
+  Description getDescription();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Description</em>' containment reference.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(Description value);
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' attribute.

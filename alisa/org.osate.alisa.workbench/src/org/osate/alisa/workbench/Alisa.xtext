@@ -15,7 +15,7 @@ AssuranceCaseConfiguration:
 	'['
 	(
 	('description' description=Description)?
-	('constants' constant+=FinalValue+ )?
+	('constants' constant+=ConstantDecl+ )?
 	'plans' plans+=[Verify::VerificationPlan|QualifiedName]+
 	('select' (selectionFilter+=[categories::VerificationCategory|CatRef])+)?
 	)

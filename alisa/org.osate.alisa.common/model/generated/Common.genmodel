@@ -15,9 +15,13 @@
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//DescriptionElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//DescriptionElement/text"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/ref"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//DescriptionElement/newline"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//DescriptionElement/thisTarget"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ShowValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ShowValue/ref"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ShowValue/unit"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ReferencePath">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ReferencePath/ref"/>
@@ -26,9 +30,21 @@
     <genClasses ecoreClass="Common.ecore#//PredicateExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//PredicateExpression/op"/>
     </genClasses>
-    <genClasses ecoreClass="Common.ecore#//FinalValue">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//FinalValue/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//FinalValue/value"/>
+    <genClasses ecoreClass="Common.ecore#//ConstantDecl">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ConstantDecl/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ConstantDecl/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//ConstantValue"/>
+    <genClasses ecoreClass="Common.ecore#//StringTerm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//StringTerm/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//RealTerm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//RealTerm/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//RealTerm/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//IntegerTerm">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//IntegerTerm/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//IntegerTerm/unit"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//MultiLineString">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//MultiLineString/description"/>

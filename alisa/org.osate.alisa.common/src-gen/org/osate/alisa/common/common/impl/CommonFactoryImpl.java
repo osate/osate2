@@ -67,9 +67,14 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.MODEL: return createModel();
       case CommonPackage.DESCRIPTION: return createDescription();
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
+      case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.REFERENCE_PATH: return createReferencePath();
       case CommonPackage.PREDICATE_EXPRESSION: return createPredicateExpression();
-      case CommonPackage.FINAL_VALUE: return createFinalValue();
+      case CommonPackage.CONSTANT_DECL: return createConstantDecl();
+      case CommonPackage.CONSTANT_VALUE: return createConstantValue();
+      case CommonPackage.STRING_TERM: return createStringTerm();
+      case CommonPackage.REAL_TERM: return createRealTerm();
+      case CommonPackage.INTEGER_TERM: return createIntegerTerm();
       case CommonPackage.MULTI_LINE_STRING: return createMultiLineString();
       case CommonPackage.TEXT_ELEMENT: return createTextElement();
       default:
@@ -115,6 +120,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ShowValue createShowValue()
+  {
+    ShowValueImpl showValue = new ShowValueImpl();
+    return showValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ReferencePath createReferencePath()
   {
     ReferencePathImpl referencePath = new ReferencePathImpl();
@@ -137,10 +153,54 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public FinalValue createFinalValue()
+  public ConstantDecl createConstantDecl()
   {
-    FinalValueImpl finalValue = new FinalValueImpl();
-    return finalValue;
+    ConstantDeclImpl constantDecl = new ConstantDeclImpl();
+    return constantDecl;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ConstantValue createConstantValue()
+  {
+    ConstantValueImpl constantValue = new ConstantValueImpl();
+    return constantValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public StringTerm createStringTerm()
+  {
+    StringTermImpl stringTerm = new StringTermImpl();
+    return stringTerm;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public RealTerm createRealTerm()
+  {
+    RealTermImpl realTerm = new RealTermImpl();
+    return realTerm;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IntegerTerm createIntegerTerm()
+  {
+    IntegerTermImpl integerTerm = new IntegerTermImpl();
+    return integerTerm;
   }
 
   /**

@@ -8,8 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.ComponentImplementation;
 
+import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.Description;
-import org.osate.alisa.common.common.FinalValue;
 
 import org.osate.categories.categories.VerificationCategory;
 
@@ -145,7 +145,7 @@ public interface AssuranceCaseConfiguration extends EObject
 
   /**
    * Returns the value of the '<em><b>Constant</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.FinalValue}.
+   * The list contents are of type {@link org.osate.alisa.common.common.ConstantDecl}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constant</em>' containment reference list isn't clear,
@@ -157,7 +157,7 @@ public interface AssuranceCaseConfiguration extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<FinalValue> getConstant();
+  EList<ConstantDecl> getConstant();
 
   /**
    * Returns the value of the '<em><b>Plans</b></em>' reference list.

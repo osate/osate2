@@ -13,13 +13,17 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
-import org.osate.alisa.common.common.FinalValue;
+import org.osate.alisa.common.common.IntegerTerm;
 import org.osate.alisa.common.common.Model;
 import org.osate.alisa.common.common.MultiLineString;
 import org.osate.alisa.common.common.PredicateExpression;
+import org.osate.alisa.common.common.RealTerm;
 import org.osate.alisa.common.common.ReferencePath;
+import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.StringTerm;
 import org.osate.alisa.common.common.TextElement;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.verify.services.VerifyGrammarAccess;
@@ -49,6 +53,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.CONSTANT_DECL:
+				if(context == grammarAccess.getConstantDeclRule()) {
+					sequence_ConstantDecl(context, (ConstantDecl) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.DESCRIPTION:
 				if(context == grammarAccess.getDescriptionRule()) {
 					sequence_Description(context, (Description) semanticObject); 
@@ -61,9 +71,10 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case CommonPackage.FINAL_VALUE:
-				if(context == grammarAccess.getFinalValueRule()) {
-					sequence_FinalValue(context, (FinalValue) semanticObject); 
+			case CommonPackage.INTEGER_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getIntegerTermRule()) {
+					sequence_IntegerTerm(context, (IntegerTerm) semanticObject); 
 					return; 
 				}
 				else break;
@@ -85,9 +96,29 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case CommonPackage.REAL_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getRealTermRule()) {
+					sequence_RealTerm(context, (RealTerm) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.REFERENCE_PATH:
 				if(context == grammarAccess.getReferencePathRule()) {
 					sequence_ReferencePath(context, (ReferencePath) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.SHOW_VALUE:
+				if(context == grammarAccess.getShowValueRule()) {
+					sequence_ShowValue(context, (ShowValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.STRING_TERM:
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getStringTermRule()) {
+					sequence_StringTerm(context, (StringTerm) semanticObject); 
 					return; 
 				}
 				else break;
