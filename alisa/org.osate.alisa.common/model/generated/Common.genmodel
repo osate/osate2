@@ -32,7 +32,7 @@
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ConstantDecl">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ConstantDecl/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ConstantDecl/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ConstantDecl/value"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ConstantValue"/>
     <genClasses ecoreClass="Common.ecore#//StringTerm">

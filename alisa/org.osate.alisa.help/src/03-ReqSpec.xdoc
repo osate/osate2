@@ -28,6 +28,7 @@ This section describes the elements of a e[stakeholder goal specification].
 A e[goal] construct has the following syntax:
 
 code[ReqSpec][
+<Goal>::=
 goal
 	( :  "short descriptive title" )?
 	( for ComponentElement | "Target description" )?
@@ -57,6 +58,7 @@ name of the model element the requirement applies to (e[this]), and the newline 
 e[&] to create multi line strings.]
 item[The e[rationale] attributes is a text field]
 item[The e[refines] attribute is a list of one or more references to other goals. The referenced goal
+is being refined by the given goal. The referenced goal
 is identified by its qualified name.]
 item[The e[conflicts with] attribute identifies goals this goal conflicts with. The references uses a
 qualified name.]
@@ -78,19 +80,19 @@ This section describes the elements of a e[system requirement specification].
 A e[requirement] construct has the following syntax:
 
 code[ReqSpec][
+<Requirement> ::=
 requirement
 	( :  "short descriptive title" )?
 	( for ComponentElement | "Target description" )?
 	\[  
 	 (category guarantee )?
 	 (description  this " shall not exceed " limit%sec " latency")? 
-	 (constants ( limit = "200 ms" )+ )?
+	 (constants ( limit = 200 ms )+ )?
 	 (assert actual <= limit )?
 	 (rationale "explanation")? 
 	 (see goal (docx.goal2 )+ )?
 	 (mitigates ( model.hazard3 )+ )? 
-	 (refines ( docx.goal1 )+ )? 
-	 (stakeholder  ( SEI.Feiler )+ )?
+	 (refines ( docx.req1 )+ )? 
 	 (see document goal ( ReqDoc.goal12 )+)?
 	 (see document requirement ( ReqDoc.Req14 )+)?
 	 (see document ( filepath/file.doc#path.within.doc )+)? 
@@ -111,30 +113,181 @@ name of the model element the requirement applies to (e[this]), a reference to o
 and the newline operator 
 e[&] to create multi line strings. The optional e[%ID] is used to specify the measurement unit to be
 used for showing the value of numeric constants.]
+
 item[The e[constants] field allows users to define values to be used in the requirement specification. These
-may be values that the user may want to change and are used in more than one location. They can be referenced
+may be values that the user may want to change and are used in more than one location. The values can be numeric,
+optionally with measurement unit, or a string. They can be referenced
 in the predicate of the e[assert] or in the e[description].
 ]
-item[The e[rationale] attributes is a text field]
-item[The e[refines] attribute is a list of one or more references to other goals. The referenced goal
+
+item[The e[assert] attribute specifies a predicate that must be satisfied for the requirement. The predicate
+typically refers to one of the constants and has a palceholder for actual values that are the result
+of a computational fucntion executed as part of a verification method.]
+item[The e[rationale] attributes is a multi line text field]
+item[The e[see goal] attributes provides traceability to stakeholder goals expressed in ALRS form that relate to the requirement.]
+item[The e[mitigates] attributes specifies a reference to a hazard expressed in EMV2 that is being mitigated
+by the requirement.]
+
+item[The e[refines] attribute is a list of one or more references to other requirements of the same component that this requirement refines. The prupose of requirement refinement is to achieve a verifable requirement specification.
+The referenced requirement
 is identified by its qualified name.]
-item[The e[conflicts with] attribute identifies goals this goal conflicts with. The references uses a
-qualified name.]
-item[The e[stakeholder] attribute refers to a steakholder. Stakeholders are defined in a separate files
-using the e[organization] notation. The stakeholder is qualified by the organization name.]
+
+item[The e[see document goal] attribute refers to a stakeholder goal documented in a stakeholder requirement
+document and imported into Alisa.]
 item[The e[see document requirement] attribute identifies a stakeholder requirement in an imported stakeholder
 requirement document.]
 item[The e[see document] attribute is a reference to an external document that may not be in a format
 importable to Alisa.]
 ]
 
-Goals can used to represent stakeholder requirements imported from existing documents, or aligned with
+Requirements can used to represent system requirements imported from existing documents, or aligned with
 the architecture model using the architecture-led requirement specification process. 
 
 
 section:RequirementDocuments[Requirement Documents]
 
+Users can import existing stakeholder requirment and system requirement documents. Users can also create
+goals and requirements following the structure of a requirement document.
+
+The following constructs are available to represent such requirement documents. e[ReqDocument] represents
+a complete text-based requirement document. e[DocumentSection] represents a document section. It can
+contain goals, requirements, and nested document sections.
+
+code[ReqSpec][
+<RequirementDocument> ::=
+document name=ID ( : "myTitle")?
+ (description MultiLineString)? 
+\[ 
+	<DocumentSection>
+\]
+
+
+<DocumentSection> ::=
+section section1 ( : "my title")?
+ (description Description)? 
+\[  
+	( <Goal> | <Requirement> |  <DocumentSection> )+ )*
+\]
+]
+
+e[Note:] Requirements in requirement documents are qualified by the name of the enclosing ReqDocument.
+Document sections to not contribute to the qualified name.
 
 section:ALRS[Architecture-led Goal and Requirement Specifications]
 
+Users can specify goals for a system in an architecture-led way. They do so in the context of an AADL
+model that contains the component type declaration of the system of interest. The definition of a system
+process by the French System Engineering Society, illustrated in the figure below, together with a utility
+tree from the SEI QAW or ATAM provide guidance on ensuring coverage when developing a system requirement
+specification.
+
+img[images/cpret.png][System Process Requirements and Utility Trees][][] 
+
+The following constructs are available to define stakeholder goals.
+
+code[ReqSpec][
+<StakeholderGoals> ::=
+stakeholder goals SysGoals (':' "short title" )?
+( for mypack::GPSDevice | "Target description" )?
+ (description Description)? 
+\[ 
+	( <GoalFolder> | <Goal> )*
+\]
+
+<Goalfolder> ::=
+folder name (':' "my title text")?
+\[ 
+	( <Goal>< |  GoalFolder> )*
+\]
+]
+
+The next construct allow users to define libraries of requirements for components and combine them into
+a requirement specification for a system.
+
+code[ReqSpec][
+<ReqSpec> ::=
+requirement specification Sysspec (':' "short title" )?
+( for mypack::GPSDevice | "Target description" )?
+( include ( Sysspec1 )+ )?
+(description Description)? 
+\[ 
+	(constants ( limit = 200 ms )+ )?
+	( <ReqFolder> | <Requirement> )*
+\]
+
+<Reqfolder> ::=
+folder name (':' "my title text")?
+\[ 
+	( <ReqFolder> |  <Requirement> )*
+\]
+]
+
+Here is an example of a set of system requirement specifications.
+
+code[ReqSpec][
+requirement specification scsreqs 
+for resourcebudgets::SCS 
+\[ 
+	constants MaxBudget = 400 kg
+	MaxLatency = 50ms
+	requirement R1 \[
+		description this " shall have a budget within " Maxbudget
+		assert actualbudget <= MaxBudget
+	\]
+	requirement R2 \[
+		description "hello"
+		assert actuallatency <= MaxLatency
+	\]
+\]
+]
+
 section:ReqCategory[User Definable Requirement Categories]
+
+Requirement categories are defined through the CateGory specificaiton notation. These specifications are
+created in files with the extension @e[cat].
+
+code[Categories][
+<RequirementCategories> ::=
+	requirement categories 
+	\[ 
+		<RequirementCategory>+
+	\]
+
+<RequirementCategory> :
+	guarantee ( extends contract )? 
+]
+
+Requirement categories must have globally unique names. References to a category do not have to be qualified.
+
+Requirement categories can be placed into an extends hierarchy.
+
+
+section:Stakeholders[Stakeholders and Their Organization]
+
+The e[organization] notations allows user to define organizations and stakeholders that belong to organizations.
+Stakeholder names must be unique within an organization. Stakeholders are referenced by qualifying them
+with the orgnaization name.
+
+code[Organization][
+<Organization>::=
+	organization SEI
+	<Stakeholder>+
+
+<Stakeholder> ::=
+	stakeholder phf
+	\[
+		( full name  Peter Feiler )?
+		( title  "Chief Engineer" )?
+		( description  "my job is ..." )?
+		( role "reviewer" )?
+		( email "phf@sei.cmu.edu" )?
+		( phone  "412-268-7790" )?
+	\] 
+]
+
+Organizations must have globally unique names. At this time only single identifiers without spaces are
+supported.
+
+At this time the name used after the stakeholder keyword must be unique within an organization. This
+is the name to be referenced. 
+ 

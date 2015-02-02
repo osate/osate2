@@ -347,6 +347,54 @@ ruleReferencePath returns [EObject current=null]
 
 
 
+// Entry rule entryRuleConstantValue
+entryRuleConstantValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getConstantValueRule()); }
+	 iv_ruleConstantValue=ruleConstantValue 
+	 { $current=$iv_ruleConstantValue.current; } 
+	 EOF 
+;
+
+// Rule ConstantValue
+ruleConstantValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getConstantValueAccess().getStringTermParserRuleCall_0()); 
+    }
+    this_StringTerm_0=ruleStringTerm
+    { 
+        $current = $this_StringTerm_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getConstantValueAccess().getRealTermParserRuleCall_1()); 
+    }
+    this_RealTerm_1=ruleRealTerm
+    { 
+        $current = $this_RealTerm_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getConstantValueAccess().getIntegerTermParserRuleCall_2()); 
+    }
+    this_IntegerTerm_2=ruleIntegerTerm
+    { 
+        $current = $this_IntegerTerm_2.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
 
 
 // Entry rule entryRuleStringTerm
@@ -597,32 +645,6 @@ ruleTextElement returns [EObject current=null]
 ;
 
 
-
-
-
-// Entry rule entryRuleValueString
-entryRuleValueString returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getValueStringRule()); } 
-	 iv_ruleValueString=ruleValueString 
-	 { $current=$iv_ruleValueString.current.getText(); }  
-	 EOF 
-;
-
-// Rule ValueString
-ruleValueString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-    this_STRING_0=RULE_STRING    {
-		$current.merge(this_STRING_0);
-    }
-
-    { 
-    newLeafNode(this_STRING_0, grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); 
-    }
-
-    ;
 
 
 

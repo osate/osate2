@@ -15,13 +15,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.Classifier;
 
 import org.osate.alisa.common.common.MultiLineString;
 
-import org.osate.reqspec.reqSpec.GoalFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 
@@ -37,7 +37,7 @@ import org.osate.reqspec.reqSpec.StakeholderGoals;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getConsistsOf <em>Consists Of</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getContent <em>Content</em>}</li>
  * </ul>
  * </p>
  *
@@ -126,14 +126,14 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
   protected MultiLineString description;
 
   /**
-   * The cached value of the '{@link #getConsistsOf() <em>Consists Of</em>}' reference list.
+   * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConsistsOf()
+   * @see #getContent()
    * @generated
    * @ordered
    */
-  protected EList<GoalFolder> consistsOf;
+  protected EList<EObject> content;
 
   /**
    * <!-- begin-user-doc -->
@@ -321,13 +321,13 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<GoalFolder> getConsistsOf()
+  public EList<EObject> getContent()
   {
-    if (consistsOf == null)
+    if (content == null)
     {
-      consistsOf = new EObjectResolvingEList<GoalFolder>(GoalFolder.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONSISTS_OF);
+      content = new EObjectContainmentEList<EObject>(EObject.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT);
     }
-    return consistsOf;
+    return content;
   }
 
   /**
@@ -342,6 +342,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
     {
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return basicSetDescription(null, msgs);
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
+        return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -367,8 +369,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         return getTargetDescription();
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return getDescription();
-      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSISTS_OF:
-        return getConsistsOf();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
+        return getContent();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -399,9 +401,9 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         setDescription((MultiLineString)newValue);
         return;
-      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSISTS_OF:
-        getConsistsOf().clear();
-        getConsistsOf().addAll((Collection<? extends GoalFolder>)newValue);
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
+        getContent().clear();
+        getContent().addAll((Collection<? extends EObject>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -432,8 +434,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         setDescription((MultiLineString)null);
         return;
-      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSISTS_OF:
-        getConsistsOf().clear();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
+        getContent().clear();
         return;
     }
     super.eUnset(featureID);
@@ -459,8 +461,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return description != null;
-      case ReqSpecPackage.STAKEHOLDER_GOALS__CONSISTS_OF:
-        return consistsOf != null && !consistsOf.isEmpty();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
+        return content != null && !content.isEmpty();
     }
     return super.eIsSet(featureID);
   }

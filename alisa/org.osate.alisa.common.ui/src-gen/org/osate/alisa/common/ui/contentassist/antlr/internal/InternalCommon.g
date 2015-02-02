@@ -207,6 +207,32 @@ finally {
 
 
 
+// Entry rule entryRuleConstantValue
+entryRuleConstantValue 
+:
+{ before(grammarAccess.getConstantValueRule()); }
+	 ruleConstantValue
+{ after(grammarAccess.getConstantValueRule()); } 
+	 EOF 
+;
+
+// Rule ConstantValue
+ruleConstantValue
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getConstantValueAccess().getAlternatives()); }
+(rule__ConstantValue__Alternatives)
+{ after(grammarAccess.getConstantValueAccess().getAlternatives()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 
 
 // Entry rule entryRuleStringTerm
@@ -351,32 +377,6 @@ finally {
 
 
 
-// Entry rule entryRuleValueString
-entryRuleValueString 
-:
-{ before(grammarAccess.getValueStringRule()); }
-	 ruleValueString
-{ after(grammarAccess.getValueStringRule()); } 
-	 EOF 
-;
-
-// Rule ValueString
-ruleValueString
-    @init {
-		int stackSize = keepStackSize();
-    }
-	:
-(
-{ before(grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); }
-	RULE_STRING
-{ after(grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 
 
 
@@ -423,6 +423,33 @@ finally {
 }
 
 
+rule__ConstantValue__Alternatives
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getConstantValueAccess().getStringTermParserRuleCall_0()); }
+	ruleStringTerm
+{ after(grammarAccess.getConstantValueAccess().getStringTermParserRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantValueAccess().getRealTermParserRuleCall_1()); }
+	ruleRealTerm
+{ after(grammarAccess.getConstantValueAccess().getRealTermParserRuleCall_1()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantValueAccess().getIntegerTermParserRuleCall_2()); }
+	ruleIntegerTerm
+{ after(grammarAccess.getConstantValueAccess().getIntegerTermParserRuleCall_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 rule__TextElement__Alternatives
     @init {

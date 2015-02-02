@@ -4,6 +4,8 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.Classifier;
 
 import org.osate.alisa.common.common.MultiLineString;
@@ -21,7 +23,7 @@ import org.osate.alisa.common.common.MultiLineString;
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getConsistsOf <em>Consists Of</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getContent <em>Content</em>}</li>
  * </ul>
  * </p>
  *
@@ -162,19 +164,19 @@ public interface StakeholderGoals extends ReqSpec, ReqSpecContainer, ReqRoot
   void setDescription(MultiLineString value);
 
   /**
-   * Returns the value of the '<em><b>Consists Of</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.GoalFolder}.
+   * Returns the value of the '<em><b>Content</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Consists Of</em>' reference list isn't clear,
+   * If the meaning of the '<em>Content</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Consists Of</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_ConsistsOf()
-   * @model
+   * @return the value of the '<em>Content</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Content()
+   * @model containment="true"
    * @generated
    */
-  EList<GoalFolder> getConsistsOf();
+  EList<EObject> getContent();
 
 } // StakeholderGoals

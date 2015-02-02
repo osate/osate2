@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.alisa.common.common.MultiLineString;
+
 import org.osate.reqspec.reqSpec.Requirement;
 
 import org.osate.verify.verify.ArgumentExpr;
@@ -33,6 +35,7 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRationale <em>Rationale</em>}</li>
@@ -85,6 +88,26 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   protected String title = TITLE_EDEFAULT;
 
   /**
+   * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected static final int WEIGHT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWeight()
+   * @generated
+   * @ordered
+   */
+  protected int weight = WEIGHT_EDEFAULT;
+
+  /**
    * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -105,24 +128,14 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   protected ArgumentExpr assert_;
 
   /**
-   * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getRationale()
    * @generated
    * @ordered
    */
-  protected static final String RATIONALE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRationale()
-   * @generated
-   * @ordered
-   */
-  protected String rationale = RATIONALE_EDEFAULT;
+  protected MultiLineString rationale;
 
   /**
    * The cached value of the '{@link #getSubclaim() <em>Subclaim</em>}' containment reference list.
@@ -199,6 +212,29 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     title = newTitle;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getWeight()
+  {
+    return weight;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setWeight(int newWeight)
+  {
+    int oldWeight = weight;
+    weight = newWeight;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__WEIGHT, oldWeight, weight));
   }
 
   /**
@@ -297,7 +333,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getRationale()
+  public MultiLineString getRationale()
   {
     return rationale;
   }
@@ -307,12 +343,37 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRationale(String newRationale)
+  public NotificationChain basicSetRationale(MultiLineString newRationale, NotificationChain msgs)
   {
-    String oldRationale = rationale;
+    MultiLineString oldRationale = rationale;
     rationale = newRationale;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__RATIONALE, oldRationale, rationale));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__RATIONALE, oldRationale, newRationale);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRationale(MultiLineString newRationale)
+  {
+    if (newRationale != rationale)
+    {
+      NotificationChain msgs = null;
+      if (rationale != null)
+        msgs = ((InternalEObject)rationale).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CLAIM__RATIONALE, null, msgs);
+      if (newRationale != null)
+        msgs = ((InternalEObject)newRationale).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CLAIM__RATIONALE, null, msgs);
+      msgs = basicSetRationale(newRationale, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__RATIONALE, newRationale, newRationale));
   }
 
   /**
@@ -341,6 +402,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     {
       case VerifyPackage.CLAIM__ASSERT:
         return basicSetAssert(null, msgs);
+      case VerifyPackage.CLAIM__RATIONALE:
+        return basicSetRationale(null, msgs);
       case VerifyPackage.CLAIM__SUBCLAIM:
         return ((InternalEList<?>)getSubclaim()).basicRemove(otherEnd, msgs);
     }
@@ -361,6 +424,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return getName();
       case VerifyPackage.CLAIM__TITLE:
         return getTitle();
+      case VerifyPackage.CLAIM__WEIGHT:
+        return getWeight();
       case VerifyPackage.CLAIM__REQUIREMENT:
         if (resolve) return getRequirement();
         return basicGetRequirement();
@@ -391,6 +456,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__TITLE:
         setTitle((String)newValue);
         return;
+      case VerifyPackage.CLAIM__WEIGHT:
+        setWeight((Integer)newValue);
+        return;
       case VerifyPackage.CLAIM__REQUIREMENT:
         setRequirement((Requirement)newValue);
         return;
@@ -398,7 +466,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         setAssert((ArgumentExpr)newValue);
         return;
       case VerifyPackage.CLAIM__RATIONALE:
-        setRationale((String)newValue);
+        setRationale((MultiLineString)newValue);
         return;
       case VerifyPackage.CLAIM__SUBCLAIM:
         getSubclaim().clear();
@@ -424,6 +492,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
+      case VerifyPackage.CLAIM__WEIGHT:
+        setWeight(WEIGHT_EDEFAULT);
+        return;
       case VerifyPackage.CLAIM__REQUIREMENT:
         setRequirement((Requirement)null);
         return;
@@ -431,7 +502,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         setAssert((ArgumentExpr)null);
         return;
       case VerifyPackage.CLAIM__RATIONALE:
-        setRationale(RATIONALE_EDEFAULT);
+        setRationale((MultiLineString)null);
         return;
       case VerifyPackage.CLAIM__SUBCLAIM:
         getSubclaim().clear();
@@ -454,12 +525,14 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.CLAIM__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case VerifyPackage.CLAIM__WEIGHT:
+        return weight != WEIGHT_EDEFAULT;
       case VerifyPackage.CLAIM__REQUIREMENT:
         return requirement != null;
       case VerifyPackage.CLAIM__ASSERT:
         return assert_ != null;
       case VerifyPackage.CLAIM__RATIONALE:
-        return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
+        return rationale != null;
       case VerifyPackage.CLAIM__SUBCLAIM:
         return subclaim != null && !subclaim.isEmpty();
     }
@@ -481,8 +554,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     result.append(name);
     result.append(", title: ");
     result.append(title);
-    result.append(", rationale: ");
-    result.append(rationale);
+    result.append(", weight: ");
+    result.append(weight);
     result.append(')');
     return result.toString();
   }

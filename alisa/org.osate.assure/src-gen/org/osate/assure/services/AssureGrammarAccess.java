@@ -2044,7 +2044,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDecl:
-	//	name=ID "=" value=ValueString;
+	//	name=ID "=" value=ConstantValue;
 	public CommonGrammarAccess.ConstantDeclElements getConstantDeclAccess() {
 		return gaCommon.getConstantDeclAccess();
 	}

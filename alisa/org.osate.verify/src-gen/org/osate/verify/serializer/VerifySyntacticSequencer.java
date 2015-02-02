@@ -20,16 +20,14 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected VerifyGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a;
 	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p;
-	protected AbstractElementAlias match_VerificationActivity_CategoryKeyword_5_1_0_q;
-	protected AbstractElementAlias match_VerificationPlan___PlanKeyword_6_4_0_AssumptionKeyword_6_4_1__q;
+	protected AbstractElementAlias match_VerificationPlan___PlanKeyword_6_3_0_AssumptionKeyword_6_3_1__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (VerifyGrammarAccess) access;
 		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a = new TokenAlias(true, true, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
 		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
-		match_VerificationActivity_CategoryKeyword_5_1_0_q = new TokenAlias(false, true, grammarAccess.getVerificationActivityAccess().getCategoryKeyword_5_1_0());
-		match_VerificationPlan___PlanKeyword_6_4_0_AssumptionKeyword_6_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationPlanAccess().getPlanKeyword_6_4_0()), new TokenAlias(false, false, grammarAccess.getVerificationPlanAccess().getAssumptionKeyword_6_4_1()));
+		match_VerificationPlan___PlanKeyword_6_3_0_AssumptionKeyword_6_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationPlanAccess().getPlanKeyword_6_3_0()), new TokenAlias(false, false, grammarAccess.getVerificationPlanAccess().getAssumptionKeyword_6_3_1()));
 	}
 	
 	@Override
@@ -58,10 +56,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p.equals(syntax))
 				emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_VerificationActivity_CategoryKeyword_5_1_0_q.equals(syntax))
-				emit_VerificationActivity_CategoryKeyword_5_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_VerificationPlan___PlanKeyword_6_4_0_AssumptionKeyword_6_4_1__q.equals(syntax))
-				emit_VerificationPlan___PlanKeyword_6_4_0_AssumptionKeyword_6_4_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_VerificationPlan___PlanKeyword_6_3_0_AssumptionKeyword_6_3_1__q.equals(syntax))
+				emit_VerificationPlan___PlanKeyword_6_3_0_AssumptionKeyword_6_3_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -84,17 +80,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     'category'?
-	 */
-	protected void emit_VerificationActivity_CategoryKeyword_5_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
 	 *     ('plan' 'assumption')?
 	 */
-	protected void emit_VerificationPlan___PlanKeyword_6_4_0_AssumptionKeyword_6_4_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_VerificationPlan___PlanKeyword_6_3_0_AssumptionKeyword_6_3_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

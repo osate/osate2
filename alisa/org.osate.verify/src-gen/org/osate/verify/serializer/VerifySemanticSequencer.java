@@ -42,7 +42,6 @@ import org.osate.verify.verify.VerificationMethodRegistry;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerificationPrecondition;
 import org.osate.verify.verify.VerifyPackage;
-import org.osate.verify.verify.WeightedClaim;
 import org.osate.verify.verify.WhenExpr;
 
 @SuppressWarnings("all")
@@ -239,12 +238,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case VerifyPackage.WEIGHTED_CLAIM:
-				if(context == grammarAccess.getWeightedClaimRule()) {
-					sequence_WeightedClaim(context, (WeightedClaim) semanticObject); 
-					return; 
-				}
-				else break;
 			case VerifyPackage.WHEN_EXPR:
 				if(context == grammarAccess.getAndThenEvidenceExprRule() ||
 				   context == grammarAccess.getAndThenEvidenceExprAccess().getAndThenExprLeftAction_1_0_0_0() ||
@@ -293,9 +286,10 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=ValueString? 
+	 *         weight=INT? 
 	 *         requirement=[Requirement|QualifiedName] 
 	 *         assert=ArgumentExpr 
-	 *         rationale=STRING? 
+	 *         rationale=MultiLineString? 
 	 *         subclaim+=Claim*
 	 *     )
 	 */
@@ -348,7 +342,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=ValueString? 
 	 *         requirement=[Requirement|QualifiedName]? 
 	 *         description=Description? 
-	 *         category+=[SelectionCategory|CatRef]* 
 	 *         method=[VerificationMethod|QualifiedName]? 
 	 *         timeout=INT? 
 	 *         rationale=MultiLineString?
@@ -437,7 +430,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         target=[ComponentClassifier|AadlClassifierReference] 
 	 *         description=MultiLineString? 
 	 *         claim+=Claim* 
-	 *         weightedClaim+=WeightedClaim? 
 	 *         rationale=MultiLineString? 
 	 *         planAssumption+=[VerificationPlan|QualifiedName]*
 	 *     )
@@ -452,15 +444,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (contents+=VerificationLibrary | contents+=VerificationPlan | contents+=VerificationMethodRegistry)
 	 */
 	protected void sequence_Verification(EObject context, Verification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (claim=[Claim|QualifiedName] weight=INT?)
-	 */
-	protected void sequence_WeightedClaim(EObject context, WeightedClaim semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

@@ -137,13 +137,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.REQ_LIB:
-      {
-        ReqLib reqLib = (ReqLib)theEObject;
-        T result = caseReqLib(reqLib);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ReqSpecPackage.REQ_SPEC_FOLDER:
       {
         ReqSpecFolder reqSpecFolder = (ReqSpecFolder)theEObject;
@@ -311,22 +304,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseReqSpecs(ReqSpecs object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Req Lib</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Req Lib</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseReqLib(ReqLib object)
   {
     return null;
   }

@@ -11,7 +11,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.Description;
 
-import org.osate.categories.categories.VerificationCategory;
+import org.osate.categories.categories.SelectionCategory;
 
 import org.osate.verify.verify.VerificationPlan;
 
@@ -177,7 +177,7 @@ public interface AssuranceCaseConfiguration extends EObject
 
   /**
    * Returns the value of the '<em><b>Selection Filter</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.VerificationCategory}.
+   * The list contents are of type {@link org.osate.categories.categories.SelectionCategory}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Selection Filter</em>' reference list isn't clear,
@@ -189,6 +189,6 @@ public interface AssuranceCaseConfiguration extends EObject
    * @model
    * @generated
    */
-  EList<VerificationCategory> getSelectionFilter();
+  EList<SelectionCategory> getSelectionFilter();
 
 } // AssuranceCaseConfiguration

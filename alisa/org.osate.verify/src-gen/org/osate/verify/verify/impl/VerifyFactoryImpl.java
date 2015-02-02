@@ -68,7 +68,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION: return createVerification();
       case VerifyPackage.VERIFICATION_PLAN: return createVerificationPlan();
       case VerifyPackage.CLAIM: return createClaim();
-      case VerifyPackage.WEIGHTED_CLAIM: return createWeightedClaim();
       case VerifyPackage.VERIFICATION_LIBRARY: return createVerificationLibrary();
       case VerifyPackage.VERIFICATION_FOLDER: return createVerificationFolder();
       case VerifyPackage.VERIFICATION_CONTAINER: return createVerificationContainer();
@@ -155,17 +154,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     ClaimImpl claim = new ClaimImpl();
     return claim;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public WeightedClaim createWeightedClaim()
-  {
-    WeightedClaimImpl weightedClaim = new WeightedClaimImpl();
-    return weightedClaim;
   }
 
   /**

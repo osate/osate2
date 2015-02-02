@@ -26,21 +26,17 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/target"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/claim"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/weightedClaim"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/rationale"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/planAssumption"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//Claim">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/weight"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/requirement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/assert"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/rationale"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/rationale"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/subclaim"/>
-    </genClasses>
-    <genClasses ecoreClass="Verify.ecore#//WeightedClaim">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//WeightedClaim/claim"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//WeightedClaim/weight"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationLibrary">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationLibrary/name"/>
@@ -55,7 +51,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationContainer/content"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationActivity">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/category"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/method"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/timeout"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/rationale"/>

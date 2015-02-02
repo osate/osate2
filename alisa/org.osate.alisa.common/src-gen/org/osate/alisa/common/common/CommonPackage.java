@@ -289,7 +289,7 @@ public interface CommonPackage extends EPackage
   int CONSTANT_DECL__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -696,15 +696,15 @@ public interface CommonPackage extends EPackage
   EAttribute getConstantDecl_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ConstantDecl#getValue <em>Value</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.ConstantDecl#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
+   * @return the meta object for the containment reference '<em>Value</em>'.
    * @see org.osate.alisa.common.common.ConstantDecl#getValue()
    * @see #getConstantDecl()
    * @generated
    */
-  EAttribute getConstantDecl_Value();
+  EReference getConstantDecl_Value();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ConstantValue <em>Constant Value</em>}'.
@@ -1044,12 +1044,12 @@ public interface CommonPackage extends EPackage
     EAttribute CONSTANT_DECL__NAME = eINSTANCE.getConstantDecl_Name();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CONSTANT_DECL__VALUE = eINSTANCE.getConstantDecl_Value();
+    EReference CONSTANT_DECL__VALUE = eINSTANCE.getConstantDecl_Value();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ConstantValueImpl <em>Constant Value</em>}' class.

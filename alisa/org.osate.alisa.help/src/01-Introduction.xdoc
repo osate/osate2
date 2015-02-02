@@ -47,6 +47,8 @@ These are enclosed in square brackets.
 When describing the syntax of Alisa notations we will use BNF-like syntax markers to indicate optional
 constructs, such as e[( construct )?] for an optional construct, e[( construct )*] for a construct repeated
 zero or more times, e[( construct )+] for a construct repeated one or more times, and e[ a | b ] to represent altenatives. 
+Grammr rules are labeled by e[<conceptname> ::=] and rules may be referred by e[<conceptname>]. The rerefence
+means that the construct is to be inserted in place as nested entity within another construct.
 
 Note that we will be providing a user interface that presents the Alisa information in a grpahical or
 structured navigator view with the details of a selected entity shown in a properties view. The user

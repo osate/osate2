@@ -12,8 +12,8 @@
 'description'=16
 'for'=14
 'plans'=18
-'select'=19
 'this'=22
+'when'=19
 RULE_ANY_OTHER=10
 RULE_ID=4
 RULE_INT=6

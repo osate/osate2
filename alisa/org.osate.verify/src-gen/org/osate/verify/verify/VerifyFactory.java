@@ -50,15 +50,6 @@ public interface VerifyFactory extends EFactory
   Claim createClaim();
 
   /**
-   * Returns a new object of class '<em>Weighted Claim</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Weighted Claim</em>'.
-   * @generated
-   */
-  WeightedClaim createWeightedClaim();
-
-  /**
    * Returns a new object of class '<em>Verification Library</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

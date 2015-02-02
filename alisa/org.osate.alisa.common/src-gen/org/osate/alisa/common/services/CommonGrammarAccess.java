@@ -234,13 +234,13 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cValueValueStringParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final RuleCall cValueConstantValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
 		//ConstantDecl:
-		//	name=ID "=" value=ValueString;
+		//	name=ID "=" value=ConstantValue;
 		public ParserRule getRule() { return rule; }
 
-		//name=ID "=" value=ValueString
+		//name=ID "=" value=ConstantValue
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -252,11 +252,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"="
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 
-		//value=ValueString
+		//value=ConstantValue
 		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
-		//ValueString
-		public RuleCall getValueValueStringParserRuleCall_2_0() { return cValueValueStringParserRuleCall_2_0; }
+		//ConstantValue
+		public RuleCall getValueConstantValueParserRuleCall_2_0() { return cValueConstantValueParserRuleCall_2_0; }
 	}
 
 	public class ConstantValueElements extends AbstractParserRuleElementFinder {
@@ -671,7 +671,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDecl:
-	//	name=ID "=" value=ValueString;
+	//	name=ID "=" value=ConstantValue;
 	public ConstantDeclElements getConstantDeclAccess() {
 		return pConstantDecl;
 	}

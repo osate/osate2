@@ -2,23 +2,15 @@
  */
 package org.osate.verify.verify.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
 import org.osate.alisa.common.common.MultiLineString;
-
-import org.osate.categories.categories.SelectionCategory;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -31,7 +23,6 @@ import org.osate.verify.verify.VerifyPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getRationale <em>Rationale</em>}</li>
@@ -42,16 +33,6 @@ import org.osate.verify.verify.VerifyPackage;
  */
 public class VerificationActivityImpl extends VerificationActionImpl implements VerificationActivity
 {
-  /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCategory()
-   * @generated
-   * @ordered
-   */
-  protected EList<SelectionCategory> category;
-
   /**
    * The cached value of the '{@link #getMethod() <em>Method</em>}' reference.
    * <!-- begin-user-doc -->
@@ -111,20 +92,6 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   protected EClass eStaticClass()
   {
     return VerifyPackage.Literals.VERIFICATION_ACTIVITY;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<SelectionCategory> getCategory()
-  {
-    if (category == null)
-    {
-      category = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY);
-    }
-    return category;
   }
 
   /**
@@ -267,8 +234,6 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
-        return getCategory();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         if (resolve) return getMethod();
         return basicGetMethod();
@@ -285,16 +250,11 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
-        getCategory().clear();
-        getCategory().addAll((Collection<? extends SelectionCategory>)newValue);
-        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)newValue);
         return;
@@ -318,9 +278,6 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
-        getCategory().clear();
-        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)null);
         return;
@@ -344,8 +301,6 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
-        return category != null && !category.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         return method != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:

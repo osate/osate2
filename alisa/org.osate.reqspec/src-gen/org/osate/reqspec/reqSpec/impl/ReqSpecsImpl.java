@@ -23,7 +23,6 @@ import org.osate.aadl2.Classifier;
 
 import org.osate.alisa.common.common.ConstantDecl;
 
-import org.osate.reqspec.reqSpec.ReqLib;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 
@@ -38,7 +37,7 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTargetDescription <em>Target Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getLibraries <em>Libraries</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getContent <em>Content</em>}</li>
  * </ul>
@@ -119,14 +118,14 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
   protected String targetDescription = TARGET_DESCRIPTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getLibraries() <em>Libraries</em>}' reference list.
+   * The cached value of the '{@link #getOtherreqspecs() <em>Otherreqspecs</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getLibraries()
+   * @see #getOtherreqspecs()
    * @generated
    * @ordered
    */
-  protected EList<ReqLib> libraries;
+  protected EList<ReqSpecs> otherreqspecs;
 
   /**
    * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
@@ -286,13 +285,13 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ReqLib> getLibraries()
+  public EList<ReqSpecs> getOtherreqspecs()
   {
-    if (libraries == null)
+    if (otherreqspecs == null)
     {
-      libraries = new EObjectResolvingEList<ReqLib>(ReqLib.class, this, ReqSpecPackage.REQ_SPECS__LIBRARIES);
+      otherreqspecs = new EObjectResolvingEList<ReqSpecs>(ReqSpecs.class, this, ReqSpecPackage.REQ_SPECS__OTHERREQSPECS);
     }
-    return libraries;
+    return otherreqspecs;
   }
 
   /**
@@ -360,8 +359,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return basicGetTarget();
       case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
         return getTargetDescription();
-      case ReqSpecPackage.REQ_SPECS__LIBRARIES:
-        return getLibraries();
+      case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
+        return getOtherreqspecs();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return getConstants();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
@@ -393,9 +392,9 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
         setTargetDescription((String)newValue);
         return;
-      case ReqSpecPackage.REQ_SPECS__LIBRARIES:
-        getLibraries().clear();
-        getLibraries().addAll((Collection<? extends ReqLib>)newValue);
+      case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
+        getOtherreqspecs().clear();
+        getOtherreqspecs().addAll((Collection<? extends ReqSpecs>)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
@@ -431,8 +430,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
         setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
         return;
-      case ReqSpecPackage.REQ_SPECS__LIBRARIES:
-        getLibraries().clear();
+      case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
+        getOtherreqspecs().clear();
         return;
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
@@ -462,8 +461,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return target != null;
       case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
         return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
-      case ReqSpecPackage.REQ_SPECS__LIBRARIES:
-        return libraries != null && !libraries.isEmpty();
+      case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
+        return otherreqspecs != null && !otherreqspecs.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return constants != null && !constants.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONTENT:

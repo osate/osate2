@@ -3,14 +3,17 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ConstantDecl;
+import org.osate.alisa.common.common.ConstantValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,24 +52,14 @@ public class ConstantDeclImpl extends MinimalEObjectImpl.Container implements Co
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getValue()
    * @generated
    * @ordered
    */
-  protected static final String VALUE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getValue()
-   * @generated
-   * @ordered
-   */
-  protected String value = VALUE_EDEFAULT;
+  protected ConstantValue value;
 
   /**
    * <!-- begin-user-doc -->
@@ -117,7 +110,7 @@ public class ConstantDeclImpl extends MinimalEObjectImpl.Container implements Co
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getValue()
+  public ConstantValue getValue()
   {
     return value;
   }
@@ -127,12 +120,53 @@ public class ConstantDeclImpl extends MinimalEObjectImpl.Container implements Co
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(String newValue)
+  public NotificationChain basicSetValue(ConstantValue newValue, NotificationChain msgs)
   {
-    String oldValue = value;
+    ConstantValue oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.CONSTANT_DECL__VALUE, oldValue, value));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.CONSTANT_DECL__VALUE, oldValue, newValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValue(ConstantValue newValue)
+  {
+    if (newValue != value)
+    {
+      NotificationChain msgs = null;
+      if (value != null)
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.CONSTANT_DECL__VALUE, null, msgs);
+      if (newValue != null)
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.CONSTANT_DECL__VALUE, null, msgs);
+      msgs = basicSetValue(newValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.CONSTANT_DECL__VALUE, newValue, newValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CommonPackage.CONSTANT_DECL__VALUE:
+        return basicSetValue(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -167,7 +201,7 @@ public class ConstantDeclImpl extends MinimalEObjectImpl.Container implements Co
         setName((String)newValue);
         return;
       case CommonPackage.CONSTANT_DECL__VALUE:
-        setValue((String)newValue);
+        setValue((ConstantValue)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -187,7 +221,7 @@ public class ConstantDeclImpl extends MinimalEObjectImpl.Container implements Co
         setName(NAME_EDEFAULT);
         return;
       case CommonPackage.CONSTANT_DECL__VALUE:
-        setValue(VALUE_EDEFAULT);
+        setValue((ConstantValue)null);
         return;
     }
     super.eUnset(featureID);
@@ -206,7 +240,7 @@ public class ConstantDeclImpl extends MinimalEObjectImpl.Container implements Co
       case CommonPackage.CONSTANT_DECL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case CommonPackage.CONSTANT_DECL__VALUE:
-        return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+        return value != null;
     }
     return super.eIsSet(featureID);
   }
@@ -224,8 +258,6 @@ public class ConstantDeclImpl extends MinimalEObjectImpl.Container implements Co
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", value: ");
-    result.append(value);
     result.append(')');
     return result.toString();
   }

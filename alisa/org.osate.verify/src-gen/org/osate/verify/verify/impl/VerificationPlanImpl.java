@@ -27,7 +27,6 @@ import org.osate.alisa.common.common.MultiLineString;
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerifyPackage;
-import org.osate.verify.verify.WeightedClaim;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,7 +40,6 @@ import org.osate.verify.verify.WeightedClaim;
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getWeightedClaim <em>Weighted Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getPlanAssumption <em>Plan Assumption</em>}</li>
  * </ul>
@@ -120,16 +118,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * @ordered
    */
   protected EList<Claim> claim;
-
-  /**
-   * The cached value of the '{@link #getWeightedClaim() <em>Weighted Claim</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getWeightedClaim()
-   * @generated
-   * @ordered
-   */
-  protected EList<WeightedClaim> weightedClaim;
 
   /**
    * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
@@ -328,20 +316,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<WeightedClaim> getWeightedClaim()
-  {
-    if (weightedClaim == null)
-    {
-      weightedClaim = new EObjectContainmentEList<WeightedClaim>(WeightedClaim.class, this, VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM);
-    }
-    return weightedClaim;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public MultiLineString getRationale()
   {
     return rationale;
@@ -413,8 +387,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return basicSetDescription(null, msgs);
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
         return ((InternalEList<?>)getClaim()).basicRemove(otherEnd, msgs);
-      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
-        return ((InternalEList<?>)getWeightedClaim()).basicRemove(otherEnd, msgs);
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         return basicSetRationale(null, msgs);
     }
@@ -442,8 +414,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return getDescription();
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
         return getClaim();
-      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
-        return getWeightedClaim();
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         return getRationale();
       case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
@@ -478,10 +448,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
         getClaim().clear();
         getClaim().addAll((Collection<? extends Claim>)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
-        getWeightedClaim().clear();
-        getWeightedClaim().addAll((Collection<? extends WeightedClaim>)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         setRationale((MultiLineString)newValue);
@@ -519,9 +485,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
         getClaim().clear();
         return;
-      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
-        getWeightedClaim().clear();
-        return;
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         setRationale((MultiLineString)null);
         return;
@@ -552,8 +515,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return description != null;
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
         return claim != null && !claim.isEmpty();
-      case VerifyPackage.VERIFICATION_PLAN__WEIGHTED_CLAIM:
-        return weightedClaim != null && !weightedClaim.isEmpty();
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         return rationale != null;
       case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:

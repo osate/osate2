@@ -29,7 +29,7 @@ PredicateExpression: ID op=('='|"!=" |"<"|"<="|">"|">=")ID;
 
 
 
-ConstantDecl: name = ID '=' value=ValueString;
+ConstantDecl: name = ID '=' value=ConstantValue;
 
 ConstantValue: StringTerm | RealTerm | IntegerTerm;
 

@@ -11,13 +11,12 @@ Verification:
 	// plan for a classifier. Will add import to allow for non-qualified requirement references
 // Also allows for cross checking that we have covered requirements with claims
 VerificationPlan:
-	'plan' name=ID (':' title=ValueString)?
+	'plan' name=ID (':' title=ValueString)? 
 	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
 	(
 		('description' description=MultiLineString)?
 	& claim+=Claim*
-	& (weightedClaim+=WeightedClaim+)?
 	& ('rationale' rationale=MultiLineString)?
 	& ('plan' 'assumption' planAssumption+=[VerificationPlan|QualifiedName]+)?
 	)
@@ -25,15 +24,13 @@ VerificationPlan:
 
 Claim:
 	'claim' name=ID (':' title=ValueString)?
+	( '(' weight=INT ')' )?
 	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
 	('assert' assert=ArgumentExpr
-	& ('rationale' rationale=STRING)?
+	& ('rationale' rationale=MultiLineString)?
 	& (subclaim+=Claim)*)  // if we have a requirement with refined requirements and we verify each
 	']';
-
-WeightedClaim:
-	'weights' claim=[Claim|QualifiedName] ('(' weight=INT ')')?;
 
 VerificationLibrary returns VerificationLibrary:
 	'library' name=ID (':' title=ValueString)?
@@ -58,7 +55,7 @@ VerificationActivity:
 	// or should it be the requirement, which provides the predicate
 	'[' (
 	('description' description=Description)?
-	&('category' category+=[categories::SelectionCategory|CatRef]+)?
+//	&('category' category+=[categories::SelectionCategory|CatRef]+)?
 	&('method' method=[VerificationMethod|QualifiedName])?
 	&('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 

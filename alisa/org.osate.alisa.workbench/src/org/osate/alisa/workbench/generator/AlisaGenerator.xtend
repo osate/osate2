@@ -34,7 +34,7 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.eclipse.emf.common.util.EList
-import org.osate.categories.categories.VerificationCategory
+import org.osate.categories.categories.SelectionCategory
 
 /**
  * Generates code from your model files on save.
@@ -54,7 +54,7 @@ class AlisaGenerator implements IGenerator {
 
 	val factory = AssureFactory.eINSTANCE
 	
-	var EList<VerificationCategory> selectionCriteria 
+	var EList<SelectionCategory> selectionCriteria 
 
 	def constructCase(AssuranceCaseConfiguration acp) {
 		val si = acp.system.buildInstanceModelFile

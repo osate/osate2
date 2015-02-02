@@ -28,7 +28,7 @@ import org.osate.alisa.common.common.Description;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration;
 
-import org.osate.categories.categories.VerificationCategory;
+import org.osate.categories.categories.SelectionCategory;
 
 import org.osate.verify.verify.VerificationPlan;
 
@@ -141,7 +141,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
    * @generated
    * @ordered
    */
-  protected EList<VerificationCategory> selectionFilter;
+  protected EList<SelectionCategory> selectionFilter;
 
   /**
    * <!-- begin-user-doc -->
@@ -334,11 +334,11 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationCategory> getSelectionFilter()
+  public EList<SelectionCategory> getSelectionFilter()
   {
     if (selectionFilter == null)
     {
-      selectionFilter = new EObjectResolvingEList<VerificationCategory>(VerificationCategory.class, this, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER);
+      selectionFilter = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER);
     }
     return selectionFilter;
   }
@@ -423,7 +423,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
         return;
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER:
         getSelectionFilter().clear();
-        getSelectionFilter().addAll((Collection<? extends VerificationCategory>)newValue);
+        getSelectionFilter().addAll((Collection<? extends SelectionCategory>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

@@ -147,7 +147,7 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         constant+=ConstantDecl* 
 	 *         plans+=[VerificationPlan|QualifiedName]+ 
-	 *         selectionFilter+=[VerificationCategory|CatRef]*
+	 *         selectionFilter+=[SelectionCategory|CatRef]*
 	 *     )
 	 */
 	protected void sequence_AssuranceCaseConfiguration(EObject context, AssuranceCaseConfiguration semanticObject) {

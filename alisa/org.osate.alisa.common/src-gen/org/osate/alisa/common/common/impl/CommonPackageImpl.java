@@ -382,9 +382,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getConstantDecl_Value()
+  public EReference getConstantDecl_Value()
   {
-    return (EAttribute)constantDeclEClass.getEStructuralFeatures().get(1);
+    return (EReference)constantDeclEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -582,7 +582,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     constantDeclEClass = createEClass(CONSTANT_DECL);
     createEAttribute(constantDeclEClass, CONSTANT_DECL__NAME);
-    createEAttribute(constantDeclEClass, CONSTANT_DECL__VALUE);
+    createEReference(constantDeclEClass, CONSTANT_DECL__VALUE);
 
     constantValueEClass = createEClass(CONSTANT_VALUE);
 
@@ -664,7 +664,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     initEClass(constantDeclEClass, ConstantDecl.class, "ConstantDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getConstantDecl_Name(), ecorePackage.getEString(), "name", null, 0, 1, ConstantDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getConstantDecl_Value(), ecorePackage.getEString(), "value", null, 0, 1, ConstantDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConstantDecl_Value(), this.getConstantValue(), null, "value", null, 0, 1, ConstantDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantValueEClass, ConstantValue.class, "ConstantValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

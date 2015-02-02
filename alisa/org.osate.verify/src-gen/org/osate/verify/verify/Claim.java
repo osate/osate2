@@ -6,6 +6,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.alisa.common.common.MultiLineString;
+
 import org.osate.reqspec.reqSpec.Requirement;
 
 /**
@@ -18,6 +20,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <ul>
  *   <li>{@link org.osate.verify.verify.Claim#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
@@ -84,6 +87,32 @@ public interface Claim extends EObject
   void setTitle(String value);
 
   /**
+   * Returns the value of the '<em><b>Weight</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Weight</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Weight</em>' attribute.
+   * @see #setWeight(int)
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Weight()
+   * @model
+   * @generated
+   */
+  int getWeight();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Weight</em>' attribute.
+   * @see #getWeight()
+   * @generated
+   */
+  void setWeight(int value);
+
+  /**
    * Returns the value of the '<em><b>Requirement</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
@@ -136,30 +165,30 @@ public interface Claim extends EObject
   void setAssert(ArgumentExpr value);
 
   /**
-   * Returns the value of the '<em><b>Rationale</b></em>' attribute.
+   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rationale</em>' attribute isn't clear,
+   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' attribute.
-   * @see #setRationale(String)
+   * @return the value of the '<em>Rationale</em>' containment reference.
+   * @see #setRationale(MultiLineString)
    * @see org.osate.verify.verify.VerifyPackage#getClaim_Rationale()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getRationale();
+  MultiLineString getRationale();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' attribute.
+   * @param value the new value of the '<em>Rationale</em>' containment reference.
    * @see #getRationale()
    * @generated
    */
-  void setRationale(String value);
+  void setRationale(MultiLineString value);
 
   /**
    * Returns the value of the '<em><b>Subclaim</b></em>' containment reference list.

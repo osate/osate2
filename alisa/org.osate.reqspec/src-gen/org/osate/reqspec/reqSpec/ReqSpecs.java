@@ -22,7 +22,7 @@ import org.osate.alisa.common.common.ConstantDecl;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription <em>Target Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getLibraries <em>Libraries</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}</li>
  * </ul>
@@ -139,20 +139,20 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
   void setTargetDescription(String value);
 
   /**
-   * Returns the value of the '<em><b>Libraries</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.ReqLib}.
+   * Returns the value of the '<em><b>Otherreqspecs</b></em>' reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.ReqSpecs}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Libraries</em>' reference list isn't clear,
+   * If the meaning of the '<em>Otherreqspecs</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Libraries</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_Libraries()
+   * @return the value of the '<em>Otherreqspecs</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_Otherreqspecs()
    * @model
    * @generated
    */
-  EList<ReqLib> getLibraries();
+  EList<ReqSpecs> getOtherreqspecs();
 
   /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.

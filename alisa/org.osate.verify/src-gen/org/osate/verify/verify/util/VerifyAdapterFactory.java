@@ -90,11 +90,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
         return createClaimAdapter();
       }
       @Override
-      public Adapter caseWeightedClaim(WeightedClaim object)
-      {
-        return createWeightedClaimAdapter();
-      }
-      @Override
       public Adapter caseVerificationLibrary(VerificationLibrary object)
       {
         return createVerificationLibraryAdapter();
@@ -237,21 +232,6 @@ public class VerifyAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createClaimAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.verify.verify.WeightedClaim <em>Weighted Claim</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.verify.verify.WeightedClaim
-   * @generated
-   */
-  public Adapter createWeightedClaimAdapter()
   {
     return null;
   }

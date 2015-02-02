@@ -117,7 +117,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID value=ValueString)
+	 *     (name=ID value=ConstantValue)
 	 */
 	protected void sequence_ConstantDecl(EObject context, ConstantDecl semanticObject) {
 		if(errorAcceptor != null) {
@@ -129,7 +129,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getConstantDeclAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getConstantDeclAccess().getValueValueStringParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getConstantDeclAccess().getValueConstantValueParserRuleCall_2_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

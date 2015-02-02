@@ -28,7 +28,6 @@ import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.GoalFolder;
 import org.osate.reqspec.reqSpec.ReqDocument;
-import org.osate.reqspec.reqSpec.ReqLib;
 import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
@@ -156,12 +155,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case ReqSpecPackage.REQ_LIB:
-				if(context == grammarAccess.getReqLibRule()) {
-					sequence_ReqLib(context, (ReqLib) semanticObject); 
-					return; 
-				}
-				else break;
 			case ReqSpecPackage.REQ_SPEC_FOLDER:
 				if(context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getReqSpecFolderRule()) {
@@ -257,21 +250,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=ValueString? 
-	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
-	 *         constants+=ConstantDecl* 
-	 *         (content+=Requirement | content+=ReqSpecFolder)*
-	 *     )
-	 */
-	protected void sequence_ReqLib(EObject context, ReqLib semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (label=ID title=ValueString? (content+=Goal | content+=Requirement | content+=ReqSpecFolder)*)
 	 */
 	protected void sequence_ReqSpecFolder(EObject context, ReqSpecFolder semanticObject) {
@@ -285,7 +263,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=ValueString? 
 	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
-	 *         libraries+=[ReqLib|QualifiedName]* 
+	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
 	 *         constants+=ConstantDecl* 
 	 *         (content+=Requirement | content+=ReqSpecFolder)*
 	 *     )
@@ -326,7 +304,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=ValueString? 
 	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
 	 *         description=MultiLineString? 
-	 *         consistsOf+=[GoalFolder|QualifiedName]
+	 *         (content+=Goal | content+=GoalFolder)
 	 *     )
 	 */
 	protected void sequence_StakeholderGoals(EObject context, StakeholderGoals semanticObject) {

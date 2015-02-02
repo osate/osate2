@@ -247,17 +247,38 @@ ruleStakeholderGoals returns [EObject current=null]
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getStakeholderGoalsRule());
-	        }
-        }
+(
 		{ 
-	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getConsistsOfGoalFolderCrossReference_7_0()); 
+	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getContentGoalParserRuleCall_7_0_0()); 
 	    }
-		ruleQualifiedName		{ 
+		lv_content_11_1=ruleGoal		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStakeholderGoalsRule());
+	        }
+       		add(
+       			$current, 
+       			"content",
+        		lv_content_11_1, 
+        		"Goal");
 	        afterParserOrEnumRuleCall();
 	    }
+
+    |		{ 
+	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getContentGoalFolderParserRuleCall_7_0_1()); 
+	    }
+		lv_content_11_2=ruleGoalFolder		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStakeholderGoalsRule());
+	        }
+       		add(
+       			$current, 
+       			"content",
+        		lv_content_11_2, 
+        		"GoalFolder");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 
 )
 )
@@ -658,7 +679,7 @@ ruleReqSpecs returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getReqSpecsAccess().getLibrariesReqLibCrossReference_5_1_0()); 
+	        newCompositeNode(grammarAccess.getReqSpecsAccess().getOtherreqspecsReqSpecsCrossReference_5_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -671,57 +692,83 @@ ruleReqSpecs returns [EObject current=null]
     	newLeafNode(otherlv_10, grammarAccess.getReqSpecsAccess().getLeftSquareBracketKeyword_6());
     }
 (
-	otherlv_11=Constants
+
+(
+	{ 
+	  getUnorderedGroupHelper().enter(grammarAccess.getReqSpecsAccess().getUnorderedGroup_7());
+	}
+	(
+		(
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getReqSpecsAccess().getUnorderedGroup_7(), 0)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getReqSpecsAccess().getUnorderedGroup_7(), 0);
+	 				}
+					({true}?=>(
+	otherlv_12=Constants
     {
-    	newLeafNode(otherlv_11, grammarAccess.getReqSpecsAccess().getConstantsKeyword_7_0());
+    	newLeafNode(otherlv_12, grammarAccess.getReqSpecsAccess().getConstantsKeyword_7_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getReqSpecsAccess().getConstantsConstantDeclParserRuleCall_7_1_0()); 
+	        newCompositeNode(grammarAccess.getReqSpecsAccess().getConstantsConstantDeclParserRuleCall_7_0_1_0()); 
 	    }
-		lv_constants_12_0=ruleConstantDecl		{
+		lv_constants_13_0=ruleConstantDecl		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getReqSpecsRule());
 	        }
        		add(
        			$current, 
        			"constants",
-        		lv_constants_12_0, 
+        		lv_constants_13_0, 
         		"ConstantDecl");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)+)?(
+)+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getReqSpecsAccess().getUnorderedGroup_7());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getReqSpecsAccess().getUnorderedGroup_7(), 1)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getReqSpecsAccess().getUnorderedGroup_7(), 1);
+	 				}
+					({true}?=>(
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getReqSpecsAccess().getContentRequirementParserRuleCall_8_0_0()); 
+	        newCompositeNode(grammarAccess.getReqSpecsAccess().getContentRequirementParserRuleCall_7_1_0_0()); 
 	    }
-		lv_content_13_1=ruleRequirement		{
+		lv_content_14_1=ruleRequirement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getReqSpecsRule());
 	        }
        		add(
        			$current, 
        			"content",
-        		lv_content_13_1, 
+        		lv_content_14_1, 
         		"Requirement");
 	        afterParserOrEnumRuleCall();
 	    }
 
     |		{ 
-	        newCompositeNode(grammarAccess.getReqSpecsAccess().getContentReqSpecFolderParserRuleCall_8_0_1()); 
+	        newCompositeNode(grammarAccess.getReqSpecsAccess().getContentReqSpecFolderParserRuleCall_7_1_0_1()); 
 	    }
-		lv_content_13_2=ruleReqSpecFolder		{
+		lv_content_14_2=ruleReqSpecFolder		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getReqSpecsRule());
 	        }
        		add(
        			$current, 
        			"content",
-        		lv_content_13_2, 
+        		lv_content_14_2, 
         		"ReqSpecFolder");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -729,15 +776,27 @@ ruleReqSpecs returns [EObject current=null]
 )
 
 )
-)*
-	otherlv_14=RightSquareBracket
+))+
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getReqSpecsAccess().getUnorderedGroup_7());
+	 				}
+ 				)
+			)  
+
+		)*	
+	)
+)
+	{ 
+	  getUnorderedGroupHelper().leave(grammarAccess.getReqSpecsAccess().getUnorderedGroup_7());
+	}
+
+)
+	otherlv_15=RightSquareBracket
     {
-    	newLeafNode(otherlv_14, grammarAccess.getReqSpecsAccess().getRightSquareBracketKeyword_9());
+    	newLeafNode(otherlv_15, grammarAccess.getReqSpecsAccess().getRightSquareBracketKeyword_8());
     }
 )
 ;
-
-
 
 
 
@@ -2504,9 +2563,9 @@ ruleConstantDecl returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDeclAccess().getValueValueStringParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getConstantDeclAccess().getValueConstantValueParserRuleCall_2_0()); 
 	    }
-		lv_value_2_0=ruleValueString		{
+		lv_value_2_0=ruleConstantValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDeclRule());
 	        }
@@ -2514,7 +2573,7 @@ ruleConstantDecl returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_2_0, 
-        		"ValueString");
+        		"ConstantValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2523,6 +2582,54 @@ ruleConstantDecl returns [EObject current=null]
 ;
 
 
+
+
+
+// Entry rule entryRuleConstantValue
+entryRuleConstantValue returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getConstantValueRule()); }
+	 iv_ruleConstantValue=ruleConstantValue 
+	 { $current=$iv_ruleConstantValue.current; } 
+	 EOF 
+;
+
+// Rule ConstantValue
+ruleConstantValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getConstantValueAccess().getStringTermParserRuleCall_0()); 
+    }
+    this_StringTerm_0=ruleStringTerm
+    {
+        $current = $this_StringTerm_0.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getConstantValueAccess().getRealTermParserRuleCall_1()); 
+    }
+    this_RealTerm_1=ruleRealTerm
+    {
+        $current = $this_RealTerm_1.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getConstantValueAccess().getIntegerTermParserRuleCall_2()); 
+    }
+    this_IntegerTerm_2=ruleIntegerTerm
+    {
+        $current = $this_IntegerTerm_2.current;
+        afterParserOrEnumRuleCall();
+    }
+)
+;
 
 
 

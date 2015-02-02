@@ -1,1 +1,17 @@
 chapter:Alisa[Incremental Assurance Workspace]
+
+code[Alisa][
+<AlisaWorkArea> ::=
+	alisa workareaname
+	<AssuranceCaseConfiguration>*
+
+<AssuranceCaseConfiguration>:
+	case name=ID (':' title=ValueString)?
+	for <ComponentImplementationReferene>
+	\[
+		( description Description)?
+		( constants ConstantDecl+ )?
+		plans <VerificationPlanReference>+
+		( when <SelectionCategory>+ )?
+	\]
+]

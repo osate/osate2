@@ -2,11 +2,7 @@
  */
 package org.osate.verify.verify;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.osate.alisa.common.common.MultiLineString;
-
-import org.osate.categories.categories.SelectionCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +12,6 @@ import org.osate.categories.categories.SelectionCategory;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}</li>
@@ -29,22 +24,6 @@ import org.osate.categories.categories.SelectionCategory;
  */
 public interface VerificationActivity extends VerificationAction
 {
-  /**
-   * Returns the value of the '<em><b>Category</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.SelectionCategory}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Category</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Category</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Category()
-   * @model
-   * @generated
-   */
-  EList<SelectionCategory> getCategory();
-
   /**
    * Returns the value of the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->

@@ -1,1 +1,192 @@
-chapter:Verify[Verification Plans]
+chapter:Verify[Verification Plans for a System]
+
+The e[Verify] notation lets users specify verification plans for each system component in a system architecture.
+
+A verification plan specifies how the claim that every requirement of a system component is satisfied by a system implementation. 
+This is achieved by specifying a set of verification activities that must complete successfully as evidence for the claim.  
+
+A verification activity is performed on an artifact representing the system implementation. 
+This artifact may be an AADL model representing the architecture specification of the system, detailed design models, e.g., Simulink models of physical or control behavior, or the actual implementation, e.g., in form of software that must be executed on a hardware platform.
+Verification activities may also include review of documents, design, or code by human reviewers.
+
+A verification activity identifies the verification method to be used, the artifact the method is applied to, any additional input to be used when performing the verification activity, and expected results. Note that expected results may already have been specified as part of  the requirement specification.
+However, some verification activities may expect results in particular formats that were not prescribed by the requirement specification. Verification activities are specified in libraries and may be used in multiple verification plans.
+
+A verification method registry allows users to specify the type and signature of a verification method. The actual method may take a variety of forms. However, the methods have a common interface to interface with the Alisa incremental assurance engine. 
+
+section:VerificationPlans[Verification Plans]
+
+
+A verification paln is defined in a separate file with the extension e[verify].
+
+
+code[Verify][
+<VerificationPlan> ::=
+	plan myplan ( : "descriptive title" )?
+	for MyPackage::GPSSystem
+	\[
+		( description "Verification plan for a" & "second line" )? // multi-line text
+		<Claim>*
+		( rationale <MultiLinetext> )?
+		( plan assumption <VerificationPlan>+ )?
+		( <ClaimWeights>+ )?
+	\]
+]
+
+A verification plan is for a single system identified by the reference to its AADL classifier.
+
+The verification plan specifies a claim for each of the requirements that have been specified for a system.
+
+e[Plan assumptions] identify verification plans for subsytems that are assumed to have been verified
+separately. This allows us to support compositional assurance of systems.
+
+code[Verify][
+<Claim> ::=
+	claim claimID ( : "Desriptive title" )?
+	( '(' <claimweight as integer> ')' )?
+	for <requirement reference>
+	\[
+		( assert <ArgumentExpression>
+	 	( rationale <MultiLineString> <)?
+		( <Claim> )*  
+	\]
+]
+
+A requirement for a system may have been refined into sub-requirements that are verifiable. Typically,
+only the leaf elements of a requirement refinement hierarchy involve veritication activities. Howeever,
+the notation supports the possibility for a veritication activity for each requirement in the refinement
+hierarchy.
+
+Weights are used as integer values to specify the value of evidence contribution a particualr claim or
+verification activity has.
+
+code[Verify][
+<ArgumentExpr> ::=
+		all \[ <ArgumentExpr>+ \] |
+		<ArgumentExpr> failthen <ArgumentExpr> |
+		<ArgumentExpr> andthen <ArgumentExpr> |
+		<ConditionalEvidence> 
+		( <ArgumentExpr> )
+		
+ConditionalEvidence ::=
+	verificationActivity1 ( '(' 8 ')' )? ( when <sectioncategoryreference>+ )?
+]
+
+e[all] means that all verification activities will be executed independent of whether they are successful
+or fail. The result state of the e[all] operator is then evaluated ans is only sucvcessful if all listed
+verification activities.
+
+e[failthen] means that the second test is only executed as an alternative if the first verification activity fails.
+In other words, users can specify alternate verification activities if the original ones fail.
+
+e[andthen] lets users specify an ordering of verification activities, i.e., the second verification activity
+is only executed if the first one is successful.
+
+e[Brackets] allow users to specify a change in precedence ordering of argument expression operators.
+
+Argument expressions refer to verification activities defined in libraries. 
+
+These references will be executed conditionally according to whether the specified selection categories are specified in the selection criteria of an assurance plan. 
+
+Each verification activity can have a weight to express the value of the contributed evidence. 
+
+
+section:VerificationActivities[Verification Activities]
+
+
+A library of verification activities is defined in a separate file with the extension e[verify].
+
+
+code[Verify][
+<VerificationLibrary> ::=
+	library libraryname ( :  "desriptive title" )?
+	( for mypackage::myGPS )?
+	\[
+		( description Description)?
+		( <VerificationActivity> |  <VerificationFolder> )*
+	\]
+
+<VerificationFolder> ::=
+	folder foldername
+	\[ 
+		( <VerificationActivity> |  <VerificationFolder> )*
+	\];
+
+
+<VerificationActivity> ::=
+	activity activityname ( : "descriptive title" )?
+	( for <requirementreference> )?
+	\[ 
+		( description Description )?
+		( method <VerificationMethodReference> )?
+		( timeout  <integer> )?
+		( rationale <MultiLineString> )?
+	\]
+]
+
+section:VerificationMethods[Registry of Verification Methods]
+
+A verification method registry is defined in a separate file with the extension e[verify].
+
+code[Verify][
+<VerificationMethodRegistry> ::=
+	registry registryname
+	( : "descriptive title" )?
+	\[ 
+		( description Description )?
+		<VerificationMethod>+
+	\]
+
+<VerificationMethod> ::=
+	method methodname ( :  "descriptive title" )?
+	( for <requirementreference> )?	
+	\[
+		<MethodType>  my.pack.myclass.mymethod
+		( marker "EclispeMarkerIdentifier" )?
+		( description Description )?
+		( category <VerificationCategory> )?
+		( VerificationAssumption | VerificationPrecondition)*
+	\];
+
+VerificationAssumption ::=
+	( assumption myname
+	( : "descriptive title" )?
+	\[ (
+	 (description Description)?
+	( assert <ArgumentExpr> )?
+	( rationale <MultiLineString> )?
+	)
+	\]
+
+@e[enum] MethodTypes:
+	singlepredicate | singleanalysis | assertionexception | multimarker | multidiagnostics | multiresultreport 
+	| resoluteprove | manual
+]
+
+section:SelectionCategories[Selective Verification]
+
+Selective verification is patterned after JUnit. Users can attach multiple category labels with a referenced
+verification activity. Separately, user will specifiy the categories of interest when defining and instanitating
+an assurance plan.
+
+The selection categories can be defined by the user. They are defined the same
+
+Requirement categories are defined through the Category specificaiton notation. These specifications are
+created in files with the extension @e[cat].
+
+code[Categories][
+<SelectionCategories> ::=
+	selection categories 
+	\[ 
+		<SelectionCategory>+
+	\]
+
+<SelectionCategory> :
+	phase1 ( extends phase )? 
+]
+
+election categories must have globally unique names among selection category declarations within an Eclipse workspace. 
+References to a category do not have to be qualified.
+
+Requirement categories can be placed into an extends hierarchy.
+

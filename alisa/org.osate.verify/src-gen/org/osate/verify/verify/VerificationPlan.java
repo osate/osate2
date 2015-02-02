@@ -23,7 +23,6 @@ import org.osate.alisa.common.common.MultiLineString;
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationPlan#getWeightedClaim <em>Weighted Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getPlanAssumption <em>Plan Assumption</em>}</li>
  * </ul>
@@ -154,22 +153,6 @@ public interface VerificationPlan extends EObject
    * @generated
    */
   EList<Claim> getClaim();
-
-  /**
-   * Returns the value of the '<em><b>Weighted Claim</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.verify.verify.WeightedClaim}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Weighted Claim</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Weighted Claim</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_WeightedClaim()
-   * @model containment="true"
-   * @generated
-   */
-  EList<WeightedClaim> getWeightedClaim();
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' containment reference.

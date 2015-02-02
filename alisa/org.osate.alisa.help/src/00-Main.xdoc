@@ -30,8 +30,8 @@ codelanguage-def[ReqSpec]
 	library,for,specification,goal,include,
 	document,constants,folder,goal,of,category,
 	description,assert,title, refines, mitigates, 
-	assert,rationale,refined,decomposed,to,evolved,
-	conflicts,with,stakeholder,see,requirement
+	assert,rationale,refined,decomposed,to,evolved, this,
+	conflicts,with,stakeholder,see,requirement, section, goals
 ]
 
 
@@ -39,7 +39,7 @@ codelanguage-def[Verify]
 [
 	plan,for,title,description,weights,
 	assert,rationale,library,folder,activity,category,method,timeout
-	,all,andthen,failthen,when,registry
+	,all,andthen,failthen,when,registry, assumption, claim
 ]
 
 codelanguage-def[Assure]
@@ -48,6 +48,23 @@ codelanguage-def[Assure]
 	success,fail,error,failthen,skipped,total,weight,message,
 	claim,successMsg,hazard,assumption,precondition,verification,executionstate,
 	failtarget,failmessage,tbd,todo,running,redo,completed
+]
+
+
+codelanguage-def[Alisa]
+[
+	alisa,for,description,rationale,case, constants, plans, when
+]
+
+
+codelanguage-def[Categories]
+[
+	requirement, categories, extends, selection, verification
+]
+
+codelanguage-def[Organization]
+[
+	organization, stakeholder, address, email, role, phone, description, title, name, full
 ]
 
 chapter-ref[Introduction]

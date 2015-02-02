@@ -20,7 +20,7 @@ ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
 StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=ValueString)?
 	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
 	 ('description'  description=MultiLineString)? 
-	'[' consistsOf+=[GoalFolder|QualifiedName] ']'
+	'[' content+=( Goal | GoalFolder) ']'
 ;
 
 ReqDocument: 'document' name=ID (':' title=ValueString)?
@@ -38,21 +38,14 @@ ReqSpecs returns ReqSpecs:
 	'requirement' 'specification' name =ID (':' title=ValueString)?
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
 	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
-	('include' libraries += [ReqLib|QualifiedName]+)?
+	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
-	('constants' constants+=ConstantDecl+)?
-	(content+= (Requirement |  ReqSpecFolder))*
+	(('constants' constants+=ConstantDecl+)?
+	&(content+= (Requirement |  ReqSpecFolder))*
+	)
 	']'
 	;
 QualifiedNameWithWildCard : QualifiedName ('.*')?;	
-ReqLib returns ReqLib:
-	'library' name =ID (':' title=ValueString)?
-	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
-	'[' 
-	('constants' constants+=ConstantDecl+)?
-	(content+= (Requirement |  ReqSpecFolder))*
-	']'
-	;
 
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:
