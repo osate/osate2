@@ -1,1 +1,7 @@
 chapter:Assure[Assurance Results]
+
+The e[Assure] notation is used to represent assurance results for an assurance case.
+Assurance results files are automatically generated from an assurance case specified in an e[Alisa] file.
+The generated file has the extension e[assure] and is placed in the e[src-gen] folder.
+
+

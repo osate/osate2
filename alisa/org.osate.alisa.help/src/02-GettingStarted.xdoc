@@ -29,6 +29,9 @@ the verification plans of those components in your system of interest that you a
  This working context is used to automatically
  generate an instance of an assurance case, i.e., the result record for your system, i.e., the results of executing the verification plans at any time during the life cycle.
  
+ Users then initiate the execution of all verification activities for an assurance case by opening the
+ e[assure] file and selecting the e[Check claims] command in the context menu of the e[Outline] view.
+ 
  Note that multiple assurance cases can be defined for the same system. Each case may focus on assuring
  certain aspects of the system, as identified by the chosen selection categories.
  
