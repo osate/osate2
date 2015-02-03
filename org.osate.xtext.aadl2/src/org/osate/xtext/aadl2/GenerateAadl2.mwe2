@@ -170,7 +170,7 @@ Workflow {
 
 
 			// java-based API for content assistance 
-			fragment = contentAssist.JavaBasedContentAssistFragment {}
+			fragment = contentAssist.ContentAssistFragment {}
 
 			
 			// provides a compare view
