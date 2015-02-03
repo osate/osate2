@@ -1691,11 +1691,6 @@ InternalFeature returns aadl2::InternalFeature:
 	(
 		EventSource | EventDataSource
 	)
-	(
-		'properties' (
-			(ownedPropertyAssociation+=PropertyAssociation)+
-		)
-	)?
 	';' 
 ;
 
@@ -1704,22 +1699,28 @@ ProcessorFeature returns aadl2::ProcessorFeature:
 	(
 		PortProxy | SubprogramProxy
 	)
-	(
-		'properties' (
-			(ownedPropertyAssociation+=PropertyAssociation)+
-		)
-	)?
 	';'
 ;
 
 EventSource returns aadl2::EventSource:
-	name = ID ':' 'event' ';'
+	name = ID ':' 'event'
+	(
+		'{'
+			(ownedPropertyAssociation+=PropertyAssociation)+
+		'}'
+	)?
+	';'
 ;
 
 EventDataSource returns aadl2::EventDataSource:
 	name = ID ':' 'event' 'data'
 	(
 		dataClassifier = [aadl2::DataClassifier|QCREF]
+	)?
+	(
+		'{'
+			(ownedPropertyAssociation+=PropertyAssociation)+
+		'}'
 	)?
 	';'
 ;
@@ -1729,6 +1730,11 @@ PortProxy returns aadl2::PortProxy:
 	(
 		dataClassifier = [aadl2::DataClassifier|QCREF]
 	)?
+	(
+		'{'
+			(ownedPropertyAssociation+=PropertyAssociation)+
+		'}'
+	)?
 	';'
 ;
 
@@ -1736,6 +1742,11 @@ SubprogramProxy returns aadl2::SubprogramProxy:
 	name = ID ':' 'subprogram'
 	(
 		subprogramClassifier = [aadl2::SubprogramClassifier|QCREF]
+	)?
+	(
+		'{'
+			(ownedPropertyAssociation+=PropertyAssociation)+
+		'}'
 	)?
 	';'
 ;
@@ -2224,7 +2235,7 @@ CoreKeyWord :
 	| 'bus' |'calls' |'classifier'| 'connections' |'constant'| 'data'| 'device'
 	|'end' |'enumeration'|'event'|'extends'
 	| 'feature'|'features'|'flow'|'flows'
-	| 'group'|'implementation'|'in'|'inherit'|'initial'|'inverse'|'is'|'list'
+	| 'group'|'implementation'|'in'|'inherit'|'initial'| 'internal' |'inverse'|'is'|'list'
 	| 'memory'|'mode'|'modes'|'none'|'of'|'out'|'package'|'parameter'|'path'| 'port'|'private'
 	| 'process'  | 'processor'
 	|'prototypes'|'provides'|'public'

@@ -588,12 +588,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.EVENT_DATA_SOURCE:
-				if(context == grammarAccess.getEventDataSourceRule()) {
+				if(context == grammarAccess.getEventDataSourceRule() ||
+				   context == grammarAccess.getInternalFeatureRule()) {
 					sequence_EventDataSource(context, (EventDataSource) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getInternalFeatureRule()) {
-					sequence_EventDataSource_InternalFeature(context, (EventDataSource) semanticObject); 
 					return; 
 				}
 				else break;
@@ -604,12 +601,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.EVENT_SOURCE:
-				if(context == grammarAccess.getEventSourceRule()) {
+				if(context == grammarAccess.getEventSourceRule() ||
+				   context == grammarAccess.getInternalFeatureRule()) {
 					sequence_EventSource(context, (EventSource) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getInternalFeatureRule()) {
-					sequence_EventSource_InternalFeature(context, (EventSource) semanticObject); 
 					return; 
 				}
 				else break;
@@ -928,12 +922,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.PORT_PROXY:
-				if(context == grammarAccess.getPortProxyRule()) {
+				if(context == grammarAccess.getPortProxyRule() ||
+				   context == grammarAccess.getProcessorFeatureRule()) {
 					sequence_PortProxy(context, (PortProxy) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getProcessorFeatureRule()) {
-					sequence_PortProxy_ProcessorFeature(context, (PortProxy) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1223,11 +1214,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				}
 				else break;
 			case Aadl2Package.SUBPROGRAM_PROXY:
-				if(context == grammarAccess.getProcessorFeatureRule()) {
-					sequence_ProcessorFeature_SubprogramProxy(context, (SubprogramProxy) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getSubprogramProxyRule()) {
+				if(context == grammarAccess.getProcessorFeatureRule() ||
+				   context == grammarAccess.getSubprogramProxyRule()) {
 					sequence_SubprogramProxy(context, (SubprogramProxy) semanticObject); 
 					return; 
 				}
@@ -2175,18 +2163,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID dataClassifier=[DataClassifier|QCREF]?)
-	 */
-	protected void sequence_EventDataSource(EObject context, EventDataSource semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
 	 */
-	protected void sequence_EventDataSource_InternalFeature(EObject context, EventDataSource semanticObject) {
+	protected void sequence_EventDataSource(EObject context, EventDataSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2207,18 +2186,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_EventSource(EObject context, EventSource semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID ownedPropertyAssociation+=PropertyAssociation*)
 	 */
-	protected void sequence_EventSource_InternalFeature(EObject context, EventSource semanticObject) {
+	protected void sequence_EventSource(EObject context, EventSource semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2744,18 +2714,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID dataClassifier=[DataClassifier|QCREF]?)
-	 */
-	protected void sequence_PortProxy(EObject context, PortProxy semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID dataClassifier=[DataClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
 	 */
-	protected void sequence_PortProxy_ProcessorFeature(EObject context, PortProxy semanticObject) {
+	protected void sequence_PortProxy(EObject context, PortProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2895,15 +2856,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     )
 	 */
 	protected void sequence_ProcessType(EObject context, ProcessType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID subprogramClassifier=[SubprogramClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
-	 */
-	protected void sequence_ProcessorFeature_SubprogramProxy(EObject context, SubprogramProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3504,7 +3456,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID subprogramClassifier=[SubprogramClassifier|QCREF]?)
+	 *     (name=ID subprogramClassifier=[SubprogramClassifier|QCREF]? ownedPropertyAssociation+=PropertyAssociation*)
 	 */
 	protected void sequence_SubprogramProxy(EObject context, SubprogramProxy semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

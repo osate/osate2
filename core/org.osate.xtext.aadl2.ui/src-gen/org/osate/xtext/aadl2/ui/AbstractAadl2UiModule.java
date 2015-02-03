@@ -93,7 +93,7 @@ public abstract class AbstractAadl2UiModule extends DefaultUiModule {
 		return org.osate.xtext.aadl2.ui.quickfix.Aadl2QuickfixProvider.class;
 	}
 
-	// contributed by org.eclipse.xtext.ui.generator.contentAssist.JavaBasedContentAssistFragment
+	// contributed by org.eclipse.xtext.ui.generator.contentAssist.ContentAssistFragment
 	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IContentProposalProvider> bindIContentProposalProvider() {
 		return org.osate.xtext.aadl2.ui.contentassist.Aadl2ProposalProvider.class;
 	}
