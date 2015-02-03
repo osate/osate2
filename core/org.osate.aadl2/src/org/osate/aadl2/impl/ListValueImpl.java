@@ -47,7 +47,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -193,30 +192,14 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ownedListElements == null) ? 0 : ownedListElements.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-
-		if (this == obj) {
+	public boolean sameAs(PropertyExpression pe) {
+		if (this == pe) {
 			return true;
 		}
-
-		if (obj == null) {
+		if (pe == null || getClass() != pe.getClass()) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		ListValueImpl other = (ListValueImpl) obj;
+		ListValueImpl other = (ListValueImpl) pe;
 		if (ownedListElements == null && other.ownedListElements != null || ownedListElements != null
 				&& other.ownedListElements == null) {
 			return false;

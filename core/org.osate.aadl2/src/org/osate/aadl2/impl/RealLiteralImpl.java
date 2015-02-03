@@ -41,9 +41,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.parsesupport.ParseUtil;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -241,47 +241,15 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		return newVal;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.osate.aadl2.NumberValue#getScaledValue()
-	 * DB: Moved to NumberValueOperations
-	 */
-	// public final double getScaledValue() {
-	// final double value = getValue();
-	// final UnitLiteral unit = getUnit();
-	// final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor();
-	// return value * factor;
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.osate.aadl2.NumberValue#getScaledValue(org.osate.aadl2.UnitLiteral)
-	 * DB: Moved to NumberValueOperations
-	 */
-	// public double getScaledValue(UnitLiteral target) {
-	// final double value = getValue();
-	// final UnitLiteral unit = getUnit();
-	// final double factor = (unit == null) ? 1.0 : unit
-	// .getAbsoluteFactor(target);
-	// return value * factor;
-	// }
-
 	@Override
-	public boolean equals(Object obj) {
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-
-		if (this == obj) {
+	public boolean sameAs(PropertyValue pv) {
+		if (this == pv) {
 			return true;
 		}
-
-		if (obj == null || getClass() != obj.getClass() || !super.equals(obj)) {
+		if (pv == null || getClass() != pv.getClass()) {
 			return false;
 		}
-		RealLiteralImpl other = (RealLiteralImpl) obj;
+		RealLiteralImpl other = (RealLiteralImpl) pv;
 		return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
 	}
 

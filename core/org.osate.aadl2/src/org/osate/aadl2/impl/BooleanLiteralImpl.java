@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.PropertyValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -200,34 +200,15 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 		return result.toString();
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (value ? 1231 : 1237);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-
-		if (this == obj) {
+	public boolean sameAs(PropertyValue pv) {
+		if (this == pv) {
 			return true;
 		}
-		if (obj == null) {
+		if (pv == null || getClass() != pv.getClass()) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		BooleanLiteralImpl other = (BooleanLiteralImpl) obj;
-		if (value != other.value) {
-			return false;
-		}
-		return true;
+		BooleanLiteralImpl other = (BooleanLiteralImpl) pv;
+		return value == other.value;
 	}
 
 } // BooleanLiteralImpl

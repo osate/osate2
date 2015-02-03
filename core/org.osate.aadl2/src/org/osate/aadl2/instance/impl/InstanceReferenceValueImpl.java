@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.impl.PropertyValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -216,13 +217,13 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object other) {
-		return (other instanceof InstanceReferenceValue)
-				&& ((InstanceReferenceValue) other).getReferencedInstanceObject() == referencedInstanceObject;
+	public boolean sameAs(PropertyValue pv) {
+		return (pv instanceof InstanceReferenceValue)
+				&& ((InstanceReferenceValue) pv).getReferencedInstanceObject() == referencedInstanceObject;
 	}
 
 } // InstanceReferenceValueImpl

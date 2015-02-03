@@ -45,8 +45,8 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -201,30 +201,26 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-
-		if (this == obj) {
+	public boolean sameAs(PropertyValue pv) {
+		if (this == pv) {
 			return true;
 		}
+		if (pv == null || getClass() != pv.getClass()) {
+			return false;
+		}
 
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		RecordValueImpl other = (RecordValueImpl) obj;
-		if (ownedFieldValues == null) {
-			if (other.ownedFieldValues != null) {
-				return false;
-			}
-		} else if (!ownedFieldValues.equals(other.ownedFieldValues)) {
-			return false;
-		}
-		return true;
+		// TODO: implement comparicon for record values
+		return false;
+
+//		RecordValueImpl other = (RecordValueImpl) pv;
+//		if (ownedFieldValues == null) {
+//			if (other.ownedFieldValues != null) {
+//				return false;
+//			}
+//		} else if (!ownedFieldValues.equals(other.ownedFieldValues)) {
+//			return false;
+//		}
+//		return true;
 	}
 
 } // RecordValueImpl

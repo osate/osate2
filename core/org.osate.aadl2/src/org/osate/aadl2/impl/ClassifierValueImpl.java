@@ -44,10 +44,10 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -211,37 +211,18 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((classifier == null) ? 0 : classifier.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-
-		if (this == obj) {
+	public boolean sameAs(PropertyValue pv) {
+		if (this == pv) {
 			return true;
 		}
-		if (obj == null) {
+		if (pv == null || getClass() != pv.getClass()) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		ClassifierValueImpl other = (ClassifierValueImpl) obj;
+		ClassifierValueImpl other = (ClassifierValueImpl) pv;
 		if (classifier == null) {
-			if (other.classifier != null) {
-				return false;
-			}
-		} else if (!classifier.equals(other.classifier)) {
-			return false;
-		}
-		return true;
+			return other.classifier == null;
+		} else
+			return classifier.equals(other.classifier);
 	}
 
 } // ClassifierValueImpl

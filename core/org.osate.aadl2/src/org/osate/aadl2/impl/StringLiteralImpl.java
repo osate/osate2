@@ -39,8 +39,8 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -196,36 +196,18 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-		if (this == obj) {
+	public boolean sameAs(PropertyValue pv) {
+		if (this == pv) {
 			return true;
 		}
-		if (obj == null) {
+		if (pv == null || getClass() != pv.getClass()) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		StringLiteralImpl other = (StringLiteralImpl) obj;
+		StringLiteralImpl other = (StringLiteralImpl) pv;
 		if (value == null) {
-			if (other.value != null) {
-				return false;
-			}
-		} else if (!value.equals(other.value)) {
-			return false;
+			return other.value == null;
 		}
-		return true;
+		return value.equals(other.value);
 	}
 
 } // StringLiteralImpl

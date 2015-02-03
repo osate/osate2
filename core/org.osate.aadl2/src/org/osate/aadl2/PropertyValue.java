@@ -51,4 +51,5 @@ package org.osate.aadl2;
  */
 public interface PropertyValue extends PropertyExpression {
 
+	public boolean sameAs(PropertyValue other);
 } // PropertyValue
