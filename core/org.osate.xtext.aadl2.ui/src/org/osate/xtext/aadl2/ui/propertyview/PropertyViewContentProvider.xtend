@@ -35,7 +35,7 @@
 package org.osate.xtext.aadl2.ui.propertyview
 
 import org.eclipse.emf.common.util.URI
-import org.eclipse.jface.viewers.ILazyTreeContentProvider
+import org.eclipse.jface.viewers.ITreeContentProvider
 import org.eclipse.jface.viewers.Viewer
 import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.ListValue
@@ -53,7 +53,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 
-package class PropertyViewContentProvider implements ILazyTreeContentProvider {
+package class PropertyViewContentProvider implements ITreeContentProvider {
 	val AadlPropertyView propertyView
 	
 	package new(AadlPropertyView propertyView) {
@@ -62,9 +62,30 @@ package class PropertyViewContentProvider implements ILazyTreeContentProvider {
 	
 	override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
-	
-	override updateChildCount(Object element, int currentChildCount) {
-		val childCount = switch element {
+
+	override getElements(Object inputElement) {
+		getChildren(inputElement)
+	}
+
+	override hasChildren(Object element) {
+		currentChildCount(element) > 0
+	}
+
+	override getChildren(Object parentElement) {
+		(0..<currentChildCount(parentElement)).map[index | 
+			new TreeEntry( parentElement, getChildElement(parentElement, index))
+		]
+	}
+
+	def updateChildCount(Object element, int currentChildCount) {
+		val childCount = currentChildCount(element)
+		if (currentChildCount != childCount) {
+			propertyView.treeViewer.setChildCount(element, childCount)
+		}
+	}
+
+	def private currentChildCount(Object element) {
+		switch element {
 			URI: {
 				if (propertyView.showUndefinedAction.checked) {
 					propertyView.cachedPropertyAssociations.size
@@ -111,11 +132,8 @@ package class PropertyViewContentProvider implements ILazyTreeContentProvider {
 					getChildCount(expression, (
 						expression.getContainerOfType(BasicPropertyAssociation)?.property ?: expression.getContainerOfType(PropertyAssociation)?.property ?: expression.getContainerOfType(Property)
 					).propertyType.basePropertyType, null)
-				]
-			}
-		}
-		if (currentChildCount != childCount) {
-			propertyView.treeViewer.setChildCount(element, childCount)
+						]
+				}
 		}
 	}
 	
@@ -138,9 +156,15 @@ package class PropertyViewContentProvider implements ILazyTreeContentProvider {
 			default: 0
 		}
 	}
-	
-	override updateElement(Object parent, int index) {
-		val childElement = new TreeEntry(parent, switch parent {
+
+	def updateElement(Object parent, int index) {
+		val childElement = new TreeEntry(parent, getChildElement(parent, index))
+		propertyView.treeViewer.replace(parent, index, childElement)
+		updateChildCount(childElement, -1)
+	}
+
+	def private getChildElement(Object parent, int index) {
+		switch parent {
 			URI: {
 				val filteredAssociations = if (propertyView.showUndefinedAction.checked) {
 					propertyView.cachedPropertyAssociations
@@ -189,9 +213,7 @@ package class PropertyViewContentProvider implements ILazyTreeContentProvider {
 					).propertyType.basePropertyType, null)
 				]
 			}
-		})
-		propertyView.treeViewer.replace(parent, index, childElement)
-		updateChildCount(childElement, -1)
+		}
 	}
 	
 	def private getElement(PropertyExpression expression, int index, PropertyType propertyType, PropertyExpression defaultValue) {
