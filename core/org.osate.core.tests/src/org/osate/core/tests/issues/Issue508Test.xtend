@@ -40,10 +40,10 @@ class Issue508Test extends OsateTest {
 		val connections1 = sub1.connectionInstances
 		assertTrue('In sub1: Expected 2 connections but found ' + connections1.size, connections1.size == 2)
 
-		// check if there are 4 connections in sub2
+		// check if there are 2 connections in sub2
 		val sub2 = instance.componentInstances.findFirst[name == 'sub2']
 		val connections2 = sub2.connectionInstances
-		assertTrue('In sub2: Expected 4 connections but found ' + connections2.size, connections2.size == 4)
+		assertTrue('In sub2: Expected 2 connections but found ' + connections2.size, connections2.size == 2)
 	}
 
 	val aadlText = '''

@@ -931,11 +931,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
 				// both ends are empty
-				if (srcFi.getDirection() != DirectionType.IN) {
+				if (srcFi.getDirection() != DirectionType.IN && dstFi.getDirection() != DirectionType.OUT) {
 					connInfo.src = srcFi;
 					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 				}
-				if (connInfo.isBidirectional() && dstFi.getDirection() != DirectionType.OUT) {
+				if (connInfo.isBidirectional() && dstFi.getDirection() != DirectionType.IN
+						&& srcFi.getDirection() != DirectionType.OUT) {
 					connInfo.src = dstFi;
 					addConnectionInstance(parentci.getSystemInstance(), connInfo, srcFi);
 				}
