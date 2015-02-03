@@ -20490,19 +20490,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
 		private final RuleCall cEventSourceParserRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
 		private final RuleCall cEventDataSourceParserRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cPropertiesKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_1_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cSemicolonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//// ********* internal features
 		////This rule is dead code in the grammar, but it is needed by the formatter.
 		//InternalFeature returns aadl2::InternalFeature:
-		//	(EventSource | EventDataSource) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? ";";
+		//	(EventSource | EventDataSource) ";";
 		public ParserRule getRule() { return rule; }
 
-		//(EventSource | EventDataSource) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? ";"
+		//(EventSource | EventDataSource) ";"
 		public Group getGroup() { return cGroup; }
 
 		//EventSource | EventDataSource
@@ -20514,20 +20510,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//EventDataSource
 		public RuleCall getEventDataSourceParserRuleCall_0_1() { return cEventDataSourceParserRuleCall_0_1; }
 
-		//("properties" ownedPropertyAssociation+=PropertyAssociation+)?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"properties"
-		public Keyword getPropertiesKeyword_1_0() { return cPropertiesKeyword_1_0; }
-
-		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_1_1() { return cOwnedPropertyAssociationAssignment_1_1; }
-
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0; }
-
 		//";"
-		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
+		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
 	}
 
 	public class ProcessorFeatureElements extends AbstractParserRuleElementFinder {
@@ -20536,18 +20520,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
 		private final RuleCall cPortProxyParserRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
 		private final RuleCall cSubprogramProxyParserRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cPropertiesKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_1_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cSemicolonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		////This rule is dead code in the grammar, but it is needed by the formatter.
 		//ProcessorFeature returns aadl2::ProcessorFeature:
-		//	(PortProxy | SubprogramProxy) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? ";";
+		//	(PortProxy | SubprogramProxy) ";";
 		public ParserRule getRule() { return rule; }
 
-		//(PortProxy | SubprogramProxy) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? ";"
+		//(PortProxy | SubprogramProxy) ";"
 		public Group getGroup() { return cGroup; }
 
 		//PortProxy | SubprogramProxy
@@ -20559,20 +20539,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//SubprogramProxy
 		public RuleCall getSubprogramProxyParserRuleCall_0_1() { return cSubprogramProxyParserRuleCall_0_1; }
 
-		//("properties" ownedPropertyAssociation+=PropertyAssociation+)?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"properties"
-		public Keyword getPropertiesKeyword_1_0() { return cPropertiesKeyword_1_0; }
-
-		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_1_1() { return cOwnedPropertyAssociationAssignment_1_1; }
-
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0; }
-
 		//";"
-		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
+		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
 	}
 
 	public class EventSourceElements extends AbstractParserRuleElementFinder {
@@ -20582,13 +20550,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cEventKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cLeftCurlyBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_3_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//EventSource returns aadl2::EventSource:
-		//	name=ID ":" "event" ";";
+		//	name=ID ":" "event" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "event" ";"
+		//name=ID ":" "event" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -20603,8 +20576,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"event"
 		public Keyword getEventKeyword_2() { return cEventKeyword_2; }
 
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_3_0() { return cLeftCurlyBracketKeyword_3_0; }
+
+		//ownedPropertyAssociation+=PropertyAssociation+
+		public Assignment getOwnedPropertyAssociationAssignment_3_1() { return cOwnedPropertyAssociationAssignment_3_1; }
+
+		//PropertyAssociation
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_3_2() { return cRightCurlyBracketKeyword_3_2; }
+
 		//";"
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
 	public class EventDataSourceElements extends AbstractParserRuleElementFinder {
@@ -20618,13 +20606,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDataClassifierAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final CrossReference cDataClassifierDataClassifierCrossReference_4_0 = (CrossReference)cDataClassifierAssignment_4.eContents().get(0);
 		private final RuleCall cDataClassifierDataClassifierQCREFParserRuleCall_4_0_1 = (RuleCall)cDataClassifierDataClassifierCrossReference_4_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cLeftCurlyBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_5_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//EventDataSource returns aadl2::EventDataSource:
-		//	name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
+		//	name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ("{"
+		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ";"
+		//name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ("{"
+		//ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -20651,8 +20646,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getDataClassifierDataClassifierQCREFParserRuleCall_4_0_1() { return cDataClassifierDataClassifierQCREFParserRuleCall_4_0_1; }
 
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
+
+		//ownedPropertyAssociation+=PropertyAssociation+
+		public Assignment getOwnedPropertyAssociationAssignment_5_1() { return cOwnedPropertyAssociationAssignment_5_1; }
+
+		//PropertyAssociation
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
+
 		//";"
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class PortProxyElements extends AbstractParserRuleElementFinder {
@@ -20665,13 +20675,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDataClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final CrossReference cDataClassifierDataClassifierCrossReference_3_0 = (CrossReference)cDataClassifierAssignment_3.eContents().get(0);
 		private final RuleCall cDataClassifierDataClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cDataClassifierDataClassifierCrossReference_3_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//PortProxy returns aadl2::PortProxy:
-		//	name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
+		//	name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ("{" ownedPropertyAssociation+=PropertyAssociation+
+		//	"}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ";"
+		//name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ("{" ownedPropertyAssociation+=PropertyAssociation+
+		//"}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -20695,8 +20712,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getDataClassifierDataClassifierQCREFParserRuleCall_3_0_1() { return cDataClassifierDataClassifierQCREFParserRuleCall_3_0_1; }
 
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
+
+		//ownedPropertyAssociation+=PropertyAssociation+
+		public Assignment getOwnedPropertyAssociationAssignment_4_1() { return cOwnedPropertyAssociationAssignment_4_1; }
+
+		//PropertyAssociation
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
 		//";"
-		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class SubprogramProxyElements extends AbstractParserRuleElementFinder {
@@ -20709,13 +20741,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cSubprogramClassifierAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final CrossReference cSubprogramClassifierSubprogramClassifierCrossReference_3_0 = (CrossReference)cSubprogramClassifierAssignment_3.eContents().get(0);
 		private final RuleCall cSubprogramClassifierSubprogramClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cSubprogramClassifierSubprogramClassifierCrossReference_3_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//SubprogramProxy returns aadl2::SubprogramProxy:
-		//	name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ";";
+		//	name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ("{"
+		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ";"
+		//name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ("{"
+		//ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -20739,8 +20778,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getSubprogramClassifierSubprogramClassifierQCREFParserRuleCall_3_0_1() { return cSubprogramClassifierSubprogramClassifierQCREFParserRuleCall_3_0_1; }
 
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
+
+		//ownedPropertyAssociation+=PropertyAssociation+
+		public Assignment getOwnedPropertyAssociationAssignment_4_1() { return cOwnedPropertyAssociationAssignment_4_1; }
+
+		//PropertyAssociation
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
 		//";"
-		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class ConnectedElementElements extends AbstractParserRuleElementFinder {
@@ -25553,57 +25607,58 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cInKeyword_22 = (Keyword)cAlternatives.eContents().get(22);
 		private final Keyword cInheritKeyword_23 = (Keyword)cAlternatives.eContents().get(23);
 		private final Keyword cInitialKeyword_24 = (Keyword)cAlternatives.eContents().get(24);
-		private final Keyword cInverseKeyword_25 = (Keyword)cAlternatives.eContents().get(25);
-		private final Keyword cIsKeyword_26 = (Keyword)cAlternatives.eContents().get(26);
-		private final Keyword cListKeyword_27 = (Keyword)cAlternatives.eContents().get(27);
-		private final Keyword cMemoryKeyword_28 = (Keyword)cAlternatives.eContents().get(28);
-		private final Keyword cModeKeyword_29 = (Keyword)cAlternatives.eContents().get(29);
-		private final Keyword cModesKeyword_30 = (Keyword)cAlternatives.eContents().get(30);
-		private final Keyword cNoneKeyword_31 = (Keyword)cAlternatives.eContents().get(31);
-		private final Keyword cOfKeyword_32 = (Keyword)cAlternatives.eContents().get(32);
-		private final Keyword cOutKeyword_33 = (Keyword)cAlternatives.eContents().get(33);
-		private final Keyword cPackageKeyword_34 = (Keyword)cAlternatives.eContents().get(34);
-		private final Keyword cParameterKeyword_35 = (Keyword)cAlternatives.eContents().get(35);
-		private final Keyword cPathKeyword_36 = (Keyword)cAlternatives.eContents().get(36);
-		private final Keyword cPortKeyword_37 = (Keyword)cAlternatives.eContents().get(37);
-		private final Keyword cPrivateKeyword_38 = (Keyword)cAlternatives.eContents().get(38);
-		private final Keyword cProcessKeyword_39 = (Keyword)cAlternatives.eContents().get(39);
-		private final Keyword cProcessorKeyword_40 = (Keyword)cAlternatives.eContents().get(40);
-		private final Keyword cPrototypesKeyword_41 = (Keyword)cAlternatives.eContents().get(41);
-		private final Keyword cProvidesKeyword_42 = (Keyword)cAlternatives.eContents().get(42);
-		private final Keyword cPublicKeyword_43 = (Keyword)cAlternatives.eContents().get(43);
-		private final Keyword cRefinedKeyword_44 = (Keyword)cAlternatives.eContents().get(44);
-		private final Keyword cRenamesKeyword_45 = (Keyword)cAlternatives.eContents().get(45);
-		private final Keyword cRequiresKeyword_46 = (Keyword)cAlternatives.eContents().get(46);
-		private final Keyword cSelfKeyword_47 = (Keyword)cAlternatives.eContents().get(47);
-		private final Keyword cSetKeyword_48 = (Keyword)cAlternatives.eContents().get(48);
-		private final Keyword cSinkKeyword_49 = (Keyword)cAlternatives.eContents().get(49);
-		private final Keyword cSourceKeyword_50 = (Keyword)cAlternatives.eContents().get(50);
-		private final Keyword cSubcomponentsKeyword_51 = (Keyword)cAlternatives.eContents().get(51);
-		private final Keyword cSubprogramKeyword_52 = (Keyword)cAlternatives.eContents().get(52);
-		private final Keyword cSystemKeyword_53 = (Keyword)cAlternatives.eContents().get(53);
-		private final Keyword cThreadKeyword_54 = (Keyword)cAlternatives.eContents().get(54);
-		private final Keyword cTypeKeyword_55 = (Keyword)cAlternatives.eContents().get(55);
-		private final Keyword cToKeyword_56 = (Keyword)cAlternatives.eContents().get(56);
-		private final Keyword cVirtualKeyword_57 = (Keyword)cAlternatives.eContents().get(57);
-		private final Keyword cWithKeyword_58 = (Keyword)cAlternatives.eContents().get(58);
+		private final Keyword cInternalKeyword_25 = (Keyword)cAlternatives.eContents().get(25);
+		private final Keyword cInverseKeyword_26 = (Keyword)cAlternatives.eContents().get(26);
+		private final Keyword cIsKeyword_27 = (Keyword)cAlternatives.eContents().get(27);
+		private final Keyword cListKeyword_28 = (Keyword)cAlternatives.eContents().get(28);
+		private final Keyword cMemoryKeyword_29 = (Keyword)cAlternatives.eContents().get(29);
+		private final Keyword cModeKeyword_30 = (Keyword)cAlternatives.eContents().get(30);
+		private final Keyword cModesKeyword_31 = (Keyword)cAlternatives.eContents().get(31);
+		private final Keyword cNoneKeyword_32 = (Keyword)cAlternatives.eContents().get(32);
+		private final Keyword cOfKeyword_33 = (Keyword)cAlternatives.eContents().get(33);
+		private final Keyword cOutKeyword_34 = (Keyword)cAlternatives.eContents().get(34);
+		private final Keyword cPackageKeyword_35 = (Keyword)cAlternatives.eContents().get(35);
+		private final Keyword cParameterKeyword_36 = (Keyword)cAlternatives.eContents().get(36);
+		private final Keyword cPathKeyword_37 = (Keyword)cAlternatives.eContents().get(37);
+		private final Keyword cPortKeyword_38 = (Keyword)cAlternatives.eContents().get(38);
+		private final Keyword cPrivateKeyword_39 = (Keyword)cAlternatives.eContents().get(39);
+		private final Keyword cProcessKeyword_40 = (Keyword)cAlternatives.eContents().get(40);
+		private final Keyword cProcessorKeyword_41 = (Keyword)cAlternatives.eContents().get(41);
+		private final Keyword cPrototypesKeyword_42 = (Keyword)cAlternatives.eContents().get(42);
+		private final Keyword cProvidesKeyword_43 = (Keyword)cAlternatives.eContents().get(43);
+		private final Keyword cPublicKeyword_44 = (Keyword)cAlternatives.eContents().get(44);
+		private final Keyword cRefinedKeyword_45 = (Keyword)cAlternatives.eContents().get(45);
+		private final Keyword cRenamesKeyword_46 = (Keyword)cAlternatives.eContents().get(46);
+		private final Keyword cRequiresKeyword_47 = (Keyword)cAlternatives.eContents().get(47);
+		private final Keyword cSelfKeyword_48 = (Keyword)cAlternatives.eContents().get(48);
+		private final Keyword cSetKeyword_49 = (Keyword)cAlternatives.eContents().get(49);
+		private final Keyword cSinkKeyword_50 = (Keyword)cAlternatives.eContents().get(50);
+		private final Keyword cSourceKeyword_51 = (Keyword)cAlternatives.eContents().get(51);
+		private final Keyword cSubcomponentsKeyword_52 = (Keyword)cAlternatives.eContents().get(52);
+		private final Keyword cSubprogramKeyword_53 = (Keyword)cAlternatives.eContents().get(53);
+		private final Keyword cSystemKeyword_54 = (Keyword)cAlternatives.eContents().get(54);
+		private final Keyword cThreadKeyword_55 = (Keyword)cAlternatives.eContents().get(55);
+		private final Keyword cTypeKeyword_56 = (Keyword)cAlternatives.eContents().get(56);
+		private final Keyword cToKeyword_57 = (Keyword)cAlternatives.eContents().get(57);
+		private final Keyword cVirtualKeyword_58 = (Keyword)cAlternatives.eContents().get(58);
+		private final Keyword cWithKeyword_59 = (Keyword)cAlternatives.eContents().get(59);
 		
 		////// properties grammar	|'properties'|'property'|'delta'|'false'|'not'| 'and'|'or'|'range'|'record'|'reference'|'true'|'units'
 		//CoreKeyWord:
 		//	"abstract" | "access" | "annex" | "applies" | "binding" | "bus" | "calls" | "classifier" | "connections" | "constant"
 		//	| "data" | "device" | "end" | "enumeration" | "event" | "extends" | "feature" | "features" | "flow" | "flows" |
-		//	"group" | "implementation" | "in" | "inherit" | "initial" | "inverse" | "is" | "list" | "memory" | "mode" | "modes" |
-		//	"none" | "of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" | "processor" | "prototypes"
-		//	| "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" | "source" | "subcomponents" |
-		//	"subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with";
+		//	"group" | "implementation" | "in" | "inherit" | "initial" | "internal" | "inverse" | "is" | "list" | "memory" | "mode"
+		//	| "modes" | "none" | "of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" | "processor" |
+		//	"prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" | "source" |
+		//	"subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with";
 		public ParserRule getRule() { return rule; }
 
 		//"abstract" | "access" | "annex" | "applies" | "binding" | "bus" | "calls" | "classifier" | "connections" | "constant" |
 		//"data" | "device" | "end" | "enumeration" | "event" | "extends" | "feature" | "features" | "flow" | "flows" | "group" |
-		//"implementation" | "in" | "inherit" | "initial" | "inverse" | "is" | "list" | "memory" | "mode" | "modes" | "none" |
-		//"of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" | "processor" | "prototypes" |
-		//"provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" | "source" | "subcomponents" |
-		//"subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with"
+		//"implementation" | "in" | "inherit" | "initial" | "internal" | "inverse" | "is" | "list" | "memory" | "mode" | "modes"
+		//| "none" | "of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" | "processor" |
+		//"prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" | "source" |
+		//"subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//"abstract"
@@ -25681,107 +25736,110 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"initial"
 		public Keyword getInitialKeyword_24() { return cInitialKeyword_24; }
 
+		//"internal"
+		public Keyword getInternalKeyword_25() { return cInternalKeyword_25; }
+
 		//"inverse"
-		public Keyword getInverseKeyword_25() { return cInverseKeyword_25; }
+		public Keyword getInverseKeyword_26() { return cInverseKeyword_26; }
 
 		//"is"
-		public Keyword getIsKeyword_26() { return cIsKeyword_26; }
+		public Keyword getIsKeyword_27() { return cIsKeyword_27; }
 
 		//"list"
-		public Keyword getListKeyword_27() { return cListKeyword_27; }
+		public Keyword getListKeyword_28() { return cListKeyword_28; }
 
 		//"memory"
-		public Keyword getMemoryKeyword_28() { return cMemoryKeyword_28; }
+		public Keyword getMemoryKeyword_29() { return cMemoryKeyword_29; }
 
 		//"mode"
-		public Keyword getModeKeyword_29() { return cModeKeyword_29; }
+		public Keyword getModeKeyword_30() { return cModeKeyword_30; }
 
 		//"modes"
-		public Keyword getModesKeyword_30() { return cModesKeyword_30; }
+		public Keyword getModesKeyword_31() { return cModesKeyword_31; }
 
 		//"none"
-		public Keyword getNoneKeyword_31() { return cNoneKeyword_31; }
+		public Keyword getNoneKeyword_32() { return cNoneKeyword_32; }
 
 		//"of"
-		public Keyword getOfKeyword_32() { return cOfKeyword_32; }
+		public Keyword getOfKeyword_33() { return cOfKeyword_33; }
 
 		//"out"
-		public Keyword getOutKeyword_33() { return cOutKeyword_33; }
+		public Keyword getOutKeyword_34() { return cOutKeyword_34; }
 
 		//"package"
-		public Keyword getPackageKeyword_34() { return cPackageKeyword_34; }
+		public Keyword getPackageKeyword_35() { return cPackageKeyword_35; }
 
 		//"parameter"
-		public Keyword getParameterKeyword_35() { return cParameterKeyword_35; }
+		public Keyword getParameterKeyword_36() { return cParameterKeyword_36; }
 
 		//"path"
-		public Keyword getPathKeyword_36() { return cPathKeyword_36; }
+		public Keyword getPathKeyword_37() { return cPathKeyword_37; }
 
 		//"port"
-		public Keyword getPortKeyword_37() { return cPortKeyword_37; }
+		public Keyword getPortKeyword_38() { return cPortKeyword_38; }
 
 		//"private"
-		public Keyword getPrivateKeyword_38() { return cPrivateKeyword_38; }
+		public Keyword getPrivateKeyword_39() { return cPrivateKeyword_39; }
 
 		//"process"
-		public Keyword getProcessKeyword_39() { return cProcessKeyword_39; }
+		public Keyword getProcessKeyword_40() { return cProcessKeyword_40; }
 
 		//"processor"
-		public Keyword getProcessorKeyword_40() { return cProcessorKeyword_40; }
+		public Keyword getProcessorKeyword_41() { return cProcessorKeyword_41; }
 
 		//"prototypes"
-		public Keyword getPrototypesKeyword_41() { return cPrototypesKeyword_41; }
+		public Keyword getPrototypesKeyword_42() { return cPrototypesKeyword_42; }
 
 		//"provides"
-		public Keyword getProvidesKeyword_42() { return cProvidesKeyword_42; }
+		public Keyword getProvidesKeyword_43() { return cProvidesKeyword_43; }
 
 		//"public"
-		public Keyword getPublicKeyword_43() { return cPublicKeyword_43; }
+		public Keyword getPublicKeyword_44() { return cPublicKeyword_44; }
 
 		//"refined"
-		public Keyword getRefinedKeyword_44() { return cRefinedKeyword_44; }
+		public Keyword getRefinedKeyword_45() { return cRefinedKeyword_45; }
 
 		//"renames"
-		public Keyword getRenamesKeyword_45() { return cRenamesKeyword_45; }
+		public Keyword getRenamesKeyword_46() { return cRenamesKeyword_46; }
 
 		//"requires"
-		public Keyword getRequiresKeyword_46() { return cRequiresKeyword_46; }
+		public Keyword getRequiresKeyword_47() { return cRequiresKeyword_47; }
 
 		//"self"
-		public Keyword getSelfKeyword_47() { return cSelfKeyword_47; }
+		public Keyword getSelfKeyword_48() { return cSelfKeyword_48; }
 
 		//"set"
-		public Keyword getSetKeyword_48() { return cSetKeyword_48; }
+		public Keyword getSetKeyword_49() { return cSetKeyword_49; }
 
 		//"sink"
-		public Keyword getSinkKeyword_49() { return cSinkKeyword_49; }
+		public Keyword getSinkKeyword_50() { return cSinkKeyword_50; }
 
 		//"source"
-		public Keyword getSourceKeyword_50() { return cSourceKeyword_50; }
+		public Keyword getSourceKeyword_51() { return cSourceKeyword_51; }
 
 		//"subcomponents"
-		public Keyword getSubcomponentsKeyword_51() { return cSubcomponentsKeyword_51; }
+		public Keyword getSubcomponentsKeyword_52() { return cSubcomponentsKeyword_52; }
 
 		//"subprogram"
-		public Keyword getSubprogramKeyword_52() { return cSubprogramKeyword_52; }
+		public Keyword getSubprogramKeyword_53() { return cSubprogramKeyword_53; }
 
 		//"system"
-		public Keyword getSystemKeyword_53() { return cSystemKeyword_53; }
+		public Keyword getSystemKeyword_54() { return cSystemKeyword_54; }
 
 		//"thread"
-		public Keyword getThreadKeyword_54() { return cThreadKeyword_54; }
+		public Keyword getThreadKeyword_55() { return cThreadKeyword_55; }
 
 		//"type"
-		public Keyword getTypeKeyword_55() { return cTypeKeyword_55; }
+		public Keyword getTypeKeyword_56() { return cTypeKeyword_56; }
 
 		//"to"
-		public Keyword getToKeyword_56() { return cToKeyword_56; }
+		public Keyword getToKeyword_57() { return cToKeyword_57; }
 
 		//"virtual"
-		public Keyword getVirtualKeyword_57() { return cVirtualKeyword_57; }
+		public Keyword getVirtualKeyword_58() { return cVirtualKeyword_58; }
 
 		//"with"
-		public Keyword getWithKeyword_58() { return cWithKeyword_58; }
+		public Keyword getWithKeyword_59() { return cWithKeyword_59; }
 	}
 
 	public class PNAMEElements extends AbstractParserRuleElementFinder {
@@ -27937,7 +27995,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//// ********* internal features
 	////This rule is dead code in the grammar, but it is needed by the formatter.
 	//InternalFeature returns aadl2::InternalFeature:
-	//	(EventSource | EventDataSource) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? ";";
+	//	(EventSource | EventDataSource) ";";
 	public InternalFeatureElements getInternalFeatureAccess() {
 		return pInternalFeature;
 	}
@@ -27948,7 +28006,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	////This rule is dead code in the grammar, but it is needed by the formatter.
 	//ProcessorFeature returns aadl2::ProcessorFeature:
-	//	(PortProxy | SubprogramProxy) ("properties" ownedPropertyAssociation+=PropertyAssociation+)? ";";
+	//	(PortProxy | SubprogramProxy) ";";
 	public ProcessorFeatureElements getProcessorFeatureAccess() {
 		return pProcessorFeature;
 	}
@@ -27958,7 +28016,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EventSource returns aadl2::EventSource:
-	//	name=ID ":" "event" ";";
+	//	name=ID ":" "event" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public EventSourceElements getEventSourceAccess() {
 		return pEventSource;
 	}
@@ -27968,7 +28026,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EventDataSource returns aadl2::EventDataSource:
-	//	name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
+	//	name=ID ":" "event" "data" dataClassifier=[aadl2::DataClassifier|QCREF]? ("{"
+	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public EventDataSourceElements getEventDataSourceAccess() {
 		return pEventDataSource;
 	}
@@ -27978,7 +28037,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PortProxy returns aadl2::PortProxy:
-	//	name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ";";
+	//	name=ID ":" "port" dataClassifier=[aadl2::DataClassifier|QCREF]? ("{" ownedPropertyAssociation+=PropertyAssociation+
+	//	"}")? ";";
 	public PortProxyElements getPortProxyAccess() {
 		return pPortProxy;
 	}
@@ -27988,7 +28048,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SubprogramProxy returns aadl2::SubprogramProxy:
-	//	name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ";";
+	//	name=ID ":" "subprogram" subprogramClassifier=[aadl2::SubprogramClassifier|QCREF]? ("{"
+	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public SubprogramProxyElements getSubprogramProxyAccess() {
 		return pSubprogramProxy;
 	}
@@ -28858,10 +28919,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//CoreKeyWord:
 	//	"abstract" | "access" | "annex" | "applies" | "binding" | "bus" | "calls" | "classifier" | "connections" | "constant"
 	//	| "data" | "device" | "end" | "enumeration" | "event" | "extends" | "feature" | "features" | "flow" | "flows" |
-	//	"group" | "implementation" | "in" | "inherit" | "initial" | "inverse" | "is" | "list" | "memory" | "mode" | "modes" |
-	//	"none" | "of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" | "processor" | "prototypes"
-	//	| "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" | "source" | "subcomponents" |
-	//	"subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with";
+	//	"group" | "implementation" | "in" | "inherit" | "initial" | "internal" | "inverse" | "is" | "list" | "memory" | "mode"
+	//	| "modes" | "none" | "of" | "out" | "package" | "parameter" | "path" | "port" | "private" | "process" | "processor" |
+	//	"prototypes" | "provides" | "public" | "refined" | "renames" | "requires" | "self" | "set" | "sink" | "source" |
+	//	"subcomponents" | "subprogram" | "system" | "thread" | "type" | "to" | "virtual" | "with";
 	public CoreKeyWordElements getCoreKeyWordAccess() {
 		return pCoreKeyWord;
 	}
