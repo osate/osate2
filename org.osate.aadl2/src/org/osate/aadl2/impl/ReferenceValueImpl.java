@@ -40,6 +40,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
@@ -115,6 +116,10 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		return new EvaluatedProperty(this);
 	}
 
-	// no equals needed here -> InstanceReferenceValue
+	@Override
+	public boolean sameAs(PropertyValue other) {
+		// TODO: implement comparison of reference values
+		return false;
+	}
 
 } // ReferenceValueImpl

@@ -90,4 +90,6 @@ public interface ListValue extends PropertyExpression {
 	 */
 	PropertyExpression createOwnedListElement(EClass eClass);
 
+	boolean sameAs(PropertyExpression pe);
+
 } // ListValue

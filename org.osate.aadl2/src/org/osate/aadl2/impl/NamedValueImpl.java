@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.PropertyValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -191,4 +192,15 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public boolean sameAs(PropertyValue pv) {
+		if (this == pv) {
+			return true;
+		}
+		if (pv == null || getClass() != pv.getClass()) {
+			return false;
+		}
+		NamedValueImpl other = (NamedValueImpl) pv;
+		return namedValue == other.namedValue;
+	}
 } // NamedValueImpl

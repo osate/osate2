@@ -48,11 +48,11 @@ import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -564,32 +564,15 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((delta == null) ? 0 : delta.hashCode());
-		result = prime * result + ((maximum == null) ? 0 : maximum.hashCode());
-		result = prime * result + ((minimum == null) ? 0 : minimum.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-
-		if (this == obj) {
+	public boolean sameAs(PropertyValue pv) {
+		if (this == pv) {
 			return true;
 		}
 
-		if (obj == null) {
+		if (pv == null || getClass() != pv.getClass()) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		RangeValueImpl other = (RangeValueImpl) obj;
+		RangeValueImpl other = (RangeValueImpl) pv;
 		if (delta == null) {
 			if (other.delta != null) {
 				return false;

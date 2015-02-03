@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.PropertyValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -194,6 +195,17 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 		result.append(function);
 		result.append(')');
 		return result.toString();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.PropertyValue#sameAs(org.osate.aadl2.PropertyValue)
+	 */
+	@Override
+	public boolean sameAs(PropertyValue other) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 } // ComputedValueImpl
