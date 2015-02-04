@@ -111,13 +111,21 @@ public interface MetaclassReference extends PropertyOwner {
 
 	/**
 	 * Finds the metaclass that is referenced by the metaclass names.  The returned {@code EClass} represents
-	 * {@code NamedElement} or a subtype of {@code NamedElement}.  This method never returns {@code null}.
+	 * {@code NamedElement} or a subtype of {@code NamedElement}. 
 	 *
-	 * @return An {@code EClass} representing the named metaclass.
-	 * @throws IllegalArgumentException Thrown if the metaclass names do not refer to an AADL 2 metaclass.
-	 * 		Also thrown if the referenced metaclass is not {@code NamedElement} or a subtype of {@code NamedElement}.
+	 * @return An {@code EClass} representing the named metaclass or null if there is no such class.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	EClass getMetaclass();
+
+	/**
+	 * Get the error that occurred when trying to resolve the metaclass name to an EClass.
+	 * <ul>
+	 *   <li> "Metaclass <name> is not a named element"</li>
+	 *   <li> "Metaclass <name> does not exist"</li>
+	 * </ul>
+	 * 
+	 * @return a descriptive error message
+	 */
+	String getErrorMessage();
 
 } // MetaclassReference
