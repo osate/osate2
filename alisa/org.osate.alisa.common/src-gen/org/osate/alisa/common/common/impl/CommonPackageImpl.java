@@ -362,6 +362,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getPredicateExpression_Limit()
+  {
+    return (EReference)predicateExpressionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getConstantDecl()
   {
     return constantDeclEClass;
@@ -382,7 +392,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstantDecl_Value()
+  public EReference getConstantDecl_Constantvalue()
   {
     return (EReference)constantDeclEClass.getEStructuralFeatures().get(1);
   }
@@ -579,10 +589,11 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     predicateExpressionEClass = createEClass(PREDICATE_EXPRESSION);
     createEAttribute(predicateExpressionEClass, PREDICATE_EXPRESSION__OP);
+    createEReference(predicateExpressionEClass, PREDICATE_EXPRESSION__LIMIT);
 
     constantDeclEClass = createEClass(CONSTANT_DECL);
     createEAttribute(constantDeclEClass, CONSTANT_DECL__NAME);
-    createEReference(constantDeclEClass, CONSTANT_DECL__VALUE);
+    createEReference(constantDeclEClass, CONSTANT_DECL__CONSTANTVALUE);
 
     constantValueEClass = createEClass(CONSTANT_VALUE);
 
@@ -652,7 +663,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEAttribute(getDescriptionElement_ThisTarget(), ecorePackage.getEBoolean(), "thisTarget", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(showValueEClass, ShowValue.class, "ShowValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getShowValue_Ref(), ecorePackage.getEObject(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getShowValue_Ref(), this.getConstantDecl(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getShowValue_Unit(), ecorePackage.getEString(), "unit", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(referencePathEClass, ReferencePath.class, "ReferencePath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -661,10 +672,11 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     initEClass(predicateExpressionEClass, PredicateExpression.class, "PredicateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPredicateExpression_Op(), ecorePackage.getEString(), "op", null, 0, 1, PredicateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPredicateExpression_Limit(), this.getConstantDecl(), null, "limit", null, 0, 1, PredicateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantDeclEClass, ConstantDecl.class, "ConstantDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getConstantDecl_Name(), ecorePackage.getEString(), "name", null, 0, 1, ConstantDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConstantDecl_Value(), this.getConstantValue(), null, "value", null, 0, 1, ConstantDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConstantDecl_Constantvalue(), this.getConstantValue(), null, "constantvalue", null, 0, 1, ConstantDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantValueEClass, ConstantValue.class, "ConstantValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

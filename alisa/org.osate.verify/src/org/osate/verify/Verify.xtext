@@ -133,5 +133,5 @@ VerificationMethod:
 
 enum SupportedTypes:
 	SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" | ASSERTIONEXCEPTION="assertionexception"|
-	MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" |MULTIRESULTREPORT="multiresultreport" 
+	MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" |RESULTREPORT="resultreport" 
 	| RESOLUTEPROVE="resoluteprove"|MANUAL="manual";

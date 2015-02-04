@@ -117,19 +117,19 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (name=ID value=ConstantValue)
+	 *     (name=ID constantvalue=ConstantValue)
 	 */
 	protected void sequence_ConstantDecl(EObject context, ConstantDecl semanticObject) {
 		if(errorAcceptor != null) {
 			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.CONSTANT_DECL__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.CONSTANT_DECL__NAME));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.CONSTANT_DECL__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.CONSTANT_DECL__VALUE));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.CONSTANT_DECL__CONSTANTVALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.CONSTANT_DECL__CONSTANTVALUE));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getConstantDeclAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getConstantDeclAccess().getValueConstantValueParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getConstantDeclAccess().getConstantvalueConstantValueParserRuleCall_2_0(), semanticObject.getConstantvalue());
 		feeder.finish();
 	}
 	
@@ -189,12 +189,15 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         op='=' | 
-	 *         op='!=' | 
-	 *         op='<' | 
-	 *         op='<=' | 
-	 *         op='>' | 
-	 *         op='>='
+	 *         (
+	 *             op='=' | 
+	 *             op='!=' | 
+	 *             op='<' | 
+	 *             op='<=' | 
+	 *             op='>' | 
+	 *             op='>='
+	 *         ) 
+	 *         limit=[ConstantDecl|ID]
 	 *     )
 	 */
 	protected void sequence_PredicateExpression(EObject context, PredicateExpression semanticObject) {
@@ -232,7 +235,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (ref=[EObject|ID] unit=ID?)
+	 *     (ref=[ConstantDecl|ID] unit=ID?)
 	 */
 	protected void sequence_ShowValue(EObject context, ShowValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

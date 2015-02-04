@@ -2292,7 +2292,7 @@ ruleShowValue returns [EObject current=null]
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefEObjectCrossReference_0_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefConstantDeclCrossReference_0_0()); 
 	}
 
 )
@@ -2910,10 +2910,10 @@ ruleSupportedTypes returns [Enumerator current=null]
         newLeafNode(enumLiteral_4, grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_4()); 
     }
 )
-    |(	enumLiteral_5='multiresultreport' 
+    |(	enumLiteral_5='resultreport' 
 	{
-        $current = grammarAccess.getSupportedTypesAccess().getMULTIRESULTREPORTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getMULTIRESULTREPORTEnumLiteralDeclaration_5()); 
+        $current = grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_5()); 
     }
 )
     |(	enumLiteral_6='resoluteprove' 

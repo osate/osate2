@@ -35,7 +35,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getInstance <em>Instance</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
  * </ul>
@@ -86,24 +86,24 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   protected InstanceObject instance;
 
   /**
-   * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
+   * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSucessMsg()
+   * @see #getMessage()
    * @generated
    * @ordered
    */
-  protected static final String SUCESS_MSG_EDEFAULT = null;
+  protected static final String MESSAGE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
+   * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSucessMsg()
+   * @see #getMessage()
    * @generated
    * @ordered
    */
-  protected String sucessMsg = SUCESS_MSG_EDEFAULT;
+  protected String message = MESSAGE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getSubClaimResult() <em>Sub Claim Result</em>}' containment reference list.
@@ -260,9 +260,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getSucessMsg()
+  public String getMessage()
   {
-    return sucessMsg;
+    return message;
   }
 
   /**
@@ -270,12 +270,12 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSucessMsg(String newSucessMsg)
+  public void setMessage(String newMessage)
   {
-    String oldSucessMsg = sucessMsg;
-    sucessMsg = newSucessMsg;
+    String oldMessage = message;
+    message = newMessage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__SUCESS_MSG, oldSucessMsg, sucessMsg));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__MESSAGE, oldMessage, message));
   }
 
   /**
@@ -342,8 +342,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__INSTANCE:
         if (resolve) return getInstance();
         return basicGetInstance();
-      case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
-        return getSucessMsg();
+      case AssurePackage.CLAIM_RESULT__MESSAGE:
+        return getMessage();
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         return getSubClaimResult();
       case AssurePackage.CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT:
@@ -372,8 +372,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__INSTANCE:
         setInstance((InstanceObject)newValue);
         return;
-      case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
-        setSucessMsg((String)newValue);
+      case AssurePackage.CLAIM_RESULT__MESSAGE:
+        setMessage((String)newValue);
         return;
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         getSubClaimResult().clear();
@@ -406,8 +406,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__INSTANCE:
         setInstance((InstanceObject)null);
         return;
-      case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
-        setSucessMsg(SUCESS_MSG_EDEFAULT);
+      case AssurePackage.CLAIM_RESULT__MESSAGE:
+        setMessage(MESSAGE_EDEFAULT);
         return;
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         getSubClaimResult().clear();
@@ -435,8 +435,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
         return target != null;
       case AssurePackage.CLAIM_RESULT__INSTANCE:
         return instance != null;
-      case AssurePackage.CLAIM_RESULT__SUCESS_MSG:
-        return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
+      case AssurePackage.CLAIM_RESULT__MESSAGE:
+        return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.CLAIM_RESULT__SUB_CLAIM_RESULT:
         return subClaimResult != null && !subClaimResult.isEmpty();
       case AssurePackage.CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT:
@@ -458,8 +458,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", sucessMsg: ");
-    result.append(sucessMsg);
+    result.append(", message: ");
+    result.append(message);
     result.append(')');
     return result.toString();
   }

@@ -42,6 +42,8 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResultState
 import org.osate.verify.verify.RefExpr
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import org.osate.verify.verify.VerificationActivity
 
 class AssureUtilExtension {
 
@@ -281,30 +283,34 @@ class AssureUtilExtension {
 
 	static val hasRunRecord = Collections.synchronizedMap(newHashMap)
 
-	def static boolean hasRun(String analysisID, EObject target) {
-		try {
-			hasRunRecord.put(analysisID, target) ?: runme(analysisID, target)
-		} catch (Exception e) {
+	def static boolean getHasRun(String analysisID, EObject target) {
+		val value = hasRunRecord.get(analysisID)
+		return value == target
+	}
+	
+	def static void setHasRun(String analysisID, EObject target) {
+			val x = hasRunRecord.put(analysisID, target) 
+	}
+	
+	def static void unsetHasRun(String analysisID, EObject target) {
 			hasRunRecord.remove(analysisID)
-			return false
-		}
-		return true
 	}
 
-	def static void clearHasRunRecords() {
+	def static void clearAllHasRunRecords() {
 		hasRunRecord.clear
 	}
 
-	def static EObject runme(String analysisID, EObject eo) {
-		return eo
-	}
+/**
+ * interface with Resolute
+ * we initialize the sets on demand. See populate function.
+ * We reset the sets and maps on an evelaution run.
+ */	
+	static var SystemInstance systemroot
 	
 	
 	static var Map<String, SortedSet<NamedElement>> sets 
 	static var FeatureToConnectionsMap featToConnsMap 
 	
-	
-	static var SystemInstance systemroot
 	
 	def static FeatureToConnectionsMap getFeatToConnsMap(){
 		if (featToConnsMap == null){
@@ -735,6 +741,81 @@ class AssureUtilExtension {
 			AssumptionResult: assureResult.addAllSubCounts
 			PreconditionResult: assureResult.addAllSubCounts
 		}
+	}
+	
+	/**
+	 * methods to retrieve messages and status 
+	 * Note that the message could be in the Result object or if not present we want to get it from the 
+	 * object the result object is derived from.
+	 */
+	
+	def static String toTextLabel(VerificationResultState vs){
+		switch (vs){
+			case VerificationResultState.SUCCESS: return "[S]"
+			case VerificationResultState.FAIL: return "[F]"
+			case VerificationResultState.ERROR: return "[E]"
+			case VerificationResultState.TBD: return "[T]"
+		}
+	}
+	
+	def static constructLabel(AssureResult ar){
+		switch (ar){
+			CaseResult: return ar.name
+			ClaimResult: return ar.target?.title?:ar.name
+			VerificationActivityResult: {
+				 val vatitle = ar.target?.title
+				 val vmtitle = ar.target?.method?.title
+				return ar.name+":" + (vatitle?:vmtitle?:"")
+				}
+			AssumptionResult: return ar.target?.title?:ar.name
+			PreconditionResult: return ar.target?.title?:ar.name
+		}
+		""
+	}
+	
+	def static String constructMessage(VerificationActivityResult vr){
+		if (vr.message != null) return vr.message
+		val va = vr.target
+		if (va.description != null) return va.description.toText(vr.claimSubject)
+		""
+	}
+	
+	def static String constructMessage(CaseResult ce){
+		if (ce.message != null) return ce.message
+		return "for "+ce.target.name
+	}
+	
+	def static String constructMessage(ClaimResult cr){
+		if (cr.message != null) return cr.message
+		val r = cr.target
+		if (r.description != null) return r.description.toText(cr.claimSubject)
+		""
+	}
+	
+	
+	def static String constructMessage(AssumptionResult cr){
+		if (cr.message != null) return cr.message
+		val r = cr.target
+		if (r.description != null) return r.description.toText(cr.claimSubject)
+		""
+	}
+	
+	def static String constructMessage(PreconditionResult cr){
+		if (cr.message != null) return cr.message
+		val r = cr.target
+		if (r.description != null) return r.description.toText(cr.claimSubject)
+		""
+	}
+	
+	def static String constructMessage(ResultIssue ri){
+		if (ri.message != null) return ri.message
+		if (ri.name != null) return ri.name
+		""
+	}
+	
+	
+	def static String assureResultCounts(AssureResult ele){
+		"(S"+ele.successCount + " F"+ ele.failCount + " E" + ele.errorCount + " T"+ele.tbdCount + ")"
 	}
 	
 

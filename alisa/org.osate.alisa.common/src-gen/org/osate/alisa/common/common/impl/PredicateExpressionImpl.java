@@ -5,11 +5,13 @@ package org.osate.alisa.common.common.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.PredicateExpression;
 
 /**
@@ -20,6 +22,7 @@ import org.osate.alisa.common.common.PredicateExpression;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.PredicateExpressionImpl#getOp <em>Op</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.PredicateExpressionImpl#getLimit <em>Limit</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,6 +49,16 @@ public class PredicateExpressionImpl extends MinimalEObjectImpl.Container implem
    * @ordered
    */
   protected String op = OP_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getLimit() <em>Limit</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLimit()
+   * @generated
+   * @ordered
+   */
+  protected ConstantDecl limit;
 
   /**
    * <!-- begin-user-doc -->
@@ -96,6 +109,49 @@ public class PredicateExpressionImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
+  public ConstantDecl getLimit()
+  {
+    if (limit != null && limit.eIsProxy())
+    {
+      InternalEObject oldLimit = (InternalEObject)limit;
+      limit = (ConstantDecl)eResolveProxy(oldLimit);
+      if (limit != oldLimit)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.PREDICATE_EXPRESSION__LIMIT, oldLimit, limit));
+      }
+    }
+    return limit;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ConstantDecl basicGetLimit()
+  {
+    return limit;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setLimit(ConstantDecl newLimit)
+  {
+    ConstantDecl oldLimit = limit;
+    limit = newLimit;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.PREDICATE_EXPRESSION__LIMIT, oldLimit, limit));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -103,6 +159,9 @@ public class PredicateExpressionImpl extends MinimalEObjectImpl.Container implem
     {
       case CommonPackage.PREDICATE_EXPRESSION__OP:
         return getOp();
+      case CommonPackage.PREDICATE_EXPRESSION__LIMIT:
+        if (resolve) return getLimit();
+        return basicGetLimit();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -119,6 +178,9 @@ public class PredicateExpressionImpl extends MinimalEObjectImpl.Container implem
     {
       case CommonPackage.PREDICATE_EXPRESSION__OP:
         setOp((String)newValue);
+        return;
+      case CommonPackage.PREDICATE_EXPRESSION__LIMIT:
+        setLimit((ConstantDecl)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -137,6 +199,9 @@ public class PredicateExpressionImpl extends MinimalEObjectImpl.Container implem
       case CommonPackage.PREDICATE_EXPRESSION__OP:
         setOp(OP_EDEFAULT);
         return;
+      case CommonPackage.PREDICATE_EXPRESSION__LIMIT:
+        setLimit((ConstantDecl)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -153,6 +218,8 @@ public class PredicateExpressionImpl extends MinimalEObjectImpl.Container implem
     {
       case CommonPackage.PREDICATE_EXPRESSION__OP:
         return OP_EDEFAULT == null ? op != null : !OP_EDEFAULT.equals(op);
+      case CommonPackage.PREDICATE_EXPRESSION__LIMIT:
+        return limit != null;
     }
     return super.eIsSet(featureID);
   }

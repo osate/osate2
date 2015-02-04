@@ -452,7 +452,7 @@ ruleShowValue returns [EObject current=null]
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefEObjectCrossReference_0_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefConstantDeclCrossReference_0_0()); 
 	}
 
 )
@@ -582,16 +582,16 @@ ruleConstantDecl returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDeclAccess().getValueConstantValueParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getConstantDeclAccess().getConstantvalueConstantValueParserRuleCall_2_0()); 
 	    }
-		lv_value_2_0=ruleConstantValue		{
+		lv_constantvalue_2_0=ruleConstantValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDeclRule());
 	        }
        		set(
        			$current, 
-       			"value",
-        		lv_value_2_0, 
+       			"constantvalue",
+        		lv_constantvalue_2_0, 
         		"ConstantValue");
 	        afterParserOrEnumRuleCall();
 	    }

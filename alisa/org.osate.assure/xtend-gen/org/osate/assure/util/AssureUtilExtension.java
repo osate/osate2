@@ -28,6 +28,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -36,6 +37,8 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.util.CommonUtilExtension;
 import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssureFactory;
@@ -50,9 +53,12 @@ import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExecutionState;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResultState;
+import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.VerificationActivity;
+import org.osate.verify.verify.VerificationAssumption;
 import org.osate.verify.verify.VerificationMethod;
+import org.osate.verify.verify.VerificationPrecondition;
 
 @SuppressWarnings("all")
 public class AssureUtilExtension {
@@ -558,41 +564,33 @@ public class AssureUtilExtension {
   
   private final static Map<Object, Object> hasRunRecord = Collections.<Object, Object>synchronizedMap(CollectionLiterals.<Object, Object>newHashMap());
   
-  public static boolean hasRun(final String analysisID, final EObject target) {
-    try {
-      Object _elvis = null;
-      Object _put = AssureUtilExtension.hasRunRecord.put(analysisID, target);
-      if (_put != null) {
-        _elvis = _put;
-      } else {
-        EObject _runme = AssureUtilExtension.runme(analysisID, target);
-        _elvis = _runme;
-      }
-    } catch (final Throwable _t) {
-      if (_t instanceof Exception) {
-        final Exception e = (Exception)_t;
-        AssureUtilExtension.hasRunRecord.remove(analysisID);
-        return false;
-      } else {
-        throw Exceptions.sneakyThrow(_t);
-      }
-    }
-    return true;
+  public static boolean getHasRun(final String analysisID, final EObject target) {
+    final Object value = AssureUtilExtension.hasRunRecord.get(analysisID);
+    return Objects.equal(value, target);
   }
   
-  public static void clearHasRunRecords() {
+  public static void setHasRun(final String analysisID, final EObject target) {
+    final Object x = AssureUtilExtension.hasRunRecord.put(analysisID, target);
+  }
+  
+  public static void unsetHasRun(final String analysisID, final EObject target) {
+    AssureUtilExtension.hasRunRecord.remove(analysisID);
+  }
+  
+  public static void clearAllHasRunRecords() {
     AssureUtilExtension.hasRunRecord.clear();
   }
   
-  public static EObject runme(final String analysisID, final EObject eo) {
-    return eo;
-  }
+  /**
+   * interface with Resolute
+   * we initialize the sets on demand. See populate function.
+   * We reset the sets and maps on an evelaution run.
+   */
+  private static SystemInstance systemroot;
   
   private static Map<String, SortedSet<NamedElement>> sets;
   
   private static FeatureToConnectionsMap featToConnsMap;
-  
-  private static SystemInstance systemroot;
   
   public static FeatureToConnectionsMap getFeatToConnsMap() {
     boolean _equals = Objects.equal(AssureUtilExtension.featToConnsMap, null);
@@ -1331,5 +1329,261 @@ public class AssureUtilExtension {
       }
     }
     return _switchResult;
+  }
+  
+  /**
+   * methods to retrieve messages and status
+   * Note that the message could be in the Result object or if not present we want to get it from the
+   * object the result object is derived from.
+   */
+  public static String toTextLabel(final VerificationResultState vs) {
+    if (vs != null) {
+      switch (vs) {
+        case SUCCESS:
+          return "[S]";
+        case FAIL:
+          return "[F]";
+        case ERROR:
+          return "[E]";
+        case TBD:
+          return "[T]";
+        default:
+          break;
+      }
+    }
+    return null;
+  }
+  
+  public static String constructLabel(final AssureResult ar) {
+    String _xblockexpression = null;
+    {
+      boolean _matched = false;
+      if (!_matched) {
+        if (ar instanceof CaseResult) {
+          _matched=true;
+          return ((CaseResult)ar).getName();
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof ClaimResult) {
+          _matched=true;
+          String _elvis = null;
+          Requirement _target = ((ClaimResult)ar).getTarget();
+          String _title = null;
+          if (_target!=null) {
+            _title=_target.getTitle();
+          }
+          if (_title != null) {
+            _elvis = _title;
+          } else {
+            String _name = ((ClaimResult)ar).getName();
+            _elvis = _name;
+          }
+          return _elvis;
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof VerificationActivityResult) {
+          _matched=true;
+          VerificationActivity _target = ((VerificationActivityResult)ar).getTarget();
+          String _title = null;
+          if (_target!=null) {
+            _title=_target.getTitle();
+          }
+          final String vatitle = _title;
+          VerificationActivity _target_1 = ((VerificationActivityResult)ar).getTarget();
+          VerificationMethod _method = null;
+          if (_target_1!=null) {
+            _method=_target_1.getMethod();
+          }
+          String _title_1 = null;
+          if (_method!=null) {
+            _title_1=_method.getTitle();
+          }
+          final String vmtitle = _title_1;
+          String _name = ((VerificationActivityResult)ar).getName();
+          String _plus = (_name + ":");
+          String _elvis = null;
+          String _elvis_1 = null;
+          if (vatitle != null) {
+            _elvis_1 = vatitle;
+          } else {
+            _elvis_1 = vmtitle;
+          }
+          if (_elvis_1 != null) {
+            _elvis = _elvis_1;
+          } else {
+            _elvis = "";
+          }
+          return (_plus + _elvis);
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof AssumptionResult) {
+          _matched=true;
+          String _elvis = null;
+          VerificationAssumption _target = ((AssumptionResult)ar).getTarget();
+          String _title = null;
+          if (_target!=null) {
+            _title=_target.getTitle();
+          }
+          if (_title != null) {
+            _elvis = _title;
+          } else {
+            String _name = ((AssumptionResult)ar).getName();
+            _elvis = _name;
+          }
+          return _elvis;
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof PreconditionResult) {
+          _matched=true;
+          String _elvis = null;
+          VerificationPrecondition _target = ((PreconditionResult)ar).getTarget();
+          String _title = null;
+          if (_target!=null) {
+            _title=_target.getTitle();
+          }
+          if (_title != null) {
+            _elvis = _title;
+          } else {
+            String _name = ((PreconditionResult)ar).getName();
+            _elvis = _name;
+          }
+          return _elvis;
+        }
+      }
+      _xblockexpression = "";
+    }
+    return _xblockexpression;
+  }
+  
+  public static String constructMessage(final VerificationActivityResult vr) {
+    String _xblockexpression = null;
+    {
+      String _message = vr.getMessage();
+      boolean _notEquals = (!Objects.equal(_message, null));
+      if (_notEquals) {
+        return vr.getMessage();
+      }
+      final VerificationActivity va = vr.getTarget();
+      Description _description = va.getDescription();
+      boolean _notEquals_1 = (!Objects.equal(_description, null));
+      if (_notEquals_1) {
+        Description _description_1 = va.getDescription();
+        InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(vr);
+        return CommonUtilExtension.toText(_description_1, _claimSubject);
+      }
+      _xblockexpression = "";
+    }
+    return _xblockexpression;
+  }
+  
+  public static String constructMessage(final CaseResult ce) {
+    String _message = ce.getMessage();
+    boolean _notEquals = (!Objects.equal(_message, null));
+    if (_notEquals) {
+      return ce.getMessage();
+    }
+    Classifier _target = ce.getTarget();
+    String _name = _target.getName();
+    return ("for " + _name);
+  }
+  
+  public static String constructMessage(final ClaimResult cr) {
+    String _xblockexpression = null;
+    {
+      String _message = cr.getMessage();
+      boolean _notEquals = (!Objects.equal(_message, null));
+      if (_notEquals) {
+        return cr.getMessage();
+      }
+      final Requirement r = cr.getTarget();
+      Description _description = r.getDescription();
+      boolean _notEquals_1 = (!Objects.equal(_description, null));
+      if (_notEquals_1) {
+        Description _description_1 = r.getDescription();
+        InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(cr);
+        return CommonUtilExtension.toText(_description_1, _claimSubject);
+      }
+      _xblockexpression = "";
+    }
+    return _xblockexpression;
+  }
+  
+  public static String constructMessage(final AssumptionResult cr) {
+    String _xblockexpression = null;
+    {
+      String _message = cr.getMessage();
+      boolean _notEquals = (!Objects.equal(_message, null));
+      if (_notEquals) {
+        return cr.getMessage();
+      }
+      final VerificationAssumption r = cr.getTarget();
+      Description _description = r.getDescription();
+      boolean _notEquals_1 = (!Objects.equal(_description, null));
+      if (_notEquals_1) {
+        Description _description_1 = r.getDescription();
+        InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(cr);
+        return CommonUtilExtension.toText(_description_1, _claimSubject);
+      }
+      _xblockexpression = "";
+    }
+    return _xblockexpression;
+  }
+  
+  public static String constructMessage(final PreconditionResult cr) {
+    String _xblockexpression = null;
+    {
+      String _message = cr.getMessage();
+      boolean _notEquals = (!Objects.equal(_message, null));
+      if (_notEquals) {
+        return cr.getMessage();
+      }
+      final VerificationPrecondition r = cr.getTarget();
+      Description _description = r.getDescription();
+      boolean _notEquals_1 = (!Objects.equal(_description, null));
+      if (_notEquals_1) {
+        Description _description_1 = r.getDescription();
+        InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(cr);
+        return CommonUtilExtension.toText(_description_1, _claimSubject);
+      }
+      _xblockexpression = "";
+    }
+    return _xblockexpression;
+  }
+  
+  public static String constructMessage(final ResultIssue ri) {
+    String _xblockexpression = null;
+    {
+      String _message = ri.getMessage();
+      boolean _notEquals = (!Objects.equal(_message, null));
+      if (_notEquals) {
+        return ri.getMessage();
+      }
+      String _name = ri.getName();
+      boolean _notEquals_1 = (!Objects.equal(_name, null));
+      if (_notEquals_1) {
+        return ri.getName();
+      }
+      _xblockexpression = "";
+    }
+    return _xblockexpression;
+  }
+  
+  public static String assureResultCounts(final AssureResult ele) {
+    int _successCount = ele.getSuccessCount();
+    String _plus = ("(S" + Integer.valueOf(_successCount));
+    String _plus_1 = (_plus + " F");
+    int _failCount = ele.getFailCount();
+    String _plus_2 = (_plus_1 + Integer.valueOf(_failCount));
+    String _plus_3 = (_plus_2 + " E");
+    int _errorCount = ele.getErrorCount();
+    String _plus_4 = (_plus_3 + Integer.valueOf(_errorCount));
+    String _plus_5 = (_plus_4 + " T");
+    int _tbdCount = ele.getTbdCount();
+    String _plus_6 = (_plus_5 + Integer.valueOf(_tbdCount));
+    return (_plus_6 + ")");
   }
 }

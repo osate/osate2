@@ -88,9 +88,14 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 	def String allFlowLatencyAnalysis(SystemInstance instance) {
 		val checker = new CheckFlowLatency()
 		val markerType = checker.getMarkerType
-		if (!hasRun(markerType, instance)) {
+		if (!getHasRun(markerType, instance)) {
 			val som = instance.systemOperationModes.head
-			checker.invoke(new NullProgressMonitor, null, instance, som)
+			try{
+				checker.invoke(new NullProgressMonitor, null, instance, som)
+				setHasRun(markerType, instance)
+			} catch (Throwable e) {
+				unsetHasRun(markerType, instance)
+			}
 		}
 		markerType
 	}
@@ -99,9 +104,14 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 			val checker = new CheckFlowLatency()
 		val markerType = checker.getMarkerType
 		val instance = etefi.elementRoot as SystemInstance
-		if (!hasRun(markerType, instance)) {
+		if (!getHasRun(markerType, instance)) {
 			val som = instance.systemOperationModes.head
+			try{
 			checker.invoke(new NullProgressMonitor, null, instance, som)
+				setHasRun(markerType, instance)
+			} catch (Throwable e) {
+				unsetHasRun(markerType, instance)
+			}
 		}
 		markerType
 	}

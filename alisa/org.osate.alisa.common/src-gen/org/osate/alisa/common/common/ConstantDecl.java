@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.ConstantDecl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.ConstantDecl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ConstantDecl#getConstantvalue <em>Constantvalue</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,29 +50,29 @@ public interface ConstantDecl extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Value</b></em>' containment reference.
+   * Returns the value of the '<em><b>Constantvalue</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Value</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Constantvalue</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(ConstantValue)
-   * @see org.osate.alisa.common.common.CommonPackage#getConstantDecl_Value()
+   * @return the value of the '<em>Constantvalue</em>' containment reference.
+   * @see #setConstantvalue(ConstantValue)
+   * @see org.osate.alisa.common.common.CommonPackage#getConstantDecl_Constantvalue()
    * @model containment="true"
    * @generated
    */
-  ConstantValue getValue();
+  ConstantValue getConstantvalue();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.ConstantDecl#getValue <em>Value</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ConstantDecl#getConstantvalue <em>Constantvalue</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value</em>' containment reference.
-   * @see #getValue()
+   * @param value the new value of the '<em>Constantvalue</em>' containment reference.
+   * @see #getConstantvalue()
    * @generated
    */
-  void setValue(ConstantValue value);
+  void setConstantvalue(ConstantValue value);
 
 } // ConstantDecl

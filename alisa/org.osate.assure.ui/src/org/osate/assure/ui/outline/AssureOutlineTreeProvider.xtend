@@ -9,5 +9,5 @@ package org.osate.assure.ui.outline
  * see http://www.eclipse.org/Xtext/documentation.html#outline
  */
 class AssureOutlineTreeProvider extends org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider {
-	
+	 // here you can override labels and images if the labels should be different than the general label provider
 }

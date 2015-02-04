@@ -29,10 +29,11 @@
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//PredicateExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//PredicateExpression/op"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//PredicateExpression/limit"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ConstantDecl">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ConstantDecl/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ConstantDecl/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//ConstantDecl/constantvalue"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ConstantValue"/>
     <genClasses ecoreClass="Common.ecore#//StringTerm">

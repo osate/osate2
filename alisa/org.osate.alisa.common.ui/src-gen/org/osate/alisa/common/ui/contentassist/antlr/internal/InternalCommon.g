@@ -1059,12 +1059,12 @@ rule__ShowValue__RefAssignment_0
     }
 :
 (
-{ before(grammarAccess.getShowValueAccess().getRefEObjectCrossReference_0_0()); }
+{ before(grammarAccess.getShowValueAccess().getRefConstantDeclCrossReference_0_0()); }
 (
-{ before(grammarAccess.getShowValueAccess().getRefEObjectIDTerminalRuleCall_0_0_1()); }
-	RULE_ID{ after(grammarAccess.getShowValueAccess().getRefEObjectIDTerminalRuleCall_0_0_1()); }
+{ before(grammarAccess.getShowValueAccess().getRefConstantDeclIDTerminalRuleCall_0_0_1()); }
+	RULE_ID{ after(grammarAccess.getShowValueAccess().getRefConstantDeclIDTerminalRuleCall_0_0_1()); }
 )
-{ after(grammarAccess.getShowValueAccess().getRefEObjectCrossReference_0_0()); }
+{ after(grammarAccess.getShowValueAccess().getRefConstantDeclCrossReference_0_0()); }
 )
 
 ;
@@ -1120,6 +1120,7 @@ rule__ReferencePath__SubpathAssignment_1_1
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 
 

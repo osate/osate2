@@ -4,6 +4,8 @@
 package org.osate.reqspec.ui.labeling
 
 import com.google.inject.Inject
+import org.osate.reqspec.reqSpec.Requirement
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
 /**
  * Provides labels for a EObjects.
@@ -19,10 +21,13 @@ class ReqSpecLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabe
 
 	// Labels and icons can be computed like this:
 	
-//	def text(Greeting ele) {
-//		'A greeting to ' + ele.name
+//	def text(Requirement ele) {
+//		val z =  (ele.title?:"") 
+//		val zzz= ele.rationale
+//		val zz = ele.description?.toText(ele)
+//		ele.name
 //	}
-//
+
 //	def image(Greeting ele) {
 //		'Greeting.gif'
 //	}

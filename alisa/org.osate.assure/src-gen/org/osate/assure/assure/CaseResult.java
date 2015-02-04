@@ -19,7 +19,7 @@ import org.osate.aadl2.instance.InstanceObject;
  *   <li>{@link org.osate.assure.assure.CaseResult#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getInstance <em>Instance</em>}</li>
- *   <li>{@link org.osate.assure.assure.CaseResult#getSucessMsg <em>Sucess Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.CaseResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getSubCaseResult <em>Sub Case Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.CaseResult#getClaimResult <em>Claim Result</em>}</li>
  * </ul>
@@ -110,30 +110,30 @@ public interface CaseResult extends AssureResult
   void setInstance(InstanceObject value);
 
   /**
-   * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.
+   * Returns the value of the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Sucess Msg</em>' attribute isn't clear,
+   * If the meaning of the '<em>Message</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Sucess Msg</em>' attribute.
-   * @see #setSucessMsg(String)
-   * @see org.osate.assure.assure.AssurePackage#getCaseResult_SucessMsg()
+   * @return the value of the '<em>Message</em>' attribute.
+   * @see #setMessage(String)
+   * @see org.osate.assure.assure.AssurePackage#getCaseResult_Message()
    * @model
    * @generated
    */
-  String getSucessMsg();
+  String getMessage();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getSucessMsg <em>Sucess Msg</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.CaseResult#getMessage <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Sucess Msg</em>' attribute.
-   * @see #getSucessMsg()
+   * @param value the new value of the '<em>Message</em>' attribute.
+   * @see #getMessage()
    * @generated
    */
-  void setSucessMsg(String value);
+  void setMessage(String value);
 
   /**
    * Returns the value of the '<em><b>Sub Case Result</b></em>' containment reference list.

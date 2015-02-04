@@ -13,7 +13,7 @@
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/ASSERTIONEXCEPTION"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIMARKER"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIDIAGNOSTICS"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIRESULTREPORT"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/RESULTREPORT"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/RESOLUTEPROVE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MANUAL"/>
     </genEnums>

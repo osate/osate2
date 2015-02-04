@@ -32,7 +32,7 @@ import org.osate.verify.verify.VerificationAssumption;
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssumptionResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssumptionResultImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssumptionResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssumptionResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssumptionResultImpl#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
  * </ul>
  * </p>
@@ -72,24 +72,24 @@ public class AssumptionResultImpl extends AssureResultImpl implements Assumption
   protected VerificationAssumption target;
 
   /**
-   * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
+   * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSucessMsg()
+   * @see #getMessage()
    * @generated
    * @ordered
    */
-  protected static final String SUCESS_MSG_EDEFAULT = null;
+  protected static final String MESSAGE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
+   * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSucessMsg()
+   * @see #getMessage()
    * @generated
    * @ordered
    */
-  protected String sucessMsg = SUCESS_MSG_EDEFAULT;
+  protected String message = MESSAGE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getVerificationActivityResult() <em>Verification Activity Result</em>}' containment reference list.
@@ -193,9 +193,9 @@ public class AssumptionResultImpl extends AssureResultImpl implements Assumption
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getSucessMsg()
+  public String getMessage()
   {
-    return sucessMsg;
+    return message;
   }
 
   /**
@@ -203,12 +203,12 @@ public class AssumptionResultImpl extends AssureResultImpl implements Assumption
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSucessMsg(String newSucessMsg)
+  public void setMessage(String newMessage)
   {
-    String oldSucessMsg = sucessMsg;
-    sucessMsg = newSucessMsg;
+    String oldMessage = message;
+    message = newMessage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSUMPTION_RESULT__SUCESS_MSG, oldSucessMsg, sucessMsg));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSUMPTION_RESULT__MESSAGE, oldMessage, message));
   }
 
   /**
@@ -256,8 +256,8 @@ public class AssumptionResultImpl extends AssureResultImpl implements Assumption
       case AssurePackage.ASSUMPTION_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case AssurePackage.ASSUMPTION_RESULT__SUCESS_MSG:
-        return getSucessMsg();
+      case AssurePackage.ASSUMPTION_RESULT__MESSAGE:
+        return getMessage();
       case AssurePackage.ASSUMPTION_RESULT__VERIFICATION_ACTIVITY_RESULT:
         return getVerificationActivityResult();
     }
@@ -281,8 +281,8 @@ public class AssumptionResultImpl extends AssureResultImpl implements Assumption
       case AssurePackage.ASSUMPTION_RESULT__TARGET:
         setTarget((VerificationAssumption)newValue);
         return;
-      case AssurePackage.ASSUMPTION_RESULT__SUCESS_MSG:
-        setSucessMsg((String)newValue);
+      case AssurePackage.ASSUMPTION_RESULT__MESSAGE:
+        setMessage((String)newValue);
         return;
       case AssurePackage.ASSUMPTION_RESULT__VERIFICATION_ACTIVITY_RESULT:
         getVerificationActivityResult().clear();
@@ -308,8 +308,8 @@ public class AssumptionResultImpl extends AssureResultImpl implements Assumption
       case AssurePackage.ASSUMPTION_RESULT__TARGET:
         setTarget((VerificationAssumption)null);
         return;
-      case AssurePackage.ASSUMPTION_RESULT__SUCESS_MSG:
-        setSucessMsg(SUCESS_MSG_EDEFAULT);
+      case AssurePackage.ASSUMPTION_RESULT__MESSAGE:
+        setMessage(MESSAGE_EDEFAULT);
         return;
       case AssurePackage.ASSUMPTION_RESULT__VERIFICATION_ACTIVITY_RESULT:
         getVerificationActivityResult().clear();
@@ -332,8 +332,8 @@ public class AssumptionResultImpl extends AssureResultImpl implements Assumption
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.ASSUMPTION_RESULT__TARGET:
         return target != null;
-      case AssurePackage.ASSUMPTION_RESULT__SUCESS_MSG:
-        return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
+      case AssurePackage.ASSUMPTION_RESULT__MESSAGE:
+        return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.ASSUMPTION_RESULT__VERIFICATION_ACTIVITY_RESULT:
         return verificationActivityResult != null && !verificationActivityResult.isEmpty();
     }
@@ -353,8 +353,8 @@ public class AssumptionResultImpl extends AssureResultImpl implements Assumption
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", sucessMsg: ");
-    result.append(sucessMsg);
+    result.append(", message: ");
+    result.append(message);
     result.append(')');
     return result.toString();
   }

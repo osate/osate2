@@ -16,7 +16,7 @@ import org.osate.verify.verify.VerificationPrecondition;
  * <ul>
  *   <li>{@link org.osate.assure.assure.PreconditionResult#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.PreconditionResult#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.PreconditionResult#getSucessMsg <em>Sucess Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.PreconditionResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.PreconditionResult#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
  * </ul>
  * </p>
@@ -80,30 +80,30 @@ public interface PreconditionResult extends AssureResult
   void setTarget(VerificationPrecondition value);
 
   /**
-   * Returns the value of the '<em><b>Sucess Msg</b></em>' attribute.
+   * Returns the value of the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Sucess Msg</em>' attribute isn't clear,
+   * If the meaning of the '<em>Message</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Sucess Msg</em>' attribute.
-   * @see #setSucessMsg(String)
-   * @see org.osate.assure.assure.AssurePackage#getPreconditionResult_SucessMsg()
+   * @return the value of the '<em>Message</em>' attribute.
+   * @see #setMessage(String)
+   * @see org.osate.assure.assure.AssurePackage#getPreconditionResult_Message()
    * @model
    * @generated
    */
-  String getSucessMsg();
+  String getMessage();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.PreconditionResult#getSucessMsg <em>Sucess Msg</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.PreconditionResult#getMessage <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Sucess Msg</em>' attribute.
-   * @see #getSucessMsg()
+   * @param value the new value of the '<em>Message</em>' attribute.
+   * @see #getMessage()
    * @generated
    */
-  void setSucessMsg(String value);
+  void setMessage(String value);
 
   /**
    * Returns the value of the '<em><b>Verification Activity Result</b></em>' containment reference list.

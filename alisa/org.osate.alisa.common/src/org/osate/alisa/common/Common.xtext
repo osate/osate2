@@ -17,7 +17,8 @@ DescriptionElement :
  	text = STRING | value = ShowValue | newline?='&' |thisTarget?='this'
  ;
  
- ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
+ ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
+// ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
  
  ReferencePath: 
  	ref = [ecore::EObject|ID] ('.' subpath=ReferencePath)
@@ -25,11 +26,11 @@ DescriptionElement :
 
 
 // Dummy placeholder for comparison conditions
-PredicateExpression: ID op=('='|"!=" |"<"|"<="|">"|">=")ID;
+PredicateExpression: ID op=('='|"!=" |"<"|"<="|">"|">=") limit=[ConstantDecl|ID];
 
 
 
-ConstantDecl: name = ID '=' value=ConstantValue;
+ConstantDecl: name = ID '=' constantvalue=ConstantValue;
 
 ConstantValue: StringTerm | RealTerm | IntegerTerm;
 

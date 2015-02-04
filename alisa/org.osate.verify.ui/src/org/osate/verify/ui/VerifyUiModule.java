@@ -4,6 +4,8 @@
 package org.osate.verify.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
+import org.osate.verify.ui.outline.VerifyEObjectHoverProvider;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -11,5 +13,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class VerifyUiModule extends org.osate.verify.ui.AbstractVerifyUiModule {
 	public VerifyUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+	}
+
+	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return VerifyEObjectHoverProvider.class;
 	}
 }

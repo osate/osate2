@@ -63,8 +63,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWeightINTTerminalRuleCall_13_1_0 = (RuleCall)cWeightAssignment_13_1.eContents().get(0);
 		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
 		private final Keyword cMessageKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cSucessMsgAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cSucessMsgSTRINGTerminalRuleCall_14_1_0 = (RuleCall)cSucessMsgAssignment_14_1.eContents().get(0);
+		private final Assignment cMessageAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_14_1_0 = (RuleCall)cMessageAssignment_14_1.eContents().get(0);
 		private final Assignment cSubCaseResultAssignment_15 = (Assignment)cGroup.eContents().get(15);
 		private final RuleCall cSubCaseResultCaseResultParserRuleCall_15_0 = (RuleCall)cSubCaseResultAssignment_15.eContents().get(0);
 		private final Assignment cClaimResultAssignment_16 = (Assignment)cGroup.eContents().get(16);
@@ -76,15 +76,15 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	"case" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
 		//	instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
 		//	("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-		//	tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)? subCaseResult+=CaseResult*
+		//	tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subCaseResult+=CaseResult*
 		//	claimResult+=ClaimResult* "]";
 		public ParserRule getRule() { return rule; }
 
 		//"case" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
 		//instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
 		//("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-		//tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)? subCaseResult+=CaseResult*
-		//claimResult+=ClaimResult* "]"
+		//tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subCaseResult+=CaseResult* claimResult+=ClaimResult*
+		//"]"
 		public Group getGroup() { return cGroup; }
 
 		//"case"
@@ -207,17 +207,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getWeightINTTerminalRuleCall_13_1_0() { return cWeightINTTerminalRuleCall_13_1_0; }
 
-		//("message" sucessMsg=STRING)?
+		//("message" message=STRING)?
 		public Group getGroup_14() { return cGroup_14; }
 
 		//"message"
 		public Keyword getMessageKeyword_14_0() { return cMessageKeyword_14_0; }
 
-		//sucessMsg=STRING
-		public Assignment getSucessMsgAssignment_14_1() { return cSucessMsgAssignment_14_1; }
+		//message=STRING
+		public Assignment getMessageAssignment_14_1() { return cMessageAssignment_14_1; }
 
 		//STRING
-		public RuleCall getSucessMsgSTRINGTerminalRuleCall_14_1_0() { return cSucessMsgSTRINGTerminalRuleCall_14_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_14_1_0() { return cMessageSTRINGTerminalRuleCall_14_1_0; }
 
 		//subCaseResult+=CaseResult*
 		public Assignment getSubCaseResultAssignment_15() { return cSubCaseResultAssignment_15; }
@@ -280,9 +280,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cWeightAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
 		private final RuleCall cWeightINTTerminalRuleCall_12_1_0 = (RuleCall)cWeightAssignment_12_1.eContents().get(0);
 		private final Group cGroup_13 = (Group)cGroup.eContents().get(13);
-		private final Keyword cSuccessMsgKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
-		private final Assignment cSucessMsgAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
-		private final RuleCall cSucessMsgSTRINGTerminalRuleCall_13_1_0 = (RuleCall)cSucessMsgAssignment_13_1.eContents().get(0);
+		private final Keyword cMessageKeyword_13_0 = (Keyword)cGroup_13.eContents().get(0);
+		private final Assignment cMessageAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_13_1_0 = (RuleCall)cMessageAssignment_13_1.eContents().get(0);
 		private final Assignment cSubClaimResultAssignment_14 = (Assignment)cGroup.eContents().get(14);
 		private final RuleCall cSubClaimResultClaimResultParserRuleCall_14_0 = (RuleCall)cSubClaimResultAssignment_14.eContents().get(0);
 		private final Assignment cVerificationActivityResultAssignment_15 = (Assignment)cGroup.eContents().get(15);
@@ -294,15 +294,15 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	"claim" name=ID "for" target=[ReqSpec::Requirement|QualifiedName] ("instance"
 		//	instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
 		//	"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
-		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)?
-		//	("successMsg" sucessMsg=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
+		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
+		//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 		public ParserRule getRule() { return rule; }
 
 		//"claim" name=ID "for" target=[ReqSpec::Requirement|QualifiedName] ("instance"
 		//instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
 		//"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
-		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("successMsg"
-		//sucessMsg=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
+		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
+		//message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"claim"
@@ -428,17 +428,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getWeightINTTerminalRuleCall_12_1_0() { return cWeightINTTerminalRuleCall_12_1_0; }
 
-		//("successMsg" sucessMsg=STRING)?
+		//("message" message=STRING)?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//"successMsg"
-		public Keyword getSuccessMsgKeyword_13_0() { return cSuccessMsgKeyword_13_0; }
+		//"message"
+		public Keyword getMessageKeyword_13_0() { return cMessageKeyword_13_0; }
 
-		//sucessMsg=STRING
-		public Assignment getSucessMsgAssignment_13_1() { return cSucessMsgAssignment_13_1; }
+		//message=STRING
+		public Assignment getMessageAssignment_13_1() { return cMessageAssignment_13_1; }
 
 		//STRING
-		public RuleCall getSucessMsgSTRINGTerminalRuleCall_13_1_0() { return cSucessMsgSTRINGTerminalRuleCall_13_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_13_1_0() { return cMessageSTRINGTerminalRuleCall_13_1_0; }
 
 		//subClaimResult+=ClaimResult*
 		public Assignment getSubClaimResultAssignment_14() { return cSubClaimResultAssignment_14; }
@@ -497,8 +497,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWeightINTTerminalRuleCall_11_1_0 = (RuleCall)cWeightAssignment_11_1.eContents().get(0);
 		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
 		private final Keyword cMessageKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
-		private final Assignment cSucessMsgAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cSucessMsgSTRINGTerminalRuleCall_12_1_0 = (RuleCall)cSucessMsgAssignment_12_1.eContents().get(0);
+		private final Assignment cMessageAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_12_1_0 = (RuleCall)cMessageAssignment_12_1.eContents().get(0);
 		private final Assignment cVerificationActivityResultAssignment_13 = (Assignment)cGroup.eContents().get(13);
 		private final RuleCall cVerificationActivityResultVerificationExprParserRuleCall_13_0 = (RuleCall)cVerificationActivityResultAssignment_13.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_14 = (Keyword)cGroup.eContents().get(14);
@@ -506,13 +506,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//AssumptionResult:
 		//	"assumption" name=ID "for" target=[Verify::VerificationAssumption|QualifiedName] "[" ("successcount"
 		//	successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)?
-		//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)?
+		//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
 		//	verificationActivityResult+=VerificationExpr* "]";
 		public ParserRule getRule() { return rule; }
 
 		//"assumption" name=ID "for" target=[Verify::VerificationAssumption|QualifiedName] "[" ("successcount" successCount=INT)?
 		//("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount"
-		//andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)?
+		//andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
 		//verificationActivityResult+=VerificationExpr* "]"
 		public Group getGroup() { return cGroup; }
 
@@ -624,17 +624,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getWeightINTTerminalRuleCall_11_1_0() { return cWeightINTTerminalRuleCall_11_1_0; }
 
-		//("message" sucessMsg=STRING)?
+		//("message" message=STRING)?
 		public Group getGroup_12() { return cGroup_12; }
 
 		//"message"
 		public Keyword getMessageKeyword_12_0() { return cMessageKeyword_12_0; }
 
-		//sucessMsg=STRING
-		public Assignment getSucessMsgAssignment_12_1() { return cSucessMsgAssignment_12_1; }
+		//message=STRING
+		public Assignment getMessageAssignment_12_1() { return cMessageAssignment_12_1; }
 
 		//STRING
-		public RuleCall getSucessMsgSTRINGTerminalRuleCall_12_1_0() { return cSucessMsgSTRINGTerminalRuleCall_12_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_12_1_0() { return cMessageSTRINGTerminalRuleCall_12_1_0; }
 
 		//verificationActivityResult+=VerificationExpr*
 		public Assignment getVerificationActivityResultAssignment_13() { return cVerificationActivityResultAssignment_13; }
@@ -687,8 +687,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWeightINTTerminalRuleCall_11_1_0 = (RuleCall)cWeightAssignment_11_1.eContents().get(0);
 		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
 		private final Keyword cMessageKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
-		private final Assignment cSucessMsgAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
-		private final RuleCall cSucessMsgSTRINGTerminalRuleCall_12_1_0 = (RuleCall)cSucessMsgAssignment_12_1.eContents().get(0);
+		private final Assignment cMessageAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_12_1_0 = (RuleCall)cMessageAssignment_12_1.eContents().get(0);
 		private final Assignment cVerificationActivityResultAssignment_13 = (Assignment)cGroup.eContents().get(13);
 		private final RuleCall cVerificationActivityResultVerificationExprParserRuleCall_13_0 = (RuleCall)cVerificationActivityResultAssignment_13.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_14 = (Keyword)cGroup.eContents().get(14);
@@ -696,13 +696,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//PreconditionResult:
 		//	"precondition" name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "[" ("successcount"
 		//	successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)?
-		//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)?
+		//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
 		//	verificationActivityResult+=VerificationExpr* "]";
 		public ParserRule getRule() { return rule; }
 
 		//"precondition" name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "[" ("successcount"
 		//successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)?
-		//("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)?
+		//("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
 		//verificationActivityResult+=VerificationExpr* "]"
 		public Group getGroup() { return cGroup; }
 
@@ -814,17 +814,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getWeightINTTerminalRuleCall_11_1_0() { return cWeightINTTerminalRuleCall_11_1_0; }
 
-		//("message" sucessMsg=STRING)?
+		//("message" message=STRING)?
 		public Group getGroup_12() { return cGroup_12; }
 
 		//"message"
 		public Keyword getMessageKeyword_12_0() { return cMessageKeyword_12_0; }
 
-		//sucessMsg=STRING
-		public Assignment getSucessMsgAssignment_12_1() { return cSucessMsgAssignment_12_1; }
+		//message=STRING
+		public Assignment getMessageAssignment_12_1() { return cMessageAssignment_12_1; }
 
 		//STRING
-		public RuleCall getSucessMsgSTRINGTerminalRuleCall_12_1_0() { return cSucessMsgSTRINGTerminalRuleCall_12_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_12_1_0() { return cMessageSTRINGTerminalRuleCall_12_1_0; }
 
 		//verificationActivityResult+=VerificationExpr*
 		public Assignment getVerificationActivityResultAssignment_13() { return cVerificationActivityResultAssignment_13; }
@@ -895,8 +895,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cWeightINTTerminalRuleCall_16_1_0 = (RuleCall)cWeightAssignment_16_1.eContents().get(0);
 		private final Group cGroup_17 = (Group)cGroup.eContents().get(17);
 		private final Keyword cMessageKeyword_17_0 = (Keyword)cGroup_17.eContents().get(0);
-		private final Assignment cSucessMsgAssignment_17_1 = (Assignment)cGroup_17.eContents().get(1);
-		private final RuleCall cSucessMsgSTRINGTerminalRuleCall_17_1_0 = (RuleCall)cSucessMsgAssignment_17_1.eContents().get(0);
+		private final Assignment cMessageAssignment_17_1 = (Assignment)cGroup_17.eContents().get(1);
+		private final RuleCall cMessageSTRINGTerminalRuleCall_17_1_0 = (RuleCall)cMessageAssignment_17_1.eContents().get(0);
 		private final Assignment cAssumptionResultAssignment_18 = (Assignment)cGroup.eContents().get(18);
 		private final RuleCall cAssumptionResultAssumptionResultParserRuleCall_18_0 = (RuleCall)cAssumptionResultAssignment_18.eContents().get(0);
 		private final Assignment cPreconditionResultAssignment_19 = (Assignment)cGroup.eContents().get(19);
@@ -910,7 +910,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
 		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//	sucessMsg=STRING)? assumptionResult+=AssumptionResult* preconditionResult+=PreconditionResult* "]";
+		//	message=STRING)? assumptionResult+=AssumptionResult* preconditionResult+=PreconditionResult* "]";
 		public ParserRule getRule() { return rule; }
 
 		//"verification" name=ID "for" target=[Verify::VerificationActivity|QualifiedName] "[" ("executionstate"
@@ -918,7 +918,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
 		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-		//sucessMsg=STRING)? assumptionResult+=AssumptionResult* preconditionResult+=PreconditionResult* "]"
+		//message=STRING)? assumptionResult+=AssumptionResult* preconditionResult+=PreconditionResult* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -1083,17 +1083,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getWeightINTTerminalRuleCall_16_1_0() { return cWeightINTTerminalRuleCall_16_1_0; }
 
-		//("message" sucessMsg=STRING)?
+		//("message" message=STRING)?
 		public Group getGroup_17() { return cGroup_17; }
 
 		//"message"
 		public Keyword getMessageKeyword_17_0() { return cMessageKeyword_17_0; }
 
-		//sucessMsg=STRING
-		public Assignment getSucessMsgAssignment_17_1() { return cSucessMsgAssignment_17_1; }
+		//message=STRING
+		public Assignment getMessageAssignment_17_1() { return cMessageAssignment_17_1; }
 
 		//STRING
-		public RuleCall getSucessMsgSTRINGTerminalRuleCall_17_1_0() { return cSucessMsgSTRINGTerminalRuleCall_17_1_0; }
+		public RuleCall getMessageSTRINGTerminalRuleCall_17_1_0() { return cMessageSTRINGTerminalRuleCall_17_1_0; }
 
 		//assumptionResult+=AssumptionResult*
 		public Assignment getAssumptionResultAssignment_18() { return cAssumptionResultAssignment_18; }
@@ -1660,14 +1660,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSUCCESSSuccessKeyword_1_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_1.eContents().get(0);
 		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
 		private final Keyword cFAILFailKeyword_2_0 = (Keyword)cFAILEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cErrorEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cErrorErrorKeyword_3_0 = (Keyword)cErrorEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cERRORErrorKeyword_3_0 = (Keyword)cERROREnumLiteralDeclaration_3.eContents().get(0);
 		
 		//enum VerificationResultState:
-		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | error;
+		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error";
 		public EnumRule getRule() { return rule; }
 
-		//TBD="tbd" | SUCCESS="success" | FAIL="fail" | error
+		//TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TBD="tbd"
@@ -1688,11 +1688,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"fail"
 		public Keyword getFAILFailKeyword_2_0() { return cFAILFailKeyword_2_0; }
 
-		//error
-		public EnumLiteralDeclaration getErrorEnumLiteralDeclaration_3() { return cErrorEnumLiteralDeclaration_3; }
+		//ERROR="error"
+		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_3() { return cERROREnumLiteralDeclaration_3; }
 
 		//"error"
-		public Keyword getErrorErrorKeyword_3_0() { return cErrorErrorKeyword_3_0; }
+		public Keyword getERRORErrorKeyword_3_0() { return cERRORErrorKeyword_3_0; }
 	}
 
 	public class VerificationExecutionStateElements extends AbstractEnumRuleElementFinder {
@@ -1825,7 +1825,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	"case" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
 	//	instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
 	//	("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-	//	tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)? subCaseResult+=CaseResult*
+	//	tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subCaseResult+=CaseResult*
 	//	claimResult+=ClaimResult* "]";
 	public CaseResultElements getCaseResultAccess() {
 		return pCaseResult;
@@ -1840,8 +1840,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	"claim" name=ID "for" target=[ReqSpec::Requirement|QualifiedName] ("instance"
 	//	instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
 	//	"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
-	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)?
-	//	("successMsg" sucessMsg=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
+	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
+	//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 	public ClaimResultElements getClaimResultAccess() {
 		return pClaimResult;
 	}
@@ -1853,7 +1853,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//AssumptionResult:
 	//	"assumption" name=ID "for" target=[Verify::VerificationAssumption|QualifiedName] "[" ("successcount"
 	//	successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)?
-	//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)?
+	//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
 	//	verificationActivityResult+=VerificationExpr* "]";
 	public AssumptionResultElements getAssumptionResultAccess() {
 		return pAssumptionResult;
@@ -1866,7 +1866,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//PreconditionResult:
 	//	"precondition" name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "[" ("successcount"
 	//	successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)?
-	//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" sucessMsg=STRING)?
+	//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
 	//	verificationActivityResult+=VerificationExpr* "]";
 	public PreconditionResultElements getPreconditionResultAccess() {
 		return pPreconditionResult;
@@ -1883,7 +1883,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
 	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
-	//	sucessMsg=STRING)? assumptionResult+=AssumptionResult* preconditionResult+=PreconditionResult* "]";
+	//	message=STRING)? assumptionResult+=AssumptionResult* preconditionResult+=PreconditionResult* "]";
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
@@ -1959,7 +1959,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum VerificationResultState:
-	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | error;
+	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error";
 	public VerificationResultStateElements getVerificationResultStateAccess() {
 		return unknownRuleVerificationResultState;
 	}
@@ -2013,7 +2013,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ShowValue:
-	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	//	ref=[ConstantDecl] ("%" unit=ID)?;
 	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
 		return gaCommon.getShowValueAccess();
 	}
@@ -2022,6 +2022,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getShowValueAccess().getRule();
 	}
 
+	//// ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
 	//ReferencePath:
 	//	ref=[ecore::EObject] ("." subpath=ReferencePath);
 	public CommonGrammarAccess.ReferencePathElements getReferencePathAccess() {
@@ -2034,7 +2035,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Dummy placeholder for comparison conditions
 	//PredicateExpression:
-	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
+	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") limit=[ConstantDecl];
 	public CommonGrammarAccess.PredicateExpressionElements getPredicateExpressionAccess() {
 		return gaCommon.getPredicateExpressionAccess();
 	}
@@ -2044,7 +2045,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDecl:
-	//	name=ID "=" value=ConstantValue;
+	//	name=ID "=" constantvalue=ConstantValue;
 	public CommonGrammarAccess.ConstantDeclElements getConstantDeclAccess() {
 		return gaCommon.getConstantDeclAccess();
 	}

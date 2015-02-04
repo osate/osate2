@@ -140,7 +140,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCaseResultAccess().getAndthenCountAssignment_11_1(), "rule__CaseResult__AndthenCountAssignment_11_1");
 					put(grammarAccess.getCaseResultAccess().getTbdCountAssignment_12_1(), "rule__CaseResult__TbdCountAssignment_12_1");
 					put(grammarAccess.getCaseResultAccess().getWeightAssignment_13_1(), "rule__CaseResult__WeightAssignment_13_1");
-					put(grammarAccess.getCaseResultAccess().getSucessMsgAssignment_14_1(), "rule__CaseResult__SucessMsgAssignment_14_1");
+					put(grammarAccess.getCaseResultAccess().getMessageAssignment_14_1(), "rule__CaseResult__MessageAssignment_14_1");
 					put(grammarAccess.getCaseResultAccess().getSubCaseResultAssignment_15(), "rule__CaseResult__SubCaseResultAssignment_15");
 					put(grammarAccess.getCaseResultAccess().getClaimResultAssignment_16(), "rule__CaseResult__ClaimResultAssignment_16");
 					put(grammarAccess.getClaimResultAccess().getNameAssignment_1(), "rule__ClaimResult__NameAssignment_1");
@@ -153,7 +153,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClaimResultAccess().getAndthenCountAssignment_10_1(), "rule__ClaimResult__AndthenCountAssignment_10_1");
 					put(grammarAccess.getClaimResultAccess().getTbdCountAssignment_11_1(), "rule__ClaimResult__TbdCountAssignment_11_1");
 					put(grammarAccess.getClaimResultAccess().getWeightAssignment_12_1(), "rule__ClaimResult__WeightAssignment_12_1");
-					put(grammarAccess.getClaimResultAccess().getSucessMsgAssignment_13_1(), "rule__ClaimResult__SucessMsgAssignment_13_1");
+					put(grammarAccess.getClaimResultAccess().getMessageAssignment_13_1(), "rule__ClaimResult__MessageAssignment_13_1");
 					put(grammarAccess.getClaimResultAccess().getSubClaimResultAssignment_14(), "rule__ClaimResult__SubClaimResultAssignment_14");
 					put(grammarAccess.getClaimResultAccess().getVerificationActivityResultAssignment_15(), "rule__ClaimResult__VerificationActivityResultAssignment_15");
 					put(grammarAccess.getAssumptionResultAccess().getNameAssignment_1(), "rule__AssumptionResult__NameAssignment_1");
@@ -165,7 +165,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAssumptionResultAccess().getAndthenCountAssignment_9_1(), "rule__AssumptionResult__AndthenCountAssignment_9_1");
 					put(grammarAccess.getAssumptionResultAccess().getTbdCountAssignment_10_1(), "rule__AssumptionResult__TbdCountAssignment_10_1");
 					put(grammarAccess.getAssumptionResultAccess().getWeightAssignment_11_1(), "rule__AssumptionResult__WeightAssignment_11_1");
-					put(grammarAccess.getAssumptionResultAccess().getSucessMsgAssignment_12_1(), "rule__AssumptionResult__SucessMsgAssignment_12_1");
+					put(grammarAccess.getAssumptionResultAccess().getMessageAssignment_12_1(), "rule__AssumptionResult__MessageAssignment_12_1");
 					put(grammarAccess.getAssumptionResultAccess().getVerificationActivityResultAssignment_13(), "rule__AssumptionResult__VerificationActivityResultAssignment_13");
 					put(grammarAccess.getPreconditionResultAccess().getNameAssignment_1(), "rule__PreconditionResult__NameAssignment_1");
 					put(grammarAccess.getPreconditionResultAccess().getTargetAssignment_3(), "rule__PreconditionResult__TargetAssignment_3");
@@ -176,7 +176,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPreconditionResultAccess().getAndthenCountAssignment_9_1(), "rule__PreconditionResult__AndthenCountAssignment_9_1");
 					put(grammarAccess.getPreconditionResultAccess().getTbdCountAssignment_10_1(), "rule__PreconditionResult__TbdCountAssignment_10_1");
 					put(grammarAccess.getPreconditionResultAccess().getWeightAssignment_11_1(), "rule__PreconditionResult__WeightAssignment_11_1");
-					put(grammarAccess.getPreconditionResultAccess().getSucessMsgAssignment_12_1(), "rule__PreconditionResult__SucessMsgAssignment_12_1");
+					put(grammarAccess.getPreconditionResultAccess().getMessageAssignment_12_1(), "rule__PreconditionResult__MessageAssignment_12_1");
 					put(grammarAccess.getPreconditionResultAccess().getVerificationActivityResultAssignment_13(), "rule__PreconditionResult__VerificationActivityResultAssignment_13");
 					put(grammarAccess.getVerificationActivityResultAccess().getNameAssignment_1(), "rule__VerificationActivityResult__NameAssignment_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getTargetAssignment_3(), "rule__VerificationActivityResult__TargetAssignment_3");
@@ -191,7 +191,7 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityResultAccess().getAndthenCountAssignment_14_1(), "rule__VerificationActivityResult__AndthenCountAssignment_14_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getTbdCountAssignment_15_1(), "rule__VerificationActivityResult__TbdCountAssignment_15_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getWeightAssignment_16_1(), "rule__VerificationActivityResult__WeightAssignment_16_1");
-					put(grammarAccess.getVerificationActivityResultAccess().getSucessMsgAssignment_17_1(), "rule__VerificationActivityResult__SucessMsgAssignment_17_1");
+					put(grammarAccess.getVerificationActivityResultAccess().getMessageAssignment_17_1(), "rule__VerificationActivityResult__MessageAssignment_17_1");
 					put(grammarAccess.getVerificationActivityResultAccess().getAssumptionResultAssignment_18(), "rule__VerificationActivityResult__AssumptionResultAssignment_18");
 					put(grammarAccess.getVerificationActivityResultAccess().getPreconditionResultAssignment_19(), "rule__VerificationActivityResult__PreconditionResultAssignment_19");
 					put(grammarAccess.getFailThenResultAccess().getFirstAssignment_1(), "rule__FailThenResult__FirstAssignment_1");
@@ -231,8 +231,9 @@ public class AssureParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
 					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAssignment_1(), "rule__PredicateExpression__OpAssignment_1");
+					put(grammarAccess.getPredicateExpressionAccess().getLimitAssignment_2(), "rule__PredicateExpression__LimitAssignment_2");
 					put(grammarAccess.getConstantDeclAccess().getNameAssignment_0(), "rule__ConstantDecl__NameAssignment_0");
-					put(grammarAccess.getConstantDeclAccess().getValueAssignment_2(), "rule__ConstantDecl__ValueAssignment_2");
+					put(grammarAccess.getConstantDeclAccess().getConstantvalueAssignment_2(), "rule__ConstantDecl__ConstantvalueAssignment_2");
 					put(grammarAccess.getStringTermAccess().getValueAssignment(), "rule__StringTerm__ValueAssignment");
 					put(grammarAccess.getRealTermAccess().getValueAssignment_0(), "rule__RealTerm__ValueAssignment_0");
 					put(grammarAccess.getRealTermAccess().getUnitAssignment_1(), "rule__RealTerm__UnitAssignment_1");

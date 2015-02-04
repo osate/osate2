@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.DoubleExtensions;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -143,13 +144,23 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
     {
       final CheckFlowLatency checker = new CheckFlowLatency();
       final String markerType = checker.getMarkerType();
-      boolean _hasRun = AssureUtilExtension.hasRun(markerType, instance);
+      boolean _hasRun = AssureUtilExtension.getHasRun(markerType, instance);
       boolean _not = (!_hasRun);
       if (_not) {
         EList<SystemOperationMode> _systemOperationModes = instance.getSystemOperationModes();
         final SystemOperationMode som = IterableExtensions.<SystemOperationMode>head(_systemOperationModes);
-        NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-        checker.invoke(_nullProgressMonitor, null, instance, som);
+        try {
+          NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
+          checker.invoke(_nullProgressMonitor, null, instance, som);
+          AssureUtilExtension.setHasRun(markerType, instance);
+        } catch (final Throwable _t) {
+          if (_t instanceof Throwable) {
+            final Throwable e = (Throwable)_t;
+            AssureUtilExtension.unsetHasRun(markerType, instance);
+          } else {
+            throw Exceptions.sneakyThrow(_t);
+          }
+        }
       }
       _xblockexpression = markerType;
     }
@@ -163,13 +174,23 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
       final String markerType = checker.getMarkerType();
       NamedElement _elementRoot = etefi.getElementRoot();
       final SystemInstance instance = ((SystemInstance) _elementRoot);
-      boolean _hasRun = AssureUtilExtension.hasRun(markerType, instance);
+      boolean _hasRun = AssureUtilExtension.getHasRun(markerType, instance);
       boolean _not = (!_hasRun);
       if (_not) {
         EList<SystemOperationMode> _systemOperationModes = instance.getSystemOperationModes();
         final SystemOperationMode som = IterableExtensions.<SystemOperationMode>head(_systemOperationModes);
-        NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-        checker.invoke(_nullProgressMonitor, null, instance, som);
+        try {
+          NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
+          checker.invoke(_nullProgressMonitor, null, instance, som);
+          AssureUtilExtension.setHasRun(markerType, instance);
+        } catch (final Throwable _t) {
+          if (_t instanceof Throwable) {
+            final Throwable e = (Throwable)_t;
+            AssureUtilExtension.unsetHasRun(markerType, instance);
+          } else {
+            throw Exceptions.sneakyThrow(_t);
+          }
+        }
       }
       _xblockexpression = markerType;
     }

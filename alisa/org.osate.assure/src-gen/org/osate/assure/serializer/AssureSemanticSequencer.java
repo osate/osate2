@@ -213,7 +213,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
 	 *         weight=INT? 
-	 *         sucessMsg=STRING? 
+	 *         message=STRING? 
 	 *         verificationActivityResult+=VerificationExpr*
 	 *     )
 	 */
@@ -235,7 +235,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
 	 *         weight=INT? 
-	 *         sucessMsg=STRING? 
+	 *         message=STRING? 
 	 *         subCaseResult+=CaseResult* 
 	 *         claimResult+=ClaimResult*
 	 *     )
@@ -258,7 +258,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
 	 *         weight=INT? 
-	 *         sucessMsg=STRING? 
+	 *         message=STRING? 
 	 *         subClaimResult+=ClaimResult* 
 	 *         verificationActivityResult+=VerificationExpr*
 	 *     )
@@ -300,7 +300,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
 	 *         weight=INT? 
-	 *         sucessMsg=STRING? 
+	 *         message=STRING? 
 	 *         verificationActivityResult+=VerificationExpr*
 	 *     )
 	 */
@@ -341,7 +341,7 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
 	 *         weight=INT? 
-	 *         sucessMsg=STRING? 
+	 *         message=STRING? 
 	 *         assumptionResult+=AssumptionResult* 
 	 *         preconditionResult+=PreconditionResult*
 	 *     )

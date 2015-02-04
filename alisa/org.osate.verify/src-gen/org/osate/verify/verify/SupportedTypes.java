@@ -70,14 +70,14 @@ public enum SupportedTypes implements Enumerator
   MULTIDIAGNOSTICS(4, "MULTIDIAGNOSTICS", "multidiagnostics"),
 
   /**
-   * The '<em><b>MULTIRESULTREPORT</b></em>' literal object.
+   * The '<em><b>RESULTREPORT</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #MULTIRESULTREPORT_VALUE
+   * @see #RESULTREPORT_VALUE
    * @generated
    * @ordered
    */
-  MULTIRESULTREPORT(5, "MULTIRESULTREPORT", "multiresultreport"),
+  RESULTREPORT(5, "RESULTREPORT", "resultreport"),
 
   /**
    * The '<em><b>RESOLUTEPROVE</b></em>' literal object.
@@ -175,19 +175,19 @@ public enum SupportedTypes implements Enumerator
   public static final int MULTIDIAGNOSTICS_VALUE = 4;
 
   /**
-   * The '<em><b>MULTIRESULTREPORT</b></em>' literal value.
+   * The '<em><b>RESULTREPORT</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>MULTIRESULTREPORT</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>RESULTREPORT</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #MULTIRESULTREPORT
-   * @model literal="multiresultreport"
+   * @see #RESULTREPORT
+   * @model literal="resultreport"
    * @generated
    * @ordered
    */
-  public static final int MULTIRESULTREPORT_VALUE = 5;
+  public static final int RESULTREPORT_VALUE = 5;
 
   /**
    * The '<em><b>RESOLUTEPROVE</b></em>' literal value.
@@ -233,7 +233,7 @@ public enum SupportedTypes implements Enumerator
       ASSERTIONEXCEPTION,
       MULTIMARKER,
       MULTIDIAGNOSTICS,
-      MULTIRESULTREPORT,
+      RESULTREPORT,
       RESOLUTEPROVE,
       MANUAL,
     };
@@ -299,7 +299,7 @@ public enum SupportedTypes implements Enumerator
       case ASSERTIONEXCEPTION_VALUE: return ASSERTIONEXCEPTION;
       case MULTIMARKER_VALUE: return MULTIMARKER;
       case MULTIDIAGNOSTICS_VALUE: return MULTIDIAGNOSTICS;
-      case MULTIRESULTREPORT_VALUE: return MULTIRESULTREPORT;
+      case RESULTREPORT_VALUE: return RESULTREPORT;
       case RESOLUTEPROVE_VALUE: return RESOLUTEPROVE;
       case MANUAL_VALUE: return MANUAL;
     }

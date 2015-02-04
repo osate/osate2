@@ -188,8 +188,9 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReferencePathAccess().getRefAssignment_0(), "rule__ReferencePath__RefAssignment_0");
 					put(grammarAccess.getReferencePathAccess().getSubpathAssignment_1_1(), "rule__ReferencePath__SubpathAssignment_1_1");
 					put(grammarAccess.getPredicateExpressionAccess().getOpAssignment_1(), "rule__PredicateExpression__OpAssignment_1");
+					put(grammarAccess.getPredicateExpressionAccess().getLimitAssignment_2(), "rule__PredicateExpression__LimitAssignment_2");
 					put(grammarAccess.getConstantDeclAccess().getNameAssignment_0(), "rule__ConstantDecl__NameAssignment_0");
-					put(grammarAccess.getConstantDeclAccess().getValueAssignment_2(), "rule__ConstantDecl__ValueAssignment_2");
+					put(grammarAccess.getConstantDeclAccess().getConstantvalueAssignment_2(), "rule__ConstantDecl__ConstantvalueAssignment_2");
 					put(grammarAccess.getStringTermAccess().getValueAssignment(), "rule__StringTerm__ValueAssignment");
 					put(grammarAccess.getRealTermAccess().getValueAssignment_0(), "rule__RealTerm__ValueAssignment_0");
 					put(grammarAccess.getRealTermAccess().getUnitAssignment_1(), "rule__RealTerm__UnitAssignment_1");

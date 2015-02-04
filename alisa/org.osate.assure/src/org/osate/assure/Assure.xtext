@@ -23,7 +23,7 @@ CaseResult:
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
-	('message' sucessMsg= STRING)?
+	('message' message= STRING)?
 	(subCaseResult += CaseResult)*
 	(claimResult += ClaimResult)*
 	']'  
@@ -41,7 +41,7 @@ ClaimResult:
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
-	('successMsg' sucessMsg= STRING)?
+	('message' message= STRING)?
 	(subClaimResult += ClaimResult)*
 	(verificationActivityResult+= VerificationExpr)*
 	']'  
@@ -59,7 +59,7 @@ AssumptionResult:
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
-	('message' sucessMsg= STRING)?
+	('message' message= STRING)?
 	(verificationActivityResult+= VerificationExpr)*
 	']'  
 ;
@@ -75,7 +75,7 @@ PreconditionResult:
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
-	('message' sucessMsg= STRING)?
+	('message' message= STRING)?
 	(verificationActivityResult+= VerificationExpr)*
 	']'  
 ;
@@ -100,7 +100,7 @@ VerificationActivityResult:
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
-	('message' sucessMsg= STRING)?
+	('message' message= STRING)?
 	(assumptionResult+= AssumptionResult)*
 	(preconditionResult+= PreconditionResult)*
 	']'  
@@ -155,7 +155,7 @@ enum ResultIssueType:
 
 
 enum VerificationResultState :
-	TBD='tbd'| SUCCESS='success' | FAIL='fail' | error='error' ;
+	TBD='tbd'| SUCCESS='success' | FAIL='fail' | ERROR='error' ;
 
 
 

@@ -18,7 +18,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
@@ -33,8 +32,6 @@ import org.osate.assure.util.AssureUtilExtension;
 import com.google.inject.Inject;
 
 public class AssureHandler extends AbstractHandler {
-	private static final String RERUN_ID = "org.osate.alisa.commands.rerunAlisa";
-	private IHandlerActivation rerunActivation;
 
 	private IWorkbenchWindow window;
 	private ExecutionEvent executionEvent;
@@ -133,7 +130,7 @@ public class AssureHandler extends AbstractHandler {
 
 		long start = System.currentTimeMillis();
 		recomputeAllCounts(rootCaseResult);
-		AssureUtilExtension.clearHasRunRecords();
+		AssureUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
 //		AssureProcessing.processCaseResult(rootCaseResult);
 		assureProcessor.process(rootCaseResult);

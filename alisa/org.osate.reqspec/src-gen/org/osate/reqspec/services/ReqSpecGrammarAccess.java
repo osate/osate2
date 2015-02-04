@@ -1698,7 +1698,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ShowValue:
-	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	//	ref=[ConstantDecl] ("%" unit=ID)?;
 	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
 		return gaCommon.getShowValueAccess();
 	}
@@ -1707,6 +1707,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getShowValueAccess().getRule();
 	}
 
+	//// ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
 	//ReferencePath:
 	//	ref=[ecore::EObject] ("." subpath=ReferencePath);
 	public CommonGrammarAccess.ReferencePathElements getReferencePathAccess() {
@@ -1719,7 +1720,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Dummy placeholder for comparison conditions
 	//PredicateExpression:
-	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
+	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") limit=[ConstantDecl];
 	public CommonGrammarAccess.PredicateExpressionElements getPredicateExpressionAccess() {
 		return gaCommon.getPredicateExpressionAccess();
 	}
@@ -1729,7 +1730,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDecl:
-	//	name=ID "=" value=ConstantValue;
+	//	name=ID "=" constantvalue=ConstantValue;
 	public CommonGrammarAccess.ConstantDeclElements getConstantDeclAccess() {
 		return gaCommon.getConstantDeclAccess();
 	}

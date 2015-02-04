@@ -47,6 +47,12 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 		return null
 		}
 
+/**
+ * who needs to understand the method types?
+ * the runVerificationMethod dispatcher may do different catch methods
+ * The dispatchVerificationMethod may know from its label what type it is.
+ */
+
 	override void runVerificationMethod(VerificationActivityResult verificationActivityResult) {
 		val method = verificationActivityResult.getTarget().getMethod();
 		val methodpath = method.getMethodPath();

@@ -26,12 +26,12 @@
 'method'=26
 'multidiagnostics'=46
 'multimarker'=45
-'multiresultreport'=47
 'plan'=11
 'precondition'=28
 'rationale'=16
 'registry'=34
 'resoluteprove'=48
+'resultreport'=47
 'singleanalysis'=43
 'singlepredicate'=42
 'this'=38

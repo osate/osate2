@@ -92,7 +92,7 @@
     <eLiterals name="ASSERTIONEXCEPTION" value="2" literal="assertionexception"/>
     <eLiterals name="MULTIMARKER" value="3" literal="multimarker"/>
     <eLiterals name="MULTIDIAGNOSTICS" value="4" literal="multidiagnostics"/>
-    <eLiterals name="MULTIRESULTREPORT" value="5" literal="multiresultreport"/>
+    <eLiterals name="RESULTREPORT" value="5" literal="resultreport"/>
     <eLiterals name="RESOLUTEPROVE" value="6" literal="resoluteprove"/>
     <eLiterals name="MANUAL" value="7" literal="manual"/>
   </eClassifiers>

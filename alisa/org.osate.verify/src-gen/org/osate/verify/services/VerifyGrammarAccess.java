@@ -1340,8 +1340,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cMULTIMARKERMultimarkerKeyword_3_0 = (Keyword)cMULTIMARKEREnumLiteralDeclaration_3.eContents().get(0);
 		private final EnumLiteralDeclaration cMULTIDIAGNOSTICSEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
 		private final Keyword cMULTIDIAGNOSTICSMultidiagnosticsKeyword_4_0 = (Keyword)cMULTIDIAGNOSTICSEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cMULTIRESULTREPORTEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cMULTIRESULTREPORTMultiresultreportKeyword_5_0 = (Keyword)cMULTIRESULTREPORTEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cRESULTREPORTEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cRESULTREPORTResultreportKeyword_5_0 = (Keyword)cRESULTREPORTEnumLiteralDeclaration_5.eContents().get(0);
 		private final EnumLiteralDeclaration cRESOLUTEPROVEEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
 		private final Keyword cRESOLUTEPROVEResoluteproveKeyword_6_0 = (Keyword)cRESOLUTEPROVEEnumLiteralDeclaration_6.eContents().get(0);
 		private final EnumLiteralDeclaration cMANUALEnumLiteralDeclaration_7 = (EnumLiteralDeclaration)cAlternatives.eContents().get(7);
@@ -1349,12 +1349,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//enum SupportedTypes:
 		//	SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" | ASSERTIONEXCEPTION="assertionexception" |
-		//	MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" | MULTIRESULTREPORT="multiresultreport" |
+		//	MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" | RESULTREPORT="resultreport" |
 		//	RESOLUTEPROVE="resoluteprove" | MANUAL="manual";
 		public EnumRule getRule() { return rule; }
 
 		//SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" | ASSERTIONEXCEPTION="assertionexception" |
-		//MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" | MULTIRESULTREPORT="multiresultreport" |
+		//MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" | RESULTREPORT="resultreport" |
 		//RESOLUTEPROVE="resoluteprove" | MANUAL="manual"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
@@ -1388,11 +1388,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"multidiagnostics"
 		public Keyword getMULTIDIAGNOSTICSMultidiagnosticsKeyword_4_0() { return cMULTIDIAGNOSTICSMultidiagnosticsKeyword_4_0; }
 
-		//MULTIRESULTREPORT="multiresultreport"
-		public EnumLiteralDeclaration getMULTIRESULTREPORTEnumLiteralDeclaration_5() { return cMULTIRESULTREPORTEnumLiteralDeclaration_5; }
+		//RESULTREPORT="resultreport"
+		public EnumLiteralDeclaration getRESULTREPORTEnumLiteralDeclaration_5() { return cRESULTREPORTEnumLiteralDeclaration_5; }
 
-		//"multiresultreport"
-		public Keyword getMULTIRESULTREPORTMultiresultreportKeyword_5_0() { return cMULTIRESULTREPORTMultiresultreportKeyword_5_0; }
+		//"resultreport"
+		public Keyword getRESULTREPORTResultreportKeyword_5_0() { return cRESULTREPORTResultreportKeyword_5_0; }
 
 		//RESOLUTEPROVE="resoluteprove"
 		public EnumLiteralDeclaration getRESOLUTEPROVEEnumLiteralDeclaration_6() { return cRESOLUTEPROVEEnumLiteralDeclaration_6; }
@@ -1694,7 +1694,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//enum SupportedTypes:
 	//	SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" | ASSERTIONEXCEPTION="assertionexception" |
-	//	MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" | MULTIRESULTREPORT="multiresultreport" |
+	//	MULTIMARKER="multimarker" | MULTIDIAGNOSTICS="multidiagnostics" | RESULTREPORT="resultreport" |
 	//	RESOLUTEPROVE="resoluteprove" | MANUAL="manual";
 	public SupportedTypesElements getSupportedTypesAccess() {
 		return unknownRuleSupportedTypes;
@@ -1735,7 +1735,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ShowValue:
-	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	//	ref=[ConstantDecl] ("%" unit=ID)?;
 	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
 		return gaCommon.getShowValueAccess();
 	}
@@ -1744,6 +1744,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getShowValueAccess().getRule();
 	}
 
+	//// ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
 	//ReferencePath:
 	//	ref=[ecore::EObject] ("." subpath=ReferencePath);
 	public CommonGrammarAccess.ReferencePathElements getReferencePathAccess() {
@@ -1756,7 +1757,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Dummy placeholder for comparison conditions
 	//PredicateExpression:
-	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
+	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") limit=[ConstantDecl];
 	public CommonGrammarAccess.PredicateExpressionElements getPredicateExpressionAccess() {
 		return gaCommon.getPredicateExpressionAccess();
 	}
@@ -1766,7 +1767,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDecl:
-	//	name=ID "=" value=ConstantValue;
+	//	name=ID "=" constantvalue=ConstantValue;
 	public CommonGrammarAccess.ConstantDeclElements getConstantDeclAccess() {
 		return gaCommon.getConstantDeclAccess();
 	}

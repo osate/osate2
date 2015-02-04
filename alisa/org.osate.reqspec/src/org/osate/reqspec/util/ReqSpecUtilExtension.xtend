@@ -4,10 +4,11 @@ import org.eclipse.emf.ecore.EObject
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.ReqSpecs
 import org.osate.reqspec.reqSpec.StakeholderGoals
+import org.osate.reqspec.reqSpec.Requirement
 
-class ReqSpecUtil {
+class ReqSpecUtilExtension {
 	
-	def contextClassifier(ContractualElement context) {
+	def static contextClassifier(ContractualElement context) {
 		var EObject container = context
 		while (container.eContainer != null) {
 			container =container.eContainer
@@ -21,6 +22,10 @@ class ReqSpecUtil {
 			} 
 		}
 		return null;
+	}
+	
+	def static requirementTarget(Requirement req){
+		req.target?:req.contextClassifier
 	}
 
 	

@@ -240,13 +240,13 @@ public interface AssurePackage extends EPackage
   int CASE_RESULT__INSTANCE = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
+   * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CASE_RESULT__SUCESS_MSG = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int CASE_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Sub Case Result</b></em>' containment reference list.
@@ -376,13 +376,13 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__INSTANCE = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
+   * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__SUCESS_MSG = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int CLAIM_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Sub Claim Result</b></em>' containment reference list.
@@ -503,13 +503,13 @@ public interface AssurePackage extends EPackage
   int ASSUMPTION_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
+   * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSUMPTION_RESULT__SUCESS_MSG = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int ASSUMPTION_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Verification Activity Result</b></em>' containment reference list.
@@ -621,13 +621,13 @@ public interface AssurePackage extends EPackage
   int PRECONDITION_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
+   * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PRECONDITION_RESULT__SUCESS_MSG = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int PRECONDITION_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Verification Activity Result</b></em>' containment reference list.
@@ -857,13 +857,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT = VERIFICATION_EXPR_FEATURE_COUNT + 5;
 
   /**
-   * The feature id for the '<em><b>Sucess Msg</b></em>' attribute.
+   * The feature id for the '<em><b>Message</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG = VERIFICATION_EXPR_FEATURE_COUNT + 6;
+  int VERIFICATION_ACTIVITY_RESULT__MESSAGE = VERIFICATION_EXPR_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Assumption Result</b></em>' containment reference list.
@@ -1258,15 +1258,15 @@ public interface AssurePackage extends EPackage
   EReference getCaseResult_Instance();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.CaseResult#getSucessMsg <em>Sucess Msg</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.CaseResult#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Sucess Msg</em>'.
-   * @see org.osate.assure.assure.CaseResult#getSucessMsg()
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.assure.assure.CaseResult#getMessage()
    * @see #getCaseResult()
    * @generated
    */
-  EAttribute getCaseResult_SucessMsg();
+  EAttribute getCaseResult_Message();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.CaseResult#getSubCaseResult <em>Sub Case Result</em>}'.
@@ -1334,15 +1334,15 @@ public interface AssurePackage extends EPackage
   EReference getClaimResult_Instance();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getSucessMsg <em>Sucess Msg</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Sucess Msg</em>'.
-   * @see org.osate.assure.assure.ClaimResult#getSucessMsg()
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.assure.assure.ClaimResult#getMessage()
    * @see #getClaimResult()
    * @generated
    */
-  EAttribute getClaimResult_SucessMsg();
+  EAttribute getClaimResult_Message();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}'.
@@ -1399,15 +1399,15 @@ public interface AssurePackage extends EPackage
   EReference getAssumptionResult_Target();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssumptionResult#getSucessMsg <em>Sucess Msg</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssumptionResult#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Sucess Msg</em>'.
-   * @see org.osate.assure.assure.AssumptionResult#getSucessMsg()
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.assure.assure.AssumptionResult#getMessage()
    * @see #getAssumptionResult()
    * @generated
    */
-  EAttribute getAssumptionResult_SucessMsg();
+  EAttribute getAssumptionResult_Message();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssumptionResult#getVerificationActivityResult <em>Verification Activity Result</em>}'.
@@ -1453,15 +1453,15 @@ public interface AssurePackage extends EPackage
   EReference getPreconditionResult_Target();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.PreconditionResult#getSucessMsg <em>Sucess Msg</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.PreconditionResult#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Sucess Msg</em>'.
-   * @see org.osate.assure.assure.PreconditionResult#getSucessMsg()
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.assure.assure.PreconditionResult#getMessage()
    * @see #getPreconditionResult()
    * @generated
    */
-  EAttribute getPreconditionResult_SucessMsg();
+  EAttribute getPreconditionResult_Message();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.PreconditionResult#getVerificationActivityResult <em>Verification Activity Result</em>}'.
@@ -1551,15 +1551,15 @@ public interface AssurePackage extends EPackage
   EReference getVerificationActivityResult_ResultReport();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationActivityResult#getSucessMsg <em>Sucess Msg</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationActivityResult#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Sucess Msg</em>'.
-   * @see org.osate.assure.assure.VerificationActivityResult#getSucessMsg()
+   * @return the meta object for the attribute '<em>Message</em>'.
+   * @see org.osate.assure.assure.VerificationActivityResult#getMessage()
    * @see #getVerificationActivityResult()
    * @generated
    */
-  EAttribute getVerificationActivityResult_SucessMsg();
+  EAttribute getVerificationActivityResult_Message();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.VerificationActivityResult#getAssumptionResult <em>Assumption Result</em>}'.
@@ -1930,12 +1930,12 @@ public interface AssurePackage extends EPackage
     EReference CASE_RESULT__INSTANCE = eINSTANCE.getCaseResult_Instance();
 
     /**
-     * The meta object literal for the '<em><b>Sucess Msg</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CASE_RESULT__SUCESS_MSG = eINSTANCE.getCaseResult_SucessMsg();
+    EAttribute CASE_RESULT__MESSAGE = eINSTANCE.getCaseResult_Message();
 
     /**
      * The meta object literal for the '<em><b>Sub Case Result</b></em>' containment reference list feature.
@@ -1988,12 +1988,12 @@ public interface AssurePackage extends EPackage
     EReference CLAIM_RESULT__INSTANCE = eINSTANCE.getClaimResult_Instance();
 
     /**
-     * The meta object literal for the '<em><b>Sucess Msg</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CLAIM_RESULT__SUCESS_MSG = eINSTANCE.getClaimResult_SucessMsg();
+    EAttribute CLAIM_RESULT__MESSAGE = eINSTANCE.getClaimResult_Message();
 
     /**
      * The meta object literal for the '<em><b>Sub Claim Result</b></em>' containment reference list feature.
@@ -2038,12 +2038,12 @@ public interface AssurePackage extends EPackage
     EReference ASSUMPTION_RESULT__TARGET = eINSTANCE.getAssumptionResult_Target();
 
     /**
-     * The meta object literal for the '<em><b>Sucess Msg</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSUMPTION_RESULT__SUCESS_MSG = eINSTANCE.getAssumptionResult_SucessMsg();
+    EAttribute ASSUMPTION_RESULT__MESSAGE = eINSTANCE.getAssumptionResult_Message();
 
     /**
      * The meta object literal for the '<em><b>Verification Activity Result</b></em>' containment reference list feature.
@@ -2080,12 +2080,12 @@ public interface AssurePackage extends EPackage
     EReference PRECONDITION_RESULT__TARGET = eINSTANCE.getPreconditionResult_Target();
 
     /**
-     * The meta object literal for the '<em><b>Sucess Msg</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute PRECONDITION_RESULT__SUCESS_MSG = eINSTANCE.getPreconditionResult_SucessMsg();
+    EAttribute PRECONDITION_RESULT__MESSAGE = eINSTANCE.getPreconditionResult_Message();
 
     /**
      * The meta object literal for the '<em><b>Verification Activity Result</b></em>' containment reference list feature.
@@ -2154,12 +2154,12 @@ public interface AssurePackage extends EPackage
     EReference VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT = eINSTANCE.getVerificationActivityResult_ResultReport();
 
     /**
-     * The meta object literal for the '<em><b>Sucess Msg</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG = eINSTANCE.getVerificationActivityResult_SucessMsg();
+    EAttribute VERIFICATION_ACTIVITY_RESULT__MESSAGE = eINSTANCE.getVerificationActivityResult_Message();
 
     /**
      * The meta object literal for the '<em><b>Assumption Result</b></em>' containment reference list feature.

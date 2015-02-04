@@ -98,28 +98,28 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ShowValue");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cRefAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cRefEObjectCrossReference_0_0 = (CrossReference)cRefAssignment_0.eContents().get(0);
-		private final RuleCall cRefEObjectIDTerminalRuleCall_0_0_1 = (RuleCall)cRefEObjectCrossReference_0_0.eContents().get(1);
+		private final CrossReference cRefConstantDeclCrossReference_0_0 = (CrossReference)cRefAssignment_0.eContents().get(0);
+		private final RuleCall cRefConstantDeclIDTerminalRuleCall_0_0_1 = (RuleCall)cRefConstantDeclCrossReference_0_0.eContents().get(1);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cPercentSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cUnitAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cUnitIDTerminalRuleCall_1_1_0 = (RuleCall)cUnitAssignment_1_1.eContents().get(0);
 		
 		//ShowValue:
-		//	ref=[ecore::EObject] ("%" unit=ID)?;
+		//	ref=[ConstantDecl] ("%" unit=ID)?;
 		public ParserRule getRule() { return rule; }
 
-		//ref=[ecore::EObject] ("%" unit=ID)?
+		//ref=[ConstantDecl] ("%" unit=ID)?
 		public Group getGroup() { return cGroup; }
 
-		//ref=[ecore::EObject]
+		//ref=[ConstantDecl]
 		public Assignment getRefAssignment_0() { return cRefAssignment_0; }
 
-		//[ecore::EObject]
-		public CrossReference getRefEObjectCrossReference_0_0() { return cRefEObjectCrossReference_0_0; }
+		//[ConstantDecl]
+		public CrossReference getRefConstantDeclCrossReference_0_0() { return cRefConstantDeclCrossReference_0_0; }
 
 		//ID
-		public RuleCall getRefEObjectIDTerminalRuleCall_0_0_1() { return cRefEObjectIDTerminalRuleCall_0_0_1; }
+		public RuleCall getRefConstantDeclIDTerminalRuleCall_0_0_1() { return cRefConstantDeclIDTerminalRuleCall_0_0_1; }
 
 		//("%" unit=ID)?
 		public Group getGroup_1() { return cGroup_1; }
@@ -145,6 +145,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cSubpathAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cSubpathReferencePathParserRuleCall_1_1_0 = (RuleCall)cSubpathAssignment_1_1.eContents().get(0);
 		
+		//// ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
 		//ReferencePath:
 		//	ref=[ecore::EObject] ("." subpath=ReferencePath);
 		public ParserRule getRule() { return rule; }
@@ -186,14 +187,16 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOpLessThanSignEqualsSignKeyword_1_0_3 = (Keyword)cOpAlternatives_1_0.eContents().get(3);
 		private final Keyword cOpGreaterThanSignKeyword_1_0_4 = (Keyword)cOpAlternatives_1_0.eContents().get(4);
 		private final Keyword cOpGreaterThanSignEqualsSignKeyword_1_0_5 = (Keyword)cOpAlternatives_1_0.eContents().get(5);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cLimitAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cLimitConstantDeclCrossReference_2_0 = (CrossReference)cLimitAssignment_2.eContents().get(0);
+		private final RuleCall cLimitConstantDeclIDTerminalRuleCall_2_0_1 = (RuleCall)cLimitConstantDeclCrossReference_2_0.eContents().get(1);
 		
 		//// Dummy placeholder for comparison conditions
 		//PredicateExpression:
-		//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
+		//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") limit=[ConstantDecl];
 		public ParserRule getRule() { return rule; }
 
-		//ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID
+		//ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") limit=[ConstantDecl]
 		public Group getGroup() { return cGroup; }
 
 		//ID
@@ -223,8 +226,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//">="
 		public Keyword getOpGreaterThanSignEqualsSignKeyword_1_0_5() { return cOpGreaterThanSignEqualsSignKeyword_1_0_5; }
 
+		//limit=[ConstantDecl]
+		public Assignment getLimitAssignment_2() { return cLimitAssignment_2; }
+
+		//[ConstantDecl]
+		public CrossReference getLimitConstantDeclCrossReference_2_0() { return cLimitConstantDeclCrossReference_2_0; }
+
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getLimitConstantDeclIDTerminalRuleCall_2_0_1() { return cLimitConstantDeclIDTerminalRuleCall_2_0_1; }
 	}
 
 	public class ConstantDeclElements extends AbstractParserRuleElementFinder {
@@ -233,14 +242,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cValueConstantValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final Assignment cConstantvalueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cConstantvalueConstantValueParserRuleCall_2_0 = (RuleCall)cConstantvalueAssignment_2.eContents().get(0);
 		
 		//ConstantDecl:
-		//	name=ID "=" value=ConstantValue;
+		//	name=ID "=" constantvalue=ConstantValue;
 		public ParserRule getRule() { return rule; }
 
-		//name=ID "=" value=ConstantValue
+		//name=ID "=" constantvalue=ConstantValue
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -252,11 +261,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"="
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 
-		//value=ConstantValue
-		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
+		//constantvalue=ConstantValue
+		public Assignment getConstantvalueAssignment_2() { return cConstantvalueAssignment_2; }
 
 		//ConstantValue
-		public RuleCall getValueConstantValueParserRuleCall_2_0() { return cValueConstantValueParserRuleCall_2_0; }
+		public RuleCall getConstantvalueConstantValueParserRuleCall_2_0() { return cConstantvalueConstantValueParserRuleCall_2_0; }
 	}
 
 	public class ConstantValueElements extends AbstractParserRuleElementFinder {
@@ -640,7 +649,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ShowValue:
-	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	//	ref=[ConstantDecl] ("%" unit=ID)?;
 	public ShowValueElements getShowValueAccess() {
 		return pShowValue;
 	}
@@ -649,6 +658,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getShowValueAccess().getRule();
 	}
 
+	//// ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
 	//ReferencePath:
 	//	ref=[ecore::EObject] ("." subpath=ReferencePath);
 	public ReferencePathElements getReferencePathAccess() {
@@ -661,7 +671,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Dummy placeholder for comparison conditions
 	//PredicateExpression:
-	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") ID;
+	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") limit=[ConstantDecl];
 	public PredicateExpressionElements getPredicateExpressionAccess() {
 		return pPredicateExpression;
 	}
@@ -671,7 +681,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDecl:
-	//	name=ID "=" value=ConstantValue;
+	//	name=ID "=" constantvalue=ConstantValue;
 	public ConstantDeclElements getConstantDeclAccess() {
 		return pConstantDecl;
 	}

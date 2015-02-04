@@ -302,9 +302,9 @@ ruleCaseResult returns [EObject current=null]
     }
 (
 (
-		lv_sucessMsg_22_0=RULE_STRING
+		lv_message_22_0=RULE_STRING
 		{
-			newLeafNode(lv_sucessMsg_22_0, grammarAccess.getCaseResultAccess().getSucessMsgSTRINGTerminalRuleCall_14_1_0()); 
+			newLeafNode(lv_message_22_0, grammarAccess.getCaseResultAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -312,8 +312,8 @@ ruleCaseResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"sucessMsg",
-        		lv_sucessMsg_22_0, 
+       			"message",
+        		lv_message_22_0, 
         		"STRING");
 	    }
 
@@ -597,15 +597,15 @@ ruleClaimResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_21='successMsg' 
+))?(	otherlv_21='message' 
     {
-    	newLeafNode(otherlv_21, grammarAccess.getClaimResultAccess().getSuccessMsgKeyword_13_0());
+    	newLeafNode(otherlv_21, grammarAccess.getClaimResultAccess().getMessageKeyword_13_0());
     }
 (
 (
-		lv_sucessMsg_22_0=RULE_STRING
+		lv_message_22_0=RULE_STRING
 		{
-			newLeafNode(lv_sucessMsg_22_0, grammarAccess.getClaimResultAccess().getSucessMsgSTRINGTerminalRuleCall_13_1_0()); 
+			newLeafNode(lv_message_22_0, grammarAccess.getClaimResultAccess().getMessageSTRINGTerminalRuleCall_13_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -613,8 +613,8 @@ ruleClaimResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"sucessMsg",
-        		lv_sucessMsg_22_0, 
+       			"message",
+        		lv_message_22_0, 
         		"STRING");
 	    }
 
@@ -885,9 +885,9 @@ ruleAssumptionResult returns [EObject current=null]
     }
 (
 (
-		lv_sucessMsg_20_0=RULE_STRING
+		lv_message_20_0=RULE_STRING
 		{
-			newLeafNode(lv_sucessMsg_20_0, grammarAccess.getAssumptionResultAccess().getSucessMsgSTRINGTerminalRuleCall_12_1_0()); 
+			newLeafNode(lv_message_20_0, grammarAccess.getAssumptionResultAccess().getMessageSTRINGTerminalRuleCall_12_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -895,8 +895,8 @@ ruleAssumptionResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"sucessMsg",
-        		lv_sucessMsg_20_0, 
+       			"message",
+        		lv_message_20_0, 
         		"STRING");
 	    }
 
@@ -1149,9 +1149,9 @@ rulePreconditionResult returns [EObject current=null]
     }
 (
 (
-		lv_sucessMsg_20_0=RULE_STRING
+		lv_message_20_0=RULE_STRING
 		{
-			newLeafNode(lv_sucessMsg_20_0, grammarAccess.getPreconditionResultAccess().getSucessMsgSTRINGTerminalRuleCall_12_1_0()); 
+			newLeafNode(lv_message_20_0, grammarAccess.getPreconditionResultAccess().getMessageSTRINGTerminalRuleCall_12_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1159,8 +1159,8 @@ rulePreconditionResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"sucessMsg",
-        		lv_sucessMsg_20_0, 
+       			"message",
+        		lv_message_20_0, 
         		"STRING");
 	    }
 
@@ -1506,9 +1506,9 @@ ruleVerificationActivityResult returns [EObject current=null]
     }
 (
 (
-		lv_sucessMsg_30_0=RULE_STRING
+		lv_message_30_0=RULE_STRING
 		{
-			newLeafNode(lv_sucessMsg_30_0, grammarAccess.getVerificationActivityResultAccess().getSucessMsgSTRINGTerminalRuleCall_17_1_0()); 
+			newLeafNode(lv_message_30_0, grammarAccess.getVerificationActivityResultAccess().getMessageSTRINGTerminalRuleCall_17_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1516,8 +1516,8 @@ ruleVerificationActivityResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"sucessMsg",
-        		lv_sucessMsg_30_0, 
+       			"message",
+        		lv_message_30_0, 
         		"STRING");
 	    }
 
@@ -2405,7 +2405,7 @@ ruleShowValue returns [EObject current=null]
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefEObjectCrossReference_0_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefConstantDeclCrossReference_0_0()); 
 	}
 
 )
@@ -2981,8 +2981,8 @@ ruleVerificationResultState returns [Enumerator current=null]
 )
     |(	enumLiteral_3='error' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getErrorEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getErrorEnumLiteralDeclaration_3()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3()); 
     }
 ));
 

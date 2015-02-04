@@ -17,7 +17,7 @@
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/TBD"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/SUCCESS"/>
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/FAIL"/>
-      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/error"/>
+      <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationResultState/ERROR"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Assure.ecore#//VerificationExecutionState">
       <genEnumLiterals ecoreEnumLiteral="Assure.ecore#//VerificationExecutionState/TODO"/>
@@ -29,7 +29,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//CaseResult/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//CaseResult/target"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//CaseResult/instance"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//CaseResult/sucessMsg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//CaseResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//CaseResult/subCaseResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//CaseResult/claimResult"/>
     </genClasses>
@@ -37,20 +37,20 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/target"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/instance"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/sucessMsg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/subClaimResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/verificationActivityResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//AssumptionResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssumptionResult/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//AssumptionResult/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssumptionResult/sucessMsg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//AssumptionResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssumptionResult/verificationActivityResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//PreconditionResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//PreconditionResult/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//PreconditionResult/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//PreconditionResult/sucessMsg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//PreconditionResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//PreconditionResult/verificationActivityResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//VerificationActivityResult">
@@ -60,7 +60,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationActivityResult/resultState"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/issues"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/resultReport"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationActivityResult/sucessMsg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationActivityResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/assumptionResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/preconditionResult"/>
     </genClasses>

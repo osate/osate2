@@ -42,7 +42,7 @@ import org.osate.verify.verify.VerificationActivity;
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getResultState <em>Result State</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getIssues <em>Issues</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getResultReport <em>Result Report</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getSucessMsg <em>Sucess Msg</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getAssumptionResult <em>Assumption Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationActivityResultImpl#getPreconditionResult <em>Precondition Result</em>}</li>
  * </ul>
@@ -143,24 +143,24 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
   protected ResultReport resultReport;
 
   /**
-   * The default value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
+   * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSucessMsg()
+   * @see #getMessage()
    * @generated
    * @ordered
    */
-  protected static final String SUCESS_MSG_EDEFAULT = null;
+  protected static final String MESSAGE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getSucessMsg() <em>Sucess Msg</em>}' attribute.
+   * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSucessMsg()
+   * @see #getMessage()
    * @generated
    * @ordered
    */
-  protected String sucessMsg = SUCESS_MSG_EDEFAULT;
+  protected String message = MESSAGE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getAssumptionResult() <em>Assumption Result</em>}' containment reference list.
@@ -377,9 +377,9 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getSucessMsg()
+  public String getMessage()
   {
-    return sucessMsg;
+    return message;
   }
 
   /**
@@ -387,12 +387,12 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSucessMsg(String newSucessMsg)
+  public void setMessage(String newMessage)
   {
-    String oldSucessMsg = sucessMsg;
-    sucessMsg = newSucessMsg;
+    String oldMessage = message;
+    message = newMessage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG, oldSucessMsg, sucessMsg));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_ACTIVITY_RESULT__MESSAGE, oldMessage, message));
   }
 
   /**
@@ -467,8 +467,8 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT:
         if (resolve) return getResultReport();
         return basicGetResultReport();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
-        return getSucessMsg();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__MESSAGE:
+        return getMessage();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
         return getAssumptionResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
@@ -507,8 +507,8 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT:
         setResultReport((ResultReport)newValue);
         return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
-        setSucessMsg((String)newValue);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__MESSAGE:
+        setMessage((String)newValue);
         return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
         getAssumptionResult().clear();
@@ -550,8 +550,8 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT:
         setResultReport((ResultReport)null);
         return;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
-        setSucessMsg(SUCESS_MSG_EDEFAULT);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__MESSAGE:
+        setMessage(MESSAGE_EDEFAULT);
         return;
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
         getAssumptionResult().clear();
@@ -585,8 +585,8 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
         return issues != null && !issues.isEmpty();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__RESULT_REPORT:
         return resultReport != null;
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__SUCESS_MSG:
-        return SUCESS_MSG_EDEFAULT == null ? sucessMsg != null : !SUCESS_MSG_EDEFAULT.equals(sucessMsg);
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT__MESSAGE:
+        return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__ASSUMPTION_RESULT:
         return assumptionResult != null && !assumptionResult.isEmpty();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT:
@@ -612,8 +612,8 @@ public class VerificationActivityResultImpl extends VerificationExprImpl impleme
     result.append(executionState);
     result.append(", resultState: ");
     result.append(resultState);
-    result.append(", sucessMsg: ");
-    result.append(sucessMsg);
+    result.append(", message: ");
+    result.append(message);
     result.append(')');
     return result.toString();
   }

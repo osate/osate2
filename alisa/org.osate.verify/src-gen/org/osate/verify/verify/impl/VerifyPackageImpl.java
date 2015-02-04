@@ -1234,7 +1234,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.ASSERTIONEXCEPTION);
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.MULTIMARKER);
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.MULTIDIAGNOSTICS);
-    addEEnumLiteral(supportedTypesEEnum, SupportedTypes.MULTIRESULTREPORT);
+    addEEnumLiteral(supportedTypesEEnum, SupportedTypes.RESULTREPORT);
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.RESOLUTEPROVE);
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.MANUAL);
 

@@ -50,14 +50,14 @@ public enum VerificationResultState implements Enumerator
   FAIL(2, "FAIL", "fail"),
 
   /**
-   * The '<em><b>Error</b></em>' literal object.
+   * The '<em><b>ERROR</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #ERROR_VALUE
    * @generated
    * @ordered
    */
-  ERROR(3, "error", "error");
+  ERROR(3, "ERROR", "error");
 
   /**
    * The '<em><b>TBD</b></em>' literal value.
@@ -105,15 +105,15 @@ public enum VerificationResultState implements Enumerator
   public static final int FAIL_VALUE = 2;
 
   /**
-   * The '<em><b>Error</b></em>' literal value.
+   * The '<em><b>ERROR</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>Error</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>ERROR</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
    * @see #ERROR
-   * @model name="error"
+   * @model literal="error"
    * @generated
    * @ordered
    */

@@ -64,6 +64,11 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
     return null;
   }
   
+  /**
+   * who needs to understand the method types?
+   * the runVerificationMethod dispatcher may do different catch methods
+   * The dispatchVerificationMethod may know from its label what type it is.
+   */
   public void runVerificationMethod(final VerificationActivityResult verificationActivityResult) {
     try {
       VerificationActivity _target = verificationActivityResult.getTarget();
