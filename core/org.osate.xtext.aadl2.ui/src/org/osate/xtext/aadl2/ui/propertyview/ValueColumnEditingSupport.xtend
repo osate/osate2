@@ -39,6 +39,7 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.jface.viewers.EditingSupport
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.SWT
+import org.eclipse.ui.texteditor.AbstractTextEditor
 import org.eclipse.xtext.nodemodel.ICompositeNode
 import org.eclipse.xtext.nodemodel.INode
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
@@ -169,6 +170,9 @@ package class ValueColumnEditingSupport extends EditingSupport {
 				}
 			})
 			propertyView.treeViewer.refresh((element as TreeEntry).propertyParent)
+			switch activeEditor : propertyView.site.workbenchWindow.activePage.activeEditor {
+				AbstractTextEditor case propertyView.textSelection != null: activeEditor.selectionProvider.selection = propertyView.textSelection
+			}
 		}
 	}
 	
