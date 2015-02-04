@@ -184,6 +184,8 @@ class AadlPropertyView extends ViewPart {
 	var package IXtextDocument xtextDocument = null
 
 	var ResourceSet resourceSetFromSelection = null
+	
+	package ITextSelection textSelection
 
 	@Inject
 	var package ISerializer serializer
@@ -627,18 +629,21 @@ class AadlPropertyView extends ViewPart {
 			site.registerContextMenu(it, treeViewer)
 		]
 	}
-
+	
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
 		xtextDocument?.removeModelListener(xtextModelListener)
 		val currentSelection = switch selection {
 			case selection.empty: {
+				textSelection = null
 				null
 			}
 			ITextSelection case part instanceof XtextEditor: {
+				textSelection = selection
 				xtextDocument = (part as XtextEditor).document
 				xtextDocument.readOnly[new EObjectAtOffsetHelper().resolveContainedElementAt(it, selection.offset)]
 			}
 			IStructuredSelection case selection.size == 1: {
+				textSelection = null
 				switch selectedObject : selection.firstElement {
 					EObject: {
 						xtextDocument = null
