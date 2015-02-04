@@ -764,13 +764,17 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		for (final PropertyOwner propOwner : property.getAppliesTos()) {
 
 			if (propOwner instanceof MetaclassReference) {
-				// OsateDebug.osateDebug("[CompnentInstanceImpl]   property owner=" + propOwner);
-				if ((((MetaclassReference) propOwner).getMetaclassNames().size() > 0)
-						&& ((MetaclassReference) propOwner).getMetaclassNames().get(0).equals("all")) {
+				MetaclassReference metaRef = (MetaclassReference) propOwner;
+
+				if (metaRef.getMetaclassNames().size() > 0 && metaRef.getMetaclassNames().get(0).equals("all")) {
 					return true;
 				}
 
-				String catLitteral = ((MetaclassReference) propOwner).getMetaclass().getName().toLowerCase();
+				if (metaRef.getMetaclass() == null) {
+					return false;
+				}
+
+				String catLitteral = metaRef.getMetaclass().getName().toLowerCase();
 
 				/*
 				 * JD: fixes for bug #126
@@ -797,8 +801,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 				if (getCategory().equals(categ)) {
 					return true;
 				}
-				// OsateDebug.osateDebug("   catLitteral =" + catLitteral);
-
 			}
 		}
 
@@ -1058,7 +1060,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
 	@Override
@@ -1074,7 +1076,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
 	@Override
@@ -1097,7 +1099,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

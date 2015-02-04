@@ -546,22 +546,17 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	public boolean acceptsProperty(Property property) {
 
 		for (PropertyOwner appliesTo : property.getAppliesTos()) {
-			// for (MetaclassReference metaclassReference :
-			// property.getAppliesToMetaclasses())
-			try {
-				if (Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(eClass())) {
+			if (Aadl2Package.eINSTANCE.getAbstract().isSuperTypeOf(eClass())) {
+				return true;
+			}
+			if (appliesTo instanceof MetaclassReference) {
+				MetaclassReference metaRef = (MetaclassReference) appliesTo;
+				if (metaRef.getMetaclass() != null && metaRef.getMetaclass().isSuperTypeOf(eClass())) {
 					return true;
 				}
-				if (appliesTo instanceof MetaclassReference
-						&& ((MetaclassReference) appliesTo).getMetaclass().isSuperTypeOf(eClass())) {
-					return true;
-				}
-				if (appliesTo instanceof ClassifierValue) {
-					return true;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
+			}
+			if (appliesTo instanceof ClassifierValue) {
+				return true;
 			}
 		}
 		return false;
