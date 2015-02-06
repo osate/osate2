@@ -13,8 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.organization.organization.Stakeholder#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.organization.organization.Stakeholder#getLast <em>Last</em>}</li>
+ *   <li>{@link org.osate.organization.organization.Stakeholder#getFullname <em>Fullname</em>}</li>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getRole <em>Role</em>}</li>
@@ -56,56 +55,30 @@ public interface Stakeholder extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>First</b></em>' attribute.
+   * Returns the value of the '<em><b>Fullname</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>First</em>' attribute isn't clear,
+   * If the meaning of the '<em>Fullname</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>First</em>' attribute.
-   * @see #setFirst(String)
-   * @see org.osate.organization.organization.OrganizationPackage#getStakeholder_First()
+   * @return the value of the '<em>Fullname</em>' attribute.
+   * @see #setFullname(String)
+   * @see org.osate.organization.organization.OrganizationPackage#getStakeholder_Fullname()
    * @model
    * @generated
    */
-  String getFirst();
+  String getFullname();
 
   /**
-   * Sets the value of the '{@link org.osate.organization.organization.Stakeholder#getFirst <em>First</em>}' attribute.
+   * Sets the value of the '{@link org.osate.organization.organization.Stakeholder#getFullname <em>Fullname</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>First</em>' attribute.
-   * @see #getFirst()
+   * @param value the new value of the '<em>Fullname</em>' attribute.
+   * @see #getFullname()
    * @generated
    */
-  void setFirst(String value);
-
-  /**
-   * Returns the value of the '<em><b>Last</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Last</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Last</em>' attribute.
-   * @see #setLast(String)
-   * @see org.osate.organization.organization.OrganizationPackage#getStakeholder_Last()
-   * @model
-   * @generated
-   */
-  String getLast();
-
-  /**
-   * Sets the value of the '{@link org.osate.organization.organization.Stakeholder#getLast <em>Last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Last</em>' attribute.
-   * @see #getLast()
-   * @generated
-   */
-  void setLast(String value);
+  void setFullname(String value);
 
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.

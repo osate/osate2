@@ -96,4 +96,14 @@ class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
 //		eod.EObjectOrProxy
 //	}
 
+def void printScope(Iterable<IEObjectDescription> edl){
+	println("scope content")
+	edl.forEach[ed|println(ed.name+ " URI " + ed.EObjectURI)]
+}
+def void printScope(IScope scope){
+	println("scope")
+	val edl = scope.allElements
+	edl.forEach[ed|println(ed.name+ " URI " + ed.EObjectURI)]
+}
+
 }

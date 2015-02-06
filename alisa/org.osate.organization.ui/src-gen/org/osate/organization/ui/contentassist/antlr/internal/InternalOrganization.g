@@ -474,7 +474,6 @@ rule__Stakeholder__Group_2_1_0__2
     }
 :
 	rule__Stakeholder__Group_2_1_0__2__Impl
-	rule__Stakeholder__Group_2_1_0__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -486,45 +485,15 @@ rule__Stakeholder__Group_2_1_0__2__Impl
     }
 :
 (
-{ before(grammarAccess.getStakeholderAccess().getFirstAssignment_2_1_0_2()); }
-(rule__Stakeholder__FirstAssignment_2_1_0_2)
-{ after(grammarAccess.getStakeholderAccess().getFirstAssignment_2_1_0_2()); }
+{ before(grammarAccess.getStakeholderAccess().getFullnameAssignment_2_1_0_2()); }
+(rule__Stakeholder__FullnameAssignment_2_1_0_2)
+{ after(grammarAccess.getStakeholderAccess().getFullnameAssignment_2_1_0_2()); }
 )
 
 ;
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-rule__Stakeholder__Group_2_1_0__3
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__Stakeholder__Group_2_1_0__3__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Stakeholder__Group_2_1_0__3__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getStakeholderAccess().getLastAssignment_2_1_0_3()); }
-(rule__Stakeholder__LastAssignment_2_1_0_3)
-{ after(grammarAccess.getStakeholderAccess().getLastAssignment_2_1_0_3()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
 
 
 
@@ -1118,29 +1087,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Stakeholder__FirstAssignment_2_1_0_2
+rule__Stakeholder__FullnameAssignment_2_1_0_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getStakeholderAccess().getFirstIDTerminalRuleCall_2_1_0_2_0()); }
-	RULE_ID{ after(grammarAccess.getStakeholderAccess().getFirstIDTerminalRuleCall_2_1_0_2_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Stakeholder__LastAssignment_2_1_0_3
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getStakeholderAccess().getLastIDTerminalRuleCall_2_1_0_3_0()); }
-	RULE_ID{ after(grammarAccess.getStakeholderAccess().getLastIDTerminalRuleCall_2_1_0_3_0()); }
+{ before(grammarAccess.getStakeholderAccess().getFullnameSTRINGTerminalRuleCall_2_1_0_2_0()); }
+	RULE_STRING{ after(grammarAccess.getStakeholderAccess().getFullnameSTRINGTerminalRuleCall_2_1_0_2_0()); }
 )
 
 ;

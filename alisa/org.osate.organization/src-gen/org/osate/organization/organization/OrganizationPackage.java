@@ -113,22 +113,13 @@ public interface OrganizationPackage extends EPackage
   int STAKEHOLDER__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>First</b></em>' attribute.
+   * The feature id for the '<em><b>Fullname</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STAKEHOLDER__FIRST = 1;
-
-  /**
-   * The feature id for the '<em><b>Last</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STAKEHOLDER__LAST = 2;
+  int STAKEHOLDER__FULLNAME = 1;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -137,7 +128,7 @@ public interface OrganizationPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER__TITLE = 3;
+  int STAKEHOLDER__TITLE = 2;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -146,7 +137,7 @@ public interface OrganizationPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER__DESCRIPTION = 4;
+  int STAKEHOLDER__DESCRIPTION = 3;
 
   /**
    * The feature id for the '<em><b>Role</b></em>' attribute.
@@ -155,7 +146,7 @@ public interface OrganizationPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER__ROLE = 5;
+  int STAKEHOLDER__ROLE = 4;
 
   /**
    * The feature id for the '<em><b>Email</b></em>' attribute.
@@ -164,7 +155,7 @@ public interface OrganizationPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER__EMAIL = 6;
+  int STAKEHOLDER__EMAIL = 5;
 
   /**
    * The feature id for the '<em><b>Phone</b></em>' attribute.
@@ -173,7 +164,7 @@ public interface OrganizationPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER__PHONE = 7;
+  int STAKEHOLDER__PHONE = 6;
 
   /**
    * The number of structural features of the '<em>Stakeholder</em>' class.
@@ -182,7 +173,7 @@ public interface OrganizationPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_FEATURE_COUNT = 8;
+  int STAKEHOLDER_FEATURE_COUNT = 7;
 
 
   /**
@@ -239,26 +230,15 @@ public interface OrganizationPackage extends EPackage
   EAttribute getStakeholder_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.organization.organization.Stakeholder#getFirst <em>First</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.organization.organization.Stakeholder#getFullname <em>Fullname</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>First</em>'.
-   * @see org.osate.organization.organization.Stakeholder#getFirst()
+   * @return the meta object for the attribute '<em>Fullname</em>'.
+   * @see org.osate.organization.organization.Stakeholder#getFullname()
    * @see #getStakeholder()
    * @generated
    */
-  EAttribute getStakeholder_First();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.organization.organization.Stakeholder#getLast <em>Last</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Last</em>'.
-   * @see org.osate.organization.organization.Stakeholder#getLast()
-   * @see #getStakeholder()
-   * @generated
-   */
-  EAttribute getStakeholder_Last();
+  EAttribute getStakeholder_Fullname();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.organization.organization.Stakeholder#getTitle <em>Title</em>}'.
@@ -383,20 +363,12 @@ public interface OrganizationPackage extends EPackage
     EAttribute STAKEHOLDER__NAME = eINSTANCE.getStakeholder_Name();
 
     /**
-     * The meta object literal for the '<em><b>First</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Fullname</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute STAKEHOLDER__FIRST = eINSTANCE.getStakeholder_First();
-
-    /**
-     * The meta object literal for the '<em><b>Last</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute STAKEHOLDER__LAST = eINSTANCE.getStakeholder_Last();
+    EAttribute STAKEHOLDER__FULLNAME = eINSTANCE.getStakeholder_Fullname();
 
     /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.

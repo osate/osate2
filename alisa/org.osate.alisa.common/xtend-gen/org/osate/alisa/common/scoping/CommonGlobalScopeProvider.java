@@ -22,7 +22,9 @@ import org.eclipse.xtext.resource.IContainer;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.DefaultGlobalScopeProvider;
+import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
@@ -166,5 +168,34 @@ public class CommonGlobalScopeProvider extends DefaultGlobalScopeProvider {
       _xblockexpression = _eObjectURI;
     }
     return _xblockexpression;
+  }
+  
+  public void printScope(final Iterable<IEObjectDescription> edl) {
+    InputOutput.<String>println("scope content");
+    final Procedure1<IEObjectDescription> _function = new Procedure1<IEObjectDescription>() {
+      public void apply(final IEObjectDescription ed) {
+        QualifiedName _name = ed.getName();
+        String _plus = (_name + " URI ");
+        URI _eObjectURI = ed.getEObjectURI();
+        String _plus_1 = (_plus + _eObjectURI);
+        InputOutput.<String>println(_plus_1);
+      }
+    };
+    IterableExtensions.<IEObjectDescription>forEach(edl, _function);
+  }
+  
+  public void printScope(final IScope scope) {
+    InputOutput.<String>println("scope");
+    final Iterable<IEObjectDescription> edl = scope.getAllElements();
+    final Procedure1<IEObjectDescription> _function = new Procedure1<IEObjectDescription>() {
+      public void apply(final IEObjectDescription ed) {
+        QualifiedName _name = ed.getName();
+        String _plus = (_name + " URI ");
+        URI _eObjectURI = ed.getEObjectURI();
+        String _plus_1 = (_plus + _eObjectURI);
+        InputOutput.<String>println(_plus_1);
+      }
+    };
+    IterableExtensions.<IEObjectDescription>forEach(edl, _function);
   }
 }

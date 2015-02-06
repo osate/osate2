@@ -20,8 +20,7 @@ import org.osate.organization.organization.Stakeholder;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getFirst <em>First</em>}</li>
- *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getLast <em>Last</em>}</li>
+ *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getFullname <em>Fullname</em>}</li>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.organization.organization.impl.StakeholderImpl#getRole <em>Role</em>}</li>
@@ -55,44 +54,24 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getFirst() <em>First</em>}' attribute.
+   * The default value of the '{@link #getFullname() <em>Fullname</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFirst()
+   * @see #getFullname()
    * @generated
    * @ordered
    */
-  protected static final String FIRST_EDEFAULT = null;
+  protected static final String FULLNAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getFirst() <em>First</em>}' attribute.
+   * The cached value of the '{@link #getFullname() <em>Fullname</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFirst()
+   * @see #getFullname()
    * @generated
    * @ordered
    */
-  protected String first = FIRST_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getLast() <em>Last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getLast()
-   * @generated
-   * @ordered
-   */
-  protected static final String LAST_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getLast() <em>Last</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getLast()
-   * @generated
-   * @ordered
-   */
-  protected String last = LAST_EDEFAULT;
+  protected String fullname = FULLNAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
@@ -243,9 +222,9 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getFirst()
+  public String getFullname()
   {
-    return first;
+    return fullname;
   }
 
   /**
@@ -253,35 +232,12 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFirst(String newFirst)
+  public void setFullname(String newFullname)
   {
-    String oldFirst = first;
-    first = newFirst;
+    String oldFullname = fullname;
+    fullname = newFullname;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OrganizationPackage.STAKEHOLDER__FIRST, oldFirst, first));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getLast()
-  {
-    return last;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setLast(String newLast)
-  {
-    String oldLast = last;
-    last = newLast;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OrganizationPackage.STAKEHOLDER__LAST, oldLast, last));
+      eNotify(new ENotificationImpl(this, Notification.SET, OrganizationPackage.STAKEHOLDER__FULLNAME, oldFullname, fullname));
   }
 
   /**
@@ -411,10 +367,8 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
     {
       case OrganizationPackage.STAKEHOLDER__NAME:
         return getName();
-      case OrganizationPackage.STAKEHOLDER__FIRST:
-        return getFirst();
-      case OrganizationPackage.STAKEHOLDER__LAST:
-        return getLast();
+      case OrganizationPackage.STAKEHOLDER__FULLNAME:
+        return getFullname();
       case OrganizationPackage.STAKEHOLDER__TITLE:
         return getTitle();
       case OrganizationPackage.STAKEHOLDER__DESCRIPTION:
@@ -442,11 +396,8 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
       case OrganizationPackage.STAKEHOLDER__NAME:
         setName((String)newValue);
         return;
-      case OrganizationPackage.STAKEHOLDER__FIRST:
-        setFirst((String)newValue);
-        return;
-      case OrganizationPackage.STAKEHOLDER__LAST:
-        setLast((String)newValue);
+      case OrganizationPackage.STAKEHOLDER__FULLNAME:
+        setFullname((String)newValue);
         return;
       case OrganizationPackage.STAKEHOLDER__TITLE:
         setTitle((String)newValue);
@@ -480,11 +431,8 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
       case OrganizationPackage.STAKEHOLDER__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case OrganizationPackage.STAKEHOLDER__FIRST:
-        setFirst(FIRST_EDEFAULT);
-        return;
-      case OrganizationPackage.STAKEHOLDER__LAST:
-        setLast(LAST_EDEFAULT);
+      case OrganizationPackage.STAKEHOLDER__FULLNAME:
+        setFullname(FULLNAME_EDEFAULT);
         return;
       case OrganizationPackage.STAKEHOLDER__TITLE:
         setTitle(TITLE_EDEFAULT);
@@ -517,10 +465,8 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
     {
       case OrganizationPackage.STAKEHOLDER__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case OrganizationPackage.STAKEHOLDER__FIRST:
-        return FIRST_EDEFAULT == null ? first != null : !FIRST_EDEFAULT.equals(first);
-      case OrganizationPackage.STAKEHOLDER__LAST:
-        return LAST_EDEFAULT == null ? last != null : !LAST_EDEFAULT.equals(last);
+      case OrganizationPackage.STAKEHOLDER__FULLNAME:
+        return FULLNAME_EDEFAULT == null ? fullname != null : !FULLNAME_EDEFAULT.equals(fullname);
       case OrganizationPackage.STAKEHOLDER__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case OrganizationPackage.STAKEHOLDER__DESCRIPTION:
@@ -548,10 +494,8 @@ public class StakeholderImpl extends MinimalEObjectImpl.Container implements Sta
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", first: ");
-    result.append(first);
-    result.append(", last: ");
-    result.append(last);
+    result.append(", fullname: ");
+    result.append(fullname);
     result.append(", title: ");
     result.append(title);
     result.append(", description: ");

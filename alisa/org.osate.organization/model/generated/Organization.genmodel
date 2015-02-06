@@ -13,8 +13,7 @@
     </genClasses>
     <genClasses ecoreClass="Organization.ecore#//Stakeholder">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/first"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/last"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/fullname"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Organization.ecore#//Stakeholder/role"/>

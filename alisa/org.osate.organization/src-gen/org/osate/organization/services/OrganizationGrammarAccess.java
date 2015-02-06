@@ -62,10 +62,8 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2_1_0 = (Group)cUnorderedGroup_2_1.eContents().get(0);
 		private final Keyword cFullKeyword_2_1_0_0 = (Keyword)cGroup_2_1_0.eContents().get(0);
 		private final Keyword cNameKeyword_2_1_0_1 = (Keyword)cGroup_2_1_0.eContents().get(1);
-		private final Assignment cFirstAssignment_2_1_0_2 = (Assignment)cGroup_2_1_0.eContents().get(2);
-		private final RuleCall cFirstIDTerminalRuleCall_2_1_0_2_0 = (RuleCall)cFirstAssignment_2_1_0_2.eContents().get(0);
-		private final Assignment cLastAssignment_2_1_0_3 = (Assignment)cGroup_2_1_0.eContents().get(3);
-		private final RuleCall cLastIDTerminalRuleCall_2_1_0_3_0 = (RuleCall)cLastAssignment_2_1_0_3.eContents().get(0);
+		private final Assignment cFullnameAssignment_2_1_0_2 = (Assignment)cGroup_2_1_0.eContents().get(2);
+		private final RuleCall cFullnameSTRINGTerminalRuleCall_2_1_0_2_0 = (RuleCall)cFullnameAssignment_2_1_0_2.eContents().get(0);
 		private final Group cGroup_2_1_1 = (Group)cUnorderedGroup_2_1.eContents().get(1);
 		private final Keyword cTitleKeyword_2_1_1_0 = (Keyword)cGroup_2_1_1.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1_1_1 = (Assignment)cGroup_2_1_1.eContents().get(1);
@@ -91,11 +89,11 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		/// *
 		// * Stakeholder
 		// * / Stakeholder:
-		//	"stakeholder" name=ID ("[" (("full" "name" first=ID last=ID)? & ("title" title=STRING)? & ("description"
+		//	"stakeholder" name=ID ("[" (("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description"
 		//	description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?) "]")?;
 		public ParserRule getRule() { return rule; }
 
-		//"stakeholder" name=ID ("[" (("full" "name" first=ID last=ID)? & ("title" title=STRING)? & ("description"
+		//"stakeholder" name=ID ("[" (("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description"
 		//description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?) "]")?
 		public Group getGroup() { return cGroup; }
 
@@ -108,18 +106,18 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//("[" (("full" "name" first=ID last=ID)? & ("title" title=STRING)? & ("description" description=STRING)? & ("role"
+		//("[" (("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description" description=STRING)? & ("role"
 		//role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?) "]")?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_2_0() { return cLeftSquareBracketKeyword_2_0; }
 
-		//("full" "name" first=ID last=ID)? & ("title" title=STRING)? & ("description" description=STRING)? & ("role"
-		//role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?
+		//("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description" description=STRING)? & ("role" role=STRING)?
+		//& ("email" email=STRING)? & ("phone" phone=STRING)?
 		public UnorderedGroup getUnorderedGroup_2_1() { return cUnorderedGroup_2_1; }
 
-		//("full" "name" first=ID last=ID)?
+		//("full" "name" fullname=STRING)?
 		public Group getGroup_2_1_0() { return cGroup_2_1_0; }
 
 		//"full"
@@ -128,17 +126,11 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//"name"
 		public Keyword getNameKeyword_2_1_0_1() { return cNameKeyword_2_1_0_1; }
 
-		//first=ID
-		public Assignment getFirstAssignment_2_1_0_2() { return cFirstAssignment_2_1_0_2; }
+		//fullname=STRING
+		public Assignment getFullnameAssignment_2_1_0_2() { return cFullnameAssignment_2_1_0_2; }
 
-		//ID
-		public RuleCall getFirstIDTerminalRuleCall_2_1_0_2_0() { return cFirstIDTerminalRuleCall_2_1_0_2_0; }
-
-		//last=ID
-		public Assignment getLastAssignment_2_1_0_3() { return cLastAssignment_2_1_0_3; }
-
-		//ID
-		public RuleCall getLastIDTerminalRuleCall_2_1_0_3_0() { return cLastIDTerminalRuleCall_2_1_0_3_0; }
+		//STRING
+		public RuleCall getFullnameSTRINGTerminalRuleCall_2_1_0_2_0() { return cFullnameSTRINGTerminalRuleCall_2_1_0_2_0; }
 
 		//("title" title=STRING)?
 		public Group getGroup_2_1_1() { return cGroup_2_1_1; }
@@ -261,7 +253,7 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	/// *
 	// * Stakeholder
 	// * / Stakeholder:
-	//	"stakeholder" name=ID ("[" (("full" "name" first=ID last=ID)? & ("title" title=STRING)? & ("description"
+	//	"stakeholder" name=ID ("[" (("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description"
 	//	description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?) "]")?;
 	public StakeholderElements getStakeholderAccess() {
 		return pStakeholder;

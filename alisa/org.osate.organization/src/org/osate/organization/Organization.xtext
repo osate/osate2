@@ -13,7 +13,7 @@ Organization:
  */
 Stakeholder:
 	'stakeholder' name=ID
-	('['( ( 'full' 'name' first=ID last=ID)?
+	('['( ( 'full' 'name' fullname=STRING)?
 		&('title'  title=STRING )?
 	&('description'  description=STRING )?
 	&('role'  role=STRING )?

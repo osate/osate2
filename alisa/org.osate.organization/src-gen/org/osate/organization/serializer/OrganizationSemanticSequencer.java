@@ -53,7 +53,7 @@ public class OrganizationSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 *     (
 	 *         name=ID 
 	 *         (
-	 *             (first=ID last=ID)? 
+	 *             fullname=STRING? 
 	 *             title=STRING? 
 	 *             description=STRING? 
 	 *             role=STRING? 
