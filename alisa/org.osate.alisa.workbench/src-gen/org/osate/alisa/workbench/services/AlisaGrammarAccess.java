@@ -445,7 +445,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Qualified classifier reference
 	//AadlClassifierReference:
-	//	(ID "::")* ID ("." ID)?;
+	//	(ID "::")* ID ("." ID)*;
 	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
 		return gaCommon.getAadlClassifierReferenceAccess();
 	}

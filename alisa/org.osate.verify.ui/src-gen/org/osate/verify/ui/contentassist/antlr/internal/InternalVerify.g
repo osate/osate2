@@ -837,32 +837,6 @@ finally {
 
 
 
-// Entry rule entryRuleValueString
-entryRuleValueString 
-:
-{ before(grammarAccess.getValueStringRule()); }
-	 ruleValueString
-{ after(grammarAccess.getValueStringRule()); } 
-	 EOF 
-;
-
-// Rule ValueString
-ruleValueString
-    @init {
-		int stackSize = keepStackSize();
-    }
-	:
-(
-{ before(grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); }
-	RULE_STRING
-{ after(grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 
 
 // Entry rule entryRuleAadlClassifierReference
@@ -7984,8 +7958,8 @@ rule__VerificationPlan__TitleAssignment_2_1
     }
 :
 (
-{ before(grammarAccess.getVerificationPlanAccess().getTitleValueStringParserRuleCall_2_1_0()); }
-	ruleValueString{ after(grammarAccess.getVerificationPlanAccess().getTitleValueStringParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getVerificationPlanAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
+	RULE_STRING{ after(grammarAccess.getVerificationPlanAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
 )
 
 ;
@@ -8097,8 +8071,8 @@ rule__Claim__TitleAssignment_2_1
     }
 :
 (
-{ before(grammarAccess.getClaimAccess().getTitleValueStringParserRuleCall_2_1_0()); }
-	ruleValueString{ after(grammarAccess.getClaimAccess().getTitleValueStringParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getClaimAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
+	RULE_STRING{ after(grammarAccess.getClaimAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
 )
 
 ;
@@ -8206,8 +8180,8 @@ rule__VerificationLibrary__TitleAssignment_2_1
     }
 :
 (
-{ before(grammarAccess.getVerificationLibraryAccess().getTitleValueStringParserRuleCall_2_1_0()); }
-	ruleValueString{ after(grammarAccess.getVerificationLibraryAccess().getTitleValueStringParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getVerificationLibraryAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
+	RULE_STRING{ after(grammarAccess.getVerificationLibraryAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
 )
 
 ;
@@ -8317,8 +8291,8 @@ rule__VerificationActivity__TitleAssignment_2_1
     }
 :
 (
-{ before(grammarAccess.getVerificationActivityAccess().getTitleValueStringParserRuleCall_2_1_0()); }
-	ruleValueString{ after(grammarAccess.getVerificationActivityAccess().getTitleValueStringParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getVerificationActivityAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
+	RULE_STRING{ after(grammarAccess.getVerificationActivityAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
 )
 
 ;
@@ -8430,8 +8404,8 @@ rule__VerificationCondition__TitleAssignment_2_1
     }
 :
 (
-{ before(grammarAccess.getVerificationConditionAccess().getTitleValueStringParserRuleCall_2_1_0()); }
-	ruleValueString{ after(grammarAccess.getVerificationConditionAccess().getTitleValueStringParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getVerificationConditionAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
+	RULE_STRING{ after(grammarAccess.getVerificationConditionAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
 )
 
 ;
@@ -8618,8 +8592,8 @@ rule__VerificationMethodRegistry__TitleAssignment_2_1
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodRegistryAccess().getTitleValueStringParserRuleCall_2_1_0()); }
-	ruleValueString{ after(grammarAccess.getVerificationMethodRegistryAccess().getTitleValueStringParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getVerificationMethodRegistryAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
+	RULE_STRING{ after(grammarAccess.getVerificationMethodRegistryAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
 )
 
 ;
@@ -8678,8 +8652,8 @@ rule__VerificationMethod__TitleAssignment_2_1
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodAccess().getTitleValueStringParserRuleCall_2_1_0()); }
-	ruleValueString{ after(grammarAccess.getVerificationMethodAccess().getTitleValueStringParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getVerificationMethodAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
+	RULE_STRING{ after(grammarAccess.getVerificationMethodAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); }
 )
 
 ;
@@ -8742,8 +8716,8 @@ rule__VerificationMethod__MarkerAssignment_7_0_1
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodAccess().getMarkerValueStringParserRuleCall_7_0_1_0()); }
-	ruleValueString{ after(grammarAccess.getVerificationMethodAccess().getMarkerValueStringParserRuleCall_7_0_1_0()); }
+{ before(grammarAccess.getVerificationMethodAccess().getMarkerSTRINGTerminalRuleCall_7_0_1_0()); }
+	RULE_STRING{ after(grammarAccess.getVerificationMethodAccess().getMarkerSTRINGTerminalRuleCall_7_0_1_0()); }
 )
 
 ;

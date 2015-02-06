@@ -434,22 +434,13 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPECS__TARGET = REQ_SPEC_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Target Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQ_SPECS__TARGET_DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 3;
-
-  /**
    * The feature id for the '<em><b>Otherreqspecs</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_FEATURE_COUNT + 4;
+  int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -458,7 +449,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONSTANTS = REQ_SPEC_FEATURE_COUNT + 5;
+  int REQ_SPECS__CONSTANTS = REQ_SPEC_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -467,7 +458,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONTENT = REQ_SPEC_FEATURE_COUNT + 6;
+  int REQ_SPECS__CONTENT = REQ_SPEC_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Req Specs</em>' class.
@@ -476,7 +467,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 7;
+  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecFolderImpl <em>Folder</em>}' class.
@@ -1265,17 +1256,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getReqSpecs_Target();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription <em>Target Description</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Target Description</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription()
-   * @see #getReqSpecs()
-   * @generated
-   */
-  EAttribute getReqSpecs_TargetDescription();
-
-  /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1866,14 +1846,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQ_SPECS__TARGET = eINSTANCE.getReqSpecs_Target();
-
-    /**
-     * The meta object literal for the '<em><b>Target Description</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute REQ_SPECS__TARGET_DESCRIPTION = eINSTANCE.getReqSpecs_TargetDescription();
 
     /**
      * The meta object literal for the '<em><b>Otherreqspecs</b></em>' reference list feature.

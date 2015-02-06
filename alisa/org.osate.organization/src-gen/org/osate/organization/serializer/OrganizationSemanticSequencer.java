@@ -50,7 +50,17 @@ public class OrganizationSemanticSequencer extends AbstractDelegatingSemanticSeq
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (title=STRING? description=STRING? role=STRING? email=STRING? phone=STRING?)?)
+	 *     (
+	 *         name=ID 
+	 *         (
+	 *             (first=ID last=ID)? 
+	 *             title=STRING? 
+	 *             description=STRING? 
+	 *             role=STRING? 
+	 *             email=STRING? 
+	 *             phone=STRING?
+	 *         )?
+	 *     )
 	 */
 	protected void sequence_Stakeholder(EObject context, Stakeholder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

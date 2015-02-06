@@ -17,27 +17,27 @@ ContractualElement: Goal | Requirement ;
 ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
 
 
-StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=ValueString)?
-	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
+StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
+	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=STRING))?
 	 ('description'  description=MultiLineString)? 
 	'[' content+=( Goal | GoalFolder) ']'
 ;
 
-ReqDocument: 'document' name=ID (':' title=ValueString)?
+ReqDocument: 'document' name=ID (':' title=STRING)?
 	 ('description'  description=MultiLineString)? 
 	'[' content+=DocumentSection ']'
 ;
 DocumentSection returns DocumentSection:
-	'section' label =ID (':' title=ValueString)?
+	'section' label =ID (':' title=STRING)?
 	 ('description'  description=MultiLineString)? 
 	'[' (content+= (Goal | Requirement |  DocumentSection))*
 	']'
 	;
 
 ReqSpecs returns ReqSpecs:
-	'requirement' 'specification' name =ID (':' title=ValueString)?
+	'requirement' 'specification' name =ID (':' title=STRING)?
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=ValueString))?
+	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
 	(('constants' constants+=ConstantDecl+)?
@@ -49,14 +49,14 @@ QualifiedNameWithWildCard : QualifiedName ('.*')?;
 
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:
-	'folder' label =ID (':' title=ValueString)?
+	'folder' label =ID (':' title=STRING)?
 	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
 	']'
 	;
 
 // does not add to a qualified name
 GoalFolder returns GoalFolder:
-	'folder' label =ID (':' title=ValueString)?
+	'folder' label =ID (':' title=STRING)?
 	'[' (content+= (Goal |  GoalFolder))*
 	']'
 	;
@@ -64,14 +64,14 @@ GoalFolder returns GoalFolder:
 	
 
 Goal returns Goal:
-	'goal' name=ID (':'  title=ValueString )? // short string for title
-	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=ValueString) 
+	'goal' name=ID (':'  title=STRING )? // short string for title
+	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=STRING) 
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|CatRef])?
 	 &('description'  description=Description)? 
-	 &('rationale'  rationale=ValueString)? 
+	 &('rationale'  rationale=STRING)? 
 	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
 	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
@@ -85,8 +85,8 @@ Goal returns Goal:
 // becomes a "global" constraint that still takes model elements that are supplied by query 	
 Requirement:
 	'requirement'  name=ID   
-	(':'  title=ValueString)? 
-	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=ValueString)
+	(':'  title=STRING)? 
+	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=STRING)
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['	(
@@ -96,7 +96,7 @@ Requirement:
 	&('assert'  assert=PredicateExpression)?  // predicate expression 
 	&('rationale'  rationale=STRING)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
-	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=ValueString))? 
+	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
 	&('refines' refinedReference+=[Requirement|QualifiedName]+)? 
 	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?

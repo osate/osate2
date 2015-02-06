@@ -45,14 +45,17 @@ public class OrganizationParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderAccess().getGroup_2_1_2(), "rule__Stakeholder__Group_2_1_2__0");
 					put(grammarAccess.getStakeholderAccess().getGroup_2_1_3(), "rule__Stakeholder__Group_2_1_3__0");
 					put(grammarAccess.getStakeholderAccess().getGroup_2_1_4(), "rule__Stakeholder__Group_2_1_4__0");
+					put(grammarAccess.getStakeholderAccess().getGroup_2_1_5(), "rule__Stakeholder__Group_2_1_5__0");
 					put(grammarAccess.getOrganizationAccess().getNameAssignment_1(), "rule__Organization__NameAssignment_1");
 					put(grammarAccess.getOrganizationAccess().getStakeholderAssignment_2(), "rule__Organization__StakeholderAssignment_2");
 					put(grammarAccess.getStakeholderAccess().getNameAssignment_1(), "rule__Stakeholder__NameAssignment_1");
-					put(grammarAccess.getStakeholderAccess().getTitleAssignment_2_1_0_1(), "rule__Stakeholder__TitleAssignment_2_1_0_1");
-					put(grammarAccess.getStakeholderAccess().getDescriptionAssignment_2_1_1_1(), "rule__Stakeholder__DescriptionAssignment_2_1_1_1");
-					put(grammarAccess.getStakeholderAccess().getRoleAssignment_2_1_2_1(), "rule__Stakeholder__RoleAssignment_2_1_2_1");
-					put(grammarAccess.getStakeholderAccess().getEmailAssignment_2_1_3_1(), "rule__Stakeholder__EmailAssignment_2_1_3_1");
-					put(grammarAccess.getStakeholderAccess().getPhoneAssignment_2_1_4_1(), "rule__Stakeholder__PhoneAssignment_2_1_4_1");
+					put(grammarAccess.getStakeholderAccess().getFirstAssignment_2_1_0_2(), "rule__Stakeholder__FirstAssignment_2_1_0_2");
+					put(grammarAccess.getStakeholderAccess().getLastAssignment_2_1_0_3(), "rule__Stakeholder__LastAssignment_2_1_0_3");
+					put(grammarAccess.getStakeholderAccess().getTitleAssignment_2_1_1_1(), "rule__Stakeholder__TitleAssignment_2_1_1_1");
+					put(grammarAccess.getStakeholderAccess().getDescriptionAssignment_2_1_2_1(), "rule__Stakeholder__DescriptionAssignment_2_1_2_1");
+					put(grammarAccess.getStakeholderAccess().getRoleAssignment_2_1_3_1(), "rule__Stakeholder__RoleAssignment_2_1_3_1");
+					put(grammarAccess.getStakeholderAccess().getEmailAssignment_2_1_4_1(), "rule__Stakeholder__EmailAssignment_2_1_4_1");
+					put(grammarAccess.getStakeholderAccess().getPhoneAssignment_2_1_5_1(), "rule__Stakeholder__PhoneAssignment_2_1_5_1");
 					put(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), "rule__Stakeholder__UnorderedGroup_2_1");
 				}
 			};

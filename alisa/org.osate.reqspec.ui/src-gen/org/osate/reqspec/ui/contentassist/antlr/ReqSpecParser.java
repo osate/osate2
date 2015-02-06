@@ -44,7 +44,6 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStakeholderGoalsAccess().getAlternatives_4_1(), "rule__StakeholderGoals__Alternatives_4_1");
 					put(grammarAccess.getStakeholderGoalsAccess().getContentAlternatives_7_0(), "rule__StakeholderGoals__ContentAlternatives_7_0");
 					put(grammarAccess.getDocumentSectionAccess().getContentAlternatives_5_0(), "rule__DocumentSection__ContentAlternatives_5_0");
-					put(grammarAccess.getReqSpecsAccess().getAlternatives_4_1(), "rule__ReqSpecs__Alternatives_4_1");
 					put(grammarAccess.getReqSpecsAccess().getContentAlternatives_7_1_0(), "rule__ReqSpecs__ContentAlternatives_7_1_0");
 					put(grammarAccess.getReqSpecFolderAccess().getContentAlternatives_4_0(), "rule__ReqSpecFolder__ContentAlternatives_4_0");
 					put(grammarAccess.getGoalFolderAccess().getContentAlternatives_4_0(), "rule__GoalFolder__ContentAlternatives_4_0");
@@ -136,8 +135,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDocumentSectionAccess().getContentAssignment_5(), "rule__DocumentSection__ContentAssignment_5");
 					put(grammarAccess.getReqSpecsAccess().getNameAssignment_2(), "rule__ReqSpecs__NameAssignment_2");
 					put(grammarAccess.getReqSpecsAccess().getTitleAssignment_3_1(), "rule__ReqSpecs__TitleAssignment_3_1");
-					put(grammarAccess.getReqSpecsAccess().getTargetAssignment_4_1_0(), "rule__ReqSpecs__TargetAssignment_4_1_0");
-					put(grammarAccess.getReqSpecsAccess().getTargetDescriptionAssignment_4_1_1(), "rule__ReqSpecs__TargetDescriptionAssignment_4_1_1");
+					put(grammarAccess.getReqSpecsAccess().getTargetAssignment_4_1(), "rule__ReqSpecs__TargetAssignment_4_1");
 					put(grammarAccess.getReqSpecsAccess().getOtherreqspecsAssignment_5_1(), "rule__ReqSpecs__OtherreqspecsAssignment_5_1");
 					put(grammarAccess.getReqSpecsAccess().getConstantsAssignment_7_0_1(), "rule__ReqSpecs__ConstantsAssignment_7_0_1");
 					put(grammarAccess.getReqSpecsAccess().getContentAssignment_7_1(), "rule__ReqSpecs__ContentAssignment_7_1");

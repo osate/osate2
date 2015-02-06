@@ -193,7 +193,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID title=ValueString? description=MultiLineString? (content+=Goal | content+=Requirement | content+=DocumentSection)*)
+	 *     (label=ID title=STRING? description=MultiLineString? (content+=Goal | content+=Requirement | content+=DocumentSection)*)
 	 */
 	protected void sequence_DocumentSection(EObject context, DocumentSection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -211,7 +211,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID title=ValueString? (content+=Goal | content+=GoalFolder)*)
+	 *     (label=ID title=STRING? (content+=Goal | content+=GoalFolder)*)
 	 */
 	protected void sequence_GoalFolder(EObject context, GoalFolder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -222,11 +222,11 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         title=ValueString? 
-	 *         (target=[NamedElement|ID] | targetDescription=ValueString)? 
+	 *         title=STRING? 
+	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
 	 *         category=[RequirementCategory|CatRef]? 
 	 *         description=Description? 
-	 *         rationale=ValueString? 
+	 *         rationale=STRING? 
 	 *         refinesReference+=[Goal|QualifiedName]* 
 	 *         conflictsReference+=[Goal|QualifiedName]* 
 	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
@@ -241,7 +241,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=ValueString? description=MultiLineString? content+=DocumentSection)
+	 *     (name=ID title=STRING? description=MultiLineString? content+=DocumentSection)
 	 */
 	protected void sequence_ReqDocument(EObject context, ReqDocument semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -250,7 +250,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID title=ValueString? (content+=Goal | content+=Requirement | content+=ReqSpecFolder)*)
+	 *     (label=ID title=STRING? (content+=Goal | content+=Requirement | content+=ReqSpecFolder)*)
 	 */
 	protected void sequence_ReqSpecFolder(EObject context, ReqSpecFolder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -261,8 +261,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         title=ValueString? 
-	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
+	 *         title=STRING? 
+	 *         target=[Classifier|AadlClassifierReference]? 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
 	 *         constants+=ConstantDecl* 
 	 *         (content+=Requirement | content+=ReqSpecFolder)*
@@ -277,15 +277,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         title=ValueString? 
-	 *         (target=[NamedElement|ID] | targetDescription=ValueString)? 
+	 *         title=STRING? 
+	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
 	 *         category=[RequirementCategory|CatRef]? 
 	 *         description=Description? 
 	 *         constants+=ConstantDecl* 
 	 *         assert=PredicateExpression? 
 	 *         rationale=STRING? 
 	 *         goalReference+=[Goal|QualifiedName]* 
-	 *         (exception=[EObject|ID] | exceptionText=ValueString)? 
+	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinedReference+=[Requirement|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
@@ -301,8 +301,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         title=ValueString? 
-	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=ValueString)? 
+	 *         title=STRING? 
+	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=STRING)? 
 	 *         description=MultiLineString? 
 	 *         (content+=Goal | content+=GoalFolder)
 	 *     )

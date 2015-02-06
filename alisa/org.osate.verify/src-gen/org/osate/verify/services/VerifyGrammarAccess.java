@@ -55,7 +55,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
 		private final Keyword cForKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cTargetAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final CrossReference cTargetComponentClassifierCrossReference_4_0 = (CrossReference)cTargetAssignment_4.eContents().get(0);
@@ -83,13 +83,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// plan for a classifier. Will add import to allow for non-qualified requirement references
 		//// Also allows for cross checking that we have covered requirements with claims
 		//VerificationPlan:
-		//	"plan" name=ID (":" title=ValueString)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
+		//	"plan" name=ID (":" title=STRING)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 		//	[aadl2::ComponentClassifier|AadlClassifierReference] "[" (("description" description=MultiLineString)? & claim+=Claim*
 		//	& ("rationale" rationale=MultiLineString)? & ("plan" "assumption"
 		//	planAssumption+=[VerificationPlan|QualifiedName]+)?) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"plan" name=ID (":" title=ValueString)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
+		//"plan" name=ID (":" title=STRING)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 		//[aadl2::ComponentClassifier|AadlClassifierReference] "[" (("description" description=MultiLineString)? & claim+=Claim* &
 		//("rationale" rationale=MultiLineString)? & ("plan" "assumption" planAssumption+=[VerificationPlan|QualifiedName]+)?)
 		//"]"
@@ -104,17 +104,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//(":" title=ValueString)?
+		//(":" title=STRING)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//":"
 		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_2_1_0() { return cTitleValueStringParserRuleCall_2_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
 		//"for"
 		public Keyword getForKeyword_3() { return cForKeyword_3; }
@@ -198,7 +198,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cWeightAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -223,13 +223,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//Claim:
-		//	"claim" name=ID (":" title=ValueString)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
-		//	"[" ("assert" assert=ArgumentExpr & ("rationale" rationale=MultiLineString)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
+		//	"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
+		//	("assert" assert=ArgumentExpr & ("rationale" rationale=MultiLineString)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 		//	"]";
 		public ParserRule getRule() { return rule; }
 
-		//"claim" name=ID (":" title=ValueString)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
-		//"[" ("assert" assert=ArgumentExpr & ("rationale" rationale=MultiLineString)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
+		//"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
+		//("assert" assert=ArgumentExpr & ("rationale" rationale=MultiLineString)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 		//"]"
 		public Group getGroup() { return cGroup; }
 
@@ -242,17 +242,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//(":" title=ValueString)?
+		//(":" title=STRING)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//":"
 		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_2_1_0() { return cTitleValueStringParserRuleCall_2_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
 		//("(" weight=INT ")")?
 		public Group getGroup_3() { return cGroup_3; }
@@ -330,7 +330,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cForKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cTargetAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -349,11 +349,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationLibrary:
-		//	"library" name=ID (":" title=ValueString)? ("for" target=[aadl2::ComponentClassifier|AadlClassifierReference])? "["
+		//	"library" name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentClassifier|AadlClassifierReference])? "["
 		//	(("description" description=Description)? & content+=(VerificationActivity | VerificationFolder)*) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"library" name=ID (":" title=ValueString)? ("for" target=[aadl2::ComponentClassifier|AadlClassifierReference])? "["
+		//"library" name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentClassifier|AadlClassifierReference])? "["
 		//(("description" description=Description)? & content+=(VerificationActivity | VerificationFolder)*) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -366,17 +366,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//(":" title=ValueString)?
+		//(":" title=STRING)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//":"
 		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_2_1_0() { return cTitleValueStringParserRuleCall_2_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
 		//("for" target=[aadl2::ComponentClassifier|AadlClassifierReference])?
 		public Group getGroup_3() { return cGroup_3; }
@@ -504,7 +504,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cForKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cRequirementAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -532,7 +532,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationActivity:
-		//	"activity" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
+		//	"activity" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
 		//	"[" (("description" description=Description)? //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
 		//	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//	// these are data parameters to the method in addition to what comes with the model
@@ -541,7 +541,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	rationale=MultiLineString)?) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"activity" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
+		//"activity" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
 		//"[" (("description" description=Description)? //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
 		////	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//// these are data parameters to the method in addition to what comes with the model
@@ -559,17 +559,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//(":" title=ValueString)?
+		//(":" title=STRING)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//":"
 		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_2_1_0() { return cTitleValueStringParserRuleCall_2_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
 		//("for" requirement=[ReqSpec::Requirement|QualifiedName])?
 		public Group getGroup_3() { return cGroup_3; }
@@ -668,7 +668,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final UnorderedGroup cUnorderedGroup_4 = (UnorderedGroup)cGroup.eContents().get(4);
 		private final Group cGroup_4_0 = (Group)cUnorderedGroup_4.eContents().get(0);
@@ -686,12 +686,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//VerificationCondition:
-		//	("assumption" {VerificationAssumption} | "precondition" {VerificationPrecondition}) name=ID (":" title=ValueString)?
-		//	"[" (("description" description=Description)? & ("assert" assert=ArgumentExpr)? & ("rationale"
+		//	("assumption" {VerificationAssumption} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
+		//	(("description" description=Description)? & ("assert" assert=ArgumentExpr)? & ("rationale"
 		//	rationale=MultiLineString)?) "]";
 		public ParserRule getRule() { return rule; }
 
-		//("assumption" {VerificationAssumption} | "precondition" {VerificationPrecondition}) name=ID (":" title=ValueString)? "["
+		//("assumption" {VerificationAssumption} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
 		//(("description" description=Description)? & ("assert" assert=ArgumentExpr)? & ("rationale"
 		//rationale=MultiLineString)?) "]"
 		public Group getGroup() { return cGroup; }
@@ -723,17 +723,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//(":" title=ValueString)?
+		//(":" title=STRING)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//":"
 		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_2_1_0() { return cTitleValueStringParserRuleCall_2_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
@@ -1096,7 +1096,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Group cGroup_4_0 = (Group)cGroup_4.eContents().get(0);
@@ -1114,12 +1114,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// Java based methods: all
 		//// interface methods to external or built-in
 		//VerificationMethodRegistry:
-		//	"registry" name=ID (":" title=ValueString)? "[" (("description" description=Description)?
-		//	methods+=VerificationMethod*) "]";
+		//	"registry" name=ID (":" title=STRING)? "[" (("description" description=Description)? methods+=VerificationMethod*)
+		//	"]";
 		public ParserRule getRule() { return rule; }
 
-		//"registry" name=ID (":" title=ValueString)? "[" (("description" description=Description)? methods+=VerificationMethod*)
-		//"]"
+		//"registry" name=ID (":" title=STRING)? "[" (("description" description=Description)? methods+=VerificationMethod*) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"registry"
@@ -1131,17 +1130,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//(":" title=ValueString)?
+		//(":" title=STRING)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//":"
 		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_2_1_0() { return cTitleValueStringParserRuleCall_2_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
@@ -1180,7 +1179,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleValueStringParserRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cForKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cRequirementAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -1195,7 +1194,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_7_0 = (Group)cUnorderedGroup_7.eContents().get(0);
 		private final Keyword cMarkerKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
 		private final Assignment cMarkerAssignment_7_0_1 = (Assignment)cGroup_7_0.eContents().get(1);
-		private final RuleCall cMarkerValueStringParserRuleCall_7_0_1_0 = (RuleCall)cMarkerAssignment_7_0_1.eContents().get(0);
+		private final RuleCall cMarkerSTRINGTerminalRuleCall_7_0_1_0 = (RuleCall)cMarkerAssignment_7_0_1.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
 		private final Keyword cDescriptionKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
 		private final Assignment cDescriptionAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
@@ -1210,15 +1209,15 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//VerificationMethod:
-		//	"method" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
+		//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 		//	methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-		//	(("marker" marker=ValueString)? & ("description" description=Description)? & ("category"
+		//	(("marker" marker=STRING)? & ("description" description=Description)? & ("category"
 		//	category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"method" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
+		//"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 		//methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-		//(("marker" marker=ValueString)? & ("description" description=Description)? & ("category"
+		//(("marker" marker=STRING)? & ("description" description=Description)? & ("category"
 		//category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -1231,17 +1230,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//(":" title=ValueString)?
+		//(":" title=STRING)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//":"
 		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
 
-		//title=ValueString
+		//title=STRING
 		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
 
-		//ValueString
-		public RuleCall getTitleValueStringParserRuleCall_2_1_0() { return cTitleValueStringParserRuleCall_2_1_0; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
 		//("for" requirement=[ReqSpec::Requirement|QualifiedName])?
 		public Group getGroup_3() { return cGroup_3; }
@@ -1273,21 +1272,21 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getMethodPathQualifiedNameParserRuleCall_6_0() { return cMethodPathQualifiedNameParserRuleCall_6_0; }
 
-		//("marker" marker=ValueString)? & ("description" description=Description)? & ("category"
+		//("marker" marker=STRING)? & ("description" description=Description)? & ("category"
 		//category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
-		//("marker" marker=ValueString)?
+		//("marker" marker=STRING)?
 		public Group getGroup_7_0() { return cGroup_7_0; }
 
 		//"marker"
 		public Keyword getMarkerKeyword_7_0_0() { return cMarkerKeyword_7_0_0; }
 
-		//marker=ValueString
+		//marker=STRING
 		public Assignment getMarkerAssignment_7_0_1() { return cMarkerAssignment_7_0_1; }
 
-		//ValueString
-		public RuleCall getMarkerValueStringParserRuleCall_7_0_1_0() { return cMarkerValueStringParserRuleCall_7_0_1_0; }
+		//STRING
+		public RuleCall getMarkerSTRINGTerminalRuleCall_7_0_1_0() { return cMarkerSTRINGTerminalRuleCall_7_0_1_0; }
 
 		//("description" description=Description)?
 		public Group getGroup_7_1() { return cGroup_7_1; }
@@ -1497,7 +1496,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// plan for a classifier. Will add import to allow for non-qualified requirement references
 	//// Also allows for cross checking that we have covered requirements with claims
 	//VerificationPlan:
-	//	"plan" name=ID (":" title=ValueString)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
+	//	"plan" name=ID (":" title=STRING)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 	//	[aadl2::ComponentClassifier|AadlClassifierReference] "[" (("description" description=MultiLineString)? & claim+=Claim*
 	//	& ("rationale" rationale=MultiLineString)? & ("plan" "assumption"
 	//	planAssumption+=[VerificationPlan|QualifiedName]+)?) "]";
@@ -1510,8 +1509,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Claim:
-	//	"claim" name=ID (":" title=ValueString)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
-	//	"[" ("assert" assert=ArgumentExpr & ("rationale" rationale=MultiLineString)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
+	//	"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
+	//	("assert" assert=ArgumentExpr & ("rationale" rationale=MultiLineString)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 	//	"]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
@@ -1522,7 +1521,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationLibrary:
-	//	"library" name=ID (":" title=ValueString)? ("for" target=[aadl2::ComponentClassifier|AadlClassifierReference])? "["
+	//	"library" name=ID (":" title=STRING)? ("for" target=[aadl2::ComponentClassifier|AadlClassifierReference])? "["
 	//	(("description" description=Description)? & content+=(VerificationActivity | VerificationFolder)*) "]";
 	public VerificationLibraryElements getVerificationLibraryAccess() {
 		return pVerificationLibrary;
@@ -1553,7 +1552,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationActivity:
-	//	"activity" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
+	//	"activity" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
 	//	"[" (("description" description=Description)? //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
 	//	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	//	// these are data parameters to the method in addition to what comes with the model
@@ -1569,8 +1568,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationCondition:
-	//	("assumption" {VerificationAssumption} | "precondition" {VerificationPrecondition}) name=ID (":" title=ValueString)?
-	//	"[" (("description" description=Description)? & ("assert" assert=ArgumentExpr)? & ("rationale"
+	//	("assumption" {VerificationAssumption} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
+	//	(("description" description=Description)? & ("assert" assert=ArgumentExpr)? & ("rationale"
 	//	rationale=MultiLineString)?) "]";
 	public VerificationConditionElements getVerificationConditionAccess() {
 		return pVerificationCondition;
@@ -1669,8 +1668,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// Java based methods: all
 	//// interface methods to external or built-in
 	//VerificationMethodRegistry:
-	//	"registry" name=ID (":" title=ValueString)? "[" (("description" description=Description)?
-	//	methods+=VerificationMethod*) "]";
+	//	"registry" name=ID (":" title=STRING)? "[" (("description" description=Description)? methods+=VerificationMethod*)
+	//	"]";
 	public VerificationMethodRegistryElements getVerificationMethodRegistryAccess() {
 		return pVerificationMethodRegistry;
 	}
@@ -1680,9 +1679,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationMethod:
-	//	"method" name=ID (":" title=ValueString)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
+	//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 	//	methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-	//	(("marker" marker=ValueString)? & ("description" description=Description)? & ("category"
+	//	(("marker" marker=STRING)? & ("description" description=Description)? & ("category"
 	//	category=[categories::VerificationCategory|CatRef])? & conditions+=VerificationCondition*) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {
 		return pVerificationMethod;

@@ -178,15 +178,19 @@ ruleStakeholder returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), 0);
 	 				}
-					({true}?=>(	otherlv_4='title' 
+					({true}?=>(	otherlv_4='full' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getStakeholderAccess().getTitleKeyword_2_1_0_0());
+    	newLeafNode(otherlv_4, grammarAccess.getStakeholderAccess().getFullKeyword_2_1_0_0());
+    }
+	otherlv_5='name' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getStakeholderAccess().getNameKeyword_2_1_0_1());
     }
 (
 (
-		lv_title_5_0=RULE_STRING
+		lv_first_6_0=RULE_ID
 		{
-			newLeafNode(lv_title_5_0, grammarAccess.getStakeholderAccess().getTitleSTRINGTerminalRuleCall_2_1_0_1_0()); 
+			newLeafNode(lv_first_6_0, grammarAccess.getStakeholderAccess().getFirstIDTerminalRuleCall_2_1_0_2_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -194,9 +198,27 @@ ruleStakeholder returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"title",
-        		lv_title_5_0, 
-        		"STRING");
+       			"first",
+        		lv_first_6_0, 
+        		"ID");
+	    }
+
+)
+)(
+(
+		lv_last_7_0=RULE_ID
+		{
+			newLeafNode(lv_last_7_0, grammarAccess.getStakeholderAccess().getLastIDTerminalRuleCall_2_1_0_3_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStakeholderRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"last",
+        		lv_last_7_0, 
+        		"ID");
 	    }
 
 )
@@ -212,15 +234,15 @@ ruleStakeholder returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), 1);
 	 				}
-					({true}?=>(	otherlv_6='description' 
+					({true}?=>(	otherlv_8='title' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getStakeholderAccess().getDescriptionKeyword_2_1_1_0());
+    	newLeafNode(otherlv_8, grammarAccess.getStakeholderAccess().getTitleKeyword_2_1_1_0());
     }
 (
 (
-		lv_description_7_0=RULE_STRING
+		lv_title_9_0=RULE_STRING
 		{
-			newLeafNode(lv_description_7_0, grammarAccess.getStakeholderAccess().getDescriptionSTRINGTerminalRuleCall_2_1_1_1_0()); 
+			newLeafNode(lv_title_9_0, grammarAccess.getStakeholderAccess().getTitleSTRINGTerminalRuleCall_2_1_1_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -228,8 +250,8 @@ ruleStakeholder returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"description",
-        		lv_description_7_0, 
+       			"title",
+        		lv_title_9_0, 
         		"STRING");
 	    }
 
@@ -246,15 +268,15 @@ ruleStakeholder returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), 2);
 	 				}
-					({true}?=>(	otherlv_8='role' 
+					({true}?=>(	otherlv_10='description' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getStakeholderAccess().getRoleKeyword_2_1_2_0());
+    	newLeafNode(otherlv_10, grammarAccess.getStakeholderAccess().getDescriptionKeyword_2_1_2_0());
     }
 (
 (
-		lv_role_9_0=RULE_STRING
+		lv_description_11_0=RULE_STRING
 		{
-			newLeafNode(lv_role_9_0, grammarAccess.getStakeholderAccess().getRoleSTRINGTerminalRuleCall_2_1_2_1_0()); 
+			newLeafNode(lv_description_11_0, grammarAccess.getStakeholderAccess().getDescriptionSTRINGTerminalRuleCall_2_1_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -262,8 +284,8 @@ ruleStakeholder returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"role",
-        		lv_role_9_0, 
+       			"description",
+        		lv_description_11_0, 
         		"STRING");
 	    }
 
@@ -280,15 +302,15 @@ ruleStakeholder returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), 3);
 	 				}
-					({true}?=>(	otherlv_10='email' 
+					({true}?=>(	otherlv_12='role' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getStakeholderAccess().getEmailKeyword_2_1_3_0());
+    	newLeafNode(otherlv_12, grammarAccess.getStakeholderAccess().getRoleKeyword_2_1_3_0());
     }
 (
 (
-		lv_email_11_0=RULE_STRING
+		lv_role_13_0=RULE_STRING
 		{
-			newLeafNode(lv_email_11_0, grammarAccess.getStakeholderAccess().getEmailSTRINGTerminalRuleCall_2_1_3_1_0()); 
+			newLeafNode(lv_role_13_0, grammarAccess.getStakeholderAccess().getRoleSTRINGTerminalRuleCall_2_1_3_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -296,8 +318,8 @@ ruleStakeholder returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"email",
-        		lv_email_11_0, 
+       			"role",
+        		lv_role_13_0, 
         		"STRING");
 	    }
 
@@ -314,15 +336,49 @@ ruleStakeholder returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), 4);
 	 				}
-					({true}?=>(	otherlv_12='phone' 
+					({true}?=>(	otherlv_14='email' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getStakeholderAccess().getPhoneKeyword_2_1_4_0());
+    	newLeafNode(otherlv_14, grammarAccess.getStakeholderAccess().getEmailKeyword_2_1_4_0());
     }
 (
 (
-		lv_phone_13_0=RULE_STRING
+		lv_email_15_0=RULE_STRING
 		{
-			newLeafNode(lv_phone_13_0, grammarAccess.getStakeholderAccess().getPhoneSTRINGTerminalRuleCall_2_1_4_1_0()); 
+			newLeafNode(lv_email_15_0, grammarAccess.getStakeholderAccess().getEmailSTRINGTerminalRuleCall_2_1_4_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStakeholderRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"email",
+        		lv_email_15_0, 
+        		"STRING");
+	    }
+
+)
+)))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), 5)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1(), 5);
+	 				}
+					({true}?=>(	otherlv_16='phone' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getStakeholderAccess().getPhoneKeyword_2_1_5_0());
+    }
+(
+(
+		lv_phone_17_0=RULE_STRING
+		{
+			newLeafNode(lv_phone_17_0, grammarAccess.getStakeholderAccess().getPhoneSTRINGTerminalRuleCall_2_1_5_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -331,7 +387,7 @@ ruleStakeholder returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"phone",
-        		lv_phone_13_0, 
+        		lv_phone_17_0, 
         		"STRING");
 	    }
 
@@ -350,9 +406,9 @@ ruleStakeholder returns [EObject current=null]
 	  getUnorderedGroupHelper().leave(grammarAccess.getStakeholderAccess().getUnorderedGroup_2_1());
 	}
 
-)	otherlv_14=']' 
+)	otherlv_18=']' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getStakeholderAccess().getRightSquareBracketKeyword_2_2());
+    	newLeafNode(otherlv_18, grammarAccess.getStakeholderAccess().getRightSquareBracketKeyword_2_2());
     }
 )?)
 ;

@@ -36,10 +36,8 @@ class OrganizationFormatter extends AbstractDeclarativeFormatter {
 		      c.setLinewrap().around(pair.second);
 		    }
 		c.setLinewrap().before(stakeholderRule);
-		c.setLinewrap().before(stakeholderAccess.titleKeyword_2_1_0_0);
-		c.setLinewrap().before(stakeholderAccess.descriptionKeyword_2_1_1_0);
-		c.setLinewrap().before(stakeholderAccess.emailKeyword_2_1_3_0);
-		c.setLinewrap().before(stakeholderAccess.phoneKeyword_2_1_4_0);
-		c.setLinewrap().before(stakeholderAccess.roleKeyword_2_1_2_0);
+		for (kw : findKeywords("phone","full","mail","description","title","role")) {
+			c.setLinewrap().before(kw);
+		}
 	}
 }

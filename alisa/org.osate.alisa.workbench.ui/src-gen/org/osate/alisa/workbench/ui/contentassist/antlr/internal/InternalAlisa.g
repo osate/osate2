@@ -2048,7 +2048,7 @@ rule__AadlClassifierReference__Group__2__Impl
 :
 (
 { before(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2()); }
-(rule__AadlClassifierReference__Group_2__0)?
+(rule__AadlClassifierReference__Group_2__0)*
 { after(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2()); }
 )
 

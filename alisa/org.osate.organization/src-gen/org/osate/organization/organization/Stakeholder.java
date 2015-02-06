@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.organization.organization.Stakeholder#getFirst <em>First</em>}</li>
+ *   <li>{@link org.osate.organization.organization.Stakeholder#getLast <em>Last</em>}</li>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.organization.organization.Stakeholder#getRole <em>Role</em>}</li>
@@ -52,6 +54,58 @@ public interface Stakeholder extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>First</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>First</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>First</em>' attribute.
+   * @see #setFirst(String)
+   * @see org.osate.organization.organization.OrganizationPackage#getStakeholder_First()
+   * @model
+   * @generated
+   */
+  String getFirst();
+
+  /**
+   * Sets the value of the '{@link org.osate.organization.organization.Stakeholder#getFirst <em>First</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>First</em>' attribute.
+   * @see #getFirst()
+   * @generated
+   */
+  void setFirst(String value);
+
+  /**
+   * Returns the value of the '<em><b>Last</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Last</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Last</em>' attribute.
+   * @see #setLast(String)
+   * @see org.osate.organization.organization.OrganizationPackage#getStakeholder_Last()
+   * @model
+   * @generated
+   */
+  String getLast();
+
+  /**
+   * Sets the value of the '{@link org.osate.organization.organization.Stakeholder#getLast <em>Last</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Last</em>' attribute.
+   * @see #getLast()
+   * @generated
+   */
+  void setLast(String value);
 
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.

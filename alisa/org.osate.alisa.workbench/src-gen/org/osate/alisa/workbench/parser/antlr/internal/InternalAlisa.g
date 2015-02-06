@@ -980,7 +980,7 @@ ruleAadlClassifierReference returns [AntlrDatatypeRuleToken current=new AntlrDat
     { 
     newLeafNode(this_ID_4, grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2_1()); 
     }
-)?)
+)*)
     ;
 
 

@@ -178,19 +178,19 @@ ruleVerificationPlan returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-	    }
-		lv_title_3_0=ruleValueString		{
+		lv_title_3_0=RULE_STRING
+		{
+			newLeafNode(lv_title_3_0, grammarAccess.getVerificationPlanAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationPlanRule());
+	            $current = createModelElement(grammarAccess.getVerificationPlanRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"title",
         		lv_title_3_0, 
-        		"ValueString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -419,19 +419,19 @@ ruleClaim returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getClaimAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-	    }
-		lv_title_3_0=ruleValueString		{
+		lv_title_3_0=RULE_STRING
+		{
+			newLeafNode(lv_title_3_0, grammarAccess.getClaimAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getClaimRule());
+	            $current = createModelElement(grammarAccess.getClaimRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"title",
         		lv_title_3_0, 
-        		"ValueString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -652,19 +652,19 @@ ruleVerificationLibrary returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationLibraryAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-	    }
-		lv_title_3_0=ruleValueString		{
+		lv_title_3_0=RULE_STRING
+		{
+			newLeafNode(lv_title_3_0, grammarAccess.getVerificationLibraryAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationLibraryRule());
+	            $current = createModelElement(grammarAccess.getVerificationLibraryRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"title",
         		lv_title_3_0, 
-        		"ValueString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -931,19 +931,19 @@ ruleVerificationActivity returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-	    }
-		lv_title_3_0=ruleValueString		{
+		lv_title_3_0=RULE_STRING
+		{
+			newLeafNode(lv_title_3_0, grammarAccess.getVerificationActivityAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationActivityRule());
+	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"title",
         		lv_title_3_0, 
-        		"ValueString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -1189,19 +1189,19 @@ ruleVerificationCondition returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationConditionAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-	    }
-		lv_title_6_0=ruleValueString		{
+		lv_title_6_0=RULE_STRING
+		{
+			newLeafNode(lv_title_6_0, grammarAccess.getVerificationConditionAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationConditionRule());
+	            $current = createModelElement(grammarAccess.getVerificationConditionRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"title",
         		lv_title_6_0, 
-        		"ValueString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -1794,19 +1794,19 @@ ruleVerificationMethodRegistry returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-	    }
-		lv_title_3_0=ruleValueString		{
+		lv_title_3_0=RULE_STRING
+		{
+			newLeafNode(lv_title_3_0, grammarAccess.getVerificationMethodRegistryAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRegistryRule());
+	            $current = createModelElement(grammarAccess.getVerificationMethodRegistryRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"title",
         		lv_title_3_0, 
-        		"ValueString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -1907,19 +1907,19 @@ ruleVerificationMethod returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getTitleValueStringParserRuleCall_2_1_0()); 
-	    }
-		lv_title_3_0=ruleValueString		{
+		lv_title_3_0=RULE_STRING
+		{
+			newLeafNode(lv_title_3_0, grammarAccess.getVerificationMethodAccess().getTitleSTRINGTerminalRuleCall_2_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
+	            $current = createModelElement(grammarAccess.getVerificationMethodRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"title",
         		lv_title_3_0, 
-        		"ValueString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -2002,19 +2002,19 @@ ruleVerificationMethod returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMarkerValueStringParserRuleCall_7_0_1_0()); 
-	    }
-		lv_marker_11_0=ruleValueString		{
+		lv_marker_11_0=RULE_STRING
+		{
+			newLeafNode(lv_marker_11_0, grammarAccess.getVerificationMethodAccess().getMarkerSTRINGTerminalRuleCall_7_0_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
+	            $current = createModelElement(grammarAccess.getVerificationMethodRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"marker",
         		lv_marker_11_0, 
-        		"ValueString");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )
@@ -2720,32 +2720,6 @@ ruleTextElement returns [EObject current=null]
 ;
 
 
-
-
-
-// Entry rule entryRuleValueString
-entryRuleValueString returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getValueStringRule()); } 
-	 iv_ruleValueString=ruleValueString 
-	 { $current=$iv_ruleValueString.current.getText(); }  
-	 EOF 
-;
-
-// Rule ValueString
-ruleValueString returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-    this_STRING_0=RULE_STRING    {
-		$current.merge(this_STRING_0);
-    }
-
-    { 
-    newLeafNode(this_STRING_0, grammarAccess.getValueStringAccess().getSTRINGTerminalRuleCall()); 
-    }
-
-    ;
 
 
 

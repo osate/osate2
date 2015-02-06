@@ -154,7 +154,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStakeholder_Title()
+  public EAttribute getStakeholder_First()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(1);
   }
@@ -164,7 +164,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStakeholder_Description()
+  public EAttribute getStakeholder_Last()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(2);
   }
@@ -174,7 +174,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStakeholder_Role()
+  public EAttribute getStakeholder_Title()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(3);
   }
@@ -184,7 +184,7 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStakeholder_Email()
+  public EAttribute getStakeholder_Description()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(4);
   }
@@ -194,9 +194,29 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStakeholder_Phone()
+  public EAttribute getStakeholder_Role()
   {
     return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getStakeholder_Email()
+  {
+    return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getStakeholder_Phone()
+  {
+    return (EAttribute)stakeholderEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -235,6 +255,8 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
 
     stakeholderEClass = createEClass(STAKEHOLDER);
     createEAttribute(stakeholderEClass, STAKEHOLDER__NAME);
+    createEAttribute(stakeholderEClass, STAKEHOLDER__FIRST);
+    createEAttribute(stakeholderEClass, STAKEHOLDER__LAST);
     createEAttribute(stakeholderEClass, STAKEHOLDER__TITLE);
     createEAttribute(stakeholderEClass, STAKEHOLDER__DESCRIPTION);
     createEAttribute(stakeholderEClass, STAKEHOLDER__ROLE);
@@ -279,6 +301,8 @@ public class OrganizationPackageImpl extends EPackageImpl implements Organizatio
 
     initEClass(stakeholderEClass, Stakeholder.class, "Stakeholder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStakeholder_Name(), ecorePackage.getEString(), "name", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStakeholder_First(), ecorePackage.getEString(), "first", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStakeholder_Last(), ecorePackage.getEString(), "last", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getStakeholder_Title(), ecorePackage.getEString(), "title", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getStakeholder_Description(), ecorePackage.getEString(), "description", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getStakeholder_Role(), ecorePackage.getEString(), "role", null, 0, 1, Stakeholder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

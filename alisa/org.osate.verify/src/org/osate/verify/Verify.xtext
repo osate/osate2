@@ -11,7 +11,7 @@ Verification:
 	// plan for a classifier. Will add import to allow for non-qualified requirement references
 // Also allows for cross checking that we have covered requirements with claims
 VerificationPlan:
-	'plan' name=ID (':' title=ValueString)? 
+	'plan' name=ID (':' title=STRING)? 
 	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
 	(
@@ -23,7 +23,7 @@ VerificationPlan:
 	']';
 
 Claim:
-	'claim' name=ID (':' title=ValueString)?
+	'claim' name=ID (':' title=STRING)?
 	( '(' weight=INT ')' )?
 	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
@@ -33,7 +33,7 @@ Claim:
 	']';
 
 VerificationLibrary returns VerificationLibrary:
-	'library' name=ID (':' title=ValueString)?
+	'library' name=ID (':' title=STRING)?
 	('for' target=[aadl2::ComponentClassifier|AadlClassifierReference])?
 	'['
 	( ('description' description=Description)?
@@ -50,7 +50,7 @@ VerificationContainer:
 	VerificationLibrary | VerificationFolder;
 
 VerificationActivity:
-	'activity' name=ID (':' title=ValueString)?
+	'activity' name=ID (':' title=STRING)?
 	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?
 	// or should it be the requirement, which provides the predicate
 	'[' (
@@ -67,7 +67,7 @@ VerificationActivity:
 
 VerificationCondition:
 	('assumption' {VerificationAssumption} | 'precondition' {VerificationPrecondition}) name=ID
-	(':' title=ValueString)?
+	(':' title=STRING)?
 	'[' (
 	 ('description' description=Description)?
 	& ('assert' assert=ArgumentExpr)?
@@ -111,20 +111,20 @@ VerificationAction : VerificationActivity | VerificationMethod;
 // interface methods to external or built-in
 VerificationMethodRegistry returns VerificationMethodRegistry:
 	'registry' name=ID
-	(':' title=ValueString)?
+	(':' title=STRING)?
 	'[' (
 	('description' description=Description)?
 	methods+=VerificationMethod*)
 	']';
 
 VerificationMethod:
-	'method' name=ID (':' title=ValueString)?
+	'method' name=ID (':' title=STRING)?
 	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?	
 	'['
 	methodType=SupportedTypes methodPath=QualifiedName
 	// parameters (in addition to the model element
 	(
-	('marker' marker=ValueString)?
+	('marker' marker=STRING)?
 	&('description' description=Description)?
 	& ('category' category=[categories::VerificationCategory|CatRef])?
 	& (conditions+=VerificationCondition)*
