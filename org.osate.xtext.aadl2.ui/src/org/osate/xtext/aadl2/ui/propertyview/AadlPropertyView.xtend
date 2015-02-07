@@ -149,7 +149,7 @@ class AadlPropertyView extends ViewPart {
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
 	val static DEFAULT_PROPERTY_GROUP = "All"
-	
+	 
 	/**
 	 * Page book for switching between the tree viewer and the "no properties"
 	 * message.
