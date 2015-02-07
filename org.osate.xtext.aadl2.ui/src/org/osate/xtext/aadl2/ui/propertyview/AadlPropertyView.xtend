@@ -115,10 +115,13 @@ import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.ModeFeature
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
+import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertySet
+import org.osate.aadl2.PropertyType
 import org.osate.aadl2.Prototype
 import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordValue
@@ -684,7 +687,7 @@ class AadlPropertyView extends ViewPart {
 			site.registerContextMenu(it, treeViewer)
 		]
 	}
-
+	
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
 		xtextDocument?.removeModelListener(xtextModelListener)
 		val currentSelection = switch selection {
@@ -719,6 +722,7 @@ class AadlPropertyView extends ViewPart {
 		var Object treeElementToSelect
 		val currentSelectionURI = try {
 			switch currentSelection {
+				PropertySet, Property, PropertyType, PropertyConstant, PackageSection: null
 				NamedElement:
 					currentSelection.URI
 				PropertyAssociation case currentSelection.appliesTos.empty: {
