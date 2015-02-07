@@ -35,11 +35,17 @@
 package org.osate.xtext.aadl2.ui.propertyview
 
 import com.google.inject.Inject
+import java.io.InputStreamReader
 import java.util.ArrayDeque
 import java.util.Collections
 import java.util.List
 import java.util.Map
+import java.util.Set
+import java.util.TreeSet
+import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IAdaptable
+import org.eclipse.core.runtime.Path
+import org.eclipse.core.runtime.Platform
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.emf.common.util.URI
@@ -69,9 +75,12 @@ import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
 import org.eclipse.jface.viewers.Viewer
 import org.eclipse.swt.SWT
+import org.eclipse.swt.events.ModifyEvent
+import org.eclipse.swt.events.ModifyListener
 import org.eclipse.swt.graphics.GC
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
+import org.eclipse.swt.widgets.Combo
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.IPartListener
@@ -119,6 +128,7 @@ import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 
+import static extension com.google.common.io.CharStreams.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
@@ -135,7 +145,8 @@ class AadlPropertyView extends ViewPart {
 
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
-
+	val static DEFAULT_PROPERTY_GROUP = "All"
+	
 	/**
 	 * Page book for switching between the tree viewer and the "no properties"
 	 * message.
@@ -181,6 +192,9 @@ class AadlPropertyView extends ViewPart {
 	var package IXtextDocument xtextDocument = null
 
 	var ResourceSet resourceSetFromSelection = null
+
+	/* Only show properties from this group (or all properties if empty) */
+	var Set<String> currentPropertyGroup = new TreeSet
 
 	@Inject
 	var package ISerializer serializer
@@ -270,14 +284,19 @@ class AadlPropertyView extends ViewPart {
 		]
 
 		treeViewerComposite = new Composite(pageBook, SWT.NULL) => [
-			val patternFilter = new PatternFilter() {
+			// TreeFilter is jealous; doesn't permit other filters
+			// so all our filtering has to be done here
+			val patternFilter = new PatternFilter {
 				override protected isLeafMatch(Viewer viewer, Object element) {
-					val treeViewer = viewer as TreeViewer
 					val labelProvider = treeViewer.getLabelProvider(0) as ColumnLabelProvider
 					val labelText = labelProvider.getText(element)
 					return wordMatches(labelText)
+						&& (currentPropertyGroup.size == 0 || currentPropertyGroup.contains(labelText))
 				}
 			}
+			// Hack to kill optimization that disables filter when text is empty
+			patternFilter.setPattern("org.eclipse.ui.keys.optimization.false")
+			
 			val treeColumnLayout = new TreeColumnLayout
 			val filteredTree = new FilteredTree(it, SWT.BORDER, patternFilter, true) {
 				override doCreateTreeViewer(Composite parent, int style) {
@@ -286,7 +305,48 @@ class AadlPropertyView extends ViewPart {
 					parent.setLayout(treeColumnLayout)
 					return c
 				}
+
+				override createFilterControls(Composite parent) {
+					val result = super.createFilterControls( parent)
+
+					val Map< String, Set<String>> propertyGroups
+						 = newLinkedHashMap(DEFAULT_PROPERTY_GROUP -> new TreeSet())
+					val propertyGroupCombo = new Combo(parent, SWT.READ_ONLY) => [
+						add( DEFAULT_PROPERTY_GROUP)
+						text = DEFAULT_PROPERTY_GROUP
+					]
+					propertyGroupCombo.addModifyListener(new ModifyListener {
+							override modifyText(ModifyEvent e) {
+								currentPropertyGroup = propertyGroups.get( propertyGroupCombo.text)
+								treeViewer.refresh()
+							}
+					})
+					
+			        val fullPathURI = FileLocator.find(Platform.getBundle("org.osate.xtext.aadl2.ui"),
+							        					new Path("resources/AadlPropertyGroups.properties"), null)
+			        val reader = new InputStreamReader( fullPathURI.openStream())
+					for (line : reader.readLines) {
+						if (!line.startsWith("#") && line.length > 0) {
+	    					val String[] segments = line.split(':')
+	    					if (segments.length == 2) {
+								propertyGroupCombo.add( segments.get(0))
+	    						propertyGroups.put( segments.get(0), segments.get(1).split(",").toSet)
+							}
+    					}
+					}
+					reader.close()
+ 
+					if (parent.getLayout() instanceof GridLayout) {
+						// previous gridLayout was 2 columns, can't change after initialization
+						val newGridLayout = new GridLayout( 3, false) 
+						newGridLayout.marginHeight = 0
+						newGridLayout.marginWidth = 0
+						parent.setLayout(newGridLayout)
+					}
+					result
+				}
 			}
+
 			layout = new GridLayout
 			val gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 			filteredTree.setLayoutData(gd);
