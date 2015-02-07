@@ -4615,17 +4615,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkAppliesTo(final Property pd) {
 		for (PropertyOwner appliesTo : pd.getAppliesTos()) {
-			// for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
-			try {
-				if (appliesTo instanceof MetaclassReference && ((MetaclassReference) appliesTo).getAnnexName() != null) {
-//					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
-					if (((MetaclassReference) appliesTo).getMetaclass() != null) {
-					}
+			if (appliesTo instanceof MetaclassReference) {
+				MetaclassReference metaRef = (MetaclassReference) appliesTo;
+				if (metaRef.getAnnexName() == null && metaRef.getMetaclass() == null) {
+					error(pd, metaRef.getErrorMessage());
 				}
-			} catch (IllegalArgumentException e) {
-//				e.printStackTrace();
-				String msg = e.getMessage();
-				error(pd, msg);// "Meta class reference "+((MetaclassReference) appliesTo).getMetaclass().get+" not found in Meta model.");
 			}
 		}
 	}
