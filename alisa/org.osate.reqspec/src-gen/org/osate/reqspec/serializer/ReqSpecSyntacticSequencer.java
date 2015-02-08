@@ -18,10 +18,6 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ReqSpecGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_AtomicExpr_LeftParenthesisKeyword_3_0_a;
-	protected AbstractElementAlias match_AtomicExpr_LeftParenthesisKeyword_3_0_p;
-	protected AbstractElementAlias match_AtomicUnit_LeftParenthesisKeyword_1_0_a;
-	protected AbstractElementAlias match_AtomicUnit_LeftParenthesisKeyword_1_0_p;
 	protected AbstractElementAlias match_Goal_RefinesKeyword_5_3_0_q;
 	protected AbstractElementAlias match_Goal_StakeholderKeyword_5_5_0_q;
 	protected AbstractElementAlias match_Goal___ConflictsKeyword_5_4_0_WithKeyword_5_4_1__q;
@@ -42,10 +38,6 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ReqSpecGrammarAccess) access;
-		match_AtomicExpr_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getAtomicExprAccess().getLeftParenthesisKeyword_3_0());
-		match_AtomicExpr_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getAtomicExprAccess().getLeftParenthesisKeyword_3_0());
-		match_AtomicUnit_LeftParenthesisKeyword_1_0_a = new TokenAlias(true, true, grammarAccess.getAtomicUnitAccess().getLeftParenthesisKeyword_1_0());
-		match_AtomicUnit_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getAtomicUnitAccess().getLeftParenthesisKeyword_1_0());
 		match_Goal_RefinesKeyword_5_3_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getRefinesKeyword_5_3_0());
 		match_Goal_StakeholderKeyword_5_5_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getStakeholderKeyword_5_5_0());
 		match_Goal___ConflictsKeyword_5_4_0_WithKeyword_5_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getGoalAccess().getConflictsKeyword_5_4_0()), new TokenAlias(false, false, grammarAccess.getGoalAccess().getWithKeyword_5_4_1()));
@@ -101,15 +93,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AtomicExpr_LeftParenthesisKeyword_3_0_a.equals(syntax))
-				emit_AtomicExpr_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AtomicExpr_LeftParenthesisKeyword_3_0_p.equals(syntax))
-				emit_AtomicExpr_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AtomicUnit_LeftParenthesisKeyword_1_0_a.equals(syntax))
-				emit_AtomicUnit_LeftParenthesisKeyword_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AtomicUnit_LeftParenthesisKeyword_1_0_p.equals(syntax))
-				emit_AtomicUnit_LeftParenthesisKeyword_1_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Goal_RefinesKeyword_5_3_0_q.equals(syntax))
+			if(match_Goal_RefinesKeyword_5_3_0_q.equals(syntax))
 				emit_Goal_RefinesKeyword_5_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Goal_StakeholderKeyword_5_5_0_q.equals(syntax))
 				emit_Goal_StakeholderKeyword_5_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -145,38 +129,6 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
-	/**
-	 * Syntax:
-	 *     '('*
-	 */
-	protected void emit_AtomicExpr_LeftParenthesisKeyword_3_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
-	 *     '('+
-	 */
-	protected void emit_AtomicExpr_LeftParenthesisKeyword_3_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
-	 *     '('*
-	 */
-	protected void emit_AtomicUnit_LeftParenthesisKeyword_1_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
-	 *     '('+
-	 */
-	protected void emit_AtomicUnit_LeftParenthesisKeyword_1_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
 	/**
 	 * Syntax:
 	 *     'refines'?

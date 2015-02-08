@@ -3,14 +3,11 @@
 package org.osate.reqspec.reqSpec.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.reqspec.reqSpec.Expr;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.SPeARPredicate;
 
@@ -30,14 +27,24 @@ import org.osate.reqspec.reqSpec.SPeARPredicate;
 public class SPeARPredicateImpl extends ReqPredicateImpl implements SPeARPredicate
 {
   /**
-   * The cached value of the '{@link #getPredicate() <em>Predicate</em>}' containment reference.
+   * The default value of the '{@link #getPredicate() <em>Predicate</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getPredicate()
    * @generated
    * @ordered
    */
-  protected Expr predicate;
+  protected static final String PREDICATE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getPredicate() <em>Predicate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPredicate()
+   * @generated
+   * @ordered
+   */
+  protected String predicate = PREDICATE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -65,7 +72,7 @@ public class SPeARPredicateImpl extends ReqPredicateImpl implements SPeARPredica
    * <!-- end-user-doc -->
    * @generated
    */
-  public Expr getPredicate()
+  public String getPredicate()
   {
     return predicate;
   }
@@ -75,53 +82,12 @@ public class SPeARPredicateImpl extends ReqPredicateImpl implements SPeARPredica
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetPredicate(Expr newPredicate, NotificationChain msgs)
+  public void setPredicate(String newPredicate)
   {
-    Expr oldPredicate = predicate;
+    String oldPredicate = predicate;
     predicate = newPredicate;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE, oldPredicate, newPredicate);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPredicate(Expr newPredicate)
-  {
-    if (newPredicate != predicate)
-    {
-      NotificationChain msgs = null;
-      if (predicate != null)
-        msgs = ((InternalEObject)predicate).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE, null, msgs);
-      if (newPredicate != null)
-        msgs = ((InternalEObject)newPredicate).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE, null, msgs);
-      msgs = basicSetPredicate(newPredicate, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE, newPredicate, newPredicate));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE:
-        return basicSetPredicate(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE, oldPredicate, predicate));
   }
 
   /**
@@ -151,7 +117,7 @@ public class SPeARPredicateImpl extends ReqPredicateImpl implements SPeARPredica
     switch (featureID)
     {
       case ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE:
-        setPredicate((Expr)newValue);
+        setPredicate((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -168,7 +134,7 @@ public class SPeARPredicateImpl extends ReqPredicateImpl implements SPeARPredica
     switch (featureID)
     {
       case ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE:
-        setPredicate((Expr)null);
+        setPredicate(PREDICATE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -185,9 +151,26 @@ public class SPeARPredicateImpl extends ReqPredicateImpl implements SPeARPredica
     switch (featureID)
     {
       case ReqSpecPackage.SPE_AR_PREDICATE__PREDICATE:
-        return predicate != null;
+        return PREDICATE_EDEFAULT == null ? predicate != null : !PREDICATE_EDEFAULT.equals(predicate);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (predicate: ");
+    result.append(predicate);
+    result.append(')');
+    return result.toString();
   }
 
 } //SPeARPredicateImpl

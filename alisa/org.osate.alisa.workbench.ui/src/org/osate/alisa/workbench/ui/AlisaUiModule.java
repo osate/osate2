@@ -12,4 +12,9 @@ public class AlisaUiModule extends org.osate.alisa.workbench.ui.AbstractAlisaUiM
 	public AlisaUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+
+	@Override
+	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+		return org.osate.alisa.common.ui.util.AlisaHyperLinkHelper.class;
+	}
 }

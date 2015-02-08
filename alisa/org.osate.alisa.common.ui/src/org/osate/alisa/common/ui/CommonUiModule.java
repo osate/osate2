@@ -12,4 +12,10 @@ public class CommonUiModule extends org.osate.alisa.common.ui.AbstractCommonUiMo
 	public CommonUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
+
+	// contributed by org.eclipse.xtext.generator.xbase.XbaseGeneratorFragment
+	@Override
+	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkHelper> bindIHyperlinkHelper() {
+		return org.osate.alisa.common.ui.util.AlisaHyperLinkHelper.class;
+	}
 }

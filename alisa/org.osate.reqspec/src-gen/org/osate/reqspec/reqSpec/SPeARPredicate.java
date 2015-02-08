@@ -22,29 +22,29 @@ package org.osate.reqspec.reqSpec;
 public interface SPeARPredicate extends ReqPredicate
 {
   /**
-   * Returns the value of the '<em><b>Predicate</b></em>' containment reference.
+   * Returns the value of the '<em><b>Predicate</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Predicate</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Predicate</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Predicate</em>' containment reference.
-   * @see #setPredicate(Expr)
+   * @return the value of the '<em>Predicate</em>' attribute.
+   * @see #setPredicate(String)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getSPeARPredicate_Predicate()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  Expr getPredicate();
+  String getPredicate();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SPeARPredicate#getPredicate <em>Predicate</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.SPeARPredicate#getPredicate <em>Predicate</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Predicate</em>' containment reference.
+   * @param value the new value of the '<em>Predicate</em>' attribute.
    * @see #getPredicate()
    * @generated
    */
-  void setPredicate(Expr value);
+  void setPredicate(String value);
 
 } // SPeARPredicate
