@@ -443,13 +443,22 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Constants</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_SPECS__CONSTANTS = REQ_SPEC_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONTENT = REQ_SPEC_FEATURE_COUNT + 4;
+  int REQ_SPECS__CONTENT = REQ_SPEC_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Req Specs</em>' class.
@@ -458,7 +467,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 5;
+  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecFolderImpl <em>Folder</em>}' class.
@@ -1361,6 +1370,17 @@ public interface ReqSpecPackage extends EPackage
   EReference getReqSpecs_Otherreqspecs();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Constants</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqSpecs#getConstants()
+   * @see #getReqSpecs()
+   * @generated
+   */
+  EReference getReqSpecs_Constants();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2010,6 +2030,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQ_SPECS__OTHERREQSPECS = eINSTANCE.getReqSpecs_Otherreqspecs();
+
+    /**
+     * The meta object literal for the '<em><b>Constants</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQ_SPECS__CONSTANTS = eINSTANCE.getReqSpecs_Constants();
 
     /**
      * The meta object literal for the '<em><b>Content</b></em>' containment reference list feature.

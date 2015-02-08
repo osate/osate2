@@ -46,6 +46,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecs/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/target"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/otherreqspecs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/constants"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/content"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecFolder">

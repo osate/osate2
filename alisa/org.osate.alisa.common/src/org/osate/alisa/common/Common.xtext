@@ -15,7 +15,7 @@ DescriptionElement :
  ;
 
 XValDeclaration returns XExpression:
-	'val' (=> (type=JvmTypeReference name=ID) | name=ID) '=' right=XExpression
+	 (=> (type=JvmTypeReference name=ID) | name=ID) '=' right=XExpression
 ;
  
 // ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	

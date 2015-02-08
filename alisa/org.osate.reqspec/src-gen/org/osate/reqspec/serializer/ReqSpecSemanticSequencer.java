@@ -1400,6 +1400,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         target=[Classifier|AadlClassifierReference]? 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
+	 *         constants+=XValDeclaration* 
 	 *         (content+=Requirement | content+=ReqSpecFolder)*
 	 *     )
 	 */

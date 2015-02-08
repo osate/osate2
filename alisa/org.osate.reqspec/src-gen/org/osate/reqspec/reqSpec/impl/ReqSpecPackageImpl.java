@@ -591,9 +591,19 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getReqSpecs_Content()
+  public EReference getReqSpecs_Constants()
   {
     return (EReference)reqSpecsEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getReqSpecs_Content()
+  {
+    return (EReference)reqSpecsEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -968,6 +978,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEAttribute(reqSpecsEClass, REQ_SPECS__TITLE);
     createEReference(reqSpecsEClass, REQ_SPECS__TARGET);
     createEReference(reqSpecsEClass, REQ_SPECS__OTHERREQSPECS);
+    createEReference(reqSpecsEClass, REQ_SPECS__CONSTANTS);
     createEReference(reqSpecsEClass, REQ_SPECS__CONTENT);
 
     reqSpecFolderEClass = createEClass(REQ_SPEC_FOLDER);
@@ -1107,6 +1118,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getReqSpecs_Title(), theEcorePackage.getEString(), "title", null, 0, 1, ReqSpecs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getReqSpecs_Target(), theAadl2Package.getClassifier(), null, "target", null, 0, 1, ReqSpecs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getReqSpecs_Otherreqspecs(), this.getReqSpecs(), null, "otherreqspecs", null, 0, -1, ReqSpecs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReqSpecs_Constants(), theCommonPackage.getXExpression(), null, "constants", null, 0, -1, ReqSpecs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getReqSpecs_Content(), theEcorePackage.getEObject(), null, "content", null, 0, -1, ReqSpecs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(reqSpecFolderEClass, ReqSpecFolder.class, "ReqSpecFolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

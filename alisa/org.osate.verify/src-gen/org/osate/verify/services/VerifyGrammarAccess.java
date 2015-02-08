@@ -1719,7 +1719,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//XValDeclaration returns XExpression:
-	//	"val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+	//	(=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
