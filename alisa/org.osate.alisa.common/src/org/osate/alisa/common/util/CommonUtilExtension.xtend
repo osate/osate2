@@ -2,10 +2,6 @@ package org.osate.alisa.common.util
 
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
-import org.osate.alisa.common.common.ConstantValue
-import org.osate.alisa.common.common.StringTerm
-import org.osate.alisa.common.common.RealTerm
-import org.osate.alisa.common.common.IntegerTerm
 import org.osate.aadl2.NamedElement
 
 class CommonUtilExtension {
@@ -16,9 +12,8 @@ class CommonUtilExtension {
 	
 	def static toText(DescriptionElement de, NamedElement target){
 		if (de.text != null) return de.text
-		if (de.newline) return "\n"
 		if (de.value != null) {
-			return de.value.ref?.constantvalue?.toText?:"" 
+			return ""// XXX de.value.ref?.constantvalue?.toText?:"" 
 		}
 		if (de.thisTarget && target != null) {
 			var nm = target.name
@@ -27,13 +22,13 @@ class CommonUtilExtension {
 		}
 		""
 	}
-	
-	def static String toText(ConstantValue cv){
-		switch (cv){
-			StringTerm: return cv.value
-			RealTerm: return cv.value +cv.unit?:""
-			IntegerTerm: return cv.value.toString + cv.unit?:""
-		}
-	}
+//	
+//	def static String toText(ConstantValue cv){
+//		switch (cv){
+//			StringTerm: return cv.value
+//			RealTerm: return cv.value +cv.unit?:""
+//			IntegerTerm: return cv.value.toString + cv.unit?:""
+//		}
+//	}
 	
 }

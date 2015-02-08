@@ -6,8 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.alisa.common.common.ConstantDecl;
-import org.osate.alisa.common.common.PredicateExpression;
+import org.osate.alisa.common.common.XExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,7 +17,7 @@ import org.osate.alisa.common.common.PredicateExpression;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getAssert <em>Assert</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}</li>
@@ -35,7 +34,7 @@ public interface Requirement extends ContractualElement
 {
   /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.ConstantDecl}.
+   * The list contents are of type {@link org.osate.alisa.common.common.XExpression}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
@@ -47,33 +46,33 @@ public interface Requirement extends ContractualElement
    * @model containment="true"
    * @generated
    */
-  EList<ConstantDecl> getConstants();
+  EList<XExpression> getConstants();
 
   /**
-   * Returns the value of the '<em><b>Assert</b></em>' containment reference.
+   * Returns the value of the '<em><b>Predicate</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Assert</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Predicate</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Assert</em>' containment reference.
-   * @see #setAssert(PredicateExpression)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Assert()
+   * @return the value of the '<em>Predicate</em>' containment reference.
+   * @see #setPredicate(ReqPredicate)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Predicate()
    * @model containment="true"
    * @generated
    */
-  PredicateExpression getAssert();
+  ReqPredicate getPredicate();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getAssert <em>Assert</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Assert</em>' containment reference.
-   * @see #getAssert()
+   * @param value the new value of the '<em>Predicate</em>' containment reference.
+   * @see #getPredicate()
    * @generated
    */
-  void setAssert(PredicateExpression value);
+  void setPredicate(ReqPredicate value);
 
   /**
    * Returns the value of the '<em><b>Goal Reference</b></em>' reference list.

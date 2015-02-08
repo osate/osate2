@@ -22,8 +22,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentImplementation;
 
-import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.XExpression;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration;
@@ -43,7 +43,7 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getConstant <em>Constant</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getPlans <em>Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
@@ -114,14 +114,14 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   protected Description description;
 
   /**
-   * The cached value of the '{@link #getConstant() <em>Constant</em>}' containment reference list.
+   * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConstant()
+   * @see #getConstants()
    * @generated
    * @ordered
    */
-  protected EList<ConstantDecl> constant;
+  protected EList<XExpression> constants;
 
   /**
    * The cached value of the '{@link #getPlans() <em>Plans</em>}' reference list.
@@ -306,13 +306,13 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ConstantDecl> getConstant()
+  public EList<XExpression> getConstants()
   {
-    if (constant == null)
+    if (constants == null)
     {
-      constant = new EObjectContainmentEList<ConstantDecl>(ConstantDecl.class, this, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT);
+      constants = new EObjectContainmentEList<XExpression>(XExpression.class, this, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANTS);
     }
-    return constant;
+    return constants;
   }
 
   /**
@@ -355,8 +355,8 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
     {
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
         return basicSetDescription(null, msgs);
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT:
-        return ((InternalEList<?>)getConstant()).basicRemove(otherEnd, msgs);
+      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANTS:
+        return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -380,8 +380,8 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
         return basicGetSystem();
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
         return getDescription();
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT:
-        return getConstant();
+      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANTS:
+        return getConstants();
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
         return getPlans();
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER:
@@ -413,9 +413,9 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT:
-        getConstant().clear();
-        getConstant().addAll((Collection<? extends ConstantDecl>)newValue);
+      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANTS:
+        getConstants().clear();
+        getConstants().addAll((Collection<? extends XExpression>)newValue);
         return;
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
         getPlans().clear();
@@ -451,8 +451,8 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT:
-        getConstant().clear();
+      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANTS:
+        getConstants().clear();
         return;
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
         getPlans().clear();
@@ -482,8 +482,8 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
         return system != null;
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
         return description != null;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANT:
-        return constant != null && !constant.isEmpty();
+      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__CONSTANTS:
+        return constants != null && !constants.isEmpty();
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
         return plans != null && !plans.isEmpty();
       case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER:

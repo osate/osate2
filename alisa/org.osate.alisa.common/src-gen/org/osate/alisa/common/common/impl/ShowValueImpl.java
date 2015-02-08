@@ -5,13 +5,13 @@ package org.osate.alisa.common.common.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.ConstantDecl;
 import org.osate.alisa.common.common.ShowValue;
 
 /**
@@ -38,7 +38,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * @generated
    * @ordered
    */
-  protected ConstantDecl ref;
+  protected EObject ref;
 
   /**
    * The default value of the '{@link #getUnit() <em>Unit</em>}' attribute.
@@ -86,12 +86,12 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public ConstantDecl getRef()
+  public EObject getRef()
   {
     if (ref != null && ref.eIsProxy())
     {
       InternalEObject oldRef = (InternalEObject)ref;
-      ref = (ConstantDecl)eResolveProxy(oldRef);
+      ref = eResolveProxy(oldRef);
       if (ref != oldRef)
       {
         if (eNotificationRequired())
@@ -106,7 +106,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public ConstantDecl basicGetRef()
+  public EObject basicGetRef()
   {
     return ref;
   }
@@ -116,9 +116,9 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRef(ConstantDecl newRef)
+  public void setRef(EObject newRef)
   {
-    ConstantDecl oldRef = ref;
+    EObject oldRef = ref;
     ref = newRef;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SHOW_VALUE__REF, oldRef, ref));
@@ -177,7 +177,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
     switch (featureID)
     {
       case CommonPackage.SHOW_VALUE__REF:
-        setRef((ConstantDecl)newValue);
+        setRef((EObject)newValue);
         return;
       case CommonPackage.SHOW_VALUE__UNIT:
         setUnit((String)newValue);
@@ -197,7 +197,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
     switch (featureID)
     {
       case CommonPackage.SHOW_VALUE__REF:
-        setRef((ConstantDecl)null);
+        setRef((EObject)null);
         return;
       case CommonPackage.SHOW_VALUE__UNIT:
         setUnit(UNIT_EDEFAULT);

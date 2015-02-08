@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.common.common.MultiLineString;
+import org.osate.alisa.common.common.Description;
 
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ReqDocument;
@@ -89,7 +89,7 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
    * @generated
    * @ordered
    */
-  protected MultiLineString description;
+  protected Description description;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -173,7 +173,7 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
    * <!-- end-user-doc -->
    * @generated
    */
-  public MultiLineString getDescription()
+  public Description getDescription()
   {
     return description;
   }
@@ -183,9 +183,9 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDescription(MultiLineString newDescription, NotificationChain msgs)
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
   {
-    MultiLineString oldDescription = description;
+    Description oldDescription = description;
     description = newDescription;
     if (eNotificationRequired())
     {
@@ -200,7 +200,7 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDescription(MultiLineString newDescription)
+  public void setDescription(Description newDescription)
   {
     if (newDescription != description)
     {
@@ -288,7 +288,7 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
         setTitle((String)newValue);
         return;
       case ReqSpecPackage.REQ_DOCUMENT__DESCRIPTION:
-        setDescription((MultiLineString)newValue);
+        setDescription((Description)newValue);
         return;
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         getContent().clear();
@@ -315,7 +315,7 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
         setTitle(TITLE_EDEFAULT);
         return;
       case ReqSpecPackage.REQ_DOCUMENT__DESCRIPTION:
-        setDescription((MultiLineString)null);
+        setDescription((Description)null);
         return;
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         getContent().clear();

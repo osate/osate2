@@ -21,8 +21,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.Classifier;
 
-import org.osate.alisa.common.common.ConstantDecl;
-
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 
@@ -37,7 +35,6 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getOtherreqspecs <em>Otherreqspecs</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getContent <em>Content</em>}</li>
  * </ul>
  * </p>
@@ -105,16 +102,6 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * @ordered
    */
   protected EList<ReqSpecs> otherreqspecs;
-
-  /**
-   * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getConstants()
-   * @generated
-   * @ordered
-   */
-  protected EList<ConstantDecl> constants;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -255,20 +242,6 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ConstantDecl> getConstants()
-  {
-    if (constants == null)
-    {
-      constants = new EObjectContainmentEList<ConstantDecl>(ConstantDecl.class, this, ReqSpecPackage.REQ_SPECS__CONSTANTS);
-    }
-    return constants;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<EObject> getContent()
   {
     if (content == null)
@@ -288,8 +261,6 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQ_SPECS__CONSTANTS:
-        return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
     }
@@ -315,8 +286,6 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return basicGetTarget();
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         return getOtherreqspecs();
-      case ReqSpecPackage.REQ_SPECS__CONSTANTS:
-        return getConstants();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return getContent();
     }
@@ -346,10 +315,6 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         getOtherreqspecs().clear();
         getOtherreqspecs().addAll((Collection<? extends ReqSpecs>)newValue);
-        return;
-      case ReqSpecPackage.REQ_SPECS__CONSTANTS:
-        getConstants().clear();
-        getConstants().addAll((Collection<? extends ConstantDecl>)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
@@ -381,9 +346,6 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         getOtherreqspecs().clear();
         return;
-      case ReqSpecPackage.REQ_SPECS__CONSTANTS:
-        getConstants().clear();
-        return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
         return;
@@ -409,8 +371,6 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return target != null;
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         return otherreqspecs != null && !otherreqspecs.isEmpty();
-      case ReqSpecPackage.REQ_SPECS__CONSTANTS:
-        return constants != null && !constants.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return content != null && !content.isEmpty();
     }

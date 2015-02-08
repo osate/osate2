@@ -75,11 +75,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
     new CommonSwitch<Adapter>()
     {
       @Override
-      public Adapter caseModel(Model object)
-      {
-        return createModelAdapter();
-      }
-      @Override
       public Adapter caseDescription(Description object)
       {
         return createDescriptionAdapter();
@@ -90,54 +85,14 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createDescriptionElementAdapter();
       }
       @Override
+      public Adapter caseXExpression(XExpression object)
+      {
+        return createXExpressionAdapter();
+      }
+      @Override
       public Adapter caseShowValue(ShowValue object)
       {
         return createShowValueAdapter();
-      }
-      @Override
-      public Adapter caseReferencePath(ReferencePath object)
-      {
-        return createReferencePathAdapter();
-      }
-      @Override
-      public Adapter casePredicateExpression(PredicateExpression object)
-      {
-        return createPredicateExpressionAdapter();
-      }
-      @Override
-      public Adapter caseConstantDecl(ConstantDecl object)
-      {
-        return createConstantDeclAdapter();
-      }
-      @Override
-      public Adapter caseConstantValue(ConstantValue object)
-      {
-        return createConstantValueAdapter();
-      }
-      @Override
-      public Adapter caseStringTerm(StringTerm object)
-      {
-        return createStringTermAdapter();
-      }
-      @Override
-      public Adapter caseRealTerm(RealTerm object)
-      {
-        return createRealTermAdapter();
-      }
-      @Override
-      public Adapter caseIntegerTerm(IntegerTerm object)
-      {
-        return createIntegerTermAdapter();
-      }
-      @Override
-      public Adapter caseMultiLineString(MultiLineString object)
-      {
-        return createMultiLineStringAdapter();
-      }
-      @Override
-      public Adapter caseTextElement(TextElement object)
-      {
-        return createTextElementAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -160,21 +115,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
     return modelSwitch.doSwitch((EObject)target);
   }
 
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.Model <em>Model</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.Model
-   * @generated
-   */
-  public Adapter createModelAdapter()
-  {
-    return null;
-  }
 
   /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.Description <em>Description</em>}'.
@@ -207,6 +147,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.XExpression <em>XExpression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.XExpression
+   * @generated
+   */
+  public Adapter createXExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -217,141 +172,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createShowValueAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ReferencePath <em>Reference Path</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ReferencePath
-   * @generated
-   */
-  public Adapter createReferencePathAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.PredicateExpression <em>Predicate Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.PredicateExpression
-   * @generated
-   */
-  public Adapter createPredicateExpressionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ConstantDecl <em>Constant Decl</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ConstantDecl
-   * @generated
-   */
-  public Adapter createConstantDeclAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ConstantValue <em>Constant Value</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ConstantValue
-   * @generated
-   */
-  public Adapter createConstantValueAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.StringTerm <em>String Term</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.StringTerm
-   * @generated
-   */
-  public Adapter createStringTermAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.RealTerm <em>Real Term</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.RealTerm
-   * @generated
-   */
-  public Adapter createRealTermAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.IntegerTerm <em>Integer Term</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.IntegerTerm
-   * @generated
-   */
-  public Adapter createIntegerTermAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.MultiLineString <em>Multi Line String</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.MultiLineString
-   * @generated
-   */
-  public Adapter createMultiLineStringAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.TextElement <em>Text Element</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.TextElement
-   * @generated
-   */
-  public Adapter createTextElementAdapter()
   {
     return null;
   }

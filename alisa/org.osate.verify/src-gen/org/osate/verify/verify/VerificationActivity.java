@@ -2,7 +2,6 @@
  */
 package org.osate.verify.verify;
 
-import org.osate.alisa.common.common.MultiLineString;
 
 /**
  * <!-- begin-user-doc -->
@@ -77,29 +76,29 @@ public interface VerificationActivity extends VerificationAction
   void setTimeout(int value);
 
   /**
-   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
+   * Returns the value of the '<em><b>Rationale</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Rationale</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' containment reference.
-   * @see #setRationale(MultiLineString)
+   * @return the value of the '<em>Rationale</em>' attribute.
+   * @see #setRationale(String)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Rationale()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  MultiLineString getRationale();
+  String getRationale();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' containment reference.
+   * @param value the new value of the '<em>Rationale</em>' attribute.
    * @see #getRationale()
    * @generated
    */
-  void setRationale(MultiLineString value);
+  void setRationale(String value);
 
 } // VerificationActivity

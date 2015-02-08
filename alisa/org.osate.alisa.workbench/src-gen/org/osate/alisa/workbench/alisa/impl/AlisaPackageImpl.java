@@ -196,7 +196,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceCaseConfiguration_Constant()
+  public EReference getAssuranceCaseConfiguration_Constants()
   {
     return (EReference)assuranceCaseConfigurationEClass.getEStructuralFeatures().get(4);
   }
@@ -260,7 +260,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     createEAttribute(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__TITLE);
     createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__SYSTEM);
     createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__DESCRIPTION);
-    createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__CONSTANT);
+    createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__CONSTANTS);
     createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__PLANS);
     createEReference(assuranceCaseConfigurationEClass, ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER);
   }
@@ -312,7 +312,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     initEAttribute(getAssuranceCaseConfiguration_Title(), theEcorePackage.getEString(), "title", null, 0, 1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCaseConfiguration_System(), theAadl2Package.getComponentImplementation(), null, "system", null, 0, 1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCaseConfiguration_Description(), theCommonPackage.getDescription(), null, "description", null, 0, 1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceCaseConfiguration_Constant(), theCommonPackage.getConstantDecl(), null, "constant", null, 0, -1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceCaseConfiguration_Constants(), theCommonPackage.getXExpression(), null, "constants", null, 0, -1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCaseConfiguration_Plans(), theVerifyPackage.getVerificationPlan(), null, "plans", null, 0, -1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceCaseConfiguration_SelectionFilter(), theCategoriesPackage.getSelectionCategory(), null, "selectionFilter", null, 0, -1, AssuranceCaseConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

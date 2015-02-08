@@ -12,7 +12,7 @@ import org.eclipse.xtext.*;
 import org.eclipse.xtext.service.GrammarProvider;
 import org.eclipse.xtext.service.AbstractElementFinder.*;
 
-import org.osate.alisa.common.services.CommonGrammarAccess;
+import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 
 @Singleton
 public class AssureGrammarAccess extends AbstractGrammarElementFinder {
@@ -1605,6 +1605,83 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"]"
 		public Keyword getRightSquareBracketKeyword_5_2() { return cRightSquareBracketKeyword_5_2; }
 	}
+
+	public class AadlClassifierReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AadlClassifierReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cFullStopKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		
+		//// Qualified classifier reference
+		//AadlClassifierReference:
+		//	ID "::" ID ("." ID)?;
+		public ParserRule getRule() { return rule; }
+
+		//ID "::" ID ("." ID)?
+		public Group getGroup() { return cGroup; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+
+		//"::"
+		public Keyword getColonColonKeyword_1() { return cColonColonKeyword_1; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+
+		//("." ID)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"."
+		public Keyword getFullStopKeyword_3_0() { return cFullStopKeyword_3_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_3_1() { return cIDTerminalRuleCall_3_1; }
+	}
+
+	public class URIIDElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "URIID");
+		private final RuleCall cSTRINGTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//URIID:
+		//	STRING;
+		public ParserRule getRule() { return rule; }
+
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall() { return cSTRINGTerminalRuleCall; }
+	}
+
+	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QualifiedName");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		
+		//QualifiedName:
+		//	ID ("." ID)*;
+		public ParserRule getRule() { return rule; }
+
+		//ID ("." ID)*
+		public Group getGroup() { return cGroup; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+
+		//(=> "." ID)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//=> "."
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
+	}
 	
 	
 	public class ResultIssueTypeElements extends AbstractEnumRuleElementFinder {
@@ -1768,16 +1845,19 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	private final ResultIssueTypeElements unknownRuleResultIssueType;
 	private final VerificationResultStateElements unknownRuleVerificationResultState;
 	private final VerificationExecutionStateElements unknownRuleVerificationExecutionState;
+	private final AadlClassifierReferenceElements pAadlClassifierReference;
+	private final URIIDElements pURIID;
+	private final QualifiedNameElements pQualifiedName;
 	
 	private final Grammar grammar;
 
-	private final CommonGrammarAccess gaCommon;
+	private final TerminalsGrammarAccess gaTerminals;
 
 	@Inject
 	public AssureGrammarAccess(GrammarProvider grammarProvider,
-		CommonGrammarAccess gaCommon) {
+		TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
-		this.gaCommon = gaCommon;
+		this.gaTerminals = gaTerminals;
 		this.pCaseResult = new CaseResultElements();
 		this.pClaimResult = new ClaimResultElements();
 		this.pAssumptionResult = new AssumptionResultElements();
@@ -1791,6 +1871,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.unknownRuleResultIssueType = new ResultIssueTypeElements();
 		this.unknownRuleVerificationResultState = new VerificationResultStateElements();
 		this.unknownRuleVerificationExecutionState = new VerificationExecutionStateElements();
+		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
+		this.pURIID = new URIIDElements();
+		this.pQualifiedName = new QualifiedNameElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1815,8 +1898,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 
-	public CommonGrammarAccess getCommonGrammarAccess() {
-		return gaCommon;
+	public TerminalsGrammarAccess getTerminalsGrammarAccess() {
+		return gaTerminals;
 	}
 
 	
@@ -1982,240 +2065,77 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationExecutionStateAccess().getRule();
 	}
 
-	//Model:
-	//	content=Description;
-	public CommonGrammarAccess.ModelElements getModelAccess() {
-		return gaCommon.getModelAccess();
-	}
-	
-	public ParserRule getModelRule() {
-		return getModelAccess().getRule();
-	}
-
-	//Description:
-	//	description+=DescriptionElement+;
-	public CommonGrammarAccess.DescriptionElements getDescriptionAccess() {
-		return gaCommon.getDescriptionAccess();
-	}
-	
-	public ParserRule getDescriptionRule() {
-		return getDescriptionAccess().getRule();
-	}
-
-	//DescriptionElement:
-	//	text=STRING | value=ShowValue | newline?="&" | thisTarget?="this";
-	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
-		return gaCommon.getDescriptionElementAccess();
-	}
-	
-	public ParserRule getDescriptionElementRule() {
-		return getDescriptionElementAccess().getRule();
-	}
-
-	//ShowValue:
-	//	ref=[ConstantDecl] ("%" unit=ID)?;
-	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
-		return gaCommon.getShowValueAccess();
-	}
-	
-	public ParserRule getShowValueRule() {
-		return getShowValueAccess().getRule();
-	}
-
-	//// ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
-	//ReferencePath:
-	//	ref=[ecore::EObject] ("." subpath=ReferencePath);
-	public CommonGrammarAccess.ReferencePathElements getReferencePathAccess() {
-		return gaCommon.getReferencePathAccess();
-	}
-	
-	public ParserRule getReferencePathRule() {
-		return getReferencePathAccess().getRule();
-	}
-
-	//// Dummy placeholder for comparison conditions
-	//PredicateExpression:
-	//	ID op=("=" | "!=" | "<" | "<=" | ">" | ">=") limit=[ConstantDecl];
-	public CommonGrammarAccess.PredicateExpressionElements getPredicateExpressionAccess() {
-		return gaCommon.getPredicateExpressionAccess();
-	}
-	
-	public ParserRule getPredicateExpressionRule() {
-		return getPredicateExpressionAccess().getRule();
-	}
-
-	//ConstantDecl:
-	//	name=ID "=" constantvalue=ConstantValue;
-	public CommonGrammarAccess.ConstantDeclElements getConstantDeclAccess() {
-		return gaCommon.getConstantDeclAccess();
-	}
-	
-	public ParserRule getConstantDeclRule() {
-		return getConstantDeclAccess().getRule();
-	}
-
-	//ConstantValue:
-	//	StringTerm | RealTerm | IntegerTerm;
-	public CommonGrammarAccess.ConstantValueElements getConstantValueAccess() {
-		return gaCommon.getConstantValueAccess();
-	}
-	
-	public ParserRule getConstantValueRule() {
-		return getConstantValueAccess().getRule();
-	}
-
-	//StringTerm:
-	//	value=STRING;
-	public CommonGrammarAccess.StringTermElements getStringTermAccess() {
-		return gaCommon.getStringTermAccess();
-	}
-	
-	public ParserRule getStringTermRule() {
-		return getStringTermAccess().getRule();
-	}
-
-	//RealTerm:
-	//	value=REAL unit=ID?;
-	public CommonGrammarAccess.RealTermElements getRealTermAccess() {
-		return gaCommon.getRealTermAccess();
-	}
-	
-	public ParserRule getRealTermRule() {
-		return getRealTermAccess().getRule();
-	}
-
-	//REAL:
-	//	INT "." INT;
-	public CommonGrammarAccess.REALElements getREALAccess() {
-		return gaCommon.getREALAccess();
-	}
-	
-	public ParserRule getREALRule() {
-		return getREALAccess().getRule();
-	}
-
-	//IntegerTerm:
-	//	value=INT unit=ID?;
-	public CommonGrammarAccess.IntegerTermElements getIntegerTermAccess() {
-		return gaCommon.getIntegerTermAccess();
-	}
-	
-	public ParserRule getIntegerTermRule() {
-		return getIntegerTermAccess().getRule();
-	}
-
-	//MultiLineString:
-	//	description+=TextElement+;
-	public CommonGrammarAccess.MultiLineStringElements getMultiLineStringAccess() {
-		return gaCommon.getMultiLineStringAccess();
-	}
-	
-	public ParserRule getMultiLineStringRule() {
-		return getMultiLineStringAccess().getRule();
-	}
-
-	//TextElement:
-	//	text=STRING | newline?="&";
-	public CommonGrammarAccess.TextElementElements getTextElementAccess() {
-		return gaCommon.getTextElementAccess();
-	}
-	
-	public ParserRule getTextElementRule() {
-		return getTextElementAccess().getRule();
-	}
-
-	//ValueString: // remove quotes from string in ValueConverter 
-	//	STRING;
-	public CommonGrammarAccess.ValueStringElements getValueStringAccess() {
-		return gaCommon.getValueStringAccess();
-	}
-	
-	public ParserRule getValueStringRule() {
-		return getValueStringAccess().getRule();
-	}
-
 	//// Qualified classifier reference
 	//AadlClassifierReference:
-	//	(ID "::")* ID ("." ID)?;
-	public CommonGrammarAccess.AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
-		return gaCommon.getAadlClassifierReferenceAccess();
+	//	ID "::" ID ("." ID)?;
+	public AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
+		return pAadlClassifierReference;
 	}
 	
 	public ParserRule getAadlClassifierReferenceRule() {
 		return getAadlClassifierReferenceAccess().getRule();
 	}
 
-	//// Category reference. Currently it is only a single ID
-	//CatRef: //('.' ID)?
-	//	ID;
-	public CommonGrammarAccess.CatRefElements getCatRefAccess() {
-		return gaCommon.getCatRefAccess();
-	}
-	
-	public ParserRule getCatRefRule() {
-		return getCatRefAccess().getRule();
-	}
-
-	//QualifiedName:
-	//	ID ("." ID)*;
-	public CommonGrammarAccess.QualifiedNameElements getQualifiedNameAccess() {
-		return gaCommon.getQualifiedNameAccess();
-	}
-	
-	public ParserRule getQualifiedNameRule() {
-		return getQualifiedNameAccess().getRule();
-	}
-
 	//URIID:
 	//	STRING;
-	public CommonGrammarAccess.URIIDElements getURIIDAccess() {
-		return gaCommon.getURIIDAccess();
+	public URIIDElements getURIIDAccess() {
+		return pURIID;
 	}
 	
 	public ParserRule getURIIDRule() {
 		return getURIIDAccess().getRule();
 	}
 
+	//QualifiedName:
+	//	ID ("." ID)*;
+	public QualifiedNameElements getQualifiedNameAccess() {
+		return pQualifiedName;
+	}
+	
+	public ParserRule getQualifiedNameRule() {
+		return getQualifiedNameAccess().getRule();
+	}
+
 	//terminal ID:
 	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
-		return gaCommon.getIDRule();
+		return gaTerminals.getIDRule();
 	} 
 
 	//terminal INT returns ecore::EInt:
 	//	"0".."9"+;
 	public TerminalRule getINTRule() {
-		return gaCommon.getINTRule();
+		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:
 	//	"\"" ("\\" . / * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\""))* "\"" | "\'" ("\\" .
 	//	/ * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\'"))* "\'";
 	public TerminalRule getSTRINGRule() {
-		return gaCommon.getSTRINGRule();
+		return gaTerminals.getSTRINGRule();
 	} 
 
 	//terminal ML_COMMENT:
 	//	"/ *"->"* /";
 	public TerminalRule getML_COMMENTRule() {
-		return gaCommon.getML_COMMENTRule();
+		return gaTerminals.getML_COMMENTRule();
 	} 
 
 	//terminal SL_COMMENT:
 	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {
-		return gaCommon.getSL_COMMENTRule();
+		return gaTerminals.getSL_COMMENTRule();
 	} 
 
 	//terminal WS:
 	//	(" " | "\t" | "\r" | "\n")+;
 	public TerminalRule getWSRule() {
-		return gaCommon.getWSRule();
+		return gaTerminals.getWSRule();
 	} 
 
 	//terminal ANY_OTHER:
 	//	.;
 	public TerminalRule getANY_OTHERRule() {
-		return gaCommon.getANY_OTHERRule();
+		return gaTerminals.getANY_OTHERRule();
 	} 
 }

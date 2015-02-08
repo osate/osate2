@@ -19,17 +19,17 @@ ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
 
 StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
 	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=STRING))?
-	 ('description'  description=MultiLineString)? 
+	 ('description'  description=Description)? 
 	'[' content+=( Goal | GoalFolder) ']'
 ;
 
 ReqDocument: 'document' name=ID (':' title=STRING)?
-	 ('description'  description=MultiLineString)? 
+	 ('description'  description=Description)? 
 	'[' content+=DocumentSection ']'
 ;
 DocumentSection returns DocumentSection:
 	'section' label =ID (':' title=STRING)?
-	 ('description'  description=MultiLineString)? 
+	 ('description'  description=Description)? 
 	'[' (content+= (Goal | Requirement |  DocumentSection))*
 	']'
 	;
@@ -40,12 +40,13 @@ ReqSpecs returns ReqSpecs:
 	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
-	(('constants' constants+=ConstantDecl+)?
-	&(content+= (Requirement |  ReqSpecFolder))*
+	(
+//		('constants' constants+=ConstantDecl+)?
+//	&
+	(content+= (Requirement |  ReqSpecFolder))*
 	)
 	']'
 	;
-QualifiedNameWithWildCard : QualifiedName ('.*')?;	
 
 // does not add to a qualified name
 ReqSpecFolder returns ReqSpecFolder:
@@ -69,7 +70,7 @@ Goal returns Goal:
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['  (
-	 ('category'  category=[categories::RequirementCategory|CatRef])?
+	 ('category'  category=[categories::RequirementCategory|ID])?
 	 &('description'  description=Description)? 
 	 &('rationale'  rationale=STRING)? 
 	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
@@ -90,10 +91,10 @@ Requirement:
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['	(
- 	('category'  category=[categories::RequirementCategory|CatRef] )?
+ 	('category'  category=[categories::RequirementCategory|ID] )?
 	&('description'  description=Description)? 
-	&('constants' constants+=ConstantDecl+)?
-	&('assert'  assert=PredicateExpression)?  // predicate expression 
+	& constants+=XValDeclaration* 
+	&('assert'  predicate=ReqPredicate)?  // predicate expression 
 	&('rationale'  rationale=STRING)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
@@ -104,7 +105,13 @@ Requirement:
 	)
 	']';
 
-	
+ReqPredicate: InformalPredicate | XPredicate | SPeARPredicate;
+
+InformalPredicate: description=STRING ;
+
+XPredicate: Xlambda=XClosure;	
+
+SPeARPredicate: 'inv' predicate=Expr ;
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?
@@ -116,5 +123,225 @@ DOCPATH: ( ID '/')* ID '.' ID;
 
 DOCFRAGMENT: ID ('.' ID)*;
 
+// from SPeAR
 
+QuantificationExpr:
+	ForallExpr
+|   ExistsExpr
+|  	SumExpr
+;
+
+
+Domain:
+	{DomainExpr} 'term' domain=Expr
+//|	{DomainType} 'type' domain=Type
+;
+
+QuantifiedVariable: name=ID;
+
+ForallExpr: 'forall' variable=QuantifiedVariable 'in' domain=Domain ',' expr=Expr;
+
+ExistsExpr: 'exists' variable=QuantifiedVariable 'in' domain=Domain ',' expr=Expr;
+
+SumExpr: 'sum' variable=QuantifiedVariable 'in' domain=Domain ',' expr=Expr;
+
+Expr:
+	QuantificationExpr
+|   IfExpr
+;
+
+IfExpr returns Expr:
+	{IfThenElseExpr} 'if' ifExpr=Expr 'then' thenExpr=Expr 'else' elseExpr=Expr
+| 	LogicalExpr
+;
+
+
+LogicalExpr returns Expr: RelationalExpr (=>({BinaryExpr.left=current} op=LogicalOp) right=RelationalExpr)* ;
+
+RelationalExpr returns Expr: AddExpr (=>({BinaryExpr.left=current} op=RelationalOp) right=AddExpr)* ;
+
+AddExpr returns Expr: MultExpr (=>({BinaryExpr.left=current} op=(Plus | Minus)) right=MultExpr)* ;
+
+MultExpr returns Expr: ExpExpr (=>({BinaryExpr.left=current} op=(Multiply | Divide | Modulus)) right=ExpExpr)* ;
+
+ExpExpr returns Expr: UnaryExpr (=>({BinaryExpr.left=current} op=(Exponentiation)) right=UnaryExpr)* ;
+
+UnaryExpr returns Expr:
+	{UnaryExpr} (op=UnaryOp) (expr=UnaryExpr)
+|  	{PreExpr} 'pre' (expr=UnaryExpr)
+| 	RecordAccessExpr
+;
+
+RecordAccessExpr returns Expr: 
+	ArrayAccessExpr (=> ({RecordAccessExpr.record=current} '{' field=[RecordField|QualifiedName]  (':=' expr=Expr)? '}'))*
+;
+
+ArrayAccessExpr returns Expr: QNExpr (=> ({ArrayAccessExpr.array=current} '[' index=Expr (=> ':=' expr=Expr)? ']'))* ;
+
+QNExpr returns Expr:
+	{IdExpr} id=[VariableRef|QualifiedName]
+|	{RecordExpr} 'new' type=[TypeDef|QualifiedName] '{' recordFields+=RecordFieldExpr (',' recordFields+=RecordFieldExpr)* '}'
+|   {ArrayExpr} '[' exprs+=Expr (',' exprs+=Expr)* ']'
+|   {FnCallExpr} id=[CallRef|QualifiedName] '(' ((args+=Expr) (',' args+=Expr)*)? ')'
+|   AtomicExpr
+;
+
+AtomicExpr returns Expr:
+	{BoolExpr} value=XBooleanLiteral 
+| 	{IntExpr} value=INT (unit=Unit)?
+| 	{RealExpr} value=REAL (unit=Unit)?
+| 	'(' Expr ')'
+;
+//XXX doing short cut
+/* Different types of named references. We add the constant to avoid having
+ * eclipse complain about ambiguity. Ultimately, this does not impact our 
+ * language; this rule is abstract.
+ */
+
+VariableRef:
+//	'V' Variable
+//| 	'M' Macro
+//| 	'C' Constant
+//|   
+'E' Enumerator
+|	'Q' QuantifiedVariable
+;
+
+/* Different types of function calls. */
+Function: name=ID ;// '(' ins+=AtomicType (',' ins+=AtomicType )* ')' ':' '(' outs+=AtomicType (',' outs+=AtomicType)* ')' ';' ;
+
+CallRef:
+	Function
+//|   Procedure
+;
+
+
+RecordFieldExpr: (field=[RecordField|QualifiedName]) '=' (expr=Expr);
+
+
+RecordField: (name=ID) ':' (type=AtomicType) (unit=Unit)? ;
+/* Types which may be referred to by objects. Note that this restricts record
+ * types and enumeration types. Thus, these types must be given names in a type
+ * section.
+ */
+
+AtomicType returns Type:
+ 	{RealType} 'real' 
+| 	{IntegerType} 'int' 
+| 	{BooleanType} 'bool'
+|   IntegerSubRangeType
+|   ArrayType
+| 	{NamedType} id=[TypeDef|QualifiedName]
+;
+FiniteSetType:
+	ArrayType
+| 	EnumerationType
+|	IntegerSubRangeType
+;
+
+ArrayType: 'array' type=AtomicType '[' length=Expr ']';
+
+IntegerSubRangeType: 'sequence' 'int' '[' low=Expr '...' high=Expr ']';
+EnumerationType:  '[' Enumerators+=Enumerator (',' Enumerators+=Enumerator)* ']' ;
+
+Enumerator: (name=ID) ;
+
+TypeDef: name=ID ':' (type=Type) ';' ;
+
+Type:
+	RecordType 
+| 	EnumerationType
+| 	AtomicType
+;
+
+RecordType: '{' fields+=RecordField (',' fields+=RecordField)* '}' ;
+
+
+// XXX Unit system
+/* Unit operations. */
+Unit: ProdUnitExpr (=>({QuotUnit.left=current} '/') right=ProdUnitExpr)* ;
+
+ProdUnitExpr returns Unit: AtomicUnit (=>({ProdUnit.left=current} '*') right=AtomicUnit)* ;
+
+/* Types of units. */
+AtomicUnit returns Unit: 
+  	NamedUnit
+| 	'(' Unit ')'
+| 	Scalar
+;
+
+Scalar : {Scalar} 'scalar' ;
+
+NamedUnit: id=[UnitDef|QualifiedName] ;
+
+UnitDef: (name=ID) (':' (unit=Unit))? ';' ;
+
+// XXX merge with XBase
+
+REAL: INT '.' INT;
+
+///** Terminals **/
+//terminal TRUE: 'true';
+//
+//terminal FALSE: 'false';
+
+
+/* Operators. */
+UnaryFormulaOps returns FormulaOps: 
+	{Always} string='always'
+|   {Exists} string='exists'
+;
+
+BinaryFormulaOps returns FormulaOps:  
+	{Responds} string='responds'
+|  	{Precedes} string='precedes' ;
+
+FormulaOps:
+	UnaryFormulaOps
+|   BinaryFormulaOps
+;
+
+BinaryOp:
+	Multiply 
+| 	Divide 
+| 	Plus 
+| 	Minus 
+| 	RelationalOp 
+| 	LogicalOp 
+|   Modulus
+| 	Exponentiation
+;
+
+Multiply: {Multiply} '*' ;
+
+Exponentiation: {Exponentiation} '^' ;
+
+Divide: {Divide} '/' ;
+
+Plus: {Plus} '+' ;
+
+Minus: {Minus} '-' ;
+
+Modulus: {Modulus} 'mod';
+
+RelationalOp:
+  	{EqualTo} '==' 
+| 	{NotEqual} '<>' 
+|	{LessThan} '<' 
+| 	{GreaterThan} '>' 
+| 	{LessThanEqual} '<=' 
+| 	{GreaterThanEqual} '>='
+;
+
+LogicalOp:
+  	{And} 'and' 
+| 	{Or} 'or'
+| 	{Xor} 'xor' 
+| 	{Implies} 'implies'
+;
+
+UnaryOp:
+  	{UnaryMinus} '-' 
+| 	{Not} 'not' 
+;
 	

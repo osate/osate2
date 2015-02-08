@@ -40,5 +40,6 @@ public class AlisaStandaloneSetupGenerated implements ISetup {
 		
 
 
+
 	}
 }

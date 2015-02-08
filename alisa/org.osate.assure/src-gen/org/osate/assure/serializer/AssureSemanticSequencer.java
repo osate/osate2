@@ -6,23 +6,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
-import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.ConstantDecl;
-import org.osate.alisa.common.common.Description;
-import org.osate.alisa.common.common.DescriptionElement;
-import org.osate.alisa.common.common.IntegerTerm;
-import org.osate.alisa.common.common.Model;
-import org.osate.alisa.common.common.MultiLineString;
-import org.osate.alisa.common.common.PredicateExpression;
-import org.osate.alisa.common.common.RealTerm;
-import org.osate.alisa.common.common.ReferencePath;
-import org.osate.alisa.common.common.ShowValue;
-import org.osate.alisa.common.common.StringTerm;
-import org.osate.alisa.common.common.TextElement;
-import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssurePackage;
@@ -35,7 +22,7 @@ import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.services.AssureGrammarAccess;
 
 @SuppressWarnings("all")
-public class AssureSemanticSequencer extends CommonSemanticSequencer {
+public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 
 	@Inject
 	private AssureGrammarAccess grammarAccess;
@@ -97,83 +84,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				   context == grammarAccess.getVerificationActivityResultRule() ||
 				   context == grammarAccess.getVerificationExprRule()) {
 					sequence_VerificationActivityResult(context, (VerificationActivityResult) semanticObject); 
-					return; 
-				}
-				else break;
-			}
-		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case CommonPackage.CONSTANT_DECL:
-				if(context == grammarAccess.getConstantDeclRule()) {
-					sequence_ConstantDecl(context, (ConstantDecl) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.DESCRIPTION:
-				if(context == grammarAccess.getDescriptionRule()) {
-					sequence_Description(context, (Description) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.DESCRIPTION_ELEMENT:
-				if(context == grammarAccess.getDescriptionElementRule()) {
-					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.INTEGER_TERM:
-				if(context == grammarAccess.getConstantValueRule() ||
-				   context == grammarAccess.getIntegerTermRule()) {
-					sequence_IntegerTerm(context, (IntegerTerm) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.MODEL:
-				if(context == grammarAccess.getModelRule()) {
-					sequence_Model(context, (Model) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.MULTI_LINE_STRING:
-				if(context == grammarAccess.getMultiLineStringRule()) {
-					sequence_MultiLineString(context, (MultiLineString) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.PREDICATE_EXPRESSION:
-				if(context == grammarAccess.getPredicateExpressionRule()) {
-					sequence_PredicateExpression(context, (PredicateExpression) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.REAL_TERM:
-				if(context == grammarAccess.getConstantValueRule() ||
-				   context == grammarAccess.getRealTermRule()) {
-					sequence_RealTerm(context, (RealTerm) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.REFERENCE_PATH:
-				if(context == grammarAccess.getReferencePathRule()) {
-					sequence_ReferencePath(context, (ReferencePath) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.SHOW_VALUE:
-				if(context == grammarAccess.getShowValueRule()) {
-					sequence_ShowValue(context, (ShowValue) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.STRING_TERM:
-				if(context == grammarAccess.getConstantValueRule() ||
-				   context == grammarAccess.getStringTermRule()) {
-					sequence_StringTerm(context, (StringTerm) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.TEXT_ELEMENT:
-				if(context == grammarAccess.getTextElementRule()) {
-					sequence_TextElement(context, (TextElement) semanticObject); 
 					return; 
 				}
 				else break;

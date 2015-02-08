@@ -32,12 +32,12 @@ public interface ShowValue extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Ref</em>' reference.
-   * @see #setRef(ConstantDecl)
+   * @see #setRef(EObject)
    * @see org.osate.alisa.common.common.CommonPackage#getShowValue_Ref()
    * @model
    * @generated
    */
-  ConstantDecl getRef();
+  EObject getRef();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.ShowValue#getRef <em>Ref</em>}' reference.
@@ -47,7 +47,7 @@ public interface ShowValue extends EObject
    * @see #getRef()
    * @generated
    */
-  void setRef(ConstantDecl value);
+  void setRef(EObject value);
 
   /**
    * Returns the value of the '<em><b>Unit</b></em>' attribute.

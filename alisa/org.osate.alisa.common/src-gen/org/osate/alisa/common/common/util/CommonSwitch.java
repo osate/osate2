@@ -72,13 +72,6 @@ public class CommonSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case CommonPackage.MODEL:
-      {
-        Model model = (Model)theEObject;
-        T result = caseModel(model);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CommonPackage.DESCRIPTION:
       {
         Description description = (Description)theEObject;
@@ -93,6 +86,13 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.XEXPRESSION:
+      {
+        XExpression xExpression = (XExpression)theEObject;
+        T result = caseXExpression(xExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.SHOW_VALUE:
       {
         ShowValue showValue = (ShowValue)theEObject;
@@ -100,90 +100,8 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.REFERENCE_PATH:
-      {
-        ReferencePath referencePath = (ReferencePath)theEObject;
-        T result = caseReferencePath(referencePath);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.PREDICATE_EXPRESSION:
-      {
-        PredicateExpression predicateExpression = (PredicateExpression)theEObject;
-        T result = casePredicateExpression(predicateExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.CONSTANT_DECL:
-      {
-        ConstantDecl constantDecl = (ConstantDecl)theEObject;
-        T result = caseConstantDecl(constantDecl);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.CONSTANT_VALUE:
-      {
-        ConstantValue constantValue = (ConstantValue)theEObject;
-        T result = caseConstantValue(constantValue);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.STRING_TERM:
-      {
-        StringTerm stringTerm = (StringTerm)theEObject;
-        T result = caseStringTerm(stringTerm);
-        if (result == null) result = caseConstantValue(stringTerm);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.REAL_TERM:
-      {
-        RealTerm realTerm = (RealTerm)theEObject;
-        T result = caseRealTerm(realTerm);
-        if (result == null) result = caseConstantValue(realTerm);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.INTEGER_TERM:
-      {
-        IntegerTerm integerTerm = (IntegerTerm)theEObject;
-        T result = caseIntegerTerm(integerTerm);
-        if (result == null) result = caseConstantValue(integerTerm);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.MULTI_LINE_STRING:
-      {
-        MultiLineString multiLineString = (MultiLineString)theEObject;
-        T result = caseMultiLineString(multiLineString);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.TEXT_ELEMENT:
-      {
-        TextElement textElement = (TextElement)theEObject;
-        T result = caseTextElement(textElement);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       default: return defaultCase(theEObject);
     }
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Model</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Model</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseModel(Model object)
-  {
-    return null;
   }
 
   /**
@@ -219,6 +137,22 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>XExpression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XExpression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXExpression(XExpression object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -230,150 +164,6 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseShowValue(ShowValue object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Reference Path</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Reference Path</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseReferencePath(ReferencePath object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Predicate Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Predicate Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePredicateExpression(PredicateExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Constant Decl</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constant Decl</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseConstantDecl(ConstantDecl object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Constant Value</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constant Value</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseConstantValue(ConstantValue object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>String Term</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>String Term</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseStringTerm(StringTerm object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Real Term</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Real Term</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseRealTerm(RealTerm object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Integer Term</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Integer Term</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseIntegerTerm(IntegerTerm object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Multi Line String</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Multi Line String</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseMultiLineString(MultiLineString object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Text Element</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Text Element</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTextElement(TextElement object)
   {
     return null;
   }

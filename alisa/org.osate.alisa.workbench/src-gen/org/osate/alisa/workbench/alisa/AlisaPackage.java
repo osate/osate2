@@ -140,13 +140,13 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_CASE_CONFIGURATION__DESCRIPTION = 3;
 
   /**
-   * The feature id for the '<em><b>Constant</b></em>' containment reference list.
+   * The feature id for the '<em><b>Constants</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_CONFIGURATION__CONSTANT = 4;
+  int ASSURANCE_CASE_CONFIGURATION__CONSTANTS = 4;
 
   /**
    * The feature id for the '<em><b>Plans</b></em>' reference list.
@@ -263,15 +263,15 @@ public interface AlisaPackage extends EPackage
   EReference getAssuranceCaseConfiguration_Description();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getConstant <em>Constant</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getConstants <em>Constants</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Constant</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getConstant()
+   * @return the meta object for the containment reference list '<em>Constants</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getConstants()
    * @see #getAssuranceCaseConfiguration()
    * @generated
    */
-  EReference getAssuranceCaseConfiguration_Constant();
+  EReference getAssuranceCaseConfiguration_Constants();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getPlans <em>Plans</em>}'.
@@ -387,12 +387,12 @@ public interface AlisaPackage extends EPackage
     EReference ASSURANCE_CASE_CONFIGURATION__DESCRIPTION = eINSTANCE.getAssuranceCaseConfiguration_Description();
 
     /**
-     * The meta object literal for the '<em><b>Constant</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Constants</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE_CONFIGURATION__CONSTANT = eINSTANCE.getAssuranceCaseConfiguration_Constant();
+    EReference ASSURANCE_CASE_CONFIGURATION__CONSTANTS = eINSTANCE.getAssuranceCaseConfiguration_Constants();
 
     /**
      * The meta object literal for the '<em><b>Plans</b></em>' reference list feature.

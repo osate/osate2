@@ -24,7 +24,6 @@ import org.osate.alisa.common.common.ShowValue;
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getText <em>Text</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isNewline <em>Newline</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isThisTarget <em>This Target</em>}</li>
  * </ul>
  * </p>
@@ -62,26 +61,6 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected ShowValue value;
-
-  /**
-   * The default value of the '{@link #isNewline() <em>Newline</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isNewline()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean NEWLINE_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isNewline() <em>Newline</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isNewline()
-   * @generated
-   * @ordered
-   */
-  protected boolean newline = NEWLINE_EDEFAULT;
 
   /**
    * The default value of the '{@link #isThisTarget() <em>This Target</em>}' attribute.
@@ -200,29 +179,6 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isNewline()
-  {
-    return newline;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setNewline(boolean newNewline)
-  {
-    boolean oldNewline = newline;
-    newline = newNewline;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__NEWLINE, oldNewline, newline));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public boolean isThisTarget()
   {
     return thisTarget;
@@ -271,8 +227,6 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
         return getText();
       case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
         return getValue();
-      case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
-        return isNewline();
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         return isThisTarget();
     }
@@ -294,9 +248,6 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
         setValue((ShowValue)newValue);
-        return;
-      case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
-        setNewline((Boolean)newValue);
         return;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         setThisTarget((Boolean)newValue);
@@ -321,9 +272,6 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
       case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
         setValue((ShowValue)null);
         return;
-      case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
-        setNewline(NEWLINE_EDEFAULT);
-        return;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         setThisTarget(THIS_TARGET_EDEFAULT);
         return;
@@ -345,8 +293,6 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
         return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
       case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
         return value != null;
-      case CommonPackage.DESCRIPTION_ELEMENT__NEWLINE:
-        return newline != NEWLINE_EDEFAULT;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         return thisTarget != THIS_TARGET_EDEFAULT;
     }
@@ -366,8 +312,6 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (text: ");
     result.append(text);
-    result.append(", newline: ");
-    result.append(newline);
     result.append(", thisTarget: ");
     result.append(thisTarget);
     result.append(')');

@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.common.common.ConstantDecl;
-import org.osate.alisa.common.common.PredicateExpression;
+import org.osate.alisa.common.common.XExpression;
 
 import org.osate.reqspec.reqSpec.Goal;
+import org.osate.reqspec.reqSpec.ReqPredicate;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.Requirement;
 
@@ -34,7 +34,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getAssert <em>Assert</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getExceptionText <em>Exception Text</em>}</li>
@@ -55,17 +55,17 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @generated
    * @ordered
    */
-  protected EList<ConstantDecl> constants;
+  protected EList<XExpression> constants;
 
   /**
-   * The cached value of the '{@link #getAssert() <em>Assert</em>}' containment reference.
+   * The cached value of the '{@link #getPredicate() <em>Predicate</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAssert()
+   * @see #getPredicate()
    * @generated
    * @ordered
    */
-  protected PredicateExpression assert_;
+  protected ReqPredicate predicate;
 
   /**
    * The cached value of the '{@link #getGoalReference() <em>Goal Reference</em>}' reference list.
@@ -153,11 +153,11 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ConstantDecl> getConstants()
+  public EList<XExpression> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<ConstantDecl>(ConstantDecl.class, this, ReqSpecPackage.REQUIREMENT__CONSTANTS);
+      constants = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.REQUIREMENT__CONSTANTS);
     }
     return constants;
   }
@@ -167,9 +167,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public PredicateExpression getAssert()
+  public ReqPredicate getPredicate()
   {
-    return assert_;
+    return predicate;
   }
 
   /**
@@ -177,13 +177,13 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetAssert(PredicateExpression newAssert, NotificationChain msgs)
+  public NotificationChain basicSetPredicate(ReqPredicate newPredicate, NotificationChain msgs)
   {
-    PredicateExpression oldAssert = assert_;
-    assert_ = newAssert;
+    ReqPredicate oldPredicate = predicate;
+    predicate = newPredicate;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__ASSERT, oldAssert, newAssert);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__PREDICATE, oldPredicate, newPredicate);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -194,20 +194,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAssert(PredicateExpression newAssert)
+  public void setPredicate(ReqPredicate newPredicate)
   {
-    if (newAssert != assert_)
+    if (newPredicate != predicate)
     {
       NotificationChain msgs = null;
-      if (assert_ != null)
-        msgs = ((InternalEObject)assert_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__ASSERT, null, msgs);
-      if (newAssert != null)
-        msgs = ((InternalEObject)newAssert).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__ASSERT, null, msgs);
-      msgs = basicSetAssert(newAssert, msgs);
+      if (predicate != null)
+        msgs = ((InternalEObject)predicate).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__PREDICATE, null, msgs);
+      if (newPredicate != null)
+        msgs = ((InternalEObject)newPredicate).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQUIREMENT__PREDICATE, null, msgs);
+      msgs = basicSetPredicate(newPredicate, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__ASSERT, newAssert, newAssert));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQUIREMENT__PREDICATE, newPredicate, newPredicate));
   }
 
   /**
@@ -330,8 +330,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.REQUIREMENT__ASSERT:
-        return basicSetAssert(null, msgs);
+      case ReqSpecPackage.REQUIREMENT__PREDICATE:
+        return basicSetPredicate(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -348,8 +348,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return getConstants();
-      case ReqSpecPackage.REQUIREMENT__ASSERT:
-        return getAssert();
+      case ReqSpecPackage.REQUIREMENT__PREDICATE:
+        return getPredicate();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return getGoalReference();
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:
@@ -378,10 +378,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends ConstantDecl>)newValue);
+        getConstants().addAll((Collection<? extends XExpression>)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENT__ASSERT:
-        setAssert((PredicateExpression)newValue);
+      case ReqSpecPackage.REQUIREMENT__PREDICATE:
+        setPredicate((ReqPredicate)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
@@ -418,8 +418,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         getConstants().clear();
         return;
-      case ReqSpecPackage.REQUIREMENT__ASSERT:
-        setAssert((PredicateExpression)null);
+      case ReqSpecPackage.REQUIREMENT__PREDICATE:
+        setPredicate((ReqPredicate)null);
         return;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         getGoalReference().clear();
@@ -452,8 +452,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return constants != null && !constants.isEmpty();
-      case ReqSpecPackage.REQUIREMENT__ASSERT:
-        return assert_ != null;
+      case ReqSpecPackage.REQUIREMENT__PREDICATE:
+        return predicate != null;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
         return goalReference != null && !goalReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:

@@ -8,14 +8,9 @@ import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.osate.aadl2.NamedElement;
-import org.osate.alisa.common.common.ConstantDecl;
-import org.osate.alisa.common.common.ConstantValue;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
-import org.osate.alisa.common.common.IntegerTerm;
-import org.osate.alisa.common.common.RealTerm;
 import org.osate.alisa.common.common.ShowValue;
-import org.osate.alisa.common.common.StringTerm;
 
 @SuppressWarnings("all")
 public class CommonUtilExtension {
@@ -43,30 +38,10 @@ public class CommonUtilExtension {
       if (_notEquals) {
         return de.getText();
       }
-      boolean _isNewline = de.isNewline();
-      if (_isNewline) {
-        return "\n";
-      }
       ShowValue _value = de.getValue();
       boolean _notEquals_1 = (!Objects.equal(_value, null));
       if (_notEquals_1) {
-        String _elvis = null;
-        ShowValue _value_1 = de.getValue();
-        ConstantDecl _ref = _value_1.getRef();
-        ConstantValue _constantvalue = null;
-        if (_ref!=null) {
-          _constantvalue=_ref.getConstantvalue();
-        }
-        String _text_1 = null;
-        if (_constantvalue!=null) {
-          _text_1=CommonUtilExtension.toText(_constantvalue);
-        }
-        if (_text_1 != null) {
-          _elvis = _text_1;
-        } else {
-          _elvis = "";
-        }
-        return _elvis;
+        return "";
       }
       boolean _and = false;
       boolean _isThisTarget = de.isThisTarget();
@@ -90,47 +65,5 @@ public class CommonUtilExtension {
       _xblockexpression = "";
     }
     return _xblockexpression;
-  }
-  
-  public static String toText(final ConstantValue cv) {
-    boolean _matched = false;
-    if (!_matched) {
-      if (cv instanceof StringTerm) {
-        _matched=true;
-        return ((StringTerm)cv).getValue();
-      }
-    }
-    if (!_matched) {
-      if (cv instanceof RealTerm) {
-        _matched=true;
-        String _elvis = null;
-        String _value = ((RealTerm)cv).getValue();
-        String _unit = ((RealTerm)cv).getUnit();
-        String _plus = (_value + _unit);
-        if (_plus != null) {
-          _elvis = _plus;
-        } else {
-          _elvis = "";
-        }
-        return _elvis;
-      }
-    }
-    if (!_matched) {
-      if (cv instanceof IntegerTerm) {
-        _matched=true;
-        String _elvis = null;
-        int _value = ((IntegerTerm)cv).getValue();
-        String _string = Integer.valueOf(_value).toString();
-        String _unit = ((IntegerTerm)cv).getUnit();
-        String _plus = (_string + _unit);
-        if (_plus != null) {
-          _elvis = _plus;
-        } else {
-          _elvis = "";
-        }
-        return _elvis;
-      }
-    }
-    return null;
   }
 }

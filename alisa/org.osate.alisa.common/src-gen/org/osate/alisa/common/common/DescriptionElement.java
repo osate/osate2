@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getText <em>Text</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getValue <em>Value</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.DescriptionElement#isNewline <em>Newline</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#isThisTarget <em>This Target</em>}</li>
  * </ul>
  * </p>
@@ -76,32 +75,6 @@ public interface DescriptionElement extends EObject
    * @generated
    */
   void setValue(ShowValue value);
-
-  /**
-   * Returns the value of the '<em><b>Newline</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Newline</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Newline</em>' attribute.
-   * @see #setNewline(boolean)
-   * @see org.osate.alisa.common.common.CommonPackage#getDescriptionElement_Newline()
-   * @model
-   * @generated
-   */
-  boolean isNewline();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.DescriptionElement#isNewline <em>Newline</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Newline</em>' attribute.
-   * @see #isNewline()
-   * @generated
-   */
-  void setNewline(boolean value);
 
   /**
    * Returns the value of the '<em><b>This Target</b></em>' attribute.

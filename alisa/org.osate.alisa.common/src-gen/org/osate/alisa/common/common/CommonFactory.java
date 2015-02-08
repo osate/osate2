@@ -23,15 +23,6 @@ public interface CommonFactory extends EFactory
   CommonFactory eINSTANCE = org.osate.alisa.common.common.impl.CommonFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Model</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Model</em>'.
-   * @generated
-   */
-  Model createModel();
-
-  /**
    * Returns a new object of class '<em>Description</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -50,6 +41,15 @@ public interface CommonFactory extends EFactory
   DescriptionElement createDescriptionElement();
 
   /**
+   * Returns a new object of class '<em>XExpression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XExpression</em>'.
+   * @generated
+   */
+  XExpression createXExpression();
+
+  /**
    * Returns a new object of class '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -57,87 +57,6 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   ShowValue createShowValue();
-
-  /**
-   * Returns a new object of class '<em>Reference Path</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Reference Path</em>'.
-   * @generated
-   */
-  ReferencePath createReferencePath();
-
-  /**
-   * Returns a new object of class '<em>Predicate Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Predicate Expression</em>'.
-   * @generated
-   */
-  PredicateExpression createPredicateExpression();
-
-  /**
-   * Returns a new object of class '<em>Constant Decl</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Constant Decl</em>'.
-   * @generated
-   */
-  ConstantDecl createConstantDecl();
-
-  /**
-   * Returns a new object of class '<em>Constant Value</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Constant Value</em>'.
-   * @generated
-   */
-  ConstantValue createConstantValue();
-
-  /**
-   * Returns a new object of class '<em>String Term</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>String Term</em>'.
-   * @generated
-   */
-  StringTerm createStringTerm();
-
-  /**
-   * Returns a new object of class '<em>Real Term</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Real Term</em>'.
-   * @generated
-   */
-  RealTerm createRealTerm();
-
-  /**
-   * Returns a new object of class '<em>Integer Term</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Integer Term</em>'.
-   * @generated
-   */
-  IntegerTerm createIntegerTerm();
-
-  /**
-   * Returns a new object of class '<em>Multi Line String</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Multi Line String</em>'.
-   * @generated
-   */
-  MultiLineString createMultiLineString();
-
-  /**
-   * Returns a new object of class '<em>Text Element</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Text Element</em>'.
-   * @generated
-   */
-  TextElement createTextElement();
 
   /**
    * Returns the package supported by this factory.

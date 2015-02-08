@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.alisa.common.common.MultiLineString;
+import org.osate.alisa.common.common.Description;
 
 /**
  * <!-- begin-user-doc -->
@@ -90,12 +90,12 @@ public interface DocumentSection extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
-   * @see #setDescription(MultiLineString)
+   * @see #setDescription(Description)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getDocumentSection_Description()
    * @model containment="true"
    * @generated
    */
-  MultiLineString getDescription();
+  Description getDescription();
 
   /**
    * Sets the value of the '{@link org.osate.reqspec.reqSpec.DocumentSection#getDescription <em>Description</em>}' containment reference.
@@ -105,7 +105,7 @@ public interface DocumentSection extends EObject
    * @see #getDescription()
    * @generated
    */
-  void setDescription(MultiLineString value);
+  void setDescription(Description value);
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

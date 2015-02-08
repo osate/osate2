@@ -3,14 +3,11 @@
 package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.alisa.common.common.MultiLineString;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -64,14 +61,24 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   protected int timeout = TIMEOUT_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
+   * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getRationale()
    * @generated
    * @ordered
    */
-  protected MultiLineString rationale;
+  protected static final String RATIONALE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRationale()
+   * @generated
+   * @ordered
+   */
+  protected String rationale = RATIONALE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -165,7 +172,7 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public MultiLineString getRationale()
+  public String getRationale()
   {
     return rationale;
   }
@@ -175,53 +182,12 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRationale(MultiLineString newRationale, NotificationChain msgs)
+  public void setRationale(String newRationale)
   {
-    MultiLineString oldRationale = rationale;
+    String oldRationale = rationale;
     rationale = newRationale;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, oldRationale, newRationale);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRationale(MultiLineString newRationale)
-  {
-    if (newRationale != rationale)
-    {
-      NotificationChain msgs = null;
-      if (rationale != null)
-        msgs = ((InternalEObject)rationale).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, null, msgs);
-      if (newRationale != null)
-        msgs = ((InternalEObject)newRationale).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, null, msgs);
-      msgs = basicSetRationale(newRationale, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, newRationale, newRationale));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        return basicSetRationale(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, oldRationale, rationale));
   }
 
   /**
@@ -262,7 +228,7 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
         setTimeout((Integer)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        setRationale((MultiLineString)newValue);
+        setRationale((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -285,7 +251,7 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
         setTimeout(TIMEOUT_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        setRationale((MultiLineString)null);
+        setRationale(RATIONALE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -306,7 +272,7 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        return rationale != null;
+        return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
     }
     return super.eIsSet(featureID);
   }
@@ -324,6 +290,8 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (timeout: ");
     result.append(timeout);
+    result.append(", rationale: ");
+    result.append(rationale);
     result.append(')');
     return result.toString();
   }

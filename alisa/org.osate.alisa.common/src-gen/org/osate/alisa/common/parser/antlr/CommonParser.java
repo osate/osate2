@@ -25,7 +25,7 @@ public class CommonParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrPa
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "Model";
+		return "Description";
 	}
 	
 	public CommonGrammarAccess getGrammarAccess() {

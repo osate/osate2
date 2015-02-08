@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.ecore.EPackage;
 
-public class AbstractAssureValidator extends org.osate.alisa.common.validation.CommonValidator {
+public class AbstractAssureValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {
 
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
+	    List<EPackage> result = new ArrayList<EPackage>();
 	    result.add(org.osate.assure.assure.AssurePackage.eINSTANCE);
 		return result;
 	}

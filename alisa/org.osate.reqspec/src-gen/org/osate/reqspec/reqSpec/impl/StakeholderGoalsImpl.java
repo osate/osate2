@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.Classifier;
 
-import org.osate.alisa.common.common.MultiLineString;
+import org.osate.alisa.common.common.Description;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
@@ -123,7 +123,7 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * @generated
    * @ordered
    */
-  protected MultiLineString description;
+  protected Description description;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -273,7 +273,7 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
-  public MultiLineString getDescription()
+  public Description getDescription()
   {
     return description;
   }
@@ -283,9 +283,9 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDescription(MultiLineString newDescription, NotificationChain msgs)
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
   {
-    MultiLineString oldDescription = description;
+    Description oldDescription = description;
     description = newDescription;
     if (eNotificationRequired())
     {
@@ -300,7 +300,7 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDescription(MultiLineString newDescription)
+  public void setDescription(Description newDescription)
   {
     if (newDescription != description)
     {
@@ -399,7 +399,7 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         setTargetDescription((String)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
-        setDescription((MultiLineString)newValue);
+        setDescription((Description)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();
@@ -432,7 +432,7 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
-        setDescription((MultiLineString)null);
+        setDescription((Description)null);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();

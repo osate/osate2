@@ -1,12 +1,9 @@
-grammar org.osate.alisa.common.Common with 
-org.eclipse.xtext.common.Terminals
+grammar org.osate.alisa.common.Common with org.eclipse.xtext.xbase.Xbase
+//org.eclipse.xtext.common.Terminals
 
 generate common "http://www.osate.org/alisa/common/Common"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-Model:
-	content=(Description);
-	
 
 	
 Description : 
@@ -14,63 +11,20 @@ Description :
 ;
 
 DescriptionElement :
- 	text = STRING | value = ShowValue | newline?='&' |thisTarget?='this'
- ;
- 
- ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
-// ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
- 
- ReferencePath: 
- 	ref = [ecore::EObject|ID] ('.' subpath=ReferencePath)
+ 	text = STRING | value = ShowValue |thisTarget?='this'
  ;
 
-
-// Dummy placeholder for comparison conditions
-PredicateExpression: ID op=('='|"!=" |"<"|"<="|">"|">=") limit=[ConstantDecl|ID];
-
-
-
-ConstantDecl: name = ID '=' constantvalue=ConstantValue;
-
-ConstantValue: StringTerm | RealTerm | IntegerTerm;
-
-StringTerm: value=STRING;
-
-RealTerm :
-	value=REAL (unit=ID)?
+XValDeclaration returns XExpression:
+	'val' (=> (type=JvmTypeReference name=ID) | name=ID) '=' right=XExpression
 ;
-
-
-REAL: INT '.' INT;
-
-IntegerTerm :
-	value=INT (unit=ID)?
-;
-
-
-
-MultiLineString : 
- 	( description += TextElement  )+
- 	;
- 	TextElement:
- 	text = STRING | newline?='&'
-;
-	
-ValueString :
-	// remove quotes from string in ValueConverter 
-	STRING
-;
-
+ 
+// ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
+ ShowValue: ref=[ecore::EObject|ID] ('%' unit=ID)?;	
+ 
 
 // Qualified classifier reference
 AadlClassifierReference:
-	(ID '::')* ID ('.' ID)?;
+	ID '::' ID ('.' ID)?;
 
-// Category reference. Currently it is only a single ID
-CatRef:
-	ID //('.' ID)?
-	;	
-
-QualifiedName: ID ( '.' ID)*;
 
 URIID: STRING;	

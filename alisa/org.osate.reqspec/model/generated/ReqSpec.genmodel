@@ -4,7 +4,7 @@
     editorDirectory="/org.osate.reqspec.editor/src" modelPluginID="org.osate.reqspec"
     forceOverwrite="true" modelName="ReqSpec" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.reqspec.edit"
-    editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
+    editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
   <genPackages prefix="ReqSpec" basePackage="org.osate.reqspec" disposableProviderFactory="true"
       fileExtensions="reqspec" ecorePackage="ReqSpec.ecore#/">
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec"/>
@@ -46,7 +46,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecs/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/target"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/otherreqspecs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/constants"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/content"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecFolder">
@@ -66,16 +65,181 @@
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//Requirement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/constants"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/assert"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/predicate"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/goalReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/exception"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirement/exceptionText"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/refinedReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/stakeholderRequirementReference"/>
     </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//ReqPredicate"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//InformalPredicate">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//InformalPredicate/description"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//XPredicate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//XPredicate/Xlambda"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//SPeARPredicate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//SPeARPredicate/predicate"/>
+    </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ExternalDocument">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docReference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docFragment"/>
     </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//QuantificationExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//QuantificationExpr/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//QuantificationExpr/domain"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//QuantificationExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//Domain"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//QuantifiedVariable"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//ForallExpr"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//ExistsExpr"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//SumExpr"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Expr"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//VariableRef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//VariableRef/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//Function">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Function/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//CallRef"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//RecordFieldExpr">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordFieldExpr/field"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordFieldExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//RecordField">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//RecordField/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordField/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordField/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//Type"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//FiniteSetType"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//ArrayType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ArrayType/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ArrayType/length"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//IntegerSubRangeType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IntegerSubRangeType/low"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IntegerSubRangeType/high"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//EnumerationType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//EnumerationType/Enumerators"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//Enumerator"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//TypeDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//TypeDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//TypeDef/type"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//RecordType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordType/fields"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//Unit"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Scalar"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//NamedUnit">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//NamedUnit/id"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//UnitDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//UnitDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//UnitDef/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//FormulaOps">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//FormulaOps/string"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//BinaryOp"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Multiply"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Exponentiation"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Divide"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Plus"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Minus"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Modulus"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//RelationalOp"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//LogicalOp"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//UnaryOp"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//DomainExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//DomainExpr/domain"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//IfThenElseExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IfThenElseExpr/ifExpr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IfThenElseExpr/thenExpr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IfThenElseExpr/elseExpr"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//BinaryExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//BinaryExpr/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//BinaryExpr/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//BinaryExpr/right"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//UnaryExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//UnaryExpr/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//UnaryExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//PreExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//PreExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//RecordAccessExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordAccessExpr/record"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordAccessExpr/field"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordAccessExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//ArrayAccessExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ArrayAccessExpr/array"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ArrayAccessExpr/index"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ArrayAccessExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//IdExpr">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IdExpr/id"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//RecordExpr">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordExpr/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RecordExpr/recordFields"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//ArrayExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ArrayExpr/exprs"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//FnCallExpr">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//FnCallExpr/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//FnCallExpr/args"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//BoolExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//BoolExpr/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//IntExpr">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//IntExpr/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//IntExpr/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//RealExpr">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//RealExpr/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//RealExpr/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//RealType"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//IntegerType"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//BooleanType"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//NamedType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//NamedType/id"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//QuotUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//QuotUnit/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//QuotUnit/right"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//ProdUnit">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ProdUnit/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ProdUnit/right"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//Always"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Exists"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Responds"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Precedes"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//EqualTo"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//NotEqual"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//LessThan"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//GreaterThan"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//LessThanEqual"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//GreaterThanEqual"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//And"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Or"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Xor"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Implies"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//UnaryMinus"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//Not"/>
   </genPackages>
 </genmodel:GenModel>

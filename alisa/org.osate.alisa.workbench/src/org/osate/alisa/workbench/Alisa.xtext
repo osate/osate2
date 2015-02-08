@@ -10,23 +10,15 @@ AlisaWorkArea:
 	cases+=AssuranceCaseConfiguration*;
 
 AssuranceCaseConfiguration:
-	'case' name=ID (':' title=ValueString)?
+	'case' name=ID (':' title=STRING)?
 	'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(
 	('description' description=Description)?
-	('constants' constant+=ConstantDecl+ )?
+	constants+=XValDeclaration* 
 	'plans' plans+=[Verify::VerificationPlan|QualifiedName]+
-	('when' (selectionFilter+=[categories::SelectionCategory|CatRef])+)?
+	('when' (selectionFilter+=[categories::SelectionCategory|ID])+)?
 	)
 	']';
 	
-//OrSelectionConditionExpr returns SelectionConditionExpr:
-//	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
-//
-//AndSelectionConditionExpr returns SelectionConditionExpr:
-//	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
-//
-//SelectionCategoryReference:
-//	cat=[categories::VerificationCategory|CatRef];
 	

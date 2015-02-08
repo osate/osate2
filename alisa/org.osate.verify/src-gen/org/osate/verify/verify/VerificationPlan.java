@@ -8,8 +8,6 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.ComponentClassifier;
 
-import org.osate.alisa.common.common.MultiLineString;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Plan</b></em>'.
@@ -113,30 +111,30 @@ public interface VerificationPlan extends EObject
   void setTarget(ComponentClassifier value);
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' containment reference.
+   * Returns the value of the '<em><b>Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Description</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' containment reference.
-   * @see #setDescription(MultiLineString)
+   * @return the value of the '<em>Description</em>' attribute.
+   * @see #setDescription(String)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Description()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  MultiLineString getDescription();
+  String getDescription();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' containment reference.
+   * @param value the new value of the '<em>Description</em>' attribute.
    * @see #getDescription()
    * @generated
    */
-  void setDescription(MultiLineString value);
+  void setDescription(String value);
 
   /**
    * Returns the value of the '<em><b>Claim</b></em>' containment reference list.
@@ -155,30 +153,30 @@ public interface VerificationPlan extends EObject
   EList<Claim> getClaim();
 
   /**
-   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
+   * Returns the value of the '<em><b>Rationale</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Rationale</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' containment reference.
-   * @see #setRationale(MultiLineString)
+   * @return the value of the '<em>Rationale</em>' attribute.
+   * @see #setRationale(String)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Rationale()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  MultiLineString getRationale();
+  String getRationale();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' containment reference.
+   * @param value the new value of the '<em>Rationale</em>' attribute.
    * @see #getRationale()
    * @generated
    */
-  void setRationale(MultiLineString value);
+  void setRationale(String value);
 
   /**
    * Returns the value of the '<em><b>Plan Assumption</b></em>' reference list.

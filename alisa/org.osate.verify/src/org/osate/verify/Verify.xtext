@@ -15,9 +15,9 @@ VerificationPlan:
 	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
 	(
-		('description' description=MultiLineString)?
+		('description' description=STRING)?
 	& claim+=Claim*
-	& ('rationale' rationale=MultiLineString)?
+	& ('rationale' rationale=STRING)?
 	& ('plan' 'assumption' planAssumption+=[VerificationPlan|QualifiedName]+)?
 	)
 	']';
@@ -28,7 +28,7 @@ Claim:
 	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
 	('assert' assert=ArgumentExpr
-	& ('rationale' rationale=MultiLineString)?
+	& ('rationale' rationale=STRING)?
 	& (subclaim+=Claim)*)  // if we have a requirement with refined requirements and we verify each
 	']';
 
@@ -61,7 +61,7 @@ VerificationActivity:
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model
 	// and via the requirement (predicate/limit values
-	&('rationale' rationale=MultiLineString)?
+	&('rationale' rationale=STRING)?
 )
 	']';
 
@@ -71,7 +71,7 @@ VerificationCondition:
 	'[' (
 	 ('description' description=Description)?
 	& ('assert' assert=ArgumentExpr)?
-	& ('rationale' rationale=MultiLineString)?
+	& ('rationale' rationale=STRING)?
 	)
 	']';
 
@@ -94,7 +94,7 @@ AtomicEvidenceExpr returns ArgumentExpr:
 	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr;
 
 ConditionalEvidence returns ArgumentExpr:
-	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|CatRef]+)?;
+	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?;
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationAction|QualifiedName]
@@ -126,7 +126,7 @@ VerificationMethod:
 	(
 	('marker' marker=STRING)?
 	&('description' description=Description)?
-	& ('category' category=[categories::VerificationCategory|CatRef])?
+	& ('category' category=[categories::VerificationCategory|ID])?
 	& (conditions+=VerificationCondition)*
 	)
 	']';

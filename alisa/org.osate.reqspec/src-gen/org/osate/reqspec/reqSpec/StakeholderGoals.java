@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Classifier;
 
-import org.osate.alisa.common.common.MultiLineString;
+import org.osate.alisa.common.common.Description;
 
 /**
  * <!-- begin-user-doc -->
@@ -146,12 +146,12 @@ public interface StakeholderGoals extends ReqSpec, ReqSpecContainer, ReqRoot
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
-   * @see #setDescription(MultiLineString)
+   * @see #setDescription(Description)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Description()
    * @model containment="true"
    * @generated
    */
-  MultiLineString getDescription();
+  Description getDescription();
 
   /**
    * Sets the value of the '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}' containment reference.
@@ -161,7 +161,7 @@ public interface StakeholderGoals extends ReqSpec, ReqSpecContainer, ReqRoot
    * @see #getDescription()
    * @generated
    */
-  void setDescription(MultiLineString value);
+  void setDescription(Description value);
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

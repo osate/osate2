@@ -8,8 +8,6 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.Classifier;
 
-import org.osate.alisa.common.common.ConstantDecl;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Req Specs</b></em>'.
@@ -22,7 +20,6 @@ import org.osate.alisa.common.common.ConstantDecl;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}</li>
  * </ul>
  * </p>
@@ -126,22 +123,6 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
    * @generated
    */
   EList<ReqSpecs> getOtherreqspecs();
-
-  /**
-   * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.ConstantDecl}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Constants</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_Constants()
-   * @model containment="true"
-   * @generated
-   */
-  EList<ConstantDecl> getConstants();
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

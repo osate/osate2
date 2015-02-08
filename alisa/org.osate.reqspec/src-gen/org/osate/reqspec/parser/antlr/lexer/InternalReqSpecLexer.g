@@ -18,15 +18,19 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 Specification : ('S'|'s')('P'|'p')('E'|'e')('C'|'c')('I'|'i')('F'|'f')('I'|'i')('C'|'c')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
+Synchronized : ('S'|'s')('Y'|'y')('N'|'n')('C'|'c')('H'|'h')('R'|'r')('O'|'o')('N'|'n')('I'|'i')('Z'|'z')('E'|'e')('D'|'d');
+
 Description : ('D'|'d')('E'|'e')('S'|'s')('C'|'c')('R'|'r')('I'|'i')('P'|'p')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
 Requirement : ('R'|'r')('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('R'|'r')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
 
 Stakeholder : ('S'|'s')('T'|'t')('A'|'a')('K'|'k')('E'|'e')('H'|'h')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
 
+Instanceof : ('I'|'i')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('C'|'c')('E'|'e')('O'|'o')('F'|'f');
+
 Conflicts : ('C'|'c')('O'|'o')('N'|'n')('F'|'f')('L'|'l')('I'|'i')('C'|'c')('T'|'t')('S'|'s');
 
-Constants : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t')('S'|'s');
+Extension : ('E'|'e')('X'|'x')('T'|'t')('E'|'e')('N'|'n')('S'|'s')('I'|'i')('O'|'o')('N'|'n');
 
 Mitigates : ('M'|'m')('I'|'i')('T'|'t')('I'|'i')('G'|'g')('A'|'a')('T'|'t')('E'|'e')('S'|'s');
 
@@ -36,37 +40,175 @@ Category : ('C'|'c')('A'|'a')('T'|'t')('E'|'e')('G'|'g')('O'|'o')('R'|'r')('Y'|'
 
 Document : ('D'|'d')('O'|'o')('C'|'c')('U'|'u')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
 
+Precedes : ('P'|'p')('R'|'r')('E'|'e')('C'|'c')('E'|'e')('D'|'d')('E'|'e')('S'|'s');
+
+Responds : ('R'|'r')('E'|'e')('S'|'s')('P'|'p')('O'|'o')('N'|'n')('D'|'d')('S'|'s');
+
+Sequence : ('S'|'s')('E'|'e')('Q'|'q')('U'|'u')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
+
+Default : ('D'|'d')('E'|'e')('F'|'f')('A'|'a')('U'|'u')('L'|'l')('T'|'t');
+
+Extends : ('E'|'e')('X'|'x')('T'|'t')('E'|'e')('N'|'n')('D'|'d')('S'|'s');
+
+Finally : ('F'|'f')('I'|'i')('N'|'n')('A'|'a')('L'|'l')('L'|'l')('Y'|'y');
+
+Implies : ('I'|'i')('M'|'m')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
+
 Include : ('I'|'i')('N'|'n')('C'|'c')('L'|'l')('U'|'u')('D'|'d')('E'|'e');
 
 Refines : ('R'|'r')('E'|'e')('F'|'f')('I'|'i')('N'|'n')('E'|'e')('S'|'s');
 
 Section : ('S'|'s')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
+Always : ('A'|'a')('L'|'l')('W'|'w')('A'|'a')('Y'|'y')('S'|'s');
+
 Assert : ('A'|'a')('S'|'s')('S'|'s')('E'|'e')('R'|'r')('T'|'t');
+
+Exists : ('E'|'e')('X'|'x')('I'|'i')('S'|'s')('T'|'t')('S'|'s');
 
 Folder : ('F'|'f')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
 
+Forall : ('F'|'f')('O'|'o')('R'|'r')('A'|'a')('L'|'l')('L'|'l');
+
+Import : ('I'|'i')('M'|'m')('P'|'p')('O'|'o')('R'|'r')('T'|'t');
+
+Return : ('R'|'r')('E'|'e')('T'|'t')('U'|'u')('R'|'r')('N'|'n');
+
+Scalar : ('S'|'s')('C'|'c')('A'|'a')('L'|'l')('A'|'a')('R'|'r');
+
+Static : ('S'|'s')('T'|'t')('A'|'a')('T'|'t')('I'|'i')('C'|'c');
+
+Switch : ('S'|'s')('W'|'w')('I'|'i')('T'|'t')('C'|'c')('H'|'h');
+
+Typeof : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e')('O'|'o')('F'|'f');
+
+Array : ('A'|'a')('R'|'r')('R'|'r')('A'|'a')('Y'|'y');
+
+Catch : ('C'|'c')('A'|'a')('T'|'t')('C'|'c')('H'|'h');
+
+False : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
+
 Goals : ('G'|'g')('O'|'o')('A'|'a')('L'|'l')('S'|'s');
+
+Super : ('S'|'s')('U'|'u')('P'|'p')('E'|'e')('R'|'r');
+
+Throw : ('T'|'t')('H'|'h')('R'|'r')('O'|'o')('W'|'w');
+
+While : ('W'|'w')('H'|'h')('I'|'i')('L'|'l')('E'|'e');
+
+Bool : ('B'|'b')('O'|'o')('O'|'o')('L'|'l');
+
+Case : ('C'|'c')('A'|'a')('S'|'s')('E'|'e');
+
+Else : ('E'|'e')('L'|'l')('S'|'s')('E'|'e');
 
 Goal : ('G'|'g')('O'|'o')('A'|'a')('L'|'l');
 
+Null : ('N'|'n')('U'|'u')('L'|'l')('L'|'l');
+
+Real : ('R'|'r')('E'|'e')('A'|'a')('L'|'l');
+
+Term : ('T'|'t')('E'|'e')('R'|'r')('M'|'m');
+
+Then : ('T'|'t')('H'|'h')('E'|'e')('N'|'n');
+
 This : ('T'|'t')('H'|'h')('I'|'i')('S'|'s');
+
+True : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
 With : ('W'|'w')('I'|'i')('T'|'t')('H'|'h');
 
+ExclamationMarkEqualsSignEqualsSign : '!''=''=';
+
+FullStopFullStopFullStop : '.''.''.';
+
+FullStopFullStopLessThanSign : '.''.''<';
+
+EqualsSignEqualsSignEqualsSign : '=''=''=';
+
+And : ('A'|'a')('N'|'n')('D'|'d');
+
 For : ('F'|'f')('O'|'o')('R'|'r');
+
+Int : ('I'|'i')('N'|'n')('T'|'t');
+
+Inv : ('I'|'i')('N'|'n')('V'|'v');
+
+Mod : ('M'|'m')('O'|'o')('D'|'d');
+
+New : ('N'|'n')('E'|'e')('W'|'w');
+
+Not : ('N'|'n')('O'|'o')('T'|'t');
+
+Pre : ('P'|'p')('R'|'r')('E'|'e');
 
 See : ('S'|'s')('E'|'e')('E'|'e');
 
+Sum : ('S'|'s')('U'|'u')('M'|'m');
+
+Try : ('T'|'t')('R'|'r')('Y'|'y');
+
+Val : ('V'|'v')('A'|'a')('L'|'l');
+
+Var : ('V'|'v')('A'|'a')('R'|'r');
+
+Xor : ('X'|'x')('O'|'o')('R'|'r');
+
 ExclamationMarkEqualsSign : '!''=';
 
-FullStopAsterisk : '.''*';
+PercentSignEqualsSign : '%''=';
+
+AmpersandAmpersand : '&''&';
+
+AsteriskAsterisk : '*''*';
+
+AsteriskEqualsSign : '*''=';
+
+PlusSignPlusSign : '+''+';
+
+PlusSignEqualsSign : '+''=';
+
+HyphenMinusHyphenMinus : '-''-';
+
+HyphenMinusEqualsSign : '-''=';
+
+HyphenMinusGreaterThanSign : '-''>';
+
+FullStopFullStop : '.''.';
+
+SolidusEqualsSign : '/''=';
 
 ColonColon : ':'':';
 
+ColonEqualsSign : ':''=';
+
 LessThanSignEqualsSign : '<''=';
 
+LessThanSignGreaterThanSign : '<''>';
+
+EqualsSignEqualsSign : '=''=';
+
+EqualsSignGreaterThanSign : '=''>';
+
 GreaterThanSignEqualsSign : '>''=';
+
+QuestionMarkFullStop : '?''.';
+
+QuestionMarkColon : '?'':';
+
+As : ('A'|'a')('S'|'s');
+
+Do : ('D'|'d')('O'|'o');
+
+If : ('I'|'i')('F'|'f');
+
+In : ('I'|'i')('N'|'n');
+
+Or : ('O'|'o')('R'|'r');
+
+VerticalLineVerticalLine : '|''|';
+
+ExclamationMark : '!';
 
 NumberSign : '#';
 
@@ -74,11 +216,25 @@ PercentSign : '%';
 
 Ampersand : '&';
 
+LeftParenthesis : '(';
+
+RightParenthesis : ')';
+
+Asterisk : '*';
+
+PlusSign : '+';
+
+Comma : ',';
+
+HyphenMinus : '-';
+
 FullStop : '.';
 
 Solidus : '/';
 
 Colon : ':';
+
+Semicolon : ';';
 
 LessThanSign : '<';
 
@@ -86,17 +242,35 @@ EqualsSign : '=';
 
 GreaterThanSign : '>';
 
+QuestionMark : '?';
+
+E : ('E'|'e');
+
+Q : ('Q'|'q');
+
 LeftSquareBracket : '[';
 
 RightSquareBracket : ']';
 
+CircumflexAccent : '^';
+
+LeftCurlyBracket : '{';
+
+VerticalLine : '|';
+
+RightCurlyBracket : '}';
 
 
-RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
-RULE_INT : ('0'..'9')+;
+RULE_HEX : ('0x'|'0X') ('0'..'9'|'a'..'f'|'A'..'F'|'_')+ ('#' (('b'|'B') ('i'|'I')|('l'|'L')))?;
 
-RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'|'\'' ('\\' .|~(('\\'|'\'')))* '\'');
+RULE_INT : '0'..'9' ('0'..'9'|'_')*;
+
+RULE_DECIMAL : RULE_INT (('e'|'E') ('+'|'-')? RULE_INT)? (('b'|'B') ('i'|'I'|'d'|'D')|('l'|'L'|'d'|'D'|'f'|'F'))?;
+
+RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'$'|'_') ('a'..'z'|'A'..'Z'|'$'|'_'|'0'..'9')*;
+
+RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'?|'\'' ('\\' .|~(('\\'|'\'')))* '\''?);
 
 RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 
