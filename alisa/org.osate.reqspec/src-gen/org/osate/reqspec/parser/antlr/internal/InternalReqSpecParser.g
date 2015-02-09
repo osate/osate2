@@ -689,9 +689,9 @@ ruleReqSpecs returns [EObject current=null]
 					({true}?=>(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getReqSpecsAccess().getConstantsConstantDeclarationParserRuleCall_7_0_0()); 
+	        newCompositeNode(grammarAccess.getReqSpecsAccess().getConstantsXValDeclarationParserRuleCall_7_0_0()); 
 	    }
-		lv_constants_11_0=ruleConstantDeclaration		{
+		lv_constants_11_0=ruleXValDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getReqSpecsRule());
 	        }
@@ -699,7 +699,7 @@ ruleReqSpecs returns [EObject current=null]
        			$current, 
        			"constants",
         		lv_constants_11_0, 
-        		"ConstantDeclaration");
+        		"XValDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1646,9 +1646,9 @@ ruleRequirement returns [EObject current=null]
 					({true}?=>(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getRequirementAccess().getConstantsConstantDeclarationParserRuleCall_5_2_0()); 
+	        newCompositeNode(grammarAccess.getRequirementAccess().getConstantsXValDeclarationParserRuleCall_5_2_0()); 
 	    }
-		lv_constants_13_0=ruleConstantDeclaration		{
+		lv_constants_13_0=ruleXValDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getRequirementRule());
 	        }
@@ -1656,7 +1656,7 @@ ruleRequirement returns [EObject current=null]
        			$current, 
        			"constants",
         		lv_constants_13_0, 
-        		"ConstantDeclaration");
+        		"XValDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2477,32 +2477,30 @@ ruleDescriptionElement returns [EObject current=null]
 
 
 
-
-
-// Entry rule entryRuleConstantDeclaration
-entryRuleConstantDeclaration returns [EObject current=null]
+// Entry rule entryRuleXValDeclaration
+entryRuleXValDeclaration returns [EObject current=null]
 	:
-	{ newCompositeNode(grammarAccess.getConstantDeclarationRule()); }
-	 iv_ruleConstantDeclaration=ruleConstantDeclaration 
-	 { $current=$iv_ruleConstantDeclaration.current; } 
+	{ newCompositeNode(grammarAccess.getXValDeclarationRule()); }
+	 iv_ruleXValDeclaration=ruleXValDeclaration 
+	 { $current=$iv_ruleXValDeclaration.current; } 
 	 EOF 
 ;
 
-// Rule ConstantDeclaration
-ruleConstantDeclaration returns [EObject current=null] 
+// Rule XValDeclaration
+ruleXValDeclaration returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 ((
     {
         $current = forceCreateModelElement(
-            grammarAccess.getConstantDeclarationAccess().getConstantDeclarationAction_0(),
+            grammarAccess.getXValDeclarationAccess().getXVariableDeclarationAction_0(),
             $current);
     }
 )
-	otherlv_1=Constant
+	otherlv_1=Val
     {
-    	newLeafNode(otherlv_1, grammarAccess.getConstantDeclarationAccess().getConstantKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getXValDeclarationAccess().getValKeyword_1());
     }
 (((((
 (
@@ -2515,11 +2513,11 @@ ruleValidID
 )))=>((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0()); 
 	    }
 		lv_type_2_0=ruleJvmTypeReference		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConstantDeclarationRule());
+	            $current = createModelElementForParent(grammarAccess.getXValDeclarationRule());
 	        }
        		set(
        			$current, 
@@ -2533,11 +2531,11 @@ ruleValidID
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDeclarationAccess().getNameValidIDParserRuleCall_2_0_0_1_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getNameValidIDParserRuleCall_2_0_0_1_0()); 
 	    }
 		lv_name_3_0=ruleValidID		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConstantDeclarationRule());
+	            $current = createModelElementForParent(grammarAccess.getXValDeclarationRule());
 	        }
        		set(
        			$current, 
@@ -2552,11 +2550,11 @@ ruleValidID
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDeclarationAccess().getNameValidIDParserRuleCall_2_1_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getNameValidIDParserRuleCall_2_1_0()); 
 	    }
 		lv_name_4_0=ruleValidID		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConstantDeclarationRule());
+	            $current = createModelElementForParent(grammarAccess.getXValDeclarationRule());
 	        }
        		set(
        			$current, 
@@ -2570,61 +2568,30 @@ ruleValidID
 ))
 	otherlv_5=EqualsSign
     {
-    	newLeafNode(otherlv_5, grammarAccess.getConstantDeclarationAccess().getEqualsSignKeyword_3());
+    	newLeafNode(otherlv_5, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_3());
     }
 (
 (
-(
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDeclarationAccess().getRightXNumberLiteralParserRuleCall_4_0_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightXExpressionParserRuleCall_4_0()); 
 	    }
-		lv_right_6_1=ruleXNumberLiteral		{
+		lv_right_6_0=ruleXExpression		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConstantDeclarationRule());
+	            $current = createModelElementForParent(grammarAccess.getXValDeclarationRule());
 	        }
        		set(
        			$current, 
        			"right",
-        		lv_right_6_1, 
-        		"XNumberLiteral");
+        		lv_right_6_0, 
+        		"XExpression");
 	        afterParserOrEnumRuleCall();
 	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getConstantDeclarationAccess().getRightXStringLiteralParserRuleCall_4_0_1()); 
-	    }
-		lv_right_6_2=ruleXStringLiteral		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConstantDeclarationRule());
-	        }
-       		set(
-       			$current, 
-       			"right",
-        		lv_right_6_2, 
-        		"XStringLiteral");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getConstantDeclarationAccess().getRightXBooleanLiteralParserRuleCall_4_0_2()); 
-	    }
-		lv_right_6_3=ruleXBooleanLiteral		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConstantDeclarationRule());
-	        }
-       		set(
-       			$current, 
-       			"right",
-        		lv_right_6_3, 
-        		"XBooleanLiteral");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
 
 )
 ))
 ;
+
+
 
 
 

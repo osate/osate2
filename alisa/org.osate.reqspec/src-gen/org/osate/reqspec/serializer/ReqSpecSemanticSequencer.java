@@ -1411,7 +1411,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         target=[Classifier|AadlClassifierReference]? 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
-	 *         constants+=ConstantDeclaration* 
+	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
 	 *         (content+=Requirement | content+=ReqSpecFolder)*
 	 *     )
@@ -1429,7 +1429,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
 	 *         category=[RequirementCategory|ID]? 
 	 *         description=Description? 
-	 *         constants+=ConstantDeclaration* 
+	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
 	 *         predicate=ReqPredicate? 
 	 *         rationale=STRING? 

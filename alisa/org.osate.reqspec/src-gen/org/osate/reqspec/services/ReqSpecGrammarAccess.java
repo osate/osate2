@@ -421,7 +421,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
 		private final Assignment cConstantsAssignment_7_0 = (Assignment)cUnorderedGroup_7.eContents().get(0);
-		private final RuleCall cConstantsConstantDeclarationParserRuleCall_7_0_0 = (RuleCall)cConstantsAssignment_7_0.eContents().get(0);
+		private final RuleCall cConstantsXValDeclarationParserRuleCall_7_0_0 = (RuleCall)cConstantsAssignment_7_0.eContents().get(0);
 		private final Assignment cComputesAssignment_7_1 = (Assignment)cUnorderedGroup_7.eContents().get(1);
 		private final RuleCall cComputesComputeDeclarationParserRuleCall_7_1_0 = (RuleCall)cComputesAssignment_7_1.eContents().get(0);
 		private final Assignment cContentAssignment_7_2 = (Assignment)cUnorderedGroup_7.eContents().get(2);
@@ -433,12 +433,12 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//ReqSpecs:
 		//	"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
 		//	("for" target=[aadl2::Classifier|AadlClassifierReference])? ("include" otherreqspecs+=[ReqSpecs|QualifiedName]+)? "["
-		//	(constants+=ConstantDeclaration* & computes+=ComputeDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]";
+		//	(constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
 		//("for" target=[aadl2::Classifier|AadlClassifierReference])? ("include" otherreqspecs+=[ReqSpecs|QualifiedName]+)? "["
-		//(constants+=ConstantDeclaration* & computes+=ComputeDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]"
+		//(constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"requirement"
@@ -498,14 +498,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//constants+=ConstantDeclaration* & computes+=ComputeDeclaration* & content+=(Requirement | ReqSpecFolder)*
+		//constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=(Requirement | ReqSpecFolder)*
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
-		//constants+=ConstantDeclaration*
+		//constants+=XValDeclaration*
 		public Assignment getConstantsAssignment_7_0() { return cConstantsAssignment_7_0; }
 
-		//ConstantDeclaration
-		public RuleCall getConstantsConstantDeclarationParserRuleCall_7_0_0() { return cConstantsConstantDeclarationParserRuleCall_7_0_0; }
+		//XValDeclaration
+		public RuleCall getConstantsXValDeclarationParserRuleCall_7_0_0() { return cConstantsXValDeclarationParserRuleCall_7_0_0; }
 
 		//computes+=ComputeDeclaration*
 		public Assignment getComputesAssignment_7_1() { return cComputesAssignment_7_1; }
@@ -958,7 +958,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDescriptionAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
 		private final RuleCall cDescriptionDescriptionParserRuleCall_5_1_1_0 = (RuleCall)cDescriptionAssignment_5_1_1.eContents().get(0);
 		private final Assignment cConstantsAssignment_5_2 = (Assignment)cUnorderedGroup_5.eContents().get(2);
-		private final RuleCall cConstantsConstantDeclarationParserRuleCall_5_2_0 = (RuleCall)cConstantsAssignment_5_2.eContents().get(0);
+		private final RuleCall cConstantsXValDeclarationParserRuleCall_5_2_0 = (RuleCall)cConstantsAssignment_5_2.eContents().get(0);
 		private final Assignment cComputesAssignment_5_3 = (Assignment)cUnorderedGroup_5.eContents().get(3);
 		private final RuleCall cComputesComputeDeclarationParserRuleCall_5_3_0 = (RuleCall)cComputesAssignment_5_3.eContents().get(0);
 		private final Group cGroup_5_4 = (Group)cUnorderedGroup_5.eContents().get(4);
@@ -1014,10 +1014,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//Requirement:
 		//	"requirement" name=ID (":" title=STRING)? ("for" (target=[aadl2::NamedElement] | targetDescription=STRING))? //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 		//	"[" (("category" category=[categories::RequirementCategory])? // predicate expression 
-		//	& ("description" description=Description)? & constants+=ConstantDeclaration* & computes+=ComputeDeclaration* &
-		//	("assert" predicate=ReqPredicate)? & ("rationale" rationale=STRING)? & ("see" "goal"
-		//	goalReference+=[Goal|QualifiedName]+)? & ("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? &
-		//	("refines" refinedReference+=[Requirement|QualifiedName]+)? & ("see" "document" "goal"
+		//	& ("description" description=Description)? & constants+=XValDeclaration* & computes+=ComputeDeclaration* & ("assert"
+		//	predicate=ReqPredicate)? & ("rationale" rationale=STRING)? & ("see" "goal" goalReference+=[Goal|QualifiedName]+)? &
+		//	("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? & ("refines"
+		//	refinedReference+=[Requirement|QualifiedName]+)? & ("see" "document" "goal"
 		//	stakeholderRequirementReference+=[Goal|QualifiedName]+)? & ("see" "document" "requirement"
 		//	documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)?)
 		//	"]";
@@ -1025,7 +1025,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"requirement" name=ID (":" title=STRING)? ("for" (target=[aadl2::NamedElement] | targetDescription=STRING))? //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 		//"[" (("category" category=[categories::RequirementCategory])? // predicate expression 
-		//& ("description" description=Description)? & constants+=ConstantDeclaration* & computes+=ComputeDeclaration* & ("assert"
+		//& ("description" description=Description)? & constants+=XValDeclaration* & computes+=ComputeDeclaration* & ("assert"
 		//predicate=ReqPredicate)? & ("rationale" rationale=STRING)? & ("see" "goal" goalReference+=[Goal|QualifiedName]+)? &
 		//("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? & ("refines"
 		//refinedReference+=[Requirement|QualifiedName]+)? & ("see" "document" "goal"
@@ -1082,7 +1082,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
 		//("category" category=[categories::RequirementCategory])? // predicate expression 
-		//& ("description" description=Description)? & constants+=ConstantDeclaration* & computes+=ComputeDeclaration* & ("assert"
+		//& ("description" description=Description)? & constants+=XValDeclaration* & computes+=ComputeDeclaration* & ("assert"
 		//predicate=ReqPredicate)? & ("rationale" rationale=STRING)? & ("see" "goal" goalReference+=[Goal|QualifiedName]+)? &
 		//("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? & ("refines"
 		//refinedReference+=[Requirement|QualifiedName]+)? & ("see" "document" "goal"
@@ -1117,11 +1117,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_5_1_1_0() { return cDescriptionDescriptionParserRuleCall_5_1_1_0; }
 
-		//constants+=ConstantDeclaration*
+		//constants+=XValDeclaration*
 		public Assignment getConstantsAssignment_5_2() { return cConstantsAssignment_5_2; }
 
-		//ConstantDeclaration
-		public RuleCall getConstantsConstantDeclarationParserRuleCall_5_2_0() { return cConstantsConstantDeclarationParserRuleCall_5_2_0; }
+		//XValDeclaration
+		public RuleCall getConstantsXValDeclarationParserRuleCall_5_2_0() { return cConstantsXValDeclarationParserRuleCall_5_2_0; }
 
 		//computes+=ComputeDeclaration*
 		public Assignment getComputesAssignment_5_3() { return cComputesAssignment_5_3; }
@@ -1611,7 +1611,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//ReqSpecs:
 	//	"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
 	//	("for" target=[aadl2::Classifier|AadlClassifierReference])? ("include" otherreqspecs+=[ReqSpecs|QualifiedName]+)? "["
-	//	(constants+=ConstantDeclaration* & computes+=ComputeDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]";
+	//	(constants+=XValDeclaration* & computes+=ComputeDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]";
 	public ReqSpecsElements getReqSpecsAccess() {
 		return pReqSpecs;
 	}
@@ -1664,10 +1664,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//Requirement:
 	//	"requirement" name=ID (":" title=STRING)? ("for" (target=[aadl2::NamedElement] | targetDescription=STRING))? //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	//	"[" (("category" category=[categories::RequirementCategory])? // predicate expression 
-	//	& ("description" description=Description)? & constants+=ConstantDeclaration* & computes+=ComputeDeclaration* &
-	//	("assert" predicate=ReqPredicate)? & ("rationale" rationale=STRING)? & ("see" "goal"
-	//	goalReference+=[Goal|QualifiedName]+)? & ("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? &
-	//	("refines" refinedReference+=[Requirement|QualifiedName]+)? & ("see" "document" "goal"
+	//	& ("description" description=Description)? & constants+=XValDeclaration* & computes+=ComputeDeclaration* & ("assert"
+	//	predicate=ReqPredicate)? & ("rationale" rationale=STRING)? & ("see" "goal" goalReference+=[Goal|QualifiedName]+)? &
+	//	("mitigates" (exception=[ecore::EObject] | exceptionText=STRING))? & ("refines"
+	//	refinedReference+=[Requirement|QualifiedName]+)? & ("see" "document" "goal"
 	//	stakeholderRequirementReference+=[Goal|QualifiedName]+)? & ("see" "document" "requirement"
 	//	documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)?)
 	//	"]";
