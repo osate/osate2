@@ -143,40 +143,13 @@ public interface CommonPackage extends EPackage
   int XEXPRESSION = 2;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int XEXPRESSION__TYPE = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int XEXPRESSION__NAME = XbasePackage.XEXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int XEXPRESSION__RIGHT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 2;
-
-  /**
    * The number of structural features of the '<em>XExpression</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XEXPRESSION_FEATURE_COUNT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 3;
+  int XEXPRESSION_FEATURE_COUNT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
@@ -216,14 +189,14 @@ public interface CommonPackage extends EPackage
   int SHOW_VALUE_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralImpl <em>XNumber Literal</em>}' class.
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.XVariableDeclarationImpl <em>XVariable Declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.XNumberLiteralImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXNumberLiteral()
+   * @see org.osate.alisa.common.common.impl.XVariableDeclarationImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXVariableDeclaration()
    * @generated
    */
-  int XNUMBER_LITERAL = 4;
+  int XVARIABLE_DECLARATION = 4;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -232,7 +205,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XNUMBER_LITERAL__TYPE = XEXPRESSION__TYPE;
+  int XVARIABLE_DECLARATION__TYPE = XEXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -241,7 +214,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XNUMBER_LITERAL__NAME = XEXPRESSION__NAME;
+  int XVARIABLE_DECLARATION__NAME = XEXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -250,7 +223,26 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XNUMBER_LITERAL__RIGHT = XEXPRESSION__RIGHT;
+  int XVARIABLE_DECLARATION__RIGHT = XEXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>XVariable Declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XVARIABLE_DECLARATION_FEATURE_COUNT = XEXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralImpl <em>XNumber Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.XNumberLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXNumberLiteral()
+   * @generated
+   */
+  int XNUMBER_LITERAL = 5;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -355,39 +347,6 @@ public interface CommonPackage extends EPackage
   EClass getXExpression();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.XExpression#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see org.osate.alisa.common.common.XExpression#getType()
-   * @see #getXExpression()
-   * @generated
-   */
-  EReference getXExpression_Type();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.XExpression#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.common.common.XExpression#getName()
-   * @see #getXExpression()
-   * @generated
-   */
-  EAttribute getXExpression_Name();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.XExpression#getRight <em>Right</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.osate.alisa.common.common.XExpression#getRight()
-   * @see #getXExpression()
-   * @generated
-   */
-  EReference getXExpression_Right();
-
-  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -418,6 +377,49 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EAttribute getShowValue_Unit();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.XVariableDeclaration <em>XVariable Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XVariable Declaration</em>'.
+   * @see org.osate.alisa.common.common.XVariableDeclaration
+   * @generated
+   */
+  EClass getXVariableDeclaration();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.XVariableDeclaration#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.alisa.common.common.XVariableDeclaration#getType()
+   * @see #getXVariableDeclaration()
+   * @generated
+   */
+  EReference getXVariableDeclaration_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.XVariableDeclaration#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.alisa.common.common.XVariableDeclaration#getName()
+   * @see #getXVariableDeclaration()
+   * @generated
+   */
+  EAttribute getXVariableDeclaration_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.XVariableDeclaration#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.osate.alisa.common.common.XVariableDeclaration#getRight()
+   * @see #getXVariableDeclaration()
+   * @generated
+   */
+  EReference getXVariableDeclaration_Right();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.XNumberLiteral <em>XNumber Literal</em>}'.
@@ -537,30 +539,6 @@ public interface CommonPackage extends EPackage
     EClass XEXPRESSION = eINSTANCE.getXExpression();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference XEXPRESSION__TYPE = eINSTANCE.getXExpression_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute XEXPRESSION__NAME = eINSTANCE.getXExpression_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference XEXPRESSION__RIGHT = eINSTANCE.getXExpression_Right();
-
-    /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -585,6 +563,40 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute SHOW_VALUE__UNIT = eINSTANCE.getShowValue_Unit();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.XVariableDeclarationImpl <em>XVariable Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.XVariableDeclarationImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXVariableDeclaration()
+     * @generated
+     */
+    EClass XVARIABLE_DECLARATION = eINSTANCE.getXVariableDeclaration();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XVARIABLE_DECLARATION__TYPE = eINSTANCE.getXVariableDeclaration_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XVARIABLE_DECLARATION__NAME = eINSTANCE.getXVariableDeclaration_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XVARIABLE_DECLARATION__RIGHT = eINSTANCE.getXVariableDeclaration_Right();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralImpl <em>XNumber Literal</em>}' class.

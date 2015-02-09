@@ -15,14 +15,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//DescriptionElement/thisTarget"/>
     </genClasses>
-    <genClasses ecoreClass="Common.ecore#//XExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//XExpression/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//XExpression/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//XExpression/right"/>
-    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//XExpression"/>
     <genClasses ecoreClass="Common.ecore#//ShowValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ShowValue/ref"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ShowValue/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="Common.ecore#//XVariableDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//XVariableDeclaration/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//XVariableDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//XVariableDeclaration/right"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//XNumberLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//XNumberLiteral/value"/>

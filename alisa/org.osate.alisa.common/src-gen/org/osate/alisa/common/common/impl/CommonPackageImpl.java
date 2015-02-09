@@ -23,6 +23,7 @@ import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.XExpression;
 import org.osate.alisa.common.common.XNumberLiteral;
+import org.osate.alisa.common.common.XVariableDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -59,6 +60,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass showValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xVariableDeclarationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -209,36 +217,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getXExpression_Type()
-  {
-    return (EReference)xExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getXExpression_Name()
-  {
-    return (EAttribute)xExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getXExpression_Right()
-  {
-    return (EReference)xExpressionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getShowValue()
   {
     return showValueEClass;
@@ -262,6 +240,46 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
   public EAttribute getShowValue_Unit()
   {
     return (EAttribute)showValueEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getXVariableDeclaration()
+  {
+    return xVariableDeclarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXVariableDeclaration_Type()
+  {
+    return (EReference)xVariableDeclarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXVariableDeclaration_Name()
+  {
+    return (EAttribute)xVariableDeclarationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getXVariableDeclaration_Right()
+  {
+    return (EReference)xVariableDeclarationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -333,13 +351,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__THIS_TARGET);
 
     xExpressionEClass = createEClass(XEXPRESSION);
-    createEReference(xExpressionEClass, XEXPRESSION__TYPE);
-    createEAttribute(xExpressionEClass, XEXPRESSION__NAME);
-    createEReference(xExpressionEClass, XEXPRESSION__RIGHT);
 
     showValueEClass = createEClass(SHOW_VALUE);
     createEReference(showValueEClass, SHOW_VALUE__REF);
     createEAttribute(showValueEClass, SHOW_VALUE__UNIT);
+
+    xVariableDeclarationEClass = createEClass(XVARIABLE_DECLARATION);
+    createEReference(xVariableDeclarationEClass, XVARIABLE_DECLARATION__TYPE);
+    createEAttribute(xVariableDeclarationEClass, XVARIABLE_DECLARATION__NAME);
+    createEReference(xVariableDeclarationEClass, XVARIABLE_DECLARATION__RIGHT);
 
     xNumberLiteralEClass = createEClass(XNUMBER_LITERAL);
     createEAttribute(xNumberLiteralEClass, XNUMBER_LITERAL__VALUE);
@@ -382,6 +402,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     // Add supertypes to classes
     xExpressionEClass.getESuperTypes().add(theXbasePackage.getXExpression());
+    xVariableDeclarationEClass.getESuperTypes().add(this.getXExpression());
     xNumberLiteralEClass.getESuperTypes().add(this.getXExpression());
 
     // Initialize classes and features; add operations and parameters
@@ -394,13 +415,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEAttribute(getDescriptionElement_ThisTarget(), theEcorePackage.getEBoolean(), "thisTarget", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xExpressionEClass, XExpression.class, "XExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getXExpression_Type(), theTypesPackage.getJvmTypeReference(), null, "type", null, 0, 1, XExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getXExpression_Name(), theEcorePackage.getEString(), "name", null, 0, 1, XExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getXExpression_Right(), theXbasePackage.getXExpression(), null, "right", null, 0, 1, XExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(showValueEClass, ShowValue.class, "ShowValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getShowValue_Ref(), theEcorePackage.getEObject(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getShowValue_Unit(), theEcorePackage.getEString(), "unit", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xVariableDeclarationEClass, XVariableDeclaration.class, "XVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getXVariableDeclaration_Type(), theTypesPackage.getJvmTypeReference(), null, "type", null, 0, 1, XVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getXVariableDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, XVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXVariableDeclaration_Right(), theXbasePackage.getXExpression(), null, "right", null, 0, 1, XVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xNumberLiteralEClass, XNumberLiteral.class, "XNumberLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getXNumberLiteral_Value(), theEcorePackage.getEString(), "value", null, 0, 1, XNumberLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

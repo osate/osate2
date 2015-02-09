@@ -10,6 +10,6 @@ package org.osate.assure.scoping
  * on how and when to use it 
  *
  */
-class AssureScopeProvider extends org.osate.alisa.common.scoping.CommonScopeProvider {
+class AssureScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider {
 
 }

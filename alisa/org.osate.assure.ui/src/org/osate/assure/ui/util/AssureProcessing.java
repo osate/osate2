@@ -1,4 +1,4 @@
-package org.osate.assure.evaluator;
+package org.osate.assure.ui.util;
 
 import static org.osate.assure.util.AssureUtilExtension.getEnclosingCaseResult;
 import static org.osate.assure.util.AssureUtilExtension.setToError;
@@ -7,7 +7,6 @@ import junit.framework.AssertionFailedError;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.alisa.common.ui.util.AlisaLoader;
 import org.osate.assure.assure.AndThenResult;
 import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.CaseResult;

@@ -41,8 +41,7 @@ ReqSpecs returns ReqSpecs:
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
 	(
-		('constants'
-	constants+=XValDeclaration+ )?
+		( constants+=XValDeclaration* )
 	& (content+= (Requirement |  ReqSpecFolder))*
 	)
 	']'
@@ -93,7 +92,7 @@ Requirement:
 '['	(
  	('category'  category=[categories::RequirementCategory|ID] )?
 	&('description'  description=Description)? 
-	& ( 'constants' constants+=XValDeclaration+ )?
+	& (  constants+=XValDeclaration* )
 	&('assert'  predicate=ReqPredicate)?  // predicate expression 
 	&('rationale'  rationale=STRING)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?

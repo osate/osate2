@@ -95,6 +95,11 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createShowValueAdapter();
       }
       @Override
+      public Adapter caseXVariableDeclaration(XVariableDeclaration object)
+      {
+        return createXVariableDeclarationAdapter();
+      }
+      @Override
       public Adapter caseXNumberLiteral(XNumberLiteral object)
       {
         return createXNumberLiteralAdapter();
@@ -182,6 +187,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createShowValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.XVariableDeclaration <em>XVariable Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.XVariableDeclaration
+   * @generated
+   */
+  public Adapter createXVariableDeclarationAdapter()
   {
     return null;
   }

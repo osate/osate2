@@ -59,6 +59,15 @@ public interface CommonFactory extends EFactory
   ShowValue createShowValue();
 
   /**
+   * Returns a new object of class '<em>XVariable Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>XVariable Declaration</em>'.
+   * @generated
+   */
+  XVariableDeclaration createXVariableDeclaration();
+
+  /**
    * Returns a new object of class '<em>XNumber Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

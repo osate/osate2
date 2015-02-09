@@ -45,7 +45,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAtomicEvidenceExprAccess().getAlternatives(), "rule__AtomicEvidenceExpr__Alternatives");
 					put(grammarAccess.getVerificationActionAccess().getAlternatives(), "rule__VerificationAction__Alternatives");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
-					put(grammarAccess.getXValDeclarationAccess().getAlternatives_1(), "rule__XValDeclaration__Alternatives_1");
+					put(grammarAccess.getXValDeclarationAccess().getAlternatives_2(), "rule__XValDeclaration__Alternatives_2");
 					put(grammarAccess.getXAssignmentAccess().getAlternatives(), "rule__XAssignment__Alternatives");
 					put(grammarAccess.getOpMultiAssignAccess().getAlternatives(), "rule__OpMultiAssign__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
@@ -143,8 +143,8 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationMethodAccess().getGroup_7_1(), "rule__VerificationMethod__Group_7_1__0");
 					put(grammarAccess.getVerificationMethodAccess().getGroup_7_2(), "rule__VerificationMethod__Group_7_2__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup(), "rule__XValDeclaration__Group__0");
-					put(grammarAccess.getXValDeclarationAccess().getGroup_1_0(), "rule__XValDeclaration__Group_1_0__0");
-					put(grammarAccess.getXValDeclarationAccess().getGroup_1_0_0(), "rule__XValDeclaration__Group_1_0_0__0");
+					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0(), "rule__XValDeclaration__Group_2_0__0");
+					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0_0(), "rule__XValDeclaration__Group_2_0_0__0");
 					put(grammarAccess.getXNumberLiteralAccess().getGroup(), "rule__XNumberLiteral__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup(), "rule__ShowValue__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup_1(), "rule__ShowValue__Group_1__0");
@@ -386,10 +386,10 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getValueAssignment_1(), "rule__DescriptionElement__ValueAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_2(), "rule__DescriptionElement__ThisTargetAssignment_2");
-					put(grammarAccess.getXValDeclarationAccess().getTypeAssignment_1_0_0_0(), "rule__XValDeclaration__TypeAssignment_1_0_0_0");
-					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_1_0_0_1(), "rule__XValDeclaration__NameAssignment_1_0_0_1");
-					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_1_1(), "rule__XValDeclaration__NameAssignment_1_1");
-					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_3(), "rule__XValDeclaration__RightAssignment_3");
+					put(grammarAccess.getXValDeclarationAccess().getTypeAssignment_2_0_0_0(), "rule__XValDeclaration__TypeAssignment_2_0_0_0");
+					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__XValDeclaration__NameAssignment_2_0_0_1");
+					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_1(), "rule__XValDeclaration__NameAssignment_2_1");
+					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_4(), "rule__XValDeclaration__RightAssignment_4");
 					put(grammarAccess.getXNumberLiteralAccess().getValueAssignment_1(), "rule__XNumberLiteral__ValueAssignment_1");
 					put(grammarAccess.getXNumberLiteralAccess().getUnitAssignment_2(), "rule__XNumberLiteral__UnitAssignment_2");
 					put(grammarAccess.getShowValueAccess().getRefAssignment_0(), "rule__ShowValue__RefAssignment_0");

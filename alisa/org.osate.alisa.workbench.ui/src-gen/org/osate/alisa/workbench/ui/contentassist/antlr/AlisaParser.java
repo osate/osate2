@@ -38,7 +38,7 @@ public class AlisaParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
-					put(grammarAccess.getXValDeclarationAccess().getAlternatives_1(), "rule__XValDeclaration__Alternatives_1");
+					put(grammarAccess.getXValDeclarationAccess().getAlternatives_2(), "rule__XValDeclaration__Alternatives_2");
 					put(grammarAccess.getXAssignmentAccess().getAlternatives(), "rule__XAssignment__Alternatives");
 					put(grammarAccess.getOpMultiAssignAccess().getAlternatives(), "rule__OpMultiAssign__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
@@ -82,12 +82,11 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getGroup(), "rule__AssuranceCaseConfiguration__Group__0");
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getGroup_2(), "rule__AssuranceCaseConfiguration__Group_2__0");
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getGroup_6_0(), "rule__AssuranceCaseConfiguration__Group_6_0__0");
-					put(grammarAccess.getAssuranceCaseConfigurationAccess().getGroup_6_1(), "rule__AssuranceCaseConfiguration__Group_6_1__0");
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getGroup_6_2(), "rule__AssuranceCaseConfiguration__Group_6_2__0");
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getGroup_6_3(), "rule__AssuranceCaseConfiguration__Group_6_3__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup(), "rule__XValDeclaration__Group__0");
-					put(grammarAccess.getXValDeclarationAccess().getGroup_1_0(), "rule__XValDeclaration__Group_1_0__0");
-					put(grammarAccess.getXValDeclarationAccess().getGroup_1_0_0(), "rule__XValDeclaration__Group_1_0_0__0");
+					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0(), "rule__XValDeclaration__Group_2_0__0");
+					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0_0(), "rule__XValDeclaration__Group_2_0_0__0");
 					put(grammarAccess.getXNumberLiteralAccess().getGroup(), "rule__XNumberLiteral__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup(), "rule__ShowValue__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup_1(), "rule__ShowValue__Group_1__0");
@@ -277,17 +276,17 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getTitleAssignment_2_1(), "rule__AssuranceCaseConfiguration__TitleAssignment_2_1");
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getSystemAssignment_4(), "rule__AssuranceCaseConfiguration__SystemAssignment_4");
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getDescriptionAssignment_6_0_1(), "rule__AssuranceCaseConfiguration__DescriptionAssignment_6_0_1");
-					put(grammarAccess.getAssuranceCaseConfigurationAccess().getConstantsAssignment_6_1_1(), "rule__AssuranceCaseConfiguration__ConstantsAssignment_6_1_1");
+					put(grammarAccess.getAssuranceCaseConfigurationAccess().getConstantsAssignment_6_1(), "rule__AssuranceCaseConfiguration__ConstantsAssignment_6_1");
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getPlansAssignment_6_2_1(), "rule__AssuranceCaseConfiguration__PlansAssignment_6_2_1");
 					put(grammarAccess.getAssuranceCaseConfigurationAccess().getSelectionFilterAssignment_6_3_1(), "rule__AssuranceCaseConfiguration__SelectionFilterAssignment_6_3_1");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getValueAssignment_1(), "rule__DescriptionElement__ValueAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_2(), "rule__DescriptionElement__ThisTargetAssignment_2");
-					put(grammarAccess.getXValDeclarationAccess().getTypeAssignment_1_0_0_0(), "rule__XValDeclaration__TypeAssignment_1_0_0_0");
-					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_1_0_0_1(), "rule__XValDeclaration__NameAssignment_1_0_0_1");
-					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_1_1(), "rule__XValDeclaration__NameAssignment_1_1");
-					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_3(), "rule__XValDeclaration__RightAssignment_3");
+					put(grammarAccess.getXValDeclarationAccess().getTypeAssignment_2_0_0_0(), "rule__XValDeclaration__TypeAssignment_2_0_0_0");
+					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__XValDeclaration__NameAssignment_2_0_0_1");
+					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_1(), "rule__XValDeclaration__NameAssignment_2_1");
+					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_4(), "rule__XValDeclaration__RightAssignment_4");
 					put(grammarAccess.getXNumberLiteralAccess().getValueAssignment_1(), "rule__XNumberLiteral__ValueAssignment_1");
 					put(grammarAccess.getXNumberLiteralAccess().getUnitAssignment_2(), "rule__XNumberLiteral__UnitAssignment_2");
 					put(grammarAccess.getShowValueAccess().getRefAssignment_0(), "rule__ShowValue__RefAssignment_0");

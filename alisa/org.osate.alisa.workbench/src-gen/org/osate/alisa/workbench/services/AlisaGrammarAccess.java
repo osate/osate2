@@ -72,10 +72,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDescriptionKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
 		private final Assignment cDescriptionAssignment_6_0_1 = (Assignment)cGroup_6_0.eContents().get(1);
 		private final RuleCall cDescriptionDescriptionParserRuleCall_6_0_1_0 = (RuleCall)cDescriptionAssignment_6_0_1.eContents().get(0);
-		private final Group cGroup_6_1 = (Group)cUnorderedGroup_6.eContents().get(1);
-		private final Keyword cConstantsKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
-		private final Assignment cConstantsAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
-		private final RuleCall cConstantsXValDeclarationParserRuleCall_6_1_1_0 = (RuleCall)cConstantsAssignment_6_1_1.eContents().get(0);
+		private final Assignment cConstantsAssignment_6_1 = (Assignment)cUnorderedGroup_6.eContents().get(1);
+		private final RuleCall cConstantsXValDeclarationParserRuleCall_6_1_0 = (RuleCall)cConstantsAssignment_6_1.eContents().get(0);
 		private final Group cGroup_6_2 = (Group)cUnorderedGroup_6.eContents().get(2);
 		private final Keyword cPlansKeyword_6_2_0 = (Keyword)cGroup_6_2.eContents().get(0);
 		private final Assignment cPlansAssignment_6_2_1 = (Assignment)cGroup_6_2.eContents().get(1);
@@ -90,12 +88,12 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AssuranceCaseConfiguration:
 		//	"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//	(("description" description=Description)? & ("constants" constants+=XValDeclaration+)? & "plans"
+		//	(("description" description=Description)? & constants+=XValDeclaration* & "plans"
 		//	plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//(("description" description=Description)? & ("constants" constants+=XValDeclaration+)? & "plans"
+		//(("description" description=Description)? & constants+=XValDeclaration* & "plans"
 		//plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -135,7 +133,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//("description" description=Description)? & ("constants" constants+=XValDeclaration+)? & "plans"
+		//("description" description=Description)? & constants+=XValDeclaration* & "plans"
 		//plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
@@ -151,17 +149,11 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_1_0() { return cDescriptionDescriptionParserRuleCall_6_0_1_0; }
 
-		//("constants" constants+=XValDeclaration+)?
-		public Group getGroup_6_1() { return cGroup_6_1; }
-
-		//"constants"
-		public Keyword getConstantsKeyword_6_1_0() { return cConstantsKeyword_6_1_0; }
-
-		//constants+=XValDeclaration+
-		public Assignment getConstantsAssignment_6_1_1() { return cConstantsAssignment_6_1_1; }
+		//constants+=XValDeclaration*
+		public Assignment getConstantsAssignment_6_1() { return cConstantsAssignment_6_1; }
 
 		//XValDeclaration
-		public RuleCall getConstantsXValDeclarationParserRuleCall_6_1_1_0() { return cConstantsXValDeclarationParserRuleCall_6_1_1_0; }
+		public RuleCall getConstantsXValDeclarationParserRuleCall_6_1_0() { return cConstantsXValDeclarationParserRuleCall_6_1_0; }
 
 		//"plans" plans+=[Verify::VerificationPlan|QualifiedName]+
 		public Group getGroup_6_2() { return cGroup_6_2; }
@@ -253,7 +245,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssuranceCaseConfiguration:
 	//	"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-	//	(("description" description=Description)? & ("constants" constants+=XValDeclaration+)? & "plans"
+	//	(("description" description=Description)? & constants+=XValDeclaration* & "plans"
 	//	plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]";
 	public AssuranceCaseConfigurationElements getAssuranceCaseConfigurationAccess() {
 		return pAssuranceCaseConfiguration;
@@ -285,7 +277,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns XExpression:
-	//	"constant" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+	//	{XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
