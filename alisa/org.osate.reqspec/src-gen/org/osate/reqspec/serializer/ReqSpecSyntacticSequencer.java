@@ -23,8 +23,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Goal___ConflictsKeyword_5_4_0_WithKeyword_5_4_1__q;
 	protected AbstractElementAlias match_Goal___SeeKeyword_5_6_0_DocumentKeyword_5_6_1_RequirementKeyword_5_6_2__q;
 	protected AbstractElementAlias match_Goal___SeeKeyword_5_7_0_DocumentKeyword_5_7_1__q;
-	protected AbstractElementAlias match_ReqSpecs_ConstantsKeyword_7_0_0_a;
-	protected AbstractElementAlias match_ReqSpecs_ConstantsKeyword_7_0_0_p;
+	protected AbstractElementAlias match_ReqSpecs_ConstantsKeyword_7_0_0_q;
 	protected AbstractElementAlias match_Requirement_ConstantsKeyword_5_2_0_q;
 	protected AbstractElementAlias match_Requirement_RefinesKeyword_5_7_0_q;
 	protected AbstractElementAlias match_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1__q;
@@ -46,8 +45,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Goal___ConflictsKeyword_5_4_0_WithKeyword_5_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getGoalAccess().getConflictsKeyword_5_4_0()), new TokenAlias(false, false, grammarAccess.getGoalAccess().getWithKeyword_5_4_1()));
 		match_Goal___SeeKeyword_5_6_0_DocumentKeyword_5_6_1_RequirementKeyword_5_6_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getGoalAccess().getSeeKeyword_5_6_0()), new TokenAlias(false, false, grammarAccess.getGoalAccess().getDocumentKeyword_5_6_1()), new TokenAlias(false, false, grammarAccess.getGoalAccess().getRequirementKeyword_5_6_2()));
 		match_Goal___SeeKeyword_5_7_0_DocumentKeyword_5_7_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getGoalAccess().getSeeKeyword_5_7_0()), new TokenAlias(false, false, grammarAccess.getGoalAccess().getDocumentKeyword_5_7_1()));
-		match_ReqSpecs_ConstantsKeyword_7_0_0_a = new TokenAlias(true, true, grammarAccess.getReqSpecsAccess().getConstantsKeyword_7_0_0());
-		match_ReqSpecs_ConstantsKeyword_7_0_0_p = new TokenAlias(true, false, grammarAccess.getReqSpecsAccess().getConstantsKeyword_7_0_0());
+		match_ReqSpecs_ConstantsKeyword_7_0_0_q = new TokenAlias(false, true, grammarAccess.getReqSpecsAccess().getConstantsKeyword_7_0_0());
 		match_Requirement_ConstantsKeyword_5_2_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getConstantsKeyword_5_2_0());
 		match_Requirement_RefinesKeyword_5_7_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getRefinesKeyword_5_7_0());
 		match_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_10_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_10_1()));
@@ -109,10 +107,8 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Goal___SeeKeyword_5_6_0_DocumentKeyword_5_6_1_RequirementKeyword_5_6_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Goal___SeeKeyword_5_7_0_DocumentKeyword_5_7_1__q.equals(syntax))
 				emit_Goal___SeeKeyword_5_7_0_DocumentKeyword_5_7_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ReqSpecs_ConstantsKeyword_7_0_0_a.equals(syntax))
-				emit_ReqSpecs_ConstantsKeyword_7_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ReqSpecs_ConstantsKeyword_7_0_0_p.equals(syntax))
-				emit_ReqSpecs_ConstantsKeyword_7_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ReqSpecs_ConstantsKeyword_7_0_0_q.equals(syntax))
+				emit_ReqSpecs_ConstantsKeyword_7_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Requirement_ConstantsKeyword_5_2_0_q.equals(syntax))
 				emit_Requirement_ConstantsKeyword_5_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Requirement_RefinesKeyword_5_7_0_q.equals(syntax))
@@ -183,17 +179,9 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     'constants'*
+	 *     'constants'?
 	 */
-	protected void emit_ReqSpecs_ConstantsKeyword_7_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
-	 *     'constants'+
-	 */
-	protected void emit_ReqSpecs_ConstantsKeyword_7_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ReqSpecs_ConstantsKeyword_7_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

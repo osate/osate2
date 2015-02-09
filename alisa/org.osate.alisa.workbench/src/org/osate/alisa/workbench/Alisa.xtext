@@ -15,9 +15,9 @@ AssuranceCaseConfiguration:
 	'['
 	(
 	('description' description=Description)?
-	'constants' constants+=XValDeclaration* 
-	'plans' plans+=[Verify::VerificationPlan|QualifiedName]+
-	('when' (selectionFilter+=[categories::SelectionCategory|ID])+)?
+	& ( 'constants' constants+=XValDeclaration+ )?
+	&('plans' plans+=[Verify::VerificationPlan|QualifiedName]+)
+	&('when' (selectionFilter+=[categories::SelectionCategory|ID])+)?
 	)
 	']';
 	

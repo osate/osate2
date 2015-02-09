@@ -15,7 +15,7 @@ import org.osate.organization.util.OrganizationUtil
  *
  * see http://www.eclipse.org/Xtext/documentation.html#quickfixes
  */
-class OrganizationQuickfixProvider extends org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
+class OrganizationQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider{//org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
 	extension OrganizationUtil ou = new OrganizationUtil
 	
 @Fix(OrganizationValidator::DUPLICATE_STAKEHOLDER)

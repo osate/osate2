@@ -68,6 +68,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
       case CommonPackage.XEXPRESSION: return createXExpression();
       case CommonPackage.SHOW_VALUE: return createShowValue();
+      case CommonPackage.XNUMBER_LITERAL: return createXNumberLiteral();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -115,6 +116,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     ShowValueImpl showValue = new ShowValueImpl();
     return showValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XNumberLiteral createXNumberLiteral()
+  {
+    XNumberLiteralImpl xNumberLiteral = new XNumberLiteralImpl();
+    return xNumberLiteral;
   }
 
   /**

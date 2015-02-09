@@ -10,6 +10,6 @@ package org.osate.categories.scoping
  * on how and when to use it 
  *
  */
-class CategoriesScopeProvider extends org.osate.alisa.common.scoping.CommonScopeProvider {
+class CategoriesScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider {
 
 }

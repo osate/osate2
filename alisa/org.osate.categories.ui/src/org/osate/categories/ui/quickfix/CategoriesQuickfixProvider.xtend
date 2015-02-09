@@ -16,7 +16,7 @@ import org.osate.categories.util.CategoriesUtil
  *
  * see http://www.eclipse.org/Xtext/documentation.html#quickfixes
  */
-class CategoriesQuickfixProvider extends org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
+class CategoriesQuickfixProvider extends org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider {//org.osate.alisa.common.ui.quickfix.CommonQuickfixProvider {
 	extension CategoriesUtil cu = new CategoriesUtil
 	
 @Fix(CategoriesValidator::DUPLICATE_CATEGORY)

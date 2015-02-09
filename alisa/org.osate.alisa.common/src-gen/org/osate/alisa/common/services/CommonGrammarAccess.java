@@ -74,61 +74,104 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class XValDeclarationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XValDeclaration");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
-		private final Group cGroup_0_0_0 = (Group)cGroup_0_0.eContents().get(0);
-		private final Assignment cTypeAssignment_0_0_0_0 = (Assignment)cGroup_0_0_0.eContents().get(0);
-		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_0_0_0_0_0 = (RuleCall)cTypeAssignment_0_0_0_0.eContents().get(0);
-		private final Assignment cNameAssignment_0_0_0_1 = (Assignment)cGroup_0_0_0.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0_0_0_1_0 = (RuleCall)cNameAssignment_0_0_0_1.eContents().get(0);
-		private final Assignment cNameAssignment_0_1 = (Assignment)cAlternatives_0.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0_1_0 = (RuleCall)cNameAssignment_0_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cRightAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cRightXExpressionParserRuleCall_2_0 = (RuleCall)cRightAssignment_2.eContents().get(0);
+		private final Keyword cConstantKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final Group cGroup_1_0_0 = (Group)cGroup_1_0.eContents().get(0);
+		private final Assignment cTypeAssignment_1_0_0_0 = (Assignment)cGroup_1_0_0.eContents().get(0);
+		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_1_0_0_0_0 = (RuleCall)cTypeAssignment_1_0_0_0.eContents().get(0);
+		private final Assignment cNameAssignment_1_0_0_1 = (Assignment)cGroup_1_0_0.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0_0_1_0 = (RuleCall)cNameAssignment_1_0_0_1.eContents().get(0);
+		private final Assignment cNameAssignment_1_1 = (Assignment)cAlternatives_1.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_1_0 = (RuleCall)cNameAssignment_1_1.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cRightAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cRightXExpressionParserRuleCall_3_0 = (RuleCall)cRightAssignment_3.eContents().get(0);
 		
+		//// New rule for val only
 		//XValDeclaration returns XExpression:
-		//	(=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+		//	"constant" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 		public ParserRule getRule() { return rule; }
 
-		//(=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression
+		//"constant" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression
 		public Group getGroup() { return cGroup; }
 
+		//"constant"
+		public Keyword getConstantKeyword_0() { return cConstantKeyword_0; }
+
 		//=> (type=JvmTypeReference name=ID) | name=ID
-		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//=> (type=JvmTypeReference name=ID)
-		public Group getGroup_0_0() { return cGroup_0_0; }
+		public Group getGroup_1_0() { return cGroup_1_0; }
 
 		//type=JvmTypeReference name=ID
-		public Group getGroup_0_0_0() { return cGroup_0_0_0; }
+		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//type=JvmTypeReference
-		public Assignment getTypeAssignment_0_0_0_0() { return cTypeAssignment_0_0_0_0; }
+		public Assignment getTypeAssignment_1_0_0_0() { return cTypeAssignment_1_0_0_0; }
 
 		//JvmTypeReference
-		public RuleCall getTypeJvmTypeReferenceParserRuleCall_0_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_0_0_0_0_0; }
+		public RuleCall getTypeJvmTypeReferenceParserRuleCall_1_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_1_0_0_0_0; }
 
 		//name=ID
-		public Assignment getNameAssignment_0_0_0_1() { return cNameAssignment_0_0_0_1; }
+		public Assignment getNameAssignment_1_0_0_1() { return cNameAssignment_1_0_0_1; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0_0_1_0() { return cNameIDTerminalRuleCall_0_0_0_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_0_0_1_0() { return cNameIDTerminalRuleCall_1_0_0_1_0; }
 
 		//name=ID
-		public Assignment getNameAssignment_0_1() { return cNameAssignment_0_1; }
+		public Assignment getNameAssignment_1_1() { return cNameAssignment_1_1; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_1_0() { return cNameIDTerminalRuleCall_0_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_1_1_0() { return cNameIDTerminalRuleCall_1_1_0; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
+		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
 
 		//right=XExpression
-		public Assignment getRightAssignment_2() { return cRightAssignment_2; }
+		public Assignment getRightAssignment_3() { return cRightAssignment_3; }
 
 		//XExpression
-		public RuleCall getRightXExpressionParserRuleCall_2_0() { return cRightXExpressionParserRuleCall_2_0; }
+		public RuleCall getRightXExpressionParserRuleCall_3_0() { return cRightXExpressionParserRuleCall_3_0; }
+	}
+
+	public class XNumberLiteralElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XNumberLiteral");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cXNumberLiteralAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cValueNumberParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
+		private final Assignment cUnitAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cUnitUnitLiteralCrossReference_2_0 = (CrossReference)cUnitAssignment_2.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_2_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_2_0.eContents().get(1);
+		
+		//// Override XNumberLiteral from XBase
+		////Accept unit and have value converter turn it into value scaled to base unit
+		//XNumberLiteral returns XExpression:
+		//	{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?;
+		public ParserRule getRule() { return rule; }
+
+		//{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?
+		public Group getGroup() { return cGroup; }
+
+		//{XNumberLiteral}
+		public Action getXNumberLiteralAction_0() { return cXNumberLiteralAction_0; }
+
+		//value=Number
+		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
+
+		//Number
+		public RuleCall getValueNumberParserRuleCall_1_0() { return cValueNumberParserRuleCall_1_0; }
+
+		//=> unit=[aadl2::UnitLiteral]?
+		public Assignment getUnitAssignment_2() { return cUnitAssignment_2; }
+
+		//[aadl2::UnitLiteral]
+		public CrossReference getUnitUnitLiteralCrossReference_2_0() { return cUnitUnitLiteralCrossReference_2_0; }
+
+		//ID
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_2_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_2_0_1; }
 	}
 
 	public class ShowValueElements extends AbstractParserRuleElementFinder {
@@ -225,6 +268,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final DescriptionElements pDescription;
 	private final DescriptionElementElements pDescriptionElement;
 	private final XValDeclarationElements pXValDeclaration;
+	private final XNumberLiteralElements pXNumberLiteral;
 	private final ShowValueElements pShowValue;
 	private final AadlClassifierReferenceElements pAadlClassifierReference;
 	private final URIIDElements pURIID;
@@ -241,6 +285,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDescription = new DescriptionElements();
 		this.pDescriptionElement = new DescriptionElementElements();
 		this.pXValDeclaration = new XValDeclarationElements();
+		this.pXNumberLiteral = new XNumberLiteralElements();
 		this.pShowValue = new ShowValueElements();
 		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
 		this.pURIID = new URIIDElements();
@@ -293,14 +338,27 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getDescriptionElementAccess().getRule();
 	}
 
+	//// New rule for val only
 	//XValDeclaration returns XExpression:
-	//	(=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+	//	"constant" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 	public XValDeclarationElements getXValDeclarationAccess() {
 		return pXValDeclaration;
 	}
 	
 	public ParserRule getXValDeclarationRule() {
 		return getXValDeclarationAccess().getRule();
+	}
+
+	//// Override XNumberLiteral from XBase
+	////Accept unit and have value converter turn it into value scaled to base unit
+	//XNumberLiteral returns XExpression:
+	//	{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?;
+	public XNumberLiteralElements getXNumberLiteralAccess() {
+		return pXNumberLiteral;
+	}
+	
+	public ParserRule getXNumberLiteralRule() {
+		return getXNumberLiteralAccess().getRule();
 	}
 
 	//// ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
@@ -873,16 +931,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getXNullLiteralRule() {
 		return getXNullLiteralAccess().getRule();
-	}
-
-	//XNumberLiteral returns XExpression:
-	//	{XNumberLiteral} value=Number;
-	public XbaseGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
-		return gaXbase.getXNumberLiteralAccess();
-	}
-	
-	public ParserRule getXNumberLiteralRule() {
-		return getXNumberLiteralAccess().getRule();
 	}
 
 	//XStringLiteral returns XExpression:

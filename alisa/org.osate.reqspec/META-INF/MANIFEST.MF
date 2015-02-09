@@ -26,7 +26,6 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.osate.alisa.common;bundle-version="1.0.0";visibility:=reexport,
  org.osate.categories;bundle-version="1.0.0",
  org.osate.organization;bundle-version="1.0.0",
- org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
  org.osate.xtext.aadl2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.reqspec,

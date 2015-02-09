@@ -18,6 +18,9 @@ import org.osate.alisa.workbench.services.AlisaGrammarAccess;
 public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlisaGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_AssuranceCaseConfiguration_ConstantsKeyword_6_1_0_q;
+	protected AbstractElementAlias match_AssuranceCaseConfiguration_PlansKeyword_6_2_0_q;
+	protected AbstractElementAlias match_AssuranceCaseConfiguration_WhenKeyword_6_3_0_q;
 	protected AbstractElementAlias match_XBlockExpression_SemicolonKeyword_2_1_q;
 	protected AbstractElementAlias match_XExpressionInClosure_SemicolonKeyword_1_1_q;
 	protected AbstractElementAlias match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q;
@@ -28,6 +31,9 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlisaGrammarAccess) access;
+		match_AssuranceCaseConfiguration_ConstantsKeyword_6_1_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceCaseConfigurationAccess().getConstantsKeyword_6_1_0());
+		match_AssuranceCaseConfiguration_PlansKeyword_6_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceCaseConfigurationAccess().getPlansKeyword_6_2_0());
+		match_AssuranceCaseConfiguration_WhenKeyword_6_3_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceCaseConfigurationAccess().getWhenKeyword_6_3_0());
 		match_XBlockExpression_SemicolonKeyword_2_1_q = new TokenAlias(false, true, grammarAccess.getXBlockExpressionAccess().getSemicolonKeyword_2_1());
 		match_XExpressionInClosure_SemicolonKeyword_1_1_q = new TokenAlias(false, true, grammarAccess.getXExpressionInClosureAccess().getSemicolonKeyword_1_1());
 		match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getLeftParenthesisKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getRightParenthesisKeyword_0_2()));
@@ -73,7 +79,13 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
+			if(match_AssuranceCaseConfiguration_ConstantsKeyword_6_1_0_q.equals(syntax))
+				emit_AssuranceCaseConfiguration_ConstantsKeyword_6_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceCaseConfiguration_PlansKeyword_6_2_0_q.equals(syntax))
+				emit_AssuranceCaseConfiguration_PlansKeyword_6_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceCaseConfiguration_WhenKeyword_6_3_0_q.equals(syntax))
+				emit_AssuranceCaseConfiguration_WhenKeyword_6_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
 				emit_XBlockExpression_SemicolonKeyword_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_XExpressionInClosure_SemicolonKeyword_1_1_q.equals(syntax))
 				emit_XExpressionInClosure_SemicolonKeyword_1_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -89,6 +101,30 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
+	/**
+	 * Syntax:
+	 *     'constants'?
+	 */
+	protected void emit_AssuranceCaseConfiguration_ConstantsKeyword_6_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     'plans'?
+	 */
+	protected void emit_AssuranceCaseConfiguration_PlansKeyword_6_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     'when'?
+	 */
+	protected void emit_AssuranceCaseConfiguration_WhenKeyword_6_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Syntax:
 	 *     ';'?

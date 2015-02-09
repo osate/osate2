@@ -6,20 +6,24 @@
         eType="#//DescriptionElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DescriptionElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ShowValue"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="thisTarget" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="thisTarget" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="XExpression">
+  <eClassifiers xsi:type="ecore:EClass" name="XExpression" eSuperTypes="platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmTypeReference"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ShowValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XNumberLiteral" eSuperTypes="#//XExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="unit" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//UnitLiteral"/>
   </eClassifiers>
 </ecore:EPackage>

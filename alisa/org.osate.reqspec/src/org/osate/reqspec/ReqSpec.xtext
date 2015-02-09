@@ -31,7 +31,7 @@ DocumentSection returns DocumentSection:
 	'section' label =ID (':' title=STRING)?
 	 ('description'  description=Description)? 
 	'[' (content+= (Goal | Requirement |  DocumentSection))*
-	']'
+	']' 
 	;
 
 ReqSpecs returns ReqSpecs:
@@ -41,8 +41,8 @@ ReqSpecs returns ReqSpecs:
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
 	(
-		'constants'
-	constants+=XValDeclaration* 
+		('constants'
+	constants+=XValDeclaration+ )?
 	& (content+= (Requirement |  ReqSpecFolder))*
 	)
 	']'

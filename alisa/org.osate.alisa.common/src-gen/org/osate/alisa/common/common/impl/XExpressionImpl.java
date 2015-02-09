@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
@@ -31,7 +30,7 @@ import org.osate.alisa.common.common.XExpression;
  *
  * @generated
  */
-public class XExpressionImpl extends MinimalEObjectImpl.Container implements XExpression
+public class XExpressionImpl extends org.eclipse.xtext.xbase.impl.XExpressionImpl implements XExpression
 {
   /**
    * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.

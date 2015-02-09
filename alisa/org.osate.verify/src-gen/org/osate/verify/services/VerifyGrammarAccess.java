@@ -1718,14 +1718,27 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getDescriptionElementAccess().getRule();
 	}
 
+	//// New rule for val only
 	//XValDeclaration returns XExpression:
-	//	(=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+	//	"constant" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
 	
 	public ParserRule getXValDeclarationRule() {
 		return getXValDeclarationAccess().getRule();
+	}
+
+	//// Override XNumberLiteral from XBase
+	////Accept unit and have value converter turn it into value scaled to base unit
+	//XNumberLiteral returns XExpression:
+	//	{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?;
+	public CommonGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
+		return gaCommon.getXNumberLiteralAccess();
+	}
+	
+	public ParserRule getXNumberLiteralRule() {
+		return getXNumberLiteralAccess().getRule();
 	}
 
 	//// ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
@@ -2298,16 +2311,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getXNullLiteralRule() {
 		return getXNullLiteralAccess().getRule();
-	}
-
-	//XNumberLiteral returns XExpression:
-	//	{XNumberLiteral} value=Number;
-	public XbaseGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
-		return gaCommon.getXNumberLiteralAccess();
-	}
-	
-	public ParserRule getXNumberLiteralRule() {
-		return getXNumberLiteralAccess().getRule();
 	}
 
 	//XStringLiteral returns XExpression:

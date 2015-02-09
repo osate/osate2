@@ -433,12 +433,12 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//ReqSpecs:
 		//	"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
 		//	("for" target=[aadl2::Classifier|AadlClassifierReference])? ("include" otherreqspecs+=[ReqSpecs|QualifiedName]+)? "["
-		//	("constants" constants+=XValDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]";
+		//	(("constants" constants+=XValDeclaration+)? & content+=(Requirement | ReqSpecFolder)*) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
 		//("for" target=[aadl2::Classifier|AadlClassifierReference])? ("include" otherreqspecs+=[ReqSpecs|QualifiedName]+)? "["
-		//("constants" constants+=XValDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]"
+		//(("constants" constants+=XValDeclaration+)? & content+=(Requirement | ReqSpecFolder)*) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"requirement"
@@ -498,16 +498,16 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//"constants" constants+=XValDeclaration* & content+=(Requirement | ReqSpecFolder)*
+		//("constants" constants+=XValDeclaration+)? & content+=(Requirement | ReqSpecFolder)*
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
-		//"constants" constants+=XValDeclaration*
+		//("constants" constants+=XValDeclaration+)?
 		public Group getGroup_7_0() { return cGroup_7_0; }
 
 		//"constants"
 		public Keyword getConstantsKeyword_7_0_0() { return cConstantsKeyword_7_0_0; }
 
-		//constants+=XValDeclaration*
+		//constants+=XValDeclaration+
 		public Assignment getConstantsAssignment_7_0_1() { return cConstantsAssignment_7_0_1; }
 
 		//XValDeclaration
@@ -1606,7 +1606,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//ReqSpecs:
 	//	"requirement" "specification" name=ID (":" title=STRING)? //	('import' importedNamespace=QualifiedNameWithWildCard)?
 	//	("for" target=[aadl2::Classifier|AadlClassifierReference])? ("include" otherreqspecs+=[ReqSpecs|QualifiedName]+)? "["
-	//	("constants" constants+=XValDeclaration* & content+=(Requirement | ReqSpecFolder)*) "]";
+	//	(("constants" constants+=XValDeclaration+)? & content+=(Requirement | ReqSpecFolder)*) "]";
 	public ReqSpecsElements getReqSpecsAccess() {
 		return pReqSpecs;
 	}
@@ -1765,14 +1765,27 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		return getDescriptionElementAccess().getRule();
 	}
 
+	//// New rule for val only
 	//XValDeclaration returns XExpression:
-	//	(=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+	//	"constant" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
 	
 	public ParserRule getXValDeclarationRule() {
 		return getXValDeclarationAccess().getRule();
+	}
+
+	//// Override XNumberLiteral from XBase
+	////Accept unit and have value converter turn it into value scaled to base unit
+	//XNumberLiteral returns XExpression:
+	//	{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?;
+	public CommonGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
+		return gaCommon.getXNumberLiteralAccess();
+	}
+	
+	public ParserRule getXNumberLiteralRule() {
+		return getXNumberLiteralAccess().getRule();
 	}
 
 	//// ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
@@ -2345,16 +2358,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getXNullLiteralRule() {
 		return getXNullLiteralAccess().getRule();
-	}
-
-	//XNumberLiteral returns XExpression:
-	//	{XNumberLiteral} value=Number;
-	public XbaseGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
-		return gaCommon.getXNumberLiteralAccess();
-	}
-	
-	public ParserRule getXNumberLiteralRule() {
-		return getXNumberLiteralAccess().getRule();
 	}
 
 	//XStringLiteral returns XExpression:

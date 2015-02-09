@@ -67,34 +67,36 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cSystemComponentImplementationCrossReference_4_0 = (CrossReference)cSystemAssignment_4.eContents().get(0);
 		private final RuleCall cSystemComponentImplementationAadlClassifierReferenceParserRuleCall_4_0_1 = (RuleCall)cSystemComponentImplementationCrossReference_4_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Group cGroup_6_0 = (Group)cGroup_6.eContents().get(0);
+		private final UnorderedGroup cUnorderedGroup_6 = (UnorderedGroup)cGroup.eContents().get(6);
+		private final Group cGroup_6_0 = (Group)cUnorderedGroup_6.eContents().get(0);
 		private final Keyword cDescriptionKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
 		private final Assignment cDescriptionAssignment_6_0_1 = (Assignment)cGroup_6_0.eContents().get(1);
 		private final RuleCall cDescriptionDescriptionParserRuleCall_6_0_1_0 = (RuleCall)cDescriptionAssignment_6_0_1.eContents().get(0);
-		private final Keyword cConstantsKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
-		private final Assignment cConstantsAssignment_6_2 = (Assignment)cGroup_6.eContents().get(2);
-		private final RuleCall cConstantsXValDeclarationParserRuleCall_6_2_0 = (RuleCall)cConstantsAssignment_6_2.eContents().get(0);
-		private final Keyword cPlansKeyword_6_3 = (Keyword)cGroup_6.eContents().get(3);
-		private final Assignment cPlansAssignment_6_4 = (Assignment)cGroup_6.eContents().get(4);
-		private final CrossReference cPlansVerificationPlanCrossReference_6_4_0 = (CrossReference)cPlansAssignment_6_4.eContents().get(0);
-		private final RuleCall cPlansVerificationPlanQualifiedNameParserRuleCall_6_4_0_1 = (RuleCall)cPlansVerificationPlanCrossReference_6_4_0.eContents().get(1);
-		private final Group cGroup_6_5 = (Group)cGroup_6.eContents().get(5);
-		private final Keyword cWhenKeyword_6_5_0 = (Keyword)cGroup_6_5.eContents().get(0);
-		private final Assignment cSelectionFilterAssignment_6_5_1 = (Assignment)cGroup_6_5.eContents().get(1);
-		private final CrossReference cSelectionFilterSelectionCategoryCrossReference_6_5_1_0 = (CrossReference)cSelectionFilterAssignment_6_5_1.eContents().get(0);
-		private final RuleCall cSelectionFilterSelectionCategoryIDTerminalRuleCall_6_5_1_0_1 = (RuleCall)cSelectionFilterSelectionCategoryCrossReference_6_5_1_0.eContents().get(1);
+		private final Group cGroup_6_1 = (Group)cUnorderedGroup_6.eContents().get(1);
+		private final Keyword cConstantsKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
+		private final Assignment cConstantsAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
+		private final RuleCall cConstantsXValDeclarationParserRuleCall_6_1_1_0 = (RuleCall)cConstantsAssignment_6_1_1.eContents().get(0);
+		private final Group cGroup_6_2 = (Group)cUnorderedGroup_6.eContents().get(2);
+		private final Keyword cPlansKeyword_6_2_0 = (Keyword)cGroup_6_2.eContents().get(0);
+		private final Assignment cPlansAssignment_6_2_1 = (Assignment)cGroup_6_2.eContents().get(1);
+		private final CrossReference cPlansVerificationPlanCrossReference_6_2_1_0 = (CrossReference)cPlansAssignment_6_2_1.eContents().get(0);
+		private final RuleCall cPlansVerificationPlanQualifiedNameParserRuleCall_6_2_1_0_1 = (RuleCall)cPlansVerificationPlanCrossReference_6_2_1_0.eContents().get(1);
+		private final Group cGroup_6_3 = (Group)cUnorderedGroup_6.eContents().get(3);
+		private final Keyword cWhenKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
+		private final Assignment cSelectionFilterAssignment_6_3_1 = (Assignment)cGroup_6_3.eContents().get(1);
+		private final CrossReference cSelectionFilterSelectionCategoryCrossReference_6_3_1_0 = (CrossReference)cSelectionFilterAssignment_6_3_1.eContents().get(0);
+		private final RuleCall cSelectionFilterSelectionCategoryIDTerminalRuleCall_6_3_1_0_1 = (RuleCall)cSelectionFilterSelectionCategoryCrossReference_6_3_1_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//AssuranceCaseConfiguration:
 		//	"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//	(("description" description=Description)? "constants" constants+=XValDeclaration* "plans"
-		//	plans+=[Verify::VerificationPlan|QualifiedName]+ ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]";
+		//	(("description" description=Description)? & ("constants" constants+=XValDeclaration+)? & "plans"
+		//	plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//(("description" description=Description)? "constants" constants+=XValDeclaration* "plans"
-		//plans+=[Verify::VerificationPlan|QualifiedName]+ ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]"
+		//(("description" description=Description)? & ("constants" constants+=XValDeclaration+)? & "plans"
+		//plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"case"
@@ -133,9 +135,9 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//("description" description=Description)? "constants" constants+=XValDeclaration* "plans"
-		//plans+=[Verify::VerificationPlan|QualifiedName]+ ("when" selectionFilter+=[categories::SelectionCategory]+)?
-		public Group getGroup_6() { return cGroup_6; }
+		//("description" description=Description)? & ("constants" constants+=XValDeclaration+)? & "plans"
+		//plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?
+		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
 		//("description" description=Description)?
 		public Group getGroup_6_0() { return cGroup_6_0; }
@@ -149,41 +151,47 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_1_0() { return cDescriptionDescriptionParserRuleCall_6_0_1_0; }
 
-		//"constants"
-		public Keyword getConstantsKeyword_6_1() { return cConstantsKeyword_6_1; }
+		//("constants" constants+=XValDeclaration+)?
+		public Group getGroup_6_1() { return cGroup_6_1; }
 
-		//constants+=XValDeclaration*
-		public Assignment getConstantsAssignment_6_2() { return cConstantsAssignment_6_2; }
+		//"constants"
+		public Keyword getConstantsKeyword_6_1_0() { return cConstantsKeyword_6_1_0; }
+
+		//constants+=XValDeclaration+
+		public Assignment getConstantsAssignment_6_1_1() { return cConstantsAssignment_6_1_1; }
 
 		//XValDeclaration
-		public RuleCall getConstantsXValDeclarationParserRuleCall_6_2_0() { return cConstantsXValDeclarationParserRuleCall_6_2_0; }
+		public RuleCall getConstantsXValDeclarationParserRuleCall_6_1_1_0() { return cConstantsXValDeclarationParserRuleCall_6_1_1_0; }
+
+		//"plans" plans+=[Verify::VerificationPlan|QualifiedName]+
+		public Group getGroup_6_2() { return cGroup_6_2; }
 
 		//"plans"
-		public Keyword getPlansKeyword_6_3() { return cPlansKeyword_6_3; }
+		public Keyword getPlansKeyword_6_2_0() { return cPlansKeyword_6_2_0; }
 
 		//plans+=[Verify::VerificationPlan|QualifiedName]+
-		public Assignment getPlansAssignment_6_4() { return cPlansAssignment_6_4; }
+		public Assignment getPlansAssignment_6_2_1() { return cPlansAssignment_6_2_1; }
 
 		//[Verify::VerificationPlan|QualifiedName]
-		public CrossReference getPlansVerificationPlanCrossReference_6_4_0() { return cPlansVerificationPlanCrossReference_6_4_0; }
+		public CrossReference getPlansVerificationPlanCrossReference_6_2_1_0() { return cPlansVerificationPlanCrossReference_6_2_1_0; }
 
 		//QualifiedName
-		public RuleCall getPlansVerificationPlanQualifiedNameParserRuleCall_6_4_0_1() { return cPlansVerificationPlanQualifiedNameParserRuleCall_6_4_0_1; }
+		public RuleCall getPlansVerificationPlanQualifiedNameParserRuleCall_6_2_1_0_1() { return cPlansVerificationPlanQualifiedNameParserRuleCall_6_2_1_0_1; }
 
 		//("when" selectionFilter+=[categories::SelectionCategory]+)?
-		public Group getGroup_6_5() { return cGroup_6_5; }
+		public Group getGroup_6_3() { return cGroup_6_3; }
 
 		//"when"
-		public Keyword getWhenKeyword_6_5_0() { return cWhenKeyword_6_5_0; }
+		public Keyword getWhenKeyword_6_3_0() { return cWhenKeyword_6_3_0; }
 
 		//selectionFilter+=[categories::SelectionCategory]+
-		public Assignment getSelectionFilterAssignment_6_5_1() { return cSelectionFilterAssignment_6_5_1; }
+		public Assignment getSelectionFilterAssignment_6_3_1() { return cSelectionFilterAssignment_6_3_1; }
 
 		//[categories::SelectionCategory]
-		public CrossReference getSelectionFilterSelectionCategoryCrossReference_6_5_1_0() { return cSelectionFilterSelectionCategoryCrossReference_6_5_1_0; }
+		public CrossReference getSelectionFilterSelectionCategoryCrossReference_6_3_1_0() { return cSelectionFilterSelectionCategoryCrossReference_6_3_1_0; }
 
 		//ID
-		public RuleCall getSelectionFilterSelectionCategoryIDTerminalRuleCall_6_5_1_0_1() { return cSelectionFilterSelectionCategoryIDTerminalRuleCall_6_5_1_0_1; }
+		public RuleCall getSelectionFilterSelectionCategoryIDTerminalRuleCall_6_3_1_0_1() { return cSelectionFilterSelectionCategoryIDTerminalRuleCall_6_3_1_0_1; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
@@ -245,8 +253,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssuranceCaseConfiguration:
 	//	"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-	//	(("description" description=Description)? "constants" constants+=XValDeclaration* "plans"
-	//	plans+=[Verify::VerificationPlan|QualifiedName]+ ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]";
+	//	(("description" description=Description)? & ("constants" constants+=XValDeclaration+)? & "plans"
+	//	plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?) "]";
 	public AssuranceCaseConfigurationElements getAssuranceCaseConfigurationAccess() {
 		return pAssuranceCaseConfiguration;
 	}
@@ -275,14 +283,27 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getDescriptionElementAccess().getRule();
 	}
 
+	//// New rule for val only
 	//XValDeclaration returns XExpression:
-	//	(=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
+	//	"constant" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=XExpression;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
 	
 	public ParserRule getXValDeclarationRule() {
 		return getXValDeclarationAccess().getRule();
+	}
+
+	//// Override XNumberLiteral from XBase
+	////Accept unit and have value converter turn it into value scaled to base unit
+	//XNumberLiteral returns XExpression:
+	//	{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?;
+	public CommonGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
+		return gaCommon.getXNumberLiteralAccess();
+	}
+	
+	public ParserRule getXNumberLiteralRule() {
+		return getXNumberLiteralAccess().getRule();
 	}
 
 	//// ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
@@ -855,16 +876,6 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getXNullLiteralRule() {
 		return getXNullLiteralAccess().getRule();
-	}
-
-	//XNumberLiteral returns XExpression:
-	//	{XNumberLiteral} value=Number;
-	public XbaseGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
-		return gaCommon.getXNumberLiteralAccess();
-	}
-	
-	public ParserRule getXNumberLiteralRule() {
-		return getXNumberLiteralAccess().getRule();
 	}
 
 	//XStringLiteral returns XExpression:

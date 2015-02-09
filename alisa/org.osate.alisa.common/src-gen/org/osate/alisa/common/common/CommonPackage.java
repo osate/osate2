@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.eclipse.xtext.xbase.XbasePackage;
+
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -147,7 +149,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XEXPRESSION__TYPE = 0;
+  int XEXPRESSION__TYPE = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -156,7 +158,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XEXPRESSION__NAME = 1;
+  int XEXPRESSION__NAME = XbasePackage.XEXPRESSION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -165,7 +167,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XEXPRESSION__RIGHT = 2;
+  int XEXPRESSION__RIGHT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>XExpression</em>' class.
@@ -174,7 +176,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XEXPRESSION_FEATURE_COUNT = 3;
+  int XEXPRESSION_FEATURE_COUNT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
@@ -212,6 +214,70 @@ public interface CommonPackage extends EPackage
    * @ordered
    */
   int SHOW_VALUE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralImpl <em>XNumber Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.XNumberLiteralImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXNumberLiteral()
+   * @generated
+   */
+  int XNUMBER_LITERAL = 4;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XNUMBER_LITERAL__TYPE = XEXPRESSION__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XNUMBER_LITERAL__NAME = XEXPRESSION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XNUMBER_LITERAL__RIGHT = XEXPRESSION__RIGHT;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XNUMBER_LITERAL__VALUE = XEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XNUMBER_LITERAL__UNIT = XEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>XNumber Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XNUMBER_LITERAL_FEATURE_COUNT = XEXPRESSION_FEATURE_COUNT + 2;
 
 
   /**
@@ -354,6 +420,38 @@ public interface CommonPackage extends EPackage
   EAttribute getShowValue_Unit();
 
   /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.XNumberLiteral <em>XNumber Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XNumber Literal</em>'.
+   * @see org.osate.alisa.common.common.XNumberLiteral
+   * @generated
+   */
+  EClass getXNumberLiteral();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.XNumberLiteral#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.osate.alisa.common.common.XNumberLiteral#getValue()
+   * @see #getXNumberLiteral()
+   * @generated
+   */
+  EAttribute getXNumberLiteral_Value();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.XNumberLiteral#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Unit</em>'.
+   * @see org.osate.alisa.common.common.XNumberLiteral#getUnit()
+   * @see #getXNumberLiteral()
+   * @generated
+   */
+  EReference getXNumberLiteral_Unit();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -487,6 +585,32 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute SHOW_VALUE__UNIT = eINSTANCE.getShowValue_Unit();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralImpl <em>XNumber Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.XNumberLiteralImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXNumberLiteral()
+     * @generated
+     */
+    EClass XNUMBER_LITERAL = eINSTANCE.getXNumberLiteral();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XNUMBER_LITERAL__VALUE = eINSTANCE.getXNumberLiteral_Value();
+
+    /**
+     * The meta object literal for the '<em><b>Unit</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XNUMBER_LITERAL__UNIT = eINSTANCE.getXNumberLiteral_Unit();
 
   }
 

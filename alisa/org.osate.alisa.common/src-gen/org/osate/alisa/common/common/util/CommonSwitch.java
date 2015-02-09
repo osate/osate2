@@ -90,6 +90,7 @@ public class CommonSwitch<T> extends Switch<T>
       {
         XExpression xExpression = (XExpression)theEObject;
         T result = caseXExpression(xExpression);
+        if (result == null) result = caseXbase_XExpression(xExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -97,6 +98,15 @@ public class CommonSwitch<T> extends Switch<T>
       {
         ShowValue showValue = (ShowValue)theEObject;
         T result = caseShowValue(showValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.XNUMBER_LITERAL:
+      {
+        XNumberLiteral xNumberLiteral = (XNumberLiteral)theEObject;
+        T result = caseXNumberLiteral(xNumberLiteral);
+        if (result == null) result = caseXExpression(xNumberLiteral);
+        if (result == null) result = caseXbase_XExpression(xNumberLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -164,6 +174,38 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseShowValue(ShowValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XNumber Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XNumber Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXNumberLiteral(XNumberLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XExpression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XExpression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXbase_XExpression(org.eclipse.xtext.xbase.XExpression object)
   {
     return null;
   }

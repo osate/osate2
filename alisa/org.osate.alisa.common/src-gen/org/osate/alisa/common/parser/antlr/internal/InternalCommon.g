@@ -178,6 +178,69 @@ ruleDescriptionElement returns [EObject current=null]
 
 
 
+// Entry rule entryRuleXNumberLiteral
+entryRuleXNumberLiteral returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getXNumberLiteralRule()); }
+	 iv_ruleXNumberLiteral=ruleXNumberLiteral 
+	 { $current=$iv_ruleXNumberLiteral.current; } 
+	 EOF 
+;
+
+// Rule XNumberLiteral
+ruleXNumberLiteral returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getXNumberLiteralAccess().getXNumberLiteralAction_0(),
+            $current);
+    }
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getXNumberLiteralAccess().getValueNumberParserRuleCall_1_0()); 
+	    }
+		lv_value_1_0=ruleNumber		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getXNumberLiteralRule());
+	        }
+       		set(
+       			$current, 
+       			"value",
+        		lv_value_1_0, 
+        		"Number");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)((
+(
+	RULE_ID
+
+)
+)=>
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getXNumberLiteralRule());
+	        }
+        }
+	otherlv_2=RULE_ID
+	{
+		newLeafNode(otherlv_2, grammarAccess.getXNumberLiteralAccess().getUnitUnitLiteralCrossReference_2_0()); 
+	}
+
+)
+)?)
+;
+
+
+
+
+
 // Entry rule entryRuleShowValue
 entryRuleShowValue returns [EObject current=null] 
 	:
@@ -4598,51 +4661,6 @@ ruleXNullLiteral returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getXNullLiteralAccess().getNullKeyword_1());
     }
 )
-;
-
-
-
-
-
-// Entry rule entryRuleXNumberLiteral
-entryRuleXNumberLiteral returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getXNumberLiteralRule()); }
-	 iv_ruleXNumberLiteral=ruleXNumberLiteral 
-	 { $current=$iv_ruleXNumberLiteral.current; } 
-	 EOF 
-;
-
-// Rule XNumberLiteral
-ruleXNumberLiteral returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getXNumberLiteralAccess().getXNumberLiteralAction_0(),
-            $current);
-    }
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getXNumberLiteralAccess().getValueNumberParserRuleCall_1_0()); 
-	    }
-		lv_value_1_0=ruleNumber		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getXNumberLiteralRule());
-	        }
-       		set(
-       			$current, 
-       			"value",
-        		lv_value_1_0, 
-        		"Number");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
 ;
 
 

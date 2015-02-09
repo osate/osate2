@@ -2,8 +2,6 @@
  */
 package org.osate.alisa.common.common;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
 /**
@@ -24,7 +22,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
  * @model
  * @generated
  */
-public interface XExpression extends EObject
+public interface XExpression extends org.eclipse.xtext.xbase.XExpression
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' containment reference.
