@@ -66,7 +66,9 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.DESCRIPTION: return createDescription();
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
+      case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.SHOW_VALUE: return createShowValue();
+      case CommonPackage.CONSTANT_DECLARATION: return createConstantDeclaration();
       case CommonPackage.XNUMBER_LITERAL_UNIT: return createXNumberLiteralUnit();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -100,10 +102,32 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ComputeDeclaration createComputeDeclaration()
+  {
+    ComputeDeclarationImpl computeDeclaration = new ComputeDeclarationImpl();
+    return computeDeclaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ShowValue createShowValue()
   {
     ShowValueImpl showValue = new ShowValueImpl();
     return showValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ConstantDeclaration createConstantDeclaration()
+  {
+    ConstantDeclarationImpl constantDeclaration = new ConstantDeclarationImpl();
+    return constantDeclaration;
   }
 
   /**

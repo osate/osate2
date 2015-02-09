@@ -57,6 +57,8 @@ import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
 import org.osate.alisa.common.common.CommonPackage;
+import org.osate.alisa.common.common.ComputeDeclaration;
+import org.osate.alisa.common.common.ConstantDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
@@ -85,6 +87,18 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.COMPUTE_DECLARATION:
+				if(context == grammarAccess.getComputeDeclarationRule()) {
+					sequence_ComputeDeclaration(context, (ComputeDeclaration) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.CONSTANT_DECLARATION:
+				if(context == grammarAccess.getConstantDeclarationRule()) {
+					sequence_ConstantDeclaration(context, (ConstantDeclaration) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.DESCRIPTION:
 				if(context == grammarAccess.getDescriptionRule()) {
 					sequence_Description(context, (Description) semanticObject); 
@@ -1397,7 +1411,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         target=[Classifier|AadlClassifierReference]? 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
-	 *         constants+=XValDeclaration* 
+	 *         constants+=ConstantDeclaration* 
+	 *         computes+=ComputeDeclaration* 
 	 *         (content+=Requirement | content+=ReqSpecFolder)*
 	 *     )
 	 */
@@ -1414,7 +1429,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
 	 *         category=[RequirementCategory|ID]? 
 	 *         description=Description? 
-	 *         constants+=XValDeclaration* 
+	 *         constants+=ConstantDeclaration* 
+	 *         computes+=ComputeDeclaration* 
 	 *         predicate=ReqPredicate? 
 	 *         rationale=STRING? 
 	 *         goalReference+=[Goal|QualifiedName]* 

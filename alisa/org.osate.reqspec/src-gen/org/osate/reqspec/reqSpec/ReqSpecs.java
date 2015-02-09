@@ -10,6 +10,8 @@ import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.aadl2.Classifier;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Req Specs</b></em>'.
@@ -23,6 +25,7 @@ import org.osate.aadl2.Classifier;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}</li>
  * </ul>
  * </p>
@@ -142,6 +145,22 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
    * @generated
    */
   EList<XExpression> getConstants();
+
+  /**
+   * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.alisa.common.common.ComputeDeclaration}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Computes</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_Computes()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ComputeDeclaration> getComputes();
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

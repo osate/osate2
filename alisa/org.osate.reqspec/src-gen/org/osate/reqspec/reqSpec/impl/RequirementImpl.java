@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.xbase.XExpression;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
+
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqPredicate;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -34,6 +36,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
@@ -56,6 +59,16 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected EList<XExpression> constants;
+
+  /**
+   * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComputes()
+   * @generated
+   * @ordered
+   */
+  protected EList<ComputeDeclaration> computes;
 
   /**
    * The cached value of the '{@link #getPredicate() <em>Predicate</em>}' containment reference.
@@ -160,6 +173,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       constants = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.REQUIREMENT__CONSTANTS);
     }
     return constants;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ComputeDeclaration> getComputes()
+  {
+    if (computes == null)
+    {
+      computes = new EObjectContainmentEList<ComputeDeclaration>(ComputeDeclaration.class, this, ReqSpecPackage.REQUIREMENT__COMPUTES);
+    }
+    return computes;
   }
 
   /**
@@ -330,6 +357,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return basicSetPredicate(null, msgs);
     }
@@ -348,6 +377,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return getConstants();
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return getComputes();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return getPredicate();
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
@@ -379,6 +410,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         getConstants().clear();
         getConstants().addAll((Collection<? extends XExpression>)newValue);
+        return;
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        getComputes().clear();
+        getComputes().addAll((Collection<? extends ComputeDeclaration>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)newValue);
@@ -418,6 +453,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         getConstants().clear();
         return;
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        getComputes().clear();
+        return;
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)null);
         return;
@@ -452,6 +490,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
     {
       case ReqSpecPackage.REQUIREMENT__CONSTANTS:
         return constants != null && !constants.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return predicate != null;
       case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:

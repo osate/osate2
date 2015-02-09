@@ -87,9 +87,19 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createDescriptionElementAdapter();
       }
       @Override
+      public Adapter caseComputeDeclaration(ComputeDeclaration object)
+      {
+        return createComputeDeclarationAdapter();
+      }
+      @Override
       public Adapter caseShowValue(ShowValue object)
       {
         return createShowValueAdapter();
+      }
+      @Override
+      public Adapter caseConstantDeclaration(ConstantDeclaration object)
+      {
+        return createConstantDeclarationAdapter();
       }
       @Override
       public Adapter caseXNumberLiteralUnit(XNumberLiteralUnit object)
@@ -154,6 +164,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.ComputeDeclaration
+   * @generated
+   */
+  public Adapter createComputeDeclarationAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -164,6 +189,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createShowValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ConstantDeclaration <em>Constant Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.ConstantDeclaration
+   * @generated
+   */
+  public Adapter createConstantDeclarationAdapter()
   {
     return null;
   }

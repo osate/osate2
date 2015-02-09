@@ -23,6 +23,8 @@ import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.aadl2.Classifier;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
+
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 
@@ -38,6 +40,7 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getContent <em>Content</em>}</li>
  * </ul>
  * </p>
@@ -115,6 +118,16 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * @ordered
    */
   protected EList<XExpression> constants;
+
+  /**
+   * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComputes()
+   * @generated
+   * @ordered
+   */
+  protected EList<ComputeDeclaration> computes;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -269,6 +282,20 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ComputeDeclaration> getComputes()
+  {
+    if (computes == null)
+    {
+      computes = new EObjectContainmentEList<ComputeDeclaration>(ComputeDeclaration.class, this, ReqSpecPackage.REQ_SPECS__COMPUTES);
+    }
+    return computes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<EObject> getContent()
   {
     if (content == null)
@@ -290,6 +317,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
     {
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
     }
@@ -317,6 +346,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return getOtherreqspecs();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return getConstants();
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        return getComputes();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return getContent();
     }
@@ -351,6 +382,10 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         getConstants().clear();
         getConstants().addAll((Collection<? extends XExpression>)newValue);
         return;
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        getComputes().clear();
+        getComputes().addAll((Collection<? extends ComputeDeclaration>)newValue);
+        return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
         getContent().addAll((Collection<? extends EObject>)newValue);
@@ -384,6 +419,9 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
         return;
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        getComputes().clear();
+        return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
         return;
@@ -411,6 +449,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return otherreqspecs != null && !otherreqspecs.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return constants != null && !constants.isEmpty();
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return content != null && !content.isEmpty();
     }

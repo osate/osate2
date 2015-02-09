@@ -41,7 +41,8 @@ ReqSpecs returns ReqSpecs:
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
 	(
-		( constants+=XValDeclaration* )
+		( constants+=ConstantDeclaration* )
+	& (  computes+=ComputeDeclaration* )
 	& (content+= (Requirement |  ReqSpecFolder))*
 	)
 	']'
@@ -92,7 +93,8 @@ Requirement:
 '['	(
  	('category'  category=[categories::RequirementCategory|ID] )?
 	&('description'  description=Description)? 
-	& (  constants+=XValDeclaration* )
+	& (  constants+=ConstantDeclaration* )
+	& (  computes+=ComputeDeclaration* )
 	&('assert'  predicate=ReqPredicate)?  // predicate expression 
 	&('rationale'  rationale=STRING)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
@@ -110,11 +112,19 @@ InformalPredicate: description=STRING ;
 
 XPredicate: Xlambda=XClosure;	
 
+//NumericPredicate: 'eq'  ;
+//
+//PredicateExpression: ID op=('='|"!=" |"<"|"<="|">"|">=") limit=[ConstantDeclaration|ID];
+//
+//PredicateOperand: ConstantDeclaration | ComputeDeclaration;
+
 SPeARPredicate: 'inv' predicate=STRING ;
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?
 ;
+
+
 
 
 // path to external document and its fragment

@@ -88,10 +88,25 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.COMPUTE_DECLARATION:
+      {
+        ComputeDeclaration computeDeclaration = (ComputeDeclaration)theEObject;
+        T result = caseComputeDeclaration(computeDeclaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.SHOW_VALUE:
       {
         ShowValue showValue = (ShowValue)theEObject;
         T result = caseShowValue(showValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.CONSTANT_DECLARATION:
+      {
+        ConstantDeclaration constantDeclaration = (ConstantDeclaration)theEObject;
+        T result = caseConstantDeclaration(constantDeclaration);
+        if (result == null) result = caseXExpression(constantDeclaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -140,6 +155,22 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComputeDeclaration(ComputeDeclaration object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -151,6 +182,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseShowValue(ShowValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Constant Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constant Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstantDeclaration(ConstantDeclaration object)
   {
     return null;
   }

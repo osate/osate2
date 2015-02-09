@@ -286,6 +286,30 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
+	//// New rule for val only
+	////ConstantDeclaration returns xbase::XExpression:
+	////	{xbase::XVariableDeclaration}
+	//ConstantDeclaration returns xbase::XExpression:
+	//	{ConstantDeclaration} "constant" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=(XNumberLiteral |
+	//	XStringLiteral | XBooleanLiteral);
+	public CommonGrammarAccess.ConstantDeclarationElements getConstantDeclarationAccess() {
+		return gaCommon.getConstantDeclarationAccess();
+	}
+	
+	public ParserRule getConstantDeclarationRule() {
+		return getConstantDeclarationAccess().getRule();
+	}
+
+	//ComputeDeclaration:
+	//	"compute" name=ValidID;
+	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
+		return gaCommon.getComputeDeclarationAccess();
+	}
+	
+	public ParserRule getComputeDeclarationRule() {
+		return getComputeDeclarationAccess().getRule();
+	}
+
 	//// Override XNumberLiteral from XBase
 	////Accept unit and have value converter turn it into value scaled to base unit
 	//XNumberLiteral returns xbase::XExpression:
