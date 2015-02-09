@@ -40,16 +40,16 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Assignment cTextAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final RuleCall cTextSTRINGTerminalRuleCall_0_0 = (RuleCall)cTextAssignment_0.eContents().get(0);
-		private final Assignment cValueAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cValueShowValueParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
+		private final Assignment cShowValueAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cShowValueShowValueParserRuleCall_1_0 = (RuleCall)cShowValueAssignment_1.eContents().get(0);
 		private final Assignment cThisTargetAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final Keyword cThisTargetThisKeyword_2_0 = (Keyword)cThisTargetAssignment_2.eContents().get(0);
 		
 		//DescriptionElement:
-		//	text=STRING | value=ShowValue | thisTarget?="this";
+		//	text=STRING | showValue=ShowValue | thisTarget?="this";
 		public ParserRule getRule() { return rule; }
 
-		//text=STRING | value=ShowValue | thisTarget?="this"
+		//text=STRING | showValue=ShowValue | thisTarget?="this"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//text=STRING
@@ -58,11 +58,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTextSTRINGTerminalRuleCall_0_0() { return cTextSTRINGTerminalRuleCall_0_0; }
 
-		//value=ShowValue
-		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
+		//showValue=ShowValue
+		public Assignment getShowValueAssignment_1() { return cShowValueAssignment_1; }
 
 		//ShowValue
-		public RuleCall getValueShowValueParserRuleCall_1_0() { return cValueShowValueParserRuleCall_1_0; }
+		public RuleCall getShowValueShowValueParserRuleCall_1_0() { return cShowValueShowValueParserRuleCall_1_0; }
 
 		//thisTarget?="this"
 		public Assignment getThisTargetAssignment_2() { return cThisTargetAssignment_2; }
@@ -90,14 +90,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRightXExpressionParserRuleCall_4_0 = (RuleCall)cRightAssignment_4.eContents().get(0);
 		
 		//// New rule for val only
-		//XValDeclaration returns XExpression:
-		//	{XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression;
+		//XValDeclaration returns xbase::XExpression:
+		//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression;
 		public ParserRule getRule() { return rule; }
 
-		//{XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression
+		//{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression
 		public Group getGroup() { return cGroup; }
 
-		//{XVariableDeclaration}
+		//{xbase::XVariableDeclaration}
 		public Action getXVariableDeclarationAction_0() { return cXVariableDeclarationAction_0; }
 
 		//"val"
@@ -143,7 +143,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class XNumberLiteralElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XNumberLiteral");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cXNumberLiteralAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cXNumberLiteralUnitAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cValueNumberParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
 		private final Assignment cUnitAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -152,15 +152,15 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// Override XNumberLiteral from XBase
 		////Accept unit and have value converter turn it into value scaled to base unit
-		//XNumberLiteral returns XExpression:
-		//	{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?;
+		//XNumberLiteral returns xbase::XExpression:
+		//	{XNumberLiteralUnit} value=Number => unit=[aadl2::UnitLiteral]?;
 		public ParserRule getRule() { return rule; }
 
-		//{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?
+		//{XNumberLiteralUnit} value=Number => unit=[aadl2::UnitLiteral]?
 		public Group getGroup() { return cGroup; }
 
-		//{XNumberLiteral}
-		public Action getXNumberLiteralAction_0() { return cXNumberLiteralAction_0; }
+		//{XNumberLiteralUnit}
+		public Action getXNumberLiteralUnitAction_0() { return cXNumberLiteralUnitAction_0; }
 
 		//value=Number
 		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
@@ -182,41 +182,45 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ShowValue");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cRefAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cRefEObjectCrossReference_0_0 = (CrossReference)cRefAssignment_0.eContents().get(0);
-		private final RuleCall cRefEObjectIDTerminalRuleCall_0_0_1 = (RuleCall)cRefEObjectCrossReference_0_0.eContents().get(1);
+		private final CrossReference cRefXVariableDeclarationCrossReference_0_0 = (CrossReference)cRefAssignment_0.eContents().get(0);
+		private final RuleCall cRefXVariableDeclarationIDTerminalRuleCall_0_0_1 = (RuleCall)cRefXVariableDeclarationCrossReference_0_0.eContents().get(1);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cPercentSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cUnitAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cUnitIDTerminalRuleCall_1_1_0 = (RuleCall)cUnitAssignment_1_1.eContents().get(0);
+		private final CrossReference cUnitUnitLiteralCrossReference_1_1_0 = (CrossReference)cUnitAssignment_1_1.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_1_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_1_0.eContents().get(1);
 		
 		//// ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
 		//ShowValue:
-		//	ref=[ecore::EObject] ("%" unit=ID)?;
+		//	ref=[xbase::XVariableDeclaration] ("%" unit=[aadl2::UnitLiteral])?;
 		public ParserRule getRule() { return rule; }
 
-		//ref=[ecore::EObject] ("%" unit=ID)?
+		//ref=[xbase::XVariableDeclaration] ("%" unit=[aadl2::UnitLiteral])?
 		public Group getGroup() { return cGroup; }
 
-		//ref=[ecore::EObject]
+		//ref=[xbase::XVariableDeclaration]
 		public Assignment getRefAssignment_0() { return cRefAssignment_0; }
 
-		//[ecore::EObject]
-		public CrossReference getRefEObjectCrossReference_0_0() { return cRefEObjectCrossReference_0_0; }
+		//[xbase::XVariableDeclaration]
+		public CrossReference getRefXVariableDeclarationCrossReference_0_0() { return cRefXVariableDeclarationCrossReference_0_0; }
 
 		//ID
-		public RuleCall getRefEObjectIDTerminalRuleCall_0_0_1() { return cRefEObjectIDTerminalRuleCall_0_0_1; }
+		public RuleCall getRefXVariableDeclarationIDTerminalRuleCall_0_0_1() { return cRefXVariableDeclarationIDTerminalRuleCall_0_0_1; }
 
-		//("%" unit=ID)?
+		//("%" unit=[aadl2::UnitLiteral])?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"%"
 		public Keyword getPercentSignKeyword_1_0() { return cPercentSignKeyword_1_0; }
 
-		//unit=ID
+		//unit=[aadl2::UnitLiteral]
 		public Assignment getUnitAssignment_1_1() { return cUnitAssignment_1_1; }
 
+		//[aadl2::UnitLiteral]
+		public CrossReference getUnitUnitLiteralCrossReference_1_1_0() { return cUnitUnitLiteralCrossReference_1_1_0; }
+
 		//ID
-		public RuleCall getUnitIDTerminalRuleCall_1_1_0() { return cUnitIDTerminalRuleCall_1_1_0; }
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_1_0_1; }
 	}
 
 	public class AadlClassifierReferenceElements extends AbstractParserRuleElementFinder {
@@ -333,7 +337,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | value=ShowValue | thisTarget?="this";
+	//	text=STRING | showValue=ShowValue | thisTarget?="this";
 	public DescriptionElementElements getDescriptionElementAccess() {
 		return pDescriptionElement;
 	}
@@ -343,8 +347,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// New rule for val only
-	//XValDeclaration returns XExpression:
-	//	{XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression;
+	//XValDeclaration returns xbase::XExpression:
+	//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression;
 	public XValDeclarationElements getXValDeclarationAccess() {
 		return pXValDeclaration;
 	}
@@ -355,8 +359,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Override XNumberLiteral from XBase
 	////Accept unit and have value converter turn it into value scaled to base unit
-	//XNumberLiteral returns XExpression:
-	//	{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?;
+	//XNumberLiteral returns xbase::XExpression:
+	//	{XNumberLiteralUnit} value=Number => unit=[aadl2::UnitLiteral]?;
 	public XNumberLiteralElements getXNumberLiteralAccess() {
 		return pXNumberLiteral;
 	}
@@ -367,7 +371,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
 	//ShowValue:
-	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	//	ref=[xbase::XVariableDeclaration] ("%" unit=[aadl2::UnitLiteral])?;
 	public ShowValueElements getShowValueAccess() {
 		return pShowValue;
 	}

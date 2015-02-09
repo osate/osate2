@@ -66,10 +66,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.DESCRIPTION: return createDescription();
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
-      case CommonPackage.XEXPRESSION: return createXExpression();
       case CommonPackage.SHOW_VALUE: return createShowValue();
-      case CommonPackage.XVARIABLE_DECLARATION: return createXVariableDeclaration();
-      case CommonPackage.XNUMBER_LITERAL: return createXNumberLiteral();
+      case CommonPackage.XNUMBER_LITERAL_UNIT: return createXNumberLiteralUnit();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -102,17 +100,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public XExpression createXExpression()
-  {
-    XExpressionImpl xExpression = new XExpressionImpl();
-    return xExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ShowValue createShowValue()
   {
     ShowValueImpl showValue = new ShowValueImpl();
@@ -124,21 +111,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public XVariableDeclaration createXVariableDeclaration()
+  public XNumberLiteralUnit createXNumberLiteralUnit()
   {
-    XVariableDeclarationImpl xVariableDeclaration = new XVariableDeclarationImpl();
-    return xVariableDeclaration;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public XNumberLiteral createXNumberLiteral()
-  {
-    XNumberLiteralImpl xNumberLiteral = new XNumberLiteralImpl();
-    return xNumberLiteral;
+    XNumberLiteralUnitImpl xNumberLiteralUnit = new XNumberLiteralUnitImpl();
+    return xNumberLiteralUnit;
   }
 
   /**

@@ -2,7 +2,7 @@ grammar org.osate.alisa.workbench.Alisa with org.osate.alisa.common.Common
 
 generate alisa "http://www.osate.org/alisa/workbench/Alisa"
 import "http://aadl.info/AADL/2.0" as aadl2
-import "http://www.osate.org/verify/Verify" as Verify
+import "http://www.osate.org/verify/Verify" as Verify 
 import "http://www.osate.org/categories/Categories" as categories
 
 AlisaWorkArea:

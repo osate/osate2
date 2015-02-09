@@ -49,6 +49,7 @@ import org.eclipse.xtext.xbase.XThrowExpression;
 import org.eclipse.xtext.xbase.XTryCatchFinallyExpression;
 import org.eclipse.xtext.xbase.XTypeLiteral;
 import org.eclipse.xtext.xbase.XUnaryOperation;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 import org.eclipse.xtext.xbase.XWhileExpression;
 import org.eclipse.xtext.xbase.XbasePackage;
 import org.eclipse.xtext.xtype.XFunctionTypeRef;
@@ -59,8 +60,7 @@ import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
-import org.osate.alisa.common.common.XNumberLiteral;
-import org.osate.alisa.common.common.XVariableDeclaration;
+import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
@@ -103,7 +103,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case CommonPackage.XNUMBER_LITERAL:
+			case CommonPackage.XNUMBER_LITERAL_UNIT:
 				if(context == grammarAccess.getXAdditiveExpressionRule() ||
 				   context == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
 				   context == grammarAccess.getXAndExpressionRule() ||
@@ -135,13 +135,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				   context == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
 				   context == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_0_0_0_0() ||
 				   context == grammarAccess.getXUnaryOperationRule()) {
-					sequence_XNumberLiteral(context, (XNumberLiteral) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.XVARIABLE_DECLARATION:
-				if(context == grammarAccess.getXValDeclarationRule()) {
-					sequence_XValDeclaration(context, (XVariableDeclaration) semanticObject); 
+					sequence_XNumberLiteral(context, (XNumberLiteralUnit) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1243,9 +1237,13 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case XbasePackage.XVARIABLE_DECLARATION:
-				if(context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
+				if(context == grammarAccess.getXValDeclarationRule()) {
+					sequence_XValDeclaration(context, (XVariableDeclaration) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
 				   context == grammarAccess.getXVariableDeclarationRule()) {
-					sequence_XVariableDeclaration(context, (org.eclipse.xtext.xbase.XVariableDeclaration) semanticObject); 
+					sequence_XVariableDeclaration(context, (XVariableDeclaration) semanticObject); 
 					return; 
 				}
 				else break;

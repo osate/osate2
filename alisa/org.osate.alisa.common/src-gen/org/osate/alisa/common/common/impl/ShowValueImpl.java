@@ -11,6 +11,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.xtext.xbase.XVariableDeclaration;
+
+import org.osate.aadl2.UnitLiteral;
+
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ShowValue;
 
@@ -38,27 +42,17 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * @generated
    * @ordered
    */
-  protected EObject ref;
+  protected XVariableDeclaration ref;
 
   /**
-   * The default value of the '{@link #getUnit() <em>Unit</em>}' attribute.
+   * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getUnit()
    * @generated
    * @ordered
    */
-  protected static final String UNIT_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getUnit() <em>Unit</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getUnit()
-   * @generated
-   * @ordered
-   */
-  protected String unit = UNIT_EDEFAULT;
+  protected UnitLiteral unit;
 
   /**
    * <!-- begin-user-doc -->
@@ -86,12 +80,12 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public EObject getRef()
+  public XVariableDeclaration getRef()
   {
     if (ref != null && ref.eIsProxy())
     {
       InternalEObject oldRef = (InternalEObject)ref;
-      ref = eResolveProxy(oldRef);
+      ref = (XVariableDeclaration)eResolveProxy(oldRef);
       if (ref != oldRef)
       {
         if (eNotificationRequired())
@@ -106,7 +100,7 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public EObject basicGetRef()
+  public XVariableDeclaration basicGetRef()
   {
     return ref;
   }
@@ -116,9 +110,9 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRef(EObject newRef)
+  public void setRef(XVariableDeclaration newRef)
   {
-    EObject oldRef = ref;
+    XVariableDeclaration oldRef = ref;
     ref = newRef;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SHOW_VALUE__REF, oldRef, ref));
@@ -129,7 +123,27 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getUnit()
+  public UnitLiteral getUnit()
+  {
+    if (unit != null && ((EObject)unit).eIsProxy())
+    {
+      InternalEObject oldUnit = (InternalEObject)unit;
+      unit = (UnitLiteral)eResolveProxy(oldUnit);
+      if (unit != oldUnit)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.SHOW_VALUE__UNIT, oldUnit, unit));
+      }
+    }
+    return unit;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UnitLiteral basicGetUnit()
   {
     return unit;
   }
@@ -139,9 +153,9 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setUnit(String newUnit)
+  public void setUnit(UnitLiteral newUnit)
   {
-    String oldUnit = unit;
+    UnitLiteral oldUnit = unit;
     unit = newUnit;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SHOW_VALUE__UNIT, oldUnit, unit));
@@ -161,7 +175,8 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
         if (resolve) return getRef();
         return basicGetRef();
       case CommonPackage.SHOW_VALUE__UNIT:
-        return getUnit();
+        if (resolve) return getUnit();
+        return basicGetUnit();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -177,10 +192,10 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
     switch (featureID)
     {
       case CommonPackage.SHOW_VALUE__REF:
-        setRef((EObject)newValue);
+        setRef((XVariableDeclaration)newValue);
         return;
       case CommonPackage.SHOW_VALUE__UNIT:
-        setUnit((String)newValue);
+        setUnit((UnitLiteral)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -197,10 +212,10 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
     switch (featureID)
     {
       case CommonPackage.SHOW_VALUE__REF:
-        setRef((EObject)null);
+        setRef((XVariableDeclaration)null);
         return;
       case CommonPackage.SHOW_VALUE__UNIT:
-        setUnit(UNIT_EDEFAULT);
+        setUnit((UnitLiteral)null);
         return;
     }
     super.eUnset(featureID);
@@ -219,26 +234,9 @@ public class ShowValueImpl extends MinimalEObjectImpl.Container implements ShowV
       case CommonPackage.SHOW_VALUE__REF:
         return ref != null;
       case CommonPackage.SHOW_VALUE__UNIT:
-        return UNIT_EDEFAULT == null ? unit != null : !UNIT_EDEFAULT.equals(unit);
+        return unit != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (unit: ");
-    result.append(unit);
-    result.append(')');
-    return result.toString();
   }
 
 } //ShowValueImpl

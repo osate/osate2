@@ -1,8 +1,8 @@
 package org.osate.alisa.common.util
 
+import org.osate.aadl2.NamedElement
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
-import org.osate.aadl2.NamedElement
 
 class CommonUtilExtension {
 		
@@ -12,8 +12,8 @@ class CommonUtilExtension {
 	
 	def static toText(DescriptionElement de, NamedElement target){
 		if (de.text != null) return de.text
-		if (de.value != null) {
-			return ""// XXX de.value.ref?.constantvalue?.toText?:"" 
+		if (de.showValue != null) {
+			return  de.showValue?.ref?.right?.toString?:"" 
 		}
 		if (de.thisTarget && target != null) {
 			var nm = target.name

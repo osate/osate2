@@ -46,6 +46,7 @@ import org.eclipse.xtext.xbase.XThrowExpression;
 import org.eclipse.xtext.xbase.XTryCatchFinallyExpression;
 import org.eclipse.xtext.xbase.XTypeLiteral;
 import org.eclipse.xtext.xbase.XUnaryOperation;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 import org.eclipse.xtext.xbase.XWhileExpression;
 import org.eclipse.xtext.xbase.XbasePackage;
 import org.eclipse.xtext.xbase.serializer.XbaseSemanticSequencer;
@@ -57,8 +58,7 @@ import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
-import org.osate.alisa.common.common.XNumberLiteral;
-import org.osate.alisa.common.common.XVariableDeclaration;
+import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.services.CommonGrammarAccess;
 
 @SuppressWarnings("all")
@@ -87,7 +87,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 					return; 
 				}
 				else break;
-			case CommonPackage.XNUMBER_LITERAL:
+			case CommonPackage.XNUMBER_LITERAL_UNIT:
 				if(context == grammarAccess.getXAdditiveExpressionRule() ||
 				   context == grammarAccess.getXAdditiveExpressionAccess().getXBinaryOperationLeftOperandAction_1_0_0_0() ||
 				   context == grammarAccess.getXAndExpressionRule() ||
@@ -119,13 +119,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 				   context == grammarAccess.getXRelationalExpressionAccess().getXBinaryOperationLeftOperandAction_1_1_0_0_0() ||
 				   context == grammarAccess.getXRelationalExpressionAccess().getXInstanceOfExpressionExpressionAction_1_0_0_0_0() ||
 				   context == grammarAccess.getXUnaryOperationRule()) {
-					sequence_XNumberLiteral(context, (XNumberLiteral) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.XVARIABLE_DECLARATION:
-				if(context == grammarAccess.getXValDeclarationRule()) {
-					sequence_XValDeclaration(context, (XVariableDeclaration) semanticObject); 
+					sequence_XNumberLiteral(context, (XNumberLiteralUnit) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1137,9 +1131,13 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 				}
 				else break;
 			case XbasePackage.XVARIABLE_DECLARATION:
-				if(context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
+				if(context == grammarAccess.getXValDeclarationRule()) {
+					sequence_XValDeclaration(context, (XVariableDeclaration) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getXExpressionOrVarDeclarationRule() ||
 				   context == grammarAccess.getXVariableDeclarationRule()) {
-					sequence_XVariableDeclaration(context, (org.eclipse.xtext.xbase.XVariableDeclaration) semanticObject); 
+					sequence_XVariableDeclaration(context, (XVariableDeclaration) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1206,7 +1204,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (text=STRING | value=ShowValue | thisTarget?='this')
+	 *     (text=STRING | showValue=ShowValue | thisTarget?='this')
 	 */
 	protected void sequence_DescriptionElement(EObject context, DescriptionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1224,7 +1222,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (ref=[EObject|ID] unit=ID?)
+	 *     (ref=[XVariableDeclaration|ID] unit=[UnitLiteral|ID]?)
 	 */
 	protected void sequence_ShowValue(EObject context, ShowValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1235,7 +1233,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	 * Constraint:
 	 *     (value=Number unit=[UnitLiteral|ID]?)
 	 */
-	protected void sequence_XNumberLiteral(EObject context, XNumberLiteral semanticObject) {
+	protected void sequence_XNumberLiteral(EObject context, XNumberLiteralUnit semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

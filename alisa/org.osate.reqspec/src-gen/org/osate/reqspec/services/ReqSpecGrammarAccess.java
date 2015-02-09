@@ -1736,7 +1736,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | value=ShowValue | thisTarget?="this";
+	//	text=STRING | showValue=ShowValue | thisTarget?="this";
 	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
 		return gaCommon.getDescriptionElementAccess();
 	}
@@ -1746,8 +1746,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// New rule for val only
-	//XValDeclaration returns XExpression:
-	//	{XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression;
+	//XValDeclaration returns xbase::XExpression:
+	//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=XExpression;
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
@@ -1758,8 +1758,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Override XNumberLiteral from XBase
 	////Accept unit and have value converter turn it into value scaled to base unit
-	//XNumberLiteral returns XExpression:
-	//	{XNumberLiteral} value=Number => unit=[aadl2::UnitLiteral]?;
+	//XNumberLiteral returns xbase::XExpression:
+	//	{XNumberLiteralUnit} value=Number => unit=[aadl2::UnitLiteral]?;
 	public CommonGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
 		return gaCommon.getXNumberLiteralAccess();
 	}
@@ -1770,7 +1770,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
 	//ShowValue:
-	//	ref=[ecore::EObject] ("%" unit=ID)?;
+	//	ref=[xbase::XVariableDeclaration] ("%" unit=[aadl2::UnitLiteral])?;
 	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
 		return gaCommon.getShowValueAccess();
 	}

@@ -3,6 +3,8 @@ package org.osate.alisa.common.util;
 import com.google.common.base.Objects;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -38,10 +40,29 @@ public class CommonUtilExtension {
       if (_notEquals) {
         return de.getText();
       }
-      ShowValue _value = de.getValue();
-      boolean _notEquals_1 = (!Objects.equal(_value, null));
+      ShowValue _showValue = de.getShowValue();
+      boolean _notEquals_1 = (!Objects.equal(_showValue, null));
       if (_notEquals_1) {
-        return "";
+        String _elvis = null;
+        ShowValue _showValue_1 = de.getShowValue();
+        XVariableDeclaration _ref = null;
+        if (_showValue_1!=null) {
+          _ref=_showValue_1.getRef();
+        }
+        XExpression _right = null;
+        if (_ref!=null) {
+          _right=_ref.getRight();
+        }
+        String _string = null;
+        if (_right!=null) {
+          _string=_right.toString();
+        }
+        if (_string != null) {
+          _elvis = _string;
+        } else {
+          _elvis = "";
+        }
+        return _elvis;
       }
       boolean _and = false;
       boolean _isThisTarget = de.isThisTarget();

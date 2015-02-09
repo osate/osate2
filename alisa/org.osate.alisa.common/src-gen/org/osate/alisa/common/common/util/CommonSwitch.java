@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.alisa.common.common.*;
 
 /**
@@ -86,14 +88,6 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.XEXPRESSION:
-      {
-        XExpression xExpression = (XExpression)theEObject;
-        T result = caseXExpression(xExpression);
-        if (result == null) result = caseXbase_XExpression(xExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CommonPackage.SHOW_VALUE:
       {
         ShowValue showValue = (ShowValue)theEObject;
@@ -101,21 +95,11 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.XVARIABLE_DECLARATION:
+      case CommonPackage.XNUMBER_LITERAL_UNIT:
       {
-        XVariableDeclaration xVariableDeclaration = (XVariableDeclaration)theEObject;
-        T result = caseXVariableDeclaration(xVariableDeclaration);
-        if (result == null) result = caseXExpression(xVariableDeclaration);
-        if (result == null) result = caseXbase_XExpression(xVariableDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.XNUMBER_LITERAL:
-      {
-        XNumberLiteral xNumberLiteral = (XNumberLiteral)theEObject;
-        T result = caseXNumberLiteral(xNumberLiteral);
-        if (result == null) result = caseXExpression(xNumberLiteral);
-        if (result == null) result = caseXbase_XExpression(xNumberLiteral);
+        XNumberLiteralUnit xNumberLiteralUnit = (XNumberLiteralUnit)theEObject;
+        T result = caseXNumberLiteralUnit(xNumberLiteralUnit);
+        if (result == null) result = caseXExpression(xNumberLiteralUnit);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -156,22 +140,6 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>XExpression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>XExpression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseXExpression(XExpression object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -188,33 +156,17 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>XVariable Declaration</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>XNumber Literal Unit</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>XVariable Declaration</em>'.
+   * @return the result of interpreting the object as an instance of '<em>XNumber Literal Unit</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseXVariableDeclaration(XVariableDeclaration object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>XNumber Literal</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>XNumber Literal</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseXNumberLiteral(XNumberLiteral object)
+  public T caseXNumberLiteralUnit(XNumberLiteralUnit object)
   {
     return null;
   }
@@ -230,7 +182,7 @@ public class CommonSwitch<T> extends Switch<T>
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseXbase_XExpression(org.eclipse.xtext.xbase.XExpression object)
+  public T caseXExpression(XExpression object)
   {
     return null;
   }

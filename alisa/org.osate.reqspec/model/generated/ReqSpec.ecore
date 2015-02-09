@@ -53,7 +53,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="otherreqspecs" unique="false"
         upperBound="-1" eType="#//ReqSpecs"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//XExpression"
+        eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="content" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
@@ -83,7 +83,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Requirement" eSuperTypes="#//ContractualElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//XExpression"
+        eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="predicate" eType="#//ReqPredicate"
         containment="true"/>

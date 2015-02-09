@@ -41,15 +41,6 @@ public interface CommonFactory extends EFactory
   DescriptionElement createDescriptionElement();
 
   /**
-   * Returns a new object of class '<em>XExpression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>XExpression</em>'.
-   * @generated
-   */
-  XExpression createXExpression();
-
-  /**
    * Returns a new object of class '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -59,22 +50,13 @@ public interface CommonFactory extends EFactory
   ShowValue createShowValue();
 
   /**
-   * Returns a new object of class '<em>XVariable Declaration</em>'.
+   * Returns a new object of class '<em>XNumber Literal Unit</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>XVariable Declaration</em>'.
+   * @return a new object of class '<em>XNumber Literal Unit</em>'.
    * @generated
    */
-  XVariableDeclaration createXVariableDeclaration();
-
-  /**
-   * Returns a new object of class '<em>XNumber Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>XNumber Literal</em>'.
-   * @generated
-   */
-  XNumberLiteral createXNumberLiteral();
+  XNumberLiteralUnit createXNumberLiteralUnit();
 
   /**
    * Returns the package supported by this factory.

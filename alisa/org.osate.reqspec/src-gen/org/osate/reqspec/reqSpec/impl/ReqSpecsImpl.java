@@ -19,9 +19,9 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.Classifier;
+import org.eclipse.xtext.xbase.XExpression;
 
-import org.osate.alisa.common.common.XExpression;
+import org.osate.aadl2.Classifier;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;

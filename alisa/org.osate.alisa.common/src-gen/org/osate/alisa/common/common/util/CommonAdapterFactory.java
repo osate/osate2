@@ -9,6 +9,8 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.alisa.common.common.*;
 
 /**
@@ -85,29 +87,19 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createDescriptionElementAdapter();
       }
       @Override
-      public Adapter caseXExpression(XExpression object)
-      {
-        return createXExpressionAdapter();
-      }
-      @Override
       public Adapter caseShowValue(ShowValue object)
       {
         return createShowValueAdapter();
       }
       @Override
-      public Adapter caseXVariableDeclaration(XVariableDeclaration object)
+      public Adapter caseXNumberLiteralUnit(XNumberLiteralUnit object)
       {
-        return createXVariableDeclarationAdapter();
+        return createXNumberLiteralUnitAdapter();
       }
       @Override
-      public Adapter caseXNumberLiteral(XNumberLiteral object)
+      public Adapter caseXExpression(XExpression object)
       {
-        return createXNumberLiteralAdapter();
-      }
-      @Override
-      public Adapter caseXbase_XExpression(org.eclipse.xtext.xbase.XExpression object)
-      {
-        return createXbase_XExpressionAdapter();
+        return createXExpressionAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -162,21 +154,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.XExpression <em>XExpression</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.XExpression
-   * @generated
-   */
-  public Adapter createXExpressionAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -192,31 +169,16 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.XVariableDeclaration <em>XVariable Declaration</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.XNumberLiteralUnit <em>XNumber Literal Unit</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.common.common.XVariableDeclaration
+   * @see org.osate.alisa.common.common.XNumberLiteralUnit
    * @generated
    */
-  public Adapter createXVariableDeclarationAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.XNumberLiteral <em>XNumber Literal</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.XNumberLiteral
-   * @generated
-   */
-  public Adapter createXNumberLiteralAdapter()
+  public Adapter createXNumberLiteralUnitAdapter()
   {
     return null;
   }
@@ -231,7 +193,7 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @see org.eclipse.xtext.xbase.XExpression
    * @generated
    */
-  public Adapter createXbase_XExpressionAdapter()
+  public Adapter createXExpressionAdapter()
   {
     return null;
   }

@@ -432,16 +432,16 @@ ruleDescriptionElement returns [EObject current=null]
     |(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getValueShowValueParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getShowValueShowValueParserRuleCall_1_0()); 
 	    }
-		lv_value_1_0=ruleShowValue		{
+		lv_showValue_1_0=ruleShowValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDescriptionElementRule());
 	        }
        		set(
        			$current, 
-       			"value",
-        		lv_value_1_0, 
+       			"showValue",
+        		lv_showValue_1_0, 
         		"ShowValue");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -603,7 +603,7 @@ ruleXNumberLiteral returns [EObject current=null]
 ((
     {
         $current = forceCreateModelElement(
-            grammarAccess.getXNumberLiteralAccess().getXNumberLiteralAction_0(),
+            grammarAccess.getXNumberLiteralAccess().getXNumberLiteralUnitAction_0(),
             $current);
     }
 )(
@@ -672,7 +672,7 @@ ruleShowValue returns [EObject current=null]
         }
 	otherlv_0=RULE_ID
 	{
-		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefEObjectCrossReference_0_0()); 
+		newLeafNode(otherlv_0, grammarAccess.getShowValueAccess().getRefXVariableDeclarationCrossReference_0_0()); 
 	}
 
 )
@@ -682,20 +682,15 @@ ruleShowValue returns [EObject current=null]
     }
 (
 (
-		lv_unit_2_0=RULE_ID
 		{
-			newLeafNode(lv_unit_2_0, grammarAccess.getShowValueAccess().getUnitIDTerminalRuleCall_1_1_0()); 
-		}
-		{
-	        if ($current==null) {
+			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getShowValueRule());
 	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"unit",
-        		lv_unit_2_0, 
-        		"ID");
-	    }
+        }
+	otherlv_2=RULE_ID
+	{
+		newLeafNode(otherlv_2, grammarAccess.getShowValueAccess().getUnitUnitLiteralCrossReference_1_1_0()); 
+	}
 
 )
 ))?)

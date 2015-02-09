@@ -10,8 +10,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.eclipse.xtext.common.types.TypesPackage;
-
 import org.eclipse.xtext.xbase.XbasePackage;
 
 import org.osate.aadl2.Aadl2Package;
@@ -21,9 +19,7 @@ import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
-import org.osate.alisa.common.common.XExpression;
-import org.osate.alisa.common.common.XNumberLiteral;
-import org.osate.alisa.common.common.XVariableDeclaration;
+import org.osate.alisa.common.common.XNumberLiteralUnit;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,13 +48,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass xExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass showValueEClass = null;
 
   /**
@@ -66,14 +55,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass xVariableDeclarationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass xNumberLiteralEClass = null;
+  private EClass xNumberLiteralUnitEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -187,7 +169,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getDescriptionElement_Value()
+  public EReference getDescriptionElement_ShowValue()
   {
     return (EReference)descriptionElementEClass.getEStructuralFeatures().get(1);
   }
@@ -200,16 +182,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
   public EAttribute getDescriptionElement_ThisTarget()
   {
     return (EAttribute)descriptionElementEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getXExpression()
-  {
-    return xExpressionEClass;
   }
 
   /**
@@ -237,9 +209,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getShowValue_Unit()
+  public EReference getShowValue_Unit()
   {
-    return (EAttribute)showValueEClass.getEStructuralFeatures().get(1);
+    return (EReference)showValueEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -247,9 +219,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getXVariableDeclaration()
+  public EClass getXNumberLiteralUnit()
   {
-    return xVariableDeclarationEClass;
+    return xNumberLiteralUnitEClass;
   }
 
   /**
@@ -257,9 +229,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getXVariableDeclaration_Type()
+  public EAttribute getXNumberLiteralUnit_Value()
   {
-    return (EReference)xVariableDeclarationEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)xNumberLiteralUnitEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -267,49 +239,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getXVariableDeclaration_Name()
+  public EReference getXNumberLiteralUnit_Unit()
   {
-    return (EAttribute)xVariableDeclarationEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getXVariableDeclaration_Right()
-  {
-    return (EReference)xVariableDeclarationEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getXNumberLiteral()
-  {
-    return xNumberLiteralEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getXNumberLiteral_Value()
-  {
-    return (EAttribute)xNumberLiteralEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getXNumberLiteral_Unit()
-  {
-    return (EReference)xNumberLiteralEClass.getEStructuralFeatures().get(1);
+    return (EReference)xNumberLiteralUnitEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -347,23 +279,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     descriptionElementEClass = createEClass(DESCRIPTION_ELEMENT);
     createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__TEXT);
-    createEReference(descriptionElementEClass, DESCRIPTION_ELEMENT__VALUE);
+    createEReference(descriptionElementEClass, DESCRIPTION_ELEMENT__SHOW_VALUE);
     createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__THIS_TARGET);
-
-    xExpressionEClass = createEClass(XEXPRESSION);
 
     showValueEClass = createEClass(SHOW_VALUE);
     createEReference(showValueEClass, SHOW_VALUE__REF);
-    createEAttribute(showValueEClass, SHOW_VALUE__UNIT);
+    createEReference(showValueEClass, SHOW_VALUE__UNIT);
 
-    xVariableDeclarationEClass = createEClass(XVARIABLE_DECLARATION);
-    createEReference(xVariableDeclarationEClass, XVARIABLE_DECLARATION__TYPE);
-    createEAttribute(xVariableDeclarationEClass, XVARIABLE_DECLARATION__NAME);
-    createEReference(xVariableDeclarationEClass, XVARIABLE_DECLARATION__RIGHT);
-
-    xNumberLiteralEClass = createEClass(XNUMBER_LITERAL);
-    createEAttribute(xNumberLiteralEClass, XNUMBER_LITERAL__VALUE);
-    createEReference(xNumberLiteralEClass, XNUMBER_LITERAL__UNIT);
+    xNumberLiteralUnitEClass = createEClass(XNUMBER_LITERAL_UNIT);
+    createEAttribute(xNumberLiteralUnitEClass, XNUMBER_LITERAL_UNIT__VALUE);
+    createEReference(xNumberLiteralUnitEClass, XNUMBER_LITERAL_UNIT__UNIT);
   }
 
   /**
@@ -393,7 +318,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
-    TypesPackage theTypesPackage = (TypesPackage)EPackage.Registry.INSTANCE.getEPackage(TypesPackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
 
     // Create type parameters
@@ -401,9 +325,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    xExpressionEClass.getESuperTypes().add(theXbasePackage.getXExpression());
-    xVariableDeclarationEClass.getESuperTypes().add(this.getXExpression());
-    xNumberLiteralEClass.getESuperTypes().add(this.getXExpression());
+    xNumberLiteralUnitEClass.getESuperTypes().add(theXbasePackage.getXExpression());
 
     // Initialize classes and features; add operations and parameters
     initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -411,23 +333,16 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     initEClass(descriptionElementEClass, DescriptionElement.class, "DescriptionElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getDescriptionElement_Text(), theEcorePackage.getEString(), "text", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getDescriptionElement_Value(), this.getShowValue(), null, "value", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDescriptionElement_ShowValue(), this.getShowValue(), null, "showValue", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDescriptionElement_ThisTarget(), theEcorePackage.getEBoolean(), "thisTarget", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(xExpressionEClass, XExpression.class, "XExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
     initEClass(showValueEClass, ShowValue.class, "ShowValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getShowValue_Ref(), theEcorePackage.getEObject(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getShowValue_Unit(), theEcorePackage.getEString(), "unit", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getShowValue_Ref(), theXbasePackage.getXVariableDeclaration(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getShowValue_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(xVariableDeclarationEClass, XVariableDeclaration.class, "XVariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getXVariableDeclaration_Type(), theTypesPackage.getJvmTypeReference(), null, "type", null, 0, 1, XVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getXVariableDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, XVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getXVariableDeclaration_Right(), theXbasePackage.getXExpression(), null, "right", null, 0, 1, XVariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(xNumberLiteralEClass, XNumberLiteral.class, "XNumberLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getXNumberLiteral_Value(), theEcorePackage.getEString(), "value", null, 0, 1, XNumberLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getXNumberLiteral_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, XNumberLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(xNumberLiteralUnitEClass, XNumberLiteralUnit.class, "XNumberLiteralUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXNumberLiteralUnit_Value(), theEcorePackage.getEString(), "value", null, 0, 1, XNumberLiteralUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXNumberLiteralUnit_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, XNumberLiteralUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

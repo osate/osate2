@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getText <em>Text</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#isThisTarget <em>This Target</em>}</li>
  * </ul>
  * </p>
@@ -51,30 +51,30 @@ public interface DescriptionElement extends EObject
   void setText(String value);
 
   /**
-   * Returns the value of the '<em><b>Value</b></em>' containment reference.
+   * Returns the value of the '<em><b>Show Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Value</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Show Value</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Value</em>' containment reference.
-   * @see #setValue(ShowValue)
-   * @see org.osate.alisa.common.common.CommonPackage#getDescriptionElement_Value()
+   * @return the value of the '<em>Show Value</em>' containment reference.
+   * @see #setShowValue(ShowValue)
+   * @see org.osate.alisa.common.common.CommonPackage#getDescriptionElement_ShowValue()
    * @model containment="true"
    * @generated
    */
-  ShowValue getValue();
+  ShowValue getShowValue();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.DescriptionElement#getValue <em>Value</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value</em>' containment reference.
-   * @see #getValue()
+   * @param value the new value of the '<em>Show Value</em>' containment reference.
+   * @see #getShowValue()
    * @generated
    */
-  void setValue(ShowValue value);
+  void setShowValue(ShowValue value);
 
   /**
    * Returns the value of the '<em><b>This Target</b></em>' attribute.

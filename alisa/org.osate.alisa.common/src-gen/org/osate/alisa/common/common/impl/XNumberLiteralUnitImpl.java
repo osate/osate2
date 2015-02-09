@@ -10,26 +10,28 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.xtext.xbase.impl.XExpressionImpl;
+
 import org.osate.aadl2.UnitLiteral;
 
 import org.osate.alisa.common.common.CommonPackage;
-import org.osate.alisa.common.common.XNumberLiteral;
+import org.osate.alisa.common.common.XNumberLiteralUnit;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>XNumber Literal</b></em>'.
+ * An implementation of the model object '<em><b>XNumber Literal Unit</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.XNumberLiteralImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.XNumberLiteralImpl#getUnit <em>Unit</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl#getUnit <em>Unit</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLiteral
+public class XNumberLiteralUnitImpl extends XExpressionImpl implements XNumberLiteralUnit
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -66,7 +68,7 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
    * <!-- end-user-doc -->
    * @generated
    */
-  protected XNumberLiteralImpl()
+  protected XNumberLiteralUnitImpl()
   {
     super();
   }
@@ -79,7 +81,7 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
   @Override
   protected EClass eStaticClass()
   {
-    return CommonPackage.Literals.XNUMBER_LITERAL;
+    return CommonPackage.Literals.XNUMBER_LITERAL_UNIT;
   }
 
   /**
@@ -102,7 +104,7 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
     String oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.XNUMBER_LITERAL__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.XNUMBER_LITERAL_UNIT__VALUE, oldValue, value));
   }
 
   /**
@@ -119,7 +121,7 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
       if (unit != oldUnit)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.XNUMBER_LITERAL__UNIT, oldUnit, unit));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CommonPackage.XNUMBER_LITERAL_UNIT__UNIT, oldUnit, unit));
       }
     }
     return unit;
@@ -145,7 +147,7 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
     UnitLiteral oldUnit = unit;
     unit = newUnit;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.XNUMBER_LITERAL__UNIT, oldUnit, unit));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.XNUMBER_LITERAL_UNIT__UNIT, oldUnit, unit));
   }
 
   /**
@@ -158,9 +160,9 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL__VALUE:
+      case CommonPackage.XNUMBER_LITERAL_UNIT__VALUE:
         return getValue();
-      case CommonPackage.XNUMBER_LITERAL__UNIT:
+      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
         if (resolve) return getUnit();
         return basicGetUnit();
     }
@@ -177,10 +179,10 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL__VALUE:
+      case CommonPackage.XNUMBER_LITERAL_UNIT__VALUE:
         setValue((String)newValue);
         return;
-      case CommonPackage.XNUMBER_LITERAL__UNIT:
+      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
         setUnit((UnitLiteral)newValue);
         return;
     }
@@ -197,10 +199,10 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL__VALUE:
+      case CommonPackage.XNUMBER_LITERAL_UNIT__VALUE:
         setValue(VALUE_EDEFAULT);
         return;
-      case CommonPackage.XNUMBER_LITERAL__UNIT:
+      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
         setUnit((UnitLiteral)null);
         return;
     }
@@ -217,9 +219,9 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
   {
     switch (featureID)
     {
-      case CommonPackage.XNUMBER_LITERAL__VALUE:
+      case CommonPackage.XNUMBER_LITERAL_UNIT__VALUE:
         return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
-      case CommonPackage.XNUMBER_LITERAL__UNIT:
+      case CommonPackage.XNUMBER_LITERAL_UNIT__UNIT:
         return unit != null;
     }
     return super.eIsSet(featureID);
@@ -242,4 +244,4 @@ public class XNumberLiteralImpl extends XExpressionImpl implements XNumberLitera
     return result.toString();
   }
 
-} //XNumberLiteralImpl
+} //XNumberLiteralUnitImpl

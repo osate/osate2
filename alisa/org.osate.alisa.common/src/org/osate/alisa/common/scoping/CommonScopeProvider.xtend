@@ -3,25 +3,25 @@
  */
 package org.osate.alisa.common.scoping
 
-import org.eclipse.xtext.scoping.impl.SimpleScope
-import org.eclipse.xtext.scoping.IScope
-import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.util.SimpleAttributeResolver
+import java.util.ArrayList
+import java.util.Collection
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.osate.alisa.common.common.XNumberLiteral
-import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.IEObjectDescription
+import org.eclipse.xtext.scoping.IScope
+import org.eclipse.xtext.scoping.Scopes
+import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.xtext.scoping.impl.SimpleScope
+import org.eclipse.xtext.util.SimpleAttributeResolver
+import org.eclipse.xtext.xbase.XNumberLiteral
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.UnitLiteral
-import org.eclipse.xtext.resource.IEObjectDescription
 import org.osate.aadl2.UnitsType
-import java.util.ArrayList
-import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.alisa.common.common.ShowValue
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.common.util.BasicEList
-import java.util.Collection
 
 /**
  * This class contains custom scoping description.
@@ -30,13 +30,22 @@ import java.util.Collection
  * on how and when to use it 
  *
  */
-class CommonScopeProvider extends org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider {
+class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 	
 	def protected static scopeFor(Iterable<? extends EObject> elements) {
 		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
 	
 		def scope_UnitLiteral(XNumberLiteral context, EReference reference) {
+		val units = context.unitLiterals
+		if (!units.empty){
+			units.scopeFor
+		} else {
+			IScope.NULLSCOPE
+		}
+		
+		}
+		def scope_UnitLiteral(ShowValue context, EReference reference) {
 		val units = context.unitLiterals
 		if (!units.empty){
 			units.scopeFor

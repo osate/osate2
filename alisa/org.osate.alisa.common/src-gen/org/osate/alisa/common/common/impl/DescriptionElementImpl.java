@@ -23,7 +23,7 @@ import org.osate.alisa.common.common.ShowValue;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getText <em>Text</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getShowValue <em>Show Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isThisTarget <em>This Target</em>}</li>
  * </ul>
  * </p>
@@ -53,14 +53,14 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
   protected String text = TEXT_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
+   * The cached value of the '{@link #getShowValue() <em>Show Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValue()
+   * @see #getShowValue()
    * @generated
    * @ordered
    */
-  protected ShowValue value;
+  protected ShowValue showValue;
 
   /**
    * The default value of the '{@link #isThisTarget() <em>This Target</em>}' attribute.
@@ -131,9 +131,9 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public ShowValue getValue()
+  public ShowValue getShowValue()
   {
-    return value;
+    return showValue;
   }
 
   /**
@@ -141,13 +141,13 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetValue(ShowValue newValue, NotificationChain msgs)
+  public NotificationChain basicSetShowValue(ShowValue newShowValue, NotificationChain msgs)
   {
-    ShowValue oldValue = value;
-    value = newValue;
+    ShowValue oldShowValue = showValue;
+    showValue = newShowValue;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__VALUE, oldValue, newValue);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE, oldShowValue, newShowValue);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -158,20 +158,20 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(ShowValue newValue)
+  public void setShowValue(ShowValue newShowValue)
   {
-    if (newValue != value)
+    if (newShowValue != showValue)
     {
       NotificationChain msgs = null;
-      if (value != null)
-        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.DESCRIPTION_ELEMENT__VALUE, null, msgs);
-      if (newValue != null)
-        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.DESCRIPTION_ELEMENT__VALUE, null, msgs);
-      msgs = basicSetValue(newValue, msgs);
+      if (showValue != null)
+        msgs = ((InternalEObject)showValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE, null, msgs);
+      if (newShowValue != null)
+        msgs = ((InternalEObject)newShowValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE, null, msgs);
+      msgs = basicSetShowValue(newShowValue, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__VALUE, newValue, newValue));
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE, newShowValue, newShowValue));
   }
 
   /**
@@ -207,8 +207,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
-        return basicSetValue(null, msgs);
+      case CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE:
+        return basicSetShowValue(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -225,8 +225,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
     {
       case CommonPackage.DESCRIPTION_ELEMENT__TEXT:
         return getText();
-      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
-        return getValue();
+      case CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE:
+        return getShowValue();
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         return isThisTarget();
     }
@@ -246,8 +246,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
       case CommonPackage.DESCRIPTION_ELEMENT__TEXT:
         setText((String)newValue);
         return;
-      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
-        setValue((ShowValue)newValue);
+      case CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE:
+        setShowValue((ShowValue)newValue);
         return;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         setThisTarget((Boolean)newValue);
@@ -269,8 +269,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
       case CommonPackage.DESCRIPTION_ELEMENT__TEXT:
         setText(TEXT_EDEFAULT);
         return;
-      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
-        setValue((ShowValue)null);
+      case CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE:
+        setShowValue((ShowValue)null);
         return;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         setThisTarget(THIS_TARGET_EDEFAULT);
@@ -291,8 +291,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
     {
       case CommonPackage.DESCRIPTION_ELEMENT__TEXT:
         return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
-      case CommonPackage.DESCRIPTION_ELEMENT__VALUE:
-        return value != null;
+      case CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE:
+        return showValue != null;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         return thisTarget != THIS_TARGET_EDEFAULT;
     }
