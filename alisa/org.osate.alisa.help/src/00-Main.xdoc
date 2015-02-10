@@ -27,7 +27,7 @@ codelanguage-def[Aadl]
 
 codelanguage-def[ReqSpec]
 [
-	library,for,specification,goal,include,
+	library,for,specification,goal,include, val, compute, value,
 	document,constants,folder,goal,of,category,
 	description,assert,title, refines, mitigates, 
 	assert,rationale,refined,decomposed,to,evolved, this,
@@ -37,7 +37,7 @@ codelanguage-def[ReqSpec]
 
 codelanguage-def[Verify]
 [
-	plan,for,title,description,weights,
+	plan,for,title,description,weights, as, enum,
 	assert,rationale,library,folder,activity,category,method,timeout
 	,all,andthen,failthen,when,registry, assumption, claim
 ]

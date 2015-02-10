@@ -1267,46 +1267,75 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReqPredicate");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cInformalPredicateParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cValueAssertionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cInputAssumptionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cOutputGuaranteeParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cBehaviorEquationParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cSPeARPredicateParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cXPredicateParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cValueAssertionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cInputAssumptionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cOutputGuaranteeParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cBehaviorEquationParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cSPeARPredicateParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//ReqPredicate:
-		//	InformalPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation | SPeARPredicate;
+		//	InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation |
+		//	SPeARPredicate;
 		public ParserRule getRule() { return rule; }
 
-		//InformalPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation | SPeARPredicate
+		//InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation | SPeARPredicate
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//InformalPredicate
 		public RuleCall getInformalPredicateParserRuleCall_0() { return cInformalPredicateParserRuleCall_0; }
 
+		//XPredicate
+		public RuleCall getXPredicateParserRuleCall_1() { return cXPredicateParserRuleCall_1; }
+
 		//ValueAssertion
-		public RuleCall getValueAssertionParserRuleCall_1() { return cValueAssertionParserRuleCall_1; }
+		public RuleCall getValueAssertionParserRuleCall_2() { return cValueAssertionParserRuleCall_2; }
 
 		//InputAssumption
-		public RuleCall getInputAssumptionParserRuleCall_2() { return cInputAssumptionParserRuleCall_2; }
+		public RuleCall getInputAssumptionParserRuleCall_3() { return cInputAssumptionParserRuleCall_3; }
 
 		//OutputGuarantee
-		public RuleCall getOutputGuaranteeParserRuleCall_3() { return cOutputGuaranteeParserRuleCall_3; }
+		public RuleCall getOutputGuaranteeParserRuleCall_4() { return cOutputGuaranteeParserRuleCall_4; }
 
 		//BehaviorEquation
-		public RuleCall getBehaviorEquationParserRuleCall_4() { return cBehaviorEquationParserRuleCall_4; }
+		public RuleCall getBehaviorEquationParserRuleCall_5() { return cBehaviorEquationParserRuleCall_5; }
 
 		//SPeARPredicate
-		public RuleCall getSPeARPredicateParserRuleCall_5() { return cSPeARPredicateParserRuleCall_5; }
+		public RuleCall getSPeARPredicateParserRuleCall_6() { return cSPeARPredicateParserRuleCall_6; }
 	}
 
 	public class InformalPredicateElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "InformalPredicate");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cPredicateKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cTextKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cDescriptionAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cDescriptionSTRINGTerminalRuleCall_1_0 = (RuleCall)cDescriptionAssignment_1.eContents().get(0);
 		
 		//InformalPredicate:
+		//	"text" description=STRING;
+		public ParserRule getRule() { return rule; }
+
+		//"text" description=STRING
+		public Group getGroup() { return cGroup; }
+
+		//"text"
+		public Keyword getTextKeyword_0() { return cTextKeyword_0; }
+
+		//description=STRING
+		public Assignment getDescriptionAssignment_1() { return cDescriptionAssignment_1; }
+
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_1_0() { return cDescriptionSTRINGTerminalRuleCall_1_0; }
+	}
+
+	public class XPredicateElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XPredicate");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cPredicateKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cDescriptionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_1_0 = (RuleCall)cDescriptionAssignment_1.eContents().get(0);
+		
+		//XPredicate:
 		//	"predicate" description=STRING;
 		public ParserRule getRule() { return rule; }
 
@@ -1723,6 +1752,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	private final RequirementElements pRequirement;
 	private final ReqPredicateElements pReqPredicate;
 	private final InformalPredicateElements pInformalPredicate;
+	private final XPredicateElements pXPredicate;
 	private final ValueAssertionElements pValueAssertion;
 	private final InputAssumptionElements pInputAssumption;
 	private final OutputGuaranteeElements pOutputGuarantee;
@@ -1757,6 +1787,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.pRequirement = new RequirementElements();
 		this.pReqPredicate = new ReqPredicateElements();
 		this.pInformalPredicate = new InformalPredicateElements();
+		this.pXPredicate = new XPredicateElements();
 		this.pValueAssertion = new ValueAssertionElements();
 		this.pInputAssumption = new InputAssumptionElements();
 		this.pOutputGuarantee = new OutputGuaranteeElements();
@@ -1941,7 +1972,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReqPredicate:
-	//	InformalPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation | SPeARPredicate;
+	//	InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation |
+	//	SPeARPredicate;
 	public ReqPredicateElements getReqPredicateAccess() {
 		return pReqPredicate;
 	}
@@ -1951,13 +1983,23 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//InformalPredicate:
-	//	"predicate" description=STRING;
+	//	"text" description=STRING;
 	public InformalPredicateElements getInformalPredicateAccess() {
 		return pInformalPredicate;
 	}
 	
 	public ParserRule getInformalPredicateRule() {
 		return getInformalPredicateAccess().getRule();
+	}
+
+	//XPredicate:
+	//	"predicate" description=STRING;
+	public XPredicateElements getXPredicateAccess() {
+		return pXPredicate;
+	}
+	
+	public ParserRule getXPredicateRule() {
+		return getXPredicateAccess().getRule();
 	}
 
 	//ValueAssertion:

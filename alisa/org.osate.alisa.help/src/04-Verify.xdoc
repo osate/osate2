@@ -27,9 +27,8 @@ code[Verify][
 	\[
 		( description "Verification plan for a" & "second line" )? // multi-line text
 		<Claim>*
-		( rationale <MultiLinetext> )?
+		( rationale <String> )?
 		( plan assumption <VerificationPlan>+ )?
-		( <ClaimWeights>+ )?
 	\]
 ]
 
@@ -47,7 +46,7 @@ code[Verify][
 	for <requirement reference>
 	\[
 		( assert <ArgumentExpression>
-	 	( rationale <MultiLineString> <)?
+	 	( rationale <String> <)?
 		( <Claim> )*  
 	\]
 ]
@@ -118,7 +117,7 @@ code[Verify][
 	( for <requirementreference> )?
 	\[ 
 		( description Description )?
-		( method <VerificationMethodReference> )?
+		method <VerificationMethodReference> ( as <ComputeVariable Reference> )?
 		( timeout  <integer> )?
 		( rationale <MultiLineString> )?
 	\]
@@ -158,7 +157,7 @@ VerificationAssumption ::=
 	)
 	\]
 
-@e[enum] MethodTypes:
+enum MethodTypes:
 	singlepredicate | singleanalysis | assertionexception | multimarker | multidiagnostics | resultreport 
 	| resoluteprove | manual
 ]

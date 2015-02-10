@@ -78,6 +78,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
       case ReqSpecPackage.INFORMAL_PREDICATE: return createInformalPredicate();
+      case ReqSpecPackage.XPREDICATE: return createXPredicate();
       case ReqSpecPackage.VALUE_ASSERTION: return createValueAssertion();
       case ReqSpecPackage.INPUT_ASSUMPTION: return createInputAssumption();
       case ReqSpecPackage.OUTPUT_GUARANTEE: return createOutputGuarantee();
@@ -242,6 +243,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     InformalPredicateImpl informalPredicate = new InformalPredicateImpl();
     return informalPredicate;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public XPredicate createXPredicate()
+  {
+    XPredicateImpl xPredicate = new XPredicateImpl();
+    return xPredicate;
   }
 
   /**

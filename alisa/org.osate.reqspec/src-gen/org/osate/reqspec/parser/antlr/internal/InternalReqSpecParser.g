@@ -2050,51 +2050,61 @@ ruleReqPredicate returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getReqPredicateAccess().getValueAssertionParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getReqPredicateAccess().getXPredicateParserRuleCall_1()); 
     }
-    this_ValueAssertion_1=ruleValueAssertion
+    this_XPredicate_1=ruleXPredicate
     {
-        $current = $this_ValueAssertion_1.current;
+        $current = $this_XPredicate_1.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getReqPredicateAccess().getInputAssumptionParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getReqPredicateAccess().getValueAssertionParserRuleCall_2()); 
     }
-    this_InputAssumption_2=ruleInputAssumption
+    this_ValueAssertion_2=ruleValueAssertion
     {
-        $current = $this_InputAssumption_2.current;
+        $current = $this_ValueAssertion_2.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getReqPredicateAccess().getOutputGuaranteeParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getReqPredicateAccess().getInputAssumptionParserRuleCall_3()); 
     }
-    this_OutputGuarantee_3=ruleOutputGuarantee
+    this_InputAssumption_3=ruleInputAssumption
     {
-        $current = $this_OutputGuarantee_3.current;
+        $current = $this_InputAssumption_3.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getReqPredicateAccess().getBehaviorEquationParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getReqPredicateAccess().getOutputGuaranteeParserRuleCall_4()); 
     }
-    this_BehaviorEquation_4=ruleBehaviorEquation
+    this_OutputGuarantee_4=ruleOutputGuarantee
     {
-        $current = $this_BehaviorEquation_4.current;
+        $current = $this_OutputGuarantee_4.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getReqPredicateAccess().getSPeARPredicateParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getReqPredicateAccess().getBehaviorEquationParserRuleCall_5()); 
     }
-    this_SPeARPredicate_5=ruleSPeARPredicate
+    this_BehaviorEquation_5=ruleBehaviorEquation
     {
-        $current = $this_SPeARPredicate_5.current;
+        $current = $this_BehaviorEquation_5.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getReqPredicateAccess().getSPeARPredicateParserRuleCall_6()); 
+    }
+    this_SPeARPredicate_6=ruleSPeARPredicate
+    {
+        $current = $this_SPeARPredicate_6.current;
         afterParserOrEnumRuleCall();
     }
 )
@@ -2119,9 +2129,9 @@ ruleInformalPredicate returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=Predicate
+	otherlv_0=Text
     {
-    	newLeafNode(otherlv_0, grammarAccess.getInformalPredicateAccess().getPredicateKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getInformalPredicateAccess().getTextKeyword_0());
     }
 (
 (
@@ -2132,6 +2142,50 @@ ruleInformalPredicate returns [EObject current=null]
 		{
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getInformalPredicateRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"description",
+        		lv_description_1_0, 
+        		"STRING");
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleXPredicate
+entryRuleXPredicate returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getXPredicateRule()); }
+	 iv_ruleXPredicate=ruleXPredicate 
+	 { $current=$iv_ruleXPredicate.current; } 
+	 EOF 
+;
+
+// Rule XPredicate
+ruleXPredicate returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+	otherlv_0=Predicate
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getXPredicateAccess().getPredicateKeyword_0());
+    }
+(
+(
+		lv_description_1_0=RULE_STRING
+		{
+			newLeafNode(lv_description_1_0, grammarAccess.getXPredicateAccess().getDescriptionSTRINGTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getXPredicateRule());
 	        }
        		setWithLastConsumed(
        			$current, 

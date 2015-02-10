@@ -80,6 +80,7 @@ import org.osate.reqspec.reqSpec.SPeARPredicate;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.ValToPropertyMapping;
 import org.osate.reqspec.reqSpec.ValueAssertion;
+import org.osate.reqspec.reqSpec.XPredicate;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
 
 @SuppressWarnings("all")
@@ -264,6 +265,13 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				if(context == grammarAccess.getReqPredicateRule() ||
 				   context == grammarAccess.getValueAssertionRule()) {
 					sequence_ValueAssertion(context, (ValueAssertion) semanticObject); 
+					return; 
+				}
+				else break;
+			case ReqSpecPackage.XPREDICATE:
+				if(context == grammarAccess.getReqPredicateRule() ||
+				   context == grammarAccess.getXPredicateRule()) {
+					sequence_XPredicate(context, (XPredicate) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1553,5 +1561,21 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 */
 	protected void sequence_ValueAssertion(EObject context, ValueAssertion semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     description=STRING
+	 */
+	protected void sequence_XPredicate(EObject context, XPredicate semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.XPREDICATE__DESCRIPTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.XPREDICATE__DESCRIPTION));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getXPredicateAccess().getDescriptionSTRINGTerminalRuleCall_1_0(), semanticObject.getDescription());
+		feeder.finish();
 	}
 }

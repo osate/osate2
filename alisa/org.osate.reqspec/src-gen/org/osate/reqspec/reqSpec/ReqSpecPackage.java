@@ -917,6 +917,34 @@ public interface ReqSpecPackage extends EPackage
   int INFORMAL_PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.XPredicateImpl <em>XPredicate</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.XPredicateImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getXPredicate()
+   * @generated
+   */
+  int XPREDICATE = 14;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPREDICATE__DESCRIPTION = REQ_PREDICATE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>XPredicate</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XPREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ValueAssertionImpl <em>Value Assertion</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -924,7 +952,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValueAssertion()
    * @generated
    */
-  int VALUE_ASSERTION = 14;
+  int VALUE_ASSERTION = 15;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -961,7 +989,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getInputAssumption()
    * @generated
    */
-  int INPUT_ASSUMPTION = 15;
+  int INPUT_ASSUMPTION = 16;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -998,7 +1026,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getOutputGuarantee()
    * @generated
    */
-  int OUTPUT_GUARANTEE = 16;
+  int OUTPUT_GUARANTEE = 17;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1035,7 +1063,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getBehaviorEquation()
    * @generated
    */
-  int BEHAVIOR_EQUATION = 17;
+  int BEHAVIOR_EQUATION = 18;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1072,7 +1100,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSPeARPredicate()
    * @generated
    */
-  int SPE_AR_PREDICATE = 18;
+  int SPE_AR_PREDICATE = 19;
 
   /**
    * The feature id for the '<em><b>Predicate</b></em>' attribute.
@@ -1100,7 +1128,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 19;
+  int EXTERNAL_DOCUMENT = 20;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1137,7 +1165,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValToPropertyMapping()
    * @generated
    */
-  int VAL_TO_PROPERTY_MAPPING = 20;
+  int VAL_TO_PROPERTY_MAPPING = 21;
 
   /**
    * The feature id for the '<em><b>Constant</b></em>' reference.
@@ -1834,6 +1862,27 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EAttribute getInformalPredicate_Description();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.XPredicate <em>XPredicate</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>XPredicate</em>'.
+   * @see org.osate.reqspec.reqSpec.XPredicate
+   * @generated
+   */
+  EClass getXPredicate();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.XPredicate#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see org.osate.reqspec.reqSpec.XPredicate#getDescription()
+   * @see #getXPredicate()
+   * @generated
+   */
+  EAttribute getXPredicate_Description();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ValueAssertion <em>Value Assertion</em>}'.
@@ -2594,6 +2643,24 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute INFORMAL_PREDICATE__DESCRIPTION = eINSTANCE.getInformalPredicate_Description();
+
+    /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.XPredicateImpl <em>XPredicate</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.XPredicateImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getXPredicate()
+     * @generated
+     */
+    EClass XPREDICATE = eINSTANCE.getXPredicate();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute XPREDICATE__DESCRIPTION = eINSTANCE.getXPredicate_Description();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ValueAssertionImpl <em>Value Assertion</em>}' class.

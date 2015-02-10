@@ -43,6 +43,7 @@ import org.osate.reqspec.reqSpec.SPeARPredicate;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.ValToPropertyMapping;
 import org.osate.reqspec.reqSpec.ValueAssertion;
+import org.osate.reqspec.reqSpec.XPredicate;
 
 /**
  * <!-- begin-user-doc -->
@@ -149,6 +150,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * @generated
    */
   private EClass informalPredicateEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass xPredicateEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -892,6 +900,26 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getXPredicate()
+  {
+    return xPredicateEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getXPredicate_Description()
+  {
+    return (EAttribute)xPredicateEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getValueAssertion()
   {
     return valueAssertionEClass;
@@ -1193,6 +1221,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     informalPredicateEClass = createEClass(INFORMAL_PREDICATE);
     createEAttribute(informalPredicateEClass, INFORMAL_PREDICATE__DESCRIPTION);
 
+    xPredicateEClass = createEClass(XPREDICATE);
+    createEAttribute(xPredicateEClass, XPREDICATE__DESCRIPTION);
+
     valueAssertionEClass = createEClass(VALUE_ASSERTION);
     createEReference(valueAssertionEClass, VALUE_ASSERTION__XPRESSION);
     createEReference(valueAssertionEClass, VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS);
@@ -1272,6 +1303,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     goalEClass.getESuperTypes().add(this.getContractualElement());
     requirementEClass.getESuperTypes().add(this.getContractualElement());
     informalPredicateEClass.getESuperTypes().add(this.getReqPredicate());
+    xPredicateEClass.getESuperTypes().add(this.getReqPredicate());
     valueAssertionEClass.getESuperTypes().add(this.getReqPredicate());
     inputAssumptionEClass.getESuperTypes().add(this.getReqPredicate());
     outputGuaranteeEClass.getESuperTypes().add(this.getReqPredicate());
@@ -1354,6 +1386,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     initEClass(informalPredicateEClass, InformalPredicate.class, "InformalPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getInformalPredicate_Description(), theEcorePackage.getEString(), "description", null, 0, 1, InformalPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(xPredicateEClass, XPredicate.class, "XPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getXPredicate_Description(), theEcorePackage.getEString(), "description", null, 0, 1, XPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(valueAssertionEClass, ValueAssertion.class, "ValueAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getValueAssertion_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, ValueAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

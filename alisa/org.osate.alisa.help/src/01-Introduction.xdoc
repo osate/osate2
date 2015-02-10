@@ -50,6 +50,20 @@ zero or more times, e[( construct )+] for a construct repeated one or more times
 Grammr rules are labeled by e[<conceptname> ::=] and rules may be referred by e[<conceptname>]. The rerefence
 means that the construct is to be inserted in place as nested entity within another construct.
 
+We use the following approach for cross references:
+ul[
+item[References to AADL classifiers use the AADL2 syntax to qualify the classifier name with the package name,
+e.g., my::pack::sys.impl for a system implementation reference.]
+item[Within requirements the user may reference
+a feature within a classifier. this is done by the feature name, which is resolved relative to the classifier
+reference of the enclosing Requirement specifications container.]
+item[References to objects in the Alisa languages, e.g., requirements and goals, use a "." separator
+in the qualified name path, e.g., systemreqs.r1. This includes references to verification activities,
+verification methods, verification plans, and to stakeholders.]
+item[User defined categories are globally known by their name. Categories of different kinds (requirement,
+verification, selection) can use the same name as they only have to be unique within their kind.]
+]
+
 Note that we will be providing a user interface that presents the Alisa information in a grpahical or
 structured navigator view with the details of a selected entity shown in a properties view. The user
 will be able to create entities within the navigator view and edit its atttributes in the properties

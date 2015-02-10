@@ -137,6 +137,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRequirementAccess().getGroup_5_10(), "rule__Requirement__Group_5_10__0");
 					put(grammarAccess.getRequirementAccess().getGroup_5_11(), "rule__Requirement__Group_5_11__0");
 					put(grammarAccess.getInformalPredicateAccess().getGroup(), "rule__InformalPredicate__Group__0");
+					put(grammarAccess.getXPredicateAccess().getGroup(), "rule__XPredicate__Group__0");
 					put(grammarAccess.getValueAssertionAccess().getGroup(), "rule__ValueAssertion__Group__0");
 					put(grammarAccess.getValueAssertionAccess().getGroup_3(), "rule__ValueAssertion__Group_3__0");
 					put(grammarAccess.getInputAssumptionAccess().getGroup(), "rule__InputAssumption__Group__0");
@@ -398,6 +399,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRequirementAccess().getDocumentRequirementAssignment_5_10_3(), "rule__Requirement__DocumentRequirementAssignment_5_10_3");
 					put(grammarAccess.getRequirementAccess().getDocReferenceAssignment_5_11_2(), "rule__Requirement__DocReferenceAssignment_5_11_2");
 					put(grammarAccess.getInformalPredicateAccess().getDescriptionAssignment_1(), "rule__InformalPredicate__DescriptionAssignment_1");
+					put(grammarAccess.getXPredicateAccess().getDescriptionAssignment_1(), "rule__XPredicate__DescriptionAssignment_1");
 					put(grammarAccess.getValueAssertionAccess().getXpressionAssignment_2(), "rule__ValueAssertion__XpressionAssignment_2");
 					put(grammarAccess.getValueAssertionAccess().getValToPropertyMappingsAssignment_3_1(), "rule__ValueAssertion__ValToPropertyMappingsAssignment_3_1");
 					put(grammarAccess.getInputAssumptionAccess().getXpressionAssignment_2_0(), "rule__InputAssumption__XpressionAssignment_2_0");

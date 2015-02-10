@@ -87,8 +87,9 @@ requirement
 	\[  
 	 (category guarantee )?
 	 (description  this " shall not exceed " limit%sec " latency")? 
-	 (constants ( limit = 200 ms )+ )?
-	 (assert actual <= limit )?
+	 (val limit = 200 ms )* 
+	 (compute actualbudget )*
+	 ( <Assertion> )*
 	 (rationale "explanation")? 
 	 (see goal (docx.goal2 )+ )?
 	 (mitigates ( model.hazard3 )+ )? 
@@ -114,15 +115,13 @@ and the newline operator
 e[&] to create multi line strings. The optional e[%ID] is used to specify the measurement unit to be
 used for showing the value of numeric constants.]
 
-item[The e[constants] field allows users to define values to be used in the requirement specification. These
+item[The e[val] field allows users to define values to be used in the requirement specification. These
 may be values that the user may want to change and are used in more than one location. The values can be numeric,
 optionally with measurement unit, or a string. They can be referenced
-in the predicate of the e[assert] or in the e[description].
+in the predicate of the e[assertions] or in the e[description].
 ]
-
-item[The e[assert] attribute specifies a predicate that must be satisfied for the requirement. The predicate
-typically refers to one of the constants and has a palceholder for actual values that are the result
-of a computational fucntion executed as part of a verification method.]
+item[The e[compute] field allows users to introduce variables whose value will be computed by a verificaiton
+method. Theis vraiable can then be referenced in assertion expressions.]
 item[The e[rationale] attributes is a multi line text field]
 item[The e[see goal] attributes provides traceability to stakeholder goals expressed in ALRS form that relate to the requirement.]
 item[The e[mitigates] attributes specifies a reference to a hazard expressed in EMV2 that is being mitigated
@@ -139,6 +138,41 @@ requirement document.]
 item[The e[see document] attribute is a reference to an external document that may not be in a format
 importable to Alisa.]
 ]
+
+We distiguoish between different types of assertions.
+ul[
+item[The e[text] assertions allows the user to specify a condition informally as a text string.
+This is useful if the user has not figured out yet how to specify the requirement more formally.]
+
+item[The e[assert value] assertion specifies a condition that a computed value must satisfy. Typically
+this is used to specify that some computed numeric value, e.g., end to end latency, stays within limits.
+Users can refer to the e[val] constants and e[compute] variables of the requirement or its enclosing
+requirement specification container. If the computed value is to be within a range users can specify
+the range condition as follows: e[ minval..maxval.contains(actual)]. Otherwise esxpressions with comparison
+operators can be used. The syntax currently allows the user to specify any e[XBase] expression. ]
+
+item[The e[assert value] expression may optionally include a mapping of e[val] constants to AADL properties
+to reflect the fact tha tthis constant is expected to be represent in the model by this property. This
+is useful if an analysis (verification) method expects to find the data reflected as property.]
+
+item[The e[input assumption] assertion represents assumptions made about incoming information. Users
+can express these assumptions as an e[XBase]
+expression, or by referring to an e[assume] statement in an e[agree] subclause in the model.]
+
+item[The e[output guarantee] assertion represents guarantees made about outgoing information. Users
+can express these guarantees as an e[XBase]
+expression, or by referring to a e[guarantee] statement in an e[agree] subclause in the model.]
+
+item[The e[eq] assertion represents an invariant equation tha tmust hold between inputs and outputs.
+Users
+can express these guarantees as an e[XBase]
+expression, or by referring to an e[eq] or other statement in an e[agree] subclause in the model.]
+
+item[The e[invariant] assertion represents an invariant expressed in SPeAR, currently expressed as a string.]
+item[The e[predicate] assertions allows the user to specify a condition in e[XBase].]
+
+]
+
 
 Requirements can used to represent system requirements imported from existing documents, or aligned with
 the architecture model using the architecture-led requirement specification process. 
@@ -207,7 +241,7 @@ a requirement specification for a system.
 code[ReqSpec][
 <ReqSpec> ::=
 requirement specification Sysspec (':' "short title" )?
-( for mypack::GPSDevice | "Target description" )?
+( for mypack::GPSDevice )?
 ( include ( Sysspec1 )+ )?
 (description Description)? 
 \[ 
@@ -228,15 +262,15 @@ code[ReqSpec][
 requirement specification scsreqs 
 for resourcebudgets::SCS 
 \[ 
-	constants MaxBudget = 400 kg
-	MaxLatency = 50ms
+	val MaxBudget = 400 kg
+	val MaxLatency = 50ms
 	requirement R1 \[
 		description this " shall have a budget within " Maxbudget
-		assert actualbudget <= MaxBudget
+		assert value actualbudget <= MaxBudget
 	\]
 	requirement R2 \[
 		description "hello"
-		assert actuallatency <= MaxLatency
+		assert value actuallatency <= MaxLatency
 	\]
 \]
 ]
@@ -254,7 +288,7 @@ code[Categories][
 	\]
 
 <RequirementCategory> :
-	guarantee ( extends contract )? 
+	safety ( extends dependebility )? 
 ]
 
 Requirement categories must have globally unique names. References to a category do not have to be qualified.
@@ -276,7 +310,7 @@ code[Organization][
 <Stakeholder> ::=
 	stakeholder phf
 	\[
-		( full name  Peter Feiler )?
+		( full name  "Peter Feiler" )?
 		( title  "Chief Engineer" )?
 		( description  "my job is ..." )?
 		( role "reviewer" )?
