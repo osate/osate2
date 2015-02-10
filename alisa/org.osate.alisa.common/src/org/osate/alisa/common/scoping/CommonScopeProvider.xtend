@@ -31,39 +31,43 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
  *
  */
 class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
-	
+
 	def protected static scopeFor(Iterable<? extends EObject> elements) {
-		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		new SimpleScope(IScope::NULLSCOPE,
+			Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
-	
-		def scope_UnitLiteral(XNumberLiteralUnit context, EReference reference) {
+
+	def scope_UnitLiteral(XNumberLiteralUnit context, EReference reference) {
 		val units = context.unitLiterals
-		if (!units.empty){
-			units.scopeFor
-		} else {
-			IScope.NULLSCOPE
-		}
-		
-		}
-		def scope_UnitLiteral(ShowValue context, EReference reference) {
-		val units = context.unitLiterals
-		if (!units.empty){
+		if (!units.empty) {
 			units.scopeFor
 		} else {
 			IScope.NULLSCOPE
 		}
 	}
-	
+
+	def scope_UnitLiteral(
+		ShowValue context,
+		EReference reference
+	) {
+		val units = context.unitLiterals
+		if (!units.empty) {
+			units.scopeFor
+		} else {
+			IScope.NULLSCOPE
+		}
+	}
 
 	val private static EClass UNITS_TYPE = Aadl2Package.eINSTANCE.getUnitsType();
 
 	def private static getUnitLiterals(EObject context) {
+
 		// TODO: Scope literals by type, but how to do we know the type of an
 		// expression?
 		val Collection<UnitLiteral> result = new ArrayList<UnitLiteral>()
 		for (IEObjectDescription desc : EMFIndexRetrieval.getAllEObjectsOfTypeInWorkspace(context, UNITS_TYPE)) {
-			val unitsType =  EcoreUtil.resolve(desc.getEObjectOrProxy(), context) as UnitsType;
-				unitsType.ownedLiterals.forall[lit|result += lit as UnitLiteral];
+			val unitsType = EcoreUtil.resolve(desc.getEObjectOrProxy(), context) as UnitsType;
+			unitsType.ownedLiterals.forall[lit|result += lit as UnitLiteral];
 		}
 
 		return result;
