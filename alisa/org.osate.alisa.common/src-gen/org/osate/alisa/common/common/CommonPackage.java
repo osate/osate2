@@ -198,52 +198,6 @@ public interface CommonPackage extends EPackage
   int SHOW_VALUE_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ConstantDeclarationImpl <em>Constant Declaration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.ConstantDeclarationImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getConstantDeclaration()
-   * @generated
-   */
-  int CONSTANT_DECLARATION = 4;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_DECLARATION__TYPE = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_DECLARATION__NAME = XbasePackage.XEXPRESSION_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_DECLARATION__RIGHT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 2;
-
-  /**
-   * The number of structural features of the '<em>Constant Declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTANT_DECLARATION_FEATURE_COUNT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 3;
-
-  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl <em>XNumber Literal Unit</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -251,7 +205,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXNumberLiteralUnit()
    * @generated
    */
-  int XNUMBER_LITERAL_UNIT = 5;
+  int XNUMBER_LITERAL_UNIT = 4;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -397,49 +351,6 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getShowValue_Unit();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.ConstantDeclaration <em>Constant Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Constant Declaration</em>'.
-   * @see org.osate.alisa.common.common.ConstantDeclaration
-   * @generated
-   */
-  EClass getConstantDeclaration();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.ConstantDeclaration#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see org.osate.alisa.common.common.ConstantDeclaration#getType()
-   * @see #getConstantDeclaration()
-   * @generated
-   */
-  EReference getConstantDeclaration_Type();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ConstantDeclaration#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.common.common.ConstantDeclaration#getName()
-   * @see #getConstantDeclaration()
-   * @generated
-   */
-  EAttribute getConstantDeclaration_Name();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.ConstantDeclaration#getRight <em>Right</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.osate.alisa.common.common.ConstantDeclaration#getRight()
-   * @see #getConstantDeclaration()
-   * @generated
-   */
-  EReference getConstantDeclaration_Right();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.XNumberLiteralUnit <em>XNumber Literal Unit</em>}'.
@@ -591,40 +502,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference SHOW_VALUE__UNIT = eINSTANCE.getShowValue_Unit();
-
-    /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ConstantDeclarationImpl <em>Constant Declaration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.ConstantDeclarationImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getConstantDeclaration()
-     * @generated
-     */
-    EClass CONSTANT_DECLARATION = eINSTANCE.getConstantDeclaration();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONSTANT_DECLARATION__TYPE = eINSTANCE.getConstantDeclaration_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CONSTANT_DECLARATION__NAME = eINSTANCE.getConstantDeclaration_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONSTANT_DECLARATION__RIGHT = eINSTANCE.getConstantDeclaration_Right();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl <em>XNumber Literal Unit</em>}' class.

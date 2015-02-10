@@ -576,8 +576,6 @@ finally {
 
 
 
-
-
 // Entry rule entryRuleXNumberLiteral
 entryRuleXNumberLiteral 
 :
@@ -2934,8 +2932,6 @@ rule__DescriptionElement__Alternatives
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 rule__XAssignment__Alternatives
@@ -9235,9 +9231,6 @@ rule__VerificationMethod__Group_7_2__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-
 
 
 
@@ -24898,10 +24891,6 @@ rule__DescriptionElement__ThisTargetAssignment_2
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-
-
 
 
 

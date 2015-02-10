@@ -145,9 +145,24 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createInformalPredicateAdapter();
       }
       @Override
-      public Adapter caseXPredicate(XPredicate object)
+      public Adapter caseValueAssertion(ValueAssertion object)
       {
-        return createXPredicateAdapter();
+        return createValueAssertionAdapter();
+      }
+      @Override
+      public Adapter caseInputAssumption(InputAssumption object)
+      {
+        return createInputAssumptionAdapter();
+      }
+      @Override
+      public Adapter caseOutputGuarantee(OutputGuarantee object)
+      {
+        return createOutputGuaranteeAdapter();
+      }
+      @Override
+      public Adapter caseBehaviorEquation(BehaviorEquation object)
+      {
+        return createBehaviorEquationAdapter();
       }
       @Override
       public Adapter caseSPeARPredicate(SPeARPredicate object)
@@ -158,6 +173,11 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
       public Adapter caseExternalDocument(ExternalDocument object)
       {
         return createExternalDocumentAdapter();
+      }
+      @Override
+      public Adapter caseValToPropertyMapping(ValToPropertyMapping object)
+      {
+        return createValToPropertyMappingAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -392,16 +412,61 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.XPredicate <em>XPredicate</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ValueAssertion <em>Value Assertion</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.XPredicate
+   * @see org.osate.reqspec.reqSpec.ValueAssertion
    * @generated
    */
-  public Adapter createXPredicateAdapter()
+  public Adapter createValueAssertionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.InputAssumption <em>Input Assumption</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.InputAssumption
+   * @generated
+   */
+  public Adapter createInputAssumptionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.OutputGuarantee <em>Output Guarantee</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.OutputGuarantee
+   * @generated
+   */
+  public Adapter createOutputGuaranteeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.BehaviorEquation <em>Behavior Equation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.BehaviorEquation
+   * @generated
+   */
+  public Adapter createBehaviorEquationAdapter()
   {
     return null;
   }
@@ -432,6 +497,21 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExternalDocumentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ValToPropertyMapping <em>Val To Property Mapping</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.ValToPropertyMapping
+   * @generated
+   */
+  public Adapter createValToPropertyMappingAdapter()
   {
     return null;
   }

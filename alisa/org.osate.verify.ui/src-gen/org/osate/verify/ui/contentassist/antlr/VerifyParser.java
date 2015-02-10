@@ -46,8 +46,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActionAccess().getAlternatives(), "rule__VerificationAction__Alternatives");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getXValDeclarationAccess().getAlternatives_2(), "rule__XValDeclaration__Alternatives_2");
-					put(grammarAccess.getConstantDeclarationAccess().getAlternatives_2(), "rule__ConstantDeclaration__Alternatives_2");
-					put(grammarAccess.getConstantDeclarationAccess().getRightAlternatives_4_0(), "rule__ConstantDeclaration__RightAlternatives_4_0");
 					put(grammarAccess.getXAssignmentAccess().getAlternatives(), "rule__XAssignment__Alternatives");
 					put(grammarAccess.getOpMultiAssignAccess().getAlternatives(), "rule__OpMultiAssign__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
@@ -147,9 +145,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getXValDeclarationAccess().getGroup(), "rule__XValDeclaration__Group__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0(), "rule__XValDeclaration__Group_2_0__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0_0(), "rule__XValDeclaration__Group_2_0_0__0");
-					put(grammarAccess.getConstantDeclarationAccess().getGroup(), "rule__ConstantDeclaration__Group__0");
-					put(grammarAccess.getConstantDeclarationAccess().getGroup_2_0(), "rule__ConstantDeclaration__Group_2_0__0");
-					put(grammarAccess.getConstantDeclarationAccess().getGroup_2_0_0(), "rule__ConstantDeclaration__Group_2_0_0__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup(), "rule__ComputeDeclaration__Group__0");
 					put(grammarAccess.getXNumberLiteralAccess().getGroup(), "rule__XNumberLiteral__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup(), "rule__ShowValue__Group__0");
@@ -396,10 +391,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__XValDeclaration__NameAssignment_2_0_0_1");
 					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_1(), "rule__XValDeclaration__NameAssignment_2_1");
 					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_4(), "rule__XValDeclaration__RightAssignment_4");
-					put(grammarAccess.getConstantDeclarationAccess().getTypeAssignment_2_0_0_0(), "rule__ConstantDeclaration__TypeAssignment_2_0_0_0");
-					put(grammarAccess.getConstantDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__ConstantDeclaration__NameAssignment_2_0_0_1");
-					put(grammarAccess.getConstantDeclarationAccess().getNameAssignment_2_1(), "rule__ConstantDeclaration__NameAssignment_2_1");
-					put(grammarAccess.getConstantDeclarationAccess().getRightAssignment_4(), "rule__ConstantDeclaration__RightAssignment_4");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_1(), "rule__ComputeDeclaration__NameAssignment_1");
 					put(grammarAccess.getXNumberLiteralAccess().getValueAssignment_1(), "rule__XNumberLiteral__ValueAssignment_1");
 					put(grammarAccess.getXNumberLiteralAccess().getUnitAssignment_2(), "rule__XNumberLiteral__UnitAssignment_2");

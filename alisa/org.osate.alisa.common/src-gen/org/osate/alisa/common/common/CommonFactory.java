@@ -59,15 +59,6 @@ public interface CommonFactory extends EFactory
   ShowValue createShowValue();
 
   /**
-   * Returns a new object of class '<em>Constant Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Constant Declaration</em>'.
-   * @generated
-   */
-  ConstantDeclaration createConstantDeclaration();
-
-  /**
    * Returns a new object of class '<em>XNumber Literal Unit</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

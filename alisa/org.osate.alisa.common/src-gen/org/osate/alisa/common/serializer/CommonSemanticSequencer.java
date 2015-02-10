@@ -59,7 +59,6 @@ import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
-import org.osate.alisa.common.common.ConstantDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
@@ -77,12 +76,6 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 			case CommonPackage.COMPUTE_DECLARATION:
 				if(context == grammarAccess.getComputeDeclarationRule()) {
 					sequence_ComputeDeclaration(context, (ComputeDeclaration) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.CONSTANT_DECLARATION:
-				if(context == grammarAccess.getConstantDeclarationRule()) {
-					sequence_ConstantDeclaration(context, (ConstantDeclaration) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1232,15 +1225,6 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getComputeDeclarationAccess().getNameValidIDParserRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (((type=JvmTypeReference name=ValidID) | name=ValidID) (right=XNumberLiteral | right=XStringLiteral | right=XBooleanLiteral))
-	 */
-	protected void sequence_ConstantDeclaration(EObject context, ConstantDeclaration semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

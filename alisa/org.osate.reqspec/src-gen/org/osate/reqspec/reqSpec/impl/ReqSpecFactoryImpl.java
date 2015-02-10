@@ -78,9 +78,13 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
       case ReqSpecPackage.INFORMAL_PREDICATE: return createInformalPredicate();
-      case ReqSpecPackage.XPREDICATE: return createXPredicate();
+      case ReqSpecPackage.VALUE_ASSERTION: return createValueAssertion();
+      case ReqSpecPackage.INPUT_ASSUMPTION: return createInputAssumption();
+      case ReqSpecPackage.OUTPUT_GUARANTEE: return createOutputGuarantee();
+      case ReqSpecPackage.BEHAVIOR_EQUATION: return createBehaviorEquation();
       case ReqSpecPackage.SPE_AR_PREDICATE: return createSPeARPredicate();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
+      case ReqSpecPackage.VAL_TO_PROPERTY_MAPPING: return createValToPropertyMapping();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -245,10 +249,43 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public XPredicate createXPredicate()
+  public ValueAssertion createValueAssertion()
   {
-    XPredicateImpl xPredicate = new XPredicateImpl();
-    return xPredicate;
+    ValueAssertionImpl valueAssertion = new ValueAssertionImpl();
+    return valueAssertion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public InputAssumption createInputAssumption()
+  {
+    InputAssumptionImpl inputAssumption = new InputAssumptionImpl();
+    return inputAssumption;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public OutputGuarantee createOutputGuarantee()
+  {
+    OutputGuaranteeImpl outputGuarantee = new OutputGuaranteeImpl();
+    return outputGuarantee;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BehaviorEquation createBehaviorEquation()
+  {
+    BehaviorEquationImpl behaviorEquation = new BehaviorEquationImpl();
+    return behaviorEquation;
   }
 
   /**
@@ -271,6 +308,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     ExternalDocumentImpl externalDocument = new ExternalDocumentImpl();
     return externalDocument;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ValToPropertyMapping createValToPropertyMapping()
+  {
+    ValToPropertyMappingImpl valToPropertyMapping = new ValToPropertyMappingImpl();
+    return valToPropertyMapping;
   }
 
   /**

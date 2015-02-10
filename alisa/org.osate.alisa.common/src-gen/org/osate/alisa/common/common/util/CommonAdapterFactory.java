@@ -97,11 +97,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createShowValueAdapter();
       }
       @Override
-      public Adapter caseConstantDeclaration(ConstantDeclaration object)
-      {
-        return createConstantDeclarationAdapter();
-      }
-      @Override
       public Adapter caseXNumberLiteralUnit(XNumberLiteralUnit object)
       {
         return createXNumberLiteralUnitAdapter();
@@ -189,21 +184,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createShowValueAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ConstantDeclaration <em>Constant Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ConstantDeclaration
-   * @generated
-   */
-  public Adapter createConstantDeclarationAdapter()
   {
     return null;
   }

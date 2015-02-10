@@ -149,13 +149,40 @@ public interface ReqSpecFactory extends EFactory
   InformalPredicate createInformalPredicate();
 
   /**
-   * Returns a new object of class '<em>XPredicate</em>'.
+   * Returns a new object of class '<em>Value Assertion</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>XPredicate</em>'.
+   * @return a new object of class '<em>Value Assertion</em>'.
    * @generated
    */
-  XPredicate createXPredicate();
+  ValueAssertion createValueAssertion();
+
+  /**
+   * Returns a new object of class '<em>Input Assumption</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Input Assumption</em>'.
+   * @generated
+   */
+  InputAssumption createInputAssumption();
+
+  /**
+   * Returns a new object of class '<em>Output Guarantee</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Output Guarantee</em>'.
+   * @generated
+   */
+  OutputGuarantee createOutputGuarantee();
+
+  /**
+   * Returns a new object of class '<em>Behavior Equation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Behavior Equation</em>'.
+   * @generated
+   */
+  BehaviorEquation createBehaviorEquation();
 
   /**
    * Returns a new object of class '<em>SPe AR Predicate</em>'.
@@ -174,6 +201,15 @@ public interface ReqSpecFactory extends EFactory
    * @generated
    */
   ExternalDocument createExternalDocument();
+
+  /**
+   * Returns a new object of class '<em>Val To Property Mapping</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Val To Property Mapping</em>'.
+   * @generated
+   */
+  ValToPropertyMapping createValToPropertyMapping();
 
   /**
    * Returns the package supported by this factory.

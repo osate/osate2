@@ -140,91 +140,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getRightXExpressionParserRuleCall_4_0() { return cRightXExpressionParserRuleCall_4_0; }
 	}
 
-	public class ConstantDeclarationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstantDeclaration");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cConstantDeclarationAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cConstantKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
-		private final Group cGroup_2_0_0 = (Group)cGroup_2_0.eContents().get(0);
-		private final Assignment cTypeAssignment_2_0_0_0 = (Assignment)cGroup_2_0_0.eContents().get(0);
-		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0 = (RuleCall)cTypeAssignment_2_0_0_0.eContents().get(0);
-		private final Assignment cNameAssignment_2_0_0_1 = (Assignment)cGroup_2_0_0.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_2_0_0_1_0 = (RuleCall)cNameAssignment_2_0_0_1.eContents().get(0);
-		private final Assignment cNameAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_2_1_0 = (RuleCall)cNameAssignment_2_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cRightAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final Alternatives cRightAlternatives_4_0 = (Alternatives)cRightAssignment_4.eContents().get(0);
-		private final RuleCall cRightXNumberLiteralParserRuleCall_4_0_0 = (RuleCall)cRightAlternatives_4_0.eContents().get(0);
-		private final RuleCall cRightXStringLiteralParserRuleCall_4_0_1 = (RuleCall)cRightAlternatives_4_0.eContents().get(1);
-		private final RuleCall cRightXBooleanLiteralParserRuleCall_4_0_2 = (RuleCall)cRightAlternatives_4_0.eContents().get(2);
-		
-		//// New rule for val only
-		////ConstantDeclaration returns xbase::XExpression:
-		////	{xbase::XVariableDeclaration}
-		//ConstantDeclaration returns xbase::XExpression:
-		//	{ConstantDeclaration} "constant" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=(XNumberLiteral |
-		//	XStringLiteral | XBooleanLiteral);
-		public ParserRule getRule() { return rule; }
-
-		//{ConstantDeclaration} "constant" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=(XNumberLiteral |
-		//XStringLiteral | XBooleanLiteral)
-		public Group getGroup() { return cGroup; }
-
-		//{ConstantDeclaration}
-		public Action getConstantDeclarationAction_0() { return cConstantDeclarationAction_0; }
-
-		//"constant"
-		public Keyword getConstantKeyword_1() { return cConstantKeyword_1; }
-
-		//=> (type=JvmTypeReference name=ValidID) | name=ValidID
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
-
-		//=> (type=JvmTypeReference name=ValidID)
-		public Group getGroup_2_0() { return cGroup_2_0; }
-
-		//type=JvmTypeReference name=ValidID
-		public Group getGroup_2_0_0() { return cGroup_2_0_0; }
-
-		//type=JvmTypeReference
-		public Assignment getTypeAssignment_2_0_0_0() { return cTypeAssignment_2_0_0_0; }
-
-		//JvmTypeReference
-		public RuleCall getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0; }
-
-		//name=ValidID
-		public Assignment getNameAssignment_2_0_0_1() { return cNameAssignment_2_0_0_1; }
-
-		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_2_0_0_1_0() { return cNameValidIDParserRuleCall_2_0_0_1_0; }
-
-		//name=ValidID
-		public Assignment getNameAssignment_2_1() { return cNameAssignment_2_1; }
-
-		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_2_1_0() { return cNameValidIDParserRuleCall_2_1_0; }
-
-		//"="
-		public Keyword getEqualsSignKeyword_3() { return cEqualsSignKeyword_3; }
-
-		//right=(XNumberLiteral | XStringLiteral | XBooleanLiteral)
-		public Assignment getRightAssignment_4() { return cRightAssignment_4; }
-
-		//XNumberLiteral | XStringLiteral | XBooleanLiteral
-		public Alternatives getRightAlternatives_4_0() { return cRightAlternatives_4_0; }
-
-		//XNumberLiteral
-		public RuleCall getRightXNumberLiteralParserRuleCall_4_0_0() { return cRightXNumberLiteralParserRuleCall_4_0_0; }
-
-		//XStringLiteral
-		public RuleCall getRightXStringLiteralParserRuleCall_4_0_1() { return cRightXStringLiteralParserRuleCall_4_0_1; }
-
-		//XBooleanLiteral
-		public RuleCall getRightXBooleanLiteralParserRuleCall_4_0_2() { return cRightXBooleanLiteralParserRuleCall_4_0_2; }
-	}
-
 	public class ComputeDeclarationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComputeDeclaration");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -232,6 +147,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameValidIDParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
+		//// New rule for val only
+		////ConstantDeclaration returns xbase::XExpression:
+		////	{xbase::XVariableDeclaration}
+		////ConstantDeclaration returns xbase::XExpression:
+		////	{ConstantDeclaration}
+		////	 'constant' (=> (type=JvmTypeReference name=ValidID) | name=ValidID) '=' 
+		////	 right=(XNumberLiteral | XStringLiteral | XBooleanLiteral)
+		////;
 		//ComputeDeclaration:
 		//	"compute" name=ValidID;
 		public ParserRule getRule() { return rule; }
@@ -385,7 +308,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final DescriptionElements pDescription;
 	private final DescriptionElementElements pDescriptionElement;
 	private final XValDeclarationElements pXValDeclaration;
-	private final ConstantDeclarationElements pConstantDeclaration;
 	private final ComputeDeclarationElements pComputeDeclaration;
 	private final XNumberLiteralElements pXNumberLiteral;
 	private final ShowValueElements pShowValue;
@@ -404,7 +326,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pDescription = new DescriptionElements();
 		this.pDescriptionElement = new DescriptionElementElements();
 		this.pXValDeclaration = new XValDeclarationElements();
-		this.pConstantDeclaration = new ConstantDeclarationElements();
 		this.pComputeDeclaration = new ComputeDeclarationElements();
 		this.pXNumberLiteral = new XNumberLiteralElements();
 		this.pShowValue = new ShowValueElements();
@@ -473,17 +394,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	//// New rule for val only
 	////ConstantDeclaration returns xbase::XExpression:
 	////	{xbase::XVariableDeclaration}
-	//ConstantDeclaration returns xbase::XExpression:
-	//	{ConstantDeclaration} "constant" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=(XNumberLiteral |
-	//	XStringLiteral | XBooleanLiteral);
-	public ConstantDeclarationElements getConstantDeclarationAccess() {
-		return pConstantDeclaration;
-	}
-	
-	public ParserRule getConstantDeclarationRule() {
-		return getConstantDeclarationAccess().getRule();
-	}
-
+	////ConstantDeclaration returns xbase::XExpression:
+	////	{ConstantDeclaration}
+	////	 'constant' (=> (type=JvmTypeReference name=ValidID) | name=ValidID) '=' 
+	////	 right=(XNumberLiteral | XStringLiteral | XBooleanLiteral)
+	////;
 	//ComputeDeclaration:
 	//	"compute" name=ValidID;
 	public ComputeDeclarationElements getComputeDeclarationAccess() {

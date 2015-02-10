@@ -184,11 +184,35 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.XPREDICATE:
+      case ReqSpecPackage.VALUE_ASSERTION:
       {
-        XPredicate xPredicate = (XPredicate)theEObject;
-        T result = caseXPredicate(xPredicate);
-        if (result == null) result = caseReqPredicate(xPredicate);
+        ValueAssertion valueAssertion = (ValueAssertion)theEObject;
+        T result = caseValueAssertion(valueAssertion);
+        if (result == null) result = caseReqPredicate(valueAssertion);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.INPUT_ASSUMPTION:
+      {
+        InputAssumption inputAssumption = (InputAssumption)theEObject;
+        T result = caseInputAssumption(inputAssumption);
+        if (result == null) result = caseReqPredicate(inputAssumption);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.OUTPUT_GUARANTEE:
+      {
+        OutputGuarantee outputGuarantee = (OutputGuarantee)theEObject;
+        T result = caseOutputGuarantee(outputGuarantee);
+        if (result == null) result = caseReqPredicate(outputGuarantee);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.BEHAVIOR_EQUATION:
+      {
+        BehaviorEquation behaviorEquation = (BehaviorEquation)theEObject;
+        T result = caseBehaviorEquation(behaviorEquation);
+        if (result == null) result = caseReqPredicate(behaviorEquation);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -204,6 +228,13 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         ExternalDocument externalDocument = (ExternalDocument)theEObject;
         T result = caseExternalDocument(externalDocument);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.VAL_TO_PROPERTY_MAPPING:
+      {
+        ValToPropertyMapping valToPropertyMapping = (ValToPropertyMapping)theEObject;
+        T result = caseValToPropertyMapping(valToPropertyMapping);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -436,17 +467,65 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>XPredicate</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Value Assertion</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>XPredicate</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Value Assertion</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseXPredicate(XPredicate object)
+  public T caseValueAssertion(ValueAssertion object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Input Assumption</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Input Assumption</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseInputAssumption(InputAssumption object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Output Guarantee</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Output Guarantee</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOutputGuarantee(OutputGuarantee object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Behavior Equation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Behavior Equation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBehaviorEquation(BehaviorEquation object)
   {
     return null;
   }
@@ -479,6 +558,22 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseExternalDocument(ExternalDocument object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Val To Property Mapping</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Val To Property Mapping</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseValToPropertyMapping(ValToPropertyMapping object)
   {
     return null;
   }

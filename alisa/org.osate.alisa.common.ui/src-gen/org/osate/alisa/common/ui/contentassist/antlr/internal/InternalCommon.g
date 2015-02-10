@@ -124,8 +124,6 @@ finally {
 
 
 
-
-
 // Entry rule entryRuleXNumberLiteral
 entryRuleXNumberLiteral 
 :
@@ -2315,8 +2313,6 @@ finally {
 }
 
 
-
-
 rule__XAssignment__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -3514,9 +3510,6 @@ rule__XImportDeclaration__Alternatives_1_0_3
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-
 
 
 
@@ -17282,10 +17275,6 @@ rule__DescriptionElement__ThisTargetAssignment_2
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-
-
 
 
 

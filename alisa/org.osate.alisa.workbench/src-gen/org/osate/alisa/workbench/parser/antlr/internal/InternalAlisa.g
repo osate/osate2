@@ -588,8 +588,6 @@ ruleValidID
 
 
 
-
-
 // Entry rule entryRuleXNumberLiteral
 entryRuleXNumberLiteral returns [EObject current=null] 
 	:

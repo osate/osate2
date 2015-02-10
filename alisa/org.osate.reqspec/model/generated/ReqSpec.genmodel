@@ -79,8 +79,21 @@
     <genClasses ecoreClass="ReqSpec.ecore#//InformalPredicate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//InformalPredicate/description"/>
     </genClasses>
-    <genClasses ecoreClass="ReqSpec.ecore#//XPredicate">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//XPredicate/Xlambda"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//ValueAssertion">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValueAssertion/xpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValueAssertion/valToPropertyMappings"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//InputAssumption">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//InputAssumption/xpression"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//InputAssumption/reference"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//OutputGuarantee">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//OutputGuarantee/xpression"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//OutputGuarantee/reference"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//BehaviorEquation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//BehaviorEquation/xpression"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//BehaviorEquation/reference"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//SPeARPredicate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//SPeARPredicate/predicate"/>
@@ -88,6 +101,10 @@
     <genClasses ecoreClass="ReqSpec.ecore#//ExternalDocument">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docReference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docFragment"/>
+    </genClasses>
+    <genClasses ecoreClass="ReqSpec.ecore#//ValToPropertyMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValToPropertyMapping/constant"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValToPropertyMapping/property"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

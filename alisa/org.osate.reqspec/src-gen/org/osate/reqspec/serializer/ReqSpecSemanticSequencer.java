@@ -63,11 +63,14 @@ import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
+import org.osate.reqspec.reqSpec.BehaviorEquation;
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.GoalFolder;
 import org.osate.reqspec.reqSpec.InformalPredicate;
+import org.osate.reqspec.reqSpec.InputAssumption;
+import org.osate.reqspec.reqSpec.OutputGuarantee;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -75,7 +78,8 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.SPeARPredicate;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
-import org.osate.reqspec.reqSpec.XPredicate;
+import org.osate.reqspec.reqSpec.ValToPropertyMapping;
+import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
 
 @SuppressWarnings("all")
@@ -148,6 +152,13 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			}
 		else if(semanticObject.eClass().getEPackage() == ReqSpecPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case ReqSpecPackage.BEHAVIOR_EQUATION:
+				if(context == grammarAccess.getBehaviorEquationRule() ||
+				   context == grammarAccess.getReqPredicateRule()) {
+					sequence_BehaviorEquation(context, (BehaviorEquation) semanticObject); 
+					return; 
+				}
+				else break;
 			case ReqSpecPackage.DOCUMENT_SECTION:
 				if(context == grammarAccess.getDocumentSectionRule()) {
 					sequence_DocumentSection(context, (DocumentSection) semanticObject); 
@@ -178,6 +189,20 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				if(context == grammarAccess.getInformalPredicateRule() ||
 				   context == grammarAccess.getReqPredicateRule()) {
 					sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
+					return; 
+				}
+				else break;
+			case ReqSpecPackage.INPUT_ASSUMPTION:
+				if(context == grammarAccess.getInputAssumptionRule() ||
+				   context == grammarAccess.getReqPredicateRule()) {
+					sequence_InputAssumption(context, (InputAssumption) semanticObject); 
+					return; 
+				}
+				else break;
+			case ReqSpecPackage.OUTPUT_GUARANTEE:
+				if(context == grammarAccess.getOutputGuaranteeRule() ||
+				   context == grammarAccess.getReqPredicateRule()) {
+					sequence_OutputGuarantee(context, (OutputGuarantee) semanticObject); 
 					return; 
 				}
 				else break;
@@ -229,10 +254,16 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
-			case ReqSpecPackage.XPREDICATE:
+			case ReqSpecPackage.VAL_TO_PROPERTY_MAPPING:
+				if(context == grammarAccess.getValToPropertyMappingRule()) {
+					sequence_ValToPropertyMapping(context, (ValToPropertyMapping) semanticObject); 
+					return; 
+				}
+				else break;
+			case ReqSpecPackage.VALUE_ASSERTION:
 				if(context == grammarAccess.getReqPredicateRule() ||
-				   context == grammarAccess.getXPredicateRule()) {
-					sequence_XPredicate(context, (XPredicate) semanticObject); 
+				   context == grammarAccess.getValueAssertionRule()) {
+					sequence_ValueAssertion(context, (ValueAssertion) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1317,6 +1348,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (xpression=XExpression | reference=[EObject|ID])
+	 */
+	protected void sequence_BehaviorEquation(EObject context, BehaviorEquation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (label=ID title=STRING? description=Description? (content+=Goal | content+=Requirement | content+=DocumentSection)*)
 	 */
 	protected void sequence_DocumentSection(EObject context, DocumentSection semanticObject) {
@@ -1374,8 +1414,26 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getInformalPredicateAccess().getDescriptionSTRINGTerminalRuleCall_0(), semanticObject.getDescription());
+		feeder.accept(grammarAccess.getInformalPredicateAccess().getDescriptionSTRINGTerminalRuleCall_1_0(), semanticObject.getDescription());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (xpression=XExpression | reference=[EObject|ID])
+	 */
+	protected void sequence_InputAssumption(EObject context, InputAssumption semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (xpression=XExpression | reference=[EObject|ID])
+	 */
+	protected void sequence_OutputGuarantee(EObject context, OutputGuarantee semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1472,16 +1530,28 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     Xlambda=XClosure
+	 *     (constant=[XVariableDeclaration|ID] property=[Property|PROPERTYREFERENCE])
 	 */
-	protected void sequence_XPredicate(EObject context, XPredicate semanticObject) {
+	protected void sequence_ValToPropertyMapping(EObject context, ValToPropertyMapping semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.XPREDICATE__XLAMBDA) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.XPREDICATE__XLAMBDA));
+			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.VAL_TO_PROPERTY_MAPPING__CONSTANT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.VAL_TO_PROPERTY_MAPPING__CONSTANT));
+			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.VAL_TO_PROPERTY_MAPPING__PROPERTY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.VAL_TO_PROPERTY_MAPPING__PROPERTY));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getXPredicateAccess().getXlambdaXClosureParserRuleCall_0(), semanticObject.getXlambda());
+		feeder.accept(grammarAccess.getValToPropertyMappingAccess().getConstantXVariableDeclarationIDTerminalRuleCall_0_0_1(), semanticObject.getConstant());
+		feeder.accept(grammarAccess.getValToPropertyMappingAccess().getPropertyPropertyPROPERTYREFERENCEParserRuleCall_2_0_1(), semanticObject.getProperty());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (xpression=XExpression valToPropertyMappings+=ValToPropertyMapping?)
+	 */
+	protected void sequence_ValueAssertion(EObject context, ValueAssertion semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 }

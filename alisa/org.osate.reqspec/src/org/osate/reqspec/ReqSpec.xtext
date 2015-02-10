@@ -6,6 +6,7 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import  "http://www.osate.org/categories/Categories" as categories
 import  "http://www.osate.org/organization/Organization" as org
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 
 //ReqSpec: contents +=(ReqSpecs|StakeholderGoals|ReqDocument)  ;
 ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
@@ -88,14 +89,14 @@ Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
 	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=STRING)
-//		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
+//		('of' targetContext=[aadl2::ComponentImplementation|AadlClassifierReference])?
 	)?
 '['	(
  	('category'  category=[categories::RequirementCategory|ID] )?
 	&('description'  description=Description)? 
 	& (  constants+=XValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
-	&('assert'  predicate=ReqPredicate)?  // predicate expression 
+	&(  predicate=ReqPredicate)?  // predicate expression 
 	&('rationale'  rationale=STRING)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
@@ -106,30 +107,29 @@ Requirement:
 	)
 	']';
 
-ReqPredicate: InformalPredicate | XPredicate | SPeARPredicate;
+ReqPredicate: InformalPredicate | ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation| SPeARPredicate;
 
-InformalPredicate: description=STRING ;
+InformalPredicate: 'predicate' description=STRING ;
 
-XPredicate: Xlambda=XClosure;	
+ValueAssertion: 'assert' 'value' xpression=XExpression ( 'with' valToPropertyMappings+=ValToPropertyMapping )?;	
+InputAssumption: 'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+BehaviorEquation: 'eq' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
 
-//NumericPredicate: 'eq'  ;
-//
-//PredicateExpression: ID op=('='|"!=" |"<"|"<="|">"|">=") limit=[ConstantDeclaration|ID];
-//
-//PredicateOperand: ConstantDeclaration | ComputeDeclaration;
-
-SPeARPredicate: 'inv' predicate=STRING ;
+SPeARPredicate: 'invariant' predicate=STRING ;
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?
 ;
 
-
+ValToPropertyMapping: constant=[xbase::XVariableDeclaration|ID] 'as' property=[aadl2::Property|PROPERTYREFERENCE];
 
 
 // path to external document and its fragment
 DOCPATH: ( ID '/')* ID '.' ID;
 
 DOCFRAGMENT: ID ('.' ID)*;
+
+PROPERTYREFERENCE: ID '::' ID;
 
 	
