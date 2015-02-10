@@ -16,11 +16,11 @@ import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.eclipse.xtext.xbase.XNumberLiteral
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.common.ShowValue
+import org.osate.alisa.common.common.XNumberLiteralUnit
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
 
 /**
@@ -36,7 +36,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 	}
 	
-		def scope_UnitLiteral(XNumberLiteral context, EReference reference) {
+		def scope_UnitLiteral(XNumberLiteralUnit context, EReference reference) {
 		val units = context.unitLiterals
 		if (!units.empty){
 			units.scopeFor

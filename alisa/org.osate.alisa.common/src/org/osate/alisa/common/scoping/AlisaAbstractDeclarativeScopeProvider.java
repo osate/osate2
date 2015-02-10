@@ -5,7 +5,7 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-public abstract class AlisaAbstractDeclarativeScopeProvider extends CommonScopeProvider {// AbstractDeclarativeScopeProvider {
+public abstract class AlisaAbstractDeclarativeScopeProvider extends CommonScopeProvider { // AbstractDeclarativeScopeProvider {
 
 	public final static String NAMED_DELEGATE = "org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider.delegate";
 
