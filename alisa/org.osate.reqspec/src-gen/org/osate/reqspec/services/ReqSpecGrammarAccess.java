@@ -1789,17 +1789,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//// New rule for val only
 	////ConstantDeclaration returns xbase::XExpression:
 	////	{xbase::XVariableDeclaration}
-	//ConstantDeclaration returns xbase::XExpression:
-	//	{ConstantDeclaration} "constant" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "=" right=(XNumberLiteral |
-	//	XStringLiteral | XBooleanLiteral);
-	public CommonGrammarAccess.ConstantDeclarationElements getConstantDeclarationAccess() {
-		return gaCommon.getConstantDeclarationAccess();
-	}
-	
-	public ParserRule getConstantDeclarationRule() {
-		return getConstantDeclarationAccess().getRule();
-	}
-
+	////ConstantDeclaration returns xbase::XExpression:
+	////	{ConstantDeclaration}
+	////	 'constant' (=> (type=JvmTypeReference name=ValidID) | name=ValidID) '=' 
+	////	 right=(XNumberLiteral | XStringLiteral | XBooleanLiteral)
+	////;
 	//ComputeDeclaration:
 	//	"compute" name=ValidID;
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {

@@ -700,8 +700,6 @@ finally {
 
 
 
-
-
 // Entry rule entryRuleComputeDeclaration
 entryRuleComputeDeclaration 
 :
@@ -3234,8 +3232,6 @@ rule__XValDeclaration__Alternatives_2
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 rule__XAssignment__Alternatives
     @init {
@@ -9572,9 +9568,6 @@ rule__XValDeclaration__Group_2_0_0__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-
 
 
 
@@ -25558,10 +25551,6 @@ rule__XValDeclaration__RightAssignment_4
 finally {
 	restoreStackSize(stackSize);
 }
-
-
-
-
 
 rule__ComputeDeclaration__NameAssignment_1
     @init {

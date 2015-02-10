@@ -44,7 +44,7 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider{
 		if (!reqspecs.constants.empty){
 		 result = new SimpleScope(result, Scopes::scopedElementsFor(reqspecs.constants, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 		}
-		if (!reqspec.constants.empty){
+		if (!reqspec.constants.empty){ 
 		 result = new SimpleScope(result, Scopes::scopedElementsFor(reqspec.constants, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 		}
 		result

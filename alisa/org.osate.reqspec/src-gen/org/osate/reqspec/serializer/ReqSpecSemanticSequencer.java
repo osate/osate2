@@ -58,7 +58,6 @@ import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
-import org.osate.alisa.common.common.ConstantDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
@@ -90,12 +89,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.COMPUTE_DECLARATION:
 				if(context == grammarAccess.getComputeDeclarationRule()) {
 					sequence_ComputeDeclaration(context, (ComputeDeclaration) semanticObject); 
-					return; 
-				}
-				else break;
-			case CommonPackage.CONSTANT_DECLARATION:
-				if(context == grammarAccess.getConstantDeclarationRule()) {
-					sequence_ConstantDeclaration(context, (ConstantDeclaration) semanticObject); 
 					return; 
 				}
 				else break;

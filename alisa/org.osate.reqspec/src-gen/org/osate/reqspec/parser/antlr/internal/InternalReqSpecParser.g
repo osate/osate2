@@ -2595,8 +2595,6 @@ ruleValidID
 
 
 
-
-
 // Entry rule entryRuleComputeDeclaration
 entryRuleComputeDeclaration returns [EObject current=null]
 	:
