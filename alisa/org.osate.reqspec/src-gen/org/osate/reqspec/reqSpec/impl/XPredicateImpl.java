@@ -3,10 +3,14 @@
 package org.osate.reqspec.reqSpec.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.XPredicate;
@@ -18,7 +22,7 @@ import org.osate.reqspec.reqSpec.XPredicate;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.XPredicateImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.XPredicateImpl#getXpression <em>Xpression</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,24 +31,14 @@ import org.osate.reqspec.reqSpec.XPredicate;
 public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
 {
   /**
-   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * The cached value of the '{@link #getXpression() <em>Xpression</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDescription()
+   * @see #getXpression()
    * @generated
    * @ordered
    */
-  protected static final String DESCRIPTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected String description = DESCRIPTION_EDEFAULT;
+  protected XExpression xpression;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,9 +66,9 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDescription()
+  public XExpression getXpression()
   {
-    return description;
+    return xpression;
   }
 
   /**
@@ -82,12 +76,53 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDescription(String newDescription)
+  public NotificationChain basicSetXpression(XExpression newXpression, NotificationChain msgs)
   {
-    String oldDescription = description;
-    description = newDescription;
+    XExpression oldXpression = xpression;
+    xpression = newXpression;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.XPREDICATE__DESCRIPTION, oldDescription, description));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.XPREDICATE__XPRESSION, oldXpression, newXpression);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setXpression(XExpression newXpression)
+  {
+    if (newXpression != xpression)
+    {
+      NotificationChain msgs = null;
+      if (xpression != null)
+        msgs = ((InternalEObject)xpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.XPREDICATE__XPRESSION, null, msgs);
+      if (newXpression != null)
+        msgs = ((InternalEObject)newXpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.XPREDICATE__XPRESSION, null, msgs);
+      msgs = basicSetXpression(newXpression, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.XPREDICATE__XPRESSION, newXpression, newXpression));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ReqSpecPackage.XPREDICATE__XPRESSION:
+        return basicSetXpression(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -100,8 +135,8 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__DESCRIPTION:
-        return getDescription();
+      case ReqSpecPackage.XPREDICATE__XPRESSION:
+        return getXpression();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -116,8 +151,8 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__DESCRIPTION:
-        setDescription((String)newValue);
+      case ReqSpecPackage.XPREDICATE__XPRESSION:
+        setXpression((XExpression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -133,8 +168,8 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__DESCRIPTION:
-        setDescription(DESCRIPTION_EDEFAULT);
+      case ReqSpecPackage.XPREDICATE__XPRESSION:
+        setXpression((XExpression)null);
         return;
     }
     super.eUnset(featureID);
@@ -150,27 +185,10 @@ public class XPredicateImpl extends ReqPredicateImpl implements XPredicate
   {
     switch (featureID)
     {
-      case ReqSpecPackage.XPREDICATE__DESCRIPTION:
-        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+      case ReqSpecPackage.XPREDICATE__XPRESSION:
+        return xpression != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (description: ");
-    result.append(description);
-    result.append(')');
-    return result.toString();
   }
 
 } //XPredicateImpl

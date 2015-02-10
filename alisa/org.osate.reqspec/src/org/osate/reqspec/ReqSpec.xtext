@@ -110,7 +110,7 @@ Requirement:
 ReqPredicate: InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation| SPeARPredicate;
 
 InformalPredicate: 'text' description=STRING ;
-XPredicate: 'predicate' description=STRING ;
+XPredicate: 'predicate' xpression=XExpression ;
 
 ValueAssertion: 'assert' 'value' xpression=XExpression ( 'with' valToPropertyMappings+=ValToPropertyMapping )?;	
 InputAssumption: 'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	

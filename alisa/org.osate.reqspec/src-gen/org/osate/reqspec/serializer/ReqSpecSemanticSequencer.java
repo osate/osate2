@@ -1566,16 +1566,16 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     description=STRING
+	 *     xpression=XExpression
 	 */
 	protected void sequence_XPredicate(EObject context, XPredicate semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.XPREDICATE__DESCRIPTION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.XPREDICATE__DESCRIPTION));
+			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.XPREDICATE__XPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.XPREDICATE__XPRESSION));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getXPredicateAccess().getDescriptionSTRINGTerminalRuleCall_1_0(), semanticObject.getDescription());
+		feeder.accept(grammarAccess.getXPredicateAccess().getXpressionXExpressionParserRuleCall_1_0(), semanticObject.getXpression());
 		feeder.finish();
 	}
 }

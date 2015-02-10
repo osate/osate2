@@ -80,7 +80,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//InformalPredicate/description"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//XPredicate">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//XPredicate/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//XPredicate/xpression"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ValueAssertion">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValueAssertion/xpression"/>

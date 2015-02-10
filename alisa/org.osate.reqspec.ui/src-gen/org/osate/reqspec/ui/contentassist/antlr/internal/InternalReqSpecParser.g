@@ -9138,9 +9138,9 @@ rule__XPredicate__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getXPredicateAccess().getDescriptionAssignment_1()); }
-(rule__XPredicate__DescriptionAssignment_1)
-{ after(grammarAccess.getXPredicateAccess().getDescriptionAssignment_1()); }
+{ before(grammarAccess.getXPredicateAccess().getXpressionAssignment_1()); }
+(rule__XPredicate__XpressionAssignment_1)
+{ after(grammarAccess.getXPredicateAccess().getXpressionAssignment_1()); }
 )
 
 ;
@@ -26515,14 +26515,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__XPredicate__DescriptionAssignment_1
+rule__XPredicate__XpressionAssignment_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getXPredicateAccess().getDescriptionSTRINGTerminalRuleCall_1_0()); }
-	RULE_STRING{ after(grammarAccess.getXPredicateAccess().getDescriptionSTRINGTerminalRuleCall_1_0()); }
+{ before(grammarAccess.getXPredicateAccess().getXpressionXExpressionParserRuleCall_1_0()); }
+	ruleXExpression{ after(grammarAccess.getXPredicateAccess().getXpressionXExpressionParserRuleCall_1_0()); }
 )
 
 ;

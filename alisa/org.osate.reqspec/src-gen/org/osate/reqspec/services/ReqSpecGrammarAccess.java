@@ -1332,24 +1332,24 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "XPredicate");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cPredicateKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cDescriptionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cDescriptionSTRINGTerminalRuleCall_1_0 = (RuleCall)cDescriptionAssignment_1.eContents().get(0);
+		private final Assignment cXpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cXpressionXExpressionParserRuleCall_1_0 = (RuleCall)cXpressionAssignment_1.eContents().get(0);
 		
 		//XPredicate:
-		//	"predicate" description=STRING;
+		//	"predicate" xpression=XExpression;
 		public ParserRule getRule() { return rule; }
 
-		//"predicate" description=STRING
+		//"predicate" xpression=XExpression
 		public Group getGroup() { return cGroup; }
 
 		//"predicate"
 		public Keyword getPredicateKeyword_0() { return cPredicateKeyword_0; }
 
-		//description=STRING
-		public Assignment getDescriptionAssignment_1() { return cDescriptionAssignment_1; }
+		//xpression=XExpression
+		public Assignment getXpressionAssignment_1() { return cXpressionAssignment_1; }
 
-		//STRING
-		public RuleCall getDescriptionSTRINGTerminalRuleCall_1_0() { return cDescriptionSTRINGTerminalRuleCall_1_0; }
+		//XExpression
+		public RuleCall getXpressionXExpressionParserRuleCall_1_0() { return cXpressionXExpressionParserRuleCall_1_0; }
 	}
 
 	public class ValueAssertionElements extends AbstractParserRuleElementFinder {
@@ -1993,7 +1993,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//XPredicate:
-	//	"predicate" description=STRING;
+	//	"predicate" xpression=XExpression;
 	public XPredicateElements getXPredicateAccess() {
 		return pXPredicate;
 	}

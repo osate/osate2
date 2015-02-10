@@ -910,9 +910,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getXPredicate_Description()
+  public EReference getXPredicate_Xpression()
   {
-    return (EAttribute)xPredicateEClass.getEStructuralFeatures().get(0);
+    return (EReference)xPredicateEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1222,7 +1222,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEAttribute(informalPredicateEClass, INFORMAL_PREDICATE__DESCRIPTION);
 
     xPredicateEClass = createEClass(XPREDICATE);
-    createEAttribute(xPredicateEClass, XPREDICATE__DESCRIPTION);
+    createEReference(xPredicateEClass, XPREDICATE__XPRESSION);
 
     valueAssertionEClass = createEClass(VALUE_ASSERTION);
     createEReference(valueAssertionEClass, VALUE_ASSERTION__XPRESSION);
@@ -1388,7 +1388,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEAttribute(getInformalPredicate_Description(), theEcorePackage.getEString(), "description", null, 0, 1, InformalPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xPredicateEClass, XPredicate.class, "XPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getXPredicate_Description(), theEcorePackage.getEString(), "description", null, 0, 1, XPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getXPredicate_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, XPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(valueAssertionEClass, ValueAssertion.class, "ValueAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getValueAssertion_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, ValueAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

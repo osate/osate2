@@ -2,6 +2,7 @@
  */
 package org.osate.reqspec.reqSpec;
 
+import org.eclipse.xtext.xbase.XExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -11,7 +12,7 @@ package org.osate.reqspec.reqSpec;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.XPredicate#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.XPredicate#getXpression <em>Xpression</em>}</li>
  * </ul>
  * </p>
  *
@@ -22,29 +23,29 @@ package org.osate.reqspec.reqSpec;
 public interface XPredicate extends ReqPredicate
 {
   /**
-   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * Returns the value of the '<em><b>Xpression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Description</em>' attribute isn't clear,
+   * If the meaning of the '<em>Xpression</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' attribute.
-   * @see #setDescription(String)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getXPredicate_Description()
-   * @model
+   * @return the value of the '<em>Xpression</em>' containment reference.
+   * @see #setXpression(XExpression)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getXPredicate_Xpression()
+   * @model containment="true"
    * @generated
    */
-  String getDescription();
+  XExpression getXpression();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.XPredicate#getDescription <em>Description</em>}' attribute.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.XPredicate#getXpression <em>Xpression</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' attribute.
-   * @see #getDescription()
+   * @param value the new value of the '<em>Xpression</em>' containment reference.
+   * @see #getXpression()
    * @generated
    */
-  void setDescription(String value);
+  void setXpression(XExpression value);
 
 } // XPredicate

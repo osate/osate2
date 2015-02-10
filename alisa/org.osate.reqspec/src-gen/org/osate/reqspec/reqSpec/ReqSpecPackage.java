@@ -927,13 +927,13 @@ public interface ReqSpecPackage extends EPackage
   int XPREDICATE = 14;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * The feature id for the '<em><b>Xpression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int XPREDICATE__DESCRIPTION = REQ_PREDICATE_FEATURE_COUNT + 0;
+  int XPREDICATE__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>XPredicate</em>' class.
@@ -1874,15 +1874,15 @@ public interface ReqSpecPackage extends EPackage
   EClass getXPredicate();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.XPredicate#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.XPredicate#getXpression <em>Xpression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Description</em>'.
-   * @see org.osate.reqspec.reqSpec.XPredicate#getDescription()
+   * @return the meta object for the containment reference '<em>Xpression</em>'.
+   * @see org.osate.reqspec.reqSpec.XPredicate#getXpression()
    * @see #getXPredicate()
    * @generated
    */
-  EAttribute getXPredicate_Description();
+  EReference getXPredicate_Xpression();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ValueAssertion <em>Value Assertion</em>}'.
@@ -2655,12 +2655,12 @@ public interface ReqSpecPackage extends EPackage
     EClass XPREDICATE = eINSTANCE.getXPredicate();
 
     /**
-     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Xpression</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute XPREDICATE__DESCRIPTION = eINSTANCE.getXPredicate_Description();
+    EReference XPREDICATE__XPRESSION = eINSTANCE.getXPredicate_Xpression();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ValueAssertionImpl <em>Value Assertion</em>}' class.

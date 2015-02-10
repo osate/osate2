@@ -2179,19 +2179,19 @@ ruleXPredicate returns [EObject current=null]
     }
 (
 (
-		lv_description_1_0=RULE_STRING
-		{
-			newLeafNode(lv_description_1_0, grammarAccess.getXPredicateAccess().getDescriptionSTRINGTerminalRuleCall_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getXPredicateAccess().getXpressionXExpressionParserRuleCall_1_0()); 
+	    }
+		lv_xpression_1_0=ruleXExpression		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getXPredicateRule());
+	            $current = createModelElementForParent(grammarAccess.getXPredicateRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
-       			"description",
-        		lv_description_1_0, 
-        		"STRING");
+       			"xpression",
+        		lv_xpression_1_0, 
+        		"XExpression");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
