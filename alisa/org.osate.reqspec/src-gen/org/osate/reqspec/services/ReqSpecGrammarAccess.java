@@ -153,11 +153,11 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//StakeholderGoals:
 		//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AadlClassifierReference] |
-		//	targetDescription=STRING))? ("description" description=Description)? "[" content+=(Goal | GoalFolder) "]";
+		//	targetDescription=STRING))? ("description" description=Description)? "[" content+=(Goal | GoalFolder)* "]";
 		public ParserRule getRule() { return rule; }
 
 		//"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AadlClassifierReference] |
-		//targetDescription=STRING))? ("description" description=Description)? "[" content+=(Goal | GoalFolder) "]"
+		//targetDescription=STRING))? ("description" description=Description)? "[" content+=(Goal | GoalFolder)* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"stakeholder"
@@ -223,7 +223,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//content+=(Goal | GoalFolder)
+		//content+=(Goal | GoalFolder)*
 		public Assignment getContentAssignment_7() { return cContentAssignment_7; }
 
 		//Goal | GoalFolder
@@ -259,10 +259,10 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//ReqDocument:
-		//	"document" name=ID (":" title=STRING)? ("description" description=Description)? "[" content+=DocumentSection "]";
+		//	"document" name=ID (":" title=STRING)? ("description" description=Description)? "[" content+=DocumentSection* "]";
 		public ParserRule getRule() { return rule; }
 
-		//"document" name=ID (":" title=STRING)? ("description" description=Description)? "[" content+=DocumentSection "]"
+		//"document" name=ID (":" title=STRING)? ("description" description=Description)? "[" content+=DocumentSection* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"document"
@@ -301,7 +301,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//content+=DocumentSection
+		//content+=DocumentSection*
 		public Assignment getContentAssignment_5() { return cContentAssignment_5; }
 
 		//DocumentSection
@@ -1839,7 +1839,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StakeholderGoals:
 	//	"stakeholder" "goals" name=ID (":" title=STRING)? ("for" (target=[aadl2::Classifier|AadlClassifierReference] |
-	//	targetDescription=STRING))? ("description" description=Description)? "[" content+=(Goal | GoalFolder) "]";
+	//	targetDescription=STRING))? ("description" description=Description)? "[" content+=(Goal | GoalFolder)* "]";
 	public StakeholderGoalsElements getStakeholderGoalsAccess() {
 		return pStakeholderGoals;
 	}
@@ -1849,7 +1849,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReqDocument:
-	//	"document" name=ID (":" title=STRING)? ("description" description=Description)? "[" content+=DocumentSection "]";
+	//	"document" name=ID (":" title=STRING)? ("description" description=Description)? "[" content+=DocumentSection* "]";
 	public ReqDocumentElements getReqDocumentAccess() {
 		return pReqDocument;
 	}

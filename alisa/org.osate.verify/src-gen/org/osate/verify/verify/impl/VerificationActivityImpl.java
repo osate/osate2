@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
+
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
@@ -21,6 +23,7 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getComputeVariable <em>Compute Variable</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getRationale <em>Rationale</em>}</li>
  * </ul>
@@ -39,6 +42,16 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
    * @ordered
    */
   protected VerificationMethod method;
+
+  /**
+   * The cached value of the '{@link #getComputeVariable() <em>Compute Variable</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComputeVariable()
+   * @generated
+   * @ordered
+   */
+  protected ComputeDeclaration computeVariable;
 
   /**
    * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
@@ -149,6 +162,49 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public ComputeDeclaration getComputeVariable()
+  {
+    if (computeVariable != null && computeVariable.eIsProxy())
+    {
+      InternalEObject oldComputeVariable = (InternalEObject)computeVariable;
+      computeVariable = (ComputeDeclaration)eResolveProxy(oldComputeVariable);
+      if (computeVariable != oldComputeVariable)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE, oldComputeVariable, computeVariable));
+      }
+    }
+    return computeVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComputeDeclaration basicGetComputeVariable()
+  {
+    return computeVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setComputeVariable(ComputeDeclaration newComputeVariable)
+  {
+    ComputeDeclaration oldComputeVariable = computeVariable;
+    computeVariable = newComputeVariable;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE, oldComputeVariable, computeVariable));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getTimeout()
   {
     return timeout;
@@ -203,6 +259,9 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         if (resolve) return getMethod();
         return basicGetMethod();
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE:
+        if (resolve) return getComputeVariable();
+        return basicGetComputeVariable();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return getTimeout();
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
@@ -223,6 +282,9 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE:
+        setComputeVariable((ComputeDeclaration)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((Integer)newValue);
@@ -247,6 +309,9 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)null);
         return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE:
+        setComputeVariable((ComputeDeclaration)null);
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout(TIMEOUT_EDEFAULT);
         return;
@@ -269,6 +334,8 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         return method != null;
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE:
+        return computeVariable != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:

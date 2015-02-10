@@ -489,13 +489,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__METHOD = VERIFICATION_ACTION_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Compute Variable</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_ACTIVITY__COMPUTE_VARIABLE = VERIFICATION_ACTION_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Timeout</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__TIMEOUT = VERIFICATION_ACTION_FEATURE_COUNT + 1;
+  int VERIFICATION_ACTIVITY__TIMEOUT = VERIFICATION_ACTION_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Rationale</b></em>' attribute.
@@ -504,7 +513,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY__RATIONALE = VERIFICATION_ACTION_FEATURE_COUNT + 2;
+  int VERIFICATION_ACTIVITY__RATIONALE = VERIFICATION_ACTION_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Verification Activity</em>' class.
@@ -513,7 +522,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_FEATURE_COUNT = VERIFICATION_ACTION_FEATURE_COUNT + 3;
+  int VERIFICATION_ACTIVITY_FEATURE_COUNT = VERIFICATION_ACTION_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -1381,6 +1390,17 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationActivity_Method();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationActivity#getComputeVariable <em>Compute Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Compute Variable</em>'.
+   * @see org.osate.verify.verify.VerificationActivity#getComputeVariable()
+   * @see #getVerificationActivity()
+   * @generated
+   */
+  EReference getVerificationActivity_ComputeVariable();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2097,6 +2117,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_ACTIVITY__METHOD = eINSTANCE.getVerificationActivity_Method();
+
+    /**
+     * The meta object literal for the '<em><b>Compute Variable</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VERIFICATION_ACTIVITY__COMPUTE_VARIABLE = eINSTANCE.getVerificationActivity_ComputeVariable();
 
     /**
      * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.

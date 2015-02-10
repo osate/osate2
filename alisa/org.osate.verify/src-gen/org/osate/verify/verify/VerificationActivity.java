@@ -2,6 +2,7 @@
  */
 package org.osate.verify.verify;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,6 +13,7 @@ package org.osate.verify.verify;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getComputeVariable <em>Compute Variable</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}</li>
  * </ul>
@@ -48,6 +50,32 @@ public interface VerificationActivity extends VerificationAction
    * @generated
    */
   void setMethod(VerificationMethod value);
+
+  /**
+   * Returns the value of the '<em><b>Compute Variable</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Compute Variable</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Compute Variable</em>' reference.
+   * @see #setComputeVariable(ComputeDeclaration)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_ComputeVariable()
+   * @model
+   * @generated
+   */
+  ComputeDeclaration getComputeVariable();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getComputeVariable <em>Compute Variable</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Compute Variable</em>' reference.
+   * @see #getComputeVariable()
+   * @generated
+   */
+  void setComputeVariable(ComputeDeclaration value);
 
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' attribute.

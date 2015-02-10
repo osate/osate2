@@ -551,9 +551,19 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getVerificationActivity_ComputeVariable()
+  {
+    return (EReference)verificationActivityEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getVerificationActivity_Timeout()
   {
-    return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -563,7 +573,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    */
   public EAttribute getVerificationActivity_Rationale()
   {
-    return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)verificationActivityEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1031,6 +1041,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     verificationActivityEClass = createEClass(VERIFICATION_ACTIVITY);
     createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__METHOD);
+    createEReference(verificationActivityEClass, VERIFICATION_ACTIVITY__COMPUTE_VARIABLE);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__TIMEOUT);
     createEAttribute(verificationActivityEClass, VERIFICATION_ACTIVITY__RATIONALE);
 
@@ -1173,6 +1184,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
 
     initEClass(verificationActivityEClass, VerificationActivity.class, "VerificationActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getVerificationActivity_Method(), this.getVerificationMethod(), null, "method", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVerificationActivity_ComputeVariable(), theCommonPackage.getComputeDeclaration(), null, "computeVariable", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationActivity_Timeout(), theEcorePackage.getEInt(), "timeout", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationActivity_Rationale(), theEcorePackage.getEString(), "rationale", null, 0, 1, VerificationActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -21,12 +21,12 @@ ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
 StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
 	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=STRING))?
 	 ('description'  description=Description)? 
-	'[' content+=( Goal | GoalFolder) ']'
+	'[' content+=( Goal | GoalFolder)* ']'
 ;
 
 ReqDocument: 'document' name=ID (':' title=STRING)?
 	 ('description'  description=Description)? 
-	'[' content+=DocumentSection ']'
+	'[' content+=DocumentSection* ']'
 ;
 DocumentSection returns DocumentSection:
 	'section' label =ID (':' title=STRING)?

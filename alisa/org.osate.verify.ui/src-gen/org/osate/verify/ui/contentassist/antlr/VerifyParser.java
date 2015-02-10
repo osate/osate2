@@ -106,6 +106,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityAccess().getGroup_3(), "rule__VerificationActivity__Group_3__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup_5_0(), "rule__VerificationActivity__Group_5_0__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup_5_1(), "rule__VerificationActivity__Group_5_1__0");
+					put(grammarAccess.getVerificationActivityAccess().getGroup_5_1_2(), "rule__VerificationActivity__Group_5_1_2__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup_5_2(), "rule__VerificationActivity__Group_5_2__0");
 					put(grammarAccess.getVerificationActivityAccess().getGroup_5_3(), "rule__VerificationActivity__Group_5_3__0");
 					put(grammarAccess.getVerificationConditionAccess().getGroup(), "rule__VerificationCondition__Group__0");
@@ -356,6 +357,7 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVerificationActivityAccess().getRequirementAssignment_3_1(), "rule__VerificationActivity__RequirementAssignment_3_1");
 					put(grammarAccess.getVerificationActivityAccess().getDescriptionAssignment_5_0_1(), "rule__VerificationActivity__DescriptionAssignment_5_0_1");
 					put(grammarAccess.getVerificationActivityAccess().getMethodAssignment_5_1_1(), "rule__VerificationActivity__MethodAssignment_5_1_1");
+					put(grammarAccess.getVerificationActivityAccess().getComputeVariableAssignment_5_1_2_1(), "rule__VerificationActivity__ComputeVariableAssignment_5_1_2_1");
 					put(grammarAccess.getVerificationActivityAccess().getTimeoutAssignment_5_2_1(), "rule__VerificationActivity__TimeoutAssignment_5_2_1");
 					put(grammarAccess.getVerificationActivityAccess().getRationaleAssignment_5_3_1(), "rule__VerificationActivity__RationaleAssignment_5_3_1");
 					put(grammarAccess.getVerificationConditionAccess().getNameAssignment_1(), "rule__VerificationCondition__NameAssignment_1");

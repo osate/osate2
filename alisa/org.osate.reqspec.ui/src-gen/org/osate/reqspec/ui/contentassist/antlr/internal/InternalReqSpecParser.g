@@ -4892,7 +4892,7 @@ rule__StakeholderGoals__Group__7__Impl
 :
 (
 { before(grammarAccess.getStakeholderGoalsAccess().getContentAssignment_7()); }
-(rule__StakeholderGoals__ContentAssignment_7)
+(rule__StakeholderGoals__ContentAssignment_7)*
 { after(grammarAccess.getStakeholderGoalsAccess().getContentAssignment_7()); }
 )
 
@@ -5307,7 +5307,7 @@ rule__ReqDocument__Group__5__Impl
 :
 (
 { before(grammarAccess.getReqDocumentAccess().getContentAssignment_5()); }
-(rule__ReqDocument__ContentAssignment_5)
+(rule__ReqDocument__ContentAssignment_5)*
 { after(grammarAccess.getReqDocumentAccess().getContentAssignment_5()); }
 )
 

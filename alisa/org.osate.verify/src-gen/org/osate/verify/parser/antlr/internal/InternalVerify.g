@@ -1037,7 +1037,24 @@ ruleVerificationActivity returns [EObject current=null]
 	    }
 
 )
-)))
+)(	otherlv_12='as' 
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getVerificationActivityAccess().getAsKeyword_5_1_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+	        }
+        }
+	otherlv_13=RULE_ID
+	{
+		newLeafNode(otherlv_13, grammarAccess.getVerificationActivityAccess().getComputeVariableComputeDeclarationCrossReference_5_1_2_1_0()); 
+	}
+
+)
+))?))
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5());
 	 				}
@@ -1049,15 +1066,15 @@ ruleVerificationActivity returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 2);
 	 				}
-					({true}?=>(	otherlv_12='timeout' 
+					({true}?=>(	otherlv_14='timeout' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_5_2_0());
+    	newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getTimeoutKeyword_5_2_0());
     }
 (
 (
-		lv_timeout_13_0=RULE_INT
+		lv_timeout_15_0=RULE_INT
 		{
-			newLeafNode(lv_timeout_13_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_5_2_1_0()); 
+			newLeafNode(lv_timeout_15_0, grammarAccess.getVerificationActivityAccess().getTimeoutINTTerminalRuleCall_5_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1066,7 +1083,7 @@ ruleVerificationActivity returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"timeout",
-        		lv_timeout_13_0, 
+        		lv_timeout_15_0, 
         		"INT");
 	    }
 
@@ -1083,15 +1100,15 @@ ruleVerificationActivity returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5(), 3);
 	 				}
-					({true}?=>(	otherlv_14='rationale' 
+					({true}?=>(	otherlv_16='rationale' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getVerificationActivityAccess().getRationaleKeyword_5_3_0());
+    	newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getRationaleKeyword_5_3_0());
     }
 (
 (
-		lv_rationale_15_0=RULE_STRING
+		lv_rationale_17_0=RULE_STRING
 		{
-			newLeafNode(lv_rationale_15_0, grammarAccess.getVerificationActivityAccess().getRationaleSTRINGTerminalRuleCall_5_3_1_0()); 
+			newLeafNode(lv_rationale_17_0, grammarAccess.getVerificationActivityAccess().getRationaleSTRINGTerminalRuleCall_5_3_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1100,7 +1117,7 @@ ruleVerificationActivity returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"rationale",
-        		lv_rationale_15_0, 
+        		lv_rationale_17_0, 
         		"STRING");
 	    }
 
@@ -1112,16 +1129,17 @@ ruleVerificationActivity returns [EObject current=null]
  				)
 			)  
 
-		)*	
+		)+
+	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5())}?	
 	)
 )
 	{ 
 	  getUnorderedGroupHelper().leave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5());
 	}
 
-)	otherlv_16=']' 
+)	otherlv_18=']' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getVerificationActivityAccess().getRightSquareBracketKeyword_6());
+    	newLeafNode(otherlv_18, grammarAccess.getVerificationActivityAccess().getRightSquareBracketKeyword_6());
     }
 )
 ;

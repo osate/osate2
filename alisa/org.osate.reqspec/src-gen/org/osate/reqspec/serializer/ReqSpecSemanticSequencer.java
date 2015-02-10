@@ -1439,7 +1439,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? description=Description? content+=DocumentSection)
+	 *     (name=ID title=STRING? description=Description? content+=DocumentSection*)
 	 */
 	protected void sequence_ReqDocument(EObject context, ReqDocument semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1520,7 +1520,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=STRING)? 
 	 *         description=Description? 
-	 *         (content+=Goal | content+=GoalFolder)
+	 *         (content+=Goal | content+=GoalFolder)*
 	 *     )
 	 */
 	protected void sequence_StakeholderGoals(EObject context, StakeholderGoals semanticObject) {

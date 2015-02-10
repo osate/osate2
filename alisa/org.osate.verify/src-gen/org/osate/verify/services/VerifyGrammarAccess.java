@@ -521,6 +521,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cMethodAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
 		private final CrossReference cMethodVerificationMethodCrossReference_5_1_1_0 = (CrossReference)cMethodAssignment_5_1_1.eContents().get(0);
 		private final RuleCall cMethodVerificationMethodQualifiedNameParserRuleCall_5_1_1_0_1 = (RuleCall)cMethodVerificationMethodCrossReference_5_1_1_0.eContents().get(1);
+		private final Group cGroup_5_1_2 = (Group)cGroup_5_1.eContents().get(2);
+		private final Keyword cAsKeyword_5_1_2_0 = (Keyword)cGroup_5_1_2.eContents().get(0);
+		private final Assignment cComputeVariableAssignment_5_1_2_1 = (Assignment)cGroup_5_1_2.eContents().get(1);
+		private final CrossReference cComputeVariableComputeDeclarationCrossReference_5_1_2_1_0 = (CrossReference)cComputeVariableAssignment_5_1_2_1.eContents().get(0);
+		private final RuleCall cComputeVariableComputeDeclarationIDTerminalRuleCall_5_1_2_1_0_1 = (RuleCall)cComputeVariableComputeDeclarationCrossReference_5_1_2_1_0.eContents().get(1);
 		private final Group cGroup_5_2 = (Group)cUnorderedGroup_5.eContents().get(2);
 		private final Keyword cTimeoutKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
 		private final Assignment cTimeoutAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
@@ -537,8 +542,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//	// these are data parameters to the method in addition to what comes with the model
 		//	// and via the requirement (predicate/limit values
-		//	& ("method" method=[VerificationMethod|QualifiedName])? & ("timeout" timeout=INT)? & ("rationale" rationale=STRING)?)
-		//	"]";
+		//	& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
+		//	timeout=INT)? & ("rationale" rationale=STRING)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"activity" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
@@ -546,8 +551,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		////	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//// these are data parameters to the method in addition to what comes with the model
 		//// and via the requirement (predicate/limit values
-		//& ("method" method=[VerificationMethod|QualifiedName])? & ("timeout" timeout=INT)? & ("rationale" rationale=STRING)?)
-		//"]"
+		//& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
+		//timeout=INT)? & ("rationale" rationale=STRING)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"activity"
@@ -594,7 +599,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		////	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//// these are data parameters to the method in addition to what comes with the model
 		//// and via the requirement (predicate/limit values
-		//& ("method" method=[VerificationMethod|QualifiedName])? & ("timeout" timeout=INT)? & ("rationale" rationale=STRING)?
+		//& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
+		//timeout=INT)? & ("rationale" rationale=STRING)?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//("description" description=Description)?
@@ -609,7 +615,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_5_0_1_0() { return cDescriptionDescriptionParserRuleCall_5_0_1_0; }
 
-		//("method" method=[VerificationMethod|QualifiedName])?
+		//"method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?
 		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//"method"
@@ -623,6 +629,21 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedName
 		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_5_1_1_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_5_1_1_0_1; }
+
+		//("as" computeVariable=[common::ComputeDeclaration])?
+		public Group getGroup_5_1_2() { return cGroup_5_1_2; }
+
+		//"as"
+		public Keyword getAsKeyword_5_1_2_0() { return cAsKeyword_5_1_2_0; }
+
+		//computeVariable=[common::ComputeDeclaration]
+		public Assignment getComputeVariableAssignment_5_1_2_1() { return cComputeVariableAssignment_5_1_2_1; }
+
+		//[common::ComputeDeclaration]
+		public CrossReference getComputeVariableComputeDeclarationCrossReference_5_1_2_1_0() { return cComputeVariableComputeDeclarationCrossReference_5_1_2_1_0; }
+
+		//ID
+		public RuleCall getComputeVariableComputeDeclarationIDTerminalRuleCall_5_1_2_1_0_1() { return cComputeVariableComputeDeclarationIDTerminalRuleCall_5_1_2_1_0_1; }
 
 		//("timeout" timeout=INT)?
 		public Group getGroup_5_2() { return cGroup_5_2; }
@@ -1553,8 +1574,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	//	// these are data parameters to the method in addition to what comes with the model
 	//	// and via the requirement (predicate/limit values
-	//	& ("method" method=[VerificationMethod|QualifiedName])? & ("timeout" timeout=INT)? & ("rationale" rationale=STRING)?)
-	//	"]";
+	//	& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
+	//	timeout=INT)? & ("rationale" rationale=STRING)?) "]";
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}

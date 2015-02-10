@@ -30,11 +30,11 @@ class ReqSpecUtilExtension {
 	}
 
 	def static containingRequirement(EObject sh){
-		sh.getContainerOfType(typeof(Requirement))
+		sh.getContainerOfType(Requirement)
 	}
 
 	def static containingReqSpecs(EObject sh){
-		sh.getContainerOfType(typeof(ReqSpecs))
+		sh.getContainerOfType(ReqSpecs)
 	}
 	
 }

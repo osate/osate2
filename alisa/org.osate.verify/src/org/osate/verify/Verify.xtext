@@ -4,6 +4,7 @@ generate verify "http://www.osate.org/verify/Verify"
 import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/categories/Categories" as categories
+import "http://www.osate.org/alisa/common/Common" as common
 
 Verification:
 	contents+=(VerificationLibrary | VerificationPlan | VerificationMethodRegistry);
@@ -56,7 +57,7 @@ VerificationActivity:
 	'[' (
 	('description' description=Description)?
 //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
-	&('method' method=[VerificationMethod|QualifiedName])?
+	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
 	&('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model

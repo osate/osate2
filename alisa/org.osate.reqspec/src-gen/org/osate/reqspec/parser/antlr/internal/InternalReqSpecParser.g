@@ -281,7 +281,7 @@ ruleStakeholderGoals returns [EObject current=null]
 )
 
 )
-)
+)*
 	otherlv_12=RightSquareBracket
     {
     	newLeafNode(otherlv_12, grammarAccess.getStakeholderGoalsAccess().getRightSquareBracketKeyword_8());
@@ -399,7 +399,7 @@ ruleReqDocument returns [EObject current=null]
 	    }
 
 )
-)
+)*
 	otherlv_8=RightSquareBracket
     {
     	newLeafNode(otherlv_8, grammarAccess.getReqDocumentAccess().getRightSquareBracketKeyword_6());

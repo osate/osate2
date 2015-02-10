@@ -1439,7 +1439,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         requirement=[Requirement|QualifiedName]? 
 	 *         description=Description? 
-	 *         method=[VerificationMethod|QualifiedName]? 
+	 *         method=[VerificationMethod|QualifiedName] 
+	 *         computeVariable=[ComputeDeclaration|ID]? 
 	 *         timeout=INT? 
 	 *         rationale=STRING?
 	 *     )
