@@ -2,6 +2,7 @@ package org.osate.reqspec.util;
 
 import com.google.common.base.Objects;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.reqspec.reqSpec.ContractualElement;
@@ -49,5 +50,13 @@ public class ReqSpecUtilExtension {
       _elvis = _contextClassifier;
     }
     return _elvis;
+  }
+  
+  public static Requirement containingRequirement(final EObject sh) {
+    return EcoreUtil2.<Requirement>getContainerOfType(sh, Requirement.class);
+  }
+  
+  public static ReqSpecs containingReqSpecs(final EObject sh) {
+    return EcoreUtil2.<ReqSpecs>getContainerOfType(sh, ReqSpecs.class);
   }
 }

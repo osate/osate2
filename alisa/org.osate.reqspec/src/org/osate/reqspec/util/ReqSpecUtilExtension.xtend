@@ -5,6 +5,7 @@ import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.ReqSpecs
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.Requirement
+import static extension org.eclipse.xtext.EcoreUtil2.*
 
 class ReqSpecUtilExtension {
 	
@@ -28,5 +29,12 @@ class ReqSpecUtilExtension {
 		req.target?:req.contextClassifier
 	}
 
+	def static containingRequirement(EObject sh){
+		sh.getContainerOfType(typeof(Requirement))
+	}
+
+	def static containingReqSpecs(EObject sh){
+		sh.getContainerOfType(typeof(ReqSpecs))
+	}
 	
 }
