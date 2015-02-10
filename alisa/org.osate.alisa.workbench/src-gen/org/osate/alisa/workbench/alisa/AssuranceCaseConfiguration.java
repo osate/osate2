@@ -6,11 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.xtext.xbase.XExpression;
-
 import org.osate.aadl2.ComponentImplementation;
-
-import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.SelectionCategory;
 
@@ -28,7 +24,6 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getPlans <em>Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
@@ -143,22 +138,6 @@ public interface AssuranceCaseConfiguration extends EObject
    * @generated
    */
   void setDescription(Description value);
-
-  /**
-   * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Constants</em>' containment reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCaseConfiguration_Constants()
-   * @model containment="true"
-   * @generated
-   */
-  EList<XExpression> getConstants();
 
   /**
    * Returns the value of the '<em><b>Plans</b></em>' reference list.

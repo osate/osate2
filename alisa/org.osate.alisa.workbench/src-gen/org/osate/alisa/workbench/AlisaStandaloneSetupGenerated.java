@@ -17,7 +17,7 @@ import com.google.inject.Injector;
 public class AlisaStandaloneSetupGenerated implements ISetup {
 
 	public Injector createInjectorAndDoEMFRegistration() {
-		org.osate.alisa.common.CommonStandaloneSetup.doSetup();
+		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
 
 		Injector injector = createInjector();
 		register(injector);
@@ -38,7 +38,6 @@ public class AlisaStandaloneSetupGenerated implements ISetup {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("alisa", resourceFactory);
 		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("alisa", serviceProvider);
 		
-
 
 
 	}

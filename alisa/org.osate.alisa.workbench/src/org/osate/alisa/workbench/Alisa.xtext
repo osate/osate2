@@ -1,4 +1,5 @@
-grammar org.osate.alisa.workbench.Alisa with org.osate.alisa.common.Common
+//grammar org.osate.alisa.workbench.Alisa with org.osate.alisa.common.Common
+grammar org.osate.alisa.workbench.Alisa with org.eclipse.xtext.common.Terminals
 
 generate alisa "http://www.osate.org/alisa/workbench/Alisa"
 import "http://aadl.info/AADL/2.0" as aadl2
@@ -15,10 +16,31 @@ AssuranceCaseConfiguration:
 	'['
 	(
 	('description' description=Description)?
-	& (  constants+=XValDeclaration* )
-	&('plans' plans+=[Verify::VerificationPlan|QualifiedName]+)
+//	& (  constants+=XValDeclaration* )
+	& ('plans' plans+=[Verify::VerificationPlan|QualifiedName]+)
 	&('when' (selectionFilter+=[categories::SelectionCategory|ID])+)?
 	)
 	']';
 	
+Description : 
+	( description += DescriptionElement  )+
+;
+
+DescriptionElement :
+ 	text = STRING | thisTarget?='this'
+ ;
+
+ComputeDeclaration : 'compute' name=ID;
+
+// Override XNumberLiteral from XBase
+//Accept unit and have value converter turn it into value scaled to base unit
+
+ 
+// Qualified classifier reference
+AadlClassifierReference:
+	ID '::' ID ('.' ID)?;
+
+QualifiedName:
+	ID ('.' ID)?;
 	
+URIID: STRING;		
