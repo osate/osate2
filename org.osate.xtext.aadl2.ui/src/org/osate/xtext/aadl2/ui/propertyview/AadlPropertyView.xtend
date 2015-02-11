@@ -145,6 +145,7 @@ import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefin
 class AadlPropertyView extends ViewPart {
 	val static HIDE_UNDEFINED_TOOL_TIP = "Click to hide undefined properties"
 	val static SHOW_UNDEFINED_TOOL_TIP = "Click to show undefined properties"
+	val static COLLAPSE_ALL_TOOL_TIP = "Collapse All"
 
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
@@ -186,6 +187,12 @@ class AadlPropertyView extends ViewPart {
 
 	var Action createNewAssociationAction = null
 	var package nextEditIsANewAssociationCreation = false
+
+	/**
+	 * Action for Collapse All.
+	 */
+	var Action collapseAllAction;
+
 
 	/**
 	 * The editing domain for the viewer's input
@@ -462,6 +469,16 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	def private createActions() {
+		collapseAllAction = new Action("Collapse All") {
+			override run() {
+				treeViewer.collapseAll()
+			}
+		} => [
+			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/collapseall.gif")
+			viewSite.actionBars.toolBarManager.add(it)
+			toolTipText = COLLAPSE_ALL_TOOL_TIP
+		]
+
 		showUndefinedAction = new Action(null, IAction.AS_CHECK_BOX) {
 			override run() {
 				showUndefinedAction.toolTipText = if (showUndefinedAction.checked) {
