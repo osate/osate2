@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -200,8 +201,89 @@ public class AssureUtilExtension {
       final Procedure1<IMarker> _function_1 = new Procedure1<IMarker>() {
         public void apply(final IMarker em) {
           try {
-            Object _attribute = em.getAttribute(IMarker.MESSAGE);
-            AssureUtilExtension.addErrorIssue(verificationActivityResult, instance, ((String) _attribute));
+            Object _attribute = em.getAttribute(AadlConstants.AADLURI);
+            final String targetURIString = ((String) _attribute);
+            final URI targetURI = URI.createURI(targetURIString);
+            ResourceSet _resourceSet = res.getResourceSet();
+            final EObject target = _resourceSet.getEObject(targetURI, false);
+            EObject _elvis = null;
+            if (target != null) {
+              _elvis = target;
+            } else {
+              _elvis = instance;
+            }
+            Object _attribute_1 = em.getAttribute(IMarker.MESSAGE);
+            AssureUtilExtension.addErrorIssue(verificationActivityResult, _elvis, ((String) _attribute_1));
+          } catch (Throwable _e) {
+            throw Exceptions.sneakyThrow(_e);
+          }
+        }
+      };
+      IterableExtensions.<IMarker>forEach(markers, _function_1);
+      return true;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  public static boolean addAllDirectErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
+    try {
+      final Resource res = instance.eResource();
+      final IResource irsrc = OsateResourceUtil.convertToIResource(res);
+      final IMarker[] markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE);
+      final Function1<IMarker, Boolean> _function = new Function1<IMarker, Boolean>() {
+        public Boolean apply(final IMarker m) {
+          try {
+            boolean _xblockexpression = false;
+            {
+              Object _attribute = m.getAttribute(AadlConstants.AADLURI);
+              final String targetURIString = ((String) _attribute);
+              final URI targetURI = URI.createURI(targetURIString);
+              ResourceSet _resourceSet = res.getResourceSet();
+              final EObject target = _resourceSet.getEObject(targetURI, false);
+              final ComponentInstance parent = EcoreUtil2.<ComponentInstance>getContainerOfType(target, ComponentInstance.class);
+              boolean _and = false;
+              Object _attribute_1 = m.getAttribute(IMarker.SEVERITY);
+              boolean _equals = Objects.equal(_attribute_1, Integer.valueOf(IMarker.SEVERITY_ERROR));
+              if (!_equals) {
+                _and = false;
+              } else {
+                URI _uRI = EcoreUtil.getURI(parent);
+                String _string = _uRI.toString();
+                URI _uRI_1 = EcoreUtil.getURI(instance);
+                String _string_1 = _uRI_1.toString();
+                boolean _equals_1 = Objects.equal(_string, _string_1);
+                _and = _equals_1;
+              }
+              _xblockexpression = _and;
+            }
+            return Boolean.valueOf(_xblockexpression);
+          } catch (Throwable _e) {
+            throw Exceptions.sneakyThrow(_e);
+          }
+        }
+      };
+      final Iterable<IMarker> markers = IterableExtensions.<IMarker>filter(((Iterable<IMarker>)Conversions.doWrapArray(markersforanalysis)), _function);
+      boolean _isEmpty = IterableExtensions.isEmpty(markers);
+      if (_isEmpty) {
+        return false;
+      }
+      final Procedure1<IMarker> _function_1 = new Procedure1<IMarker>() {
+        public void apply(final IMarker em) {
+          try {
+            Object _attribute = em.getAttribute(AadlConstants.AADLURI);
+            final String targetURIString = ((String) _attribute);
+            final URI targetURI = URI.createURI(targetURIString);
+            ResourceSet _resourceSet = res.getResourceSet();
+            final EObject target = _resourceSet.getEObject(targetURI, false);
+            EObject _elvis = null;
+            if (target != null) {
+              _elvis = target;
+            } else {
+              _elvis = instance;
+            }
+            Object _attribute_1 = em.getAttribute(IMarker.MESSAGE);
+            AssureUtilExtension.addErrorIssue(verificationActivityResult, _elvis, ((String) _attribute_1));
           } catch (Throwable _e) {
             throw Exceptions.sneakyThrow(_e);
           }

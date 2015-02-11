@@ -44,6 +44,8 @@ import org.osate.assure.assure.VerificationResultState
 import org.osate.verify.verify.RefExpr
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import org.osate.verify.verify.VerificationActivity
+import org.eclipse.emf.common.util.URI
+import static extension org.eclipse.xtext.EcoreUtil2.*
 
 class AssureUtilExtension {
 
@@ -109,7 +111,33 @@ class AssureUtilExtension {
 				m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR
 		]
 		if (markers.isEmpty) return false
-		markers.forEach[em|verificationActivityResult.addErrorIssue(instance, em.getAttribute(IMarker.MESSAGE) as String)]
+		markers.forEach[em| 
+			val targetURIString = em.getAttribute(AadlConstants.AADLURI) as String
+			val URI targetURI = URI.createURI(targetURIString)
+			val target = res.resourceSet.getEObject(targetURI, false)
+			verificationActivityResult.addErrorIssue(target?:instance, em.getAttribute(IMarker.MESSAGE) as String)
+		]
+		return true
+	}
+
+	def static boolean addAllDirectErrorMarkers(VerificationActivityResult verificationActivityResult,InstanceObject instance,String markertype) {
+		val res = instance.eResource
+		val IResource irsrc = OsateResourceUtil.convertToIResource(res);
+		val markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE) // analysisMarkerType
+		val markers = markersforanalysis.filter [ IMarker m | 
+			val targetURIString = m.getAttribute(AadlConstants.AADLURI) as String
+			val URI targetURI = URI.createURI(targetURIString)
+			val target = res.resourceSet.getEObject(targetURI, false)
+			val parent = target.getContainerOfType(ComponentInstance)
+			m.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR && (EcoreUtil.getURI(parent).toString() == EcoreUtil.getURI(instance).toString())				
+		]
+		if (markers.isEmpty) return false
+		markers.forEach[em|
+			val targetURIString = em.getAttribute(AadlConstants.AADLURI) as String
+			val URI targetURI = URI.createURI(targetURIString)
+			val target = res.resourceSet.getEObject(targetURI, false)
+			verificationActivityResult.addErrorIssue(target?:instance, em.getAttribute(IMarker.MESSAGE) as String)
+		]
 		return true
 	}
 

@@ -85,22 +85,7 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 		true
 	}
 
-	def String allFlowLatencyAnalysis(SystemInstance instance) {
-		val checker = new CheckFlowLatency()
-		val markerType = checker.getMarkerType
-		if (!getHasRun(markerType, instance)) {
-			val som = instance.systemOperationModes.head
-			try{
-				checker.invoke(new NullProgressMonitor, null, instance, som)
-				setHasRun(markerType, instance)
-			} catch (Throwable e) {
-				unsetHasRun(markerType, instance)
-			}
-		}
-		markerType
-	}
-
-	def String flowLatencyAnalysis(EndToEndFlowInstance etefi) {
+	def String flowLatencyAnalysis(InstanceObject etefi) {
 			val checker = new CheckFlowLatency()
 		val markerType = checker.getMarkerType
 		val instance = etefi.elementRoot as SystemInstance
@@ -118,30 +103,18 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 
 	override Object dispatchVerificationMethod(String methodPath, VerificationActivityResult vr) {
 		val target = vr.claimSubject
-		if (target instanceof ComponentInstance) {
 			switch (methodPath) {
-				case "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets": {
-					target.assertSumSubBudgets
+				case "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets" : {
+					if ( target instanceof ComponentInstance) target.assertSumSubBudgets
 				}
 				case "org.osate.assure.util.PlatformResourceBudgets.sumSubBudgets": {
-					target.sumSubBudgets
+					if ( target instanceof ComponentInstance) target.sumSubBudgets
 				}
 				case "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis": {
-					if (target instanceof SystemInstance) {
-						val mt = target.allFlowLatencyAnalysis
-						return vr.addAllErrorMarkers(target,mt)
-					}
-					return null
+					target.flowLatencyAnalysis
 				}
 			}
-		} else if (target instanceof EndToEndFlowInstance){
-			switch (methodPath) {
-				case "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis": {
-					val mt = target.flowLatencyAnalysis
-					return vr.addErrorMarkers(target,mt)
-				}
-			}
-		}
+		return null
 	}
 
 }

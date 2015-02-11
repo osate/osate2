@@ -33,6 +33,9 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IProjectDescription
 import org.eclipse.core.runtime.CoreException
 import java.util.ArrayList
+import org.osate.aadl2.instance.SystemInstance
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.InstanceObject
 
 @ImplementedBy(DefaultVerificationMethodDispatcher)
 interface IVerificationMethodDispatcher {
@@ -77,8 +80,14 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			
 		case SupportedTypes.MULTIMARKER: {
 			try { 
-				val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
-				if (res != null && res instanceof Boolean && res != true){
+				val res = dispatchVerificationMethod(methodpath, verificationActivityResult) as String
+				val subject = verificationActivityResult.caseSubject
+				val errors= switch(subject){
+					SystemInstance: addAllErrorMarkers(verificationActivityResult,subject, res)
+					ComponentInstance: addAllDirectErrorMarkers(verificationActivityResult,subject, res)
+					InstanceObject: addErrorMarkers(verificationActivityResult,subject, res)
+					}
+				if (errors ){
 				setToFail(verificationActivityResult, "");
 				} else {
 				setToSuccess(verificationActivityResult)

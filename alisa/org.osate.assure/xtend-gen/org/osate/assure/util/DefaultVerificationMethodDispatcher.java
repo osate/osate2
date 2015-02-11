@@ -40,6 +40,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.Aadl2Util;
@@ -116,22 +117,31 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
             break;
           case MULTIMARKER:
             try {
-              final Object res_1 = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
-              boolean _and_2 = false;
-              boolean _and_3 = false;
-              boolean _notEquals_2 = (!Objects.equal(res_1, null));
-              if (!_notEquals_2) {
-                _and_3 = false;
-              } else {
-                _and_3 = (res_1 instanceof Boolean);
+              Object _dispatchVerificationMethod = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
+              final String res_1 = ((String) _dispatchVerificationMethod);
+              final InstanceObject subject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
+              boolean _switchResult_1 = false;
+              boolean _matched = false;
+              if (!_matched) {
+                if (subject instanceof SystemInstance) {
+                  _matched=true;
+                  _switchResult_1 = AssureUtilExtension.addAllErrorMarkers(verificationActivityResult, subject, res_1);
+                }
               }
-              if (!_and_3) {
-                _and_2 = false;
-              } else {
-                boolean _notEquals_3 = (!Objects.equal(res_1, Boolean.valueOf(true)));
-                _and_2 = _notEquals_3;
+              if (!_matched) {
+                if (subject instanceof ComponentInstance) {
+                  _matched=true;
+                  _switchResult_1 = AssureUtilExtension.addAllDirectErrorMarkers(verificationActivityResult, subject, res_1);
+                }
               }
-              if (_and_2) {
+              if (!_matched) {
+                if (subject instanceof InstanceObject) {
+                  _matched=true;
+                  _switchResult_1 = AssureUtilExtension.addErrorMarkers(verificationActivityResult, subject, res_1);
+                }
+              }
+              final boolean errors = _switchResult_1;
+              if (errors) {
                 AssureUtilExtension.setToFail(verificationActivityResult, "");
               } else {
                 AssureUtilExtension.setToSuccess(verificationActivityResult);

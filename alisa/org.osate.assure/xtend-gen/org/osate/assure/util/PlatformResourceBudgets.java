@@ -16,7 +16,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -139,35 +138,7 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
     return true;
   }
   
-  public String allFlowLatencyAnalysis(final SystemInstance instance) {
-    String _xblockexpression = null;
-    {
-      final CheckFlowLatency checker = new CheckFlowLatency();
-      final String markerType = checker.getMarkerType();
-      boolean _hasRun = AssureUtilExtension.getHasRun(markerType, instance);
-      boolean _not = (!_hasRun);
-      if (_not) {
-        EList<SystemOperationMode> _systemOperationModes = instance.getSystemOperationModes();
-        final SystemOperationMode som = IterableExtensions.<SystemOperationMode>head(_systemOperationModes);
-        try {
-          NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-          checker.invoke(_nullProgressMonitor, null, instance, som);
-          AssureUtilExtension.setHasRun(markerType, instance);
-        } catch (final Throwable _t) {
-          if (_t instanceof Throwable) {
-            final Throwable e = (Throwable)_t;
-            AssureUtilExtension.unsetHasRun(markerType, instance);
-          } else {
-            throw Exceptions.sneakyThrow(_t);
-          }
-        }
-      }
-      _xblockexpression = markerType;
-    }
-    return _xblockexpression;
-  }
-  
-  public String flowLatencyAnalysis(final EndToEndFlowInstance etefi) {
+  public String flowLatencyAnalysis(final InstanceObject etefi) {
     String _xblockexpression = null;
     {
       final CheckFlowLatency checker = new CheckFlowLatency();
@@ -198,50 +169,30 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
   }
   
   public Object dispatchVerificationMethod(final String methodPath, final VerificationActivityResult vr) {
-    Object _xblockexpression = null;
-    {
-      final InstanceObject target = AssureUtilExtension.getClaimSubject(vr);
-      Object _xifexpression = null;
-      if ((target instanceof ComponentInstance)) {
-        Object _switchResult = null;
-        boolean _matched = false;
-        if (!_matched) {
-          if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets")) {
-            _matched=true;
-            _switchResult = this.assertSumSubBudgets(((ComponentInstance)target));
-          }
-        }
-        if (!_matched) {
-          if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.sumSubBudgets")) {
-            _matched=true;
-            _switchResult = Double.valueOf(this.sumSubBudgets(((ComponentInstance)target)));
-          }
-        }
-        if (!_matched) {
-          if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis")) {
-            _matched=true;
-            if ((target instanceof SystemInstance)) {
-              final String mt = this.allFlowLatencyAnalysis(((SystemInstance)target));
-              return Boolean.valueOf(AssureUtilExtension.addAllErrorMarkers(vr, target, mt));
-            }
-            return null;
-          }
-        }
-        _xifexpression = ((Object)_switchResult);
-      } else {
-        if ((target instanceof EndToEndFlowInstance)) {
-          boolean _matched_1 = false;
-          if (!_matched_1) {
-            if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis")) {
-              _matched_1=true;
-              final String mt_1 = this.flowLatencyAnalysis(((EndToEndFlowInstance)target));
-              return Boolean.valueOf(AssureUtilExtension.addErrorMarkers(vr, target, mt_1));
-            }
-          }
+    final InstanceObject target = AssureUtilExtension.getClaimSubject(vr);
+    boolean _matched = false;
+    if (!_matched) {
+      if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets")) {
+        _matched=true;
+        if ((target instanceof ComponentInstance)) {
+          this.assertSumSubBudgets(((ComponentInstance)target));
         }
       }
-      _xblockexpression = ((Object)_xifexpression);
     }
-    return ((Comparable<?>)_xblockexpression);
+    if (!_matched) {
+      if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.sumSubBudgets")) {
+        _matched=true;
+        if ((target instanceof ComponentInstance)) {
+          this.sumSubBudgets(((ComponentInstance)target));
+        }
+      }
+    }
+    if (!_matched) {
+      if (Objects.equal(methodPath, "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis")) {
+        _matched=true;
+        this.flowLatencyAnalysis(target);
+      }
+    }
+    return null;
   }
 }
