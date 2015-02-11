@@ -59,7 +59,7 @@ public final class CheckA429PortConnectionConsistency extends AaxlReadOnlyAction
 		return ArchitecturePlugin.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.architecture.A429ConnectionConsistencyObjectMarker";
 	}
 
