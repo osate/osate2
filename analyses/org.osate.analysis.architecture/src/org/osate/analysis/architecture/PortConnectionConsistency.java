@@ -240,16 +240,4 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 		previousNE = el;
 	}
 
-	private void csvlog(String s) {
-		action.logInfoNoNewLine(s);
-	}
-
-	private void csvlogNewline(String s) {
-		action.logInfo(s);
-	}
-
-	private void monitorUpdate(String s) {
-		monitor.setTaskName(s);
-	}
-
 }
