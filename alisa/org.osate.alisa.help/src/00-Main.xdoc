@@ -28,10 +28,11 @@ codelanguage-def[Aadl]
 codelanguage-def[ReqSpec]
 [
 	library,for,specification,goal,include, val, compute, value,
-	document,constants,folder,goal,of,category,
+	document,constants,folder,of,category,
 	description,assert,title, refines, mitigates, 
 	assert,rationale,refined,decomposed,to,evolved, this,
-	conflicts,with,stakeholder,see,requirement, section, goals
+	conflicts,with,stakeholder,see,requirement, section, goals,
+	predicate, invariant, input, assumption, output, guarantee,eq
 ]
 
 

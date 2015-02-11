@@ -29,7 +29,7 @@ A e[goal] construct has the following syntax:
 
 code[ReqSpec][
 <Goal>::=
-goal
+goal goalname
 	( :  "short descriptive title" )?
 	( for ComponentElement | "Target description" )?
 	\[  
@@ -81,7 +81,7 @@ A e[requirement] construct has the following syntax:
 
 code[ReqSpec][
 <Requirement> ::=
-requirement
+requirement reqname
 	( :  "short descriptive title" )?
 	( for ComponentElement | "Target description" )?
 	\[  
@@ -139,6 +139,17 @@ item[The e[see document] attribute is a reference to an external document that m
 importable to Alisa.]
 ]
 
+code[ReqSpec][
+<Assertion> ::=
+	 assert value  <expression involving constant e[val] and e[compute] variables>
+	| text "informal specification"
+	| input assumption <agree styl Xbase expression or e[as] reference into Agree subclause>
+	| output guarantee <agree styl Xbase expression or e[as] reference into Agree subclause>
+	| eq <agree styl Xbase expression or e[as] reference into Agree subclause>
+	| invariant <SPeAR statement as string>
+	| predicate <general XBase expression>
+]
+
 We distiguoish between different types of assertions.
 ul[
 item[The e[text] assertions allows the user to specify a condition informally as a text string.
@@ -152,8 +163,9 @@ the range condition as follows: e[ minval..maxval.contains(actual)]. Otherwise e
 operators can be used. The syntax currently allows the user to specify any e[XBase] expression. ]
 
 item[The e[assert value] expression may optionally include a mapping of e[val] constants to AADL properties
-to reflect the fact tha tthis constant is expected to be represent in the model by this property. This
-is useful if an analysis (verification) method expects to find the data reflected as property.]
+to reflect the fact that this constant is expected to be represent in the model by this property. This
+is useful if an analysis (verification) method expects to find the data reflected as property. e[note:]
+this may move to the verificication activity as an assumption. ]
 
 item[The e[input assumption] assertion represents assumptions made about incoming information. Users
 can express these assumptions as an e[XBase]
@@ -189,7 +201,7 @@ contain goals, requirements, and nested document sections.
 
 code[ReqSpec][
 <RequirementDocument> ::=
-document name=ID ( : "myTitle")?
+document docname ( : "myTitle")?
  (description MultiLineString)? 
 \[ 
 	<DocumentSection>
@@ -239,13 +251,13 @@ The next construct allow users to define libraries of requirements for component
 a requirement specification for a system.
 
 code[ReqSpec][
-<ReqSpec> ::=
+<ReqSpecs> ::=
 requirement specification Sysspec (':' "short title" )?
 ( for mypack::GPSDevice )?
 ( include ( Sysspec1 )+ )?
 (description Description)? 
 \[ 
-	(constants ( limit = 200 ms )+ )?
+	(val ( limit = 200 ms )+ )?
 	( <ReqFolder> | <Requirement> )*
 \]
 
