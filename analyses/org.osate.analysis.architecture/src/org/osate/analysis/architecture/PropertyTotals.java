@@ -75,9 +75,9 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	}
 
 	public final double calcWeight(ComponentInstance ci) {
-		String header = "Element,type,net weight, net/gross\n\r";
-		csvlog(header);
-		action.setIssuePrefix(",,,,");
+//		String header = "Element,type,net weight, net/gross\n\r";
+//		csvlog(header);
+//		action.setIssuePrefix(",,,,");
 		double total = doCalcWeight(ci, true, "");
 		return total;
 
@@ -192,8 +192,8 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	}
 
 	private void reportWeight(String ownerStr, String elementType, double elementWeight, boolean net) {
-		if (elementWeight > 0)
-			csvlog(ownerStr + "," + elementType + "," + elementWeight + ", " + (net ? "net" : "gross"));
+//		if (elementWeight > 0)
+//			csvlog(ownerStr + "," + elementType + "," + elementWeight + ", " + (net ? "net" : "gross"));
 	}
 
 	private void reportwarning(final NamedElement obj, final String msg) {
