@@ -155,6 +155,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		csvlog = new WriteToFile(reporttype, root, "txt");
 	}
 
+	private String issuePrefix = "";
+
+	public void setIssuePrefix(String prefix) {
+		issuePrefix = prefix;
+	}
+
 	/**
 	 * Use by the property reference initialization process to keep track
 	 * of the property references that could not be found.
@@ -684,14 +690,14 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void logError(final String msg) {
 		if (csvlog != null) {
-			csvlog.addOutputNewline("ERROR: " + msg);
+			csvlog.addOutputNewline(issuePrefix + "ERROR: " + msg);
 		}
 	}
 
 	public final void logError(Element ci, final String msg) {
 		if (csvlog != null) {
 			String name = ci instanceof NamedElement ? " " + ((NamedElement) ci).getName() + ": " : ": ";
-			csvlog.addOutputNewline("ERROR" + name + msg);
+			csvlog.addOutputNewline(issuePrefix + "ERROR: " + name + msg);
 		}
 	}
 
@@ -701,13 +707,13 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void logWarning(final String msg) {
 		if (csvlog != null) {
-			csvlog.addOutputNewline("Warning: " + msg);
+			csvlog.addOutputNewline(issuePrefix + "Warning! " + msg);
 		}
 	}
 
 	public final void logWarning(final NamedElement e, final String msg) {
 		if (csvlog != null) {
-			csvlog.addOutputNewline("Warning! " + e.getName() + ": " + msg);
+			csvlog.addOutputNewline(issuePrefix + "Warning! " + e.getName() + ": " + msg);
 		}
 	}
 
@@ -746,7 +752,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 
 	public final void logInfo(final NamedElement e, final String msg) {
 		if (csvlog != null) {
-			csvlog.addOutputNewline(e.getName() + ": " + msg);
+			csvlog.addOutputNewline(issuePrefix + e.getName() + ": " + msg);
 		}
 	}
 
