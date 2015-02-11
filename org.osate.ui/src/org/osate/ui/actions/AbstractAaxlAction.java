@@ -66,7 +66,6 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.AadlConstants;
@@ -673,12 +672,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * @param obj Element that has been processed by the action
 	 * @param msg The error message
 	 */
-	public final void error(final Element obj, final String msg) {
-		errManager.error(obj, msg);
-		logError(msg);
-	}
 
-	public final void error(final ComponentInstance obj, final String msg) {
+	public final void error(final Element obj, final String msg) {
 		errManager.error(obj, msg);
 		logError(obj, msg);
 	}
@@ -689,13 +684,14 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void logError(final String msg) {
 		if (csvlog != null) {
-			csvlog.addOutputNewline("\"ERROR: " + msg + "\"");
+			csvlog.addOutputNewline("ERROR: " + msg);
 		}
 	}
 
-	public final void logError(ComponentInstance ci, final String msg) {
+	public final void logError(Element ci, final String msg) {
 		if (csvlog != null) {
-			csvlog.addOutputNewline("Component Instance: " + ci.getName() + ",\"ERROR: " + msg + "\"");
+			String name = ci instanceof NamedElement ? " " + ((NamedElement) ci).getName() + ": " : ": ";
+			csvlog.addOutputNewline("ERROR" + name + msg);
 		}
 	}
 
@@ -709,6 +705,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		}
 	}
 
+	public final void logWarning(final NamedElement e, final String msg) {
+		if (csvlog != null) {
+			csvlog.addOutputNewline("Warning! " + e.getName() + ": " + msg);
+		}
+	}
+
 	/**
 	 * Record warning message on object as result of action as marker and in csv log
 	 * @param obj Element that has been processed by the action
@@ -716,7 +718,10 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void warning(final Element obj, final String msg) {
 		errManager.warning(obj, msg);
-		logWarning(msg);
+		if (obj instanceof NamedElement)
+			logWarning((NamedElement) obj, msg);
+		else
+			logWarning(msg);
 	}
 
 	/**
@@ -739,6 +744,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		}
 	}
 
+	public final void logInfo(final NamedElement e, final String msg) {
+		if (csvlog != null) {
+			csvlog.addOutputNewline(e.getName() + ": " + msg);
+		}
+	}
+
 	/**
 	 * Record an informative  message on object as result of action as Marker and in CSV log
 	 * @param obj Element that has been processed by the action
@@ -746,7 +757,10 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	public final void info(final Element obj, final String msg) {
 		errManager.info(obj, msg);
-		logInfo(msg);
+		if (obj instanceof NamedElement)
+			logInfo((NamedElement) obj, msg);
+		else
+			logInfo(msg);
 	}
 
 	public void errorSummary(final NamedElement obj, String somName, String msg) {
