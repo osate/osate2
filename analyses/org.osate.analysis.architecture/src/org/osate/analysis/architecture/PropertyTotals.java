@@ -77,6 +77,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	public final double calcWeight(ComponentInstance ci) {
 		String header = "Element,type,net weight, net/gross\n\r";
 		csvlog(header);
+		action.setIssuePrefix(",,,,");
 		double total = doCalcWeight(ci, true, "");
 		return total;
 
@@ -106,9 +107,9 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			weight += netconn > 0 ? netconn : grossconn;
 			reportWeight(connectionInstance.getName(), "Connection ", netconn > 0 ? netconn : grossconn, netconn > 0);
 			if (netconn > 0 || grossconn > 0) {
-				String ResultMsg = indent
-						+ String.format(connectionInstance.getName() + ": Weight of access connection %.3f kg",
-								netconn > 0 ? netconn : grossconn);
+				String ResultMsg = String.format(
+						connectionInstance.getName() + ": Weight of access connection %.3f kg", netconn > 0 ? netconn
+								: grossconn);
 				reportinfo(connectionInstance, ResultMsg);
 			}
 			sublimit += GetProperties.getWeightLimit(connectionInstance, 0.0);
@@ -125,21 +126,13 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		if (gross > 0.0) {
 			if (weight > gross) {
 				// problem
-				reportwarning(
-						ci,
-						indent
-								+ String.format(getPrintName(ci)
-										+ ":[G] Sum of weights %.3f kg exceeds grossweight %.3f kg", weight, gross));
+				reportwarning(ci,
+						String.format("[G] Sum of weights %.3f kg exceeds grossweight %.3f kg", weight, gross));
 				// Set gross weight
 			} else if (weight > 0 && weight < gross) {
 				// problem
-				reportwarning(
-						ci,
-						indent
-								+ String.format(
-										getPrintName(ci)
-												+ ":[G] Sum of weights %.3f kg less than grossweight %.3f kg (using gross weight)",
-										weight, gross));
+				reportwarning(ci, String.format(
+						"[G] Sum of weights %.3f kg less than grossweight %.3f kg (using gross weight)", weight, gross));
 				weight = gross;
 			}
 			if (weight == 0.0) {
@@ -150,38 +143,30 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		if (limit > 0.0) {
 			if (weight > limit) {
 				// problem
-				String ResultMsg = indent
-						+ String.format(getPrintName(ci) + ":[A] Sum of weights %.3f kg exceeds weight limit %.3f kg",
-								weight, limit);
+				String ResultMsg = String.format("[A] Sum of weights %.3f kg exceeds weight limit %.3f kg", weight,
+						limit);
 				reporterror(ci, ResultMsg);
 			} else {
 				if (sublimit > limit) {
 					// problem
-					reportwarning(
-							ci,
-							indent
-									+ String.format(
-											getPrintName(ci)
-													+ ":[L] Sum of subcomponent weight limits %.3f kg exceeds weight limit %.3f kg",
-											sublimit, limit));
+					reportwarning(ci, String.format(
+							"[L] Sum of subcomponent weight limits %.3f kg exceeds weight limit %.3f kg", sublimit,
+							limit));
 				}
 				if (weight < limit) {
-					String ResultMsg = indent
-							+ String.format(getPrintName(ci)
-									+ ":[A] Sum of weights %.3f kg below weight limit %.3f kg (%.1f %% Weight slack)",
-									weight, limit, (limit - weight) / limit * 100);
+					String ResultMsg = String.format(
+							"[A] Sum of weights %.3f kg below weight limit %.3f kg (%.1f %% Weight slack)", weight,
+							limit, (limit - weight) / limit * 100);
 					reportinfo(ci, ResultMsg);
 				}
 			}
 		} else {
 			if (weight > 0.0) {
-				String ResultMsg = indent
-						+ String.format(String.format(getPrintName(ci)
-								+ ":[L] Sum of weights / Gross weight %.3f kg (no limit specified", weight));
+				String ResultMsg = String.format("[L] Sum of weights / Gross weight %.3f kg (no limit specified",
+						weight);
 				reportinfo(ci, ResultMsg);
 			} else if (needWeight) {
-				String ResultMsg = indent + getPrintName(ci)
-						+ ":[L] no net weight plus subcomomponent weight, or no grossweight";
+				String ResultMsg = "[L] no net weight plus subcomomponent weight or no grossweight";
 				reportwarning(ci, ResultMsg);
 			}
 		}
