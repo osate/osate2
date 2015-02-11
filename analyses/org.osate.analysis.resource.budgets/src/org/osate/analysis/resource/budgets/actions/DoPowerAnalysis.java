@@ -128,4 +128,8 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		return true;
 	};
 
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+	}
+
 }
