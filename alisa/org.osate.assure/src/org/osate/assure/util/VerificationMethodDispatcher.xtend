@@ -18,8 +18,6 @@ import org.osate.verify.verify.SupportedTypes
 
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.eclipse.emf.ecore.EObject
-import com.rockwellcollins.atc.resolute.linking.ResoluteLinkingService
-import org.osate.xtext.aadl2.properties.util.PSNode
 import java.util.List
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
@@ -33,7 +31,6 @@ import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IProjectDescription
 import org.eclipse.core.runtime.CoreException
 import java.util.ArrayList
-import org.osate.aadl2.instance.SystemInstance
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 
@@ -77,24 +74,71 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 				setToError(verificationActivityResult, e);
 			}
 			}
+		case SINGLEANALYSIS: {
+			try { 
+				val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
+				// TODO Evaluate predicate function
+				verificationActivityResult.addInfoIssue(verificationActivityResult.claimSubject,"Need to compare analysis result "+toString(res))
+				if (res != null && res instanceof Boolean && res != true){
+				setToFail(verificationActivityResult, "");
+				} else {
+					setToSuccess(verificationActivityResult)
+				}
+			} catch (AssertionError e) {
+				setToFail(verificationActivityResult, e);
+			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+				throw e;
+			} catch (Throwable e) {
+				setToError(verificationActivityResult, e);
+			}
+		}
+			case SupportedTypes.ASSERTIONEXCEPTION: 
+			{
+			try { 
+				val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
+				setToSuccess(verificationActivityResult)
+			} catch (AssertionError e) {
+				setToFail(verificationActivityResult, e);
+			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+				throw e;
+			} catch (Throwable e) {
+				setToError(verificationActivityResult, e);
+			}
+			}
 			
 		case SupportedTypes.MULTIMARKER: {
 			try { 
 				val res = dispatchVerificationMethod(methodpath, verificationActivityResult) as String
 				val subject = verificationActivityResult.caseSubject
+				val errors=  addAllErrorMarkers(verificationActivityResult,subject, res)
+				if (errors ){
+					setToFail(verificationActivityResult);
+				} else {
+					setToSuccess(verificationActivityResult)
+				}
+			} catch (AssertionError e) {
+				setToFail(verificationActivityResult, e);
+			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+				throw e;
+			} catch (Throwable e) {
+				setToError(verificationActivityResult, e);
+			}
+		}
+		case SupportedTypes.OWNMULTIMARKER: {
+			try { 
+				val res = dispatchVerificationMethod(methodpath, verificationActivityResult) as String
+				val subject = verificationActivityResult.caseSubject
 				val errors= switch(subject){
-					SystemInstance: addAllErrorMarkers(verificationActivityResult,subject, res)
 					ComponentInstance: addAllDirectErrorMarkers(verificationActivityResult,subject, res)
 					InstanceObject: addErrorMarkers(verificationActivityResult,subject, res)
 					}
 				if (errors ){
-				setToFail(verificationActivityResult, "");
+					setToFail(verificationActivityResult, "");
 				} else {
-				setToSuccess(verificationActivityResult)
+					setToSuccess(verificationActivityResult)
 				}
-//			} catch (AssertionError e) {
-//				setToFail(verificationActivityResult, e);
-//				null
+			} catch (AssertionError e) {
+				setToFail(verificationActivityResult, e);
 			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
 				throw e;
 			} catch (Throwable e) {
@@ -120,9 +164,16 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 				setToFail(verificationActivityResult, proveri.issues)
 			}
 		}
+		case MANUAL: {
+		}
+		case MULTIDIAGNOSTICS: {
+		}
+		case RESULTREPORT: {
+		}
 		}
 		verificationActivityResult.eResource.save(null)
 	}
+	
 	
 	def ProveStatement createWrapperProveCall(VerificationActivityResult vr){
 		val resoluteFunction = vr.methodName
@@ -136,6 +187,16 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 		val prove = factory.createProveStatement
 		prove.expr = call
 		prove
+	}
+	
+	def String toString(Object o){
+		switch (o){
+			Integer: o.toString
+			Long: o.toString
+			Double:o.toString
+			String: o
+			default: "an object"
+		}
 	}
 	
 

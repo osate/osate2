@@ -128,7 +128,7 @@ public class AssureUtilExtension {
   }
   
   /**
-   * methods to process results from verificaiton methods
+   * methods to process results from verification methods
    */
   public static boolean addErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
     try {
@@ -305,6 +305,63 @@ public class AssureUtilExtension {
   public void handleXtextIssues() {
   }
   
+  public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message) {
+    return AssureUtilExtension.addErrorIssue(vr, target, message, null);
+  }
+  
+  public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message, final String issueSource) {
+    ResultIssue _xblockexpression = null;
+    {
+      final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
+      issue.setMessage(message);
+      issue.setIssueType(ResultIssueType.ERROR);
+      issue.setExceptionType(issueSource);
+      issue.setTarget(target);
+      EList<ResultIssue> _issues = vr.getIssues();
+      _issues.add(issue);
+      _xblockexpression = issue;
+    }
+    return _xblockexpression;
+  }
+  
+  public static ResultIssue addInfoIssue(final VerificationActivityResult vr, final EObject target, final String message) {
+    return AssureUtilExtension.addInfoIssue(vr, target, message, null);
+  }
+  
+  public static ResultIssue addInfoIssue(final VerificationActivityResult vr, final EObject target, final String message, final String issueSource) {
+    ResultIssue _xblockexpression = null;
+    {
+      final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
+      issue.setMessage(message);
+      issue.setIssueType(ResultIssueType.INFO);
+      issue.setExceptionType(issueSource);
+      issue.setTarget(target);
+      EList<ResultIssue> _issues = vr.getIssues();
+      _issues.add(issue);
+      _xblockexpression = issue;
+    }
+    return _xblockexpression;
+  }
+  
+  public static ResultIssue addWarningIssue(final VerificationActivityResult vr, final EObject target, final String message) {
+    return AssureUtilExtension.addWarningIssue(vr, target, message, null);
+  }
+  
+  public static ResultIssue addWarningIssue(final VerificationActivityResult vr, final EObject target, final String message, final String issueSource) {
+    ResultIssue _xblockexpression = null;
+    {
+      final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
+      issue.setMessage(message);
+      issue.setIssueType(ResultIssueType.WARNING);
+      issue.setExceptionType(issueSource);
+      issue.setTarget(target);
+      EList<ResultIssue> _issues = vr.getIssues();
+      _issues.add(issue);
+      _xblockexpression = issue;
+    }
+    return _xblockexpression;
+  }
+  
   private final static ResoluteResultContentProvider resoluteContent = new ResoluteResultContentProvider();
   
   public static void doResoluteResults(final ResoluteResult rr, final ResultIssue ri) {
@@ -328,43 +385,6 @@ public class AssureUtilExtension {
       }
     };
     IterableExtensions.<Object>forEach(((Iterable<Object>)Conversions.doWrapArray(subrrs)), _function);
-  }
-  
-  public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message) {
-    return AssureUtilExtension.addErrorIssue(vr, target, message, null);
-  }
-  
-  public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message, final String issueSource) {
-    ResultIssue _xblockexpression = null;
-    {
-      final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
-      AssureUtilExtension.updateOwnResultState(vr, VerificationResultState.FAIL);
-      issue.setMessage(message);
-      issue.setIssueType(ResultIssueType.ERROR);
-      issue.setExceptionType(issueSource);
-      if ((target instanceof FunctionDefinition)) {
-        String _name = ((FunctionDefinition)target).getName();
-        issue.setName(_name);
-      } else {
-        if ((!(target instanceof FailExpr))) {
-          issue.setTarget(target);
-        } else {
-          if ((target instanceof FailExpr)) {
-            int _length = message.length();
-            boolean _greaterThan = (_length > 14);
-            if (_greaterThan) {
-              String _substring = message.substring(15);
-              issue.setMessage(_substring);
-              issue.setName("Failstatement");
-            }
-          }
-        }
-      }
-      EList<ResultIssue> _issues = vr.getIssues();
-      _issues.add(issue);
-      _xblockexpression = issue;
-    }
-    return _xblockexpression;
   }
   
   public static ResultIssue addErrorIssue(final ResultIssue ri, final EObject target, final String message) {
@@ -414,27 +434,6 @@ public class AssureUtilExtension {
       issue.setMessage(message);
       issue.setIssueType(ResultIssueType.SUCCESS);
       issue.setExceptionType(issueSource);
-      if ((target instanceof FunctionDefinition)) {
-        String _name = ((FunctionDefinition)target).getName();
-        issue.setName(_name);
-      } else {
-        if ((!(target instanceof FailExpr))) {
-          issue.setTarget(target);
-        }
-      }
-      EList<ResultIssue> _issues = ri.getIssues();
-      _issues.add(issue);
-      _xblockexpression = issue;
-    }
-    return _xblockexpression;
-  }
-  
-  public static ResultIssue addWarningIssue(final ResultIssue ri, final EObject target, final String message) {
-    ResultIssue _xblockexpression = null;
-    {
-      final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
-      issue.setMessage(message);
-      issue.setIssueType(ResultIssueType.WARNING);
       if ((target instanceof FunctionDefinition)) {
         String _name = ((FunctionDefinition)target).getName();
         issue.setName(_name);
@@ -1027,6 +1026,13 @@ public class AssureUtilExtension {
   
   public static void setToTBD(final VerificationActivityResult verificationActivityResult) {
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.TBD);
+    if (_updateOwnResultState) {
+      AssureUtilExtension.propagateCountChangeUp(verificationActivityResult);
+    }
+  }
+  
+  public static void setToFail(final VerificationActivityResult verificationActivityResult) {
+    boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
     if (_updateOwnResultState) {
       AssureUtilExtension.propagateCountChangeUp(verificationActivityResult);
     }

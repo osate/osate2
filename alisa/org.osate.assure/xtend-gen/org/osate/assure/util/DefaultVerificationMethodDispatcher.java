@@ -115,46 +115,129 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
               }
             }
             break;
-          case MULTIMARKER:
+          case SINGLEANALYSIS:
             try {
-              Object _dispatchVerificationMethod = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
-              final String res_1 = ((String) _dispatchVerificationMethod);
-              final InstanceObject subject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
-              boolean _switchResult_1 = false;
-              boolean _matched = false;
-              if (!_matched) {
-                if (subject instanceof SystemInstance) {
-                  _matched=true;
-                  _switchResult_1 = AssureUtilExtension.addAllErrorMarkers(verificationActivityResult, subject, res_1);
-                }
+              final Object res_1 = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
+              InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(verificationActivityResult);
+              String _string = this.toString(res_1);
+              String _plus = ("Need to compare analysis result " + _string);
+              AssureUtilExtension.addInfoIssue(verificationActivityResult, _claimSubject, _plus);
+              boolean _and_2 = false;
+              boolean _and_3 = false;
+              boolean _notEquals_2 = (!Objects.equal(res_1, null));
+              if (!_notEquals_2) {
+                _and_3 = false;
+              } else {
+                _and_3 = (res_1 instanceof Boolean);
               }
-              if (!_matched) {
-                if (subject instanceof ComponentInstance) {
-                  _matched=true;
-                  _switchResult_1 = AssureUtilExtension.addAllDirectErrorMarkers(verificationActivityResult, subject, res_1);
-                }
+              if (!_and_3) {
+                _and_2 = false;
+              } else {
+                boolean _notEquals_3 = (!Objects.equal(res_1, Boolean.valueOf(true)));
+                _and_2 = _notEquals_3;
               }
-              if (!_matched) {
-                if (subject instanceof InstanceObject) {
-                  _matched=true;
-                  _switchResult_1 = AssureUtilExtension.addErrorMarkers(verificationActivityResult, subject, res_1);
-                }
-              }
-              final boolean errors = _switchResult_1;
-              if (errors) {
+              if (_and_2) {
                 AssureUtilExtension.setToFail(verificationActivityResult, "");
               } else {
                 AssureUtilExtension.setToSuccess(verificationActivityResult);
               }
             } catch (final Throwable _t_1) {
-              if (_t_1 instanceof ThreadDeath) {
-                final ThreadDeath e_3 = (ThreadDeath)_t_1;
-                throw e_3;
+              if (_t_1 instanceof AssertionError) {
+                final AssertionError e_3 = (AssertionError)_t_1;
+                AssureUtilExtension.setToFail(verificationActivityResult, e_3);
+              } else if (_t_1 instanceof ThreadDeath) {
+                final ThreadDeath e_4 = (ThreadDeath)_t_1;
+                throw e_4;
               } else if (_t_1 instanceof Throwable) {
-                final Throwable e_4 = (Throwable)_t_1;
-                AssureUtilExtension.setToError(verificationActivityResult, e_4);
+                final Throwable e_5 = (Throwable)_t_1;
+                AssureUtilExtension.setToError(verificationActivityResult, e_5);
               } else {
                 throw Exceptions.sneakyThrow(_t_1);
+              }
+            }
+            break;
+          case ASSERTIONEXCEPTION:
+            try {
+              final Object res_2 = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
+              AssureUtilExtension.setToSuccess(verificationActivityResult);
+            } catch (final Throwable _t_2) {
+              if (_t_2 instanceof AssertionError) {
+                final AssertionError e_6 = (AssertionError)_t_2;
+                AssureUtilExtension.setToFail(verificationActivityResult, e_6);
+              } else if (_t_2 instanceof ThreadDeath) {
+                final ThreadDeath e_7 = (ThreadDeath)_t_2;
+                throw e_7;
+              } else if (_t_2 instanceof Throwable) {
+                final Throwable e_8 = (Throwable)_t_2;
+                AssureUtilExtension.setToError(verificationActivityResult, e_8);
+              } else {
+                throw Exceptions.sneakyThrow(_t_2);
+              }
+            }
+            break;
+          case MULTIMARKER:
+            try {
+              Object _dispatchVerificationMethod = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
+              final String res_3 = ((String) _dispatchVerificationMethod);
+              final InstanceObject subject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
+              final boolean errors = AssureUtilExtension.addAllErrorMarkers(verificationActivityResult, subject, res_3);
+              if (errors) {
+                AssureUtilExtension.setToFail(verificationActivityResult);
+              } else {
+                AssureUtilExtension.setToSuccess(verificationActivityResult);
+              }
+            } catch (final Throwable _t_3) {
+              if (_t_3 instanceof AssertionError) {
+                final AssertionError e_9 = (AssertionError)_t_3;
+                AssureUtilExtension.setToFail(verificationActivityResult, e_9);
+              } else if (_t_3 instanceof ThreadDeath) {
+                final ThreadDeath e_10 = (ThreadDeath)_t_3;
+                throw e_10;
+              } else if (_t_3 instanceof Throwable) {
+                final Throwable e_11 = (Throwable)_t_3;
+                AssureUtilExtension.setToError(verificationActivityResult, e_11);
+              } else {
+                throw Exceptions.sneakyThrow(_t_3);
+              }
+            }
+            break;
+          case OWNMULTIMARKER:
+            try {
+              Object _dispatchVerificationMethod_1 = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
+              final String res_4 = ((String) _dispatchVerificationMethod_1);
+              final InstanceObject subject_1 = AssureUtilExtension.getCaseSubject(verificationActivityResult);
+              boolean _switchResult_1 = false;
+              boolean _matched = false;
+              if (!_matched) {
+                if (subject_1 instanceof ComponentInstance) {
+                  _matched=true;
+                  _switchResult_1 = AssureUtilExtension.addAllDirectErrorMarkers(verificationActivityResult, subject_1, res_4);
+                }
+              }
+              if (!_matched) {
+                if (subject_1 instanceof InstanceObject) {
+                  _matched=true;
+                  _switchResult_1 = AssureUtilExtension.addErrorMarkers(verificationActivityResult, subject_1, res_4);
+                }
+              }
+              final boolean errors_1 = _switchResult_1;
+              if (errors_1) {
+                AssureUtilExtension.setToFail(verificationActivityResult, "");
+              } else {
+                AssureUtilExtension.setToSuccess(verificationActivityResult);
+              }
+            } catch (final Throwable _t_4) {
+              if (_t_4 instanceof AssertionError) {
+                final AssertionError e_12 = (AssertionError)_t_4;
+                AssureUtilExtension.setToFail(verificationActivityResult, e_12);
+              } else if (_t_4 instanceof ThreadDeath) {
+                final ThreadDeath e_13 = (ThreadDeath)_t_4;
+                throw e_13;
+              } else if (_t_4 instanceof Throwable) {
+                final Throwable e_14 = (Throwable)_t_4;
+                AssureUtilExtension.setToError(verificationActivityResult, e_14);
+              } else {
+                throw Exceptions.sneakyThrow(_t_4);
               }
             }
             break;
@@ -169,9 +252,9 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
             boolean _equals = Objects.equal(provecall, null);
             if (_equals) {
               String _methodName = AssureUtilExtension.getMethodName(verificationActivityResult);
-              String _plus = ("Could not find Resolute Function \'" + _methodName);
-              String _plus_1 = (_plus + "\'");
-              AssureUtilExtension.setToError(verificationActivityResult, _plus_1);
+              String _plus_1 = ("Could not find Resolute Function \'" + _methodName);
+              String _plus_2 = (_plus_1 + "\'");
+              AssureUtilExtension.setToError(verificationActivityResult, _plus_2);
               return;
             }
             ResoluteResult _evaluateProveStatement = interpreter.evaluateProveStatement(provecall);
@@ -185,6 +268,12 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
               EList<ResultIssue> _issues = proveri.getIssues();
               AssureUtilExtension.setToFail(verificationActivityResult, _issues);
             }
+            break;
+          case MANUAL:
+            break;
+          case MULTIDIAGNOSTICS:
+            break;
+          case RESULTREPORT:
             break;
           default:
             break;
@@ -217,6 +306,39 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
       _xblockexpression = prove;
     }
     return _xblockexpression;
+  }
+  
+  public String toString(final Object o) {
+    String _switchResult = null;
+    boolean _matched = false;
+    if (!_matched) {
+      if (o instanceof Integer) {
+        _matched=true;
+        _switchResult = ((Integer)o).toString();
+      }
+    }
+    if (!_matched) {
+      if (o instanceof Long) {
+        _matched=true;
+        _switchResult = ((Long)o).toString();
+      }
+    }
+    if (!_matched) {
+      if (o instanceof Double) {
+        _matched=true;
+        _switchResult = ((Double)o).toString();
+      }
+    }
+    if (!_matched) {
+      if (o instanceof String) {
+        _matched=true;
+        _switchResult = ((String)o);
+      }
+    }
+    if (!_matched) {
+      _switchResult = "an object";
+    }
+    return _switchResult;
   }
   
   @Inject

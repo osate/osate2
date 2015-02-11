@@ -19,6 +19,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.analysis.architecture.actions.DoPortConnectionConsistency;
 import org.osate.analysis.flows.actions.CheckFlowLatency;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.util.AssureUtilExtension;
@@ -142,6 +143,36 @@ public class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher
     String _xblockexpression = null;
     {
       final CheckFlowLatency checker = new CheckFlowLatency();
+      final String markerType = checker.getMarkerType();
+      NamedElement _elementRoot = etefi.getElementRoot();
+      final SystemInstance instance = ((SystemInstance) _elementRoot);
+      boolean _hasRun = AssureUtilExtension.getHasRun(markerType, instance);
+      boolean _not = (!_hasRun);
+      if (_not) {
+        EList<SystemOperationMode> _systemOperationModes = instance.getSystemOperationModes();
+        final SystemOperationMode som = IterableExtensions.<SystemOperationMode>head(_systemOperationModes);
+        try {
+          NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
+          checker.invoke(_nullProgressMonitor, null, instance, som);
+          AssureUtilExtension.setHasRun(markerType, instance);
+        } catch (final Throwable _t) {
+          if (_t instanceof Throwable) {
+            final Throwable e = (Throwable)_t;
+            AssureUtilExtension.unsetHasRun(markerType, instance);
+          } else {
+            throw Exceptions.sneakyThrow(_t);
+          }
+        }
+      }
+      _xblockexpression = markerType;
+    }
+    return _xblockexpression;
+  }
+  
+  public String portConsistency(final InstanceObject etefi) {
+    String _xblockexpression = null;
+    {
+      final DoPortConnectionConsistency checker = new DoPortConnectionConsistency();
       final String markerType = checker.getMarkerType();
       NamedElement _elementRoot = etefi.getElementRoot();
       final SystemInstance instance = ((SystemInstance) _elementRoot);

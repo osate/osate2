@@ -86,7 +86,7 @@ class AssureUtilExtension {
 	}
 	
 	/**
-	 * methods to process results from verificaiton methods
+	 * methods to process results from verification methods
 	 */
 
 	def static boolean addErrorMarkers(VerificationActivityResult verificationActivityResult, InstanceObject instance,
@@ -161,6 +161,48 @@ class AssureUtilExtension {
 	}
 	
 	
+	def static ResultIssue addErrorIssue(VerificationActivityResult vr, EObject target, String message){
+		addErrorIssue(vr,target,message,null)
+	}
+	
+	def static ResultIssue addErrorIssue(VerificationActivityResult vr, EObject target, String message,  String issueSource){
+		val issue = AssureFactory.eINSTANCE.createResultIssue
+		issue.message = message
+		issue.issueType = ResultIssueType.ERROR;
+		issue.exceptionType = issueSource
+		issue.target = target
+		vr.issues.add(issue)
+		issue
+	}
+	
+	def static ResultIssue addInfoIssue(VerificationActivityResult vr, EObject target, String message){
+		addInfoIssue(vr,target,message,null)
+	}
+	
+	def static ResultIssue addInfoIssue(VerificationActivityResult vr, EObject target, String message,  String issueSource){
+		val issue = AssureFactory.eINSTANCE.createResultIssue
+		issue.message = message
+		issue.issueType = ResultIssueType.INFO;
+		issue.exceptionType = issueSource
+		issue.target = target
+		vr.issues.add(issue)
+		issue
+	}
+	
+	def static ResultIssue addWarningIssue(VerificationActivityResult vr, EObject target, String message){
+		addWarningIssue(vr,target,message,null)
+	}
+	
+	def static ResultIssue addWarningIssue(VerificationActivityResult vr, EObject target, String message,  String issueSource){
+		val issue = AssureFactory.eINSTANCE.createResultIssue
+		issue.message = message
+		issue.issueType = ResultIssueType.WARNING;
+		issue.exceptionType = issueSource
+		issue.target = target
+		vr.issues.add(issue)
+		issue
+	}
+	
 	static val resoluteContent = new ResoluteResultContentProvider
 	
 	def static void doResoluteResults(ResoluteResult rr, ResultIssue ri){
@@ -169,30 +211,6 @@ class AssureUtilExtension {
 			val subri = if(subclaim.isValid) ri.addSuccessIssue(subclaim.location, subclaim.text) else ri.addErrorIssue(subclaim.location, subclaim.text)
 			subclaim.doResoluteResults(subri)
 		]
-	}
-	
-	def static ResultIssue addErrorIssue(VerificationActivityResult vr, EObject target, String message){
-		addErrorIssue(vr,target,message,null)
-	}
-	
-	def static ResultIssue addErrorIssue(VerificationActivityResult vr, EObject target, String message,  String issueSource){
-		val issue = AssureFactory.eINSTANCE.createResultIssue
-		vr.updateOwnResultState(VerificationResultState.FAIL);
-		issue.message = message
-		issue.issueType = ResultIssueType.ERROR;
-		issue.exceptionType = issueSource
-		if (target instanceof FunctionDefinition){
-			issue.name = target.name
-		} else if (!(target instanceof FailExpr)){
-			issue.target = target
-		} else if (target instanceof FailExpr){
-			if (message.length >14) {
-				issue.message = message.substring(15)
-				issue.name = "Failstatement"
-				}
-		}
-		vr.issues.add(issue)
-		issue
 	}
 	
 	def static ResultIssue addErrorIssue(ResultIssue ri, EObject target, String message){
@@ -234,21 +252,6 @@ class AssureUtilExtension {
 		ri.issues.add(issue)
 		issue
 	}
-	
-	def static ResultIssue addWarningIssue(ResultIssue ri, EObject target, String message){
-		val issue = AssureFactory.eINSTANCE.createResultIssue
-		issue.message = message
-		issue.issueType = ResultIssueType.WARNING;
-		if (target instanceof FunctionDefinition){
-			issue.name = target.name
-		} else if (!(target instanceof FailExpr)){
-			issue.target = target
-		}
-		ri.issues.add(issue)
-		issue
-	}
-	
-
 	
 	def static getTotalCount(AssureResult ar){
 		ar.errorCount + ar.failCount + ar.successCount + ar.tbdCount + ar.failthenCount + ar.andthenCount
@@ -554,6 +557,10 @@ class AssureUtilExtension {
 
 	def static void setToTBD(VerificationActivityResult verificationActivityResult) {
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.TBD))verificationActivityResult.propagateCountChangeUp
+	}
+
+	def static void setToFail(VerificationActivityResult verificationActivityResult) {
+		if(verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL)) verificationActivityResult.propagateCountChangeUp
 	}
 
 	def static void setToFail(VerificationActivityResult verificationActivityResult, String message) {

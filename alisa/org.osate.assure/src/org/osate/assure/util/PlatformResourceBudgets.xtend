@@ -1,18 +1,20 @@
 package org.osate.assure.util
 
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.SystemInstance
-import static extension org.junit.Assert.*
-import static extension org.osate.xtext.aadl2.properties.util.GetProperties.*
-import org.osate.aadl2.ComponentImplementation
-import org.junit.Test
-import org.osate.aadl2.NamedElement
-import org.osate.aadl2.instance.InstanceObject
 import org.eclipse.core.runtime.NullProgressMonitor
+import org.junit.Test
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.NamedElement
+import org.osate.aadl2.instance.ComponentInstance
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.aadl2.instance.SystemInstance
+import org.osate.analysis.architecture.actions.DoPortConnectionConsistency
 import org.osate.analysis.flows.actions.CheckFlowLatency
-import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.aadl2.instance.EndToEndFlowInstance
 import org.osate.assure.assure.VerificationActivityResult
+
+import static org.junit.Assert.*
+
+import static extension org.osate.assure.util.AssureUtilExtension.*
+import static extension org.osate.xtext.aadl2.properties.util.GetProperties.*
 
 class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
@@ -87,6 +89,22 @@ class PlatformResourceBudgets extends DefaultVerificationMethodDispatcher implem
 
 	def String flowLatencyAnalysis(InstanceObject etefi) {
 			val checker = new CheckFlowLatency()
+		val markerType = checker.getMarkerType
+		val instance = etefi.elementRoot as SystemInstance
+		if (!getHasRun(markerType, instance)) {
+			val som = instance.systemOperationModes.head
+			try{
+			checker.invoke(new NullProgressMonitor, null, instance, som)
+				setHasRun(markerType, instance)
+			} catch (Throwable e) {
+				unsetHasRun(markerType, instance)
+			}
+		}
+		markerType
+	}
+
+	def String portConsistency(InstanceObject etefi) {
+			val checker = new DoPortConnectionConsistency()
 		val markerType = checker.getMarkerType
 		val instance = etefi.elementRoot as SystemInstance
 		if (!getHasRun(markerType, instance)) {
