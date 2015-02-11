@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.gr
+ aphiti,org.eclipse.graphiti.ui,org.eclipse.emf.transaction,org.eclips
+ e.xtext.ui,org.osate.aadl2,org.osate.xtext.aadl2.properties,org.osate
+ .aadl2.modelsupport,org.osate.xtext.aadl2.properties.ui,org.eclipse.g
+ raphiti.pattern,org.eclipse.gef,org.osate.xtext.aadl2.ui,org.eclipse.
+ ui.views.properties.tabbed,org.eclipse.e4.core.di,org.eclipse.e4.core
+ .services,org.osate.ui,org.eclipse.zest.layouts,org.eclipse.e4.core.c
+ ontexts,org.junit,org.eclipse.ui.navigator,org.eclipse.ui.ide,org.ecl
+ ipse.jface,org.eclipse.core.resources,org.eclipse.core.expressions,or
+ g.osate.aadl2.instantiation
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 1.0.0.201501161818
+Bundle-Name: AADL Graphical Editor
+Bundle-Activator: org.osate.ge.Activator
+Bundle-ManifestVersion: 2
+Import-Package: org.eclipse.draw2d.graph,org.eclipse.ui,org.eclipse.ui
+ .part,org.eclipse.ui.views.contentoutline
+Bundle-SymbolicName: org.osate.ge;singleton:=true
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+
