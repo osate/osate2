@@ -40,7 +40,7 @@ codelanguage-def[Verify]
 [
 	plan,for,title,description,weights, as, enum,
 	assert,rationale,library,folder,activity,category,method,timeout
-	,all,andthen,failthen,when,registry, assumption, claim
+	,all,andthen,failthen,when,registry, assumption, claim, marker
 ]
 
 codelanguage-def[Assure]

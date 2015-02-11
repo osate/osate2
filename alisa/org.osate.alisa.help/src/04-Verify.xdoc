@@ -158,7 +158,7 @@ VerificationAssumption ::=
 	\]
 
 enum MethodTypes:
-	singlepredicate | singleanalysis | assertionexception | multimarker | multidiagnostics | resultreport 
+	singlepredicate | singleanalysis | assertionexception | multimarker | ownmultimarker | multidiagnostics | resultreport 
 	| resoluteprove | manual
 ]
 
@@ -173,9 +173,15 @@ to execute in the form of an exception is mapped into an e[error].]
 item[e[assertionexception:] the method uses Java or JUnit e[assert] statements to evaluate predicates.
 Exceptions that are the result of failing assertions are mapped into e[fail]. Failure
 to execute in the form of an exception is mapped into an e[error].]
-item[e[multimarker:] the method evaluates the instance model to produce multiple results and evaluates
+item[e[multimarker:] the method evaluates the complete instance model to produce multiple results and evaluates
 a built-in predicate that may use a property value as its limit. Predicates returning e[false] are assumed to be mapped into Eclipse e[markers]. Failure
-to execute in the form of an exception is mapped into an e[error].
+to execute in the form of an exception is mapped into an e[error]. All error markers are shown.
+]
+item[e[ownmultimarker:] the method evaluates the instance model to produce multiple results and evaluates
+a built-in predicate that may use a property value as its limit. Predicates returning e[false] are assumed to be mapped into Eclipse e[markers]. Failure
+to execute in the form of an exception is mapped into an e[error]. Only the markers of the instance object,
+or those contained directly in the component instance for which the verificaiton method is performed
+are shown.
 ]
 item[e[multidiagnostics:] Same as e[multimarker] except that the evaluation results are recorded as e[diagnostics]
 rather than e[markers].]
