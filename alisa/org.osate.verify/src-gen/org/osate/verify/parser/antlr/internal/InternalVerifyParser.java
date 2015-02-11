@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_HEX", "RULE_DECIMAL", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'plan'", "':'", "'for'", "'['", "'description'", "'rationale'", "'assumption'", "']'", "'claim'", "'('", "')'", "'assert'", "'library'", "'folder'", "'activity'", "'method'", "'as'", "'timeout'", "'precondition'", "'all'", "','", "'andthen'", "'failthen'", "'when'", "'registry'", "'marker'", "'category'", "'this'", "'%'", "'::'", "'.'", "'='", "'+='", "'-='", "'*='", "'/='", "'%='", "'<'", "'>'", "'>='", "'||'", "'&&'", "'=='", "'!='", "'==='", "'!=='", "'instanceof'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'/'", "'!'", "'++'", "'--'", "'?.'", "'#'", "'{'", "'}'", "'|'", "';'", "'if'", "'else'", "'switch'", "'default'", "'case'", "'while'", "'do'", "'var'", "'val'", "'extends'", "'static'", "'import'", "'extension'", "'super'", "'new'", "'false'", "'true'", "'null'", "'typeof'", "'throw'", "'return'", "'try'", "'finally'", "'synchronized'", "'catch'", "'?'", "'&'", "'singlepredicate'", "'singleanalysis'", "'assertionexception'", "'multimarker'", "'multidiagnostics'", "'resultreport'", "'resoluteprove'", "'manual'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_HEX", "RULE_DECIMAL", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'plan'", "':'", "'for'", "'['", "'description'", "'rationale'", "'assumption'", "']'", "'claim'", "'('", "')'", "'assert'", "'library'", "'folder'", "'activity'", "'method'", "'as'", "'timeout'", "'precondition'", "'all'", "','", "'andthen'", "'failthen'", "'when'", "'registry'", "'marker'", "'category'", "'this'", "'%'", "'::'", "'.'", "'='", "'+='", "'-='", "'*='", "'/='", "'%='", "'<'", "'>'", "'>='", "'||'", "'&&'", "'=='", "'!='", "'==='", "'!=='", "'instanceof'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'+'", "'-'", "'*'", "'**'", "'/'", "'!'", "'++'", "'--'", "'?.'", "'#'", "'{'", "'}'", "'|'", "';'", "'if'", "'else'", "'switch'", "'default'", "'case'", "'while'", "'do'", "'var'", "'val'", "'extends'", "'static'", "'import'", "'extension'", "'super'", "'new'", "'false'", "'true'", "'null'", "'typeof'", "'throw'", "'return'", "'try'", "'finally'", "'synchronized'", "'catch'", "'?'", "'&'", "'singlepredicate'", "'singleanalysis'", "'assertionexception'", "'multimarker'", "'ownmultimarker'", "'multidiagnostics'", "'resultreport'", "'resoluteprove'", "'manual'"
     };
     public static final int RULE_ID=4;
     public static final int T__29=29;
@@ -88,6 +88,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final int T__62=62;
     public static final int T__63=63;
     public static final int T__114=114;
+    public static final int T__115=115;
     public static final int T__61=61;
     public static final int T__60=60;
     public static final int T__55=55;
@@ -23824,7 +23825,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSupportedTypes"
-    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8354:1: ruleSupportedTypes returns [Enumerator current=null] : ( (enumLiteral_0= 'singlepredicate' ) | (enumLiteral_1= 'singleanalysis' ) | (enumLiteral_2= 'assertionexception' ) | (enumLiteral_3= 'multimarker' ) | (enumLiteral_4= 'multidiagnostics' ) | (enumLiteral_5= 'resultreport' ) | (enumLiteral_6= 'resoluteprove' ) | (enumLiteral_7= 'manual' ) ) ;
+    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8354:1: ruleSupportedTypes returns [Enumerator current=null] : ( (enumLiteral_0= 'singlepredicate' ) | (enumLiteral_1= 'singleanalysis' ) | (enumLiteral_2= 'assertionexception' ) | (enumLiteral_3= 'multimarker' ) | (enumLiteral_4= 'ownmultimarker' ) | (enumLiteral_5= 'multidiagnostics' ) | (enumLiteral_6= 'resultreport' ) | (enumLiteral_7= 'resoluteprove' ) | (enumLiteral_8= 'manual' ) ) ;
     public final Enumerator ruleSupportedTypes() throws RecognitionException {
         Enumerator current = null;
 
@@ -23836,14 +23837,15 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
         Token enumLiteral_5=null;
         Token enumLiteral_6=null;
         Token enumLiteral_7=null;
+        Token enumLiteral_8=null;
 
          enterRule(); 
         try {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8356:28: ( ( (enumLiteral_0= 'singlepredicate' ) | (enumLiteral_1= 'singleanalysis' ) | (enumLiteral_2= 'assertionexception' ) | (enumLiteral_3= 'multimarker' ) | (enumLiteral_4= 'multidiagnostics' ) | (enumLiteral_5= 'resultreport' ) | (enumLiteral_6= 'resoluteprove' ) | (enumLiteral_7= 'manual' ) ) )
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8357:1: ( (enumLiteral_0= 'singlepredicate' ) | (enumLiteral_1= 'singleanalysis' ) | (enumLiteral_2= 'assertionexception' ) | (enumLiteral_3= 'multimarker' ) | (enumLiteral_4= 'multidiagnostics' ) | (enumLiteral_5= 'resultreport' ) | (enumLiteral_6= 'resoluteprove' ) | (enumLiteral_7= 'manual' ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8356:28: ( ( (enumLiteral_0= 'singlepredicate' ) | (enumLiteral_1= 'singleanalysis' ) | (enumLiteral_2= 'assertionexception' ) | (enumLiteral_3= 'multimarker' ) | (enumLiteral_4= 'ownmultimarker' ) | (enumLiteral_5= 'multidiagnostics' ) | (enumLiteral_6= 'resultreport' ) | (enumLiteral_7= 'resoluteprove' ) | (enumLiteral_8= 'manual' ) ) )
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8357:1: ( (enumLiteral_0= 'singlepredicate' ) | (enumLiteral_1= 'singleanalysis' ) | (enumLiteral_2= 'assertionexception' ) | (enumLiteral_3= 'multimarker' ) | (enumLiteral_4= 'ownmultimarker' ) | (enumLiteral_5= 'multidiagnostics' ) | (enumLiteral_6= 'resultreport' ) | (enumLiteral_7= 'resoluteprove' ) | (enumLiteral_8= 'manual' ) )
             {
-            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8357:1: ( (enumLiteral_0= 'singlepredicate' ) | (enumLiteral_1= 'singleanalysis' ) | (enumLiteral_2= 'assertionexception' ) | (enumLiteral_3= 'multimarker' ) | (enumLiteral_4= 'multidiagnostics' ) | (enumLiteral_5= 'resultreport' ) | (enumLiteral_6= 'resoluteprove' ) | (enumLiteral_7= 'manual' ) )
-            int alt153=8;
+            // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8357:1: ( (enumLiteral_0= 'singlepredicate' ) | (enumLiteral_1= 'singleanalysis' ) | (enumLiteral_2= 'assertionexception' ) | (enumLiteral_3= 'multimarker' ) | (enumLiteral_4= 'ownmultimarker' ) | (enumLiteral_5= 'multidiagnostics' ) | (enumLiteral_6= 'resultreport' ) | (enumLiteral_7= 'resoluteprove' ) | (enumLiteral_8= 'manual' ) )
+            int alt153=9;
             switch ( input.LA(1) ) {
             case 107:
                 {
@@ -23883,6 +23885,11 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
             case 114:
                 {
                 alt153=8;
+                }
+                break;
+            case 115:
+                {
+                alt153=9;
                 }
                 break;
             default:
@@ -23971,16 +23978,16 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8381:6: (enumLiteral_4= 'multidiagnostics' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8381:6: (enumLiteral_4= 'ownmultimarker' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8381:6: (enumLiteral_4= 'multidiagnostics' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8381:8: enumLiteral_4= 'multidiagnostics'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8381:6: (enumLiteral_4= 'ownmultimarker' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8381:8: enumLiteral_4= 'ownmultimarker'
                     {
                     enumLiteral_4=(Token)match(input,111,FOLLOW_111_in_ruleSupportedTypes19963); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_4, grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_4()); 
+                              current = grammarAccess.getSupportedTypesAccess().getOWNMULTIMARKEREnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_4, grammarAccess.getSupportedTypesAccess().getOWNMULTIMARKEREnumLiteralDeclaration_4()); 
                           
                     }
 
@@ -23990,16 +23997,16 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8387:6: (enumLiteral_5= 'resultreport' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8387:6: (enumLiteral_5= 'multidiagnostics' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8387:6: (enumLiteral_5= 'resultreport' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8387:8: enumLiteral_5= 'resultreport'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8387:6: (enumLiteral_5= 'multidiagnostics' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8387:8: enumLiteral_5= 'multidiagnostics'
                     {
                     enumLiteral_5=(Token)match(input,112,FOLLOW_112_in_ruleSupportedTypes19980); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_5()); 
+                              current = grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_5()); 
                           
                     }
 
@@ -24009,16 +24016,16 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8393:6: (enumLiteral_6= 'resoluteprove' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8393:6: (enumLiteral_6= 'resultreport' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8393:6: (enumLiteral_6= 'resoluteprove' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8393:8: enumLiteral_6= 'resoluteprove'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8393:6: (enumLiteral_6= 'resultreport' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8393:8: enumLiteral_6= 'resultreport'
                     {
                     enumLiteral_6=(Token)match(input,113,FOLLOW_113_in_ruleSupportedTypes19997); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_6, grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_6()); 
+                              current = grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_6, grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_6()); 
                           
                     }
 
@@ -24028,16 +24035,35 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8399:6: (enumLiteral_7= 'manual' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8399:6: (enumLiteral_7= 'resoluteprove' )
                     {
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8399:6: (enumLiteral_7= 'manual' )
-                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8399:8: enumLiteral_7= 'manual'
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8399:6: (enumLiteral_7= 'resoluteprove' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8399:8: enumLiteral_7= 'resoluteprove'
                     {
                     enumLiteral_7=(Token)match(input,114,FOLLOW_114_in_ruleSupportedTypes20014); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_7, grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_7()); 
+                              current = grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_7, grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_7()); 
+                          
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 9 :
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8405:6: (enumLiteral_8= 'manual' )
+                    {
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8405:6: (enumLiteral_8= 'manual' )
+                    // ../org.osate.verify/src-gen/org/osate/verify/parser/antlr/internal/InternalVerify.g:8405:8: enumLiteral_8= 'manual'
+                    {
+                    enumLiteral_8=(Token)match(input,115,FOLLOW_115_in_ruleSupportedTypes20031); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                              current = grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_8, grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_8()); 
                           
                     }
 
@@ -29963,7 +29989,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_STRING_in_ruleVerificationMethod4459 = new BitSet(new long[]{0x0000000000018000L});
     public static final BitSet FOLLOW_15_in_ruleVerificationMethod4479 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVerificationMethod4502 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_ruleVerificationMethod4516 = new BitSet(new long[]{0x0000000000000000L,0x0007F80000000000L});
+    public static final BitSet FOLLOW_16_in_ruleVerificationMethod4516 = new BitSet(new long[]{0x0000000000000000L,0x000FF80000000000L});
     public static final BitSet FOLLOW_ruleSupportedTypes_in_ruleVerificationMethod4537 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVerificationMethod4558 = new BitSet(new long[]{0x000000C0801A0000L});
     public static final BitSet FOLLOW_38_in_ruleVerificationMethod4616 = new BitSet(new long[]{0x0000000000000020L});
@@ -30522,6 +30548,7 @@ public class InternalVerifyParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_112_in_ruleSupportedTypes19980 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_113_in_ruleSupportedTypes19997 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_114_in_ruleSupportedTypes20014 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_115_in_ruleSupportedTypes20031 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_34_in_synpred1_InternalVerify3422 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_35_in_synpred2_InternalVerify3575 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_36_in_synpred3_InternalVerify3900 = new BitSet(new long[]{0x0000000000000002L});

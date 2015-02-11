@@ -60,6 +60,16 @@ public enum SupportedTypes implements Enumerator
   MULTIMARKER(3, "MULTIMARKER", "multimarker"),
 
   /**
+   * The '<em><b>OWNMULTIMARKER</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #OWNMULTIMARKER_VALUE
+   * @generated
+   * @ordered
+   */
+  OWNMULTIMARKER(4, "OWNMULTIMARKER", "ownmultimarker"),
+
+  /**
    * The '<em><b>MULTIDIAGNOSTICS</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -67,7 +77,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  MULTIDIAGNOSTICS(4, "MULTIDIAGNOSTICS", "multidiagnostics"),
+  MULTIDIAGNOSTICS(5, "MULTIDIAGNOSTICS", "multidiagnostics"),
 
   /**
    * The '<em><b>RESULTREPORT</b></em>' literal object.
@@ -77,7 +87,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  RESULTREPORT(5, "RESULTREPORT", "resultreport"),
+  RESULTREPORT(6, "RESULTREPORT", "resultreport"),
 
   /**
    * The '<em><b>RESOLUTEPROVE</b></em>' literal object.
@@ -87,7 +97,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  RESOLUTEPROVE(6, "RESOLUTEPROVE", "resoluteprove"),
+  RESOLUTEPROVE(7, "RESOLUTEPROVE", "resoluteprove"),
 
   /**
    * The '<em><b>MANUAL</b></em>' literal object.
@@ -97,7 +107,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  MANUAL(7, "MANUAL", "manual");
+  MANUAL(8, "MANUAL", "manual");
 
   /**
    * The '<em><b>SINGLEPREDICATE</b></em>' literal value.
@@ -160,6 +170,21 @@ public enum SupportedTypes implements Enumerator
   public static final int MULTIMARKER_VALUE = 3;
 
   /**
+   * The '<em><b>OWNMULTIMARKER</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>OWNMULTIMARKER</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #OWNMULTIMARKER
+   * @model literal="ownmultimarker"
+   * @generated
+   * @ordered
+   */
+  public static final int OWNMULTIMARKER_VALUE = 4;
+
+  /**
    * The '<em><b>MULTIDIAGNOSTICS</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
@@ -172,7 +197,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MULTIDIAGNOSTICS_VALUE = 4;
+  public static final int MULTIDIAGNOSTICS_VALUE = 5;
 
   /**
    * The '<em><b>RESULTREPORT</b></em>' literal value.
@@ -187,7 +212,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int RESULTREPORT_VALUE = 5;
+  public static final int RESULTREPORT_VALUE = 6;
 
   /**
    * The '<em><b>RESOLUTEPROVE</b></em>' literal value.
@@ -202,7 +227,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int RESOLUTEPROVE_VALUE = 6;
+  public static final int RESOLUTEPROVE_VALUE = 7;
 
   /**
    * The '<em><b>MANUAL</b></em>' literal value.
@@ -217,7 +242,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MANUAL_VALUE = 7;
+  public static final int MANUAL_VALUE = 8;
 
   /**
    * An array of all the '<em><b>Supported Types</b></em>' enumerators.
@@ -232,6 +257,7 @@ public enum SupportedTypes implements Enumerator
       SINGLEANALYSIS,
       ASSERTIONEXCEPTION,
       MULTIMARKER,
+      OWNMULTIMARKER,
       MULTIDIAGNOSTICS,
       RESULTREPORT,
       RESOLUTEPROVE,
@@ -298,6 +324,7 @@ public enum SupportedTypes implements Enumerator
       case SINGLEANALYSIS_VALUE: return SINGLEANALYSIS;
       case ASSERTIONEXCEPTION_VALUE: return ASSERTIONEXCEPTION;
       case MULTIMARKER_VALUE: return MULTIMARKER;
+      case OWNMULTIMARKER_VALUE: return OWNMULTIMARKER;
       case MULTIDIAGNOSTICS_VALUE: return MULTIDIAGNOSTICS;
       case RESULTREPORT_VALUE: return RESULTREPORT;
       case RESOLUTEPROVE_VALUE: return RESOLUTEPROVE;

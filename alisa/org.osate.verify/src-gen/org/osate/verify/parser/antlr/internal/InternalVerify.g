@@ -8378,28 +8378,34 @@ ruleSupportedTypes returns [Enumerator current=null]
         newLeafNode(enumLiteral_3, grammarAccess.getSupportedTypesAccess().getMULTIMARKEREnumLiteralDeclaration_3()); 
     }
 )
-    |(	enumLiteral_4='multidiagnostics' 
+    |(	enumLiteral_4='ownmultimarker' 
 	{
-        $current = grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_4, grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_4()); 
+        $current = grammarAccess.getSupportedTypesAccess().getOWNMULTIMARKEREnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_4, grammarAccess.getSupportedTypesAccess().getOWNMULTIMARKEREnumLiteralDeclaration_4()); 
     }
 )
-    |(	enumLiteral_5='resultreport' 
+    |(	enumLiteral_5='multidiagnostics' 
 	{
-        $current = grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_5()); 
+        $current = grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_5()); 
     }
 )
-    |(	enumLiteral_6='resoluteprove' 
+    |(	enumLiteral_6='resultreport' 
 	{
-        $current = grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_6, grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_6()); 
+        $current = grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_6, grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_6()); 
     }
 )
-    |(	enumLiteral_7='manual' 
+    |(	enumLiteral_7='resoluteprove' 
 	{
-        $current = grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_7, grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_7()); 
+        $current = grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_7, grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_7()); 
+    }
+)
+    |(	enumLiteral_8='manual' 
+	{
+        $current = grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_8, grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_8()); 
     }
 ));
 

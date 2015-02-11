@@ -4167,31 +4167,38 @@ rule__SupportedTypes__Alternatives
 )
 
     |(
-{ before(grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_4()); }
+{ before(grammarAccess.getSupportedTypesAccess().getOWNMULTIMARKEREnumLiteralDeclaration_4()); }
+(	'ownmultimarker' 
+)
+{ after(grammarAccess.getSupportedTypesAccess().getOWNMULTIMARKEREnumLiteralDeclaration_4()); }
+)
+
+    |(
+{ before(grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_5()); }
 (	'multidiagnostics' 
 )
-{ after(grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_4()); }
+{ after(grammarAccess.getSupportedTypesAccess().getMULTIDIAGNOSTICSEnumLiteralDeclaration_5()); }
 )
 
     |(
-{ before(grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_5()); }
+{ before(grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_6()); }
 (	'resultreport' 
 )
-{ after(grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_5()); }
+{ after(grammarAccess.getSupportedTypesAccess().getRESULTREPORTEnumLiteralDeclaration_6()); }
 )
 
     |(
-{ before(grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_6()); }
+{ before(grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_7()); }
 (	'resoluteprove' 
 )
-{ after(grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_6()); }
+{ after(grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_7()); }
 )
 
     |(
-{ before(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_7()); }
+{ before(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_8()); }
 (	'manual' 
 )
-{ after(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_7()); }
+{ after(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_8()); }
 )
 
 ;

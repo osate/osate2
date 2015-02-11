@@ -87,10 +87,11 @@
     <eLiterals name="SINGLEANALYSIS" value="1" literal="singleanalysis"/>
     <eLiterals name="ASSERTIONEXCEPTION" value="2" literal="assertionexception"/>
     <eLiterals name="MULTIMARKER" value="3" literal="multimarker"/>
-    <eLiterals name="MULTIDIAGNOSTICS" value="4" literal="multidiagnostics"/>
-    <eLiterals name="RESULTREPORT" value="5" literal="resultreport"/>
-    <eLiterals name="RESOLUTEPROVE" value="6" literal="resoluteprove"/>
-    <eLiterals name="MANUAL" value="7" literal="manual"/>
+    <eLiterals name="OWNMULTIMARKER" value="4" literal="ownmultimarker"/>
+    <eLiterals name="MULTIDIAGNOSTICS" value="5" literal="multidiagnostics"/>
+    <eLiterals name="RESULTREPORT" value="6" literal="resultreport"/>
+    <eLiterals name="RESOLUTEPROVE" value="7" literal="resoluteprove"/>
+    <eLiterals name="MANUAL" value="8" literal="manual"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationAssumption" eSuperTypes="#//VerificationCondition"/>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationPrecondition" eSuperTypes="#//VerificationCondition"/>
