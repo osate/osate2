@@ -7,9 +7,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.xbase.XExpression;
-import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.aadl2.Classifier;
+
+import org.osate.alisa.common.common.ComputeDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -147,7 +148,7 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
 
   /**
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.xtext.xbase.XVariableDeclaration}.
+   * The list contents are of type {@link org.osate.alisa.common.common.ComputeDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
@@ -159,7 +160,7 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
    * @model containment="true"
    * @generated
    */
-  EList<XVariableDeclaration> getComputes();
+  EList<ComputeDeclaration> getComputes();
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.

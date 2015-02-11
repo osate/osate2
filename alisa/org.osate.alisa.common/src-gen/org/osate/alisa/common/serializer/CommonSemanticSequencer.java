@@ -13,11 +13,14 @@ import org.eclipse.xtext.common.types.JvmUpperBound;
 import org.eclipse.xtext.common.types.JvmWildcardTypeReference;
 import org.eclipse.xtext.common.types.TypesPackage;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.eclipse.xtext.xbase.XAssignment;
 import org.eclipse.xtext.xbase.XBasicForLoopExpression;
 import org.eclipse.xtext.xbase.XBinaryOperation;
@@ -1211,10 +1214,20 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (writeable?='compute' ((type=JvmTypeReference name=ValidID) | name=ValidID))
+	 *     (writeable?='compute' name=ValidID)
 	 */
 	protected void sequence_ComputeDeclaration(EObject context, ComputeDeclaration semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.COMPUTE_DECLARATION__WRITEABLE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.COMPUTE_DECLARATION__WRITEABLE));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.COMPUTE_DECLARATION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.COMPUTE_DECLARATION__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getComputeDeclarationAccess().getWriteableComputeKeyword_1_0(), semanticObject.isWriteable());
+		feeder.accept(grammarAccess.getComputeDeclarationAccess().getNameValidIDParserRuleCall_2_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	

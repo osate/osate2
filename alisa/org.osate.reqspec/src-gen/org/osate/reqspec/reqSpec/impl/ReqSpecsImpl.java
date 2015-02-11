@@ -20,9 +20,10 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.xtext.xbase.XExpression;
-import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.aadl2.Classifier;
+
+import org.osate.alisa.common.common.ComputeDeclaration;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
@@ -126,7 +127,7 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * @generated
    * @ordered
    */
-  protected EList<XVariableDeclaration> computes;
+  protected EList<ComputeDeclaration> computes;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -281,11 +282,11 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XVariableDeclaration> getComputes()
+  public EList<ComputeDeclaration> getComputes()
   {
     if (computes == null)
     {
-      computes = new EObjectContainmentEList<XVariableDeclaration>(XVariableDeclaration.class, this, ReqSpecPackage.REQ_SPECS__COMPUTES);
+      computes = new EObjectContainmentEList<ComputeDeclaration>(ComputeDeclaration.class, this, ReqSpecPackage.REQ_SPECS__COMPUTES);
     }
     return computes;
   }
@@ -383,7 +384,7 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return;
       case ReqSpecPackage.REQ_SPECS__COMPUTES:
         getComputes().clear();
-        getComputes().addAll((Collection<? extends XVariableDeclaration>)newValue);
+        getComputes().addAll((Collection<? extends ComputeDeclaration>)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();

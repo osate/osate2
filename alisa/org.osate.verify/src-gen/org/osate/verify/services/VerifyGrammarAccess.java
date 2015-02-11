@@ -1758,8 +1758,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
-	//ComputeDeclaration returns xbase::XVariableDeclaration:
-	//	{ComputeDeclaration} writeable?="compute" (=> (type=JvmTypeReference name=ValidID) | name=ValidID);
+	////ComputeDeclaration returns xbase::XVariableDeclaration: 
+	////{ComputeDeclaration} writeable?='compute'  (=> (type=JvmTypeReference name=ValidID) | name=ValidID)   
+	////;
+	//ComputeDeclaration:
+	//	{ComputeDeclaration} writeable?="compute" name=ValidID;
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}

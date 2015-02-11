@@ -41,15 +41,6 @@ public interface CommonFactory extends EFactory
   DescriptionElement createDescriptionElement();
 
   /**
-   * Returns a new object of class '<em>Show Value</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Show Value</em>'.
-   * @generated
-   */
-  ShowValue createShowValue();
-
-  /**
    * Returns a new object of class '<em>Compute Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -57,6 +48,15 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   ComputeDeclaration createComputeDeclaration();
+
+  /**
+   * Returns a new object of class '<em>Show Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Show Value</em>'.
+   * @generated
+   */
+  ShowValue createShowValue();
 
   /**
    * Returns a new object of class '<em>XNumber Literal Unit</em>'.

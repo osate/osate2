@@ -146,21 +146,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cComputeDeclarationAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cWriteableAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final Keyword cWriteableComputeKeyword_1_0 = (Keyword)cWriteableAssignment_1.eContents().get(0);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
-		private final Group cGroup_2_0_0 = (Group)cGroup_2_0.eContents().get(0);
-		private final Assignment cTypeAssignment_2_0_0_0 = (Assignment)cGroup_2_0_0.eContents().get(0);
-		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0 = (RuleCall)cTypeAssignment_2_0_0_0.eContents().get(0);
-		private final Assignment cNameAssignment_2_0_0_1 = (Assignment)cGroup_2_0_0.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_2_0_0_1_0 = (RuleCall)cNameAssignment_2_0_0_1.eContents().get(0);
-		private final Assignment cNameAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_2_1_0 = (RuleCall)cNameAssignment_2_1.eContents().get(0);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameValidIDParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		
-		//ComputeDeclaration returns xbase::XVariableDeclaration:
-		//	{ComputeDeclaration} writeable?="compute" (=> (type=JvmTypeReference name=ValidID) | name=ValidID);
+		////ComputeDeclaration returns xbase::XVariableDeclaration: 
+		////{ComputeDeclaration} writeable?='compute'  (=> (type=JvmTypeReference name=ValidID) | name=ValidID)   
+		////;
+		//ComputeDeclaration:
+		//	{ComputeDeclaration} writeable?="compute" name=ValidID;
 		public ParserRule getRule() { return rule; }
 
-		//{ComputeDeclaration} writeable?="compute" (=> (type=JvmTypeReference name=ValidID) | name=ValidID)
+		//{ComputeDeclaration} writeable?="compute" name=ValidID
 		public Group getGroup() { return cGroup; }
 
 		//{ComputeDeclaration}
@@ -172,32 +168,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"compute"
 		public Keyword getWriteableComputeKeyword_1_0() { return cWriteableComputeKeyword_1_0; }
 
-		//=> (type=JvmTypeReference name=ValidID) | name=ValidID
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
-
-		//=> (type=JvmTypeReference name=ValidID)
-		public Group getGroup_2_0() { return cGroup_2_0; }
-
-		//type=JvmTypeReference name=ValidID
-		public Group getGroup_2_0_0() { return cGroup_2_0_0; }
-
-		//type=JvmTypeReference
-		public Assignment getTypeAssignment_2_0_0_0() { return cTypeAssignment_2_0_0_0; }
-
-		//JvmTypeReference
-		public RuleCall getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0; }
-
 		//name=ValidID
-		public Assignment getNameAssignment_2_0_0_1() { return cNameAssignment_2_0_0_1; }
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
 		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_2_0_0_1_0() { return cNameValidIDParserRuleCall_2_0_0_1_0; }
-
-		//name=ValidID
-		public Assignment getNameAssignment_2_1() { return cNameAssignment_2_1; }
-
-		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_2_1_0() { return cNameValidIDParserRuleCall_2_1_0; }
+		public RuleCall getNameValidIDParserRuleCall_2_0() { return cNameValidIDParserRuleCall_2_0; }
 	}
 
 	public class XNumberLiteralElements extends AbstractParserRuleElementFinder {
@@ -419,8 +394,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
-	//ComputeDeclaration returns xbase::XVariableDeclaration:
-	//	{ComputeDeclaration} writeable?="compute" (=> (type=JvmTypeReference name=ValidID) | name=ValidID);
+	////ComputeDeclaration returns xbase::XVariableDeclaration: 
+	////{ComputeDeclaration} writeable?='compute'  (=> (type=JvmTypeReference name=ValidID) | name=ValidID)   
+	////;
+	//ComputeDeclaration:
+	//	{ComputeDeclaration} writeable?="compute" name=ValidID;
 	public ComputeDeclarationElements getComputeDeclarationAccess() {
 		return pComputeDeclaration;
 	}

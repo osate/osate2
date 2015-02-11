@@ -3040,70 +3040,25 @@ ruleComputeDeclaration returns [EObject current=null]
 	    }
 
 )
-)(((((
-(
-ruleJvmTypeReference
-)
-)(
-(
-ruleValidID
-)
-)))=>((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0()); 
-	    }
-		lv_type_2_0=ruleJvmTypeReference		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getComputeDeclarationRule());
-	        }
-       		set(
-       			$current, 
-       			"type",
-        		lv_type_2_0, 
-        		"JvmTypeReference");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getNameValidIDParserRuleCall_2_0_0_1_0()); 
+	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getNameValidIDParserRuleCall_2_0()); 
 	    }
-		lv_name_3_0=ruleValidID		{
+		lv_name_2_0=ruleValidID		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getComputeDeclarationRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_3_0, 
+        		lv_name_2_0, 
         		"ValidID");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)))
-    |(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getNameValidIDParserRuleCall_2_1_0()); 
-	    }
-		lv_name_4_0=ruleValidID		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getComputeDeclarationRule());
-	        }
-       		set(
-       			$current, 
-       			"name",
-        		lv_name_4_0, 
-        		"ValidID");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)))
+))
 ;
 
 

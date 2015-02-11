@@ -2934,7 +2934,6 @@ finally {
 }
 
 
-
 rule__XAssignment__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -9333,8 +9332,6 @@ rule__VerificationMethod__Group_7_2__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -25015,8 +25012,6 @@ rule__DescriptionElement__ThisTargetAssignment_2
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
