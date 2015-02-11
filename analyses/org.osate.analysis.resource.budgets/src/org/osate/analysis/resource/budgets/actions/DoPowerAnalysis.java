@@ -69,7 +69,7 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		return ResourceBudgetPlugin.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.PowerAnalysisMarker";
 	}
 

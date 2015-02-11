@@ -51,7 +51,6 @@ import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 import org.osgi.framework.Bundle;
 
-
 /**
  * @author lwrage
  *
@@ -65,7 +64,7 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 		return ResourceBudgetPlugin.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.BoundResourceAnalysisMarker";
 	}
 
@@ -75,21 +74,22 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 
 	@Override
 	protected boolean initializeAction(NamedElement obj) {
-	    	setCSVLog("BoundResourceBudgets", obj);
-			return true;
+		setCSVLog("BoundResourceBudgets", obj);
+		return true;
 	}
 
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		InstanceModelUtil.clearCache();
 		InstanceValidation iv = new InstanceValidation(this);
-		if (!iv.checkReferenceProcessor(((InstanceObject)obj).getSystemInstance())){
-			Dialog.showWarning("Resource Budget Analysis","Model contains thread execution times without reference processor.");
+		if (!iv.checkReferenceProcessor(((InstanceObject) obj).getSystemInstance())) {
+			Dialog.showWarning("Resource Budget Analysis",
+					"Model contains thread execution times without reference processor.");
 			return;
 		}
 		getLogicObject().analysisBody(monitor, obj);
 	}
 
 	protected DoBoundResourceAnalysisLogic getLogicObject() {
-		return new DoBoundResourceAnalysisLogic(getActionName(),  this);
+		return new DoBoundResourceAnalysisLogic(getActionName(), this);
 	}
 }

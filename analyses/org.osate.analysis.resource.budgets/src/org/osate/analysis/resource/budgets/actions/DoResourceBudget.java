@@ -51,7 +51,6 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
-
 public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 
 	protected Bundle getBundle() {
@@ -62,7 +61,7 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 		return "Resource Budget Analysis";
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.ResourceAnalysisMarker";
 	}
 
@@ -71,15 +70,15 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 
 	@Override
 	protected boolean initializeAction(NamedElement obj) {
-	    	setCSVLog("ResourceBudgets", obj);
-			return true;
+		setCSVLog("ResourceBudgets", obj);
+		return true;
 	}
 
 	protected void doAaxlAction(IProgressMonitor monitor, Element obj) {
 
-		//Get the system instance (if any)
+		// Get the system instance (if any)
 		final SystemInstance si = (obj instanceof InstanceObject) ? ((InstanceObject) obj).getSystemInstance() : null;
-		
+
 		if (si != null) {
 			monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 			DoResourceBudgetLogic logic = null;
@@ -88,20 +87,21 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 //			{
 //				final SystemOperationMode som = soms.nextSOM();
 //				final String somName = som.getName();
-		//	final String somName = null;
+			// final String somName = null;
 			InstanceValidation iv = new InstanceValidation(this);
-			if (!iv.checkReferenceProcessor(si)){
-				Dialog.showWarning("Resource Budget Analysis","Model contains thread execution times without reference processor.");
+			if (!iv.checkReferenceProcessor(si)) {
+				Dialog.showWarning("Resource Budget Analysis",
+						"Model contains thread execution times without reference processor.");
 				return;
 			}
 
-			logic = new DoResourceBudgetLogic( this);
+			logic = new DoResourceBudgetLogic(this);
 			logic.analyzeResourceBudget(si, null);
 //			}
 			monitor.done();
 
 			if (si.getSystemOperationModes().size() == 1) {
-				//Also report the results using a message dialog
+				// Also report the results using a message dialog
 				Dialog.showInfo("Resource Budget Statistics", getResultsMessages());
 			}
 		}

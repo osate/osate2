@@ -44,28 +44,25 @@ import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisLogic;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-
 public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 	@Override
 	protected String getActionName() {
 		return "Bound Bus Bandwidth Analysis";
 	}
 
-
 	@Override
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.BoundBandwidthAnalysisMarker";
 	}
 
 	@Override
 	protected boolean initializeAction(NamedElement obj) {
-	    	setCSVLog("BoundBandwidthBudgets", obj);
-			return true;
+		setCSVLog("BoundBandwidthBudgets", obj);
+		return true;
 	}
 
 	@Override
-	protected DoBoundResourceAnalysisLogic getLogicObject()
-	{
+	protected DoBoundResourceAnalysisLogic getLogicObject() {
 		InstanceModelUtil.clearCache();
 		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), this);
 	}
