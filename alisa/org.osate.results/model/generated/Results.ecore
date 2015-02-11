@@ -20,20 +20,22 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="heading" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resultData" eType="#//ResultData"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="row" upperBound="-1" eType="#//ResultContributor"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="issue" upperBound="-1"
         eType="#//ReportIssue" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="row" upperBound="-1" eType="#//ResultContributor"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ResultContributor">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contributor" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cell" unique="false" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="issue" upperBound="-1"
+        eType="#//ReportIssue" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcontributor" upperBound="-1"
         eType="#//ResultContributor" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReportIssue">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="issueType" eType="#//IssueType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="issueType" eType="#//ReportIssueType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   </eClassifiers>
@@ -45,7 +47,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="IssueType">
+  <eClassifiers xsi:type="ecore:EEnum" name="ReportIssueType">
     <eLiterals name="ERROR" literal="error"/>
     <eLiterals name="WARNING" value="1" literal="warning"/>
     <eLiterals name="SUCCESS" value="2" literal="success"/>

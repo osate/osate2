@@ -18,14 +18,16 @@ import org.osate.results.services.ResultsGrammarAccess;
 public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ResultsGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_ResultContributor___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q;
-	protected AbstractElementAlias match_ResultReportEntry_IssuesKeyword_10_0_q;
+	protected AbstractElementAlias match_ResultContributor_IssuesKeyword_4_0_q;
+	protected AbstractElementAlias match_ResultContributor___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
+	protected AbstractElementAlias match_ResultReportEntry_IssuesKeyword_9_0_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ResultsGrammarAccess) access;
-		match_ResultContributor___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultContributorAccess().getLeftSquareBracketKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getResultContributorAccess().getRightSquareBracketKeyword_4_2()));
-		match_ResultReportEntry_IssuesKeyword_10_0_q = new TokenAlias(false, true, grammarAccess.getResultReportEntryAccess().getIssuesKeyword_10_0());
+		match_ResultContributor_IssuesKeyword_4_0_q = new TokenAlias(false, true, grammarAccess.getResultContributorAccess().getIssuesKeyword_4_0());
+		match_ResultContributor___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultContributorAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultContributorAccess().getRightSquareBracketKeyword_5_2()));
+		match_ResultReportEntry_IssuesKeyword_9_0_q = new TokenAlias(false, true, grammarAccess.getResultReportEntryAccess().getIssuesKeyword_9_0());
 	}
 	
 	@Override
@@ -40,19 +42,29 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ResultContributor___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q.equals(syntax))
-				emit_ResultContributor___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultReportEntry_IssuesKeyword_10_0_q.equals(syntax))
-				emit_ResultReportEntry_IssuesKeyword_10_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_ResultContributor_IssuesKeyword_4_0_q.equals(syntax))
+				emit_ResultContributor_IssuesKeyword_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultContributor___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+				emit_ResultContributor___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultReportEntry_IssuesKeyword_9_0_q.equals(syntax))
+				emit_ResultReportEntry_IssuesKeyword_9_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
 	/**
 	 * Syntax:
+	 *     'issues'?
+	 */
+	protected void emit_ResultContributor_IssuesKeyword_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
 	 *     ('[' ']')?
 	 */
-	protected void emit_ResultContributor___LeftSquareBracketKeyword_4_0_RightSquareBracketKeyword_4_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ResultContributor___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -60,7 +72,7 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * Syntax:
 	 *     'issues'?
 	 */
-	protected void emit_ResultReportEntry_IssuesKeyword_10_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ResultReportEntry_IssuesKeyword_9_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

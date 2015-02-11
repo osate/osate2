@@ -91,7 +91,7 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Constraint:
-	 *     (issueType=IssueType title=STRING target=[EObject|URIID])
+	 *     (issueType=ReportIssueType title=STRING target=[EObject|URIID])
 	 */
 	protected void sequence_ReportIssue(EObject context, ReportIssue semanticObject) {
 		if(errorAcceptor != null) {
@@ -104,7 +104,7 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getReportIssueAccess().getIssueTypeIssueTypeEnumRuleCall_0_0(), semanticObject.getIssueType());
+		feeder.accept(grammarAccess.getReportIssueAccess().getIssueTypeReportIssueTypeEnumRuleCall_0_0(), semanticObject.getIssueType());
 		feeder.accept(grammarAccess.getReportIssueAccess().getTitleSTRINGTerminalRuleCall_1_0(), semanticObject.getTitle());
 		feeder.accept(grammarAccess.getReportIssueAccess().getTargetEObjectURIIDParserRuleCall_2_0_1(), semanticObject.getTarget());
 		feeder.finish();
@@ -113,7 +113,7 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Constraint:
-	 *     (contributor=[EObject|URIID] cell+=STRING+ subcontributor+=ResultContributor*)
+	 *     (contributor=[EObject|URIID] cell+=STRING+ issue+=ReportIssue* subcontributor+=ResultContributor*)
 	 */
 	protected void sequence_ResultContributor(EObject context, ResultContributor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -138,8 +138,8 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         decription=STRING? 
 	 *         heading=STRING? 
 	 *         resultData=ResultData? 
-	 *         row+=ResultContributor* 
-	 *         issue+=ReportIssue*
+	 *         issue+=ReportIssue* 
+	 *         row+=ResultContributor*
 	 *     )
 	 */
 	protected void sequence_ResultReportEntry(EObject context, ResultReportEntry semanticObject) {

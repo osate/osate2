@@ -10,9 +10,9 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.osate.results.results.IssueType;
 import org.osate.results.results.NameValuePair;
 import org.osate.results.results.ReportIssue;
+import org.osate.results.results.ReportIssueType;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
 import org.osate.results.results.ResultReport;
@@ -75,7 +75,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EEnum issueTypeEEnum = null;
+  private EEnum reportIssueTypeEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -295,7 +295,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getResultReportEntry_Row()
+  public EReference getResultReportEntry_Issue()
   {
     return (EReference)resultReportEntryEClass.getEStructuralFeatures().get(6);
   }
@@ -305,7 +305,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getResultReportEntry_Issue()
+  public EReference getResultReportEntry_Row()
   {
     return (EReference)resultReportEntryEClass.getEStructuralFeatures().get(7);
   }
@@ -345,9 +345,19 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getResultContributor_Subcontributor()
+  public EReference getResultContributor_Issue()
   {
     return (EReference)resultContributorEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getResultContributor_Subcontributor()
+  {
+    return (EReference)resultContributorEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -445,9 +455,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EEnum getIssueType()
+  public EEnum getReportIssueType()
   {
-    return issueTypeEEnum;
+    return reportIssueTypeEEnum;
   }
 
   /**
@@ -496,12 +506,13 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     createEAttribute(resultReportEntryEClass, RESULT_REPORT_ENTRY__DECRIPTION);
     createEAttribute(resultReportEntryEClass, RESULT_REPORT_ENTRY__HEADING);
     createEReference(resultReportEntryEClass, RESULT_REPORT_ENTRY__RESULT_DATA);
-    createEReference(resultReportEntryEClass, RESULT_REPORT_ENTRY__ROW);
     createEReference(resultReportEntryEClass, RESULT_REPORT_ENTRY__ISSUE);
+    createEReference(resultReportEntryEClass, RESULT_REPORT_ENTRY__ROW);
 
     resultContributorEClass = createEClass(RESULT_CONTRIBUTOR);
     createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__CONTRIBUTOR);
     createEAttribute(resultContributorEClass, RESULT_CONTRIBUTOR__CELL);
+    createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__ISSUE);
     createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__SUBCONTRIBUTOR);
 
     reportIssueEClass = createEClass(REPORT_ISSUE);
@@ -517,7 +528,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     createEAttribute(nameValuePairEClass, NAME_VALUE_PAIR__VALUE);
 
     // Create enums
-    issueTypeEEnum = createEEnum(ISSUE_TYPE);
+    reportIssueTypeEEnum = createEEnum(REPORT_ISSUE_TYPE);
   }
 
   /**
@@ -567,16 +578,17 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     initEAttribute(getResultReportEntry_Decription(), ecorePackage.getEString(), "decription", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResultReportEntry_Heading(), ecorePackage.getEString(), "heading", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultReportEntry_ResultData(), this.getResultData(), null, "resultData", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReportEntry_Row(), this.getResultContributor(), null, "row", null, 0, -1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultReportEntry_Issue(), this.getReportIssue(), null, "issue", null, 0, -1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultReportEntry_Row(), this.getResultContributor(), null, "row", null, 0, -1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(resultContributorEClass, ResultContributor.class, "ResultContributor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getResultContributor_Contributor(), ecorePackage.getEObject(), null, "contributor", null, 0, 1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResultContributor_Cell(), ecorePackage.getEString(), "cell", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultContributor_Issue(), this.getReportIssue(), null, "issue", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultContributor_Subcontributor(), this.getResultContributor(), null, "subcontributor", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(reportIssueEClass, ReportIssue.class, "ReportIssue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getReportIssue_IssueType(), this.getIssueType(), "issueType", null, 0, 1, ReportIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getReportIssue_IssueType(), this.getReportIssueType(), "issueType", null, 0, 1, ReportIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getReportIssue_Title(), ecorePackage.getEString(), "title", null, 0, 1, ReportIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getReportIssue_Target(), ecorePackage.getEObject(), null, "target", null, 0, 1, ReportIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -588,11 +600,11 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     initEAttribute(getNameValuePair_Value(), ecorePackage.getEString(), "value", null, 0, 1, NameValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
-    initEEnum(issueTypeEEnum, IssueType.class, "IssueType");
-    addEEnumLiteral(issueTypeEEnum, IssueType.ERROR);
-    addEEnumLiteral(issueTypeEEnum, IssueType.WARNING);
-    addEEnumLiteral(issueTypeEEnum, IssueType.SUCCESS);
-    addEEnumLiteral(issueTypeEEnum, IssueType.INFO);
+    initEEnum(reportIssueTypeEEnum, ReportIssueType.class, "ReportIssueType");
+    addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.ERROR);
+    addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.WARNING);
+    addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.SUCCESS);
+    addEEnumLiteral(reportIssueTypeEEnum, ReportIssueType.INFO);
 
     // Create resource
     createResource(eNS_URI);

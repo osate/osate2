@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.results.results.ReportIssue;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultsPackage;
 
@@ -32,6 +33,7 @@ import org.osate.results.results.ResultsPackage;
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getContributor <em>Contributor</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getCell <em>Cell</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getIssue <em>Issue</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultContributorImpl#getSubcontributor <em>Subcontributor</em>}</li>
  * </ul>
  * </p>
@@ -59,6 +61,16 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected EList<String> cell;
+
+  /**
+   * The cached value of the '{@link #getIssue() <em>Issue</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssue()
+   * @generated
+   * @ordered
+   */
+  protected EList<ReportIssue> issue;
 
   /**
    * The cached value of the '{@link #getSubcontributor() <em>Subcontributor</em>}' containment reference list.
@@ -153,6 +165,20 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ReportIssue> getIssue()
+  {
+    if (issue == null)
+    {
+      issue = new EObjectContainmentEList<ReportIssue>(ReportIssue.class, this, ResultsPackage.RESULT_CONTRIBUTOR__ISSUE);
+    }
+    return issue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ResultContributor> getSubcontributor()
   {
     if (subcontributor == null)
@@ -172,6 +198,8 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
   {
     switch (featureID)
     {
+      case ResultsPackage.RESULT_CONTRIBUTOR__ISSUE:
+        return ((InternalEList<?>)getIssue()).basicRemove(otherEnd, msgs);
       case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
         return ((InternalEList<?>)getSubcontributor()).basicRemove(otherEnd, msgs);
     }
@@ -193,6 +221,8 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
         return basicGetContributor();
       case ResultsPackage.RESULT_CONTRIBUTOR__CELL:
         return getCell();
+      case ResultsPackage.RESULT_CONTRIBUTOR__ISSUE:
+        return getIssue();
       case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
         return getSubcontributor();
     }
@@ -216,6 +246,10 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
       case ResultsPackage.RESULT_CONTRIBUTOR__CELL:
         getCell().clear();
         getCell().addAll((Collection<? extends String>)newValue);
+        return;
+      case ResultsPackage.RESULT_CONTRIBUTOR__ISSUE:
+        getIssue().clear();
+        getIssue().addAll((Collection<? extends ReportIssue>)newValue);
         return;
       case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
         getSubcontributor().clear();
@@ -241,6 +275,9 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
       case ResultsPackage.RESULT_CONTRIBUTOR__CELL:
         getCell().clear();
         return;
+      case ResultsPackage.RESULT_CONTRIBUTOR__ISSUE:
+        getIssue().clear();
+        return;
       case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
         getSubcontributor().clear();
         return;
@@ -262,6 +299,8 @@ public class ResultContributorImpl extends MinimalEObjectImpl.Container implemen
         return contributor != null;
       case ResultsPackage.RESULT_CONTRIBUTOR__CELL:
         return cell != null && !cell.isEmpty();
+      case ResultsPackage.RESULT_CONTRIBUTOR__ISSUE:
+        return issue != null && !issue.isEmpty();
       case ResultsPackage.RESULT_CONTRIBUTOR__SUBCONTRIBUTOR:
         return subcontributor != null && !subcontributor.isEmpty();
     }

@@ -204,22 +204,22 @@ public interface ResultsPackage extends EPackage
   int RESULT_REPORT_ENTRY__RESULT_DATA = 5;
 
   /**
-   * The feature id for the '<em><b>Row</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESULT_REPORT_ENTRY__ROW = 6;
-
-  /**
    * The feature id for the '<em><b>Issue</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESULT_REPORT_ENTRY__ISSUE = 7;
+  int RESULT_REPORT_ENTRY__ISSUE = 6;
+
+  /**
+   * The feature id for the '<em><b>Row</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT_ENTRY__ROW = 7;
 
   /**
    * The number of structural features of the '<em>Result Report Entry</em>' class.
@@ -259,13 +259,22 @@ public interface ResultsPackage extends EPackage
   int RESULT_CONTRIBUTOR__CELL = 1;
 
   /**
+   * The feature id for the '<em><b>Issue</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_CONTRIBUTOR__ISSUE = 2;
+
+  /**
    * The feature id for the '<em><b>Subcontributor</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESULT_CONTRIBUTOR__SUBCONTRIBUTOR = 2;
+  int RESULT_CONTRIBUTOR__SUBCONTRIBUTOR = 3;
 
   /**
    * The number of structural features of the '<em>Result Contributor</em>' class.
@@ -274,7 +283,7 @@ public interface ResultsPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESULT_CONTRIBUTOR_FEATURE_COUNT = 3;
+  int RESULT_CONTRIBUTOR_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.osate.results.results.impl.ReportIssueImpl <em>Report Issue</em>}' class.
@@ -388,14 +397,14 @@ public interface ResultsPackage extends EPackage
   int NAME_VALUE_PAIR_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.osate.results.results.IssueType <em>Issue Type</em>}' enum.
+   * The meta object id for the '{@link org.osate.results.results.ReportIssueType <em>Report Issue Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.results.results.IssueType
-   * @see org.osate.results.results.impl.ResultsPackageImpl#getIssueType()
+   * @see org.osate.results.results.ReportIssueType
+   * @see org.osate.results.results.impl.ResultsPackageImpl#getReportIssueType()
    * @generated
    */
-  int ISSUE_TYPE = 6;
+  int REPORT_ISSUE_TYPE = 6;
 
 
   /**
@@ -562,17 +571,6 @@ public interface ResultsPackage extends EPackage
   EReference getResultReportEntry_ResultData();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultReportEntry#getRow <em>Row</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Row</em>'.
-   * @see org.osate.results.results.ResultReportEntry#getRow()
-   * @see #getResultReportEntry()
-   * @generated
-   */
-  EReference getResultReportEntry_Row();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultReportEntry#getIssue <em>Issue</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -582,6 +580,17 @@ public interface ResultsPackage extends EPackage
    * @generated
    */
   EReference getResultReportEntry_Issue();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultReportEntry#getRow <em>Row</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Row</em>'.
+   * @see org.osate.results.results.ResultReportEntry#getRow()
+   * @see #getResultReportEntry()
+   * @generated
+   */
+  EReference getResultReportEntry_Row();
 
   /**
    * Returns the meta object for class '{@link org.osate.results.results.ResultContributor <em>Result Contributor</em>}'.
@@ -614,6 +623,17 @@ public interface ResultsPackage extends EPackage
    * @generated
    */
   EAttribute getResultContributor_Cell();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultContributor#getIssue <em>Issue</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Issue</em>'.
+   * @see org.osate.results.results.ResultContributor#getIssue()
+   * @see #getResultContributor()
+   * @generated
+   */
+  EReference getResultContributor_Issue();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultContributor#getSubcontributor <em>Subcontributor</em>}'.
@@ -723,14 +743,14 @@ public interface ResultsPackage extends EPackage
   EAttribute getNameValuePair_Value();
 
   /**
-   * Returns the meta object for enum '{@link org.osate.results.results.IssueType <em>Issue Type</em>}'.
+   * Returns the meta object for enum '{@link org.osate.results.results.ReportIssueType <em>Report Issue Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Issue Type</em>'.
-   * @see org.osate.results.results.IssueType
+   * @return the meta object for enum '<em>Report Issue Type</em>'.
+   * @see org.osate.results.results.ReportIssueType
    * @generated
    */
-  EEnum getIssueType();
+  EEnum getReportIssueType();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -880,20 +900,20 @@ public interface ResultsPackage extends EPackage
     EReference RESULT_REPORT_ENTRY__RESULT_DATA = eINSTANCE.getResultReportEntry_ResultData();
 
     /**
-     * The meta object literal for the '<em><b>Row</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RESULT_REPORT_ENTRY__ROW = eINSTANCE.getResultReportEntry_Row();
-
-    /**
      * The meta object literal for the '<em><b>Issue</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference RESULT_REPORT_ENTRY__ISSUE = eINSTANCE.getResultReportEntry_Issue();
+
+    /**
+     * The meta object literal for the '<em><b>Row</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT_REPORT_ENTRY__ROW = eINSTANCE.getResultReportEntry_Row();
 
     /**
      * The meta object literal for the '{@link org.osate.results.results.impl.ResultContributorImpl <em>Result Contributor</em>}' class.
@@ -920,6 +940,14 @@ public interface ResultsPackage extends EPackage
      * @generated
      */
     EAttribute RESULT_CONTRIBUTOR__CELL = eINSTANCE.getResultContributor_Cell();
+
+    /**
+     * The meta object literal for the '<em><b>Issue</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT_CONTRIBUTOR__ISSUE = eINSTANCE.getResultContributor_Issue();
 
     /**
      * The meta object literal for the '<em><b>Subcontributor</b></em>' containment reference list feature.
@@ -1008,14 +1036,14 @@ public interface ResultsPackage extends EPackage
     EAttribute NAME_VALUE_PAIR__VALUE = eINSTANCE.getNameValuePair_Value();
 
     /**
-     * The meta object literal for the '{@link org.osate.results.results.IssueType <em>Issue Type</em>}' enum.
+     * The meta object literal for the '{@link org.osate.results.results.ReportIssueType <em>Report Issue Type</em>}' enum.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.results.results.IssueType
-     * @see org.osate.results.results.impl.ResultsPackageImpl#getIssueType()
+     * @see org.osate.results.results.ReportIssueType
+     * @see org.osate.results.results.impl.ResultsPackageImpl#getReportIssueType()
      * @generated
      */
-    EEnum ISSUE_TYPE = eINSTANCE.getIssueType();
+    EEnum REPORT_ISSUE_TYPE = eINSTANCE.getReportIssueType();
 
   }
 

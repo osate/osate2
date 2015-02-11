@@ -11,8 +11,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.osate.results.results.IssueType;
 import org.osate.results.results.ReportIssue;
+import org.osate.results.results.ReportIssueType;
 import org.osate.results.results.ResultsPackage;
 
 /**
@@ -40,7 +40,7 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * @generated
    * @ordered
    */
-  protected static final IssueType ISSUE_TYPE_EDEFAULT = IssueType.ERROR;
+  protected static final ReportIssueType ISSUE_TYPE_EDEFAULT = ReportIssueType.ERROR;
 
   /**
    * The cached value of the '{@link #getIssueType() <em>Issue Type</em>}' attribute.
@@ -50,7 +50,7 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * @generated
    * @ordered
    */
-  protected IssueType issueType = ISSUE_TYPE_EDEFAULT;
+  protected ReportIssueType issueType = ISSUE_TYPE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
@@ -108,7 +108,7 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * <!-- end-user-doc -->
    * @generated
    */
-  public IssueType getIssueType()
+  public ReportIssueType getIssueType()
   {
     return issueType;
   }
@@ -118,9 +118,9 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setIssueType(IssueType newIssueType)
+  public void setIssueType(ReportIssueType newIssueType)
   {
-    IssueType oldIssueType = issueType;
+    ReportIssueType oldIssueType = issueType;
     issueType = newIssueType == null ? ISSUE_TYPE_EDEFAULT : newIssueType;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.REPORT_ISSUE__ISSUE_TYPE, oldIssueType, issueType));
@@ -224,7 +224,7 @@ public class ReportIssueImpl extends MinimalEObjectImpl.Container implements Rep
     switch (featureID)
     {
       case ResultsPackage.REPORT_ISSUE__ISSUE_TYPE:
-        setIssueType((IssueType)newValue);
+        setIssueType((ReportIssueType)newValue);
         return;
       case ResultsPackage.REPORT_ISSUE__TITLE:
         setTitle((String)newValue);

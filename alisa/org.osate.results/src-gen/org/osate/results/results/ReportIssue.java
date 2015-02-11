@@ -26,7 +26,7 @@ public interface ReportIssue extends EObject
 {
   /**
    * Returns the value of the '<em><b>Issue Type</b></em>' attribute.
-   * The literals are from the enumeration {@link org.osate.results.results.IssueType}.
+   * The literals are from the enumeration {@link org.osate.results.results.ReportIssueType}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Issue Type</em>' attribute isn't clear,
@@ -34,24 +34,24 @@ public interface ReportIssue extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Issue Type</em>' attribute.
-   * @see org.osate.results.results.IssueType
-   * @see #setIssueType(IssueType)
+   * @see org.osate.results.results.ReportIssueType
+   * @see #setIssueType(ReportIssueType)
    * @see org.osate.results.results.ResultsPackage#getReportIssue_IssueType()
    * @model
    * @generated
    */
-  IssueType getIssueType();
+  ReportIssueType getIssueType();
 
   /**
    * Sets the value of the '{@link org.osate.results.results.ReportIssue#getIssueType <em>Issue Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Issue Type</em>' attribute.
-   * @see org.osate.results.results.IssueType
+   * @see org.osate.results.results.ReportIssueType
    * @see #getIssueType()
    * @generated
    */
-  void setIssueType(IssueType value);
+  void setIssueType(ReportIssueType value);
 
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
