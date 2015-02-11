@@ -7,7 +7,10 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import org.eclipse.xtext.common.types.JvmIdentifiableElement;
+
 import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.alisa.common.common.*;
 
@@ -88,17 +91,20 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.COMPUTE_DECLARATION:
-      {
-        ComputeDeclaration computeDeclaration = (ComputeDeclaration)theEObject;
-        T result = caseComputeDeclaration(computeDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CommonPackage.SHOW_VALUE:
       {
         ShowValue showValue = (ShowValue)theEObject;
         T result = caseShowValue(showValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.COMPUTE_DECLARATION:
+      {
+        ComputeDeclaration computeDeclaration = (ComputeDeclaration)theEObject;
+        T result = caseComputeDeclaration(computeDeclaration);
+        if (result == null) result = caseXVariableDeclaration(computeDeclaration);
+        if (result == null) result = caseXExpression(computeDeclaration);
+        if (result == null) result = caseJvmIdentifiableElement(computeDeclaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -147,22 +153,6 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseComputeDeclaration(ComputeDeclaration object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -174,6 +164,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseShowValue(ShowValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComputeDeclaration(ComputeDeclaration object)
   {
     return null;
   }
@@ -206,6 +212,38 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseXExpression(XExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Jvm Identifiable Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Jvm Identifiable Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseJvmIdentifiableElement(JvmIdentifiableElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XVariable Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XVariable Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXVariableDeclaration(XVariableDeclaration object)
   {
     return null;
   }

@@ -1750,16 +1750,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
-	//// New rule for val only
-	////ConstantDeclaration returns xbase::XExpression:
-	////	{xbase::XVariableDeclaration}
-	////ConstantDeclaration returns xbase::XExpression:
-	////	{ConstantDeclaration}
-	////	 'constant' (=> (type=JvmTypeReference name=ValidID) | name=ValidID) '=' 
-	////	 right=(XNumberLiteral | XStringLiteral | XBooleanLiteral)
-	////;
-	//ComputeDeclaration:
-	//	"compute" name=ValidID;
+	//ComputeDeclaration returns xbase::XVariableDeclaration:
+	//	{ComputeDeclaration} writeable?="compute" (=> (type=JvmTypeReference name=ValidID) | name=ValidID);
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}

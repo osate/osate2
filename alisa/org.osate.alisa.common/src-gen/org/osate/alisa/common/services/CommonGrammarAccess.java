@@ -143,33 +143,61 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class ComputeDeclarationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComputeDeclaration");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cComputeKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Action cComputeDeclarationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cWriteableAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Keyword cWriteableComputeKeyword_1_0 = (Keyword)cWriteableAssignment_1.eContents().get(0);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Group cGroup_2_0_0 = (Group)cGroup_2_0.eContents().get(0);
+		private final Assignment cTypeAssignment_2_0_0_0 = (Assignment)cGroup_2_0_0.eContents().get(0);
+		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0 = (RuleCall)cTypeAssignment_2_0_0_0.eContents().get(0);
+		private final Assignment cNameAssignment_2_0_0_1 = (Assignment)cGroup_2_0_0.eContents().get(1);
+		private final RuleCall cNameValidIDParserRuleCall_2_0_0_1_0 = (RuleCall)cNameAssignment_2_0_0_1.eContents().get(0);
+		private final Assignment cNameAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
+		private final RuleCall cNameValidIDParserRuleCall_2_1_0 = (RuleCall)cNameAssignment_2_1.eContents().get(0);
 		
-		//// New rule for val only
-		////ConstantDeclaration returns xbase::XExpression:
-		////	{xbase::XVariableDeclaration}
-		////ConstantDeclaration returns xbase::XExpression:
-		////	{ConstantDeclaration}
-		////	 'constant' (=> (type=JvmTypeReference name=ValidID) | name=ValidID) '=' 
-		////	 right=(XNumberLiteral | XStringLiteral | XBooleanLiteral)
-		////;
-		//ComputeDeclaration:
-		//	"compute" name=ValidID;
+		//ComputeDeclaration returns xbase::XVariableDeclaration:
+		//	{ComputeDeclaration} writeable?="compute" (=> (type=JvmTypeReference name=ValidID) | name=ValidID);
 		public ParserRule getRule() { return rule; }
 
-		//"compute" name=ValidID
+		//{ComputeDeclaration} writeable?="compute" (=> (type=JvmTypeReference name=ValidID) | name=ValidID)
 		public Group getGroup() { return cGroup; }
 
+		//{ComputeDeclaration}
+		public Action getComputeDeclarationAction_0() { return cComputeDeclarationAction_0; }
+
+		//writeable?="compute"
+		public Assignment getWriteableAssignment_1() { return cWriteableAssignment_1; }
+
 		//"compute"
-		public Keyword getComputeKeyword_0() { return cComputeKeyword_0; }
+		public Keyword getWriteableComputeKeyword_1_0() { return cWriteableComputeKeyword_1_0; }
+
+		//=> (type=JvmTypeReference name=ValidID) | name=ValidID
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//=> (type=JvmTypeReference name=ValidID)
+		public Group getGroup_2_0() { return cGroup_2_0; }
+
+		//type=JvmTypeReference name=ValidID
+		public Group getGroup_2_0_0() { return cGroup_2_0_0; }
+
+		//type=JvmTypeReference
+		public Assignment getTypeAssignment_2_0_0_0() { return cTypeAssignment_2_0_0_0; }
+
+		//JvmTypeReference
+		public RuleCall getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0; }
 
 		//name=ValidID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_2_0_0_1() { return cNameAssignment_2_0_0_1; }
 
 		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_1_0() { return cNameValidIDParserRuleCall_1_0; }
+		public RuleCall getNameValidIDParserRuleCall_2_0_0_1_0() { return cNameValidIDParserRuleCall_2_0_0_1_0; }
+
+		//name=ValidID
+		public Assignment getNameAssignment_2_1() { return cNameAssignment_2_1; }
+
+		//ValidID
+		public RuleCall getNameValidIDParserRuleCall_2_1_0() { return cNameValidIDParserRuleCall_2_1_0; }
 	}
 
 	public class XNumberLiteralElements extends AbstractParserRuleElementFinder {
@@ -391,16 +419,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getXValDeclarationAccess().getRule();
 	}
 
-	//// New rule for val only
-	////ConstantDeclaration returns xbase::XExpression:
-	////	{xbase::XVariableDeclaration}
-	////ConstantDeclaration returns xbase::XExpression:
-	////	{ConstantDeclaration}
-	////	 'constant' (=> (type=JvmTypeReference name=ValidID) | name=ValidID) '=' 
-	////	 right=(XNumberLiteral | XStringLiteral | XBooleanLiteral)
-	////;
-	//ComputeDeclaration:
-	//	"compute" name=ValidID;
+	//ComputeDeclaration returns xbase::XVariableDeclaration:
+	//	{ComputeDeclaration} writeable?="compute" (=> (type=JvmTypeReference name=ValidID) | name=ValidID);
 	public ComputeDeclarationElements getComputeDeclarationAccess() {
 		return pComputeDeclaration;
 	}

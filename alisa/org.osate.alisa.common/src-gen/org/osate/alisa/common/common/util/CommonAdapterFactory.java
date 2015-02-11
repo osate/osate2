@@ -9,7 +9,10 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.xtext.common.types.JvmIdentifiableElement;
+
 import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.alisa.common.common.*;
 
@@ -87,14 +90,14 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createDescriptionElementAdapter();
       }
       @Override
-      public Adapter caseComputeDeclaration(ComputeDeclaration object)
-      {
-        return createComputeDeclarationAdapter();
-      }
-      @Override
       public Adapter caseShowValue(ShowValue object)
       {
         return createShowValueAdapter();
+      }
+      @Override
+      public Adapter caseComputeDeclaration(ComputeDeclaration object)
+      {
+        return createComputeDeclarationAdapter();
       }
       @Override
       public Adapter caseXNumberLiteralUnit(XNumberLiteralUnit object)
@@ -105,6 +108,16 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       public Adapter caseXExpression(XExpression object)
       {
         return createXExpressionAdapter();
+      }
+      @Override
+      public Adapter caseJvmIdentifiableElement(JvmIdentifiableElement object)
+      {
+        return createJvmIdentifiableElementAdapter();
+      }
+      @Override
+      public Adapter caseXVariableDeclaration(XVariableDeclaration object)
+      {
+        return createXVariableDeclarationAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -159,21 +172,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ComputeDeclaration
-   * @generated
-   */
-  public Adapter createComputeDeclarationAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -184,6 +182,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createShowValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.ComputeDeclaration
+   * @generated
+   */
+  public Adapter createComputeDeclarationAdapter()
   {
     return null;
   }
@@ -214,6 +227,36 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createXExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.common.types.JvmIdentifiableElement <em>Jvm Identifiable Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.common.types.JvmIdentifiableElement
+   * @generated
+   */
+  public Adapter createJvmIdentifiableElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XVariableDeclaration <em>XVariable Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.xbase.XVariableDeclaration
+   * @generated
+   */
+  public Adapter createXVariableDeclarationAdapter()
   {
     return null;
   }

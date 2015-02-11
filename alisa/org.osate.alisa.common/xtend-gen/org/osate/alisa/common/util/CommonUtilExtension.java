@@ -10,6 +10,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.osate.aadl2.NamedElement;
+import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
@@ -43,15 +44,18 @@ public class CommonUtilExtension {
       ShowValue _showValue = de.getShowValue();
       boolean _notEquals_1 = (!Objects.equal(_showValue, null));
       if (_notEquals_1) {
-        String _elvis = null;
         ShowValue _showValue_1 = de.getShowValue();
         XVariableDeclaration _ref = null;
         if (_showValue_1!=null) {
           _ref=_showValue_1.getRef();
         }
+        final XVariableDeclaration decl = _ref;
+        if ((decl instanceof ComputeDeclaration)) {
+        }
+        String _elvis = null;
         XExpression _right = null;
-        if (_ref!=null) {
-          _right=_ref.getRight();
+        if (decl!=null) {
+          _right=decl.getRight();
         }
         String _string = null;
         if (_right!=null) {

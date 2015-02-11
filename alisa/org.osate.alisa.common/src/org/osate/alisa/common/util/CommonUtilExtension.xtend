@@ -3,6 +3,7 @@ package org.osate.alisa.common.util
 import org.osate.aadl2.NamedElement
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
+import org.osate.alisa.common.common.ComputeDeclaration
 
 class CommonUtilExtension {
 		
@@ -13,7 +14,12 @@ class CommonUtilExtension {
 	def static toText(DescriptionElement de, NamedElement target){
 		if (de.text != null) return de.text
 		if (de.showValue != null) {
-			return  de.showValue?.ref?.right?.toString?:"" 
+			val decl = de.showValue?.ref
+			if (decl instanceof ComputeDeclaration){
+				// TODO convert scaled to unit specified, or to most appropriate unit without too many 999999999
+			}
+			// TODO handle unit specified at ShowValue level
+			return  decl?.right?.toString?:"" 
 		}
 		if (de.thisTarget && target != null) {
 			var nm = target.name
@@ -22,13 +28,14 @@ class CommonUtilExtension {
 		}
 		""
 	}
-//	
-//	def static String toText(ConstantValue cv){
-//		switch (cv){
-//			StringTerm: return cv.value
-//			RealTerm: return cv.value +cv.unit?:""
-//			IntegerTerm: return cv.value.toString + cv.unit?:""
+// from GetProperties: May need to use it for actual values from compute
+//	public static String toStringScaled(double value, UnitLiteral unit) {
+//		UnitLiteral targetliteral = scaleupUnit(value, unit);
+//		double result = value;
+//		if (targetliteral != unit) {
+//			result = convertToScale(value, unit, targetliteral);
 //		}
+//		return String.format("%.3f " + targetliteral.getName(), result);
 //	}
 	
 }

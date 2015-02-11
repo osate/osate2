@@ -133,34 +133,6 @@ public interface CommonPackage extends EPackage
   int DESCRIPTION_ELEMENT_FEATURE_COUNT = 3;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.ComputeDeclarationImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
-   * @generated
-   */
-  int COMPUTE_DECLARATION = 2;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPUTE_DECLARATION__NAME = 0;
-
-  /**
-   * The number of structural features of the '<em>Compute Declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPUTE_DECLARATION_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -168,7 +140,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getShowValue()
    * @generated
    */
-  int SHOW_VALUE = 3;
+  int SHOW_VALUE = 2;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -196,6 +168,61 @@ public interface CommonPackage extends EPackage
    * @ordered
    */
   int SHOW_VALUE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ComputeDeclarationImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
+   * @generated
+   */
+  int COMPUTE_DECLARATION = 3;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__TYPE = XbasePackage.XVARIABLE_DECLARATION__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__NAME = XbasePackage.XVARIABLE_DECLARATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__RIGHT = XbasePackage.XVARIABLE_DECLARATION__RIGHT;
+
+  /**
+   * The feature id for the '<em><b>Writeable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__WRITEABLE = XbasePackage.XVARIABLE_DECLARATION__WRITEABLE;
+
+  /**
+   * The number of structural features of the '<em>Compute Declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION_FEATURE_COUNT = XbasePackage.XVARIABLE_DECLARATION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl <em>XNumber Literal Unit</em>}' class.
@@ -300,27 +327,6 @@ public interface CommonPackage extends EPackage
   EAttribute getDescriptionElement_ThisTarget();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Compute Declaration</em>'.
-   * @see org.osate.alisa.common.common.ComputeDeclaration
-   * @generated
-   */
-  EClass getComputeDeclaration();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ComputeDeclaration#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.common.common.ComputeDeclaration#getName()
-   * @see #getComputeDeclaration()
-   * @generated
-   */
-  EAttribute getComputeDeclaration_Name();
-
-  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -351,6 +357,16 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getShowValue_Unit();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Compute Declaration</em>'.
+   * @see org.osate.alisa.common.common.ComputeDeclaration
+   * @generated
+   */
+  EClass getComputeDeclaration();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.XNumberLiteralUnit <em>XNumber Literal Unit</em>}'.
@@ -460,24 +476,6 @@ public interface CommonPackage extends EPackage
     EAttribute DESCRIPTION_ELEMENT__THIS_TARGET = eINSTANCE.getDescriptionElement_ThisTarget();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.ComputeDeclarationImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
-     * @generated
-     */
-    EClass COMPUTE_DECLARATION = eINSTANCE.getComputeDeclaration();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute COMPUTE_DECLARATION__NAME = eINSTANCE.getComputeDeclaration_Name();
-
-    /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -502,6 +500,16 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference SHOW_VALUE__UNIT = eINSTANCE.getShowValue_Unit();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ComputeDeclarationImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
+     * @generated
+     */
+    EClass COMPUTE_DECLARATION = eINSTANCE.getComputeDeclaration();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl <em>XNumber Literal Unit</em>}' class.
