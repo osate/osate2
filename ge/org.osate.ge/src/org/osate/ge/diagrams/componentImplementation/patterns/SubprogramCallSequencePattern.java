@@ -15,9 +15,11 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
+import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
@@ -39,6 +41,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramCall;
@@ -66,6 +69,7 @@ import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.StyleService;
+import org.osate.ge.services.UserInputService;
 
 public class SubprogramCallSequencePattern extends AgePattern implements Categorized {
 	private static final String nameShapeName = "label";
@@ -83,6 +87,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	private final ConnectionCreationService connectionCreationService;
 	private final PropertyService propertyService;
 	private final RefactoringService refactoringService;
+	private final UserInputService userInputService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
@@ -90,7 +95,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 			final DiagramModificationService diagramModService, final AadlFeatureService featureService, final ComponentImplementationService componentImplementationService,
 			final GhostingService ghostingService, final StyleService styleService, final LayoutService layoutService, 
 			final ShapeService shapeService, final LabelService labelService, final ConnectionCreationService connectionCreationService, 
-			final PropertyService propertyService, final RefactoringService refactoringService, final BusinessObjectResolutionService bor) {
+			final PropertyService propertyService, final RefactoringService refactoringService, final UserInputService userInputService, final BusinessObjectResolutionService bor) {
 		this.namingService = namingService;
 		this.shapeCreationService = shapeCreationService;
 		this.aadlModService = aadlModService;
@@ -105,6 +110,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		this.connectionCreationService = connectionCreationService;
 		this.propertyService = propertyService;
 		this.refactoringService = refactoringService;
+		this.userInputService = userInputService;
 		this.bor = bor;		
 	}
 	
@@ -317,7 +323,6 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		}
 		
 		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, componentImplementationService, bi);
-
 		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
 		if(dlg.open() == Dialog.CANCEL) {
 			return EMPTY;
@@ -408,6 +413,54 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
     	final SubprogramCallSequence cs = (SubprogramCallSequence)bor.getBusinessObjectForPictogramElement(pe);  	
     	refactoringService.renameElement(cs, value);
     }
+    
+    // Delete
+	@Override
+	public boolean canDelete(final IDeleteContext context) {
+		final PictogramElement pe = context.getPictogramElement();
+        final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+
+        if (bo instanceof SubprogramCallSequence && pe instanceof Shape) {
+        	final SubprogramCallSequence cs = (SubprogramCallSequence)bo;
+        	return cs.getContainingClassifier() == getComponentImplementation((Shape)pe);
+        }
+
+		return false;
+	}
+
+	@Override
+	public void delete(final IDeleteContext context) {
+		if(!userInputService.confirmDelete(context)) {
+			return;
+		}
+
+		final SubprogramCallSequence cs = (SubprogramCallSequence)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		aadlModService.modify(cs, new AbstractModifier<SubprogramCallSequence, Object>() {
+			private DiagramModificationService.Modification diagramMod;
+			
+			@Override
+			public Object modify(final Resource resource, final SubprogramCallSequence cs) {
+				// Handle diagram updates
+	 			diagramMod = diagramModService.startModification();
+	 			final Classifier classifier = cs.getContainingClassifier();
+	 			diagramMod.markRelatedDiagramsAsDirty(classifier);	 			
+	 			
+				// Just remove the call sequence. In the future it would be helpful to offer options for refactoring the model so that it does not
+				// cause errors.
+				EcoreUtil.remove(cs);
+				
+				return null;
+			}		
+			
+	 		@Override
+			public void beforeCommit(final Resource resource, final SubprogramCallSequence cs, final Object modificationResult) {
+				diagramMod.commit();
+			}
+		});
+				
+		// Clear selection
+		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
+	}
     
     // Shared
 	/**
