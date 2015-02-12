@@ -45,8 +45,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.architecture.ARINC429ConnectionConsistency;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
@@ -93,8 +91,7 @@ public final class CheckA429PortConnectionConsistency extends AaxlReadOnlyAction
 		return true;
 	}
 
-	public void invoke(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, SystemInstance root,
-			SystemOperationMode som) {
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 	}
 
