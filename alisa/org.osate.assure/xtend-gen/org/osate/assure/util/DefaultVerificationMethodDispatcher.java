@@ -180,7 +180,7 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
               Object _dispatchVerificationMethod = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
               final String res_3 = ((String) _dispatchVerificationMethod);
               final InstanceObject subject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
-              final boolean errors = AssureUtilExtension.addAllErrorMarkers(verificationActivityResult, subject, res_3);
+              final boolean errors = AssureUtilExtension.addAllMarkers(verificationActivityResult, subject, res_3);
               if (errors) {
                 AssureUtilExtension.setToFail(verificationActivityResult);
               } else {
@@ -432,7 +432,8 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
   public FunctionDefinition findResoluteFunction(final EObject context, final String resoluteFunctionName) {
     final CommonGlobalScopeProvider scope = ((CommonGlobalScopeProvider) this.scopeProvider);
     EClass _functionDefinition = ResolutePackage.eINSTANCE.getFunctionDefinition();
-    final Iterable<IEObjectDescription> foundlist = scope.getGlobalEObjectDescriptions(context, _functionDefinition, null);
+    final Iterable<IEObjectDescription> foundlist = scope.getGlobalEObjectDescriptions(context, _functionDefinition, 
+      null);
     final Function1<IEObjectDescription, Boolean> _function = new Function1<IEObjectDescription, Boolean>() {
       public Boolean apply(final IEObjectDescription eod) {
         QualifiedName _name = eod.getName();

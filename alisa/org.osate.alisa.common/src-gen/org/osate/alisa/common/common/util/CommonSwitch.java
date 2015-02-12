@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
 import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XNumberLiteral;
 
 import org.osate.alisa.common.common.*;
 
@@ -106,6 +107,7 @@ public class CommonSwitch<T> extends Switch<T>
       {
         XNumberLiteralUnit xNumberLiteralUnit = (XNumberLiteralUnit)theEObject;
         T result = caseXNumberLiteralUnit(xNumberLiteralUnit);
+        if (result == null) result = caseXNumberLiteral(xNumberLiteralUnit);
         if (result == null) result = caseXExpression(xNumberLiteralUnit);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -206,6 +208,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseXExpression(XExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>XNumber Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>XNumber Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseXNumberLiteral(XNumberLiteral object)
   {
     return null;
   }

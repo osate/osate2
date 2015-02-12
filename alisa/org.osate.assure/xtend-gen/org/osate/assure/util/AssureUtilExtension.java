@@ -31,6 +31,7 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -296,6 +297,49 @@ public class AssureUtilExtension {
     }
   }
   
+  public static boolean addAllMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
+    try {
+      final Resource res = instance.eResource();
+      final IResource irsrc = OsateResourceUtil.convertToIResource(res);
+      final IMarker[] markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE);
+      boolean _isEmpty = ((List<IMarker>)Conversions.doWrapArray(markersforanalysis)).isEmpty();
+      if (_isEmpty) {
+        return false;
+      }
+      final Procedure1<IMarker> _function = new Procedure1<IMarker>() {
+        public void apply(final IMarker em) {
+          try {
+            Object _attribute = em.getAttribute(AadlConstants.AADLURI);
+            final String targetURIString = ((String) _attribute);
+            final URI targetURI = URI.createURI(targetURIString);
+            ResourceSet _resourceSet = res.getResourceSet();
+            final EObject target = _resourceSet.getEObject(targetURI, false);
+            EObject _elvis = null;
+            if (target != null) {
+              _elvis = target;
+            } else {
+              _elvis = instance;
+            }
+            AssureUtilExtension.addMarkerIssue(verificationActivityResult, _elvis, em);
+          } catch (Throwable _e) {
+            throw Exceptions.sneakyThrow(_e);
+          }
+        }
+      };
+      IterableExtensions.<IMarker>forEach(((Iterable<IMarker>)Conversions.doWrapArray(markersforanalysis)), _function);
+      EList<ResultIssue> _issues = verificationActivityResult.getIssues();
+      final Function1<ResultIssue, Boolean> _function_1 = new Function1<ResultIssue, Boolean>() {
+        public Boolean apply(final ResultIssue ri) {
+          ResultIssueType _issueType = ri.getIssueType();
+          return Boolean.valueOf(Objects.equal(_issueType, ResultIssueType.ERROR));
+        }
+      };
+      return IterableExtensions.<ResultIssue>exists(_issues, _function_1);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   public static void addErrorDiagnostics(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
     final Resource res = instance.eResource();
     final EList<Resource.Diagnostic> diagnosticErrors = res.getErrors();
@@ -303,6 +347,41 @@ public class AssureUtilExtension {
   }
   
   public void handleXtextIssues() {
+  }
+  
+  public static ResultIssue addMarkerIssue(final VerificationActivityResult vr, final EObject target, final IMarker marker) {
+    try {
+      ResultIssue _xblockexpression = null;
+      {
+        Object _attribute = marker.getAttribute(IMarker.MESSAGE);
+        final String msg = ((String) _attribute);
+        ResultIssue _switchResult = null;
+        Object _attribute_1 = marker.getAttribute(IMarker.SEVERITY);
+        boolean _matched = false;
+        if (!_matched) {
+          if (Objects.equal(_attribute_1, IMarker.SEVERITY_ERROR)) {
+            _matched=true;
+            _switchResult = AssureUtilExtension.addErrorIssue(vr, target, msg);
+          }
+        }
+        if (!_matched) {
+          if (Objects.equal(_attribute_1, IMarker.SEVERITY_WARNING)) {
+            _matched=true;
+            _switchResult = AssureUtilExtension.addWarningIssue(vr, target, msg);
+          }
+        }
+        if (!_matched) {
+          if (Objects.equal(_attribute_1, IMarker.SEVERITY_INFO)) {
+            _matched=true;
+            _switchResult = AssureUtilExtension.addInfoIssue(vr, target, msg);
+          }
+        }
+        _xblockexpression = _switchResult;
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
   
   public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message) {
@@ -406,12 +485,14 @@ public class AssureUtilExtension {
           issue.setTarget(target);
         } else {
           if ((target instanceof FailExpr)) {
+            ri.setName("Fail");
             int _length = message.length();
             boolean _greaterThan = (_length > 14);
             if (_greaterThan) {
               String _substring = message.substring(15);
               ri.setMessage(_substring);
-              return ri;
+            } else {
+              ri.setMessage(message);
             }
           }
         }
@@ -431,12 +512,17 @@ public class AssureUtilExtension {
     ResultIssue _xblockexpression = null;
     {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
-      issue.setMessage(message);
+      String prefix = "";
+      if ((target instanceof NamedElement)) {
+        String _name = ((NamedElement)target).getName();
+        String _plus = (prefix + _name);
+        prefix = _plus;
+      }
       issue.setIssueType(ResultIssueType.SUCCESS);
       issue.setExceptionType(issueSource);
       if ((target instanceof FunctionDefinition)) {
-        String _name = ((FunctionDefinition)target).getName();
-        issue.setName(_name);
+        String _name_1 = ((FunctionDefinition)target).getName();
+        issue.setName(_name_1);
       } else {
         if ((!(target instanceof FailExpr))) {
           issue.setTarget(target);
@@ -580,6 +666,42 @@ public class AssureUtilExtension {
       _switchResult = expr.getWeight();
     }
     return _switchResult;
+  }
+  
+  public static String constructLabel(final EObject obj) {
+    String _xblockexpression = null;
+    {
+      boolean _matched = false;
+      if (!_matched) {
+        if (obj instanceof SystemInstance) {
+          _matched=true;
+          ComponentImplementation _componentImplementation = ((SystemInstance)obj).getComponentImplementation();
+          String _name = _componentImplementation.getName();
+          String _plus = ("top " + _name);
+          return (_plus + ": ");
+        }
+      }
+      if (!_matched) {
+        if (obj instanceof ComponentInstance) {
+          _matched=true;
+          ComponentCategory _category = ((ComponentInstance)obj).getCategory();
+          String _name = _category.getName();
+          String _plus = (_name + " ");
+          String _name_1 = ((ComponentInstance)obj).getName();
+          String _plus_1 = (_plus + _name_1);
+          return (_plus_1 + ": ");
+        }
+      }
+      if (!_matched) {
+        if (obj instanceof NamedElement) {
+          _matched=true;
+          String _name = ((NamedElement)obj).getName();
+          /* (_name + ": "); */
+        }
+      }
+      _xblockexpression = "";
+    }
+    return _xblockexpression;
   }
   
   public static String getNamePath(final AssureResult ar) {
@@ -1648,12 +1770,23 @@ public class AssureUtilExtension {
       String _message = ri.getMessage();
       boolean _notEquals = (!Objects.equal(_message, null));
       if (_notEquals) {
-        return ri.getMessage();
+        String _message_1 = ri.getMessage();
+        String _xifexpression = null;
+        String _exceptionType = ri.getExceptionType();
+        boolean _notEquals_1 = (!Objects.equal(_exceptionType, null));
+        if (_notEquals_1) {
+          String _exceptionType_1 = ri.getExceptionType();
+          String _plus = (" [" + _exceptionType_1);
+          _xifexpression = (_plus + "]");
+        } else {
+          _xifexpression = "";
+        }
+        return (_message_1 + _xifexpression);
       }
-      String _name = ri.getName();
-      boolean _notEquals_1 = (!Objects.equal(_name, null));
-      if (_notEquals_1) {
-        return ri.getName();
+      String _exceptionType_2 = ri.getExceptionType();
+      boolean _notEquals_2 = (!Objects.equal(_exceptionType_2, null));
+      if (_notEquals_2) {
+        return ri.getExceptionType();
       }
       _xblockexpression = "";
     }

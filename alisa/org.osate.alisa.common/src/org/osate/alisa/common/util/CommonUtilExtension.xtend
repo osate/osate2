@@ -4,6 +4,7 @@ import org.osate.aadl2.NamedElement
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ComputeDeclaration
+import org.osate.alisa.common.common.XNumberLiteralUnit
 
 class CommonUtilExtension {
 		
@@ -19,7 +20,11 @@ class CommonUtilExtension {
 				// TODO convert scaled to unit specified, or to most appropriate unit without too many 999999999
 			}
 			// TODO handle unit specified at ShowValue level
-			return  decl?.right?.toString?:"" 
+			val x = decl?.right
+			if (x instanceof XNumberLiteralUnit){
+				return x.value + x.unit?.name?:""
+			}
+			return  x?.toString?:"" 
 		}
 		if (de.thisTarget && target != null) {
 			var nm = target.name

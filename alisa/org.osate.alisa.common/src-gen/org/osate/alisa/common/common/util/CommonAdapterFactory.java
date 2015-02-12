@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XNumberLiteral;
 
 import org.osate.alisa.common.common.*;
 
@@ -105,6 +106,11 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       public Adapter caseXExpression(XExpression object)
       {
         return createXExpressionAdapter();
+      }
+      @Override
+      public Adapter caseXNumberLiteral(XNumberLiteral object)
+      {
+        return createXNumberLiteralAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -214,6 +220,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createXExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XNumberLiteral <em>XNumber Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.xtext.xbase.XNumberLiteral
+   * @generated
+   */
+  public Adapter createXNumberLiteralAdapter()
   {
     return null;
   }

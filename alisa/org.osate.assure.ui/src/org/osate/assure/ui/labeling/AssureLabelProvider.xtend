@@ -44,7 +44,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(ResultIssue ele) {
-		if (ele.name == null) return ele.constructMessage
+		if (ele.name == null) return (ele.target?.constructLabel?:"")+ ele.constructMessage
 		ele.name + ": " + ele.constructMessage
 	}
 	

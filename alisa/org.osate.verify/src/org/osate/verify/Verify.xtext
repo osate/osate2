@@ -114,7 +114,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 	'registry' name=ID
 	(':' title=STRING)?
 	'[' (
-	('description' description=Description)?
+	('description' description=STRING)?
 	methods+=VerificationMethod*)
 	']';
 
@@ -122,11 +122,11 @@ VerificationMethod:
 	'method' name=ID (':' title=STRING)?
 	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?	
 	'['
+	(
 	methodType=SupportedTypes methodPath=QualifiedName
 	// parameters (in addition to the model element
-	(
-	('marker' marker=STRING)?
-	&('description' description=Description)?
+	&('marker' marker=STRING)?
+	&('description' description=STRING)?
 	& ('category' category=[categories::VerificationCategory|ID])?
 	& (conditions+=VerificationCondition)*
 	)

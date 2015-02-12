@@ -2,7 +2,7 @@
  */
 package org.osate.alisa.common.common;
 
-import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XNumberLiteral;
 
 import org.osate.aadl2.UnitLiteral;
 
@@ -14,7 +14,6 @@ import org.osate.aadl2.UnitLiteral;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.XNumberLiteralUnit#getValue <em>Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.XNumberLiteralUnit#getUnit <em>Unit</em>}</li>
  * </ul>
  * </p>
@@ -23,34 +22,8 @@ import org.osate.aadl2.UnitLiteral;
  * @model
  * @generated
  */
-public interface XNumberLiteralUnit extends XExpression
+public interface XNumberLiteralUnit extends XNumberLiteral
 {
-  /**
-   * Returns the value of the '<em><b>Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Value</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getXNumberLiteralUnit_Value()
-   * @model
-   * @generated
-   */
-  String getValue();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.XNumberLiteralUnit#getValue <em>Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value</em>' attribute.
-   * @see #getValue()
-   * @generated
-   */
-  void setValue(String value);
-
   /**
    * Returns the value of the '<em><b>Unit</b></em>' reference.
    * <!-- begin-user-doc -->

@@ -18,8 +18,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.common.common.Description;
-
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerificationMethodRegistry;
 import org.osate.verify.verify.VerifyPackage;
@@ -83,14 +81,24 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDescription()
    * @generated
    * @ordered
    */
-  protected Description description;
+  protected static final String DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getMethods() <em>Methods</em>}' containment reference list.
@@ -174,7 +182,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public Description getDescription()
+  public String getDescription()
   {
     return description;
   }
@@ -184,37 +192,12 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
+  public void setDescription(String newDescription)
   {
-    Description oldDescription = description;
+    String oldDescription = description;
     description = newDescription;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION, oldDescription, newDescription);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDescription(Description newDescription)
-  {
-    if (newDescription != description)
-    {
-      NotificationChain msgs = null;
-      if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION, null, msgs);
-      if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION, null, msgs);
-      msgs = basicSetDescription(newDescription, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION, newDescription, newDescription));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION, oldDescription, description));
   }
 
   /**
@@ -241,8 +224,6 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION:
-        return basicSetDescription(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__METHODS:
         return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
     }
@@ -289,7 +270,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
         setTitle((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION:
-        setDescription((Description)newValue);
+        setDescription((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__METHODS:
         getMethods().clear();
@@ -316,7 +297,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
         setTitle(TITLE_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION:
-        setDescription((Description)null);
+        setDescription(DESCRIPTION_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__METHODS:
         getMethods().clear();
@@ -340,7 +321,7 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__DESCRIPTION:
-        return description != null;
+        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY__METHODS:
         return methods != null && !methods.isEmpty();
     }
@@ -362,6 +343,8 @@ public class VerificationMethodRegistryImpl extends MinimalEObjectImpl.Container
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", description: ");
+    result.append(description);
     result.append(')');
     return result.toString();
   }

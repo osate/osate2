@@ -37,150 +37,152 @@ import org.osate.aadl2.instance.InstanceObject
 @ImplementedBy(DefaultVerificationMethodDispatcher)
 interface IVerificationMethodDispatcher {
 	def Object dispatchVerificationMethod(String methodPath, VerificationActivityResult vr);
+
 	def void runVerificationMethod(VerificationActivityResult verificationActivityResult);
 }
 
-class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher{
-	
-	override Object dispatchVerificationMethod(String methodPath, VerificationActivityResult vr) {
-		println("Dispatching "+methodPath + " on "+vr.claimSubject.getQualifiedName)
-		return null
-		}
+class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
-/**
+	override Object dispatchVerificationMethod(String methodPath, VerificationActivityResult vr) {
+		println("Dispatching " + methodPath + " on " + vr.claimSubject.getQualifiedName)
+		return null
+	}
+
+	/**
  * who needs to understand the method types?
  * the runVerificationMethod dispatcher may do different catch methods
  * The dispatchVerificationMethod may know from its label what type it is.
  */
-
 	override void runVerificationMethod(VerificationActivityResult verificationActivityResult) {
 		val method = verificationActivityResult.getTarget().getMethod();
 		val methodpath = method.getMethodPath();
 		switch method.getMethodType() {
-			case SupportedTypes.SINGLEPREDICATE : //|| SupportedTypes.SINGLEANALYSIS || SupportedTypes.ASSERTIONEXCEPTION: 
+			case SupportedTypes.SINGLEPREDICATE: //|| SupportedTypes.SINGLEANALYSIS || SupportedTypes.ASSERTIONEXCEPTION: 
 			{
-			try { 
-				val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
-				if (res != null && res instanceof Boolean && res != true){
-				setToFail(verificationActivityResult, "");
-				} else {
-					setToSuccess(verificationActivityResult)
-				}
-			} catch (AssertionError e) {
-				setToFail(verificationActivityResult, e);
-			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-				throw e;
-			} catch (Throwable e) {
-				setToError(verificationActivityResult, e);
-			}
-			}
-		case SINGLEANALYSIS: {
-			try { 
-				val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
-				// TODO Evaluate predicate function
-				verificationActivityResult.addInfoIssue(verificationActivityResult.claimSubject,"Need to compare analysis result "+toString(res))
-				if (res != null && res instanceof Boolean && res != true){
-				setToFail(verificationActivityResult, "");
-				} else {
-					setToSuccess(verificationActivityResult)
-				}
-			} catch (AssertionError e) {
-				setToFail(verificationActivityResult, e);
-			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-				throw e;
-			} catch (Throwable e) {
-				setToError(verificationActivityResult, e);
-			}
-		}
-			case SupportedTypes.ASSERTIONEXCEPTION: 
-			{
-			try { 
-				val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
-				setToSuccess(verificationActivityResult)
-			} catch (AssertionError e) {
-				setToFail(verificationActivityResult, e);
-			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-				throw e;
-			} catch (Throwable e) {
-				setToError(verificationActivityResult, e);
-			}
-			}
-			
-		case SupportedTypes.MULTIMARKER: {
-			try { 
-				val res = dispatchVerificationMethod(methodpath, verificationActivityResult) as String
-				val subject = verificationActivityResult.caseSubject
-				val errors=  addAllErrorMarkers(verificationActivityResult,subject, res)
-				if (errors ){
-					setToFail(verificationActivityResult);
-				} else {
-					setToSuccess(verificationActivityResult)
-				}
-			} catch (AssertionError e) {
-				setToFail(verificationActivityResult, e);
-			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-				throw e;
-			} catch (Throwable e) {
-				setToError(verificationActivityResult, e);
-			}
-		}
-		case SupportedTypes.OWNMULTIMARKER: {
-			try { 
-				val res = dispatchVerificationMethod(methodpath, verificationActivityResult) as String
-				val subject = verificationActivityResult.caseSubject
-				val errors= switch(subject){
-					ComponentInstance: addAllDirectErrorMarkers(verificationActivityResult,subject, res)
-					InstanceObject: addErrorMarkers(verificationActivityResult,subject, res)
+				try {
+					val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
+					if (res != null && res instanceof Boolean && res != true) {
+						setToFail(verificationActivityResult, "");
+					} else {
+						setToSuccess(verificationActivityResult)
 					}
-				if (errors ){
-					setToFail(verificationActivityResult, "");
-				} else {
-					setToSuccess(verificationActivityResult)
+				} catch (AssertionError e) {
+					setToFail(verificationActivityResult, e);
+				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+					throw e;
+				} catch (Throwable e) {
+					setToError(verificationActivityResult, e);
 				}
-			} catch (AssertionError e) {
-				setToFail(verificationActivityResult, e);
-			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-				throw e;
-			} catch (Throwable e) {
-				setToError(verificationActivityResult, e);
 			}
-		}
-		case SupportedTypes.RESOLUTEPROVE:{
-			// Resolute handling See AssureUtil for setup	
-			val si = verificationActivityResult.caseSubject.systemInstance
-			val EvaluationContext context = new EvaluationContext(si, sets, featToConnsMap);
-			val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-			val provecall = createWrapperProveCall(verificationActivityResult)
-			if (provecall == null) {
-				setToError(verificationActivityResult,"Could not find Resolute Function '"+verificationActivityResult.methodName+"'")
-				return
+			case SINGLEANALYSIS: {
+				try {
+					val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
+
+					// TODO Evaluate predicate function
+					verificationActivityResult.addInfoIssue(verificationActivityResult.claimSubject,
+						"Need to compare analysis result " + toString(res))
+					if (res != null && res instanceof Boolean && res != true) {
+						setToFail(verificationActivityResult, "");
+					} else {
+						setToSuccess(verificationActivityResult)
+					}
+				} catch (AssertionError e) {
+					setToFail(verificationActivityResult, e);
+				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+					throw e;
+				} catch (Throwable e) {
+					setToError(verificationActivityResult, e);
+				}
 			}
-			val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
-			if (proof.valid){
-				setToSuccess(verificationActivityResult)
-			} else {
-				val proveri = AssureFactory.eINSTANCE.createResultIssue
-				proof.doResoluteResults(proveri)
-				setToFail(verificationActivityResult, proveri.issues)
+			case SupportedTypes.ASSERTIONEXCEPTION: {
+				try {
+					val res = dispatchVerificationMethod(methodpath, verificationActivityResult)
+					setToSuccess(verificationActivityResult)
+				} catch (AssertionError e) {
+					setToFail(verificationActivityResult, e);
+				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+					throw e;
+				} catch (Throwable e) {
+					setToError(verificationActivityResult, e);
+				}
 			}
-		}
-		case MANUAL: {
-		}
-		case MULTIDIAGNOSTICS: {
-		}
-		case RESULTREPORT: {
-		}
+			case SupportedTypes.MULTIMARKER: {
+				try {
+					val res = dispatchVerificationMethod(methodpath, verificationActivityResult) as String
+					val subject = verificationActivityResult.caseSubject
+					val errors = addAllMarkers(verificationActivityResult, subject, res)
+					if (errors) {
+						setToFail(verificationActivityResult);
+					} else {
+						setToSuccess(verificationActivityResult)
+					}
+				} catch (AssertionError e) {
+					setToFail(verificationActivityResult, e);
+				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+					throw e;
+				} catch (Throwable e) {
+					setToError(verificationActivityResult, e);
+				}
+			}
+			case SupportedTypes.OWNMULTIMARKER: {
+				try {
+					val res = dispatchVerificationMethod(methodpath, verificationActivityResult) as String
+					val subject = verificationActivityResult.caseSubject
+					val errors = switch (subject) {
+						ComponentInstance: addAllDirectErrorMarkers(verificationActivityResult, subject, res)
+						InstanceObject: addErrorMarkers(verificationActivityResult, subject, res)
+					}
+					if (errors) {
+						setToFail(verificationActivityResult, "");
+					} else {
+						setToSuccess(verificationActivityResult)
+					}
+				} catch (AssertionError e) {
+					setToFail(verificationActivityResult, e);
+				} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+					throw e;
+				} catch (Throwable e) {
+					setToError(verificationActivityResult, e);
+				}
+			}
+			case SupportedTypes.RESOLUTEPROVE: {
+
+				// Resolute handling See AssureUtil for setup	
+				val si = verificationActivityResult.caseSubject.systemInstance
+				val EvaluationContext context = new EvaluationContext(si, sets, featToConnsMap);
+				val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
+				val provecall = createWrapperProveCall(verificationActivityResult)
+				if (provecall == null) {
+					setToError(verificationActivityResult,
+						"Could not find Resolute Function '" + verificationActivityResult.methodName + "'")
+					return
+				}
+				val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
+				if (proof.valid) {
+					setToSuccess(verificationActivityResult)
+				} else {
+					val proveri = AssureFactory.eINSTANCE.createResultIssue
+					proof.doResoluteResults(proveri)
+					setToFail(verificationActivityResult, proveri.issues)
+				}
+			}
+			case MANUAL: {
+			}
+			case MULTIDIAGNOSTICS: {
+			}
+			case RESULTREPORT: {
+			}
 		}
 		verificationActivityResult.eResource.save(null)
 	}
-	
-	
-	def ProveStatement createWrapperProveCall(VerificationActivityResult vr){
+
+	def ProveStatement createWrapperProveCall(VerificationActivityResult vr) {
 		val resoluteFunction = vr.methodName
 		val factory = ResoluteFactory.eINSTANCE
-		val found = resolveResoluteFunction(vr,resoluteFunction)
-//		val found = findResoluteFunction(vr,resoluteFunction)
-		if (found == null) return null
+		val found = resolveResoluteFunction(vr, resoluteFunction)
+
+		//		val found = findResoluteFunction(vr,resoluteFunction)
+		if(found == null) return null
 		val call = factory.createFnCallExpr
 		call.fn = found
 		call.args.add(factory.createThisExpr)
@@ -188,43 +190,44 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 		prove.expr = call
 		prove
 	}
-	
-	def String toString(Object o){
-		switch (o){
+
+	def String toString(Object o) {
+		switch (o) {
 			Integer: o.toString
 			Long: o.toString
-			Double:o.toString
+			Double: o.toString
 			String: o
 			default: "an object"
 		}
 	}
-	
 
 	@Inject
 	public IGlobalScopeProvider scopeProvider;
-	
-//	@Inject
-//	public ResoluteLinkingService resoluteLinkingService;
-//
-//	final static PSNode psNode = new PSNode();
 
+	//	@Inject
+	//	public ResoluteLinkingService resoluteLinkingService;
+	//
+	//	final static PSNode psNode = new PSNode();
 	def FunctionDefinition resolveResoluteFunction(EObject context, String resoluteFunctionName) {
-//		psNode.setText(resoluteFunctionName);
-//		val List<EObject> boundList = resoluteLinkingService.getLinkedObjects(context,
-//				ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), psNode);
-//		if (boundList.size() > 0) {
-//			return  boundList.get(0) as FunctionDefinition;
-//		}
+
+		//		psNode.setText(resoluteFunctionName);
+		//		val List<EObject> boundList = resoluteLinkingService.getLinkedObjects(context,
+		//				ResolutePackage.eINSTANCE.getFnCallExpr_Fn(), psNode);
+		//		if (boundList.size() > 0) {
+		//			return  boundList.get(0) as FunctionDefinition;
+		//		}
 		val res = getNamedElementByType(context, resoluteFunctionName, ResolutePackage.eINSTANCE.getFunctionDefinition())
 		return res as FunctionDefinition
 	}
+
 	def EObject getNamedElementByType(EObject context, String name, EClass eclass) {
+
 		// This code will only link to objects in the projects visible from the current project
-		val Iterable<IEObjectDescription> allObjectTypes = EMFIndexRetrieval.getAllEObjectsOfTypeInWorkspace(context,
-				eclass);
+		val Iterable<IEObjectDescription> allObjectTypes = EMFIndexRetrieval.
+			getAllEObjectsOfTypeInWorkspace(context, eclass);
 		val String contextProject = context.eResource().getURI().segment(1);
 		val List<String> visibleProjects = getVisibleProjects(contextProject);
-		
+
 		for (IEObjectDescription eod : allObjectTypes) {
 			if (eod.getName().getLastSegment().equalsIgnoreCase(name)) {
 				var EObject res = eod.getEObjectOrProxy();
@@ -242,7 +245,7 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 		return null;
 	}
 
-	 def List<String> getVisibleProjects(String contextProjectName) {
+	def List<String> getVisibleProjects(String contextProjectName) {
 		val List<String> result = new ArrayList<String>();
 		result.add(contextProjectName);
 
@@ -262,14 +265,13 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 		return result;
 	}
 
-
 	def FunctionDefinition findResoluteFunction(EObject context, String resoluteFunctionName) {
 		val scope = scopeProvider as CommonGlobalScopeProvider
-		val foundlist = scope.getGlobalEObjectDescriptions(context,ResolutePackage.eINSTANCE.getFunctionDefinition(), null)
-		val filteredlist = foundlist.filter[eod|eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)]		
-		if (filteredlist.length == 0 ) return null
+		val foundlist = scope.getGlobalEObjectDescriptions(context, ResolutePackage.eINSTANCE.getFunctionDefinition(),
+			null)
+		val filteredlist = foundlist.filter[eod|eod.getName().getLastSegment().equalsIgnoreCase(resoluteFunctionName)]
+		if(filteredlist.length == 0) return null
 		return filteredlist.head as FunctionDefinition
 	}
-	
-	
+
 }

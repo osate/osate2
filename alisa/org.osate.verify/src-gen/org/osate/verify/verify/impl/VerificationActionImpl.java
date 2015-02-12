@@ -3,15 +3,12 @@
 package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.osate.alisa.common.common.Description;
 
 import org.osate.reqspec.reqSpec.Requirement;
 
@@ -28,7 +25,6 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationActionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActionImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActionImpl#getRequirement <em>Requirement</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActionImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,16 +81,6 @@ public class VerificationActionImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected Requirement requirement;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected Description description;
 
   /**
    * <!-- begin-user-doc -->
@@ -211,70 +197,6 @@ public class VerificationActionImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public Description getDescription()
-  {
-    return description;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
-  {
-    Description oldDescription = description;
-    description = newDescription;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTION__DESCRIPTION, oldDescription, newDescription);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDescription(Description newDescription)
-  {
-    if (newDescription != description)
-    {
-      NotificationChain msgs = null;
-      if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTION__DESCRIPTION, null, msgs);
-      if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTION__DESCRIPTION, null, msgs);
-      msgs = basicSetDescription(newDescription, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTION__DESCRIPTION, newDescription, newDescription));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case VerifyPackage.VERIFICATION_ACTION__DESCRIPTION:
-        return basicSetDescription(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -287,8 +209,6 @@ public class VerificationActionImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_ACTION__REQUIREMENT:
         if (resolve) return getRequirement();
         return basicGetRequirement();
-      case VerifyPackage.VERIFICATION_ACTION__DESCRIPTION:
-        return getDescription();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -311,9 +231,6 @@ public class VerificationActionImpl extends MinimalEObjectImpl.Container impleme
         return;
       case VerifyPackage.VERIFICATION_ACTION__REQUIREMENT:
         setRequirement((Requirement)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_ACTION__DESCRIPTION:
-        setDescription((Description)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -338,9 +255,6 @@ public class VerificationActionImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_ACTION__REQUIREMENT:
         setRequirement((Requirement)null);
         return;
-      case VerifyPackage.VERIFICATION_ACTION__DESCRIPTION:
-        setDescription((Description)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -361,8 +275,6 @@ public class VerificationActionImpl extends MinimalEObjectImpl.Container impleme
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_ACTION__REQUIREMENT:
         return requirement != null;
-      case VerifyPackage.VERIFICATION_ACTION__DESCRIPTION:
-        return description != null;
     }
     return super.eIsSet(featureID);
   }

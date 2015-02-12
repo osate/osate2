@@ -10,10 +10,12 @@ import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
 import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.XNumberLiteralUnit;
 
 @SuppressWarnings("all")
 public class CommonUtilExtension {
@@ -52,21 +54,38 @@ public class CommonUtilExtension {
         final XVariableDeclaration decl = _ref;
         if ((decl instanceof ComputeDeclaration)) {
         }
-        String _elvis = null;
         XExpression _right = null;
         if (decl!=null) {
           _right=decl.getRight();
         }
+        final XExpression x = _right;
+        if ((x instanceof XNumberLiteralUnit)) {
+          String _elvis = null;
+          String _value = ((XNumberLiteralUnit)x).getValue();
+          UnitLiteral _unit = ((XNumberLiteralUnit)x).getUnit();
+          String _name = null;
+          if (_unit!=null) {
+            _name=_unit.getName();
+          }
+          String _plus = (_value + _name);
+          if (_plus != null) {
+            _elvis = _plus;
+          } else {
+            _elvis = "";
+          }
+          return _elvis;
+        }
+        String _elvis_1 = null;
         String _string = null;
-        if (_right!=null) {
-          _string=_right.toString();
+        if (x!=null) {
+          _string=x.toString();
         }
         if (_string != null) {
-          _elvis = _string;
+          _elvis_1 = _string;
         } else {
-          _elvis = "";
+          _elvis_1 = "";
         }
-        return _elvis;
+        return _elvis_1;
       }
       boolean _and = false;
       boolean _isThisTarget = de.isThisTarget();

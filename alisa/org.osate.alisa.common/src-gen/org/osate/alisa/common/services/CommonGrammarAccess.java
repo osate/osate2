@@ -187,7 +187,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// Override XNumberLiteral from XBase
 		////Accept unit and have value converter turn it into value scaled to base unit
-		//XNumberLiteral returns xbase::XExpression:
+		//XNumberLiteral returns xbase::XNumberLiteral:
 		//	{XNumberLiteralUnit} value=Number => unit=[aadl2::UnitLiteral]?;
 		public ParserRule getRule() { return rule; }
 
@@ -409,7 +409,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Override XNumberLiteral from XBase
 	////Accept unit and have value converter turn it into value scaled to base unit
-	//XNumberLiteral returns xbase::XExpression:
+	//XNumberLiteral returns xbase::XNumberLiteral:
 	//	{XNumberLiteralUnit} value=Number => unit=[aadl2::UnitLiteral]?;
 	public XNumberLiteralElements getXNumberLiteralAccess() {
 		return pXNumberLiteral;

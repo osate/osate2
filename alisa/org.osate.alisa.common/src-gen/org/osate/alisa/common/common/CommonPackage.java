@@ -223,7 +223,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XNUMBER_LITERAL_UNIT__VALUE = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
+  int XNUMBER_LITERAL_UNIT__VALUE = XbasePackage.XNUMBER_LITERAL__VALUE;
 
   /**
    * The feature id for the '<em><b>Unit</b></em>' reference.
@@ -232,7 +232,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XNUMBER_LITERAL_UNIT__UNIT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 1;
+  int XNUMBER_LITERAL_UNIT__UNIT = XbasePackage.XNUMBER_LITERAL_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>XNumber Literal Unit</em>' class.
@@ -241,7 +241,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int XNUMBER_LITERAL_UNIT_FEATURE_COUNT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 2;
+  int XNUMBER_LITERAL_UNIT_FEATURE_COUNT = XbasePackage.XNUMBER_LITERAL_FEATURE_COUNT + 1;
 
 
   /**
@@ -381,17 +381,6 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EClass getXNumberLiteralUnit();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.XNumberLiteralUnit#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see org.osate.alisa.common.common.XNumberLiteralUnit#getValue()
-   * @see #getXNumberLiteralUnit()
-   * @generated
-   */
-  EAttribute getXNumberLiteralUnit_Value();
 
   /**
    * Returns the meta object for the reference '{@link org.osate.alisa.common.common.XNumberLiteralUnit#getUnit <em>Unit</em>}'.
@@ -540,14 +529,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EClass XNUMBER_LITERAL_UNIT = eINSTANCE.getXNumberLiteralUnit();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute XNUMBER_LITERAL_UNIT__VALUE = eINSTANCE.getXNumberLiteralUnit_Value();
 
     /**
      * The meta object literal for the '<em><b>Unit</b></em>' reference feature.

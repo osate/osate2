@@ -4,8 +4,6 @@ package org.osate.verify.verify;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.alisa.common.common.Description;
-
 import org.osate.reqspec.reqSpec.Requirement;
 
 /**
@@ -19,7 +17,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.verify.verify.VerificationAction#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationAction#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationAction#getRequirement <em>Requirement</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationAction#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -106,31 +103,5 @@ public interface VerificationAction extends EObject
    * @generated
    */
   void setRequirement(Requirement value);
-
-  /**
-   * Returns the value of the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' containment reference.
-   * @see #setDescription(Description)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationAction_Description()
-   * @model containment="true"
-   * @generated
-   */
-  Description getDescription();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationAction#getDescription <em>Description</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' containment reference.
-   * @see #getDescription()
-   * @generated
-   */
-  void setDescription(Description value);
 
 } // VerificationAction

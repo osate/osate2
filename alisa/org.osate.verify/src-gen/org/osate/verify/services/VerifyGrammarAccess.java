@@ -1120,7 +1120,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_4_0 = (Group)cGroup_4.eContents().get(0);
 		private final Keyword cDescriptionKeyword_4_0_0 = (Keyword)cGroup_4_0.eContents().get(0);
 		private final Assignment cDescriptionAssignment_4_0_1 = (Assignment)cGroup_4_0.eContents().get(1);
-		private final RuleCall cDescriptionDescriptionParserRuleCall_4_0_1_0 = (RuleCall)cDescriptionAssignment_4_0_1.eContents().get(0);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_4_0_1_0 = (RuleCall)cDescriptionAssignment_4_0_1.eContents().get(0);
 		private final Assignment cMethodsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cMethodsVerificationMethodParserRuleCall_4_1_0 = (RuleCall)cMethodsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
@@ -1132,11 +1132,10 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// Java based methods: all
 		//// interface methods to external or built-in
 		//VerificationMethodRegistry:
-		//	"registry" name=ID (":" title=STRING)? "[" (("description" description=Description)? methods+=VerificationMethod*)
-		//	"]";
+		//	"registry" name=ID (":" title=STRING)? "[" (("description" description=STRING)? methods+=VerificationMethod*) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"registry" name=ID (":" title=STRING)? "[" (("description" description=Description)? methods+=VerificationMethod*) "]"
+		//"registry" name=ID (":" title=STRING)? "[" (("description" description=STRING)? methods+=VerificationMethod*) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"registry"
@@ -1163,20 +1162,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
-		//("description" description=Description)? methods+=VerificationMethod*
+		//("description" description=STRING)? methods+=VerificationMethod*
 		public Group getGroup_4() { return cGroup_4; }
 
-		//("description" description=Description)?
+		//("description" description=STRING)?
 		public Group getGroup_4_0() { return cGroup_4_0; }
 
 		//"description"
 		public Keyword getDescriptionKeyword_4_0_0() { return cDescriptionKeyword_4_0_0; }
 
-		//description=Description
+		//description=STRING
 		public Assignment getDescriptionAssignment_4_0_1() { return cDescriptionAssignment_4_0_1; }
 
-		//Description
-		public RuleCall getDescriptionDescriptionParserRuleCall_4_0_1_0() { return cDescriptionDescriptionParserRuleCall_4_0_1_0; }
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_4_0_1_0() { return cDescriptionSTRINGTerminalRuleCall_4_0_1_0; }
 
 		//methods+=VerificationMethod*
 		public Assignment getMethodsAssignment_4_1() { return cMethodsAssignment_4_1; }
@@ -1204,38 +1203,39 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cRequirementRequirementCrossReference_3_1_0 = (CrossReference)cRequirementAssignment_3_1.eContents().get(0);
 		private final RuleCall cRequirementRequirementQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cRequirementRequirementCrossReference_3_1_0.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cMethodTypeAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cMethodTypeSupportedTypesEnumRuleCall_5_0 = (RuleCall)cMethodTypeAssignment_5.eContents().get(0);
-		private final Assignment cMethodPathAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cMethodPathQualifiedNameParserRuleCall_6_0 = (RuleCall)cMethodPathAssignment_6.eContents().get(0);
-		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
-		private final Group cGroup_7_0 = (Group)cUnorderedGroup_7.eContents().get(0);
-		private final Keyword cMarkerKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
-		private final Assignment cMarkerAssignment_7_0_1 = (Assignment)cGroup_7_0.eContents().get(1);
-		private final RuleCall cMarkerSTRINGTerminalRuleCall_7_0_1_0 = (RuleCall)cMarkerAssignment_7_0_1.eContents().get(0);
-		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
-		private final Keyword cDescriptionKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Assignment cDescriptionAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
-		private final RuleCall cDescriptionDescriptionParserRuleCall_7_1_1_0 = (RuleCall)cDescriptionAssignment_7_1_1.eContents().get(0);
-		private final Group cGroup_7_2 = (Group)cUnorderedGroup_7.eContents().get(2);
-		private final Keyword cCategoryKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
-		private final Assignment cCategoryAssignment_7_2_1 = (Assignment)cGroup_7_2.eContents().get(1);
-		private final CrossReference cCategoryVerificationCategoryCrossReference_7_2_1_0 = (CrossReference)cCategoryAssignment_7_2_1.eContents().get(0);
-		private final RuleCall cCategoryVerificationCategoryIDTerminalRuleCall_7_2_1_0_1 = (RuleCall)cCategoryVerificationCategoryCrossReference_7_2_1_0.eContents().get(1);
-		private final Assignment cConditionsAssignment_7_3 = (Assignment)cUnorderedGroup_7.eContents().get(3);
-		private final RuleCall cConditionsVerificationConditionParserRuleCall_7_3_0 = (RuleCall)cConditionsAssignment_7_3.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
+		private final Group cGroup_5_0 = (Group)cUnorderedGroup_5.eContents().get(0);
+		private final Assignment cMethodTypeAssignment_5_0_0 = (Assignment)cGroup_5_0.eContents().get(0);
+		private final RuleCall cMethodTypeSupportedTypesEnumRuleCall_5_0_0_0 = (RuleCall)cMethodTypeAssignment_5_0_0.eContents().get(0);
+		private final Assignment cMethodPathAssignment_5_0_1 = (Assignment)cGroup_5_0.eContents().get(1);
+		private final RuleCall cMethodPathQualifiedNameParserRuleCall_5_0_1_0 = (RuleCall)cMethodPathAssignment_5_0_1.eContents().get(0);
+		private final Group cGroup_5_1 = (Group)cUnorderedGroup_5.eContents().get(1);
+		private final Keyword cMarkerKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
+		private final Assignment cMarkerAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
+		private final RuleCall cMarkerSTRINGTerminalRuleCall_5_1_1_0 = (RuleCall)cMarkerAssignment_5_1_1.eContents().get(0);
+		private final Group cGroup_5_2 = (Group)cUnorderedGroup_5.eContents().get(2);
+		private final Keyword cDescriptionKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
+		private final Assignment cDescriptionAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_5_2_1_0 = (RuleCall)cDescriptionAssignment_5_2_1.eContents().get(0);
+		private final Group cGroup_5_3 = (Group)cUnorderedGroup_5.eContents().get(3);
+		private final Keyword cCategoryKeyword_5_3_0 = (Keyword)cGroup_5_3.eContents().get(0);
+		private final Assignment cCategoryAssignment_5_3_1 = (Assignment)cGroup_5_3.eContents().get(1);
+		private final CrossReference cCategoryVerificationCategoryCrossReference_5_3_1_0 = (CrossReference)cCategoryAssignment_5_3_1.eContents().get(0);
+		private final RuleCall cCategoryVerificationCategoryIDTerminalRuleCall_5_3_1_0_1 = (RuleCall)cCategoryVerificationCategoryCrossReference_5_3_1_0.eContents().get(1);
+		private final Assignment cConditionsAssignment_5_4 = (Assignment)cUnorderedGroup_5.eContents().get(4);
+		private final RuleCall cConditionsVerificationConditionParserRuleCall_5_4_0 = (RuleCall)cConditionsAssignment_5_4.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationMethod:
 		//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
-		//	methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-		//	(("marker" marker=STRING)? & ("description" description=Description)? & ("category"
+		//	(methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
+		//	& ("marker" marker=STRING)? & ("description" description=STRING)? & ("category"
 		//	category=[categories::VerificationCategory])? & conditions+=VerificationCondition*) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
-		//methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-		//(("marker" marker=STRING)? & ("description" description=Description)? & ("category"
+		//(methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
+		//& ("marker" marker=STRING)? & ("description" description=STRING)? & ("category"
 		//category=[categories::VerificationCategory])? & conditions+=VerificationCondition*) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -1278,69 +1278,73 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
+		//methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
+		//& ("marker" marker=STRING)? & ("description" description=STRING)? & ("category"
+		//category=[categories::VerificationCategory])? & conditions+=VerificationCondition*
+		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
+
+		//methodType=SupportedTypes methodPath=QualifiedName
+		public Group getGroup_5_0() { return cGroup_5_0; }
+
 		//methodType=SupportedTypes
-		public Assignment getMethodTypeAssignment_5() { return cMethodTypeAssignment_5; }
+		public Assignment getMethodTypeAssignment_5_0_0() { return cMethodTypeAssignment_5_0_0; }
 
 		//SupportedTypes
-		public RuleCall getMethodTypeSupportedTypesEnumRuleCall_5_0() { return cMethodTypeSupportedTypesEnumRuleCall_5_0; }
+		public RuleCall getMethodTypeSupportedTypesEnumRuleCall_5_0_0_0() { return cMethodTypeSupportedTypesEnumRuleCall_5_0_0_0; }
 
 		//methodPath=QualifiedName
-		public Assignment getMethodPathAssignment_6() { return cMethodPathAssignment_6; }
+		public Assignment getMethodPathAssignment_5_0_1() { return cMethodPathAssignment_5_0_1; }
 
 		//QualifiedName
-		public RuleCall getMethodPathQualifiedNameParserRuleCall_6_0() { return cMethodPathQualifiedNameParserRuleCall_6_0; }
-
-		//("marker" marker=STRING)? & ("description" description=Description)? & ("category"
-		//category=[categories::VerificationCategory])? & conditions+=VerificationCondition*
-		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
+		public RuleCall getMethodPathQualifiedNameParserRuleCall_5_0_1_0() { return cMethodPathQualifiedNameParserRuleCall_5_0_1_0; }
 
 		//("marker" marker=STRING)?
-		public Group getGroup_7_0() { return cGroup_7_0; }
+		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//"marker"
-		public Keyword getMarkerKeyword_7_0_0() { return cMarkerKeyword_7_0_0; }
+		public Keyword getMarkerKeyword_5_1_0() { return cMarkerKeyword_5_1_0; }
 
 		//marker=STRING
-		public Assignment getMarkerAssignment_7_0_1() { return cMarkerAssignment_7_0_1; }
+		public Assignment getMarkerAssignment_5_1_1() { return cMarkerAssignment_5_1_1; }
 
 		//STRING
-		public RuleCall getMarkerSTRINGTerminalRuleCall_7_0_1_0() { return cMarkerSTRINGTerminalRuleCall_7_0_1_0; }
+		public RuleCall getMarkerSTRINGTerminalRuleCall_5_1_1_0() { return cMarkerSTRINGTerminalRuleCall_5_1_1_0; }
 
-		//("description" description=Description)?
-		public Group getGroup_7_1() { return cGroup_7_1; }
+		//("description" description=STRING)?
+		public Group getGroup_5_2() { return cGroup_5_2; }
 
 		//"description"
-		public Keyword getDescriptionKeyword_7_1_0() { return cDescriptionKeyword_7_1_0; }
+		public Keyword getDescriptionKeyword_5_2_0() { return cDescriptionKeyword_5_2_0; }
 
-		//description=Description
-		public Assignment getDescriptionAssignment_7_1_1() { return cDescriptionAssignment_7_1_1; }
+		//description=STRING
+		public Assignment getDescriptionAssignment_5_2_1() { return cDescriptionAssignment_5_2_1; }
 
-		//Description
-		public RuleCall getDescriptionDescriptionParserRuleCall_7_1_1_0() { return cDescriptionDescriptionParserRuleCall_7_1_1_0; }
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_5_2_1_0() { return cDescriptionSTRINGTerminalRuleCall_5_2_1_0; }
 
 		//("category" category=[categories::VerificationCategory])?
-		public Group getGroup_7_2() { return cGroup_7_2; }
+		public Group getGroup_5_3() { return cGroup_5_3; }
 
 		//"category"
-		public Keyword getCategoryKeyword_7_2_0() { return cCategoryKeyword_7_2_0; }
+		public Keyword getCategoryKeyword_5_3_0() { return cCategoryKeyword_5_3_0; }
 
 		//category=[categories::VerificationCategory]
-		public Assignment getCategoryAssignment_7_2_1() { return cCategoryAssignment_7_2_1; }
+		public Assignment getCategoryAssignment_5_3_1() { return cCategoryAssignment_5_3_1; }
 
 		//[categories::VerificationCategory]
-		public CrossReference getCategoryVerificationCategoryCrossReference_7_2_1_0() { return cCategoryVerificationCategoryCrossReference_7_2_1_0; }
+		public CrossReference getCategoryVerificationCategoryCrossReference_5_3_1_0() { return cCategoryVerificationCategoryCrossReference_5_3_1_0; }
 
 		//ID
-		public RuleCall getCategoryVerificationCategoryIDTerminalRuleCall_7_2_1_0_1() { return cCategoryVerificationCategoryIDTerminalRuleCall_7_2_1_0_1; }
+		public RuleCall getCategoryVerificationCategoryIDTerminalRuleCall_5_3_1_0_1() { return cCategoryVerificationCategoryIDTerminalRuleCall_5_3_1_0_1; }
 
 		//conditions+=VerificationCondition*
-		public Assignment getConditionsAssignment_7_3() { return cConditionsAssignment_7_3; }
+		public Assignment getConditionsAssignment_5_4() { return cConditionsAssignment_5_4; }
 
 		//VerificationCondition
-		public RuleCall getConditionsVerificationConditionParserRuleCall_7_3_0() { return cConditionsVerificationConditionParserRuleCall_7_3_0; }
+		public RuleCall getConditionsVerificationConditionParserRuleCall_5_4_0() { return cConditionsVerificationConditionParserRuleCall_5_4_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
+		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
 	}
 	
 	
@@ -1692,8 +1696,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// Java based methods: all
 	//// interface methods to external or built-in
 	//VerificationMethodRegistry:
-	//	"registry" name=ID (":" title=STRING)? "[" (("description" description=Description)? methods+=VerificationMethod*)
-	//	"]";
+	//	"registry" name=ID (":" title=STRING)? "[" (("description" description=STRING)? methods+=VerificationMethod*) "]";
 	public VerificationMethodRegistryElements getVerificationMethodRegistryAccess() {
 		return pVerificationMethodRegistry;
 	}
@@ -1704,8 +1707,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VerificationMethod:
 	//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
-	//	methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
-	//	(("marker" marker=STRING)? & ("description" description=Description)? & ("category"
+	//	(methodType=SupportedTypes methodPath=QualifiedName // parameters (in addition to the model element
+	//	& ("marker" marker=STRING)? & ("description" description=STRING)? & ("category"
 	//	category=[categories::VerificationCategory])? & conditions+=VerificationCondition*) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {
 		return pVerificationMethod;
@@ -1773,7 +1776,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Override XNumberLiteral from XBase
 	////Accept unit and have value converter turn it into value scaled to base unit
-	//XNumberLiteral returns xbase::XExpression:
+	//XNumberLiteral returns xbase::XNumberLiteral:
 	//	{XNumberLiteralUnit} value=Number => unit=[aadl2::UnitLiteral]?;
 	public CommonGrammarAccess.XNumberLiteralElements getXNumberLiteralAccess() {
 		return gaCommon.getXNumberLiteralAccess();

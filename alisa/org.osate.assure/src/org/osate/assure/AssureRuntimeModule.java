@@ -13,7 +13,7 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 	}
 
 	public Class<? extends org.osate.assure.util.IVerificationMethodDispatcher> bindIVerificationMethodDispatcher() {
-		return org.osate.assure.util.PlatformResourceBudgets.class;
+		return org.osate.assure.analysis.AnalysisPluginDispatcher.class;
 	}
 
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
@@ -26,6 +26,7 @@ public class AssureRuntimeModule extends org.osate.assure.AbstractAssureRuntimeM
 		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
 	}
 
+	@SuppressWarnings("restriction")
 	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return org.osate.assure.serializer.AssureCrossReferenceSerializer.class;
 	}

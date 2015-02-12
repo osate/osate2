@@ -267,19 +267,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getXNumberLiteralUnit_Value()
-  {
-    return (EAttribute)xNumberLiteralUnitEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getXNumberLiteralUnit_Unit()
   {
-    return (EReference)xNumberLiteralUnitEClass.getEStructuralFeatures().get(1);
+    return (EReference)xNumberLiteralUnitEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -329,7 +319,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(showValueEClass, SHOW_VALUE__UNIT);
 
     xNumberLiteralUnitEClass = createEClass(XNUMBER_LITERAL_UNIT);
-    createEAttribute(xNumberLiteralUnitEClass, XNUMBER_LITERAL_UNIT__VALUE);
     createEReference(xNumberLiteralUnitEClass, XNUMBER_LITERAL_UNIT__UNIT);
   }
 
@@ -367,7 +356,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    xNumberLiteralUnitEClass.getESuperTypes().add(theXbasePackage.getXExpression());
+    xNumberLiteralUnitEClass.getESuperTypes().add(theXbasePackage.getXNumberLiteral());
 
     // Initialize classes and features; add operations and parameters
     initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -387,7 +376,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getShowValue_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xNumberLiteralUnitEClass, XNumberLiteralUnit.class, "XNumberLiteralUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getXNumberLiteralUnit_Value(), theEcorePackage.getEString(), "value", null, 0, 1, XNumberLiteralUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getXNumberLiteralUnit_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, XNumberLiteralUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource

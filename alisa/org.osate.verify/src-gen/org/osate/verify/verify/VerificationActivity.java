@@ -3,6 +3,7 @@
 package org.osate.verify.verify;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
+import org.osate.alisa.common.common.Description;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,6 +13,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getComputeVariable <em>Compute Variable</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
@@ -25,6 +27,32 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  */
 public interface VerificationActivity extends VerificationAction
 {
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Description</em>' containment reference.
+   * @see #setDescription(Description)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Description()
+   * @model containment="true"
+   * @generated
+   */
+  Description getDescription();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Description</em>' containment reference.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(Description value);
+
   /**
    * Returns the value of the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->

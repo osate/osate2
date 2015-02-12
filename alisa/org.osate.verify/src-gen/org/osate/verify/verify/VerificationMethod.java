@@ -17,6 +17,7 @@ import org.osate.categories.categories.VerificationCategory;
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMarker <em>Marker</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getConditions <em>Conditions</em>}</li>
  * </ul>
@@ -108,6 +109,32 @@ public interface VerificationMethod extends VerificationAction
    * @generated
    */
   void setMarker(String value);
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Description</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Description</em>' attribute.
+   * @see #setDescription(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Description()
+   * @model
+   * @generated
+   */
+  String getDescription();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Description</em>' attribute.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(String value);
 
   /**
    * Returns the value of the '<em><b>Category</b></em>' reference.

@@ -34,6 +34,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodPath <em>Method Path</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMarker <em>Marker</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getConditions <em>Conditions</em>}</li>
  * </ul>
@@ -102,6 +103,26 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * @ordered
    */
   protected String marker = MARKER_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected String description = DESCRIPTION_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
@@ -218,6 +239,29 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDescription()
+  {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(String newDescription)
+  {
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, oldDescription, description));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VerificationCategory getCategory()
   {
     if (category != null && category.eIsProxy())
@@ -302,6 +346,8 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
         return getMethodPath();
       case VerifyPackage.VERIFICATION_METHOD__MARKER:
         return getMarker();
+      case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
+        return getDescription();
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         if (resolve) return getCategory();
         return basicGetCategory();
@@ -330,6 +376,9 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
         return;
       case VerifyPackage.VERIFICATION_METHOD__MARKER:
         setMarker((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
+        setDescription((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         setCategory((VerificationCategory)newValue);
@@ -361,6 +410,9 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
       case VerifyPackage.VERIFICATION_METHOD__MARKER:
         setMarker(MARKER_EDEFAULT);
         return;
+      case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
+        setDescription(DESCRIPTION_EDEFAULT);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         setCategory((VerificationCategory)null);
         return;
@@ -387,6 +439,8 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
         return METHOD_PATH_EDEFAULT == null ? methodPath != null : !METHOD_PATH_EDEFAULT.equals(methodPath);
       case VerifyPackage.VERIFICATION_METHOD__MARKER:
         return MARKER_EDEFAULT == null ? marker != null : !MARKER_EDEFAULT.equals(marker);
+      case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
+        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         return category != null;
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
@@ -412,6 +466,8 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
     result.append(methodPath);
     result.append(", marker: ");
     result.append(marker);
+    result.append(", description: ");
+    result.append(description);
     result.append(')');
     return result.toString();
   }
