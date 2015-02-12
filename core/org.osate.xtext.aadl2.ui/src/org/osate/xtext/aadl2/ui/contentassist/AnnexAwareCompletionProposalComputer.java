@@ -137,11 +137,7 @@ public class AnnexAwareCompletionProposalComputer extends CompletionProposalComp
 							viewer = new DummyTextViewer(selection, document);
 						}
 					}
-					try {
-						execOriginal(resource);
-					} catch (Throwable t) {
-						throw t;
-					}
+					execOriginal(resource);
 				}
 			}
 		} finally {
