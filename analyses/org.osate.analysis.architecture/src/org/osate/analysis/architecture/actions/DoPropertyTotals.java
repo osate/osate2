@@ -54,7 +54,7 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 		return ArchitecturePlugin.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.architecture.WeightTotalObjectMarker";
 	}
 

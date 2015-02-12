@@ -166,7 +166,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 						weight);
 				reportinfo(ci, ResultMsg);
 			} else if (needWeight) {
-				String ResultMsg = "[L] no net weight plus subcomomponent weight or no grossweight";
+				String ResultMsg = "[L] no net weight plus subcomponent weight or no grossweight";
 				reportwarning(ci, ResultMsg);
 			}
 		}
