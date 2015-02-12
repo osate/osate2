@@ -1268,17 +1268,17 @@ public class GetProperties {
 
 	public static double getNetWeight(final NamedElement ne, final double defaultValue) {
 		Property netWeight = lookupPropertyDefinition(ne, SEI._NAME, SEI.NETWEIGHT);
-		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+		return PropertyUtils.getRealValue(ne, netWeight, defaultValue);
 	}
 
 	public static double getGrossWeight(final NamedElement ne, final double defaultValue) {
 		Property netWeight = lookupPropertyDefinition(ne, SEI._NAME, SEI.GROSSWEIGHT);
-		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+		return PropertyUtils.getRealValue(ne, netWeight, defaultValue);
 	}
 
 	public static double getWeightLimit(final NamedElement ne, final double defaultValue) {
 		Property netWeight = lookupPropertyDefinition(ne, SEI._NAME, SEI.WEIGHTLIMIT);
-		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+		return PropertyUtils.getRealValue(ne, netWeight, defaultValue);
 	}
 
 	public static List<ComponentClassifier> getBaseType(final NamedElement ne) {
