@@ -269,12 +269,12 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 			metaclass = Aadl2Package.eINSTANCE.getAadlPackage();
 		} else {
 			EPackage pack = Aadl2Package.eINSTANCE;
-			EClassifier searchResult = getEClassifier(pack, metaclassName.toString());
 
 			if (getAnnexName() != null) {
 				pack = getAnnexEPackage(getAnnexName());
 			}
 
+			EClassifier searchResult = getEClassifier(pack, metaclassName.toString());
 			if (searchResult instanceof EClass) {
 				EClass searchResultAsEClass = (EClass) searchResult;
 
