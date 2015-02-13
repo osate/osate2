@@ -67,11 +67,11 @@ VerificationActivity:
 	']';
 
 VerificationCondition:
-	('assumption' {VerificationAssumption} | 'precondition' {VerificationPrecondition}) name=ID
+	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) name=ID
 	(':' title=STRING)?
 	'[' (
 	 ('description' description=Description)?
-	& ('assert' assert=ArgumentExpr)?
+	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
 	& ('rationale' rationale=STRING)?
 	)
 	']';
@@ -83,12 +83,12 @@ AllEvidenceExpr returns ArgumentExpr:
 	'all' {AllExpr} '[' all+=AndThenEvidenceExpr (',' all+=AndThenEvidenceExpr)* ']';
 
 AndThenEvidenceExpr returns ArgumentExpr:
-	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} 'andthen') right=AndThenEvidenceExpr)*;
+	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} ('andthen'| 'and' 'then')) right=AndThenEvidenceExpr)*;
 
 	// Execute as alternative if the first one fails.
 // The results of both are reported
 FailThenEvidenceExpr returns ArgumentExpr:
-	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} 'failthen') right=FailThenEvidenceExpr)*;
+	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} ('failthen'|(failed?='fail'|error?='error')'then')) right=FailThenEvidenceExpr)*;
 
 AtomicEvidenceExpr returns ArgumentExpr:
 	ConditionalEvidence
@@ -98,13 +98,11 @@ ConditionalEvidence returns ArgumentExpr:
 	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?;
 
 VAReference returns ArgumentExpr:
-	{RefExpr} verification=[VerificationAction|QualifiedName]
+	{RefExpr} verification=[VerificationActivity|QualifiedName]
 	('(' weight=INT ')')?;
 
-VerificationAction : VerificationActivity | VerificationMethod;
+//VerificationAction : VerificationActivity | VerificationMethod;
 
-//SelectionCategoryReference:
-//	cat=[categories::VerificationCategory|CatRef];
 
 	// need to distinguish between method with/out predicate
 // method producing multiple results
@@ -123,16 +121,19 @@ VerificationMethod:
 	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?	
 	'['
 	(
-	methodType=SupportedTypes methodPath=QualifiedName
-	// parameters (in addition to the model element
-	&('marker' marker=STRING)?
+	(methodType=SupportedTypes scope=SupportedScopes (reporting=SupportedReporting)?)
 	&('description' description=STRING)?
-	& ('category' category=[categories::VerificationCategory|ID])?
+	&('path' methodPath=QualifiedName)?
 	& (conditions+=VerificationCondition)*
+	// parameters (in addition to the model element
+	& ('category' category=[categories::VerificationCategory|ID])?
 	)
 	']';
 
 enum SupportedTypes:
-	SINGLEPREDICATE="singlepredicate" | SINGLEANALYSIS="singleanalysis" | ASSERTIONEXCEPTION="assertionexception"|
-	MULTIMARKER="multimarker" | OWNMULTIMARKER="ownmultimarker" | MULTIDIAGNOSTICS="multidiagnostics" |RESULTREPORT="resultreport" 
-	| RESOLUTEPROVE="resoluteprove"|MANUAL="manual";
+	ANALYSIS='analysis' | PREDICATE='predicate' | COMPUTE='compute' 
+	| RESOLUTEPROVE='resoluteprove' | MANUAL='manual';
+	
+enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
+
+enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;

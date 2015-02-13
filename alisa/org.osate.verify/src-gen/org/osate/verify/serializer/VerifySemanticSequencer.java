@@ -71,13 +71,13 @@ import org.osate.verify.verify.FailThenExpr;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
-import org.osate.verify.verify.VerificationAssumption;
 import org.osate.verify.verify.VerificationFolder;
 import org.osate.verify.verify.VerificationLibrary;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerificationMethodRegistry;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerificationPrecondition;
+import org.osate.verify.verify.VerificationValidation;
 import org.osate.verify.verify.VerifyPackage;
 import org.osate.verify.verify.WhenExpr;
 
@@ -282,15 +282,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case VerifyPackage.VERIFICATION_ACTIVITY:
-				if(context == grammarAccess.getVerificationActionRule() ||
-				   context == grammarAccess.getVerificationActivityRule()) {
+				if(context == grammarAccess.getVerificationActivityRule()) {
 					sequence_VerificationActivity(context, (VerificationActivity) semanticObject); 
-					return; 
-				}
-				else break;
-			case VerifyPackage.VERIFICATION_ASSUMPTION:
-				if(context == grammarAccess.getVerificationConditionRule()) {
-					sequence_VerificationCondition(context, (VerificationAssumption) semanticObject); 
 					return; 
 				}
 				else break;
@@ -309,8 +302,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case VerifyPackage.VERIFICATION_METHOD:
-				if(context == grammarAccess.getVerificationActionRule() ||
-				   context == grammarAccess.getVerificationMethodRule()) {
+				if(context == grammarAccess.getVerificationMethodRule()) {
 					sequence_VerificationMethod(context, (VerificationMethod) semanticObject); 
 					return; 
 				}
@@ -330,6 +322,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.VERIFICATION_PRECONDITION:
 				if(context == grammarAccess.getVerificationConditionRule()) {
 					sequence_VerificationCondition(context, (VerificationPrecondition) semanticObject); 
+					return; 
+				}
+				else break;
+			case VerifyPackage.VERIFICATION_VALIDATION:
+				if(context == grammarAccess.getVerificationConditionRule()) {
+					sequence_VerificationCondition(context, (VerificationValidation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1406,26 +1404,16 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (left=FailThenEvidenceExpr_FailThenExpr_1_0_0_0 right=FailThenEvidenceExpr)
+	 *     (left=FailThenEvidenceExpr_FailThenExpr_1_0_0_0 (failed?='fail' | error?='error')? right=FailThenEvidenceExpr)
 	 */
 	protected void sequence_FailThenEvidenceExpr(EObject context, FailThenExpr semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__LEFT));
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.FAIL_THEN_EXPR__RIGHT));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getFailThenEvidenceExprAccess().getFailThenExprLeftAction_1_0_0_0(), semanticObject.getLeft());
-		feeder.accept(grammarAccess.getFailThenEvidenceExprAccess().getRightFailThenEvidenceExprParserRuleCall_1_1_0(), semanticObject.getRight());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (verification=[VerificationAction|QualifiedName] weight=INT?)
+	 *     (verification=[VerificationActivity|QualifiedName] weight=INT?)
 	 */
 	protected void sequence_VAReference(EObject context, RefExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1452,18 +1440,32 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? description=Description? assert=ArgumentExpr? rationale=STRING?)
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         description=Description? 
+	 *         method=[VerificationMethod|QualifiedName] 
+	 *         computeVariable=[ComputeDeclaration|ID]? 
+	 *         rationale=STRING?
+	 *     )
 	 */
-	protected void sequence_VerificationCondition(EObject context, VerificationAssumption semanticObject) {
+	protected void sequence_VerificationCondition(EObject context, VerificationPrecondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? description=Description? assert=ArgumentExpr? rationale=STRING?)
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         description=Description? 
+	 *         method=[VerificationMethod|QualifiedName] 
+	 *         computeVariable=[ComputeDeclaration|ID]? 
+	 *         rationale=STRING?
+	 *     )
 	 */
-	protected void sequence_VerificationCondition(EObject context, VerificationPrecondition semanticObject) {
+	protected void sequence_VerificationCondition(EObject context, VerificationValidation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1508,11 +1510,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         requirement=[Requirement|QualifiedName]? 
 	 *         methodType=SupportedTypes 
-	 *         methodPath=QualifiedName 
-	 *         marker=STRING? 
+	 *         scope=SupportedScopes 
+	 *         reporting=SupportedReporting? 
 	 *         description=STRING? 
-	 *         category=[VerificationCategory|ID]? 
-	 *         conditions+=VerificationCondition*
+	 *         methodPath=QualifiedName? 
+	 *         conditions+=VerificationCondition* 
+	 *         category=[VerificationCategory|ID]?
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {

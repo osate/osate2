@@ -11,13 +11,13 @@ import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.assure.assure.AndThenResult;
-import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.FailThenResult;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.ResultIssue;
+import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.services.AssureGrammarAccess;
 
@@ -34,13 +34,6 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				   context == grammarAccess.getAssureResultRule() ||
 				   context == grammarAccess.getVerificationExprRule()) {
 					sequence_AndThenResult(context, (AndThenResult) semanticObject); 
-					return; 
-				}
-				else break;
-			case AssurePackage.ASSUMPTION_RESULT:
-				if(context == grammarAccess.getAssumptionResultRule() ||
-				   context == grammarAccess.getAssureResultRule()) {
-					sequence_AssumptionResult(context, (AssumptionResult) semanticObject); 
 					return; 
 				}
 				else break;
@@ -79,6 +72,13 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 					return; 
 				}
 				else break;
+			case AssurePackage.VALIDATION_RESULT:
+				if(context == grammarAccess.getAssureResultRule() ||
+				   context == grammarAccess.getValidationResultRule()) {
+					sequence_ValidationResult(context, (ValidationResult) semanticObject); 
+					return; 
+				}
+				else break;
 			case AssurePackage.VERIFICATION_ACTIVITY_RESULT:
 				if(context == grammarAccess.getAssureResultRule() ||
 				   context == grammarAccess.getVerificationActivityResultRule() ||
@@ -107,27 +107,6 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     )
 	 */
 	protected void sequence_AndThenResult(EObject context, AndThenResult semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         target=[VerificationAssumption|QualifiedName] 
-	 *         successCount=INT? 
-	 *         failCount=INT? 
-	 *         errorCount=INT? 
-	 *         failthenCount=INT? 
-	 *         andthenCount=INT? 
-	 *         tbdCount=INT? 
-	 *         weight=INT? 
-	 *         message=STRING? 
-	 *         verificationActivityResult+=VerificationExpr*
-	 *     )
-	 */
-	protected void sequence_AssumptionResult(EObject context, AssumptionResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -183,7 +162,9 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (
 	 *         first+=VerificationExpr 
 	 *         second+=VerificationExpr 
-	 *         didFailThenFail?='failthenfailed'? 
+	 *         failThen?='failthen'? 
+	 *         errorThen?='errorthen'? 
+	 *         didFail?='didfail'? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
 	 *         errorCount=INT? 
@@ -203,6 +184,10 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (
 	 *         name=ID 
 	 *         target=[VerificationPrecondition|QualifiedName] 
+	 *         executionState=VerificationExecutionState 
+	 *         resultState=VerificationResultState 
+	 *         issues+=ResultIssue* 
+	 *         resultReport=[ResultReport|QualifiedName]? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
 	 *         errorCount=INT? 
@@ -210,8 +195,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
 	 *         weight=INT? 
-	 *         message=STRING? 
-	 *         verificationActivityResult+=VerificationExpr*
+	 *         message=STRING?
 	 *     )
 	 */
 	protected void sequence_PreconditionResult(EObject context, PreconditionResult semanticObject) {
@@ -239,6 +223,30 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         target=[VerificationValidation|QualifiedName] 
+	 *         executionState=VerificationExecutionState 
+	 *         resultState=VerificationResultState 
+	 *         issues+=ResultIssue* 
+	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         successCount=INT? 
+	 *         failCount=INT? 
+	 *         errorCount=INT? 
+	 *         failthenCount=INT? 
+	 *         andthenCount=INT? 
+	 *         tbdCount=INT? 
+	 *         weight=INT? 
+	 *         message=STRING?
+	 *     )
+	 */
+	protected void sequence_ValidationResult(EObject context, ValidationResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
 	 *         target=[VerificationActivity|QualifiedName] 
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
@@ -252,7 +260,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         tbdCount=INT? 
 	 *         weight=INT? 
 	 *         message=STRING? 
-	 *         assumptionResult+=AssumptionResult* 
+	 *         validationResult+=ValidationResult* 
 	 *         preconditionResult+=PreconditionResult*
 	 *     )
 	 */

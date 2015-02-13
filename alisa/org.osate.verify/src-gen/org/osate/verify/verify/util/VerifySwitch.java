@@ -120,7 +120,6 @@ public class VerifySwitch<T> extends Switch<T>
       {
         VerificationActivity verificationActivity = (VerificationActivity)theEObject;
         T result = caseVerificationActivity(verificationActivity);
-        if (result == null) result = caseVerificationAction(verificationActivity);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -138,13 +137,6 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.VERIFICATION_ACTION:
-      {
-        VerificationAction verificationAction = (VerificationAction)theEObject;
-        T result = caseVerificationAction(verificationAction);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY:
       {
         VerificationMethodRegistry verificationMethodRegistry = (VerificationMethodRegistry)theEObject;
@@ -156,15 +148,14 @@ public class VerifySwitch<T> extends Switch<T>
       {
         VerificationMethod verificationMethod = (VerificationMethod)theEObject;
         T result = caseVerificationMethod(verificationMethod);
-        if (result == null) result = caseVerificationAction(verificationMethod);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.VERIFICATION_ASSUMPTION:
+      case VerifyPackage.VERIFICATION_VALIDATION:
       {
-        VerificationAssumption verificationAssumption = (VerificationAssumption)theEObject;
-        T result = caseVerificationAssumption(verificationAssumption);
-        if (result == null) result = caseVerificationCondition(verificationAssumption);
+        VerificationValidation verificationValidation = (VerificationValidation)theEObject;
+        T result = caseVerificationValidation(verificationValidation);
+        if (result == null) result = caseVerificationCondition(verificationValidation);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -365,22 +356,6 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Action</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Action</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVerificationAction(VerificationAction object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Verification Method Registry</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -413,17 +388,17 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Assumption</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Verification Validation</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Assumption</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Verification Validation</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseVerificationAssumption(VerificationAssumption object)
+  public T caseVerificationValidation(VerificationValidation object)
   {
     return null;
   }

@@ -5,6 +5,7 @@ package org.osate.alisa.workbench.generator
 
 import com.google.inject.Inject
 import java.util.List
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
@@ -18,23 +19,21 @@ import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResultState
+import org.osate.categories.categories.SelectionCategory
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.AndThenExpr
 import org.osate.verify.verify.ArgumentExpr
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.FailThenExpr
 import org.osate.verify.verify.RefExpr
-import org.osate.verify.verify.VerificationAssumption
 import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationPrecondition
+import org.osate.verify.verify.VerificationValidation
 import org.osate.verify.verify.WhenExpr
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.eclipse.emf.common.util.EList
-import org.osate.categories.categories.SelectionCategory
 
 /**
  * Generates code from your model files on save.
@@ -206,6 +205,8 @@ class AlisaGenerator implements IGenerator {
 			do
 				«expr.right.generate»
 			[
+				«IF expr.error»errorthen«ENDIF»
+				«IF expr.failed»failthen«ENDIF»
 				tbdcount 1
 			]
 		'''
@@ -253,13 +254,11 @@ class AlisaGenerator implements IGenerator {
 
 	def void doConstruct(List<VerificationExpr> arl, VerificationCondition vc) {
 		switch (vc) {
-			VerificationAssumption: {
-				val vcr = factory.createAssumptionResult
-				vcr.verificationActivityResult.construct(vc.assert)
+			VerificationValidation: {
+				val vcr = factory.createValidationResult
 			}
 			VerificationPrecondition: {
 				val vcr = factory.createPreconditionResult
-				vcr.verificationActivityResult.construct(vc.assert)
 			}
 		}
 	}
@@ -269,7 +268,6 @@ class AlisaGenerator implements IGenerator {
 			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
 			[
 				tbdcount 1
-				«vc.assert.generate»
 			]
 		'''
 	}
@@ -282,7 +280,7 @@ class AlisaGenerator implements IGenerator {
 
 	def keyword(VerificationCondition vc) {
 		switch vc {
-			VerificationAssumption: '''assumption'''
+			VerificationValidation: '''validation'''
 			VerificationPrecondition: '''precondition'''
 		}
 	}

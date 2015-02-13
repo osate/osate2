@@ -10,24 +10,24 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.ValidationResult;
 
-import org.osate.verify.verify.VerificationPrecondition;
+import org.osate.verify.verify.VerificationValidation;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Precondition Result</b></em>'.
+ * An implementation of the model object '<em><b>Validation Result</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.PreconditionResultImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ValidationResultImpl#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PreconditionResultImpl extends VerificationResultImpl implements PreconditionResult
+public class ValidationResultImpl extends VerificationResultImpl implements ValidationResult
 {
   /**
    * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -37,14 +37,14 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
    * @generated
    * @ordered
    */
-  protected VerificationPrecondition target;
+  protected VerificationValidation target;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected PreconditionResultImpl()
+  protected ValidationResultImpl()
   {
     super();
   }
@@ -57,7 +57,7 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   @Override
   protected EClass eStaticClass()
   {
-    return AssurePackage.Literals.PRECONDITION_RESULT;
+    return AssurePackage.Literals.VALIDATION_RESULT;
   }
 
   /**
@@ -65,16 +65,16 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationPrecondition getTarget()
+  public VerificationValidation getTarget()
   {
     if (target != null && target.eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (VerificationPrecondition)eResolveProxy(oldTarget);
+      target = (VerificationValidation)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.PRECONDITION_RESULT__TARGET, oldTarget, target));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.VALIDATION_RESULT__TARGET, oldTarget, target));
       }
     }
     return target;
@@ -85,7 +85,7 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationPrecondition basicGetTarget()
+  public VerificationValidation basicGetTarget()
   {
     return target;
   }
@@ -95,12 +95,12 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(VerificationPrecondition newTarget)
+  public void setTarget(VerificationValidation newTarget)
   {
-    VerificationPrecondition oldTarget = target;
+    VerificationValidation oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.PRECONDITION_RESULT__TARGET, oldTarget, target));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VALIDATION_RESULT__TARGET, oldTarget, target));
   }
 
   /**
@@ -113,7 +113,7 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__TARGET:
+      case AssurePackage.VALIDATION_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
     }
@@ -130,8 +130,8 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__TARGET:
-        setTarget((VerificationPrecondition)newValue);
+      case AssurePackage.VALIDATION_RESULT__TARGET:
+        setTarget((VerificationValidation)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -147,8 +147,8 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__TARGET:
-        setTarget((VerificationPrecondition)null);
+      case AssurePackage.VALIDATION_RESULT__TARGET:
+        setTarget((VerificationValidation)null);
         return;
     }
     super.eUnset(featureID);
@@ -164,10 +164,10 @@ public class PreconditionResultImpl extends VerificationResultImpl implements Pr
   {
     switch (featureID)
     {
-      case AssurePackage.PRECONDITION_RESULT__TARGET:
+      case AssurePackage.VALIDATION_RESULT__TARGET:
         return target != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //PreconditionResultImpl
+} //ValidationResultImpl

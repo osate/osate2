@@ -4,26 +4,26 @@ package org.osate.verify.verify.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.osate.verify.verify.VerificationAssumption;
+import org.osate.verify.verify.VerificationValidation;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Verification Assumption</b></em>'.
+ * An implementation of the model object '<em><b>Verification Validation</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class VerificationAssumptionImpl extends VerificationConditionImpl implements VerificationAssumption
+public class VerificationValidationImpl extends VerificationConditionImpl implements VerificationValidation
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected VerificationAssumptionImpl()
+  protected VerificationValidationImpl()
   {
     super();
   }
@@ -36,7 +36,7 @@ public class VerificationAssumptionImpl extends VerificationConditionImpl implem
   @Override
   protected EClass eStaticClass()
   {
-    return VerifyPackage.Literals.VERIFICATION_ASSUMPTION;
+    return VerifyPackage.Literals.VERIFICATION_VALIDATION;
   }
 
-} //VerificationAssumptionImpl
+} //VerificationValidationImpl

@@ -10,175 +10,175 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Supported Types</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Supported Reporting</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see org.osate.verify.verify.VerifyPackage#getSupportedTypes()
+ * @see org.osate.verify.verify.VerifyPackage#getSupportedReporting()
  * @model
  * @generated
  */
-public enum SupportedTypes implements Enumerator
+public enum SupportedReporting implements Enumerator
 {
   /**
-   * The '<em><b>ANALYSIS</b></em>' literal object.
+   * The '<em><b>MARKER</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #ANALYSIS_VALUE
+   * @see #MARKER_VALUE
    * @generated
    * @ordered
    */
-  ANALYSIS(0, "ANALYSIS", "analysis"),
+  MARKER(0, "MARKER", "marker"),
 
   /**
-   * The '<em><b>PREDICATE</b></em>' literal object.
+   * The '<em><b>ERRORMARKER</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #PREDICATE_VALUE
+   * @see #ERRORMARKER_VALUE
    * @generated
    * @ordered
    */
-  PREDICATE(1, "PREDICATE", "predicate"),
+  ERRORMARKER(1, "ERRORMARKER", "errormarker"),
 
   /**
-   * The '<em><b>COMPUTE</b></em>' literal object.
+   * The '<em><b>DIAGNOSTICS</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #COMPUTE_VALUE
+   * @see #DIAGNOSTICS_VALUE
    * @generated
    * @ordered
    */
-  COMPUTE(2, "COMPUTE", "compute"),
+  DIAGNOSTICS(2, "DIAGNOSTICS", "diagnostics"),
 
   /**
-   * The '<em><b>RESOLUTEPROVE</b></em>' literal object.
+   * The '<em><b>ASSERTEXCEPTION</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #RESOLUTEPROVE_VALUE
+   * @see #ASSERTEXCEPTION_VALUE
    * @generated
    * @ordered
    */
-  RESOLUTEPROVE(3, "RESOLUTEPROVE", "resoluteprove"),
+  ASSERTEXCEPTION(3, "ASSERTEXCEPTION", "assertexception"),
 
   /**
-   * The '<em><b>MANUAL</b></em>' literal object.
+   * The '<em><b>RESULTREPORT</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #MANUAL_VALUE
+   * @see #RESULTREPORT_VALUE
    * @generated
    * @ordered
    */
-  MANUAL(4, "MANUAL", "manual");
+  RESULTREPORT(4, "RESULTREPORT", "resultreport");
 
   /**
-   * The '<em><b>ANALYSIS</b></em>' literal value.
+   * The '<em><b>MARKER</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>ANALYSIS</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>MARKER</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #ANALYSIS
-   * @model literal="analysis"
+   * @see #MARKER
+   * @model literal="marker"
    * @generated
    * @ordered
    */
-  public static final int ANALYSIS_VALUE = 0;
+  public static final int MARKER_VALUE = 0;
 
   /**
-   * The '<em><b>PREDICATE</b></em>' literal value.
+   * The '<em><b>ERRORMARKER</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>PREDICATE</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>ERRORMARKER</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #PREDICATE
-   * @model literal="predicate"
+   * @see #ERRORMARKER
+   * @model literal="errormarker"
    * @generated
    * @ordered
    */
-  public static final int PREDICATE_VALUE = 1;
+  public static final int ERRORMARKER_VALUE = 1;
 
   /**
-   * The '<em><b>COMPUTE</b></em>' literal value.
+   * The '<em><b>DIAGNOSTICS</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>COMPUTE</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>DIAGNOSTICS</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #COMPUTE
-   * @model literal="compute"
+   * @see #DIAGNOSTICS
+   * @model literal="diagnostics"
    * @generated
    * @ordered
    */
-  public static final int COMPUTE_VALUE = 2;
+  public static final int DIAGNOSTICS_VALUE = 2;
 
   /**
-   * The '<em><b>RESOLUTEPROVE</b></em>' literal value.
+   * The '<em><b>ASSERTEXCEPTION</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>RESOLUTEPROVE</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>ASSERTEXCEPTION</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #RESOLUTEPROVE
-   * @model literal="resoluteprove"
+   * @see #ASSERTEXCEPTION
+   * @model literal="assertexception"
    * @generated
    * @ordered
    */
-  public static final int RESOLUTEPROVE_VALUE = 3;
+  public static final int ASSERTEXCEPTION_VALUE = 3;
 
   /**
-   * The '<em><b>MANUAL</b></em>' literal value.
+   * The '<em><b>RESULTREPORT</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>MANUAL</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>RESULTREPORT</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #MANUAL
-   * @model literal="manual"
+   * @see #RESULTREPORT
+   * @model literal="resultreport"
    * @generated
    * @ordered
    */
-  public static final int MANUAL_VALUE = 4;
+  public static final int RESULTREPORT_VALUE = 4;
 
   /**
-   * An array of all the '<em><b>Supported Types</b></em>' enumerators.
+   * An array of all the '<em><b>Supported Reporting</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private static final SupportedTypes[] VALUES_ARRAY =
-    new SupportedTypes[]
+  private static final SupportedReporting[] VALUES_ARRAY =
+    new SupportedReporting[]
     {
-      ANALYSIS,
-      PREDICATE,
-      COMPUTE,
-      RESOLUTEPROVE,
-      MANUAL,
+      MARKER,
+      ERRORMARKER,
+      DIAGNOSTICS,
+      ASSERTEXCEPTION,
+      RESULTREPORT,
     };
 
   /**
-   * A public read-only list of all the '<em><b>Supported Types</b></em>' enumerators.
+   * A public read-only list of all the '<em><b>Supported Reporting</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static final List<SupportedTypes> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+  public static final List<SupportedReporting> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
   /**
-   * Returns the '<em><b>Supported Types</b></em>' literal with the specified literal value.
+   * Returns the '<em><b>Supported Reporting</b></em>' literal with the specified literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static SupportedTypes get(String literal)
+  public static SupportedReporting get(String literal)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
     {
-      SupportedTypes result = VALUES_ARRAY[i];
+      SupportedReporting result = VALUES_ARRAY[i];
       if (result.toString().equals(literal))
       {
         return result;
@@ -188,16 +188,16 @@ public enum SupportedTypes implements Enumerator
   }
 
   /**
-   * Returns the '<em><b>Supported Types</b></em>' literal with the specified name.
+   * Returns the '<em><b>Supported Reporting</b></em>' literal with the specified name.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static SupportedTypes getByName(String name)
+  public static SupportedReporting getByName(String name)
   {
     for (int i = 0; i < VALUES_ARRAY.length; ++i)
     {
-      SupportedTypes result = VALUES_ARRAY[i];
+      SupportedReporting result = VALUES_ARRAY[i];
       if (result.getName().equals(name))
       {
         return result;
@@ -207,20 +207,20 @@ public enum SupportedTypes implements Enumerator
   }
 
   /**
-   * Returns the '<em><b>Supported Types</b></em>' literal with the specified integer value.
+   * Returns the '<em><b>Supported Reporting</b></em>' literal with the specified integer value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  public static SupportedTypes get(int value)
+  public static SupportedReporting get(int value)
   {
     switch (value)
     {
-      case ANALYSIS_VALUE: return ANALYSIS;
-      case PREDICATE_VALUE: return PREDICATE;
-      case COMPUTE_VALUE: return COMPUTE;
-      case RESOLUTEPROVE_VALUE: return RESOLUTEPROVE;
-      case MANUAL_VALUE: return MANUAL;
+      case MARKER_VALUE: return MARKER;
+      case ERRORMARKER_VALUE: return ERRORMARKER;
+      case DIAGNOSTICS_VALUE: return DIAGNOSTICS;
+      case ASSERTEXCEPTION_VALUE: return ASSERTEXCEPTION;
+      case RESULTREPORT_VALUE: return RESULTREPORT;
     }
     return null;
   }
@@ -252,7 +252,7 @@ public enum SupportedTypes implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
-  private SupportedTypes(int value, String name, String literal)
+  private SupportedReporting(int value, String name, String literal)
   {
     this.value = value;
     this.name = name;
@@ -301,4 +301,4 @@ public enum SupportedTypes implements Enumerator
     return literal;
   }
   
-} //SupportedTypes
+} //SupportedReporting

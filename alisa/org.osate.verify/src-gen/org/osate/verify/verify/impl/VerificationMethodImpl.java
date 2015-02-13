@@ -13,12 +13,17 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.categories.categories.VerificationCategory;
 
+import org.osate.reqspec.reqSpec.Requirement;
+
+import org.osate.verify.verify.SupportedReporting;
+import org.osate.verify.verify.SupportedScopes;
 import org.osate.verify.verify.SupportedTypes;
 import org.osate.verify.verify.VerificationCondition;
 import org.osate.verify.verify.VerificationMethod;
@@ -31,19 +36,73 @@ import org.osate.verify.verify.VerifyPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodPath <em>Method Path</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMarker <em>Marker</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getScope <em>Scope</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getReporting <em>Reporting</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodPath <em>Method Path</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getConditions <em>Conditions</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getCategory <em>Category</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class VerificationMethodImpl extends VerificationActionImpl implements VerificationMethod
+public class VerificationMethodImpl extends MinimalEObjectImpl.Container implements VerificationMethod
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected static final String TITLE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRequirement()
+   * @generated
+   * @ordered
+   */
+  protected Requirement requirement;
+
   /**
    * The default value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -52,7 +111,7 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * @generated
    * @ordered
    */
-  protected static final SupportedTypes METHOD_TYPE_EDEFAULT = SupportedTypes.SINGLEPREDICATE;
+  protected static final SupportedTypes METHOD_TYPE_EDEFAULT = SupportedTypes.ANALYSIS;
 
   /**
    * The cached value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
@@ -65,44 +124,44 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
   protected SupportedTypes methodType = METHOD_TYPE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
+   * The default value of the '{@link #getScope() <em>Scope</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethodPath()
+   * @see #getScope()
    * @generated
    * @ordered
    */
-  protected static final String METHOD_PATH_EDEFAULT = null;
+  protected static final SupportedScopes SCOPE_EDEFAULT = SupportedScopes.SELF;
 
   /**
-   * The cached value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
+   * The cached value of the '{@link #getScope() <em>Scope</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMethodPath()
+   * @see #getScope()
    * @generated
    * @ordered
    */
-  protected String methodPath = METHOD_PATH_EDEFAULT;
+  protected SupportedScopes scope = SCOPE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getMarker() <em>Marker</em>}' attribute.
+   * The default value of the '{@link #getReporting() <em>Reporting</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMarker()
+   * @see #getReporting()
    * @generated
    * @ordered
    */
-  protected static final String MARKER_EDEFAULT = null;
+  protected static final SupportedReporting REPORTING_EDEFAULT = SupportedReporting.MARKER;
 
   /**
-   * The cached value of the '{@link #getMarker() <em>Marker</em>}' attribute.
+   * The cached value of the '{@link #getReporting() <em>Reporting</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMarker()
+   * @see #getReporting()
    * @generated
    * @ordered
    */
-  protected String marker = MARKER_EDEFAULT;
+  protected SupportedReporting reporting = REPORTING_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -125,14 +184,24 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
   protected String description = DESCRIPTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * The default value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCategory()
+   * @see #getMethodPath()
    * @generated
    * @ordered
    */
-  protected VerificationCategory category;
+  protected static final String METHOD_PATH_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getMethodPath()
+   * @generated
+   * @ordered
+   */
+  protected String methodPath = METHOD_PATH_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getConditions() <em>Conditions</em>}' containment reference list.
@@ -143,6 +212,16 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * @ordered
    */
   protected EList<VerificationCondition> conditions;
+
+  /**
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCategory()
+   * @generated
+   * @ordered
+   */
+  protected VerificationCategory category;
 
   /**
    * <!-- begin-user-doc -->
@@ -163,6 +242,95 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
   protected EClass eStaticClass()
   {
     return VerifyPackage.Literals.VERIFICATION_METHOD;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Requirement getRequirement()
+  {
+    if (requirement != null && requirement.eIsProxy())
+    {
+      InternalEObject oldRequirement = (InternalEObject)requirement;
+      requirement = (Requirement)eResolveProxy(oldRequirement);
+      if (requirement != oldRequirement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_METHOD__REQUIREMENT, oldRequirement, requirement));
+      }
+    }
+    return requirement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Requirement basicGetRequirement()
+  {
+    return requirement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRequirement(Requirement newRequirement)
+  {
+    Requirement oldRequirement = requirement;
+    requirement = newRequirement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__REQUIREMENT, oldRequirement, requirement));
   }
 
   /**
@@ -193,9 +361,9 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getMethodPath()
+  public SupportedScopes getScope()
   {
-    return methodPath;
+    return scope;
   }
 
   /**
@@ -203,12 +371,12 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMethodPath(String newMethodPath)
+  public void setScope(SupportedScopes newScope)
   {
-    String oldMethodPath = methodPath;
-    methodPath = newMethodPath;
+    SupportedScopes oldScope = scope;
+    scope = newScope == null ? SCOPE_EDEFAULT : newScope;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_PATH, oldMethodPath, methodPath));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__SCOPE, oldScope, scope));
   }
 
   /**
@@ -216,9 +384,9 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getMarker()
+  public SupportedReporting getReporting()
   {
-    return marker;
+    return reporting;
   }
 
   /**
@@ -226,12 +394,12 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMarker(String newMarker)
+  public void setReporting(SupportedReporting newReporting)
   {
-    String oldMarker = marker;
-    marker = newMarker;
+    SupportedReporting oldReporting = reporting;
+    reporting = newReporting == null ? REPORTING_EDEFAULT : newReporting;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__MARKER, oldMarker, marker));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__REPORTING, oldReporting, reporting));
   }
 
   /**
@@ -255,6 +423,43 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
     description = newDescription;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, oldDescription, description));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getMethodPath()
+  {
+    return methodPath;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMethodPath(String newMethodPath)
+  {
+    String oldMethodPath = methodPath;
+    methodPath = newMethodPath;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__METHOD_PATH, oldMethodPath, methodPath));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<VerificationCondition> getConditions()
+  {
+    if (conditions == null)
+    {
+      conditions = new EObjectContainmentEList<VerificationCondition>(VerificationCondition.class, this, VerifyPackage.VERIFICATION_METHOD__CONDITIONS);
+    }
+    return conditions;
   }
 
   /**
@@ -305,20 +510,6 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationCondition> getConditions()
-  {
-    if (conditions == null)
-    {
-      conditions = new EObjectContainmentEList<VerificationCondition>(VerificationCondition.class, this, VerifyPackage.VERIFICATION_METHOD__CONDITIONS);
-    }
-    return conditions;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -340,19 +531,28 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_METHOD__NAME:
+        return getName();
+      case VerifyPackage.VERIFICATION_METHOD__TITLE:
+        return getTitle();
+      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
+        if (resolve) return getRequirement();
+        return basicGetRequirement();
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         return getMethodType();
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
-        return getMethodPath();
-      case VerifyPackage.VERIFICATION_METHOD__MARKER:
-        return getMarker();
+      case VerifyPackage.VERIFICATION_METHOD__SCOPE:
+        return getScope();
+      case VerifyPackage.VERIFICATION_METHOD__REPORTING:
+        return getReporting();
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return getDescription();
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
+        return getMethodPath();
+      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
+        return getConditions();
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
         if (resolve) return getCategory();
         return basicGetCategory();
-      case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
-        return getConditions();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -368,24 +568,36 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_METHOD__NAME:
+        setName((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__TITLE:
+        setTitle((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
+        setRequirement((Requirement)newValue);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         setMethodType((SupportedTypes)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
-        setMethodPath((String)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__SCOPE:
+        setScope((SupportedScopes)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__MARKER:
-        setMarker((String)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__REPORTING:
+        setReporting((SupportedReporting)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        setCategory((VerificationCategory)newValue);
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
+        setMethodPath((String)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
         getConditions().clear();
         getConditions().addAll((Collection<? extends VerificationCondition>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
+        setCategory((VerificationCategory)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -401,23 +613,35 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_METHOD__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__TITLE:
+        setTitle(TITLE_EDEFAULT);
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
+        setRequirement((Requirement)null);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         setMethodType(METHOD_TYPE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
-        setMethodPath(METHOD_PATH_EDEFAULT);
+      case VerifyPackage.VERIFICATION_METHOD__SCOPE:
+        setScope(SCOPE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__MARKER:
-        setMarker(MARKER_EDEFAULT);
+      case VerifyPackage.VERIFICATION_METHOD__REPORTING:
+        setReporting(REPORTING_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        setCategory((VerificationCategory)null);
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
+        setMethodPath(METHOD_PATH_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
         getConditions().clear();
+        return;
+      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
+        setCategory((VerificationCategory)null);
         return;
     }
     super.eUnset(featureID);
@@ -433,18 +657,26 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_METHOD__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.VERIFICATION_METHOD__TITLE:
+        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
+        return requirement != null;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         return methodType != METHOD_TYPE_EDEFAULT;
-      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
-        return METHOD_PATH_EDEFAULT == null ? methodPath != null : !METHOD_PATH_EDEFAULT.equals(methodPath);
-      case VerifyPackage.VERIFICATION_METHOD__MARKER:
-        return MARKER_EDEFAULT == null ? marker != null : !MARKER_EDEFAULT.equals(marker);
+      case VerifyPackage.VERIFICATION_METHOD__SCOPE:
+        return scope != SCOPE_EDEFAULT;
+      case VerifyPackage.VERIFICATION_METHOD__REPORTING:
+        return reporting != REPORTING_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        return category != null;
+      case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
+        return METHOD_PATH_EDEFAULT == null ? methodPath != null : !METHOD_PATH_EDEFAULT.equals(methodPath);
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
         return conditions != null && !conditions.isEmpty();
+      case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
+        return category != null;
     }
     return super.eIsSet(featureID);
   }
@@ -460,14 +692,20 @@ public class VerificationMethodImpl extends VerificationActionImpl implements Ve
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (methodType: ");
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", title: ");
+    result.append(title);
+    result.append(", methodType: ");
     result.append(methodType);
-    result.append(", methodPath: ");
-    result.append(methodPath);
-    result.append(", marker: ");
-    result.append(marker);
+    result.append(", scope: ");
+    result.append(scope);
+    result.append(", reporting: ");
+    result.append(reporting);
     result.append(", description: ");
     result.append(description);
+    result.append(", methodPath: ");
+    result.append(methodPath);
     result.append(')');
     return result.toString();
   }

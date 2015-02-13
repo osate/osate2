@@ -67,14 +67,15 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
     {
       case AssurePackage.CASE_RESULT: return createCaseResult();
       case AssurePackage.CLAIM_RESULT: return createClaimResult();
-      case AssurePackage.ASSUMPTION_RESULT: return createAssumptionResult();
-      case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
+      case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       case AssurePackage.ASSURE_RESULT: return createAssureResult();
       case AssurePackage.VERIFICATION_EXPR: return createVerificationExpr();
       case AssurePackage.FAIL_THEN_RESULT: return createFailThenResult();
       case AssurePackage.AND_THEN_RESULT: return createAndThenResult();
       case AssurePackage.RESULT_ISSUE: return createResultIssue();
+      case AssurePackage.VALIDATION_RESULT: return createValidationResult();
+      case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -149,32 +150,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssumptionResult createAssumptionResult()
+  public VerificationResult createVerificationResult()
   {
-    AssumptionResultImpl assumptionResult = new AssumptionResultImpl();
-    return assumptionResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PreconditionResult createPreconditionResult()
-  {
-    PreconditionResultImpl preconditionResult = new PreconditionResultImpl();
-    return preconditionResult;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationActivityResult createVerificationActivityResult()
-  {
-    VerificationActivityResultImpl verificationActivityResult = new VerificationActivityResultImpl();
-    return verificationActivityResult;
+    VerificationResultImpl verificationResult = new VerificationResultImpl();
+    return verificationResult;
   }
 
   /**
@@ -230,6 +209,39 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     ResultIssueImpl resultIssue = new ResultIssueImpl();
     return resultIssue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ValidationResult createValidationResult()
+  {
+    ValidationResultImpl validationResult = new ValidationResultImpl();
+    return validationResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PreconditionResult createPreconditionResult()
+  {
+    PreconditionResultImpl preconditionResult = new PreconditionResultImpl();
+    return preconditionResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationActivityResult createVerificationActivityResult()
+  {
+    VerificationActivityResultImpl verificationActivityResult = new VerificationActivityResultImpl();
+    return verificationActivityResult;
   }
 
   /**

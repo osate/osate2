@@ -41,31 +41,13 @@ public interface AssureFactory extends EFactory
   ClaimResult createClaimResult();
 
   /**
-   * Returns a new object of class '<em>Assumption Result</em>'.
+   * Returns a new object of class '<em>Verification Result</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Assumption Result</em>'.
+   * @return a new object of class '<em>Verification Result</em>'.
    * @generated
    */
-  AssumptionResult createAssumptionResult();
-
-  /**
-   * Returns a new object of class '<em>Precondition Result</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Precondition Result</em>'.
-   * @generated
-   */
-  PreconditionResult createPreconditionResult();
-
-  /**
-   * Returns a new object of class '<em>Verification Activity Result</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Activity Result</em>'.
-   * @generated
-   */
-  VerificationActivityResult createVerificationActivityResult();
+  VerificationResult createVerificationResult();
 
   /**
    * Returns a new object of class '<em>Result</em>'.
@@ -111,6 +93,33 @@ public interface AssureFactory extends EFactory
    * @generated
    */
   ResultIssue createResultIssue();
+
+  /**
+   * Returns a new object of class '<em>Validation Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Validation Result</em>'.
+   * @generated
+   */
+  ValidationResult createValidationResult();
+
+  /**
+   * Returns a new object of class '<em>Precondition Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Precondition Result</em>'.
+   * @generated
+   */
+  PreconditionResult createPreconditionResult();
+
+  /**
+   * Returns a new object of class '<em>Verification Activity Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Activity Result</em>'.
+   * @generated
+   */
+  VerificationActivityResult createVerificationActivityResult();
 
   /**
    * Returns the package supported by this factory.

@@ -2,25 +2,25 @@
  */
 package org.osate.assure.assure;
 
-import org.osate.verify.verify.VerificationPrecondition;
+import org.osate.verify.verify.VerificationValidation;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Precondition Result</b></em>'.
+ * A representation of the model object '<em><b>Validation Result</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.assure.assure.PreconditionResult#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ValidationResult#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.assure.assure.AssurePackage#getPreconditionResult()
+ * @see org.osate.assure.assure.AssurePackage#getValidationResult()
  * @model
  * @generated
  */
-public interface PreconditionResult extends VerificationResult
+public interface ValidationResult extends VerificationResult
 {
   /**
    * Returns the value of the '<em><b>Target</b></em>' reference.
@@ -31,21 +31,21 @@ public interface PreconditionResult extends VerificationResult
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(VerificationPrecondition)
-   * @see org.osate.assure.assure.AssurePackage#getPreconditionResult_Target()
+   * @see #setTarget(VerificationValidation)
+   * @see org.osate.assure.assure.AssurePackage#getValidationResult_Target()
    * @model
    * @generated
    */
-  VerificationPrecondition getTarget();
+  VerificationValidation getTarget();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.PreconditionResult#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.assure.assure.ValidationResult#getTarget <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Target</em>' reference.
    * @see #getTarget()
    * @generated
    */
-  void setTarget(VerificationPrecondition value);
+  void setTarget(VerificationValidation value);
 
-} // PreconditionResult
+} // ValidationResult

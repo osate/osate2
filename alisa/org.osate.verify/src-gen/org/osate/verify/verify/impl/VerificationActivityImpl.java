@@ -9,9 +9,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
+
+import org.osate.reqspec.reqSpec.Requirement;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -24,6 +27,9 @@ import org.osate.verify.verify.VerifyPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getComputeVariable <em>Compute Variable</em>}</li>
@@ -34,8 +40,58 @@ import org.osate.verify.verify.VerifyPackage;
  *
  * @generated
  */
-public class VerificationActivityImpl extends VerificationActionImpl implements VerificationActivity
+public class VerificationActivityImpl extends MinimalEObjectImpl.Container implements VerificationActivity
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected static final String TITLE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTitle()
+   * @generated
+   * @ordered
+   */
+  protected String title = TITLE_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRequirement()
+   * @generated
+   * @ordered
+   */
+  protected Requirement requirement;
+
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -125,6 +181,95 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   protected EClass eStaticClass()
   {
     return VerifyPackage.Literals.VERIFICATION_ACTIVITY;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getTitle()
+  {
+    return title;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTitle(String newTitle)
+  {
+    String oldTitle = title;
+    title = newTitle;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TITLE, oldTitle, title));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Requirement getRequirement()
+  {
+    if (requirement != null && requirement.eIsProxy())
+    {
+      InternalEObject oldRequirement = (InternalEObject)requirement;
+      requirement = (Requirement)eResolveProxy(oldRequirement);
+      if (requirement != oldRequirement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT, oldRequirement, requirement));
+      }
+    }
+    return requirement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Requirement basicGetRequirement()
+  {
+    return requirement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRequirement(Requirement newRequirement)
+  {
+    Requirement oldRequirement = requirement;
+    requirement = newRequirement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT, oldRequirement, requirement));
   }
 
   /**
@@ -333,6 +478,13 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
+        return getName();
+      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
+        return getTitle();
+      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
+        if (resolve) return getRequirement();
+        return basicGetRequirement();
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         return getDescription();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
@@ -359,6 +511,15 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
+        setName((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
+        setTitle((String)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
+        setRequirement((Requirement)newValue);
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         setDescription((Description)newValue);
         return;
@@ -388,6 +549,15 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
+        setTitle(TITLE_EDEFAULT);
+        return;
+      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
+        setRequirement((Requirement)null);
+        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         setDescription((Description)null);
         return;
@@ -417,6 +587,12 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
+        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
+      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
+        return requirement != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         return description != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
@@ -442,7 +618,11 @@ public class VerificationActivityImpl extends VerificationActionImpl implements 
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (timeout: ");
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", title: ");
+    result.append(title);
+    result.append(", timeout: ");
     result.append(timeout);
     result.append(", rationale: ");
     result.append(rationale);

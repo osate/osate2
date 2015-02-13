@@ -4,6 +4,7 @@ package org.osate.verify.verify;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 
 /**
@@ -17,7 +18,8 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationCondition#getAssert <em>Assert</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationCondition#getMethod <em>Method</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationCondition#getComputeVariable <em>Compute Variable</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationCondition#getRationale <em>Rationale</em>}</li>
  * </ul>
  * </p>
@@ -107,30 +109,56 @@ public interface VerificationCondition extends EObject
   void setDescription(Description value);
 
   /**
-   * Returns the value of the '<em><b>Assert</b></em>' containment reference.
+   * Returns the value of the '<em><b>Method</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Assert</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Method</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Assert</em>' containment reference.
-   * @see #setAssert(ArgumentExpr)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition_Assert()
-   * @model containment="true"
+   * @return the value of the '<em>Method</em>' reference.
+   * @see #setMethod(VerificationMethod)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition_Method()
+   * @model
    * @generated
    */
-  ArgumentExpr getAssert();
+  VerificationMethod getMethod();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationCondition#getAssert <em>Assert</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationCondition#getMethod <em>Method</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Assert</em>' containment reference.
-   * @see #getAssert()
+   * @param value the new value of the '<em>Method</em>' reference.
+   * @see #getMethod()
    * @generated
    */
-  void setAssert(ArgumentExpr value);
+  void setMethod(VerificationMethod value);
+
+  /**
+   * Returns the value of the '<em><b>Compute Variable</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Compute Variable</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Compute Variable</em>' reference.
+   * @see #setComputeVariable(ComputeDeclaration)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationCondition_ComputeVariable()
+   * @model
+   * @generated
+   */
+  ComputeDeclaration getComputeVariable();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationCondition#getComputeVariable <em>Compute Variable</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Compute Variable</em>' reference.
+   * @see #getComputeVariable()
+   * @generated
+   */
+  void setComputeVariable(ComputeDeclaration value);
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' attribute.

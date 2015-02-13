@@ -88,28 +88,12 @@ public class AssureSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AssurePackage.ASSUMPTION_RESULT:
+      case AssurePackage.VERIFICATION_RESULT:
       {
-        AssumptionResult assumptionResult = (AssumptionResult)theEObject;
-        T result = caseAssumptionResult(assumptionResult);
-        if (result == null) result = caseAssureResult(assumptionResult);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AssurePackage.PRECONDITION_RESULT:
-      {
-        PreconditionResult preconditionResult = (PreconditionResult)theEObject;
-        T result = casePreconditionResult(preconditionResult);
-        if (result == null) result = caseAssureResult(preconditionResult);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AssurePackage.VERIFICATION_ACTIVITY_RESULT:
-      {
-        VerificationActivityResult verificationActivityResult = (VerificationActivityResult)theEObject;
-        T result = caseVerificationActivityResult(verificationActivityResult);
-        if (result == null) result = caseVerificationExpr(verificationActivityResult);
-        if (result == null) result = caseAssureResult(verificationActivityResult);
+        VerificationResult verificationResult = (VerificationResult)theEObject;
+        T result = caseVerificationResult(verificationResult);
+        if (result == null) result = caseVerificationExpr(verificationResult);
+        if (result == null) result = caseAssureResult(verificationResult);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -153,6 +137,36 @@ public class AssureSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AssurePackage.VALIDATION_RESULT:
+      {
+        ValidationResult validationResult = (ValidationResult)theEObject;
+        T result = caseValidationResult(validationResult);
+        if (result == null) result = caseVerificationResult(validationResult);
+        if (result == null) result = caseVerificationExpr(validationResult);
+        if (result == null) result = caseAssureResult(validationResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AssurePackage.PRECONDITION_RESULT:
+      {
+        PreconditionResult preconditionResult = (PreconditionResult)theEObject;
+        T result = casePreconditionResult(preconditionResult);
+        if (result == null) result = caseVerificationResult(preconditionResult);
+        if (result == null) result = caseVerificationExpr(preconditionResult);
+        if (result == null) result = caseAssureResult(preconditionResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AssurePackage.VERIFICATION_ACTIVITY_RESULT:
+      {
+        VerificationActivityResult verificationActivityResult = (VerificationActivityResult)theEObject;
+        T result = caseVerificationActivityResult(verificationActivityResult);
+        if (result == null) result = caseVerificationResult(verificationActivityResult);
+        if (result == null) result = caseVerificationExpr(verificationActivityResult);
+        if (result == null) result = caseAssureResult(verificationActivityResult);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -190,49 +204,17 @@ public class AssureSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Assumption Result</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Verification Result</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Assumption Result</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Verification Result</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAssumptionResult(AssumptionResult object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Precondition Result</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Precondition Result</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePreconditionResult(PreconditionResult object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Activity Result</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Activity Result</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVerificationActivityResult(VerificationActivityResult object)
+  public T caseVerificationResult(VerificationResult object)
   {
     return null;
   }
@@ -313,6 +295,54 @@ public class AssureSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseResultIssue(ResultIssue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Validation Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Validation Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseValidationResult(ValidationResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Precondition Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Precondition Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePreconditionResult(PreconditionResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Verification Activity Result</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Verification Activity Result</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVerificationActivityResult(VerificationActivityResult object)
   {
     return null;
   }

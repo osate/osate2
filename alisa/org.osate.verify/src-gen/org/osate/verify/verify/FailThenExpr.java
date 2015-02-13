@@ -12,6 +12,8 @@ package org.osate.verify.verify;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.FailThenExpr#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.osate.verify.verify.FailThenExpr#isFailed <em>Failed</em>}</li>
+ *   <li>{@link org.osate.verify.verify.FailThenExpr#isError <em>Error</em>}</li>
  *   <li>{@link org.osate.verify.verify.FailThenExpr#getRight <em>Right</em>}</li>
  * </ul>
  * </p>
@@ -47,6 +49,58 @@ public interface FailThenExpr extends ArgumentExpr
    * @generated
    */
   void setLeft(ArgumentExpr value);
+
+  /**
+   * Returns the value of the '<em><b>Failed</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Failed</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Failed</em>' attribute.
+   * @see #setFailed(boolean)
+   * @see org.osate.verify.verify.VerifyPackage#getFailThenExpr_Failed()
+   * @model
+   * @generated
+   */
+  boolean isFailed();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.FailThenExpr#isFailed <em>Failed</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Failed</em>' attribute.
+   * @see #isFailed()
+   * @generated
+   */
+  void setFailed(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Error</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Error</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Error</em>' attribute.
+   * @see #setError(boolean)
+   * @see org.osate.verify.verify.VerifyPackage#getFailThenExpr_Error()
+   * @model
+   * @generated
+   */
+  boolean isError();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.FailThenExpr#isError <em>Error</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Error</em>' attribute.
+   * @see #isError()
+   * @generated
+   */
+  void setError(boolean value);
 
   /**
    * Returns the value of the '<em><b>Right</b></em>' containment reference.

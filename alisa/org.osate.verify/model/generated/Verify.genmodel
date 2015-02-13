@@ -8,15 +8,23 @@
   <genPackages prefix="Verify" basePackage="org.osate.verify" disposableProviderFactory="true"
       fileExtensions="verify" ecorePackage="Verify.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Verify.ecore#//SupportedTypes">
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/SINGLEPREDICATE"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/SINGLEANALYSIS"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/ASSERTIONEXCEPTION"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIMARKER"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/OWNMULTIMARKER"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MULTIDIAGNOSTICS"/>
-      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/RESULTREPORT"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/ANALYSIS"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/PREDICATE"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/COMPUTE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/RESOLUTEPROVE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MANUAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Verify.ecore#//SupportedScopes">
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedScopes/SELF"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedScopes/PARTS"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedScopes/ALL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Verify.ecore#//SupportedReporting">
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedReporting/MARKER"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedReporting/ERRORMARKER"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedReporting/DIAGNOSTICS"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedReporting/ASSERTEXCEPTION"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedReporting/RESULTREPORT"/>
     </genEnums>
     <genClasses ecoreClass="Verify.ecore#//Verification">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Verification/contents"/>
@@ -52,6 +60,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationContainer/content"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationActivity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/requirement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/method"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/computeVariable"/>
@@ -62,15 +73,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/title"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/assert"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/method"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/computeVariable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/rationale"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ArgumentExpr"/>
-    <genClasses ecoreClass="Verify.ecore#//VerificationAction">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationAction/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationAction/title"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationAction/requirement"/>
-    </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationMethodRegistry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethodRegistry/title"/>
@@ -78,14 +85,18 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethodRegistry/methods"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationMethod">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/requirement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/methodType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/methodPath"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/marker"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/scope"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/reporting"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/description"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/category"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationMethod/methodPath"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/conditions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationMethod/category"/>
     </genClasses>
-    <genClasses ecoreClass="Verify.ecore#//VerificationAssumption"/>
+    <genClasses ecoreClass="Verify.ecore#//VerificationValidation"/>
     <genClasses ecoreClass="Verify.ecore#//VerificationPrecondition"/>
     <genClasses ecoreClass="Verify.ecore#//AllExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//AllExpr/all"/>
@@ -96,6 +107,8 @@
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//FailThenExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//FailThenExpr/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//FailThenExpr/failed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//FailThenExpr/error"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//FailThenExpr/right"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//WhenExpr">

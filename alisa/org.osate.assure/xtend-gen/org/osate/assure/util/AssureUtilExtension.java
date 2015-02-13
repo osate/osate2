@@ -42,7 +42,6 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.util.CommonUtilExtension;
 import org.osate.assure.assure.AndThenResult;
-import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssureFactory;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.CaseResult;
@@ -51,16 +50,20 @@ import org.osate.assure.assure.FailThenResult;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.ResultIssue;
 import org.osate.assure.assure.ResultIssueType;
+import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExecutionState;
 import org.osate.assure.assure.VerificationExpr;
+import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.assure.VerificationResultState;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.verify.verify.RefExpr;
+import org.osate.verify.verify.SupportedReporting;
+import org.osate.verify.verify.SupportedScopes;
 import org.osate.verify.verify.VerificationActivity;
-import org.osate.verify.verify.VerificationAssumption;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerificationPrecondition;
+import org.osate.verify.verify.VerificationValidation;
 
 @SuppressWarnings("all")
 public class AssureUtilExtension {
@@ -112,46 +115,62 @@ public class AssureUtilExtension {
     return _instance;
   }
   
-  public static String getMethodName(final VerificationActivityResult vr) {
-    String _xblockexpression = null;
-    {
-      VerificationActivity _target = vr.getTarget();
-      VerificationMethod _method = _target.getMethod();
-      final String methodpath = _method.getMethodPath();
-      final int x = methodpath.lastIndexOf(".");
-      if ((x != (-1))) {
-        final String methodName = methodpath.substring(x);
-        return methodName;
+  public static VerificationMethod getMethod(final VerificationResult vr) {
+    boolean _matched = false;
+    if (!_matched) {
+      if (vr instanceof VerificationActivityResult) {
+        _matched=true;
+        VerificationActivity _target = ((VerificationActivityResult)vr).getTarget();
+        return _target.getMethod();
       }
-      _xblockexpression = methodpath;
     }
-    return _xblockexpression;
+    if (!_matched) {
+      if (vr instanceof PreconditionResult) {
+        _matched=true;
+        VerificationPrecondition _target = ((PreconditionResult)vr).getTarget();
+        return _target.getMethod();
+      }
+    }
+    if (!_matched) {
+      if (vr instanceof ValidationResult) {
+        _matched=true;
+        VerificationValidation _target = ((ValidationResult)vr).getTarget();
+        return _target.getMethod();
+      }
+    }
+    return null;
   }
   
   /**
    * methods to process results from verification methods
    */
-  public static boolean addErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
+  public static boolean addMarkers(final VerificationResult verificationActivityResult, final InstanceObject instance, final String markertype, final VerificationMethod vm) {
     try {
+      final SupportedScopes scope = vm.getScope();
+      final SupportedReporting reporting = vm.getReporting();
       final Resource res = instance.eResource();
       final IResource irsrc = OsateResourceUtil.convertToIResource(res);
       final IMarker[] markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE);
       final Function1<IMarker, Boolean> _function = new Function1<IMarker, Boolean>() {
         public Boolean apply(final IMarker m) {
           try {
-            boolean _and = false;
-            Object _attribute = m.getAttribute(AadlConstants.AADLURI);
-            URI _uRI = EcoreUtil.getURI(instance);
-            String _string = _uRI.toString();
-            boolean _equals = Objects.equal(_attribute, _string);
-            if (!_equals) {
-              _and = false;
+            boolean _or = false;
+            boolean _or_1 = false;
+            boolean _equals = Objects.equal(reporting, null);
+            if (_equals) {
+              _or_1 = true;
             } else {
-              Object _attribute_1 = m.getAttribute(IMarker.SEVERITY);
-              boolean _equals_1 = Objects.equal(_attribute_1, Integer.valueOf(IMarker.SEVERITY_ERROR));
-              _and = _equals_1;
+              boolean _equals_1 = Objects.equal(reporting, SupportedReporting.MARKER);
+              _or_1 = _equals_1;
             }
-            return Boolean.valueOf(_and);
+            if (_or_1) {
+              _or = true;
+            } else {
+              Object _attribute = m.getAttribute(IMarker.SEVERITY);
+              boolean _equals_2 = Objects.equal(_attribute, Integer.valueOf(IMarker.SEVERITY_ERROR));
+              _or = _equals_2;
+            }
+            return Boolean.valueOf(_or);
           } catch (Throwable _e) {
             throw Exceptions.sneakyThrow(_e);
           }
@@ -162,185 +181,78 @@ public class AssureUtilExtension {
       if (_isEmpty) {
         return false;
       }
-      final Procedure1<IMarker> _function_1 = new Procedure1<IMarker>() {
-        public void apply(final IMarker em) {
-          try {
-            Object _attribute = em.getAttribute(IMarker.MESSAGE);
-            AssureUtilExtension.addErrorIssue(verificationActivityResult, instance, ((String) _attribute));
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
-        }
-      };
-      IterableExtensions.<IMarker>forEach(markers, _function_1);
-      return true;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  public static boolean addAllErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
-    try {
-      final Resource res = instance.eResource();
-      final IResource irsrc = OsateResourceUtil.convertToIResource(res);
-      final IMarker[] markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE);
-      final Function1<IMarker, Boolean> _function = new Function1<IMarker, Boolean>() {
-        public Boolean apply(final IMarker m) {
-          try {
-            Object _attribute = m.getAttribute(IMarker.SEVERITY);
-            return Boolean.valueOf(Objects.equal(_attribute, Integer.valueOf(IMarker.SEVERITY_ERROR)));
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
-        }
-      };
-      final Iterable<IMarker> markers = IterableExtensions.<IMarker>filter(((Iterable<IMarker>)Conversions.doWrapArray(markersforanalysis)), _function);
-      boolean _isEmpty = IterableExtensions.isEmpty(markers);
-      if (_isEmpty) {
-        return false;
-      }
-      final Procedure1<IMarker> _function_1 = new Procedure1<IMarker>() {
-        public void apply(final IMarker em) {
-          try {
-            Object _attribute = em.getAttribute(AadlConstants.AADLURI);
-            final String targetURIString = ((String) _attribute);
-            final URI targetURI = URI.createURI(targetURIString);
-            ResourceSet _resourceSet = res.getResourceSet();
-            final EObject target = _resourceSet.getEObject(targetURI, false);
-            EObject _elvis = null;
-            if (target != null) {
-              _elvis = target;
-            } else {
-              _elvis = instance;
-            }
-            Object _attribute_1 = em.getAttribute(IMarker.MESSAGE);
-            AssureUtilExtension.addErrorIssue(verificationActivityResult, _elvis, ((String) _attribute_1));
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
-        }
-      };
-      IterableExtensions.<IMarker>forEach(markers, _function_1);
-      return true;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  public static boolean addAllDirectErrorMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
-    try {
-      final Resource res = instance.eResource();
-      final IResource irsrc = OsateResourceUtil.convertToIResource(res);
-      final IMarker[] markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE);
-      final Function1<IMarker, Boolean> _function = new Function1<IMarker, Boolean>() {
-        public Boolean apply(final IMarker m) {
-          try {
-            boolean _xblockexpression = false;
-            {
+      Iterable<IMarker> finalmarkers = null;
+      boolean _equals = Objects.equal(scope, SupportedScopes.SELF);
+      if (_equals) {
+        final Function1<IMarker, Boolean> _function_1 = new Function1<IMarker, Boolean>() {
+          public Boolean apply(final IMarker m) {
+            try {
               Object _attribute = m.getAttribute(AadlConstants.AADLURI);
-              final String targetURIString = ((String) _attribute);
-              final URI targetURI = URI.createURI(targetURIString);
-              ResourceSet _resourceSet = res.getResourceSet();
-              final EObject target = _resourceSet.getEObject(targetURI, false);
-              final ComponentInstance parent = EcoreUtil2.<ComponentInstance>getContainerOfType(target, ComponentInstance.class);
-              boolean _and = false;
-              Object _attribute_1 = m.getAttribute(IMarker.SEVERITY);
-              boolean _equals = Objects.equal(_attribute_1, Integer.valueOf(IMarker.SEVERITY_ERROR));
-              if (!_equals) {
-                _and = false;
-              } else {
-                URI _uRI = EcoreUtil.getURI(parent);
-                String _string = _uRI.toString();
-                URI _uRI_1 = EcoreUtil.getURI(instance);
-                String _string_1 = _uRI_1.toString();
-                boolean _equals_1 = Objects.equal(_string, _string_1);
-                _and = _equals_1;
+              URI _uRI = EcoreUtil.getURI(instance);
+              String _string = _uRI.toString();
+              return Boolean.valueOf(Objects.equal(_attribute, _string));
+            } catch (Throwable _e) {
+              throw Exceptions.sneakyThrow(_e);
+            }
+          }
+        };
+        Iterable<IMarker> _filter = IterableExtensions.<IMarker>filter(markers, _function_1);
+        finalmarkers = _filter;
+      } else {
+        boolean _equals_1 = Objects.equal(scope, SupportedScopes.PARTS);
+        if (_equals_1) {
+          final Function1<IMarker, Boolean> _function_2 = new Function1<IMarker, Boolean>() {
+            public Boolean apply(final IMarker m) {
+              try {
+                boolean _xblockexpression = false;
+                {
+                  Object _attribute = m.getAttribute(AadlConstants.AADLURI);
+                  final URI targetURI = URI.createURI(((String) _attribute));
+                  ResourceSet _resourceSet = res.getResourceSet();
+                  final EObject target = _resourceSet.getEObject(targetURI, false);
+                  final ComponentInstance parent = EcoreUtil2.<ComponentInstance>getContainerOfType(target, ComponentInstance.class);
+                  URI _uRI = EcoreUtil.getURI(parent);
+                  String _string = _uRI.toString();
+                  URI _uRI_1 = EcoreUtil.getURI(instance);
+                  String _string_1 = _uRI_1.toString();
+                  _xblockexpression = Objects.equal(_string, _string_1);
+                }
+                return Boolean.valueOf(_xblockexpression);
+              } catch (Throwable _e) {
+                throw Exceptions.sneakyThrow(_e);
               }
-              _xblockexpression = _and;
             }
-            return Boolean.valueOf(_xblockexpression);
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
+          };
+          Iterable<IMarker> _filter_1 = IterableExtensions.<IMarker>filter(markers, _function_2);
+          finalmarkers = _filter_1;
+        } else {
+          finalmarkers = markers;
         }
-      };
-      final Iterable<IMarker> markers = IterableExtensions.<IMarker>filter(((Iterable<IMarker>)Conversions.doWrapArray(markersforanalysis)), _function);
-      boolean _isEmpty = IterableExtensions.isEmpty(markers);
-      if (_isEmpty) {
+      }
+      boolean _isEmpty_1 = IterableExtensions.isEmpty(finalmarkers);
+      if (_isEmpty_1) {
         return false;
       }
-      final Procedure1<IMarker> _function_1 = new Procedure1<IMarker>() {
+      final Procedure1<IMarker> _function_3 = new Procedure1<IMarker>() {
         public void apply(final IMarker em) {
-          try {
-            Object _attribute = em.getAttribute(AadlConstants.AADLURI);
-            final String targetURIString = ((String) _attribute);
-            final URI targetURI = URI.createURI(targetURIString);
-            ResourceSet _resourceSet = res.getResourceSet();
-            final EObject target = _resourceSet.getEObject(targetURI, false);
-            EObject _elvis = null;
-            if (target != null) {
-              _elvis = target;
-            } else {
-              _elvis = instance;
-            }
-            Object _attribute_1 = em.getAttribute(IMarker.MESSAGE);
-            AssureUtilExtension.addErrorIssue(verificationActivityResult, _elvis, ((String) _attribute_1));
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
+          AssureUtilExtension.addMarkerIssue(verificationActivityResult, instance, em);
         }
       };
-      IterableExtensions.<IMarker>forEach(markers, _function_1);
-      return true;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  public static boolean addAllMarkers(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
-    try {
-      final Resource res = instance.eResource();
-      final IResource irsrc = OsateResourceUtil.convertToIResource(res);
-      final IMarker[] markersforanalysis = irsrc.findMarkers(markertype, true, IResource.DEPTH_INFINITE);
-      boolean _isEmpty = ((List<IMarker>)Conversions.doWrapArray(markersforanalysis)).isEmpty();
-      if (_isEmpty) {
-        return false;
-      }
-      final Procedure1<IMarker> _function = new Procedure1<IMarker>() {
-        public void apply(final IMarker em) {
-          try {
-            Object _attribute = em.getAttribute(AadlConstants.AADLURI);
-            final String targetURIString = ((String) _attribute);
-            final URI targetURI = URI.createURI(targetURIString);
-            ResourceSet _resourceSet = res.getResourceSet();
-            final EObject target = _resourceSet.getEObject(targetURI, false);
-            EObject _elvis = null;
-            if (target != null) {
-              _elvis = target;
-            } else {
-              _elvis = instance;
-            }
-            AssureUtilExtension.addMarkerIssue(verificationActivityResult, _elvis, em);
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
-        }
-      };
-      IterableExtensions.<IMarker>forEach(((Iterable<IMarker>)Conversions.doWrapArray(markersforanalysis)), _function);
+      IterableExtensions.<IMarker>forEach(markers, _function_3);
       EList<ResultIssue> _issues = verificationActivityResult.getIssues();
-      final Function1<ResultIssue, Boolean> _function_1 = new Function1<ResultIssue, Boolean>() {
+      final Function1<ResultIssue, Boolean> _function_4 = new Function1<ResultIssue, Boolean>() {
         public Boolean apply(final ResultIssue ri) {
           ResultIssueType _issueType = ri.getIssueType();
           return Boolean.valueOf(Objects.equal(_issueType, ResultIssueType.ERROR));
         }
       };
-      return IterableExtensions.<ResultIssue>exists(_issues, _function_1);
+      return IterableExtensions.<ResultIssue>exists(_issues, _function_4);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
   
-  public static void addErrorDiagnostics(final VerificationActivityResult verificationActivityResult, final InstanceObject instance, final String markertype) {
+  public static void addErrorDiagnostics(final VerificationResult verificationActivityResult, final InstanceObject instance, final String markertype) {
     final Resource res = instance.eResource();
     final EList<Resource.Diagnostic> diagnosticErrors = res.getErrors();
     final String mt = "org.osate.analysis.flows.FlowLatencyObjectMarker";
@@ -349,7 +261,7 @@ public class AssureUtilExtension {
   public void handleXtextIssues() {
   }
   
-  public static ResultIssue addMarkerIssue(final VerificationActivityResult vr, final EObject target, final IMarker marker) {
+  public static ResultIssue addMarkerIssue(final VerificationResult vr, final EObject target, final IMarker marker) {
     try {
       ResultIssue _xblockexpression = null;
       {
@@ -384,11 +296,11 @@ public class AssureUtilExtension {
     }
   }
   
-  public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message) {
+  public static ResultIssue addErrorIssue(final VerificationResult vr, final EObject target, final String message) {
     return AssureUtilExtension.addErrorIssue(vr, target, message, null);
   }
   
-  public static ResultIssue addErrorIssue(final VerificationActivityResult vr, final EObject target, final String message, final String issueSource) {
+  public static ResultIssue addErrorIssue(final VerificationResult vr, final EObject target, final String message, final String issueSource) {
     ResultIssue _xblockexpression = null;
     {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
@@ -403,11 +315,11 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  public static ResultIssue addInfoIssue(final VerificationActivityResult vr, final EObject target, final String message) {
+  public static ResultIssue addInfoIssue(final VerificationResult vr, final EObject target, final String message) {
     return AssureUtilExtension.addInfoIssue(vr, target, message, null);
   }
   
-  public static ResultIssue addInfoIssue(final VerificationActivityResult vr, final EObject target, final String message, final String issueSource) {
+  public static ResultIssue addInfoIssue(final VerificationResult vr, final EObject target, final String message, final String issueSource) {
     ResultIssue _xblockexpression = null;
     {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
@@ -422,11 +334,11 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  public static ResultIssue addWarningIssue(final VerificationActivityResult vr, final EObject target, final String message) {
+  public static ResultIssue addWarningIssue(final VerificationResult vr, final EObject target, final String message) {
     return AssureUtilExtension.addWarningIssue(vr, target, message, null);
   }
   
-  public static ResultIssue addWarningIssue(final VerificationActivityResult vr, final EObject target, final String message, final String issueSource) {
+  public static ResultIssue addWarningIssue(final VerificationResult vr, final EObject target, final String message, final String issueSource) {
     ResultIssue _xblockexpression = null;
     {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
@@ -485,14 +397,11 @@ public class AssureUtilExtension {
           issue.setTarget(target);
         } else {
           if ((target instanceof FailExpr)) {
-            ri.setName("Fail");
             int _length = message.length();
             boolean _greaterThan = (_length > 14);
             if (_greaterThan) {
               String _substring = message.substring(15);
-              ri.setMessage(_substring);
-            } else {
-              ri.setMessage(message);
+              issue.setMessage(_substring);
             }
           }
         }
@@ -512,20 +421,27 @@ public class AssureUtilExtension {
     ResultIssue _xblockexpression = null;
     {
       final ResultIssue issue = AssureFactory.eINSTANCE.createResultIssue();
-      String prefix = "";
-      if ((target instanceof NamedElement)) {
-        String _name = ((NamedElement)target).getName();
-        String _plus = (prefix + _name);
-        prefix = _plus;
-      }
+      issue.setMessage(message);
       issue.setIssueType(ResultIssueType.SUCCESS);
       issue.setExceptionType(issueSource);
       if ((target instanceof FunctionDefinition)) {
-        String _name_1 = ((FunctionDefinition)target).getName();
-        issue.setName(_name_1);
+        String _name = ((FunctionDefinition)target).getName();
+        issue.setName(_name);
       } else {
         if ((!(target instanceof FailExpr))) {
           issue.setTarget(target);
+        } else {
+          if ((target instanceof FailExpr)) {
+            ri.setName("Fail");
+            int _length = message.length();
+            boolean _greaterThan = (_length > 14);
+            if (_greaterThan) {
+              String _substring = message.substring(15);
+              ri.setMessage(_substring);
+            } else {
+              ri.setMessage(message);
+            }
+          }
         }
       }
       EList<ResultIssue> _issues = ri.getIssues();
@@ -610,6 +526,25 @@ public class AssureUtilExtension {
   /**
    * true iff none of the elements have a fail or error
    */
+  public static boolean success(final EList<VerificationResult> vel) {
+    for (final VerificationResult ar : vel) {
+      boolean _or = false;
+      int _failCount = ar.getFailCount();
+      boolean _notEquals = (_failCount != 0);
+      if (_notEquals) {
+        _or = true;
+      } else {
+        int _errorCount = ar.getErrorCount();
+        boolean _notEquals_1 = (_errorCount != 0);
+        _or = _notEquals_1;
+      }
+      if (_or) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
   public static boolean isSuccessFul(final EList<VerificationExpr> vel) {
     for (final VerificationExpr ar : vel) {
       boolean _or = false;
@@ -645,6 +580,28 @@ public class AssureUtilExtension {
         _or = _notEquals_1;
       }
       if (_or) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  public static boolean hasError(final EList<VerificationExpr> vel) {
+    for (final VerificationExpr ar : vel) {
+      int _errorCount = ar.getErrorCount();
+      boolean _notEquals = (_errorCount != 0);
+      if (_notEquals) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  public static boolean hasFailed(final EList<VerificationExpr> vel) {
+    for (final VerificationExpr ar : vel) {
+      int _failCount = ar.getFailCount();
+      boolean _notEquals = (_failCount != 0);
+      if (_notEquals) {
         return true;
       }
     }
@@ -733,21 +690,9 @@ public class AssureUtilExtension {
       }
     }
     if (!_matched) {
-      if (ar instanceof VerificationActivityResult) {
+      if (ar instanceof VerificationResult) {
         _matched=true;
-        return ((VerificationActivityResult)ar).getName();
-      }
-    }
-    if (!_matched) {
-      if (ar instanceof AssumptionResult) {
-        _matched=true;
-        return ((AssumptionResult)ar).getName();
-      }
-    }
-    if (!_matched) {
-      if (ar instanceof PreconditionResult) {
-        _matched=true;
-        return ((PreconditionResult)ar).getName();
+        return ((VerificationResult)ar).getName();
       }
     }
     if (!_matched) {
@@ -869,16 +814,16 @@ public class AssureUtilExtension {
    * this method resets the execution state of all verification activities to TBD
    */
   public static void resetToTBD(final CaseResult root) {
-    final List<VerificationActivityResult> vrlist = EcoreUtil2.<VerificationActivityResult>eAllOfType(root, VerificationActivityResult.class);
-    final Procedure1<VerificationActivityResult> _function = new Procedure1<VerificationActivityResult>() {
-      public void apply(final VerificationActivityResult vr) {
+    final List<VerificationResult> vrlist = EcoreUtil2.<VerificationResult>eAllOfType(root, VerificationResult.class);
+    final Procedure1<VerificationResult> _function = new Procedure1<VerificationResult>() {
+      public void apply(final VerificationResult vr) {
         vr.setResultState(VerificationResultState.TBD);
         vr.setExecutionState(VerificationExecutionState.TODO);
         EList<ResultIssue> _issues = vr.getIssues();
         _issues.clear();
       }
     };
-    IterableExtensions.<VerificationActivityResult>forEach(vrlist, _function);
+    IterableExtensions.<VerificationResult>forEach(vrlist, _function);
   }
   
   /**
@@ -897,34 +842,36 @@ public class AssureUtilExtension {
    * update the counts to reflect existing own status
    * Used by complete process and set result
    */
-  private static VerificationActivityResult addOwnResultStateToCount(final VerificationActivityResult ar) {
-    VerificationActivityResult _xblockexpression = null;
+  private static AssureResult addOwnResultStateToCount(final AssureResult ar) {
+    AssureResult _xblockexpression = null;
     {
-      VerificationResultState _resultState = ar.getResultState();
-      if (_resultState != null) {
-        switch (_resultState) {
-          case SUCCESS:
-            int _successCount = ar.getSuccessCount();
-            int _plus = (_successCount + 1);
-            ar.setSuccessCount(_plus);
-            break;
-          case FAIL:
-            int _failCount = ar.getFailCount();
-            int _plus_1 = (_failCount + 1);
-            ar.setFailCount(_plus_1);
-            break;
-          case ERROR:
-            int _errorCount = ar.getErrorCount();
-            int _plus_2 = (_errorCount + 1);
-            ar.setErrorCount(_plus_2);
-            break;
-          case TBD:
-            int _tbdCount = ar.getTbdCount();
-            int _plus_3 = (_tbdCount + 1);
-            ar.setTbdCount(_plus_3);
-            break;
-          default:
-            break;
+      if ((ar instanceof VerificationResult)) {
+        VerificationResultState _resultState = ((VerificationResult)ar).getResultState();
+        if (_resultState != null) {
+          switch (_resultState) {
+            case SUCCESS:
+              int _successCount = ((VerificationResult)ar).getSuccessCount();
+              int _plus = (_successCount + 1);
+              ((VerificationResult)ar).setSuccessCount(_plus);
+              break;
+            case FAIL:
+              int _failCount = ((VerificationResult)ar).getFailCount();
+              int _plus_1 = (_failCount + 1);
+              ((VerificationResult)ar).setFailCount(_plus_1);
+              break;
+            case ERROR:
+              int _errorCount = ((VerificationResult)ar).getErrorCount();
+              int _plus_2 = (_errorCount + 1);
+              ((VerificationResult)ar).setErrorCount(_plus_2);
+              break;
+            case TBD:
+              int _tbdCount = ((VerificationResult)ar).getTbdCount();
+              int _plus_3 = (_tbdCount + 1);
+              ((VerificationResult)ar).setTbdCount(_plus_3);
+              break;
+            default:
+              break;
+          }
         }
       }
       _xblockexpression = ar;
@@ -1006,9 +953,9 @@ public class AssureUtilExtension {
     VerificationActivityResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(vaResult);
-      EList<AssumptionResult> _assumptionResult = vaResult.getAssumptionResult();
-      AssureUtilExtension.recomputeAllCounts(vaResult, _assumptionResult);
-      EList<PreconditionResult> _preconditionResult = vaResult.getPreconditionResult();
+      EList<VerificationResult> _validationResult = vaResult.getValidationResult();
+      AssureUtilExtension.recomputeAllCounts(vaResult, _validationResult);
+      EList<VerificationResult> _preconditionResult = vaResult.getPreconditionResult();
       AssureUtilExtension.recomputeAllCounts(vaResult, _preconditionResult);
       AssureUtilExtension.addOwnResultStateToCount(vaResult);
       _xblockexpression = vaResult;
@@ -1023,13 +970,13 @@ public class AssureUtilExtension {
       EList<VerificationExpr> _first = vaResult.getFirst();
       AssureUtilExtension.recomputeAllCounts(vaResult, _first);
       EList<VerificationExpr> _first_1 = vaResult.getFirst();
-      boolean _hasFailedOrError = AssureUtilExtension.hasFailedOrError(_first_1);
-      if (_hasFailedOrError) {
+      boolean _isSuccessFul = AssureUtilExtension.isSuccessFul(_first_1);
+      if (_isSuccessFul) {
+        AssureUtilExtension.recordNoFailThen(vaResult);
+      } else {
         AssureUtilExtension.recordFailThen(vaResult);
         EList<VerificationExpr> _second = vaResult.getSecond();
         AssureUtilExtension.recomputeAllCounts(vaResult, _second);
-      } else {
-        AssureUtilExtension.recordNoFailThen(vaResult);
       }
       _xblockexpression = vaResult;
     }
@@ -1056,13 +1003,12 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  private static AssumptionResult recomputeAllCounts(final AssumptionResult assumptionResult) {
-    AssumptionResult _xblockexpression = null;
+  private static ValidationResult recomputeAllCounts(final ValidationResult validationResult) {
+    ValidationResult _xblockexpression = null;
     {
-      AssureUtilExtension.resetCounts(assumptionResult);
-      EList<VerificationExpr> _verificationActivityResult = assumptionResult.getVerificationActivityResult();
-      AssureUtilExtension.recomputeAllCounts(assumptionResult, _verificationActivityResult);
-      _xblockexpression = assumptionResult;
+      AssureUtilExtension.resetCounts(validationResult);
+      AssureUtilExtension.addOwnResultStateToCount(validationResult);
+      _xblockexpression = validationResult;
     }
     return _xblockexpression;
   }
@@ -1071,8 +1017,7 @@ public class AssureUtilExtension {
     PreconditionResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(preconditionResult);
-      EList<VerificationExpr> _verificationActivityResult = preconditionResult.getVerificationActivityResult();
-      AssureUtilExtension.recomputeAllCounts(preconditionResult, _verificationActivityResult);
+      AssureUtilExtension.addOwnResultStateToCount(preconditionResult);
       _xblockexpression = preconditionResult;
     }
     return _xblockexpression;
@@ -1094,6 +1039,18 @@ public class AssureUtilExtension {
       }
     }
     if (!_matched) {
+      if (assureResult instanceof ValidationResult) {
+        _matched=true;
+        _switchResult = AssureUtilExtension.recomputeAllCounts(((ValidationResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof PreconditionResult) {
+        _matched=true;
+        _switchResult = AssureUtilExtension.recomputeAllCounts(((PreconditionResult)assureResult));
+      }
+    }
+    if (!_matched) {
       if (assureResult instanceof VerificationActivityResult) {
         _matched=true;
         _switchResult = AssureUtilExtension.recomputeAllCounts(((VerificationActivityResult)assureResult));
@@ -1111,18 +1068,6 @@ public class AssureUtilExtension {
         _switchResult = AssureUtilExtension.recomputeAllCounts(((AndThenResult)assureResult));
       }
     }
-    if (!_matched) {
-      if (assureResult instanceof AssumptionResult) {
-        _matched=true;
-        _switchResult = AssureUtilExtension.recomputeAllCounts(((AssumptionResult)assureResult));
-      }
-    }
-    if (!_matched) {
-      if (assureResult instanceof PreconditionResult) {
-        _matched=true;
-        _switchResult = AssureUtilExtension.recomputeAllCounts(((PreconditionResult)assureResult));
-      }
-    }
     return _switchResult;
   }
   
@@ -1130,14 +1075,14 @@ public class AssureUtilExtension {
    * methods to incrementally set the state of a verification activity and propagate the state change
    * up the hierarchy
    */
-  public static void setToSuccess(final VerificationActivityResult verificationActivityResult) {
+  public static void setToSuccess(final VerificationResult verificationActivityResult) {
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.SUCCESS);
     if (_updateOwnResultState) {
       AssureUtilExtension.propagateCountChangeUp(verificationActivityResult);
     }
   }
   
-  public static void setToSuccess(final VerificationActivityResult verificationActivityResult, final List<ResultIssue> rl) {
+  public static void setToSuccess(final VerificationResult verificationActivityResult, final List<ResultIssue> rl) {
     EList<ResultIssue> _issues = verificationActivityResult.getIssues();
     _issues.addAll(rl);
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.SUCCESS);
@@ -1146,21 +1091,21 @@ public class AssureUtilExtension {
     }
   }
   
-  public static void setToTBD(final VerificationActivityResult verificationActivityResult) {
+  public static void setToTBD(final VerificationResult verificationActivityResult) {
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.TBD);
     if (_updateOwnResultState) {
       AssureUtilExtension.propagateCountChangeUp(verificationActivityResult);
     }
   }
   
-  public static void setToFail(final VerificationActivityResult verificationActivityResult) {
+  public static void setToFail(final VerificationResult verificationActivityResult) {
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
     if (_updateOwnResultState) {
       AssureUtilExtension.propagateCountChangeUp(verificationActivityResult);
     }
   }
   
-  public static void setToFail(final VerificationActivityResult verificationActivityResult, final String message) {
+  public static void setToFail(final VerificationResult verificationActivityResult, final String message) {
     AssureUtilExtension.addErrorIssue(verificationActivityResult, null, message, null);
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
     if (_updateOwnResultState) {
@@ -1168,7 +1113,7 @@ public class AssureUtilExtension {
     }
   }
   
-  public static void setToFail(final VerificationActivityResult verificationActivityResult, final List<ResultIssue> rl) {
+  public static void setToFail(final VerificationResult verificationActivityResult, final List<ResultIssue> rl) {
     EList<ResultIssue> _issues = verificationActivityResult.getIssues();
     _issues.addAll(rl);
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
@@ -1177,7 +1122,7 @@ public class AssureUtilExtension {
     }
   }
   
-  public static void setToFail(final VerificationActivityResult verificationActivityResult, final EObject target, final String message) {
+  public static void setToFail(final VerificationResult verificationActivityResult, final EObject target, final String message) {
     AssureUtilExtension.addErrorIssue(verificationActivityResult, target, message, null);
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
     if (_updateOwnResultState) {
@@ -1185,7 +1130,7 @@ public class AssureUtilExtension {
     }
   }
   
-  public static void setToFail(final VerificationActivityResult verificationActivityResult, final Throwable e) {
+  public static void setToFail(final VerificationResult verificationActivityResult, final Throwable e) {
     String _message = e.getMessage();
     Class<? extends Throwable> _class = e.getClass();
     String _name = _class.getName();
@@ -1196,7 +1141,7 @@ public class AssureUtilExtension {
     }
   }
   
-  public static void setToError(final VerificationActivityResult verificationActivityResult, final Throwable e) {
+  public static void setToError(final VerificationResult verificationActivityResult, final Throwable e) {
     String _message = e.getMessage();
     Class<? extends Throwable> _class = e.getClass();
     String _name = _class.getName();
@@ -1207,7 +1152,7 @@ public class AssureUtilExtension {
     }
   }
   
-  public static void setToError(final VerificationActivityResult verificationActivityResult, final String message) {
+  public static void setToError(final VerificationResult verificationActivityResult, final String message) {
     AssureUtilExtension.addErrorIssue(verificationActivityResult, null, message, null);
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
     if (_updateOwnResultState) {
@@ -1220,10 +1165,10 @@ public class AssureUtilExtension {
    * returns true if change of state
    */
   public static void recordFailThen(final FailThenResult result) {
-    boolean _isDidFailThenFail = result.isDidFailThenFail();
-    if (_isDidFailThenFail) {
+    boolean _isDidFail = result.isDidFail();
+    if (_isDidFail) {
     } else {
-      result.setDidFailThenFail(true);
+      result.setDidFail(true);
       int _failthenCount = result.getFailthenCount();
       int _plus = (_failthenCount + 1);
       result.setFailthenCount(_plus);
@@ -1236,9 +1181,9 @@ public class AssureUtilExtension {
    * returns true if change of state
    */
   public static void recordNoFailThen(final FailThenResult result) {
-    boolean _isDidFailThenFail = result.isDidFailThenFail();
-    if (_isDidFailThenFail) {
-      result.setDidFailThenFail(false);
+    boolean _isDidFail = result.isDidFail();
+    if (_isDidFail) {
+      result.setDidFail(false);
       int _failthenCount = result.getFailthenCount();
       int _minus = (_failthenCount - 1);
       result.setFailthenCount(_minus);
@@ -1283,7 +1228,7 @@ public class AssureUtilExtension {
    * set the status and update the counts
    * true if state changed
    */
-  private static boolean updateOwnResultState(final VerificationActivityResult ar, final VerificationResultState newState) {
+  private static boolean updateOwnResultState(final VerificationResult ar, final VerificationResultState newState) {
     boolean _xblockexpression = false;
     {
       VerificationResultState _resultState = ar.getResultState();
@@ -1382,23 +1327,24 @@ public class AssureUtilExtension {
   /**
    * recompute the result count from the part list counts without recursing
    */
-  private static void addAllSubCounts(final AssureResult result, final List<? extends AssureResult> parts) {
-    final Procedure1<AssureResult> _function = new Procedure1<AssureResult>() {
-      public void apply(final AssureResult e) {
-        AssureUtilExtension.addTo(e, result);
-      }
-    };
-    IterableExtensions.forEach(parts, _function);
-  }
-  
   private static CaseResult addAllSubCounts(final CaseResult caseResult) {
     CaseResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(caseResult);
       EList<ClaimResult> _claimResult = caseResult.getClaimResult();
-      AssureUtilExtension.addAllSubCounts(caseResult, _claimResult);
+      final Procedure1<ClaimResult> _function = new Procedure1<ClaimResult>() {
+        public void apply(final ClaimResult e) {
+          AssureUtilExtension.addTo(e, caseResult);
+        }
+      };
+      IterableExtensions.<ClaimResult>forEach(_claimResult, _function);
       EList<CaseResult> _subCaseResult = caseResult.getSubCaseResult();
-      AssureUtilExtension.addAllSubCounts(caseResult, _subCaseResult);
+      final Procedure1<CaseResult> _function_1 = new Procedure1<CaseResult>() {
+        public void apply(final CaseResult e) {
+          AssureUtilExtension.addTo(e, caseResult);
+        }
+      };
+      IterableExtensions.<CaseResult>forEach(_subCaseResult, _function_1);
       _xblockexpression = caseResult;
     }
     return _xblockexpression;
@@ -1409,9 +1355,19 @@ public class AssureUtilExtension {
     {
       AssureUtilExtension.resetCounts(claimResult);
       EList<VerificationExpr> _verificationActivityResult = claimResult.getVerificationActivityResult();
-      AssureUtilExtension.addAllSubCounts(claimResult, _verificationActivityResult);
+      final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
+        public void apply(final VerificationExpr e) {
+          AssureUtilExtension.addTo(e, claimResult);
+        }
+      };
+      IterableExtensions.<VerificationExpr>forEach(_verificationActivityResult, _function);
       EList<ClaimResult> _subClaimResult = claimResult.getSubClaimResult();
-      AssureUtilExtension.addAllSubCounts(claimResult, _subClaimResult);
+      final Procedure1<ClaimResult> _function_1 = new Procedure1<ClaimResult>() {
+        public void apply(final ClaimResult e) {
+          AssureUtilExtension.addTo(e, claimResult);
+        }
+      };
+      IterableExtensions.<ClaimResult>forEach(_subClaimResult, _function_1);
       _xblockexpression = claimResult;
     }
     return _xblockexpression;
@@ -1421,10 +1377,20 @@ public class AssureUtilExtension {
     VerificationActivityResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(vaResult);
-      EList<AssumptionResult> _assumptionResult = vaResult.getAssumptionResult();
-      AssureUtilExtension.addAllSubCounts(vaResult, _assumptionResult);
-      EList<PreconditionResult> _preconditionResult = vaResult.getPreconditionResult();
-      AssureUtilExtension.addAllSubCounts(vaResult, _preconditionResult);
+      EList<VerificationResult> _validationResult = vaResult.getValidationResult();
+      final Procedure1<VerificationResult> _function = new Procedure1<VerificationResult>() {
+        public void apply(final VerificationResult e) {
+          AssureUtilExtension.addTo(e, vaResult);
+        }
+      };
+      IterableExtensions.<VerificationResult>forEach(_validationResult, _function);
+      EList<VerificationResult> _preconditionResult = vaResult.getPreconditionResult();
+      final Procedure1<VerificationResult> _function_1 = new Procedure1<VerificationResult>() {
+        public void apply(final VerificationResult e) {
+          AssureUtilExtension.addTo(e, vaResult);
+        }
+      };
+      IterableExtensions.<VerificationResult>forEach(_preconditionResult, _function_1);
       AssureUtilExtension.addOwnResultStateToCount(vaResult);
       _xblockexpression = vaResult;
     }
@@ -1436,15 +1402,25 @@ public class AssureUtilExtension {
     {
       AssureUtilExtension.resetCounts(vaResult);
       EList<VerificationExpr> _first = vaResult.getFirst();
-      AssureUtilExtension.addAllSubCounts(vaResult, _first);
+      final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
+        public void apply(final VerificationExpr e) {
+          AssureUtilExtension.addTo(e, vaResult);
+        }
+      };
+      IterableExtensions.<VerificationExpr>forEach(_first, _function);
       EList<VerificationExpr> _first_1 = vaResult.getFirst();
-      boolean _hasFailedOrError = AssureUtilExtension.hasFailedOrError(_first_1);
-      if (_hasFailedOrError) {
+      boolean _isSuccessFul = AssureUtilExtension.isSuccessFul(_first_1);
+      if (_isSuccessFul) {
+        AssureUtilExtension.recordNoFailThen(vaResult);
+      } else {
         AssureUtilExtension.recordFailThen(vaResult);
         EList<VerificationExpr> _second = vaResult.getSecond();
-        AssureUtilExtension.addAllSubCounts(vaResult, _second);
-      } else {
-        AssureUtilExtension.recordNoFailThen(vaResult);
+        final Procedure1<VerificationExpr> _function_1 = new Procedure1<VerificationExpr>() {
+          public void apply(final VerificationExpr e) {
+            AssureUtilExtension.addTo(e, vaResult);
+          }
+        };
+        IterableExtensions.<VerificationExpr>forEach(_second, _function_1);
       }
       _xblockexpression = vaResult;
     }
@@ -1456,13 +1432,23 @@ public class AssureUtilExtension {
     {
       AssureUtilExtension.resetCounts(vaResult);
       EList<VerificationExpr> _first = vaResult.getFirst();
-      AssureUtilExtension.addAllSubCounts(vaResult, _first);
+      final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
+        public void apply(final VerificationExpr e) {
+          AssureUtilExtension.addTo(e, vaResult);
+        }
+      };
+      IterableExtensions.<VerificationExpr>forEach(_first, _function);
       EList<VerificationExpr> _first_1 = vaResult.getFirst();
       boolean _isSuccessFul = AssureUtilExtension.isSuccessFul(_first_1);
       if (_isSuccessFul) {
         AssureUtilExtension.recordSkip(vaResult);
         EList<VerificationExpr> _second = vaResult.getSecond();
-        AssureUtilExtension.addAllSubCounts(vaResult, _second);
+        final Procedure1<VerificationExpr> _function_1 = new Procedure1<VerificationExpr>() {
+          public void apply(final VerificationExpr e) {
+            AssureUtilExtension.addTo(e, vaResult);
+          }
+        };
+        IterableExtensions.<VerificationExpr>forEach(_second, _function_1);
       } else {
         AssureUtilExtension.recordNoSkip(vaResult);
       }
@@ -1471,13 +1457,12 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  private static AssumptionResult addAllSubCounts(final AssumptionResult assumptionResult) {
-    AssumptionResult _xblockexpression = null;
+  private static ValidationResult addAllSubCounts(final ValidationResult validationResult) {
+    ValidationResult _xblockexpression = null;
     {
-      AssureUtilExtension.resetCounts(assumptionResult);
-      EList<VerificationExpr> _verificationActivityResult = assumptionResult.getVerificationActivityResult();
-      AssureUtilExtension.addAllSubCounts(assumptionResult, _verificationActivityResult);
-      _xblockexpression = assumptionResult;
+      AssureUtilExtension.resetCounts(validationResult);
+      AssureUtilExtension.addOwnResultStateToCount(validationResult);
+      _xblockexpression = validationResult;
     }
     return _xblockexpression;
   }
@@ -1486,8 +1471,7 @@ public class AssureUtilExtension {
     PreconditionResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(preconditionResult);
-      EList<VerificationExpr> _verificationActivityResult = preconditionResult.getVerificationActivityResult();
-      AssureUtilExtension.addAllSubCounts(preconditionResult, _verificationActivityResult);
+      AssureUtilExtension.addOwnResultStateToCount(preconditionResult);
       _xblockexpression = preconditionResult;
     }
     return _xblockexpression;
@@ -1509,6 +1493,18 @@ public class AssureUtilExtension {
       }
     }
     if (!_matched) {
+      if (assureResult instanceof ValidationResult) {
+        _matched=true;
+        _switchResult = AssureUtilExtension.addAllSubCounts(((ValidationResult)assureResult));
+      }
+    }
+    if (!_matched) {
+      if (assureResult instanceof PreconditionResult) {
+        _matched=true;
+        _switchResult = AssureUtilExtension.addAllSubCounts(((PreconditionResult)assureResult));
+      }
+    }
+    if (!_matched) {
       if (assureResult instanceof VerificationActivityResult) {
         _matched=true;
         _switchResult = AssureUtilExtension.addAllSubCounts(((VerificationActivityResult)assureResult));
@@ -1524,18 +1520,6 @@ public class AssureUtilExtension {
       if (assureResult instanceof AndThenResult) {
         _matched=true;
         _switchResult = AssureUtilExtension.addAllSubCounts(((AndThenResult)assureResult));
-      }
-    }
-    if (!_matched) {
-      if (assureResult instanceof AssumptionResult) {
-        _matched=true;
-        _switchResult = AssureUtilExtension.addAllSubCounts(((AssumptionResult)assureResult));
-      }
-    }
-    if (!_matched) {
-      if (assureResult instanceof PreconditionResult) {
-        _matched=true;
-        _switchResult = AssureUtilExtension.addAllSubCounts(((PreconditionResult)assureResult));
       }
     }
     return _switchResult;
@@ -1593,46 +1577,10 @@ public class AssureUtilExtension {
         }
       }
       if (!_matched) {
-        if (ar instanceof VerificationActivityResult) {
-          _matched=true;
-          VerificationActivity _target = ((VerificationActivityResult)ar).getTarget();
-          String _title = null;
-          if (_target!=null) {
-            _title=_target.getTitle();
-          }
-          final String vatitle = _title;
-          VerificationActivity _target_1 = ((VerificationActivityResult)ar).getTarget();
-          VerificationMethod _method = null;
-          if (_target_1!=null) {
-            _method=_target_1.getMethod();
-          }
-          String _title_1 = null;
-          if (_method!=null) {
-            _title_1=_method.getTitle();
-          }
-          final String vmtitle = _title_1;
-          String _name = ((VerificationActivityResult)ar).getName();
-          String _plus = (_name + ":");
-          String _elvis = null;
-          String _elvis_1 = null;
-          if (vatitle != null) {
-            _elvis_1 = vatitle;
-          } else {
-            _elvis_1 = vmtitle;
-          }
-          if (_elvis_1 != null) {
-            _elvis = _elvis_1;
-          } else {
-            _elvis = "";
-          }
-          return (_plus + _elvis);
-        }
-      }
-      if (!_matched) {
-        if (ar instanceof AssumptionResult) {
+        if (ar instanceof ValidationResult) {
           _matched=true;
           String _elvis = null;
-          VerificationAssumption _target = ((AssumptionResult)ar).getTarget();
+          VerificationValidation _target = ((ValidationResult)ar).getTarget();
           String _title = null;
           if (_target!=null) {
             _title=_target.getTitle();
@@ -1640,7 +1588,7 @@ public class AssureUtilExtension {
           if (_title != null) {
             _elvis = _title;
           } else {
-            String _name = ((AssumptionResult)ar).getName();
+            String _name = ((ValidationResult)ar).getName();
             _elvis = _name;
           }
           return _elvis;
@@ -1662,6 +1610,26 @@ public class AssureUtilExtension {
             _elvis = _name;
           }
           return _elvis;
+        }
+      }
+      if (!_matched) {
+        if (ar instanceof VerificationActivityResult) {
+          _matched=true;
+          VerificationActivity _target = ((VerificationActivityResult)ar).getTarget();
+          String _title = null;
+          if (_target!=null) {
+            _title=_target.getTitle();
+          }
+          final String vatitle = _title;
+          String _name = ((VerificationActivityResult)ar).getName();
+          String _plus = (_name + ":");
+          String _elvis = null;
+          if (vatitle != null) {
+            _elvis = vatitle;
+          } else {
+            _elvis = "";
+          }
+          return (_plus + _elvis);
         }
       }
       _xblockexpression = "";
@@ -1722,7 +1690,7 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  public static String constructMessage(final AssumptionResult cr) {
+  public static String constructMessage(final ValidationResult cr) {
     String _xblockexpression = null;
     {
       String _message = cr.getMessage();
@@ -1730,7 +1698,7 @@ public class AssureUtilExtension {
       if (_notEquals) {
         return cr.getMessage();
       }
-      final VerificationAssumption r = cr.getTarget();
+      final VerificationValidation r = cr.getTarget();
       Description _description = r.getDescription();
       boolean _notEquals_1 = (!Objects.equal(_description, null));
       if (_notEquals_1) {

@@ -40,28 +40,31 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.alisa.common.scoping.CommonGlobalScopeProvider;
 import org.osate.assure.assure.AssureFactory;
 import org.osate.assure.assure.ResultIssue;
-import org.osate.assure.assure.VerificationActivityResult;
+import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.assure.util.IVerificationMethodDispatcher;
+import org.osate.results.results.ResultReport;
+import org.osate.verify.verify.SupportedReporting;
 import org.osate.verify.verify.SupportedTypes;
-import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 @SuppressWarnings("all")
 public class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
-  public Object dispatchVerificationMethod(final String methodPath, final VerificationActivityResult vr) {
+  public Object dispatchVerificationMethod(final VerificationMethod vm, final VerificationResult vr) {
+    String _name = vm.getName();
+    String _plus = ("Dispatching " + _name);
+    String _plus_1 = (_plus + " on ");
     InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(vr);
     String _qualifiedName = _claimSubject.getQualifiedName();
-    String _plus = ((("Dispatching " + methodPath) + " on ") + _qualifiedName);
-    InputOutput.<String>println(_plus);
+    String _plus_2 = (_plus_1 + _qualifiedName);
+    InputOutput.<String>println(_plus_2);
     return null;
   }
   
@@ -69,18 +72,20 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
    * who needs to understand the method types?
    * the runVerificationMethod dispatcher may do different catch methods
    * The dispatchVerificationMethod may know from its label what type it is.
+   * The methods are expected to return boolean for predicate,
+   * null or bool for analysis with results in marker/diagnostic, or the result report object
    */
-  public void runVerificationMethod(final VerificationActivityResult verificationActivityResult) {
+  public void runVerificationMethod(final VerificationResult verificationResult) {
     try {
-      VerificationActivity _target = verificationActivityResult.getTarget();
-      final VerificationMethod method = _target.getMethod();
-      final String methodpath = method.getMethodPath();
-      SupportedTypes _methodType = method.getMethodType();
-      if (_methodType != null) {
-        switch (_methodType) {
-          case SINGLEPREDICATE:
-            try {
-              final Object res = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
+      final VerificationMethod method = AssureUtilExtension.getMethod(verificationResult);
+      Object res = null;
+      try {
+        SupportedTypes _methodType = method.getMethodType();
+        if (_methodType != null) {
+          switch (_methodType) {
+            case PREDICATE:
+              Object _dispatchVerificationMethod = this.dispatchVerificationMethod(method, verificationResult);
+              res = _dispatchVerificationMethod;
               boolean _and = false;
               boolean _and_1 = false;
               boolean _notEquals = (!Objects.equal(res, null));
@@ -96,200 +101,133 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
                 _and = _notEquals_1;
               }
               if (_and) {
-                AssureUtilExtension.setToFail(verificationActivityResult, "");
+                AssureUtilExtension.setToFail(verificationResult, "");
               } else {
-                AssureUtilExtension.setToSuccess(verificationActivityResult);
+                AssureUtilExtension.setToSuccess(verificationResult);
               }
-            } catch (final Throwable _t) {
-              if (_t instanceof AssertionError) {
-                final AssertionError e = (AssertionError)_t;
-                AssureUtilExtension.setToFail(verificationActivityResult, e);
-              } else if (_t instanceof ThreadDeath) {
-                final ThreadDeath e_1 = (ThreadDeath)_t;
-                throw e_1;
-              } else if (_t instanceof Throwable) {
-                final Throwable e_2 = (Throwable)_t;
-                AssureUtilExtension.setToError(verificationActivityResult, e_2);
-              } else {
-                throw Exceptions.sneakyThrow(_t);
-              }
-            }
-            break;
-          case SINGLEANALYSIS:
-            try {
-              final Object res_1 = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
-              InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(verificationActivityResult);
-              String _string = this.toString(res_1);
-              String _plus = ("Need to compare analysis result " + _string);
-              AssureUtilExtension.addInfoIssue(verificationActivityResult, _claimSubject, _plus);
-              boolean _and_2 = false;
-              boolean _and_3 = false;
-              boolean _notEquals_2 = (!Objects.equal(res_1, null));
-              if (!_notEquals_2) {
-                _and_3 = false;
-              } else {
-                _and_3 = (res_1 instanceof Boolean);
-              }
-              if (!_and_3) {
-                _and_2 = false;
-              } else {
-                boolean _notEquals_3 = (!Objects.equal(res_1, Boolean.valueOf(true)));
-                _and_2 = _notEquals_3;
-              }
-              if (_and_2) {
-                AssureUtilExtension.setToFail(verificationActivityResult, "");
-              } else {
-                AssureUtilExtension.setToSuccess(verificationActivityResult);
-              }
-            } catch (final Throwable _t_1) {
-              if (_t_1 instanceof AssertionError) {
-                final AssertionError e_3 = (AssertionError)_t_1;
-                AssureUtilExtension.setToFail(verificationActivityResult, e_3);
-              } else if (_t_1 instanceof ThreadDeath) {
-                final ThreadDeath e_4 = (ThreadDeath)_t_1;
-                throw e_4;
-              } else if (_t_1 instanceof Throwable) {
-                final Throwable e_5 = (Throwable)_t_1;
-                AssureUtilExtension.setToError(verificationActivityResult, e_5);
-              } else {
-                throw Exceptions.sneakyThrow(_t_1);
-              }
-            }
-            break;
-          case ASSERTIONEXCEPTION:
-            try {
-              final Object res_2 = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
-              AssureUtilExtension.setToSuccess(verificationActivityResult);
-            } catch (final Throwable _t_2) {
-              if (_t_2 instanceof AssertionError) {
-                final AssertionError e_6 = (AssertionError)_t_2;
-                AssureUtilExtension.setToFail(verificationActivityResult, e_6);
-              } else if (_t_2 instanceof ThreadDeath) {
-                final ThreadDeath e_7 = (ThreadDeath)_t_2;
-                throw e_7;
-              } else if (_t_2 instanceof Throwable) {
-                final Throwable e_8 = (Throwable)_t_2;
-                AssureUtilExtension.setToError(verificationActivityResult, e_8);
-              } else {
-                throw Exceptions.sneakyThrow(_t_2);
-              }
-            }
-            break;
-          case MULTIMARKER:
-            try {
-              Object _dispatchVerificationMethod = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
-              final String res_3 = ((String) _dispatchVerificationMethod);
-              final InstanceObject subject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
-              final boolean errors = AssureUtilExtension.addAllMarkers(verificationActivityResult, subject, res_3);
-              if (errors) {
-                AssureUtilExtension.setToFail(verificationActivityResult);
-              } else {
-                AssureUtilExtension.setToSuccess(verificationActivityResult);
-              }
-            } catch (final Throwable _t_3) {
-              if (_t_3 instanceof AssertionError) {
-                final AssertionError e_9 = (AssertionError)_t_3;
-                AssureUtilExtension.setToFail(verificationActivityResult, e_9);
-              } else if (_t_3 instanceof ThreadDeath) {
-                final ThreadDeath e_10 = (ThreadDeath)_t_3;
-                throw e_10;
-              } else if (_t_3 instanceof Throwable) {
-                final Throwable e_11 = (Throwable)_t_3;
-                AssureUtilExtension.setToError(verificationActivityResult, e_11);
-              } else {
-                throw Exceptions.sneakyThrow(_t_3);
-              }
-            }
-            break;
-          case OWNMULTIMARKER:
-            try {
-              Object _dispatchVerificationMethod_1 = this.dispatchVerificationMethod(methodpath, verificationActivityResult);
-              final String res_4 = ((String) _dispatchVerificationMethod_1);
-              final InstanceObject subject_1 = AssureUtilExtension.getCaseSubject(verificationActivityResult);
-              boolean _switchResult_1 = false;
+              break;
+            case ANALYSIS:
+              Object _dispatchVerificationMethod_1 = this.dispatchVerificationMethod(method, verificationResult);
+              res = _dispatchVerificationMethod_1;
+              SupportedReporting _reporting = method.getReporting();
               boolean _matched = false;
               if (!_matched) {
-                if (subject_1 instanceof ComponentInstance) {
+                if (Objects.equal(_reporting, SupportedReporting.ASSERTEXCEPTION)) {
                   _matched=true;
-                  _switchResult_1 = AssureUtilExtension.addAllDirectErrorMarkers(verificationActivityResult, subject_1, res_4);
                 }
               }
               if (!_matched) {
-                if (subject_1 instanceof InstanceObject) {
+                if (Objects.equal(_reporting, SupportedReporting.DIAGNOSTICS)) {
                   _matched=true;
-                  _switchResult_1 = AssureUtilExtension.addErrorMarkers(verificationActivityResult, subject_1, res_4);
                 }
               }
-              final boolean errors_1 = _switchResult_1;
-              if (errors_1) {
-                AssureUtilExtension.setToFail(verificationActivityResult, "");
-              } else {
-                AssureUtilExtension.setToSuccess(verificationActivityResult);
+              if (!_matched) {
+                if (Objects.equal(_reporting, null)) {
+                  _matched=true;
+                }
+                if (!_matched) {
+                  if (Objects.equal(_reporting, SupportedReporting.ERRORMARKER)) {
+                    _matched=true;
+                  }
+                }
+                if (!_matched) {
+                  if (Objects.equal(_reporting, SupportedReporting.MARKER)) {
+                    _matched=true;
+                  }
+                }
+                if (_matched) {
+                  if ((res instanceof String)) {
+                    final InstanceObject subject = AssureUtilExtension.getCaseSubject(verificationResult);
+                    final boolean errors = AssureUtilExtension.addMarkers(verificationResult, subject, ((String)res), method);
+                    if (errors) {
+                      AssureUtilExtension.setToFail(verificationResult, "");
+                    } else {
+                      AssureUtilExtension.setToSuccess(verificationResult);
+                    }
+                  } else {
+                    AssureUtilExtension.setToFail(verificationResult, "Analysis return type is not a string of MarkerType");
+                  }
+                }
               }
-            } catch (final Throwable _t_4) {
-              if (_t_4 instanceof AssertionError) {
-                final AssertionError e_12 = (AssertionError)_t_4;
-                AssureUtilExtension.setToFail(verificationActivityResult, e_12);
-              } else if (_t_4 instanceof ThreadDeath) {
-                final ThreadDeath e_13 = (ThreadDeath)_t_4;
-                throw e_13;
-              } else if (_t_4 instanceof Throwable) {
-                final Throwable e_14 = (Throwable)_t_4;
-                AssureUtilExtension.setToError(verificationActivityResult, e_14);
-              } else {
-                throw Exceptions.sneakyThrow(_t_4);
+              if (!_matched) {
+                if (Objects.equal(_reporting, SupportedReporting.RESULTREPORT)) {
+                  _matched=true;
+                  if ((res instanceof ResultReport)) {
+                    verificationResult.setResultReport(((ResultReport)res));
+                  } else {
+                    AssureUtilExtension.setToFail(verificationResult, "No result report from analysis");
+                  }
+                }
               }
-            }
-            break;
-          case RESOLUTEPROVE:
-            InstanceObject _caseSubject = AssureUtilExtension.getCaseSubject(verificationActivityResult);
-            final SystemInstance si = _caseSubject.getSystemInstance();
-            Map<String, SortedSet<NamedElement>> _sets = AssureUtilExtension.getSets();
-            FeatureToConnectionsMap _featToConnsMap = AssureUtilExtension.getFeatToConnsMap();
-            final EvaluationContext context = new EvaluationContext(si, _sets, _featToConnsMap);
-            final ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-            final ProveStatement provecall = this.createWrapperProveCall(verificationActivityResult);
-            boolean _equals = Objects.equal(provecall, null);
-            if (_equals) {
-              String _methodName = AssureUtilExtension.getMethodName(verificationActivityResult);
-              String _plus_1 = ("Could not find Resolute Function \'" + _methodName);
-              String _plus_2 = (_plus_1 + "\'");
-              AssureUtilExtension.setToError(verificationActivityResult, _plus_2);
-              return;
-            }
-            ResoluteResult _evaluateProveStatement = interpreter.evaluateProveStatement(provecall);
-            final ClaimResult proof = ((ClaimResult) _evaluateProveStatement);
-            boolean _isValid = proof.isValid();
-            if (_isValid) {
-              AssureUtilExtension.setToSuccess(verificationActivityResult);
-            } else {
-              final ResultIssue proveri = AssureFactory.eINSTANCE.createResultIssue();
-              AssureUtilExtension.doResoluteResults(proof, proveri);
-              EList<ResultIssue> _issues = proveri.getIssues();
-              AssureUtilExtension.setToFail(verificationActivityResult, _issues);
-            }
-            break;
-          case MANUAL:
-            break;
-          case MULTIDIAGNOSTICS:
-            break;
-          case RESULTREPORT:
-            break;
-          default:
-            break;
+              break;
+            case COMPUTE:
+              Object _dispatchVerificationMethod_2 = this.dispatchVerificationMethod(method, verificationResult);
+              res = _dispatchVerificationMethod_2;
+              InstanceObject _claimSubject = AssureUtilExtension.getClaimSubject(verificationResult);
+              String _string = this.toString(res);
+              String _plus = ("Need to compare analysis result " + _string);
+              AssureUtilExtension.addInfoIssue(verificationResult, _claimSubject, _plus);
+              break;
+            case RESOLUTEPROVE:
+              InstanceObject _caseSubject = AssureUtilExtension.getCaseSubject(verificationResult);
+              final SystemInstance si = _caseSubject.getSystemInstance();
+              Map<String, SortedSet<NamedElement>> _sets = AssureUtilExtension.getSets();
+              FeatureToConnectionsMap _featToConnsMap = AssureUtilExtension.getFeatToConnsMap();
+              final EvaluationContext context = new EvaluationContext(si, _sets, _featToConnsMap);
+              final ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
+              final ProveStatement provecall = this.createWrapperProveCall(verificationResult);
+              boolean _equals = Objects.equal(provecall, null);
+              if (_equals) {
+                VerificationMethod _method = AssureUtilExtension.getMethod(verificationResult);
+                String _name = _method.getName();
+                String _plus_1 = ("Could not find Resolute Function " + _name);
+                AssureUtilExtension.setToError(verificationResult, _plus_1);
+              } else {
+                ResoluteResult _evaluateProveStatement = interpreter.evaluateProveStatement(provecall);
+                final ClaimResult proof = ((ClaimResult) _evaluateProveStatement);
+                boolean _isValid = proof.isValid();
+                if (_isValid) {
+                  AssureUtilExtension.setToSuccess(verificationResult);
+                } else {
+                  final ResultIssue proveri = AssureFactory.eINSTANCE.createResultIssue();
+                  AssureUtilExtension.doResoluteResults(proof, proveri);
+                  EList<ResultIssue> _issues = proveri.getIssues();
+                  AssureUtilExtension.setToFail(verificationResult, _issues);
+                }
+              }
+              break;
+            case MANUAL:
+              break;
+            default:
+              break;
+          }
+        }
+      } catch (final Throwable _t) {
+        if (_t instanceof AssertionError) {
+          final AssertionError e = (AssertionError)_t;
+          AssureUtilExtension.setToFail(verificationResult, e);
+        } else if (_t instanceof ThreadDeath) {
+          final ThreadDeath e_1 = (ThreadDeath)_t;
+          throw e_1;
+        } else if (_t instanceof Throwable) {
+          final Throwable e_2 = (Throwable)_t;
+          AssureUtilExtension.setToError(verificationResult, e_2);
+        } else {
+          throw Exceptions.sneakyThrow(_t);
         }
       }
-      Resource _eResource = verificationActivityResult.eResource();
+      Resource _eResource = verificationResult.eResource();
       _eResource.save(null);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
   
-  public ProveStatement createWrapperProveCall(final VerificationActivityResult vr) {
+  public ProveStatement createWrapperProveCall(final VerificationResult vr) {
     ProveStatement _xblockexpression = null;
     {
-      final String resoluteFunction = AssureUtilExtension.getMethodName(vr);
+      VerificationMethod _method = AssureUtilExtension.getMethod(vr);
+      final String resoluteFunction = _method.getMethodPath();
       final ResoluteFactory factory = ResoluteFactory.eINSTANCE;
       final FunctionDefinition found = this.resolveResoluteFunction(vr, resoluteFunction);
       boolean _equals = Objects.equal(found, null);

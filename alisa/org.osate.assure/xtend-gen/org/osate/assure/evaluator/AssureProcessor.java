@@ -5,14 +5,15 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osate.assure.assure.AndThenResult;
-import org.osate.assure.assure.AssumptionResult;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.FailThenResult;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.ValidationResult;
 import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
+import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.assure.util.IVerificationMethodDispatcher;
@@ -63,21 +64,25 @@ public class AssureProcessor implements IAssureProcessor {
   }
   
   public void doProcess(final VerificationActivityResult vaResult) {
-    EList<AssumptionResult> _assumptionResult = vaResult.getAssumptionResult();
-    final Procedure1<AssumptionResult> _function = new Procedure1<AssumptionResult>() {
-      public void apply(final AssumptionResult assumptionResult) {
+    EList<VerificationResult> _validationResult = vaResult.getValidationResult();
+    final Procedure1<VerificationResult> _function = new Procedure1<VerificationResult>() {
+      public void apply(final VerificationResult assumptionResult) {
         AssureProcessor.this.process(assumptionResult);
       }
     };
-    IterableExtensions.<AssumptionResult>forEach(_assumptionResult, _function);
-    EList<PreconditionResult> _preconditionResult = vaResult.getPreconditionResult();
-    final Procedure1<PreconditionResult> _function_1 = new Procedure1<PreconditionResult>() {
-      public void apply(final PreconditionResult preconditionResult) {
+    IterableExtensions.<VerificationResult>forEach(_validationResult, _function);
+    EList<VerificationResult> _preconditionResult = vaResult.getPreconditionResult();
+    final Procedure1<VerificationResult> _function_1 = new Procedure1<VerificationResult>() {
+      public void apply(final VerificationResult preconditionResult) {
         AssureProcessor.this.process(preconditionResult);
       }
     };
-    IterableExtensions.<PreconditionResult>forEach(_preconditionResult, _function_1);
-    this.dispatcher.runVerificationMethod(vaResult);
+    IterableExtensions.<VerificationResult>forEach(_preconditionResult, _function_1);
+    EList<VerificationResult> _preconditionResult_1 = vaResult.getPreconditionResult();
+    boolean _success = AssureUtilExtension.success(_preconditionResult_1);
+    if (_success) {
+      this.dispatcher.runVerificationMethod(vaResult);
+    }
   }
   
   public void doProcess(final FailThenResult vaResult) {
@@ -88,9 +93,16 @@ public class AssureProcessor implements IAssureProcessor {
       }
     };
     IterableExtensions.<VerificationExpr>forEach(_first, _function);
-    EList<VerificationExpr> _first_1 = vaResult.getFirst();
-    boolean _hasFailedOrError = AssureUtilExtension.hasFailedOrError(_first_1);
-    if (_hasFailedOrError) {
+    boolean _and = false;
+    boolean _isErrorThen = vaResult.isErrorThen();
+    if (!_isErrorThen) {
+      _and = false;
+    } else {
+      EList<VerificationExpr> _first_1 = vaResult.getFirst();
+      boolean _hasError = AssureUtilExtension.hasError(_first_1);
+      _and = _hasError;
+    }
+    if (_and) {
       AssureUtilExtension.recordFailThen(vaResult);
       EList<VerificationExpr> _second = vaResult.getSecond();
       final Procedure1<VerificationExpr> _function_1 = new Procedure1<VerificationExpr>() {
@@ -100,7 +112,40 @@ public class AssureProcessor implements IAssureProcessor {
       };
       IterableExtensions.<VerificationExpr>forEach(_second, _function_1);
     } else {
-      AssureUtilExtension.recordNoFailThen(vaResult);
+      boolean _and_1 = false;
+      boolean _isFailThen = vaResult.isFailThen();
+      if (!_isFailThen) {
+        _and_1 = false;
+      } else {
+        EList<VerificationExpr> _first_2 = vaResult.getFirst();
+        boolean _hasFailed = AssureUtilExtension.hasFailed(_first_2);
+        _and_1 = _hasFailed;
+      }
+      if (_and_1) {
+        AssureUtilExtension.recordFailThen(vaResult);
+        EList<VerificationExpr> _second_1 = vaResult.getSecond();
+        final Procedure1<VerificationExpr> _function_2 = new Procedure1<VerificationExpr>() {
+          public void apply(final VerificationExpr expr) {
+            AssureProcessor.this.process(expr);
+          }
+        };
+        IterableExtensions.<VerificationExpr>forEach(_second_1, _function_2);
+      } else {
+        EList<VerificationExpr> _first_3 = vaResult.getFirst();
+        boolean _hasFailedOrError = AssureUtilExtension.hasFailedOrError(_first_3);
+        if (_hasFailedOrError) {
+          AssureUtilExtension.recordFailThen(vaResult);
+          EList<VerificationExpr> _second_2 = vaResult.getSecond();
+          final Procedure1<VerificationExpr> _function_3 = new Procedure1<VerificationExpr>() {
+            public void apply(final VerificationExpr expr) {
+              AssureProcessor.this.process(expr);
+            }
+          };
+          IterableExtensions.<VerificationExpr>forEach(_second_2, _function_3);
+        } else {
+          AssureUtilExtension.recordNoFailThen(vaResult);
+        }
+      }
     }
   }
   
@@ -128,24 +173,12 @@ public class AssureProcessor implements IAssureProcessor {
     }
   }
   
-  public void doProcess(final AssumptionResult assumptionResult) {
-    EList<VerificationExpr> _verificationActivityResult = assumptionResult.getVerificationActivityResult();
-    final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
-      public void apply(final VerificationExpr vaResult) {
-        AssureProcessor.this.process(vaResult);
-      }
-    };
-    IterableExtensions.<VerificationExpr>forEach(_verificationActivityResult, _function);
+  public void doProcess(final ValidationResult assumptionResult) {
+    this.dispatcher.runVerificationMethod(assumptionResult);
   }
   
   public void doProcess(final PreconditionResult preconditionResult) {
-    EList<VerificationExpr> _verificationActivityResult = preconditionResult.getVerificationActivityResult();
-    final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
-      public void apply(final VerificationExpr vaResult) {
-        AssureProcessor.this.process(vaResult);
-      }
-    };
-    IterableExtensions.<VerificationExpr>forEach(_verificationActivityResult, _function);
+    this.dispatcher.runVerificationMethod(preconditionResult);
   }
   
   public void process(final AssureResult assureResult) {
@@ -181,9 +214,9 @@ public class AssureProcessor implements IAssureProcessor {
       }
     }
     if (!_matched) {
-      if (assureResult instanceof AssumptionResult) {
+      if (assureResult instanceof ValidationResult) {
         _matched=true;
-        this.doProcess(((AssumptionResult)assureResult));
+        this.doProcess(((ValidationResult)assureResult));
       }
     }
     if (!_matched) {

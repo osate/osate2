@@ -104,15 +104,6 @@ public interface VerifyFactory extends EFactory
   ArgumentExpr createArgumentExpr();
 
   /**
-   * Returns a new object of class '<em>Verification Action</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Action</em>'.
-   * @generated
-   */
-  VerificationAction createVerificationAction();
-
-  /**
    * Returns a new object of class '<em>Verification Method Registry</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -131,13 +122,13 @@ public interface VerifyFactory extends EFactory
   VerificationMethod createVerificationMethod();
 
   /**
-   * Returns a new object of class '<em>Verification Assumption</em>'.
+   * Returns a new object of class '<em>Verification Validation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Assumption</em>'.
+   * @return a new object of class '<em>Verification Validation</em>'.
    * @generated
    */
-  VerificationAssumption createVerificationAssumption();
+  VerificationValidation createVerificationValidation();
 
   /**
    * Returns a new object of class '<em>Verification Precondition</em>'.

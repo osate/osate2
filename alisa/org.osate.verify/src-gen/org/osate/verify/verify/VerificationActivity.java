@@ -2,8 +2,12 @@
  */
 package org.osate.verify.verify;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
+
+import org.osate.reqspec.reqSpec.Requirement;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +17,9 @@ import org.osate.alisa.common.common.Description;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getComputeVariable <em>Compute Variable</em>}</li>
@@ -25,8 +32,86 @@ import org.osate.alisa.common.common.Description;
  * @model
  * @generated
  */
-public interface VerificationActivity extends VerificationAction
+public interface VerificationActivity extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Title</em>' attribute.
+   * @see #setTitle(String)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Title()
+   * @model
+   * @generated
+   */
+  String getTitle();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Title</em>' attribute.
+   * @see #getTitle()
+   * @generated
+   */
+  void setTitle(String value);
+
+  /**
+   * Returns the value of the '<em><b>Requirement</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Requirement</em>' reference.
+   * @see #setRequirement(Requirement)
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Requirement()
+   * @model
+   * @generated
+   */
+  Requirement getRequirement();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRequirement <em>Requirement</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Requirement</em>' reference.
+   * @see #getRequirement()
+   * @generated
+   */
+  void setRequirement(Requirement value);
+
   /**
    * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->

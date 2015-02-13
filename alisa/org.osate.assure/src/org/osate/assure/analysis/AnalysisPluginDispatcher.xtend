@@ -6,6 +6,8 @@ import org.osate.assure.util.IVerificationMethodDispatcher
 
 import static extension org.osate.assure.analysis.AnalysisPluginInterface.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.osate.assure.assure.VerificationResult
+import org.osate.verify.verify.VerificationMethod
 
 class AnalysisPluginDispatcher extends DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
@@ -17,9 +19,9 @@ class AnalysisPluginDispatcher extends DefaultVerificationMethodDispatcher imple
 	}
 
 
-	override Object dispatchVerificationMethod(String methodPath, VerificationActivityResult vr) {
+	override Object dispatchVerificationMethod(VerificationMethod vm, VerificationResult vr) {
 		val target = vr.claimSubject
-			switch (methodPath) {
+			switch (vm.methodPath) {
 //				case "org.osate.assure.util.PlatformResourceBudgets.assertSumSubBudgets" : {
 //					if ( target instanceof ComponentInstance) return target.assertSumSubBudgets
 //				}

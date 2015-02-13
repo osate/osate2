@@ -74,10 +74,9 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
-      case VerifyPackage.VERIFICATION_ACTION: return createVerificationAction();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
-      case VerifyPackage.VERIFICATION_ASSUMPTION: return createVerificationAssumption();
+      case VerifyPackage.VERIFICATION_VALIDATION: return createVerificationValidation();
       case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
       case VerifyPackage.ALL_EXPR: return createAllExpr();
       case VerifyPackage.AND_THEN_EXPR: return createAndThenExpr();
@@ -101,6 +100,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
     {
       case VerifyPackage.SUPPORTED_TYPES:
         return createSupportedTypesFromString(eDataType, initialValue);
+      case VerifyPackage.SUPPORTED_SCOPES:
+        return createSupportedScopesFromString(eDataType, initialValue);
+      case VerifyPackage.SUPPORTED_REPORTING:
+        return createSupportedReportingFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -118,6 +121,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
     {
       case VerifyPackage.SUPPORTED_TYPES:
         return convertSupportedTypesToString(eDataType, instanceValue);
+      case VerifyPackage.SUPPORTED_SCOPES:
+        return convertSupportedScopesToString(eDataType, instanceValue);
+      case VerifyPackage.SUPPORTED_REPORTING:
+        return convertSupportedReportingToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -227,17 +234,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationAction createVerificationAction()
-  {
-    VerificationActionImpl verificationAction = new VerificationActionImpl();
-    return verificationAction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public VerificationMethodRegistry createVerificationMethodRegistry()
   {
     VerificationMethodRegistryImpl verificationMethodRegistry = new VerificationMethodRegistryImpl();
@@ -260,10 +256,10 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationAssumption createVerificationAssumption()
+  public VerificationValidation createVerificationValidation()
   {
-    VerificationAssumptionImpl verificationAssumption = new VerificationAssumptionImpl();
-    return verificationAssumption;
+    VerificationValidationImpl verificationValidation = new VerificationValidationImpl();
+    return verificationValidation;
   }
 
   /**
@@ -350,6 +346,50 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * @generated
    */
   public String convertSupportedTypesToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SupportedScopes createSupportedScopesFromString(EDataType eDataType, String initialValue)
+  {
+    SupportedScopes result = SupportedScopes.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertSupportedScopesToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SupportedReporting createSupportedReportingFromString(EDataType eDataType, String initialValue)
+  {
+    SupportedReporting result = SupportedReporting.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertSupportedReportingToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

@@ -21,33 +21,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivityResult"
         upperBound="-1" eType="#//VerificationExpr" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AssumptionResult" eSuperTypes="#//AssureResult">
+  <eClassifiers xsi:type="ecore:EClass" name="VerificationResult" eSuperTypes="#//AssureResult #//VerificationExpr">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationAssumption"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivityResult"
-        upperBound="-1" eType="#//VerificationExpr" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PreconditionResult" eSuperTypes="#//AssureResult">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPrecondition"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivityResult"
-        upperBound="-1" eType="#//VerificationExpr" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VerificationActivityResult" eSuperTypes="#//VerificationExpr">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionState" eType="#//VerificationExecutionState"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultState" eType="#//VerificationResultState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="issues" upperBound="-1"
         eType="#//ResultIssue" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resultReport" eType="ecore:EClass platform:/resource/org.osate.results/model/generated/Results.ecore#//ResultReport"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assumptionResult" upperBound="-1"
-        eType="#//AssumptionResult" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="preconditionResult" upperBound="-1"
-        eType="#//PreconditionResult" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssureResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="successCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
@@ -64,7 +45,9 @@
         eType="#//VerificationExpr" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="second" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didFailThenFail" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="failThen" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="errorThen" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="didFail" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AndThenResult" eSuperTypes="#//VerificationExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="first" upperBound="-1"
@@ -99,5 +82,18 @@
     <eLiterals name="RUNNING" value="1" literal="running"/>
     <eLiterals name="REDO" value="2" literal="redo"/>
     <eLiterals name="COMPLETED" value="3" literal="completed"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValidationResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationValidation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreconditionResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPrecondition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VerificationActivityResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationActivity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validationResult" upperBound="-1"
+        eType="#//VerificationResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preconditionResult" upperBound="-1"
+        eType="#//VerificationResult" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

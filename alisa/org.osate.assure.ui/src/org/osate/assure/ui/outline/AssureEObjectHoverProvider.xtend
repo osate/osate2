@@ -5,9 +5,9 @@ import org.eclipse.emf.ecore.EObject
 import org.osate.assure.assure.CaseResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.AssumptionResult
 import org.osate.assure.assure.PreconditionResult
 import org.osate.assure.assure.ResultIssue
+import org.osate.assure.assure.ValidationResult
 
 class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	override getHoverInfoAsHtml(EObject o){
@@ -15,7 +15,7 @@ class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
 			CaseResult: return o.message?:"No message"
 			ClaimResult: return o.message?:"No message"
 			VerificationActivityResult: return o.message?:"No message"
-			AssumptionResult: return o.message?:"No message"
+			ValidationResult: return o.message?:"No message"
 			PreconditionResult: return o.message?:"No message"
 			ResultIssue: return o.message?:"No message"
 		}

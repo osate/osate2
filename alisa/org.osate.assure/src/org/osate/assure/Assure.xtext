@@ -48,45 +48,11 @@ ClaimResult:
 ;
 
 
-AssumptionResult:
-	'assumption' 	name=ID 
-	'for' target= [Verify::VerificationAssumption|QualifiedName]
+ValidationResult returns VerificationResult:
+	'assumption' {ValidationResult}	name=ID 
+	'for' target= [Verify::VerificationValidation|QualifiedName]
 	'['
-	('successcount'  successCount=INT)?
-	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)? 
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
-	('weight' weight = INT)?
-	('message' message= STRING)?
-	(verificationActivityResult+= VerificationExpr)*
-	']'  
-;
-
-PreconditionResult:
-	'precondition' 	name=ID 
-	'for' target=[Verify::VerificationPrecondition|QualifiedName]
-	'['
-	('successcount'  successCount=INT)?
-	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)?
-	('failthencount' failthenCount=INT)?
-	('andthencount' andthenCount=INT)?
-	('tbdcount' tbdCount=INT)?
-	('weight' weight = INT)?
-	('message' message= STRING)?
-	(verificationActivityResult+= VerificationExpr)*
-	']'  
-;
-
-
-// result of executing a verification activity
-VerificationActivityResult:
-	'verification' 	name=ID 
-	'for' target=[Verify::VerificationActivity|QualifiedName]
-	'['
-	('executionstate'  executionState=VerificationExecutionState)
+	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState
 	('issues' '['
 		issues+=ResultIssue*
@@ -101,22 +67,71 @@ VerificationActivityResult:
 	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	('message' message= STRING)?
-	(assumptionResult+= AssumptionResult)*
+	']'  
+;
+
+PreconditionResult returns VerificationResult:
+	'precondition' {PreconditionResult}	name=ID 
+	'for' target=[Verify::VerificationPrecondition|QualifiedName]
+	'['
+	'executionstate'  executionState=VerificationExecutionState
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	('successcount'  successCount=INT)?
+	('failcount'  failCount=INT)?
+	('errorcount' errorCount=INT)? 
+	('failthencount' failthenCount=INT)?
+	('andthencount' andthenCount=INT)?
+	('tbdcount' tbdCount=INT)?
+	('weight' weight = INT)?
+	('message' message= STRING)?
+	']'  
+;
+
+
+// result of executing a verification activity
+VerificationActivityResult returns VerificationResult:
+	'verification' 	{VerificationActivityResult} name=ID 
+	'for' target=[Verify::VerificationActivity|QualifiedName]
+	'['
+	'executionstate'  executionState=VerificationExecutionState
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	('successcount'  successCount=INT)?
+	('failcount'  failCount=INT)?
+	('errorcount' errorCount=INT)? 
+	('failthencount' failthenCount=INT)?
+	('andthencount' andthenCount=INT)?
+	('tbdcount' tbdCount=INT)?
+	('weight' weight = INT)?
+	('message' message= STRING)?
+	(validationResult+= ValidationResult)*
 	(preconditionResult+= PreconditionResult)*
 	']'  
 ;
 
 AssureResult:
 	VerificationExpr |
-		CaseResult | ClaimResult  | PreconditionResult | AssumptionResult
+		CaseResult | ClaimResult  | PreconditionResult | ValidationResult
 	;
+
 	
-	VerificationExpr : VerificationActivityResult | FailThenResult | AndThenResult;
+VerificationExpr : VerificationActivityResult | FailThenResult | AndThenResult;
 
 FailThenResult returns FailThenResult:
 	'failthen'  first+=VerificationExpr 'do' second+=VerificationExpr
 	'['
-	( didFailThenFail?='failthenfailed')?
+	( failThen?='failthen')?
+	( errorThen?='errorthen')?
+	( didFail?='didfail')?
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
 	('errorcount' errorCount=INT)? 
@@ -126,6 +141,7 @@ FailThenResult returns FailThenResult:
 	('weight' weight = INT)?
 	']'
 ;
+
 AndThenResult returns AndThenResult:
 	'andthen' first+=VerificationExpr 'do' second+=VerificationExpr
 	'['

@@ -11,10 +11,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 
-import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.VerificationCondition;
+import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
@@ -27,7 +28,8 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getAssert <em>Assert</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getMethod <em>Method</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getComputeVariable <em>Compute Variable</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationConditionImpl#getRationale <em>Rationale</em>}</li>
  * </ul>
  * </p>
@@ -87,14 +89,24 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
   protected Description description;
 
   /**
-   * The cached value of the '{@link #getAssert() <em>Assert</em>}' containment reference.
+   * The cached value of the '{@link #getMethod() <em>Method</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAssert()
+   * @see #getMethod()
    * @generated
    * @ordered
    */
-  protected ArgumentExpr assert_;
+  protected VerificationMethod method;
+
+  /**
+   * The cached value of the '{@link #getComputeVariable() <em>Compute Variable</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComputeVariable()
+   * @generated
+   * @ordered
+   */
+  protected ComputeDeclaration computeVariable;
 
   /**
    * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
@@ -236,9 +248,19 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public ArgumentExpr getAssert()
+  public VerificationMethod getMethod()
   {
-    return assert_;
+    if (method != null && method.eIsProxy())
+    {
+      InternalEObject oldMethod = (InternalEObject)method;
+      method = (VerificationMethod)eResolveProxy(oldMethod);
+      if (method != oldMethod)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_CONDITION__METHOD, oldMethod, method));
+      }
+    }
+    return method;
   }
 
   /**
@@ -246,16 +268,22 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetAssert(ArgumentExpr newAssert, NotificationChain msgs)
+  public VerificationMethod basicGetMethod()
   {
-    ArgumentExpr oldAssert = assert_;
-    assert_ = newAssert;
+    return method;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMethod(VerificationMethod newMethod)
+  {
+    VerificationMethod oldMethod = method;
+    method = newMethod;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__ASSERT, oldAssert, newAssert);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__METHOD, oldMethod, method));
   }
 
   /**
@@ -263,20 +291,42 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setAssert(ArgumentExpr newAssert)
+  public ComputeDeclaration getComputeVariable()
   {
-    if (newAssert != assert_)
+    if (computeVariable != null && computeVariable.eIsProxy())
     {
-      NotificationChain msgs = null;
-      if (assert_ != null)
-        msgs = ((InternalEObject)assert_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_CONDITION__ASSERT, null, msgs);
-      if (newAssert != null)
-        msgs = ((InternalEObject)newAssert).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_CONDITION__ASSERT, null, msgs);
-      msgs = basicSetAssert(newAssert, msgs);
-      if (msgs != null) msgs.dispatch();
+      InternalEObject oldComputeVariable = (InternalEObject)computeVariable;
+      computeVariable = (ComputeDeclaration)eResolveProxy(oldComputeVariable);
+      if (computeVariable != oldComputeVariable)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE, oldComputeVariable, computeVariable));
+      }
     }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__ASSERT, newAssert, newAssert));
+    return computeVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComputeDeclaration basicGetComputeVariable()
+  {
+    return computeVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setComputeVariable(ComputeDeclaration newComputeVariable)
+  {
+    ComputeDeclaration oldComputeVariable = computeVariable;
+    computeVariable = newComputeVariable;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE, oldComputeVariable, computeVariable));
   }
 
   /**
@@ -314,8 +364,6 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
     {
       case VerifyPackage.VERIFICATION_CONDITION__DESCRIPTION:
         return basicSetDescription(null, msgs);
-      case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
-        return basicSetAssert(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -336,8 +384,12 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
         return getTitle();
       case VerifyPackage.VERIFICATION_CONDITION__DESCRIPTION:
         return getDescription();
-      case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
-        return getAssert();
+      case VerifyPackage.VERIFICATION_CONDITION__METHOD:
+        if (resolve) return getMethod();
+        return basicGetMethod();
+      case VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE:
+        if (resolve) return getComputeVariable();
+        return basicGetComputeVariable();
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         return getRationale();
     }
@@ -363,8 +415,11 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
-        setAssert((ArgumentExpr)newValue);
+      case VerifyPackage.VERIFICATION_CONDITION__METHOD:
+        setMethod((VerificationMethod)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE:
+        setComputeVariable((ComputeDeclaration)newValue);
         return;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         setRationale((String)newValue);
@@ -392,8 +447,11 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
       case VerifyPackage.VERIFICATION_CONDITION__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
-        setAssert((ArgumentExpr)null);
+      case VerifyPackage.VERIFICATION_CONDITION__METHOD:
+        setMethod((VerificationMethod)null);
+        return;
+      case VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE:
+        setComputeVariable((ComputeDeclaration)null);
         return;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         setRationale(RATIONALE_EDEFAULT);
@@ -418,8 +476,10 @@ public class VerificationConditionImpl extends MinimalEObjectImpl.Container impl
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.VERIFICATION_CONDITION__DESCRIPTION:
         return description != null;
-      case VerifyPackage.VERIFICATION_CONDITION__ASSERT:
-        return assert_ != null;
+      case VerifyPackage.VERIFICATION_CONDITION__METHOD:
+        return method != null;
+      case VerifyPackage.VERIFICATION_CONDITION__COMPUTE_VARIABLE:
+        return computeVariable != null;
       case VerifyPackage.VERIFICATION_CONDITION__RATIONALE:
         return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
     }

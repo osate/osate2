@@ -7,6 +7,7 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.AlternativeAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
@@ -18,6 +19,7 @@ import org.osate.verify.services.VerifyGrammarAccess;
 public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected VerifyGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_AndThenEvidenceExpr_AndthenKeyword_1_0_0_1_0_or___AndKeyword_1_0_0_1_1_0_ThenKeyword_1_0_0_1_1_1__;
 	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a;
 	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p;
 	protected AbstractElementAlias match_VerificationPlan___PlanKeyword_6_3_0_AssumptionKeyword_6_3_1__q;
@@ -31,6 +33,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (VerifyGrammarAccess) access;
+		match_AndThenEvidenceExpr_AndthenKeyword_1_0_0_1_0_or___AndKeyword_1_0_0_1_1_0_ThenKeyword_1_0_0_1_1_1__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getAndThenEvidenceExprAccess().getAndKeyword_1_0_0_1_1_0()), new TokenAlias(false, false, grammarAccess.getAndThenEvidenceExprAccess().getThenKeyword_1_0_0_1_1_1())), new TokenAlias(false, false, grammarAccess.getAndThenEvidenceExprAccess().getAndthenKeyword_1_0_0_1_0()));
 		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a = new TokenAlias(true, true, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
 		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
 		match_VerificationPlan___PlanKeyword_6_3_0_AssumptionKeyword_6_3_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationPlanAccess().getPlanKeyword_6_3_0()), new TokenAlias(false, false, grammarAccess.getVerificationPlanAccess().getAssumptionKeyword_6_3_1()));
@@ -79,7 +82,9 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a.equals(syntax))
+			if(match_AndThenEvidenceExpr_AndthenKeyword_1_0_0_1_0_or___AndKeyword_1_0_0_1_1_0_ThenKeyword_1_0_0_1_1_1__.equals(syntax))
+				emit_AndThenEvidenceExpr_AndthenKeyword_1_0_0_1_0_or___AndKeyword_1_0_0_1_1_0_ThenKeyword_1_0_0_1_1_1__(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a.equals(syntax))
 				emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p.equals(syntax))
 				emit_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -101,6 +106,14 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
+	/**
+	 * Syntax:
+	 *     'andthen' | ('and' 'then')
+	 */
+	protected void emit_AndThenEvidenceExpr_AndthenKeyword_1_0_0_1_0_or___AndKeyword_1_0_0_1_1_0_ThenKeyword_1_0_0_1_1_1__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Syntax:
 	 *     '('*
