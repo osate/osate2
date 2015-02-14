@@ -30,15 +30,15 @@ public class CMAReportEntry {
 	}
 
 	public void setSeverity(String s) {
-		this.severity = s;
+		severity = s;
 	}
 
 	public String getSeverity() {
-		return this.severity;
+		return severity;
 	}
 
 	public String getCause() {
-		return this.cause;
+		return cause;
 	}
 
 	public String getComponentsString() {
@@ -53,43 +53,43 @@ public class CMAReportEntry {
 	}
 
 	public List<ComponentInstance> getRelatedComponents() {
-		return this.relatedComponents;
+		return relatedComponents;
 	}
 
 	public void addRelatedComponent(ComponentInstance ci) {
-		this.relatedComponents.add(ci);
+		relatedComponents.add(ci);
 	}
 
 	public void setSource(String s) {
-		this.source = s;
+		source = s;
 	}
 
 	public void setMode(String m) {
-		this.mode = m;
+		mode = m;
 	}
 
 	public void setJustification(String j) {
-		this.justification = j;
+		justification = j;
 	}
 
 	public String getJustification() {
-		return this.justification;
+		return justification;
 	}
 
 	public String getMode() {
-		return this.mode;
+		return mode;
 	}
 
 	public String getSource() {
-		return this.source;
+		return source;
 	}
 
 	public void setType(EntryType t) {
-		this.type = t;
+		type = t;
 	}
 
 	public EntryType getType() {
-		return this.type;
+		return type;
 	}
 
 	public static String typeToString(EntryType type) {
@@ -132,14 +132,14 @@ public class CMAReportEntry {
 	}
 
 	public String getTypeString() {
-		return typeToString(this.type);
+		return typeToString(type);
 	}
 
 	public boolean equalsTo(Object o) {
 		if (o instanceof CMAReportEntry) {
 			CMAReportEntry other = (CMAReportEntry) o;
-			return (this.relatedComponents.containsAll(other.getRelatedComponents())
-					&& this.mode.equalsIgnoreCase(other.getMode()) && this.source.equalsIgnoreCase(other.getSource()));
+			return (relatedComponents.containsAll(other.getRelatedComponents())
+					&& mode.equalsIgnoreCase(other.getMode()) && source.equalsIgnoreCase(other.getSource()));
 		}
 
 		return false;

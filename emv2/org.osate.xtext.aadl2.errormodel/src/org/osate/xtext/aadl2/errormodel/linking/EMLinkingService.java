@@ -80,8 +80,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 			throws IllegalNodeException {
 		final EClass requiredType = reference.getEReferenceType();
 		EObject searchResult = null;
-		if (requiredType == null)
+		if (requiredType == null) {
 			return Collections.<EObject> emptyList();
+		}
 		Element cxt = (Element) context;
 		final String name = getCrossRefNodeAsString(node);
 		if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
@@ -95,8 +96,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 					ContainmentPathElement previousNamedElement = (ContainmentPathElement) previous;
 					// use the last component on the path as context for lookup of error model elements
 					ComponentClassifier cxtPathComp = getLastComponentClassifier(previousNamedElement);
-					if (cxtPathComp != null)
+					if (cxtPathComp != null) {
 						cxtElement = cxtPathComp;
+					}
 					// deal with feature groups and features as identifiers of error propagations
 					NamedElement ne = previousNamedElement.getNamedElement();
 					if (ne instanceof FeatureGroup) {
@@ -140,41 +142,52 @@ public class EMLinkingService extends PropertiesLinkingService {
 				// find annex subclause as context for error model identifier lookup
 				if (!Aadl2Util.isNull(cxtElement)) {
 					searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.OUT);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findErrorPropagation(cxtElement, epFGPrefix + name, DirectionType.IN);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findPropagationPoint(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findErrorFlow(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findErrorBehaviorEvent(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findErrorBehaviorState(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findErrorBehaviorTransition(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findErrorDetection(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findOutgoingPropagationCondition(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = EMV2Util.findConnectionErrorSource(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					if (cxtFGT != null) {
 						// if previous element was feature group, look up next feature group in its type
 						// we do not want to return features as they should get resolved to an error propagation
 						NamedElement finding = cxtFGT.findNamedElement(name);
-						if (finding instanceof FeatureGroup)
+						if (finding instanceof FeatureGroup) {
 							searchResult = finding;
+						}
 					}
 					if (cxtElement instanceof Classifier) {
 						// look up subcomponent in classifier of previous subcomponent, or feature group
@@ -184,14 +197,17 @@ public class EMLinkingService extends PropertiesLinkingService {
 							searchResult = finding;
 						}
 					}
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = findErrorType(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 					searchResult = findTypeSet(cxtElement, name);
-					if (searchResult != null)
+					if (searchResult != null) {
 						return Collections.singletonList(searchResult);
+					}
 				}
 			} else if (context instanceof RecoverEvent || context instanceof RepairEvent) {
 				Classifier ns = AadlUtil.getContainingClassifier(context);
@@ -232,8 +248,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 
 		} else if (ErrorModelPackage.eINSTANCE.getErrorTypes() == requiredType) {
 			searchResult = findErrorType(cxt, name);
-			if (searchResult == null)
+			if (searchResult == null) {
 				searchResult = findTypeSet(cxt, name);
+			}
 
 		} else if (ErrorModelPackage.eINSTANCE.getPropagationPoint() == requiredType) {
 			ComponentClassifier cl;
@@ -242,16 +259,18 @@ public class EMLinkingService extends PropertiesLinkingService {
 				QualifiedPropagationPoint qpp = (QualifiedPropagationPoint) context;
 				SubcomponentElement sub = qpp.getSubcomponents().get(qpp.getSubcomponents().size() - 1);
 				cl = sub.getSubcomponent().getAllClassifier();
-				if (!Aadl2Util.isNull(cl))
+				if (!Aadl2Util.isNull(cl)) {
 					searchResult = EMV2Util.findPropagationPoint(cl, name);
+				}
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorModelLibrary() == requiredType) {
 			searchResult = findErrorModelLibrary(context, name);
 
 		} else if (ErrorModelPackage.eINSTANCE.getErrorBehaviorStateOrTypeSet() == requiredType) {
 			searchResult = EMV2Util.findErrorBehaviorState(cxt, name);
-			if (searchResult == null)
+			if (searchResult == null) {
 				searchResult = findTypeSet(cxt, name);
+			}
 
 		} else if (ErrorModelPackage.eINSTANCE.getErrorPropagation() == requiredType) {
 			if (reference.getName().equalsIgnoreCase("outgoing")) {
@@ -361,11 +380,12 @@ public class EMLinkingService extends PropertiesLinkingService {
 	 */
 	public ErrorModelLibrary findErrorModelLibrary(EObject context, String name) {
 		ErrorModelLibrary eml = (ErrorModelLibrary) getActualAnnexLibrary(context, name + "::" + "emv2");
-		if (eml != null)
+		if (eml != null) {
 			return eml;
+		}
 		ErrorModelLibrary owneml = EMV2Util.getContainingErrorModelLibrary((Element) context);
 		if (owneml != null) {
-			AadlPackage pack = (AadlPackage) AadlUtil.getContainingPackage(context);
+			AadlPackage pack = AadlUtil.getContainingPackage(context);
 			if (pack != null) {
 				String emlname = pack.getName();
 				if (name.equalsIgnoreCase(emlname)) {
@@ -374,8 +394,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 			}
 		}
 		AadlPackage ap = AadlUtil.findImportedPackage(name, AadlUtil.getContainingTopLevelNamespace(context));
-		if (ap == null)
+		if (ap == null) {
 			return null;
+		}
 		PackageSection ps = ap.getOwnedPublicSection();
 		EList<AnnexLibrary> all = ps.getOwnedAnnexLibraries();
 		for (AnnexLibrary al : all) {
@@ -394,8 +415,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (eml != null) {
 			EList<TypeMappingSet> tmsl = eml.getMappings();
 			for (TypeMappingSet tms : tmsl) {
-				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName()))
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName())) {
 					return tms;
+				}
 			}
 		}
 		return null;
@@ -406,8 +428,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (eml != null) {
 			EList<TypeTransformationSet> tmsl = eml.getTransformations();
 			for (TypeTransformationSet tms : tmsl) {
-				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName()))
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(tms.getName())) {
 					return tms;
+				}
 			}
 		}
 		return null;
@@ -418,8 +441,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (eml != null) {
 			EList<ErrorBehaviorStateMachine> ebsml = eml.getBehaviors();
 			for (ErrorBehaviorStateMachine ebsm : ebsml) {
-				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebsm.getName()))
+				if (Aadl2Util.getItemNameWithoutQualification(name).equalsIgnoreCase(ebsm.getName())) {
 					return ebsm;
+				}
 			}
 		}
 		return null;
@@ -462,8 +486,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 		} else if (owneml != null) {
 			// lookup in own EML if we are inside an ErrorModelLibrary
 			EObject res = findNamedTypeElementInThisEML(owneml, typeName, eclass);
-			if (res != null)
+			if (res != null) {
 				return res;
+			}
 			otheremls = owneml.getExtends();
 		}
 		if (otheremls != null) {
@@ -479,19 +504,22 @@ public class EMLinkingService extends PropertiesLinkingService {
 	}
 
 	public EObject findNamedTypeElementInThisEML(ErrorModelLibrary eml, String typeName, EClass eclass) {
-		if (eml == null)
+		if (eml == null) {
 			return null;
+		}
 		if (eclass == ErrorModelPackage.eINSTANCE.getErrorType()) {
 			EList<ErrorType> elt = eml.getTypes();
 			for (ErrorType ets : elt) {
-				if (typeName.equalsIgnoreCase(ets.getName()))
+				if (typeName.equalsIgnoreCase(ets.getName())) {
 					return ets;
+				}
 			}
 		} else {
 			EList<TypeSet> elt = eml.getTypesets();
 			for (TypeSet ets : elt) {
-				if (typeName.equalsIgnoreCase(ets.getName()))
+				if (typeName.equalsIgnoreCase(ets.getName())) {
 					return ets;
+				}
 			}
 		}
 		return null;

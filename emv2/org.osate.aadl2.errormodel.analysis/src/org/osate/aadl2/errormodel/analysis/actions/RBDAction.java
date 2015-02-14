@@ -50,7 +50,6 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -64,34 +63,36 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public final class RBDAction extends AaxlReadOnlyActionAsJob {
-	
-	private double 						finalResult;
-	private List<ComponentInstance> 	componentsNames;
-	private static String 				ERROR_STATE_NAME = null;
+
+	private double finalResult;
+	private List<ComponentInstance> componentsNames;
+	private static String ERROR_STATE_NAME = null;
+
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "RBD";
 	}
 
-	
-	private static ComponentInstance findInstance (ComponentInstance root, EList<SubcomponentElement> subcomponentElements)
-	{
+	private static ComponentInstance findInstance(ComponentInstance root,
+			EList<SubcomponentElement> subcomponentElements) {
 		ComponentInstance container = root;
-		for (SubcomponentElement se : subcomponentElements)
-		{
+		for (SubcomponentElement se : subcomponentElements) {
 			Subcomponent sub = se.getSubcomponent();
 			container = container.findSubcomponentInstance(sub);
-			if (container == null) return null;
+			if (container == null) {
+				return null;
+			}
 		}
-		
+
 		return container;
 	}
-	
-	private double handleElement (final ConditionElement conditionElement, final ComponentInstance root)
-	{
+
+	private double handleElement(final ConditionElement conditionElement, final ComponentInstance root) {
 		double result = 0;
 
 		ErrorBehaviorState behaviorState = conditionElement.getState();
@@ -99,19 +100,17 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 		ComponentInstance relatedInstance = findInstance(root, conditionElement.getSubcomponents());
 //		OsateDebug.osateDebug("         instance " + relatedInstance);
 
-		if (relatedInstance != null && ! this.componentsNames.contains(relatedInstance))
-		{
-			this.componentsNames.add (relatedInstance);
+		if (relatedInstance != null && !componentsNames.contains(relatedInstance)) {
+			componentsNames.add(relatedInstance);
 		}
-		
-		if (behaviorState != null)
-		{
+
+		if (behaviorState != null) {
 			double resultSubcomponents;
 			double resultProperty;
-			
+
 			resultProperty = 0;
 			resultSubcomponents = 0;
-			
+
 			/*
 			 * Let's try to recursively compute the value
 			 */
@@ -121,188 +120,160 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 			 * If it does not work, try the property mechanism.
 			 */
 
-			//OsateDebug.osateDebug("         behaviorState " + behaviorState);
-			EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,behaviorState,null);
-			//OsateDebug.osateDebug("         PA " + PA);
-			if (!PA.isEmpty()){
+			// OsateDebug.osateDebug("         behaviorState " + behaviorState);
+			EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(relatedInstance,
+					behaviorState, null);
+			// OsateDebug.osateDebug("         PA " + PA);
+			if (!PA.isEmpty()) {
 				// XXX TODO handle values on subtypes (list > 1)
-				resultProperty = EMV2Properties.getOccurenceValue (PA.get(0));
+				resultProperty = EMV2Properties.getOccurenceValue(PA.get(0));
 			}
-			
+
 			/**
 			 * We take the result that is the worst case occurrence.
 			 */
-			if (resultSubcomponents == 0)
-			{
+			if (resultSubcomponents == 0) {
 				result = resultProperty;
-			}
-			else
-			{
+			} else {
 				result = resultSubcomponents;
 //				if ((resultProperty > 0) && (resultProperty < resultSubcomponents))
 //				{
 //					result = resultSubcomponents;
-//					
+//
 //					warning(relatedInstance, "Probability from property ("+resultProperty+") and from analysis ("+resultSubcomponents+") differs, taking analysis result");
 //				}
-//				
+//
 //				if ((resultProperty > 0) && (resultSubcomponents < resultProperty))
 //				{
 //					result = resultProperty;
-//					
+//
 //					warning(relatedInstance, "Probability from property ("+resultProperty+") and from analysis ("+resultSubcomponents+") differs, taking property result");
 //				}
 			}
-			
+
 		}
 
 		return result;
 	}
-	
-	
-	private double handleCondition (final ConditionExpression cond, final ComponentInstance root)
-	{
+
+	private double handleCondition(final ConditionExpression cond, final ComponentInstance root) {
 		double result = 0;
 		double tmp;
-		//OsateDebug.osateDebug("cond="+cond);
-		
-		if (cond instanceof ConditionElement)
-		{
-			return handleElement((ConditionElement)cond, root);
+		// OsateDebug.osateDebug("cond="+cond);
+
+		if (cond instanceof ConditionElement) {
+			return handleElement((ConditionElement) cond, root);
 		}
-		
-		if (cond instanceof SOrExpression)
-		{
-			SOrExpression sor = (SOrExpression)cond;
-			for (ConditionExpression conditionExpression : sor.getOperands())
-			{
-				//OsateDebug.osateDebug("      operand=" + conditionExpression);
-				result += handleCondition (conditionExpression, root);
+
+		if (cond instanceof SOrExpression) {
+			SOrExpression sor = (SOrExpression) cond;
+			for (ConditionExpression conditionExpression : sor.getOperands()) {
+				// OsateDebug.osateDebug("      operand=" + conditionExpression);
+				result += handleCondition(conditionExpression, root);
 			}
 		}
-		
-		if (cond instanceof SAndExpression)
-		{
-			SAndExpression sae = (SAndExpression)cond;
-			for (ConditionExpression conditionExpression : sae.getOperands())
-			{
-				tmp = handleCondition (conditionExpression, root);
-				if (result == 0)
-				{
+
+		if (cond instanceof SAndExpression) {
+			SAndExpression sae = (SAndExpression) cond;
+			for (ConditionExpression conditionExpression : sae.getOperands()) {
+				tmp = handleCondition(conditionExpression, root);
+				if (result == 0) {
 					result = tmp;
-				}
-				else
-				{
+				} else {
 					result = result * tmp;
 				}
 			}
 		}
 		return result;
 	}
-	
-	public double processComponent (ComponentInstance component, String errorStateName)
-	{
-		double						probabilityTemp;
-		double 						toRemove;
-		double                      result;
+
+	public double processComponent(ComponentInstance component, String errorStateName) {
+		double probabilityTemp;
+		double toRemove;
+		double result;
 
 		EList<CompositeState> states = EMV2Util.getAllCompositeStates(component);
-		result  		 = 0;
-		probabilityTemp  = 0;
-		toRemove		 = 0;
-		for (CompositeState state : states)
-		{
-			if (state.getState().getName().equalsIgnoreCase(errorStateName))
-			{
-				probabilityTemp = handleCondition (state.getCondition(), component);
-			//	OsateDebug.osateDebug("temp=" + probabilityTemp);
+		result = 0;
+		probabilityTemp = 0;
+		toRemove = 0;
+		for (CompositeState state : states) {
+			if (state.getState().getName().equalsIgnoreCase(errorStateName)) {
+				probabilityTemp = handleCondition(state.getCondition(), component);
+				// OsateDebug.osateDebug("temp=" + probabilityTemp);
 				result = result + probabilityTemp;
-				if (toRemove == 0)
-				{
+				if (toRemove == 0) {
 					toRemove = probabilityTemp;
-				}
-				else
-				{
+				} else {
 					toRemove = toRemove * probabilityTemp;
 				}
-					
+
 			}
 		}
 		// seems to reset the fa
-		if (result > toRemove)
-		{
+		if (result > toRemove) {
 			result = result - toRemove;
 		}
-		
+
 		return result;
 	}
-	
 
-	
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		String message;
-		
+
 		monitor.beginTask("RBD", IProgressMonitor.UNKNOWN);
 
 		si = null;
-		this.componentsNames = new ArrayList<ComponentInstance>();
-		this.finalResult = 0;
+		componentsNames = new ArrayList<ComponentInstance>();
+		finalResult = 0;
 
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
 		}
-		
-		if (si == null)
-		{
-			Dialog.showInfo("RDB", "Please choose an instance model");	
+
+		if (si == null) {
+			Dialog.showInfo("RDB", "Please choose an instance model");
 			monitor.done();
 		}
-		
-		if (! EMV2Util.hasCompositeErrorBehavior (si))
-		{
-			Dialog.showInfo("RDB", "Your system instance does not have a composite error behavior");	
+
+		if (!EMV2Util.hasCompositeErrorBehavior(si)) {
+			Dialog.showInfo("RDB", "Your system instance does not have a composite error behavior");
 			monitor.done();
 		}
-		
+
 		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable(){
+		d.syncExec(new Runnable() {
 
+			@Override
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
-				
 
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
-				
-				InputDialog fd = new InputDialog(sh, "Error State name", "Please specify the name of the error state name", "failed", null);
-				if (fd.open() == Window.OK)
-				{
+
+				InputDialog fd = new InputDialog(sh, "Error State name",
+						"Please specify the name of the error state name", "failed", null);
+				if (fd.open() == Window.OK) {
 					ERROR_STATE_NAME = fd.getValue();
-				}
-				else
-				{
+				} else {
 					ERROR_STATE_NAME = null;
 				}
 
-					
-			}});
-		
-		if (ERROR_STATE_NAME != null)
-		{
-			this.finalResult = processComponent (si, ERROR_STATE_NAME);
-			message  = "Failure probability: " + this.finalResult + "\n";
-			message += "Components involved:\n"; 
-			for (ComponentInstance ci : this.componentsNames)
-			{
-				message += "   * " + ci.getName() + " ("+ci.getCategory().toString()+")\n";
 			}
-			Dialog.showInfo("Reliability Block Diagram", message);	
+		});
+
+		if (ERROR_STATE_NAME != null) {
+			finalResult = processComponent(si, ERROR_STATE_NAME);
+			message = "Failure probability: " + finalResult + "\n";
+			message += "Components involved:\n";
+			for (ComponentInstance ci : componentsNames) {
+				message += "   * " + ci.getName() + " (" + ci.getCategory().toString() + ")\n";
+			}
+			Dialog.showInfo("Reliability Block Diagram", message);
 		}
-		
-		
-		
+
 		monitor.done();
 	}
 

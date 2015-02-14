@@ -45,31 +45,32 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 
 public final class FMEAAction extends AaxlReadOnlyActionAsJob {
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "FMEA";
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		monitor.beginTask("FMEA", IProgressMonitor.UNKNOWN);
 
 		// Get the system instance (if any)
 		SystemInstance si;
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+		} else {
+			return;
 		}
-		else return;
 
-		
 		PropagateErrorSources faultimpact = new PropagateErrorSources("FMEA", si);
 		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
-		for (ComponentInstance componentInstance : cilist) 
-		{
-			if (componentInstance != null)
-			{
+		for (ComponentInstance componentInstance : cilist) {
+			if (componentInstance != null) {
 				faultimpact.startErrorFlows(componentInstance);
 			}
 		}
@@ -77,7 +78,5 @@ public final class FMEAAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.done();
 	}
-
-
 
 }

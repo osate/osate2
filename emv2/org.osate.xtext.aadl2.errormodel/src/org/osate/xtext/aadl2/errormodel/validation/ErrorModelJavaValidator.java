@@ -36,6 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -54,7 +55,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
-import org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -62,7 +62,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Override
 	protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {
-		return (eObject.eClass().getEPackage() == ErrorModelPackageImpl.eINSTANCE || eObject instanceof Connection || eObject instanceof PropertyAssociation);
+		return (eObject.eClass().getEPackage() == ErrorModelPackage.eINSTANCE || eObject instanceof Connection || eObject instanceof PropertyAssociation);
 	}
 
 	@Check(CheckType.FAST)
@@ -76,6 +76,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkUniquePropagationPointorPath(propagationPoint);
 	}
 
+	@Override
 	@Check(CheckType.FAST)
 	public void casePropertyAssociation(PropertyAssociation propertyAssociation) {
 		// check that error type is contained in type set of target element
@@ -167,8 +168,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelLibrary(ErrorModelLibrary errorModelLibrary) {
-		if (errorModelLibrary.getName() == null)
+		if (errorModelLibrary.getName() == null) {
 			errorModelLibrary.setName("emv2");
+		}
 		boolean cyclicextends = checkCyclicExtends(errorModelLibrary);
 		checkUniqueDefiningIdentifiers(errorModelLibrary, cyclicextends);
 	}
@@ -260,8 +262,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			triggerName = "state " + ((ErrorBehaviorEvent) ep).getName();
 		}
 		TypeSet condTS = conditionElement.getConstraint();
-		if (condTS == null)
+		if (condTS == null) {
 			return;
+		}
 		if (triggerTS == null && condTS != null && es == null) {
 			// it is ok for a state not to have a type set.
 			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
@@ -275,13 +278,15 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	private void checkDirectionType(ErrorPropagation errorPropagation) {
 		DirectionType pd = errorPropagation.getDirection();
 		DirectionType portd = EMV2Util.getErrorPropagationFeatureDirection(errorPropagation);
-		if (!(pd.getName().equalsIgnoreCase(portd.getName()) || portd == DirectionType.IN_OUT))
+		if (!(pd.getName().equalsIgnoreCase(portd.getName()) || portd == DirectionType.IN_OUT)) {
 			error(errorPropagation, "Propagation direction does not match port direction.");
+		}
 	}
 
 	private void checkTypePropagationAndContainment(ErrorPropagation ep) {
-		if (!ep.isNot())
+		if (!ep.isNot()) {
 			return;
+		}
 		ErrorPropagation epopposite = EMV2Util.findErrorPropagation(ep.getContainingClassifier(),
 				EMV2Util.getPrintName(ep), ep.getDirection());
 		BasicEList<TypeToken> res = EM2TypeSetUtil.getTypeSetIntersection(ep.getTypeSet(), epopposite.getTypeSet());
@@ -491,8 +496,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	private void checkUniqueDefiningIdentifiers(ErrorModelLibrary etl, boolean cyclicextends) {
 		Hashtable<String, EObject> types = new Hashtable<String, EObject>(10, 10);
 		checkUniqueDefiningEBSMMappingsTransformations(etl, types);
-		if (cyclicextends)
+		if (cyclicextends) {
 			return;
+		}
 		for (ErrorModelLibrary xetl : etl.getExtends()) {
 			checkUniqueInheritedDefiningErrorTypes(xetl, types);
 		}
@@ -545,8 +551,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private boolean checkCyclicExtends(ErrorModelLibrary etl) {
-		if (etl.getExtends() == null)
+		if (etl.getExtends() == null) {
 			return false;
+		}
 		HashSet<ErrorModelLibrary> result = new HashSet<ErrorModelLibrary>();
 		return recursiveCheckCyclicExtends(etl, result);
 	}
@@ -571,8 +578,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkCyclicExtends(ErrorType origet) {
 		ErrorType et = origet;
-		if (et.getSuperType() == null)
+		if (et.getSuperType() == null) {
 			return;
+		}
 		HashSet<ErrorType> result = new HashSet<ErrorType>();
 		while (et.getSuperType() != null) {
 			result.add(et);
@@ -602,8 +610,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	// }
 
 	private void checkOutgoingTypes(OutgoingPropagationCondition opc) {
-		if (opc.getTypeToken() == null)
+		if (opc.getTypeToken() == null) {
 			return;
+		}
 		ErrorPropagation ep = opc.getOutgoing();
 		if (ep != null) {
 			if (!EM2TypeSetUtil.contains(ep.getTypeSet(), opc.getTypeToken())) {
@@ -633,14 +642,16 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkTransitionTargetTypes(ErrorBehaviorTransition ebt) {
-		if (ebt.isSteadyState())
+		if (ebt.isSteadyState()) {
 			return;
+		}
 		ErrorBehaviorState ebs = ebt.getTarget();
 		if (ebs != null) {
 			TypeSet ebsTS = ebs.getTypeSet();
 			TypeToken ebtargetTS = ebt.getTargetToken();
-			if (ebtargetTS == null)
+			if (ebtargetTS == null) {
 				return;
+			}
 			if (ebsTS == null && ebtargetTS != null) {
 				error(ebt,
 						"Target state " + ebs.getName()
@@ -657,8 +668,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		EList<TransitionBranch> branches = ebt.getDestinationBranches();
 		boolean foundsteady = false;
 		double prob = 0;
-		if (branches.isEmpty())
+		if (branches.isEmpty()) {
 			return;
+		}
 		for (TransitionBranch transitionBranch : branches) {
 			if (transitionBranch.isSteadyState()) {
 				if (foundsteady) {
@@ -676,14 +688,16 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkTransitionTargetTypes(TransitionBranch ebt) {
-		if (ebt.isSteadyState())
+		if (ebt.isSteadyState()) {
 			return;
+		}
 		ErrorBehaviorState ebs = ebt.getTarget();
 		if (ebs != null) {
 			TypeSet ebsTS = ebs.getTypeSet();
 			TypeToken ebtargetTS = ebt.getTargetToken();
-			if (ebtargetTS == null)
+			if (ebtargetTS == null) {
 				return;
+			}
 			if (ebsTS == null && ebtargetTS != null) {
 				error(ebt,
 						"Target state " + ebs.getName()
@@ -698,12 +712,14 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkOutgoingConditionSourceTypes(OutgoingPropagationCondition opc) {
 		ErrorBehaviorState ebs = opc.getState();
-		if (ebs == null)
+		if (ebs == null) {
 			return;
+		}
 		TypeSet ebsTS = ebs.getTypeSet();
 		TypeSet srcTS = opc.getTypeTokenConstraint();
-		if (srcTS == null)
+		if (srcTS == null) {
 			return;
+		}
 		if (ebsTS == null && srcTS != null) {
 			error(opc, "Error state " + ebs.getName()
 					+ " does not have a type set declared but the outgoing propagation condition has type token "
@@ -716,12 +732,14 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkDetectionSourceTypes(ErrorDetection ebt) {
 		ErrorBehaviorState ebs = ebt.getState();
-		if (ebs == null)
+		if (ebs == null) {
 			return;
+		}
 		TypeSet ebsTS = ebs.getTypeSet();
 		TypeSet srcTS = ebt.getTypeTokenConstraint();
-		if (srcTS == null)
+		if (srcTS == null) {
 			return;
+		}
 		if (ebsTS == null && srcTS != null) {
 			error(ebt,
 					"Source state " + ebs.getName()
@@ -735,12 +753,14 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	private void checkTransitionSourceTypes(ErrorBehaviorTransition ebt) {
 		ErrorBehaviorState ebs = ebt.getSource();
-		if (ebs == null)
+		if (ebs == null) {
 			return;
+		}
 		TypeSet ebsTS = ebs.getTypeSet();
 		TypeSet srcTS = ebt.getTypeTokenConstraint();
-		if (srcTS == null)
+		if (srcTS == null) {
 			return;
+		}
 		if (ebsTS == null && srcTS != null) {
 			error(ebt,
 					"Source state " + ebs.getName()
@@ -753,8 +773,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkErrorSourceTypes(ErrorSource ef) {
-		if (ef.getTypeTokenConstraint() == null)
+		if (ef.getTypeTokenConstraint() == null) {
 			return;
+		}
 		ErrorPropagation epout = ef.getOutgoing();
 		if (epout != null) {
 			if (!EM2TypeSetUtil.contains(epout.getTypeSet(), ef.getTypeTokenConstraint())) {
@@ -779,8 +800,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkErrorSinkTypes(ErrorSink ef) {
-		if (ef.getTypeTokenConstraint() == null)
+		if (ef.getTypeTokenConstraint() == null) {
 			return;
+		}
 		ErrorPropagation ep = ef.getIncoming();
 		if (ep != null) {
 			if (!EM2TypeSetUtil.contains(ep.getTypeSet(), ef.getTypeTokenConstraint())) {

@@ -42,7 +42,7 @@ public class CMAUtils {
 	/**
 	 * The processState method is used to report all potential CMA report entry.
 	 * These entries are then added to the complete CMA report.
-	 * To process the state, we analyze the composite error states related to 
+	 * To process the state, we analyze the composite error states related to
 	 * this behavior state and, when having an ANDed condition, we report
 	 * all common cause of failure.
 	 * @param                     - the analysis model containing all the propagation paths information
@@ -69,7 +69,7 @@ public class CMAUtils {
 	 * @param                     - the analysis model containing all the propagation paths information
 	 * @param componentInstance   - the component instance that contain the condition expression
 	 * @param expression          - the condition expression to process
-	 * @return                     - the list of entries to add 
+	 * @return                     - the list of entries to add
 	 */
 	public static List<CMAReportEntry> processConditionExpression(AnalysisModel analysisModel,
 			ComponentInstance componentInstance, ConditionExpression expression) {
@@ -112,8 +112,8 @@ public class CMAUtils {
 	/**
 	 * processConditionElements then process all elements from an ANDed condition
 	 * and look for all potential Common Cause of Failure.
-	 * @param analysisModel     - the analysis model with the root component 
-	 * @param componentInstance - the top-level component that contains the condition 
+	 * @param analysisModel     - the analysis model with the root component
+	 * @param componentInstance - the top-level component that contains the condition
 	 * @param elements          - the elements to consider
 	 * @return                  - the list of entries to add in the report
 	 */

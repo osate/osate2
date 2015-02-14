@@ -10,35 +10,35 @@ public class CMAReport {
 	private List<CMAReportEntry> entries;
 
 	public CMAReport() {
-		this.entries = new ArrayList<CMAReportEntry>();
+		entries = new ArrayList<CMAReportEntry>();
 	}
 
 	public CMAReport(List<CMAReportEntry> e) {
-		this.entries = e;
+		entries = e;
 	}
 
 	public void addEntry(CMAReportEntry entry) {
-		for (CMAReportEntry currentEntry : this.entries) {
+		for (CMAReportEntry currentEntry : entries) {
 			if (currentEntry.equalsTo(entry)) {
 				return;
 			}
 		}
-		this.entries.add(entry);
+		entries.add(entry);
 	}
 
 	public void addEntries(List<CMAReportEntry> newEntries) {
 		for (CMAReportEntry newEntry : newEntries) {
-			this.addEntry(newEntry);
+			addEntry(newEntry);
 		}
 	}
 
 	public List<CMAReportEntry> getEntries() {
-		return this.entries;
+		return entries;
 	}
 
 	public List<CMAReportEntry> getEntriesPerType(EntryType et) {
 		List<CMAReportEntry> ret = new ArrayList<CMAReportEntry>();
-		for (CMAReportEntry re : this.entries) {
+		for (CMAReportEntry re : entries) {
 			if (re.getType() == et) {
 				ret.add(re);
 			}

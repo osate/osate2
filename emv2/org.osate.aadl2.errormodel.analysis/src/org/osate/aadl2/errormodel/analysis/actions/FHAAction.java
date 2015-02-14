@@ -79,14 +79,17 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	public static final int REPORT_TYPE_MILSTD882 = 2;
 	public static final int INVALID_VALUE = 9999;
 
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "FHA";
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
 
@@ -94,8 +97,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		SystemInstance si;
 		if (obj instanceof InstanceObject) {
 			si = ((InstanceObject) obj).getSystemInstance();
-		} else
+		} else {
 			return;
+		}
 
 		WriteToFile report = new WriteToFile("FHA", si);
 		reportHeading(report);
@@ -176,8 +180,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			if ((HazardPA == null) || (HazardPA.isEmpty())) {
 				// error propagation is originating hazard
 				ts = ep.getTypeSet();
-				if (ts == null && failureMode != null)
+				if (ts == null && failureMode != null) {
 					ts = failureMode.getTypeSet();
+				}
 				HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
@@ -187,10 +192,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			if ((HazardPA == null) || (HazardPA.isEmpty())) {
 				// error source is originating hazard
 				ts = errorSource.getTypeTokenConstraint();
-				if (ts == null)
+				if (ts == null) {
 					ts = ep.getTypeSet();
-				if (ts == null && failureMode != null)
+				}
+				if (ts == null && failureMode != null) {
 					ts = failureMode.getTypeSet();
+				}
 				HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource, ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, errorSource, ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
@@ -325,8 +332,9 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				+ (failureModeName.isEmpty() ? "" : " on " + failureModeName) + "\"");
 		// description (Effect)
 		addComma(report);
-		if (!reportStringProperty(fields, "hazardtitle", report))
+		if (!reportStringProperty(fields, "hazardtitle", report)) {
 			reportStringProperty(fields, "description", report);
+		}
 		// crossreference
 		addComma(report);
 		reportStringProperty(fields, "crossreference", report);

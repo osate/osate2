@@ -14,7 +14,7 @@ public class MyErrorModelActivator extends ErrorModelActivator {
 		super.start(context);
 		try {
 			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
-			
+
 		} catch (Exception e) {
 			Logger.getLogger(getClass()).error(e.getMessage(), e);
 			throw e;
@@ -25,11 +25,9 @@ public class MyErrorModelActivator extends ErrorModelActivator {
 	public Injector getInjector(String languageName) {
 		return OsateCorePlugin.getDefault().getInjector(languageName);
 	}
-	
+
 	protected void registerInjectorFor(String language) throws Exception {
-		OsateCorePlugin.getDefault().registerInjectorFor(language, 
-				createInjector(
-						language));
+		OsateCorePlugin.getDefault().registerInjectorFor(language, createInjector(language));
 //		// change in Xtext 2.3
 //		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}

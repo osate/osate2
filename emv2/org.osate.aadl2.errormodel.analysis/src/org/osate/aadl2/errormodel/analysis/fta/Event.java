@@ -15,60 +15,60 @@ public class Event {
 	private Event parent;
 
 	public Event() {
-		this.identifier = "event" + generalId;
-		this.name = this.identifier;
-		this.description = null;
-		this.probability = 0.0;
-		this.showProbability = false;
-		this.type = EventType.NORMAL;
-		this.parent = null;
-		this.subEvents = new ArrayList<Event>();
+		identifier = "event" + generalId;
+		name = identifier;
+		description = null;
+		probability = 0.0;
+		showProbability = false;
+		type = EventType.NORMAL;
+		parent = null;
+		subEvents = new ArrayList<Event>();
 		generalId++;
 	}
 
 	public Event getParent() {
-		return this.parent;
+		return parent;
 	}
 
 	public void setParent(Event ev) {
-		this.parent = ev;
+		parent = ev;
 	}
 
 	public EventType getType() {
-		return this.type;
+		return type;
 	}
 
 	public EventType getEventType() {
-		return this.type;
+		return type;
 	}
 
 	public void setEventType(EventType et) {
-		this.type = et;
+		type = et;
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void showProbability(boolean b) {
-		this.showProbability = b;
+		showProbability = b;
 	}
 
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
 
 	public double getProbability() {
-		return this.probability;
+		return probability;
 	}
 
 	public void setIdentifier(String n) {
-		this.identifier = n.replace(' ', '_');
+		identifier = n.replace(' ', '_');
 	}
 
 	public String getIdentifier() {
 		String suffix;
-		switch (this.type) {
+		switch (type) {
 		case AND: {
 			suffix = "_a";
 			break;
@@ -82,30 +82,30 @@ public class Event {
 			break;
 		}
 		}
-		return this.identifier + suffix;
+		return identifier + suffix;
 
 	}
 
 	public void setName(String n) {
-		this.name = n;
+		name = n;
 	}
 
 	public void setDescription(String d) {
-		this.description = d;
+		description = d;
 	}
 
 	public void setProbability(double p) {
-		this.probability = p;
-		this.showProbability = true;
+		probability = p;
+		showProbability = true;
 	}
 
 	public List<Event> getSubEvents() {
-		return this.subEvents;
+		return subEvents;
 	}
 
 	public void addSubEvent(Event e) {
 		e.setParent(this);
-		this.subEvents.add(e);
+		subEvents.add(e);
 	}
 
 	public String toXML() {
@@ -114,26 +114,26 @@ public class Event {
 		sb = new StringBuffer();
 
 		sb.append("<event");
-		if (this.type == EventType.NORMAL) {
-			sb.append(" id=\"" + this.name + "\" ");
+		if (type == EventType.NORMAL) {
+			sb.append(" id=\"" + name + "\" ");
 		} else {
-			sb.append(" id=\"" + this.getIdentifier() + "\" ");
+			sb.append(" id=\"" + getIdentifier() + "\" ");
 		}
 
-		if (this.probability != 0.0) {
-			sb.append(" probability=\"" + this.probability + "\"");
+		if (probability != 0.0) {
+			sb.append(" probability=\"" + probability + "\"");
 		}
 
-		if (this.type != EventType.NORMAL) {
-			sb.append(" type=\"" + EventType.toString(this.type) + "\"");
+		if (type != EventType.NORMAL) {
+			sb.append(" type=\"" + EventType.toString(type) + "\"");
 		}
-		if (this.description != null) {
-			sb.append(" description=" + this.description);
+		if (description != null) {
+			sb.append(" description=" + description);
 		}
 		sb.append(">");
 
 		sb.append("\n");
-		for (Event e : this.subEvents) {
+		for (Event e : subEvents) {
 			sb.append(e.toXML());
 		}
 		sb.append("</event>");
@@ -148,8 +148,8 @@ public class Event {
 
 		StringBuffer sb = new StringBuffer();
 
-		if (this.type == EventType.EVENT) {
-			prob = this.getProbability();
+		if (type == EventType.EVENT) {
+			prob = getProbability();
 			/**
 			 * A probability of 0 makes the whole thing crash.
 			 * So, we put a default prob of 0.1
@@ -157,16 +157,16 @@ public class Event {
 			if (prob == 0) {
 				prob = 0.1;
 			}
-			if (this.getDescription() != null) {
-				description = this.getDescription();
+			if (getDescription() != null) {
+				description = getDescription();
 			} else {
-				description = this.name + "(no extended description)";
+				description = name + "(no extended description)";
 			}
-			sb.append(this.identifier + ";;B;" + description + ";" + prob + ";L;\n");
+			sb.append(identifier + ";;B;" + description + ";" + prob + ";L;\n");
 			return sb.toString();
 		}
 
-		for (Event e : this.subEvents) {
+		for (Event e : subEvents) {
 			sb.append(e.toPED());
 		}
 		return sb.toString();
@@ -177,27 +177,27 @@ public class Event {
 
 		sb = new StringBuffer();
 		String title = "";
-		if (this.type == EventType.EVENT) {
+		if (type == EventType.EVENT) {
 //			String tmp = this.name;
 //			tmp = tmp.replace(' ', '_');
 //			tmp = tmp.replace('/', '-');
 //			tmp = tmp.replace('(', '-');
 //			tmp = tmp.replace(')', '-');
 //			tmp = tmp.replace("__", "_");
-//			
+//
 //			tmp = tmp.toLowerCase();
-			sb.append("B " + this.identifier + " 0\n");
+			sb.append("B " + identifier + " 0\n");
 			return sb.toString();
 		}
 
-		if ((this.type == EventType.NORMAL)
-				|| ((this.parent != null) && (this.type == EventType.AND) && (this.parent.getType() == EventType.AND))
-				|| ((this.parent != null) && (this.type == EventType.AND) && (this.parent.getType() == EventType.OR))
-				|| ((this.parent != null) && (this.type == EventType.OR) && (this.parent.getType() == EventType.AND))
-				|| ((this.parent != null) && (this.type == EventType.OR) && (this.parent.getType() == EventType.OR))) {
-			sb.append("M " + this.identifier);
+		if ((type == EventType.NORMAL)
+				|| ((parent != null) && (type == EventType.AND) && (parent.getType() == EventType.AND))
+				|| ((parent != null) && (type == EventType.AND) && (parent.getType() == EventType.OR))
+				|| ((parent != null) && (type == EventType.OR) && (parent.getType() == EventType.AND))
+				|| ((parent != null) && (type == EventType.OR) && (parent.getType() == EventType.OR))) {
+			sb.append("M " + identifier);
 
-			if (this.type == EventType.NORMAL) {
+			if (type == EventType.NORMAL) {
 				if (subEvents.size() > 0) {
 					sb.append(" " + subEvents.size() + "\n");
 				} else {
@@ -207,10 +207,10 @@ public class Event {
 				sb.append(" 1\n");
 			}
 
-			title = this.name;
+			title = name;
 
-			if (this.getDescription() != null) {
-				title = this.getDescription();
+			if (getDescription() != null) {
+				title = getDescription();
 			}
 
 			sb.append("" + title.length() + " " + title + "\n");
@@ -220,18 +220,18 @@ public class Event {
 			 * that it does not have other contributors. This makes the FTA complete.
 			 * It has been suggestion by Bill Fletecher from the SAE S18 group.
 			 */
-			if ((this.type == EventType.NORMAL) && (this.subEvents.size() == 0)) {
+			if ((type == EventType.NORMAL) && (subEvents.size() == 0)) {
 				sb.append("U NULL 0\n");
 			}
 		}
 
-		switch (this.type) {
+		switch (type) {
 		case AND: {
-			sb.append("A " + this.identifier + " " + this.subEvents.size() + "\n");
+			sb.append("A " + identifier + " " + subEvents.size() + "\n");
 			break;
 		}
 		case OR: {
-			sb.append("O " + this.identifier + " " + this.subEvents.size() + "\n");
+			sb.append("O " + identifier + " " + subEvents.size() + "\n");
 			break;
 		}
 		default: {
@@ -240,7 +240,7 @@ public class Event {
 
 		}
 
-		for (Event e : this.subEvents) {
+		for (Event e : subEvents) {
 			sb.append(e.toFTA());
 		}
 

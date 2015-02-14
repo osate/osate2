@@ -87,7 +87,7 @@ public class AnalysisModel {
 			}
 		}
 		/**
-		 * 
+		 *
 		 * We also browse the list of all component instances.
 		 * Then, for each process, we add an error path between the process
 		 * and its associated processor. When being bound to a virtual processor,
@@ -148,8 +148,9 @@ public class AnalysisModel {
 	}
 
 	public String generateErrorPropTypeSetText(ErrorPropagation ep) {
-		if (ep == null)
+		if (ep == null) {
 			return "";
+		}
 		TypeSet ts = ep.getTypeSet();
 		return ((EMV2Util.getPrintName(ep)) + (ts != null ? " " + EMV2Util.getPrintName(ts) : ""));
 	}
@@ -160,8 +161,9 @@ public class AnalysisModel {
 	 */
 	protected void populateConnectionPropagationPaths(ConnectionInstance connectionInstance) {
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
-		if (connrefs.isEmpty())
+		if (connrefs.isEmpty()) {
 			return;
+		}
 		ErrorPropagation srcprop = null;
 		ComponentInstance srcCI = null;
 		ErrorPropagation dstprop = null;
@@ -401,7 +403,7 @@ public class AnalysisModel {
 	}
 
 	/**
-	 * This is made to support the binding between component. Here, the first argument is the component 
+	 * This is made to support the binding between component. Here, the first argument is the component
 	 * bound to a resource (e.g. a process) and the boundResource argument the associated resources (e.g. a processor).
 	 * @param comp
 	 * @param boundResource
@@ -444,7 +446,7 @@ public class AnalysisModel {
 	}
 
 	/**
-	 * This is made to support the binding between connection and components. Here, the first argument is the connection 
+	 * This is made to support the binding between connection and components. Here, the first argument is the connection
 	 * bound to a resource and the boundResource argument the associated resources (e.g. a bus).
 	 * @param conn
 	 * @param boundResource
@@ -515,8 +517,9 @@ public class AnalysisModel {
 		ComponentInstance result = ci;
 		for (SubcomponentElement subcomponentElement : sublist) {
 			result = result.findSubcomponentInstance(subcomponentElement.getSubcomponent());
-			if (result == null)
+			if (result == null) {
 				return null;
+			}
 		}
 		return result;
 	}
@@ -712,8 +715,9 @@ public class AnalysisModel {
 			ErrorPropagation dstEP, ConnectionInstance conni) {
 		for (PropagationPathRecord pp : propagationPaths) {
 			if (pp.getConnectionInstance() == conni && pp.getSrcCI() == srcCI && pp.getDstCI() == dstCI
-					&& pp.getPathSrc().getErrorPropagation() == srcEP && pp.getPathDst().getErrorPropagation() == dstEP)
+					&& pp.getPathSrc().getErrorPropagation() == srcEP && pp.getPathDst().getErrorPropagation() == dstEP) {
 				return true;
+			}
 		}
 		return false;
 	}

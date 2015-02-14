@@ -11,49 +11,44 @@ import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
 
 import com.google.inject.Injector;
 
-public class EMV2AnnexParser implements AnnexParser { 
+public class EMV2AnnexParser implements AnnexParser {
 	// Need to get aadl resources for resolving components
 	// For resolving package names etc
-	
-	
-    private Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
 
-	private ErrorModelParser emv2Parser ;
+	private Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
 
-	protected  ErrorModelParser getParser() {
-			if (emv2Parser == null) {
-				if (injector == null){
-					
-					injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
-				}
-				emv2Parser = injector.getInstance(ErrorModelParser.class);
+	private ErrorModelParser emv2Parser;
+
+	protected ErrorModelParser getParser() {
+		if (emv2Parser == null) {
+			if (injector == null) {
+
+				injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
 			}
+			emv2Parser = injector.getInstance(ErrorModelParser.class);
+		}
 		return emv2Parser;
 	}
 
-	protected  ErrorModelGrammarAccess getGrammarAccess() {
+	protected ErrorModelGrammarAccess getGrammarAccess() {
 		return getParser().getGrammarAccess();
 	}
-	
-	public AnnexLibrary parseAnnexLibrary
-			(
-				String annexName, String source,
-				String filename, int line, int column, ParseErrorReporter errReporter
-			) {
-		AnnexLibrary eal = (AnnexLibrary) AnnexParseUtil.parse(getParser(),source,getGrammarAccess().getErrorModelLibraryRule(),filename,line,column, errReporter);
-		 return eal;
 
-	 }
+	@Override
+	public AnnexLibrary parseAnnexLibrary(String annexName, String source, String filename, int line, int column,
+			ParseErrorReporter errReporter) {
+		AnnexLibrary eal = (AnnexLibrary) AnnexParseUtil.parse(getParser(), source, getGrammarAccess()
+				.getErrorModelLibraryRule(), filename, line, column, errReporter);
+		return eal;
 
-	public AnnexSubclause parseAnnexSubclause
-			(
-				String annexName, String source, String filename, 
-				int line, int column, ParseErrorReporter errReporter
-			) {
-		AnnexSubclause eas = (AnnexSubclause) AnnexParseUtil.parse(getParser(),source,getGrammarAccess().getErrorModelSubclauseRule(),filename,line,column, errReporter);
-		 return eas;
-	 }
+	}
 
-
+	@Override
+	public AnnexSubclause parseAnnexSubclause(String annexName, String source, String filename, int line, int column,
+			ParseErrorReporter errReporter) {
+		AnnexSubclause eas = (AnnexSubclause) AnnexParseUtil.parse(getParser(), source, getGrammarAccess()
+				.getErrorModelSubclauseRule(), filename, line, column, errReporter);
+		return eas;
+	}
 
 }

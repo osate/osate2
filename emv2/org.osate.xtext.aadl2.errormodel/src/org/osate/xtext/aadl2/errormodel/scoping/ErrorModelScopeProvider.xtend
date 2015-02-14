@@ -5,15 +5,10 @@ package org.osate.xtext.aadl2.errormodel.scoping;
 
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
-import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.resource.EObjectDescription
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
-import org.eclipse.xtext.scoping.impl.SimpleScope
-import org.eclipse.xtext.resource.IEObjectDescription
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
-import org.eclipse.emf.common.util.EList
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
 
 /**

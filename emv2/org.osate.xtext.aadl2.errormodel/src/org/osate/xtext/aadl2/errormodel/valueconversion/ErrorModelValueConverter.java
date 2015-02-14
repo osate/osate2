@@ -7,18 +7,20 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.DirectionType;
 
 public class ErrorModelValueConverter extends DefaultTerminalConverters {
-    @ValueConverter(rule = "PropagationDirection")
-    public IValueConverter<DirectionType> InOutDirection() {
-        return new IValueConverter<DirectionType>() {
-            public DirectionType toValue(String string, INode node) {
-            	if (string == null) return DirectionType.OUT;
+	@ValueConverter(rule = "PropagationDirection")
+	public IValueConverter<DirectionType> InOutDirection() {
+		return new IValueConverter<DirectionType>() {
+			public DirectionType toValue(String string, INode node) {
+				if (string == null) {
+					return DirectionType.OUT;
+				}
 				return DirectionType.get(string.toLowerCase());
 			}
 
-            public String toString(DirectionType value) {
-                return value.getName();
-            }
-        };
-    }
+			public String toString(DirectionType value) {
+				return value.getName();
+			}
+		};
+	}
 
 }
