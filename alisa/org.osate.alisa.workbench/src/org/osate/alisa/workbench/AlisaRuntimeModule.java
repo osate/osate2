@@ -3,6 +3,8 @@
  */
 package org.osate.alisa.workbench;
 
+import org.eclipse.xtext.generator.IOutputConfigurationProvider;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
@@ -10,6 +12,10 @@ public class AlisaRuntimeModule extends org.osate.alisa.workbench.AbstractAlisaR
 
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameConverter> bindIQualifiedNameConverter() {
 		return org.osate.alisa.common.naming.CommonQualifiedNameConverter.class;
+	}
+
+	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
+		return org.osate.alisa.workbench.generator.AlisaOutputConfiugrationProvider.class;
 	}
 
 }
