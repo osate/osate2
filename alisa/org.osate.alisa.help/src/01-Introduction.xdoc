@@ -6,11 +6,11 @@ requirements across multiple layer of a system architecture and the verification
 agains tthese requirements. The workbench complements the capabilities of an architecture-centric virtual
 system integration workbench for the development of such systems.
 
-Alisa utilizes SAE AADL as an architecture modeling language. Alisa provides three notations for users
-to specify requirements and verification plans, and the results of the verification activities througout
-the life cycle to incrementally build an assurance case concurrent with the development process.
+Alisa utilizes SAE AADL as an architecture modeling language. Alisa provides several notations for users
+to specify requirements, verification plans, and execute verification plans incrementally througout
+the life cycle.
 
-img[images/doublev.png][Building the Assurance Case][][]
+img[images/doublev.png][Incrementally Evolving and Maintaining the Assurance Evidence][][]
 
 The three notations are:
 ul[
@@ -18,16 +18,18 @@ ul[
 	item[e[Verify:] a notation for registering verification methods, specifying verification activities,
 	and verification plans with claims that requirements are satisfied by the results of verivication
 	activities.]
+	item[e[Alisa:] a notation for defining assurance tasks to produce assurance evidence from execution
+	of verification plans configured to specific perspectives.]
 	item[e[Assure:] a notation that represents the assurance results, i.e., the results of executing verification
-	plans on a system instance.]
+	plans on a system instance. Models in this notation are automatically generated from an asurance
+	task specification.]
 ]
 
-These notations are supported by three additional notations:
+These notations are supported by additional notations:
 ul[
 item[e[Organization:] a notation for defining the stakeholders of a system.]
 item[e[Categories:] a notation for defining  requirement categories, verification categories, and selection
 categories]
-item[e[Alisa:] a notation for defining the working context for building an assurance case.]
 ]
 
 The notations use a simple syntax. Each construct introduces an instance of a particular Alisa concept,

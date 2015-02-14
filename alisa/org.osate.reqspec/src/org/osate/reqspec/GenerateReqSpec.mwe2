@@ -55,6 +55,10 @@ Workflow {
 			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
 			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
 		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+			to = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+		}
     	// The following two lines can be removed, if Xbase is not used.
     	registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
     	registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"

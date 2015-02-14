@@ -38,10 +38,10 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getPredicate <em>Predicate</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getExceptionText <em>Exception Text</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getRefinedReference <em>Refined Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
  * </ul>
  * </p>
@@ -79,16 +79,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected ReqPredicate predicate;
-
-  /**
-   * The cached value of the '{@link #getGoalReference() <em>Goal Reference</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getGoalReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<Goal> goalReference;
 
   /**
    * The cached value of the '{@link #getException() <em>Exception</em>}' reference.
@@ -129,6 +119,16 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * @ordered
    */
   protected EList<Requirement> refinedReference;
+
+  /**
+   * The cached value of the '{@link #getGoalReference() <em>Goal Reference</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGoalReference()
+   * @generated
+   * @ordered
+   */
+  protected EList<Goal> goalReference;
 
   /**
    * The cached value of the '{@link #getStakeholderRequirementReference() <em>Stakeholder Requirement Reference</em>}' reference list.
@@ -242,20 +242,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Goal> getGoalReference()
-  {
-    if (goalReference == null)
-    {
-      goalReference = new EObjectResolvingEList<Goal>(Goal.class, this, ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE);
-    }
-    return goalReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EObject getException()
   {
     if (exception != null && exception.eIsProxy())
@@ -336,6 +322,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Goal> getGoalReference()
+  {
+    if (goalReference == null)
+    {
+      goalReference = new EObjectResolvingEList<Goal>(Goal.class, this, ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE);
+    }
+    return goalReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Goal> getStakeholderRequirementReference()
   {
     if (stakeholderRequirementReference == null)
@@ -381,8 +381,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getComputes();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return getPredicate();
-      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
-        return getGoalReference();
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:
         if (resolve) return getException();
         return basicGetException();
@@ -390,6 +388,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return getExceptionText();
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         return getRefinedReference();
+      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
+        return getGoalReference();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         return getStakeholderRequirementReference();
     }
@@ -418,10 +418,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)newValue);
         return;
-      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
-        getGoalReference().clear();
-        getGoalReference().addAll((Collection<? extends Goal>)newValue);
-        return;
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:
         setException((EObject)newValue);
         return;
@@ -431,6 +427,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         getRefinedReference().clear();
         getRefinedReference().addAll((Collection<? extends Requirement>)newValue);
+        return;
+      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
+        getGoalReference().clear();
+        getGoalReference().addAll((Collection<? extends Goal>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         getStakeholderRequirementReference().clear();
@@ -459,9 +459,6 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)null);
         return;
-      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
-        getGoalReference().clear();
-        return;
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:
         setException((EObject)null);
         return;
@@ -470,6 +467,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return;
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         getRefinedReference().clear();
+        return;
+      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
+        getGoalReference().clear();
         return;
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         getStakeholderRequirementReference().clear();
@@ -494,14 +494,14 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
         return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return predicate != null;
-      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
-        return goalReference != null && !goalReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:
         return exception != null;
       case ReqSpecPackage.REQUIREMENT__EXCEPTION_TEXT:
         return EXCEPTION_TEXT_EDEFAULT == null ? exceptionText != null : !EXCEPTION_TEXT_EDEFAULT.equals(exceptionText);
       case ReqSpecPackage.REQUIREMENT__REFINED_REFERENCE:
         return refinedReference != null && !refinedReference.isEmpty();
+      case ReqSpecPackage.REQUIREMENT__GOAL_REFERENCE:
+        return goalReference != null && !goalReference.isEmpty();
       case ReqSpecPackage.REQUIREMENT__STAKEHOLDER_REQUIREMENT_REFERENCE:
         return stakeholderRequirementReference != null && !stakeholderRequirementReference.isEmpty();
     }

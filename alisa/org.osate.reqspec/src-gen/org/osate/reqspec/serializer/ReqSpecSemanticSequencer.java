@@ -1492,9 +1492,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         computes+=ComputeDeclaration* 
 	 *         predicate=ReqPredicate? 
 	 *         rationale=STRING? 
-	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinedReference+=[Requirement|QualifiedName]* 
+	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
 	 *         docReference+=ExternalDocument*

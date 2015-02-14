@@ -21,10 +21,10 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinedReference <em>Refined Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
  * </ul>
  * </p>
@@ -94,22 +94,6 @@ public interface Requirement extends ContractualElement
   void setPredicate(ReqPredicate value);
 
   /**
-   * Returns the value of the '<em><b>Goal Reference</b></em>' reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Goal Reference</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Goal Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_GoalReference()
-   * @model
-   * @generated
-   */
-  EList<Goal> getGoalReference();
-
-  /**
    * Returns the value of the '<em><b>Exception</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
@@ -176,6 +160,22 @@ public interface Requirement extends ContractualElement
    * @generated
    */
   EList<Requirement> getRefinedReference();
+
+  /**
+   * Returns the value of the '<em><b>Goal Reference</b></em>' reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Goal Reference</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Goal Reference</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_GoalReference()
+   * @model
+   * @generated
+   */
+  EList<Goal> getGoalReference();
 
   /**
    * Returns the value of the '<em><b>Stakeholder Requirement Reference</b></em>' reference list.

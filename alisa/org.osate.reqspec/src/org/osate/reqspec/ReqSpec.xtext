@@ -98,9 +98,9 @@ Requirement:
 	& (  computes+=ComputeDeclaration* )
 	&(  predicate=ReqPredicate)?  // predicate expression 
 	&('rationale'  rationale=STRING)? 
-	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
 	&('refines' refinedReference+=[Requirement|QualifiedName]+)? 
+	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?
 	 &('see' 'document'  docReference+=ExternalDocument+)? 
