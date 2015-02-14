@@ -13,7 +13,7 @@ package org.osate.verify.verify;
  * <ul>
  *   <li>{@link org.osate.verify.verify.FailThenExpr#getLeft <em>Left</em>}</li>
  *   <li>{@link org.osate.verify.verify.FailThenExpr#isFailed <em>Failed</em>}</li>
- *   <li>{@link org.osate.verify.verify.FailThenExpr#isError <em>Error</em>}</li>
+ *   <li>{@link org.osate.verify.verify.FailThenExpr#isUnknown <em>Unknown</em>}</li>
  *   <li>{@link org.osate.verify.verify.FailThenExpr#getRight <em>Right</em>}</li>
  * </ul>
  * </p>
@@ -77,30 +77,30 @@ public interface FailThenExpr extends ArgumentExpr
   void setFailed(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Error</b></em>' attribute.
+   * Returns the value of the '<em><b>Unknown</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Error</em>' attribute isn't clear,
+   * If the meaning of the '<em>Unknown</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Error</em>' attribute.
-   * @see #setError(boolean)
-   * @see org.osate.verify.verify.VerifyPackage#getFailThenExpr_Error()
+   * @return the value of the '<em>Unknown</em>' attribute.
+   * @see #setUnknown(boolean)
+   * @see org.osate.verify.verify.VerifyPackage#getFailThenExpr_Unknown()
    * @model
    * @generated
    */
-  boolean isError();
+  boolean isUnknown();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.FailThenExpr#isError <em>Error</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.FailThenExpr#isUnknown <em>Unknown</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Error</em>' attribute.
-   * @see #isError()
+   * @param value the new value of the '<em>Unknown</em>' attribute.
+   * @see #isUnknown()
    * @generated
    */
-  void setError(boolean value);
+  void setUnknown(boolean value);
 
   /**
    * Returns the value of the '<em><b>Right</b></em>' containment reference.

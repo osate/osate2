@@ -50,14 +50,14 @@ public enum VerificationResultState implements Enumerator
   FAIL(2, "FAIL", "fail"),
 
   /**
-   * The '<em><b>ERROR</b></em>' literal object.
+   * The '<em><b>UNKNOWN</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #ERROR_VALUE
+   * @see #UNKNOWN_VALUE
    * @generated
    * @ordered
    */
-  ERROR(3, "ERROR", "error");
+  UNKNOWN(3, "UNKNOWN", "unknown");
 
   /**
    * The '<em><b>TBD</b></em>' literal value.
@@ -105,19 +105,19 @@ public enum VerificationResultState implements Enumerator
   public static final int FAIL_VALUE = 2;
 
   /**
-   * The '<em><b>ERROR</b></em>' literal value.
+   * The '<em><b>UNKNOWN</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>ERROR</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>UNKNOWN</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #ERROR
-   * @model literal="error"
+   * @see #UNKNOWN
+   * @model literal="unknown"
    * @generated
    * @ordered
    */
-  public static final int ERROR_VALUE = 3;
+  public static final int UNKNOWN_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Verification Result State</b></em>' enumerators.
@@ -131,7 +131,7 @@ public enum VerificationResultState implements Enumerator
       TBD,
       SUCCESS,
       FAIL,
-      ERROR,
+      UNKNOWN,
     };
 
   /**
@@ -193,7 +193,7 @@ public enum VerificationResultState implements Enumerator
       case TBD_VALUE: return TBD;
       case SUCCESS_VALUE: return SUCCESS;
       case FAIL_VALUE: return FAIL;
-      case ERROR_VALUE: return ERROR;
+      case UNKNOWN_VALUE: return UNKNOWN;
     }
     return null;
   }

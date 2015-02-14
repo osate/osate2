@@ -8,17 +8,17 @@ import "http://www.osate.org/categories/Categories" as categories
 
 AlisaWorkArea:
 	'alisa' name=ID
-	cases+=AssuranceCaseConfiguration*;
+	cases+=AssuranceEvidenceConfiguration*;
 
-AssuranceCaseConfiguration:
-	'case' name=ID (':' title=STRING)?
+AssuranceEvidenceConfiguration:
+	'assurance' 'task' name=ID (':' title=STRING)?
 	'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(
 	('description' description=Description)?
 //	& (  constants+=XValDeclaration* )
 	& ('plans' plans+=[Verify::VerificationPlan|QualifiedName]+)
-	&('when' (selectionFilter+=[categories::SelectionCategory|ID])+)?
+	&('filter' (selectionFilter+=[categories::SelectionCategory|ID])+)?
 	)
 	']';
 	
@@ -30,10 +30,6 @@ DescriptionElement :
  	text = STRING | thisTarget?='this'
  ;
 
-ComputeDeclaration : 'compute' name=ID;
-
-// Override XNumberLiteral from XBase
-//Accept unit and have value converter turn it into value scaled to base unit
 
  
 // Qualified classifier reference

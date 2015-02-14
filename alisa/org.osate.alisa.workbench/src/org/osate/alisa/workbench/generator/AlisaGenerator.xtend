@@ -12,9 +12,8 @@ import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
-import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration
+import org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration
 import org.osate.assure.assure.AssureFactory
-import org.osate.assure.assure.CaseResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
@@ -34,6 +33,7 @@ import org.osate.verify.verify.WhenExpr
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
+import org.osate.assure.assure.AssuranceEvidence
 
 /**
  * Generates code from your model files on save.
@@ -55,23 +55,23 @@ class AlisaGenerator implements IGenerator {
 	
 	var EList<SelectionCategory> selectionCriteria 
 
-	def constructCase(AssuranceCaseConfiguration acp) {
+	def constructCase(AssuranceEvidenceConfiguration acp) {
 		val si = acp.system.buildInstanceModelFile
 		selectionCriteria = acp.selectionFilter
 		si.construct(acp)
 	}
 
-	def generateCase(AssuranceCaseConfiguration acp) {
+	def generateCase(AssuranceEvidenceConfiguration acp) {
 		val si = acp.system.buildInstanceModelFile
 		selectionCriteria = acp.selectionFilter
 		si.generate(acp)
 	}
 
-	def CaseResult construct(ComponentInstance ci, AssuranceCaseConfiguration acp) {
+	def AssuranceEvidence construct(ComponentInstance ci, AssuranceEvidenceConfiguration acp) {
 		val myplans = ci.getVerificationPlans(acp);
-		var CaseResult acase = null
+		var AssuranceEvidence acase = null
 		if (!myplans.empty) {
-			acase = factory.createCaseResult
+			acase = factory.createAssuranceEvidence
 			acase.name = acp.name
 			acase.target = ci.componentClassifier
 			acase.instance = ci
@@ -81,17 +81,17 @@ class AlisaGenerator implements IGenerator {
 				}
 			}
 			for (subci : ci.componentInstances) {
-				acase.subCaseResult += subci.construct(acp)
+				acase.subAssuranceEvidence += subci.construct(acp)
 			}
 		}
 		acase
 	}
 
-	def CharSequence generate(ComponentInstance ci, AssuranceCaseConfiguration acp) {
+	def CharSequence generate(ComponentInstance ci, AssuranceEvidenceConfiguration acp) {
 		val myplans = ci.getVerificationPlans(acp);
 		'''	
 			«IF !myplans.empty»
-				case «acp.name» for «ci.componentClassifier.getQualifiedName»
+				evidence «acp.name» for «ci.componentClassifier.getQualifiedName»
 				instance "«ci.URI.toString»"
 				[
 					tbdcount 1
@@ -205,7 +205,7 @@ class AlisaGenerator implements IGenerator {
 			do
 				«expr.right.generate»
 			[
-				«IF expr.error»errorthen«ENDIF»
+				«IF expr.unknown»unknownthen«ENDIF»
 				«IF expr.failed»failthen«ENDIF»
 				tbdcount 1
 			]

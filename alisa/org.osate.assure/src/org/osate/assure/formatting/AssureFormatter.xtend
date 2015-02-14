@@ -34,7 +34,7 @@ class AssureFormatter extends AbstractDeclarativeFormatter {
 			c.setIndentationDecrement().before(pair.second);
 			c.setLinewrap().before(pair.second);
 		}
-		c.setLinewrap().after(caseResultRule);
+		c.setLinewrap().after(assuranceEvidenceRule);
 		c.setLinewrap().after(claimResultRule);
 		c.setLinewrap().after(verificationActivityResultRule);
 		c.setLinewrap().after(validationResultRule);

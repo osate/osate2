@@ -45,7 +45,7 @@ import org.osate.assure.services.AssureGrammarAccess;
     
     @Override
     protected String getFirstRuleName() {
-    	return "CaseResult";	
+    	return "AssuranceEvidence";	
    	}
    	
    	@Override
@@ -64,33 +64,33 @@ import org.osate.assure.services.AssureGrammarAccess;
 
 
 
-// Entry rule entryRuleCaseResult
-entryRuleCaseResult returns [EObject current=null] 
+// Entry rule entryRuleAssuranceEvidence
+entryRuleAssuranceEvidence returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getCaseResultRule()); }
-	 iv_ruleCaseResult=ruleCaseResult 
-	 { $current=$iv_ruleCaseResult.current; } 
+	{ newCompositeNode(grammarAccess.getAssuranceEvidenceRule()); }
+	 iv_ruleAssuranceEvidence=ruleAssuranceEvidence 
+	 { $current=$iv_ruleAssuranceEvidence.current; } 
 	 EOF 
 ;
 
-// Rule CaseResult
-ruleCaseResult returns [EObject current=null] 
+// Rule AssuranceEvidence
+ruleAssuranceEvidence returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='case' 
+(	otherlv_0='evidence' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getCaseResultAccess().getCaseKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getAssuranceEvidenceAccess().getEvidenceKeyword_0());
     }
 (
 (
 		lv_name_1_0=RULE_ID
 		{
-			newLeafNode(lv_name_1_0, grammarAccess.getCaseResultAccess().getNameIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_name_1_0, grammarAccess.getAssuranceEvidenceAccess().getNameIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -102,17 +102,17 @@ ruleCaseResult returns [EObject current=null]
 )
 )	otherlv_2='for' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getCaseResultAccess().getForKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getAssuranceEvidenceAccess().getForKeyword_2());
     }
 (
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getCaseResultAccess().getTargetClassifierCrossReference_3_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getTargetClassifierCrossReference_3_0()); 
 	    }
 		ruleAadlClassifierReference		{ 
 	        afterParserOrEnumRuleCall();
@@ -121,17 +121,17 @@ ruleCaseResult returns [EObject current=null]
 )
 )	otherlv_4='instance' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getCaseResultAccess().getInstanceKeyword_4());
+    	newLeafNode(otherlv_4, grammarAccess.getAssuranceEvidenceAccess().getInstanceKeyword_4());
     }
 (
 (
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getCaseResultAccess().getInstanceInstanceObjectCrossReference_5_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getInstanceInstanceObjectCrossReference_5_0()); 
 	    }
 		ruleURIID		{ 
 	        afterParserOrEnumRuleCall();
@@ -140,21 +140,21 @@ ruleCaseResult returns [EObject current=null]
 )
 )	otherlv_6='[' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getCaseResultAccess().getLeftSquareBracketKeyword_6());
+    	newLeafNode(otherlv_6, grammarAccess.getAssuranceEvidenceAccess().getLeftSquareBracketKeyword_6());
     }
 (	otherlv_7='successcount' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getCaseResultAccess().getSuccesscountKeyword_7_0());
+    	newLeafNode(otherlv_7, grammarAccess.getAssuranceEvidenceAccess().getSuccesscountKeyword_7_0());
     }
 (
 (
 		lv_successCount_8_0=RULE_INT
 		{
-			newLeafNode(lv_successCount_8_0, grammarAccess.getCaseResultAccess().getSuccessCountINTTerminalRuleCall_7_1_0()); 
+			newLeafNode(lv_successCount_8_0, grammarAccess.getAssuranceEvidenceAccess().getSuccessCountINTTerminalRuleCall_7_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -166,17 +166,17 @@ ruleCaseResult returns [EObject current=null]
 )
 ))?(	otherlv_9='failcount' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getCaseResultAccess().getFailcountKeyword_8_0());
+    	newLeafNode(otherlv_9, grammarAccess.getAssuranceEvidenceAccess().getFailcountKeyword_8_0());
     }
 (
 (
 		lv_failCount_10_0=RULE_INT
 		{
-			newLeafNode(lv_failCount_10_0, grammarAccess.getCaseResultAccess().getFailCountINTTerminalRuleCall_8_1_0()); 
+			newLeafNode(lv_failCount_10_0, grammarAccess.getAssuranceEvidenceAccess().getFailCountINTTerminalRuleCall_8_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -186,41 +186,41 @@ ruleCaseResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_11='errorcount' 
+))?(	otherlv_11='unknowncount' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getCaseResultAccess().getErrorcountKeyword_9_0());
+    	newLeafNode(otherlv_11, grammarAccess.getAssuranceEvidenceAccess().getUnknowncountKeyword_9_0());
     }
 (
 (
-		lv_errorCount_12_0=RULE_INT
+		lv_unknownCount_12_0=RULE_INT
 		{
-			newLeafNode(lv_errorCount_12_0, grammarAccess.getCaseResultAccess().getErrorCountINTTerminalRuleCall_9_1_0()); 
+			newLeafNode(lv_unknownCount_12_0, grammarAccess.getAssuranceEvidenceAccess().getUnknownCountINTTerminalRuleCall_9_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"errorCount",
-        		lv_errorCount_12_0, 
+       			"unknownCount",
+        		lv_unknownCount_12_0, 
         		"INT");
 	    }
 
 )
 ))?(	otherlv_13='failthencount' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getCaseResultAccess().getFailthencountKeyword_10_0());
+    	newLeafNode(otherlv_13, grammarAccess.getAssuranceEvidenceAccess().getFailthencountKeyword_10_0());
     }
 (
 (
 		lv_failthenCount_14_0=RULE_INT
 		{
-			newLeafNode(lv_failthenCount_14_0, grammarAccess.getCaseResultAccess().getFailthenCountINTTerminalRuleCall_10_1_0()); 
+			newLeafNode(lv_failthenCount_14_0, grammarAccess.getAssuranceEvidenceAccess().getFailthenCountINTTerminalRuleCall_10_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -232,17 +232,17 @@ ruleCaseResult returns [EObject current=null]
 )
 ))?(	otherlv_15='andthencount' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getCaseResultAccess().getAndthencountKeyword_11_0());
+    	newLeafNode(otherlv_15, grammarAccess.getAssuranceEvidenceAccess().getAndthencountKeyword_11_0());
     }
 (
 (
 		lv_andthenCount_16_0=RULE_INT
 		{
-			newLeafNode(lv_andthenCount_16_0, grammarAccess.getCaseResultAccess().getAndthenCountINTTerminalRuleCall_11_1_0()); 
+			newLeafNode(lv_andthenCount_16_0, grammarAccess.getAssuranceEvidenceAccess().getAndthenCountINTTerminalRuleCall_11_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -254,17 +254,17 @@ ruleCaseResult returns [EObject current=null]
 )
 ))?(	otherlv_17='tbdcount' 
     {
-    	newLeafNode(otherlv_17, grammarAccess.getCaseResultAccess().getTbdcountKeyword_12_0());
+    	newLeafNode(otherlv_17, grammarAccess.getAssuranceEvidenceAccess().getTbdcountKeyword_12_0());
     }
 (
 (
 		lv_tbdCount_18_0=RULE_INT
 		{
-			newLeafNode(lv_tbdCount_18_0, grammarAccess.getCaseResultAccess().getTbdCountINTTerminalRuleCall_12_1_0()); 
+			newLeafNode(lv_tbdCount_18_0, grammarAccess.getAssuranceEvidenceAccess().getTbdCountINTTerminalRuleCall_12_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -276,17 +276,17 @@ ruleCaseResult returns [EObject current=null]
 )
 ))?(	otherlv_19='weight' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getCaseResultAccess().getWeightKeyword_13_0());
+    	newLeafNode(otherlv_19, grammarAccess.getAssuranceEvidenceAccess().getWeightKeyword_13_0());
     }
 (
 (
 		lv_weight_20_0=RULE_INT
 		{
-			newLeafNode(lv_weight_20_0, grammarAccess.getCaseResultAccess().getWeightINTTerminalRuleCall_13_1_0()); 
+			newLeafNode(lv_weight_20_0, grammarAccess.getAssuranceEvidenceAccess().getWeightINTTerminalRuleCall_13_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -298,17 +298,17 @@ ruleCaseResult returns [EObject current=null]
 )
 ))?(	otherlv_21='message' 
     {
-    	newLeafNode(otherlv_21, grammarAccess.getCaseResultAccess().getMessageKeyword_14_0());
+    	newLeafNode(otherlv_21, grammarAccess.getAssuranceEvidenceAccess().getMessageKeyword_14_0());
     }
 (
 (
 		lv_message_22_0=RULE_STRING
 		{
-			newLeafNode(lv_message_22_0, grammarAccess.getCaseResultAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
+			newLeafNode(lv_message_22_0, grammarAccess.getAssuranceEvidenceAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
 		}
 		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCaseResultRule());
+	            $current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		setWithLastConsumed(
        			$current, 
@@ -321,17 +321,17 @@ ruleCaseResult returns [EObject current=null]
 ))?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCaseResultAccess().getSubCaseResultCaseResultParserRuleCall_15_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0()); 
 	    }
-		lv_subCaseResult_23_0=ruleCaseResult		{
+		lv_subAssuranceEvidence_23_0=ruleAssuranceEvidence		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getCaseResultRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		add(
        			$current, 
-       			"subCaseResult",
-        		lv_subCaseResult_23_0, 
-        		"CaseResult");
+       			"subAssuranceEvidence",
+        		lv_subAssuranceEvidence_23_0, 
+        		"AssuranceEvidence");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -339,11 +339,11 @@ ruleCaseResult returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCaseResultAccess().getClaimResultClaimResultParserRuleCall_16_0()); 
+	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getClaimResultClaimResultParserRuleCall_16_0()); 
 	    }
 		lv_claimResult_24_0=ruleClaimResult		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getCaseResultRule());
+	            $current = createModelElementForParent(grammarAccess.getAssuranceEvidenceRule());
 	        }
        		add(
        			$current, 
@@ -356,7 +356,7 @@ ruleCaseResult returns [EObject current=null]
 )
 )*	otherlv_25=']' 
     {
-    	newLeafNode(otherlv_25, grammarAccess.getCaseResultAccess().getRightSquareBracketKeyword_17());
+    	newLeafNode(otherlv_25, grammarAccess.getAssuranceEvidenceAccess().getRightSquareBracketKeyword_17());
     }
 )
 ;
@@ -487,15 +487,15 @@ ruleClaimResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_11='errorcount' 
+))?(	otherlv_11='unknowncount' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getClaimResultAccess().getErrorcountKeyword_8_0());
+    	newLeafNode(otherlv_11, grammarAccess.getClaimResultAccess().getUnknowncountKeyword_8_0());
     }
 (
 (
-		lv_errorCount_12_0=RULE_INT
+		lv_unknownCount_12_0=RULE_INT
 		{
-			newLeafNode(lv_errorCount_12_0, grammarAccess.getClaimResultAccess().getErrorCountINTTerminalRuleCall_8_1_0()); 
+			newLeafNode(lv_unknownCount_12_0, grammarAccess.getClaimResultAccess().getUnknownCountINTTerminalRuleCall_8_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -503,8 +503,8 @@ ruleClaimResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"errorCount",
-        		lv_errorCount_12_0, 
+       			"unknownCount",
+        		lv_unknownCount_12_0, 
         		"INT");
 	    }
 
@@ -868,15 +868,15 @@ ruleValidationResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_20='errorcount' 
+))?(	otherlv_20='unknowncount' 
     {
-    	newLeafNode(otherlv_20, grammarAccess.getValidationResultAccess().getErrorcountKeyword_14_0());
+    	newLeafNode(otherlv_20, grammarAccess.getValidationResultAccess().getUnknowncountKeyword_14_0());
     }
 (
 (
-		lv_errorCount_21_0=RULE_INT
+		lv_unknownCount_21_0=RULE_INT
 		{
-			newLeafNode(lv_errorCount_21_0, grammarAccess.getValidationResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+			newLeafNode(lv_unknownCount_21_0, grammarAccess.getValidationResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -884,8 +884,8 @@ ruleValidationResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"errorCount",
-        		lv_errorCount_21_0, 
+       			"unknownCount",
+        		lv_unknownCount_21_0, 
         		"INT");
 	    }
 
@@ -1213,15 +1213,15 @@ rulePreconditionResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_20='errorcount' 
+))?(	otherlv_20='unknowncount' 
     {
-    	newLeafNode(otherlv_20, grammarAccess.getPreconditionResultAccess().getErrorcountKeyword_14_0());
+    	newLeafNode(otherlv_20, grammarAccess.getPreconditionResultAccess().getUnknowncountKeyword_14_0());
     }
 (
 (
-		lv_errorCount_21_0=RULE_INT
+		lv_unknownCount_21_0=RULE_INT
 		{
-			newLeafNode(lv_errorCount_21_0, grammarAccess.getPreconditionResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+			newLeafNode(lv_unknownCount_21_0, grammarAccess.getPreconditionResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1229,8 +1229,8 @@ rulePreconditionResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"errorCount",
-        		lv_errorCount_21_0, 
+       			"unknownCount",
+        		lv_unknownCount_21_0, 
         		"INT");
 	    }
 
@@ -1558,15 +1558,15 @@ ruleVerificationActivityResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_20='errorcount' 
+))?(	otherlv_20='unknowncount' 
     {
-    	newLeafNode(otherlv_20, grammarAccess.getVerificationActivityResultAccess().getErrorcountKeyword_14_0());
+    	newLeafNode(otherlv_20, grammarAccess.getVerificationActivityResultAccess().getUnknowncountKeyword_14_0());
     }
 (
 (
-		lv_errorCount_21_0=RULE_INT
+		lv_unknownCount_21_0=RULE_INT
 		{
-			newLeafNode(lv_errorCount_21_0, grammarAccess.getVerificationActivityResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+			newLeafNode(lv_unknownCount_21_0, grammarAccess.getVerificationActivityResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1574,8 +1574,8 @@ ruleVerificationActivityResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"errorCount",
-        		lv_errorCount_21_0, 
+       			"unknownCount",
+        		lv_unknownCount_21_0, 
         		"INT");
 	    }
 
@@ -1868,16 +1868,16 @@ ruleFailThenResult returns [EObject current=null]
 )
 )?(
 (
-		lv_errorThen_6_0=	'errorthen' 
+		lv_unknownThen_6_0=	'unknownthen' 
     {
-        newLeafNode(lv_errorThen_6_0, grammarAccess.getFailThenResultAccess().getErrorThenErrorthenKeyword_6_0());
+        newLeafNode(lv_unknownThen_6_0, grammarAccess.getFailThenResultAccess().getUnknownThenUnknownthenKeyword_6_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getFailThenResultRule());
 	        }
-       		setWithLastConsumed($current, "errorThen", true, "errorthen");
+       		setWithLastConsumed($current, "unknownThen", true, "unknownthen");
 	    }
 
 )
@@ -1940,15 +1940,15 @@ ruleFailThenResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_12='errorcount' 
+))?(	otherlv_12='unknowncount' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getFailThenResultAccess().getErrorcountKeyword_10_0());
+    	newLeafNode(otherlv_12, grammarAccess.getFailThenResultAccess().getUnknowncountKeyword_10_0());
     }
 (
 (
-		lv_errorCount_13_0=RULE_INT
+		lv_unknownCount_13_0=RULE_INT
 		{
-			newLeafNode(lv_errorCount_13_0, grammarAccess.getFailThenResultAccess().getErrorCountINTTerminalRuleCall_10_1_0()); 
+			newLeafNode(lv_unknownCount_13_0, grammarAccess.getFailThenResultAccess().getUnknownCountINTTerminalRuleCall_10_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1956,8 +1956,8 @@ ruleFailThenResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"errorCount",
-        		lv_errorCount_13_0, 
+       			"unknownCount",
+        		lv_unknownCount_13_0, 
         		"INT");
 	    }
 
@@ -2182,15 +2182,15 @@ ruleAndThenResult returns [EObject current=null]
 	    }
 
 )
-))?(	otherlv_10='errorcount' 
+))?(	otherlv_10='unknowncount' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getAndThenResultAccess().getErrorcountKeyword_8_0());
+    	newLeafNode(otherlv_10, grammarAccess.getAndThenResultAccess().getUnknowncountKeyword_8_0());
     }
 (
 (
-		lv_errorCount_11_0=RULE_INT
+		lv_unknownCount_11_0=RULE_INT
 		{
-			newLeafNode(lv_errorCount_11_0, grammarAccess.getAndThenResultAccess().getErrorCountINTTerminalRuleCall_8_1_0()); 
+			newLeafNode(lv_unknownCount_11_0, grammarAccess.getAndThenResultAccess().getUnknownCountINTTerminalRuleCall_8_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -2198,8 +2198,8 @@ ruleAndThenResult returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"errorCount",
-        		lv_errorCount_11_0, 
+       			"unknownCount",
+        		lv_unknownCount_11_0, 
         		"INT");
 	    }
 
@@ -2627,10 +2627,10 @@ ruleVerificationResultState returns [Enumerator current=null]
         newLeafNode(enumLiteral_2, grammarAccess.getVerificationResultStateAccess().getFAILEnumLiteralDeclaration_2()); 
     }
 )
-    |(	enumLiteral_3='error' 
+    |(	enumLiteral_3='unknown' 
 	{
-        $current = grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3()); 
+        $current = grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3()); 
     }
 ));
 

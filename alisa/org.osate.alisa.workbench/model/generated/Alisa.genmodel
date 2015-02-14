@@ -11,13 +11,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AlisaWorkArea/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AlisaWorkArea/cases"/>
     </genClasses>
-    <genClasses ecoreClass="Alisa.ecore#//AssuranceCaseConfiguration">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceCaseConfiguration/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceCaseConfiguration/title"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/system"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/description"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/plans"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceCaseConfiguration/selectionFilter"/>
+    <genClasses ecoreClass="Alisa.ecore#//AssuranceEvidenceConfiguration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceEvidenceConfiguration/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceEvidenceConfiguration/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/system"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/plans"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/selectionFilter"/>
     </genClasses>
     <genClasses ecoreClass="Alisa.ecore#//Description">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//Description/description"/>
@@ -25,9 +25,6 @@
     <genClasses ecoreClass="Alisa.ecore#//DescriptionElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//DescriptionElement/text"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//DescriptionElement/thisTarget"/>
-    </genClasses>
-    <genClasses ecoreClass="Alisa.ecore#//ComputeDeclaration">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//ComputeDeclaration/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

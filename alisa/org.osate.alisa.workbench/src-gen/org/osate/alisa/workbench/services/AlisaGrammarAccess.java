@@ -25,13 +25,13 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Assignment cCasesAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cCasesAssuranceCaseConfigurationParserRuleCall_2_0 = (RuleCall)cCasesAssignment_2.eContents().get(0);
+		private final RuleCall cCasesAssuranceEvidenceConfigurationParserRuleCall_2_0 = (RuleCall)cCasesAssignment_2.eContents().get(0);
 		
 		//AlisaWorkArea:
-		//	"alisa" name=ID cases+=AssuranceCaseConfiguration*;
+		//	"alisa" name=ID cases+=AssuranceEvidenceConfiguration*;
 		public ParserRule getRule() { return rule; }
 
-		//"alisa" name=ID cases+=AssuranceCaseConfiguration*
+		//"alisa" name=ID cases+=AssuranceEvidenceConfiguration*
 		public Group getGroup() { return cGroup; }
 
 		//"alisa"
@@ -43,142 +43,147 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//cases+=AssuranceCaseConfiguration*
+		//cases+=AssuranceEvidenceConfiguration*
 		public Assignment getCasesAssignment_2() { return cCasesAssignment_2; }
 
-		//AssuranceCaseConfiguration
-		public RuleCall getCasesAssuranceCaseConfigurationParserRuleCall_2_0() { return cCasesAssuranceCaseConfigurationParserRuleCall_2_0; }
+		//AssuranceEvidenceConfiguration
+		public RuleCall getCasesAssuranceEvidenceConfigurationParserRuleCall_2_0() { return cCasesAssuranceEvidenceConfigurationParserRuleCall_2_0; }
 	}
 
-	public class AssuranceCaseConfigurationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssuranceCaseConfiguration");
+	public class AssuranceEvidenceConfigurationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssuranceEvidenceConfiguration");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cCaseKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
-		private final Keyword cForKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cSystemAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cSystemComponentImplementationCrossReference_4_0 = (CrossReference)cSystemAssignment_4.eContents().get(0);
-		private final RuleCall cSystemComponentImplementationAadlClassifierReferenceParserRuleCall_4_0_1 = (RuleCall)cSystemComponentImplementationCrossReference_4_0.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final UnorderedGroup cUnorderedGroup_6 = (UnorderedGroup)cGroup.eContents().get(6);
-		private final Group cGroup_6_0 = (Group)cUnorderedGroup_6.eContents().get(0);
-		private final Keyword cDescriptionKeyword_6_0_0 = (Keyword)cGroup_6_0.eContents().get(0);
-		private final Assignment cDescriptionAssignment_6_0_1 = (Assignment)cGroup_6_0.eContents().get(1);
-		private final RuleCall cDescriptionDescriptionParserRuleCall_6_0_1_0 = (RuleCall)cDescriptionAssignment_6_0_1.eContents().get(0);
-		private final Group cGroup_6_1 = (Group)cUnorderedGroup_6.eContents().get(1);
-		private final Keyword cPlansKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
-		private final Assignment cPlansAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
-		private final CrossReference cPlansVerificationPlanCrossReference_6_1_1_0 = (CrossReference)cPlansAssignment_6_1_1.eContents().get(0);
-		private final RuleCall cPlansVerificationPlanQualifiedNameParserRuleCall_6_1_1_0_1 = (RuleCall)cPlansVerificationPlanCrossReference_6_1_1_0.eContents().get(1);
-		private final Group cGroup_6_2 = (Group)cUnorderedGroup_6.eContents().get(2);
-		private final Keyword cWhenKeyword_6_2_0 = (Keyword)cGroup_6_2.eContents().get(0);
-		private final Assignment cSelectionFilterAssignment_6_2_1 = (Assignment)cGroup_6_2.eContents().get(1);
-		private final CrossReference cSelectionFilterSelectionCategoryCrossReference_6_2_1_0 = (CrossReference)cSelectionFilterAssignment_6_2_1.eContents().get(0);
-		private final RuleCall cSelectionFilterSelectionCategoryIDTerminalRuleCall_6_2_1_0_1 = (RuleCall)cSelectionFilterSelectionCategoryCrossReference_6_2_1_0.eContents().get(1);
-		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cAssuranceKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cTaskKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
+		private final Keyword cForKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cSystemAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cSystemComponentImplementationCrossReference_5_0 = (CrossReference)cSystemAssignment_5.eContents().get(0);
+		private final RuleCall cSystemComponentImplementationAadlClassifierReferenceParserRuleCall_5_0_1 = (RuleCall)cSystemComponentImplementationCrossReference_5_0.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
+		private final Group cGroup_7_0 = (Group)cUnorderedGroup_7.eContents().get(0);
+		private final Keyword cDescriptionKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
+		private final Assignment cDescriptionAssignment_7_0_1 = (Assignment)cGroup_7_0.eContents().get(1);
+		private final RuleCall cDescriptionDescriptionParserRuleCall_7_0_1_0 = (RuleCall)cDescriptionAssignment_7_0_1.eContents().get(0);
+		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
+		private final Keyword cPlansKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
+		private final Assignment cPlansAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
+		private final CrossReference cPlansVerificationPlanCrossReference_7_1_1_0 = (CrossReference)cPlansAssignment_7_1_1.eContents().get(0);
+		private final RuleCall cPlansVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1 = (RuleCall)cPlansVerificationPlanCrossReference_7_1_1_0.eContents().get(1);
+		private final Group cGroup_7_2 = (Group)cUnorderedGroup_7.eContents().get(2);
+		private final Keyword cFilterKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
+		private final Assignment cSelectionFilterAssignment_7_2_1 = (Assignment)cGroup_7_2.eContents().get(1);
+		private final CrossReference cSelectionFilterSelectionCategoryCrossReference_7_2_1_0 = (CrossReference)cSelectionFilterAssignment_7_2_1.eContents().get(0);
+		private final RuleCall cSelectionFilterSelectionCategoryIDTerminalRuleCall_7_2_1_0_1 = (RuleCall)cSelectionFilterSelectionCategoryCrossReference_7_2_1_0.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
-		//AssuranceCaseConfiguration:
-		//	"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//	(("description" description=Description)? //	& (  constants+=XValDeclaration* )
-		//	& "plans" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when"
+		//AssuranceEvidenceConfiguration:
+		//	"assurance" "task" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference]
+		//	"[" (("description" description=Description)? //	& (  constants+=XValDeclaration* )
+		//	& "plans" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("filter"
 		//	selectionFilter+=[categories::SelectionCategory]+)?) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
+		//"assurance" "task" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
 		//(("description" description=Description)? //	& (  constants+=XValDeclaration* )
-		//& "plans" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when"
+		//& "plans" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("filter"
 		//selectionFilter+=[categories::SelectionCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
 
-		//"case"
-		public Keyword getCaseKeyword_0() { return cCaseKeyword_0; }
+		//"assurance"
+		public Keyword getAssuranceKeyword_0() { return cAssuranceKeyword_0; }
+
+		//"task"
+		public Keyword getTaskKeyword_1() { return cTaskKeyword_1; }
 
 		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
 		//(":" title=STRING)?
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_3() { return cGroup_3; }
 
 		//":"
-		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
+		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 
 		//title=STRING
-		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
+		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
 
 		//STRING
-		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
+		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
 		//"for"
-		public Keyword getForKeyword_3() { return cForKeyword_3; }
+		public Keyword getForKeyword_4() { return cForKeyword_4; }
 
 		//system=[aadl2::ComponentImplementation|AadlClassifierReference]
-		public Assignment getSystemAssignment_4() { return cSystemAssignment_4; }
+		public Assignment getSystemAssignment_5() { return cSystemAssignment_5; }
 
 		//[aadl2::ComponentImplementation|AadlClassifierReference]
-		public CrossReference getSystemComponentImplementationCrossReference_4_0() { return cSystemComponentImplementationCrossReference_4_0; }
+		public CrossReference getSystemComponentImplementationCrossReference_5_0() { return cSystemComponentImplementationCrossReference_5_0; }
 
 		//AadlClassifierReference
-		public RuleCall getSystemComponentImplementationAadlClassifierReferenceParserRuleCall_4_0_1() { return cSystemComponentImplementationAadlClassifierReferenceParserRuleCall_4_0_1; }
+		public RuleCall getSystemComponentImplementationAadlClassifierReferenceParserRuleCall_5_0_1() { return cSystemComponentImplementationAadlClassifierReferenceParserRuleCall_5_0_1; }
 
 		//"["
-		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
+		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
 		//("description" description=Description)? //	& (  constants+=XValDeclaration* )
-		//& "plans" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when" selectionFilter+=[categories::SelectionCategory]+)?
-		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
+		//& "plans" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("filter"
+		//selectionFilter+=[categories::SelectionCategory]+)?
+		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//("description" description=Description)?
-		public Group getGroup_6_0() { return cGroup_6_0; }
+		public Group getGroup_7_0() { return cGroup_7_0; }
 
 		//"description"
-		public Keyword getDescriptionKeyword_6_0_0() { return cDescriptionKeyword_6_0_0; }
+		public Keyword getDescriptionKeyword_7_0_0() { return cDescriptionKeyword_7_0_0; }
 
 		//description=Description
-		public Assignment getDescriptionAssignment_6_0_1() { return cDescriptionAssignment_6_0_1; }
+		public Assignment getDescriptionAssignment_7_0_1() { return cDescriptionAssignment_7_0_1; }
 
 		//Description
-		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_1_0() { return cDescriptionDescriptionParserRuleCall_6_0_1_0; }
+		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_1_0() { return cDescriptionDescriptionParserRuleCall_7_0_1_0; }
 
 		//"plans" plans+=[Verify::VerificationPlan|QualifiedName]+
-		public Group getGroup_6_1() { return cGroup_6_1; }
+		public Group getGroup_7_1() { return cGroup_7_1; }
 
 		//"plans"
-		public Keyword getPlansKeyword_6_1_0() { return cPlansKeyword_6_1_0; }
+		public Keyword getPlansKeyword_7_1_0() { return cPlansKeyword_7_1_0; }
 
 		//plans+=[Verify::VerificationPlan|QualifiedName]+
-		public Assignment getPlansAssignment_6_1_1() { return cPlansAssignment_6_1_1; }
+		public Assignment getPlansAssignment_7_1_1() { return cPlansAssignment_7_1_1; }
 
 		//[Verify::VerificationPlan|QualifiedName]
-		public CrossReference getPlansVerificationPlanCrossReference_6_1_1_0() { return cPlansVerificationPlanCrossReference_6_1_1_0; }
+		public CrossReference getPlansVerificationPlanCrossReference_7_1_1_0() { return cPlansVerificationPlanCrossReference_7_1_1_0; }
 
 		//QualifiedName
-		public RuleCall getPlansVerificationPlanQualifiedNameParserRuleCall_6_1_1_0_1() { return cPlansVerificationPlanQualifiedNameParserRuleCall_6_1_1_0_1; }
+		public RuleCall getPlansVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1() { return cPlansVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1; }
 
-		//("when" selectionFilter+=[categories::SelectionCategory]+)?
-		public Group getGroup_6_2() { return cGroup_6_2; }
+		//("filter" selectionFilter+=[categories::SelectionCategory]+)?
+		public Group getGroup_7_2() { return cGroup_7_2; }
 
-		//"when"
-		public Keyword getWhenKeyword_6_2_0() { return cWhenKeyword_6_2_0; }
+		//"filter"
+		public Keyword getFilterKeyword_7_2_0() { return cFilterKeyword_7_2_0; }
 
 		//selectionFilter+=[categories::SelectionCategory]+
-		public Assignment getSelectionFilterAssignment_6_2_1() { return cSelectionFilterAssignment_6_2_1; }
+		public Assignment getSelectionFilterAssignment_7_2_1() { return cSelectionFilterAssignment_7_2_1; }
 
 		//[categories::SelectionCategory]
-		public CrossReference getSelectionFilterSelectionCategoryCrossReference_6_2_1_0() { return cSelectionFilterSelectionCategoryCrossReference_6_2_1_0; }
+		public CrossReference getSelectionFilterSelectionCategoryCrossReference_7_2_1_0() { return cSelectionFilterSelectionCategoryCrossReference_7_2_1_0; }
 
 		//ID
-		public RuleCall getSelectionFilterSelectionCategoryIDTerminalRuleCall_6_2_1_0_1() { return cSelectionFilterSelectionCategoryIDTerminalRuleCall_6_2_1_0_1; }
+		public RuleCall getSelectionFilterSelectionCategoryIDTerminalRuleCall_7_2_1_0_1() { return cSelectionFilterSelectionCategoryIDTerminalRuleCall_7_2_1_0_1; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
+		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
 	}
 
 	public class DescriptionElements extends AbstractParserRuleElementFinder {
@@ -225,30 +230,6 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getThisTargetThisKeyword_1_0() { return cThisTargetThisKeyword_1_0; }
 	}
 
-	public class ComputeDeclarationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComputeDeclaration");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cComputeKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		
-		//ComputeDeclaration:
-		//	"compute" name=ID;
-		public ParserRule getRule() { return rule; }
-
-		//"compute" name=ID
-		public Group getGroup() { return cGroup; }
-
-		//"compute"
-		public Keyword getComputeKeyword_0() { return cComputeKeyword_0; }
-
-		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-	}
-
 	public class AadlClassifierReferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AadlClassifierReference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -259,8 +240,6 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final RuleCall cIDTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
 		
-		//// Override XNumberLiteral from XBase
-		////Accept unit and have value converter turn it into value scaled to base unit
 		//// Qualified classifier reference
 		//AadlClassifierReference:
 		//	ID "::" ID ("." ID)?;
@@ -330,10 +309,9 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
 	private final AlisaWorkAreaElements pAlisaWorkArea;
-	private final AssuranceCaseConfigurationElements pAssuranceCaseConfiguration;
+	private final AssuranceEvidenceConfigurationElements pAssuranceEvidenceConfiguration;
 	private final DescriptionElements pDescription;
 	private final DescriptionElementElements pDescriptionElement;
-	private final ComputeDeclarationElements pComputeDeclaration;
 	private final AadlClassifierReferenceElements pAadlClassifierReference;
 	private final QualifiedNameElements pQualifiedName;
 	private final URIIDElements pURIID;
@@ -348,10 +326,9 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
 		this.pAlisaWorkArea = new AlisaWorkAreaElements();
-		this.pAssuranceCaseConfiguration = new AssuranceCaseConfigurationElements();
+		this.pAssuranceEvidenceConfiguration = new AssuranceEvidenceConfigurationElements();
 		this.pDescription = new DescriptionElements();
 		this.pDescriptionElement = new DescriptionElementElements();
-		this.pComputeDeclaration = new ComputeDeclarationElements();
 		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
 		this.pQualifiedName = new QualifiedNameElements();
 		this.pURIID = new URIIDElements();
@@ -385,7 +362,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//AlisaWorkArea:
-	//	"alisa" name=ID cases+=AssuranceCaseConfiguration*;
+	//	"alisa" name=ID cases+=AssuranceEvidenceConfiguration*;
 	public AlisaWorkAreaElements getAlisaWorkAreaAccess() {
 		return pAlisaWorkArea;
 	}
@@ -394,17 +371,17 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getAlisaWorkAreaAccess().getRule();
 	}
 
-	//AssuranceCaseConfiguration:
-	//	"case" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-	//	(("description" description=Description)? //	& (  constants+=XValDeclaration* )
-	//	& "plans" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("when"
+	//AssuranceEvidenceConfiguration:
+	//	"assurance" "task" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference]
+	//	"[" (("description" description=Description)? //	& (  constants+=XValDeclaration* )
+	//	& "plans" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("filter"
 	//	selectionFilter+=[categories::SelectionCategory]+)?) "]";
-	public AssuranceCaseConfigurationElements getAssuranceCaseConfigurationAccess() {
-		return pAssuranceCaseConfiguration;
+	public AssuranceEvidenceConfigurationElements getAssuranceEvidenceConfigurationAccess() {
+		return pAssuranceEvidenceConfiguration;
 	}
 	
-	public ParserRule getAssuranceCaseConfigurationRule() {
-		return getAssuranceCaseConfigurationAccess().getRule();
+	public ParserRule getAssuranceEvidenceConfigurationRule() {
+		return getAssuranceEvidenceConfigurationAccess().getRule();
 	}
 
 	//Description:
@@ -427,18 +404,6 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return getDescriptionElementAccess().getRule();
 	}
 
-	//ComputeDeclaration:
-	//	"compute" name=ID;
-	public ComputeDeclarationElements getComputeDeclarationAccess() {
-		return pComputeDeclaration;
-	}
-	
-	public ParserRule getComputeDeclarationRule() {
-		return getComputeDeclarationAccess().getRule();
-	}
-
-	//// Override XNumberLiteral from XBase
-	////Accept unit and have value converter turn it into value scaled to base unit
 	//// Qualified classifier reference
 	//AadlClassifierReference:
 	//	ID "::" ID ("." ID)?;

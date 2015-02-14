@@ -11,8 +11,8 @@ import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.assure.assure.AndThenResult;
+import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.FailThenResult;
 import org.osate.assure.assure.PreconditionResult;
@@ -37,10 +37,10 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 					return; 
 				}
 				else break;
-			case AssurePackage.CASE_RESULT:
-				if(context == grammarAccess.getAssureResultRule() ||
-				   context == grammarAccess.getCaseResultRule()) {
-					sequence_CaseResult(context, (CaseResult) semanticObject); 
+			case AssurePackage.ASSURANCE_EVIDENCE:
+				if(context == grammarAccess.getAssuranceEvidenceRule() ||
+				   context == grammarAccess.getAssureResultRule()) {
+					sequence_AssuranceEvidence(context, (AssuranceEvidence) semanticObject); 
 					return; 
 				}
 				else break;
@@ -99,7 +99,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         didAndThenFail?='andthenfailed'? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
-	 *         errorCount=INT? 
+	 *         unknownCount=INT? 
 	 *         failthenCount=INT? 
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
@@ -119,17 +119,17 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         instance=[InstanceObject|URIID] 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
-	 *         errorCount=INT? 
+	 *         unknownCount=INT? 
 	 *         failthenCount=INT? 
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
 	 *         weight=INT? 
 	 *         message=STRING? 
-	 *         subCaseResult+=CaseResult* 
+	 *         subAssuranceEvidence+=AssuranceEvidence* 
 	 *         claimResult+=ClaimResult*
 	 *     )
 	 */
-	protected void sequence_CaseResult(EObject context, CaseResult semanticObject) {
+	protected void sequence_AssuranceEvidence(EObject context, AssuranceEvidence semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -142,7 +142,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         instance=[InstanceObject|URIID]? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
-	 *         errorCount=INT? 
+	 *         unknownCount=INT? 
 	 *         failthenCount=INT? 
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
@@ -163,11 +163,11 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         first+=VerificationExpr 
 	 *         second+=VerificationExpr 
 	 *         failThen?='failthen'? 
-	 *         errorThen?='errorthen'? 
+	 *         unknownThen?='unknownthen'? 
 	 *         didFail?='didfail'? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
-	 *         errorCount=INT? 
+	 *         unknownCount=INT? 
 	 *         failthenCount=INT? 
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
@@ -190,7 +190,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         resultReport=[ResultReport|QualifiedName]? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
-	 *         errorCount=INT? 
+	 *         unknownCount=INT? 
 	 *         failthenCount=INT? 
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
@@ -230,7 +230,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         resultReport=[ResultReport|QualifiedName]? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
-	 *         errorCount=INT? 
+	 *         unknownCount=INT? 
 	 *         failthenCount=INT? 
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 
@@ -254,7 +254,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *         resultReport=[ResultReport|QualifiedName]? 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
-	 *         errorCount=INT? 
+	 *         unknownCount=INT? 
 	 *         failthenCount=INT? 
 	 *         andthenCount=INT? 
 	 *         tbdCount=INT? 

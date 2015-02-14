@@ -1,8 +1,5 @@
 package org.osate.assure.ui.handlers;
 
-import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
-import static org.osate.assure.util.AssureUtilExtension.resetToTBD;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -32,7 +29,7 @@ import org.osate.assure.util.AssureUtilExtension;
 
 import com.google.inject.Inject;
 
-public class AssureHandler extends AbstractHandler {
+public class AssureUpdateHandler extends AbstractHandler {
 
 	private IWorkbenchWindow window;
 	private ExecutionEvent executionEvent;
@@ -124,17 +121,14 @@ public class AssureHandler extends AbstractHandler {
 	}
 
 	protected String getJobName() {
-		return "ASSURE verification";
+		return "Assure update verification";
 	}
 
 	protected IStatus runJob(AssuranceEvidence rootCaseResult, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
-		resetToTBD(rootCaseResult);
-		recomputeAllCounts(rootCaseResult);
 		AssureUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
-//		AssureProcessing.processCaseResult(rootCaseResult);
 		assureProcessor.process(rootCaseResult);
 
 		long stop = System.currentTimeMillis();

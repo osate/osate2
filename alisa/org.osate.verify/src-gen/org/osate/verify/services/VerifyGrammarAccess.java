@@ -215,21 +215,25 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cAssertAssignment_7_0_1 = (Assignment)cGroup_7_0.eContents().get(1);
 		private final RuleCall cAssertArgumentExprParserRuleCall_7_0_1_0 = (RuleCall)cAssertAssignment_7_0_1.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
-		private final Keyword cRationaleKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
-		private final Assignment cRationaleAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
-		private final RuleCall cRationaleSTRINGTerminalRuleCall_7_1_1_0 = (RuleCall)cRationaleAssignment_7_1_1.eContents().get(0);
-		private final Assignment cSubclaimAssignment_7_2 = (Assignment)cUnorderedGroup_7.eContents().get(2);
-		private final RuleCall cSubclaimClaimParserRuleCall_7_2_0 = (RuleCall)cSubclaimAssignment_7_2.eContents().get(0);
+		private final Keyword cArgumentKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
+		private final Assignment cArgumentAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
+		private final RuleCall cArgumentSTRINGTerminalRuleCall_7_1_1_0 = (RuleCall)cArgumentAssignment_7_1_1.eContents().get(0);
+		private final Group cGroup_7_2 = (Group)cUnorderedGroup_7.eContents().get(2);
+		private final Keyword cRationaleKeyword_7_2_0 = (Keyword)cGroup_7_2.eContents().get(0);
+		private final Assignment cRationaleAssignment_7_2_1 = (Assignment)cGroup_7_2.eContents().get(1);
+		private final RuleCall cRationaleSTRINGTerminalRuleCall_7_2_1_0 = (RuleCall)cRationaleAssignment_7_2_1.eContents().get(0);
+		private final Assignment cSubclaimAssignment_7_3 = (Assignment)cUnorderedGroup_7.eContents().get(3);
+		private final RuleCall cSubclaimClaimParserRuleCall_7_3_0 = (RuleCall)cSubclaimAssignment_7_3.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//Claim:
 		//	"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-		//	("assert" assert=ArgumentExpr & ("rationale" rationale=STRING)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
+		//	("assert" assert=ArgumentExpr & ("argument" argument=STRING)? & ("rationale" rationale=STRING)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 		//	"]";
 		public ParserRule getRule() { return rule; }
 
 		//"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-		//("assert" assert=ArgumentExpr & ("rationale" rationale=STRING)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
+		//("assert" assert=ArgumentExpr & ("argument" argument=STRING)? & ("rationale" rationale=STRING)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 		//"]"
 		public Group getGroup() { return cGroup; }
 
@@ -284,7 +288,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//"assert" assert=ArgumentExpr & ("rationale" rationale=STRING)? & subclaim+=Claim*
+		//"assert" assert=ArgumentExpr & ("argument" argument=STRING)? & ("rationale" rationale=STRING)? & subclaim+=Claim*
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//"assert" assert=ArgumentExpr
@@ -299,23 +303,35 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ArgumentExpr
 		public RuleCall getAssertArgumentExprParserRuleCall_7_0_1_0() { return cAssertArgumentExprParserRuleCall_7_0_1_0; }
 
-		//("rationale" rationale=STRING)?
+		//("argument" argument=STRING)?
 		public Group getGroup_7_1() { return cGroup_7_1; }
 
-		//"rationale"
-		public Keyword getRationaleKeyword_7_1_0() { return cRationaleKeyword_7_1_0; }
+		//"argument"
+		public Keyword getArgumentKeyword_7_1_0() { return cArgumentKeyword_7_1_0; }
 
-		//rationale=STRING
-		public Assignment getRationaleAssignment_7_1_1() { return cRationaleAssignment_7_1_1; }
+		//argument=STRING
+		public Assignment getArgumentAssignment_7_1_1() { return cArgumentAssignment_7_1_1; }
 
 		//STRING
-		public RuleCall getRationaleSTRINGTerminalRuleCall_7_1_1_0() { return cRationaleSTRINGTerminalRuleCall_7_1_1_0; }
+		public RuleCall getArgumentSTRINGTerminalRuleCall_7_1_1_0() { return cArgumentSTRINGTerminalRuleCall_7_1_1_0; }
+
+		//("rationale" rationale=STRING)?
+		public Group getGroup_7_2() { return cGroup_7_2; }
+
+		//"rationale"
+		public Keyword getRationaleKeyword_7_2_0() { return cRationaleKeyword_7_2_0; }
+
+		//rationale=STRING
+		public Assignment getRationaleAssignment_7_2_1() { return cRationaleAssignment_7_2_1; }
+
+		//STRING
+		public RuleCall getRationaleSTRINGTerminalRuleCall_7_2_1_0() { return cRationaleSTRINGTerminalRuleCall_7_2_1_0; }
 
 		//subclaim+=Claim*
-		public Assignment getSubclaimAssignment_7_2() { return cSubclaimAssignment_7_2; }
+		public Assignment getSubclaimAssignment_7_3() { return cSubclaimAssignment_7_3; }
 
 		//Claim
-		public RuleCall getSubclaimClaimParserRuleCall_7_2_0() { return cSubclaimClaimParserRuleCall_7_2_0; }
+		public RuleCall getSubclaimClaimParserRuleCall_7_3_0() { return cSubclaimClaimParserRuleCall_7_3_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
@@ -964,8 +980,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives_1_0_0_1_1_0 = (Alternatives)cGroup_1_0_0_1_1.eContents().get(0);
 		private final Assignment cFailedAssignment_1_0_0_1_1_0_0 = (Assignment)cAlternatives_1_0_0_1_1_0.eContents().get(0);
 		private final Keyword cFailedFailKeyword_1_0_0_1_1_0_0_0 = (Keyword)cFailedAssignment_1_0_0_1_1_0_0.eContents().get(0);
-		private final Assignment cErrorAssignment_1_0_0_1_1_0_1 = (Assignment)cAlternatives_1_0_0_1_1_0.eContents().get(1);
-		private final Keyword cErrorErrorKeyword_1_0_0_1_1_0_1_0 = (Keyword)cErrorAssignment_1_0_0_1_1_0_1.eContents().get(0);
+		private final Assignment cUnknownAssignment_1_0_0_1_1_0_1 = (Assignment)cAlternatives_1_0_0_1_1_0.eContents().get(1);
+		private final Keyword cUnknownUnknownKeyword_1_0_0_1_1_0_1_0 = (Keyword)cUnknownAssignment_1_0_0_1_1_0_1.eContents().get(0);
 		private final Keyword cThenKeyword_1_0_0_1_1_1 = (Keyword)cGroup_1_0_0_1_1.eContents().get(1);
 		private final Assignment cRightAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cRightFailThenEvidenceExprParserRuleCall_1_1_0 = (RuleCall)cRightAssignment_1_1.eContents().get(0);
@@ -973,39 +989,40 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//// Execute as alternative if the first one fails.
 		//// The results of both are reported
 		//FailThenEvidenceExpr returns ArgumentExpr:
-		//	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | error?="error") "then"))
+		//	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | unknown?="unknown") "then"))
 		//	right=FailThenEvidenceExpr)*;
 		public ParserRule getRule() { return rule; }
 
-		//AtomicEvidenceExpr (=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | error?="error") "then"))
+		//AtomicEvidenceExpr (=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | unknown?="unknown") "then"))
 		//right=FailThenEvidenceExpr)*
 		public Group getGroup() { return cGroup; }
 
 		//AtomicEvidenceExpr
 		public RuleCall getAtomicEvidenceExprParserRuleCall_0() { return cAtomicEvidenceExprParserRuleCall_0; }
 
-		//(=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | error?="error") "then")) right=FailThenEvidenceExpr)*
+		//(=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | unknown?="unknown") "then"))
+		//right=FailThenEvidenceExpr)*
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | error?="error") "then"))
+		//=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | unknown?="unknown") "then"))
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{FailThenExpr.left=current} ("failthen" | (failed?="fail" | error?="error") "then")
+		//{FailThenExpr.left=current} ("failthen" | (failed?="fail" | unknown?="unknown") "then")
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{FailThenExpr.left=current}
 		public Action getFailThenExprLeftAction_1_0_0_0() { return cFailThenExprLeftAction_1_0_0_0; }
 
-		//"failthen" | (failed?="fail" | error?="error") "then"
+		//"failthen" | (failed?="fail" | unknown?="unknown") "then"
 		public Alternatives getAlternatives_1_0_0_1() { return cAlternatives_1_0_0_1; }
 
 		//"failthen"
 		public Keyword getFailthenKeyword_1_0_0_1_0() { return cFailthenKeyword_1_0_0_1_0; }
 
-		//(failed?="fail" | error?="error") "then"
+		//(failed?="fail" | unknown?="unknown") "then"
 		public Group getGroup_1_0_0_1_1() { return cGroup_1_0_0_1_1; }
 
-		//failed?="fail" | error?="error"
+		//failed?="fail" | unknown?="unknown"
 		public Alternatives getAlternatives_1_0_0_1_1_0() { return cAlternatives_1_0_0_1_1_0; }
 
 		//failed?="fail"
@@ -1014,11 +1031,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"fail"
 		public Keyword getFailedFailKeyword_1_0_0_1_1_0_0_0() { return cFailedFailKeyword_1_0_0_1_1_0_0_0; }
 
-		//error?="error"
-		public Assignment getErrorAssignment_1_0_0_1_1_0_1() { return cErrorAssignment_1_0_0_1_1_0_1; }
+		//unknown?="unknown"
+		public Assignment getUnknownAssignment_1_0_0_1_1_0_1() { return cUnknownAssignment_1_0_0_1_1_0_1; }
 
-		//"error"
-		public Keyword getErrorErrorKeyword_1_0_0_1_1_0_1_0() { return cErrorErrorKeyword_1_0_0_1_1_0_1_0; }
+		//"unknown"
+		public Keyword getUnknownUnknownKeyword_1_0_0_1_1_0_1_0() { return cUnknownUnknownKeyword_1_0_0_1_1_0_1_0; }
 
 		//"then"
 		public Keyword getThenKeyword_1_0_0_1_1_1() { return cThenKeyword_1_0_0_1_1_1; }
@@ -1659,7 +1676,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Claim:
 	//	"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-	//	("assert" assert=ArgumentExpr & ("rationale" rationale=STRING)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
+	//	("assert" assert=ArgumentExpr & ("argument" argument=STRING)? & ("rationale" rationale=STRING)? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 	//	"]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
@@ -1761,7 +1778,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//// Execute as alternative if the first one fails.
 	//// The results of both are reported
 	//FailThenEvidenceExpr returns ArgumentExpr:
-	//	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | error?="error") "then"))
+	//	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} ("failthen" | (failed?="fail" | unknown?="unknown") "then"))
 	//	right=FailThenEvidenceExpr)*;
 	public FailThenEvidenceExprElements getFailThenEvidenceExprAccess() {
 		return pFailThenEvidenceExpr;

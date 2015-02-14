@@ -24,6 +24,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="requirement" eType="ecore:EClass platform:/resource/org.osate.reqspec/model/generated/ReqSpec.ecore#//Requirement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assert" eType="#//ArgumentExpr"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="argument" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rationale" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subclaim" upperBound="-1"
         eType="#//Claim" containment="true"/>
@@ -119,7 +120,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//ArgumentExpr"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failed" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="error" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unknown" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//ArgumentExpr"
         containment="true"/>
   </eClassifiers>

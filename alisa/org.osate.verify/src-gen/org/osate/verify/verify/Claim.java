@@ -21,6 +21,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getAssert <em>Assert</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getArgument <em>Argument</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getSubclaim <em>Subclaim</em>}</li>
  * </ul>
@@ -161,6 +162,32 @@ public interface Claim extends EObject
    * @generated
    */
   void setAssert(ArgumentExpr value);
+
+  /**
+   * Returns the value of the '<em><b>Argument</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Argument</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Argument</em>' attribute.
+   * @see #setArgument(String)
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Argument()
+   * @model
+   * @generated
+   */
+  String getArgument();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.Claim#getArgument <em>Argument</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Argument</em>' attribute.
+   * @see #getArgument()
+   * @generated
+   */
+  void setArgument(String value);
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' attribute.

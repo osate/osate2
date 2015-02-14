@@ -151,9 +151,14 @@
             name="Commands related to Assure">
      </category>
      <command categoryId="org.osate.assure.category.commands"
-            id="org.osate.assure.commands.Check"
-            description="Perform Validation"
-            name="Check Claims">
+            id="org.osate.assure.commands.VerifyAllEvidence"
+            description="(Re)-Execute All Verification Activities"
+            name="Verify All Evidence">
+     </command>
+     <command categoryId="org.osate.assure.category.commands"
+            id="org.osate.assure.commands.VerifyEvidenceChanges"
+            description="Execute Verification Activities Affected by Changes"
+            name="Verify Evidence Changes">
      </command>
     </extension>
     
@@ -205,9 +210,26 @@
          </menuContribution>
     </extension>
     <extension point="org.eclipse.ui.menus">
+<!--          <menuContribution locationURI="popup:#TextEditorContext?after=copy">
+         	<command commandId="org.osate.assure.commands.VerifyAllEvidence" 
+         		style="push" tooltip="Verify All Evidence">
+            	<visibleWhen checkEnabled="false">
+                	<reference definitionId="org.osate.assure.Assure.Editor.opened" />
+            	</visibleWhen>
+         	</command>  
+         </menuContribution>
+         <menuContribution locationURI="menu:edit?after=copy">
+         	<command commandId="org.osate.assure.commands.VerifyAllEvidence"
+            	style="push" tooltip="Verify All Evidence">
+            	<visibleWhen checkEnabled="false">
+                	<reference definitionId="org.osate.assure.Assure.Editor.opened" />
+            	</visibleWhen>
+         	</command>  
+         </menuContribution>
+         -->
              <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
-			<command commandId="org.osate.assure.commands.Check" 
-				style="push" tooltip="Copy Qualified Name2">
+			<command commandId="org.osate.assure.commands.VerifyAllEvidence" 
+				style="push" tooltip="Verify All Evidence">
          		<visibleWhen checkEnabled="false">
 	            	<and>
 	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
@@ -218,6 +240,40 @@
 				</visibleWhen>
 			</command>
          </menuContribution>
+ 
+ 
+<!--           <menuContribution locationURI="popup:#TextEditorContext?after=copy">
+         	<command commandId="org.osate.assure.commands.VerifyEvidenceChanges" 
+         		style="push" tooltip="Verify TBD Evidence (affected by change)">
+            	<visibleWhen checkEnabled="false">
+                	<reference definitionId="org.osate.assure.Assure.Editor.opened" />
+            	</visibleWhen>
+         	</command>  
+         </menuContribution>
+         <menuContribution locationURI="menu:edit?after=copy">
+         	<command commandId="org.osate.assure.commands.VerifyEvidenceChanges"
+            	style="push" tooltip="Verify TBD Evidence (affected by change)">
+            	<visibleWhen checkEnabled="false">
+                	<reference definitionId="org.osate.assure.Assure.Editor.opened" />
+            	</visibleWhen>
+         	</command>  
+         </menuContribution>
+             <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+			<command commandId="org.osate.assure.commands.VerifyEvidenceChanges" 
+				style="push" tooltip="Verify TBD Evidence (affected by change)">
+         		<visibleWhen checkEnabled="false">
+	            	<and>
+	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
+         </menuContribution>
+ 
+          -->
+ 
          
          
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
@@ -231,32 +287,6 @@
 	</extension>
 	
 	
-	    <extension point="org.eclipse.ui.menus">
-     <menuContribution
-            allPopups="false"
-            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
-         <toolbar
-               id="org.osate.alisa.toolbars.main">
-            <command
-                  commandId="org.osate.assure.commands.Check"
-                  id="org.osate.assure.menus.assure"
-                  style="push">
-            </command>
-         </toolbar>
-      </menuContribution>
-       <menuContribution
-            allPopups="false"
-            locationURI="popup:org.eclipse.xtext.ui.outline?after=addition">
-         <command
-                commandId="org.osate.assure.commands.Check"
-                id="org.osate.assure.menus.assure"
-                mnemonic="a"
-                style="push"
-                tooltip="Perform Incremental Assurance">
-         </command>
-      </menuContribution>
-     
-</extension>
 	
 	
 	<extension point="org.eclipse.ui.handlers">
@@ -277,10 +307,16 @@
      	<extension point="org.eclipse.ui.handlers">
             <handler
             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureHandler" 
-            commandId="org.osate.assure.commands.Check">
+            commandId="org.osate.assure.commands.VerifyAllEvidence">
+   
+      </handler>
+             <handler
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureUpdateHandler" 
+            commandId="org.osate.assure.commands.VerifyEvidenceChanges">
    
       </handler>
      </extension>  
+
      
          <extension point="org.eclipse.core.expressions.definitions">
      <definition

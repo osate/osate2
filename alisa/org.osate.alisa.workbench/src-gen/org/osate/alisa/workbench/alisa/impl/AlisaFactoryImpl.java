@@ -65,10 +65,9 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
     switch (eClass.getClassifierID())
     {
       case AlisaPackage.ALISA_WORK_AREA: return createAlisaWorkArea();
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION: return createAssuranceCaseConfiguration();
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION: return createAssuranceEvidenceConfiguration();
       case AlisaPackage.DESCRIPTION: return createDescription();
       case AlisaPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
-      case AlisaPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -90,10 +89,10 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssuranceCaseConfiguration createAssuranceCaseConfiguration()
+  public AssuranceEvidenceConfiguration createAssuranceEvidenceConfiguration()
   {
-    AssuranceCaseConfigurationImpl assuranceCaseConfiguration = new AssuranceCaseConfigurationImpl();
-    return assuranceCaseConfiguration;
+    AssuranceEvidenceConfigurationImpl assuranceEvidenceConfiguration = new AssuranceEvidenceConfigurationImpl();
+    return assuranceEvidenceConfiguration;
   }
 
   /**
@@ -116,17 +115,6 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
   {
     DescriptionElementImpl descriptionElement = new DescriptionElementImpl();
     return descriptionElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComputeDeclaration createComputeDeclaration()
-  {
-    ComputeDeclarationImpl computeDeclaration = new ComputeDeclarationImpl();
-    return computeDeclaration;
   }
 
   /**

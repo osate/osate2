@@ -11,20 +11,20 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
  
 // result for a system in the architecture hierarchy
-CaseResult:
-	'case' name=ID 
+AssuranceEvidence:
+	'evidence' name=ID 
 	'for' target=[aadl2::Classifier|AadlClassifierReference]
 	'instance' instance= [instance::InstanceObject|URIID]
 	'['
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)? 
+	('unknowncount' unknownCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
 	('weight' weight = INT)?
 	('message' message= STRING)?
-	(subCaseResult += CaseResult)*
+	(subAssuranceEvidence += AssuranceEvidence)*
 	(claimResult += ClaimResult)*
 	']'  
 ;
@@ -36,7 +36,7 @@ ClaimResult:
 	'['
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)? 
+	('unknowncount' unknownCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
@@ -61,7 +61,7 @@ ValidationResult returns VerificationResult:
 	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)? 
+	('unknowncount' unknownCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
@@ -83,7 +83,7 @@ PreconditionResult returns VerificationResult:
 	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)? 
+	('unknowncount' unknownCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
@@ -107,7 +107,7 @@ VerificationActivityResult returns VerificationResult:
 	('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)? 
+	('unknowncount' unknownCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
@@ -120,7 +120,7 @@ VerificationActivityResult returns VerificationResult:
 
 AssureResult:
 	VerificationExpr |
-		CaseResult | ClaimResult  | PreconditionResult | ValidationResult
+		AssuranceEvidence | ClaimResult  | PreconditionResult | ValidationResult
 	;
 
 	
@@ -130,11 +130,11 @@ FailThenResult returns FailThenResult:
 	'failthen'  first+=VerificationExpr 'do' second+=VerificationExpr
 	'['
 	( failThen?='failthen')?
-	( errorThen?='errorthen')?
+	( unknownThen?='unknownthen')?
 	( didFail?='didfail')?
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)? 
+	('unknowncount' unknownCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
@@ -148,7 +148,7 @@ AndThenResult returns AndThenResult:
 	( didAndThenFail?='andthenfailed')?
 	('successcount'  successCount=INT)?
 	('failcount'  failCount=INT)?
-	('errorcount' errorCount=INT)? 
+	('unknowncount' unknownCount=INT)? 
 	('failthencount' failthenCount=INT)?
 	('andthencount' andthenCount=INT)?
 	('tbdcount' tbdCount=INT)?
@@ -171,7 +171,7 @@ enum ResultIssueType:
 
 
 enum VerificationResultState :
-	TBD='tbd'| SUCCESS='success' | FAIL='fail' | ERROR='error' ;
+	TBD='tbd'| SUCCESS='success' | FAIL='fail' | UNKNOWN='unknown' ;
 
 
 

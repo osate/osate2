@@ -94,14 +94,14 @@ public interface AlisaPackage extends EPackage
   int ALISA_WORK_AREA_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl <em>Assurance Case Configuration</em>}' class.
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl <em>Assurance Evidence Configuration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl
-   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceCaseConfiguration()
+   * @see org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceEvidenceConfiguration()
    * @generated
    */
-  int ASSURANCE_CASE_CONFIGURATION = 1;
+  int ASSURANCE_EVIDENCE_CONFIGURATION = 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -110,7 +110,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_CONFIGURATION__NAME = 0;
+  int ASSURANCE_EVIDENCE_CONFIGURATION__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -119,7 +119,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_CONFIGURATION__TITLE = 1;
+  int ASSURANCE_EVIDENCE_CONFIGURATION__TITLE = 1;
 
   /**
    * The feature id for the '<em><b>System</b></em>' reference.
@@ -128,7 +128,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_CONFIGURATION__SYSTEM = 2;
+  int ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM = 2;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -137,7 +137,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_CONFIGURATION__DESCRIPTION = 3;
+  int ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION = 3;
 
   /**
    * The feature id for the '<em><b>Plans</b></em>' reference list.
@@ -146,7 +146,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_CONFIGURATION__PLANS = 4;
+  int ASSURANCE_EVIDENCE_CONFIGURATION__PLANS = 4;
 
   /**
    * The feature id for the '<em><b>Selection Filter</b></em>' reference list.
@@ -155,16 +155,16 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER = 5;
+  int ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER = 5;
 
   /**
-   * The number of structural features of the '<em>Assurance Case Configuration</em>' class.
+   * The number of structural features of the '<em>Assurance Evidence Configuration</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_CASE_CONFIGURATION_FEATURE_COUNT = 6;
+  int ASSURANCE_EVIDENCE_CONFIGURATION_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -231,34 +231,6 @@ public interface AlisaPackage extends EPackage
    */
   int DESCRIPTION_ELEMENT_FEATURE_COUNT = 2;
 
-  /**
-   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.workbench.alisa.impl.ComputeDeclarationImpl
-   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getComputeDeclaration()
-   * @generated
-   */
-  int COMPUTE_DECLARATION = 4;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPUTE_DECLARATION__NAME = 0;
-
-  /**
-   * The number of structural features of the '<em>Compute Declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPUTE_DECLARATION_FEATURE_COUNT = 1;
-
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AlisaWorkArea <em>Work Area</em>}'.
@@ -293,80 +265,80 @@ public interface AlisaPackage extends EPackage
   EReference getAlisaWorkArea_Cases();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration <em>Assurance Case Configuration</em>}'.
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration <em>Assurance Evidence Configuration</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Assurance Case Configuration</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration
+   * @return the meta object for class '<em>Assurance Evidence Configuration</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration
    * @generated
    */
-  EClass getAssuranceCaseConfiguration();
+  EClass getAssuranceEvidenceConfiguration();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getName()
-   * @see #getAssuranceCaseConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getName()
+   * @see #getAssuranceEvidenceConfiguration()
    * @generated
    */
-  EAttribute getAssuranceCaseConfiguration_Name();
+  EAttribute getAssuranceEvidenceConfiguration_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getTitle <em>Title</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getTitle <em>Title</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Title</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getTitle()
-   * @see #getAssuranceCaseConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getTitle()
+   * @see #getAssuranceEvidenceConfiguration()
    * @generated
    */
-  EAttribute getAssuranceCaseConfiguration_Title();
+  EAttribute getAssuranceEvidenceConfiguration_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSystem <em>System</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSystem <em>System</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>System</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSystem()
-   * @see #getAssuranceCaseConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSystem()
+   * @see #getAssuranceEvidenceConfiguration()
    * @generated
    */
-  EReference getAssuranceCaseConfiguration_System();
+  EReference getAssuranceEvidenceConfiguration_System();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Description</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getDescription()
-   * @see #getAssuranceCaseConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getDescription()
+   * @see #getAssuranceEvidenceConfiguration()
    * @generated
    */
-  EReference getAssuranceCaseConfiguration_Description();
+  EReference getAssuranceEvidenceConfiguration_Description();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getPlans <em>Plans</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getPlans <em>Plans</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Plans</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getPlans()
-   * @see #getAssuranceCaseConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getPlans()
+   * @see #getAssuranceEvidenceConfiguration()
    * @generated
    */
-  EReference getAssuranceCaseConfiguration_Plans();
+  EReference getAssuranceEvidenceConfiguration_Plans();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSelectionFilter <em>Selection Filter</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSelectionFilter <em>Selection Filter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Selection Filter</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSelectionFilter()
-   * @see #getAssuranceCaseConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSelectionFilter()
+   * @see #getAssuranceEvidenceConfiguration()
    * @generated
    */
-  EReference getAssuranceCaseConfiguration_SelectionFilter();
+  EReference getAssuranceEvidenceConfiguration_SelectionFilter();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.Description <em>Description</em>}'.
@@ -422,27 +394,6 @@ public interface AlisaPackage extends EPackage
   EAttribute getDescriptionElement_ThisTarget();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.ComputeDeclaration <em>Compute Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Compute Declaration</em>'.
-   * @see org.osate.alisa.workbench.alisa.ComputeDeclaration
-   * @generated
-   */
-  EClass getComputeDeclaration();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.ComputeDeclaration#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.workbench.alisa.ComputeDeclaration#getName()
-   * @see #getComputeDeclaration()
-   * @generated
-   */
-  EAttribute getComputeDeclaration_Name();
-
-  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -492,14 +443,14 @@ public interface AlisaPackage extends EPackage
     EReference ALISA_WORK_AREA__CASES = eINSTANCE.getAlisaWorkArea_Cases();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl <em>Assurance Case Configuration</em>}' class.
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl <em>Assurance Evidence Configuration</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl
-     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceCaseConfiguration()
+     * @see org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceEvidenceConfiguration()
      * @generated
      */
-    EClass ASSURANCE_CASE_CONFIGURATION = eINSTANCE.getAssuranceCaseConfiguration();
+    EClass ASSURANCE_EVIDENCE_CONFIGURATION = eINSTANCE.getAssuranceEvidenceConfiguration();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -507,7 +458,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURANCE_CASE_CONFIGURATION__NAME = eINSTANCE.getAssuranceCaseConfiguration_Name();
+    EAttribute ASSURANCE_EVIDENCE_CONFIGURATION__NAME = eINSTANCE.getAssuranceEvidenceConfiguration_Name();
 
     /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
@@ -515,7 +466,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURANCE_CASE_CONFIGURATION__TITLE = eINSTANCE.getAssuranceCaseConfiguration_Title();
+    EAttribute ASSURANCE_EVIDENCE_CONFIGURATION__TITLE = eINSTANCE.getAssuranceEvidenceConfiguration_Title();
 
     /**
      * The meta object literal for the '<em><b>System</b></em>' reference feature.
@@ -523,7 +474,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE_CONFIGURATION__SYSTEM = eINSTANCE.getAssuranceCaseConfiguration_System();
+    EReference ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM = eINSTANCE.getAssuranceEvidenceConfiguration_System();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
@@ -531,7 +482,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE_CONFIGURATION__DESCRIPTION = eINSTANCE.getAssuranceCaseConfiguration_Description();
+    EReference ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION = eINSTANCE.getAssuranceEvidenceConfiguration_Description();
 
     /**
      * The meta object literal for the '<em><b>Plans</b></em>' reference list feature.
@@ -539,7 +490,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE_CONFIGURATION__PLANS = eINSTANCE.getAssuranceCaseConfiguration_Plans();
+    EReference ASSURANCE_EVIDENCE_CONFIGURATION__PLANS = eINSTANCE.getAssuranceEvidenceConfiguration_Plans();
 
     /**
      * The meta object literal for the '<em><b>Selection Filter</b></em>' reference list feature.
@@ -547,7 +498,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER = eINSTANCE.getAssuranceCaseConfiguration_SelectionFilter();
+    EReference ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER = eINSTANCE.getAssuranceEvidenceConfiguration_SelectionFilter();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -592,24 +543,6 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EAttribute DESCRIPTION_ELEMENT__THIS_TARGET = eINSTANCE.getDescriptionElement_ThisTarget();
-
-    /**
-     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.alisa.workbench.alisa.impl.ComputeDeclarationImpl
-     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getComputeDeclaration()
-     * @generated
-     */
-    EClass COMPUTE_DECLARATION = eINSTANCE.getComputeDeclaration();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute COMPUTE_DECLARATION__NAME = eINSTANCE.getComputeDeclaration_Name();
 
   }
 

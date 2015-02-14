@@ -4,9 +4,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="AlisaWorkArea">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
-        eType="#//AssuranceCaseConfiguration" containment="true"/>
+        eType="#//AssuranceEvidenceConfiguration" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AssuranceCaseConfiguration">
+  <eClassifiers xsi:type="ecore:EClass" name="AssuranceEvidenceConfiguration">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentImplementation"/>
@@ -24,8 +24,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="DescriptionElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="thisTarget" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComputeDeclaration">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

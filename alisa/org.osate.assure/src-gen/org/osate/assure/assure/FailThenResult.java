@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.assure.assure.FailThenResult#getFirst <em>First</em>}</li>
  *   <li>{@link org.osate.assure.assure.FailThenResult#getSecond <em>Second</em>}</li>
  *   <li>{@link org.osate.assure.assure.FailThenResult#isFailThen <em>Fail Then</em>}</li>
- *   <li>{@link org.osate.assure.assure.FailThenResult#isErrorThen <em>Error Then</em>}</li>
+ *   <li>{@link org.osate.assure.assure.FailThenResult#isUnknownThen <em>Unknown Then</em>}</li>
  *   <li>{@link org.osate.assure.assure.FailThenResult#isDidFail <em>Did Fail</em>}</li>
  * </ul>
  * </p>
@@ -85,30 +85,30 @@ public interface FailThenResult extends VerificationExpr
   void setFailThen(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Error Then</b></em>' attribute.
+   * Returns the value of the '<em><b>Unknown Then</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Error Then</em>' attribute isn't clear,
+   * If the meaning of the '<em>Unknown Then</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Error Then</em>' attribute.
-   * @see #setErrorThen(boolean)
-   * @see org.osate.assure.assure.AssurePackage#getFailThenResult_ErrorThen()
+   * @return the value of the '<em>Unknown Then</em>' attribute.
+   * @see #setUnknownThen(boolean)
+   * @see org.osate.assure.assure.AssurePackage#getFailThenResult_UnknownThen()
    * @model
    * @generated
    */
-  boolean isErrorThen();
+  boolean isUnknownThen();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.FailThenResult#isErrorThen <em>Error Then</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.FailThenResult#isUnknownThen <em>Unknown Then</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Error Then</em>' attribute.
-   * @see #isErrorThen()
+   * @param value the new value of the '<em>Unknown Then</em>' attribute.
+   * @see #isUnknownThen()
    * @generated
    */
-  void setErrorThen(boolean value);
+  void setUnknownThen(boolean value);
 
   /**
    * Returns the value of the '<em><b>Did Fail</b></em>' attribute.

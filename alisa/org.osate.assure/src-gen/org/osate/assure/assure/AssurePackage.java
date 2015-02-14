@@ -86,13 +86,13 @@ public interface AssurePackage extends EPackage
   int ASSURE_RESULT__FAIL_COUNT = 1;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURE_RESULT__ERROR_COUNT = 2;
+  int ASSURE_RESULT__UNKNOWN_COUNT = 2;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -140,14 +140,14 @@ public interface AssurePackage extends EPackage
   int ASSURE_RESULT_FEATURE_COUNT = 7;
 
   /**
-   * The meta object id for the '{@link org.osate.assure.assure.impl.CaseResultImpl <em>Case Result</em>}' class.
+   * The meta object id for the '{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl <em>Assurance Evidence</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.assure.assure.impl.CaseResultImpl
-   * @see org.osate.assure.assure.impl.AssurePackageImpl#getCaseResult()
+   * @see org.osate.assure.assure.impl.AssuranceEvidenceImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getAssuranceEvidence()
    * @generated
    */
-  int CASE_RESULT = 0;
+  int ASSURANCE_EVIDENCE = 0;
 
   /**
    * The feature id for the '<em><b>Success Count</b></em>' attribute.
@@ -156,7 +156,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__SUCCESS_COUNT = ASSURE_RESULT__SUCCESS_COUNT;
+  int ASSURANCE_EVIDENCE__SUCCESS_COUNT = ASSURE_RESULT__SUCCESS_COUNT;
 
   /**
    * The feature id for the '<em><b>Fail Count</b></em>' attribute.
@@ -165,16 +165,16 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__FAIL_COUNT = ASSURE_RESULT__FAIL_COUNT;
+  int ASSURANCE_EVIDENCE__FAIL_COUNT = ASSURE_RESULT__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CASE_RESULT__ERROR_COUNT = ASSURE_RESULT__ERROR_COUNT;
+  int ASSURANCE_EVIDENCE__UNKNOWN_COUNT = ASSURE_RESULT__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -183,7 +183,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__FAILTHEN_COUNT = ASSURE_RESULT__FAILTHEN_COUNT;
+  int ASSURANCE_EVIDENCE__FAILTHEN_COUNT = ASSURE_RESULT__FAILTHEN_COUNT;
 
   /**
    * The feature id for the '<em><b>Andthen Count</b></em>' attribute.
@@ -192,7 +192,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__ANDTHEN_COUNT = ASSURE_RESULT__ANDTHEN_COUNT;
+  int ASSURANCE_EVIDENCE__ANDTHEN_COUNT = ASSURE_RESULT__ANDTHEN_COUNT;
 
   /**
    * The feature id for the '<em><b>Tbd Count</b></em>' attribute.
@@ -201,7 +201,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__TBD_COUNT = ASSURE_RESULT__TBD_COUNT;
+  int ASSURANCE_EVIDENCE__TBD_COUNT = ASSURE_RESULT__TBD_COUNT;
 
   /**
    * The feature id for the '<em><b>Weight</b></em>' attribute.
@@ -210,7 +210,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__WEIGHT = ASSURE_RESULT__WEIGHT;
+  int ASSURANCE_EVIDENCE__WEIGHT = ASSURE_RESULT__WEIGHT;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -219,7 +219,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
+  int ASSURANCE_EVIDENCE__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -228,7 +228,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
+  int ASSURANCE_EVIDENCE__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Instance</b></em>' reference.
@@ -237,7 +237,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__INSTANCE = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int ASSURANCE_EVIDENCE__INSTANCE = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -246,16 +246,16 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int ASSURANCE_EVIDENCE__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Sub Case Result</b></em>' containment reference list.
+   * The feature id for the '<em><b>Sub Assurance Evidence</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CASE_RESULT__SUB_CASE_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
+  int ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Claim Result</b></em>' containment reference list.
@@ -264,16 +264,16 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CASE_RESULT__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int ASSURANCE_EVIDENCE__CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 5;
 
   /**
-   * The number of structural features of the '<em>Case Result</em>' class.
+   * The number of structural features of the '<em>Assurance Evidence</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CASE_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
+  int ASSURANCE_EVIDENCE_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.ClaimResultImpl <em>Claim Result</em>}' class.
@@ -304,13 +304,13 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__FAIL_COUNT = ASSURE_RESULT__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__ERROR_COUNT = ASSURE_RESULT__ERROR_COUNT;
+  int CLAIM_RESULT__UNKNOWN_COUNT = ASSURE_RESULT__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -440,13 +440,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_RESULT__FAIL_COUNT = ASSURE_RESULT__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__ERROR_COUNT = ASSURE_RESULT__ERROR_COUNT;
+  int VERIFICATION_RESULT__UNKNOWN_COUNT = ASSURE_RESULT__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -576,13 +576,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_EXPR__FAIL_COUNT = ASSURE_RESULT__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_EXPR__ERROR_COUNT = ASSURE_RESULT__ERROR_COUNT;
+  int VERIFICATION_EXPR__UNKNOWN_COUNT = ASSURE_RESULT__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -658,13 +658,13 @@ public interface AssurePackage extends EPackage
   int FAIL_THEN_RESULT__FAIL_COUNT = VERIFICATION_EXPR__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FAIL_THEN_RESULT__ERROR_COUNT = VERIFICATION_EXPR__ERROR_COUNT;
+  int FAIL_THEN_RESULT__UNKNOWN_COUNT = VERIFICATION_EXPR__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -730,13 +730,13 @@ public interface AssurePackage extends EPackage
   int FAIL_THEN_RESULT__FAIL_THEN = VERIFICATION_EXPR_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Error Then</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Then</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FAIL_THEN_RESULT__ERROR_THEN = VERIFICATION_EXPR_FEATURE_COUNT + 3;
+  int FAIL_THEN_RESULT__UNKNOWN_THEN = VERIFICATION_EXPR_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Did Fail</b></em>' attribute.
@@ -785,13 +785,13 @@ public interface AssurePackage extends EPackage
   int AND_THEN_RESULT__FAIL_COUNT = VERIFICATION_EXPR__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int AND_THEN_RESULT__ERROR_COUNT = VERIFICATION_EXPR__ERROR_COUNT;
+  int AND_THEN_RESULT__UNKNOWN_COUNT = VERIFICATION_EXPR__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -967,13 +967,13 @@ public interface AssurePackage extends EPackage
   int VALIDATION_RESULT__FAIL_COUNT = VERIFICATION_RESULT__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VALIDATION_RESULT__ERROR_COUNT = VERIFICATION_RESULT__ERROR_COUNT;
+  int VALIDATION_RESULT__UNKNOWN_COUNT = VERIFICATION_RESULT__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -1112,13 +1112,13 @@ public interface AssurePackage extends EPackage
   int PRECONDITION_RESULT__FAIL_COUNT = VERIFICATION_RESULT__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PRECONDITION_RESULT__ERROR_COUNT = VERIFICATION_RESULT__ERROR_COUNT;
+  int PRECONDITION_RESULT__UNKNOWN_COUNT = VERIFICATION_RESULT__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -1257,13 +1257,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_ACTIVITY_RESULT__FAIL_COUNT = VERIFICATION_RESULT__FAIL_COUNT;
 
   /**
-   * The feature id for the '<em><b>Error Count</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_ACTIVITY_RESULT__ERROR_COUNT = VERIFICATION_RESULT__ERROR_COUNT;
+  int VERIFICATION_ACTIVITY_RESULT__UNKNOWN_COUNT = VERIFICATION_RESULT__UNKNOWN_COUNT;
 
   /**
    * The feature id for the '<em><b>Failthen Count</b></em>' attribute.
@@ -1423,80 +1423,80 @@ public interface AssurePackage extends EPackage
 
 
   /**
-   * Returns the meta object for class '{@link org.osate.assure.assure.CaseResult <em>Case Result</em>}'.
+   * Returns the meta object for class '{@link org.osate.assure.assure.AssuranceEvidence <em>Assurance Evidence</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Case Result</em>'.
-   * @see org.osate.assure.assure.CaseResult
+   * @return the meta object for class '<em>Assurance Evidence</em>'.
+   * @see org.osate.assure.assure.AssuranceEvidence
    * @generated
    */
-  EClass getCaseResult();
+  EClass getAssuranceEvidence();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.CaseResult#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceEvidence#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.assure.assure.CaseResult#getName()
-   * @see #getCaseResult()
+   * @see org.osate.assure.assure.AssuranceEvidence#getName()
+   * @see #getAssuranceEvidence()
    * @generated
    */
-  EAttribute getCaseResult_Name();
+  EAttribute getAssuranceEvidence_Name();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.CaseResult#getTarget <em>Target</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceEvidence#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Target</em>'.
-   * @see org.osate.assure.assure.CaseResult#getTarget()
-   * @see #getCaseResult()
+   * @see org.osate.assure.assure.AssuranceEvidence#getTarget()
+   * @see #getAssuranceEvidence()
    * @generated
    */
-  EReference getCaseResult_Target();
+  EReference getAssuranceEvidence_Target();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.assure.assure.CaseResult#getInstance <em>Instance</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.assure.assure.AssuranceEvidence#getInstance <em>Instance</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>Instance</em>'.
-   * @see org.osate.assure.assure.CaseResult#getInstance()
-   * @see #getCaseResult()
+   * @see org.osate.assure.assure.AssuranceEvidence#getInstance()
+   * @see #getAssuranceEvidence()
    * @generated
    */
-  EReference getCaseResult_Instance();
+  EReference getAssuranceEvidence_Instance();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.CaseResult#getMessage <em>Message</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssuranceEvidence#getMessage <em>Message</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Message</em>'.
-   * @see org.osate.assure.assure.CaseResult#getMessage()
-   * @see #getCaseResult()
+   * @see org.osate.assure.assure.AssuranceEvidence#getMessage()
+   * @see #getAssuranceEvidence()
    * @generated
    */
-  EAttribute getCaseResult_Message();
+  EAttribute getAssuranceEvidence_Message();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.CaseResult#getSubCaseResult <em>Sub Case Result</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceEvidence#getSubAssuranceEvidence <em>Sub Assurance Evidence</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Sub Case Result</em>'.
-   * @see org.osate.assure.assure.CaseResult#getSubCaseResult()
-   * @see #getCaseResult()
+   * @return the meta object for the containment reference list '<em>Sub Assurance Evidence</em>'.
+   * @see org.osate.assure.assure.AssuranceEvidence#getSubAssuranceEvidence()
+   * @see #getAssuranceEvidence()
    * @generated
    */
-  EReference getCaseResult_SubCaseResult();
+  EReference getAssuranceEvidence_SubAssuranceEvidence();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.CaseResult#getClaimResult <em>Claim Result</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.assure.assure.AssuranceEvidence#getClaimResult <em>Claim Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Claim Result</em>'.
-   * @see org.osate.assure.assure.CaseResult#getClaimResult()
-   * @see #getCaseResult()
+   * @see org.osate.assure.assure.AssuranceEvidence#getClaimResult()
+   * @see #getAssuranceEvidence()
    * @generated
    */
-  EReference getCaseResult_ClaimResult();
+  EReference getAssuranceEvidence_ClaimResult();
 
   /**
    * Returns the meta object for class '{@link org.osate.assure.assure.ClaimResult <em>Claim Result</em>}'.
@@ -1683,15 +1683,15 @@ public interface AssurePackage extends EPackage
   EAttribute getAssureResult_FailCount();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssureResult#getErrorCount <em>Error Count</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssureResult#getUnknownCount <em>Unknown Count</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Error Count</em>'.
-   * @see org.osate.assure.assure.AssureResult#getErrorCount()
+   * @return the meta object for the attribute '<em>Unknown Count</em>'.
+   * @see org.osate.assure.assure.AssureResult#getUnknownCount()
    * @see #getAssureResult()
    * @generated
    */
-  EAttribute getAssureResult_ErrorCount();
+  EAttribute getAssureResult_UnknownCount();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.AssureResult#getFailthenCount <em>Failthen Count</em>}'.
@@ -1791,15 +1791,15 @@ public interface AssurePackage extends EPackage
   EAttribute getFailThenResult_FailThen();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.FailThenResult#isErrorThen <em>Error Then</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.FailThenResult#isUnknownThen <em>Unknown Then</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Error Then</em>'.
-   * @see org.osate.assure.assure.FailThenResult#isErrorThen()
+   * @return the meta object for the attribute '<em>Unknown Then</em>'.
+   * @see org.osate.assure.assure.FailThenResult#isUnknownThen()
    * @see #getFailThenResult()
    * @generated
    */
-  EAttribute getFailThenResult_ErrorThen();
+  EAttribute getFailThenResult_UnknownThen();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.FailThenResult#isDidFail <em>Did Fail</em>}'.
@@ -2070,14 +2070,14 @@ public interface AssurePackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link org.osate.assure.assure.impl.CaseResultImpl <em>Case Result</em>}' class.
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl <em>Assurance Evidence</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.assure.assure.impl.CaseResultImpl
-     * @see org.osate.assure.assure.impl.AssurePackageImpl#getCaseResult()
+     * @see org.osate.assure.assure.impl.AssuranceEvidenceImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getAssuranceEvidence()
      * @generated
      */
-    EClass CASE_RESULT = eINSTANCE.getCaseResult();
+    EClass ASSURANCE_EVIDENCE = eINSTANCE.getAssuranceEvidence();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2085,7 +2085,7 @@ public interface AssurePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CASE_RESULT__NAME = eINSTANCE.getCaseResult_Name();
+    EAttribute ASSURANCE_EVIDENCE__NAME = eINSTANCE.getAssuranceEvidence_Name();
 
     /**
      * The meta object literal for the '<em><b>Target</b></em>' reference feature.
@@ -2093,7 +2093,7 @@ public interface AssurePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CASE_RESULT__TARGET = eINSTANCE.getCaseResult_Target();
+    EReference ASSURANCE_EVIDENCE__TARGET = eINSTANCE.getAssuranceEvidence_Target();
 
     /**
      * The meta object literal for the '<em><b>Instance</b></em>' reference feature.
@@ -2101,7 +2101,7 @@ public interface AssurePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CASE_RESULT__INSTANCE = eINSTANCE.getCaseResult_Instance();
+    EReference ASSURANCE_EVIDENCE__INSTANCE = eINSTANCE.getAssuranceEvidence_Instance();
 
     /**
      * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
@@ -2109,15 +2109,15 @@ public interface AssurePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CASE_RESULT__MESSAGE = eINSTANCE.getCaseResult_Message();
+    EAttribute ASSURANCE_EVIDENCE__MESSAGE = eINSTANCE.getAssuranceEvidence_Message();
 
     /**
-     * The meta object literal for the '<em><b>Sub Case Result</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Sub Assurance Evidence</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CASE_RESULT__SUB_CASE_RESULT = eINSTANCE.getCaseResult_SubCaseResult();
+    EReference ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE = eINSTANCE.getAssuranceEvidence_SubAssuranceEvidence();
 
     /**
      * The meta object literal for the '<em><b>Claim Result</b></em>' containment reference list feature.
@@ -2125,7 +2125,7 @@ public interface AssurePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CASE_RESULT__CLAIM_RESULT = eINSTANCE.getCaseResult_ClaimResult();
+    EReference ASSURANCE_EVIDENCE__CLAIM_RESULT = eINSTANCE.getAssuranceEvidence_ClaimResult();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.ClaimResultImpl <em>Claim Result</em>}' class.
@@ -2270,12 +2270,12 @@ public interface AssurePackage extends EPackage
     EAttribute ASSURE_RESULT__FAIL_COUNT = eINSTANCE.getAssureResult_FailCount();
 
     /**
-     * The meta object literal for the '<em><b>Error Count</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Unknown Count</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURE_RESULT__ERROR_COUNT = eINSTANCE.getAssureResult_ErrorCount();
+    EAttribute ASSURE_RESULT__UNKNOWN_COUNT = eINSTANCE.getAssureResult_UnknownCount();
 
     /**
      * The meta object literal for the '<em><b>Failthen Count</b></em>' attribute feature.
@@ -2354,12 +2354,12 @@ public interface AssurePackage extends EPackage
     EAttribute FAIL_THEN_RESULT__FAIL_THEN = eINSTANCE.getFailThenResult_FailThen();
 
     /**
-     * The meta object literal for the '<em><b>Error Then</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Unknown Then</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute FAIL_THEN_RESULT__ERROR_THEN = eINSTANCE.getFailThenResult_ErrorThen();
+    EAttribute FAIL_THEN_RESULT__UNKNOWN_THEN = eINSTANCE.getFailThenResult_UnknownThen();
 
     /**
      * The meta object literal for the '<em><b>Did Fail</b></em>' attribute feature.

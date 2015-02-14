@@ -223,13 +223,22 @@ public interface VerifyPackage extends EPackage
   int CLAIM__ASSERT = 4;
 
   /**
+   * The feature id for the '<em><b>Argument</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM__ARGUMENT = 5;
+
+  /**
    * The feature id for the '<em><b>Rationale</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM__RATIONALE = 5;
+  int CLAIM__RATIONALE = 6;
 
   /**
    * The feature id for the '<em><b>Subclaim</b></em>' containment reference list.
@@ -238,7 +247,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM__SUBCLAIM = 6;
+  int CLAIM__SUBCLAIM = 7;
 
   /**
    * The number of structural features of the '<em>Claim</em>' class.
@@ -247,7 +256,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_FEATURE_COUNT = 7;
+  int CLAIM_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationContainerImpl <em>Verification Container</em>}' class.
@@ -965,13 +974,13 @@ public interface VerifyPackage extends EPackage
   int FAIL_THEN_EXPR__FAILED = ARGUMENT_EXPR_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Error</b></em>' attribute.
+   * The feature id for the '<em><b>Unknown</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FAIL_THEN_EXPR__ERROR = ARGUMENT_EXPR_FEATURE_COUNT + 2;
+  int FAIL_THEN_EXPR__UNKNOWN = ARGUMENT_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -1268,6 +1277,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getClaim_Assert();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.Claim#getArgument <em>Argument</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Argument</em>'.
+   * @see org.osate.verify.verify.Claim#getArgument()
+   * @see #getClaim()
+   * @generated
+   */
+  EAttribute getClaim_Argument();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}'.
@@ -1851,15 +1871,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getFailThenExpr_Failed();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.FailThenExpr#isError <em>Error</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.verify.verify.FailThenExpr#isUnknown <em>Unknown</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Error</em>'.
-   * @see org.osate.verify.verify.FailThenExpr#isError()
+   * @return the meta object for the attribute '<em>Unknown</em>'.
+   * @see org.osate.verify.verify.FailThenExpr#isUnknown()
    * @see #getFailThenExpr()
    * @generated
    */
-  EAttribute getFailThenExpr_Error();
+  EAttribute getFailThenExpr_Unknown();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.FailThenExpr#getRight <em>Right</em>}'.
@@ -2122,6 +2142,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference CLAIM__ASSERT = eINSTANCE.getClaim_Assert();
+
+    /**
+     * The meta object literal for the '<em><b>Argument</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLAIM__ARGUMENT = eINSTANCE.getClaim_Argument();
 
     /**
      * The meta object literal for the '<em><b>Rationale</b></em>' attribute feature.
@@ -2582,12 +2610,12 @@ public interface VerifyPackage extends EPackage
     EAttribute FAIL_THEN_EXPR__FAILED = eINSTANCE.getFailThenExpr_Failed();
 
     /**
-     * The meta object literal for the '<em><b>Error</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Unknown</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute FAIL_THEN_EXPR__ERROR = eINSTANCE.getFailThenExpr_Error();
+    EAttribute FAIL_THEN_EXPR__UNKNOWN = eINSTANCE.getFailThenExpr_Unknown();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.

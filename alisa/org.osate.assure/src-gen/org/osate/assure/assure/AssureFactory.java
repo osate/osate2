@@ -23,13 +23,13 @@ public interface AssureFactory extends EFactory
   AssureFactory eINSTANCE = org.osate.assure.assure.impl.AssureFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Case Result</em>'.
+   * Returns a new object of class '<em>Assurance Evidence</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Case Result</em>'.
+   * @return a new object of class '<em>Assurance Evidence</em>'.
    * @generated
    */
-  CaseResult createCaseResult();
+  AssuranceEvidence createAssuranceEvidence();
 
   /**
    * Returns a new object of class '<em>Claim Result</em>'.

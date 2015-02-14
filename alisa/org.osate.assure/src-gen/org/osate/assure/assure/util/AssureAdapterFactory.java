@@ -75,9 +75,9 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
     new AssureSwitch<Adapter>()
     {
       @Override
-      public Adapter caseCaseResult(CaseResult object)
+      public Adapter caseAssuranceEvidence(AssuranceEvidence object)
       {
-        return createCaseResultAdapter();
+        return createAssuranceEvidenceAdapter();
       }
       @Override
       public Adapter caseClaimResult(ClaimResult object)
@@ -152,16 +152,16 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.CaseResult <em>Case Result</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.AssuranceEvidence <em>Assurance Evidence</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.assure.assure.CaseResult
+   * @see org.osate.assure.assure.AssuranceEvidence
    * @generated
    */
-  public Adapter createCaseResultAdapter()
+  public Adapter createAssuranceEvidenceAdapter()
   {
     return null;
   }

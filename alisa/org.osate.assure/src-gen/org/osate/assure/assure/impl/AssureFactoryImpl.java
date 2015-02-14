@@ -65,7 +65,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     switch (eClass.getClassifierID())
     {
-      case AssurePackage.CASE_RESULT: return createCaseResult();
+      case AssurePackage.ASSURANCE_EVIDENCE: return createAssuranceEvidence();
       case AssurePackage.CLAIM_RESULT: return createClaimResult();
       case AssurePackage.VERIFICATION_RESULT: return createVerificationResult();
       case AssurePackage.ASSURE_RESULT: return createAssureResult();
@@ -128,10 +128,10 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public CaseResult createCaseResult()
+  public AssuranceEvidence createAssuranceEvidence()
   {
-    CaseResultImpl caseResult = new CaseResultImpl();
-    return caseResult;
+    AssuranceEvidenceImpl assuranceEvidence = new AssuranceEvidenceImpl();
+    return assuranceEvidence;
   }
 
   /**

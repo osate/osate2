@@ -9,11 +9,11 @@ import org.osate.aadl2.NamedElement
 import org.osate.aadl2.ComponentImplementation
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.aadl2.instance.InstanceObject
-import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration
+import org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration
 
 class AlisaWorkbenchUtilsExtension {
 		
-	def static getVerificationPlans(ComponentInstance io, AssuranceCaseConfiguration acp) {
+	def static getVerificationPlans(ComponentInstance io, AssuranceEvidenceConfiguration acp) {
 		val myplans = acp.plans.filter [ VerificationPlan vp |
 			vp.target.isSame(io.componentClassifier)
 		]

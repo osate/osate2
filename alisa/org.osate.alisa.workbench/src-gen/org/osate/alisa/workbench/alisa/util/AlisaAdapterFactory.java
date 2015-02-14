@@ -80,9 +80,9 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
         return createAlisaWorkAreaAdapter();
       }
       @Override
-      public Adapter caseAssuranceCaseConfiguration(AssuranceCaseConfiguration object)
+      public Adapter caseAssuranceEvidenceConfiguration(AssuranceEvidenceConfiguration object)
       {
-        return createAssuranceCaseConfigurationAdapter();
+        return createAssuranceEvidenceConfigurationAdapter();
       }
       @Override
       public Adapter caseDescription(Description object)
@@ -93,11 +93,6 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseDescriptionElement(DescriptionElement object)
       {
         return createDescriptionElementAdapter();
-      }
-      @Override
-      public Adapter caseComputeDeclaration(ComputeDeclaration object)
-      {
-        return createComputeDeclarationAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -137,16 +132,16 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration <em>Assurance Case Configuration</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration <em>Assurance Evidence Configuration</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration
    * @generated
    */
-  public Adapter createAssuranceCaseConfigurationAdapter()
+  public Adapter createAssuranceEvidenceConfigurationAdapter()
   {
     return null;
   }
@@ -177,21 +172,6 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDescriptionElementAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.ComputeDeclaration <em>Compute Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.workbench.alisa.ComputeDeclaration
-   * @generated
-   */
-  public Adapter createComputeDeclarationAdapter()
   {
     return null;
   }

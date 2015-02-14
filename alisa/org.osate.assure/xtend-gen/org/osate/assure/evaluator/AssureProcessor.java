@@ -5,8 +5,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.osate.assure.assure.AndThenResult;
+import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.AssureResult;
-import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.FailThenResult;
 import org.osate.assure.assure.PreconditionResult;
@@ -29,7 +29,7 @@ public class AssureProcessor implements IAssureProcessor {
   @Inject
   private IVerificationMethodDispatcher dispatcher;
   
-  public void doProcess(final CaseResult caseResult) {
+  public void doProcess(final AssuranceEvidence caseResult) {
     EList<ClaimResult> _claimResult = caseResult.getClaimResult();
     final Procedure1<ClaimResult> _function = new Procedure1<ClaimResult>() {
       public void apply(final ClaimResult claimResult) {
@@ -37,13 +37,13 @@ public class AssureProcessor implements IAssureProcessor {
       }
     };
     IterableExtensions.<ClaimResult>forEach(_claimResult, _function);
-    EList<CaseResult> _subCaseResult = caseResult.getSubCaseResult();
-    final Procedure1<CaseResult> _function_1 = new Procedure1<CaseResult>() {
-      public void apply(final CaseResult subcaseResult) {
+    EList<AssuranceEvidence> _subAssuranceEvidence = caseResult.getSubAssuranceEvidence();
+    final Procedure1<AssuranceEvidence> _function_1 = new Procedure1<AssuranceEvidence>() {
+      public void apply(final AssuranceEvidence subcaseResult) {
         AssureProcessor.this.process(subcaseResult);
       }
     };
-    IterableExtensions.<CaseResult>forEach(_subCaseResult, _function_1);
+    IterableExtensions.<AssuranceEvidence>forEach(_subAssuranceEvidence, _function_1);
   }
   
   public void doProcess(final ClaimResult claimResult) {
@@ -94,8 +94,8 @@ public class AssureProcessor implements IAssureProcessor {
     };
     IterableExtensions.<VerificationExpr>forEach(_first, _function);
     boolean _and = false;
-    boolean _isErrorThen = vaResult.isErrorThen();
-    if (!_isErrorThen) {
+    boolean _isUnknownThen = vaResult.isUnknownThen();
+    if (!_isUnknownThen) {
       _and = false;
     } else {
       EList<VerificationExpr> _first_1 = vaResult.getFirst();
@@ -184,9 +184,9 @@ public class AssureProcessor implements IAssureProcessor {
   public void process(final AssureResult assureResult) {
     boolean _matched = false;
     if (!_matched) {
-      if (assureResult instanceof CaseResult) {
+      if (assureResult instanceof AssuranceEvidence) {
         _matched=true;
-        this.doProcess(((CaseResult)assureResult));
+        this.doProcess(((AssuranceEvidence)assureResult));
       }
     }
     if (!_matched) {

@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'error'", "'warning'", "'success'", "'info'", "'tbd'", "'fail'", "'todo'", "'running'", "'redo'", "'completed'", "'case'", "'for'", "'instance'", "'['", "']'", "'successcount'", "'failcount'", "'errorcount'", "'failthencount'", "'andthencount'", "'tbdcount'", "'weight'", "'message'", "'claim'", "'assumption'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'precondition'", "'verification'", "'failthen'", "'do'", "'andthen'", "':'", "'exception'", "'target'", "'::'", "'.'", "'errorthen'", "'didfail'", "'andthenfailed'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STRING", "RULE_ID", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'error'", "'warning'", "'success'", "'info'", "'tbd'", "'fail'", "'unknown'", "'todo'", "'running'", "'redo'", "'completed'", "'evidence'", "'for'", "'instance'", "'['", "']'", "'successcount'", "'failcount'", "'unknowncount'", "'failthencount'", "'andthencount'", "'tbdcount'", "'weight'", "'message'", "'claim'", "'assumption'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'precondition'", "'verification'", "'failthen'", "'do'", "'andthen'", "':'", "'exception'", "'target'", "'::'", "'.'", "'unknownthen'", "'didfail'", "'andthenfailed'"
     };
     public static final int RULE_ID=5;
     public static final int T__29=29;
@@ -43,6 +43,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final int T__16=16;
     public static final int T__52=52;
     public static final int T__15=15;
+    public static final int T__53=53;
     public static final int T__18=18;
     public static final int T__17=17;
     public static final int T__12=12;
@@ -113,25 +114,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
 
-    // $ANTLR start "entryRuleCaseResult"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:61:1: entryRuleCaseResult : ruleCaseResult EOF ;
-    public final void entryRuleCaseResult() throws RecognitionException {
+    // $ANTLR start "entryRuleAssuranceEvidence"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:61:1: entryRuleAssuranceEvidence : ruleAssuranceEvidence EOF ;
+    public final void entryRuleAssuranceEvidence() throws RecognitionException {
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:62:1: ( ruleCaseResult EOF )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:63:1: ruleCaseResult EOF
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:62:1: ( ruleAssuranceEvidence EOF )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:63:1: ruleAssuranceEvidence EOF
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultRule()); 
+               before(grammarAccess.getAssuranceEvidenceRule()); 
             }
-            pushFollow(FOLLOW_ruleCaseResult_in_entryRuleCaseResult67);
-            ruleCaseResult();
+            pushFollow(FOLLOW_ruleAssuranceEvidence_in_entryRuleAssuranceEvidence67);
+            ruleAssuranceEvidence();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultRule()); 
+               after(grammarAccess.getAssuranceEvidenceRule()); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCaseResult74); if (state.failed) return ;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAssuranceEvidence74); if (state.failed) return ;
 
             }
 
@@ -144,30 +145,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "entryRuleCaseResult"
+    // $ANTLR end "entryRuleAssuranceEvidence"
 
 
-    // $ANTLR start "ruleCaseResult"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:70:1: ruleCaseResult : ( ( rule__CaseResult__Group__0 ) ) ;
-    public final void ruleCaseResult() throws RecognitionException {
+    // $ANTLR start "ruleAssuranceEvidence"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:70:1: ruleAssuranceEvidence : ( ( rule__AssuranceEvidence__Group__0 ) ) ;
+    public final void ruleAssuranceEvidence() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:74:2: ( ( ( rule__CaseResult__Group__0 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:75:1: ( ( rule__CaseResult__Group__0 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:74:2: ( ( ( rule__AssuranceEvidence__Group__0 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:75:1: ( ( rule__AssuranceEvidence__Group__0 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:75:1: ( ( rule__CaseResult__Group__0 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:76:1: ( rule__CaseResult__Group__0 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:75:1: ( ( rule__AssuranceEvidence__Group__0 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:76:1: ( rule__AssuranceEvidence__Group__0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:77:1: ( rule__CaseResult__Group__0 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:77:2: rule__CaseResult__Group__0
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:77:1: ( rule__AssuranceEvidence__Group__0 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:77:2: rule__AssuranceEvidence__Group__0
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__0_in_ruleCaseResult100);
-            rule__CaseResult__Group__0();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__0_in_ruleAssuranceEvidence100);
+            rule__AssuranceEvidence__Group__0();
 
             state._fsp--;
             if (state.failed) return ;
@@ -175,7 +176,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup()); 
             }
 
             }
@@ -195,7 +196,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "ruleCaseResult"
+    // $ANTLR end "ruleAssuranceEvidence"
 
 
     // $ANTLR start "entryRuleClaimResult"
@@ -1286,17 +1287,17 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:461:1: ( ( ruleVerificationActivityResult ) | ( ruleFailThenResult ) | ( ruleAndThenResult ) )
             int alt1=3;
             switch ( input.LA(1) ) {
-            case 41:
+            case 42:
                 {
                 alt1=1;
                 }
                 break;
-            case 42:
+            case 43:
                 {
                 alt1=2;
                 }
                 break;
-            case 44:
+            case 45:
                 {
                 alt1=3;
                 }
@@ -1553,13 +1554,13 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationResultState__Alternatives"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:523:1: rule__VerificationResultState__Alternatives : ( ( ( 'tbd' ) ) | ( ( 'success' ) ) | ( ( 'fail' ) ) | ( ( 'error' ) ) );
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:523:1: rule__VerificationResultState__Alternatives : ( ( ( 'tbd' ) ) | ( ( 'success' ) ) | ( ( 'fail' ) ) | ( ( 'unknown' ) ) );
     public final void rule__VerificationResultState__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:527:1: ( ( ( 'tbd' ) ) | ( ( 'success' ) ) | ( ( 'fail' ) ) | ( ( 'error' ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:527:1: ( ( ( 'tbd' ) ) | ( ( 'success' ) ) | ( ( 'fail' ) ) | ( ( 'unknown' ) ) )
             int alt3=4;
             switch ( input.LA(1) ) {
             case 15:
@@ -1577,7 +1578,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                 alt3=3;
                 }
                 break;
-            case 11:
+            case 17:
                 {
                 alt3=4;
                 }
@@ -1667,23 +1668,23 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:549:6: ( ( 'error' ) )
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:549:6: ( ( 'unknown' ) )
                     {
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:549:6: ( ( 'error' ) )
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:550:1: ( 'error' )
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:549:6: ( ( 'unknown' ) )
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:550:1: ( 'unknown' )
                     {
                     if ( state.backtracking==0 ) {
-                       before(grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3()); 
+                       before(grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3()); 
                     }
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:551:1: ( 'error' )
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:551:3: 'error'
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:551:1: ( 'unknown' )
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:551:3: 'unknown'
                     {
-                    match(input,11,FOLLOW_11_in_rule__VerificationResultState__Alternatives1135); if (state.failed) return ;
+                    match(input,17,FOLLOW_17_in_rule__VerificationResultState__Alternatives1135); if (state.failed) return ;
 
                     }
 
                     if ( state.backtracking==0 ) {
-                       after(grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3()); 
+                       after(grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3()); 
                     }
 
                     }
@@ -1718,22 +1719,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:565:1: ( ( ( 'todo' ) ) | ( ( 'running' ) ) | ( ( 'redo' ) ) | ( ( 'completed' ) ) )
             int alt4=4;
             switch ( input.LA(1) ) {
-            case 17:
+            case 18:
                 {
                 alt4=1;
                 }
                 break;
-            case 18:
+            case 19:
                 {
                 alt4=2;
                 }
                 break;
-            case 19:
+            case 20:
                 {
                 alt4=3;
                 }
                 break;
-            case 20:
+            case 21:
                 {
                 alt4=4;
                 }
@@ -1759,7 +1760,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                     // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:568:1: ( 'todo' )
                     // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:568:3: 'todo'
                     {
-                    match(input,17,FOLLOW_17_in_rule__VerificationExecutionState__Alternatives1171); if (state.failed) return ;
+                    match(input,18,FOLLOW_18_in_rule__VerificationExecutionState__Alternatives1171); if (state.failed) return ;
 
                     }
 
@@ -1784,7 +1785,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                     // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:575:1: ( 'running' )
                     // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:575:3: 'running'
                     {
-                    match(input,18,FOLLOW_18_in_rule__VerificationExecutionState__Alternatives1192); if (state.failed) return ;
+                    match(input,19,FOLLOW_19_in_rule__VerificationExecutionState__Alternatives1192); if (state.failed) return ;
 
                     }
 
@@ -1809,7 +1810,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                     // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:582:1: ( 'redo' )
                     // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:582:3: 'redo'
                     {
-                    match(input,19,FOLLOW_19_in_rule__VerificationExecutionState__Alternatives1213); if (state.failed) return ;
+                    match(input,20,FOLLOW_20_in_rule__VerificationExecutionState__Alternatives1213); if (state.failed) return ;
 
                     }
 
@@ -1834,7 +1835,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                     // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:589:1: ( 'completed' )
                     // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:589:3: 'completed'
                     {
-                    match(input,20,FOLLOW_20_in_rule__VerificationExecutionState__Alternatives1234); if (state.failed) return ;
+                    match(input,21,FOLLOW_21_in_rule__VerificationExecutionState__Alternatives1234); if (state.failed) return ;
 
                     }
 
@@ -1864,23 +1865,23 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__VerificationExecutionState__Alternatives"
 
 
-    // $ANTLR start "rule__CaseResult__Group__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:601:1: rule__CaseResult__Group__0 : rule__CaseResult__Group__0__Impl rule__CaseResult__Group__1 ;
-    public final void rule__CaseResult__Group__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:601:1: rule__AssuranceEvidence__Group__0 : rule__AssuranceEvidence__Group__0__Impl rule__AssuranceEvidence__Group__1 ;
+    public final void rule__AssuranceEvidence__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:605:1: ( rule__CaseResult__Group__0__Impl rule__CaseResult__Group__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:606:2: rule__CaseResult__Group__0__Impl rule__CaseResult__Group__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:605:1: ( rule__AssuranceEvidence__Group__0__Impl rule__AssuranceEvidence__Group__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:606:2: rule__AssuranceEvidence__Group__0__Impl rule__AssuranceEvidence__Group__1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__0__Impl_in_rule__CaseResult__Group__01267);
-            rule__CaseResult__Group__0__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__0__Impl_in_rule__AssuranceEvidence__Group__01267);
+            rule__AssuranceEvidence__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__1_in_rule__CaseResult__Group__01270);
-            rule__CaseResult__Group__1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__1_in_rule__AssuranceEvidence__Group__01270);
+            rule__AssuranceEvidence__Group__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -1899,28 +1900,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__0"
+    // $ANTLR end "rule__AssuranceEvidence__Group__0"
 
 
-    // $ANTLR start "rule__CaseResult__Group__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:613:1: rule__CaseResult__Group__0__Impl : ( 'case' ) ;
-    public final void rule__CaseResult__Group__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:613:1: rule__AssuranceEvidence__Group__0__Impl : ( 'evidence' ) ;
+    public final void rule__AssuranceEvidence__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:617:1: ( ( 'case' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:618:1: ( 'case' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:617:1: ( ( 'evidence' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:618:1: ( 'evidence' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:618:1: ( 'case' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:619:1: 'case'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:618:1: ( 'evidence' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:619:1: 'evidence'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getCaseKeyword_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getEvidenceKeyword_0()); 
             }
-            match(input,21,FOLLOW_21_in_rule__CaseResult__Group__0__Impl1298); if (state.failed) return ;
+            match(input,22,FOLLOW_22_in_rule__AssuranceEvidence__Group__0__Impl1298); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getCaseKeyword_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getEvidenceKeyword_0()); 
             }
 
             }
@@ -1940,26 +1941,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__0__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__0__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:632:1: rule__CaseResult__Group__1 : rule__CaseResult__Group__1__Impl rule__CaseResult__Group__2 ;
-    public final void rule__CaseResult__Group__1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:632:1: rule__AssuranceEvidence__Group__1 : rule__AssuranceEvidence__Group__1__Impl rule__AssuranceEvidence__Group__2 ;
+    public final void rule__AssuranceEvidence__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:636:1: ( rule__CaseResult__Group__1__Impl rule__CaseResult__Group__2 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:637:2: rule__CaseResult__Group__1__Impl rule__CaseResult__Group__2
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:636:1: ( rule__AssuranceEvidence__Group__1__Impl rule__AssuranceEvidence__Group__2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:637:2: rule__AssuranceEvidence__Group__1__Impl rule__AssuranceEvidence__Group__2
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__1__Impl_in_rule__CaseResult__Group__11329);
-            rule__CaseResult__Group__1__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__1__Impl_in_rule__AssuranceEvidence__Group__11329);
+            rule__AssuranceEvidence__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__2_in_rule__CaseResult__Group__11332);
-            rule__CaseResult__Group__2();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__2_in_rule__AssuranceEvidence__Group__11332);
+            rule__AssuranceEvidence__Group__2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -1978,30 +1979,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__1"
+    // $ANTLR end "rule__AssuranceEvidence__Group__1"
 
 
-    // $ANTLR start "rule__CaseResult__Group__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:644:1: rule__CaseResult__Group__1__Impl : ( ( rule__CaseResult__NameAssignment_1 ) ) ;
-    public final void rule__CaseResult__Group__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:644:1: rule__AssuranceEvidence__Group__1__Impl : ( ( rule__AssuranceEvidence__NameAssignment_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:648:1: ( ( ( rule__CaseResult__NameAssignment_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:649:1: ( ( rule__CaseResult__NameAssignment_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:648:1: ( ( ( rule__AssuranceEvidence__NameAssignment_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:649:1: ( ( rule__AssuranceEvidence__NameAssignment_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:649:1: ( ( rule__CaseResult__NameAssignment_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:650:1: ( rule__CaseResult__NameAssignment_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:649:1: ( ( rule__AssuranceEvidence__NameAssignment_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:650:1: ( rule__AssuranceEvidence__NameAssignment_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getNameAssignment_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getNameAssignment_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:651:1: ( rule__CaseResult__NameAssignment_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:651:2: rule__CaseResult__NameAssignment_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:651:1: ( rule__AssuranceEvidence__NameAssignment_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:651:2: rule__AssuranceEvidence__NameAssignment_1
             {
-            pushFollow(FOLLOW_rule__CaseResult__NameAssignment_1_in_rule__CaseResult__Group__1__Impl1359);
-            rule__CaseResult__NameAssignment_1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__NameAssignment_1_in_rule__AssuranceEvidence__Group__1__Impl1359);
+            rule__AssuranceEvidence__NameAssignment_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2009,7 +2010,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getNameAssignment_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getNameAssignment_1()); 
             }
 
             }
@@ -2029,26 +2030,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__1__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__1__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:661:1: rule__CaseResult__Group__2 : rule__CaseResult__Group__2__Impl rule__CaseResult__Group__3 ;
-    public final void rule__CaseResult__Group__2() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__2"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:661:1: rule__AssuranceEvidence__Group__2 : rule__AssuranceEvidence__Group__2__Impl rule__AssuranceEvidence__Group__3 ;
+    public final void rule__AssuranceEvidence__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:665:1: ( rule__CaseResult__Group__2__Impl rule__CaseResult__Group__3 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:666:2: rule__CaseResult__Group__2__Impl rule__CaseResult__Group__3
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:665:1: ( rule__AssuranceEvidence__Group__2__Impl rule__AssuranceEvidence__Group__3 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:666:2: rule__AssuranceEvidence__Group__2__Impl rule__AssuranceEvidence__Group__3
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__2__Impl_in_rule__CaseResult__Group__21389);
-            rule__CaseResult__Group__2__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__2__Impl_in_rule__AssuranceEvidence__Group__21389);
+            rule__AssuranceEvidence__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__3_in_rule__CaseResult__Group__21392);
-            rule__CaseResult__Group__3();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__3_in_rule__AssuranceEvidence__Group__21392);
+            rule__AssuranceEvidence__Group__3();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2067,12 +2068,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__2"
+    // $ANTLR end "rule__AssuranceEvidence__Group__2"
 
 
-    // $ANTLR start "rule__CaseResult__Group__2__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:673:1: rule__CaseResult__Group__2__Impl : ( 'for' ) ;
-    public final void rule__CaseResult__Group__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__2__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:673:1: rule__AssuranceEvidence__Group__2__Impl : ( 'for' ) ;
+    public final void rule__AssuranceEvidence__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -2084,11 +2085,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:679:1: 'for'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getForKeyword_2()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getForKeyword_2()); 
             }
-            match(input,22,FOLLOW_22_in_rule__CaseResult__Group__2__Impl1420); if (state.failed) return ;
+            match(input,23,FOLLOW_23_in_rule__AssuranceEvidence__Group__2__Impl1420); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getForKeyword_2()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getForKeyword_2()); 
             }
 
             }
@@ -2108,26 +2109,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__2__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__2__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:692:1: rule__CaseResult__Group__3 : rule__CaseResult__Group__3__Impl rule__CaseResult__Group__4 ;
-    public final void rule__CaseResult__Group__3() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__3"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:692:1: rule__AssuranceEvidence__Group__3 : rule__AssuranceEvidence__Group__3__Impl rule__AssuranceEvidence__Group__4 ;
+    public final void rule__AssuranceEvidence__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:696:1: ( rule__CaseResult__Group__3__Impl rule__CaseResult__Group__4 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:697:2: rule__CaseResult__Group__3__Impl rule__CaseResult__Group__4
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:696:1: ( rule__AssuranceEvidence__Group__3__Impl rule__AssuranceEvidence__Group__4 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:697:2: rule__AssuranceEvidence__Group__3__Impl rule__AssuranceEvidence__Group__4
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__3__Impl_in_rule__CaseResult__Group__31451);
-            rule__CaseResult__Group__3__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__3__Impl_in_rule__AssuranceEvidence__Group__31451);
+            rule__AssuranceEvidence__Group__3__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__4_in_rule__CaseResult__Group__31454);
-            rule__CaseResult__Group__4();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__4_in_rule__AssuranceEvidence__Group__31454);
+            rule__AssuranceEvidence__Group__4();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2146,30 +2147,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__3"
+    // $ANTLR end "rule__AssuranceEvidence__Group__3"
 
 
-    // $ANTLR start "rule__CaseResult__Group__3__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:704:1: rule__CaseResult__Group__3__Impl : ( ( rule__CaseResult__TargetAssignment_3 ) ) ;
-    public final void rule__CaseResult__Group__3__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__3__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:704:1: rule__AssuranceEvidence__Group__3__Impl : ( ( rule__AssuranceEvidence__TargetAssignment_3 ) ) ;
+    public final void rule__AssuranceEvidence__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:708:1: ( ( ( rule__CaseResult__TargetAssignment_3 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:709:1: ( ( rule__CaseResult__TargetAssignment_3 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:708:1: ( ( ( rule__AssuranceEvidence__TargetAssignment_3 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:709:1: ( ( rule__AssuranceEvidence__TargetAssignment_3 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:709:1: ( ( rule__CaseResult__TargetAssignment_3 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:710:1: ( rule__CaseResult__TargetAssignment_3 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:709:1: ( ( rule__AssuranceEvidence__TargetAssignment_3 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:710:1: ( rule__AssuranceEvidence__TargetAssignment_3 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getTargetAssignment_3()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getTargetAssignment_3()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:711:1: ( rule__CaseResult__TargetAssignment_3 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:711:2: rule__CaseResult__TargetAssignment_3
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:711:1: ( rule__AssuranceEvidence__TargetAssignment_3 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:711:2: rule__AssuranceEvidence__TargetAssignment_3
             {
-            pushFollow(FOLLOW_rule__CaseResult__TargetAssignment_3_in_rule__CaseResult__Group__3__Impl1481);
-            rule__CaseResult__TargetAssignment_3();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__TargetAssignment_3_in_rule__AssuranceEvidence__Group__3__Impl1481);
+            rule__AssuranceEvidence__TargetAssignment_3();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2177,7 +2178,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getTargetAssignment_3()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getTargetAssignment_3()); 
             }
 
             }
@@ -2197,26 +2198,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__3__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__3__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__4"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:721:1: rule__CaseResult__Group__4 : rule__CaseResult__Group__4__Impl rule__CaseResult__Group__5 ;
-    public final void rule__CaseResult__Group__4() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__4"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:721:1: rule__AssuranceEvidence__Group__4 : rule__AssuranceEvidence__Group__4__Impl rule__AssuranceEvidence__Group__5 ;
+    public final void rule__AssuranceEvidence__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:725:1: ( rule__CaseResult__Group__4__Impl rule__CaseResult__Group__5 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:726:2: rule__CaseResult__Group__4__Impl rule__CaseResult__Group__5
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:725:1: ( rule__AssuranceEvidence__Group__4__Impl rule__AssuranceEvidence__Group__5 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:726:2: rule__AssuranceEvidence__Group__4__Impl rule__AssuranceEvidence__Group__5
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__4__Impl_in_rule__CaseResult__Group__41511);
-            rule__CaseResult__Group__4__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__4__Impl_in_rule__AssuranceEvidence__Group__41511);
+            rule__AssuranceEvidence__Group__4__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__5_in_rule__CaseResult__Group__41514);
-            rule__CaseResult__Group__5();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__5_in_rule__AssuranceEvidence__Group__41514);
+            rule__AssuranceEvidence__Group__5();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2235,12 +2236,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__4"
+    // $ANTLR end "rule__AssuranceEvidence__Group__4"
 
 
-    // $ANTLR start "rule__CaseResult__Group__4__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:733:1: rule__CaseResult__Group__4__Impl : ( 'instance' ) ;
-    public final void rule__CaseResult__Group__4__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__4__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:733:1: rule__AssuranceEvidence__Group__4__Impl : ( 'instance' ) ;
+    public final void rule__AssuranceEvidence__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -2252,11 +2253,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:739:1: 'instance'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getInstanceKeyword_4()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getInstanceKeyword_4()); 
             }
-            match(input,23,FOLLOW_23_in_rule__CaseResult__Group__4__Impl1542); if (state.failed) return ;
+            match(input,24,FOLLOW_24_in_rule__AssuranceEvidence__Group__4__Impl1542); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getInstanceKeyword_4()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getInstanceKeyword_4()); 
             }
 
             }
@@ -2276,26 +2277,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__4__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__4__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:752:1: rule__CaseResult__Group__5 : rule__CaseResult__Group__5__Impl rule__CaseResult__Group__6 ;
-    public final void rule__CaseResult__Group__5() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__5"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:752:1: rule__AssuranceEvidence__Group__5 : rule__AssuranceEvidence__Group__5__Impl rule__AssuranceEvidence__Group__6 ;
+    public final void rule__AssuranceEvidence__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:756:1: ( rule__CaseResult__Group__5__Impl rule__CaseResult__Group__6 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:757:2: rule__CaseResult__Group__5__Impl rule__CaseResult__Group__6
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:756:1: ( rule__AssuranceEvidence__Group__5__Impl rule__AssuranceEvidence__Group__6 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:757:2: rule__AssuranceEvidence__Group__5__Impl rule__AssuranceEvidence__Group__6
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__5__Impl_in_rule__CaseResult__Group__51573);
-            rule__CaseResult__Group__5__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__5__Impl_in_rule__AssuranceEvidence__Group__51573);
+            rule__AssuranceEvidence__Group__5__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__6_in_rule__CaseResult__Group__51576);
-            rule__CaseResult__Group__6();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__6_in_rule__AssuranceEvidence__Group__51576);
+            rule__AssuranceEvidence__Group__6();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2314,30 +2315,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__5"
+    // $ANTLR end "rule__AssuranceEvidence__Group__5"
 
 
-    // $ANTLR start "rule__CaseResult__Group__5__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:764:1: rule__CaseResult__Group__5__Impl : ( ( rule__CaseResult__InstanceAssignment_5 ) ) ;
-    public final void rule__CaseResult__Group__5__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__5__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:764:1: rule__AssuranceEvidence__Group__5__Impl : ( ( rule__AssuranceEvidence__InstanceAssignment_5 ) ) ;
+    public final void rule__AssuranceEvidence__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:768:1: ( ( ( rule__CaseResult__InstanceAssignment_5 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:769:1: ( ( rule__CaseResult__InstanceAssignment_5 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:768:1: ( ( ( rule__AssuranceEvidence__InstanceAssignment_5 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:769:1: ( ( rule__AssuranceEvidence__InstanceAssignment_5 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:769:1: ( ( rule__CaseResult__InstanceAssignment_5 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:770:1: ( rule__CaseResult__InstanceAssignment_5 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:769:1: ( ( rule__AssuranceEvidence__InstanceAssignment_5 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:770:1: ( rule__AssuranceEvidence__InstanceAssignment_5 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getInstanceAssignment_5()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getInstanceAssignment_5()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:771:1: ( rule__CaseResult__InstanceAssignment_5 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:771:2: rule__CaseResult__InstanceAssignment_5
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:771:1: ( rule__AssuranceEvidence__InstanceAssignment_5 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:771:2: rule__AssuranceEvidence__InstanceAssignment_5
             {
-            pushFollow(FOLLOW_rule__CaseResult__InstanceAssignment_5_in_rule__CaseResult__Group__5__Impl1603);
-            rule__CaseResult__InstanceAssignment_5();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__InstanceAssignment_5_in_rule__AssuranceEvidence__Group__5__Impl1603);
+            rule__AssuranceEvidence__InstanceAssignment_5();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2345,7 +2346,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getInstanceAssignment_5()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getInstanceAssignment_5()); 
             }
 
             }
@@ -2365,26 +2366,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__5__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__5__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__6"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:781:1: rule__CaseResult__Group__6 : rule__CaseResult__Group__6__Impl rule__CaseResult__Group__7 ;
-    public final void rule__CaseResult__Group__6() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__6"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:781:1: rule__AssuranceEvidence__Group__6 : rule__AssuranceEvidence__Group__6__Impl rule__AssuranceEvidence__Group__7 ;
+    public final void rule__AssuranceEvidence__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:785:1: ( rule__CaseResult__Group__6__Impl rule__CaseResult__Group__7 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:786:2: rule__CaseResult__Group__6__Impl rule__CaseResult__Group__7
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:785:1: ( rule__AssuranceEvidence__Group__6__Impl rule__AssuranceEvidence__Group__7 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:786:2: rule__AssuranceEvidence__Group__6__Impl rule__AssuranceEvidence__Group__7
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__6__Impl_in_rule__CaseResult__Group__61633);
-            rule__CaseResult__Group__6__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__6__Impl_in_rule__AssuranceEvidence__Group__61633);
+            rule__AssuranceEvidence__Group__6__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__7_in_rule__CaseResult__Group__61636);
-            rule__CaseResult__Group__7();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__7_in_rule__AssuranceEvidence__Group__61636);
+            rule__AssuranceEvidence__Group__7();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2403,12 +2404,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__6"
+    // $ANTLR end "rule__AssuranceEvidence__Group__6"
 
 
-    // $ANTLR start "rule__CaseResult__Group__6__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:793:1: rule__CaseResult__Group__6__Impl : ( '[' ) ;
-    public final void rule__CaseResult__Group__6__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__6__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:793:1: rule__AssuranceEvidence__Group__6__Impl : ( '[' ) ;
+    public final void rule__AssuranceEvidence__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -2420,11 +2421,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:799:1: '['
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getLeftSquareBracketKeyword_6()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getLeftSquareBracketKeyword_6()); 
             }
-            match(input,24,FOLLOW_24_in_rule__CaseResult__Group__6__Impl1664); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__AssuranceEvidence__Group__6__Impl1664); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getLeftSquareBracketKeyword_6()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getLeftSquareBracketKeyword_6()); 
             }
 
             }
@@ -2444,26 +2445,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__6__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__6__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__7"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:812:1: rule__CaseResult__Group__7 : rule__CaseResult__Group__7__Impl rule__CaseResult__Group__8 ;
-    public final void rule__CaseResult__Group__7() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__7"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:812:1: rule__AssuranceEvidence__Group__7 : rule__AssuranceEvidence__Group__7__Impl rule__AssuranceEvidence__Group__8 ;
+    public final void rule__AssuranceEvidence__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:816:1: ( rule__CaseResult__Group__7__Impl rule__CaseResult__Group__8 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:817:2: rule__CaseResult__Group__7__Impl rule__CaseResult__Group__8
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:816:1: ( rule__AssuranceEvidence__Group__7__Impl rule__AssuranceEvidence__Group__8 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:817:2: rule__AssuranceEvidence__Group__7__Impl rule__AssuranceEvidence__Group__8
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__7__Impl_in_rule__CaseResult__Group__71695);
-            rule__CaseResult__Group__7__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__7__Impl_in_rule__AssuranceEvidence__Group__71695);
+            rule__AssuranceEvidence__Group__7__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__8_in_rule__CaseResult__Group__71698);
-            rule__CaseResult__Group__8();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__8_in_rule__AssuranceEvidence__Group__71698);
+            rule__AssuranceEvidence__Group__8();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2482,38 +2483,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__7"
+    // $ANTLR end "rule__AssuranceEvidence__Group__7"
 
 
-    // $ANTLR start "rule__CaseResult__Group__7__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:824:1: rule__CaseResult__Group__7__Impl : ( ( rule__CaseResult__Group_7__0 )? ) ;
-    public final void rule__CaseResult__Group__7__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__7__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:824:1: rule__AssuranceEvidence__Group__7__Impl : ( ( rule__AssuranceEvidence__Group_7__0 )? ) ;
+    public final void rule__AssuranceEvidence__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:828:1: ( ( ( rule__CaseResult__Group_7__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:829:1: ( ( rule__CaseResult__Group_7__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:828:1: ( ( ( rule__AssuranceEvidence__Group_7__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:829:1: ( ( rule__AssuranceEvidence__Group_7__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:829:1: ( ( rule__CaseResult__Group_7__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:830:1: ( rule__CaseResult__Group_7__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:829:1: ( ( rule__AssuranceEvidence__Group_7__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:830:1: ( rule__AssuranceEvidence__Group_7__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup_7()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup_7()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:831:1: ( rule__CaseResult__Group_7__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:831:1: ( rule__AssuranceEvidence__Group_7__0 )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
-            if ( (LA5_0==26) ) {
+            if ( (LA5_0==27) ) {
                 alt5=1;
             }
             switch (alt5) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:831:2: rule__CaseResult__Group_7__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:831:2: rule__AssuranceEvidence__Group_7__0
                     {
-                    pushFollow(FOLLOW_rule__CaseResult__Group_7__0_in_rule__CaseResult__Group__7__Impl1725);
-                    rule__CaseResult__Group_7__0();
+                    pushFollow(FOLLOW_rule__AssuranceEvidence__Group_7__0_in_rule__AssuranceEvidence__Group__7__Impl1725);
+                    rule__AssuranceEvidence__Group_7__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -2524,7 +2525,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup_7()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup_7()); 
             }
 
             }
@@ -2544,26 +2545,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__7__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__7__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__8"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:841:1: rule__CaseResult__Group__8 : rule__CaseResult__Group__8__Impl rule__CaseResult__Group__9 ;
-    public final void rule__CaseResult__Group__8() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__8"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:841:1: rule__AssuranceEvidence__Group__8 : rule__AssuranceEvidence__Group__8__Impl rule__AssuranceEvidence__Group__9 ;
+    public final void rule__AssuranceEvidence__Group__8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:845:1: ( rule__CaseResult__Group__8__Impl rule__CaseResult__Group__9 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:846:2: rule__CaseResult__Group__8__Impl rule__CaseResult__Group__9
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:845:1: ( rule__AssuranceEvidence__Group__8__Impl rule__AssuranceEvidence__Group__9 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:846:2: rule__AssuranceEvidence__Group__8__Impl rule__AssuranceEvidence__Group__9
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__8__Impl_in_rule__CaseResult__Group__81756);
-            rule__CaseResult__Group__8__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__8__Impl_in_rule__AssuranceEvidence__Group__81756);
+            rule__AssuranceEvidence__Group__8__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__9_in_rule__CaseResult__Group__81759);
-            rule__CaseResult__Group__9();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__9_in_rule__AssuranceEvidence__Group__81759);
+            rule__AssuranceEvidence__Group__9();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2582,38 +2583,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__8"
+    // $ANTLR end "rule__AssuranceEvidence__Group__8"
 
 
-    // $ANTLR start "rule__CaseResult__Group__8__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:853:1: rule__CaseResult__Group__8__Impl : ( ( rule__CaseResult__Group_8__0 )? ) ;
-    public final void rule__CaseResult__Group__8__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__8__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:853:1: rule__AssuranceEvidence__Group__8__Impl : ( ( rule__AssuranceEvidence__Group_8__0 )? ) ;
+    public final void rule__AssuranceEvidence__Group__8__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:857:1: ( ( ( rule__CaseResult__Group_8__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:858:1: ( ( rule__CaseResult__Group_8__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:857:1: ( ( ( rule__AssuranceEvidence__Group_8__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:858:1: ( ( rule__AssuranceEvidence__Group_8__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:858:1: ( ( rule__CaseResult__Group_8__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:859:1: ( rule__CaseResult__Group_8__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:858:1: ( ( rule__AssuranceEvidence__Group_8__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:859:1: ( rule__AssuranceEvidence__Group_8__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup_8()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup_8()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:860:1: ( rule__CaseResult__Group_8__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:860:1: ( rule__AssuranceEvidence__Group_8__0 )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
-            if ( (LA6_0==27) ) {
+            if ( (LA6_0==28) ) {
                 alt6=1;
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:860:2: rule__CaseResult__Group_8__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:860:2: rule__AssuranceEvidence__Group_8__0
                     {
-                    pushFollow(FOLLOW_rule__CaseResult__Group_8__0_in_rule__CaseResult__Group__8__Impl1786);
-                    rule__CaseResult__Group_8__0();
+                    pushFollow(FOLLOW_rule__AssuranceEvidence__Group_8__0_in_rule__AssuranceEvidence__Group__8__Impl1786);
+                    rule__AssuranceEvidence__Group_8__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -2624,7 +2625,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup_8()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup_8()); 
             }
 
             }
@@ -2644,26 +2645,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__8__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__8__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__9"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:870:1: rule__CaseResult__Group__9 : rule__CaseResult__Group__9__Impl rule__CaseResult__Group__10 ;
-    public final void rule__CaseResult__Group__9() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__9"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:870:1: rule__AssuranceEvidence__Group__9 : rule__AssuranceEvidence__Group__9__Impl rule__AssuranceEvidence__Group__10 ;
+    public final void rule__AssuranceEvidence__Group__9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:874:1: ( rule__CaseResult__Group__9__Impl rule__CaseResult__Group__10 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:875:2: rule__CaseResult__Group__9__Impl rule__CaseResult__Group__10
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:874:1: ( rule__AssuranceEvidence__Group__9__Impl rule__AssuranceEvidence__Group__10 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:875:2: rule__AssuranceEvidence__Group__9__Impl rule__AssuranceEvidence__Group__10
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__9__Impl_in_rule__CaseResult__Group__91817);
-            rule__CaseResult__Group__9__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__9__Impl_in_rule__AssuranceEvidence__Group__91817);
+            rule__AssuranceEvidence__Group__9__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__10_in_rule__CaseResult__Group__91820);
-            rule__CaseResult__Group__10();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__10_in_rule__AssuranceEvidence__Group__91820);
+            rule__AssuranceEvidence__Group__10();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2682,38 +2683,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__9"
+    // $ANTLR end "rule__AssuranceEvidence__Group__9"
 
 
-    // $ANTLR start "rule__CaseResult__Group__9__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:882:1: rule__CaseResult__Group__9__Impl : ( ( rule__CaseResult__Group_9__0 )? ) ;
-    public final void rule__CaseResult__Group__9__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__9__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:882:1: rule__AssuranceEvidence__Group__9__Impl : ( ( rule__AssuranceEvidence__Group_9__0 )? ) ;
+    public final void rule__AssuranceEvidence__Group__9__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:886:1: ( ( ( rule__CaseResult__Group_9__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:887:1: ( ( rule__CaseResult__Group_9__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:886:1: ( ( ( rule__AssuranceEvidence__Group_9__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:887:1: ( ( rule__AssuranceEvidence__Group_9__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:887:1: ( ( rule__CaseResult__Group_9__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:888:1: ( rule__CaseResult__Group_9__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:887:1: ( ( rule__AssuranceEvidence__Group_9__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:888:1: ( rule__AssuranceEvidence__Group_9__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup_9()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup_9()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:889:1: ( rule__CaseResult__Group_9__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:889:1: ( rule__AssuranceEvidence__Group_9__0 )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
-            if ( (LA7_0==28) ) {
+            if ( (LA7_0==29) ) {
                 alt7=1;
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:889:2: rule__CaseResult__Group_9__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:889:2: rule__AssuranceEvidence__Group_9__0
                     {
-                    pushFollow(FOLLOW_rule__CaseResult__Group_9__0_in_rule__CaseResult__Group__9__Impl1847);
-                    rule__CaseResult__Group_9__0();
+                    pushFollow(FOLLOW_rule__AssuranceEvidence__Group_9__0_in_rule__AssuranceEvidence__Group__9__Impl1847);
+                    rule__AssuranceEvidence__Group_9__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -2724,7 +2725,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup_9()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup_9()); 
             }
 
             }
@@ -2744,26 +2745,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__9__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__9__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__10"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:899:1: rule__CaseResult__Group__10 : rule__CaseResult__Group__10__Impl rule__CaseResult__Group__11 ;
-    public final void rule__CaseResult__Group__10() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__10"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:899:1: rule__AssuranceEvidence__Group__10 : rule__AssuranceEvidence__Group__10__Impl rule__AssuranceEvidence__Group__11 ;
+    public final void rule__AssuranceEvidence__Group__10() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:903:1: ( rule__CaseResult__Group__10__Impl rule__CaseResult__Group__11 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:904:2: rule__CaseResult__Group__10__Impl rule__CaseResult__Group__11
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:903:1: ( rule__AssuranceEvidence__Group__10__Impl rule__AssuranceEvidence__Group__11 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:904:2: rule__AssuranceEvidence__Group__10__Impl rule__AssuranceEvidence__Group__11
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__10__Impl_in_rule__CaseResult__Group__101878);
-            rule__CaseResult__Group__10__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__10__Impl_in_rule__AssuranceEvidence__Group__101878);
+            rule__AssuranceEvidence__Group__10__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__11_in_rule__CaseResult__Group__101881);
-            rule__CaseResult__Group__11();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__11_in_rule__AssuranceEvidence__Group__101881);
+            rule__AssuranceEvidence__Group__11();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2782,38 +2783,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__10"
+    // $ANTLR end "rule__AssuranceEvidence__Group__10"
 
 
-    // $ANTLR start "rule__CaseResult__Group__10__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:911:1: rule__CaseResult__Group__10__Impl : ( ( rule__CaseResult__Group_10__0 )? ) ;
-    public final void rule__CaseResult__Group__10__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__10__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:911:1: rule__AssuranceEvidence__Group__10__Impl : ( ( rule__AssuranceEvidence__Group_10__0 )? ) ;
+    public final void rule__AssuranceEvidence__Group__10__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:915:1: ( ( ( rule__CaseResult__Group_10__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:916:1: ( ( rule__CaseResult__Group_10__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:915:1: ( ( ( rule__AssuranceEvidence__Group_10__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:916:1: ( ( rule__AssuranceEvidence__Group_10__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:916:1: ( ( rule__CaseResult__Group_10__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:917:1: ( rule__CaseResult__Group_10__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:916:1: ( ( rule__AssuranceEvidence__Group_10__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:917:1: ( rule__AssuranceEvidence__Group_10__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup_10()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup_10()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:918:1: ( rule__CaseResult__Group_10__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:918:1: ( rule__AssuranceEvidence__Group_10__0 )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
-            if ( (LA8_0==29) ) {
+            if ( (LA8_0==30) ) {
                 alt8=1;
             }
             switch (alt8) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:918:2: rule__CaseResult__Group_10__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:918:2: rule__AssuranceEvidence__Group_10__0
                     {
-                    pushFollow(FOLLOW_rule__CaseResult__Group_10__0_in_rule__CaseResult__Group__10__Impl1908);
-                    rule__CaseResult__Group_10__0();
+                    pushFollow(FOLLOW_rule__AssuranceEvidence__Group_10__0_in_rule__AssuranceEvidence__Group__10__Impl1908);
+                    rule__AssuranceEvidence__Group_10__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -2824,7 +2825,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup_10()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup_10()); 
             }
 
             }
@@ -2844,26 +2845,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__10__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__10__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__11"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:928:1: rule__CaseResult__Group__11 : rule__CaseResult__Group__11__Impl rule__CaseResult__Group__12 ;
-    public final void rule__CaseResult__Group__11() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__11"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:928:1: rule__AssuranceEvidence__Group__11 : rule__AssuranceEvidence__Group__11__Impl rule__AssuranceEvidence__Group__12 ;
+    public final void rule__AssuranceEvidence__Group__11() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:932:1: ( rule__CaseResult__Group__11__Impl rule__CaseResult__Group__12 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:933:2: rule__CaseResult__Group__11__Impl rule__CaseResult__Group__12
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:932:1: ( rule__AssuranceEvidence__Group__11__Impl rule__AssuranceEvidence__Group__12 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:933:2: rule__AssuranceEvidence__Group__11__Impl rule__AssuranceEvidence__Group__12
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__11__Impl_in_rule__CaseResult__Group__111939);
-            rule__CaseResult__Group__11__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__11__Impl_in_rule__AssuranceEvidence__Group__111939);
+            rule__AssuranceEvidence__Group__11__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__12_in_rule__CaseResult__Group__111942);
-            rule__CaseResult__Group__12();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__12_in_rule__AssuranceEvidence__Group__111942);
+            rule__AssuranceEvidence__Group__12();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2882,38 +2883,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__11"
+    // $ANTLR end "rule__AssuranceEvidence__Group__11"
 
 
-    // $ANTLR start "rule__CaseResult__Group__11__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:940:1: rule__CaseResult__Group__11__Impl : ( ( rule__CaseResult__Group_11__0 )? ) ;
-    public final void rule__CaseResult__Group__11__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__11__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:940:1: rule__AssuranceEvidence__Group__11__Impl : ( ( rule__AssuranceEvidence__Group_11__0 )? ) ;
+    public final void rule__AssuranceEvidence__Group__11__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:944:1: ( ( ( rule__CaseResult__Group_11__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:945:1: ( ( rule__CaseResult__Group_11__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:944:1: ( ( ( rule__AssuranceEvidence__Group_11__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:945:1: ( ( rule__AssuranceEvidence__Group_11__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:945:1: ( ( rule__CaseResult__Group_11__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:946:1: ( rule__CaseResult__Group_11__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:945:1: ( ( rule__AssuranceEvidence__Group_11__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:946:1: ( rule__AssuranceEvidence__Group_11__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup_11()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup_11()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:947:1: ( rule__CaseResult__Group_11__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:947:1: ( rule__AssuranceEvidence__Group_11__0 )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
-            if ( (LA9_0==30) ) {
+            if ( (LA9_0==31) ) {
                 alt9=1;
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:947:2: rule__CaseResult__Group_11__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:947:2: rule__AssuranceEvidence__Group_11__0
                     {
-                    pushFollow(FOLLOW_rule__CaseResult__Group_11__0_in_rule__CaseResult__Group__11__Impl1969);
-                    rule__CaseResult__Group_11__0();
+                    pushFollow(FOLLOW_rule__AssuranceEvidence__Group_11__0_in_rule__AssuranceEvidence__Group__11__Impl1969);
+                    rule__AssuranceEvidence__Group_11__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -2924,7 +2925,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup_11()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup_11()); 
             }
 
             }
@@ -2944,26 +2945,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__11__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__11__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__12"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:957:1: rule__CaseResult__Group__12 : rule__CaseResult__Group__12__Impl rule__CaseResult__Group__13 ;
-    public final void rule__CaseResult__Group__12() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__12"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:957:1: rule__AssuranceEvidence__Group__12 : rule__AssuranceEvidence__Group__12__Impl rule__AssuranceEvidence__Group__13 ;
+    public final void rule__AssuranceEvidence__Group__12() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:961:1: ( rule__CaseResult__Group__12__Impl rule__CaseResult__Group__13 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:962:2: rule__CaseResult__Group__12__Impl rule__CaseResult__Group__13
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:961:1: ( rule__AssuranceEvidence__Group__12__Impl rule__AssuranceEvidence__Group__13 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:962:2: rule__AssuranceEvidence__Group__12__Impl rule__AssuranceEvidence__Group__13
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__12__Impl_in_rule__CaseResult__Group__122000);
-            rule__CaseResult__Group__12__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__12__Impl_in_rule__AssuranceEvidence__Group__122000);
+            rule__AssuranceEvidence__Group__12__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__13_in_rule__CaseResult__Group__122003);
-            rule__CaseResult__Group__13();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__13_in_rule__AssuranceEvidence__Group__122003);
+            rule__AssuranceEvidence__Group__13();
 
             state._fsp--;
             if (state.failed) return ;
@@ -2982,38 +2983,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__12"
+    // $ANTLR end "rule__AssuranceEvidence__Group__12"
 
 
-    // $ANTLR start "rule__CaseResult__Group__12__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:969:1: rule__CaseResult__Group__12__Impl : ( ( rule__CaseResult__Group_12__0 )? ) ;
-    public final void rule__CaseResult__Group__12__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__12__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:969:1: rule__AssuranceEvidence__Group__12__Impl : ( ( rule__AssuranceEvidence__Group_12__0 )? ) ;
+    public final void rule__AssuranceEvidence__Group__12__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:973:1: ( ( ( rule__CaseResult__Group_12__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:974:1: ( ( rule__CaseResult__Group_12__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:973:1: ( ( ( rule__AssuranceEvidence__Group_12__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:974:1: ( ( rule__AssuranceEvidence__Group_12__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:974:1: ( ( rule__CaseResult__Group_12__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:975:1: ( rule__CaseResult__Group_12__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:974:1: ( ( rule__AssuranceEvidence__Group_12__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:975:1: ( rule__AssuranceEvidence__Group_12__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup_12()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup_12()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:976:1: ( rule__CaseResult__Group_12__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:976:1: ( rule__AssuranceEvidence__Group_12__0 )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
-            if ( (LA10_0==31) ) {
+            if ( (LA10_0==32) ) {
                 alt10=1;
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:976:2: rule__CaseResult__Group_12__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:976:2: rule__AssuranceEvidence__Group_12__0
                     {
-                    pushFollow(FOLLOW_rule__CaseResult__Group_12__0_in_rule__CaseResult__Group__12__Impl2030);
-                    rule__CaseResult__Group_12__0();
+                    pushFollow(FOLLOW_rule__AssuranceEvidence__Group_12__0_in_rule__AssuranceEvidence__Group__12__Impl2030);
+                    rule__AssuranceEvidence__Group_12__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -3024,7 +3025,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup_12()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup_12()); 
             }
 
             }
@@ -3044,26 +3045,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__12__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__12__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__13"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:986:1: rule__CaseResult__Group__13 : rule__CaseResult__Group__13__Impl rule__CaseResult__Group__14 ;
-    public final void rule__CaseResult__Group__13() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__13"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:986:1: rule__AssuranceEvidence__Group__13 : rule__AssuranceEvidence__Group__13__Impl rule__AssuranceEvidence__Group__14 ;
+    public final void rule__AssuranceEvidence__Group__13() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:990:1: ( rule__CaseResult__Group__13__Impl rule__CaseResult__Group__14 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:991:2: rule__CaseResult__Group__13__Impl rule__CaseResult__Group__14
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:990:1: ( rule__AssuranceEvidence__Group__13__Impl rule__AssuranceEvidence__Group__14 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:991:2: rule__AssuranceEvidence__Group__13__Impl rule__AssuranceEvidence__Group__14
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__13__Impl_in_rule__CaseResult__Group__132061);
-            rule__CaseResult__Group__13__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__13__Impl_in_rule__AssuranceEvidence__Group__132061);
+            rule__AssuranceEvidence__Group__13__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__14_in_rule__CaseResult__Group__132064);
-            rule__CaseResult__Group__14();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__14_in_rule__AssuranceEvidence__Group__132064);
+            rule__AssuranceEvidence__Group__14();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3082,38 +3083,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__13"
+    // $ANTLR end "rule__AssuranceEvidence__Group__13"
 
 
-    // $ANTLR start "rule__CaseResult__Group__13__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:998:1: rule__CaseResult__Group__13__Impl : ( ( rule__CaseResult__Group_13__0 )? ) ;
-    public final void rule__CaseResult__Group__13__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__13__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:998:1: rule__AssuranceEvidence__Group__13__Impl : ( ( rule__AssuranceEvidence__Group_13__0 )? ) ;
+    public final void rule__AssuranceEvidence__Group__13__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1002:1: ( ( ( rule__CaseResult__Group_13__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1003:1: ( ( rule__CaseResult__Group_13__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1002:1: ( ( ( rule__AssuranceEvidence__Group_13__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1003:1: ( ( rule__AssuranceEvidence__Group_13__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1003:1: ( ( rule__CaseResult__Group_13__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1004:1: ( rule__CaseResult__Group_13__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1003:1: ( ( rule__AssuranceEvidence__Group_13__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1004:1: ( rule__AssuranceEvidence__Group_13__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup_13()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup_13()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1005:1: ( rule__CaseResult__Group_13__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1005:1: ( rule__AssuranceEvidence__Group_13__0 )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
-            if ( (LA11_0==32) ) {
+            if ( (LA11_0==33) ) {
                 alt11=1;
             }
             switch (alt11) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1005:2: rule__CaseResult__Group_13__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1005:2: rule__AssuranceEvidence__Group_13__0
                     {
-                    pushFollow(FOLLOW_rule__CaseResult__Group_13__0_in_rule__CaseResult__Group__13__Impl2091);
-                    rule__CaseResult__Group_13__0();
+                    pushFollow(FOLLOW_rule__AssuranceEvidence__Group_13__0_in_rule__AssuranceEvidence__Group__13__Impl2091);
+                    rule__AssuranceEvidence__Group_13__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -3124,7 +3125,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup_13()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup_13()); 
             }
 
             }
@@ -3144,26 +3145,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__13__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__13__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__14"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1015:1: rule__CaseResult__Group__14 : rule__CaseResult__Group__14__Impl rule__CaseResult__Group__15 ;
-    public final void rule__CaseResult__Group__14() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__14"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1015:1: rule__AssuranceEvidence__Group__14 : rule__AssuranceEvidence__Group__14__Impl rule__AssuranceEvidence__Group__15 ;
+    public final void rule__AssuranceEvidence__Group__14() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1019:1: ( rule__CaseResult__Group__14__Impl rule__CaseResult__Group__15 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1020:2: rule__CaseResult__Group__14__Impl rule__CaseResult__Group__15
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1019:1: ( rule__AssuranceEvidence__Group__14__Impl rule__AssuranceEvidence__Group__15 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1020:2: rule__AssuranceEvidence__Group__14__Impl rule__AssuranceEvidence__Group__15
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__14__Impl_in_rule__CaseResult__Group__142122);
-            rule__CaseResult__Group__14__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__14__Impl_in_rule__AssuranceEvidence__Group__142122);
+            rule__AssuranceEvidence__Group__14__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__15_in_rule__CaseResult__Group__142125);
-            rule__CaseResult__Group__15();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__15_in_rule__AssuranceEvidence__Group__142125);
+            rule__AssuranceEvidence__Group__15();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3182,38 +3183,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__14"
+    // $ANTLR end "rule__AssuranceEvidence__Group__14"
 
 
-    // $ANTLR start "rule__CaseResult__Group__14__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1027:1: rule__CaseResult__Group__14__Impl : ( ( rule__CaseResult__Group_14__0 )? ) ;
-    public final void rule__CaseResult__Group__14__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__14__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1027:1: rule__AssuranceEvidence__Group__14__Impl : ( ( rule__AssuranceEvidence__Group_14__0 )? ) ;
+    public final void rule__AssuranceEvidence__Group__14__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1031:1: ( ( ( rule__CaseResult__Group_14__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1032:1: ( ( rule__CaseResult__Group_14__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1031:1: ( ( ( rule__AssuranceEvidence__Group_14__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1032:1: ( ( rule__AssuranceEvidence__Group_14__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1032:1: ( ( rule__CaseResult__Group_14__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1033:1: ( rule__CaseResult__Group_14__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1032:1: ( ( rule__AssuranceEvidence__Group_14__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1033:1: ( rule__AssuranceEvidence__Group_14__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getGroup_14()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getGroup_14()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1034:1: ( rule__CaseResult__Group_14__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1034:1: ( rule__AssuranceEvidence__Group_14__0 )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
-            if ( (LA12_0==33) ) {
+            if ( (LA12_0==34) ) {
                 alt12=1;
             }
             switch (alt12) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1034:2: rule__CaseResult__Group_14__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1034:2: rule__AssuranceEvidence__Group_14__0
                     {
-                    pushFollow(FOLLOW_rule__CaseResult__Group_14__0_in_rule__CaseResult__Group__14__Impl2152);
-                    rule__CaseResult__Group_14__0();
+                    pushFollow(FOLLOW_rule__AssuranceEvidence__Group_14__0_in_rule__AssuranceEvidence__Group__14__Impl2152);
+                    rule__AssuranceEvidence__Group_14__0();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -3224,7 +3225,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getGroup_14()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getGroup_14()); 
             }
 
             }
@@ -3244,26 +3245,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__14__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__14__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__15"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1044:1: rule__CaseResult__Group__15 : rule__CaseResult__Group__15__Impl rule__CaseResult__Group__16 ;
-    public final void rule__CaseResult__Group__15() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__15"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1044:1: rule__AssuranceEvidence__Group__15 : rule__AssuranceEvidence__Group__15__Impl rule__AssuranceEvidence__Group__16 ;
+    public final void rule__AssuranceEvidence__Group__15() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1048:1: ( rule__CaseResult__Group__15__Impl rule__CaseResult__Group__16 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1049:2: rule__CaseResult__Group__15__Impl rule__CaseResult__Group__16
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1048:1: ( rule__AssuranceEvidence__Group__15__Impl rule__AssuranceEvidence__Group__16 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1049:2: rule__AssuranceEvidence__Group__15__Impl rule__AssuranceEvidence__Group__16
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__15__Impl_in_rule__CaseResult__Group__152183);
-            rule__CaseResult__Group__15__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__15__Impl_in_rule__AssuranceEvidence__Group__152183);
+            rule__AssuranceEvidence__Group__15__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__16_in_rule__CaseResult__Group__152186);
-            rule__CaseResult__Group__16();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__16_in_rule__AssuranceEvidence__Group__152186);
+            rule__AssuranceEvidence__Group__16();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3282,42 +3283,42 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__15"
+    // $ANTLR end "rule__AssuranceEvidence__Group__15"
 
 
-    // $ANTLR start "rule__CaseResult__Group__15__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1056:1: rule__CaseResult__Group__15__Impl : ( ( rule__CaseResult__SubCaseResultAssignment_15 )* ) ;
-    public final void rule__CaseResult__Group__15__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__15__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1056:1: rule__AssuranceEvidence__Group__15__Impl : ( ( rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15 )* ) ;
+    public final void rule__AssuranceEvidence__Group__15__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1060:1: ( ( ( rule__CaseResult__SubCaseResultAssignment_15 )* ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1061:1: ( ( rule__CaseResult__SubCaseResultAssignment_15 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1060:1: ( ( ( rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15 )* ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1061:1: ( ( rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15 )* )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1061:1: ( ( rule__CaseResult__SubCaseResultAssignment_15 )* )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1062:1: ( rule__CaseResult__SubCaseResultAssignment_15 )*
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1061:1: ( ( rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1062:1: ( rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15 )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getSubCaseResultAssignment_15()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getSubAssuranceEvidenceAssignment_15()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1063:1: ( rule__CaseResult__SubCaseResultAssignment_15 )*
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1063:1: ( rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15 )*
             loop13:
             do {
                 int alt13=2;
                 int LA13_0 = input.LA(1);
 
-                if ( (LA13_0==21) ) {
+                if ( (LA13_0==22) ) {
                     alt13=1;
                 }
 
 
                 switch (alt13) {
             	case 1 :
-            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1063:2: rule__CaseResult__SubCaseResultAssignment_15
+            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1063:2: rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15
             	    {
-            	    pushFollow(FOLLOW_rule__CaseResult__SubCaseResultAssignment_15_in_rule__CaseResult__Group__15__Impl2213);
-            	    rule__CaseResult__SubCaseResultAssignment_15();
+            	    pushFollow(FOLLOW_rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15_in_rule__AssuranceEvidence__Group__15__Impl2213);
+            	    rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15();
 
             	    state._fsp--;
             	    if (state.failed) return ;
@@ -3331,7 +3332,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getSubCaseResultAssignment_15()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getSubAssuranceEvidenceAssignment_15()); 
             }
 
             }
@@ -3351,26 +3352,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__15__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__15__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__16"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1073:1: rule__CaseResult__Group__16 : rule__CaseResult__Group__16__Impl rule__CaseResult__Group__17 ;
-    public final void rule__CaseResult__Group__16() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__16"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1073:1: rule__AssuranceEvidence__Group__16 : rule__AssuranceEvidence__Group__16__Impl rule__AssuranceEvidence__Group__17 ;
+    public final void rule__AssuranceEvidence__Group__16() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1077:1: ( rule__CaseResult__Group__16__Impl rule__CaseResult__Group__17 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1078:2: rule__CaseResult__Group__16__Impl rule__CaseResult__Group__17
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1077:1: ( rule__AssuranceEvidence__Group__16__Impl rule__AssuranceEvidence__Group__17 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1078:2: rule__AssuranceEvidence__Group__16__Impl rule__AssuranceEvidence__Group__17
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__16__Impl_in_rule__CaseResult__Group__162244);
-            rule__CaseResult__Group__16__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__16__Impl_in_rule__AssuranceEvidence__Group__162244);
+            rule__AssuranceEvidence__Group__16__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group__17_in_rule__CaseResult__Group__162247);
-            rule__CaseResult__Group__17();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__17_in_rule__AssuranceEvidence__Group__162247);
+            rule__AssuranceEvidence__Group__17();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3389,42 +3390,42 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__16"
+    // $ANTLR end "rule__AssuranceEvidence__Group__16"
 
 
-    // $ANTLR start "rule__CaseResult__Group__16__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1085:1: rule__CaseResult__Group__16__Impl : ( ( rule__CaseResult__ClaimResultAssignment_16 )* ) ;
-    public final void rule__CaseResult__Group__16__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__16__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1085:1: rule__AssuranceEvidence__Group__16__Impl : ( ( rule__AssuranceEvidence__ClaimResultAssignment_16 )* ) ;
+    public final void rule__AssuranceEvidence__Group__16__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1089:1: ( ( ( rule__CaseResult__ClaimResultAssignment_16 )* ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1090:1: ( ( rule__CaseResult__ClaimResultAssignment_16 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1089:1: ( ( ( rule__AssuranceEvidence__ClaimResultAssignment_16 )* ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1090:1: ( ( rule__AssuranceEvidence__ClaimResultAssignment_16 )* )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1090:1: ( ( rule__CaseResult__ClaimResultAssignment_16 )* )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1091:1: ( rule__CaseResult__ClaimResultAssignment_16 )*
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1090:1: ( ( rule__AssuranceEvidence__ClaimResultAssignment_16 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1091:1: ( rule__AssuranceEvidence__ClaimResultAssignment_16 )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getClaimResultAssignment_16()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getClaimResultAssignment_16()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1092:1: ( rule__CaseResult__ClaimResultAssignment_16 )*
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1092:1: ( rule__AssuranceEvidence__ClaimResultAssignment_16 )*
             loop14:
             do {
                 int alt14=2;
                 int LA14_0 = input.LA(1);
 
-                if ( (LA14_0==34) ) {
+                if ( (LA14_0==35) ) {
                     alt14=1;
                 }
 
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1092:2: rule__CaseResult__ClaimResultAssignment_16
+            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1092:2: rule__AssuranceEvidence__ClaimResultAssignment_16
             	    {
-            	    pushFollow(FOLLOW_rule__CaseResult__ClaimResultAssignment_16_in_rule__CaseResult__Group__16__Impl2274);
-            	    rule__CaseResult__ClaimResultAssignment_16();
+            	    pushFollow(FOLLOW_rule__AssuranceEvidence__ClaimResultAssignment_16_in_rule__AssuranceEvidence__Group__16__Impl2274);
+            	    rule__AssuranceEvidence__ClaimResultAssignment_16();
 
             	    state._fsp--;
             	    if (state.failed) return ;
@@ -3438,7 +3439,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getClaimResultAssignment_16()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getClaimResultAssignment_16()); 
             }
 
             }
@@ -3458,21 +3459,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__16__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__16__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group__17"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1102:1: rule__CaseResult__Group__17 : rule__CaseResult__Group__17__Impl ;
-    public final void rule__CaseResult__Group__17() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__17"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1102:1: rule__AssuranceEvidence__Group__17 : rule__AssuranceEvidence__Group__17__Impl ;
+    public final void rule__AssuranceEvidence__Group__17() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1106:1: ( rule__CaseResult__Group__17__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1107:2: rule__CaseResult__Group__17__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1106:1: ( rule__AssuranceEvidence__Group__17__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1107:2: rule__AssuranceEvidence__Group__17__Impl
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group__17__Impl_in_rule__CaseResult__Group__172305);
-            rule__CaseResult__Group__17__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group__17__Impl_in_rule__AssuranceEvidence__Group__172305);
+            rule__AssuranceEvidence__Group__17__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3491,12 +3492,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__17"
+    // $ANTLR end "rule__AssuranceEvidence__Group__17"
 
 
-    // $ANTLR start "rule__CaseResult__Group__17__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1113:1: rule__CaseResult__Group__17__Impl : ( ']' ) ;
-    public final void rule__CaseResult__Group__17__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group__17__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1113:1: rule__AssuranceEvidence__Group__17__Impl : ( ']' ) ;
+    public final void rule__AssuranceEvidence__Group__17__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -3508,11 +3509,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1119:1: ']'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getRightSquareBracketKeyword_17()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getRightSquareBracketKeyword_17()); 
             }
-            match(input,25,FOLLOW_25_in_rule__CaseResult__Group__17__Impl2333); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__AssuranceEvidence__Group__17__Impl2333); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getRightSquareBracketKeyword_17()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getRightSquareBracketKeyword_17()); 
             }
 
             }
@@ -3532,26 +3533,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group__17__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group__17__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_7__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1168:1: rule__CaseResult__Group_7__0 : rule__CaseResult__Group_7__0__Impl rule__CaseResult__Group_7__1 ;
-    public final void rule__CaseResult__Group_7__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_7__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1168:1: rule__AssuranceEvidence__Group_7__0 : rule__AssuranceEvidence__Group_7__0__Impl rule__AssuranceEvidence__Group_7__1 ;
+    public final void rule__AssuranceEvidence__Group_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1172:1: ( rule__CaseResult__Group_7__0__Impl rule__CaseResult__Group_7__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1173:2: rule__CaseResult__Group_7__0__Impl rule__CaseResult__Group_7__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1172:1: ( rule__AssuranceEvidence__Group_7__0__Impl rule__AssuranceEvidence__Group_7__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1173:2: rule__AssuranceEvidence__Group_7__0__Impl rule__AssuranceEvidence__Group_7__1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_7__0__Impl_in_rule__CaseResult__Group_7__02400);
-            rule__CaseResult__Group_7__0__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_7__0__Impl_in_rule__AssuranceEvidence__Group_7__02400);
+            rule__AssuranceEvidence__Group_7__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group_7__1_in_rule__CaseResult__Group_7__02403);
-            rule__CaseResult__Group_7__1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_7__1_in_rule__AssuranceEvidence__Group_7__02403);
+            rule__AssuranceEvidence__Group_7__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3570,12 +3571,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_7__0"
+    // $ANTLR end "rule__AssuranceEvidence__Group_7__0"
 
 
-    // $ANTLR start "rule__CaseResult__Group_7__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1180:1: rule__CaseResult__Group_7__0__Impl : ( 'successcount' ) ;
-    public final void rule__CaseResult__Group_7__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_7__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1180:1: rule__AssuranceEvidence__Group_7__0__Impl : ( 'successcount' ) ;
+    public final void rule__AssuranceEvidence__Group_7__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -3587,11 +3588,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1186:1: 'successcount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getSuccesscountKeyword_7_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getSuccesscountKeyword_7_0()); 
             }
-            match(input,26,FOLLOW_26_in_rule__CaseResult__Group_7__0__Impl2431); if (state.failed) return ;
+            match(input,27,FOLLOW_27_in_rule__AssuranceEvidence__Group_7__0__Impl2431); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getSuccesscountKeyword_7_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getSuccesscountKeyword_7_0()); 
             }
 
             }
@@ -3611,21 +3612,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_7__0__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_7__0__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_7__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1199:1: rule__CaseResult__Group_7__1 : rule__CaseResult__Group_7__1__Impl ;
-    public final void rule__CaseResult__Group_7__1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_7__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1199:1: rule__AssuranceEvidence__Group_7__1 : rule__AssuranceEvidence__Group_7__1__Impl ;
+    public final void rule__AssuranceEvidence__Group_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1203:1: ( rule__CaseResult__Group_7__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1204:2: rule__CaseResult__Group_7__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1203:1: ( rule__AssuranceEvidence__Group_7__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1204:2: rule__AssuranceEvidence__Group_7__1__Impl
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_7__1__Impl_in_rule__CaseResult__Group_7__12462);
-            rule__CaseResult__Group_7__1__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_7__1__Impl_in_rule__AssuranceEvidence__Group_7__12462);
+            rule__AssuranceEvidence__Group_7__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3644,30 +3645,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_7__1"
+    // $ANTLR end "rule__AssuranceEvidence__Group_7__1"
 
 
-    // $ANTLR start "rule__CaseResult__Group_7__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1210:1: rule__CaseResult__Group_7__1__Impl : ( ( rule__CaseResult__SuccessCountAssignment_7_1 ) ) ;
-    public final void rule__CaseResult__Group_7__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_7__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1210:1: rule__AssuranceEvidence__Group_7__1__Impl : ( ( rule__AssuranceEvidence__SuccessCountAssignment_7_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group_7__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1214:1: ( ( ( rule__CaseResult__SuccessCountAssignment_7_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1215:1: ( ( rule__CaseResult__SuccessCountAssignment_7_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1214:1: ( ( ( rule__AssuranceEvidence__SuccessCountAssignment_7_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1215:1: ( ( rule__AssuranceEvidence__SuccessCountAssignment_7_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1215:1: ( ( rule__CaseResult__SuccessCountAssignment_7_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1216:1: ( rule__CaseResult__SuccessCountAssignment_7_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1215:1: ( ( rule__AssuranceEvidence__SuccessCountAssignment_7_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1216:1: ( rule__AssuranceEvidence__SuccessCountAssignment_7_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getSuccessCountAssignment_7_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getSuccessCountAssignment_7_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1217:1: ( rule__CaseResult__SuccessCountAssignment_7_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1217:2: rule__CaseResult__SuccessCountAssignment_7_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1217:1: ( rule__AssuranceEvidence__SuccessCountAssignment_7_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1217:2: rule__AssuranceEvidence__SuccessCountAssignment_7_1
             {
-            pushFollow(FOLLOW_rule__CaseResult__SuccessCountAssignment_7_1_in_rule__CaseResult__Group_7__1__Impl2489);
-            rule__CaseResult__SuccessCountAssignment_7_1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__SuccessCountAssignment_7_1_in_rule__AssuranceEvidence__Group_7__1__Impl2489);
+            rule__AssuranceEvidence__SuccessCountAssignment_7_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3675,7 +3676,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getSuccessCountAssignment_7_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getSuccessCountAssignment_7_1()); 
             }
 
             }
@@ -3695,26 +3696,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_7__1__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_7__1__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_8__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1231:1: rule__CaseResult__Group_8__0 : rule__CaseResult__Group_8__0__Impl rule__CaseResult__Group_8__1 ;
-    public final void rule__CaseResult__Group_8__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_8__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1231:1: rule__AssuranceEvidence__Group_8__0 : rule__AssuranceEvidence__Group_8__0__Impl rule__AssuranceEvidence__Group_8__1 ;
+    public final void rule__AssuranceEvidence__Group_8__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1235:1: ( rule__CaseResult__Group_8__0__Impl rule__CaseResult__Group_8__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1236:2: rule__CaseResult__Group_8__0__Impl rule__CaseResult__Group_8__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1235:1: ( rule__AssuranceEvidence__Group_8__0__Impl rule__AssuranceEvidence__Group_8__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1236:2: rule__AssuranceEvidence__Group_8__0__Impl rule__AssuranceEvidence__Group_8__1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_8__0__Impl_in_rule__CaseResult__Group_8__02523);
-            rule__CaseResult__Group_8__0__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_8__0__Impl_in_rule__AssuranceEvidence__Group_8__02523);
+            rule__AssuranceEvidence__Group_8__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group_8__1_in_rule__CaseResult__Group_8__02526);
-            rule__CaseResult__Group_8__1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_8__1_in_rule__AssuranceEvidence__Group_8__02526);
+            rule__AssuranceEvidence__Group_8__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3733,12 +3734,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_8__0"
+    // $ANTLR end "rule__AssuranceEvidence__Group_8__0"
 
 
-    // $ANTLR start "rule__CaseResult__Group_8__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1243:1: rule__CaseResult__Group_8__0__Impl : ( 'failcount' ) ;
-    public final void rule__CaseResult__Group_8__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_8__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1243:1: rule__AssuranceEvidence__Group_8__0__Impl : ( 'failcount' ) ;
+    public final void rule__AssuranceEvidence__Group_8__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -3750,11 +3751,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1249:1: 'failcount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getFailcountKeyword_8_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getFailcountKeyword_8_0()); 
             }
-            match(input,27,FOLLOW_27_in_rule__CaseResult__Group_8__0__Impl2554); if (state.failed) return ;
+            match(input,28,FOLLOW_28_in_rule__AssuranceEvidence__Group_8__0__Impl2554); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getFailcountKeyword_8_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getFailcountKeyword_8_0()); 
             }
 
             }
@@ -3774,21 +3775,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_8__0__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_8__0__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_8__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1262:1: rule__CaseResult__Group_8__1 : rule__CaseResult__Group_8__1__Impl ;
-    public final void rule__CaseResult__Group_8__1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_8__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1262:1: rule__AssuranceEvidence__Group_8__1 : rule__AssuranceEvidence__Group_8__1__Impl ;
+    public final void rule__AssuranceEvidence__Group_8__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1266:1: ( rule__CaseResult__Group_8__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1267:2: rule__CaseResult__Group_8__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1266:1: ( rule__AssuranceEvidence__Group_8__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1267:2: rule__AssuranceEvidence__Group_8__1__Impl
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_8__1__Impl_in_rule__CaseResult__Group_8__12585);
-            rule__CaseResult__Group_8__1__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_8__1__Impl_in_rule__AssuranceEvidence__Group_8__12585);
+            rule__AssuranceEvidence__Group_8__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -3807,193 +3808,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_8__1"
+    // $ANTLR end "rule__AssuranceEvidence__Group_8__1"
 
 
-    // $ANTLR start "rule__CaseResult__Group_8__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1273:1: rule__CaseResult__Group_8__1__Impl : ( ( rule__CaseResult__FailCountAssignment_8_1 ) ) ;
-    public final void rule__CaseResult__Group_8__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1277:1: ( ( ( rule__CaseResult__FailCountAssignment_8_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1278:1: ( ( rule__CaseResult__FailCountAssignment_8_1 ) )
-            {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1278:1: ( ( rule__CaseResult__FailCountAssignment_8_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1279:1: ( rule__CaseResult__FailCountAssignment_8_1 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getFailCountAssignment_8_1()); 
-            }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1280:1: ( rule__CaseResult__FailCountAssignment_8_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1280:2: rule__CaseResult__FailCountAssignment_8_1
-            {
-            pushFollow(FOLLOW_rule__CaseResult__FailCountAssignment_8_1_in_rule__CaseResult__Group_8__1__Impl2612);
-            rule__CaseResult__FailCountAssignment_8_1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getFailCountAssignment_8_1()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__CaseResult__Group_8__1__Impl"
-
-
-    // $ANTLR start "rule__CaseResult__Group_9__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1294:1: rule__CaseResult__Group_9__0 : rule__CaseResult__Group_9__0__Impl rule__CaseResult__Group_9__1 ;
-    public final void rule__CaseResult__Group_9__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_8__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1273:1: rule__AssuranceEvidence__Group_8__1__Impl : ( ( rule__AssuranceEvidence__FailCountAssignment_8_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1298:1: ( rule__CaseResult__Group_9__0__Impl rule__CaseResult__Group_9__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1299:2: rule__CaseResult__Group_9__0__Impl rule__CaseResult__Group_9__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1277:1: ( ( ( rule__AssuranceEvidence__FailCountAssignment_8_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1278:1: ( ( rule__AssuranceEvidence__FailCountAssignment_8_1 ) )
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_9__0__Impl_in_rule__CaseResult__Group_9__02646);
-            rule__CaseResult__Group_9__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group_9__1_in_rule__CaseResult__Group_9__02649);
-            rule__CaseResult__Group_9__1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__CaseResult__Group_9__0"
-
-
-    // $ANTLR start "rule__CaseResult__Group_9__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1306:1: rule__CaseResult__Group_9__0__Impl : ( 'errorcount' ) ;
-    public final void rule__CaseResult__Group_9__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1310:1: ( ( 'errorcount' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1311:1: ( 'errorcount' )
-            {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1311:1: ( 'errorcount' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1312:1: 'errorcount'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1278:1: ( ( rule__AssuranceEvidence__FailCountAssignment_8_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1279:1: ( rule__AssuranceEvidence__FailCountAssignment_8_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getErrorcountKeyword_9_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getFailCountAssignment_8_1()); 
             }
-            match(input,28,FOLLOW_28_in_rule__CaseResult__Group_9__0__Impl2677); if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getErrorcountKeyword_9_0()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__CaseResult__Group_9__0__Impl"
-
-
-    // $ANTLR start "rule__CaseResult__Group_9__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1325:1: rule__CaseResult__Group_9__1 : rule__CaseResult__Group_9__1__Impl ;
-    public final void rule__CaseResult__Group_9__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1329:1: ( rule__CaseResult__Group_9__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1330:2: rule__CaseResult__Group_9__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1280:1: ( rule__AssuranceEvidence__FailCountAssignment_8_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1280:2: rule__AssuranceEvidence__FailCountAssignment_8_1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_9__1__Impl_in_rule__CaseResult__Group_9__12708);
-            rule__CaseResult__Group_9__1__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__CaseResult__Group_9__1"
-
-
-    // $ANTLR start "rule__CaseResult__Group_9__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1336:1: rule__CaseResult__Group_9__1__Impl : ( ( rule__CaseResult__ErrorCountAssignment_9_1 ) ) ;
-    public final void rule__CaseResult__Group_9__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1340:1: ( ( ( rule__CaseResult__ErrorCountAssignment_9_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1341:1: ( ( rule__CaseResult__ErrorCountAssignment_9_1 ) )
-            {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1341:1: ( ( rule__CaseResult__ErrorCountAssignment_9_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1342:1: ( rule__CaseResult__ErrorCountAssignment_9_1 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getErrorCountAssignment_9_1()); 
-            }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1343:1: ( rule__CaseResult__ErrorCountAssignment_9_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1343:2: rule__CaseResult__ErrorCountAssignment_9_1
-            {
-            pushFollow(FOLLOW_rule__CaseResult__ErrorCountAssignment_9_1_in_rule__CaseResult__Group_9__1__Impl2735);
-            rule__CaseResult__ErrorCountAssignment_9_1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__FailCountAssignment_8_1_in_rule__AssuranceEvidence__Group_8__1__Impl2612);
+            rule__AssuranceEvidence__FailCountAssignment_8_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4001,7 +3839,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getErrorCountAssignment_9_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getFailCountAssignment_8_1()); 
             }
 
             }
@@ -4021,26 +3859,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_9__1__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_8__1__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_10__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1357:1: rule__CaseResult__Group_10__0 : rule__CaseResult__Group_10__0__Impl rule__CaseResult__Group_10__1 ;
-    public final void rule__CaseResult__Group_10__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_9__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1294:1: rule__AssuranceEvidence__Group_9__0 : rule__AssuranceEvidence__Group_9__0__Impl rule__AssuranceEvidence__Group_9__1 ;
+    public final void rule__AssuranceEvidence__Group_9__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1361:1: ( rule__CaseResult__Group_10__0__Impl rule__CaseResult__Group_10__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1362:2: rule__CaseResult__Group_10__0__Impl rule__CaseResult__Group_10__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1298:1: ( rule__AssuranceEvidence__Group_9__0__Impl rule__AssuranceEvidence__Group_9__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1299:2: rule__AssuranceEvidence__Group_9__0__Impl rule__AssuranceEvidence__Group_9__1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_10__0__Impl_in_rule__CaseResult__Group_10__02769);
-            rule__CaseResult__Group_10__0__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_9__0__Impl_in_rule__AssuranceEvidence__Group_9__02646);
+            rule__AssuranceEvidence__Group_9__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group_10__1_in_rule__CaseResult__Group_10__02772);
-            rule__CaseResult__Group_10__1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_9__1_in_rule__AssuranceEvidence__Group_9__02649);
+            rule__AssuranceEvidence__Group_9__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4059,12 +3897,175 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_10__0"
+    // $ANTLR end "rule__AssuranceEvidence__Group_9__0"
 
 
-    // $ANTLR start "rule__CaseResult__Group_10__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1369:1: rule__CaseResult__Group_10__0__Impl : ( 'failthencount' ) ;
-    public final void rule__CaseResult__Group_10__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_9__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1306:1: rule__AssuranceEvidence__Group_9__0__Impl : ( 'unknowncount' ) ;
+    public final void rule__AssuranceEvidence__Group_9__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1310:1: ( ( 'unknowncount' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1311:1: ( 'unknowncount' )
+            {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1311:1: ( 'unknowncount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1312:1: 'unknowncount'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAssuranceEvidenceAccess().getUnknowncountKeyword_9_0()); 
+            }
+            match(input,29,FOLLOW_29_in_rule__AssuranceEvidence__Group_9__0__Impl2677); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getAssuranceEvidenceAccess().getUnknowncountKeyword_9_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AssuranceEvidence__Group_9__0__Impl"
+
+
+    // $ANTLR start "rule__AssuranceEvidence__Group_9__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1325:1: rule__AssuranceEvidence__Group_9__1 : rule__AssuranceEvidence__Group_9__1__Impl ;
+    public final void rule__AssuranceEvidence__Group_9__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1329:1: ( rule__AssuranceEvidence__Group_9__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1330:2: rule__AssuranceEvidence__Group_9__1__Impl
+            {
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_9__1__Impl_in_rule__AssuranceEvidence__Group_9__12708);
+            rule__AssuranceEvidence__Group_9__1__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AssuranceEvidence__Group_9__1"
+
+
+    // $ANTLR start "rule__AssuranceEvidence__Group_9__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1336:1: rule__AssuranceEvidence__Group_9__1__Impl : ( ( rule__AssuranceEvidence__UnknownCountAssignment_9_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group_9__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1340:1: ( ( ( rule__AssuranceEvidence__UnknownCountAssignment_9_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1341:1: ( ( rule__AssuranceEvidence__UnknownCountAssignment_9_1 ) )
+            {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1341:1: ( ( rule__AssuranceEvidence__UnknownCountAssignment_9_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1342:1: ( rule__AssuranceEvidence__UnknownCountAssignment_9_1 )
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAssuranceEvidenceAccess().getUnknownCountAssignment_9_1()); 
+            }
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1343:1: ( rule__AssuranceEvidence__UnknownCountAssignment_9_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1343:2: rule__AssuranceEvidence__UnknownCountAssignment_9_1
+            {
+            pushFollow(FOLLOW_rule__AssuranceEvidence__UnknownCountAssignment_9_1_in_rule__AssuranceEvidence__Group_9__1__Impl2735);
+            rule__AssuranceEvidence__UnknownCountAssignment_9_1();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getAssuranceEvidenceAccess().getUnknownCountAssignment_9_1()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AssuranceEvidence__Group_9__1__Impl"
+
+
+    // $ANTLR start "rule__AssuranceEvidence__Group_10__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1357:1: rule__AssuranceEvidence__Group_10__0 : rule__AssuranceEvidence__Group_10__0__Impl rule__AssuranceEvidence__Group_10__1 ;
+    public final void rule__AssuranceEvidence__Group_10__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1361:1: ( rule__AssuranceEvidence__Group_10__0__Impl rule__AssuranceEvidence__Group_10__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1362:2: rule__AssuranceEvidence__Group_10__0__Impl rule__AssuranceEvidence__Group_10__1
+            {
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_10__0__Impl_in_rule__AssuranceEvidence__Group_10__02769);
+            rule__AssuranceEvidence__Group_10__0__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_10__1_in_rule__AssuranceEvidence__Group_10__02772);
+            rule__AssuranceEvidence__Group_10__1();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AssuranceEvidence__Group_10__0"
+
+
+    // $ANTLR start "rule__AssuranceEvidence__Group_10__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1369:1: rule__AssuranceEvidence__Group_10__0__Impl : ( 'failthencount' ) ;
+    public final void rule__AssuranceEvidence__Group_10__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -4076,11 +4077,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1375:1: 'failthencount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getFailthencountKeyword_10_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getFailthencountKeyword_10_0()); 
             }
-            match(input,29,FOLLOW_29_in_rule__CaseResult__Group_10__0__Impl2800); if (state.failed) return ;
+            match(input,30,FOLLOW_30_in_rule__AssuranceEvidence__Group_10__0__Impl2800); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getFailthencountKeyword_10_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getFailthencountKeyword_10_0()); 
             }
 
             }
@@ -4100,21 +4101,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_10__0__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_10__0__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_10__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1388:1: rule__CaseResult__Group_10__1 : rule__CaseResult__Group_10__1__Impl ;
-    public final void rule__CaseResult__Group_10__1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_10__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1388:1: rule__AssuranceEvidence__Group_10__1 : rule__AssuranceEvidence__Group_10__1__Impl ;
+    public final void rule__AssuranceEvidence__Group_10__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1392:1: ( rule__CaseResult__Group_10__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1393:2: rule__CaseResult__Group_10__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1392:1: ( rule__AssuranceEvidence__Group_10__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1393:2: rule__AssuranceEvidence__Group_10__1__Impl
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_10__1__Impl_in_rule__CaseResult__Group_10__12831);
-            rule__CaseResult__Group_10__1__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_10__1__Impl_in_rule__AssuranceEvidence__Group_10__12831);
+            rule__AssuranceEvidence__Group_10__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4133,30 +4134,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_10__1"
+    // $ANTLR end "rule__AssuranceEvidence__Group_10__1"
 
 
-    // $ANTLR start "rule__CaseResult__Group_10__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1399:1: rule__CaseResult__Group_10__1__Impl : ( ( rule__CaseResult__FailthenCountAssignment_10_1 ) ) ;
-    public final void rule__CaseResult__Group_10__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_10__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1399:1: rule__AssuranceEvidence__Group_10__1__Impl : ( ( rule__AssuranceEvidence__FailthenCountAssignment_10_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group_10__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1403:1: ( ( ( rule__CaseResult__FailthenCountAssignment_10_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1404:1: ( ( rule__CaseResult__FailthenCountAssignment_10_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1403:1: ( ( ( rule__AssuranceEvidence__FailthenCountAssignment_10_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1404:1: ( ( rule__AssuranceEvidence__FailthenCountAssignment_10_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1404:1: ( ( rule__CaseResult__FailthenCountAssignment_10_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1405:1: ( rule__CaseResult__FailthenCountAssignment_10_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1404:1: ( ( rule__AssuranceEvidence__FailthenCountAssignment_10_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1405:1: ( rule__AssuranceEvidence__FailthenCountAssignment_10_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getFailthenCountAssignment_10_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getFailthenCountAssignment_10_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1406:1: ( rule__CaseResult__FailthenCountAssignment_10_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1406:2: rule__CaseResult__FailthenCountAssignment_10_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1406:1: ( rule__AssuranceEvidence__FailthenCountAssignment_10_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1406:2: rule__AssuranceEvidence__FailthenCountAssignment_10_1
             {
-            pushFollow(FOLLOW_rule__CaseResult__FailthenCountAssignment_10_1_in_rule__CaseResult__Group_10__1__Impl2858);
-            rule__CaseResult__FailthenCountAssignment_10_1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__FailthenCountAssignment_10_1_in_rule__AssuranceEvidence__Group_10__1__Impl2858);
+            rule__AssuranceEvidence__FailthenCountAssignment_10_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4164,7 +4165,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getFailthenCountAssignment_10_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getFailthenCountAssignment_10_1()); 
             }
 
             }
@@ -4184,26 +4185,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_10__1__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_10__1__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_11__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1420:1: rule__CaseResult__Group_11__0 : rule__CaseResult__Group_11__0__Impl rule__CaseResult__Group_11__1 ;
-    public final void rule__CaseResult__Group_11__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_11__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1420:1: rule__AssuranceEvidence__Group_11__0 : rule__AssuranceEvidence__Group_11__0__Impl rule__AssuranceEvidence__Group_11__1 ;
+    public final void rule__AssuranceEvidence__Group_11__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1424:1: ( rule__CaseResult__Group_11__0__Impl rule__CaseResult__Group_11__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1425:2: rule__CaseResult__Group_11__0__Impl rule__CaseResult__Group_11__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1424:1: ( rule__AssuranceEvidence__Group_11__0__Impl rule__AssuranceEvidence__Group_11__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1425:2: rule__AssuranceEvidence__Group_11__0__Impl rule__AssuranceEvidence__Group_11__1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_11__0__Impl_in_rule__CaseResult__Group_11__02892);
-            rule__CaseResult__Group_11__0__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_11__0__Impl_in_rule__AssuranceEvidence__Group_11__02892);
+            rule__AssuranceEvidence__Group_11__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group_11__1_in_rule__CaseResult__Group_11__02895);
-            rule__CaseResult__Group_11__1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_11__1_in_rule__AssuranceEvidence__Group_11__02895);
+            rule__AssuranceEvidence__Group_11__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4222,12 +4223,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_11__0"
+    // $ANTLR end "rule__AssuranceEvidence__Group_11__0"
 
 
-    // $ANTLR start "rule__CaseResult__Group_11__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1432:1: rule__CaseResult__Group_11__0__Impl : ( 'andthencount' ) ;
-    public final void rule__CaseResult__Group_11__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_11__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1432:1: rule__AssuranceEvidence__Group_11__0__Impl : ( 'andthencount' ) ;
+    public final void rule__AssuranceEvidence__Group_11__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -4239,11 +4240,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1438:1: 'andthencount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getAndthencountKeyword_11_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getAndthencountKeyword_11_0()); 
             }
-            match(input,30,FOLLOW_30_in_rule__CaseResult__Group_11__0__Impl2923); if (state.failed) return ;
+            match(input,31,FOLLOW_31_in_rule__AssuranceEvidence__Group_11__0__Impl2923); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getAndthencountKeyword_11_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getAndthencountKeyword_11_0()); 
             }
 
             }
@@ -4263,21 +4264,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_11__0__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_11__0__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_11__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1451:1: rule__CaseResult__Group_11__1 : rule__CaseResult__Group_11__1__Impl ;
-    public final void rule__CaseResult__Group_11__1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_11__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1451:1: rule__AssuranceEvidence__Group_11__1 : rule__AssuranceEvidence__Group_11__1__Impl ;
+    public final void rule__AssuranceEvidence__Group_11__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1455:1: ( rule__CaseResult__Group_11__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1456:2: rule__CaseResult__Group_11__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1455:1: ( rule__AssuranceEvidence__Group_11__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1456:2: rule__AssuranceEvidence__Group_11__1__Impl
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_11__1__Impl_in_rule__CaseResult__Group_11__12954);
-            rule__CaseResult__Group_11__1__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_11__1__Impl_in_rule__AssuranceEvidence__Group_11__12954);
+            rule__AssuranceEvidence__Group_11__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4296,30 +4297,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_11__1"
+    // $ANTLR end "rule__AssuranceEvidence__Group_11__1"
 
 
-    // $ANTLR start "rule__CaseResult__Group_11__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1462:1: rule__CaseResult__Group_11__1__Impl : ( ( rule__CaseResult__AndthenCountAssignment_11_1 ) ) ;
-    public final void rule__CaseResult__Group_11__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_11__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1462:1: rule__AssuranceEvidence__Group_11__1__Impl : ( ( rule__AssuranceEvidence__AndthenCountAssignment_11_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group_11__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1466:1: ( ( ( rule__CaseResult__AndthenCountAssignment_11_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1467:1: ( ( rule__CaseResult__AndthenCountAssignment_11_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1466:1: ( ( ( rule__AssuranceEvidence__AndthenCountAssignment_11_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1467:1: ( ( rule__AssuranceEvidence__AndthenCountAssignment_11_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1467:1: ( ( rule__CaseResult__AndthenCountAssignment_11_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1468:1: ( rule__CaseResult__AndthenCountAssignment_11_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1467:1: ( ( rule__AssuranceEvidence__AndthenCountAssignment_11_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1468:1: ( rule__AssuranceEvidence__AndthenCountAssignment_11_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getAndthenCountAssignment_11_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getAndthenCountAssignment_11_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1469:1: ( rule__CaseResult__AndthenCountAssignment_11_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1469:2: rule__CaseResult__AndthenCountAssignment_11_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1469:1: ( rule__AssuranceEvidence__AndthenCountAssignment_11_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1469:2: rule__AssuranceEvidence__AndthenCountAssignment_11_1
             {
-            pushFollow(FOLLOW_rule__CaseResult__AndthenCountAssignment_11_1_in_rule__CaseResult__Group_11__1__Impl2981);
-            rule__CaseResult__AndthenCountAssignment_11_1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__AndthenCountAssignment_11_1_in_rule__AssuranceEvidence__Group_11__1__Impl2981);
+            rule__AssuranceEvidence__AndthenCountAssignment_11_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4327,7 +4328,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getAndthenCountAssignment_11_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getAndthenCountAssignment_11_1()); 
             }
 
             }
@@ -4347,26 +4348,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_11__1__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_11__1__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_12__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1483:1: rule__CaseResult__Group_12__0 : rule__CaseResult__Group_12__0__Impl rule__CaseResult__Group_12__1 ;
-    public final void rule__CaseResult__Group_12__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_12__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1483:1: rule__AssuranceEvidence__Group_12__0 : rule__AssuranceEvidence__Group_12__0__Impl rule__AssuranceEvidence__Group_12__1 ;
+    public final void rule__AssuranceEvidence__Group_12__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1487:1: ( rule__CaseResult__Group_12__0__Impl rule__CaseResult__Group_12__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1488:2: rule__CaseResult__Group_12__0__Impl rule__CaseResult__Group_12__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1487:1: ( rule__AssuranceEvidence__Group_12__0__Impl rule__AssuranceEvidence__Group_12__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1488:2: rule__AssuranceEvidence__Group_12__0__Impl rule__AssuranceEvidence__Group_12__1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_12__0__Impl_in_rule__CaseResult__Group_12__03015);
-            rule__CaseResult__Group_12__0__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_12__0__Impl_in_rule__AssuranceEvidence__Group_12__03015);
+            rule__AssuranceEvidence__Group_12__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group_12__1_in_rule__CaseResult__Group_12__03018);
-            rule__CaseResult__Group_12__1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_12__1_in_rule__AssuranceEvidence__Group_12__03018);
+            rule__AssuranceEvidence__Group_12__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4385,12 +4386,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_12__0"
+    // $ANTLR end "rule__AssuranceEvidence__Group_12__0"
 
 
-    // $ANTLR start "rule__CaseResult__Group_12__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1495:1: rule__CaseResult__Group_12__0__Impl : ( 'tbdcount' ) ;
-    public final void rule__CaseResult__Group_12__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_12__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1495:1: rule__AssuranceEvidence__Group_12__0__Impl : ( 'tbdcount' ) ;
+    public final void rule__AssuranceEvidence__Group_12__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -4402,11 +4403,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1501:1: 'tbdcount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getTbdcountKeyword_12_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getTbdcountKeyword_12_0()); 
             }
-            match(input,31,FOLLOW_31_in_rule__CaseResult__Group_12__0__Impl3046); if (state.failed) return ;
+            match(input,32,FOLLOW_32_in_rule__AssuranceEvidence__Group_12__0__Impl3046); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getTbdcountKeyword_12_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getTbdcountKeyword_12_0()); 
             }
 
             }
@@ -4426,21 +4427,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_12__0__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_12__0__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_12__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1514:1: rule__CaseResult__Group_12__1 : rule__CaseResult__Group_12__1__Impl ;
-    public final void rule__CaseResult__Group_12__1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_12__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1514:1: rule__AssuranceEvidence__Group_12__1 : rule__AssuranceEvidence__Group_12__1__Impl ;
+    public final void rule__AssuranceEvidence__Group_12__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1518:1: ( rule__CaseResult__Group_12__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1519:2: rule__CaseResult__Group_12__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1518:1: ( rule__AssuranceEvidence__Group_12__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1519:2: rule__AssuranceEvidence__Group_12__1__Impl
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_12__1__Impl_in_rule__CaseResult__Group_12__13077);
-            rule__CaseResult__Group_12__1__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_12__1__Impl_in_rule__AssuranceEvidence__Group_12__13077);
+            rule__AssuranceEvidence__Group_12__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4459,30 +4460,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_12__1"
+    // $ANTLR end "rule__AssuranceEvidence__Group_12__1"
 
 
-    // $ANTLR start "rule__CaseResult__Group_12__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1525:1: rule__CaseResult__Group_12__1__Impl : ( ( rule__CaseResult__TbdCountAssignment_12_1 ) ) ;
-    public final void rule__CaseResult__Group_12__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_12__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1525:1: rule__AssuranceEvidence__Group_12__1__Impl : ( ( rule__AssuranceEvidence__TbdCountAssignment_12_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group_12__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1529:1: ( ( ( rule__CaseResult__TbdCountAssignment_12_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1530:1: ( ( rule__CaseResult__TbdCountAssignment_12_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1529:1: ( ( ( rule__AssuranceEvidence__TbdCountAssignment_12_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1530:1: ( ( rule__AssuranceEvidence__TbdCountAssignment_12_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1530:1: ( ( rule__CaseResult__TbdCountAssignment_12_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1531:1: ( rule__CaseResult__TbdCountAssignment_12_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1530:1: ( ( rule__AssuranceEvidence__TbdCountAssignment_12_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1531:1: ( rule__AssuranceEvidence__TbdCountAssignment_12_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getTbdCountAssignment_12_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getTbdCountAssignment_12_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1532:1: ( rule__CaseResult__TbdCountAssignment_12_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1532:2: rule__CaseResult__TbdCountAssignment_12_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1532:1: ( rule__AssuranceEvidence__TbdCountAssignment_12_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1532:2: rule__AssuranceEvidence__TbdCountAssignment_12_1
             {
-            pushFollow(FOLLOW_rule__CaseResult__TbdCountAssignment_12_1_in_rule__CaseResult__Group_12__1__Impl3104);
-            rule__CaseResult__TbdCountAssignment_12_1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__TbdCountAssignment_12_1_in_rule__AssuranceEvidence__Group_12__1__Impl3104);
+            rule__AssuranceEvidence__TbdCountAssignment_12_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4490,7 +4491,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getTbdCountAssignment_12_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getTbdCountAssignment_12_1()); 
             }
 
             }
@@ -4510,26 +4511,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_12__1__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_12__1__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_13__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1546:1: rule__CaseResult__Group_13__0 : rule__CaseResult__Group_13__0__Impl rule__CaseResult__Group_13__1 ;
-    public final void rule__CaseResult__Group_13__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_13__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1546:1: rule__AssuranceEvidence__Group_13__0 : rule__AssuranceEvidence__Group_13__0__Impl rule__AssuranceEvidence__Group_13__1 ;
+    public final void rule__AssuranceEvidence__Group_13__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1550:1: ( rule__CaseResult__Group_13__0__Impl rule__CaseResult__Group_13__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1551:2: rule__CaseResult__Group_13__0__Impl rule__CaseResult__Group_13__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1550:1: ( rule__AssuranceEvidence__Group_13__0__Impl rule__AssuranceEvidence__Group_13__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1551:2: rule__AssuranceEvidence__Group_13__0__Impl rule__AssuranceEvidence__Group_13__1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_13__0__Impl_in_rule__CaseResult__Group_13__03138);
-            rule__CaseResult__Group_13__0__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_13__0__Impl_in_rule__AssuranceEvidence__Group_13__03138);
+            rule__AssuranceEvidence__Group_13__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group_13__1_in_rule__CaseResult__Group_13__03141);
-            rule__CaseResult__Group_13__1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_13__1_in_rule__AssuranceEvidence__Group_13__03141);
+            rule__AssuranceEvidence__Group_13__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4548,12 +4549,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_13__0"
+    // $ANTLR end "rule__AssuranceEvidence__Group_13__0"
 
 
-    // $ANTLR start "rule__CaseResult__Group_13__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1558:1: rule__CaseResult__Group_13__0__Impl : ( 'weight' ) ;
-    public final void rule__CaseResult__Group_13__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_13__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1558:1: rule__AssuranceEvidence__Group_13__0__Impl : ( 'weight' ) ;
+    public final void rule__AssuranceEvidence__Group_13__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -4565,11 +4566,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1564:1: 'weight'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getWeightKeyword_13_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getWeightKeyword_13_0()); 
             }
-            match(input,32,FOLLOW_32_in_rule__CaseResult__Group_13__0__Impl3169); if (state.failed) return ;
+            match(input,33,FOLLOW_33_in_rule__AssuranceEvidence__Group_13__0__Impl3169); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getWeightKeyword_13_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getWeightKeyword_13_0()); 
             }
 
             }
@@ -4589,21 +4590,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_13__0__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_13__0__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_13__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1577:1: rule__CaseResult__Group_13__1 : rule__CaseResult__Group_13__1__Impl ;
-    public final void rule__CaseResult__Group_13__1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_13__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1577:1: rule__AssuranceEvidence__Group_13__1 : rule__AssuranceEvidence__Group_13__1__Impl ;
+    public final void rule__AssuranceEvidence__Group_13__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1581:1: ( rule__CaseResult__Group_13__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1582:2: rule__CaseResult__Group_13__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1581:1: ( rule__AssuranceEvidence__Group_13__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1582:2: rule__AssuranceEvidence__Group_13__1__Impl
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_13__1__Impl_in_rule__CaseResult__Group_13__13200);
-            rule__CaseResult__Group_13__1__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_13__1__Impl_in_rule__AssuranceEvidence__Group_13__13200);
+            rule__AssuranceEvidence__Group_13__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4622,30 +4623,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_13__1"
+    // $ANTLR end "rule__AssuranceEvidence__Group_13__1"
 
 
-    // $ANTLR start "rule__CaseResult__Group_13__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1588:1: rule__CaseResult__Group_13__1__Impl : ( ( rule__CaseResult__WeightAssignment_13_1 ) ) ;
-    public final void rule__CaseResult__Group_13__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_13__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1588:1: rule__AssuranceEvidence__Group_13__1__Impl : ( ( rule__AssuranceEvidence__WeightAssignment_13_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group_13__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1592:1: ( ( ( rule__CaseResult__WeightAssignment_13_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1593:1: ( ( rule__CaseResult__WeightAssignment_13_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1592:1: ( ( ( rule__AssuranceEvidence__WeightAssignment_13_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1593:1: ( ( rule__AssuranceEvidence__WeightAssignment_13_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1593:1: ( ( rule__CaseResult__WeightAssignment_13_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1594:1: ( rule__CaseResult__WeightAssignment_13_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1593:1: ( ( rule__AssuranceEvidence__WeightAssignment_13_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1594:1: ( rule__AssuranceEvidence__WeightAssignment_13_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getWeightAssignment_13_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getWeightAssignment_13_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1595:1: ( rule__CaseResult__WeightAssignment_13_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1595:2: rule__CaseResult__WeightAssignment_13_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1595:1: ( rule__AssuranceEvidence__WeightAssignment_13_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1595:2: rule__AssuranceEvidence__WeightAssignment_13_1
             {
-            pushFollow(FOLLOW_rule__CaseResult__WeightAssignment_13_1_in_rule__CaseResult__Group_13__1__Impl3227);
-            rule__CaseResult__WeightAssignment_13_1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__WeightAssignment_13_1_in_rule__AssuranceEvidence__Group_13__1__Impl3227);
+            rule__AssuranceEvidence__WeightAssignment_13_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4653,7 +4654,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getWeightAssignment_13_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getWeightAssignment_13_1()); 
             }
 
             }
@@ -4673,26 +4674,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_13__1__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_13__1__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_14__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1609:1: rule__CaseResult__Group_14__0 : rule__CaseResult__Group_14__0__Impl rule__CaseResult__Group_14__1 ;
-    public final void rule__CaseResult__Group_14__0() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_14__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1609:1: rule__AssuranceEvidence__Group_14__0 : rule__AssuranceEvidence__Group_14__0__Impl rule__AssuranceEvidence__Group_14__1 ;
+    public final void rule__AssuranceEvidence__Group_14__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1613:1: ( rule__CaseResult__Group_14__0__Impl rule__CaseResult__Group_14__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1614:2: rule__CaseResult__Group_14__0__Impl rule__CaseResult__Group_14__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1613:1: ( rule__AssuranceEvidence__Group_14__0__Impl rule__AssuranceEvidence__Group_14__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1614:2: rule__AssuranceEvidence__Group_14__0__Impl rule__AssuranceEvidence__Group_14__1
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_14__0__Impl_in_rule__CaseResult__Group_14__03261);
-            rule__CaseResult__Group_14__0__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_14__0__Impl_in_rule__AssuranceEvidence__Group_14__03261);
+            rule__AssuranceEvidence__Group_14__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__CaseResult__Group_14__1_in_rule__CaseResult__Group_14__03264);
-            rule__CaseResult__Group_14__1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_14__1_in_rule__AssuranceEvidence__Group_14__03264);
+            rule__AssuranceEvidence__Group_14__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4711,12 +4712,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_14__0"
+    // $ANTLR end "rule__AssuranceEvidence__Group_14__0"
 
 
-    // $ANTLR start "rule__CaseResult__Group_14__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1621:1: rule__CaseResult__Group_14__0__Impl : ( 'message' ) ;
-    public final void rule__CaseResult__Group_14__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_14__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1621:1: rule__AssuranceEvidence__Group_14__0__Impl : ( 'message' ) ;
+    public final void rule__AssuranceEvidence__Group_14__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -4728,11 +4729,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1627:1: 'message'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getMessageKeyword_14_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getMessageKeyword_14_0()); 
             }
-            match(input,33,FOLLOW_33_in_rule__CaseResult__Group_14__0__Impl3292); if (state.failed) return ;
+            match(input,34,FOLLOW_34_in_rule__AssuranceEvidence__Group_14__0__Impl3292); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getMessageKeyword_14_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getMessageKeyword_14_0()); 
             }
 
             }
@@ -4752,21 +4753,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_14__0__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_14__0__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__Group_14__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1640:1: rule__CaseResult__Group_14__1 : rule__CaseResult__Group_14__1__Impl ;
-    public final void rule__CaseResult__Group_14__1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_14__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1640:1: rule__AssuranceEvidence__Group_14__1 : rule__AssuranceEvidence__Group_14__1__Impl ;
+    public final void rule__AssuranceEvidence__Group_14__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1644:1: ( rule__CaseResult__Group_14__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1645:2: rule__CaseResult__Group_14__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1644:1: ( rule__AssuranceEvidence__Group_14__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1645:2: rule__AssuranceEvidence__Group_14__1__Impl
             {
-            pushFollow(FOLLOW_rule__CaseResult__Group_14__1__Impl_in_rule__CaseResult__Group_14__13323);
-            rule__CaseResult__Group_14__1__Impl();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__Group_14__1__Impl_in_rule__AssuranceEvidence__Group_14__13323);
+            rule__AssuranceEvidence__Group_14__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4785,30 +4786,30 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_14__1"
+    // $ANTLR end "rule__AssuranceEvidence__Group_14__1"
 
 
-    // $ANTLR start "rule__CaseResult__Group_14__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1651:1: rule__CaseResult__Group_14__1__Impl : ( ( rule__CaseResult__MessageAssignment_14_1 ) ) ;
-    public final void rule__CaseResult__Group_14__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__Group_14__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1651:1: rule__AssuranceEvidence__Group_14__1__Impl : ( ( rule__AssuranceEvidence__MessageAssignment_14_1 ) ) ;
+    public final void rule__AssuranceEvidence__Group_14__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1655:1: ( ( ( rule__CaseResult__MessageAssignment_14_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1656:1: ( ( rule__CaseResult__MessageAssignment_14_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1655:1: ( ( ( rule__AssuranceEvidence__MessageAssignment_14_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1656:1: ( ( rule__AssuranceEvidence__MessageAssignment_14_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1656:1: ( ( rule__CaseResult__MessageAssignment_14_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1657:1: ( rule__CaseResult__MessageAssignment_14_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1656:1: ( ( rule__AssuranceEvidence__MessageAssignment_14_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1657:1: ( rule__AssuranceEvidence__MessageAssignment_14_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getMessageAssignment_14_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getMessageAssignment_14_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1658:1: ( rule__CaseResult__MessageAssignment_14_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1658:2: rule__CaseResult__MessageAssignment_14_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1658:1: ( rule__AssuranceEvidence__MessageAssignment_14_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:1658:2: rule__AssuranceEvidence__MessageAssignment_14_1
             {
-            pushFollow(FOLLOW_rule__CaseResult__MessageAssignment_14_1_in_rule__CaseResult__Group_14__1__Impl3350);
-            rule__CaseResult__MessageAssignment_14_1();
+            pushFollow(FOLLOW_rule__AssuranceEvidence__MessageAssignment_14_1_in_rule__AssuranceEvidence__Group_14__1__Impl3350);
+            rule__AssuranceEvidence__MessageAssignment_14_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4816,7 +4817,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getMessageAssignment_14_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getMessageAssignment_14_1()); 
             }
 
             }
@@ -4836,7 +4837,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__Group_14__1__Impl"
+    // $ANTLR end "rule__AssuranceEvidence__Group_14__1__Impl"
 
 
     // $ANTLR start "rule__ClaimResult__Group__0"
@@ -4893,7 +4894,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getClaimKeyword_0()); 
             }
-            match(input,34,FOLLOW_34_in_rule__ClaimResult__Group__0__Impl3415); if (state.failed) return ;
+            match(input,35,FOLLOW_35_in_rule__ClaimResult__Group__0__Impl3415); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getClaimKeyword_0()); 
             }
@@ -5061,7 +5062,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getForKeyword_2()); 
             }
-            match(input,22,FOLLOW_22_in_rule__ClaimResult__Group__2__Impl3537); if (state.failed) return ;
+            match(input,23,FOLLOW_23_in_rule__ClaimResult__Group__2__Impl3537); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getForKeyword_2()); 
             }
@@ -5233,7 +5234,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt15=2;
             int LA15_0 = input.LA(1);
 
-            if ( (LA15_0==23) ) {
+            if ( (LA15_0==24) ) {
                 alt15=1;
             }
             switch (alt15) {
@@ -5329,7 +5330,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getLeftSquareBracketKeyword_5()); 
             }
-            match(input,24,FOLLOW_24_in_rule__ClaimResult__Group__5__Impl3720); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__ClaimResult__Group__5__Impl3720); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getLeftSquareBracketKeyword_5()); 
             }
@@ -5412,7 +5413,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt16=2;
             int LA16_0 = input.LA(1);
 
-            if ( (LA16_0==26) ) {
+            if ( (LA16_0==27) ) {
                 alt16=1;
             }
             switch (alt16) {
@@ -5512,7 +5513,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt17=2;
             int LA17_0 = input.LA(1);
 
-            if ( (LA17_0==27) ) {
+            if ( (LA17_0==28) ) {
                 alt17=1;
             }
             switch (alt17) {
@@ -5612,7 +5613,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt18=2;
             int LA18_0 = input.LA(1);
 
-            if ( (LA18_0==28) ) {
+            if ( (LA18_0==29) ) {
                 alt18=1;
             }
             switch (alt18) {
@@ -5712,7 +5713,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt19=2;
             int LA19_0 = input.LA(1);
 
-            if ( (LA19_0==29) ) {
+            if ( (LA19_0==30) ) {
                 alt19=1;
             }
             switch (alt19) {
@@ -5812,7 +5813,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt20=2;
             int LA20_0 = input.LA(1);
 
-            if ( (LA20_0==30) ) {
+            if ( (LA20_0==31) ) {
                 alt20=1;
             }
             switch (alt20) {
@@ -5912,7 +5913,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt21=2;
             int LA21_0 = input.LA(1);
 
-            if ( (LA21_0==31) ) {
+            if ( (LA21_0==32) ) {
                 alt21=1;
             }
             switch (alt21) {
@@ -6012,7 +6013,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt22=2;
             int LA22_0 = input.LA(1);
 
-            if ( (LA22_0==32) ) {
+            if ( (LA22_0==33) ) {
                 alt22=1;
             }
             switch (alt22) {
@@ -6112,7 +6113,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt23=2;
             int LA23_0 = input.LA(1);
 
-            if ( (LA23_0==33) ) {
+            if ( (LA23_0==34) ) {
                 alt23=1;
             }
             switch (alt23) {
@@ -6214,7 +6215,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                 int alt24=2;
                 int LA24_0 = input.LA(1);
 
-                if ( (LA24_0==34) ) {
+                if ( (LA24_0==35) ) {
                     alt24=1;
                 }
 
@@ -6321,7 +6322,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                 int alt25=2;
                 int LA25_0 = input.LA(1);
 
-                if ( ((LA25_0>=41 && LA25_0<=42)||LA25_0==44) ) {
+                if ( ((LA25_0>=42 && LA25_0<=43)||LA25_0==45) ) {
                     alt25=1;
                 }
 
@@ -6417,7 +6418,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getRightSquareBracketKeyword_16()); 
             }
-            match(input,25,FOLLOW_25_in_rule__ClaimResult__Group__16__Impl4389); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__ClaimResult__Group__16__Impl4389); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getRightSquareBracketKeyword_16()); 
             }
@@ -6496,7 +6497,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getInstanceKeyword_4_0()); 
             }
-            match(input,23,FOLLOW_23_in_rule__ClaimResult__Group_4__0__Impl4485); if (state.failed) return ;
+            match(input,24,FOLLOW_24_in_rule__ClaimResult__Group_4__0__Impl4485); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getInstanceKeyword_4_0()); 
             }
@@ -6659,7 +6660,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getSuccesscountKeyword_6_0()); 
             }
-            match(input,26,FOLLOW_26_in_rule__ClaimResult__Group_6__0__Impl4608); if (state.failed) return ;
+            match(input,27,FOLLOW_27_in_rule__ClaimResult__Group_6__0__Impl4608); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getSuccesscountKeyword_6_0()); 
             }
@@ -6822,7 +6823,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getFailcountKeyword_7_0()); 
             }
-            match(input,27,FOLLOW_27_in_rule__ClaimResult__Group_7__0__Impl4731); if (state.failed) return ;
+            match(input,28,FOLLOW_28_in_rule__ClaimResult__Group_7__0__Impl4731); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getFailcountKeyword_7_0()); 
             }
@@ -6970,24 +6971,24 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__Group_8__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2407:1: rule__ClaimResult__Group_8__0__Impl : ( 'errorcount' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2407:1: rule__ClaimResult__Group_8__0__Impl : ( 'unknowncount' ) ;
     public final void rule__ClaimResult__Group_8__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2411:1: ( ( 'errorcount' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2412:1: ( 'errorcount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2411:1: ( ( 'unknowncount' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2412:1: ( 'unknowncount' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2412:1: ( 'errorcount' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2413:1: 'errorcount'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2412:1: ( 'unknowncount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2413:1: 'unknowncount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getClaimResultAccess().getErrorcountKeyword_8_0()); 
+               before(grammarAccess.getClaimResultAccess().getUnknowncountKeyword_8_0()); 
             }
-            match(input,28,FOLLOW_28_in_rule__ClaimResult__Group_8__0__Impl4854); if (state.failed) return ;
+            match(input,29,FOLLOW_29_in_rule__ClaimResult__Group_8__0__Impl4854); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getClaimResultAccess().getErrorcountKeyword_8_0()); 
+               after(grammarAccess.getClaimResultAccess().getUnknowncountKeyword_8_0()); 
             }
 
             }
@@ -7044,26 +7045,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__Group_8__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2437:1: rule__ClaimResult__Group_8__1__Impl : ( ( rule__ClaimResult__ErrorCountAssignment_8_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2437:1: rule__ClaimResult__Group_8__1__Impl : ( ( rule__ClaimResult__UnknownCountAssignment_8_1 ) ) ;
     public final void rule__ClaimResult__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2441:1: ( ( ( rule__ClaimResult__ErrorCountAssignment_8_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2442:1: ( ( rule__ClaimResult__ErrorCountAssignment_8_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2441:1: ( ( ( rule__ClaimResult__UnknownCountAssignment_8_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2442:1: ( ( rule__ClaimResult__UnknownCountAssignment_8_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2442:1: ( ( rule__ClaimResult__ErrorCountAssignment_8_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2443:1: ( rule__ClaimResult__ErrorCountAssignment_8_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2442:1: ( ( rule__ClaimResult__UnknownCountAssignment_8_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2443:1: ( rule__ClaimResult__UnknownCountAssignment_8_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getClaimResultAccess().getErrorCountAssignment_8_1()); 
+               before(grammarAccess.getClaimResultAccess().getUnknownCountAssignment_8_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2444:1: ( rule__ClaimResult__ErrorCountAssignment_8_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2444:2: rule__ClaimResult__ErrorCountAssignment_8_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2444:1: ( rule__ClaimResult__UnknownCountAssignment_8_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:2444:2: rule__ClaimResult__UnknownCountAssignment_8_1
             {
-            pushFollow(FOLLOW_rule__ClaimResult__ErrorCountAssignment_8_1_in_rule__ClaimResult__Group_8__1__Impl4912);
-            rule__ClaimResult__ErrorCountAssignment_8_1();
+            pushFollow(FOLLOW_rule__ClaimResult__UnknownCountAssignment_8_1_in_rule__ClaimResult__Group_8__1__Impl4912);
+            rule__ClaimResult__UnknownCountAssignment_8_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -7071,7 +7072,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getClaimResultAccess().getErrorCountAssignment_8_1()); 
+               after(grammarAccess.getClaimResultAccess().getUnknownCountAssignment_8_1()); 
             }
 
             }
@@ -7148,7 +7149,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getFailthencountKeyword_9_0()); 
             }
-            match(input,29,FOLLOW_29_in_rule__ClaimResult__Group_9__0__Impl4977); if (state.failed) return ;
+            match(input,30,FOLLOW_30_in_rule__ClaimResult__Group_9__0__Impl4977); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getFailthencountKeyword_9_0()); 
             }
@@ -7311,7 +7312,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getAndthencountKeyword_10_0()); 
             }
-            match(input,30,FOLLOW_30_in_rule__ClaimResult__Group_10__0__Impl5100); if (state.failed) return ;
+            match(input,31,FOLLOW_31_in_rule__ClaimResult__Group_10__0__Impl5100); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getAndthencountKeyword_10_0()); 
             }
@@ -7474,7 +7475,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getTbdcountKeyword_11_0()); 
             }
-            match(input,31,FOLLOW_31_in_rule__ClaimResult__Group_11__0__Impl5223); if (state.failed) return ;
+            match(input,32,FOLLOW_32_in_rule__ClaimResult__Group_11__0__Impl5223); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getTbdcountKeyword_11_0()); 
             }
@@ -7637,7 +7638,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getWeightKeyword_12_0()); 
             }
-            match(input,32,FOLLOW_32_in_rule__ClaimResult__Group_12__0__Impl5346); if (state.failed) return ;
+            match(input,33,FOLLOW_33_in_rule__ClaimResult__Group_12__0__Impl5346); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getWeightKeyword_12_0()); 
             }
@@ -7800,7 +7801,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getMessageKeyword_13_0()); 
             }
-            match(input,33,FOLLOW_33_in_rule__ClaimResult__Group_13__0__Impl5469); if (state.failed) return ;
+            match(input,34,FOLLOW_34_in_rule__ClaimResult__Group_13__0__Impl5469); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getMessageKeyword_13_0()); 
             }
@@ -7963,7 +7964,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getAssumptionKeyword_0()); 
             }
-            match(input,35,FOLLOW_35_in_rule__ValidationResult__Group__0__Impl5592); if (state.failed) return ;
+            match(input,36,FOLLOW_36_in_rule__ValidationResult__Group__0__Impl5592); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getAssumptionKeyword_0()); 
             }
@@ -8210,7 +8211,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getForKeyword_3()); 
             }
-            match(input,22,FOLLOW_22_in_rule__ValidationResult__Group__3__Impl5775); if (state.failed) return ;
+            match(input,23,FOLLOW_23_in_rule__ValidationResult__Group__3__Impl5775); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getForKeyword_3()); 
             }
@@ -8378,7 +8379,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getLeftSquareBracketKeyword_5()); 
             }
-            match(input,24,FOLLOW_24_in_rule__ValidationResult__Group__5__Impl5897); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__ValidationResult__Group__5__Impl5897); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getLeftSquareBracketKeyword_5()); 
             }
@@ -8457,7 +8458,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getExecutionstateKeyword_6()); 
             }
-            match(input,36,FOLLOW_36_in_rule__ValidationResult__Group__6__Impl5959); if (state.failed) return ;
+            match(input,37,FOLLOW_37_in_rule__ValidationResult__Group__6__Impl5959); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getExecutionstateKeyword_6()); 
             }
@@ -8625,7 +8626,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getResultstateKeyword_8()); 
             }
-            match(input,37,FOLLOW_37_in_rule__ValidationResult__Group__8__Impl6081); if (state.failed) return ;
+            match(input,38,FOLLOW_38_in_rule__ValidationResult__Group__8__Impl6081); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getResultstateKeyword_8()); 
             }
@@ -8797,7 +8798,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt26=2;
             int LA26_0 = input.LA(1);
 
-            if ( (LA26_0==38) ) {
+            if ( (LA26_0==39) ) {
                 alt26=1;
             }
             switch (alt26) {
@@ -8897,7 +8898,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt27=2;
             int LA27_0 = input.LA(1);
 
-            if ( (LA27_0==39) ) {
+            if ( (LA27_0==40) ) {
                 alt27=1;
             }
             switch (alt27) {
@@ -8997,7 +8998,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt28=2;
             int LA28_0 = input.LA(1);
 
-            if ( (LA28_0==26) ) {
+            if ( (LA28_0==27) ) {
                 alt28=1;
             }
             switch (alt28) {
@@ -9097,7 +9098,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt29=2;
             int LA29_0 = input.LA(1);
 
-            if ( (LA29_0==27) ) {
+            if ( (LA29_0==28) ) {
                 alt29=1;
             }
             switch (alt29) {
@@ -9197,7 +9198,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt30=2;
             int LA30_0 = input.LA(1);
 
-            if ( (LA30_0==28) ) {
+            if ( (LA30_0==29) ) {
                 alt30=1;
             }
             switch (alt30) {
@@ -9297,7 +9298,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt31=2;
             int LA31_0 = input.LA(1);
 
-            if ( (LA31_0==29) ) {
+            if ( (LA31_0==30) ) {
                 alt31=1;
             }
             switch (alt31) {
@@ -9397,7 +9398,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt32=2;
             int LA32_0 = input.LA(1);
 
-            if ( (LA32_0==30) ) {
+            if ( (LA32_0==31) ) {
                 alt32=1;
             }
             switch (alt32) {
@@ -9497,7 +9498,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt33=2;
             int LA33_0 = input.LA(1);
 
-            if ( (LA33_0==31) ) {
+            if ( (LA33_0==32) ) {
                 alt33=1;
             }
             switch (alt33) {
@@ -9597,7 +9598,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt34=2;
             int LA34_0 = input.LA(1);
 
-            if ( (LA34_0==32) ) {
+            if ( (LA34_0==33) ) {
                 alt34=1;
             }
             switch (alt34) {
@@ -9697,7 +9698,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt35=2;
             int LA35_0 = input.LA(1);
 
-            if ( (LA35_0==33) ) {
+            if ( (LA35_0==34) ) {
                 alt35=1;
             }
             switch (alt35) {
@@ -9788,7 +9789,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getRightSquareBracketKeyword_20()); 
             }
-            match(input,25,FOLLOW_25_in_rule__ValidationResult__Group__20__Impl6810); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__ValidationResult__Group__20__Impl6810); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getRightSquareBracketKeyword_20()); 
             }
@@ -9867,7 +9868,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getIssuesKeyword_10_0()); 
             }
-            match(input,38,FOLLOW_38_in_rule__ValidationResult__Group_10__0__Impl6914); if (state.failed) return ;
+            match(input,39,FOLLOW_39_in_rule__ValidationResult__Group_10__0__Impl6914); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getIssuesKeyword_10_0()); 
             }
@@ -9946,7 +9947,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getLeftSquareBracketKeyword_10_1()); 
             }
-            match(input,24,FOLLOW_24_in_rule__ValidationResult__Group_10__1__Impl6976); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__ValidationResult__Group_10__1__Impl6976); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getLeftSquareBracketKeyword_10_1()); 
             }
@@ -10127,7 +10128,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getRightSquareBracketKeyword_10_3()); 
             }
-            match(input,25,FOLLOW_25_in_rule__ValidationResult__Group_10__3__Impl7096); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__ValidationResult__Group_10__3__Impl7096); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getRightSquareBracketKeyword_10_3()); 
             }
@@ -10206,7 +10207,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getReportKeyword_11_0()); 
             }
-            match(input,39,FOLLOW_39_in_rule__ValidationResult__Group_11__0__Impl7166); if (state.failed) return ;
+            match(input,40,FOLLOW_40_in_rule__ValidationResult__Group_11__0__Impl7166); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getReportKeyword_11_0()); 
             }
@@ -10369,7 +10370,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getSuccesscountKeyword_12_0()); 
             }
-            match(input,26,FOLLOW_26_in_rule__ValidationResult__Group_12__0__Impl7289); if (state.failed) return ;
+            match(input,27,FOLLOW_27_in_rule__ValidationResult__Group_12__0__Impl7289); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getSuccesscountKeyword_12_0()); 
             }
@@ -10532,7 +10533,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getFailcountKeyword_13_0()); 
             }
-            match(input,27,FOLLOW_27_in_rule__ValidationResult__Group_13__0__Impl7412); if (state.failed) return ;
+            match(input,28,FOLLOW_28_in_rule__ValidationResult__Group_13__0__Impl7412); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getFailcountKeyword_13_0()); 
             }
@@ -10680,24 +10681,24 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__Group_14__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3767:1: rule__ValidationResult__Group_14__0__Impl : ( 'errorcount' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3767:1: rule__ValidationResult__Group_14__0__Impl : ( 'unknowncount' ) ;
     public final void rule__ValidationResult__Group_14__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3771:1: ( ( 'errorcount' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3772:1: ( 'errorcount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3771:1: ( ( 'unknowncount' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3772:1: ( 'unknowncount' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3772:1: ( 'errorcount' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3773:1: 'errorcount'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3772:1: ( 'unknowncount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3773:1: 'unknowncount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getValidationResultAccess().getErrorcountKeyword_14_0()); 
+               before(grammarAccess.getValidationResultAccess().getUnknowncountKeyword_14_0()); 
             }
-            match(input,28,FOLLOW_28_in_rule__ValidationResult__Group_14__0__Impl7535); if (state.failed) return ;
+            match(input,29,FOLLOW_29_in_rule__ValidationResult__Group_14__0__Impl7535); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getValidationResultAccess().getErrorcountKeyword_14_0()); 
+               after(grammarAccess.getValidationResultAccess().getUnknowncountKeyword_14_0()); 
             }
 
             }
@@ -10754,26 +10755,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__Group_14__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3797:1: rule__ValidationResult__Group_14__1__Impl : ( ( rule__ValidationResult__ErrorCountAssignment_14_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3797:1: rule__ValidationResult__Group_14__1__Impl : ( ( rule__ValidationResult__UnknownCountAssignment_14_1 ) ) ;
     public final void rule__ValidationResult__Group_14__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3801:1: ( ( ( rule__ValidationResult__ErrorCountAssignment_14_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3802:1: ( ( rule__ValidationResult__ErrorCountAssignment_14_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3801:1: ( ( ( rule__ValidationResult__UnknownCountAssignment_14_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3802:1: ( ( rule__ValidationResult__UnknownCountAssignment_14_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3802:1: ( ( rule__ValidationResult__ErrorCountAssignment_14_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3803:1: ( rule__ValidationResult__ErrorCountAssignment_14_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3802:1: ( ( rule__ValidationResult__UnknownCountAssignment_14_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3803:1: ( rule__ValidationResult__UnknownCountAssignment_14_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getValidationResultAccess().getErrorCountAssignment_14_1()); 
+               before(grammarAccess.getValidationResultAccess().getUnknownCountAssignment_14_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3804:1: ( rule__ValidationResult__ErrorCountAssignment_14_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3804:2: rule__ValidationResult__ErrorCountAssignment_14_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3804:1: ( rule__ValidationResult__UnknownCountAssignment_14_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:3804:2: rule__ValidationResult__UnknownCountAssignment_14_1
             {
-            pushFollow(FOLLOW_rule__ValidationResult__ErrorCountAssignment_14_1_in_rule__ValidationResult__Group_14__1__Impl7593);
-            rule__ValidationResult__ErrorCountAssignment_14_1();
+            pushFollow(FOLLOW_rule__ValidationResult__UnknownCountAssignment_14_1_in_rule__ValidationResult__Group_14__1__Impl7593);
+            rule__ValidationResult__UnknownCountAssignment_14_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -10781,7 +10782,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getValidationResultAccess().getErrorCountAssignment_14_1()); 
+               after(grammarAccess.getValidationResultAccess().getUnknownCountAssignment_14_1()); 
             }
 
             }
@@ -10858,7 +10859,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getFailthencountKeyword_15_0()); 
             }
-            match(input,29,FOLLOW_29_in_rule__ValidationResult__Group_15__0__Impl7658); if (state.failed) return ;
+            match(input,30,FOLLOW_30_in_rule__ValidationResult__Group_15__0__Impl7658); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getFailthencountKeyword_15_0()); 
             }
@@ -11021,7 +11022,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getAndthencountKeyword_16_0()); 
             }
-            match(input,30,FOLLOW_30_in_rule__ValidationResult__Group_16__0__Impl7781); if (state.failed) return ;
+            match(input,31,FOLLOW_31_in_rule__ValidationResult__Group_16__0__Impl7781); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getAndthencountKeyword_16_0()); 
             }
@@ -11184,7 +11185,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getTbdcountKeyword_17_0()); 
             }
-            match(input,31,FOLLOW_31_in_rule__ValidationResult__Group_17__0__Impl7904); if (state.failed) return ;
+            match(input,32,FOLLOW_32_in_rule__ValidationResult__Group_17__0__Impl7904); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getTbdcountKeyword_17_0()); 
             }
@@ -11347,7 +11348,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getWeightKeyword_18_0()); 
             }
-            match(input,32,FOLLOW_32_in_rule__ValidationResult__Group_18__0__Impl8027); if (state.failed) return ;
+            match(input,33,FOLLOW_33_in_rule__ValidationResult__Group_18__0__Impl8027); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getWeightKeyword_18_0()); 
             }
@@ -11510,7 +11511,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getMessageKeyword_19_0()); 
             }
-            match(input,33,FOLLOW_33_in_rule__ValidationResult__Group_19__0__Impl8150); if (state.failed) return ;
+            match(input,34,FOLLOW_34_in_rule__ValidationResult__Group_19__0__Impl8150); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getMessageKeyword_19_0()); 
             }
@@ -11673,7 +11674,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getPreconditionKeyword_0()); 
             }
-            match(input,40,FOLLOW_40_in_rule__PreconditionResult__Group__0__Impl8273); if (state.failed) return ;
+            match(input,41,FOLLOW_41_in_rule__PreconditionResult__Group__0__Impl8273); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getPreconditionKeyword_0()); 
             }
@@ -11920,7 +11921,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getForKeyword_3()); 
             }
-            match(input,22,FOLLOW_22_in_rule__PreconditionResult__Group__3__Impl8456); if (state.failed) return ;
+            match(input,23,FOLLOW_23_in_rule__PreconditionResult__Group__3__Impl8456); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getForKeyword_3()); 
             }
@@ -12088,7 +12089,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getLeftSquareBracketKeyword_5()); 
             }
-            match(input,24,FOLLOW_24_in_rule__PreconditionResult__Group__5__Impl8578); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__PreconditionResult__Group__5__Impl8578); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getLeftSquareBracketKeyword_5()); 
             }
@@ -12167,7 +12168,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getExecutionstateKeyword_6()); 
             }
-            match(input,36,FOLLOW_36_in_rule__PreconditionResult__Group__6__Impl8640); if (state.failed) return ;
+            match(input,37,FOLLOW_37_in_rule__PreconditionResult__Group__6__Impl8640); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getExecutionstateKeyword_6()); 
             }
@@ -12335,7 +12336,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getResultstateKeyword_8()); 
             }
-            match(input,37,FOLLOW_37_in_rule__PreconditionResult__Group__8__Impl8762); if (state.failed) return ;
+            match(input,38,FOLLOW_38_in_rule__PreconditionResult__Group__8__Impl8762); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getResultstateKeyword_8()); 
             }
@@ -12507,7 +12508,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt37=2;
             int LA37_0 = input.LA(1);
 
-            if ( (LA37_0==38) ) {
+            if ( (LA37_0==39) ) {
                 alt37=1;
             }
             switch (alt37) {
@@ -12607,7 +12608,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt38=2;
             int LA38_0 = input.LA(1);
 
-            if ( (LA38_0==39) ) {
+            if ( (LA38_0==40) ) {
                 alt38=1;
             }
             switch (alt38) {
@@ -12707,7 +12708,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt39=2;
             int LA39_0 = input.LA(1);
 
-            if ( (LA39_0==26) ) {
+            if ( (LA39_0==27) ) {
                 alt39=1;
             }
             switch (alt39) {
@@ -12807,7 +12808,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt40=2;
             int LA40_0 = input.LA(1);
 
-            if ( (LA40_0==27) ) {
+            if ( (LA40_0==28) ) {
                 alt40=1;
             }
             switch (alt40) {
@@ -12907,7 +12908,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt41=2;
             int LA41_0 = input.LA(1);
 
-            if ( (LA41_0==28) ) {
+            if ( (LA41_0==29) ) {
                 alt41=1;
             }
             switch (alt41) {
@@ -13007,7 +13008,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt42=2;
             int LA42_0 = input.LA(1);
 
-            if ( (LA42_0==29) ) {
+            if ( (LA42_0==30) ) {
                 alt42=1;
             }
             switch (alt42) {
@@ -13107,7 +13108,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt43=2;
             int LA43_0 = input.LA(1);
 
-            if ( (LA43_0==30) ) {
+            if ( (LA43_0==31) ) {
                 alt43=1;
             }
             switch (alt43) {
@@ -13207,7 +13208,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt44=2;
             int LA44_0 = input.LA(1);
 
-            if ( (LA44_0==31) ) {
+            if ( (LA44_0==32) ) {
                 alt44=1;
             }
             switch (alt44) {
@@ -13307,7 +13308,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt45=2;
             int LA45_0 = input.LA(1);
 
-            if ( (LA45_0==32) ) {
+            if ( (LA45_0==33) ) {
                 alt45=1;
             }
             switch (alt45) {
@@ -13407,7 +13408,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt46=2;
             int LA46_0 = input.LA(1);
 
-            if ( (LA46_0==33) ) {
+            if ( (LA46_0==34) ) {
                 alt46=1;
             }
             switch (alt46) {
@@ -13498,7 +13499,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getRightSquareBracketKeyword_20()); 
             }
-            match(input,25,FOLLOW_25_in_rule__PreconditionResult__Group__20__Impl9491); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__PreconditionResult__Group__20__Impl9491); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getRightSquareBracketKeyword_20()); 
             }
@@ -13577,7 +13578,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getIssuesKeyword_10_0()); 
             }
-            match(input,38,FOLLOW_38_in_rule__PreconditionResult__Group_10__0__Impl9595); if (state.failed) return ;
+            match(input,39,FOLLOW_39_in_rule__PreconditionResult__Group_10__0__Impl9595); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getIssuesKeyword_10_0()); 
             }
@@ -13656,7 +13657,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getLeftSquareBracketKeyword_10_1()); 
             }
-            match(input,24,FOLLOW_24_in_rule__PreconditionResult__Group_10__1__Impl9657); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__PreconditionResult__Group_10__1__Impl9657); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getLeftSquareBracketKeyword_10_1()); 
             }
@@ -13837,7 +13838,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getRightSquareBracketKeyword_10_3()); 
             }
-            match(input,25,FOLLOW_25_in_rule__PreconditionResult__Group_10__3__Impl9777); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__PreconditionResult__Group_10__3__Impl9777); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getRightSquareBracketKeyword_10_3()); 
             }
@@ -13916,7 +13917,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getReportKeyword_11_0()); 
             }
-            match(input,39,FOLLOW_39_in_rule__PreconditionResult__Group_11__0__Impl9847); if (state.failed) return ;
+            match(input,40,FOLLOW_40_in_rule__PreconditionResult__Group_11__0__Impl9847); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getReportKeyword_11_0()); 
             }
@@ -14079,7 +14080,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getSuccesscountKeyword_12_0()); 
             }
-            match(input,26,FOLLOW_26_in_rule__PreconditionResult__Group_12__0__Impl9970); if (state.failed) return ;
+            match(input,27,FOLLOW_27_in_rule__PreconditionResult__Group_12__0__Impl9970); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getSuccesscountKeyword_12_0()); 
             }
@@ -14242,7 +14243,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getFailcountKeyword_13_0()); 
             }
-            match(input,27,FOLLOW_27_in_rule__PreconditionResult__Group_13__0__Impl10093); if (state.failed) return ;
+            match(input,28,FOLLOW_28_in_rule__PreconditionResult__Group_13__0__Impl10093); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getFailcountKeyword_13_0()); 
             }
@@ -14390,24 +14391,24 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__Group_14__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5127:1: rule__PreconditionResult__Group_14__0__Impl : ( 'errorcount' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5127:1: rule__PreconditionResult__Group_14__0__Impl : ( 'unknowncount' ) ;
     public final void rule__PreconditionResult__Group_14__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5131:1: ( ( 'errorcount' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5132:1: ( 'errorcount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5131:1: ( ( 'unknowncount' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5132:1: ( 'unknowncount' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5132:1: ( 'errorcount' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5133:1: 'errorcount'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5132:1: ( 'unknowncount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5133:1: 'unknowncount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPreconditionResultAccess().getErrorcountKeyword_14_0()); 
+               before(grammarAccess.getPreconditionResultAccess().getUnknowncountKeyword_14_0()); 
             }
-            match(input,28,FOLLOW_28_in_rule__PreconditionResult__Group_14__0__Impl10216); if (state.failed) return ;
+            match(input,29,FOLLOW_29_in_rule__PreconditionResult__Group_14__0__Impl10216); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPreconditionResultAccess().getErrorcountKeyword_14_0()); 
+               after(grammarAccess.getPreconditionResultAccess().getUnknowncountKeyword_14_0()); 
             }
 
             }
@@ -14464,26 +14465,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__Group_14__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5157:1: rule__PreconditionResult__Group_14__1__Impl : ( ( rule__PreconditionResult__ErrorCountAssignment_14_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5157:1: rule__PreconditionResult__Group_14__1__Impl : ( ( rule__PreconditionResult__UnknownCountAssignment_14_1 ) ) ;
     public final void rule__PreconditionResult__Group_14__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5161:1: ( ( ( rule__PreconditionResult__ErrorCountAssignment_14_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5162:1: ( ( rule__PreconditionResult__ErrorCountAssignment_14_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5161:1: ( ( ( rule__PreconditionResult__UnknownCountAssignment_14_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5162:1: ( ( rule__PreconditionResult__UnknownCountAssignment_14_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5162:1: ( ( rule__PreconditionResult__ErrorCountAssignment_14_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5163:1: ( rule__PreconditionResult__ErrorCountAssignment_14_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5162:1: ( ( rule__PreconditionResult__UnknownCountAssignment_14_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5163:1: ( rule__PreconditionResult__UnknownCountAssignment_14_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPreconditionResultAccess().getErrorCountAssignment_14_1()); 
+               before(grammarAccess.getPreconditionResultAccess().getUnknownCountAssignment_14_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5164:1: ( rule__PreconditionResult__ErrorCountAssignment_14_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5164:2: rule__PreconditionResult__ErrorCountAssignment_14_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5164:1: ( rule__PreconditionResult__UnknownCountAssignment_14_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:5164:2: rule__PreconditionResult__UnknownCountAssignment_14_1
             {
-            pushFollow(FOLLOW_rule__PreconditionResult__ErrorCountAssignment_14_1_in_rule__PreconditionResult__Group_14__1__Impl10274);
-            rule__PreconditionResult__ErrorCountAssignment_14_1();
+            pushFollow(FOLLOW_rule__PreconditionResult__UnknownCountAssignment_14_1_in_rule__PreconditionResult__Group_14__1__Impl10274);
+            rule__PreconditionResult__UnknownCountAssignment_14_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -14491,7 +14492,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPreconditionResultAccess().getErrorCountAssignment_14_1()); 
+               after(grammarAccess.getPreconditionResultAccess().getUnknownCountAssignment_14_1()); 
             }
 
             }
@@ -14568,7 +14569,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getFailthencountKeyword_15_0()); 
             }
-            match(input,29,FOLLOW_29_in_rule__PreconditionResult__Group_15__0__Impl10339); if (state.failed) return ;
+            match(input,30,FOLLOW_30_in_rule__PreconditionResult__Group_15__0__Impl10339); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getFailthencountKeyword_15_0()); 
             }
@@ -14731,7 +14732,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getAndthencountKeyword_16_0()); 
             }
-            match(input,30,FOLLOW_30_in_rule__PreconditionResult__Group_16__0__Impl10462); if (state.failed) return ;
+            match(input,31,FOLLOW_31_in_rule__PreconditionResult__Group_16__0__Impl10462); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getAndthencountKeyword_16_0()); 
             }
@@ -14894,7 +14895,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getTbdcountKeyword_17_0()); 
             }
-            match(input,31,FOLLOW_31_in_rule__PreconditionResult__Group_17__0__Impl10585); if (state.failed) return ;
+            match(input,32,FOLLOW_32_in_rule__PreconditionResult__Group_17__0__Impl10585); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getTbdcountKeyword_17_0()); 
             }
@@ -15057,7 +15058,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getWeightKeyword_18_0()); 
             }
-            match(input,32,FOLLOW_32_in_rule__PreconditionResult__Group_18__0__Impl10708); if (state.failed) return ;
+            match(input,33,FOLLOW_33_in_rule__PreconditionResult__Group_18__0__Impl10708); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getWeightKeyword_18_0()); 
             }
@@ -15220,7 +15221,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getMessageKeyword_19_0()); 
             }
-            match(input,33,FOLLOW_33_in_rule__PreconditionResult__Group_19__0__Impl10831); if (state.failed) return ;
+            match(input,34,FOLLOW_34_in_rule__PreconditionResult__Group_19__0__Impl10831); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getMessageKeyword_19_0()); 
             }
@@ -15383,7 +15384,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getVerificationKeyword_0()); 
             }
-            match(input,41,FOLLOW_41_in_rule__VerificationActivityResult__Group__0__Impl10954); if (state.failed) return ;
+            match(input,42,FOLLOW_42_in_rule__VerificationActivityResult__Group__0__Impl10954); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getVerificationKeyword_0()); 
             }
@@ -15630,7 +15631,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getForKeyword_3()); 
             }
-            match(input,22,FOLLOW_22_in_rule__VerificationActivityResult__Group__3__Impl11137); if (state.failed) return ;
+            match(input,23,FOLLOW_23_in_rule__VerificationActivityResult__Group__3__Impl11137); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getForKeyword_3()); 
             }
@@ -15798,7 +15799,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getLeftSquareBracketKeyword_5()); 
             }
-            match(input,24,FOLLOW_24_in_rule__VerificationActivityResult__Group__5__Impl11259); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__VerificationActivityResult__Group__5__Impl11259); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getLeftSquareBracketKeyword_5()); 
             }
@@ -15877,7 +15878,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getExecutionstateKeyword_6()); 
             }
-            match(input,36,FOLLOW_36_in_rule__VerificationActivityResult__Group__6__Impl11321); if (state.failed) return ;
+            match(input,37,FOLLOW_37_in_rule__VerificationActivityResult__Group__6__Impl11321); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getExecutionstateKeyword_6()); 
             }
@@ -16045,7 +16046,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getResultstateKeyword_8()); 
             }
-            match(input,37,FOLLOW_37_in_rule__VerificationActivityResult__Group__8__Impl11443); if (state.failed) return ;
+            match(input,38,FOLLOW_38_in_rule__VerificationActivityResult__Group__8__Impl11443); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getResultstateKeyword_8()); 
             }
@@ -16217,7 +16218,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt48=2;
             int LA48_0 = input.LA(1);
 
-            if ( (LA48_0==38) ) {
+            if ( (LA48_0==39) ) {
                 alt48=1;
             }
             switch (alt48) {
@@ -16317,7 +16318,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt49=2;
             int LA49_0 = input.LA(1);
 
-            if ( (LA49_0==39) ) {
+            if ( (LA49_0==40) ) {
                 alt49=1;
             }
             switch (alt49) {
@@ -16417,7 +16418,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt50=2;
             int LA50_0 = input.LA(1);
 
-            if ( (LA50_0==26) ) {
+            if ( (LA50_0==27) ) {
                 alt50=1;
             }
             switch (alt50) {
@@ -16517,7 +16518,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt51=2;
             int LA51_0 = input.LA(1);
 
-            if ( (LA51_0==27) ) {
+            if ( (LA51_0==28) ) {
                 alt51=1;
             }
             switch (alt51) {
@@ -16617,7 +16618,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt52=2;
             int LA52_0 = input.LA(1);
 
-            if ( (LA52_0==28) ) {
+            if ( (LA52_0==29) ) {
                 alt52=1;
             }
             switch (alt52) {
@@ -16717,7 +16718,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt53=2;
             int LA53_0 = input.LA(1);
 
-            if ( (LA53_0==29) ) {
+            if ( (LA53_0==30) ) {
                 alt53=1;
             }
             switch (alt53) {
@@ -16817,7 +16818,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt54=2;
             int LA54_0 = input.LA(1);
 
-            if ( (LA54_0==30) ) {
+            if ( (LA54_0==31) ) {
                 alt54=1;
             }
             switch (alt54) {
@@ -16917,7 +16918,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt55=2;
             int LA55_0 = input.LA(1);
 
-            if ( (LA55_0==31) ) {
+            if ( (LA55_0==32) ) {
                 alt55=1;
             }
             switch (alt55) {
@@ -17017,7 +17018,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt56=2;
             int LA56_0 = input.LA(1);
 
-            if ( (LA56_0==32) ) {
+            if ( (LA56_0==33) ) {
                 alt56=1;
             }
             switch (alt56) {
@@ -17117,7 +17118,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt57=2;
             int LA57_0 = input.LA(1);
 
-            if ( (LA57_0==33) ) {
+            if ( (LA57_0==34) ) {
                 alt57=1;
             }
             switch (alt57) {
@@ -17219,7 +17220,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                 int alt58=2;
                 int LA58_0 = input.LA(1);
 
-                if ( (LA58_0==35) ) {
+                if ( (LA58_0==36) ) {
                     alt58=1;
                 }
 
@@ -17326,7 +17327,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                 int alt59=2;
                 int LA59_0 = input.LA(1);
 
-                if ( (LA59_0==40) ) {
+                if ( (LA59_0==41) ) {
                     alt59=1;
                 }
 
@@ -17422,7 +17423,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getRightSquareBracketKeyword_22()); 
             }
-            match(input,25,FOLLOW_25_in_rule__VerificationActivityResult__Group__22__Impl12294); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__VerificationActivityResult__Group__22__Impl12294); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getRightSquareBracketKeyword_22()); 
             }
@@ -17501,7 +17502,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getIssuesKeyword_10_0()); 
             }
-            match(input,38,FOLLOW_38_in_rule__VerificationActivityResult__Group_10__0__Impl12402); if (state.failed) return ;
+            match(input,39,FOLLOW_39_in_rule__VerificationActivityResult__Group_10__0__Impl12402); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getIssuesKeyword_10_0()); 
             }
@@ -17580,7 +17581,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getLeftSquareBracketKeyword_10_1()); 
             }
-            match(input,24,FOLLOW_24_in_rule__VerificationActivityResult__Group_10__1__Impl12464); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__VerificationActivityResult__Group_10__1__Impl12464); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getLeftSquareBracketKeyword_10_1()); 
             }
@@ -17761,7 +17762,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getRightSquareBracketKeyword_10_3()); 
             }
-            match(input,25,FOLLOW_25_in_rule__VerificationActivityResult__Group_10__3__Impl12584); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__VerificationActivityResult__Group_10__3__Impl12584); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getRightSquareBracketKeyword_10_3()); 
             }
@@ -17840,7 +17841,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getReportKeyword_11_0()); 
             }
-            match(input,39,FOLLOW_39_in_rule__VerificationActivityResult__Group_11__0__Impl12654); if (state.failed) return ;
+            match(input,40,FOLLOW_40_in_rule__VerificationActivityResult__Group_11__0__Impl12654); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getReportKeyword_11_0()); 
             }
@@ -18003,7 +18004,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getSuccesscountKeyword_12_0()); 
             }
-            match(input,26,FOLLOW_26_in_rule__VerificationActivityResult__Group_12__0__Impl12777); if (state.failed) return ;
+            match(input,27,FOLLOW_27_in_rule__VerificationActivityResult__Group_12__0__Impl12777); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getSuccesscountKeyword_12_0()); 
             }
@@ -18166,7 +18167,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getFailcountKeyword_13_0()); 
             }
-            match(input,27,FOLLOW_27_in_rule__VerificationActivityResult__Group_13__0__Impl12900); if (state.failed) return ;
+            match(input,28,FOLLOW_28_in_rule__VerificationActivityResult__Group_13__0__Impl12900); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getFailcountKeyword_13_0()); 
             }
@@ -18314,24 +18315,24 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__Group_14__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6549:1: rule__VerificationActivityResult__Group_14__0__Impl : ( 'errorcount' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6549:1: rule__VerificationActivityResult__Group_14__0__Impl : ( 'unknowncount' ) ;
     public final void rule__VerificationActivityResult__Group_14__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6553:1: ( ( 'errorcount' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6554:1: ( 'errorcount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6553:1: ( ( 'unknowncount' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6554:1: ( 'unknowncount' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6554:1: ( 'errorcount' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6555:1: 'errorcount'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6554:1: ( 'unknowncount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6555:1: 'unknowncount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationActivityResultAccess().getErrorcountKeyword_14_0()); 
+               before(grammarAccess.getVerificationActivityResultAccess().getUnknowncountKeyword_14_0()); 
             }
-            match(input,28,FOLLOW_28_in_rule__VerificationActivityResult__Group_14__0__Impl13023); if (state.failed) return ;
+            match(input,29,FOLLOW_29_in_rule__VerificationActivityResult__Group_14__0__Impl13023); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationActivityResultAccess().getErrorcountKeyword_14_0()); 
+               after(grammarAccess.getVerificationActivityResultAccess().getUnknowncountKeyword_14_0()); 
             }
 
             }
@@ -18388,26 +18389,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__Group_14__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6579:1: rule__VerificationActivityResult__Group_14__1__Impl : ( ( rule__VerificationActivityResult__ErrorCountAssignment_14_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6579:1: rule__VerificationActivityResult__Group_14__1__Impl : ( ( rule__VerificationActivityResult__UnknownCountAssignment_14_1 ) ) ;
     public final void rule__VerificationActivityResult__Group_14__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6583:1: ( ( ( rule__VerificationActivityResult__ErrorCountAssignment_14_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6584:1: ( ( rule__VerificationActivityResult__ErrorCountAssignment_14_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6583:1: ( ( ( rule__VerificationActivityResult__UnknownCountAssignment_14_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6584:1: ( ( rule__VerificationActivityResult__UnknownCountAssignment_14_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6584:1: ( ( rule__VerificationActivityResult__ErrorCountAssignment_14_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6585:1: ( rule__VerificationActivityResult__ErrorCountAssignment_14_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6584:1: ( ( rule__VerificationActivityResult__UnknownCountAssignment_14_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6585:1: ( rule__VerificationActivityResult__UnknownCountAssignment_14_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationActivityResultAccess().getErrorCountAssignment_14_1()); 
+               before(grammarAccess.getVerificationActivityResultAccess().getUnknownCountAssignment_14_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6586:1: ( rule__VerificationActivityResult__ErrorCountAssignment_14_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6586:2: rule__VerificationActivityResult__ErrorCountAssignment_14_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6586:1: ( rule__VerificationActivityResult__UnknownCountAssignment_14_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:6586:2: rule__VerificationActivityResult__UnknownCountAssignment_14_1
             {
-            pushFollow(FOLLOW_rule__VerificationActivityResult__ErrorCountAssignment_14_1_in_rule__VerificationActivityResult__Group_14__1__Impl13081);
-            rule__VerificationActivityResult__ErrorCountAssignment_14_1();
+            pushFollow(FOLLOW_rule__VerificationActivityResult__UnknownCountAssignment_14_1_in_rule__VerificationActivityResult__Group_14__1__Impl13081);
+            rule__VerificationActivityResult__UnknownCountAssignment_14_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -18415,7 +18416,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationActivityResultAccess().getErrorCountAssignment_14_1()); 
+               after(grammarAccess.getVerificationActivityResultAccess().getUnknownCountAssignment_14_1()); 
             }
 
             }
@@ -18492,7 +18493,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getFailthencountKeyword_15_0()); 
             }
-            match(input,29,FOLLOW_29_in_rule__VerificationActivityResult__Group_15__0__Impl13146); if (state.failed) return ;
+            match(input,30,FOLLOW_30_in_rule__VerificationActivityResult__Group_15__0__Impl13146); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getFailthencountKeyword_15_0()); 
             }
@@ -18655,7 +18656,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getAndthencountKeyword_16_0()); 
             }
-            match(input,30,FOLLOW_30_in_rule__VerificationActivityResult__Group_16__0__Impl13269); if (state.failed) return ;
+            match(input,31,FOLLOW_31_in_rule__VerificationActivityResult__Group_16__0__Impl13269); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getAndthencountKeyword_16_0()); 
             }
@@ -18818,7 +18819,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getTbdcountKeyword_17_0()); 
             }
-            match(input,31,FOLLOW_31_in_rule__VerificationActivityResult__Group_17__0__Impl13392); if (state.failed) return ;
+            match(input,32,FOLLOW_32_in_rule__VerificationActivityResult__Group_17__0__Impl13392); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getTbdcountKeyword_17_0()); 
             }
@@ -18981,7 +18982,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getWeightKeyword_18_0()); 
             }
-            match(input,32,FOLLOW_32_in_rule__VerificationActivityResult__Group_18__0__Impl13515); if (state.failed) return ;
+            match(input,33,FOLLOW_33_in_rule__VerificationActivityResult__Group_18__0__Impl13515); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getWeightKeyword_18_0()); 
             }
@@ -19144,7 +19145,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getMessageKeyword_19_0()); 
             }
-            match(input,33,FOLLOW_33_in_rule__VerificationActivityResult__Group_19__0__Impl13638); if (state.failed) return ;
+            match(input,34,FOLLOW_34_in_rule__VerificationActivityResult__Group_19__0__Impl13638); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getMessageKeyword_19_0()); 
             }
@@ -19307,7 +19308,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getFailthenKeyword_0()); 
             }
-            match(input,42,FOLLOW_42_in_rule__FailThenResult__Group__0__Impl13761); if (state.failed) return ;
+            match(input,43,FOLLOW_43_in_rule__FailThenResult__Group__0__Impl13761); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getFailthenKeyword_0()); 
             }
@@ -19475,7 +19476,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getDoKeyword_2()); 
             }
-            match(input,43,FOLLOW_43_in_rule__FailThenResult__Group__2__Impl13883); if (state.failed) return ;
+            match(input,44,FOLLOW_44_in_rule__FailThenResult__Group__2__Impl13883); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getDoKeyword_2()); 
             }
@@ -19643,7 +19644,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getLeftSquareBracketKeyword_4()); 
             }
-            match(input,24,FOLLOW_24_in_rule__FailThenResult__Group__4__Impl14005); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__FailThenResult__Group__4__Impl14005); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getLeftSquareBracketKeyword_4()); 
             }
@@ -19726,7 +19727,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt61=2;
             int LA61_0 = input.LA(1);
 
-            if ( (LA61_0==42) ) {
+            if ( (LA61_0==43) ) {
                 alt61=1;
             }
             switch (alt61) {
@@ -19807,34 +19808,34 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FailThenResult__Group__6__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7107:1: rule__FailThenResult__Group__6__Impl : ( ( rule__FailThenResult__ErrorThenAssignment_6 )? ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7107:1: rule__FailThenResult__Group__6__Impl : ( ( rule__FailThenResult__UnknownThenAssignment_6 )? ) ;
     public final void rule__FailThenResult__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7111:1: ( ( ( rule__FailThenResult__ErrorThenAssignment_6 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7112:1: ( ( rule__FailThenResult__ErrorThenAssignment_6 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7111:1: ( ( ( rule__FailThenResult__UnknownThenAssignment_6 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7112:1: ( ( rule__FailThenResult__UnknownThenAssignment_6 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7112:1: ( ( rule__FailThenResult__ErrorThenAssignment_6 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7113:1: ( rule__FailThenResult__ErrorThenAssignment_6 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7112:1: ( ( rule__FailThenResult__UnknownThenAssignment_6 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7113:1: ( rule__FailThenResult__UnknownThenAssignment_6 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getFailThenResultAccess().getErrorThenAssignment_6()); 
+               before(grammarAccess.getFailThenResultAccess().getUnknownThenAssignment_6()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7114:1: ( rule__FailThenResult__ErrorThenAssignment_6 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7114:1: ( rule__FailThenResult__UnknownThenAssignment_6 )?
             int alt62=2;
             int LA62_0 = input.LA(1);
 
-            if ( (LA62_0==50) ) {
+            if ( (LA62_0==51) ) {
                 alt62=1;
             }
             switch (alt62) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7114:2: rule__FailThenResult__ErrorThenAssignment_6
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7114:2: rule__FailThenResult__UnknownThenAssignment_6
                     {
-                    pushFollow(FOLLOW_rule__FailThenResult__ErrorThenAssignment_6_in_rule__FailThenResult__Group__6__Impl14127);
-                    rule__FailThenResult__ErrorThenAssignment_6();
+                    pushFollow(FOLLOW_rule__FailThenResult__UnknownThenAssignment_6_in_rule__FailThenResult__Group__6__Impl14127);
+                    rule__FailThenResult__UnknownThenAssignment_6();
 
                     state._fsp--;
                     if (state.failed) return ;
@@ -19845,7 +19846,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getFailThenResultAccess().getErrorThenAssignment_6()); 
+               after(grammarAccess.getFailThenResultAccess().getUnknownThenAssignment_6()); 
             }
 
             }
@@ -19926,7 +19927,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt63=2;
             int LA63_0 = input.LA(1);
 
-            if ( (LA63_0==51) ) {
+            if ( (LA63_0==52) ) {
                 alt63=1;
             }
             switch (alt63) {
@@ -20026,7 +20027,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt64=2;
             int LA64_0 = input.LA(1);
 
-            if ( (LA64_0==26) ) {
+            if ( (LA64_0==27) ) {
                 alt64=1;
             }
             switch (alt64) {
@@ -20126,7 +20127,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt65=2;
             int LA65_0 = input.LA(1);
 
-            if ( (LA65_0==27) ) {
+            if ( (LA65_0==28) ) {
                 alt65=1;
             }
             switch (alt65) {
@@ -20226,7 +20227,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt66=2;
             int LA66_0 = input.LA(1);
 
-            if ( (LA66_0==28) ) {
+            if ( (LA66_0==29) ) {
                 alt66=1;
             }
             switch (alt66) {
@@ -20326,7 +20327,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt67=2;
             int LA67_0 = input.LA(1);
 
-            if ( (LA67_0==29) ) {
+            if ( (LA67_0==30) ) {
                 alt67=1;
             }
             switch (alt67) {
@@ -20426,7 +20427,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt68=2;
             int LA68_0 = input.LA(1);
 
-            if ( (LA68_0==30) ) {
+            if ( (LA68_0==31) ) {
                 alt68=1;
             }
             switch (alt68) {
@@ -20526,7 +20527,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt69=2;
             int LA69_0 = input.LA(1);
 
-            if ( (LA69_0==31) ) {
+            if ( (LA69_0==32) ) {
                 alt69=1;
             }
             switch (alt69) {
@@ -20626,7 +20627,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt70=2;
             int LA70_0 = input.LA(1);
 
-            if ( (LA70_0==32) ) {
+            if ( (LA70_0==33) ) {
                 alt70=1;
             }
             switch (alt70) {
@@ -20717,7 +20718,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getRightSquareBracketKeyword_15()); 
             }
-            match(input,25,FOLLOW_25_in_rule__FailThenResult__Group__15__Impl14674); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__FailThenResult__Group__15__Impl14674); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getRightSquareBracketKeyword_15()); 
             }
@@ -20796,7 +20797,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getSuccesscountKeyword_8_0()); 
             }
-            match(input,26,FOLLOW_26_in_rule__FailThenResult__Group_8__0__Impl14768); if (state.failed) return ;
+            match(input,27,FOLLOW_27_in_rule__FailThenResult__Group_8__0__Impl14768); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getSuccesscountKeyword_8_0()); 
             }
@@ -20959,7 +20960,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getFailcountKeyword_9_0()); 
             }
-            match(input,27,FOLLOW_27_in_rule__FailThenResult__Group_9__0__Impl14891); if (state.failed) return ;
+            match(input,28,FOLLOW_28_in_rule__FailThenResult__Group_9__0__Impl14891); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getFailcountKeyword_9_0()); 
             }
@@ -21107,24 +21108,24 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FailThenResult__Group_10__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7556:1: rule__FailThenResult__Group_10__0__Impl : ( 'errorcount' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7556:1: rule__FailThenResult__Group_10__0__Impl : ( 'unknowncount' ) ;
     public final void rule__FailThenResult__Group_10__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7560:1: ( ( 'errorcount' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7561:1: ( 'errorcount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7560:1: ( ( 'unknowncount' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7561:1: ( 'unknowncount' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7561:1: ( 'errorcount' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7562:1: 'errorcount'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7561:1: ( 'unknowncount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7562:1: 'unknowncount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getFailThenResultAccess().getErrorcountKeyword_10_0()); 
+               before(grammarAccess.getFailThenResultAccess().getUnknowncountKeyword_10_0()); 
             }
-            match(input,28,FOLLOW_28_in_rule__FailThenResult__Group_10__0__Impl15014); if (state.failed) return ;
+            match(input,29,FOLLOW_29_in_rule__FailThenResult__Group_10__0__Impl15014); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getFailThenResultAccess().getErrorcountKeyword_10_0()); 
+               after(grammarAccess.getFailThenResultAccess().getUnknowncountKeyword_10_0()); 
             }
 
             }
@@ -21181,26 +21182,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FailThenResult__Group_10__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7586:1: rule__FailThenResult__Group_10__1__Impl : ( ( rule__FailThenResult__ErrorCountAssignment_10_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7586:1: rule__FailThenResult__Group_10__1__Impl : ( ( rule__FailThenResult__UnknownCountAssignment_10_1 ) ) ;
     public final void rule__FailThenResult__Group_10__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7590:1: ( ( ( rule__FailThenResult__ErrorCountAssignment_10_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7591:1: ( ( rule__FailThenResult__ErrorCountAssignment_10_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7590:1: ( ( ( rule__FailThenResult__UnknownCountAssignment_10_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7591:1: ( ( rule__FailThenResult__UnknownCountAssignment_10_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7591:1: ( ( rule__FailThenResult__ErrorCountAssignment_10_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7592:1: ( rule__FailThenResult__ErrorCountAssignment_10_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7591:1: ( ( rule__FailThenResult__UnknownCountAssignment_10_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7592:1: ( rule__FailThenResult__UnknownCountAssignment_10_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getFailThenResultAccess().getErrorCountAssignment_10_1()); 
+               before(grammarAccess.getFailThenResultAccess().getUnknownCountAssignment_10_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7593:1: ( rule__FailThenResult__ErrorCountAssignment_10_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7593:2: rule__FailThenResult__ErrorCountAssignment_10_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7593:1: ( rule__FailThenResult__UnknownCountAssignment_10_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:7593:2: rule__FailThenResult__UnknownCountAssignment_10_1
             {
-            pushFollow(FOLLOW_rule__FailThenResult__ErrorCountAssignment_10_1_in_rule__FailThenResult__Group_10__1__Impl15072);
-            rule__FailThenResult__ErrorCountAssignment_10_1();
+            pushFollow(FOLLOW_rule__FailThenResult__UnknownCountAssignment_10_1_in_rule__FailThenResult__Group_10__1__Impl15072);
+            rule__FailThenResult__UnknownCountAssignment_10_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -21208,7 +21209,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getFailThenResultAccess().getErrorCountAssignment_10_1()); 
+               after(grammarAccess.getFailThenResultAccess().getUnknownCountAssignment_10_1()); 
             }
 
             }
@@ -21285,7 +21286,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getFailthencountKeyword_11_0()); 
             }
-            match(input,29,FOLLOW_29_in_rule__FailThenResult__Group_11__0__Impl15137); if (state.failed) return ;
+            match(input,30,FOLLOW_30_in_rule__FailThenResult__Group_11__0__Impl15137); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getFailthencountKeyword_11_0()); 
             }
@@ -21448,7 +21449,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getAndthencountKeyword_12_0()); 
             }
-            match(input,30,FOLLOW_30_in_rule__FailThenResult__Group_12__0__Impl15260); if (state.failed) return ;
+            match(input,31,FOLLOW_31_in_rule__FailThenResult__Group_12__0__Impl15260); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getAndthencountKeyword_12_0()); 
             }
@@ -21611,7 +21612,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getTbdcountKeyword_13_0()); 
             }
-            match(input,31,FOLLOW_31_in_rule__FailThenResult__Group_13__0__Impl15383); if (state.failed) return ;
+            match(input,32,FOLLOW_32_in_rule__FailThenResult__Group_13__0__Impl15383); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getTbdcountKeyword_13_0()); 
             }
@@ -21774,7 +21775,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getWeightKeyword_14_0()); 
             }
-            match(input,32,FOLLOW_32_in_rule__FailThenResult__Group_14__0__Impl15506); if (state.failed) return ;
+            match(input,33,FOLLOW_33_in_rule__FailThenResult__Group_14__0__Impl15506); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getWeightKeyword_14_0()); 
             }
@@ -21937,7 +21938,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getAndthenKeyword_0()); 
             }
-            match(input,44,FOLLOW_44_in_rule__AndThenResult__Group__0__Impl15629); if (state.failed) return ;
+            match(input,45,FOLLOW_45_in_rule__AndThenResult__Group__0__Impl15629); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getAndthenKeyword_0()); 
             }
@@ -22105,7 +22106,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getDoKeyword_2()); 
             }
-            match(input,43,FOLLOW_43_in_rule__AndThenResult__Group__2__Impl15751); if (state.failed) return ;
+            match(input,44,FOLLOW_44_in_rule__AndThenResult__Group__2__Impl15751); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getDoKeyword_2()); 
             }
@@ -22273,7 +22274,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getLeftSquareBracketKeyword_4()); 
             }
-            match(input,24,FOLLOW_24_in_rule__AndThenResult__Group__4__Impl15873); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__AndThenResult__Group__4__Impl15873); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getLeftSquareBracketKeyword_4()); 
             }
@@ -22356,7 +22357,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt71=2;
             int LA71_0 = input.LA(1);
 
-            if ( (LA71_0==52) ) {
+            if ( (LA71_0==53) ) {
                 alt71=1;
             }
             switch (alt71) {
@@ -22456,7 +22457,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt72=2;
             int LA72_0 = input.LA(1);
 
-            if ( (LA72_0==26) ) {
+            if ( (LA72_0==27) ) {
                 alt72=1;
             }
             switch (alt72) {
@@ -22556,7 +22557,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt73=2;
             int LA73_0 = input.LA(1);
 
-            if ( (LA73_0==27) ) {
+            if ( (LA73_0==28) ) {
                 alt73=1;
             }
             switch (alt73) {
@@ -22656,7 +22657,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt74=2;
             int LA74_0 = input.LA(1);
 
-            if ( (LA74_0==28) ) {
+            if ( (LA74_0==29) ) {
                 alt74=1;
             }
             switch (alt74) {
@@ -22756,7 +22757,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt75=2;
             int LA75_0 = input.LA(1);
 
-            if ( (LA75_0==29) ) {
+            if ( (LA75_0==30) ) {
                 alt75=1;
             }
             switch (alt75) {
@@ -22856,7 +22857,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt76=2;
             int LA76_0 = input.LA(1);
 
-            if ( (LA76_0==30) ) {
+            if ( (LA76_0==31) ) {
                 alt76=1;
             }
             switch (alt76) {
@@ -22956,7 +22957,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt77=2;
             int LA77_0 = input.LA(1);
 
-            if ( (LA77_0==31) ) {
+            if ( (LA77_0==32) ) {
                 alt77=1;
             }
             switch (alt77) {
@@ -23056,7 +23057,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt78=2;
             int LA78_0 = input.LA(1);
 
-            if ( (LA78_0==32) ) {
+            if ( (LA78_0==33) ) {
                 alt78=1;
             }
             switch (alt78) {
@@ -23147,7 +23148,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getRightSquareBracketKeyword_13()); 
             }
-            match(input,25,FOLLOW_25_in_rule__AndThenResult__Group__13__Impl16420); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__AndThenResult__Group__13__Impl16420); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getRightSquareBracketKeyword_13()); 
             }
@@ -23226,7 +23227,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getSuccesscountKeyword_6_0()); 
             }
-            match(input,26,FOLLOW_26_in_rule__AndThenResult__Group_6__0__Impl16510); if (state.failed) return ;
+            match(input,27,FOLLOW_27_in_rule__AndThenResult__Group_6__0__Impl16510); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getSuccesscountKeyword_6_0()); 
             }
@@ -23389,7 +23390,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getFailcountKeyword_7_0()); 
             }
-            match(input,27,FOLLOW_27_in_rule__AndThenResult__Group_7__0__Impl16633); if (state.failed) return ;
+            match(input,28,FOLLOW_28_in_rule__AndThenResult__Group_7__0__Impl16633); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getFailcountKeyword_7_0()); 
             }
@@ -23537,24 +23538,24 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AndThenResult__Group_8__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8438:1: rule__AndThenResult__Group_8__0__Impl : ( 'errorcount' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8438:1: rule__AndThenResult__Group_8__0__Impl : ( 'unknowncount' ) ;
     public final void rule__AndThenResult__Group_8__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8442:1: ( ( 'errorcount' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8443:1: ( 'errorcount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8442:1: ( ( 'unknowncount' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8443:1: ( 'unknowncount' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8443:1: ( 'errorcount' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8444:1: 'errorcount'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8443:1: ( 'unknowncount' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8444:1: 'unknowncount'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAndThenResultAccess().getErrorcountKeyword_8_0()); 
+               before(grammarAccess.getAndThenResultAccess().getUnknowncountKeyword_8_0()); 
             }
-            match(input,28,FOLLOW_28_in_rule__AndThenResult__Group_8__0__Impl16756); if (state.failed) return ;
+            match(input,29,FOLLOW_29_in_rule__AndThenResult__Group_8__0__Impl16756); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAndThenResultAccess().getErrorcountKeyword_8_0()); 
+               after(grammarAccess.getAndThenResultAccess().getUnknowncountKeyword_8_0()); 
             }
 
             }
@@ -23611,26 +23612,26 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AndThenResult__Group_8__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8468:1: rule__AndThenResult__Group_8__1__Impl : ( ( rule__AndThenResult__ErrorCountAssignment_8_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8468:1: rule__AndThenResult__Group_8__1__Impl : ( ( rule__AndThenResult__UnknownCountAssignment_8_1 ) ) ;
     public final void rule__AndThenResult__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8472:1: ( ( ( rule__AndThenResult__ErrorCountAssignment_8_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8473:1: ( ( rule__AndThenResult__ErrorCountAssignment_8_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8472:1: ( ( ( rule__AndThenResult__UnknownCountAssignment_8_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8473:1: ( ( rule__AndThenResult__UnknownCountAssignment_8_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8473:1: ( ( rule__AndThenResult__ErrorCountAssignment_8_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8474:1: ( rule__AndThenResult__ErrorCountAssignment_8_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8473:1: ( ( rule__AndThenResult__UnknownCountAssignment_8_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8474:1: ( rule__AndThenResult__UnknownCountAssignment_8_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAndThenResultAccess().getErrorCountAssignment_8_1()); 
+               before(grammarAccess.getAndThenResultAccess().getUnknownCountAssignment_8_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8475:1: ( rule__AndThenResult__ErrorCountAssignment_8_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8475:2: rule__AndThenResult__ErrorCountAssignment_8_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8475:1: ( rule__AndThenResult__UnknownCountAssignment_8_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:8475:2: rule__AndThenResult__UnknownCountAssignment_8_1
             {
-            pushFollow(FOLLOW_rule__AndThenResult__ErrorCountAssignment_8_1_in_rule__AndThenResult__Group_8__1__Impl16814);
-            rule__AndThenResult__ErrorCountAssignment_8_1();
+            pushFollow(FOLLOW_rule__AndThenResult__UnknownCountAssignment_8_1_in_rule__AndThenResult__Group_8__1__Impl16814);
+            rule__AndThenResult__UnknownCountAssignment_8_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -23638,7 +23639,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAndThenResultAccess().getErrorCountAssignment_8_1()); 
+               after(grammarAccess.getAndThenResultAccess().getUnknownCountAssignment_8_1()); 
             }
 
             }
@@ -23715,7 +23716,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getFailthencountKeyword_9_0()); 
             }
-            match(input,29,FOLLOW_29_in_rule__AndThenResult__Group_9__0__Impl16879); if (state.failed) return ;
+            match(input,30,FOLLOW_30_in_rule__AndThenResult__Group_9__0__Impl16879); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getFailthencountKeyword_9_0()); 
             }
@@ -23878,7 +23879,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getAndthencountKeyword_10_0()); 
             }
-            match(input,30,FOLLOW_30_in_rule__AndThenResult__Group_10__0__Impl17002); if (state.failed) return ;
+            match(input,31,FOLLOW_31_in_rule__AndThenResult__Group_10__0__Impl17002); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getAndthencountKeyword_10_0()); 
             }
@@ -24041,7 +24042,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getTbdcountKeyword_11_0()); 
             }
-            match(input,31,FOLLOW_31_in_rule__AndThenResult__Group_11__0__Impl17125); if (state.failed) return ;
+            match(input,32,FOLLOW_32_in_rule__AndThenResult__Group_11__0__Impl17125); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getTbdcountKeyword_11_0()); 
             }
@@ -24204,7 +24205,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getWeightKeyword_12_0()); 
             }
-            match(input,32,FOLLOW_32_in_rule__AndThenResult__Group_12__0__Impl17248); if (state.failed) return ;
+            match(input,33,FOLLOW_33_in_rule__AndThenResult__Group_12__0__Impl17248); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getWeightKeyword_12_0()); 
             }
@@ -24460,7 +24461,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt79=2;
             int LA79_0 = input.LA(1);
 
-            if ( (LA79_0==45) ) {
+            if ( (LA79_0==46) ) {
                 alt79=1;
             }
             switch (alt79) {
@@ -24649,7 +24650,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt80=2;
             int LA80_0 = input.LA(1);
 
-            if ( (LA80_0==46) ) {
+            if ( (LA80_0==47) ) {
                 alt80=1;
             }
             switch (alt80) {
@@ -24749,7 +24750,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt81=2;
             int LA81_0 = input.LA(1);
 
-            if ( (LA81_0==47) ) {
+            if ( (LA81_0==48) ) {
                 alt81=1;
             }
             switch (alt81) {
@@ -24844,7 +24845,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt82=2;
             int LA82_0 = input.LA(1);
 
-            if ( (LA82_0==24) ) {
+            if ( (LA82_0==25) ) {
                 alt82=1;
             }
             switch (alt82) {
@@ -24940,7 +24941,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getColonKeyword_1_0()); 
             }
-            match(input,45,FOLLOW_45_in_rule__ResultIssue__Group_1__0__Impl17744); if (state.failed) return ;
+            match(input,46,FOLLOW_46_in_rule__ResultIssue__Group_1__0__Impl17744); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getResultIssueAccess().getColonKeyword_1_0()); 
             }
@@ -25103,7 +25104,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getExceptionKeyword_3_0()); 
             }
-            match(input,46,FOLLOW_46_in_rule__ResultIssue__Group_3__0__Impl17867); if (state.failed) return ;
+            match(input,47,FOLLOW_47_in_rule__ResultIssue__Group_3__0__Impl17867); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getResultIssueAccess().getExceptionKeyword_3_0()); 
             }
@@ -25266,7 +25267,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getTargetKeyword_4_0()); 
             }
-            match(input,47,FOLLOW_47_in_rule__ResultIssue__Group_4__0__Impl17990); if (state.failed) return ;
+            match(input,48,FOLLOW_48_in_rule__ResultIssue__Group_4__0__Impl17990); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getResultIssueAccess().getTargetKeyword_4_0()); 
             }
@@ -25429,7 +25430,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()); 
             }
-            match(input,24,FOLLOW_24_in_rule__ResultIssue__Group_5__0__Impl18113); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__ResultIssue__Group_5__0__Impl18113); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()); 
             }
@@ -25639,7 +25640,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()); 
             }
-            match(input,25,FOLLOW_25_in_rule__ResultIssue__Group_5__2__Impl18249); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__ResultIssue__Group_5__2__Impl18249); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()); 
             }
@@ -25797,7 +25798,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1()); 
             }
-            match(input,48,FOLLOW_48_in_rule__AadlClassifierReference__Group__1__Impl18376); if (state.failed) return ;
+            match(input,49,FOLLOW_49_in_rule__AadlClassifierReference__Group__1__Impl18376); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1()); 
             }
@@ -25954,7 +25955,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             int alt84=2;
             int LA84_0 = input.LA(1);
 
-            if ( (LA84_0==49) ) {
+            if ( (LA84_0==50) ) {
                 alt84=1;
             }
             switch (alt84) {
@@ -26050,7 +26051,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_3_0()); 
             }
-            match(input,49,FOLLOW_49_in_rule__AadlClassifierReference__Group_3__0__Impl18563); if (state.failed) return ;
+            match(input,50,FOLLOW_50_in_rule__AadlClassifierReference__Group_3__0__Impl18563); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_3_0()); 
             }
@@ -26283,7 +26284,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                 int alt85=2;
                 int LA85_0 = input.LA(1);
 
-                if ( (LA85_0==49) ) {
+                if ( (LA85_0==50) ) {
                     alt85=1;
                 }
 
@@ -26387,7 +26388,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9486:1: ( '.' )
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9487:2: '.'
             {
-            match(input,49,FOLLOW_49_in_rule__QualifiedName__Group_1__0__Impl18807); if (state.failed) return ;
+            match(input,50,FOLLOW_50_in_rule__QualifiedName__Group_1__0__Impl18807); if (state.failed) return ;
 
             }
 
@@ -26489,9 +26490,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__QualifiedName__Group_1__1__Impl"
 
 
-    // $ANTLR start "rule__CaseResult__NameAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9531:1: rule__CaseResult__NameAssignment_1 : ( RULE_ID ) ;
-    public final void rule__CaseResult__NameAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__NameAssignment_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9531:1: rule__AssuranceEvidence__NameAssignment_1 : ( RULE_ID ) ;
+    public final void rule__AssuranceEvidence__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26503,11 +26504,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9537:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getNameIDTerminalRuleCall_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getNameIDTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__CaseResult__NameAssignment_118904); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AssuranceEvidence__NameAssignment_118904); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getNameIDTerminalRuleCall_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getNameIDTerminalRuleCall_1_0()); 
             }
 
             }
@@ -26527,12 +26528,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__NameAssignment_1"
+    // $ANTLR end "rule__AssuranceEvidence__NameAssignment_1"
 
 
-    // $ANTLR start "rule__CaseResult__TargetAssignment_3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9546:1: rule__CaseResult__TargetAssignment_3 : ( ( ruleAadlClassifierReference ) ) ;
-    public final void rule__CaseResult__TargetAssignment_3() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__TargetAssignment_3"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9546:1: rule__AssuranceEvidence__TargetAssignment_3 : ( ( ruleAadlClassifierReference ) ) ;
+    public final void rule__AssuranceEvidence__TargetAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26544,27 +26545,27 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9552:1: ( ruleAadlClassifierReference )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getTargetClassifierCrossReference_3_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getTargetClassifierCrossReference_3_0()); 
             }
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9553:1: ( ruleAadlClassifierReference )
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9554:1: ruleAadlClassifierReference
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getTargetClassifierAadlClassifierReferenceParserRuleCall_3_0_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getTargetClassifierAadlClassifierReferenceParserRuleCall_3_0_1()); 
             }
-            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__CaseResult__TargetAssignment_318939);
+            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidence__TargetAssignment_318939);
             ruleAadlClassifierReference();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getTargetClassifierAadlClassifierReferenceParserRuleCall_3_0_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getTargetClassifierAadlClassifierReferenceParserRuleCall_3_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getTargetClassifierCrossReference_3_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getTargetClassifierCrossReference_3_0()); 
             }
 
             }
@@ -26584,12 +26585,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__TargetAssignment_3"
+    // $ANTLR end "rule__AssuranceEvidence__TargetAssignment_3"
 
 
-    // $ANTLR start "rule__CaseResult__InstanceAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9565:1: rule__CaseResult__InstanceAssignment_5 : ( ( ruleURIID ) ) ;
-    public final void rule__CaseResult__InstanceAssignment_5() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__InstanceAssignment_5"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9565:1: rule__AssuranceEvidence__InstanceAssignment_5 : ( ( ruleURIID ) ) ;
+    public final void rule__AssuranceEvidence__InstanceAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26601,27 +26602,27 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9571:1: ( ruleURIID )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getInstanceInstanceObjectCrossReference_5_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getInstanceInstanceObjectCrossReference_5_0()); 
             }
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9572:1: ( ruleURIID )
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9573:1: ruleURIID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getInstanceInstanceObjectURIIDParserRuleCall_5_0_1()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getInstanceInstanceObjectURIIDParserRuleCall_5_0_1()); 
             }
-            pushFollow(FOLLOW_ruleURIID_in_rule__CaseResult__InstanceAssignment_518978);
+            pushFollow(FOLLOW_ruleURIID_in_rule__AssuranceEvidence__InstanceAssignment_518978);
             ruleURIID();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getInstanceInstanceObjectURIIDParserRuleCall_5_0_1()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getInstanceInstanceObjectURIIDParserRuleCall_5_0_1()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getInstanceInstanceObjectCrossReference_5_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getInstanceInstanceObjectCrossReference_5_0()); 
             }
 
             }
@@ -26641,12 +26642,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__InstanceAssignment_5"
+    // $ANTLR end "rule__AssuranceEvidence__InstanceAssignment_5"
 
 
-    // $ANTLR start "rule__CaseResult__SuccessCountAssignment_7_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9584:1: rule__CaseResult__SuccessCountAssignment_7_1 : ( RULE_INT ) ;
-    public final void rule__CaseResult__SuccessCountAssignment_7_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__SuccessCountAssignment_7_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9584:1: rule__AssuranceEvidence__SuccessCountAssignment_7_1 : ( RULE_INT ) ;
+    public final void rule__AssuranceEvidence__SuccessCountAssignment_7_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26658,11 +26659,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9590:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getSuccessCountINTTerminalRuleCall_7_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getSuccessCountINTTerminalRuleCall_7_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__CaseResult__SuccessCountAssignment_7_119013); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AssuranceEvidence__SuccessCountAssignment_7_119013); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getSuccessCountINTTerminalRuleCall_7_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getSuccessCountINTTerminalRuleCall_7_1_0()); 
             }
 
             }
@@ -26682,12 +26683,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__SuccessCountAssignment_7_1"
+    // $ANTLR end "rule__AssuranceEvidence__SuccessCountAssignment_7_1"
 
 
-    // $ANTLR start "rule__CaseResult__FailCountAssignment_8_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9599:1: rule__CaseResult__FailCountAssignment_8_1 : ( RULE_INT ) ;
-    public final void rule__CaseResult__FailCountAssignment_8_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__FailCountAssignment_8_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9599:1: rule__AssuranceEvidence__FailCountAssignment_8_1 : ( RULE_INT ) ;
+    public final void rule__AssuranceEvidence__FailCountAssignment_8_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26699,11 +26700,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9605:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getFailCountINTTerminalRuleCall_8_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getFailCountINTTerminalRuleCall_8_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__CaseResult__FailCountAssignment_8_119044); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AssuranceEvidence__FailCountAssignment_8_119044); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getFailCountINTTerminalRuleCall_8_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getFailCountINTTerminalRuleCall_8_1_0()); 
             }
 
             }
@@ -26723,12 +26724,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__FailCountAssignment_8_1"
+    // $ANTLR end "rule__AssuranceEvidence__FailCountAssignment_8_1"
 
 
-    // $ANTLR start "rule__CaseResult__ErrorCountAssignment_9_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9614:1: rule__CaseResult__ErrorCountAssignment_9_1 : ( RULE_INT ) ;
-    public final void rule__CaseResult__ErrorCountAssignment_9_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__UnknownCountAssignment_9_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9614:1: rule__AssuranceEvidence__UnknownCountAssignment_9_1 : ( RULE_INT ) ;
+    public final void rule__AssuranceEvidence__UnknownCountAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26740,11 +26741,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9620:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getErrorCountINTTerminalRuleCall_9_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getUnknownCountINTTerminalRuleCall_9_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__CaseResult__ErrorCountAssignment_9_119075); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AssuranceEvidence__UnknownCountAssignment_9_119075); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getErrorCountINTTerminalRuleCall_9_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getUnknownCountINTTerminalRuleCall_9_1_0()); 
             }
 
             }
@@ -26764,12 +26765,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__ErrorCountAssignment_9_1"
+    // $ANTLR end "rule__AssuranceEvidence__UnknownCountAssignment_9_1"
 
 
-    // $ANTLR start "rule__CaseResult__FailthenCountAssignment_10_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9629:1: rule__CaseResult__FailthenCountAssignment_10_1 : ( RULE_INT ) ;
-    public final void rule__CaseResult__FailthenCountAssignment_10_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__FailthenCountAssignment_10_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9629:1: rule__AssuranceEvidence__FailthenCountAssignment_10_1 : ( RULE_INT ) ;
+    public final void rule__AssuranceEvidence__FailthenCountAssignment_10_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26781,11 +26782,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9635:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getFailthenCountINTTerminalRuleCall_10_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getFailthenCountINTTerminalRuleCall_10_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__CaseResult__FailthenCountAssignment_10_119106); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AssuranceEvidence__FailthenCountAssignment_10_119106); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getFailthenCountINTTerminalRuleCall_10_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getFailthenCountINTTerminalRuleCall_10_1_0()); 
             }
 
             }
@@ -26805,12 +26806,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__FailthenCountAssignment_10_1"
+    // $ANTLR end "rule__AssuranceEvidence__FailthenCountAssignment_10_1"
 
 
-    // $ANTLR start "rule__CaseResult__AndthenCountAssignment_11_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9644:1: rule__CaseResult__AndthenCountAssignment_11_1 : ( RULE_INT ) ;
-    public final void rule__CaseResult__AndthenCountAssignment_11_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__AndthenCountAssignment_11_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9644:1: rule__AssuranceEvidence__AndthenCountAssignment_11_1 : ( RULE_INT ) ;
+    public final void rule__AssuranceEvidence__AndthenCountAssignment_11_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26822,11 +26823,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9650:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getAndthenCountINTTerminalRuleCall_11_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getAndthenCountINTTerminalRuleCall_11_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__CaseResult__AndthenCountAssignment_11_119137); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AssuranceEvidence__AndthenCountAssignment_11_119137); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getAndthenCountINTTerminalRuleCall_11_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getAndthenCountINTTerminalRuleCall_11_1_0()); 
             }
 
             }
@@ -26846,12 +26847,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__AndthenCountAssignment_11_1"
+    // $ANTLR end "rule__AssuranceEvidence__AndthenCountAssignment_11_1"
 
 
-    // $ANTLR start "rule__CaseResult__TbdCountAssignment_12_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9659:1: rule__CaseResult__TbdCountAssignment_12_1 : ( RULE_INT ) ;
-    public final void rule__CaseResult__TbdCountAssignment_12_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__TbdCountAssignment_12_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9659:1: rule__AssuranceEvidence__TbdCountAssignment_12_1 : ( RULE_INT ) ;
+    public final void rule__AssuranceEvidence__TbdCountAssignment_12_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26863,11 +26864,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9665:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getTbdCountINTTerminalRuleCall_12_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getTbdCountINTTerminalRuleCall_12_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__CaseResult__TbdCountAssignment_12_119168); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AssuranceEvidence__TbdCountAssignment_12_119168); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getTbdCountINTTerminalRuleCall_12_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getTbdCountINTTerminalRuleCall_12_1_0()); 
             }
 
             }
@@ -26887,12 +26888,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__TbdCountAssignment_12_1"
+    // $ANTLR end "rule__AssuranceEvidence__TbdCountAssignment_12_1"
 
 
-    // $ANTLR start "rule__CaseResult__WeightAssignment_13_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9674:1: rule__CaseResult__WeightAssignment_13_1 : ( RULE_INT ) ;
-    public final void rule__CaseResult__WeightAssignment_13_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__WeightAssignment_13_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9674:1: rule__AssuranceEvidence__WeightAssignment_13_1 : ( RULE_INT ) ;
+    public final void rule__AssuranceEvidence__WeightAssignment_13_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26904,11 +26905,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9680:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getWeightINTTerminalRuleCall_13_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getWeightINTTerminalRuleCall_13_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__CaseResult__WeightAssignment_13_119199); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AssuranceEvidence__WeightAssignment_13_119199); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getWeightINTTerminalRuleCall_13_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getWeightINTTerminalRuleCall_13_1_0()); 
             }
 
             }
@@ -26928,12 +26929,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__WeightAssignment_13_1"
+    // $ANTLR end "rule__AssuranceEvidence__WeightAssignment_13_1"
 
 
-    // $ANTLR start "rule__CaseResult__MessageAssignment_14_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9689:1: rule__CaseResult__MessageAssignment_14_1 : ( RULE_STRING ) ;
-    public final void rule__CaseResult__MessageAssignment_14_1() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__MessageAssignment_14_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9689:1: rule__AssuranceEvidence__MessageAssignment_14_1 : ( RULE_STRING ) ;
+    public final void rule__AssuranceEvidence__MessageAssignment_14_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -26945,11 +26946,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9695:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__CaseResult__MessageAssignment_14_119230); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__AssuranceEvidence__MessageAssignment_14_119230); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
             }
 
             }
@@ -26969,32 +26970,32 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__MessageAssignment_14_1"
+    // $ANTLR end "rule__AssuranceEvidence__MessageAssignment_14_1"
 
 
-    // $ANTLR start "rule__CaseResult__SubCaseResultAssignment_15"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9704:1: rule__CaseResult__SubCaseResultAssignment_15 : ( ruleCaseResult ) ;
-    public final void rule__CaseResult__SubCaseResultAssignment_15() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9704:1: rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15 : ( ruleAssuranceEvidence ) ;
+    public final void rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9708:1: ( ( ruleCaseResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9709:1: ( ruleCaseResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9708:1: ( ( ruleAssuranceEvidence ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9709:1: ( ruleAssuranceEvidence )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9709:1: ( ruleCaseResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9710:1: ruleCaseResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9709:1: ( ruleAssuranceEvidence )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9710:1: ruleAssuranceEvidence
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getSubCaseResultCaseResultParserRuleCall_15_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0()); 
             }
-            pushFollow(FOLLOW_ruleCaseResult_in_rule__CaseResult__SubCaseResultAssignment_1519261);
-            ruleCaseResult();
+            pushFollow(FOLLOW_ruleAssuranceEvidence_in_rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_1519261);
+            ruleAssuranceEvidence();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getSubCaseResultCaseResultParserRuleCall_15_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0()); 
             }
 
             }
@@ -27014,12 +27015,12 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__SubCaseResultAssignment_15"
+    // $ANTLR end "rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15"
 
 
-    // $ANTLR start "rule__CaseResult__ClaimResultAssignment_16"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9719:1: rule__CaseResult__ClaimResultAssignment_16 : ( ruleClaimResult ) ;
-    public final void rule__CaseResult__ClaimResultAssignment_16() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidence__ClaimResultAssignment_16"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9719:1: rule__AssuranceEvidence__ClaimResultAssignment_16 : ( ruleClaimResult ) ;
+    public final void rule__AssuranceEvidence__ClaimResultAssignment_16() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -27031,15 +27032,15 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9725:1: ruleClaimResult
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getCaseResultAccess().getClaimResultClaimResultParserRuleCall_16_0()); 
+               before(grammarAccess.getAssuranceEvidenceAccess().getClaimResultClaimResultParserRuleCall_16_0()); 
             }
-            pushFollow(FOLLOW_ruleClaimResult_in_rule__CaseResult__ClaimResultAssignment_1619292);
+            pushFollow(FOLLOW_ruleClaimResult_in_rule__AssuranceEvidence__ClaimResultAssignment_1619292);
             ruleClaimResult();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getCaseResultAccess().getClaimResultClaimResultParserRuleCall_16_0()); 
+               after(grammarAccess.getAssuranceEvidenceAccess().getClaimResultClaimResultParserRuleCall_16_0()); 
             }
 
             }
@@ -27059,7 +27060,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__CaseResult__ClaimResultAssignment_16"
+    // $ANTLR end "rule__AssuranceEvidence__ClaimResultAssignment_16"
 
 
     // $ANTLR start "rule__ClaimResult__NameAssignment_1"
@@ -27299,9 +27300,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ClaimResult__FailCountAssignment_7_1"
 
 
-    // $ANTLR start "rule__ClaimResult__ErrorCountAssignment_8_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9817:1: rule__ClaimResult__ErrorCountAssignment_8_1 : ( RULE_INT ) ;
-    public final void rule__ClaimResult__ErrorCountAssignment_8_1() throws RecognitionException {
+    // $ANTLR start "rule__ClaimResult__UnknownCountAssignment_8_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9817:1: rule__ClaimResult__UnknownCountAssignment_8_1 : ( RULE_INT ) ;
+    public final void rule__ClaimResult__UnknownCountAssignment_8_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -27313,11 +27314,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:9823:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getClaimResultAccess().getErrorCountINTTerminalRuleCall_8_1_0()); 
+               before(grammarAccess.getClaimResultAccess().getUnknownCountINTTerminalRuleCall_8_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__ClaimResult__ErrorCountAssignment_8_119494); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__ClaimResult__UnknownCountAssignment_8_119494); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getClaimResultAccess().getErrorCountINTTerminalRuleCall_8_1_0()); 
+               after(grammarAccess.getClaimResultAccess().getUnknownCountINTTerminalRuleCall_8_1_0()); 
             }
 
             }
@@ -27337,7 +27338,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ClaimResult__ErrorCountAssignment_8_1"
+    // $ANTLR end "rule__ClaimResult__UnknownCountAssignment_8_1"
 
 
     // $ANTLR start "rule__ClaimResult__FailthenCountAssignment_9_1"
@@ -28007,9 +28008,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ValidationResult__FailCountAssignment_13_1"
 
 
-    // $ANTLR start "rule__ValidationResult__ErrorCountAssignment_14_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10065:1: rule__ValidationResult__ErrorCountAssignment_14_1 : ( RULE_INT ) ;
-    public final void rule__ValidationResult__ErrorCountAssignment_14_1() throws RecognitionException {
+    // $ANTLR start "rule__ValidationResult__UnknownCountAssignment_14_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10065:1: rule__ValidationResult__UnknownCountAssignment_14_1 : ( RULE_INT ) ;
+    public final void rule__ValidationResult__UnknownCountAssignment_14_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -28021,11 +28022,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10071:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getValidationResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+               before(grammarAccess.getValidationResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__ValidationResult__ErrorCountAssignment_14_120006); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__ValidationResult__UnknownCountAssignment_14_120006); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getValidationResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+               after(grammarAccess.getValidationResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
             }
 
             }
@@ -28045,7 +28046,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__ValidationResult__ErrorCountAssignment_14_1"
+    // $ANTLR end "rule__ValidationResult__UnknownCountAssignment_14_1"
 
 
     // $ANTLR start "rule__ValidationResult__FailthenCountAssignment_15_1"
@@ -28625,9 +28626,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__PreconditionResult__FailCountAssignment_13_1"
 
 
-    // $ANTLR start "rule__PreconditionResult__ErrorCountAssignment_14_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10283:1: rule__PreconditionResult__ErrorCountAssignment_14_1 : ( RULE_INT ) ;
-    public final void rule__PreconditionResult__ErrorCountAssignment_14_1() throws RecognitionException {
+    // $ANTLR start "rule__PreconditionResult__UnknownCountAssignment_14_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10283:1: rule__PreconditionResult__UnknownCountAssignment_14_1 : ( RULE_INT ) ;
+    public final void rule__PreconditionResult__UnknownCountAssignment_14_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -28639,11 +28640,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10289:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getPreconditionResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+               before(grammarAccess.getPreconditionResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__PreconditionResult__ErrorCountAssignment_14_120456); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__PreconditionResult__UnknownCountAssignment_14_120456); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getPreconditionResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+               after(grammarAccess.getPreconditionResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
             }
 
             }
@@ -28663,7 +28664,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__PreconditionResult__ErrorCountAssignment_14_1"
+    // $ANTLR end "rule__PreconditionResult__UnknownCountAssignment_14_1"
 
 
     // $ANTLR start "rule__PreconditionResult__FailthenCountAssignment_15_1"
@@ -29243,9 +29244,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__VerificationActivityResult__FailCountAssignment_13_1"
 
 
-    // $ANTLR start "rule__VerificationActivityResult__ErrorCountAssignment_14_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10501:1: rule__VerificationActivityResult__ErrorCountAssignment_14_1 : ( RULE_INT ) ;
-    public final void rule__VerificationActivityResult__ErrorCountAssignment_14_1() throws RecognitionException {
+    // $ANTLR start "rule__VerificationActivityResult__UnknownCountAssignment_14_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10501:1: rule__VerificationActivityResult__UnknownCountAssignment_14_1 : ( RULE_INT ) ;
+    public final void rule__VerificationActivityResult__UnknownCountAssignment_14_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -29257,11 +29258,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10507:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getVerificationActivityResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+               before(grammarAccess.getVerificationActivityResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__VerificationActivityResult__ErrorCountAssignment_14_120906); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__VerificationActivityResult__UnknownCountAssignment_14_120906); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getVerificationActivityResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+               after(grammarAccess.getVerificationActivityResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
             }
 
             }
@@ -29281,7 +29282,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__VerificationActivityResult__ErrorCountAssignment_14_1"
+    // $ANTLR end "rule__VerificationActivityResult__UnknownCountAssignment_14_1"
 
 
     // $ANTLR start "rule__VerificationActivityResult__FailthenCountAssignment_15_1"
@@ -29691,7 +29692,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getFailThenFailthenKeyword_5_0()); 
             }
-            match(input,42,FOLLOW_42_in_rule__FailThenResult__FailThenAssignment_521221); if (state.failed) return ;
+            match(input,43,FOLLOW_43_in_rule__FailThenResult__FailThenAssignment_521221); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getFailThenFailthenKeyword_5_0()); 
             }
@@ -29722,37 +29723,37 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__FailThenResult__FailThenAssignment_5"
 
 
-    // $ANTLR start "rule__FailThenResult__ErrorThenAssignment_6"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10674:1: rule__FailThenResult__ErrorThenAssignment_6 : ( ( 'errorthen' ) ) ;
-    public final void rule__FailThenResult__ErrorThenAssignment_6() throws RecognitionException {
+    // $ANTLR start "rule__FailThenResult__UnknownThenAssignment_6"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10674:1: rule__FailThenResult__UnknownThenAssignment_6 : ( ( 'unknownthen' ) ) ;
+    public final void rule__FailThenResult__UnknownThenAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10678:1: ( ( ( 'errorthen' ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10679:1: ( ( 'errorthen' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10678:1: ( ( ( 'unknownthen' ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10679:1: ( ( 'unknownthen' ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10679:1: ( ( 'errorthen' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10680:1: ( 'errorthen' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10679:1: ( ( 'unknownthen' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10680:1: ( 'unknownthen' )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getFailThenResultAccess().getErrorThenErrorthenKeyword_6_0()); 
+               before(grammarAccess.getFailThenResultAccess().getUnknownThenUnknownthenKeyword_6_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10681:1: ( 'errorthen' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10682:1: 'errorthen'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10681:1: ( 'unknownthen' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10682:1: 'unknownthen'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getFailThenResultAccess().getErrorThenErrorthenKeyword_6_0()); 
+               before(grammarAccess.getFailThenResultAccess().getUnknownThenUnknownthenKeyword_6_0()); 
             }
-            match(input,50,FOLLOW_50_in_rule__FailThenResult__ErrorThenAssignment_621265); if (state.failed) return ;
+            match(input,51,FOLLOW_51_in_rule__FailThenResult__UnknownThenAssignment_621265); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getFailThenResultAccess().getErrorThenErrorthenKeyword_6_0()); 
+               after(grammarAccess.getFailThenResultAccess().getUnknownThenUnknownthenKeyword_6_0()); 
             }
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getFailThenResultAccess().getErrorThenErrorthenKeyword_6_0()); 
+               after(grammarAccess.getFailThenResultAccess().getUnknownThenUnknownthenKeyword_6_0()); 
             }
 
             }
@@ -29772,7 +29773,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__FailThenResult__ErrorThenAssignment_6"
+    // $ANTLR end "rule__FailThenResult__UnknownThenAssignment_6"
 
 
     // $ANTLR start "rule__FailThenResult__DidFailAssignment_7"
@@ -29797,7 +29798,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getFailThenResultAccess().getDidFailDidfailKeyword_7_0()); 
             }
-            match(input,51,FOLLOW_51_in_rule__FailThenResult__DidFailAssignment_721309); if (state.failed) return ;
+            match(input,52,FOLLOW_52_in_rule__FailThenResult__DidFailAssignment_721309); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getFailThenResultAccess().getDidFailDidfailKeyword_7_0()); 
             }
@@ -29910,9 +29911,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__FailThenResult__FailCountAssignment_9_1"
 
 
-    // $ANTLR start "rule__FailThenResult__ErrorCountAssignment_10_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10750:1: rule__FailThenResult__ErrorCountAssignment_10_1 : ( RULE_INT ) ;
-    public final void rule__FailThenResult__ErrorCountAssignment_10_1() throws RecognitionException {
+    // $ANTLR start "rule__FailThenResult__UnknownCountAssignment_10_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10750:1: rule__FailThenResult__UnknownCountAssignment_10_1 : ( RULE_INT ) ;
+    public final void rule__FailThenResult__UnknownCountAssignment_10_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -29924,11 +29925,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10756:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getFailThenResultAccess().getErrorCountINTTerminalRuleCall_10_1_0()); 
+               before(grammarAccess.getFailThenResultAccess().getUnknownCountINTTerminalRuleCall_10_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__FailThenResult__ErrorCountAssignment_10_121410); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__FailThenResult__UnknownCountAssignment_10_121410); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getFailThenResultAccess().getErrorCountINTTerminalRuleCall_10_1_0()); 
+               after(grammarAccess.getFailThenResultAccess().getUnknownCountINTTerminalRuleCall_10_1_0()); 
             }
 
             }
@@ -29948,7 +29949,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__FailThenResult__ErrorCountAssignment_10_1"
+    // $ANTLR end "rule__FailThenResult__UnknownCountAssignment_10_1"
 
 
     // $ANTLR start "rule__FailThenResult__FailthenCountAssignment_11_1"
@@ -30227,7 +30228,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAndThenResultAccess().getDidAndThenFailAndthenfailedKeyword_5_0()); 
             }
-            match(input,52,FOLLOW_52_in_rule__AndThenResult__DidAndThenFailAssignment_521632); if (state.failed) return ;
+            match(input,53,FOLLOW_53_in_rule__AndThenResult__DidAndThenFailAssignment_521632); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAndThenResultAccess().getDidAndThenFailAndthenfailedKeyword_5_0()); 
             }
@@ -30340,9 +30341,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__AndThenResult__FailCountAssignment_7_1"
 
 
-    // $ANTLR start "rule__AndThenResult__ErrorCountAssignment_8_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10908:1: rule__AndThenResult__ErrorCountAssignment_8_1 : ( RULE_INT ) ;
-    public final void rule__AndThenResult__ErrorCountAssignment_8_1() throws RecognitionException {
+    // $ANTLR start "rule__AndThenResult__UnknownCountAssignment_8_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10908:1: rule__AndThenResult__UnknownCountAssignment_8_1 : ( RULE_INT ) ;
+    public final void rule__AndThenResult__UnknownCountAssignment_8_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -30354,11 +30355,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:10914:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAndThenResultAccess().getErrorCountINTTerminalRuleCall_8_1_0()); 
+               before(grammarAccess.getAndThenResultAccess().getUnknownCountINTTerminalRuleCall_8_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AndThenResult__ErrorCountAssignment_8_121733); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__AndThenResult__UnknownCountAssignment_8_121733); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAndThenResultAccess().getErrorCountINTTerminalRuleCall_8_1_0()); 
+               after(grammarAccess.getAndThenResultAccess().getUnknownCountINTTerminalRuleCall_8_1_0()); 
             }
 
             }
@@ -30378,7 +30379,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__AndThenResult__ErrorCountAssignment_8_1"
+    // $ANTLR end "rule__AndThenResult__UnknownCountAssignment_8_1"
 
 
     // $ANTLR start "rule__AndThenResult__FailthenCountAssignment_9_1"
@@ -30819,9 +30820,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
  
 
-    public static final BitSet FOLLOW_ruleCaseResult_in_entryRuleCaseResult67 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCaseResult74 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__0_in_ruleCaseResult100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssuranceEvidence_in_entryRuleAssuranceEvidence67 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAssuranceEvidence74 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__0_in_ruleAssuranceEvidence100 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleClaimResult_in_entryRuleClaimResult127 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleClaimResult134 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__0_in_ruleClaimResult160 = new BitSet(new long[]{0x0000000000000002L});
@@ -30868,800 +30869,800 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_15_in_rule__VerificationResultState__Alternatives1072 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_13_in_rule__VerificationResultState__Alternatives1093 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_16_in_rule__VerificationResultState__Alternatives1114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_rule__VerificationResultState__Alternatives1135 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__VerificationExecutionState__Alternatives1171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__VerificationExecutionState__Alternatives1192 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__VerificationExecutionState__Alternatives1213 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__VerificationExecutionState__Alternatives1234 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__0__Impl_in_rule__CaseResult__Group__01267 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__1_in_rule__CaseResult__Group__01270 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_rule__CaseResult__Group__0__Impl1298 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__1__Impl_in_rule__CaseResult__Group__11329 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__2_in_rule__CaseResult__Group__11332 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__NameAssignment_1_in_rule__CaseResult__Group__1__Impl1359 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__2__Impl_in_rule__CaseResult__Group__21389 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__3_in_rule__CaseResult__Group__21392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__CaseResult__Group__2__Impl1420 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__3__Impl_in_rule__CaseResult__Group__31451 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__4_in_rule__CaseResult__Group__31454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__TargetAssignment_3_in_rule__CaseResult__Group__3__Impl1481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__4__Impl_in_rule__CaseResult__Group__41511 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__5_in_rule__CaseResult__Group__41514 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__CaseResult__Group__4__Impl1542 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__5__Impl_in_rule__CaseResult__Group__51573 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__6_in_rule__CaseResult__Group__51576 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__InstanceAssignment_5_in_rule__CaseResult__Group__5__Impl1603 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__6__Impl_in_rule__CaseResult__Group__61633 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__7_in_rule__CaseResult__Group__61636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__CaseResult__Group__6__Impl1664 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__7__Impl_in_rule__CaseResult__Group__71695 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__8_in_rule__CaseResult__Group__71698 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_7__0_in_rule__CaseResult__Group__7__Impl1725 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__8__Impl_in_rule__CaseResult__Group__81756 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__9_in_rule__CaseResult__Group__81759 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_8__0_in_rule__CaseResult__Group__8__Impl1786 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__9__Impl_in_rule__CaseResult__Group__91817 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__10_in_rule__CaseResult__Group__91820 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_9__0_in_rule__CaseResult__Group__9__Impl1847 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__10__Impl_in_rule__CaseResult__Group__101878 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__11_in_rule__CaseResult__Group__101881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_10__0_in_rule__CaseResult__Group__10__Impl1908 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__11__Impl_in_rule__CaseResult__Group__111939 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__12_in_rule__CaseResult__Group__111942 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_11__0_in_rule__CaseResult__Group__11__Impl1969 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__12__Impl_in_rule__CaseResult__Group__122000 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__13_in_rule__CaseResult__Group__122003 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_12__0_in_rule__CaseResult__Group__12__Impl2030 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__13__Impl_in_rule__CaseResult__Group__132061 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__14_in_rule__CaseResult__Group__132064 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_13__0_in_rule__CaseResult__Group__13__Impl2091 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__14__Impl_in_rule__CaseResult__Group__142122 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__15_in_rule__CaseResult__Group__142125 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_14__0_in_rule__CaseResult__Group__14__Impl2152 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__15__Impl_in_rule__CaseResult__Group__152183 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__16_in_rule__CaseResult__Group__152186 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__SubCaseResultAssignment_15_in_rule__CaseResult__Group__15__Impl2213 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__16__Impl_in_rule__CaseResult__Group__162244 = new BitSet(new long[]{0x00000007FE200000L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__17_in_rule__CaseResult__Group__162247 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__ClaimResultAssignment_16_in_rule__CaseResult__Group__16__Impl2274 = new BitSet(new long[]{0x0000000400000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group__17__Impl_in_rule__CaseResult__Group__172305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__CaseResult__Group__17__Impl2333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_7__0__Impl_in_rule__CaseResult__Group_7__02400 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_7__1_in_rule__CaseResult__Group_7__02403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__CaseResult__Group_7__0__Impl2431 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_7__1__Impl_in_rule__CaseResult__Group_7__12462 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__SuccessCountAssignment_7_1_in_rule__CaseResult__Group_7__1__Impl2489 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_8__0__Impl_in_rule__CaseResult__Group_8__02523 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_8__1_in_rule__CaseResult__Group_8__02526 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__CaseResult__Group_8__0__Impl2554 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_8__1__Impl_in_rule__CaseResult__Group_8__12585 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__FailCountAssignment_8_1_in_rule__CaseResult__Group_8__1__Impl2612 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_9__0__Impl_in_rule__CaseResult__Group_9__02646 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_9__1_in_rule__CaseResult__Group_9__02649 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__CaseResult__Group_9__0__Impl2677 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_9__1__Impl_in_rule__CaseResult__Group_9__12708 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__ErrorCountAssignment_9_1_in_rule__CaseResult__Group_9__1__Impl2735 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_10__0__Impl_in_rule__CaseResult__Group_10__02769 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_10__1_in_rule__CaseResult__Group_10__02772 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__CaseResult__Group_10__0__Impl2800 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_10__1__Impl_in_rule__CaseResult__Group_10__12831 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__FailthenCountAssignment_10_1_in_rule__CaseResult__Group_10__1__Impl2858 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_11__0__Impl_in_rule__CaseResult__Group_11__02892 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_11__1_in_rule__CaseResult__Group_11__02895 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__CaseResult__Group_11__0__Impl2923 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_11__1__Impl_in_rule__CaseResult__Group_11__12954 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__AndthenCountAssignment_11_1_in_rule__CaseResult__Group_11__1__Impl2981 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_12__0__Impl_in_rule__CaseResult__Group_12__03015 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_12__1_in_rule__CaseResult__Group_12__03018 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__CaseResult__Group_12__0__Impl3046 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_12__1__Impl_in_rule__CaseResult__Group_12__13077 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__TbdCountAssignment_12_1_in_rule__CaseResult__Group_12__1__Impl3104 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_13__0__Impl_in_rule__CaseResult__Group_13__03138 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_13__1_in_rule__CaseResult__Group_13__03141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_rule__CaseResult__Group_13__0__Impl3169 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_13__1__Impl_in_rule__CaseResult__Group_13__13200 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__WeightAssignment_13_1_in_rule__CaseResult__Group_13__1__Impl3227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_14__0__Impl_in_rule__CaseResult__Group_14__03261 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_14__1_in_rule__CaseResult__Group_14__03264 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_rule__CaseResult__Group_14__0__Impl3292 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__Group_14__1__Impl_in_rule__CaseResult__Group_14__13323 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__CaseResult__MessageAssignment_14_1_in_rule__CaseResult__Group_14__1__Impl3350 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_rule__VerificationResultState__Alternatives1135 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__VerificationExecutionState__Alternatives1171 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__VerificationExecutionState__Alternatives1192 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__VerificationExecutionState__Alternatives1213 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_rule__VerificationExecutionState__Alternatives1234 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__0__Impl_in_rule__AssuranceEvidence__Group__01267 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__1_in_rule__AssuranceEvidence__Group__01270 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rule__AssuranceEvidence__Group__0__Impl1298 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__1__Impl_in_rule__AssuranceEvidence__Group__11329 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__2_in_rule__AssuranceEvidence__Group__11332 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__NameAssignment_1_in_rule__AssuranceEvidence__Group__1__Impl1359 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__2__Impl_in_rule__AssuranceEvidence__Group__21389 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__3_in_rule__AssuranceEvidence__Group__21392 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__AssuranceEvidence__Group__2__Impl1420 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__3__Impl_in_rule__AssuranceEvidence__Group__31451 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__4_in_rule__AssuranceEvidence__Group__31454 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__TargetAssignment_3_in_rule__AssuranceEvidence__Group__3__Impl1481 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__4__Impl_in_rule__AssuranceEvidence__Group__41511 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__5_in_rule__AssuranceEvidence__Group__41514 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__AssuranceEvidence__Group__4__Impl1542 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__5__Impl_in_rule__AssuranceEvidence__Group__51573 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__6_in_rule__AssuranceEvidence__Group__51576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__InstanceAssignment_5_in_rule__AssuranceEvidence__Group__5__Impl1603 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__6__Impl_in_rule__AssuranceEvidence__Group__61633 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__7_in_rule__AssuranceEvidence__Group__61636 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_rule__AssuranceEvidence__Group__6__Impl1664 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__7__Impl_in_rule__AssuranceEvidence__Group__71695 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__8_in_rule__AssuranceEvidence__Group__71698 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_7__0_in_rule__AssuranceEvidence__Group__7__Impl1725 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__8__Impl_in_rule__AssuranceEvidence__Group__81756 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__9_in_rule__AssuranceEvidence__Group__81759 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_8__0_in_rule__AssuranceEvidence__Group__8__Impl1786 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__9__Impl_in_rule__AssuranceEvidence__Group__91817 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__10_in_rule__AssuranceEvidence__Group__91820 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_9__0_in_rule__AssuranceEvidence__Group__9__Impl1847 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__10__Impl_in_rule__AssuranceEvidence__Group__101878 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__11_in_rule__AssuranceEvidence__Group__101881 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_10__0_in_rule__AssuranceEvidence__Group__10__Impl1908 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__11__Impl_in_rule__AssuranceEvidence__Group__111939 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__12_in_rule__AssuranceEvidence__Group__111942 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_11__0_in_rule__AssuranceEvidence__Group__11__Impl1969 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__12__Impl_in_rule__AssuranceEvidence__Group__122000 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__13_in_rule__AssuranceEvidence__Group__122003 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_12__0_in_rule__AssuranceEvidence__Group__12__Impl2030 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__13__Impl_in_rule__AssuranceEvidence__Group__132061 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__14_in_rule__AssuranceEvidence__Group__132064 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_13__0_in_rule__AssuranceEvidence__Group__13__Impl2091 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__14__Impl_in_rule__AssuranceEvidence__Group__142122 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__15_in_rule__AssuranceEvidence__Group__142125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_14__0_in_rule__AssuranceEvidence__Group__14__Impl2152 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__15__Impl_in_rule__AssuranceEvidence__Group__152183 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__16_in_rule__AssuranceEvidence__Group__152186 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_15_in_rule__AssuranceEvidence__Group__15__Impl2213 = new BitSet(new long[]{0x0000000000400002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__16__Impl_in_rule__AssuranceEvidence__Group__162244 = new BitSet(new long[]{0x0000000FFC400000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__17_in_rule__AssuranceEvidence__Group__162247 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__ClaimResultAssignment_16_in_rule__AssuranceEvidence__Group__16__Impl2274 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group__17__Impl_in_rule__AssuranceEvidence__Group__172305 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__AssuranceEvidence__Group__17__Impl2333 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_7__0__Impl_in_rule__AssuranceEvidence__Group_7__02400 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_7__1_in_rule__AssuranceEvidence__Group_7__02403 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__AssuranceEvidence__Group_7__0__Impl2431 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_7__1__Impl_in_rule__AssuranceEvidence__Group_7__12462 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__SuccessCountAssignment_7_1_in_rule__AssuranceEvidence__Group_7__1__Impl2489 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_8__0__Impl_in_rule__AssuranceEvidence__Group_8__02523 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_8__1_in_rule__AssuranceEvidence__Group_8__02526 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__AssuranceEvidence__Group_8__0__Impl2554 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_8__1__Impl_in_rule__AssuranceEvidence__Group_8__12585 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__FailCountAssignment_8_1_in_rule__AssuranceEvidence__Group_8__1__Impl2612 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_9__0__Impl_in_rule__AssuranceEvidence__Group_9__02646 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_9__1_in_rule__AssuranceEvidence__Group_9__02649 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__AssuranceEvidence__Group_9__0__Impl2677 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_9__1__Impl_in_rule__AssuranceEvidence__Group_9__12708 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__UnknownCountAssignment_9_1_in_rule__AssuranceEvidence__Group_9__1__Impl2735 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_10__0__Impl_in_rule__AssuranceEvidence__Group_10__02769 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_10__1_in_rule__AssuranceEvidence__Group_10__02772 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__AssuranceEvidence__Group_10__0__Impl2800 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_10__1__Impl_in_rule__AssuranceEvidence__Group_10__12831 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__FailthenCountAssignment_10_1_in_rule__AssuranceEvidence__Group_10__1__Impl2858 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_11__0__Impl_in_rule__AssuranceEvidence__Group_11__02892 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_11__1_in_rule__AssuranceEvidence__Group_11__02895 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__AssuranceEvidence__Group_11__0__Impl2923 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_11__1__Impl_in_rule__AssuranceEvidence__Group_11__12954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__AndthenCountAssignment_11_1_in_rule__AssuranceEvidence__Group_11__1__Impl2981 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_12__0__Impl_in_rule__AssuranceEvidence__Group_12__03015 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_12__1_in_rule__AssuranceEvidence__Group_12__03018 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__AssuranceEvidence__Group_12__0__Impl3046 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_12__1__Impl_in_rule__AssuranceEvidence__Group_12__13077 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__TbdCountAssignment_12_1_in_rule__AssuranceEvidence__Group_12__1__Impl3104 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_13__0__Impl_in_rule__AssuranceEvidence__Group_13__03138 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_13__1_in_rule__AssuranceEvidence__Group_13__03141 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_rule__AssuranceEvidence__Group_13__0__Impl3169 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_13__1__Impl_in_rule__AssuranceEvidence__Group_13__13200 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__WeightAssignment_13_1_in_rule__AssuranceEvidence__Group_13__1__Impl3227 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_14__0__Impl_in_rule__AssuranceEvidence__Group_14__03261 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_14__1_in_rule__AssuranceEvidence__Group_14__03264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_rule__AssuranceEvidence__Group_14__0__Impl3292 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__Group_14__1__Impl_in_rule__AssuranceEvidence__Group_14__13323 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidence__MessageAssignment_14_1_in_rule__AssuranceEvidence__Group_14__1__Impl3350 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__0__Impl_in_rule__ClaimResult__Group__03384 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__1_in_rule__ClaimResult__Group__03387 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_34_in_rule__ClaimResult__Group__0__Impl3415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__1__Impl_in_rule__ClaimResult__Group__13446 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_35_in_rule__ClaimResult__Group__0__Impl3415 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__1__Impl_in_rule__ClaimResult__Group__13446 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__2_in_rule__ClaimResult__Group__13449 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__NameAssignment_1_in_rule__ClaimResult__Group__1__Impl3476 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__2__Impl_in_rule__ClaimResult__Group__23506 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__3_in_rule__ClaimResult__Group__23509 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__ClaimResult__Group__2__Impl3537 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__3__Impl_in_rule__ClaimResult__Group__33568 = new BitSet(new long[]{0x0000000001800000L});
+    public static final BitSet FOLLOW_23_in_rule__ClaimResult__Group__2__Impl3537 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__3__Impl_in_rule__ClaimResult__Group__33568 = new BitSet(new long[]{0x0000000003000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__4_in_rule__ClaimResult__Group__33571 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__TargetAssignment_3_in_rule__ClaimResult__Group__3__Impl3598 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__4__Impl_in_rule__ClaimResult__Group__43628 = new BitSet(new long[]{0x0000000001800000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__4__Impl_in_rule__ClaimResult__Group__43628 = new BitSet(new long[]{0x0000000003000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__5_in_rule__ClaimResult__Group__43631 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_4__0_in_rule__ClaimResult__Group__4__Impl3658 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__5__Impl_in_rule__ClaimResult__Group__53689 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__5__Impl_in_rule__ClaimResult__Group__53689 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__6_in_rule__ClaimResult__Group__53692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__ClaimResult__Group__5__Impl3720 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__6__Impl_in_rule__ClaimResult__Group__63751 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_25_in_rule__ClaimResult__Group__5__Impl3720 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__6__Impl_in_rule__ClaimResult__Group__63751 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__7_in_rule__ClaimResult__Group__63754 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_6__0_in_rule__ClaimResult__Group__6__Impl3781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__7__Impl_in_rule__ClaimResult__Group__73812 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__7__Impl_in_rule__ClaimResult__Group__73812 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__8_in_rule__ClaimResult__Group__73815 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_7__0_in_rule__ClaimResult__Group__7__Impl3842 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__8__Impl_in_rule__ClaimResult__Group__83873 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__8__Impl_in_rule__ClaimResult__Group__83873 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__9_in_rule__ClaimResult__Group__83876 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_8__0_in_rule__ClaimResult__Group__8__Impl3903 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__9__Impl_in_rule__ClaimResult__Group__93934 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__9__Impl_in_rule__ClaimResult__Group__93934 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__10_in_rule__ClaimResult__Group__93937 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_9__0_in_rule__ClaimResult__Group__9__Impl3964 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__10__Impl_in_rule__ClaimResult__Group__103995 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__10__Impl_in_rule__ClaimResult__Group__103995 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__11_in_rule__ClaimResult__Group__103998 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_10__0_in_rule__ClaimResult__Group__10__Impl4025 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__11__Impl_in_rule__ClaimResult__Group__114056 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__11__Impl_in_rule__ClaimResult__Group__114056 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__12_in_rule__ClaimResult__Group__114059 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_11__0_in_rule__ClaimResult__Group__11__Impl4086 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__12__Impl_in_rule__ClaimResult__Group__124117 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__12__Impl_in_rule__ClaimResult__Group__124117 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__13_in_rule__ClaimResult__Group__124120 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_12__0_in_rule__ClaimResult__Group__12__Impl4147 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__13__Impl_in_rule__ClaimResult__Group__134178 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__13__Impl_in_rule__ClaimResult__Group__134178 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__14_in_rule__ClaimResult__Group__134181 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_13__0_in_rule__ClaimResult__Group__13__Impl4208 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__14__Impl_in_rule__ClaimResult__Group__144239 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__14__Impl_in_rule__ClaimResult__Group__144239 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__15_in_rule__ClaimResult__Group__144242 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__SubClaimResultAssignment_14_in_rule__ClaimResult__Group__14__Impl4269 = new BitSet(new long[]{0x0000000400000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__Group__15__Impl_in_rule__ClaimResult__Group__154300 = new BitSet(new long[]{0x00001607FE000000L});
+    public static final BitSet FOLLOW_rule__ClaimResult__SubClaimResultAssignment_14_in_rule__ClaimResult__Group__14__Impl4269 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_rule__ClaimResult__Group__15__Impl_in_rule__ClaimResult__Group__154300 = new BitSet(new long[]{0x00002C0FFC000000L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__16_in_rule__ClaimResult__Group__154303 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__VerificationActivityResultAssignment_15_in_rule__ClaimResult__Group__15__Impl4330 = new BitSet(new long[]{0x0000160000000002L});
+    public static final BitSet FOLLOW_rule__ClaimResult__VerificationActivityResultAssignment_15_in_rule__ClaimResult__Group__15__Impl4330 = new BitSet(new long[]{0x00002C0000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group__16__Impl_in_rule__ClaimResult__Group__164361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__ClaimResult__Group__16__Impl4389 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__ClaimResult__Group__16__Impl4389 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_4__0__Impl_in_rule__ClaimResult__Group_4__04454 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_4__1_in_rule__ClaimResult__Group_4__04457 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__ClaimResult__Group_4__0__Impl4485 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__ClaimResult__Group_4__0__Impl4485 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_4__1__Impl_in_rule__ClaimResult__Group_4__14516 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__InstanceAssignment_4_1_in_rule__ClaimResult__Group_4__1__Impl4543 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_6__0__Impl_in_rule__ClaimResult__Group_6__04577 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_6__1_in_rule__ClaimResult__Group_6__04580 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__ClaimResult__Group_6__0__Impl4608 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__ClaimResult__Group_6__0__Impl4608 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_6__1__Impl_in_rule__ClaimResult__Group_6__14639 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__SuccessCountAssignment_6_1_in_rule__ClaimResult__Group_6__1__Impl4666 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_7__0__Impl_in_rule__ClaimResult__Group_7__04700 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_7__1_in_rule__ClaimResult__Group_7__04703 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__ClaimResult__Group_7__0__Impl4731 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__ClaimResult__Group_7__0__Impl4731 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_7__1__Impl_in_rule__ClaimResult__Group_7__14762 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__FailCountAssignment_7_1_in_rule__ClaimResult__Group_7__1__Impl4789 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_8__0__Impl_in_rule__ClaimResult__Group_8__04823 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_8__1_in_rule__ClaimResult__Group_8__04826 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__ClaimResult__Group_8__0__Impl4854 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__ClaimResult__Group_8__0__Impl4854 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_8__1__Impl_in_rule__ClaimResult__Group_8__14885 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ClaimResult__ErrorCountAssignment_8_1_in_rule__ClaimResult__Group_8__1__Impl4912 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ClaimResult__UnknownCountAssignment_8_1_in_rule__ClaimResult__Group_8__1__Impl4912 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_9__0__Impl_in_rule__ClaimResult__Group_9__04946 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_9__1_in_rule__ClaimResult__Group_9__04949 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__ClaimResult__Group_9__0__Impl4977 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__ClaimResult__Group_9__0__Impl4977 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_9__1__Impl_in_rule__ClaimResult__Group_9__15008 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__FailthenCountAssignment_9_1_in_rule__ClaimResult__Group_9__1__Impl5035 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_10__0__Impl_in_rule__ClaimResult__Group_10__05069 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_10__1_in_rule__ClaimResult__Group_10__05072 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__ClaimResult__Group_10__0__Impl5100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__ClaimResult__Group_10__0__Impl5100 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_10__1__Impl_in_rule__ClaimResult__Group_10__15131 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__AndthenCountAssignment_10_1_in_rule__ClaimResult__Group_10__1__Impl5158 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_11__0__Impl_in_rule__ClaimResult__Group_11__05192 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_11__1_in_rule__ClaimResult__Group_11__05195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__ClaimResult__Group_11__0__Impl5223 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__ClaimResult__Group_11__0__Impl5223 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_11__1__Impl_in_rule__ClaimResult__Group_11__15254 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__TbdCountAssignment_11_1_in_rule__ClaimResult__Group_11__1__Impl5281 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_12__0__Impl_in_rule__ClaimResult__Group_12__05315 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_12__1_in_rule__ClaimResult__Group_12__05318 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_rule__ClaimResult__Group_12__0__Impl5346 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_rule__ClaimResult__Group_12__0__Impl5346 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_12__1__Impl_in_rule__ClaimResult__Group_12__15377 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__WeightAssignment_12_1_in_rule__ClaimResult__Group_12__1__Impl5404 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_13__0__Impl_in_rule__ClaimResult__Group_13__05438 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_13__1_in_rule__ClaimResult__Group_13__05441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_rule__ClaimResult__Group_13__0__Impl5469 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_rule__ClaimResult__Group_13__0__Impl5469 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__Group_13__1__Impl_in_rule__ClaimResult__Group_13__15500 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ClaimResult__MessageAssignment_13_1_in_rule__ClaimResult__Group_13__1__Impl5527 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__0__Impl_in_rule__ValidationResult__Group__05561 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__1_in_rule__ValidationResult__Group__05564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_rule__ValidationResult__Group__0__Impl5592 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_rule__ValidationResult__Group__0__Impl5592 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__1__Impl_in_rule__ValidationResult__Group__15623 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__2_in_rule__ValidationResult__Group__15626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__2__Impl_in_rule__ValidationResult__Group__25684 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__2__Impl_in_rule__ValidationResult__Group__25684 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__3_in_rule__ValidationResult__Group__25687 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__NameAssignment_2_in_rule__ValidationResult__Group__2__Impl5714 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__3__Impl_in_rule__ValidationResult__Group__35744 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__4_in_rule__ValidationResult__Group__35747 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__ValidationResult__Group__3__Impl5775 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__4__Impl_in_rule__ValidationResult__Group__45806 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_23_in_rule__ValidationResult__Group__3__Impl5775 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__4__Impl_in_rule__ValidationResult__Group__45806 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__5_in_rule__ValidationResult__Group__45809 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__TargetAssignment_4_in_rule__ValidationResult__Group__4__Impl5836 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__5__Impl_in_rule__ValidationResult__Group__55866 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__5__Impl_in_rule__ValidationResult__Group__55866 = new BitSet(new long[]{0x0000002000000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__6_in_rule__ValidationResult__Group__55869 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__ValidationResult__Group__5__Impl5897 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__6__Impl_in_rule__ValidationResult__Group__65928 = new BitSet(new long[]{0x00000000001E0000L});
+    public static final BitSet FOLLOW_25_in_rule__ValidationResult__Group__5__Impl5897 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__6__Impl_in_rule__ValidationResult__Group__65928 = new BitSet(new long[]{0x00000000003C0000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__7_in_rule__ValidationResult__Group__65931 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_rule__ValidationResult__Group__6__Impl5959 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__7__Impl_in_rule__ValidationResult__Group__75990 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_rule__ValidationResult__Group__6__Impl5959 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__7__Impl_in_rule__ValidationResult__Group__75990 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__8_in_rule__ValidationResult__Group__75993 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__ExecutionStateAssignment_7_in_rule__ValidationResult__Group__7__Impl6020 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__8__Impl_in_rule__ValidationResult__Group__86050 = new BitSet(new long[]{0x000000000001A800L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__8__Impl_in_rule__ValidationResult__Group__86050 = new BitSet(new long[]{0x000000000003A000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__9_in_rule__ValidationResult__Group__86053 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_rule__ValidationResult__Group__8__Impl6081 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__9__Impl_in_rule__ValidationResult__Group__96112 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_38_in_rule__ValidationResult__Group__8__Impl6081 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__9__Impl_in_rule__ValidationResult__Group__96112 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__10_in_rule__ValidationResult__Group__96115 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__ResultStateAssignment_9_in_rule__ValidationResult__Group__9__Impl6142 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__10__Impl_in_rule__ValidationResult__Group__106172 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__10__Impl_in_rule__ValidationResult__Group__106172 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__11_in_rule__ValidationResult__Group__106175 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_10__0_in_rule__ValidationResult__Group__10__Impl6202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__11__Impl_in_rule__ValidationResult__Group__116233 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__11__Impl_in_rule__ValidationResult__Group__116233 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__12_in_rule__ValidationResult__Group__116236 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_11__0_in_rule__ValidationResult__Group__11__Impl6263 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__12__Impl_in_rule__ValidationResult__Group__126294 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__12__Impl_in_rule__ValidationResult__Group__126294 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__13_in_rule__ValidationResult__Group__126297 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_12__0_in_rule__ValidationResult__Group__12__Impl6324 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__13__Impl_in_rule__ValidationResult__Group__136355 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__13__Impl_in_rule__ValidationResult__Group__136355 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__14_in_rule__ValidationResult__Group__136358 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_13__0_in_rule__ValidationResult__Group__13__Impl6385 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__14__Impl_in_rule__ValidationResult__Group__146416 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__14__Impl_in_rule__ValidationResult__Group__146416 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__15_in_rule__ValidationResult__Group__146419 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_14__0_in_rule__ValidationResult__Group__14__Impl6446 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__15__Impl_in_rule__ValidationResult__Group__156477 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__15__Impl_in_rule__ValidationResult__Group__156477 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__16_in_rule__ValidationResult__Group__156480 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_15__0_in_rule__ValidationResult__Group__15__Impl6507 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__16__Impl_in_rule__ValidationResult__Group__166538 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__16__Impl_in_rule__ValidationResult__Group__166538 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__17_in_rule__ValidationResult__Group__166541 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_16__0_in_rule__ValidationResult__Group__16__Impl6568 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__17__Impl_in_rule__ValidationResult__Group__176599 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__17__Impl_in_rule__ValidationResult__Group__176599 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__18_in_rule__ValidationResult__Group__176602 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_17__0_in_rule__ValidationResult__Group__17__Impl6629 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__18__Impl_in_rule__ValidationResult__Group__186660 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__18__Impl_in_rule__ValidationResult__Group__186660 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__19_in_rule__ValidationResult__Group__186663 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_18__0_in_rule__ValidationResult__Group__18__Impl6690 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group__19__Impl_in_rule__ValidationResult__Group__196721 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group__19__Impl_in_rule__ValidationResult__Group__196721 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__20_in_rule__ValidationResult__Group__196724 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_19__0_in_rule__ValidationResult__Group__19__Impl6751 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group__20__Impl_in_rule__ValidationResult__Group__206782 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__ValidationResult__Group__20__Impl6810 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group_10__0__Impl_in_rule__ValidationResult__Group_10__06883 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_26_in_rule__ValidationResult__Group__20__Impl6810 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group_10__0__Impl_in_rule__ValidationResult__Group_10__06883 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_10__1_in_rule__ValidationResult__Group_10__06886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_rule__ValidationResult__Group_10__0__Impl6914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group_10__1__Impl_in_rule__ValidationResult__Group_10__16945 = new BitSet(new long[]{0x0000000002007800L});
+    public static final BitSet FOLLOW_39_in_rule__ValidationResult__Group_10__0__Impl6914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group_10__1__Impl_in_rule__ValidationResult__Group_10__16945 = new BitSet(new long[]{0x0000000004007800L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_10__2_in_rule__ValidationResult__Group_10__16948 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__ValidationResult__Group_10__1__Impl6976 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__Group_10__2__Impl_in_rule__ValidationResult__Group_10__27007 = new BitSet(new long[]{0x0000000002007800L});
+    public static final BitSet FOLLOW_25_in_rule__ValidationResult__Group_10__1__Impl6976 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationResult__Group_10__2__Impl_in_rule__ValidationResult__Group_10__27007 = new BitSet(new long[]{0x0000000004007800L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_10__3_in_rule__ValidationResult__Group_10__27010 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__IssuesAssignment_10_2_in_rule__ValidationResult__Group_10__2__Impl7037 = new BitSet(new long[]{0x0000000000007802L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_10__3__Impl_in_rule__ValidationResult__Group_10__37068 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__ValidationResult__Group_10__3__Impl7096 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__ValidationResult__Group_10__3__Impl7096 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_11__0__Impl_in_rule__ValidationResult__Group_11__07135 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_11__1_in_rule__ValidationResult__Group_11__07138 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_rule__ValidationResult__Group_11__0__Impl7166 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_rule__ValidationResult__Group_11__0__Impl7166 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_11__1__Impl_in_rule__ValidationResult__Group_11__17197 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__ResultReportAssignment_11_1_in_rule__ValidationResult__Group_11__1__Impl7224 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_12__0__Impl_in_rule__ValidationResult__Group_12__07258 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_12__1_in_rule__ValidationResult__Group_12__07261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__ValidationResult__Group_12__0__Impl7289 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__ValidationResult__Group_12__0__Impl7289 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_12__1__Impl_in_rule__ValidationResult__Group_12__17320 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__SuccessCountAssignment_12_1_in_rule__ValidationResult__Group_12__1__Impl7347 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_13__0__Impl_in_rule__ValidationResult__Group_13__07381 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_13__1_in_rule__ValidationResult__Group_13__07384 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__ValidationResult__Group_13__0__Impl7412 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__ValidationResult__Group_13__0__Impl7412 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_13__1__Impl_in_rule__ValidationResult__Group_13__17443 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__FailCountAssignment_13_1_in_rule__ValidationResult__Group_13__1__Impl7470 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_14__0__Impl_in_rule__ValidationResult__Group_14__07504 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_14__1_in_rule__ValidationResult__Group_14__07507 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__ValidationResult__Group_14__0__Impl7535 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__ValidationResult__Group_14__0__Impl7535 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_14__1__Impl_in_rule__ValidationResult__Group_14__17566 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ValidationResult__ErrorCountAssignment_14_1_in_rule__ValidationResult__Group_14__1__Impl7593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ValidationResult__UnknownCountAssignment_14_1_in_rule__ValidationResult__Group_14__1__Impl7593 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_15__0__Impl_in_rule__ValidationResult__Group_15__07627 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_15__1_in_rule__ValidationResult__Group_15__07630 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__ValidationResult__Group_15__0__Impl7658 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__ValidationResult__Group_15__0__Impl7658 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_15__1__Impl_in_rule__ValidationResult__Group_15__17689 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__FailthenCountAssignment_15_1_in_rule__ValidationResult__Group_15__1__Impl7716 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_16__0__Impl_in_rule__ValidationResult__Group_16__07750 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_16__1_in_rule__ValidationResult__Group_16__07753 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__ValidationResult__Group_16__0__Impl7781 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__ValidationResult__Group_16__0__Impl7781 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_16__1__Impl_in_rule__ValidationResult__Group_16__17812 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__AndthenCountAssignment_16_1_in_rule__ValidationResult__Group_16__1__Impl7839 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_17__0__Impl_in_rule__ValidationResult__Group_17__07873 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_17__1_in_rule__ValidationResult__Group_17__07876 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__ValidationResult__Group_17__0__Impl7904 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__ValidationResult__Group_17__0__Impl7904 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_17__1__Impl_in_rule__ValidationResult__Group_17__17935 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__TbdCountAssignment_17_1_in_rule__ValidationResult__Group_17__1__Impl7962 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_18__0__Impl_in_rule__ValidationResult__Group_18__07996 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_18__1_in_rule__ValidationResult__Group_18__07999 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_rule__ValidationResult__Group_18__0__Impl8027 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_rule__ValidationResult__Group_18__0__Impl8027 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_18__1__Impl_in_rule__ValidationResult__Group_18__18058 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__WeightAssignment_18_1_in_rule__ValidationResult__Group_18__1__Impl8085 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_19__0__Impl_in_rule__ValidationResult__Group_19__08119 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_19__1_in_rule__ValidationResult__Group_19__08122 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_rule__ValidationResult__Group_19__0__Impl8150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_rule__ValidationResult__Group_19__0__Impl8150 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__Group_19__1__Impl_in_rule__ValidationResult__Group_19__18181 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ValidationResult__MessageAssignment_19_1_in_rule__ValidationResult__Group_19__1__Impl8208 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__0__Impl_in_rule__PreconditionResult__Group__08242 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__1_in_rule__PreconditionResult__Group__08245 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_rule__PreconditionResult__Group__0__Impl8273 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_rule__PreconditionResult__Group__0__Impl8273 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__1__Impl_in_rule__PreconditionResult__Group__18304 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__2_in_rule__PreconditionResult__Group__18307 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__2__Impl_in_rule__PreconditionResult__Group__28365 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__2__Impl_in_rule__PreconditionResult__Group__28365 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__3_in_rule__PreconditionResult__Group__28368 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__NameAssignment_2_in_rule__PreconditionResult__Group__2__Impl8395 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__3__Impl_in_rule__PreconditionResult__Group__38425 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__4_in_rule__PreconditionResult__Group__38428 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__PreconditionResult__Group__3__Impl8456 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__4__Impl_in_rule__PreconditionResult__Group__48487 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_23_in_rule__PreconditionResult__Group__3__Impl8456 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__4__Impl_in_rule__PreconditionResult__Group__48487 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__5_in_rule__PreconditionResult__Group__48490 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__TargetAssignment_4_in_rule__PreconditionResult__Group__4__Impl8517 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__5__Impl_in_rule__PreconditionResult__Group__58547 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__5__Impl_in_rule__PreconditionResult__Group__58547 = new BitSet(new long[]{0x0000002000000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__6_in_rule__PreconditionResult__Group__58550 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__PreconditionResult__Group__5__Impl8578 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__6__Impl_in_rule__PreconditionResult__Group__68609 = new BitSet(new long[]{0x00000000001E0000L});
+    public static final BitSet FOLLOW_25_in_rule__PreconditionResult__Group__5__Impl8578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__6__Impl_in_rule__PreconditionResult__Group__68609 = new BitSet(new long[]{0x00000000003C0000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__7_in_rule__PreconditionResult__Group__68612 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_rule__PreconditionResult__Group__6__Impl8640 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__7__Impl_in_rule__PreconditionResult__Group__78671 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_rule__PreconditionResult__Group__6__Impl8640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__7__Impl_in_rule__PreconditionResult__Group__78671 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__8_in_rule__PreconditionResult__Group__78674 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__ExecutionStateAssignment_7_in_rule__PreconditionResult__Group__7__Impl8701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__8__Impl_in_rule__PreconditionResult__Group__88731 = new BitSet(new long[]{0x000000000001A800L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__8__Impl_in_rule__PreconditionResult__Group__88731 = new BitSet(new long[]{0x000000000003A000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__9_in_rule__PreconditionResult__Group__88734 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_rule__PreconditionResult__Group__8__Impl8762 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__9__Impl_in_rule__PreconditionResult__Group__98793 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_38_in_rule__PreconditionResult__Group__8__Impl8762 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__9__Impl_in_rule__PreconditionResult__Group__98793 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__10_in_rule__PreconditionResult__Group__98796 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__ResultStateAssignment_9_in_rule__PreconditionResult__Group__9__Impl8823 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__10__Impl_in_rule__PreconditionResult__Group__108853 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__10__Impl_in_rule__PreconditionResult__Group__108853 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__11_in_rule__PreconditionResult__Group__108856 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__0_in_rule__PreconditionResult__Group__10__Impl8883 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__11__Impl_in_rule__PreconditionResult__Group__118914 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__11__Impl_in_rule__PreconditionResult__Group__118914 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__12_in_rule__PreconditionResult__Group__118917 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_11__0_in_rule__PreconditionResult__Group__11__Impl8944 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__12__Impl_in_rule__PreconditionResult__Group__128975 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__12__Impl_in_rule__PreconditionResult__Group__128975 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__13_in_rule__PreconditionResult__Group__128978 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_12__0_in_rule__PreconditionResult__Group__12__Impl9005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__13__Impl_in_rule__PreconditionResult__Group__139036 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__13__Impl_in_rule__PreconditionResult__Group__139036 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__14_in_rule__PreconditionResult__Group__139039 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_13__0_in_rule__PreconditionResult__Group__13__Impl9066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__14__Impl_in_rule__PreconditionResult__Group__149097 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__14__Impl_in_rule__PreconditionResult__Group__149097 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__15_in_rule__PreconditionResult__Group__149100 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_14__0_in_rule__PreconditionResult__Group__14__Impl9127 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__15__Impl_in_rule__PreconditionResult__Group__159158 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__15__Impl_in_rule__PreconditionResult__Group__159158 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__16_in_rule__PreconditionResult__Group__159161 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_15__0_in_rule__PreconditionResult__Group__15__Impl9188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__16__Impl_in_rule__PreconditionResult__Group__169219 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__16__Impl_in_rule__PreconditionResult__Group__169219 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__17_in_rule__PreconditionResult__Group__169222 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_16__0_in_rule__PreconditionResult__Group__16__Impl9249 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__17__Impl_in_rule__PreconditionResult__Group__179280 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__17__Impl_in_rule__PreconditionResult__Group__179280 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__18_in_rule__PreconditionResult__Group__179283 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_17__0_in_rule__PreconditionResult__Group__17__Impl9310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__18__Impl_in_rule__PreconditionResult__Group__189341 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__18__Impl_in_rule__PreconditionResult__Group__189341 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__19_in_rule__PreconditionResult__Group__189344 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_18__0_in_rule__PreconditionResult__Group__18__Impl9371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group__19__Impl_in_rule__PreconditionResult__Group__199402 = new BitSet(new long[]{0x000000C3FE000000L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group__19__Impl_in_rule__PreconditionResult__Group__199402 = new BitSet(new long[]{0x00000187FC000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__20_in_rule__PreconditionResult__Group__199405 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_19__0_in_rule__PreconditionResult__Group__19__Impl9432 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group__20__Impl_in_rule__PreconditionResult__Group__209463 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__PreconditionResult__Group__20__Impl9491 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__0__Impl_in_rule__PreconditionResult__Group_10__09564 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_26_in_rule__PreconditionResult__Group__20__Impl9491 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__0__Impl_in_rule__PreconditionResult__Group_10__09564 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__1_in_rule__PreconditionResult__Group_10__09567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_rule__PreconditionResult__Group_10__0__Impl9595 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__1__Impl_in_rule__PreconditionResult__Group_10__19626 = new BitSet(new long[]{0x0000000002007800L});
+    public static final BitSet FOLLOW_39_in_rule__PreconditionResult__Group_10__0__Impl9595 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__1__Impl_in_rule__PreconditionResult__Group_10__19626 = new BitSet(new long[]{0x0000000004007800L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__2_in_rule__PreconditionResult__Group_10__19629 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__PreconditionResult__Group_10__1__Impl9657 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__2__Impl_in_rule__PreconditionResult__Group_10__29688 = new BitSet(new long[]{0x0000000002007800L});
+    public static final BitSet FOLLOW_25_in_rule__PreconditionResult__Group_10__1__Impl9657 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__2__Impl_in_rule__PreconditionResult__Group_10__29688 = new BitSet(new long[]{0x0000000004007800L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__3_in_rule__PreconditionResult__Group_10__29691 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__IssuesAssignment_10_2_in_rule__PreconditionResult__Group_10__2__Impl9718 = new BitSet(new long[]{0x0000000000007802L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_10__3__Impl_in_rule__PreconditionResult__Group_10__39749 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__PreconditionResult__Group_10__3__Impl9777 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__PreconditionResult__Group_10__3__Impl9777 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_11__0__Impl_in_rule__PreconditionResult__Group_11__09816 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_11__1_in_rule__PreconditionResult__Group_11__09819 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_rule__PreconditionResult__Group_11__0__Impl9847 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_rule__PreconditionResult__Group_11__0__Impl9847 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_11__1__Impl_in_rule__PreconditionResult__Group_11__19878 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__ResultReportAssignment_11_1_in_rule__PreconditionResult__Group_11__1__Impl9905 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_12__0__Impl_in_rule__PreconditionResult__Group_12__09939 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_12__1_in_rule__PreconditionResult__Group_12__09942 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__PreconditionResult__Group_12__0__Impl9970 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__PreconditionResult__Group_12__0__Impl9970 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_12__1__Impl_in_rule__PreconditionResult__Group_12__110001 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__SuccessCountAssignment_12_1_in_rule__PreconditionResult__Group_12__1__Impl10028 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_13__0__Impl_in_rule__PreconditionResult__Group_13__010062 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_13__1_in_rule__PreconditionResult__Group_13__010065 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__PreconditionResult__Group_13__0__Impl10093 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__PreconditionResult__Group_13__0__Impl10093 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_13__1__Impl_in_rule__PreconditionResult__Group_13__110124 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__FailCountAssignment_13_1_in_rule__PreconditionResult__Group_13__1__Impl10151 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_14__0__Impl_in_rule__PreconditionResult__Group_14__010185 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_14__1_in_rule__PreconditionResult__Group_14__010188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__PreconditionResult__Group_14__0__Impl10216 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__PreconditionResult__Group_14__0__Impl10216 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_14__1__Impl_in_rule__PreconditionResult__Group_14__110247 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__PreconditionResult__ErrorCountAssignment_14_1_in_rule__PreconditionResult__Group_14__1__Impl10274 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__PreconditionResult__UnknownCountAssignment_14_1_in_rule__PreconditionResult__Group_14__1__Impl10274 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_15__0__Impl_in_rule__PreconditionResult__Group_15__010308 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_15__1_in_rule__PreconditionResult__Group_15__010311 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__PreconditionResult__Group_15__0__Impl10339 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__PreconditionResult__Group_15__0__Impl10339 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_15__1__Impl_in_rule__PreconditionResult__Group_15__110370 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__FailthenCountAssignment_15_1_in_rule__PreconditionResult__Group_15__1__Impl10397 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_16__0__Impl_in_rule__PreconditionResult__Group_16__010431 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_16__1_in_rule__PreconditionResult__Group_16__010434 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__PreconditionResult__Group_16__0__Impl10462 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__PreconditionResult__Group_16__0__Impl10462 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_16__1__Impl_in_rule__PreconditionResult__Group_16__110493 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__AndthenCountAssignment_16_1_in_rule__PreconditionResult__Group_16__1__Impl10520 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_17__0__Impl_in_rule__PreconditionResult__Group_17__010554 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_17__1_in_rule__PreconditionResult__Group_17__010557 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__PreconditionResult__Group_17__0__Impl10585 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__PreconditionResult__Group_17__0__Impl10585 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_17__1__Impl_in_rule__PreconditionResult__Group_17__110616 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__TbdCountAssignment_17_1_in_rule__PreconditionResult__Group_17__1__Impl10643 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_18__0__Impl_in_rule__PreconditionResult__Group_18__010677 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_18__1_in_rule__PreconditionResult__Group_18__010680 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_rule__PreconditionResult__Group_18__0__Impl10708 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_rule__PreconditionResult__Group_18__0__Impl10708 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_18__1__Impl_in_rule__PreconditionResult__Group_18__110739 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__WeightAssignment_18_1_in_rule__PreconditionResult__Group_18__1__Impl10766 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_19__0__Impl_in_rule__PreconditionResult__Group_19__010800 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_19__1_in_rule__PreconditionResult__Group_19__010803 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_rule__PreconditionResult__Group_19__0__Impl10831 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_rule__PreconditionResult__Group_19__0__Impl10831 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__Group_19__1__Impl_in_rule__PreconditionResult__Group_19__110862 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__PreconditionResult__MessageAssignment_19_1_in_rule__PreconditionResult__Group_19__1__Impl10889 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__0__Impl_in_rule__VerificationActivityResult__Group__010923 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__1_in_rule__VerificationActivityResult__Group__010926 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_rule__VerificationActivityResult__Group__0__Impl10954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_rule__VerificationActivityResult__Group__0__Impl10954 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__1__Impl_in_rule__VerificationActivityResult__Group__110985 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__2_in_rule__VerificationActivityResult__Group__110988 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__2__Impl_in_rule__VerificationActivityResult__Group__211046 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__2__Impl_in_rule__VerificationActivityResult__Group__211046 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__3_in_rule__VerificationActivityResult__Group__211049 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__NameAssignment_2_in_rule__VerificationActivityResult__Group__2__Impl11076 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__3__Impl_in_rule__VerificationActivityResult__Group__311106 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__4_in_rule__VerificationActivityResult__Group__311109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__VerificationActivityResult__Group__3__Impl11137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__4__Impl_in_rule__VerificationActivityResult__Group__411168 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_23_in_rule__VerificationActivityResult__Group__3__Impl11137 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__4__Impl_in_rule__VerificationActivityResult__Group__411168 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__5_in_rule__VerificationActivityResult__Group__411171 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__TargetAssignment_4_in_rule__VerificationActivityResult__Group__4__Impl11198 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__5__Impl_in_rule__VerificationActivityResult__Group__511228 = new BitSet(new long[]{0x0000001000000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__5__Impl_in_rule__VerificationActivityResult__Group__511228 = new BitSet(new long[]{0x0000002000000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__6_in_rule__VerificationActivityResult__Group__511231 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__VerificationActivityResult__Group__5__Impl11259 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__6__Impl_in_rule__VerificationActivityResult__Group__611290 = new BitSet(new long[]{0x00000000001E0000L});
+    public static final BitSet FOLLOW_25_in_rule__VerificationActivityResult__Group__5__Impl11259 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__6__Impl_in_rule__VerificationActivityResult__Group__611290 = new BitSet(new long[]{0x00000000003C0000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__7_in_rule__VerificationActivityResult__Group__611293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_rule__VerificationActivityResult__Group__6__Impl11321 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__7__Impl_in_rule__VerificationActivityResult__Group__711352 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_rule__VerificationActivityResult__Group__6__Impl11321 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__7__Impl_in_rule__VerificationActivityResult__Group__711352 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__8_in_rule__VerificationActivityResult__Group__711355 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__ExecutionStateAssignment_7_in_rule__VerificationActivityResult__Group__7__Impl11382 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__8__Impl_in_rule__VerificationActivityResult__Group__811412 = new BitSet(new long[]{0x000000000001A800L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__8__Impl_in_rule__VerificationActivityResult__Group__811412 = new BitSet(new long[]{0x000000000003A000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__9_in_rule__VerificationActivityResult__Group__811415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_rule__VerificationActivityResult__Group__8__Impl11443 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__9__Impl_in_rule__VerificationActivityResult__Group__911474 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_38_in_rule__VerificationActivityResult__Group__8__Impl11443 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__9__Impl_in_rule__VerificationActivityResult__Group__911474 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__10_in_rule__VerificationActivityResult__Group__911477 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__ResultStateAssignment_9_in_rule__VerificationActivityResult__Group__9__Impl11504 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__10__Impl_in_rule__VerificationActivityResult__Group__1011534 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__10__Impl_in_rule__VerificationActivityResult__Group__1011534 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__11_in_rule__VerificationActivityResult__Group__1011537 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__0_in_rule__VerificationActivityResult__Group__10__Impl11564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__11__Impl_in_rule__VerificationActivityResult__Group__1111595 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__11__Impl_in_rule__VerificationActivityResult__Group__1111595 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__12_in_rule__VerificationActivityResult__Group__1111598 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_11__0_in_rule__VerificationActivityResult__Group__11__Impl11625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__12__Impl_in_rule__VerificationActivityResult__Group__1211656 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__12__Impl_in_rule__VerificationActivityResult__Group__1211656 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__13_in_rule__VerificationActivityResult__Group__1211659 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_12__0_in_rule__VerificationActivityResult__Group__12__Impl11686 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__13__Impl_in_rule__VerificationActivityResult__Group__1311717 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__13__Impl_in_rule__VerificationActivityResult__Group__1311717 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__14_in_rule__VerificationActivityResult__Group__1311720 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_13__0_in_rule__VerificationActivityResult__Group__13__Impl11747 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__14__Impl_in_rule__VerificationActivityResult__Group__1411778 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__14__Impl_in_rule__VerificationActivityResult__Group__1411778 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__15_in_rule__VerificationActivityResult__Group__1411781 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_14__0_in_rule__VerificationActivityResult__Group__14__Impl11808 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__15__Impl_in_rule__VerificationActivityResult__Group__1511839 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__15__Impl_in_rule__VerificationActivityResult__Group__1511839 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__16_in_rule__VerificationActivityResult__Group__1511842 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_15__0_in_rule__VerificationActivityResult__Group__15__Impl11869 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__16__Impl_in_rule__VerificationActivityResult__Group__1611900 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__16__Impl_in_rule__VerificationActivityResult__Group__1611900 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__17_in_rule__VerificationActivityResult__Group__1611903 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_16__0_in_rule__VerificationActivityResult__Group__16__Impl11930 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__17__Impl_in_rule__VerificationActivityResult__Group__1711961 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__17__Impl_in_rule__VerificationActivityResult__Group__1711961 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__18_in_rule__VerificationActivityResult__Group__1711964 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_17__0_in_rule__VerificationActivityResult__Group__17__Impl11991 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__18__Impl_in_rule__VerificationActivityResult__Group__1812022 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__18__Impl_in_rule__VerificationActivityResult__Group__1812022 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__19_in_rule__VerificationActivityResult__Group__1812025 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_18__0_in_rule__VerificationActivityResult__Group__18__Impl12052 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__19__Impl_in_rule__VerificationActivityResult__Group__1912083 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__19__Impl_in_rule__VerificationActivityResult__Group__1912083 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__20_in_rule__VerificationActivityResult__Group__1912086 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_19__0_in_rule__VerificationActivityResult__Group__19__Impl12113 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__20__Impl_in_rule__VerificationActivityResult__Group__2012144 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__20__Impl_in_rule__VerificationActivityResult__Group__2012144 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__21_in_rule__VerificationActivityResult__Group__2012147 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__ValidationResultAssignment_20_in_rule__VerificationActivityResult__Group__20__Impl12174 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__21__Impl_in_rule__VerificationActivityResult__Group__2112205 = new BitSet(new long[]{0x000001CBFE000000L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__ValidationResultAssignment_20_in_rule__VerificationActivityResult__Group__20__Impl12174 = new BitSet(new long[]{0x0000001000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__21__Impl_in_rule__VerificationActivityResult__Group__2112205 = new BitSet(new long[]{0x00000397FC000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__22_in_rule__VerificationActivityResult__Group__2112208 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__PreconditionResultAssignment_21_in_rule__VerificationActivityResult__Group__21__Impl12235 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__PreconditionResultAssignment_21_in_rule__VerificationActivityResult__Group__21__Impl12235 = new BitSet(new long[]{0x0000020000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group__22__Impl_in_rule__VerificationActivityResult__Group__2212266 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__VerificationActivityResult__Group__22__Impl12294 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__0__Impl_in_rule__VerificationActivityResult__Group_10__012371 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_26_in_rule__VerificationActivityResult__Group__22__Impl12294 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__0__Impl_in_rule__VerificationActivityResult__Group_10__012371 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__1_in_rule__VerificationActivityResult__Group_10__012374 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_rule__VerificationActivityResult__Group_10__0__Impl12402 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__1__Impl_in_rule__VerificationActivityResult__Group_10__112433 = new BitSet(new long[]{0x0000000002007800L});
+    public static final BitSet FOLLOW_39_in_rule__VerificationActivityResult__Group_10__0__Impl12402 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__1__Impl_in_rule__VerificationActivityResult__Group_10__112433 = new BitSet(new long[]{0x0000000004007800L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__2_in_rule__VerificationActivityResult__Group_10__112436 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__VerificationActivityResult__Group_10__1__Impl12464 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__2__Impl_in_rule__VerificationActivityResult__Group_10__212495 = new BitSet(new long[]{0x0000000002007800L});
+    public static final BitSet FOLLOW_25_in_rule__VerificationActivityResult__Group_10__1__Impl12464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__2__Impl_in_rule__VerificationActivityResult__Group_10__212495 = new BitSet(new long[]{0x0000000004007800L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__3_in_rule__VerificationActivityResult__Group_10__212498 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__IssuesAssignment_10_2_in_rule__VerificationActivityResult__Group_10__2__Impl12525 = new BitSet(new long[]{0x0000000000007802L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_10__3__Impl_in_rule__VerificationActivityResult__Group_10__312556 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__VerificationActivityResult__Group_10__3__Impl12584 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__VerificationActivityResult__Group_10__3__Impl12584 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_11__0__Impl_in_rule__VerificationActivityResult__Group_11__012623 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_11__1_in_rule__VerificationActivityResult__Group_11__012626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_rule__VerificationActivityResult__Group_11__0__Impl12654 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_rule__VerificationActivityResult__Group_11__0__Impl12654 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_11__1__Impl_in_rule__VerificationActivityResult__Group_11__112685 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__ResultReportAssignment_11_1_in_rule__VerificationActivityResult__Group_11__1__Impl12712 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_12__0__Impl_in_rule__VerificationActivityResult__Group_12__012746 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_12__1_in_rule__VerificationActivityResult__Group_12__012749 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__VerificationActivityResult__Group_12__0__Impl12777 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__VerificationActivityResult__Group_12__0__Impl12777 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_12__1__Impl_in_rule__VerificationActivityResult__Group_12__112808 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__SuccessCountAssignment_12_1_in_rule__VerificationActivityResult__Group_12__1__Impl12835 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_13__0__Impl_in_rule__VerificationActivityResult__Group_13__012869 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_13__1_in_rule__VerificationActivityResult__Group_13__012872 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__VerificationActivityResult__Group_13__0__Impl12900 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__VerificationActivityResult__Group_13__0__Impl12900 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_13__1__Impl_in_rule__VerificationActivityResult__Group_13__112931 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__FailCountAssignment_13_1_in_rule__VerificationActivityResult__Group_13__1__Impl12958 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_14__0__Impl_in_rule__VerificationActivityResult__Group_14__012992 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_14__1_in_rule__VerificationActivityResult__Group_14__012995 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__VerificationActivityResult__Group_14__0__Impl13023 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__VerificationActivityResult__Group_14__0__Impl13023 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_14__1__Impl_in_rule__VerificationActivityResult__Group_14__113054 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__VerificationActivityResult__ErrorCountAssignment_14_1_in_rule__VerificationActivityResult__Group_14__1__Impl13081 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__VerificationActivityResult__UnknownCountAssignment_14_1_in_rule__VerificationActivityResult__Group_14__1__Impl13081 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_15__0__Impl_in_rule__VerificationActivityResult__Group_15__013115 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_15__1_in_rule__VerificationActivityResult__Group_15__013118 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__VerificationActivityResult__Group_15__0__Impl13146 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__VerificationActivityResult__Group_15__0__Impl13146 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_15__1__Impl_in_rule__VerificationActivityResult__Group_15__113177 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__FailthenCountAssignment_15_1_in_rule__VerificationActivityResult__Group_15__1__Impl13204 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_16__0__Impl_in_rule__VerificationActivityResult__Group_16__013238 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_16__1_in_rule__VerificationActivityResult__Group_16__013241 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__VerificationActivityResult__Group_16__0__Impl13269 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__VerificationActivityResult__Group_16__0__Impl13269 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_16__1__Impl_in_rule__VerificationActivityResult__Group_16__113300 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__AndthenCountAssignment_16_1_in_rule__VerificationActivityResult__Group_16__1__Impl13327 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_17__0__Impl_in_rule__VerificationActivityResult__Group_17__013361 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_17__1_in_rule__VerificationActivityResult__Group_17__013364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__VerificationActivityResult__Group_17__0__Impl13392 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__VerificationActivityResult__Group_17__0__Impl13392 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_17__1__Impl_in_rule__VerificationActivityResult__Group_17__113423 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__TbdCountAssignment_17_1_in_rule__VerificationActivityResult__Group_17__1__Impl13450 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_18__0__Impl_in_rule__VerificationActivityResult__Group_18__013484 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_18__1_in_rule__VerificationActivityResult__Group_18__013487 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_rule__VerificationActivityResult__Group_18__0__Impl13515 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_rule__VerificationActivityResult__Group_18__0__Impl13515 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_18__1__Impl_in_rule__VerificationActivityResult__Group_18__113546 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__WeightAssignment_18_1_in_rule__VerificationActivityResult__Group_18__1__Impl13573 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_19__0__Impl_in_rule__VerificationActivityResult__Group_19__013607 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_19__1_in_rule__VerificationActivityResult__Group_19__013610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_rule__VerificationActivityResult__Group_19__0__Impl13638 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_rule__VerificationActivityResult__Group_19__0__Impl13638 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__Group_19__1__Impl_in_rule__VerificationActivityResult__Group_19__113669 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__VerificationActivityResult__MessageAssignment_19_1_in_rule__VerificationActivityResult__Group_19__1__Impl13696 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__0__Impl_in_rule__FailThenResult__Group__013730 = new BitSet(new long[]{0x0000160000000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__0__Impl_in_rule__FailThenResult__Group__013730 = new BitSet(new long[]{0x00002C0000000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__1_in_rule__FailThenResult__Group__013733 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__FailThenResult__Group__0__Impl13761 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__1__Impl_in_rule__FailThenResult__Group__113792 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_43_in_rule__FailThenResult__Group__0__Impl13761 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__1__Impl_in_rule__FailThenResult__Group__113792 = new BitSet(new long[]{0x0000100000000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__2_in_rule__FailThenResult__Group__113795 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__FirstAssignment_1_in_rule__FailThenResult__Group__1__Impl13822 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__2__Impl_in_rule__FailThenResult__Group__213852 = new BitSet(new long[]{0x0000160000000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__2__Impl_in_rule__FailThenResult__Group__213852 = new BitSet(new long[]{0x00002C0000000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__3_in_rule__FailThenResult__Group__213855 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_rule__FailThenResult__Group__2__Impl13883 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__3__Impl_in_rule__FailThenResult__Group__313914 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_44_in_rule__FailThenResult__Group__2__Impl13883 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__3__Impl_in_rule__FailThenResult__Group__313914 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__4_in_rule__FailThenResult__Group__313917 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__SecondAssignment_3_in_rule__FailThenResult__Group__3__Impl13944 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__4__Impl_in_rule__FailThenResult__Group__413974 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__4__Impl_in_rule__FailThenResult__Group__413974 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__5_in_rule__FailThenResult__Group__413977 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__FailThenResult__Group__4__Impl14005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__5__Impl_in_rule__FailThenResult__Group__514036 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_25_in_rule__FailThenResult__Group__4__Impl14005 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__5__Impl_in_rule__FailThenResult__Group__514036 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__6_in_rule__FailThenResult__Group__514039 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__FailThenAssignment_5_in_rule__FailThenResult__Group__5__Impl14066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__6__Impl_in_rule__FailThenResult__Group__614097 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__6__Impl_in_rule__FailThenResult__Group__614097 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__7_in_rule__FailThenResult__Group__614100 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__ErrorThenAssignment_6_in_rule__FailThenResult__Group__6__Impl14127 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__7__Impl_in_rule__FailThenResult__Group__714158 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__UnknownThenAssignment_6_in_rule__FailThenResult__Group__6__Impl14127 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__7__Impl_in_rule__FailThenResult__Group__714158 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__8_in_rule__FailThenResult__Group__714161 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__DidFailAssignment_7_in_rule__FailThenResult__Group__7__Impl14188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__8__Impl_in_rule__FailThenResult__Group__814219 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__8__Impl_in_rule__FailThenResult__Group__814219 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__9_in_rule__FailThenResult__Group__814222 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_8__0_in_rule__FailThenResult__Group__8__Impl14249 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__9__Impl_in_rule__FailThenResult__Group__914280 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__9__Impl_in_rule__FailThenResult__Group__914280 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__10_in_rule__FailThenResult__Group__914283 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_9__0_in_rule__FailThenResult__Group__9__Impl14310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__10__Impl_in_rule__FailThenResult__Group__1014341 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__10__Impl_in_rule__FailThenResult__Group__1014341 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__11_in_rule__FailThenResult__Group__1014344 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_10__0_in_rule__FailThenResult__Group__10__Impl14371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__11__Impl_in_rule__FailThenResult__Group__1114402 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__11__Impl_in_rule__FailThenResult__Group__1114402 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__12_in_rule__FailThenResult__Group__1114405 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_11__0_in_rule__FailThenResult__Group__11__Impl14432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__12__Impl_in_rule__FailThenResult__Group__1214463 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__12__Impl_in_rule__FailThenResult__Group__1214463 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__13_in_rule__FailThenResult__Group__1214466 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_12__0_in_rule__FailThenResult__Group__12__Impl14493 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__13__Impl_in_rule__FailThenResult__Group__1314524 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__13__Impl_in_rule__FailThenResult__Group__1314524 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__14_in_rule__FailThenResult__Group__1314527 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_13__0_in_rule__FailThenResult__Group__13__Impl14554 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__Group__14__Impl_in_rule__FailThenResult__Group__1414585 = new BitSet(new long[]{0x000C0401FE000000L});
+    public static final BitSet FOLLOW_rule__FailThenResult__Group__14__Impl_in_rule__FailThenResult__Group__1414585 = new BitSet(new long[]{0x00180803FC000000L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__15_in_rule__FailThenResult__Group__1414588 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_14__0_in_rule__FailThenResult__Group__14__Impl14615 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group__15__Impl_in_rule__FailThenResult__Group__1514646 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__FailThenResult__Group__15__Impl14674 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__FailThenResult__Group__15__Impl14674 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_8__0__Impl_in_rule__FailThenResult__Group_8__014737 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_8__1_in_rule__FailThenResult__Group_8__014740 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__FailThenResult__Group_8__0__Impl14768 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__FailThenResult__Group_8__0__Impl14768 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_8__1__Impl_in_rule__FailThenResult__Group_8__114799 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__SuccessCountAssignment_8_1_in_rule__FailThenResult__Group_8__1__Impl14826 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_9__0__Impl_in_rule__FailThenResult__Group_9__014860 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_9__1_in_rule__FailThenResult__Group_9__014863 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__FailThenResult__Group_9__0__Impl14891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__FailThenResult__Group_9__0__Impl14891 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_9__1__Impl_in_rule__FailThenResult__Group_9__114922 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__FailCountAssignment_9_1_in_rule__FailThenResult__Group_9__1__Impl14949 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_10__0__Impl_in_rule__FailThenResult__Group_10__014983 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_10__1_in_rule__FailThenResult__Group_10__014986 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__FailThenResult__Group_10__0__Impl15014 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__FailThenResult__Group_10__0__Impl15014 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_10__1__Impl_in_rule__FailThenResult__Group_10__115045 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__FailThenResult__ErrorCountAssignment_10_1_in_rule__FailThenResult__Group_10__1__Impl15072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__FailThenResult__UnknownCountAssignment_10_1_in_rule__FailThenResult__Group_10__1__Impl15072 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_11__0__Impl_in_rule__FailThenResult__Group_11__015106 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_11__1_in_rule__FailThenResult__Group_11__015109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__FailThenResult__Group_11__0__Impl15137 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__FailThenResult__Group_11__0__Impl15137 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_11__1__Impl_in_rule__FailThenResult__Group_11__115168 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__FailthenCountAssignment_11_1_in_rule__FailThenResult__Group_11__1__Impl15195 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_12__0__Impl_in_rule__FailThenResult__Group_12__015229 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_12__1_in_rule__FailThenResult__Group_12__015232 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__FailThenResult__Group_12__0__Impl15260 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__FailThenResult__Group_12__0__Impl15260 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_12__1__Impl_in_rule__FailThenResult__Group_12__115291 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__AndthenCountAssignment_12_1_in_rule__FailThenResult__Group_12__1__Impl15318 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_13__0__Impl_in_rule__FailThenResult__Group_13__015352 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_13__1_in_rule__FailThenResult__Group_13__015355 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__FailThenResult__Group_13__0__Impl15383 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__FailThenResult__Group_13__0__Impl15383 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_13__1__Impl_in_rule__FailThenResult__Group_13__115414 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__TbdCountAssignment_13_1_in_rule__FailThenResult__Group_13__1__Impl15441 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_14__0__Impl_in_rule__FailThenResult__Group_14__015475 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_14__1_in_rule__FailThenResult__Group_14__015478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_rule__FailThenResult__Group_14__0__Impl15506 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_rule__FailThenResult__Group_14__0__Impl15506 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__Group_14__1__Impl_in_rule__FailThenResult__Group_14__115537 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__FailThenResult__WeightAssignment_14_1_in_rule__FailThenResult__Group_14__1__Impl15564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__0__Impl_in_rule__AndThenResult__Group__015598 = new BitSet(new long[]{0x0000160000000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__0__Impl_in_rule__AndThenResult__Group__015598 = new BitSet(new long[]{0x00002C0000000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__1_in_rule__AndThenResult__Group__015601 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_rule__AndThenResult__Group__0__Impl15629 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__1__Impl_in_rule__AndThenResult__Group__115660 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_45_in_rule__AndThenResult__Group__0__Impl15629 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__1__Impl_in_rule__AndThenResult__Group__115660 = new BitSet(new long[]{0x0000100000000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__2_in_rule__AndThenResult__Group__115663 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__FirstAssignment_1_in_rule__AndThenResult__Group__1__Impl15690 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__2__Impl_in_rule__AndThenResult__Group__215720 = new BitSet(new long[]{0x0000160000000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__2__Impl_in_rule__AndThenResult__Group__215720 = new BitSet(new long[]{0x00002C0000000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__3_in_rule__AndThenResult__Group__215723 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_rule__AndThenResult__Group__2__Impl15751 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__3__Impl_in_rule__AndThenResult__Group__315782 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_44_in_rule__AndThenResult__Group__2__Impl15751 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__3__Impl_in_rule__AndThenResult__Group__315782 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__4_in_rule__AndThenResult__Group__315785 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__SecondAssignment_3_in_rule__AndThenResult__Group__3__Impl15812 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__4__Impl_in_rule__AndThenResult__Group__415842 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__4__Impl_in_rule__AndThenResult__Group__415842 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__5_in_rule__AndThenResult__Group__415845 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__AndThenResult__Group__4__Impl15873 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__5__Impl_in_rule__AndThenResult__Group__515904 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_25_in_rule__AndThenResult__Group__4__Impl15873 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__5__Impl_in_rule__AndThenResult__Group__515904 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__6_in_rule__AndThenResult__Group__515907 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__DidAndThenFailAssignment_5_in_rule__AndThenResult__Group__5__Impl15934 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__6__Impl_in_rule__AndThenResult__Group__615965 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__6__Impl_in_rule__AndThenResult__Group__615965 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__7_in_rule__AndThenResult__Group__615968 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_6__0_in_rule__AndThenResult__Group__6__Impl15995 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__7__Impl_in_rule__AndThenResult__Group__716026 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__7__Impl_in_rule__AndThenResult__Group__716026 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__8_in_rule__AndThenResult__Group__716029 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_7__0_in_rule__AndThenResult__Group__7__Impl16056 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__8__Impl_in_rule__AndThenResult__Group__816087 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__8__Impl_in_rule__AndThenResult__Group__816087 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__9_in_rule__AndThenResult__Group__816090 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_8__0_in_rule__AndThenResult__Group__8__Impl16117 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__9__Impl_in_rule__AndThenResult__Group__916148 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__9__Impl_in_rule__AndThenResult__Group__916148 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__10_in_rule__AndThenResult__Group__916151 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_9__0_in_rule__AndThenResult__Group__9__Impl16178 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__10__Impl_in_rule__AndThenResult__Group__1016209 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__10__Impl_in_rule__AndThenResult__Group__1016209 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__11_in_rule__AndThenResult__Group__1016212 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_10__0_in_rule__AndThenResult__Group__10__Impl16239 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__11__Impl_in_rule__AndThenResult__Group__1116270 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__11__Impl_in_rule__AndThenResult__Group__1116270 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__12_in_rule__AndThenResult__Group__1116273 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_11__0_in_rule__AndThenResult__Group__11__Impl16300 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__Group__12__Impl_in_rule__AndThenResult__Group__1216331 = new BitSet(new long[]{0x00100001FE000000L});
+    public static final BitSet FOLLOW_rule__AndThenResult__Group__12__Impl_in_rule__AndThenResult__Group__1216331 = new BitSet(new long[]{0x00200003FC000000L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__13_in_rule__AndThenResult__Group__1216334 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_12__0_in_rule__AndThenResult__Group__12__Impl16361 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group__13__Impl_in_rule__AndThenResult__Group__1316392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__AndThenResult__Group__13__Impl16420 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__AndThenResult__Group__13__Impl16420 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_6__0__Impl_in_rule__AndThenResult__Group_6__016479 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_6__1_in_rule__AndThenResult__Group_6__016482 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__AndThenResult__Group_6__0__Impl16510 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__AndThenResult__Group_6__0__Impl16510 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_6__1__Impl_in_rule__AndThenResult__Group_6__116541 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__SuccessCountAssignment_6_1_in_rule__AndThenResult__Group_6__1__Impl16568 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_7__0__Impl_in_rule__AndThenResult__Group_7__016602 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_7__1_in_rule__AndThenResult__Group_7__016605 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__AndThenResult__Group_7__0__Impl16633 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__AndThenResult__Group_7__0__Impl16633 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_7__1__Impl_in_rule__AndThenResult__Group_7__116664 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__FailCountAssignment_7_1_in_rule__AndThenResult__Group_7__1__Impl16691 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_8__0__Impl_in_rule__AndThenResult__Group_8__016725 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_8__1_in_rule__AndThenResult__Group_8__016728 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__AndThenResult__Group_8__0__Impl16756 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__AndThenResult__Group_8__0__Impl16756 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_8__1__Impl_in_rule__AndThenResult__Group_8__116787 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AndThenResult__ErrorCountAssignment_8_1_in_rule__AndThenResult__Group_8__1__Impl16814 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AndThenResult__UnknownCountAssignment_8_1_in_rule__AndThenResult__Group_8__1__Impl16814 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_9__0__Impl_in_rule__AndThenResult__Group_9__016848 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_9__1_in_rule__AndThenResult__Group_9__016851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__AndThenResult__Group_9__0__Impl16879 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__AndThenResult__Group_9__0__Impl16879 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_9__1__Impl_in_rule__AndThenResult__Group_9__116910 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__FailthenCountAssignment_9_1_in_rule__AndThenResult__Group_9__1__Impl16937 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_10__0__Impl_in_rule__AndThenResult__Group_10__016971 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_10__1_in_rule__AndThenResult__Group_10__016974 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__AndThenResult__Group_10__0__Impl17002 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__AndThenResult__Group_10__0__Impl17002 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_10__1__Impl_in_rule__AndThenResult__Group_10__117033 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__AndthenCountAssignment_10_1_in_rule__AndThenResult__Group_10__1__Impl17060 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_11__0__Impl_in_rule__AndThenResult__Group_11__017094 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_11__1_in_rule__AndThenResult__Group_11__017097 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__AndThenResult__Group_11__0__Impl17125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__AndThenResult__Group_11__0__Impl17125 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_11__1__Impl_in_rule__AndThenResult__Group_11__117156 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__TbdCountAssignment_11_1_in_rule__AndThenResult__Group_11__1__Impl17183 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_12__0__Impl_in_rule__AndThenResult__Group_12__017217 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_12__1_in_rule__AndThenResult__Group_12__017220 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_rule__AndThenResult__Group_12__0__Impl17248 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_rule__AndThenResult__Group_12__0__Impl17248 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__Group_12__1__Impl_in_rule__AndThenResult__Group_12__117279 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AndThenResult__WeightAssignment_12_1_in_rule__AndThenResult__Group_12__1__Impl17306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__0__Impl_in_rule__ResultIssue__Group__017340 = new BitSet(new long[]{0x0000200000000010L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__0__Impl_in_rule__ResultIssue__Group__017340 = new BitSet(new long[]{0x0000400000000010L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group__1_in_rule__ResultIssue__Group__017343 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__IssueTypeAssignment_0_in_rule__ResultIssue__Group__0__Impl17370 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__1__Impl_in_rule__ResultIssue__Group__117400 = new BitSet(new long[]{0x0000200000000010L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__1__Impl_in_rule__ResultIssue__Group__117400 = new BitSet(new long[]{0x0000400000000010L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group__2_in_rule__ResultIssue__Group__117403 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_1__0_in_rule__ResultIssue__Group__1__Impl17430 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__2__Impl_in_rule__ResultIssue__Group__217461 = new BitSet(new long[]{0x0000C00001000000L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__2__Impl_in_rule__ResultIssue__Group__217461 = new BitSet(new long[]{0x0001800002000000L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group__3_in_rule__ResultIssue__Group__217464 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__MessageAssignment_2_in_rule__ResultIssue__Group__2__Impl17491 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__3__Impl_in_rule__ResultIssue__Group__317521 = new BitSet(new long[]{0x0000C00001000000L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__3__Impl_in_rule__ResultIssue__Group__317521 = new BitSet(new long[]{0x0001800002000000L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group__4_in_rule__ResultIssue__Group__317524 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_3__0_in_rule__ResultIssue__Group__3__Impl17551 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group__4__Impl_in_rule__ResultIssue__Group__417582 = new BitSet(new long[]{0x0000C00001000000L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group__4__Impl_in_rule__ResultIssue__Group__417582 = new BitSet(new long[]{0x0001800002000000L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group__5_in_rule__ResultIssue__Group__417585 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_4__0_in_rule__ResultIssue__Group__4__Impl17612 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group__5__Impl_in_rule__ResultIssue__Group__517643 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_5__0_in_rule__ResultIssue__Group__5__Impl17670 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_1__0__Impl_in_rule__ResultIssue__Group_1__017713 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_1__1_in_rule__ResultIssue__Group_1__017716 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_45_in_rule__ResultIssue__Group_1__0__Impl17744 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_rule__ResultIssue__Group_1__0__Impl17744 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_1__1__Impl_in_rule__ResultIssue__Group_1__117775 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__NameAssignment_1_1_in_rule__ResultIssue__Group_1__1__Impl17802 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_3__0__Impl_in_rule__ResultIssue__Group_3__017836 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_3__1_in_rule__ResultIssue__Group_3__017839 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_rule__ResultIssue__Group_3__0__Impl17867 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_47_in_rule__ResultIssue__Group_3__0__Impl17867 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_3__1__Impl_in_rule__ResultIssue__Group_3__117898 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__ExceptionTypeAssignment_3_1_in_rule__ResultIssue__Group_3__1__Impl17925 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_4__0__Impl_in_rule__ResultIssue__Group_4__017959 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_4__1_in_rule__ResultIssue__Group_4__017962 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_47_in_rule__ResultIssue__Group_4__0__Impl17990 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_48_in_rule__ResultIssue__Group_4__0__Impl17990 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_4__1__Impl_in_rule__ResultIssue__Group_4__118021 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__TargetAssignment_4_1_in_rule__ResultIssue__Group_4__1__Impl18048 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_5__0__Impl_in_rule__ResultIssue__Group_5__018082 = new BitSet(new long[]{0x0000000000007800L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_5__1_in_rule__ResultIssue__Group_5__018085 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__ResultIssue__Group_5__0__Impl18113 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__1__Impl_in_rule__ResultIssue__Group_5__118144 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_25_in_rule__ResultIssue__Group_5__0__Impl18113 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ResultIssue__Group_5__1__Impl_in_rule__ResultIssue__Group_5__118144 = new BitSet(new long[]{0x0000000004000000L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_5__2_in_rule__ResultIssue__Group_5__118147 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__ResultIssue__IssuesAssignment_5_1_in_rule__ResultIssue__Group_5__1__Impl18176 = new BitSet(new long[]{0x0000000000007802L});
     public static final BitSet FOLLOW_rule__ResultIssue__IssuesAssignment_5_1_in_rule__ResultIssue__Group_5__1__Impl18188 = new BitSet(new long[]{0x0000000000007802L});
     public static final BitSet FOLLOW_rule__ResultIssue__Group_5__2__Impl_in_rule__ResultIssue__Group_5__218221 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__ResultIssue__Group_5__2__Impl18249 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__018286 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_26_in_rule__ResultIssue__Group_5__2__Impl18249 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__018286 = new BitSet(new long[]{0x0002000000000000L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__018289 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl18316 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__118345 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__118348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_48_in_rule__AadlClassifierReference__Group__1__Impl18376 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__218407 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_49_in_rule__AadlClassifierReference__Group__1__Impl18376 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__218407 = new BitSet(new long[]{0x0004000000000000L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__3_in_rule__AadlClassifierReference__Group__218410 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__2__Impl18437 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__3__Impl_in_rule__AadlClassifierReference__Group__318466 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__0_in_rule__AadlClassifierReference__Group__3__Impl18493 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__0__Impl_in_rule__AadlClassifierReference__Group_3__018532 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__1_in_rule__AadlClassifierReference__Group_3__018535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_rule__AadlClassifierReference__Group_3__0__Impl18563 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_rule__AadlClassifierReference__Group_3__0__Impl18563 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__1__Impl_in_rule__AadlClassifierReference__Group_3__118594 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_3__1__Impl18621 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__018654 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__018654 = new BitSet(new long[]{0x0004000000000000L});
     public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__018657 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl18684 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__118713 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl18740 = new BitSet(new long[]{0x0002000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl18740 = new BitSet(new long[]{0x0004000000000002L});
     public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__018775 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__018778 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_rule__QualifiedName__Group_1__0__Impl18807 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_rule__QualifiedName__Group_1__0__Impl18807 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__118839 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl18866 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__CaseResult__NameAssignment_118904 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__CaseResult__TargetAssignment_318939 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleURIID_in_rule__CaseResult__InstanceAssignment_518978 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__CaseResult__SuccessCountAssignment_7_119013 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__CaseResult__FailCountAssignment_8_119044 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__CaseResult__ErrorCountAssignment_9_119075 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__CaseResult__FailthenCountAssignment_10_119106 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__CaseResult__AndthenCountAssignment_11_119137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__CaseResult__TbdCountAssignment_12_119168 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__CaseResult__WeightAssignment_13_119199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__CaseResult__MessageAssignment_14_119230 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCaseResult_in_rule__CaseResult__SubCaseResultAssignment_1519261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleClaimResult_in_rule__CaseResult__ClaimResultAssignment_1619292 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AssuranceEvidence__NameAssignment_118904 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidence__TargetAssignment_318939 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleURIID_in_rule__AssuranceEvidence__InstanceAssignment_518978 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__AssuranceEvidence__SuccessCountAssignment_7_119013 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__AssuranceEvidence__FailCountAssignment_8_119044 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__AssuranceEvidence__UnknownCountAssignment_9_119075 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__AssuranceEvidence__FailthenCountAssignment_10_119106 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__AssuranceEvidence__AndthenCountAssignment_11_119137 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__AssuranceEvidence__TbdCountAssignment_12_119168 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__AssuranceEvidence__WeightAssignment_13_119199 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__AssuranceEvidence__MessageAssignment_14_119230 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssuranceEvidence_in_rule__AssuranceEvidence__SubAssuranceEvidenceAssignment_1519261 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleClaimResult_in_rule__AssuranceEvidence__ClaimResultAssignment_1619292 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__ClaimResult__NameAssignment_119323 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ClaimResult__TargetAssignment_319358 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleURIID_in_rule__ClaimResult__InstanceAssignment_4_119397 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ClaimResult__SuccessCountAssignment_6_119432 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ClaimResult__FailCountAssignment_7_119463 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__ClaimResult__ErrorCountAssignment_8_119494 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__ClaimResult__UnknownCountAssignment_8_119494 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ClaimResult__FailthenCountAssignment_9_119525 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ClaimResult__AndthenCountAssignment_10_119556 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ClaimResult__TbdCountAssignment_11_119587 = new BitSet(new long[]{0x0000000000000002L});
@@ -31677,7 +31678,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ValidationResult__ResultReportAssignment_11_119909 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ValidationResult__SuccessCountAssignment_12_119944 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ValidationResult__FailCountAssignment_13_119975 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__ValidationResult__ErrorCountAssignment_14_120006 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__ValidationResult__UnknownCountAssignment_14_120006 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ValidationResult__FailthenCountAssignment_15_120037 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ValidationResult__AndthenCountAssignment_16_120068 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__ValidationResult__TbdCountAssignment_17_120099 = new BitSet(new long[]{0x0000000000000002L});
@@ -31691,7 +31692,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__ResultReportAssignment_11_120359 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__PreconditionResult__SuccessCountAssignment_12_120394 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__PreconditionResult__FailCountAssignment_13_120425 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__PreconditionResult__ErrorCountAssignment_14_120456 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__PreconditionResult__UnknownCountAssignment_14_120456 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__PreconditionResult__FailthenCountAssignment_15_120487 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__PreconditionResult__AndthenCountAssignment_16_120518 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__PreconditionResult__TbdCountAssignment_17_120549 = new BitSet(new long[]{0x0000000000000002L});
@@ -31705,7 +31706,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationActivityResult__ResultReportAssignment_11_120809 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__VerificationActivityResult__SuccessCountAssignment_12_120844 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__VerificationActivityResult__FailCountAssignment_13_120875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__VerificationActivityResult__ErrorCountAssignment_14_120906 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__VerificationActivityResult__UnknownCountAssignment_14_120906 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__VerificationActivityResult__FailthenCountAssignment_15_120937 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__VerificationActivityResult__AndthenCountAssignment_16_120968 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__VerificationActivityResult__TbdCountAssignment_17_120999 = new BitSet(new long[]{0x0000000000000002L});
@@ -31715,22 +31716,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rulePreconditionResult_in_rule__VerificationActivityResult__PreconditionResultAssignment_2121123 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__FailThenResult__FirstAssignment_121154 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__FailThenResult__SecondAssignment_321185 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_rule__FailThenResult__FailThenAssignment_521221 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_rule__FailThenResult__ErrorThenAssignment_621265 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_rule__FailThenResult__DidFailAssignment_721309 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_43_in_rule__FailThenResult__FailThenAssignment_521221 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_rule__FailThenResult__UnknownThenAssignment_621265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_rule__FailThenResult__DidFailAssignment_721309 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__FailThenResult__SuccessCountAssignment_8_121348 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__FailThenResult__FailCountAssignment_9_121379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__FailThenResult__ErrorCountAssignment_10_121410 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__FailThenResult__UnknownCountAssignment_10_121410 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__FailThenResult__FailthenCountAssignment_11_121441 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__FailThenResult__AndthenCountAssignment_12_121472 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__FailThenResult__TbdCountAssignment_13_121503 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__FailThenResult__WeightAssignment_14_121534 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__AndThenResult__FirstAssignment_121565 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__AndThenResult__SecondAssignment_321596 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_rule__AndThenResult__DidAndThenFailAssignment_521632 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_rule__AndThenResult__DidAndThenFailAssignment_521632 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__AndThenResult__SuccessCountAssignment_6_121671 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__AndThenResult__FailCountAssignment_7_121702 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__AndThenResult__ErrorCountAssignment_8_121733 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__AndThenResult__UnknownCountAssignment_8_121733 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__AndThenResult__FailthenCountAssignment_9_121764 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__AndThenResult__AndthenCountAssignment_10_121795 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_INT_in_rule__AndThenResult__TbdCountAssignment_11_121826 = new BitSet(new long[]{0x0000000000000002L});

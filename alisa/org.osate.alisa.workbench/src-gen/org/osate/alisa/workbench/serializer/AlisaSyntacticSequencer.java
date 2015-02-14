@@ -17,14 +17,14 @@ import org.osate.alisa.workbench.services.AlisaGrammarAccess;
 public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlisaGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_AssuranceCaseConfiguration_PlansKeyword_6_1_0_q;
-	protected AbstractElementAlias match_AssuranceCaseConfiguration_WhenKeyword_6_2_0_q;
+	protected AbstractElementAlias match_AssuranceEvidenceConfiguration_FilterKeyword_7_2_0_q;
+	protected AbstractElementAlias match_AssuranceEvidenceConfiguration_PlansKeyword_7_1_0_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlisaGrammarAccess) access;
-		match_AssuranceCaseConfiguration_PlansKeyword_6_1_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceCaseConfigurationAccess().getPlansKeyword_6_1_0());
-		match_AssuranceCaseConfiguration_WhenKeyword_6_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceCaseConfigurationAccess().getWhenKeyword_6_2_0());
+		match_AssuranceEvidenceConfiguration_FilterKeyword_7_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceEvidenceConfigurationAccess().getFilterKeyword_7_2_0());
+		match_AssuranceEvidenceConfiguration_PlansKeyword_7_1_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansKeyword_7_1_0());
 	}
 	
 	@Override
@@ -39,27 +39,27 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AssuranceCaseConfiguration_PlansKeyword_6_1_0_q.equals(syntax))
-				emit_AssuranceCaseConfiguration_PlansKeyword_6_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceCaseConfiguration_WhenKeyword_6_2_0_q.equals(syntax))
-				emit_AssuranceCaseConfiguration_WhenKeyword_6_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_AssuranceEvidenceConfiguration_FilterKeyword_7_2_0_q.equals(syntax))
+				emit_AssuranceEvidenceConfiguration_FilterKeyword_7_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AssuranceEvidenceConfiguration_PlansKeyword_7_1_0_q.equals(syntax))
+				emit_AssuranceEvidenceConfiguration_PlansKeyword_7_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
 	/**
 	 * Syntax:
-	 *     'plans'?
+	 *     'filter'?
 	 */
-	protected void emit_AssuranceCaseConfiguration_PlansKeyword_6_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceEvidenceConfiguration_FilterKeyword_7_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Syntax:
-	 *     'when'?
+	 *     'plans'?
 	 */
-	protected void emit_AssuranceCaseConfiguration_WhenKeyword_6_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AssuranceEvidenceConfiguration_PlansKeyword_7_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

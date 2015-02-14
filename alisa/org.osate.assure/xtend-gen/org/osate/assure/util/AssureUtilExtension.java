@@ -42,9 +42,9 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.util.CommonUtilExtension;
 import org.osate.assure.assure.AndThenResult;
+import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.AssureFactory;
 import org.osate.assure.assure.AssureResult;
-import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.FailThenResult;
 import org.osate.assure.assure.PreconditionResult;
@@ -67,9 +67,9 @@ import org.osate.verify.verify.VerificationValidation;
 
 @SuppressWarnings("all")
 public class AssureUtilExtension {
-  public static CaseResult getEnclosingCaseResult(final EObject assureObject) {
+  public static AssuranceEvidence getEnclosingAssuranceEvidence(final EObject assureObject) {
     EObject result = assureObject;
-    while ((!(result instanceof CaseResult))) {
+    while ((!(result instanceof AssuranceEvidence))) {
       EObject _eContainer = result.eContainer();
       result = _eContainer;
     }
@@ -77,7 +77,7 @@ public class AssureUtilExtension {
     if (_equals) {
       return null;
     }
-    return ((CaseResult) result);
+    return ((AssuranceEvidence) result);
   }
   
   public static ClaimResult getEnclosingClaimResult(final EObject assureObject) {
@@ -107,10 +107,10 @@ public class AssureUtilExtension {
   }
   
   public static InstanceObject getCaseSubject(final EObject assureObject) {
-    CaseResult _enclosingCaseResult = AssureUtilExtension.getEnclosingCaseResult(assureObject);
+    AssuranceEvidence _enclosingAssuranceEvidence = AssureUtilExtension.getEnclosingAssuranceEvidence(assureObject);
     InstanceObject _instance = null;
-    if (_enclosingCaseResult!=null) {
-      _instance=_enclosingCaseResult.getInstance();
+    if (_enclosingAssuranceEvidence!=null) {
+      _instance=_enclosingAssuranceEvidence.getInstance();
     }
     return _instance;
   }
@@ -452,9 +452,9 @@ public class AssureUtilExtension {
   }
   
   public static int getTotalCount(final AssureResult ar) {
-    int _errorCount = ar.getErrorCount();
+    int _unknownCount = ar.getUnknownCount();
     int _failCount = ar.getFailCount();
-    int _plus = (_errorCount + _failCount);
+    int _plus = (_unknownCount + _failCount);
     int _successCount = ar.getSuccessCount();
     int _plus_1 = (_plus + _successCount);
     int _tbdCount = ar.getTbdCount();
@@ -473,8 +473,8 @@ public class AssureUtilExtension {
     if (!_equals) {
       _and_1 = false;
     } else {
-      int _errorCount = ar.getErrorCount();
-      boolean _equals_1 = (_errorCount == 0);
+      int _unknownCount = ar.getUnknownCount();
+      boolean _equals_1 = (_unknownCount == 0);
       _and_1 = _equals_1;
     }
     if (!_and_1) {
@@ -494,8 +494,8 @@ public class AssureUtilExtension {
     if (_notEquals) {
       _or = true;
     } else {
-      int _errorCount = ar.getErrorCount();
-      boolean _notEquals_1 = (_errorCount != 0);
+      int _unknownCount = ar.getUnknownCount();
+      boolean _notEquals_1 = (_unknownCount != 0);
       _or = _notEquals_1;
     }
     return _or;
@@ -509,8 +509,8 @@ public class AssureUtilExtension {
     if (!_equals) {
       _and_1 = false;
     } else {
-      int _errorCount = ar.getErrorCount();
-      boolean _equals_1 = (_errorCount == 0);
+      int _unknownCount = ar.getUnknownCount();
+      boolean _equals_1 = (_unknownCount == 0);
       _and_1 = _equals_1;
     }
     if (!_and_1) {
@@ -534,8 +534,8 @@ public class AssureUtilExtension {
       if (_notEquals) {
         _or = true;
       } else {
-        int _errorCount = ar.getErrorCount();
-        boolean _notEquals_1 = (_errorCount != 0);
+        int _unknownCount = ar.getUnknownCount();
+        boolean _notEquals_1 = (_unknownCount != 0);
         _or = _notEquals_1;
       }
       if (_or) {
@@ -553,8 +553,8 @@ public class AssureUtilExtension {
       if (_notEquals) {
         _or = true;
       } else {
-        int _errorCount = ar.getErrorCount();
-        boolean _notEquals_1 = (_errorCount != 0);
+        int _unknownCount = ar.getUnknownCount();
+        boolean _notEquals_1 = (_unknownCount != 0);
         _or = _notEquals_1;
       }
       if (_or) {
@@ -575,8 +575,8 @@ public class AssureUtilExtension {
       if (_notEquals) {
         _or = true;
       } else {
-        int _errorCount = ar.getErrorCount();
-        boolean _notEquals_1 = (_errorCount != 0);
+        int _unknownCount = ar.getUnknownCount();
+        boolean _notEquals_1 = (_unknownCount != 0);
         _or = _notEquals_1;
       }
       if (_or) {
@@ -588,8 +588,8 @@ public class AssureUtilExtension {
   
   public static boolean hasError(final EList<VerificationExpr> vel) {
     for (final VerificationExpr ar : vel) {
-      int _errorCount = ar.getErrorCount();
-      boolean _notEquals = (_errorCount != 0);
+      int _unknownCount = ar.getUnknownCount();
+      boolean _notEquals = (_unknownCount != 0);
       if (_notEquals) {
         return true;
       }
@@ -678,9 +678,9 @@ public class AssureUtilExtension {
   public static String getPrintableName(final AssureResult ar) {
     boolean _matched = false;
     if (!_matched) {
-      if (ar instanceof CaseResult) {
+      if (ar instanceof AssuranceEvidence) {
         _matched=true;
-        return ((CaseResult)ar).getName();
+        return ((AssuranceEvidence)ar).getName();
       }
     }
     if (!_matched) {
@@ -813,7 +813,7 @@ public class AssureUtilExtension {
   /**
    * this method resets the execution state of all verification activities to TBD
    */
-  public static void resetToTBD(final CaseResult root) {
+  public static void resetToTBD(final AssuranceEvidence root) {
     final List<VerificationResult> vrlist = EcoreUtil2.<VerificationResult>eAllOfType(root, VerificationResult.class);
     final Procedure1<VerificationResult> _function = new Procedure1<VerificationResult>() {
       public void apply(final VerificationResult vr) {
@@ -832,7 +832,7 @@ public class AssureUtilExtension {
   private static void resetCounts(final AssureResult result) {
     result.setFailCount(0);
     result.setSuccessCount(0);
-    result.setErrorCount(0);
+    result.setUnknownCount(0);
     result.setAndthenCount(0);
     result.setFailthenCount(0);
     result.setTbdCount(0);
@@ -859,10 +859,10 @@ public class AssureUtilExtension {
               int _plus_1 = (_failCount + 1);
               ((VerificationResult)ar).setFailCount(_plus_1);
               break;
-            case ERROR:
-              int _errorCount = ((VerificationResult)ar).getErrorCount();
-              int _plus_2 = (_errorCount + 1);
-              ((VerificationResult)ar).setErrorCount(_plus_2);
+            case UNKNOWN:
+              int _unknownCount = ((VerificationResult)ar).getUnknownCount();
+              int _plus_2 = (_unknownCount + 1);
+              ((VerificationResult)ar).setUnknownCount(_plus_2);
               break;
             case TBD:
               int _tbdCount = ((VerificationResult)ar).getTbdCount();
@@ -892,10 +892,10 @@ public class AssureUtilExtension {
     int _successCount_1 = subresult.getSuccessCount();
     int _plus_1 = (_successCount + _successCount_1);
     result.setSuccessCount(_plus_1);
-    int _errorCount = result.getErrorCount();
-    int _errorCount_1 = subresult.getErrorCount();
-    int _plus_2 = (_errorCount + _errorCount_1);
-    result.setErrorCount(_plus_2);
+    int _unknownCount = result.getUnknownCount();
+    int _unknownCount_1 = subresult.getUnknownCount();
+    int _plus_2 = (_unknownCount + _unknownCount_1);
+    result.setUnknownCount(_plus_2);
     int _andthenCount = result.getAndthenCount();
     int _andthenCount_1 = subresult.getAndthenCount();
     int _plus_3 = (_andthenCount + _andthenCount_1);
@@ -923,14 +923,14 @@ public class AssureUtilExtension {
     IterableExtensions.forEach(parts, _function);
   }
   
-  public static CaseResult recomputeAllCounts(final CaseResult caseResult) {
-    CaseResult _xblockexpression = null;
+  public static AssuranceEvidence recomputeAllCounts(final AssuranceEvidence caseResult) {
+    AssuranceEvidence _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(caseResult);
       EList<ClaimResult> _claimResult = caseResult.getClaimResult();
       AssureUtilExtension.recomputeAllCounts(caseResult, _claimResult);
-      EList<CaseResult> _subCaseResult = caseResult.getSubCaseResult();
-      AssureUtilExtension.recomputeAllCounts(caseResult, _subCaseResult);
+      EList<AssuranceEvidence> _subAssuranceEvidence = caseResult.getSubAssuranceEvidence();
+      AssureUtilExtension.recomputeAllCounts(caseResult, _subAssuranceEvidence);
       _xblockexpression = caseResult;
     }
     return _xblockexpression;
@@ -1027,9 +1027,9 @@ public class AssureUtilExtension {
     AssureResult _switchResult = null;
     boolean _matched = false;
     if (!_matched) {
-      if (assureResult instanceof CaseResult) {
+      if (assureResult instanceof AssuranceEvidence) {
         _matched=true;
-        _switchResult = AssureUtilExtension.recomputeAllCounts(((CaseResult)assureResult));
+        _switchResult = AssureUtilExtension.recomputeAllCounts(((AssuranceEvidence)assureResult));
       }
     }
     if (!_matched) {
@@ -1255,10 +1255,10 @@ public class AssureUtilExtension {
               int _plus_1 = (_failCount + 1);
               ar.setFailCount(_plus_1);
               break;
-            case ERROR:
-              int _errorCount = ar.getErrorCount();
-              int _plus_2 = (_errorCount + 1);
-              ar.setErrorCount(_plus_2);
+            case UNKNOWN:
+              int _unknownCount = ar.getUnknownCount();
+              int _plus_2 = (_unknownCount + 1);
+              ar.setUnknownCount(_plus_2);
               break;
             case TBD:
               break;
@@ -1286,10 +1286,10 @@ public class AssureUtilExtension {
                 int _minus_2 = (_failCount_1 - 1);
                 ar.setFailCount(_minus_2);
                 break;
-              case ERROR:
-                int _errorCount_1 = ar.getErrorCount();
-                int _minus_3 = (_errorCount_1 - 1);
-                ar.setErrorCount(_minus_3);
+              case UNKNOWN:
+                int _unknownCount_1 = ar.getUnknownCount();
+                int _minus_3 = (_unknownCount_1 - 1);
+                ar.setUnknownCount(_minus_3);
                 break;
               case TBD:
                 int _tbdCount_2 = ar.getTbdCount();
@@ -1327,8 +1327,8 @@ public class AssureUtilExtension {
   /**
    * recompute the result count from the part list counts without recursing
    */
-  private static CaseResult addAllSubCounts(final CaseResult caseResult) {
-    CaseResult _xblockexpression = null;
+  private static AssuranceEvidence addAllSubCounts(final AssuranceEvidence caseResult) {
+    AssuranceEvidence _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(caseResult);
       EList<ClaimResult> _claimResult = caseResult.getClaimResult();
@@ -1338,13 +1338,13 @@ public class AssureUtilExtension {
         }
       };
       IterableExtensions.<ClaimResult>forEach(_claimResult, _function);
-      EList<CaseResult> _subCaseResult = caseResult.getSubCaseResult();
-      final Procedure1<CaseResult> _function_1 = new Procedure1<CaseResult>() {
-        public void apply(final CaseResult e) {
+      EList<AssuranceEvidence> _subAssuranceEvidence = caseResult.getSubAssuranceEvidence();
+      final Procedure1<AssuranceEvidence> _function_1 = new Procedure1<AssuranceEvidence>() {
+        public void apply(final AssuranceEvidence e) {
           AssureUtilExtension.addTo(e, caseResult);
         }
       };
-      IterableExtensions.<CaseResult>forEach(_subCaseResult, _function_1);
+      IterableExtensions.<AssuranceEvidence>forEach(_subAssuranceEvidence, _function_1);
       _xblockexpression = caseResult;
     }
     return _xblockexpression;
@@ -1481,9 +1481,9 @@ public class AssureUtilExtension {
     AssureResult _switchResult = null;
     boolean _matched = false;
     if (!_matched) {
-      if (assureResult instanceof CaseResult) {
+      if (assureResult instanceof AssuranceEvidence) {
         _matched=true;
-        _switchResult = AssureUtilExtension.addAllSubCounts(((CaseResult)assureResult));
+        _switchResult = AssureUtilExtension.addAllSubCounts(((AssuranceEvidence)assureResult));
       }
     }
     if (!_matched) {
@@ -1537,8 +1537,8 @@ public class AssureUtilExtension {
           return "[S]";
         case FAIL:
           return "[F]";
-        case ERROR:
-          return "[E]";
+        case UNKNOWN:
+          return "[U]";
         case TBD:
           return "[T]";
         default:
@@ -1553,9 +1553,9 @@ public class AssureUtilExtension {
     {
       boolean _matched = false;
       if (!_matched) {
-        if (ar instanceof CaseResult) {
+        if (ar instanceof AssuranceEvidence) {
           _matched=true;
-          return ((CaseResult)ar).getName();
+          return ((AssuranceEvidence)ar).getName();
         }
       }
       if (!_matched) {
@@ -1658,7 +1658,7 @@ public class AssureUtilExtension {
     return _xblockexpression;
   }
   
-  public static String constructMessage(final CaseResult ce) {
+  public static String constructMessage(final AssuranceEvidence ce) {
     String _message = ce.getMessage();
     boolean _notEquals = (!Objects.equal(_message, null));
     if (_notEquals) {
@@ -1768,8 +1768,8 @@ public class AssureUtilExtension {
     int _failCount = ele.getFailCount();
     String _plus_2 = (_plus_1 + Integer.valueOf(_failCount));
     String _plus_3 = (_plus_2 + " E");
-    int _errorCount = ele.getErrorCount();
-    String _plus_4 = (_plus_3 + Integer.valueOf(_errorCount));
+    int _unknownCount = ele.getUnknownCount();
+    String _plus_4 = (_plus_3 + Integer.valueOf(_unknownCount));
     String _plus_5 = (_plus_4 + " T");
     int _tbdCount = ele.getTbdCount();
     String _plus_6 = (_plus_5 + Integer.valueOf(_tbdCount));

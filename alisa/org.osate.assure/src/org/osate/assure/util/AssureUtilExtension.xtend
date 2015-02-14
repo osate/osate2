@@ -31,7 +31,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil
 import org.osate.assure.assure.AndThenResult
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.AssureResult
-import org.osate.assure.assure.CaseResult
+import org.osate.assure.assure.AssuranceEvidence
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.FailThenResult
 import org.osate.assure.assure.PreconditionResult
@@ -53,13 +53,13 @@ import org.osate.verify.verify.SupportedReporting
 
 class AssureUtilExtension {
 
-	def static CaseResult getEnclosingCaseResult(EObject assureObject) {
+	def static AssuranceEvidence getEnclosingAssuranceEvidence(EObject assureObject) {
 		var result = assureObject
-		while (!(result instanceof CaseResult)) {
+		while (!(result instanceof AssuranceEvidence)) {
 			result = result.eContainer
 		}
 		if(result == null) return null
-		return result as CaseResult
+		return result as AssuranceEvidence
 	}
 
 	def static ClaimResult getEnclosingClaimResult(EObject assureObject) {
@@ -76,7 +76,7 @@ class AssureUtilExtension {
 	}
 
 	def static InstanceObject getCaseSubject(EObject assureObject) {
-		assureObject.enclosingCaseResult?.instance
+		assureObject.enclosingAssuranceEvidence?.instance
 	}
 	
 	def static VerificationMethod getMethod(VerificationResult vr){
@@ -260,19 +260,19 @@ class AssureUtilExtension {
 	}
 
 	def static getTotalCount(AssureResult ar) {
-		ar.errorCount + ar.failCount + ar.successCount + ar.tbdCount + ar.failthenCount + ar.andthenCount
+		ar.unknownCount + ar.failCount + ar.successCount + ar.tbdCount + ar.failthenCount + ar.andthenCount
 	}
 
 	def static isSuccessful(AssureResult ar) {
-		ar.failCount == 0 && ar.errorCount == 0 && ar.tbdCount == 0
+		ar.failCount == 0 && ar.unknownCount == 0 && ar.tbdCount == 0
 	}
 
 	def static hasFailedorError(AssureResult ar) {
-		ar.failCount != 0 || ar.errorCount != 0
+		ar.failCount != 0 || ar.unknownCount != 0
 	}
 
 	def static isTBD(AssureResult ar) {
-		ar.failCount == 0 && ar.errorCount == 0 && ar.tbdCount > 0
+		ar.failCount == 0 && ar.unknownCount == 0 && ar.tbdCount > 0
 	}
 
 	/**
@@ -280,7 +280,7 @@ class AssureUtilExtension {
 	 */
 	def static boolean success(EList<VerificationResult> vel) {
 		for (ar : vel) {
-			if(ar.failCount != 0 || ar.errorCount != 0) return false
+			if(ar.failCount != 0 || ar.unknownCount != 0) return false
 			}
 		return true
 	}
@@ -288,7 +288,7 @@ class AssureUtilExtension {
 
 	def static boolean isSuccessFul(EList<VerificationExpr> vel) {
 		for (ar : vel) {
-			if(ar.failCount != 0 || ar.errorCount != 0) return false
+			if(ar.failCount != 0 || ar.unknownCount != 0) return false
 			}
 		return true
 	}
@@ -299,14 +299,14 @@ class AssureUtilExtension {
 	
 	def static boolean hasFailedOrError(EList<VerificationExpr> vel) {
 		for (ar : vel) {
-			if(ar.failCount != 0 || ar.errorCount != 0) return true
+			if(ar.failCount != 0 || ar.unknownCount != 0) return true
 		}
 		return false
 	}
 
 	def static boolean hasError(EList<VerificationExpr> vel) {
 		for (ar : vel) {
-			if(ar.errorCount != 0) return true
+			if(ar.unknownCount != 0) return true
 		}
 	}
 
@@ -342,7 +342,7 @@ class AssureUtilExtension {
 
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
-			CaseResult: return ar.name
+			AssuranceEvidence: return ar.name
 			ClaimResult: return ar.name
 			VerificationResult: return ar.name
 			FailThenResult: return "FailThen"
@@ -441,7 +441,7 @@ class AssureUtilExtension {
 	/**
 	  * this method resets the execution state of all verification activities to TBD
 	  */
-	def static void resetToTBD(CaseResult root) {
+	def static void resetToTBD(AssuranceEvidence root) {
 		val vrlist = EcoreUtil2.eAllOfType(root, VerificationResult)
 		vrlist.forEach [ vr |
 			vr.resultState = VerificationResultState.TBD
@@ -459,7 +459,7 @@ class AssureUtilExtension {
 	private def static void resetCounts(AssureResult result) {
 		result.failCount = 0
 		result.successCount = 0
-		result.errorCount = 0
+		result.unknownCount = 0
 		result.andthenCount = 0
 		result.failthenCount = 0
 		result.tbdCount = 0
@@ -476,8 +476,8 @@ class AssureUtilExtension {
 				ar.successCount = ar.successCount + 1
 			case VerificationResultState.FAIL:
 				ar.failCount = ar.failCount + 1
-			case VerificationResultState.ERROR:
-				ar.errorCount = ar.errorCount + 1
+			case VerificationResultState.UNKNOWN:
+				ar.unknownCount = ar.unknownCount + 1
 			case VerificationResultState.TBD:
 				ar.tbdCount = ar.tbdCount + 1
 		}
@@ -492,7 +492,7 @@ class AssureUtilExtension {
 	private def static void addTo(AssureResult subresult, AssureResult result) {
 		result.failCount = result.failCount + subresult.failCount
 		result.successCount = result.successCount + subresult.successCount
-		result.errorCount = result.errorCount + subresult.errorCount
+		result.unknownCount = result.unknownCount + subresult.unknownCount
 		result.andthenCount = result.andthenCount + subresult.andthenCount
 		result.failthenCount = result.failthenCount + subresult.failthenCount
 		result.tbdCount = result.tbdCount + subresult.tbdCount
@@ -505,10 +505,10 @@ class AssureUtilExtension {
 		parts.forEach[e|e.recomputeAllCounts.addTo(result)]
 	}
 
-	def static CaseResult recomputeAllCounts(CaseResult caseResult) {
+	def static AssuranceEvidence recomputeAllCounts(AssuranceEvidence caseResult) {
 		caseResult.resetCounts
 		caseResult.recomputeAllCounts(caseResult.claimResult)
-		caseResult.recomputeAllCounts(caseResult.subCaseResult)
+		caseResult.recomputeAllCounts(caseResult.subAssuranceEvidence)
 		caseResult
 	}
 
@@ -565,7 +565,7 @@ class AssureUtilExtension {
 
 	private def static AssureResult recomputeAllCounts(AssureResult assureResult) {
 		switch (assureResult) {
-			CaseResult: assureResult.recomputeAllCounts
+			AssuranceEvidence: assureResult.recomputeAllCounts
 			ClaimResult: assureResult.recomputeAllCounts
 			ValidationResult: assureResult.recomputeAllCounts
 			PreconditionResult: assureResult.recomputeAllCounts
@@ -707,8 +707,8 @@ class AssureUtilExtension {
 					ar.successCount = ar.successCount + 1
 				case VerificationResultState.FAIL:
 					ar.failCount = ar.failCount + 1
-				case VerificationResultState.ERROR:
-					ar.errorCount = ar.errorCount + 1
+				case VerificationResultState.UNKNOWN:
+					ar.unknownCount = ar.unknownCount + 1
 				case VerificationResultState.TBD: {
 				}
 			}
@@ -720,8 +720,8 @@ class AssureUtilExtension {
 					ar.successCount = ar.successCount - 1
 				case VerificationResultState.FAIL:
 					ar.failCount = ar.failCount - 1
-				case VerificationResultState.ERROR:
-					ar.errorCount = ar.errorCount - 1
+				case VerificationResultState.UNKNOWN:
+					ar.unknownCount = ar.unknownCount - 1
 				case VerificationResultState.TBD:
 					ar.tbdCount = ar.tbdCount - 1
 			}
@@ -748,10 +748,10 @@ class AssureUtilExtension {
 	 * recompute the result count from the part list counts without recursing
 	 */
 
-	private def static CaseResult addAllSubCounts(CaseResult caseResult) {
+	private def static AssuranceEvidence addAllSubCounts(AssuranceEvidence caseResult) {
 		caseResult.resetCounts
 		caseResult.claimResult.forEach[e|e.addTo(caseResult)]
-		caseResult.subCaseResult.forEach[e|e.addTo(caseResult)]
+		caseResult.subAssuranceEvidence.forEach[e|e.addTo(caseResult)]
 		caseResult
 	}
 
@@ -808,7 +808,7 @@ class AssureUtilExtension {
 
 	private def static AssureResult addAllSubCounts(AssureResult assureResult) {
 		switch (assureResult) {
-			CaseResult: assureResult.addAllSubCounts
+			AssuranceEvidence: assureResult.addAllSubCounts
 			ClaimResult: assureResult.addAllSubCounts
 			ValidationResult: assureResult.addAllSubCounts
 			PreconditionResult: assureResult.addAllSubCounts
@@ -827,7 +827,7 @@ class AssureUtilExtension {
 		switch (vs) {
 			case VerificationResultState.SUCCESS: return "[S]"
 			case VerificationResultState.FAIL: return "[F]"
-			case VerificationResultState.ERROR: return "[E]"
+			case VerificationResultState.UNKNOWN: return "[U]"
 			case VerificationResultState.TBD: return "[T]"
 		}
 	}
@@ -836,7 +836,7 @@ class AssureUtilExtension {
 
 		// has to be a string without space (ID)
 		switch (ar) {
-			CaseResult:
+			AssuranceEvidence:
 				return ar.name
 			ClaimResult:
 				return ar.target?.title ?: ar.name
@@ -859,7 +859,7 @@ class AssureUtilExtension {
 		""
 	}
 
-	def static String constructMessage(CaseResult ce) {
+	def static String constructMessage(AssuranceEvidence ce) {
 		if(ce.message != null) return ce.message
 		return "for " + ce.target.name
 	}
@@ -892,7 +892,7 @@ class AssureUtilExtension {
 	}
 
 	def static String assureResultCounts(AssureResult ele) {
-		"(S" + ele.successCount + " F" + ele.failCount + " E" + ele.errorCount + " T" + ele.tbdCount + ")"
+		"(S" + ele.successCount + " F" + ele.failCount + " E" + ele.unknownCount + " T" + ele.tbdCount + ")"
 	}
 
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="assure" nsURI="http://www.osate.org/assure/Assure" nsPrefix="assure">
-  <eClassifiers xsi:type="ecore:EClass" name="CaseResult" eSuperTypes="#//AssureResult">
+  <eClassifiers xsi:type="ecore:EClass" name="AssuranceEvidence" eSuperTypes="#//AssureResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Classifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="instance" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subCaseResult" upperBound="-1"
-        eType="#//CaseResult" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subAssuranceEvidence" upperBound="-1"
+        eType="#//AssuranceEvidence" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="claimResult" upperBound="-1"
         eType="#//ClaimResult" containment="true"/>
   </eClassifiers>
@@ -33,7 +33,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AssureResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="successCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="errorCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unknownCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failthenCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="andthenCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tbdCount" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
@@ -46,7 +46,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="second" upperBound="-1"
         eType="#//VerificationExpr" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="failThen" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="errorThen" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unknownThen" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="didFail" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AndThenResult" eSuperTypes="#//VerificationExpr">
@@ -75,7 +75,7 @@
     <eLiterals name="TBD" literal="tbd"/>
     <eLiterals name="SUCCESS" value="1" literal="success"/>
     <eLiterals name="FAIL" value="2" literal="fail"/>
-    <eLiterals name="ERROR" value="3" literal="error"/>
+    <eLiterals name="UNKNOWN" value="3" literal="unknown"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="VerificationExecutionState">
     <eLiterals name="TODO" literal="todo"/>

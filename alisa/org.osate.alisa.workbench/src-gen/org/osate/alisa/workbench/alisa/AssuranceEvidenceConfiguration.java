@@ -14,26 +14,26 @@ import org.osate.verify.verify.VerificationPlan;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Assurance Case Configuration</b></em>'.
+ * A representation of the model object '<em><b>Assurance Evidence Configuration</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSystem <em>System</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getPlans <em>Plans</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSelectionFilter <em>Selection Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSystem <em>System</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCaseConfiguration()
+ * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceEvidenceConfiguration()
  * @model
  * @generated
  */
-public interface AssuranceCaseConfiguration extends EObject
+public interface AssuranceEvidenceConfiguration extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -45,14 +45,14 @@ public interface AssuranceCaseConfiguration extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCaseConfiguration_Name()
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceEvidenceConfiguration_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -71,14 +71,14 @@ public interface AssuranceCaseConfiguration extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Title</em>' attribute.
    * @see #setTitle(String)
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCaseConfiguration_Title()
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceEvidenceConfiguration_Title()
    * @model
    * @generated
    */
   String getTitle();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getTitle <em>Title</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getTitle <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Title</em>' attribute.
@@ -97,14 +97,14 @@ public interface AssuranceCaseConfiguration extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>System</em>' reference.
    * @see #setSystem(ComponentImplementation)
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCaseConfiguration_System()
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceEvidenceConfiguration_System()
    * @model
    * @generated
    */
   ComponentImplementation getSystem();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getSystem <em>System</em>}' reference.
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSystem <em>System</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>System</em>' reference.
@@ -123,14 +123,14 @@ public interface AssuranceCaseConfiguration extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Description</em>' containment reference.
    * @see #setDescription(Description)
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCaseConfiguration_Description()
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceEvidenceConfiguration_Description()
    * @model containment="true"
    * @generated
    */
   Description getDescription();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration#getDescription <em>Description</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getDescription <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Description</em>' containment reference.
@@ -149,7 +149,7 @@ public interface AssuranceCaseConfiguration extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Plans</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCaseConfiguration_Plans()
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceEvidenceConfiguration_Plans()
    * @model
    * @generated
    */
@@ -165,10 +165,10 @@ public interface AssuranceCaseConfiguration extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Selection Filter</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceCaseConfiguration_SelectionFilter()
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceEvidenceConfiguration_SelectionFilter()
    * @model
    * @generated
    */
   EList<SelectionCategory> getSelectionFilter();
 
-} // AssuranceCaseConfiguration
+} // AssuranceEvidenceConfiguration

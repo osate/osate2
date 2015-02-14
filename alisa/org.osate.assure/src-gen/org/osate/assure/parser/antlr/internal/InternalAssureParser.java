@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'case'", "'for'", "'instance'", "'['", "'successcount'", "'failcount'", "'errorcount'", "'failthencount'", "'andthencount'", "'tbdcount'", "'weight'", "'message'", "']'", "'claim'", "'assumption'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'precondition'", "'verification'", "'failthen'", "'do'", "'errorthen'", "'didfail'", "'andthen'", "'andthenfailed'", "':'", "'exception'", "'target'", "'::'", "'.'", "'error'", "'warning'", "'success'", "'info'", "'tbd'", "'fail'", "'todo'", "'running'", "'redo'", "'completed'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'evidence'", "'for'", "'instance'", "'['", "'successcount'", "'failcount'", "'unknowncount'", "'failthencount'", "'andthencount'", "'tbdcount'", "'weight'", "'message'", "']'", "'claim'", "'assumption'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'precondition'", "'verification'", "'failthen'", "'do'", "'unknownthen'", "'didfail'", "'andthen'", "'andthenfailed'", "':'", "'exception'", "'target'", "'::'", "'.'", "'error'", "'warning'", "'success'", "'info'", "'tbd'", "'fail'", "'unknown'", "'todo'", "'running'", "'redo'", "'completed'"
     };
     public static final int RULE_ID=4;
     public static final int T__29=29;
@@ -43,6 +43,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final int T__16=16;
     public static final int T__52=52;
     public static final int T__15=15;
+    public static final int T__53=53;
     public static final int T__18=18;
     public static final int T__17=17;
     public static final int T__12=12;
@@ -104,7 +105,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         
         @Override
         protected String getFirstRuleName() {
-        	return "CaseResult";	
+        	return "AssuranceEvidence";	
        	}
        	
        	@Override
@@ -114,30 +115,30 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
 
-    // $ANTLR start "entryRuleCaseResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:68:1: entryRuleCaseResult returns [EObject current=null] : iv_ruleCaseResult= ruleCaseResult EOF ;
-    public final EObject entryRuleCaseResult() throws RecognitionException {
+    // $ANTLR start "entryRuleAssuranceEvidence"
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:68:1: entryRuleAssuranceEvidence returns [EObject current=null] : iv_ruleAssuranceEvidence= ruleAssuranceEvidence EOF ;
+    public final EObject entryRuleAssuranceEvidence() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleCaseResult = null;
+        EObject iv_ruleAssuranceEvidence = null;
 
 
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:69:2: (iv_ruleCaseResult= ruleCaseResult EOF )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:70:2: iv_ruleCaseResult= ruleCaseResult EOF
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:69:2: (iv_ruleAssuranceEvidence= ruleAssuranceEvidence EOF )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:70:2: iv_ruleAssuranceEvidence= ruleAssuranceEvidence EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getCaseResultRule()); 
+               newCompositeNode(grammarAccess.getAssuranceEvidenceRule()); 
             }
-            pushFollow(FOLLOW_ruleCaseResult_in_entryRuleCaseResult75);
-            iv_ruleCaseResult=ruleCaseResult();
+            pushFollow(FOLLOW_ruleAssuranceEvidence_in_entryRuleAssuranceEvidence75);
+            iv_ruleAssuranceEvidence=ruleAssuranceEvidence();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleCaseResult; 
+               current =iv_ruleAssuranceEvidence; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCaseResult85); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAssuranceEvidence85); if (state.failed) return current;
 
             }
 
@@ -151,12 +152,12 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleCaseResult"
+    // $ANTLR end "entryRuleAssuranceEvidence"
 
 
-    // $ANTLR start "ruleCaseResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:77:1: ruleCaseResult returns [EObject current=null] : (otherlv_0= 'case' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subCaseResult_23_0= ruleCaseResult ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']' ) ;
-    public final EObject ruleCaseResult() throws RecognitionException {
+    // $ANTLR start "ruleAssuranceEvidence"
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:77:1: ruleAssuranceEvidence returns [EObject current=null] : (otherlv_0= 'evidence' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']' ) ;
+    public final EObject ruleAssuranceEvidence() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -169,7 +170,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         Token otherlv_9=null;
         Token lv_failCount_10_0=null;
         Token otherlv_11=null;
-        Token lv_errorCount_12_0=null;
+        Token lv_unknownCount_12_0=null;
         Token otherlv_13=null;
         Token lv_failthenCount_14_0=null;
         Token otherlv_15=null;
@@ -181,7 +182,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         Token otherlv_21=null;
         Token lv_message_22_0=null;
         Token otherlv_25=null;
-        EObject lv_subCaseResult_23_0 = null;
+        EObject lv_subAssuranceEvidence_23_0 = null;
 
         EObject lv_claimResult_24_0 = null;
 
@@ -189,16 +190,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:80:28: ( (otherlv_0= 'case' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subCaseResult_23_0= ruleCaseResult ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:81:1: (otherlv_0= 'case' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subCaseResult_23_0= ruleCaseResult ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:80:28: ( (otherlv_0= 'evidence' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:81:1: (otherlv_0= 'evidence' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:81:1: (otherlv_0= 'case' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subCaseResult_23_0= ruleCaseResult ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:81:3: otherlv_0= 'case' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subCaseResult_23_0= ruleCaseResult ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:81:1: (otherlv_0= 'evidence' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:81:3: otherlv_0= 'evidence' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleAadlClassifierReference ) ) otherlv_4= 'instance' ( ( ruleURIID ) ) otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence ) )* ( (lv_claimResult_24_0= ruleClaimResult ) )* otherlv_25= ']'
             {
-            otherlv_0=(Token)match(input,11,FOLLOW_11_in_ruleCaseResult122); if (state.failed) return current;
+            otherlv_0=(Token)match(input,11,FOLLOW_11_in_ruleAssuranceEvidence122); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getCaseResultAccess().getCaseKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getAssuranceEvidenceAccess().getEvidenceKeyword_0());
                   
             }
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:85:1: ( (lv_name_1_0= RULE_ID ) )
@@ -207,16 +208,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:86:1: (lv_name_1_0= RULE_ID )
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:87:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleCaseResult139); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAssuranceEvidence139); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(lv_name_1_0, grammarAccess.getCaseResultAccess().getNameIDTerminalRuleCall_1_0()); 
+              			newLeafNode(lv_name_1_0, grammarAccess.getAssuranceEvidenceAccess().getNameIDTerminalRuleCall_1_0()); 
               		
             }
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElement(grammarAccess.getCaseResultRule());
+              	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
               	        }
                      		setWithLastConsumed(
                      			current, 
@@ -231,10 +232,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,12,FOLLOW_12_in_ruleCaseResult156); if (state.failed) return current;
+            otherlv_2=(Token)match(input,12,FOLLOW_12_in_ruleAssuranceEvidence156); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_2, grammarAccess.getCaseResultAccess().getForKeyword_2());
+                  	newLeafNode(otherlv_2, grammarAccess.getAssuranceEvidenceAccess().getForKeyword_2());
                   
             }
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:107:1: ( ( ruleAadlClassifierReference ) )
@@ -246,16 +247,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getCaseResultRule());
+              	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getCaseResultAccess().getTargetClassifierCrossReference_3_0()); 
+              	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getTargetClassifierCrossReference_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAadlClassifierReference_in_ruleCaseResult179);
+            pushFollow(FOLLOW_ruleAadlClassifierReference_in_ruleAssuranceEvidence179);
             ruleAadlClassifierReference();
 
             state._fsp--;
@@ -271,10 +272,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,13,FOLLOW_13_in_ruleCaseResult191); if (state.failed) return current;
+            otherlv_4=(Token)match(input,13,FOLLOW_13_in_ruleAssuranceEvidence191); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_4, grammarAccess.getCaseResultAccess().getInstanceKeyword_4());
+                  	newLeafNode(otherlv_4, grammarAccess.getAssuranceEvidenceAccess().getInstanceKeyword_4());
                   
             }
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:126:1: ( ( ruleURIID ) )
@@ -286,16 +287,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getCaseResultRule());
+              	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getCaseResultAccess().getInstanceInstanceObjectCrossReference_5_0()); 
+              	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getInstanceInstanceObjectCrossReference_5_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleURIID_in_ruleCaseResult214);
+            pushFollow(FOLLOW_ruleURIID_in_ruleAssuranceEvidence214);
             ruleURIID();
 
             state._fsp--;
@@ -311,10 +312,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,14,FOLLOW_14_in_ruleCaseResult226); if (state.failed) return current;
+            otherlv_6=(Token)match(input,14,FOLLOW_14_in_ruleAssuranceEvidence226); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_6, grammarAccess.getCaseResultAccess().getLeftSquareBracketKeyword_6());
+                  	newLeafNode(otherlv_6, grammarAccess.getAssuranceEvidenceAccess().getLeftSquareBracketKeyword_6());
                   
             }
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:145:1: (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )?
@@ -328,10 +329,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:145:3: otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) )
                     {
-                    otherlv_7=(Token)match(input,15,FOLLOW_15_in_ruleCaseResult239); if (state.failed) return current;
+                    otherlv_7=(Token)match(input,15,FOLLOW_15_in_ruleAssuranceEvidence239); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_7, grammarAccess.getCaseResultAccess().getSuccesscountKeyword_7_0());
+                          	newLeafNode(otherlv_7, grammarAccess.getAssuranceEvidenceAccess().getSuccesscountKeyword_7_0());
                           
                     }
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:149:1: ( (lv_successCount_8_0= RULE_INT ) )
@@ -340,16 +341,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:150:1: (lv_successCount_8_0= RULE_INT )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:151:3: lv_successCount_8_0= RULE_INT
                     {
-                    lv_successCount_8_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleCaseResult256); if (state.failed) return current;
+                    lv_successCount_8_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAssuranceEvidence256); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_successCount_8_0, grammarAccess.getCaseResultAccess().getSuccessCountINTTerminalRuleCall_7_1_0()); 
+                      			newLeafNode(lv_successCount_8_0, grammarAccess.getAssuranceEvidenceAccess().getSuccessCountINTTerminalRuleCall_7_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getCaseResultRule());
+                      	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -381,10 +382,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:167:6: otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) )
                     {
-                    otherlv_9=(Token)match(input,16,FOLLOW_16_in_ruleCaseResult276); if (state.failed) return current;
+                    otherlv_9=(Token)match(input,16,FOLLOW_16_in_ruleAssuranceEvidence276); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_9, grammarAccess.getCaseResultAccess().getFailcountKeyword_8_0());
+                          	newLeafNode(otherlv_9, grammarAccess.getAssuranceEvidenceAccess().getFailcountKeyword_8_0());
                           
                     }
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:171:1: ( (lv_failCount_10_0= RULE_INT ) )
@@ -393,16 +394,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:172:1: (lv_failCount_10_0= RULE_INT )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:173:3: lv_failCount_10_0= RULE_INT
                     {
-                    lv_failCount_10_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleCaseResult293); if (state.failed) return current;
+                    lv_failCount_10_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAssuranceEvidence293); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_failCount_10_0, grammarAccess.getCaseResultAccess().getFailCountINTTerminalRuleCall_8_1_0()); 
+                      			newLeafNode(lv_failCount_10_0, grammarAccess.getAssuranceEvidenceAccess().getFailCountINTTerminalRuleCall_8_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getCaseResultRule());
+                      	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -423,7 +424,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:189:4: (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:189:4: (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -432,35 +433,35 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt3) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:189:6: otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:189:6: otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) )
                     {
-                    otherlv_11=(Token)match(input,17,FOLLOW_17_in_ruleCaseResult313); if (state.failed) return current;
+                    otherlv_11=(Token)match(input,17,FOLLOW_17_in_ruleAssuranceEvidence313); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_11, grammarAccess.getCaseResultAccess().getErrorcountKeyword_9_0());
+                          	newLeafNode(otherlv_11, grammarAccess.getAssuranceEvidenceAccess().getUnknowncountKeyword_9_0());
                           
                     }
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:193:1: ( (lv_errorCount_12_0= RULE_INT ) )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:194:1: (lv_errorCount_12_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:193:1: ( (lv_unknownCount_12_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:194:1: (lv_unknownCount_12_0= RULE_INT )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:194:1: (lv_errorCount_12_0= RULE_INT )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:195:3: lv_errorCount_12_0= RULE_INT
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:194:1: (lv_unknownCount_12_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:195:3: lv_unknownCount_12_0= RULE_INT
                     {
-                    lv_errorCount_12_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleCaseResult330); if (state.failed) return current;
+                    lv_unknownCount_12_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAssuranceEvidence330); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_errorCount_12_0, grammarAccess.getCaseResultAccess().getErrorCountINTTerminalRuleCall_9_1_0()); 
+                      			newLeafNode(lv_unknownCount_12_0, grammarAccess.getAssuranceEvidenceAccess().getUnknownCountINTTerminalRuleCall_9_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getCaseResultRule());
+                      	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
-                             			"errorCount",
-                              		lv_errorCount_12_0, 
+                             			"unknownCount",
+                              		lv_unknownCount_12_0, 
                               		"INT");
                       	    
                     }
@@ -487,10 +488,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:211:6: otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) )
                     {
-                    otherlv_13=(Token)match(input,18,FOLLOW_18_in_ruleCaseResult350); if (state.failed) return current;
+                    otherlv_13=(Token)match(input,18,FOLLOW_18_in_ruleAssuranceEvidence350); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_13, grammarAccess.getCaseResultAccess().getFailthencountKeyword_10_0());
+                          	newLeafNode(otherlv_13, grammarAccess.getAssuranceEvidenceAccess().getFailthencountKeyword_10_0());
                           
                     }
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:215:1: ( (lv_failthenCount_14_0= RULE_INT ) )
@@ -499,16 +500,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:216:1: (lv_failthenCount_14_0= RULE_INT )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:217:3: lv_failthenCount_14_0= RULE_INT
                     {
-                    lv_failthenCount_14_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleCaseResult367); if (state.failed) return current;
+                    lv_failthenCount_14_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAssuranceEvidence367); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_failthenCount_14_0, grammarAccess.getCaseResultAccess().getFailthenCountINTTerminalRuleCall_10_1_0()); 
+                      			newLeafNode(lv_failthenCount_14_0, grammarAccess.getAssuranceEvidenceAccess().getFailthenCountINTTerminalRuleCall_10_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getCaseResultRule());
+                      	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -540,10 +541,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:233:6: otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) )
                     {
-                    otherlv_15=(Token)match(input,19,FOLLOW_19_in_ruleCaseResult387); if (state.failed) return current;
+                    otherlv_15=(Token)match(input,19,FOLLOW_19_in_ruleAssuranceEvidence387); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_15, grammarAccess.getCaseResultAccess().getAndthencountKeyword_11_0());
+                          	newLeafNode(otherlv_15, grammarAccess.getAssuranceEvidenceAccess().getAndthencountKeyword_11_0());
                           
                     }
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:237:1: ( (lv_andthenCount_16_0= RULE_INT ) )
@@ -552,16 +553,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:238:1: (lv_andthenCount_16_0= RULE_INT )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:239:3: lv_andthenCount_16_0= RULE_INT
                     {
-                    lv_andthenCount_16_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleCaseResult404); if (state.failed) return current;
+                    lv_andthenCount_16_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAssuranceEvidence404); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_andthenCount_16_0, grammarAccess.getCaseResultAccess().getAndthenCountINTTerminalRuleCall_11_1_0()); 
+                      			newLeafNode(lv_andthenCount_16_0, grammarAccess.getAssuranceEvidenceAccess().getAndthenCountINTTerminalRuleCall_11_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getCaseResultRule());
+                      	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -593,10 +594,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:255:6: otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) )
                     {
-                    otherlv_17=(Token)match(input,20,FOLLOW_20_in_ruleCaseResult424); if (state.failed) return current;
+                    otherlv_17=(Token)match(input,20,FOLLOW_20_in_ruleAssuranceEvidence424); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_17, grammarAccess.getCaseResultAccess().getTbdcountKeyword_12_0());
+                          	newLeafNode(otherlv_17, grammarAccess.getAssuranceEvidenceAccess().getTbdcountKeyword_12_0());
                           
                     }
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:259:1: ( (lv_tbdCount_18_0= RULE_INT ) )
@@ -605,16 +606,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:260:1: (lv_tbdCount_18_0= RULE_INT )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:261:3: lv_tbdCount_18_0= RULE_INT
                     {
-                    lv_tbdCount_18_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleCaseResult441); if (state.failed) return current;
+                    lv_tbdCount_18_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAssuranceEvidence441); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_tbdCount_18_0, grammarAccess.getCaseResultAccess().getTbdCountINTTerminalRuleCall_12_1_0()); 
+                      			newLeafNode(lv_tbdCount_18_0, grammarAccess.getAssuranceEvidenceAccess().getTbdCountINTTerminalRuleCall_12_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getCaseResultRule());
+                      	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -646,10 +647,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:277:6: otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) )
                     {
-                    otherlv_19=(Token)match(input,21,FOLLOW_21_in_ruleCaseResult461); if (state.failed) return current;
+                    otherlv_19=(Token)match(input,21,FOLLOW_21_in_ruleAssuranceEvidence461); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_19, grammarAccess.getCaseResultAccess().getWeightKeyword_13_0());
+                          	newLeafNode(otherlv_19, grammarAccess.getAssuranceEvidenceAccess().getWeightKeyword_13_0());
                           
                     }
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:281:1: ( (lv_weight_20_0= RULE_INT ) )
@@ -658,16 +659,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:282:1: (lv_weight_20_0= RULE_INT )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:283:3: lv_weight_20_0= RULE_INT
                     {
-                    lv_weight_20_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleCaseResult478); if (state.failed) return current;
+                    lv_weight_20_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAssuranceEvidence478); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_weight_20_0, grammarAccess.getCaseResultAccess().getWeightINTTerminalRuleCall_13_1_0()); 
+                      			newLeafNode(lv_weight_20_0, grammarAccess.getAssuranceEvidenceAccess().getWeightINTTerminalRuleCall_13_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getCaseResultRule());
+                      	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -699,10 +700,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:299:6: otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) )
                     {
-                    otherlv_21=(Token)match(input,22,FOLLOW_22_in_ruleCaseResult498); if (state.failed) return current;
+                    otherlv_21=(Token)match(input,22,FOLLOW_22_in_ruleAssuranceEvidence498); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_21, grammarAccess.getCaseResultAccess().getMessageKeyword_14_0());
+                          	newLeafNode(otherlv_21, grammarAccess.getAssuranceEvidenceAccess().getMessageKeyword_14_0());
                           
                     }
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:303:1: ( (lv_message_22_0= RULE_STRING ) )
@@ -711,16 +712,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:304:1: (lv_message_22_0= RULE_STRING )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:305:3: lv_message_22_0= RULE_STRING
                     {
-                    lv_message_22_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleCaseResult515); if (state.failed) return current;
+                    lv_message_22_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleAssuranceEvidence515); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_message_22_0, grammarAccess.getCaseResultAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
+                      			newLeafNode(lv_message_22_0, grammarAccess.getAssuranceEvidenceAccess().getMessageSTRINGTerminalRuleCall_14_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getCaseResultRule());
+                      	            current = createModelElement(grammarAccess.getAssuranceEvidenceRule());
                       	        }
                              		setWithLastConsumed(
                              			current, 
@@ -741,7 +742,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:321:4: ( (lv_subCaseResult_23_0= ruleCaseResult ) )*
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:321:4: ( (lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence ) )*
             loop9:
             do {
                 int alt9=2;
@@ -754,31 +755,31 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
                 switch (alt9) {
             	case 1 :
-            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:322:1: (lv_subCaseResult_23_0= ruleCaseResult )
+            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:322:1: (lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence )
             	    {
-            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:322:1: (lv_subCaseResult_23_0= ruleCaseResult )
-            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:323:3: lv_subCaseResult_23_0= ruleCaseResult
+            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:322:1: (lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence )
+            	    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:323:3: lv_subAssuranceEvidence_23_0= ruleAssuranceEvidence
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getCaseResultAccess().getSubCaseResultCaseResultParserRuleCall_15_0()); 
+            	      	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleCaseResult_in_ruleCaseResult543);
-            	    lv_subCaseResult_23_0=ruleCaseResult();
+            	    pushFollow(FOLLOW_ruleAssuranceEvidence_in_ruleAssuranceEvidence543);
+            	    lv_subAssuranceEvidence_23_0=ruleAssuranceEvidence();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getCaseResultRule());
+            	      	            current = createModelElementForParent(grammarAccess.getAssuranceEvidenceRule());
             	      	        }
             	             		add(
             	             			current, 
-            	             			"subCaseResult",
-            	              		lv_subCaseResult_23_0, 
-            	              		"CaseResult");
+            	             			"subAssuranceEvidence",
+            	              		lv_subAssuranceEvidence_23_0, 
+            	              		"AssuranceEvidence");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -814,10 +815,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getCaseResultAccess().getClaimResultClaimResultParserRuleCall_16_0()); 
+            	      	        newCompositeNode(grammarAccess.getAssuranceEvidenceAccess().getClaimResultClaimResultParserRuleCall_16_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleClaimResult_in_ruleCaseResult565);
+            	    pushFollow(FOLLOW_ruleClaimResult_in_ruleAssuranceEvidence565);
             	    lv_claimResult_24_0=ruleClaimResult();
 
             	    state._fsp--;
@@ -825,7 +826,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getCaseResultRule());
+            	      	            current = createModelElementForParent(grammarAccess.getAssuranceEvidenceRule());
             	      	        }
             	             		add(
             	             			current, 
@@ -847,10 +848,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_25=(Token)match(input,23,FOLLOW_23_in_ruleCaseResult578); if (state.failed) return current;
+            otherlv_25=(Token)match(input,23,FOLLOW_23_in_ruleAssuranceEvidence578); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_25, grammarAccess.getCaseResultAccess().getRightSquareBracketKeyword_17());
+                  	newLeafNode(otherlv_25, grammarAccess.getAssuranceEvidenceAccess().getRightSquareBracketKeyword_17());
                   
             }
 
@@ -872,7 +873,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleCaseResult"
+    // $ANTLR end "ruleAssuranceEvidence"
 
 
     // $ANTLR start "entryRuleClaimResult"
@@ -916,7 +917,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleClaimResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:378:1: ruleClaimResult returns [EObject current=null] : (otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:378:1: ruleClaimResult returns [EObject current=null] : (otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']' ) ;
     public final EObject ruleClaimResult() throws RecognitionException {
         EObject current = null;
 
@@ -930,7 +931,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         Token otherlv_9=null;
         Token lv_failCount_10_0=null;
         Token otherlv_11=null;
-        Token lv_errorCount_12_0=null;
+        Token lv_unknownCount_12_0=null;
         Token otherlv_13=null;
         Token lv_failthenCount_14_0=null;
         Token otherlv_15=null;
@@ -950,11 +951,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:381:28: ( (otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:382:1: (otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:381:28: ( (otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:382:1: (otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:382:1: (otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:382:3: otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:382:1: (otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:382:3: otherlv_0= 'claim' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'for' ( ( ruleQualifiedName ) ) (otherlv_4= 'instance' ( ( ruleURIID ) ) )? otherlv_6= '[' (otherlv_7= 'successcount' ( (lv_successCount_8_0= RULE_INT ) ) )? (otherlv_9= 'failcount' ( (lv_failCount_10_0= RULE_INT ) ) )? (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )? (otherlv_13= 'failthencount' ( (lv_failthenCount_14_0= RULE_INT ) ) )? (otherlv_15= 'andthencount' ( (lv_andthenCount_16_0= RULE_INT ) ) )? (otherlv_17= 'tbdcount' ( (lv_tbdCount_18_0= RULE_INT ) ) )? (otherlv_19= 'weight' ( (lv_weight_20_0= RULE_INT ) ) )? (otherlv_21= 'message' ( (lv_message_22_0= RULE_STRING ) ) )? ( (lv_subClaimResult_23_0= ruleClaimResult ) )* ( (lv_verificationActivityResult_24_0= ruleVerificationExpr ) )* otherlv_25= ']'
             {
             otherlv_0=(Token)match(input,24,FOLLOW_24_in_ruleClaimResult661); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -1201,7 +1202,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:490:4: (otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) ) )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:490:4: (otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) ) )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1210,24 +1211,24 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt14) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:490:6: otherlv_11= 'errorcount' ( (lv_errorCount_12_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:490:6: otherlv_11= 'unknowncount' ( (lv_unknownCount_12_0= RULE_INT ) )
                     {
                     otherlv_11=(Token)match(input,17,FOLLOW_17_in_ruleClaimResult855); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_11, grammarAccess.getClaimResultAccess().getErrorcountKeyword_8_0());
+                          	newLeafNode(otherlv_11, grammarAccess.getClaimResultAccess().getUnknowncountKeyword_8_0());
                           
                     }
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:494:1: ( (lv_errorCount_12_0= RULE_INT ) )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:495:1: (lv_errorCount_12_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:494:1: ( (lv_unknownCount_12_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:495:1: (lv_unknownCount_12_0= RULE_INT )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:495:1: (lv_errorCount_12_0= RULE_INT )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:496:3: lv_errorCount_12_0= RULE_INT
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:495:1: (lv_unknownCount_12_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:496:3: lv_unknownCount_12_0= RULE_INT
                     {
-                    lv_errorCount_12_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleClaimResult872); if (state.failed) return current;
+                    lv_unknownCount_12_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleClaimResult872); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_errorCount_12_0, grammarAccess.getClaimResultAccess().getErrorCountINTTerminalRuleCall_8_1_0()); 
+                      			newLeafNode(lv_unknownCount_12_0, grammarAccess.getClaimResultAccess().getUnknownCountINTTerminalRuleCall_8_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
@@ -1237,8 +1238,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                       	        }
                              		setWithLastConsumed(
                              			current, 
-                             			"errorCount",
-                              		lv_errorCount_12_0, 
+                             			"unknownCount",
+                              		lv_unknownCount_12_0, 
                               		"INT");
                       	    
                     }
@@ -1694,7 +1695,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleValidationResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:679:1: ruleValidationResult returns [EObject current=null] : (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:679:1: ruleValidationResult returns [EObject current=null] : (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) ;
     public final EObject ruleValidationResult() throws RecognitionException {
         EObject current = null;
 
@@ -1713,7 +1714,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         Token otherlv_18=null;
         Token lv_failCount_19_0=null;
         Token otherlv_20=null;
-        Token lv_errorCount_21_0=null;
+        Token lv_unknownCount_21_0=null;
         Token otherlv_22=null;
         Token lv_failthenCount_23_0=null;
         Token otherlv_24=null;
@@ -1735,11 +1736,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:682:28: ( (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:1: (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:682:28: ( (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:1: (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:1: (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:3: otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:1: (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:3: otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']'
             {
             otherlv_0=(Token)match(input,25,FOLLOW_25_in_ruleValidationResult1203); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -2169,7 +2170,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:871:4: (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:871:4: (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -2178,24 +2179,24 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt27) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:871:6: otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:871:6: otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) )
                     {
                     otherlv_20=(Token)match(input,17,FOLLOW_17_in_ruleValidationResult1533); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_20, grammarAccess.getValidationResultAccess().getErrorcountKeyword_14_0());
+                          	newLeafNode(otherlv_20, grammarAccess.getValidationResultAccess().getUnknowncountKeyword_14_0());
                           
                     }
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:875:1: ( (lv_errorCount_21_0= RULE_INT ) )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:876:1: (lv_errorCount_21_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:875:1: ( (lv_unknownCount_21_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:876:1: (lv_unknownCount_21_0= RULE_INT )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:876:1: (lv_errorCount_21_0= RULE_INT )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:877:3: lv_errorCount_21_0= RULE_INT
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:876:1: (lv_unknownCount_21_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:877:3: lv_unknownCount_21_0= RULE_INT
                     {
-                    lv_errorCount_21_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleValidationResult1550); if (state.failed) return current;
+                    lv_unknownCount_21_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleValidationResult1550); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_errorCount_21_0, grammarAccess.getValidationResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+                      			newLeafNode(lv_unknownCount_21_0, grammarAccess.getValidationResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
@@ -2205,8 +2206,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                       	        }
                              		setWithLastConsumed(
                              			current, 
-                             			"errorCount",
-                              		lv_errorCount_21_0, 
+                             			"unknownCount",
+                              		lv_unknownCount_21_0, 
                               		"INT");
                       	    
                     }
@@ -2556,7 +2557,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePreconditionResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1024:1: rulePreconditionResult returns [EObject current=null] : (otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1024:1: rulePreconditionResult returns [EObject current=null] : (otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) ;
     public final EObject rulePreconditionResult() throws RecognitionException {
         EObject current = null;
 
@@ -2575,7 +2576,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         Token otherlv_18=null;
         Token lv_failCount_19_0=null;
         Token otherlv_20=null;
-        Token lv_errorCount_21_0=null;
+        Token lv_unknownCount_21_0=null;
         Token otherlv_22=null;
         Token lv_failthenCount_23_0=null;
         Token otherlv_24=null;
@@ -2597,11 +2598,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1027:28: ( (otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1028:1: (otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1027:28: ( (otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1028:1: (otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1028:1: (otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1028:3: otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1028:1: (otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1028:3: otherlv_0= 'precondition' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']'
             {
             otherlv_0=(Token)match(input,30,FOLLOW_30_in_rulePreconditionResult1837); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -3031,7 +3032,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1216:4: (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1216:4: (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )?
             int alt38=2;
             int LA38_0 = input.LA(1);
 
@@ -3040,24 +3041,24 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt38) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1216:6: otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1216:6: otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) )
                     {
                     otherlv_20=(Token)match(input,17,FOLLOW_17_in_rulePreconditionResult2167); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_20, grammarAccess.getPreconditionResultAccess().getErrorcountKeyword_14_0());
+                          	newLeafNode(otherlv_20, grammarAccess.getPreconditionResultAccess().getUnknowncountKeyword_14_0());
                           
                     }
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1220:1: ( (lv_errorCount_21_0= RULE_INT ) )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1221:1: (lv_errorCount_21_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1220:1: ( (lv_unknownCount_21_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1221:1: (lv_unknownCount_21_0= RULE_INT )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1221:1: (lv_errorCount_21_0= RULE_INT )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1222:3: lv_errorCount_21_0= RULE_INT
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1221:1: (lv_unknownCount_21_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1222:3: lv_unknownCount_21_0= RULE_INT
                     {
-                    lv_errorCount_21_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_rulePreconditionResult2184); if (state.failed) return current;
+                    lv_unknownCount_21_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_rulePreconditionResult2184); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_errorCount_21_0, grammarAccess.getPreconditionResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+                      			newLeafNode(lv_unknownCount_21_0, grammarAccess.getPreconditionResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
@@ -3067,8 +3068,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                       	        }
                              		setWithLastConsumed(
                              			current, 
-                             			"errorCount",
-                              		lv_errorCount_21_0, 
+                             			"unknownCount",
+                              		lv_unknownCount_21_0, 
                               		"INT");
                       	    
                     }
@@ -3418,7 +3419,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationActivityResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1369:1: ruleVerificationActivityResult returns [EObject current=null] : (otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1369:1: ruleVerificationActivityResult returns [EObject current=null] : (otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']' ) ;
     public final EObject ruleVerificationActivityResult() throws RecognitionException {
         EObject current = null;
 
@@ -3437,7 +3438,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         Token otherlv_18=null;
         Token lv_failCount_19_0=null;
         Token otherlv_20=null;
-        Token lv_errorCount_21_0=null;
+        Token lv_unknownCount_21_0=null;
         Token otherlv_22=null;
         Token lv_failthenCount_23_0=null;
         Token otherlv_24=null;
@@ -3463,11 +3464,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1372:28: ( (otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1373:1: (otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1372:28: ( (otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1373:1: (otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1373:1: (otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1373:3: otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1373:1: (otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1373:3: otherlv_0= 'verification' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? ( (lv_validationResult_32_0= ruleValidationResult ) )* ( (lv_preconditionResult_33_0= rulePreconditionResult ) )* otherlv_34= ']'
             {
             otherlv_0=(Token)match(input,31,FOLLOW_31_in_ruleVerificationActivityResult2471); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -3897,7 +3898,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1561:4: (otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) ) )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1561:4: (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )?
             int alt49=2;
             int LA49_0 = input.LA(1);
 
@@ -3906,24 +3907,24 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt49) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1561:6: otherlv_20= 'errorcount' ( (lv_errorCount_21_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1561:6: otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) )
                     {
                     otherlv_20=(Token)match(input,17,FOLLOW_17_in_ruleVerificationActivityResult2801); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_20, grammarAccess.getVerificationActivityResultAccess().getErrorcountKeyword_14_0());
+                          	newLeafNode(otherlv_20, grammarAccess.getVerificationActivityResultAccess().getUnknowncountKeyword_14_0());
                           
                     }
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1565:1: ( (lv_errorCount_21_0= RULE_INT ) )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1566:1: (lv_errorCount_21_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1565:1: ( (lv_unknownCount_21_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1566:1: (lv_unknownCount_21_0= RULE_INT )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1566:1: (lv_errorCount_21_0= RULE_INT )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1567:3: lv_errorCount_21_0= RULE_INT
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1566:1: (lv_unknownCount_21_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1567:3: lv_unknownCount_21_0= RULE_INT
                     {
-                    lv_errorCount_21_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleVerificationActivityResult2818); if (state.failed) return current;
+                    lv_unknownCount_21_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleVerificationActivityResult2818); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_errorCount_21_0, grammarAccess.getVerificationActivityResultAccess().getErrorCountINTTerminalRuleCall_14_1_0()); 
+                      			newLeafNode(lv_unknownCount_21_0, grammarAccess.getVerificationActivityResultAccess().getUnknownCountINTTerminalRuleCall_14_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
@@ -3933,8 +3934,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                       	        }
                              		setWithLastConsumed(
                              			current, 
-                             			"errorCount",
-                              		lv_errorCount_21_0, 
+                             			"unknownCount",
+                              		lv_unknownCount_21_0, 
                               		"INT");
                       	    
                     }
@@ -4563,7 +4564,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFailThenResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1802:1: ruleFailThenResult returns [EObject current=null] : (otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_errorThen_6_0= 'errorthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'errorcount' ( (lv_errorCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1802:1: ruleFailThenResult returns [EObject current=null] : (otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_unknownThen_6_0= 'unknownthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'unknowncount' ( (lv_unknownCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']' ) ;
     public final EObject ruleFailThenResult() throws RecognitionException {
         EObject current = null;
 
@@ -4571,14 +4572,14 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         Token otherlv_2=null;
         Token otherlv_4=null;
         Token lv_failThen_5_0=null;
-        Token lv_errorThen_6_0=null;
+        Token lv_unknownThen_6_0=null;
         Token lv_didFail_7_0=null;
         Token otherlv_8=null;
         Token lv_successCount_9_0=null;
         Token otherlv_10=null;
         Token lv_failCount_11_0=null;
         Token otherlv_12=null;
-        Token lv_errorCount_13_0=null;
+        Token lv_unknownCount_13_0=null;
         Token otherlv_14=null;
         Token lv_failthenCount_15_0=null;
         Token otherlv_16=null;
@@ -4596,11 +4597,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1805:28: ( (otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_errorThen_6_0= 'errorthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'errorcount' ( (lv_errorCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1806:1: (otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_errorThen_6_0= 'errorthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'errorcount' ( (lv_errorCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1805:28: ( (otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_unknownThen_6_0= 'unknownthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'unknowncount' ( (lv_unknownCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1806:1: (otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_unknownThen_6_0= 'unknownthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'unknowncount' ( (lv_unknownCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1806:1: (otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_errorThen_6_0= 'errorthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'errorcount' ( (lv_errorCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1806:3: otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_errorThen_6_0= 'errorthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'errorcount' ( (lv_errorCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1806:1: (otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_unknownThen_6_0= 'unknownthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'unknowncount' ( (lv_unknownCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1806:3: otherlv_0= 'failthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_failThen_5_0= 'failthen' ) )? ( (lv_unknownThen_6_0= 'unknownthen' ) )? ( (lv_didFail_7_0= 'didfail' ) )? (otherlv_8= 'successcount' ( (lv_successCount_9_0= RULE_INT ) ) )? (otherlv_10= 'failcount' ( (lv_failCount_11_0= RULE_INT ) ) )? (otherlv_12= 'unknowncount' ( (lv_unknownCount_13_0= RULE_INT ) ) )? (otherlv_14= 'failthencount' ( (lv_failthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'andthencount' ( (lv_andthenCount_17_0= RULE_INT ) ) )? (otherlv_18= 'tbdcount' ( (lv_tbdCount_19_0= RULE_INT ) ) )? (otherlv_20= 'weight' ( (lv_weight_21_0= RULE_INT ) ) )? otherlv_22= ']'
             {
             otherlv_0=(Token)match(input,32,FOLLOW_32_in_ruleFailThenResult3297); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4727,7 +4728,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1869:3: ( (lv_errorThen_6_0= 'errorthen' ) )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1869:3: ( (lv_unknownThen_6_0= 'unknownthen' ) )?
             int alt59=2;
             int LA59_0 = input.LA(1);
 
@@ -4736,15 +4737,15 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt59) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1870:1: (lv_errorThen_6_0= 'errorthen' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1870:1: (lv_unknownThen_6_0= 'unknownthen' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1870:1: (lv_errorThen_6_0= 'errorthen' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1871:3: lv_errorThen_6_0= 'errorthen'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1870:1: (lv_unknownThen_6_0= 'unknownthen' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1871:3: lv_unknownThen_6_0= 'unknownthen'
                     {
-                    lv_errorThen_6_0=(Token)match(input,34,FOLLOW_34_in_ruleFailThenResult3413); if (state.failed) return current;
+                    lv_unknownThen_6_0=(Token)match(input,34,FOLLOW_34_in_ruleFailThenResult3413); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_errorThen_6_0, grammarAccess.getFailThenResultAccess().getErrorThenErrorthenKeyword_6_0());
+                              newLeafNode(lv_unknownThen_6_0, grammarAccess.getFailThenResultAccess().getUnknownThenUnknownthenKeyword_6_0());
                           
                     }
                     if ( state.backtracking==0 ) {
@@ -4752,7 +4753,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                       	        if (current==null) {
                       	            current = createModelElement(grammarAccess.getFailThenResultRule());
                       	        }
-                             		setWithLastConsumed(current, "errorThen", true, "errorthen");
+                             		setWithLastConsumed(current, "unknownThen", true, "unknownthen");
                       	    
                     }
 
@@ -4907,7 +4908,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1943:4: (otherlv_12= 'errorcount' ( (lv_errorCount_13_0= RULE_INT ) ) )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1943:4: (otherlv_12= 'unknowncount' ( (lv_unknownCount_13_0= RULE_INT ) ) )?
             int alt63=2;
             int LA63_0 = input.LA(1);
 
@@ -4916,24 +4917,24 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt63) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1943:6: otherlv_12= 'errorcount' ( (lv_errorCount_13_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1943:6: otherlv_12= 'unknowncount' ( (lv_unknownCount_13_0= RULE_INT ) )
                     {
                     otherlv_12=(Token)match(input,17,FOLLOW_17_in_ruleFailThenResult3546); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_12, grammarAccess.getFailThenResultAccess().getErrorcountKeyword_10_0());
+                          	newLeafNode(otherlv_12, grammarAccess.getFailThenResultAccess().getUnknowncountKeyword_10_0());
                           
                     }
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1947:1: ( (lv_errorCount_13_0= RULE_INT ) )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1948:1: (lv_errorCount_13_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1947:1: ( (lv_unknownCount_13_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1948:1: (lv_unknownCount_13_0= RULE_INT )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1948:1: (lv_errorCount_13_0= RULE_INT )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1949:3: lv_errorCount_13_0= RULE_INT
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1948:1: (lv_unknownCount_13_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:1949:3: lv_unknownCount_13_0= RULE_INT
                     {
-                    lv_errorCount_13_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleFailThenResult3563); if (state.failed) return current;
+                    lv_unknownCount_13_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleFailThenResult3563); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_errorCount_13_0, grammarAccess.getFailThenResultAccess().getErrorCountINTTerminalRuleCall_10_1_0()); 
+                      			newLeafNode(lv_unknownCount_13_0, grammarAccess.getFailThenResultAccess().getUnknownCountINTTerminalRuleCall_10_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
@@ -4943,8 +4944,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                       	        }
                              		setWithLastConsumed(
                              			current, 
-                             			"errorCount",
-                              		lv_errorCount_13_0, 
+                             			"unknownCount",
+                              		lv_unknownCount_13_0, 
                               		"INT");
                       	    
                     }
@@ -5241,7 +5242,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAndThenResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2074:1: ruleAndThenResult returns [EObject current=null] : (otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'errorcount' ( (lv_errorCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2074:1: ruleAndThenResult returns [EObject current=null] : (otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'unknowncount' ( (lv_unknownCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']' ) ;
     public final EObject ruleAndThenResult() throws RecognitionException {
         EObject current = null;
 
@@ -5254,7 +5255,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
         Token otherlv_8=null;
         Token lv_failCount_9_0=null;
         Token otherlv_10=null;
-        Token lv_errorCount_11_0=null;
+        Token lv_unknownCount_11_0=null;
         Token otherlv_12=null;
         Token lv_failthenCount_13_0=null;
         Token otherlv_14=null;
@@ -5272,11 +5273,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2077:28: ( (otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'errorcount' ( (lv_errorCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2078:1: (otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'errorcount' ( (lv_errorCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2077:28: ( (otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'unknowncount' ( (lv_unknownCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2078:1: (otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'unknowncount' ( (lv_unknownCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2078:1: (otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'errorcount' ( (lv_errorCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2078:3: otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'errorcount' ( (lv_errorCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2078:1: (otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'unknowncount' ( (lv_unknownCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2078:3: otherlv_0= 'andthen' ( (lv_first_1_0= ruleVerificationExpr ) ) otherlv_2= 'do' ( (lv_second_3_0= ruleVerificationExpr ) ) otherlv_4= '[' ( (lv_didAndThenFail_5_0= 'andthenfailed' ) )? (otherlv_6= 'successcount' ( (lv_successCount_7_0= RULE_INT ) ) )? (otherlv_8= 'failcount' ( (lv_failCount_9_0= RULE_INT ) ) )? (otherlv_10= 'unknowncount' ( (lv_unknownCount_11_0= RULE_INT ) ) )? (otherlv_12= 'failthencount' ( (lv_failthenCount_13_0= RULE_INT ) ) )? (otherlv_14= 'andthencount' ( (lv_andthenCount_15_0= RULE_INT ) ) )? (otherlv_16= 'tbdcount' ( (lv_tbdCount_17_0= RULE_INT ) ) )? (otherlv_18= 'weight' ( (lv_weight_19_0= RULE_INT ) ) )? otherlv_20= ']'
             {
             otherlv_0=(Token)match(input,36,FOLLOW_36_in_ruleAndThenResult3813); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -5509,7 +5510,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2185:4: (otherlv_10= 'errorcount' ( (lv_errorCount_11_0= RULE_INT ) ) )?
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2185:4: (otherlv_10= 'unknowncount' ( (lv_unknownCount_11_0= RULE_INT ) ) )?
             int alt71=2;
             int LA71_0 = input.LA(1);
 
@@ -5518,24 +5519,24 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             }
             switch (alt71) {
                 case 1 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2185:6: otherlv_10= 'errorcount' ( (lv_errorCount_11_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2185:6: otherlv_10= 'unknowncount' ( (lv_unknownCount_11_0= RULE_INT ) )
                     {
                     otherlv_10=(Token)match(input,17,FOLLOW_17_in_ruleAndThenResult3998); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_10, grammarAccess.getAndThenResultAccess().getErrorcountKeyword_8_0());
+                          	newLeafNode(otherlv_10, grammarAccess.getAndThenResultAccess().getUnknowncountKeyword_8_0());
                           
                     }
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2189:1: ( (lv_errorCount_11_0= RULE_INT ) )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2190:1: (lv_errorCount_11_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2189:1: ( (lv_unknownCount_11_0= RULE_INT ) )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2190:1: (lv_unknownCount_11_0= RULE_INT )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2190:1: (lv_errorCount_11_0= RULE_INT )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2191:3: lv_errorCount_11_0= RULE_INT
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2190:1: (lv_unknownCount_11_0= RULE_INT )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2191:3: lv_unknownCount_11_0= RULE_INT
                     {
-                    lv_errorCount_11_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAndThenResult4015); if (state.failed) return current;
+                    lv_unknownCount_11_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleAndThenResult4015); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_errorCount_11_0, grammarAccess.getAndThenResultAccess().getErrorCountINTTerminalRuleCall_8_1_0()); 
+                      			newLeafNode(lv_unknownCount_11_0, grammarAccess.getAndThenResultAccess().getUnknownCountINTTerminalRuleCall_8_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
@@ -5545,8 +5546,8 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                       	        }
                              		setWithLastConsumed(
                              			current, 
-                             			"errorCount",
-                              		lv_errorCount_11_0, 
+                             			"unknownCount",
+                              		lv_unknownCount_11_0, 
                               		"INT");
                       	    
                     }
@@ -6720,7 +6721,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVerificationResultState"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2609:1: ruleVerificationResultState returns [Enumerator current=null] : ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'error' ) ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2609:1: ruleVerificationResultState returns [Enumerator current=null] : ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'unknown' ) ) ;
     public final Enumerator ruleVerificationResultState() throws RecognitionException {
         Enumerator current = null;
 
@@ -6731,10 +6732,10 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2611:28: ( ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'error' ) ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2612:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'error' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2611:28: ( ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'unknown' ) ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2612:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'unknown' ) )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2612:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'error' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2612:1: ( (enumLiteral_0= 'tbd' ) | (enumLiteral_1= 'success' ) | (enumLiteral_2= 'fail' ) | (enumLiteral_3= 'unknown' ) )
             int alt84=4;
             switch ( input.LA(1) ) {
             case 47:
@@ -6752,7 +6753,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                 alt84=3;
                 }
                 break;
-            case 43:
+            case 49:
                 {
                 alt84=4;
                 }
@@ -6824,16 +6825,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2630:6: (enumLiteral_3= 'error' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2630:6: (enumLiteral_3= 'unknown' )
                     {
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2630:6: (enumLiteral_3= 'error' )
-                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2630:8: enumLiteral_3= 'error'
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2630:6: (enumLiteral_3= 'unknown' )
+                    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2630:8: enumLiteral_3= 'unknown'
                     {
-                    enumLiteral_3=(Token)match(input,43,FOLLOW_43_in_ruleVerificationResultState5058); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,49,FOLLOW_49_in_ruleVerificationResultState5058); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getERROREnumLiteralDeclaration_3()); 
+                              current = grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_3, grammarAccess.getVerificationResultStateAccess().getUNKNOWNEnumLiteralDeclaration_3()); 
                           
                     }
 
@@ -6882,22 +6883,22 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2643:1: ( (enumLiteral_0= 'todo' ) | (enumLiteral_1= 'running' ) | (enumLiteral_2= 'redo' ) | (enumLiteral_3= 'completed' ) )
             int alt85=4;
             switch ( input.LA(1) ) {
-            case 49:
+            case 50:
                 {
                 alt85=1;
                 }
                 break;
-            case 50:
+            case 51:
                 {
                 alt85=2;
                 }
                 break;
-            case 51:
+            case 52:
                 {
                 alt85=3;
                 }
                 break;
-            case 52:
+            case 53:
                 {
                 alt85=4;
                 }
@@ -6917,7 +6918,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2643:2: (enumLiteral_0= 'todo' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2643:4: enumLiteral_0= 'todo'
                     {
-                    enumLiteral_0=(Token)match(input,49,FOLLOW_49_in_ruleVerificationExecutionState5103); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,50,FOLLOW_50_in_ruleVerificationExecutionState5103); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationExecutionStateAccess().getTODOEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -6936,7 +6937,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2649:6: (enumLiteral_1= 'running' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2649:8: enumLiteral_1= 'running'
                     {
-                    enumLiteral_1=(Token)match(input,50,FOLLOW_50_in_ruleVerificationExecutionState5120); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,51,FOLLOW_51_in_ruleVerificationExecutionState5120); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationExecutionStateAccess().getRUNNINGEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -6955,7 +6956,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2655:6: (enumLiteral_2= 'redo' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2655:8: enumLiteral_2= 'redo'
                     {
-                    enumLiteral_2=(Token)match(input,51,FOLLOW_51_in_ruleVerificationExecutionState5137); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,52,FOLLOW_52_in_ruleVerificationExecutionState5137); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationExecutionStateAccess().getREDOEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -6974,7 +6975,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2661:6: (enumLiteral_3= 'completed' )
                     // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:2661:8: enumLiteral_3= 'completed'
                     {
-                    enumLiteral_3=(Token)match(input,52,FOLLOW_52_in_ruleVerificationExecutionState5154); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,53,FOLLOW_53_in_ruleVerificationExecutionState5154); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getVerificationExecutionStateAccess().getCOMPLETEDEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -7039,34 +7040,34 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
  
 
-    public static final BitSet FOLLOW_ruleCaseResult_in_entryRuleCaseResult75 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCaseResult85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_ruleCaseResult122 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleCaseResult139 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_12_in_ruleCaseResult156 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleCaseResult179 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleCaseResult191 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ruleURIID_in_ruleCaseResult214 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_ruleCaseResult226 = new BitSet(new long[]{0x0000000001FF8800L});
-    public static final BitSet FOLLOW_15_in_ruleCaseResult239 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleCaseResult256 = new BitSet(new long[]{0x0000000001FF0800L});
-    public static final BitSet FOLLOW_16_in_ruleCaseResult276 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleCaseResult293 = new BitSet(new long[]{0x0000000001FE0800L});
-    public static final BitSet FOLLOW_17_in_ruleCaseResult313 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleCaseResult330 = new BitSet(new long[]{0x0000000001FC0800L});
-    public static final BitSet FOLLOW_18_in_ruleCaseResult350 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleCaseResult367 = new BitSet(new long[]{0x0000000001F80800L});
-    public static final BitSet FOLLOW_19_in_ruleCaseResult387 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleCaseResult404 = new BitSet(new long[]{0x0000000001F00800L});
-    public static final BitSet FOLLOW_20_in_ruleCaseResult424 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleCaseResult441 = new BitSet(new long[]{0x0000000001E00800L});
-    public static final BitSet FOLLOW_21_in_ruleCaseResult461 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleCaseResult478 = new BitSet(new long[]{0x0000000001C00800L});
-    public static final BitSet FOLLOW_22_in_ruleCaseResult498 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleCaseResult515 = new BitSet(new long[]{0x0000000001800800L});
-    public static final BitSet FOLLOW_ruleCaseResult_in_ruleCaseResult543 = new BitSet(new long[]{0x0000000001800800L});
-    public static final BitSet FOLLOW_ruleClaimResult_in_ruleCaseResult565 = new BitSet(new long[]{0x0000000001800000L});
-    public static final BitSet FOLLOW_23_in_ruleCaseResult578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssuranceEvidence_in_entryRuleAssuranceEvidence75 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAssuranceEvidence85 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_11_in_ruleAssuranceEvidence122 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAssuranceEvidence139 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_12_in_ruleAssuranceEvidence156 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleAssuranceEvidence179 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_ruleAssuranceEvidence191 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ruleURIID_in_ruleAssuranceEvidence214 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_ruleAssuranceEvidence226 = new BitSet(new long[]{0x0000000001FF8800L});
+    public static final BitSet FOLLOW_15_in_ruleAssuranceEvidence239 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAssuranceEvidence256 = new BitSet(new long[]{0x0000000001FF0800L});
+    public static final BitSet FOLLOW_16_in_ruleAssuranceEvidence276 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAssuranceEvidence293 = new BitSet(new long[]{0x0000000001FE0800L});
+    public static final BitSet FOLLOW_17_in_ruleAssuranceEvidence313 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAssuranceEvidence330 = new BitSet(new long[]{0x0000000001FC0800L});
+    public static final BitSet FOLLOW_18_in_ruleAssuranceEvidence350 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAssuranceEvidence367 = new BitSet(new long[]{0x0000000001F80800L});
+    public static final BitSet FOLLOW_19_in_ruleAssuranceEvidence387 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAssuranceEvidence404 = new BitSet(new long[]{0x0000000001F00800L});
+    public static final BitSet FOLLOW_20_in_ruleAssuranceEvidence424 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAssuranceEvidence441 = new BitSet(new long[]{0x0000000001E00800L});
+    public static final BitSet FOLLOW_21_in_ruleAssuranceEvidence461 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleAssuranceEvidence478 = new BitSet(new long[]{0x0000000001C00800L});
+    public static final BitSet FOLLOW_22_in_ruleAssuranceEvidence498 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleAssuranceEvidence515 = new BitSet(new long[]{0x0000000001800800L});
+    public static final BitSet FOLLOW_ruleAssuranceEvidence_in_ruleAssuranceEvidence543 = new BitSet(new long[]{0x0000000001800800L});
+    public static final BitSet FOLLOW_ruleClaimResult_in_ruleAssuranceEvidence565 = new BitSet(new long[]{0x0000000001800000L});
+    public static final BitSet FOLLOW_23_in_ruleAssuranceEvidence578 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleClaimResult_in_entryRuleClaimResult614 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleClaimResult624 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_24_in_ruleClaimResult661 = new BitSet(new long[]{0x0000000000000010L});
@@ -7102,9 +7103,9 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_12_in_ruleValidationResult1246 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleValidationResult1269 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_ruleValidationResult1281 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleValidationResult1293 = new BitSet(new long[]{0x001E000000000000L});
+    public static final BitSet FOLLOW_26_in_ruleValidationResult1293 = new BitSet(new long[]{0x003C000000000000L});
     public static final BitSet FOLLOW_ruleVerificationExecutionState_in_ruleValidationResult1314 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_ruleValidationResult1326 = new BitSet(new long[]{0x0001A80000000000L});
+    public static final BitSet FOLLOW_27_in_ruleValidationResult1326 = new BitSet(new long[]{0x0003A00000000000L});
     public static final BitSet FOLLOW_ruleVerificationResultState_in_ruleValidationResult1347 = new BitSet(new long[]{0x0000000030FF8000L});
     public static final BitSet FOLLOW_28_in_ruleValidationResult1360 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_ruleValidationResult1372 = new BitSet(new long[]{0x0000780000800000L});
@@ -7136,9 +7137,9 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_12_in_rulePreconditionResult1880 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rulePreconditionResult1903 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_rulePreconditionResult1915 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_rulePreconditionResult1927 = new BitSet(new long[]{0x001E000000000000L});
+    public static final BitSet FOLLOW_26_in_rulePreconditionResult1927 = new BitSet(new long[]{0x003C000000000000L});
     public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rulePreconditionResult1948 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_rulePreconditionResult1960 = new BitSet(new long[]{0x0001A80000000000L});
+    public static final BitSet FOLLOW_27_in_rulePreconditionResult1960 = new BitSet(new long[]{0x0003A00000000000L});
     public static final BitSet FOLLOW_ruleVerificationResultState_in_rulePreconditionResult1981 = new BitSet(new long[]{0x0000000030FF8000L});
     public static final BitSet FOLLOW_28_in_rulePreconditionResult1994 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_rulePreconditionResult2006 = new BitSet(new long[]{0x0000780000800000L});
@@ -7170,9 +7171,9 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_12_in_ruleVerificationActivityResult2514 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleVerificationActivityResult2537 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_ruleVerificationActivityResult2549 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleVerificationActivityResult2561 = new BitSet(new long[]{0x001E000000000000L});
+    public static final BitSet FOLLOW_26_in_ruleVerificationActivityResult2561 = new BitSet(new long[]{0x003C000000000000L});
     public static final BitSet FOLLOW_ruleVerificationExecutionState_in_ruleVerificationActivityResult2582 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_ruleVerificationActivityResult2594 = new BitSet(new long[]{0x0001A80000000000L});
+    public static final BitSet FOLLOW_27_in_ruleVerificationActivityResult2594 = new BitSet(new long[]{0x0003A00000000000L});
     public static final BitSet FOLLOW_ruleVerificationResultState_in_ruleVerificationActivityResult2615 = new BitSet(new long[]{0x0000000072FF8000L});
     public static final BitSet FOLLOW_28_in_ruleVerificationActivityResult2628 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_ruleVerificationActivityResult2640 = new BitSet(new long[]{0x0000780000800000L});
@@ -7287,11 +7288,11 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_47_in_ruleVerificationResultState5007 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_45_in_ruleVerificationResultState5024 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_48_in_ruleVerificationResultState5041 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_ruleVerificationResultState5058 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_ruleVerificationExecutionState5103 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_ruleVerificationExecutionState5120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_ruleVerificationExecutionState5137 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_ruleVerificationExecutionState5154 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_49_in_ruleVerificationResultState5058 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_ruleVerificationExecutionState5103 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_ruleVerificationExecutionState5120 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_ruleVerificationExecutionState5137 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_ruleVerificationExecutionState5154 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_42_in_synpred1_InternalAssure4825 = new BitSet(new long[]{0x0000000000000002L});
 
 }

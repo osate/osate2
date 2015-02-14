@@ -429,7 +429,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getClaim_Rationale()
+  public EAttribute getClaim_Argument()
   {
     return (EAttribute)claimEClass.getEStructuralFeatures().get(5);
   }
@@ -439,9 +439,19 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getClaim_Rationale()
+  {
+    return (EAttribute)claimEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getClaim_Subclaim()
   {
-    return (EReference)claimEClass.getEStructuralFeatures().get(6);
+    return (EReference)claimEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -969,7 +979,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getFailThenExpr_Error()
+  public EAttribute getFailThenExpr_Unknown()
   {
     return (EAttribute)failThenExprEClass.getEStructuralFeatures().get(2);
   }
@@ -1122,6 +1132,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEAttribute(claimEClass, CLAIM__WEIGHT);
     createEReference(claimEClass, CLAIM__REQUIREMENT);
     createEReference(claimEClass, CLAIM__ASSERT);
+    createEAttribute(claimEClass, CLAIM__ARGUMENT);
     createEAttribute(claimEClass, CLAIM__RATIONALE);
     createEReference(claimEClass, CLAIM__SUBCLAIM);
 
@@ -1189,7 +1200,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     failThenExprEClass = createEClass(FAIL_THEN_EXPR);
     createEReference(failThenExprEClass, FAIL_THEN_EXPR__LEFT);
     createEAttribute(failThenExprEClass, FAIL_THEN_EXPR__FAILED);
-    createEAttribute(failThenExprEClass, FAIL_THEN_EXPR__ERROR);
+    createEAttribute(failThenExprEClass, FAIL_THEN_EXPR__UNKNOWN);
     createEReference(failThenExprEClass, FAIL_THEN_EXPR__RIGHT);
 
     whenExprEClass = createEClass(WHEN_EXPR);
@@ -1271,6 +1282,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEAttribute(getClaim_Weight(), theEcorePackage.getEInt(), "weight", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaim_Requirement(), theReqSpecPackage.getRequirement(), null, "requirement", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaim_Assert(), this.getArgumentExpr(), null, "assert", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClaim_Argument(), theEcorePackage.getEString(), "argument", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClaim_Rationale(), theEcorePackage.getEString(), "rationale", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaim_Subclaim(), this.getClaim(), null, "subclaim", null, 0, -1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1338,7 +1350,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEClass(failThenExprEClass, FailThenExpr.class, "FailThenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getFailThenExpr_Left(), this.getArgumentExpr(), null, "left", null, 0, 1, FailThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getFailThenExpr_Failed(), theEcorePackage.getEBoolean(), "failed", null, 0, 1, FailThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getFailThenExpr_Error(), theEcorePackage.getEBoolean(), "error", null, 0, 1, FailThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFailThenExpr_Unknown(), theEcorePackage.getEBoolean(), "unknown", null, 0, 1, FailThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFailThenExpr_Right(), this.getArgumentExpr(), null, "right", null, 0, 1, FailThenExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(whenExprEClass, WhenExpr.class, "WhenExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

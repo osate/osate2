@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
-import org.osate.alisa.workbench.alisa.AssuranceCaseConfiguration;
+import org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration;
 import org.osate.alisa.workbench.alisa.Description;
 
 import org.osate.categories.categories.SelectionCategory;
@@ -30,23 +30,23 @@ import org.osate.verify.verify.VerificationPlan;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Assurance Case Configuration</b></em>'.
+ * An implementation of the model object '<em><b>Assurance Evidence Configuration</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getSystem <em>System</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getPlans <em>Plans</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceCaseConfigurationImpl#getSelectionFilter <em>Selection Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getSystem <em>System</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container implements AssuranceCaseConfiguration
+public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Container implements AssuranceEvidenceConfiguration
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -133,7 +133,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AssuranceCaseConfigurationImpl()
+  protected AssuranceEvidenceConfigurationImpl()
   {
     super();
   }
@@ -146,7 +146,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   @Override
   protected EClass eStaticClass()
   {
-    return AlisaPackage.Literals.ASSURANCE_CASE_CONFIGURATION;
+    return AlisaPackage.Literals.ASSURANCE_EVIDENCE_CONFIGURATION;
   }
 
   /**
@@ -169,7 +169,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME, oldName, name));
   }
 
   /**
@@ -192,7 +192,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
     String oldTitle = title;
     title = newTitle;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__TITLE, oldTitle, title));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE, oldTitle, title));
   }
 
   /**
@@ -209,7 +209,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
       if (system != oldSystem)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SYSTEM, oldSystem, system));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM, oldSystem, system));
       }
     }
     return system;
@@ -235,7 +235,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
     ComponentImplementation oldSystem = system;
     system = newSystem;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SYSTEM, oldSystem, system));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM, oldSystem, system));
   }
 
   /**
@@ -259,7 +259,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
     description = newDescription;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION, oldDescription, newDescription);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION, oldDescription, newDescription);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -276,14 +276,14 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
     {
       NotificationChain msgs = null;
       if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION, null, msgs);
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION, null, msgs);
       if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION, null, msgs);
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION, null, msgs);
       msgs = basicSetDescription(newDescription, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION, newDescription, newDescription));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION, newDescription, newDescription));
   }
 
   /**
@@ -295,7 +295,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   {
     if (plans == null)
     {
-      plans = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS);
+      plans = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS);
     }
     return plans;
   }
@@ -309,7 +309,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   {
     if (selectionFilter == null)
     {
-      selectionFilter = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER);
+      selectionFilter = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER);
     }
     return selectionFilter;
   }
@@ -324,7 +324,7 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
         return basicSetDescription(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -340,18 +340,18 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__NAME:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME:
         return getName();
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__TITLE:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE:
         return getTitle();
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SYSTEM:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM:
         if (resolve) return getSystem();
         return basicGetSystem();
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
         return getDescription();
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
         return getPlans();
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
         return getSelectionFilter();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -368,23 +368,23 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__NAME:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME:
         setName((String)newValue);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__TITLE:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE:
         setTitle((String)newValue);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SYSTEM:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM:
         setSystem((ComponentImplementation)newValue);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
         getPlans().clear();
         getPlans().addAll((Collection<? extends VerificationPlan>)newValue);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
         getSelectionFilter().clear();
         getSelectionFilter().addAll((Collection<? extends SelectionCategory>)newValue);
         return;
@@ -402,22 +402,22 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__NAME:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__TITLE:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SYSTEM:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM:
         setSystem((ComponentImplementation)null);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
         getPlans().clear();
         return;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
         getSelectionFilter().clear();
         return;
     }
@@ -434,17 +434,17 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__NAME:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__TITLE:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SYSTEM:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM:
         return system != null;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
         return description != null;
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__PLANS:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
         return plans != null && !plans.isEmpty();
-      case AlisaPackage.ASSURANCE_CASE_CONFIGURATION__SELECTION_FILTER:
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
         return selectionFilter != null && !selectionFilter.isEmpty();
     }
     return super.eIsSet(featureID);
@@ -469,4 +469,4 @@ public class AssuranceCaseConfigurationImpl extends MinimalEObjectImpl.Container
     return result.toString();
   }
 
-} //AssuranceCaseConfigurationImpl
+} //AssuranceEvidenceConfigurationImpl

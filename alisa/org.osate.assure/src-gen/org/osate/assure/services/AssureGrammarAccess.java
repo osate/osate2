@@ -18,10 +18,10 @@ import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
-	public class CaseResultElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CaseResult");
+	public class AssuranceEvidenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssuranceEvidence");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cCaseKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cEvidenceKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cForKeyword_2 = (Keyword)cGroup.eContents().get(2);
@@ -42,9 +42,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFailCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
 		private final RuleCall cFailCountINTTerminalRuleCall_8_1_0 = (RuleCall)cFailCountAssignment_8_1.eContents().get(0);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
-		private final Keyword cErrorcountKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
-		private final Assignment cErrorCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
-		private final RuleCall cErrorCountINTTerminalRuleCall_9_1_0 = (RuleCall)cErrorCountAssignment_9_1.eContents().get(0);
+		private final Keyword cUnknowncountKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Assignment cUnknownCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final RuleCall cUnknownCountINTTerminalRuleCall_9_1_0 = (RuleCall)cUnknownCountAssignment_9_1.eContents().get(0);
 		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
 		private final Keyword cFailthencountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
 		private final Assignment cFailthenCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
@@ -65,30 +65,30 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cMessageKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
 		private final Assignment cMessageAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
 		private final RuleCall cMessageSTRINGTerminalRuleCall_14_1_0 = (RuleCall)cMessageAssignment_14_1.eContents().get(0);
-		private final Assignment cSubCaseResultAssignment_15 = (Assignment)cGroup.eContents().get(15);
-		private final RuleCall cSubCaseResultCaseResultParserRuleCall_15_0 = (RuleCall)cSubCaseResultAssignment_15.eContents().get(0);
+		private final Assignment cSubAssuranceEvidenceAssignment_15 = (Assignment)cGroup.eContents().get(15);
+		private final RuleCall cSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0 = (RuleCall)cSubAssuranceEvidenceAssignment_15.eContents().get(0);
 		private final Assignment cClaimResultAssignment_16 = (Assignment)cGroup.eContents().get(16);
 		private final RuleCall cClaimResultClaimResultParserRuleCall_16_0 = (RuleCall)cClaimResultAssignment_16.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_17 = (Keyword)cGroup.eContents().get(17);
 		
 		//// result for a system in the architecture hierarchy
-		//CaseResult:
-		//	"case" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
+		//AssuranceEvidence:
+		//	"evidence" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
 		//	instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-		//	("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-		//	tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subCaseResult+=CaseResult*
-		//	claimResult+=ClaimResult* "]";
+		//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)?
+		//	("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
+		//	subAssuranceEvidence+=AssuranceEvidence* claimResult+=ClaimResult* "]";
 		public ParserRule getRule() { return rule; }
 
-		//"case" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
+		//"evidence" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
 		//instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-		//("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-		//tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subCaseResult+=CaseResult* claimResult+=ClaimResult*
-		//"]"
+		//("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
+		//tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence*
+		//claimResult+=ClaimResult* "]"
 		public Group getGroup() { return cGroup; }
 
-		//"case"
-		public Keyword getCaseKeyword_0() { return cCaseKeyword_0; }
+		//"evidence"
+		public Keyword getEvidenceKeyword_0() { return cEvidenceKeyword_0; }
 
 		//name=ID
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
@@ -147,17 +147,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getFailCountINTTerminalRuleCall_8_1_0() { return cFailCountINTTerminalRuleCall_8_1_0; }
 
-		//("errorcount" errorCount=INT)?
+		//("unknowncount" unknownCount=INT)?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//"errorcount"
-		public Keyword getErrorcountKeyword_9_0() { return cErrorcountKeyword_9_0; }
+		//"unknowncount"
+		public Keyword getUnknowncountKeyword_9_0() { return cUnknowncountKeyword_9_0; }
 
-		//errorCount=INT
-		public Assignment getErrorCountAssignment_9_1() { return cErrorCountAssignment_9_1; }
+		//unknownCount=INT
+		public Assignment getUnknownCountAssignment_9_1() { return cUnknownCountAssignment_9_1; }
 
 		//INT
-		public RuleCall getErrorCountINTTerminalRuleCall_9_1_0() { return cErrorCountINTTerminalRuleCall_9_1_0; }
+		public RuleCall getUnknownCountINTTerminalRuleCall_9_1_0() { return cUnknownCountINTTerminalRuleCall_9_1_0; }
 
 		//("failthencount" failthenCount=INT)?
 		public Group getGroup_10() { return cGroup_10; }
@@ -219,11 +219,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getMessageSTRINGTerminalRuleCall_14_1_0() { return cMessageSTRINGTerminalRuleCall_14_1_0; }
 
-		//subCaseResult+=CaseResult*
-		public Assignment getSubCaseResultAssignment_15() { return cSubCaseResultAssignment_15; }
+		//subAssuranceEvidence+=AssuranceEvidence*
+		public Assignment getSubAssuranceEvidenceAssignment_15() { return cSubAssuranceEvidenceAssignment_15; }
 
-		//CaseResult
-		public RuleCall getSubCaseResultCaseResultParserRuleCall_15_0() { return cSubCaseResultCaseResultParserRuleCall_15_0; }
+		//AssuranceEvidence
+		public RuleCall getSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0() { return cSubAssuranceEvidenceAssuranceEvidenceParserRuleCall_15_0; }
 
 		//claimResult+=ClaimResult*
 		public Assignment getClaimResultAssignment_16() { return cClaimResultAssignment_16; }
@@ -260,9 +260,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFailCountAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
 		private final RuleCall cFailCountINTTerminalRuleCall_7_1_0 = (RuleCall)cFailCountAssignment_7_1.eContents().get(0);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cErrorcountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cErrorCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cErrorCountINTTerminalRuleCall_8_1_0 = (RuleCall)cErrorCountAssignment_8_1.eContents().get(0);
+		private final Keyword cUnknowncountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cUnknownCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cUnknownCountINTTerminalRuleCall_8_1_0 = (RuleCall)cUnknownCountAssignment_8_1.eContents().get(0);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
 		private final Keyword cFailthencountKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
 		private final Assignment cFailthenCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
@@ -293,14 +293,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//ClaimResult:
 		//	"claim" name=ID "for" target=[ReqSpec::Requirement|QualifiedName] ("instance"
 		//	instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
-		//	"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+		//	"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 		public ParserRule getRule() { return rule; }
 
 		//"claim" name=ID "for" target=[ReqSpec::Requirement|QualifiedName] ("instance"
 		//instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
-		//"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+		//"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]"
 		public Group getGroup() { return cGroup; }
@@ -368,17 +368,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getFailCountINTTerminalRuleCall_7_1_0() { return cFailCountINTTerminalRuleCall_7_1_0; }
 
-		//("errorcount" errorCount=INT)?
+		//("unknowncount" unknownCount=INT)?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//"errorcount"
-		public Keyword getErrorcountKeyword_8_0() { return cErrorcountKeyword_8_0; }
+		//"unknowncount"
+		public Keyword getUnknowncountKeyword_8_0() { return cUnknowncountKeyword_8_0; }
 
-		//errorCount=INT
-		public Assignment getErrorCountAssignment_8_1() { return cErrorCountAssignment_8_1; }
+		//unknownCount=INT
+		public Assignment getUnknownCountAssignment_8_1() { return cUnknownCountAssignment_8_1; }
 
 		//INT
-		public RuleCall getErrorCountINTTerminalRuleCall_8_1_0() { return cErrorCountINTTerminalRuleCall_8_1_0; }
+		public RuleCall getUnknownCountINTTerminalRuleCall_8_1_0() { return cUnknownCountINTTerminalRuleCall_8_1_0; }
 
 		//("failthencount" failthenCount=INT)?
 		public Group getGroup_9() { return cGroup_9; }
@@ -494,9 +494,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFailCountAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
 		private final RuleCall cFailCountINTTerminalRuleCall_13_1_0 = (RuleCall)cFailCountAssignment_13_1.eContents().get(0);
 		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cErrorcountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cErrorCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cErrorCountINTTerminalRuleCall_14_1_0 = (RuleCall)cErrorCountAssignment_14_1.eContents().get(0);
+		private final Keyword cUnknowncountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
+		private final Assignment cUnknownCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
+		private final RuleCall cUnknownCountINTTerminalRuleCall_14_1_0 = (RuleCall)cUnknownCountAssignment_14_1.eContents().get(0);
 		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
 		private final Keyword cFailthencountKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
 		private final Assignment cFailthenCountAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
@@ -523,7 +523,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	"assumption" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "["
 		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
 		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//	message=STRING)? "]";
 		public ParserRule getRule() { return rule; }
@@ -531,7 +531,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"assumption" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "[" "executionstate"
 		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
 		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//message=STRING)? "]"
 		public Group getGroup() { return cGroup; }
@@ -638,17 +638,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getFailCountINTTerminalRuleCall_13_1_0() { return cFailCountINTTerminalRuleCall_13_1_0; }
 
-		//("errorcount" errorCount=INT)?
+		//("unknowncount" unknownCount=INT)?
 		public Group getGroup_14() { return cGroup_14; }
 
-		//"errorcount"
-		public Keyword getErrorcountKeyword_14_0() { return cErrorcountKeyword_14_0; }
+		//"unknowncount"
+		public Keyword getUnknowncountKeyword_14_0() { return cUnknowncountKeyword_14_0; }
 
-		//errorCount=INT
-		public Assignment getErrorCountAssignment_14_1() { return cErrorCountAssignment_14_1; }
+		//unknownCount=INT
+		public Assignment getUnknownCountAssignment_14_1() { return cUnknownCountAssignment_14_1; }
 
 		//INT
-		public RuleCall getErrorCountINTTerminalRuleCall_14_1_0() { return cErrorCountINTTerminalRuleCall_14_1_0; }
+		public RuleCall getUnknownCountINTTerminalRuleCall_14_1_0() { return cUnknownCountINTTerminalRuleCall_14_1_0; }
 
 		//("failthencount" failthenCount=INT)?
 		public Group getGroup_15() { return cGroup_15; }
@@ -752,9 +752,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFailCountAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
 		private final RuleCall cFailCountINTTerminalRuleCall_13_1_0 = (RuleCall)cFailCountAssignment_13_1.eContents().get(0);
 		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cErrorcountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cErrorCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cErrorCountINTTerminalRuleCall_14_1_0 = (RuleCall)cErrorCountAssignment_14_1.eContents().get(0);
+		private final Keyword cUnknowncountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
+		private final Assignment cUnknownCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
+		private final RuleCall cUnknownCountINTTerminalRuleCall_14_1_0 = (RuleCall)cUnknownCountAssignment_14_1.eContents().get(0);
 		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
 		private final Keyword cFailthencountKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
 		private final Assignment cFailthenCountAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
@@ -781,7 +781,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	"precondition" {PreconditionResult} name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "["
 		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
 		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//	message=STRING)? "]";
 		public ParserRule getRule() { return rule; }
@@ -789,7 +789,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"precondition" {PreconditionResult} name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "["
 		//"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
 		//"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//message=STRING)? "]"
 		public Group getGroup() { return cGroup; }
@@ -896,17 +896,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getFailCountINTTerminalRuleCall_13_1_0() { return cFailCountINTTerminalRuleCall_13_1_0; }
 
-		//("errorcount" errorCount=INT)?
+		//("unknowncount" unknownCount=INT)?
 		public Group getGroup_14() { return cGroup_14; }
 
-		//"errorcount"
-		public Keyword getErrorcountKeyword_14_0() { return cErrorcountKeyword_14_0; }
+		//"unknowncount"
+		public Keyword getUnknowncountKeyword_14_0() { return cUnknowncountKeyword_14_0; }
 
-		//errorCount=INT
-		public Assignment getErrorCountAssignment_14_1() { return cErrorCountAssignment_14_1; }
+		//unknownCount=INT
+		public Assignment getUnknownCountAssignment_14_1() { return cUnknownCountAssignment_14_1; }
 
 		//INT
-		public RuleCall getErrorCountINTTerminalRuleCall_14_1_0() { return cErrorCountINTTerminalRuleCall_14_1_0; }
+		public RuleCall getUnknownCountINTTerminalRuleCall_14_1_0() { return cUnknownCountINTTerminalRuleCall_14_1_0; }
 
 		//("failthencount" failthenCount=INT)?
 		public Group getGroup_15() { return cGroup_15; }
@@ -1010,9 +1010,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFailCountAssignment_13_1 = (Assignment)cGroup_13.eContents().get(1);
 		private final RuleCall cFailCountINTTerminalRuleCall_13_1_0 = (RuleCall)cFailCountAssignment_13_1.eContents().get(0);
 		private final Group cGroup_14 = (Group)cGroup.eContents().get(14);
-		private final Keyword cErrorcountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
-		private final Assignment cErrorCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
-		private final RuleCall cErrorCountINTTerminalRuleCall_14_1_0 = (RuleCall)cErrorCountAssignment_14_1.eContents().get(0);
+		private final Keyword cUnknowncountKeyword_14_0 = (Keyword)cGroup_14.eContents().get(0);
+		private final Assignment cUnknownCountAssignment_14_1 = (Assignment)cGroup_14.eContents().get(1);
+		private final RuleCall cUnknownCountINTTerminalRuleCall_14_1_0 = (RuleCall)cUnknownCountAssignment_14_1.eContents().get(0);
 		private final Group cGroup_15 = (Group)cGroup.eContents().get(15);
 		private final Keyword cFailthencountKeyword_15_0 = (Keyword)cGroup_15.eContents().get(0);
 		private final Assignment cFailthenCountAssignment_15_1 = (Assignment)cGroup_15.eContents().get(1);
@@ -1044,7 +1044,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	"verification" {VerificationActivityResult} name=ID "for" target=[Verify::VerificationActivity|QualifiedName] "["
 		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
 		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//	message=STRING)? validationResult+=ValidationResult* preconditionResult+=PreconditionResult* "]";
 		public ParserRule getRule() { return rule; }
@@ -1052,7 +1052,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"verification" {VerificationActivityResult} name=ID "for" target=[Verify::VerificationActivity|QualifiedName] "["
 		//"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
 		//"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//message=STRING)? validationResult+=ValidationResult* preconditionResult+=PreconditionResult* "]"
 		public Group getGroup() { return cGroup; }
@@ -1159,17 +1159,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getFailCountINTTerminalRuleCall_13_1_0() { return cFailCountINTTerminalRuleCall_13_1_0; }
 
-		//("errorcount" errorCount=INT)?
+		//("unknowncount" unknownCount=INT)?
 		public Group getGroup_14() { return cGroup_14; }
 
-		//"errorcount"
-		public Keyword getErrorcountKeyword_14_0() { return cErrorcountKeyword_14_0; }
+		//"unknowncount"
+		public Keyword getUnknowncountKeyword_14_0() { return cUnknowncountKeyword_14_0; }
 
-		//errorCount=INT
-		public Assignment getErrorCountAssignment_14_1() { return cErrorCountAssignment_14_1; }
+		//unknownCount=INT
+		public Assignment getUnknownCountAssignment_14_1() { return cUnknownCountAssignment_14_1; }
 
 		//INT
-		public RuleCall getErrorCountINTTerminalRuleCall_14_1_0() { return cErrorCountINTTerminalRuleCall_14_1_0; }
+		public RuleCall getUnknownCountINTTerminalRuleCall_14_1_0() { return cUnknownCountINTTerminalRuleCall_14_1_0; }
 
 		//("failthencount" failthenCount=INT)?
 		public Group getGroup_15() { return cGroup_15; }
@@ -1251,23 +1251,23 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AssureResult");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cVerificationExprParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cCaseResultParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cAssuranceEvidenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cClaimResultParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cPreconditionResultParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cValidationResultParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//AssureResult:
-		//	VerificationExpr | CaseResult | ClaimResult | PreconditionResult | ValidationResult;
+		//	VerificationExpr | AssuranceEvidence | ClaimResult | PreconditionResult | ValidationResult;
 		public ParserRule getRule() { return rule; }
 
-		//VerificationExpr | CaseResult | ClaimResult | PreconditionResult | ValidationResult
+		//VerificationExpr | AssuranceEvidence | ClaimResult | PreconditionResult | ValidationResult
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//VerificationExpr
 		public RuleCall getVerificationExprParserRuleCall_0() { return cVerificationExprParserRuleCall_0; }
 
-		//CaseResult
-		public RuleCall getCaseResultParserRuleCall_1() { return cCaseResultParserRuleCall_1; }
+		//AssuranceEvidence
+		public RuleCall getAssuranceEvidenceParserRuleCall_1() { return cAssuranceEvidenceParserRuleCall_1; }
 
 		//ClaimResult
 		public RuleCall getClaimResultParserRuleCall_2() { return cClaimResultParserRuleCall_2; }
@@ -1315,8 +1315,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cFailThenAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final Keyword cFailThenFailthenKeyword_5_0 = (Keyword)cFailThenAssignment_5.eContents().get(0);
-		private final Assignment cErrorThenAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final Keyword cErrorThenErrorthenKeyword_6_0 = (Keyword)cErrorThenAssignment_6.eContents().get(0);
+		private final Assignment cUnknownThenAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final Keyword cUnknownThenUnknownthenKeyword_6_0 = (Keyword)cUnknownThenAssignment_6.eContents().get(0);
 		private final Assignment cDidFailAssignment_7 = (Assignment)cGroup.eContents().get(7);
 		private final Keyword cDidFailDidfailKeyword_7_0 = (Keyword)cDidFailAssignment_7.eContents().get(0);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
@@ -1328,9 +1328,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFailCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
 		private final RuleCall cFailCountINTTerminalRuleCall_9_1_0 = (RuleCall)cFailCountAssignment_9_1.eContents().get(0);
 		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cErrorcountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cErrorCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cErrorCountINTTerminalRuleCall_10_1_0 = (RuleCall)cErrorCountAssignment_10_1.eContents().get(0);
+		private final Keyword cUnknowncountKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
+		private final Assignment cUnknownCountAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
+		private final RuleCall cUnknownCountINTTerminalRuleCall_10_1_0 = (RuleCall)cUnknownCountAssignment_10_1.eContents().get(0);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
 		private final Keyword cFailthencountKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
 		private final Assignment cFailthenCountAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
@@ -1350,14 +1350,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_15 = (Keyword)cGroup.eContents().get(15);
 		
 		//FailThenResult:
-		//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? errorThen?="errorthen"?
-		//	didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)?
-		//	("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight"
-		//	weight=INT)? "]";
+		//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"?
+		//	unknownThen?="unknownthen"? didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)?
+		//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)?
+		//	("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
 		public ParserRule getRule() { return rule; }
 
-		//"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? errorThen?="errorthen"?
-		//didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)?
+		//"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? unknownThen?="unknownthen"?
+		//didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)?
 		//("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight"
 		//weight=INT)? "]"
 		public Group getGroup() { return cGroup; }
@@ -1389,11 +1389,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"failthen"
 		public Keyword getFailThenFailthenKeyword_5_0() { return cFailThenFailthenKeyword_5_0; }
 
-		//errorThen?="errorthen"?
-		public Assignment getErrorThenAssignment_6() { return cErrorThenAssignment_6; }
+		//unknownThen?="unknownthen"?
+		public Assignment getUnknownThenAssignment_6() { return cUnknownThenAssignment_6; }
 
-		//"errorthen"
-		public Keyword getErrorThenErrorthenKeyword_6_0() { return cErrorThenErrorthenKeyword_6_0; }
+		//"unknownthen"
+		public Keyword getUnknownThenUnknownthenKeyword_6_0() { return cUnknownThenUnknownthenKeyword_6_0; }
 
 		//didFail?="didfail"?
 		public Assignment getDidFailAssignment_7() { return cDidFailAssignment_7; }
@@ -1425,17 +1425,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getFailCountINTTerminalRuleCall_9_1_0() { return cFailCountINTTerminalRuleCall_9_1_0; }
 
-		//("errorcount" errorCount=INT)?
+		//("unknowncount" unknownCount=INT)?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//"errorcount"
-		public Keyword getErrorcountKeyword_10_0() { return cErrorcountKeyword_10_0; }
+		//"unknowncount"
+		public Keyword getUnknowncountKeyword_10_0() { return cUnknowncountKeyword_10_0; }
 
-		//errorCount=INT
-		public Assignment getErrorCountAssignment_10_1() { return cErrorCountAssignment_10_1; }
+		//unknownCount=INT
+		public Assignment getUnknownCountAssignment_10_1() { return cUnknownCountAssignment_10_1; }
 
 		//INT
-		public RuleCall getErrorCountINTTerminalRuleCall_10_1_0() { return cErrorCountINTTerminalRuleCall_10_1_0; }
+		public RuleCall getUnknownCountINTTerminalRuleCall_10_1_0() { return cUnknownCountINTTerminalRuleCall_10_1_0; }
 
 		//("failthencount" failthenCount=INT)?
 		public Group getGroup_11() { return cGroup_11; }
@@ -1510,9 +1510,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFailCountAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
 		private final RuleCall cFailCountINTTerminalRuleCall_7_1_0 = (RuleCall)cFailCountAssignment_7_1.eContents().get(0);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cErrorcountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Assignment cErrorCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
-		private final RuleCall cErrorCountINTTerminalRuleCall_8_1_0 = (RuleCall)cErrorCountAssignment_8_1.eContents().get(0);
+		private final Keyword cUnknowncountKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Assignment cUnknownCountAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
+		private final RuleCall cUnknownCountINTTerminalRuleCall_8_1_0 = (RuleCall)cUnknownCountAssignment_8_1.eContents().get(0);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
 		private final Keyword cFailthencountKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
 		private final Assignment cFailthenCountAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
@@ -1533,13 +1533,13 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AndThenResult:
 		//	"andthen" first+=VerificationExpr "do" second+=VerificationExpr "[" didAndThenFail?="andthenfailed"? ("successcount"
-		//	successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)?
-		//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
+		//	successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
+		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
 		public ParserRule getRule() { return rule; }
 
 		//"andthen" first+=VerificationExpr "do" second+=VerificationExpr "[" didAndThenFail?="andthenfailed"? ("successcount"
-		//successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)?
-		//("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]"
+		//successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
+		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"andthen"
@@ -1593,17 +1593,17 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getFailCountINTTerminalRuleCall_7_1_0() { return cFailCountINTTerminalRuleCall_7_1_0; }
 
-		//("errorcount" errorCount=INT)?
+		//("unknowncount" unknownCount=INT)?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//"errorcount"
-		public Keyword getErrorcountKeyword_8_0() { return cErrorcountKeyword_8_0; }
+		//"unknowncount"
+		public Keyword getUnknowncountKeyword_8_0() { return cUnknowncountKeyword_8_0; }
 
-		//errorCount=INT
-		public Assignment getErrorCountAssignment_8_1() { return cErrorCountAssignment_8_1; }
+		//unknownCount=INT
+		public Assignment getUnknownCountAssignment_8_1() { return cUnknownCountAssignment_8_1; }
 
 		//INT
-		public RuleCall getErrorCountINTTerminalRuleCall_8_1_0() { return cErrorCountINTTerminalRuleCall_8_1_0; }
+		public RuleCall getUnknownCountINTTerminalRuleCall_8_1_0() { return cUnknownCountINTTerminalRuleCall_8_1_0; }
 
 		//("failthencount" failthenCount=INT)?
 		public Group getGroup_9() { return cGroup_9; }
@@ -1891,14 +1891,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSUCCESSSuccessKeyword_1_0 = (Keyword)cSUCCESSEnumLiteralDeclaration_1.eContents().get(0);
 		private final EnumLiteralDeclaration cFAILEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
 		private final Keyword cFAILFailKeyword_2_0 = (Keyword)cFAILEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cERROREnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cERRORErrorKeyword_3_0 = (Keyword)cERROREnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cUNKNOWNEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cUNKNOWNUnknownKeyword_3_0 = (Keyword)cUNKNOWNEnumLiteralDeclaration_3.eContents().get(0);
 		
 		//enum VerificationResultState:
-		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error";
+		//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
 		public EnumRule getRule() { return rule; }
 
-		//TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error"
+		//TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TBD="tbd"
@@ -1919,11 +1919,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"fail"
 		public Keyword getFAILFailKeyword_2_0() { return cFAILFailKeyword_2_0; }
 
-		//ERROR="error"
-		public EnumLiteralDeclaration getERROREnumLiteralDeclaration_3() { return cERROREnumLiteralDeclaration_3; }
+		//UNKNOWN="unknown"
+		public EnumLiteralDeclaration getUNKNOWNEnumLiteralDeclaration_3() { return cUNKNOWNEnumLiteralDeclaration_3; }
 
-		//"error"
-		public Keyword getERRORErrorKeyword_3_0() { return cERRORErrorKeyword_3_0; }
+		//"unknown"
+		public Keyword getUNKNOWNUnknownKeyword_3_0() { return cUNKNOWNUnknownKeyword_3_0; }
 	}
 
 	public class VerificationExecutionStateElements extends AbstractEnumRuleElementFinder {
@@ -1986,7 +1986,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getCOMPLETEDCompletedKeyword_3_0() { return cCOMPLETEDCompletedKeyword_3_0; }
 	}
 	
-	private final CaseResultElements pCaseResult;
+	private final AssuranceEvidenceElements pAssuranceEvidence;
 	private final ClaimResultElements pClaimResult;
 	private final ValidationResultElements pValidationResult;
 	private final PreconditionResultElements pPreconditionResult;
@@ -2012,7 +2012,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
-		this.pCaseResult = new CaseResultElements();
+		this.pAssuranceEvidence = new AssuranceEvidenceElements();
 		this.pClaimResult = new ClaimResultElements();
 		this.pValidationResult = new ValidationResultElements();
 		this.pPreconditionResult = new PreconditionResultElements();
@@ -2058,25 +2058,25 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//// result for a system in the architecture hierarchy
-	//CaseResult:
-	//	"case" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
+	//AssuranceEvidence:
+	//	"evidence" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
 	//	instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-	//	("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
-	//	tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subCaseResult+=CaseResult*
-	//	claimResult+=ClaimResult* "]";
-	public CaseResultElements getCaseResultAccess() {
-		return pCaseResult;
+	//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)?
+	//	("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
+	//	subAssuranceEvidence+=AssuranceEvidence* claimResult+=ClaimResult* "]";
+	public AssuranceEvidenceElements getAssuranceEvidenceAccess() {
+		return pAssuranceEvidence;
 	}
 	
-	public ParserRule getCaseResultRule() {
-		return getCaseResultAccess().getRule();
+	public ParserRule getAssuranceEvidenceRule() {
+		return getAssuranceEvidenceAccess().getRule();
 	}
 
 	//// Result of meeting a requirement
 	//ClaimResult:
 	//	"claim" name=ID "for" target=[ReqSpec::Requirement|QualifiedName] ("instance"
 	//	instance=[instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
-	//	"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+	//	"[" ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 	//	message=STRING)? subClaimResult+=ClaimResult* verificationActivityResult+=VerificationExpr* "]";
 	public ClaimResultElements getClaimResultAccess() {
@@ -2091,7 +2091,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	"assumption" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "["
 	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
 	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 	//	message=STRING)? "]";
 	public ValidationResultElements getValidationResultAccess() {
@@ -2106,7 +2106,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	"precondition" {PreconditionResult} name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "["
 	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
 	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 	//	message=STRING)? "]";
 	public PreconditionResultElements getPreconditionResultAccess() {
@@ -2122,7 +2122,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	"verification" {VerificationActivityResult} name=ID "for" target=[Verify::VerificationActivity|QualifiedName] "["
 	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
 	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
-	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount"
+	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 	//	message=STRING)? validationResult+=ValidationResult* preconditionResult+=PreconditionResult* "]";
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
@@ -2134,7 +2134,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AssureResult:
-	//	VerificationExpr | CaseResult | ClaimResult | PreconditionResult | ValidationResult;
+	//	VerificationExpr | AssuranceEvidence | ClaimResult | PreconditionResult | ValidationResult;
 	public AssureResultElements getAssureResultAccess() {
 		return pAssureResult;
 	}
@@ -2154,10 +2154,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FailThenResult:
-	//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? errorThen?="errorthen"?
-	//	didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)?
-	//	("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight"
-	//	weight=INT)? "]";
+	//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"?
+	//	unknownThen?="unknownthen"? didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)?
+	//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)?
+	//	("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
 	public FailThenResultElements getFailThenResultAccess() {
 		return pFailThenResult;
 	}
@@ -2168,8 +2168,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AndThenResult:
 	//	"andthen" first+=VerificationExpr "do" second+=VerificationExpr "[" didAndThenFail?="andthenfailed"? ("successcount"
-	//	successCount=INT)? ("failcount" failCount=INT)? ("errorcount" errorCount=INT)? ("failthencount" failthenCount=INT)?
-	//	("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
+	//	successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
+	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
 	public AndThenResultElements getAndThenResultAccess() {
 		return pAndThenResult;
 	}
@@ -2201,7 +2201,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum VerificationResultState:
-	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | ERROR="error";
+	//	TBD="tbd" | SUCCESS="success" | FAIL="fail" | UNKNOWN="unknown";
 	public VerificationResultStateElements getVerificationResultStateAccess() {
 		return unknownRuleVerificationResultState;
 	}

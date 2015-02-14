@@ -1384,6 +1384,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         weight=INT? 
 	 *         requirement=[Requirement|QualifiedName] 
 	 *         assert=ArgumentExpr 
+	 *         argument=STRING? 
 	 *         rationale=STRING? 
 	 *         subclaim+=Claim*
 	 *     )
@@ -1404,7 +1405,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (left=FailThenEvidenceExpr_FailThenExpr_1_0_0_0 (failed?='fail' | error?='error')? right=FailThenEvidenceExpr)
+	 *     (left=FailThenEvidenceExpr_FailThenExpr_1_0_0_0 (failed?='fail' | unknown?='unknown')? right=FailThenEvidenceExpr)
 	 */
 	protected void sequence_FailThenEvidenceExpr(EObject context, FailThenExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

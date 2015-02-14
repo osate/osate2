@@ -210,7 +210,7 @@
  
  <!-- adding Alisa specific stuff XXX-->
     
- 	<extension point="org.eclipse.ui.handlers">
+ <!--	<extension point="org.eclipse.ui.handlers">
             <handler
             class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.handlers.AlisaTestHandler"
             commandId="org.osate.alisa.commands.TestMe">
@@ -286,6 +286,7 @@
       </menuContribution>
      
 </extension>
+-->
 
 <!-- adding resource factories -->
 
@@ -488,35 +489,34 @@
    
    
    
-       	<!-- Execute assurance case -->
-   	<extension
+       	<!-- Execute assurance plan -->
+<!--   	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.handlers.ExecuteAssuranceCaseHandler"
-			commandId="org.osate.alisa.workbench.ui.executeAssuranceCase">
-		<!--	<activeWhen>
+			class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.handlers.ExecuteAssurancePlanHandler"
+			commandId="org.osate.alisa.workbench.ui.executeAssurancePlan">
+		<activeWhen>
 				<reference
                      definitionId="org.osate.alisa.workbench.Alisa.Editor.opened">
 				</reference>
-			</activeWhen> -->
+			</activeWhen> 
 		</handler>
 	</extension>
 	<extension
 		point="org.eclipse.ui.commands">
 		<command
-			description="Execute Assurance Case"
-			id="org.osate.alisa.workbench.ui.executeAssuranceCase"
-			name="Execute Assurance Case">
+			description="Execute Assurance Plan"
+			id="org.osate.alisa.workbench.ui.executeAssurancePlan"
+			name="Execute Assurance Plan">
 		</command>
 	</extension>
     <extension point="org.eclipse.ui.menus">
-    <!-- in editor window -->
-         <menuContribution
+          <menuContribution
 		 allPopups="false"
          locationURI="popup:#TextEditorContext?after=additions">
-        <command commandId="org.osate.alisa.workbench.ui.executeAssuranceCase"
+        <command commandId="org.osate.alisa.workbench.ui.executeAssurancePlan"
          icon="icons/alisahead.png"
-		 tooltip="Do Execute Assurance Case" 
+		 tooltip="Do Execute Assurance Plan" 
 		 style="push">
          <visibleWhen checkEnabled="false">
                <reference
@@ -525,32 +525,31 @@
          </visibleWhen>
         </command>
       </menuContribution> 
-    <!-- in editor outline -->
-		<menuContribution 
+      
+ 		<menuContribution 
 		allPopups="false"
 		locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
 		<command
-		commandId="org.osate.alisa.workbench.ui.executeAssuranceCase"
+		commandId="org.osate.alisa.workbench.ui.executeAssurancePlan"
         icon="icons/alisahead.png"
-		tooltip="Do Execute Assurance Case" 
+		tooltip="Do Execute Assurance Plan" 
 		style="push">
 		         <visibleWhen checkEnabled="false">
 
          </visibleWhen>
 		</command>
 	</menuContribution>
-    <!-- in navigator -->
        <menuContribution
             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
-		commandId="org.osate.alisa.workbench.ui.executeAssuranceCase"
-        label="Execute All Assurance Cases"
+		commandId="org.osate.alisa.workbench.ui.executeAssurancePlan"
+        label="Execute All Assurance Plans"
         icon="icons/alisahead.png"
-		tooltip="Do Execute All Assurance Cases" 
+		tooltip="Do Execute All Assurance Plans" 
                style="push">
          </command>
       </menuContribution>
    </extension> 
-   
+ --> 
 
 </plugin>

@@ -2,7 +2,7 @@ package org.osate.assure.ui.outline;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
-import org.osate.assure.assure.CaseResult;
+import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.PreconditionResult;
 import org.osate.assure.assure.ResultIssue;
@@ -14,10 +14,10 @@ public class AssureEObjectHoverProvider extends DefaultEObjectHoverProvider {
   public String getHoverInfoAsHtml(final EObject o) {
     boolean _matched = false;
     if (!_matched) {
-      if (o instanceof CaseResult) {
+      if (o instanceof AssuranceEvidence) {
         _matched=true;
         String _elvis = null;
-        String _message = ((CaseResult)o).getMessage();
+        String _message = ((AssuranceEvidence)o).getMessage();
         if (_message != null) {
           _elvis = _message;
         } else {

@@ -31,7 +31,7 @@ import org.osate.assure.assure.VerificationExpr;
  *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#getFirst <em>First</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#getSecond <em>Second</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#isFailThen <em>Fail Then</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#isErrorThen <em>Error Then</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#isUnknownThen <em>Unknown Then</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.FailThenResultImpl#isDidFail <em>Did Fail</em>}</li>
  * </ul>
  * </p>
@@ -81,24 +81,24 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
   protected boolean failThen = FAIL_THEN_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isErrorThen() <em>Error Then</em>}' attribute.
+   * The default value of the '{@link #isUnknownThen() <em>Unknown Then</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isErrorThen()
+   * @see #isUnknownThen()
    * @generated
    * @ordered
    */
-  protected static final boolean ERROR_THEN_EDEFAULT = false;
+  protected static final boolean UNKNOWN_THEN_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isErrorThen() <em>Error Then</em>}' attribute.
+   * The cached value of the '{@link #isUnknownThen() <em>Unknown Then</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isErrorThen()
+   * @see #isUnknownThen()
    * @generated
    * @ordered
    */
-  protected boolean errorThen = ERROR_THEN_EDEFAULT;
+  protected boolean unknownThen = UNKNOWN_THEN_EDEFAULT;
 
   /**
    * The default value of the '{@link #isDidFail() <em>Did Fail</em>}' attribute.
@@ -197,9 +197,9 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isErrorThen()
+  public boolean isUnknownThen()
   {
-    return errorThen;
+    return unknownThen;
   }
 
   /**
@@ -207,12 +207,12 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setErrorThen(boolean newErrorThen)
+  public void setUnknownThen(boolean newUnknownThen)
   {
-    boolean oldErrorThen = errorThen;
-    errorThen = newErrorThen;
+    boolean oldUnknownThen = unknownThen;
+    unknownThen = newUnknownThen;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.FAIL_THEN_RESULT__ERROR_THEN, oldErrorThen, errorThen));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.FAIL_THEN_RESULT__UNKNOWN_THEN, oldUnknownThen, unknownThen));
   }
 
   /**
@@ -272,8 +272,8 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
         return getSecond();
       case AssurePackage.FAIL_THEN_RESULT__FAIL_THEN:
         return isFailThen();
-      case AssurePackage.FAIL_THEN_RESULT__ERROR_THEN:
-        return isErrorThen();
+      case AssurePackage.FAIL_THEN_RESULT__UNKNOWN_THEN:
+        return isUnknownThen();
       case AssurePackage.FAIL_THEN_RESULT__DID_FAIL:
         return isDidFail();
     }
@@ -302,8 +302,8 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
       case AssurePackage.FAIL_THEN_RESULT__FAIL_THEN:
         setFailThen((Boolean)newValue);
         return;
-      case AssurePackage.FAIL_THEN_RESULT__ERROR_THEN:
-        setErrorThen((Boolean)newValue);
+      case AssurePackage.FAIL_THEN_RESULT__UNKNOWN_THEN:
+        setUnknownThen((Boolean)newValue);
         return;
       case AssurePackage.FAIL_THEN_RESULT__DID_FAIL:
         setDidFail((Boolean)newValue);
@@ -331,8 +331,8 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
       case AssurePackage.FAIL_THEN_RESULT__FAIL_THEN:
         setFailThen(FAIL_THEN_EDEFAULT);
         return;
-      case AssurePackage.FAIL_THEN_RESULT__ERROR_THEN:
-        setErrorThen(ERROR_THEN_EDEFAULT);
+      case AssurePackage.FAIL_THEN_RESULT__UNKNOWN_THEN:
+        setUnknownThen(UNKNOWN_THEN_EDEFAULT);
         return;
       case AssurePackage.FAIL_THEN_RESULT__DID_FAIL:
         setDidFail(DID_FAIL_EDEFAULT);
@@ -357,8 +357,8 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
         return second != null && !second.isEmpty();
       case AssurePackage.FAIL_THEN_RESULT__FAIL_THEN:
         return failThen != FAIL_THEN_EDEFAULT;
-      case AssurePackage.FAIL_THEN_RESULT__ERROR_THEN:
-        return errorThen != ERROR_THEN_EDEFAULT;
+      case AssurePackage.FAIL_THEN_RESULT__UNKNOWN_THEN:
+        return unknownThen != UNKNOWN_THEN_EDEFAULT;
       case AssurePackage.FAIL_THEN_RESULT__DID_FAIL:
         return didFail != DID_FAIL_EDEFAULT;
     }
@@ -378,8 +378,8 @@ public class FailThenResultImpl extends VerificationExprImpl implements FailThen
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (failThen: ");
     result.append(failThen);
-    result.append(", errorThen: ");
-    result.append(errorThen);
+    result.append(", unknownThen: ");
+    result.append(unknownThen);
     result.append(", didFail: ");
     result.append(didFail);
     result.append(')');

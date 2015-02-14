@@ -21,7 +21,7 @@ import org.osate.assure.assure.AssureResult;
  * <ul>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getSuccessCount <em>Success Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getErrorCount <em>Error Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getUnknownCount <em>Unknown Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getFailthenCount <em>Failthen Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getAndthenCount <em>Andthen Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.AssureResultImpl#getTbdCount <em>Tbd Count</em>}</li>
@@ -74,24 +74,24 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
   protected int failCount = FAIL_COUNT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getErrorCount() <em>Error Count</em>}' attribute.
+   * The default value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getErrorCount()
+   * @see #getUnknownCount()
    * @generated
    * @ordered
    */
-  protected static final int ERROR_COUNT_EDEFAULT = 0;
+  protected static final int UNKNOWN_COUNT_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getErrorCount() <em>Error Count</em>}' attribute.
+   * The cached value of the '{@link #getUnknownCount() <em>Unknown Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getErrorCount()
+   * @see #getUnknownCount()
    * @generated
    * @ordered
    */
-  protected int errorCount = ERROR_COUNT_EDEFAULT;
+  protected int unknownCount = UNKNOWN_COUNT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getFailthenCount() <em>Failthen Count</em>}' attribute.
@@ -245,9 +245,9 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getErrorCount()
+  public int getUnknownCount()
   {
-    return errorCount;
+    return unknownCount;
   }
 
   /**
@@ -255,12 +255,12 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setErrorCount(int newErrorCount)
+  public void setUnknownCount(int newUnknownCount)
   {
-    int oldErrorCount = errorCount;
-    errorCount = newErrorCount;
+    int oldUnknownCount = unknownCount;
+    unknownCount = newUnknownCount;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__ERROR_COUNT, oldErrorCount, errorCount));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT, oldUnknownCount, unknownCount));
   }
 
   /**
@@ -369,8 +369,8 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
         return getSuccessCount();
       case AssurePackage.ASSURE_RESULT__FAIL_COUNT:
         return getFailCount();
-      case AssurePackage.ASSURE_RESULT__ERROR_COUNT:
-        return getErrorCount();
+      case AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT:
+        return getUnknownCount();
       case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
         return getFailthenCount();
       case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
@@ -399,8 +399,8 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
       case AssurePackage.ASSURE_RESULT__FAIL_COUNT:
         setFailCount((Integer)newValue);
         return;
-      case AssurePackage.ASSURE_RESULT__ERROR_COUNT:
-        setErrorCount((Integer)newValue);
+      case AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT:
+        setUnknownCount((Integer)newValue);
         return;
       case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
         setFailthenCount((Integer)newValue);
@@ -434,8 +434,8 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
       case AssurePackage.ASSURE_RESULT__FAIL_COUNT:
         setFailCount(FAIL_COUNT_EDEFAULT);
         return;
-      case AssurePackage.ASSURE_RESULT__ERROR_COUNT:
-        setErrorCount(ERROR_COUNT_EDEFAULT);
+      case AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT:
+        setUnknownCount(UNKNOWN_COUNT_EDEFAULT);
         return;
       case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
         setFailthenCount(FAILTHEN_COUNT_EDEFAULT);
@@ -467,8 +467,8 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
         return successCount != SUCCESS_COUNT_EDEFAULT;
       case AssurePackage.ASSURE_RESULT__FAIL_COUNT:
         return failCount != FAIL_COUNT_EDEFAULT;
-      case AssurePackage.ASSURE_RESULT__ERROR_COUNT:
-        return errorCount != ERROR_COUNT_EDEFAULT;
+      case AssurePackage.ASSURE_RESULT__UNKNOWN_COUNT:
+        return unknownCount != UNKNOWN_COUNT_EDEFAULT;
       case AssurePackage.ASSURE_RESULT__FAILTHEN_COUNT:
         return failthenCount != FAILTHEN_COUNT_EDEFAULT;
       case AssurePackage.ASSURE_RESULT__ANDTHEN_COUNT:
@@ -496,8 +496,8 @@ public class AssureResultImpl extends MinimalEObjectImpl.Container implements As
     result.append(successCount);
     result.append(", failCount: ");
     result.append(failCount);
-    result.append(", errorCount: ");
-    result.append(errorCount);
+    result.append(", unknownCount: ");
+    result.append(unknownCount);
     result.append(", failthenCount: ");
     result.append(failthenCount);
     result.append(", andthenCount: ");

@@ -2,7 +2,6 @@ package org.osate.assure.evaluator
 
 import org.osate.assure.util.IVerificationMethodDispatcher
 import com.google.inject.Inject
-import org.osate.assure.assure.CaseResult
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.PreconditionResult
@@ -12,6 +11,7 @@ import org.osate.assure.assure.AssureResult
 import com.google.inject.ImplementedBy
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.assure.assure.ValidationResult
+import org.osate.assure.assure.AssuranceEvidence
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -27,9 +27,9 @@ interface IAssureProcessor {
 class AssureProcessor implements IAssureProcessor {
 	@Inject IVerificationMethodDispatcher dispatcher
 
-	def void doProcess(CaseResult caseResult) {
+	def void doProcess(AssuranceEvidence caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
-		caseResult.subCaseResult.forEach[subcaseResult|subcaseResult.process]
+		caseResult.subAssuranceEvidence.forEach[subcaseResult|subcaseResult.process]
 	}
 
 	def void doProcess(ClaimResult claimResult) {
@@ -47,7 +47,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	def void doProcess(FailThenResult vaResult) {
 		vaResult.first.forEach[expr|expr.process]
-		if (vaResult.errorThen && vaResult.first.hasError) {
+		if (vaResult.unknownThen && vaResult.first.hasError) {
 			vaResult.recordFailThen
 			vaResult.second.forEach[expr|expr.process]
 		} else if (vaResult.failThen && vaResult.first.hasFailed) {
@@ -81,7 +81,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	override void process(AssureResult assureResult) {
 		switch (assureResult) {
-			CaseResult: assureResult.doProcess
+			AssuranceEvidence: assureResult.doProcess
 			ClaimResult: assureResult.doProcess
 			VerificationActivityResult: assureResult.doProcess
 			FailThenResult: assureResult.doProcess

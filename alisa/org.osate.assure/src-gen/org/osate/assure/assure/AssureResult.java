@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.osate.assure.assure.AssureResult#getSuccessCount <em>Success Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssureResult#getFailCount <em>Fail Count</em>}</li>
- *   <li>{@link org.osate.assure.assure.AssureResult#getErrorCount <em>Error Count</em>}</li>
+ *   <li>{@link org.osate.assure.assure.AssureResult#getUnknownCount <em>Unknown Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssureResult#getFailthenCount <em>Failthen Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssureResult#getAndthenCount <em>Andthen Count</em>}</li>
  *   <li>{@link org.osate.assure.assure.AssureResult#getTbdCount <em>Tbd Count</em>}</li>
@@ -81,30 +81,30 @@ public interface AssureResult extends EObject
   void setFailCount(int value);
 
   /**
-   * Returns the value of the '<em><b>Error Count</b></em>' attribute.
+   * Returns the value of the '<em><b>Unknown Count</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Error Count</em>' attribute isn't clear,
+   * If the meaning of the '<em>Unknown Count</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Error Count</em>' attribute.
-   * @see #setErrorCount(int)
-   * @see org.osate.assure.assure.AssurePackage#getAssureResult_ErrorCount()
+   * @return the value of the '<em>Unknown Count</em>' attribute.
+   * @see #setUnknownCount(int)
+   * @see org.osate.assure.assure.AssurePackage#getAssureResult_UnknownCount()
    * @model
    * @generated
    */
-  int getErrorCount();
+  int getUnknownCount();
 
   /**
-   * Sets the value of the '{@link org.osate.assure.assure.AssureResult#getErrorCount <em>Error Count</em>}' attribute.
+   * Sets the value of the '{@link org.osate.assure.assure.AssureResult#getUnknownCount <em>Unknown Count</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Error Count</em>' attribute.
-   * @see #getErrorCount()
+   * @param value the new value of the '<em>Unknown Count</em>' attribute.
+   * @see #getUnknownCount()
    * @generated
    */
-  void setErrorCount(int value);
+  void setUnknownCount(int value);
 
   /**
    * Returns the value of the '<em><b>Failthen Count</b></em>' attribute.

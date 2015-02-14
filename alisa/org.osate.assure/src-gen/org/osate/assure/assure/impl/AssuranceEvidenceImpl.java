@@ -22,29 +22,29 @@ import org.osate.aadl2.Classifier;
 
 import org.osate.aadl2.instance.InstanceObject;
 
+import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.CaseResult;
 import org.osate.assure.assure.ClaimResult;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Case Result</b></em>'.
+ * An implementation of the model object '<em><b>Assurance Evidence</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getInstance <em>Instance</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getMessage <em>Message</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getSubCaseResult <em>Sub Case Result</em>}</li>
- *   <li>{@link org.osate.assure.assure.impl.CaseResultImpl#getClaimResult <em>Claim Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getInstance <em>Instance</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getSubAssuranceEvidence <em>Sub Assurance Evidence</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.AssuranceEvidenceImpl#getClaimResult <em>Claim Result</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class CaseResultImpl extends AssureResultImpl implements CaseResult
+public class AssuranceEvidenceImpl extends AssureResultImpl implements AssuranceEvidence
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -107,14 +107,14 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
   protected String message = MESSAGE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getSubCaseResult() <em>Sub Case Result</em>}' containment reference list.
+   * The cached value of the '{@link #getSubAssuranceEvidence() <em>Sub Assurance Evidence</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSubCaseResult()
+   * @see #getSubAssuranceEvidence()
    * @generated
    * @ordered
    */
-  protected EList<CaseResult> subCaseResult;
+  protected EList<AssuranceEvidence> subAssuranceEvidence;
 
   /**
    * The cached value of the '{@link #getClaimResult() <em>Claim Result</em>}' containment reference list.
@@ -131,7 +131,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  protected CaseResultImpl()
+  protected AssuranceEvidenceImpl()
   {
     super();
   }
@@ -144,7 +144,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
   @Override
   protected EClass eStaticClass()
   {
-    return AssurePackage.Literals.CASE_RESULT;
+    return AssurePackage.Literals.ASSURANCE_EVIDENCE;
   }
 
   /**
@@ -167,7 +167,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_EVIDENCE__NAME, oldName, name));
   }
 
   /**
@@ -184,7 +184,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
       if (target != oldTarget)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CASE_RESULT__TARGET, oldTarget, target));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_EVIDENCE__TARGET, oldTarget, target));
       }
     }
     return target;
@@ -210,7 +210,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
     Classifier oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__TARGET, oldTarget, target));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_EVIDENCE__TARGET, oldTarget, target));
   }
 
   /**
@@ -227,7 +227,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
       if (instance != oldInstance)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.CASE_RESULT__INSTANCE, oldInstance, instance));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AssurePackage.ASSURANCE_EVIDENCE__INSTANCE, oldInstance, instance));
       }
     }
     return instance;
@@ -253,7 +253,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
     InstanceObject oldInstance = instance;
     instance = newInstance;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__INSTANCE, oldInstance, instance));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_EVIDENCE__INSTANCE, oldInstance, instance));
   }
 
   /**
@@ -276,7 +276,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
     String oldMessage = message;
     message = newMessage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CASE_RESULT__MESSAGE, oldMessage, message));
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_EVIDENCE__MESSAGE, oldMessage, message));
   }
 
   /**
@@ -284,13 +284,13 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<CaseResult> getSubCaseResult()
+  public EList<AssuranceEvidence> getSubAssuranceEvidence()
   {
-    if (subCaseResult == null)
+    if (subAssuranceEvidence == null)
     {
-      subCaseResult = new EObjectContainmentEList<CaseResult>(CaseResult.class, this, AssurePackage.CASE_RESULT__SUB_CASE_RESULT);
+      subAssuranceEvidence = new EObjectContainmentEList<AssuranceEvidence>(AssuranceEvidence.class, this, AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE);
     }
-    return subCaseResult;
+    return subAssuranceEvidence;
   }
 
   /**
@@ -302,7 +302,7 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
   {
     if (claimResult == null)
     {
-      claimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.CASE_RESULT__CLAIM_RESULT);
+      claimResult = new EObjectContainmentEList<ClaimResult>(ClaimResult.class, this, AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT);
     }
     return claimResult;
   }
@@ -317,9 +317,9 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
-        return ((InternalEList<?>)getSubCaseResult()).basicRemove(otherEnd, msgs);
-      case AssurePackage.CASE_RESULT__CLAIM_RESULT:
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        return ((InternalEList<?>)getSubAssuranceEvidence()).basicRemove(otherEnd, msgs);
+      case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         return ((InternalEList<?>)getClaimResult()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -335,19 +335,19 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__NAME:
+      case AssurePackage.ASSURANCE_EVIDENCE__NAME:
         return getName();
-      case AssurePackage.CASE_RESULT__TARGET:
+      case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case AssurePackage.CASE_RESULT__INSTANCE:
+      case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
         if (resolve) return getInstance();
         return basicGetInstance();
-      case AssurePackage.CASE_RESULT__MESSAGE:
+      case AssurePackage.ASSURANCE_EVIDENCE__MESSAGE:
         return getMessage();
-      case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
-        return getSubCaseResult();
-      case AssurePackage.CASE_RESULT__CLAIM_RESULT:
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        return getSubAssuranceEvidence();
+      case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         return getClaimResult();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -364,23 +364,23 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__NAME:
+      case AssurePackage.ASSURANCE_EVIDENCE__NAME:
         setName((String)newValue);
         return;
-      case AssurePackage.CASE_RESULT__TARGET:
+      case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
         setTarget((Classifier)newValue);
         return;
-      case AssurePackage.CASE_RESULT__INSTANCE:
+      case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
         setInstance((InstanceObject)newValue);
         return;
-      case AssurePackage.CASE_RESULT__MESSAGE:
+      case AssurePackage.ASSURANCE_EVIDENCE__MESSAGE:
         setMessage((String)newValue);
         return;
-      case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
-        getSubCaseResult().clear();
-        getSubCaseResult().addAll((Collection<? extends CaseResult>)newValue);
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        getSubAssuranceEvidence().clear();
+        getSubAssuranceEvidence().addAll((Collection<? extends AssuranceEvidence>)newValue);
         return;
-      case AssurePackage.CASE_RESULT__CLAIM_RESULT:
+      case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         getClaimResult().clear();
         getClaimResult().addAll((Collection<? extends ClaimResult>)newValue);
         return;
@@ -398,22 +398,22 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__NAME:
+      case AssurePackage.ASSURANCE_EVIDENCE__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case AssurePackage.CASE_RESULT__TARGET:
+      case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
         setTarget((Classifier)null);
         return;
-      case AssurePackage.CASE_RESULT__INSTANCE:
+      case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
         setInstance((InstanceObject)null);
         return;
-      case AssurePackage.CASE_RESULT__MESSAGE:
+      case AssurePackage.ASSURANCE_EVIDENCE__MESSAGE:
         setMessage(MESSAGE_EDEFAULT);
         return;
-      case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
-        getSubCaseResult().clear();
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        getSubAssuranceEvidence().clear();
         return;
-      case AssurePackage.CASE_RESULT__CLAIM_RESULT:
+      case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         getClaimResult().clear();
         return;
     }
@@ -430,17 +430,17 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
   {
     switch (featureID)
     {
-      case AssurePackage.CASE_RESULT__NAME:
+      case AssurePackage.ASSURANCE_EVIDENCE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case AssurePackage.CASE_RESULT__TARGET:
+      case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
         return target != null;
-      case AssurePackage.CASE_RESULT__INSTANCE:
+      case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
         return instance != null;
-      case AssurePackage.CASE_RESULT__MESSAGE:
+      case AssurePackage.ASSURANCE_EVIDENCE__MESSAGE:
         return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
-      case AssurePackage.CASE_RESULT__SUB_CASE_RESULT:
-        return subCaseResult != null && !subCaseResult.isEmpty();
-      case AssurePackage.CASE_RESULT__CLAIM_RESULT:
+      case AssurePackage.ASSURANCE_EVIDENCE__SUB_ASSURANCE_EVIDENCE:
+        return subAssuranceEvidence != null && !subAssuranceEvidence.isEmpty();
+      case AssurePackage.ASSURANCE_EVIDENCE__CLAIM_RESULT:
         return claimResult != null && !claimResult.isEmpty();
     }
     return super.eIsSet(featureID);
@@ -465,4 +465,4 @@ public class CaseResultImpl extends AssureResultImpl implements CaseResult
     return result.toString();
   }
 
-} //CaseResultImpl
+} //AssuranceEvidenceImpl

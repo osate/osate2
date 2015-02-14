@@ -23,7 +23,7 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#getLeft <em>Left</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#isFailed <em>Failed</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#isError <em>Error</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#isUnknown <em>Unknown</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.FailThenExprImpl#getRight <em>Right</em>}</li>
  * </ul>
  * </p>
@@ -63,24 +63,24 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
   protected boolean failed = FAILED_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isError() <em>Error</em>}' attribute.
+   * The default value of the '{@link #isUnknown() <em>Unknown</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isError()
+   * @see #isUnknown()
    * @generated
    * @ordered
    */
-  protected static final boolean ERROR_EDEFAULT = false;
+  protected static final boolean UNKNOWN_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isError() <em>Error</em>}' attribute.
+   * The cached value of the '{@link #isUnknown() <em>Unknown</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isError()
+   * @see #isUnknown()
    * @generated
    * @ordered
    */
-  protected boolean error = ERROR_EDEFAULT;
+  protected boolean unknown = UNKNOWN_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
@@ -189,9 +189,9 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isError()
+  public boolean isUnknown()
   {
-    return error;
+    return unknown;
   }
 
   /**
@@ -199,12 +199,12 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setError(boolean newError)
+  public void setUnknown(boolean newUnknown)
   {
-    boolean oldError = error;
-    error = newError;
+    boolean oldUnknown = unknown;
+    unknown = newUnknown;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FAIL_THEN_EXPR__ERROR, oldError, error));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.FAIL_THEN_EXPR__UNKNOWN, oldUnknown, unknown));
   }
 
   /**
@@ -287,8 +287,8 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
         return getLeft();
       case VerifyPackage.FAIL_THEN_EXPR__FAILED:
         return isFailed();
-      case VerifyPackage.FAIL_THEN_EXPR__ERROR:
-        return isError();
+      case VerifyPackage.FAIL_THEN_EXPR__UNKNOWN:
+        return isUnknown();
       case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
         return getRight();
     }
@@ -311,8 +311,8 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
       case VerifyPackage.FAIL_THEN_EXPR__FAILED:
         setFailed((Boolean)newValue);
         return;
-      case VerifyPackage.FAIL_THEN_EXPR__ERROR:
-        setError((Boolean)newValue);
+      case VerifyPackage.FAIL_THEN_EXPR__UNKNOWN:
+        setUnknown((Boolean)newValue);
         return;
       case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
         setRight((ArgumentExpr)newValue);
@@ -337,8 +337,8 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
       case VerifyPackage.FAIL_THEN_EXPR__FAILED:
         setFailed(FAILED_EDEFAULT);
         return;
-      case VerifyPackage.FAIL_THEN_EXPR__ERROR:
-        setError(ERROR_EDEFAULT);
+      case VerifyPackage.FAIL_THEN_EXPR__UNKNOWN:
+        setUnknown(UNKNOWN_EDEFAULT);
         return;
       case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
         setRight((ArgumentExpr)null);
@@ -361,8 +361,8 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
         return left != null;
       case VerifyPackage.FAIL_THEN_EXPR__FAILED:
         return failed != FAILED_EDEFAULT;
-      case VerifyPackage.FAIL_THEN_EXPR__ERROR:
-        return error != ERROR_EDEFAULT;
+      case VerifyPackage.FAIL_THEN_EXPR__UNKNOWN:
+        return unknown != UNKNOWN_EDEFAULT;
       case VerifyPackage.FAIL_THEN_EXPR__RIGHT:
         return right != null;
     }
@@ -382,8 +382,8 @@ public class FailThenExprImpl extends ArgumentExprImpl implements FailThenExpr
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (failed: ");
     result.append(failed);
-    result.append(", error: ");
-    result.append(error);
+    result.append(", unknown: ");
+    result.append(unknown);
     result.append(')');
     return result.toString();
   }
