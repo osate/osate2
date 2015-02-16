@@ -101,9 +101,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//BehaviorEquation/xpression"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//BehaviorEquation/reference"/>
     </genClasses>
-    <genClasses ecoreClass="ReqSpec.ecore#//SPeARPredicate">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//SPeARPredicate/predicate"/>
-    </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ExternalDocument">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docReference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docFragment"/>

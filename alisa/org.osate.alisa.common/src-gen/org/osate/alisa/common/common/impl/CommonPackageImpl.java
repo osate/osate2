@@ -264,7 +264,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Name()
+  public EAttribute getUncertainty_Volatility()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(0);
   }
@@ -274,7 +274,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Volatility()
+  public EAttribute getUncertainty_Costimpact()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(1);
   }
@@ -284,7 +284,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Costimpact()
+  public EAttribute getUncertainty_Scheduleimpact()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(2);
   }
@@ -294,7 +294,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Scheduleimpact()
+  public EAttribute getUncertainty_Familiarity()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(3);
   }
@@ -304,7 +304,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Familiarity()
+  public EAttribute getUncertainty_Timecriticality()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(4);
   }
@@ -314,7 +314,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Timecriticality()
+  public EAttribute getUncertainty_Riskindex()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(5);
   }
@@ -324,19 +324,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Riskindex()
-  {
-    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getUncertainty_Maturityindex()
   {
-    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(7);
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -482,7 +472,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(rationaleEClass, RATIONALE__STAKEHOLDERS);
 
     uncertaintyEClass = createEClass(UNCERTAINTY);
-    createEAttribute(uncertaintyEClass, UNCERTAINTY__NAME);
     createEAttribute(uncertaintyEClass, UNCERTAINTY__VOLATILITY);
     createEAttribute(uncertaintyEClass, UNCERTAINTY__COSTIMPACT);
     createEAttribute(uncertaintyEClass, UNCERTAINTY__SCHEDULEIMPACT);
@@ -558,14 +547,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getRationale_Stakeholders(), theOrganizationPackage.getStakeholder(), null, "stakeholders", null, 0, -1, Rationale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(uncertaintyEClass, Uncertainty.class, "Uncertainty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getUncertainty_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Volatility(), theEcorePackage.getEInt(), "volatility", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Costimpact(), theEcorePackage.getEInt(), "costimpact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Scheduleimpact(), theEcorePackage.getEInt(), "scheduleimpact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Familiarity(), theEcorePackage.getEInt(), "familiarity", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Timecriticality(), theEcorePackage.getEInt(), "timecriticality", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Riskindex(), theEcorePackage.getEInt(), "riskindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getUncertainty_Maturityindex(), theEcorePackage.getEInt(), "maturityindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Volatility(), theEcorePackage.getEString(), "volatility", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Costimpact(), theEcorePackage.getEString(), "costimpact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Scheduleimpact(), theEcorePackage.getEString(), "scheduleimpact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Familiarity(), theEcorePackage.getEString(), "familiarity", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Timecriticality(), theEcorePackage.getEString(), "timecriticality", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Riskindex(), theEcorePackage.getEString(), "riskindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Maturityindex(), theEcorePackage.getEString(), "maturityindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(computeDeclarationEClass, ComputeDeclaration.class, "ComputeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getComputeDeclaration_Writeable(), theEcorePackage.getEBoolean(), "writeable", null, 0, 1, ComputeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

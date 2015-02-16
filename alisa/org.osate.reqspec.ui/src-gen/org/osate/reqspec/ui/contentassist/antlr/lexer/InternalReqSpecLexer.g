@@ -190,8 +190,6 @@ As : ('A'|'a')('S'|'s');
 
 Do : ('D'|'d')('O'|'o');
 
-Eq : ('E'|'e')('Q'|'q');
-
 If : ('I'|'i')('F'|'f');
 
 VerticalLineVerticalLine : '|''|';

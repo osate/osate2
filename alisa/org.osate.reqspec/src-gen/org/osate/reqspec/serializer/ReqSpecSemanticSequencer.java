@@ -79,7 +79,6 @@ import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 import org.osate.reqspec.reqSpec.Requirement;
-import org.osate.reqspec.reqSpec.SPeARPredicate;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.reqSpec.XPredicate;
@@ -256,13 +255,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				if(context == grammarAccess.getContractualElementRule() ||
 				   context == grammarAccess.getRequirementRule()) {
 					sequence_Requirement(context, (Requirement) semanticObject); 
-					return; 
-				}
-				else break;
-			case ReqSpecPackage.SPE_AR_PREDICATE:
-				if(context == grammarAccess.getReqPredicateRule() ||
-				   context == grammarAccess.getSPeARPredicateRule()) {
-					sequence_SPeARPredicate(context, (SPeARPredicate) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1410,7 +1402,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
-	 *         category=[RequirementCategory|ID]? 
+	 *         category=[RequirementCategory|ValidID]? 
 	 *         description=Description? 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
@@ -1518,22 +1510,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 */
 	protected void sequence_Requirement(EObject context, Requirement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     predicate=STRING
-	 */
-	protected void sequence_SPeARPredicate(EObject context, SPeARPredicate semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.SPE_AR_PREDICATE__PREDICATE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.SPE_AR_PREDICATE__PREDICATE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getSPeARPredicateAccess().getPredicateSTRINGTerminalRuleCall_1_0(), semanticObject.getPredicate());
-		feeder.finish();
 	}
 	
 	

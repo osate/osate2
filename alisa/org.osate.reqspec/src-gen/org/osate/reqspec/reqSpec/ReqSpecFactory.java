@@ -194,15 +194,6 @@ public interface ReqSpecFactory extends EFactory
   BehaviorEquation createBehaviorEquation();
 
   /**
-   * Returns a new object of class '<em>SPe AR Predicate</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>SPe AR Predicate</em>'.
-   * @generated
-   */
-  SPeARPredicate createSPeARPredicate();
-
-  /**
    * Returns a new object of class '<em>External Document</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

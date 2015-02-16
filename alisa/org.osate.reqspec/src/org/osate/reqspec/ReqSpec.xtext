@@ -71,7 +71,7 @@ Goal returns Goal:
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['  (
-	 ('category'  category=[categories::RequirementCategory|ID])?
+	 ('category'  category=[categories::RequirementCategory|ValidID])?
 	 &(  description=Description)? 
 	 &(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
@@ -109,7 +109,7 @@ Requirement:
 	)
 	']';
 
-ReqPredicate: InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation| SPeARPredicate;
+ReqPredicate: InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee| BehaviorEquation;
 
 InformalPredicate: 'text' description=STRING ;
 XPredicate: 'predicate' xpression=XExpression ;
@@ -117,9 +117,7 @@ XPredicate: 'predicate' xpression=XExpression ;
 ValueAssertion: 'assert' 'value' xpression=XExpression;	
 InputAssumption: 'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
-BehaviorEquation: 'eq' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
-
-SPeARPredicate: 'invariant' predicate=STRING ;
+BehaviorEquation: 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?

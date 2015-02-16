@@ -20,7 +20,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//Rationale/stakeholders"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//Uncertainty">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/volatility"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/costimpact"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/scheduleimpact"/>

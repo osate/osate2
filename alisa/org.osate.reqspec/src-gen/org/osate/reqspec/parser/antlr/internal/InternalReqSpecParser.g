@@ -1215,10 +1215,12 @@ ruleGoal returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getGoalRule());
 	        }
         }
-	otherlv_10=RULE_ID
-	{
-		newLeafNode(otherlv_10, grammarAccess.getGoalAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getGoalAccess().getCategoryRequirementCategoryCrossReference_5_0_1_0()); 
+	    }
+		ruleValidID		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )))
@@ -2175,16 +2177,6 @@ ruleReqPredicate returns [EObject current=null]
         $current = $this_BehaviorEquation_5.current;
         afterParserOrEnumRuleCall();
     }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getReqPredicateAccess().getSPeARPredicateParserRuleCall_6()); 
-    }
-    this_SPeARPredicate_6=ruleSPeARPredicate
-    {
-        $current = $this_SPeARPredicate_6.current;
-        afterParserOrEnumRuleCall();
-    }
 )
 ;
 
@@ -2480,9 +2472,9 @@ ruleBehaviorEquation returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=Eq
+	otherlv_0=Invariant
     {
-    	newLeafNode(otherlv_0, grammarAccess.getBehaviorEquationAccess().getEqKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getBehaviorEquationAccess().getInvariantKeyword_0());
     }
 ((
 (
@@ -2522,50 +2514,6 @@ ruleBehaviorEquation returns [EObject current=null]
 
 )
 ))))
-;
-
-
-
-
-
-// Entry rule entryRuleSPeARPredicate
-entryRuleSPeARPredicate returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getSPeARPredicateRule()); }
-	 iv_ruleSPeARPredicate=ruleSPeARPredicate 
-	 { $current=$iv_ruleSPeARPredicate.current; } 
-	 EOF 
-;
-
-// Rule SPeARPredicate
-ruleSPeARPredicate returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-	otherlv_0=Invariant
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getSPeARPredicateAccess().getInvariantKeyword_0());
-    }
-(
-(
-		lv_predicate_1_0=RULE_STRING
-		{
-			newLeafNode(lv_predicate_1_0, grammarAccess.getSPeARPredicateAccess().getPredicateSTRINGTerminalRuleCall_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getSPeARPredicateRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"predicate",
-        		lv_predicate_1_0, 
-        		"STRING");
-	    }
-
-)
-))
 ;
 
 
@@ -2907,7 +2855,7 @@ ruleRationale returns [EObject current=null]
 	    }
 
 )
-))?)
+)+)?)
 ;
 
 
@@ -2933,295 +2881,277 @@ ruleUncertainty returns [EObject current=null]
     {
     	newLeafNode(otherlv_0, grammarAccess.getUncertaintyAccess().getUncertaintyKeyword_0());
     }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getUncertaintyAccess().getNameValidIDParserRuleCall_1_0()); 
-	    }
-		lv_name_1_0=ruleValidID		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
-	        }
-       		set(
-       			$current, 
-       			"name",
-        		lv_name_1_0, 
-        		"ValidID");
-	        afterParserOrEnumRuleCall();
-	    }
 
-)
-)
-	otherlv_2=LeftSquareBracket
+	otherlv_1=LeftSquareBracket
     {
-    	newLeafNode(otherlv_2, grammarAccess.getUncertaintyAccess().getLeftSquareBracketKeyword_2());
+    	newLeafNode(otherlv_1, grammarAccess.getUncertaintyAccess().getLeftSquareBracketKeyword_1());
     }
 (
 
 (
 	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	  getUnorderedGroupHelper().enter(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	}
 	(
 		(
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 0)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 0)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 0);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 0);
 	 				}
 					({true}?=>(
-	otherlv_4=Volatility
+	otherlv_3=Volatility
     {
-    	newLeafNode(otherlv_4, grammarAccess.getUncertaintyAccess().getVolatilityKeyword_3_0_0());
+    	newLeafNode(otherlv_3, grammarAccess.getUncertaintyAccess().getVolatilityKeyword_2_0_0());
     }
 (
 (
-		lv_volatility_5_0=RULE_INT
-		{
-			newLeafNode(lv_volatility_5_0, grammarAccess.getUncertaintyAccess().getVolatilityINTTerminalRuleCall_3_0_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getUncertaintyAccess().getVolatilityNumberParserRuleCall_2_0_1_0()); 
+	    }
+		lv_volatility_4_0=ruleNumber		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUncertaintyRule());
+	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"volatility",
-        		lv_volatility_5_0, 
-        		"INT");
+        		lv_volatility_4_0, 
+        		"Number");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 1)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 1)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 1);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 1);
 	 				}
 					({true}?=>(
-	otherlv_6=Costimpact
+	otherlv_5=Costimpact
     {
-    	newLeafNode(otherlv_6, grammarAccess.getUncertaintyAccess().getCostimpactKeyword_3_1_0());
+    	newLeafNode(otherlv_5, grammarAccess.getUncertaintyAccess().getCostimpactKeyword_2_1_0());
     }
 (
 (
-		lv_costimpact_7_0=RULE_INT
-		{
-			newLeafNode(lv_costimpact_7_0, grammarAccess.getUncertaintyAccess().getCostimpactINTTerminalRuleCall_3_1_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getUncertaintyAccess().getCostimpactNumberParserRuleCall_2_1_1_0()); 
+	    }
+		lv_costimpact_6_0=ruleNumber		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUncertaintyRule());
+	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"costimpact",
-        		lv_costimpact_7_0, 
-        		"INT");
+        		lv_costimpact_6_0, 
+        		"Number");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 2)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 2);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2);
 	 				}
 					({true}?=>(
-	otherlv_8=Scheduleimpact
+	otherlv_7=Scheduleimpact
     {
-    	newLeafNode(otherlv_8, grammarAccess.getUncertaintyAccess().getScheduleimpactKeyword_3_2_0());
+    	newLeafNode(otherlv_7, grammarAccess.getUncertaintyAccess().getScheduleimpactKeyword_2_2_0());
     }
 (
 (
-		lv_scheduleimpact_9_0=RULE_INT
-		{
-			newLeafNode(lv_scheduleimpact_9_0, grammarAccess.getUncertaintyAccess().getScheduleimpactINTTerminalRuleCall_3_2_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getUncertaintyAccess().getScheduleimpactNumberParserRuleCall_2_2_1_0()); 
+	    }
+		lv_scheduleimpact_8_0=ruleNumber		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUncertaintyRule());
+	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"scheduleimpact",
-        		lv_scheduleimpact_9_0, 
-        		"INT");
+        		lv_scheduleimpact_8_0, 
+        		"Number");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 3)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 3)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 3);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 3);
 	 				}
 					({true}?=>(
-	otherlv_10=Familiarity
+	otherlv_9=Familiarity
     {
-    	newLeafNode(otherlv_10, grammarAccess.getUncertaintyAccess().getFamiliarityKeyword_3_3_0());
+    	newLeafNode(otherlv_9, grammarAccess.getUncertaintyAccess().getFamiliarityKeyword_2_3_0());
     }
 (
 (
-		lv_familiarity_11_0=RULE_INT
-		{
-			newLeafNode(lv_familiarity_11_0, grammarAccess.getUncertaintyAccess().getFamiliarityINTTerminalRuleCall_3_3_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getUncertaintyAccess().getFamiliarityNumberParserRuleCall_2_3_1_0()); 
+	    }
+		lv_familiarity_10_0=ruleNumber		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUncertaintyRule());
+	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"familiarity",
-        		lv_familiarity_11_0, 
-        		"INT");
+        		lv_familiarity_10_0, 
+        		"Number");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 4)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 4)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 4);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 4);
 	 				}
 					({true}?=>(
-	otherlv_12=Timecriticality
+	otherlv_11=Timecriticality
     {
-    	newLeafNode(otherlv_12, grammarAccess.getUncertaintyAccess().getTimecriticalityKeyword_3_4_0());
+    	newLeafNode(otherlv_11, grammarAccess.getUncertaintyAccess().getTimecriticalityKeyword_2_4_0());
     }
 (
 (
-		lv_timecriticality_13_0=RULE_INT
-		{
-			newLeafNode(lv_timecriticality_13_0, grammarAccess.getUncertaintyAccess().getTimecriticalityINTTerminalRuleCall_3_4_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getUncertaintyAccess().getTimecriticalityNumberParserRuleCall_2_4_1_0()); 
+	    }
+		lv_timecriticality_12_0=ruleNumber		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUncertaintyRule());
+	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"timecriticality",
-        		lv_timecriticality_13_0, 
-        		"INT");
+        		lv_timecriticality_12_0, 
+        		"Number");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 5)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 5)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 5);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 5);
 	 				}
 					({true}?=>(
-	otherlv_14=Riskindex
+	otherlv_13=Riskindex
     {
-    	newLeafNode(otherlv_14, grammarAccess.getUncertaintyAccess().getRiskindexKeyword_3_5_0());
+    	newLeafNode(otherlv_13, grammarAccess.getUncertaintyAccess().getRiskindexKeyword_2_5_0());
     }
 (
 (
-		lv_riskindex_15_0=RULE_INT
-		{
-			newLeafNode(lv_riskindex_15_0, grammarAccess.getUncertaintyAccess().getRiskindexINTTerminalRuleCall_3_5_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getUncertaintyAccess().getRiskindexNumberParserRuleCall_2_5_1_0()); 
+	    }
+		lv_riskindex_14_0=ruleNumber		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUncertaintyRule());
+	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"riskindex",
-        		lv_riskindex_15_0, 
-        		"INT");
+        		lv_riskindex_14_0, 
+        		"Number");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	 				}
  				)
 			)  |
 
 			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 6)}?=>(
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 6)}?=>(
 					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), 6);
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 6);
 	 				}
 					({true}?=>(
-	otherlv_16=Maturityindex
+	otherlv_15=Maturityindex
     {
-    	newLeafNode(otherlv_16, grammarAccess.getUncertaintyAccess().getMaturityindexKeyword_3_6_0());
+    	newLeafNode(otherlv_15, grammarAccess.getUncertaintyAccess().getMaturityindexKeyword_2_6_0());
     }
 (
 (
-		lv_maturityindex_17_0=RULE_INT
-		{
-			newLeafNode(lv_maturityindex_17_0, grammarAccess.getUncertaintyAccess().getMaturityindexINTTerminalRuleCall_3_6_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getUncertaintyAccess().getMaturityindexNumberParserRuleCall_2_6_1_0()); 
+	    }
+		lv_maturityindex_16_0=ruleNumber		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUncertaintyRule());
+	            $current = createModelElementForParent(grammarAccess.getUncertaintyRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"maturityindex",
-        		lv_maturityindex_17_0, 
-        		"INT");
+        		lv_maturityindex_16_0, 
+        		"Number");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )))
 					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	 				}
  				)
 			)  
 
 		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3())}?	
+	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2())}?	
 	)
 )
 	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3());
+	  getUnorderedGroupHelper().leave(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	}
 
 )
-	otherlv_18=RightSquareBracket
+	otherlv_17=RightSquareBracket
     {
-    	newLeafNode(otherlv_18, grammarAccess.getUncertaintyAccess().getRightSquareBracketKeyword_4());
+    	newLeafNode(otherlv_17, grammarAccess.getUncertaintyAccess().getRightSquareBracketKeyword_3());
     }
 )
 ;

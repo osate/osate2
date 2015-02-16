@@ -1,5 +1,8 @@
 chapter:Alisa[Incremental Assurance Workspace]
 
+
+section:AssuranceTasks[Assurance tasks and Configurations]
+
 code[Alisa][
 <AlisaWorkArea> ::=
 	alisa workareaname
@@ -15,3 +18,42 @@ code[Alisa][
 		( when <SelectionCategory>+ )?
 	\]
 ]
+
+
+section:Uncertainty[Uncertainty in Requirements and Arguments]
+
+e[Note:] The concept of uncertainty has been taken from the draft RDAL Annex.
+
+Uncertainty can be associated with requiremetns and with claims. 
+In the case of requirements the uncertainty represents uncertainty the change of the requirement. This allows users to priortize
+requirments. In the case of claims
+it represents the uncertainty in the argument. 
+
+code[Alisa][
+uncertainty \[
+costImpact <int>
+scheduleImpact <int>
+familiarity <int>
+riskIndex <int>
+propRiskIndex <int>
+maturityIndex <int>
+\]
+]
+
+ul[
+item[e[volatility (mandatory):] A ratio attribute representing the engineer‘s best judgment as to the probability the contractual element will change throughout the course of the project.]
+item[e[costImpact (mandatory):] A positive factor attribute representing an impact factor on the development cost if this contractual element changes. The factor multiplied by the original cost shall yield the new cost.]
+item[e[scheduleImpact (mandatory):] A positive factor attribute representing an impact factor on the development schedule if this contractual element changes. The factor multiplied by the original development time duration shall yield the new duration.]
+item[e[familiarity (mandatory):] A ratio attribute representing the experience in providing solution for this contractual element. Experience has shown that a brand new element (familiarity = 0.0) will undergo a lot of evolutions and this must be taken into account.]
+item[e[timeCriticality (mandatory):] A ratio attribute representing the time criticality, or priority with respect to time of implementing the parent contractual element. A high value means that the parent contractual
+element should be implemented in the early phases of the development process, as opposed to items not required until later phases of the project. For example, it will be important to address requirements having a high time criticality first.]
+item[e[riskIndex:] This property can be used to store a risk index which may be computed from other properties of the contractual element.]
+item[e[propRiskIndex:] This property can be used to store a proportional risk index computed from other properties of the contractual element.]
+item[e[maturityIndex:] This property can be used to store a maturity index computed from other properties of the contractual element.]
+]
+
+
+
+In addition, verification methods used in verification
+activities may have different degrees of effectiveness. This can be reflected in a weight factor associated
+the verification method.

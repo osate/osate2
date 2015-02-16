@@ -39,7 +39,6 @@ import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 import org.osate.reqspec.reqSpec.Requirement;
-import org.osate.reqspec.reqSpec.SPeARPredicate;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.reqSpec.XPredicate;
@@ -184,13 +183,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * @generated
    */
   private EClass behaviorEquationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass sPeARPredicateEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1061,26 +1053,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSPeARPredicate()
-  {
-    return sPeARPredicateEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getSPeARPredicate_Predicate()
-  {
-    return (EAttribute)sPeARPredicateEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getExternalDocument()
   {
     return externalDocumentEClass;
@@ -1234,9 +1206,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEReference(behaviorEquationEClass, BEHAVIOR_EQUATION__XPRESSION);
     createEReference(behaviorEquationEClass, BEHAVIOR_EQUATION__REFERENCE);
 
-    sPeARPredicateEClass = createEClass(SPE_AR_PREDICATE);
-    createEAttribute(sPeARPredicateEClass, SPE_AR_PREDICATE__PREDICATE);
-
     externalDocumentEClass = createEClass(EXTERNAL_DOCUMENT);
     createEAttribute(externalDocumentEClass, EXTERNAL_DOCUMENT__DOC_REFERENCE);
     createEAttribute(externalDocumentEClass, EXTERNAL_DOCUMENT__DOC_FRAGMENT);
@@ -1298,7 +1267,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     inputAssumptionEClass.getESuperTypes().add(this.getReqPredicate());
     outputGuaranteeEClass.getESuperTypes().add(this.getReqPredicate());
     behaviorEquationEClass.getESuperTypes().add(this.getReqPredicate());
-    sPeARPredicateEClass.getESuperTypes().add(this.getReqPredicate());
 
     // Initialize classes and features; add operations and parameters
     initEClass(reqSpecEClass, ReqSpec.class, "ReqSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1398,9 +1366,6 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEClass(behaviorEquationEClass, BehaviorEquation.class, "BehaviorEquation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getBehaviorEquation_Xpression(), theXbasePackage.getXExpression(), null, "xpression", null, 0, 1, BehaviorEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBehaviorEquation_Reference(), theEcorePackage.getEObject(), null, "reference", null, 0, 1, BehaviorEquation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(sPeARPredicateEClass, SPeARPredicate.class, "SPeARPredicate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getSPeARPredicate_Predicate(), theEcorePackage.getEString(), "predicate", null, 0, 1, SPeARPredicate.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(externalDocumentEClass, ExternalDocument.class, "ExternalDocument", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getExternalDocument_DocReference(), theEcorePackage.getEString(), "docReference", null, 0, 1, ExternalDocument.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

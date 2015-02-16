@@ -180,22 +180,13 @@ public interface CommonPackage extends EPackage
   int UNCERTAINTY = 3;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int UNCERTAINTY__NAME = 0;
-
-  /**
    * The feature id for the '<em><b>Volatility</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__VOLATILITY = 1;
+  int UNCERTAINTY__VOLATILITY = 0;
 
   /**
    * The feature id for the '<em><b>Costimpact</b></em>' attribute.
@@ -204,7 +195,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__COSTIMPACT = 2;
+  int UNCERTAINTY__COSTIMPACT = 1;
 
   /**
    * The feature id for the '<em><b>Scheduleimpact</b></em>' attribute.
@@ -213,7 +204,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__SCHEDULEIMPACT = 3;
+  int UNCERTAINTY__SCHEDULEIMPACT = 2;
 
   /**
    * The feature id for the '<em><b>Familiarity</b></em>' attribute.
@@ -222,7 +213,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__FAMILIARITY = 4;
+  int UNCERTAINTY__FAMILIARITY = 3;
 
   /**
    * The feature id for the '<em><b>Timecriticality</b></em>' attribute.
@@ -231,7 +222,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__TIMECRITICALITY = 5;
+  int UNCERTAINTY__TIMECRITICALITY = 4;
 
   /**
    * The feature id for the '<em><b>Riskindex</b></em>' attribute.
@@ -240,7 +231,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__RISKINDEX = 6;
+  int UNCERTAINTY__RISKINDEX = 5;
 
   /**
    * The feature id for the '<em><b>Maturityindex</b></em>' attribute.
@@ -249,7 +240,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__MATURITYINDEX = 7;
+  int UNCERTAINTY__MATURITYINDEX = 6;
 
   /**
    * The number of structural features of the '<em>Uncertainty</em>' class.
@@ -258,7 +249,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNCERTAINTY_FEATURE_COUNT = 8;
+  int UNCERTAINTY_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
@@ -505,17 +496,6 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EClass getUncertainty();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.common.common.Uncertainty#getName()
-   * @see #getUncertainty()
-   * @generated
-   */
-  EAttribute getUncertainty_Name();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}'.
@@ -810,14 +790,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EClass UNCERTAINTY = eINSTANCE.getUncertainty();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute UNCERTAINTY__NAME = eINSTANCE.getUncertainty_Name();
 
     /**
      * The meta object literal for the '<em><b>Volatility</b></em>' attribute feature.

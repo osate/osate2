@@ -1797,7 +1797,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Rationale:
-	//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName])?;
+	//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?;
 	public CommonGrammarAccess.RationaleElements getRationaleAccess() {
 		return gaCommon.getRationaleAccess();
 	}
@@ -1807,9 +1807,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" name=ValidID "[" ("volatility" volatility=INT & "costimpact" costimpact=INT & "scheduleimpact"
-	//	scheduleimpact=INT & "familiarity" familiarity=INT & "timecriticality" timecriticality=INT & "riskindex"
-	//	riskindex=INT & "maturityindex" maturityindex=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
+	//	scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
+	//	riskindex=Number & "maturityindex" maturityindex=Number) "]";
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}

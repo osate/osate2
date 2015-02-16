@@ -17644,7 +17644,6 @@ finally {
 
 
 
-
 rule__APropertyReference__PropertyAssignment_2
     @init {
 		int stackSize = keepStackSize();

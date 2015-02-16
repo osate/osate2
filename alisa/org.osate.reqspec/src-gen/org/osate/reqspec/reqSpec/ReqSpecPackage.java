@@ -1138,34 +1138,6 @@ public interface ReqSpecPackage extends EPackage
   int BEHAVIOR_EQUATION_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.SPeARPredicateImpl <em>SPe AR Predicate</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.SPeARPredicateImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSPeARPredicate()
-   * @generated
-   */
-  int SPE_AR_PREDICATE = 19;
-
-  /**
-   * The feature id for the '<em><b>Predicate</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SPE_AR_PREDICATE__PREDICATE = REQ_PREDICATE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>SPe AR Predicate</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SPE_AR_PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1173,7 +1145,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 20;
+  int EXTERNAL_DOCUMENT = 19;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -2054,27 +2026,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getBehaviorEquation_Reference();
 
   /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.SPeARPredicate <em>SPe AR Predicate</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>SPe AR Predicate</em>'.
-   * @see org.osate.reqspec.reqSpec.SPeARPredicate
-   * @generated
-   */
-  EClass getSPeARPredicate();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.SPeARPredicate#getPredicate <em>Predicate</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Predicate</em>'.
-   * @see org.osate.reqspec.reqSpec.SPeARPredicate#getPredicate()
-   * @see #getSPeARPredicate()
-   * @generated
-   */
-  EAttribute getSPeARPredicate_Predicate();
-
-  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ExternalDocument <em>External Document</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2798,24 +2749,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference BEHAVIOR_EQUATION__REFERENCE = eINSTANCE.getBehaviorEquation_Reference();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.SPeARPredicateImpl <em>SPe AR Predicate</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.SPeARPredicateImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSPeARPredicate()
-     * @generated
-     */
-    EClass SPE_AR_PREDICATE = eINSTANCE.getSPeARPredicate();
-
-    /**
-     * The meta object literal for the '<em><b>Predicate</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute SPE_AR_PREDICATE__PREDICATE = eINSTANCE.getSPeARPredicate_Predicate();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.

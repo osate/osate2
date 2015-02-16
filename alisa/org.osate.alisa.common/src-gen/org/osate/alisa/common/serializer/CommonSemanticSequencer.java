@@ -1288,7 +1288,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (text=STRING stakeholders+=[Stakeholder|QualifiedName]?)
+	 *     (text=STRING stakeholders+=[Stakeholder|QualifiedName]*)
 	 */
 	protected void sequence_Rationale(EObject context, Rationale semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1307,46 +1307,17 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ValidID 
-	 *         volatility=INT 
-	 *         costimpact=INT 
-	 *         scheduleimpact=INT 
-	 *         familiarity=INT 
-	 *         timecriticality=INT 
-	 *         riskindex=INT 
-	 *         maturityindex=INT
+	 *         volatility=Number 
+	 *         costimpact=Number 
+	 *         scheduleimpact=Number 
+	 *         familiarity=Number 
+	 *         timecriticality=Number 
+	 *         riskindex=Number 
+	 *         maturityindex=Number
 	 *     )
 	 */
 	protected void sequence_Uncertainty(EObject context, Uncertainty semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__NAME));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__VOLATILITY) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__VOLATILITY));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__COSTIMPACT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__COSTIMPACT));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__SCHEDULEIMPACT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__SCHEDULEIMPACT));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__FAMILIARITY) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__FAMILIARITY));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__TIMECRITICALITY) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__TIMECRITICALITY));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__RISKINDEX) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__RISKINDEX));
-			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__MATURITYINDEX) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__MATURITYINDEX));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getUncertaintyAccess().getNameValidIDParserRuleCall_1_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getUncertaintyAccess().getVolatilityINTTerminalRuleCall_3_0_1_0(), semanticObject.getVolatility());
-		feeder.accept(grammarAccess.getUncertaintyAccess().getCostimpactINTTerminalRuleCall_3_1_1_0(), semanticObject.getCostimpact());
-		feeder.accept(grammarAccess.getUncertaintyAccess().getScheduleimpactINTTerminalRuleCall_3_2_1_0(), semanticObject.getScheduleimpact());
-		feeder.accept(grammarAccess.getUncertaintyAccess().getFamiliarityINTTerminalRuleCall_3_3_1_0(), semanticObject.getFamiliarity());
-		feeder.accept(grammarAccess.getUncertaintyAccess().getTimecriticalityINTTerminalRuleCall_3_4_1_0(), semanticObject.getTimecriticality());
-		feeder.accept(grammarAccess.getUncertaintyAccess().getRiskindexINTTerminalRuleCall_3_5_1_0(), semanticObject.getRiskindex());
-		feeder.accept(grammarAccess.getUncertaintyAccess().getMaturityindexINTTerminalRuleCall_3_6_1_0(), semanticObject.getMaturityindex());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

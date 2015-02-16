@@ -19,7 +19,6 @@ import org.osate.alisa.common.common.Uncertainty;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getVolatility <em>Volatility</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getCostimpact <em>Costimpact</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getScheduleimpact <em>Scheduleimpact</em>}</li>
@@ -35,26 +34,6 @@ import org.osate.alisa.common.common.Uncertainty;
 public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Uncertainty
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
-  /**
    * The default value of the '{@link #getVolatility() <em>Volatility</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -62,7 +41,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected static final int VOLATILITY_EDEFAULT = 0;
+  protected static final String VOLATILITY_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getVolatility() <em>Volatility</em>}' attribute.
@@ -72,7 +51,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected int volatility = VOLATILITY_EDEFAULT;
+  protected String volatility = VOLATILITY_EDEFAULT;
 
   /**
    * The default value of the '{@link #getCostimpact() <em>Costimpact</em>}' attribute.
@@ -82,7 +61,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected static final int COSTIMPACT_EDEFAULT = 0;
+  protected static final String COSTIMPACT_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getCostimpact() <em>Costimpact</em>}' attribute.
@@ -92,7 +71,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected int costimpact = COSTIMPACT_EDEFAULT;
+  protected String costimpact = COSTIMPACT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getScheduleimpact() <em>Scheduleimpact</em>}' attribute.
@@ -102,7 +81,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected static final int SCHEDULEIMPACT_EDEFAULT = 0;
+  protected static final String SCHEDULEIMPACT_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getScheduleimpact() <em>Scheduleimpact</em>}' attribute.
@@ -112,7 +91,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected int scheduleimpact = SCHEDULEIMPACT_EDEFAULT;
+  protected String scheduleimpact = SCHEDULEIMPACT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getFamiliarity() <em>Familiarity</em>}' attribute.
@@ -122,7 +101,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected static final int FAMILIARITY_EDEFAULT = 0;
+  protected static final String FAMILIARITY_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getFamiliarity() <em>Familiarity</em>}' attribute.
@@ -132,7 +111,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected int familiarity = FAMILIARITY_EDEFAULT;
+  protected String familiarity = FAMILIARITY_EDEFAULT;
 
   /**
    * The default value of the '{@link #getTimecriticality() <em>Timecriticality</em>}' attribute.
@@ -142,7 +121,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected static final int TIMECRITICALITY_EDEFAULT = 0;
+  protected static final String TIMECRITICALITY_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getTimecriticality() <em>Timecriticality</em>}' attribute.
@@ -152,7 +131,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected int timecriticality = TIMECRITICALITY_EDEFAULT;
+  protected String timecriticality = TIMECRITICALITY_EDEFAULT;
 
   /**
    * The default value of the '{@link #getRiskindex() <em>Riskindex</em>}' attribute.
@@ -162,7 +141,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected static final int RISKINDEX_EDEFAULT = 0;
+  protected static final String RISKINDEX_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getRiskindex() <em>Riskindex</em>}' attribute.
@@ -172,7 +151,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected int riskindex = RISKINDEX_EDEFAULT;
+  protected String riskindex = RISKINDEX_EDEFAULT;
 
   /**
    * The default value of the '{@link #getMaturityindex() <em>Maturityindex</em>}' attribute.
@@ -182,7 +161,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected static final int MATURITYINDEX_EDEFAULT = 0;
+  protected static final String MATURITYINDEX_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getMaturityindex() <em>Maturityindex</em>}' attribute.
@@ -192,7 +171,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @generated
    * @ordered
    */
-  protected int maturityindex = MATURITYINDEX_EDEFAULT;
+  protected String maturityindex = MATURITYINDEX_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -220,30 +199,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public int getVolatility()
+  public String getVolatility()
   {
     return volatility;
   }
@@ -253,9 +209,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setVolatility(int newVolatility)
+  public void setVolatility(String newVolatility)
   {
-    int oldVolatility = volatility;
+    String oldVolatility = volatility;
     volatility = newVolatility;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__VOLATILITY, oldVolatility, volatility));
@@ -266,7 +222,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getCostimpact()
+  public String getCostimpact()
   {
     return costimpact;
   }
@@ -276,9 +232,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCostimpact(int newCostimpact)
+  public void setCostimpact(String newCostimpact)
   {
-    int oldCostimpact = costimpact;
+    String oldCostimpact = costimpact;
     costimpact = newCostimpact;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__COSTIMPACT, oldCostimpact, costimpact));
@@ -289,7 +245,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getScheduleimpact()
+  public String getScheduleimpact()
   {
     return scheduleimpact;
   }
@@ -299,9 +255,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setScheduleimpact(int newScheduleimpact)
+  public void setScheduleimpact(String newScheduleimpact)
   {
-    int oldScheduleimpact = scheduleimpact;
+    String oldScheduleimpact = scheduleimpact;
     scheduleimpact = newScheduleimpact;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__SCHEDULEIMPACT, oldScheduleimpact, scheduleimpact));
@@ -312,7 +268,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getFamiliarity()
+  public String getFamiliarity()
   {
     return familiarity;
   }
@@ -322,9 +278,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFamiliarity(int newFamiliarity)
+  public void setFamiliarity(String newFamiliarity)
   {
-    int oldFamiliarity = familiarity;
+    String oldFamiliarity = familiarity;
     familiarity = newFamiliarity;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__FAMILIARITY, oldFamiliarity, familiarity));
@@ -335,7 +291,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getTimecriticality()
+  public String getTimecriticality()
   {
     return timecriticality;
   }
@@ -345,9 +301,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTimecriticality(int newTimecriticality)
+  public void setTimecriticality(String newTimecriticality)
   {
-    int oldTimecriticality = timecriticality;
+    String oldTimecriticality = timecriticality;
     timecriticality = newTimecriticality;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__TIMECRITICALITY, oldTimecriticality, timecriticality));
@@ -358,7 +314,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getRiskindex()
+  public String getRiskindex()
   {
     return riskindex;
   }
@@ -368,9 +324,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRiskindex(int newRiskindex)
+  public void setRiskindex(String newRiskindex)
   {
-    int oldRiskindex = riskindex;
+    String oldRiskindex = riskindex;
     riskindex = newRiskindex;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__RISKINDEX, oldRiskindex, riskindex));
@@ -381,7 +337,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getMaturityindex()
+  public String getMaturityindex()
   {
     return maturityindex;
   }
@@ -391,9 +347,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setMaturityindex(int newMaturityindex)
+  public void setMaturityindex(String newMaturityindex)
   {
-    int oldMaturityindex = maturityindex;
+    String oldMaturityindex = maturityindex;
     maturityindex = newMaturityindex;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__MATURITYINDEX, oldMaturityindex, maturityindex));
@@ -409,8 +365,6 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__NAME:
-        return getName();
       case CommonPackage.UNCERTAINTY__VOLATILITY:
         return getVolatility();
       case CommonPackage.UNCERTAINTY__COSTIMPACT:
@@ -439,29 +393,26 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__NAME:
-        setName((String)newValue);
-        return;
       case CommonPackage.UNCERTAINTY__VOLATILITY:
-        setVolatility((Integer)newValue);
+        setVolatility((String)newValue);
         return;
       case CommonPackage.UNCERTAINTY__COSTIMPACT:
-        setCostimpact((Integer)newValue);
+        setCostimpact((String)newValue);
         return;
       case CommonPackage.UNCERTAINTY__SCHEDULEIMPACT:
-        setScheduleimpact((Integer)newValue);
+        setScheduleimpact((String)newValue);
         return;
       case CommonPackage.UNCERTAINTY__FAMILIARITY:
-        setFamiliarity((Integer)newValue);
+        setFamiliarity((String)newValue);
         return;
       case CommonPackage.UNCERTAINTY__TIMECRITICALITY:
-        setTimecriticality((Integer)newValue);
+        setTimecriticality((String)newValue);
         return;
       case CommonPackage.UNCERTAINTY__RISKINDEX:
-        setRiskindex((Integer)newValue);
+        setRiskindex((String)newValue);
         return;
       case CommonPackage.UNCERTAINTY__MATURITYINDEX:
-        setMaturityindex((Integer)newValue);
+        setMaturityindex((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -477,9 +428,6 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case CommonPackage.UNCERTAINTY__VOLATILITY:
         setVolatility(VOLATILITY_EDEFAULT);
         return;
@@ -515,22 +463,20 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
   {
     switch (featureID)
     {
-      case CommonPackage.UNCERTAINTY__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case CommonPackage.UNCERTAINTY__VOLATILITY:
-        return volatility != VOLATILITY_EDEFAULT;
+        return VOLATILITY_EDEFAULT == null ? volatility != null : !VOLATILITY_EDEFAULT.equals(volatility);
       case CommonPackage.UNCERTAINTY__COSTIMPACT:
-        return costimpact != COSTIMPACT_EDEFAULT;
+        return COSTIMPACT_EDEFAULT == null ? costimpact != null : !COSTIMPACT_EDEFAULT.equals(costimpact);
       case CommonPackage.UNCERTAINTY__SCHEDULEIMPACT:
-        return scheduleimpact != SCHEDULEIMPACT_EDEFAULT;
+        return SCHEDULEIMPACT_EDEFAULT == null ? scheduleimpact != null : !SCHEDULEIMPACT_EDEFAULT.equals(scheduleimpact);
       case CommonPackage.UNCERTAINTY__FAMILIARITY:
-        return familiarity != FAMILIARITY_EDEFAULT;
+        return FAMILIARITY_EDEFAULT == null ? familiarity != null : !FAMILIARITY_EDEFAULT.equals(familiarity);
       case CommonPackage.UNCERTAINTY__TIMECRITICALITY:
-        return timecriticality != TIMECRITICALITY_EDEFAULT;
+        return TIMECRITICALITY_EDEFAULT == null ? timecriticality != null : !TIMECRITICALITY_EDEFAULT.equals(timecriticality);
       case CommonPackage.UNCERTAINTY__RISKINDEX:
-        return riskindex != RISKINDEX_EDEFAULT;
+        return RISKINDEX_EDEFAULT == null ? riskindex != null : !RISKINDEX_EDEFAULT.equals(riskindex);
       case CommonPackage.UNCERTAINTY__MATURITYINDEX:
-        return maturityindex != MATURITYINDEX_EDEFAULT;
+        return MATURITYINDEX_EDEFAULT == null ? maturityindex != null : !MATURITYINDEX_EDEFAULT.equals(maturityindex);
     }
     return super.eIsSet(featureID);
   }
@@ -546,9 +492,7 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", volatility: ");
+    result.append(" (volatility: ");
     result.append(volatility);
     result.append(", costimpact: ");
     result.append(costimpact);

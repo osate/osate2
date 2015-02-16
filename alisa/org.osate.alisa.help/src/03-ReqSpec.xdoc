@@ -33,8 +33,8 @@ goal goalname
 	( :  "short descriptive title" )?
 	( for ComponentElement | "Target description" )?
 	\[  
-	 (category guarantee )?
-	 (description  "Textline" & "second line")? 
+	 (category safety )?
+	 (description  "Textline")? 
 	 (rationale "explanation")? 
 	 (refines ( docx.goal1 )+ )? 
 	 (conflicts with docx.goal15 )+)? 
@@ -49,14 +49,14 @@ e[Note:] The items declared between the square brackets can be specified in any 
 ul[
 item[The e[for] attribute either points to an element in an AADL componenbt classifier (the classifier
 itself is identified in the enclosing container), or it provides a string description of the target of
-the goal.]
+the goal. If absent the goal applies to any system component.]
 item[The e[category] attribute identifies a requirment category. Requirement categories are user-definable
 and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
 ]
 item[The e[description] attribute allows user to provide a description that spans multiple lines. The description consists of a sequence of strings,
-name of the model element the requirement applies to (e[this]), and the newline operator 
-e[&] to create multi line strings.]
-item[The e[rationale] attributes is a text field]
+name of the model element the requirement applies to (e[this]). ]
+item[The e[rationale] attributes is a text field. The rationale, if present, can include a reference
+to stakeholders.]
 item[The e[refines] attribute is a list of one or more references to other goals. The referenced goal
 is being refined by the given goal. The referenced goal
 is identified by its qualified name.]

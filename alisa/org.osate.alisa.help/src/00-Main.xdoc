@@ -55,6 +55,7 @@ codelanguage-def[Assure]
 codelanguage-def[Alisa]
 [
 	alisa,for,description,rationale,case, constants, plans, when
+	, scheduleImpact, uncertainty, costImpact, familiarity, maturityIndex, timeCriticality, riskIndex, propRiskIndex
 ]
 
 

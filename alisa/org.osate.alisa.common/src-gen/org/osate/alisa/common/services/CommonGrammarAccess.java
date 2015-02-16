@@ -92,10 +92,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cStakeholdersStakeholderQualifiedNameParserRuleCall_2_1_0_1 = (RuleCall)cStakeholdersStakeholderCrossReference_2_1_0.eContents().get(1);
 		
 		//Rationale:
-		//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName])?;
+		//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?;
 		public ParserRule getRule() { return rule; }
 
-		//"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName])?
+		//"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?
 		public Group getGroup() { return cGroup; }
 
 		//"rationale"
@@ -107,13 +107,13 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTextSTRINGTerminalRuleCall_1_0() { return cTextSTRINGTerminalRuleCall_1_0; }
 
-		//("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName])?
+		//("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"stakeholders"
 		public Keyword getStakeholdersKeyword_2_0() { return cStakeholdersKeyword_2_0; }
 
-		//stakeholders+=[org::Stakeholder|QualifiedName]
+		//stakeholders+=[org::Stakeholder|QualifiedName]+
 		public Assignment getStakeholdersAssignment_2_1() { return cStakeholdersAssignment_2_1; }
 
 		//[org::Stakeholder|QualifiedName]
@@ -127,154 +127,146 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Uncertainty");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cUncertaintyKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final UnorderedGroup cUnorderedGroup_3 = (UnorderedGroup)cGroup.eContents().get(3);
-		private final Group cGroup_3_0 = (Group)cUnorderedGroup_3.eContents().get(0);
-		private final Keyword cVolatilityKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
-		private final Assignment cVolatilityAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
-		private final RuleCall cVolatilityINTTerminalRuleCall_3_0_1_0 = (RuleCall)cVolatilityAssignment_3_0_1.eContents().get(0);
-		private final Group cGroup_3_1 = (Group)cUnorderedGroup_3.eContents().get(1);
-		private final Keyword cCostimpactKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
-		private final Assignment cCostimpactAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
-		private final RuleCall cCostimpactINTTerminalRuleCall_3_1_1_0 = (RuleCall)cCostimpactAssignment_3_1_1.eContents().get(0);
-		private final Group cGroup_3_2 = (Group)cUnorderedGroup_3.eContents().get(2);
-		private final Keyword cScheduleimpactKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
-		private final Assignment cScheduleimpactAssignment_3_2_1 = (Assignment)cGroup_3_2.eContents().get(1);
-		private final RuleCall cScheduleimpactINTTerminalRuleCall_3_2_1_0 = (RuleCall)cScheduleimpactAssignment_3_2_1.eContents().get(0);
-		private final Group cGroup_3_3 = (Group)cUnorderedGroup_3.eContents().get(3);
-		private final Keyword cFamiliarityKeyword_3_3_0 = (Keyword)cGroup_3_3.eContents().get(0);
-		private final Assignment cFamiliarityAssignment_3_3_1 = (Assignment)cGroup_3_3.eContents().get(1);
-		private final RuleCall cFamiliarityINTTerminalRuleCall_3_3_1_0 = (RuleCall)cFamiliarityAssignment_3_3_1.eContents().get(0);
-		private final Group cGroup_3_4 = (Group)cUnorderedGroup_3.eContents().get(4);
-		private final Keyword cTimecriticalityKeyword_3_4_0 = (Keyword)cGroup_3_4.eContents().get(0);
-		private final Assignment cTimecriticalityAssignment_3_4_1 = (Assignment)cGroup_3_4.eContents().get(1);
-		private final RuleCall cTimecriticalityINTTerminalRuleCall_3_4_1_0 = (RuleCall)cTimecriticalityAssignment_3_4_1.eContents().get(0);
-		private final Group cGroup_3_5 = (Group)cUnorderedGroup_3.eContents().get(5);
-		private final Keyword cRiskindexKeyword_3_5_0 = (Keyword)cGroup_3_5.eContents().get(0);
-		private final Assignment cRiskindexAssignment_3_5_1 = (Assignment)cGroup_3_5.eContents().get(1);
-		private final RuleCall cRiskindexINTTerminalRuleCall_3_5_1_0 = (RuleCall)cRiskindexAssignment_3_5_1.eContents().get(0);
-		private final Group cGroup_3_6 = (Group)cUnorderedGroup_3.eContents().get(6);
-		private final Keyword cMaturityindexKeyword_3_6_0 = (Keyword)cGroup_3_6.eContents().get(0);
-		private final Assignment cMaturityindexAssignment_3_6_1 = (Assignment)cGroup_3_6.eContents().get(1);
-		private final RuleCall cMaturityindexINTTerminalRuleCall_3_6_1_0 = (RuleCall)cMaturityindexAssignment_3_6_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final UnorderedGroup cUnorderedGroup_2 = (UnorderedGroup)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cUnorderedGroup_2.eContents().get(0);
+		private final Keyword cVolatilityKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
+		private final Assignment cVolatilityAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
+		private final RuleCall cVolatilityNumberParserRuleCall_2_0_1_0 = (RuleCall)cVolatilityAssignment_2_0_1.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cUnorderedGroup_2.eContents().get(1);
+		private final Keyword cCostimpactKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cCostimpactAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cCostimpactNumberParserRuleCall_2_1_1_0 = (RuleCall)cCostimpactAssignment_2_1_1.eContents().get(0);
+		private final Group cGroup_2_2 = (Group)cUnorderedGroup_2.eContents().get(2);
+		private final Keyword cScheduleimpactKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Assignment cScheduleimpactAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
+		private final RuleCall cScheduleimpactNumberParserRuleCall_2_2_1_0 = (RuleCall)cScheduleimpactAssignment_2_2_1.eContents().get(0);
+		private final Group cGroup_2_3 = (Group)cUnorderedGroup_2.eContents().get(3);
+		private final Keyword cFamiliarityKeyword_2_3_0 = (Keyword)cGroup_2_3.eContents().get(0);
+		private final Assignment cFamiliarityAssignment_2_3_1 = (Assignment)cGroup_2_3.eContents().get(1);
+		private final RuleCall cFamiliarityNumberParserRuleCall_2_3_1_0 = (RuleCall)cFamiliarityAssignment_2_3_1.eContents().get(0);
+		private final Group cGroup_2_4 = (Group)cUnorderedGroup_2.eContents().get(4);
+		private final Keyword cTimecriticalityKeyword_2_4_0 = (Keyword)cGroup_2_4.eContents().get(0);
+		private final Assignment cTimecriticalityAssignment_2_4_1 = (Assignment)cGroup_2_4.eContents().get(1);
+		private final RuleCall cTimecriticalityNumberParserRuleCall_2_4_1_0 = (RuleCall)cTimecriticalityAssignment_2_4_1.eContents().get(0);
+		private final Group cGroup_2_5 = (Group)cUnorderedGroup_2.eContents().get(5);
+		private final Keyword cRiskindexKeyword_2_5_0 = (Keyword)cGroup_2_5.eContents().get(0);
+		private final Assignment cRiskindexAssignment_2_5_1 = (Assignment)cGroup_2_5.eContents().get(1);
+		private final RuleCall cRiskindexNumberParserRuleCall_2_5_1_0 = (RuleCall)cRiskindexAssignment_2_5_1.eContents().get(0);
+		private final Group cGroup_2_6 = (Group)cUnorderedGroup_2.eContents().get(6);
+		private final Keyword cMaturityindexKeyword_2_6_0 = (Keyword)cGroup_2_6.eContents().get(0);
+		private final Assignment cMaturityindexAssignment_2_6_1 = (Assignment)cGroup_2_6.eContents().get(1);
+		private final RuleCall cMaturityindexNumberParserRuleCall_2_6_1_0 = (RuleCall)cMaturityindexAssignment_2_6_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Uncertainty:
-		//	"uncertainty" name=ValidID "[" ("volatility" volatility=INT & "costimpact" costimpact=INT & "scheduleimpact"
-		//	scheduleimpact=INT & "familiarity" familiarity=INT & "timecriticality" timecriticality=INT & "riskindex"
-		//	riskindex=INT & "maturityindex" maturityindex=INT) "]";
+		//	"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
+		//	scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
+		//	riskindex=Number & "maturityindex" maturityindex=Number) "]";
 		public ParserRule getRule() { return rule; }
 
-		//"uncertainty" name=ValidID "[" ("volatility" volatility=INT & "costimpact" costimpact=INT & "scheduleimpact"
-		//scheduleimpact=INT & "familiarity" familiarity=INT & "timecriticality" timecriticality=INT & "riskindex" riskindex=INT
-		//& "maturityindex" maturityindex=INT) "]"
+		//"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
+		//scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
+		//riskindex=Number & "maturityindex" maturityindex=Number) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"uncertainty"
 		public Keyword getUncertaintyKeyword_0() { return cUncertaintyKeyword_0; }
 
-		//name=ValidID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-
-		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_1_0() { return cNameValidIDParserRuleCall_1_0; }
-
 		//"["
-		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
+		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//"volatility" volatility=INT & "costimpact" costimpact=INT & "scheduleimpact" scheduleimpact=INT & "familiarity"
-		//familiarity=INT & "timecriticality" timecriticality=INT & "riskindex" riskindex=INT & "maturityindex"
-		//maturityindex=INT
-		public UnorderedGroup getUnorderedGroup_3() { return cUnorderedGroup_3; }
+		//"volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact" scheduleimpact=Number & "familiarity"
+		//familiarity=Number & "timecriticality" timecriticality=Number & "riskindex" riskindex=Number & "maturityindex"
+		//maturityindex=Number
+		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
 
-		//"volatility" volatility=INT
-		public Group getGroup_3_0() { return cGroup_3_0; }
+		//"volatility" volatility=Number
+		public Group getGroup_2_0() { return cGroup_2_0; }
 
 		//"volatility"
-		public Keyword getVolatilityKeyword_3_0_0() { return cVolatilityKeyword_3_0_0; }
+		public Keyword getVolatilityKeyword_2_0_0() { return cVolatilityKeyword_2_0_0; }
 
-		//volatility=INT
-		public Assignment getVolatilityAssignment_3_0_1() { return cVolatilityAssignment_3_0_1; }
+		//volatility=Number
+		public Assignment getVolatilityAssignment_2_0_1() { return cVolatilityAssignment_2_0_1; }
 
-		//INT
-		public RuleCall getVolatilityINTTerminalRuleCall_3_0_1_0() { return cVolatilityINTTerminalRuleCall_3_0_1_0; }
+		//Number
+		public RuleCall getVolatilityNumberParserRuleCall_2_0_1_0() { return cVolatilityNumberParserRuleCall_2_0_1_0; }
 
-		//"costimpact" costimpact=INT
-		public Group getGroup_3_1() { return cGroup_3_1; }
+		//"costimpact" costimpact=Number
+		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//"costimpact"
-		public Keyword getCostimpactKeyword_3_1_0() { return cCostimpactKeyword_3_1_0; }
+		public Keyword getCostimpactKeyword_2_1_0() { return cCostimpactKeyword_2_1_0; }
 
-		//costimpact=INT
-		public Assignment getCostimpactAssignment_3_1_1() { return cCostimpactAssignment_3_1_1; }
+		//costimpact=Number
+		public Assignment getCostimpactAssignment_2_1_1() { return cCostimpactAssignment_2_1_1; }
 
-		//INT
-		public RuleCall getCostimpactINTTerminalRuleCall_3_1_1_0() { return cCostimpactINTTerminalRuleCall_3_1_1_0; }
+		//Number
+		public RuleCall getCostimpactNumberParserRuleCall_2_1_1_0() { return cCostimpactNumberParserRuleCall_2_1_1_0; }
 
-		//"scheduleimpact" scheduleimpact=INT
-		public Group getGroup_3_2() { return cGroup_3_2; }
+		//"scheduleimpact" scheduleimpact=Number
+		public Group getGroup_2_2() { return cGroup_2_2; }
 
 		//"scheduleimpact"
-		public Keyword getScheduleimpactKeyword_3_2_0() { return cScheduleimpactKeyword_3_2_0; }
+		public Keyword getScheduleimpactKeyword_2_2_0() { return cScheduleimpactKeyword_2_2_0; }
 
-		//scheduleimpact=INT
-		public Assignment getScheduleimpactAssignment_3_2_1() { return cScheduleimpactAssignment_3_2_1; }
+		//scheduleimpact=Number
+		public Assignment getScheduleimpactAssignment_2_2_1() { return cScheduleimpactAssignment_2_2_1; }
 
-		//INT
-		public RuleCall getScheduleimpactINTTerminalRuleCall_3_2_1_0() { return cScheduleimpactINTTerminalRuleCall_3_2_1_0; }
+		//Number
+		public RuleCall getScheduleimpactNumberParserRuleCall_2_2_1_0() { return cScheduleimpactNumberParserRuleCall_2_2_1_0; }
 
-		//"familiarity" familiarity=INT
-		public Group getGroup_3_3() { return cGroup_3_3; }
+		//"familiarity" familiarity=Number
+		public Group getGroup_2_3() { return cGroup_2_3; }
 
 		//"familiarity"
-		public Keyword getFamiliarityKeyword_3_3_0() { return cFamiliarityKeyword_3_3_0; }
+		public Keyword getFamiliarityKeyword_2_3_0() { return cFamiliarityKeyword_2_3_0; }
 
-		//familiarity=INT
-		public Assignment getFamiliarityAssignment_3_3_1() { return cFamiliarityAssignment_3_3_1; }
+		//familiarity=Number
+		public Assignment getFamiliarityAssignment_2_3_1() { return cFamiliarityAssignment_2_3_1; }
 
-		//INT
-		public RuleCall getFamiliarityINTTerminalRuleCall_3_3_1_0() { return cFamiliarityINTTerminalRuleCall_3_3_1_0; }
+		//Number
+		public RuleCall getFamiliarityNumberParserRuleCall_2_3_1_0() { return cFamiliarityNumberParserRuleCall_2_3_1_0; }
 
-		//"timecriticality" timecriticality=INT
-		public Group getGroup_3_4() { return cGroup_3_4; }
+		//"timecriticality" timecriticality=Number
+		public Group getGroup_2_4() { return cGroup_2_4; }
 
 		//"timecriticality"
-		public Keyword getTimecriticalityKeyword_3_4_0() { return cTimecriticalityKeyword_3_4_0; }
+		public Keyword getTimecriticalityKeyword_2_4_0() { return cTimecriticalityKeyword_2_4_0; }
 
-		//timecriticality=INT
-		public Assignment getTimecriticalityAssignment_3_4_1() { return cTimecriticalityAssignment_3_4_1; }
+		//timecriticality=Number
+		public Assignment getTimecriticalityAssignment_2_4_1() { return cTimecriticalityAssignment_2_4_1; }
 
-		//INT
-		public RuleCall getTimecriticalityINTTerminalRuleCall_3_4_1_0() { return cTimecriticalityINTTerminalRuleCall_3_4_1_0; }
+		//Number
+		public RuleCall getTimecriticalityNumberParserRuleCall_2_4_1_0() { return cTimecriticalityNumberParserRuleCall_2_4_1_0; }
 
-		//"riskindex" riskindex=INT
-		public Group getGroup_3_5() { return cGroup_3_5; }
+		//"riskindex" riskindex=Number
+		public Group getGroup_2_5() { return cGroup_2_5; }
 
 		//"riskindex"
-		public Keyword getRiskindexKeyword_3_5_0() { return cRiskindexKeyword_3_5_0; }
+		public Keyword getRiskindexKeyword_2_5_0() { return cRiskindexKeyword_2_5_0; }
 
-		//riskindex=INT
-		public Assignment getRiskindexAssignment_3_5_1() { return cRiskindexAssignment_3_5_1; }
+		//riskindex=Number
+		public Assignment getRiskindexAssignment_2_5_1() { return cRiskindexAssignment_2_5_1; }
 
-		//INT
-		public RuleCall getRiskindexINTTerminalRuleCall_3_5_1_0() { return cRiskindexINTTerminalRuleCall_3_5_1_0; }
+		//Number
+		public RuleCall getRiskindexNumberParserRuleCall_2_5_1_0() { return cRiskindexNumberParserRuleCall_2_5_1_0; }
 
-		//"maturityindex" maturityindex=INT
-		public Group getGroup_3_6() { return cGroup_3_6; }
+		//"maturityindex" maturityindex=Number
+		public Group getGroup_2_6() { return cGroup_2_6; }
 
 		//"maturityindex"
-		public Keyword getMaturityindexKeyword_3_6_0() { return cMaturityindexKeyword_3_6_0; }
+		public Keyword getMaturityindexKeyword_2_6_0() { return cMaturityindexKeyword_2_6_0; }
 
-		//maturityindex=INT
-		public Assignment getMaturityindexAssignment_3_6_1() { return cMaturityindexAssignment_3_6_1; }
+		//maturityindex=Number
+		public Assignment getMaturityindexAssignment_2_6_1() { return cMaturityindexAssignment_2_6_1; }
 
-		//INT
-		public RuleCall getMaturityindexINTTerminalRuleCall_3_6_1_0() { return cMaturityindexINTTerminalRuleCall_3_6_1_0; }
+		//Number
+		public RuleCall getMaturityindexNumberParserRuleCall_2_6_1_0() { return cMaturityindexNumberParserRuleCall_2_6_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
 
 	public class XValDeclarationElements extends AbstractParserRuleElementFinder {
@@ -668,7 +660,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Rationale:
-	//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName])?;
+	//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?;
 	public RationaleElements getRationaleAccess() {
 		return pRationale;
 	}
@@ -678,9 +670,9 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" name=ValidID "[" ("volatility" volatility=INT & "costimpact" costimpact=INT & "scheduleimpact"
-	//	scheduleimpact=INT & "familiarity" familiarity=INT & "timecriticality" timecriticality=INT & "riskindex"
-	//	riskindex=INT & "maturityindex" maturityindex=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
+	//	scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
+	//	riskindex=Number & "maturityindex" maturityindex=Number) "]";
 	public UncertaintyElements getUncertaintyAccess() {
 		return pUncertainty;
 	}

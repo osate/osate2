@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.Uncertainty#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getCostimpact <em>Costimpact</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getScheduleimpact <em>Scheduleimpact</em>}</li>
@@ -30,32 +29,6 @@ import org.eclipse.emf.ecore.EObject;
 public interface Uncertainty extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
-  /**
    * Returns the value of the '<em><b>Volatility</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -64,12 +37,12 @@ public interface Uncertainty extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Volatility</em>' attribute.
-   * @see #setVolatility(int)
+   * @see #setVolatility(String)
    * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Volatility()
    * @model
    * @generated
    */
-  int getVolatility();
+  String getVolatility();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}' attribute.
@@ -79,7 +52,7 @@ public interface Uncertainty extends EObject
    * @see #getVolatility()
    * @generated
    */
-  void setVolatility(int value);
+  void setVolatility(String value);
 
   /**
    * Returns the value of the '<em><b>Costimpact</b></em>' attribute.
@@ -90,12 +63,12 @@ public interface Uncertainty extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Costimpact</em>' attribute.
-   * @see #setCostimpact(int)
+   * @see #setCostimpact(String)
    * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Costimpact()
    * @model
    * @generated
    */
-  int getCostimpact();
+  String getCostimpact();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getCostimpact <em>Costimpact</em>}' attribute.
@@ -105,7 +78,7 @@ public interface Uncertainty extends EObject
    * @see #getCostimpact()
    * @generated
    */
-  void setCostimpact(int value);
+  void setCostimpact(String value);
 
   /**
    * Returns the value of the '<em><b>Scheduleimpact</b></em>' attribute.
@@ -116,12 +89,12 @@ public interface Uncertainty extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Scheduleimpact</em>' attribute.
-   * @see #setScheduleimpact(int)
+   * @see #setScheduleimpact(String)
    * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Scheduleimpact()
    * @model
    * @generated
    */
-  int getScheduleimpact();
+  String getScheduleimpact();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getScheduleimpact <em>Scheduleimpact</em>}' attribute.
@@ -131,7 +104,7 @@ public interface Uncertainty extends EObject
    * @see #getScheduleimpact()
    * @generated
    */
-  void setScheduleimpact(int value);
+  void setScheduleimpact(String value);
 
   /**
    * Returns the value of the '<em><b>Familiarity</b></em>' attribute.
@@ -142,12 +115,12 @@ public interface Uncertainty extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Familiarity</em>' attribute.
-   * @see #setFamiliarity(int)
+   * @see #setFamiliarity(String)
    * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Familiarity()
    * @model
    * @generated
    */
-  int getFamiliarity();
+  String getFamiliarity();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getFamiliarity <em>Familiarity</em>}' attribute.
@@ -157,7 +130,7 @@ public interface Uncertainty extends EObject
    * @see #getFamiliarity()
    * @generated
    */
-  void setFamiliarity(int value);
+  void setFamiliarity(String value);
 
   /**
    * Returns the value of the '<em><b>Timecriticality</b></em>' attribute.
@@ -168,12 +141,12 @@ public interface Uncertainty extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Timecriticality</em>' attribute.
-   * @see #setTimecriticality(int)
+   * @see #setTimecriticality(String)
    * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Timecriticality()
    * @model
    * @generated
    */
-  int getTimecriticality();
+  String getTimecriticality();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getTimecriticality <em>Timecriticality</em>}' attribute.
@@ -183,7 +156,7 @@ public interface Uncertainty extends EObject
    * @see #getTimecriticality()
    * @generated
    */
-  void setTimecriticality(int value);
+  void setTimecriticality(String value);
 
   /**
    * Returns the value of the '<em><b>Riskindex</b></em>' attribute.
@@ -194,12 +167,12 @@ public interface Uncertainty extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Riskindex</em>' attribute.
-   * @see #setRiskindex(int)
+   * @see #setRiskindex(String)
    * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Riskindex()
    * @model
    * @generated
    */
-  int getRiskindex();
+  String getRiskindex();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getRiskindex <em>Riskindex</em>}' attribute.
@@ -209,7 +182,7 @@ public interface Uncertainty extends EObject
    * @see #getRiskindex()
    * @generated
    */
-  void setRiskindex(int value);
+  void setRiskindex(String value);
 
   /**
    * Returns the value of the '<em><b>Maturityindex</b></em>' attribute.
@@ -220,12 +193,12 @@ public interface Uncertainty extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Maturityindex</em>' attribute.
-   * @see #setMaturityindex(int)
+   * @see #setMaturityindex(String)
    * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Maturityindex()
    * @model
    * @generated
    */
-  int getMaturityindex();
+  String getMaturityindex();
 
   /**
    * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getMaturityindex <em>Maturityindex</em>}' attribute.
@@ -235,6 +208,6 @@ public interface Uncertainty extends EObject
    * @see #getMaturityindex()
    * @generated
    */
-  void setMaturityindex(int value);
+  void setMaturityindex(String value);
 
 } // Uncertainty

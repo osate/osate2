@@ -17,20 +17,20 @@ DescriptionElement :
  	text = STRING | showValue = ShowValue |thisTarget?='this'
  ;
 
-Rationale: 'rationale' text=STRING ('stakeholders' stakeholders+=[org::Stakeholder|QualifiedName])?;
+Rationale: 'rationale' text=STRING ('stakeholders' stakeholders+=[org::Stakeholder|QualifiedName]+)?;
 
 
 Uncertainty:
-	'uncertainty' name=ValidID
+	'uncertainty' 
 	'['
 	(
-		('volatility' volatility=INT)
-		&('costimpact' costimpact=INT)
-		&('scheduleimpact' scheduleimpact=INT)
-		&('familiarity' familiarity=INT)
-		&('timecriticality' timecriticality=INT)
-		&('riskindex' riskindex=INT)
-		&('maturityindex' maturityindex=INT)
+		('volatility' volatility=Number)
+		&('costimpact' costimpact=Number)
+		&('scheduleimpact' scheduleimpact=Number)
+		&('familiarity' familiarity=Number)
+		&('timecriticality' timecriticality=Number)
+		&('riskindex' riskindex=Number)
+		&('maturityindex' maturityindex=Number)
 	)
 	']'
 ;

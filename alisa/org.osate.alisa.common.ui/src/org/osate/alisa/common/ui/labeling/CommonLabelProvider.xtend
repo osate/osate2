@@ -4,6 +4,8 @@
 package org.osate.alisa.common.ui.labeling
 
 import com.google.inject.Inject
+import org.osate.alisa.common.common.Description
+import org.osate.alisa.common.common.Rationale
 
 /**
  * Provides labels for a EObjects.
@@ -19,9 +21,13 @@ class CommonLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 
 	// Labels and icons can be computed like this:
 	
-//	def text(Greeting ele) {
-//		'A greeting to ' + ele.name
-//	}
+	def text(Description ele) {
+		'Description'
+	}
+	
+	def text(Rationale ele) {
+		'Rationale'
+	}
 //
 //	def image(Greeting ele) {
 //		'Greeting.gif'

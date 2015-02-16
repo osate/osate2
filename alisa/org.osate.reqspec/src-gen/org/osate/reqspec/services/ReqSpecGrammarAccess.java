@@ -692,7 +692,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCategoryKeyword_5_0_0 = (Keyword)cGroup_5_0.eContents().get(0);
 		private final Assignment cCategoryAssignment_5_0_1 = (Assignment)cGroup_5_0.eContents().get(1);
 		private final CrossReference cCategoryRequirementCategoryCrossReference_5_0_1_0 = (CrossReference)cCategoryAssignment_5_0_1.eContents().get(0);
-		private final RuleCall cCategoryRequirementCategoryIDTerminalRuleCall_5_0_1_0_1 = (RuleCall)cCategoryRequirementCategoryCrossReference_5_0_1_0.eContents().get(1);
+		private final RuleCall cCategoryRequirementCategoryValidIDParserRuleCall_5_0_1_0_1 = (RuleCall)cCategoryRequirementCategoryCrossReference_5_0_1_0.eContents().get(1);
 		private final Assignment cDescriptionAssignment_5_1 = (Assignment)cUnorderedGroup_5.eContents().get(1);
 		private final RuleCall cDescriptionDescriptionParserRuleCall_5_1_0 = (RuleCall)cDescriptionAssignment_5_1.eContents().get(0);
 		private final Assignment cRationaleAssignment_5_2 = (Assignment)cUnorderedGroup_5.eContents().get(2);
@@ -732,8 +732,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//Goal:
 		//	"goal" name=ID (":" title=STRING)? // short string for title
 		//	("for" (target=[aadl2::NamedElement] | targetDescription=STRING))? //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
-		//	"[" (("category" category=[categories::RequirementCategory])? & description=Description? & rationale=Rationale? &
-		//	changeUncertainty=Uncertainty? & ("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
+		//	"[" (("category" category=[categories::RequirementCategory|ValidID])? & description=Description? & rationale=Rationale?
+		//	& changeUncertainty=Uncertainty? & ("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
 		//	conflictsReference+=[Goal|QualifiedName]+)? & ("stakeholder"
 		//	stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
 		//	documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)?)
@@ -742,8 +742,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"goal" name=ID (":" title=STRING)? // short string for title
 		//("for" (target=[aadl2::NamedElement] | targetDescription=STRING))? //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
-		//"[" (("category" category=[categories::RequirementCategory])? & description=Description? & rationale=Rationale? &
-		//changeUncertainty=Uncertainty? & ("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
+		//"[" (("category" category=[categories::RequirementCategory|ValidID])? & description=Description? & rationale=Rationale?
+		//& changeUncertainty=Uncertainty? & ("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
 		//conflictsReference+=[Goal|QualifiedName]+)? & ("stakeholder" stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
 		//& ("see" "document" "requirement" documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document"
 		//docReference+=ExternalDocument+)?) "]"
@@ -797,27 +797,27 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//("category" category=[categories::RequirementCategory])? & description=Description? & rationale=Rationale? &
+		//("category" category=[categories::RequirementCategory|ValidID])? & description=Description? & rationale=Rationale? &
 		//changeUncertainty=Uncertainty? & ("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
 		//conflictsReference+=[Goal|QualifiedName]+)? & ("stakeholder" stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
 		//& ("see" "document" "requirement" documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document"
 		//docReference+=ExternalDocument+)?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
-		//("category" category=[categories::RequirementCategory])?
+		//("category" category=[categories::RequirementCategory|ValidID])?
 		public Group getGroup_5_0() { return cGroup_5_0; }
 
 		//"category"
 		public Keyword getCategoryKeyword_5_0_0() { return cCategoryKeyword_5_0_0; }
 
-		//category=[categories::RequirementCategory]
+		//category=[categories::RequirementCategory|ValidID]
 		public Assignment getCategoryAssignment_5_0_1() { return cCategoryAssignment_5_0_1; }
 
-		//[categories::RequirementCategory]
+		//[categories::RequirementCategory|ValidID]
 		public CrossReference getCategoryRequirementCategoryCrossReference_5_0_1_0() { return cCategoryRequirementCategoryCrossReference_5_0_1_0; }
 
-		//ID
-		public RuleCall getCategoryRequirementCategoryIDTerminalRuleCall_5_0_1_0_1() { return cCategoryRequirementCategoryIDTerminalRuleCall_5_0_1_0_1; }
+		//ValidID
+		public RuleCall getCategoryRequirementCategoryValidIDParserRuleCall_5_0_1_0_1() { return cCategoryRequirementCategoryValidIDParserRuleCall_5_0_1_0_1; }
 
 		//description=Description?
 		public Assignment getDescriptionAssignment_5_1() { return cDescriptionAssignment_5_1; }
@@ -1261,14 +1261,12 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInputAssumptionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cOutputGuaranteeParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		private final RuleCall cBehaviorEquationParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cSPeARPredicateParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//ReqPredicate:
-		//	InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation |
-		//	SPeARPredicate;
+		//	InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation;
 		public ParserRule getRule() { return rule; }
 
-		//InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation | SPeARPredicate
+		//InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//InformalPredicate
@@ -1288,9 +1286,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//BehaviorEquation
 		public RuleCall getBehaviorEquationParserRuleCall_5() { return cBehaviorEquationParserRuleCall_5; }
-
-		//SPeARPredicate
-		public RuleCall getSPeARPredicateParserRuleCall_6() { return cSPeARPredicateParserRuleCall_6; }
 	}
 
 	public class InformalPredicateElements extends AbstractParserRuleElementFinder {
@@ -1476,7 +1471,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	public class BehaviorEquationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BehaviorEquation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cEqKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cInvariantKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
 		private final Assignment cXpressionAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
 		private final RuleCall cXpressionXExpressionParserRuleCall_1_0_0 = (RuleCall)cXpressionAssignment_1_0.eContents().get(0);
@@ -1487,14 +1482,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cReferenceEObjectIDTerminalRuleCall_1_1_1_0_1 = (RuleCall)cReferenceEObjectCrossReference_1_1_1_0.eContents().get(1);
 		
 		//BehaviorEquation:
-		//	"eq" (xpression=XExpression | "as" reference=[ecore::EObject]);
+		//	"invariant" (xpression=XExpression | "as" reference=[ecore::EObject]);
 		public ParserRule getRule() { return rule; }
 
-		//"eq" (xpression=XExpression | "as" reference=[ecore::EObject])
+		//"invariant" (xpression=XExpression | "as" reference=[ecore::EObject])
 		public Group getGroup() { return cGroup; }
 
-		//"eq"
-		public Keyword getEqKeyword_0() { return cEqKeyword_0; }
+		//"invariant"
+		public Keyword getInvariantKeyword_0() { return cInvariantKeyword_0; }
 
 		//xpression=XExpression | "as" reference=[ecore::EObject]
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
@@ -1519,30 +1514,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getReferenceEObjectIDTerminalRuleCall_1_1_1_0_1() { return cReferenceEObjectIDTerminalRuleCall_1_1_1_0_1; }
-	}
-
-	public class SPeARPredicateElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SPeARPredicate");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cInvariantKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cPredicateAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cPredicateSTRINGTerminalRuleCall_1_0 = (RuleCall)cPredicateAssignment_1.eContents().get(0);
-		
-		//SPeARPredicate:
-		//	"invariant" predicate=STRING;
-		public ParserRule getRule() { return rule; }
-
-		//"invariant" predicate=STRING
-		public Group getGroup() { return cGroup; }
-
-		//"invariant"
-		public Keyword getInvariantKeyword_0() { return cInvariantKeyword_0; }
-
-		//predicate=STRING
-		public Assignment getPredicateAssignment_1() { return cPredicateAssignment_1; }
-
-		//STRING
-		public RuleCall getPredicateSTRINGTerminalRuleCall_1_0() { return cPredicateSTRINGTerminalRuleCall_1_0; }
 	}
 
 	public class ExternalDocumentElements extends AbstractParserRuleElementFinder {
@@ -1666,7 +1637,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	private final InputAssumptionElements pInputAssumption;
 	private final OutputGuaranteeElements pOutputGuarantee;
 	private final BehaviorEquationElements pBehaviorEquation;
-	private final SPeARPredicateElements pSPeARPredicate;
 	private final ExternalDocumentElements pExternalDocument;
 	private final DOCPATHElements pDOCPATH;
 	private final DOCFRAGMENTElements pDOCFRAGMENT;
@@ -1699,7 +1669,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.pInputAssumption = new InputAssumptionElements();
 		this.pOutputGuarantee = new OutputGuaranteeElements();
 		this.pBehaviorEquation = new BehaviorEquationElements();
-		this.pSPeARPredicate = new SPeARPredicateElements();
 		this.pExternalDocument = new ExternalDocumentElements();
 		this.pDOCPATH = new DOCPATHElements();
 		this.pDOCFRAGMENT = new DOCFRAGMENTElements();
@@ -1843,8 +1812,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//Goal:
 	//	"goal" name=ID (":" title=STRING)? // short string for title
 	//	("for" (target=[aadl2::NamedElement] | targetDescription=STRING))? //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
-	//	"[" (("category" category=[categories::RequirementCategory])? & description=Description? & rationale=Rationale? &
-	//	changeUncertainty=Uncertainty? & ("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
+	//	"[" (("category" category=[categories::RequirementCategory|ValidID])? & description=Description? & rationale=Rationale?
+	//	& changeUncertainty=Uncertainty? & ("refines" refinesReference+=[Goal|QualifiedName]+)? & ("conflicts" "with"
 	//	conflictsReference+=[Goal|QualifiedName]+)? & ("stakeholder"
 	//	stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ("see" "document" "requirement"
 	//	documentRequirement+=[ContractualElement|QualifiedName]+)? & ("see" "document" docReference+=ExternalDocument+)?)
@@ -1878,8 +1847,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReqPredicate:
-	//	InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation |
-	//	SPeARPredicate;
+	//	InformalPredicate | XPredicate | ValueAssertion | InputAssumption | OutputGuarantee | BehaviorEquation;
 	public ReqPredicateElements getReqPredicateAccess() {
 		return pReqPredicate;
 	}
@@ -1939,23 +1907,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BehaviorEquation:
-	//	"eq" (xpression=XExpression | "as" reference=[ecore::EObject]);
+	//	"invariant" (xpression=XExpression | "as" reference=[ecore::EObject]);
 	public BehaviorEquationElements getBehaviorEquationAccess() {
 		return pBehaviorEquation;
 	}
 	
 	public ParserRule getBehaviorEquationRule() {
 		return getBehaviorEquationAccess().getRule();
-	}
-
-	//SPeARPredicate:
-	//	"invariant" predicate=STRING;
-	public SPeARPredicateElements getSPeARPredicateAccess() {
-		return pSPeARPredicate;
-	}
-	
-	public ParserRule getSPeARPredicateRule() {
-		return getSPeARPredicateAccess().getRule();
 	}
 
 	//ExternalDocument:
@@ -2010,7 +1968,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Rationale:
-	//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName])?;
+	//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?;
 	public CommonGrammarAccess.RationaleElements getRationaleAccess() {
 		return gaCommon.getRationaleAccess();
 	}
@@ -2020,9 +1978,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" name=ValidID "[" ("volatility" volatility=INT & "costimpact" costimpact=INT & "scheduleimpact"
-	//	scheduleimpact=INT & "familiarity" familiarity=INT & "timecriticality" timecriticality=INT & "riskindex"
-	//	riskindex=INT & "maturityindex" maturityindex=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=Number & "costimpact" costimpact=Number & "scheduleimpact"
+	//	scheduleimpact=Number & "familiarity" familiarity=Number & "timecriticality" timecriticality=Number & "riskindex"
+	//	riskindex=Number & "maturityindex" maturityindex=Number) "]";
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}
