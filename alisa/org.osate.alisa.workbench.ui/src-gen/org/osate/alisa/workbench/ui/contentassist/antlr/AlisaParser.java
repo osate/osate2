@@ -55,7 +55,7 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getTitleAssignment_3_1(), "rule__AssuranceEvidenceConfiguration__TitleAssignment_3_1");
 					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSystemAssignment_5(), "rule__AssuranceEvidenceConfiguration__SystemAssignment_5");
 					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getDescriptionAssignment_7_0_1(), "rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_1");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_2(), "rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2");
+					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_1(), "rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1");
 					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifiedAssumptionAssignment_7_2_2(), "rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2");
 					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSelectionFilterAssignment_7_3_1(), "rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");

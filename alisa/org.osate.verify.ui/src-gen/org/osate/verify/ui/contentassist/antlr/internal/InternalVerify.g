@@ -5302,11 +5302,11 @@ rule__Claim__Group_7_0__0__Impl
     }
 :
 (
-{ before(grammarAccess.getClaimAccess().getAssertKeyword_7_0_0()); }
+{ before(grammarAccess.getClaimAccess().getAssureKeyword_7_0_0()); }
 
-	'assert' 
+	'assure' 
 
-{ after(grammarAccess.getClaimAccess().getAssertKeyword_7_0_0()); }
+{ after(grammarAccess.getClaimAccess().getAssureKeyword_7_0_0()); }
 )
 
 ;

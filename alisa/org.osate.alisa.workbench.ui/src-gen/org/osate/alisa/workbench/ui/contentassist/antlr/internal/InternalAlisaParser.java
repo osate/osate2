@@ -22,10 +22,9 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalAlisaParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'alisa'", "'assurance'", "'task'", "'for'", "'['", "']'", "':'", "'description'", "'to'", "'verify'", "'assume'", "'verified'", "'filter'", "'::'", "'.'", "'this'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'alisa'", "'assurance'", "'task'", "'for'", "'['", "']'", "':'", "'description'", "'assure'", "'assume'", "'verified'", "'filter'", "'::'", "'.'", "'this'"
     };
     public static final int RULE_ID=4;
-    public static final int T__26=26;
     public static final int T__25=25;
     public static final int T__24=24;
     public static final int T__23=23;
@@ -312,7 +311,7 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==RULE_STRING||LA1_0==26) ) {
+                if ( (LA1_0==RULE_STRING||LA1_0==25) ) {
                     alt1=1;
                 }
 
@@ -605,7 +604,7 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             if ( (LA2_0==RULE_STRING) ) {
                 alt2=1;
             }
-            else if ( (LA2_0==26) ) {
+            else if ( (LA2_0==25) ) {
                 alt2=2;
             }
             else {
@@ -2010,21 +2009,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:781:1: rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl : ( 'to' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:781:1: rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl : ( 'assure' ) ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:785:1: ( ( 'to' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:786:1: ( 'to' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:785:1: ( ( 'assure' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:786:1: ( 'assure' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:786:1: ( 'to' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:787:1: 'to'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:786:1: ( 'assure' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:787:1: 'assure'
             {
-             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getToKeyword_7_1_0()); 
+             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssureKeyword_7_1_0()); 
             match(input,19,FOLLOW_19_in_rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl1527); 
-             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getToKeyword_7_1_0()); 
+             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssureKeyword_7_1_0()); 
 
             }
 
@@ -2047,22 +2046,17 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_1__1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:800:1: rule__AssuranceEvidenceConfiguration__Group_7_1__1 : rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_1__2 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:800:1: rule__AssuranceEvidenceConfiguration__Group_7_1__1 : rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:804:1: ( rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_1__2 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:805:2: rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_1__2
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:804:1: ( rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:805:2: rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl
             {
             pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_1__11558);
             rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__2_in_rule__AssuranceEvidenceConfiguration__Group_7_1__11561);
-            rule__AssuranceEvidenceConfiguration__Group_7_1__2();
 
             state._fsp--;
 
@@ -2085,21 +2079,74 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:812:1: rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl : ( 'verify' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:811:1: rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl : ( ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )* ) ) ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:816:1: ( ( 'verify' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:817:1: ( 'verify' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:815:1: ( ( ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )* ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:816:1: ( ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )* ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:817:1: ( 'verify' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:818:1: 'verify'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:816:1: ( ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )* ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:817:1: ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )* )
             {
-             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifyKeyword_7_1_1()); 
-            match(input,20,FOLLOW_20_in_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl1589); 
-             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifyKeyword_7_1_1()); 
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:817:1: ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:818:1: ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )
+            {
+             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_1()); 
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:819:1: ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:819:2: rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1
+            {
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1_in_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl1587);
+            rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_1()); 
+
+            }
+
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:822:1: ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )* )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:823:1: ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )*
+            {
+             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_1()); 
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:824:1: ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 )*
+            loop5:
+            do {
+                int alt5=2;
+                int LA5_0 = input.LA(1);
+
+                if ( (LA5_0==RULE_ID) ) {
+                    alt5=1;
+                }
+
+
+                switch (alt5) {
+            	case 1 :
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:824:2: rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1
+            	    {
+            	    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1_in_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl1599);
+            	    rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop5;
+                }
+            } while (true);
+
+             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_1()); 
+
+            }
+
 
             }
 
@@ -2121,145 +2168,22 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl"
 
 
-    // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_1__2"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:831:1: rule__AssuranceEvidenceConfiguration__Group_7_1__2 : rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl ;
-    public final void rule__AssuranceEvidenceConfiguration__Group_7_1__2() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:835:1: ( rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:836:2: rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl
-            {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_1__21620);
-            rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__AssuranceEvidenceConfiguration__Group_7_1__2"
-
-
-    // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:842:1: rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl : ( ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )* ) ) ;
-    public final void rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:846:1: ( ( ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )* ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:847:1: ( ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )* ) )
-            {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:847:1: ( ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )* ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:848:1: ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )* )
-            {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:848:1: ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:849:1: ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )
-            {
-             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_2()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:850:1: ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:850:2: rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2
-            {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2_in_rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl1649);
-            rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_2()); 
-
-            }
-
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:853:1: ( ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )* )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:854:1: ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )*
-            {
-             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_2()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:855:1: ( rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 )*
-            loop5:
-            do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
-
-                if ( (LA5_0==RULE_ID) ) {
-                    alt5=1;
-                }
-
-
-                switch (alt5) {
-            	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:855:2: rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2
-            	    {
-            	    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2_in_rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl1661);
-            	    rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop5;
-                }
-            } while (true);
-
-             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_2()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl"
-
-
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_2__0"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:872:1: rule__AssuranceEvidenceConfiguration__Group_7_2__0 : rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__1 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:839:1: rule__AssuranceEvidenceConfiguration__Group_7_2__0 : rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__1 ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:876:1: ( rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__1 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:877:2: rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__1
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:843:1: ( rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:844:2: rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__1
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__01700);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__01636);
             rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__1_in_rule__AssuranceEvidenceConfiguration__Group_7_2__01703);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__1_in_rule__AssuranceEvidenceConfiguration__Group_7_2__01639);
             rule__AssuranceEvidenceConfiguration__Group_7_2__1();
 
             state._fsp--;
@@ -2283,20 +2207,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:884:1: rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl : ( 'assume' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:851:1: rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl : ( 'assume' ) ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:888:1: ( ( 'assume' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:889:1: ( 'assume' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:855:1: ( ( 'assume' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:856:1: ( 'assume' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:889:1: ( 'assume' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:890:1: 'assume'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:856:1: ( 'assume' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:857:1: 'assume'
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssumeKeyword_7_2_0()); 
-            match(input,21,FOLLOW_21_in_rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl1731); 
+            match(input,20,FOLLOW_20_in_rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl1667); 
              after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssumeKeyword_7_2_0()); 
 
             }
@@ -2320,21 +2244,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_2__1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:903:1: rule__AssuranceEvidenceConfiguration__Group_7_2__1 : rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__2 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:870:1: rule__AssuranceEvidenceConfiguration__Group_7_2__1 : rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__2 ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:907:1: ( rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__2 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:908:2: rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__2
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:874:1: ( rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__2 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:875:2: rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl rule__AssuranceEvidenceConfiguration__Group_7_2__2
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__11762);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__11698);
             rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__11765);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__11701);
             rule__AssuranceEvidenceConfiguration__Group_7_2__2();
 
             state._fsp--;
@@ -2358,20 +2282,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:915:1: rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl : ( 'verified' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:882:1: rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl : ( 'verified' ) ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:919:1: ( ( 'verified' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:920:1: ( 'verified' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:886:1: ( ( 'verified' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:887:1: ( 'verified' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:920:1: ( 'verified' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:921:1: 'verified'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:887:1: ( 'verified' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:888:1: 'verified'
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifiedKeyword_7_2_1()); 
-            match(input,22,FOLLOW_22_in_rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl1793); 
+            match(input,21,FOLLOW_21_in_rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl1729); 
              after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifiedKeyword_7_2_1()); 
 
             }
@@ -2395,16 +2319,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_2__2"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:934:1: rule__AssuranceEvidenceConfiguration__Group_7_2__2 : rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:901:1: rule__AssuranceEvidenceConfiguration__Group_7_2__2 : rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:938:1: ( rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:939:2: rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:905:1: ( rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:906:2: rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__21824);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__21760);
             rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl();
 
             state._fsp--;
@@ -2428,26 +2352,26 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:945:1: rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl : ( ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* ) ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:912:1: rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl : ( ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* ) ) ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:949:1: ( ( ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:950:1: ( ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:916:1: ( ( ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:917:1: ( ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:950:1: ( ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:951:1: ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:917:1: ( ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:918:1: ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) ) ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:951:1: ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:952:1: ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:918:1: ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:919:1: ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifiedAssumptionAssignment_7_2_2()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:953:1: ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:953:2: rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:920:1: ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:920:2: rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl1853);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl1789);
             rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2();
 
             state._fsp--;
@@ -2459,11 +2383,11 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:956:1: ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:957:1: ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:923:1: ( ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )* )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:924:1: ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )*
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifiedAssumptionAssignment_7_2_2()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:958:1: ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:925:1: ( rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 )*
             loop6:
             do {
                 int alt6=2;
@@ -2476,9 +2400,9 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
                 switch (alt6) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:958:2: rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:925:2: rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2
             	    {
-            	    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl1865);
+            	    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl1801);
             	    rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2();
 
             	    state._fsp--;
@@ -2518,21 +2442,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_3__0"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:975:1: rule__AssuranceEvidenceConfiguration__Group_7_3__0 : rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_3__1 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:942:1: rule__AssuranceEvidenceConfiguration__Group_7_3__0 : rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_3__1 ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:979:1: ( rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_3__1 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:980:2: rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_3__1
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:946:1: ( rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_3__1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:947:2: rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl rule__AssuranceEvidenceConfiguration__Group_7_3__1
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_3__01904);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_3__01840);
             rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__01907);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__01843);
             rule__AssuranceEvidenceConfiguration__Group_7_3__1();
 
             state._fsp--;
@@ -2556,20 +2480,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:987:1: rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl : ( 'filter' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:954:1: rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl : ( 'filter' ) ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:991:1: ( ( 'filter' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:992:1: ( 'filter' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:958:1: ( ( 'filter' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:959:1: ( 'filter' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:992:1: ( 'filter' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:993:1: 'filter'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:959:1: ( 'filter' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:960:1: 'filter'
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getFilterKeyword_7_3_0()); 
-            match(input,23,FOLLOW_23_in_rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl1935); 
+            match(input,22,FOLLOW_22_in_rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl1871); 
              after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getFilterKeyword_7_3_0()); 
 
             }
@@ -2593,16 +2517,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_3__1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1006:1: rule__AssuranceEvidenceConfiguration__Group_7_3__1 : rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:973:1: rule__AssuranceEvidenceConfiguration__Group_7_3__1 : rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1010:1: ( rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1011:2: rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:977:1: ( rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:978:2: rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_3__11966);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_3__11902);
             rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl();
 
             state._fsp--;
@@ -2626,26 +2550,26 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1017:1: rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl : ( ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* ) ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:984:1: rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl : ( ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* ) ) ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1021:1: ( ( ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1022:1: ( ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:988:1: ( ( ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:989:1: ( ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1022:1: ( ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1023:1: ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:989:1: ( ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:990:1: ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) ) ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1023:1: ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1024:1: ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:990:1: ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:991:1: ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSelectionFilterAssignment_7_3_1()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1025:1: ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1025:2: rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:992:1: ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:992:2: rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl1995);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl1931);
             rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1();
 
             state._fsp--;
@@ -2657,11 +2581,11 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1028:1: ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1029:1: ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:995:1: ( ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )* )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:996:1: ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )*
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSelectionFilterAssignment_7_3_1()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1030:1: ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )*
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:997:1: ( rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 )*
             loop7:
             do {
                 int alt7=2;
@@ -2674,9 +2598,9 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1030:2: rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1
+            	    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:997:2: rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1
             	    {
-            	    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl2007);
+            	    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl1943);
             	    rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1();
 
             	    state._fsp--;
@@ -2716,21 +2640,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__0"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1045:1: rule__AadlClassifierReference__Group__0 : rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1012:1: rule__AadlClassifierReference__Group__0 : rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1 ;
     public final void rule__AadlClassifierReference__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1049:1: ( rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1050:2: rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1016:1: ( rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1017:2: rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__02044);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__01980);
             rule__AadlClassifierReference__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__02047);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__01983);
             rule__AadlClassifierReference__Group__1();
 
             state._fsp--;
@@ -2754,20 +2678,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__0__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1057:1: rule__AadlClassifierReference__Group__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1024:1: rule__AadlClassifierReference__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__AadlClassifierReference__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1061:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1062:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1028:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1029:1: ( RULE_ID )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1062:1: ( RULE_ID )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1063:1: RULE_ID
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1029:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1030:1: RULE_ID
             {
              before(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl2074); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl2010); 
              after(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
 
             }
@@ -2791,21 +2715,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1074:1: rule__AadlClassifierReference__Group__1 : rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1041:1: rule__AadlClassifierReference__Group__1 : rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2 ;
     public final void rule__AadlClassifierReference__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1078:1: ( rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1079:2: rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1045:1: ( rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1046:2: rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__12103);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__12039);
             rule__AadlClassifierReference__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__12106);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__12042);
             rule__AadlClassifierReference__Group__2();
 
             state._fsp--;
@@ -2829,20 +2753,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__1__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1086:1: rule__AadlClassifierReference__Group__1__Impl : ( '::' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1053:1: rule__AadlClassifierReference__Group__1__Impl : ( '::' ) ;
     public final void rule__AadlClassifierReference__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1090:1: ( ( '::' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1091:1: ( '::' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1057:1: ( ( '::' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1058:1: ( '::' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1091:1: ( '::' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1092:1: '::'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1058:1: ( '::' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1059:1: '::'
             {
              before(grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1()); 
-            match(input,24,FOLLOW_24_in_rule__AadlClassifierReference__Group__1__Impl2134); 
+            match(input,23,FOLLOW_23_in_rule__AadlClassifierReference__Group__1__Impl2070); 
              after(grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1()); 
 
             }
@@ -2866,21 +2790,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__2"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1105:1: rule__AadlClassifierReference__Group__2 : rule__AadlClassifierReference__Group__2__Impl rule__AadlClassifierReference__Group__3 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1072:1: rule__AadlClassifierReference__Group__2 : rule__AadlClassifierReference__Group__2__Impl rule__AadlClassifierReference__Group__3 ;
     public final void rule__AadlClassifierReference__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1109:1: ( rule__AadlClassifierReference__Group__2__Impl rule__AadlClassifierReference__Group__3 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1110:2: rule__AadlClassifierReference__Group__2__Impl rule__AadlClassifierReference__Group__3
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1076:1: ( rule__AadlClassifierReference__Group__2__Impl rule__AadlClassifierReference__Group__3 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1077:2: rule__AadlClassifierReference__Group__2__Impl rule__AadlClassifierReference__Group__3
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__22165);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__22101);
             rule__AadlClassifierReference__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__3_in_rule__AadlClassifierReference__Group__22168);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__3_in_rule__AadlClassifierReference__Group__22104);
             rule__AadlClassifierReference__Group__3();
 
             state._fsp--;
@@ -2904,20 +2828,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__2__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1117:1: rule__AadlClassifierReference__Group__2__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1084:1: rule__AadlClassifierReference__Group__2__Impl : ( RULE_ID ) ;
     public final void rule__AadlClassifierReference__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1121:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1122:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1088:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1089:1: ( RULE_ID )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1122:1: ( RULE_ID )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1123:1: RULE_ID
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1089:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1090:1: RULE_ID
             {
              before(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__2__Impl2195); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__2__Impl2131); 
              after(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2()); 
 
             }
@@ -2941,16 +2865,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__3"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1134:1: rule__AadlClassifierReference__Group__3 : rule__AadlClassifierReference__Group__3__Impl ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1101:1: rule__AadlClassifierReference__Group__3 : rule__AadlClassifierReference__Group__3__Impl ;
     public final void rule__AadlClassifierReference__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1138:1: ( rule__AadlClassifierReference__Group__3__Impl )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1139:2: rule__AadlClassifierReference__Group__3__Impl
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1105:1: ( rule__AadlClassifierReference__Group__3__Impl )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1106:2: rule__AadlClassifierReference__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__3__Impl_in_rule__AadlClassifierReference__Group__32224);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__3__Impl_in_rule__AadlClassifierReference__Group__32160);
             rule__AadlClassifierReference__Group__3__Impl();
 
             state._fsp--;
@@ -2974,31 +2898,31 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__3__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1145:1: rule__AadlClassifierReference__Group__3__Impl : ( ( rule__AadlClassifierReference__Group_3__0 )? ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1112:1: rule__AadlClassifierReference__Group__3__Impl : ( ( rule__AadlClassifierReference__Group_3__0 )? ) ;
     public final void rule__AadlClassifierReference__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1149:1: ( ( ( rule__AadlClassifierReference__Group_3__0 )? ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1150:1: ( ( rule__AadlClassifierReference__Group_3__0 )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1116:1: ( ( ( rule__AadlClassifierReference__Group_3__0 )? ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1117:1: ( ( rule__AadlClassifierReference__Group_3__0 )? )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1150:1: ( ( rule__AadlClassifierReference__Group_3__0 )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1151:1: ( rule__AadlClassifierReference__Group_3__0 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1117:1: ( ( rule__AadlClassifierReference__Group_3__0 )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1118:1: ( rule__AadlClassifierReference__Group_3__0 )?
             {
              before(grammarAccess.getAadlClassifierReferenceAccess().getGroup_3()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1152:1: ( rule__AadlClassifierReference__Group_3__0 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1119:1: ( rule__AadlClassifierReference__Group_3__0 )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
-            if ( (LA8_0==25) ) {
+            if ( (LA8_0==24) ) {
                 alt8=1;
             }
             switch (alt8) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1152:2: rule__AadlClassifierReference__Group_3__0
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1119:2: rule__AadlClassifierReference__Group_3__0
                     {
-                    pushFollow(FOLLOW_rule__AadlClassifierReference__Group_3__0_in_rule__AadlClassifierReference__Group__3__Impl2251);
+                    pushFollow(FOLLOW_rule__AadlClassifierReference__Group_3__0_in_rule__AadlClassifierReference__Group__3__Impl2187);
                     rule__AadlClassifierReference__Group_3__0();
 
                     state._fsp--;
@@ -3032,21 +2956,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_3__0"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1170:1: rule__AadlClassifierReference__Group_3__0 : rule__AadlClassifierReference__Group_3__0__Impl rule__AadlClassifierReference__Group_3__1 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1137:1: rule__AadlClassifierReference__Group_3__0 : rule__AadlClassifierReference__Group_3__0__Impl rule__AadlClassifierReference__Group_3__1 ;
     public final void rule__AadlClassifierReference__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1174:1: ( rule__AadlClassifierReference__Group_3__0__Impl rule__AadlClassifierReference__Group_3__1 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1175:2: rule__AadlClassifierReference__Group_3__0__Impl rule__AadlClassifierReference__Group_3__1
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1141:1: ( rule__AadlClassifierReference__Group_3__0__Impl rule__AadlClassifierReference__Group_3__1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1142:2: rule__AadlClassifierReference__Group_3__0__Impl rule__AadlClassifierReference__Group_3__1
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_3__0__Impl_in_rule__AadlClassifierReference__Group_3__02290);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_3__0__Impl_in_rule__AadlClassifierReference__Group_3__02226);
             rule__AadlClassifierReference__Group_3__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_3__1_in_rule__AadlClassifierReference__Group_3__02293);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_3__1_in_rule__AadlClassifierReference__Group_3__02229);
             rule__AadlClassifierReference__Group_3__1();
 
             state._fsp--;
@@ -3070,20 +2994,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_3__0__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1182:1: rule__AadlClassifierReference__Group_3__0__Impl : ( '.' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1149:1: rule__AadlClassifierReference__Group_3__0__Impl : ( '.' ) ;
     public final void rule__AadlClassifierReference__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1186:1: ( ( '.' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1187:1: ( '.' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1153:1: ( ( '.' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1154:1: ( '.' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1187:1: ( '.' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1188:1: '.'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1154:1: ( '.' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1155:1: '.'
             {
              before(grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_3_0()); 
-            match(input,25,FOLLOW_25_in_rule__AadlClassifierReference__Group_3__0__Impl2321); 
+            match(input,24,FOLLOW_24_in_rule__AadlClassifierReference__Group_3__0__Impl2257); 
              after(grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_3_0()); 
 
             }
@@ -3107,16 +3031,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_3__1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1201:1: rule__AadlClassifierReference__Group_3__1 : rule__AadlClassifierReference__Group_3__1__Impl ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1168:1: rule__AadlClassifierReference__Group_3__1 : rule__AadlClassifierReference__Group_3__1__Impl ;
     public final void rule__AadlClassifierReference__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1205:1: ( rule__AadlClassifierReference__Group_3__1__Impl )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1206:2: rule__AadlClassifierReference__Group_3__1__Impl
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1172:1: ( rule__AadlClassifierReference__Group_3__1__Impl )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1173:2: rule__AadlClassifierReference__Group_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_3__1__Impl_in_rule__AadlClassifierReference__Group_3__12352);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_3__1__Impl_in_rule__AadlClassifierReference__Group_3__12288);
             rule__AadlClassifierReference__Group_3__1__Impl();
 
             state._fsp--;
@@ -3140,20 +3064,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_3__1__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1212:1: rule__AadlClassifierReference__Group_3__1__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1179:1: rule__AadlClassifierReference__Group_3__1__Impl : ( RULE_ID ) ;
     public final void rule__AadlClassifierReference__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1216:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1217:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1183:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1184:1: ( RULE_ID )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1217:1: ( RULE_ID )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1218:1: RULE_ID
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1184:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1185:1: RULE_ID
             {
              before(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_3_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_3__1__Impl2379); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_3__1__Impl2315); 
              after(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_3_1()); 
 
             }
@@ -3177,21 +3101,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1233:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1200:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
     public final void rule__QualifiedName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1237:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1238:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1204:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1205:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__02412);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__02348);
             rule__QualifiedName__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__02415);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__02351);
             rule__QualifiedName__Group__1();
 
             state._fsp--;
@@ -3215,20 +3139,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1245:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1212:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1249:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1250:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1216:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1217:1: ( RULE_ID )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1250:1: ( RULE_ID )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1251:1: RULE_ID
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1217:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1218:1: RULE_ID
             {
              before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl2442); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl2378); 
              after(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
 
             }
@@ -3252,16 +3176,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1262:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1229:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
     public final void rule__QualifiedName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1266:1: ( rule__QualifiedName__Group__1__Impl )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1267:2: rule__QualifiedName__Group__1__Impl
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1233:1: ( rule__QualifiedName__Group__1__Impl )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1234:2: rule__QualifiedName__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__12471);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__12407);
             rule__QualifiedName__Group__1__Impl();
 
             state._fsp--;
@@ -3285,31 +3209,31 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1273:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )? ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1240:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )? ) ;
     public final void rule__QualifiedName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1277:1: ( ( ( rule__QualifiedName__Group_1__0 )? ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1278:1: ( ( rule__QualifiedName__Group_1__0 )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1244:1: ( ( ( rule__QualifiedName__Group_1__0 )? ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1245:1: ( ( rule__QualifiedName__Group_1__0 )? )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1278:1: ( ( rule__QualifiedName__Group_1__0 )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1279:1: ( rule__QualifiedName__Group_1__0 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1245:1: ( ( rule__QualifiedName__Group_1__0 )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1246:1: ( rule__QualifiedName__Group_1__0 )?
             {
              before(grammarAccess.getQualifiedNameAccess().getGroup_1()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1280:1: ( rule__QualifiedName__Group_1__0 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1247:1: ( rule__QualifiedName__Group_1__0 )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
-            if ( (LA9_0==25) ) {
+            if ( (LA9_0==24) ) {
                 alt9=1;
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1280:2: rule__QualifiedName__Group_1__0
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1247:2: rule__QualifiedName__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl2498);
+                    pushFollow(FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl2434);
                     rule__QualifiedName__Group_1__0();
 
                     state._fsp--;
@@ -3343,21 +3267,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1294:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1261:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
     public final void rule__QualifiedName__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1298:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1299:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1265:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1266:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__02533);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__02469);
             rule__QualifiedName__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__02536);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__02472);
             rule__QualifiedName__Group_1__1();
 
             state._fsp--;
@@ -3381,20 +3305,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1306:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1273:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
     public final void rule__QualifiedName__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1310:1: ( ( '.' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1311:1: ( '.' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1277:1: ( ( '.' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1278:1: ( '.' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1311:1: ( '.' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1312:1: '.'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1278:1: ( '.' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1279:1: '.'
             {
              before(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
-            match(input,25,FOLLOW_25_in_rule__QualifiedName__Group_1__0__Impl2564); 
+            match(input,24,FOLLOW_24_in_rule__QualifiedName__Group_1__0__Impl2500); 
              after(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
 
             }
@@ -3418,16 +3342,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1325:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1292:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
     public final void rule__QualifiedName__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1329:1: ( rule__QualifiedName__Group_1__1__Impl )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1330:2: rule__QualifiedName__Group_1__1__Impl
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1296:1: ( rule__QualifiedName__Group_1__1__Impl )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1297:2: rule__QualifiedName__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__12595);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__12531);
             rule__QualifiedName__Group_1__1__Impl();
 
             state._fsp--;
@@ -3451,20 +3375,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1336:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1303:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1340:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1341:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1307:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1308:1: ( RULE_ID )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1341:1: ( RULE_ID )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1342:1: RULE_ID
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1308:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1309:1: RULE_ID
             {
              before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl2622); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl2558); 
              after(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
 
             }
@@ -3488,17 +3412,17 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1358:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0 {...}?;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1325:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0 {...}?;
     public final void rule__AssuranceEvidenceConfiguration__UnorderedGroup_7() throws RecognitionException {
 
             	int stackSize = keepStackSize();
         		getUnorderedGroupHelper().enter(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7());
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1363:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0 {...}?)
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1364:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0 {...}?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1330:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0 {...}?)
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1331:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0 {...}?
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_72656);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_72592);
             rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0();
 
             state._fsp--;
@@ -3526,17 +3450,17 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1375:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl : ( ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) ) ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1342:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl : ( ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) ) ) ;
     public final void rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         		boolean selected = false;
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1380:1: ( ( ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1381:3: ( ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1347:1: ( ( ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1348:3: ( ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1381:3: ( ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1348:3: ( ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) ) | ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) ) )
             int alt10=4;
             int LA10_0 = input.LA(1);
 
@@ -3546,10 +3470,10 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             else if ( LA10_0 ==19 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 1) ) {
                 alt10=2;
             }
-            else if ( LA10_0 ==21 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
+            else if ( LA10_0 ==20 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
                 alt10=3;
             }
-            else if ( LA10_0 ==23 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
+            else if ( LA10_0 ==22 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
                 alt10=4;
             }
             else {
@@ -3560,16 +3484,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1383:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1350:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) )
                     {
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1383:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1384:5: {...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1350:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1351:5: {...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 0) ) {
                         throw new FailedPredicateException(input, "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 0)");
                     }
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1384:127: ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1385:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1351:127: ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1352:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) )
                     {
                      
                     	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 0);
@@ -3577,14 +3501,14 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
                     	 				  selected = true;
                     	 				
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1391:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1393:7: ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1358:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1360:7: ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 )
                     {
                      before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_7_0()); 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1394:7: ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1394:8: rule__AssuranceEvidenceConfiguration__Group_7_0__0
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1361:7: ( rule__AssuranceEvidenceConfiguration__Group_7_0__0 )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1361:8: rule__AssuranceEvidenceConfiguration__Group_7_0__0
                     {
-                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_0__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2745);
+                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_0__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2681);
                     rule__AssuranceEvidenceConfiguration__Group_7_0__0();
 
                     state._fsp--;
@@ -3606,16 +3530,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1400:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1367:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) )
                     {
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1400:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1401:5: {...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1367:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1368:5: {...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 1) ) {
                         throw new FailedPredicateException(input, "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 1)");
                     }
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1401:127: ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1402:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1368:127: ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1369:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) )
                     {
                      
                     	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 1);
@@ -3623,14 +3547,14 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
                     	 				  selected = true;
                     	 				
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1408:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1410:7: ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1375:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1377:7: ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 )
                     {
                      before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_7_1()); 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1411:7: ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1411:8: rule__AssuranceEvidenceConfiguration__Group_7_1__0
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1378:7: ( rule__AssuranceEvidenceConfiguration__Group_7_1__0 )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1378:8: rule__AssuranceEvidenceConfiguration__Group_7_1__0
                     {
-                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2836);
+                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2772);
                     rule__AssuranceEvidenceConfiguration__Group_7_1__0();
 
                     state._fsp--;
@@ -3652,16 +3576,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1417:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1384:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) )
                     {
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1417:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1418:5: {...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1384:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1385:5: {...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
                         throw new FailedPredicateException(input, "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2)");
                     }
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1418:127: ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1419:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1385:127: ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1386:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) )
                     {
                      
                     	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2);
@@ -3669,14 +3593,14 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
                     	 				  selected = true;
                     	 				
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1425:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1427:7: ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1392:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1394:7: ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 )
                     {
                      before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_7_2()); 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1428:7: ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1428:8: rule__AssuranceEvidenceConfiguration__Group_7_2__0
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1395:7: ( rule__AssuranceEvidenceConfiguration__Group_7_2__0 )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1395:8: rule__AssuranceEvidenceConfiguration__Group_7_2__0
                     {
-                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2927);
+                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2863);
                     rule__AssuranceEvidenceConfiguration__Group_7_2__0();
 
                     state._fsp--;
@@ -3698,16 +3622,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1434:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1401:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) )
                     {
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1434:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1435:5: {...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1401:4: ({...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1402:5: {...}? => ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) )
                     {
                     if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
                         throw new FailedPredicateException(input, "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl", "getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3)");
                     }
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1435:127: ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1436:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1402:127: ( ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1403:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) )
                     {
                      
                     	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3);
@@ -3715,14 +3639,14 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
                     	 				  selected = true;
                     	 				
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1442:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1444:7: ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1409:6: ( ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 ) )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1411:7: ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 )
                     {
                      before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_7_3()); 
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1445:7: ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 )
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1445:8: rule__AssuranceEvidenceConfiguration__Group_7_3__0
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1412:7: ( rule__AssuranceEvidenceConfiguration__Group_7_3__0 )
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1412:8: rule__AssuranceEvidenceConfiguration__Group_7_3__0
                     {
-                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl3018);
+                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2954);
                     rule__AssuranceEvidenceConfiguration__Group_7_3__0();
 
                     state._fsp--;
@@ -3767,21 +3691,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1460:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 )? ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1427:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 )? ;
     public final void rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1464:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1465:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1431:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1432:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 )?
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__03077);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__03013);
             rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl();
 
             state._fsp--;
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1466:2: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1433:2: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -3791,17 +3715,17 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             else if ( LA11_0 ==19 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 1) ) {
                 alt11=1;
             }
-            else if ( LA11_0 ==21 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
+            else if ( LA11_0 ==20 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
                 alt11=1;
             }
-            else if ( LA11_0 ==23 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
+            else if ( LA11_0 ==22 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
                 alt11=1;
             }
             switch (alt11) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1466:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1433:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1
                     {
-                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__03080);
+                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__03016);
                     rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1();
 
                     state._fsp--;
@@ -3831,21 +3755,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1473:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 )? ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1440:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 )? ;
     public final void rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1477:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1478:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1444:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1445:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 )?
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__13105);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__13041);
             rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl();
 
             state._fsp--;
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1479:2: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1446:2: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -3855,17 +3779,17 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             else if ( LA12_0 ==19 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 1) ) {
                 alt12=1;
             }
-            else if ( LA12_0 ==21 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
+            else if ( LA12_0 ==20 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
                 alt12=1;
             }
-            else if ( LA12_0 ==23 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
+            else if ( LA12_0 ==22 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
                 alt12=1;
             }
             switch (alt12) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1479:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1446:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2
                     {
-                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__13108);
+                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__13044);
                     rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2();
 
                     state._fsp--;
@@ -3895,21 +3819,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1486:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 )? ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1453:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 )? ;
     public final void rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1490:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 )? )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1491:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1457:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 )? )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1458:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 )?
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__23133);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__23069);
             rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl();
 
             state._fsp--;
 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1492:2: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 )?
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1459:2: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -3919,17 +3843,17 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
             else if ( LA13_0 ==19 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 1) ) {
                 alt13=1;
             }
-            else if ( LA13_0 ==21 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
+            else if ( LA13_0 ==20 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 2) ) {
                 alt13=1;
             }
-            else if ( LA13_0 ==23 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
+            else if ( LA13_0 ==22 && getUnorderedGroupHelper().canSelect(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 3) ) {
                 alt13=1;
             }
             switch (alt13) {
                 case 1 :
-                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1492:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3
+                    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1459:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3
                     {
-                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__23136);
+                    pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__23072);
                     rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3();
 
                     state._fsp--;
@@ -3959,16 +3883,16 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1499:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1466:1: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3 : rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl ;
     public final void rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1503:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1504:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1470:1: ( rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1471:2: rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl
             {
-            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__33161);
+            pushFollow(FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__33097);
             rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl();
 
             state._fsp--;
@@ -3992,20 +3916,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AlisaWorkArea__NameAssignment_1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1519:1: rule__AlisaWorkArea__NameAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1486:1: rule__AlisaWorkArea__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__AlisaWorkArea__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1523:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1524:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1490:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1491:1: ( RULE_ID )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1524:1: ( RULE_ID )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1525:1: RULE_ID
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1491:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1492:1: RULE_ID
             {
              before(grammarAccess.getAlisaWorkAreaAccess().getNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AlisaWorkArea__NameAssignment_13197); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AlisaWorkArea__NameAssignment_13133); 
              after(grammarAccess.getAlisaWorkAreaAccess().getNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -4029,20 +3953,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AlisaWorkArea__CasesAssignment_2"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1534:1: rule__AlisaWorkArea__CasesAssignment_2 : ( ruleAssuranceEvidenceConfiguration ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1501:1: rule__AlisaWorkArea__CasesAssignment_2 : ( ruleAssuranceEvidenceConfiguration ) ;
     public final void rule__AlisaWorkArea__CasesAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1538:1: ( ( ruleAssuranceEvidenceConfiguration ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1539:1: ( ruleAssuranceEvidenceConfiguration )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1505:1: ( ( ruleAssuranceEvidenceConfiguration ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1506:1: ( ruleAssuranceEvidenceConfiguration )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1539:1: ( ruleAssuranceEvidenceConfiguration )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1540:1: ruleAssuranceEvidenceConfiguration
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1506:1: ( ruleAssuranceEvidenceConfiguration )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1507:1: ruleAssuranceEvidenceConfiguration
             {
              before(grammarAccess.getAlisaWorkAreaAccess().getCasesAssuranceEvidenceConfigurationParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleAssuranceEvidenceConfiguration_in_rule__AlisaWorkArea__CasesAssignment_23228);
+            pushFollow(FOLLOW_ruleAssuranceEvidenceConfiguration_in_rule__AlisaWorkArea__CasesAssignment_23164);
             ruleAssuranceEvidenceConfiguration();
 
             state._fsp--;
@@ -4070,20 +3994,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__NameAssignment_2"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1549:1: rule__AssuranceEvidenceConfiguration__NameAssignment_2 : ( RULE_ID ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1516:1: rule__AssuranceEvidenceConfiguration__NameAssignment_2 : ( RULE_ID ) ;
     public final void rule__AssuranceEvidenceConfiguration__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1553:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1554:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1520:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1521:1: ( RULE_ID )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1554:1: ( RULE_ID )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1555:1: RULE_ID
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1521:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1522:1: RULE_ID
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getNameIDTerminalRuleCall_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AssuranceEvidenceConfiguration__NameAssignment_23259); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AssuranceEvidenceConfiguration__NameAssignment_23195); 
              after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getNameIDTerminalRuleCall_2_0()); 
 
             }
@@ -4107,20 +4031,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__TitleAssignment_3_1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1564:1: rule__AssuranceEvidenceConfiguration__TitleAssignment_3_1 : ( RULE_STRING ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1531:1: rule__AssuranceEvidenceConfiguration__TitleAssignment_3_1 : ( RULE_STRING ) ;
     public final void rule__AssuranceEvidenceConfiguration__TitleAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1568:1: ( ( RULE_STRING ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1569:1: ( RULE_STRING )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1535:1: ( ( RULE_STRING ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1536:1: ( RULE_STRING )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1569:1: ( RULE_STRING )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1570:1: RULE_STRING
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1536:1: ( RULE_STRING )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1537:1: RULE_STRING
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getTitleSTRINGTerminalRuleCall_3_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__AssuranceEvidenceConfiguration__TitleAssignment_3_13290); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__AssuranceEvidenceConfiguration__TitleAssignment_3_13226); 
              after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getTitleSTRINGTerminalRuleCall_3_1_0()); 
 
             }
@@ -4144,24 +4068,24 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__SystemAssignment_5"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1579:1: rule__AssuranceEvidenceConfiguration__SystemAssignment_5 : ( ( ruleAadlClassifierReference ) ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1546:1: rule__AssuranceEvidenceConfiguration__SystemAssignment_5 : ( ( ruleAadlClassifierReference ) ) ;
     public final void rule__AssuranceEvidenceConfiguration__SystemAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1583:1: ( ( ( ruleAadlClassifierReference ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1584:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1550:1: ( ( ( ruleAadlClassifierReference ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1551:1: ( ( ruleAadlClassifierReference ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1584:1: ( ( ruleAadlClassifierReference ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1585:1: ( ruleAadlClassifierReference )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1551:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1552:1: ( ruleAadlClassifierReference )
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSystemComponentImplementationCrossReference_5_0()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1586:1: ( ruleAadlClassifierReference )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1587:1: ruleAadlClassifierReference
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1553:1: ( ruleAadlClassifierReference )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1554:1: ruleAadlClassifierReference
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSystemComponentImplementationAadlClassifierReferenceParserRuleCall_5_0_1()); 
-            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidenceConfiguration__SystemAssignment_53325);
+            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidenceConfiguration__SystemAssignment_53261);
             ruleAadlClassifierReference();
 
             state._fsp--;
@@ -4193,20 +4117,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1598:1: rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_1 : ( ruleDescription ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1565:1: rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_1 : ( ruleDescription ) ;
     public final void rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1602:1: ( ( ruleDescription ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1603:1: ( ruleDescription )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1569:1: ( ( ruleDescription ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1570:1: ( ruleDescription )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1603:1: ( ruleDescription )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1604:1: ruleDescription
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1570:1: ( ruleDescription )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1571:1: ruleDescription
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getDescriptionDescriptionParserRuleCall_7_0_1_0()); 
-            pushFollow(FOLLOW_ruleDescription_in_rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_13360);
+            pushFollow(FOLLOW_ruleDescription_in_rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_13296);
             ruleDescription();
 
             state._fsp--;
@@ -4233,34 +4157,34 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_1"
 
 
-    // $ANTLR start "rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1613:1: rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2 : ( ( ruleQualifiedName ) ) ;
-    public final void rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2() throws RecognitionException {
+    // $ANTLR start "rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1"
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1580:1: rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1 : ( ( ruleQualifiedName ) ) ;
+    public final void rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1617:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1618:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1584:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1585:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1618:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1619:1: ( ruleQualifiedName )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1585:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1586:1: ( ruleQualifiedName )
             {
-             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansVerificationPlanCrossReference_7_1_2_0()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1620:1: ( ruleQualifiedName )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1621:1: ruleQualifiedName
+             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansVerificationPlanCrossReference_7_1_1_0()); 
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1587:1: ( ruleQualifiedName )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1588:1: ruleQualifiedName
             {
-             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); 
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_23395);
+             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1()); 
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_13331);
             ruleQualifiedName();
 
             state._fsp--;
 
-             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansVerificationPlanQualifiedNameParserRuleCall_7_1_2_0_1()); 
+             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1()); 
 
             }
 
-             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansVerificationPlanCrossReference_7_1_2_0()); 
+             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansVerificationPlanCrossReference_7_1_1_0()); 
 
             }
 
@@ -4279,28 +4203,28 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2"
+    // $ANTLR end "rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1"
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1632:1: rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 : ( ( ruleAadlClassifierReference ) ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1599:1: rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2 : ( ( ruleAadlClassifierReference ) ) ;
     public final void rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1636:1: ( ( ( ruleAadlClassifierReference ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1637:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1603:1: ( ( ( ruleAadlClassifierReference ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1604:1: ( ( ruleAadlClassifierReference ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1637:1: ( ( ruleAadlClassifierReference ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1638:1: ( ruleAadlClassifierReference )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1604:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1605:1: ( ruleAadlClassifierReference )
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifiedAssumptionComponentClassifierCrossReference_7_2_2_0()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1639:1: ( ruleAadlClassifierReference )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1640:1: ruleAadlClassifierReference
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1606:1: ( ruleAadlClassifierReference )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1607:1: ruleAadlClassifierReference
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifiedAssumptionComponentClassifierAadlClassifierReferenceParserRuleCall_7_2_2_0_1()); 
-            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_23434);
+            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_23370);
             ruleAadlClassifierReference();
 
             state._fsp--;
@@ -4332,24 +4256,24 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1651:1: rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1618:1: rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1 : ( ( RULE_ID ) ) ;
     public final void rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1655:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1656:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1622:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1623:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1656:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1657:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1623:1: ( ( RULE_ID ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1624:1: ( RULE_ID )
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSelectionFilterSelectionCategoryCrossReference_7_3_1_0()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1658:1: ( RULE_ID )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1659:1: RULE_ID
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1625:1: ( RULE_ID )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1626:1: RULE_ID
             {
              before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSelectionFilterSelectionCategoryIDTerminalRuleCall_7_3_1_0_1()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_13473); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_13409); 
              after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSelectionFilterSelectionCategoryIDTerminalRuleCall_7_3_1_0_1()); 
 
             }
@@ -4377,20 +4301,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Description__DescriptionAssignment"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1670:1: rule__Description__DescriptionAssignment : ( ruleDescriptionElement ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1637:1: rule__Description__DescriptionAssignment : ( ruleDescriptionElement ) ;
     public final void rule__Description__DescriptionAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1674:1: ( ( ruleDescriptionElement ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1675:1: ( ruleDescriptionElement )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1641:1: ( ( ruleDescriptionElement ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1642:1: ( ruleDescriptionElement )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1675:1: ( ruleDescriptionElement )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1676:1: ruleDescriptionElement
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1642:1: ( ruleDescriptionElement )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1643:1: ruleDescriptionElement
             {
              before(grammarAccess.getDescriptionAccess().getDescriptionDescriptionElementParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment3508);
+            pushFollow(FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment3444);
             ruleDescriptionElement();
 
             state._fsp--;
@@ -4418,20 +4342,20 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__TextAssignment_0"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1685:1: rule__DescriptionElement__TextAssignment_0 : ( RULE_STRING ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1652:1: rule__DescriptionElement__TextAssignment_0 : ( RULE_STRING ) ;
     public final void rule__DescriptionElement__TextAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1689:1: ( ( RULE_STRING ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1690:1: ( RULE_STRING )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1656:1: ( ( RULE_STRING ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1657:1: ( RULE_STRING )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1690:1: ( RULE_STRING )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1691:1: RULE_STRING
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1657:1: ( RULE_STRING )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1658:1: RULE_STRING
             {
              before(grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_03539); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_03475); 
              after(grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
 
             }
@@ -4455,24 +4379,24 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__ThisTargetAssignment_1"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1700:1: rule__DescriptionElement__ThisTargetAssignment_1 : ( ( 'this' ) ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1667:1: rule__DescriptionElement__ThisTargetAssignment_1 : ( ( 'this' ) ) ;
     public final void rule__DescriptionElement__ThisTargetAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1704:1: ( ( ( 'this' ) ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1705:1: ( ( 'this' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1671:1: ( ( ( 'this' ) ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1672:1: ( ( 'this' ) )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1705:1: ( ( 'this' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1706:1: ( 'this' )
-            {
-             before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_1_0()); 
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1707:1: ( 'this' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1708:1: 'this'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1672:1: ( ( 'this' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1673:1: ( 'this' )
             {
              before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_1_0()); 
-            match(input,26,FOLLOW_26_in_rule__DescriptionElement__ThisTargetAssignment_13575); 
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1674:1: ( 'this' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:1675:1: 'this'
+            {
+             before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_1_0()); 
+            match(input,25,FOLLOW_25_in_rule__DescriptionElement__ThisTargetAssignment_13511); 
              after(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_1_0()); 
 
             }
@@ -4511,8 +4435,8 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group__0_in_ruleAssuranceEvidenceConfiguration154 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleDescription_in_entryRuleDescription181 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleDescription188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Description__DescriptionAssignment_in_ruleDescription216 = new BitSet(new long[]{0x0000000004000022L});
-    public static final BitSet FOLLOW_rule__Description__DescriptionAssignment_in_ruleDescription228 = new BitSet(new long[]{0x0000000004000022L});
+    public static final BitSet FOLLOW_rule__Description__DescriptionAssignment_in_ruleDescription216 = new BitSet(new long[]{0x0000000002000022L});
+    public static final BitSet FOLLOW_rule__Description__DescriptionAssignment_in_ruleDescription228 = new BitSet(new long[]{0x0000000002000022L});
     public static final BitSet FOLLOW_ruleDescriptionElement_in_entryRuleDescriptionElement258 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleDescriptionElement265 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__DescriptionElement__Alternatives_in_ruleDescriptionElement291 = new BitSet(new long[]{0x0000000000000002L});
@@ -4550,7 +4474,7 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group__5__Impl_in_rule__AssuranceEvidenceConfiguration__Group__5991 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group__6_in_rule__AssuranceEvidenceConfiguration__Group__5994 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__SystemAssignment_5_in_rule__AssuranceEvidenceConfiguration__Group__5__Impl1021 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group__6__Impl_in_rule__AssuranceEvidenceConfiguration__Group__61051 = new BitSet(new long[]{0x0000000000AC0000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group__6__Impl_in_rule__AssuranceEvidenceConfiguration__Group__61051 = new BitSet(new long[]{0x00000000005C0000L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group__7_in_rule__AssuranceEvidenceConfiguration__Group__61054 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_15_in_rule__AssuranceEvidenceConfiguration__Group__6__Impl1082 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group__7__Impl_in_rule__AssuranceEvidenceConfiguration__Group__71113 = new BitSet(new long[]{0x0000000000010000L});
@@ -4563,84 +4487,81 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_17_in_rule__AssuranceEvidenceConfiguration__Group_3__0__Impl1281 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_3__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_3__11312 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__TitleAssignment_3_1_in_rule__AssuranceEvidenceConfiguration__Group_3__1__Impl1339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_0__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_0__01373 = new BitSet(new long[]{0x0000000004000020L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_0__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_0__01373 = new BitSet(new long[]{0x0000000002000020L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_0__1_in_rule__AssuranceEvidenceConfiguration__Group_7_0__01376 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_18_in_rule__AssuranceEvidenceConfiguration__Group_7_0__0__Impl1404 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_0__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_0__11435 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_1_in_rule__AssuranceEvidenceConfiguration__Group_7_0__1__Impl1462 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_1__01496 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_1__01496 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__1_in_rule__AssuranceEvidenceConfiguration__Group_7_1__01499 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_19_in_rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl1527 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_1__11558 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__2_in_rule__AssuranceEvidenceConfiguration__Group_7_1__11561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl1589 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_1__21620 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2_in_rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl1649 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_2_in_rule__AssuranceEvidenceConfiguration__Group_7_1__2__Impl1661 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__01700 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__1_in_rule__AssuranceEvidenceConfiguration__Group_7_2__01703 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl1731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__11762 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__11765 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl1793 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__21824 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl1853 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl1865 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_3__01904 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__01907 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl1935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_3__11966 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl1995 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl2007 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__02044 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__02047 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl2074 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__12103 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__12106 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__AadlClassifierReference__Group__1__Impl2134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__22165 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__3_in_rule__AadlClassifierReference__Group__22168 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__2__Impl2195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__3__Impl_in_rule__AadlClassifierReference__Group__32224 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__0_in_rule__AadlClassifierReference__Group__3__Impl2251 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__0__Impl_in_rule__AadlClassifierReference__Group_3__02290 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__1_in_rule__AadlClassifierReference__Group_3__02293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__AadlClassifierReference__Group_3__0__Impl2321 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__1__Impl_in_rule__AadlClassifierReference__Group_3__12352 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_3__1__Impl2379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__02412 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__02415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl2442 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__12471 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl2498 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__02533 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__02536 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__QualifiedName__Group_1__0__Impl2564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__12595 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl2622 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_72656 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_0__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2745 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2836 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2927 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl3018 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__03077 = new BitSet(new long[]{0x0000000000AC0002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__03080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__13105 = new BitSet(new long[]{0x0000000000AC0002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__13108 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__23133 = new BitSet(new long[]{0x0000000000AC0002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__23136 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__33161 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AlisaWorkArea__NameAssignment_13197 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssuranceEvidenceConfiguration_in_rule__AlisaWorkArea__CasesAssignment_23228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AssuranceEvidenceConfiguration__NameAssignment_23259 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__AssuranceEvidenceConfiguration__TitleAssignment_3_13290 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidenceConfiguration__SystemAssignment_53325 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDescription_in_rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_13360 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_23395 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_23434 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_13473 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment3508 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_03539 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__DescriptionElement__ThisTargetAssignment_13575 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_1__11558 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1_in_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl1587 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1_in_rule__AssuranceEvidenceConfiguration__Group_7_1__1__Impl1599 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__01636 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__1_in_rule__AssuranceEvidenceConfiguration__Group_7_2__01639 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__AssuranceEvidenceConfiguration__Group_7_2__0__Impl1667 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__11698 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__11701 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_rule__AssuranceEvidenceConfiguration__Group_7_2__1__Impl1729 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_2__21760 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl1789 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2_in_rule__AssuranceEvidenceConfiguration__Group_7_2__2__Impl1801 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_3__01840 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__01843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rule__AssuranceEvidenceConfiguration__Group_7_3__0__Impl1871 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl_in_rule__AssuranceEvidenceConfiguration__Group_7_3__11902 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl1931 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1_in_rule__AssuranceEvidenceConfiguration__Group_7_3__1__Impl1943 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__01980 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__01983 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl2010 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__12039 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__12042 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__AadlClassifierReference__Group__1__Impl2070 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__22101 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__3_in_rule__AadlClassifierReference__Group__22104 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__2__Impl2131 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__3__Impl_in_rule__AadlClassifierReference__Group__32160 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__0_in_rule__AadlClassifierReference__Group__3__Impl2187 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__0__Impl_in_rule__AadlClassifierReference__Group_3__02226 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__1_in_rule__AadlClassifierReference__Group_3__02229 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__AadlClassifierReference__Group_3__0__Impl2257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_3__1__Impl_in_rule__AadlClassifierReference__Group_3__12288 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_3__1__Impl2315 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__02348 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__02351 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl2378 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__12407 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl2434 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__02469 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__02472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__QualifiedName__Group_1__0__Impl2500 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__12531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl2558 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_72592 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_0__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2681 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_1__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2772 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_2__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2863 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__Group_7_3__0_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl2954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__03013 = new BitSet(new long[]{0x00000000005C0002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__1_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__03016 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__13041 = new BitSet(new long[]{0x00000000005C0002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__2_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__13044 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__23069 = new BitSet(new long[]{0x00000000005C0002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__3_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__23072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__Impl_in_rule__AssuranceEvidenceConfiguration__UnorderedGroup_7__33097 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AlisaWorkArea__NameAssignment_13133 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssuranceEvidenceConfiguration_in_rule__AlisaWorkArea__CasesAssignment_23164 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AssuranceEvidenceConfiguration__NameAssignment_23195 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__AssuranceEvidenceConfiguration__TitleAssignment_3_13226 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidenceConfiguration__SystemAssignment_53261 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDescription_in_rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_13296 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_13331 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_23370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_13409 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDescriptionElement_in_rule__Description__DescriptionAssignment3444 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_03475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_rule__DescriptionElement__ThisTargetAssignment_13511 = new BitSet(new long[]{0x0000000000000002L});
 
 }

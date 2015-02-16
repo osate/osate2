@@ -47,9 +47,9 @@
 'andthen'=35
 'argument'=24
 'as'=29
-'assert'=23
 'assertexception'=131
 'assume'=17
+'assure'=23
 'case'=98
 'catch'=118
 'category'=41
