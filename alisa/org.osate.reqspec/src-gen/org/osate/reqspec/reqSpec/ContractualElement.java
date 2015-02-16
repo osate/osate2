@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.Uncertainty;
 
 import org.osate.categories.categories.RequirementCategory;
 
@@ -27,6 +29,7 @@ import org.osate.categories.categories.RequirementCategory;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getChangeUncertainty <em>Change Uncertainty</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}</li>
  * </ul>
@@ -195,30 +198,56 @@ public interface ContractualElement extends EObject
   void setDescription(Description value);
 
   /**
-   * Returns the value of the '<em><b>Rationale</b></em>' attribute.
+   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rationale</em>' attribute isn't clear,
+   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' attribute.
-   * @see #setRationale(String)
+   * @return the value of the '<em>Rationale</em>' containment reference.
+   * @see #setRationale(Rationale)
    * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Rationale()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getRationale();
+  Rationale getRationale();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}' attribute.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' attribute.
+   * @param value the new value of the '<em>Rationale</em>' containment reference.
    * @see #getRationale()
    * @generated
    */
-  void setRationale(String value);
+  void setRationale(Rationale value);
+
+  /**
+   * Returns the value of the '<em><b>Change Uncertainty</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Change Uncertainty</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Change Uncertainty</em>' containment reference.
+   * @see #setChangeUncertainty(Uncertainty)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_ChangeUncertainty()
+   * @model containment="true"
+   * @generated
+   */
+  Uncertainty getChangeUncertainty();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getChangeUncertainty <em>Change Uncertainty</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Change Uncertainty</em>' containment reference.
+   * @see #getChangeUncertainty()
+   * @generated
+   */
+  void setChangeUncertainty(Uncertainty value);
 
   /**
    * Returns the value of the '<em><b>Document Requirement</b></em>' reference list.

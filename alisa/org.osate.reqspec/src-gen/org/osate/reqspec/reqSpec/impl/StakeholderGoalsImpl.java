@@ -36,6 +36,7 @@ import org.osate.reqspec.reqSpec.StakeholderGoals;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTargetDescription <em>Target Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getContent <em>Content</em>}</li>
  * </ul>
@@ -114,6 +115,26 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * @ordered
    */
   protected String targetDescription = TARGET_DESCRIPTION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean GLOBAL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected boolean global = GLOBAL_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -273,6 +294,29 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isGlobal()
+  {
+    return global;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGlobal(boolean newGlobal)
+  {
+    boolean oldGlobal = global;
+    global = newGlobal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL, oldGlobal, global));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Description getDescription()
   {
     return description;
@@ -367,6 +411,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         return basicGetTarget();
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET_DESCRIPTION:
         return getTargetDescription();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
+        return isGlobal();
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return getDescription();
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
@@ -397,6 +443,9 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET_DESCRIPTION:
         setTargetDescription((String)newValue);
+        return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
+        setGlobal((Boolean)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         setDescription((Description)newValue);
@@ -431,6 +480,9 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET_DESCRIPTION:
         setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
         return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
+        setGlobal(GLOBAL_EDEFAULT);
+        return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         setDescription((Description)null);
         return;
@@ -459,6 +511,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         return target != null;
       case ReqSpecPackage.STAKEHOLDER_GOALS__TARGET_DESCRIPTION:
         return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
+      case ReqSpecPackage.STAKEHOLDER_GOALS__GLOBAL:
+        return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return description != null;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
@@ -484,6 +538,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
     result.append(title);
     result.append(", targetDescription: ");
     result.append(targetDescription);
+    result.append(", global: ");
+    result.append(global);
     result.append(')');
     return result.toString();
   }

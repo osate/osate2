@@ -5,21 +5,21 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/categories/Categories" as categories
 import "http://www.osate.org/alisa/common/Common" as common
-
+ 
 Verification:
 	contents+=(VerificationLibrary | VerificationPlan | VerificationMethodRegistry);
 
-	// plan for a classifier. Will add import to allow for non-qualified requirement references
+// plan for a classifier. Will add import to allow for non-qualified requirement references 
 // Also allows for cross checking that we have covered requirements with claims
 VerificationPlan:
 	'plan' name=ID (':' title=STRING)? 
-	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference] //      [ReqSpec::SystemSpec|QualifiedName]
+	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
 	(
-		('description' description=STRING)?
+		( description=STRING)?
 	& claim+=Claim*
-	& ('rationale' rationale=STRING)?
-	& ('plan' 'assumption' planAssumption+=[VerificationPlan|QualifiedName]+)?
+	& (rationale=Rationale)?
+	& ('assume' 'verified' verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+)?
 	)
 	']';
 
@@ -29,16 +29,16 @@ Claim:
 	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
 	(('assert' assert=ArgumentExpr)
-	& ('argument' argument=STRING)?
-	& ('rationale' rationale=STRING)?
+	& ('argument' argument=STRING ( argumentUncertainty=Uncertainty)? )?
+	& (rationale=Rationale)?
 	& (subclaim+=Claim)*)  // if we have a requirement with refined requirements and we verify each
 	']';
 
 VerificationLibrary returns VerificationLibrary:
 	'library' name=ID (':' title=STRING)?
-	('for' target=[aadl2::ComponentClassifier|AadlClassifierReference])?
+	('for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE])?
 	'['
-	( ('description' description=Description)?
+	( ( description=Description)?
 	&(content+=(VerificationActivity |  VerificationFolder))*
 	)
 	']';
@@ -56,14 +56,14 @@ VerificationActivity:
 	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?
 	// or should it be the requirement, which provides the predicate
 	'[' (
-	('description' description=Description)?
+	( description=Description)?
 //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
 	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
 	&('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model
 	// and via the requirement (predicate/limit values
-	&('rationale' rationale=STRING)?
+	&(rationale=Rationale)?
 )
 	']';
 
@@ -71,9 +71,9 @@ VerificationCondition:
 	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) name=ID
 	(':' title=STRING)?
 	'[' (
-	 ('description' description=Description)?
+	 ( description=Description)?
 	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
-	& ('rationale' rationale=STRING)?
+	& (rationale=Rationale)?
 	)
 	']';
 
@@ -84,12 +84,12 @@ AllEvidenceExpr returns ArgumentExpr:
 	'all' {AllExpr} '[' all+=AndThenEvidenceExpr (',' all+=AndThenEvidenceExpr)* ']';
 
 AndThenEvidenceExpr returns ArgumentExpr:
-	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} ('andthen'| ('and' 'then'))) right=AndThenEvidenceExpr)*;
+	FailThenEvidenceExpr (=> ({AndThenExpr.left=current} 'andthen') right=AndThenEvidenceExpr)*;
 
 	// Execute as alternative if the first one fails.
 // The results of both are reported
 FailThenEvidenceExpr returns ArgumentExpr:
-	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} ('failthen'|(failed?='fail'|unknown?='unknown')'then')) right=FailThenEvidenceExpr)*;
+	AtomicEvidenceExpr (=> ({FailThenExpr.left=current} (failed?='failthen'|unknown?='unknownthen')) right=FailThenEvidenceExpr)*;
 
 AtomicEvidenceExpr returns ArgumentExpr:
 	ConditionalEvidence
@@ -113,7 +113,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 	'registry' name=ID
 	(':' title=STRING)?
 	'[' (
-	('description' description=STRING)?
+	( description=STRING)?
 	methods+=VerificationMethod*)
 	']';
 
@@ -123,7 +123,7 @@ VerificationMethod:
 	'['
 	(
 	(methodType=SupportedTypes scope=SupportedScopes (reporting=SupportedReporting)?)
-	&('description' description=STRING)?
+	&( description=STRING)?
 	&('path' methodPath=QualifiedName)?
 	& (conditions+=VerificationCondition)*
 	// parameters (in addition to the model element

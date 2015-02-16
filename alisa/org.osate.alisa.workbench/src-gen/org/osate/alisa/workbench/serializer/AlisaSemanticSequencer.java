@@ -70,6 +70,7 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *         system=[ComponentImplementation|AadlClassifierReference] 
 	 *         description=Description? 
 	 *         plans+=[VerificationPlan|QualifiedName]+ 
+	 *         verifiedAssumption+=[ComponentClassifier|AadlClassifierReference]* 
 	 *         selectionFilter+=[SelectionCategory|ID]*
 	 *     )
 	 */

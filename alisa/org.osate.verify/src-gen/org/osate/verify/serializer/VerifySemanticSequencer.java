@@ -56,11 +56,14 @@ import org.eclipse.xtext.xtype.XFunctionTypeRef;
 import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
+import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.verify.services.VerifyGrammarAccess;
@@ -89,6 +92,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.APROPERTY_REFERENCE:
+				if(context == grammarAccess.getAPropertyReferenceRule()) {
+					sequence_APropertyReference(context, (APropertyReference) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.COMPUTE_DECLARATION:
 				if(context == grammarAccess.getComputeDeclarationRule()) {
 					sequence_ComputeDeclaration(context, (ComputeDeclaration) semanticObject); 
@@ -107,9 +116,21 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case CommonPackage.RATIONALE:
+				if(context == grammarAccess.getRationaleRule()) {
+					sequence_Rationale(context, (Rationale) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.SHOW_VALUE:
 				if(context == grammarAccess.getShowValueRule()) {
 					sequence_ShowValue(context, (ShowValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.UNCERTAINTY:
+				if(context == grammarAccess.getUncertaintyRule()) {
+					sequence_Uncertainty(context, (Uncertainty) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1384,8 +1405,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         weight=INT? 
 	 *         requirement=[Requirement|QualifiedName] 
 	 *         assert=ArgumentExpr 
-	 *         argument=STRING? 
-	 *         rationale=STRING? 
+	 *         (argument=STRING argumentUncertainty=Uncertainty?)? 
+	 *         rationale=Rationale? 
 	 *         subclaim+=Claim*
 	 *     )
 	 */
@@ -1405,7 +1426,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (left=FailThenEvidenceExpr_FailThenExpr_1_0_0_0 (failed?='fail' | unknown?='unknown')? right=FailThenEvidenceExpr)
+	 *     (left=FailThenEvidenceExpr_FailThenExpr_1_0_0_0 (failed?='failthen' | unknown?='unknownthen') right=FailThenEvidenceExpr)
 	 */
 	protected void sequence_FailThenEvidenceExpr(EObject context, FailThenExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1431,7 +1452,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         computeVariable=[ComputeDeclaration|ID]? 
 	 *         timeout=INT? 
-	 *         rationale=STRING?
+	 *         rationale=Rationale?
 	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
@@ -1447,7 +1468,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         computeVariable=[ComputeDeclaration|ID]? 
-	 *         rationale=STRING?
+	 *         rationale=Rationale?
 	 *     )
 	 */
 	protected void sequence_VerificationCondition(EObject context, VerificationPrecondition semanticObject) {
@@ -1463,7 +1484,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         computeVariable=[ComputeDeclaration|ID]? 
-	 *         rationale=STRING?
+	 *         rationale=Rationale?
 	 *     )
 	 */
 	protected void sequence_VerificationCondition(EObject context, VerificationValidation semanticObject) {
@@ -1485,7 +1506,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         target=[ComponentClassifier|AadlClassifierReference]? 
+	 *         target=[ComponentClassifier|AADLCLASSIFIERREFERENCE]? 
 	 *         description=Description? 
 	 *         (content+=VerificationActivity | content+=VerificationFolder)*
 	 *     )
@@ -1529,11 +1550,11 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         target=[ComponentClassifier|AadlClassifierReference] 
+	 *         target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] 
 	 *         description=STRING? 
 	 *         claim+=Claim* 
-	 *         rationale=STRING? 
-	 *         planAssumption+=[VerificationPlan|QualifiedName]*
+	 *         rationale=Rationale? 
+	 *         verifiedAssumption+=[ComponentClassifier|AADLCLASSIFIERREFERENCE]*
 	 *     )
 	 */
 	protected void sequence_VerificationPlan(EObject context, VerificationPlan semanticObject) {

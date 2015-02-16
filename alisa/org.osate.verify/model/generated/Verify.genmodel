@@ -35,8 +35,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationPlan/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/claim"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationPlan/rationale"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/planAssumption"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/rationale"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationPlan/verifiedAssumption"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//Claim">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/name"/>
@@ -45,7 +45,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/requirement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/assert"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/argument"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//Claim/rationale"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/argumentUncertainty"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/rationale"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//Claim/subclaim"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationLibrary">
@@ -68,7 +69,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/method"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/computeVariable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/timeout"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationActivity/rationale"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationActivity/rationale"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//VerificationCondition">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/name"/>
@@ -76,7 +77,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/method"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/computeVariable"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Verify.ecore#//VerificationCondition/rationale"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Verify.ecore#//VerificationCondition/rationale"/>
     </genClasses>
     <genClasses ecoreClass="Verify.ecore#//ArgumentExpr"/>
     <genClasses ecoreClass="Verify.ecore#//VerificationMethodRegistry">

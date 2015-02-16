@@ -141,7 +141,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__CLAIM = 4;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -150,13 +150,13 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__RATIONALE = 5;
 
   /**
-   * The feature id for the '<em><b>Plan Assumption</b></em>' reference list.
+   * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN__PLAN_ASSUMPTION = 6;
+  int VERIFICATION_PLAN__VERIFIED_ASSUMPTION = 6;
 
   /**
    * The number of structural features of the '<em>Verification Plan</em>' class.
@@ -232,13 +232,22 @@ public interface VerifyPackage extends EPackage
   int CLAIM__ARGUMENT = 5;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Argument Uncertainty</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM__RATIONALE = 6;
+  int CLAIM__ARGUMENT_UNCERTAINTY = 6;
+
+  /**
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM__RATIONALE = 7;
 
   /**
    * The feature id for the '<em><b>Subclaim</b></em>' containment reference list.
@@ -247,7 +256,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM__SUBCLAIM = 7;
+  int CLAIM__SUBCLAIM = 8;
 
   /**
    * The number of structural features of the '<em>Claim</em>' class.
@@ -256,7 +265,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_FEATURE_COUNT = 8;
+  int CLAIM_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationContainerImpl <em>Verification Container</em>}' class.
@@ -461,7 +470,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__TIMEOUT = 6;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -534,7 +543,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_CONDITION__COMPUTE_VARIABLE = 4;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -790,7 +799,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_VALIDATION__COMPUTE_VARIABLE = VERIFICATION_CONDITION__COMPUTE_VARIABLE;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -863,7 +872,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PRECONDITION__COMPUTE_VARIABLE = VERIFICATION_CONDITION__COMPUTE_VARIABLE;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1192,26 +1201,26 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationPlan_Claim();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Rationale</em>'.
+   * @return the meta object for the containment reference '<em>Rationale</em>'.
    * @see org.osate.verify.verify.VerificationPlan#getRationale()
    * @see #getVerificationPlan()
    * @generated
    */
-  EAttribute getVerificationPlan_Rationale();
+  EReference getVerificationPlan_Rationale();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationPlan#getPlanAssumption <em>Plan Assumption</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationPlan#getVerifiedAssumption <em>Verified Assumption</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Plan Assumption</em>'.
-   * @see org.osate.verify.verify.VerificationPlan#getPlanAssumption()
+   * @return the meta object for the reference list '<em>Verified Assumption</em>'.
+   * @see org.osate.verify.verify.VerificationPlan#getVerifiedAssumption()
    * @see #getVerificationPlan()
    * @generated
    */
-  EReference getVerificationPlan_PlanAssumption();
+  EReference getVerificationPlan_VerifiedAssumption();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.Claim <em>Claim</em>}'.
@@ -1290,15 +1299,26 @@ public interface VerifyPackage extends EPackage
   EAttribute getClaim_Argument();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.Claim#getArgumentUncertainty <em>Argument Uncertainty</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Rationale</em>'.
+   * @return the meta object for the containment reference '<em>Argument Uncertainty</em>'.
+   * @see org.osate.verify.verify.Claim#getArgumentUncertainty()
+   * @see #getClaim()
+   * @generated
+   */
+  EReference getClaim_ArgumentUncertainty();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Rationale</em>'.
    * @see org.osate.verify.verify.Claim#getRationale()
    * @see #getClaim()
    * @generated
    */
-  EAttribute getClaim_Rationale();
+  EReference getClaim_Rationale();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.Claim#getSubclaim <em>Subclaim</em>}'.
@@ -1495,15 +1515,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationActivity_Timeout();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Rationale</em>'.
+   * @return the meta object for the containment reference '<em>Rationale</em>'.
    * @see org.osate.verify.verify.VerificationActivity#getRationale()
    * @see #getVerificationActivity()
    * @generated
    */
-  EAttribute getVerificationActivity_Rationale();
+  EReference getVerificationActivity_Rationale();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationCondition <em>Verification Condition</em>}'.
@@ -1571,15 +1591,15 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationCondition_ComputeVariable();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationCondition#getRationale <em>Rationale</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationCondition#getRationale <em>Rationale</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Rationale</em>'.
+   * @return the meta object for the containment reference '<em>Rationale</em>'.
    * @see org.osate.verify.verify.VerificationCondition#getRationale()
    * @see #getVerificationCondition()
    * @generated
    */
-  EAttribute getVerificationCondition_Rationale();
+  EReference getVerificationCondition_Rationale();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.ArgumentExpr <em>Argument Expr</em>}'.
@@ -2078,20 +2098,20 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_PLAN__CLAIM = eINSTANCE.getVerificationPlan_Claim();
 
     /**
-     * The meta object literal for the '<em><b>Rationale</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Rationale</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_PLAN__RATIONALE = eINSTANCE.getVerificationPlan_Rationale();
+    EReference VERIFICATION_PLAN__RATIONALE = eINSTANCE.getVerificationPlan_Rationale();
 
     /**
-     * The meta object literal for the '<em><b>Plan Assumption</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Verified Assumption</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VERIFICATION_PLAN__PLAN_ASSUMPTION = eINSTANCE.getVerificationPlan_PlanAssumption();
+    EReference VERIFICATION_PLAN__VERIFIED_ASSUMPTION = eINSTANCE.getVerificationPlan_VerifiedAssumption();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ClaimImpl <em>Claim</em>}' class.
@@ -2152,12 +2172,20 @@ public interface VerifyPackage extends EPackage
     EAttribute CLAIM__ARGUMENT = eINSTANCE.getClaim_Argument();
 
     /**
-     * The meta object literal for the '<em><b>Rationale</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Argument Uncertainty</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CLAIM__RATIONALE = eINSTANCE.getClaim_Rationale();
+    EReference CLAIM__ARGUMENT_UNCERTAINTY = eINSTANCE.getClaim_ArgumentUncertainty();
+
+    /**
+     * The meta object literal for the '<em><b>Rationale</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLAIM__RATIONALE = eINSTANCE.getClaim_Rationale();
 
     /**
      * The meta object literal for the '<em><b>Subclaim</b></em>' containment reference list feature.
@@ -2312,12 +2340,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_ACTIVITY__TIMEOUT = eINSTANCE.getVerificationActivity_Timeout();
 
     /**
-     * The meta object literal for the '<em><b>Rationale</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Rationale</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_ACTIVITY__RATIONALE = eINSTANCE.getVerificationActivity_Rationale();
+    EReference VERIFICATION_ACTIVITY__RATIONALE = eINSTANCE.getVerificationActivity_Rationale();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationConditionImpl <em>Verification Condition</em>}' class.
@@ -2370,12 +2398,12 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_CONDITION__COMPUTE_VARIABLE = eINSTANCE.getVerificationCondition_ComputeVariable();
 
     /**
-     * The meta object literal for the '<em><b>Rationale</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Rationale</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_CONDITION__RATIONALE = eINSTANCE.getVerificationCondition_Rationale();
+    EReference VERIFICATION_CONDITION__RATIONALE = eINSTANCE.getVerificationCondition_Rationale();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ArgumentExprImpl <em>Argument Expr</em>}' class.

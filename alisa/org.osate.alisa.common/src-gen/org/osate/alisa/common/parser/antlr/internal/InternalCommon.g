@@ -77,25 +77,29 @@ ruleDescription returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+(	otherlv_0='description' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getDescriptionAccess().getDescriptionKeyword_0());
+    }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getDescriptionAccess().getDescriptionDescriptionElementParserRuleCall_0()); 
+	        newCompositeNode(grammarAccess.getDescriptionAccess().getDescriptionDescriptionElementParserRuleCall_1_0()); 
 	    }
-		lv_description_0_0=ruleDescriptionElement		{
+		lv_description_1_0=ruleDescriptionElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getDescriptionRule());
 	        }
        		add(
        			$current, 
        			"description",
-        		lv_description_0_0, 
+        		lv_description_1_0, 
         		"DescriptionElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)+
+)+)
 ;
 
 
@@ -173,6 +177,56 @@ ruleDescriptionElement returns [EObject current=null]
 ;
 
 
+
+
+
+
+
+
+
+
+
+// Entry rule entryRuleAPropertyReference
+entryRuleAPropertyReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAPropertyReferenceRule()); }
+	 iv_ruleAPropertyReference=ruleAPropertyReference 
+	 { $current=$iv_ruleAPropertyReference.current; } 
+	 EOF 
+;
+
+// Rule APropertyReference
+ruleAPropertyReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getAPropertyReferenceAccess().getAPropertyReferenceAction_0(),
+            $current);
+    }
+)	otherlv_1='@' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAPropertyReferenceRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getAPropertyReferenceAccess().getPropertyPropertyCrossReference_2_0()); 
+	    }
+		ruleAADLPROPERTYREFERENCE		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
 
 
 
@@ -291,6 +345,47 @@ ruleShowValue returns [EObject current=null]
 ;
 
 
+
+
+
+
+
+// Entry rule entryRuleAADLPROPERTYREFERENCE
+entryRuleAADLPROPERTYREFERENCE returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getAADLPROPERTYREFERENCERule()); } 
+	 iv_ruleAADLPROPERTYREFERENCE=ruleAADLPROPERTYREFERENCE 
+	 { $current=$iv_ruleAADLPROPERTYREFERENCE.current.getText(); }  
+	 EOF 
+;
+
+// Rule AADLPROPERTYREFERENCE
+ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); 
+    }
+(
+	kw='::' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getAADLPROPERTYREFERENCEAccess().getColonColonKeyword_1_0()); 
+    }
+    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_1_1()); 
+    }
+)?)
+    ;
 
 
 

@@ -7,10 +7,5 @@ package org.osate.organization;
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class OrganizationRuntimeModule extends org.osate.organization.AbstractOrganizationRuntimeModule {
-	// bind in the Alisa global scope provider for Validation to pick up the duplicates method
-	@Override
-	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
-		return org.osate.alisa.common.scoping.CommonGlobalScopeProvider.class;
-	}
 
 }

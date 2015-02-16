@@ -18,6 +18,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.Uncertainty;
+
 import org.osate.reqspec.reqSpec.Requirement;
 
 import org.osate.verify.verify.ArgumentExpr;
@@ -37,6 +40,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getArgument <em>Argument</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getArgumentUncertainty <em>Argument Uncertainty</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getSubclaim <em>Subclaim</em>}</li>
  * </ul>
@@ -147,24 +151,24 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   protected String argument = ARGUMENT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getArgumentUncertainty() <em>Argument Uncertainty</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRationale()
+   * @see #getArgumentUncertainty()
    * @generated
    * @ordered
    */
-  protected static final String RATIONALE_EDEFAULT = null;
+  protected Uncertainty argumentUncertainty;
 
   /**
-   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getRationale()
    * @generated
    * @ordered
    */
-  protected String rationale = RATIONALE_EDEFAULT;
+  protected Rationale rationale;
 
   /**
    * The cached value of the '{@link #getSubclaim() <em>Subclaim</em>}' containment reference list.
@@ -385,7 +389,55 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getRationale()
+  public Uncertainty getArgumentUncertainty()
+  {
+    return argumentUncertainty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetArgumentUncertainty(Uncertainty newArgumentUncertainty, NotificationChain msgs)
+  {
+    Uncertainty oldArgumentUncertainty = argumentUncertainty;
+    argumentUncertainty = newArgumentUncertainty;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY, oldArgumentUncertainty, newArgumentUncertainty);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setArgumentUncertainty(Uncertainty newArgumentUncertainty)
+  {
+    if (newArgumentUncertainty != argumentUncertainty)
+    {
+      NotificationChain msgs = null;
+      if (argumentUncertainty != null)
+        msgs = ((InternalEObject)argumentUncertainty).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY, null, msgs);
+      if (newArgumentUncertainty != null)
+        msgs = ((InternalEObject)newArgumentUncertainty).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY, null, msgs);
+      msgs = basicSetArgumentUncertainty(newArgumentUncertainty, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY, newArgumentUncertainty, newArgumentUncertainty));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Rationale getRationale()
   {
     return rationale;
   }
@@ -395,12 +447,37 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRationale(String newRationale)
+  public NotificationChain basicSetRationale(Rationale newRationale, NotificationChain msgs)
   {
-    String oldRationale = rationale;
+    Rationale oldRationale = rationale;
     rationale = newRationale;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__RATIONALE, oldRationale, rationale));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__RATIONALE, oldRationale, newRationale);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRationale(Rationale newRationale)
+  {
+    if (newRationale != rationale)
+    {
+      NotificationChain msgs = null;
+      if (rationale != null)
+        msgs = ((InternalEObject)rationale).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CLAIM__RATIONALE, null, msgs);
+      if (newRationale != null)
+        msgs = ((InternalEObject)newRationale).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.CLAIM__RATIONALE, null, msgs);
+      msgs = basicSetRationale(newRationale, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__RATIONALE, newRationale, newRationale));
   }
 
   /**
@@ -429,6 +506,10 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     {
       case VerifyPackage.CLAIM__ASSERT:
         return basicSetAssert(null, msgs);
+      case VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY:
+        return basicSetArgumentUncertainty(null, msgs);
+      case VerifyPackage.CLAIM__RATIONALE:
+        return basicSetRationale(null, msgs);
       case VerifyPackage.CLAIM__SUBCLAIM:
         return ((InternalEList<?>)getSubclaim()).basicRemove(otherEnd, msgs);
     }
@@ -458,6 +539,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return getAssert();
       case VerifyPackage.CLAIM__ARGUMENT:
         return getArgument();
+      case VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY:
+        return getArgumentUncertainty();
       case VerifyPackage.CLAIM__RATIONALE:
         return getRationale();
       case VerifyPackage.CLAIM__SUBCLAIM:
@@ -495,8 +578,11 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__ARGUMENT:
         setArgument((String)newValue);
         return;
+      case VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY:
+        setArgumentUncertainty((Uncertainty)newValue);
+        return;
       case VerifyPackage.CLAIM__RATIONALE:
-        setRationale((String)newValue);
+        setRationale((Rationale)newValue);
         return;
       case VerifyPackage.CLAIM__SUBCLAIM:
         getSubclaim().clear();
@@ -534,8 +620,11 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__ARGUMENT:
         setArgument(ARGUMENT_EDEFAULT);
         return;
+      case VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY:
+        setArgumentUncertainty((Uncertainty)null);
+        return;
       case VerifyPackage.CLAIM__RATIONALE:
-        setRationale(RATIONALE_EDEFAULT);
+        setRationale((Rationale)null);
         return;
       case VerifyPackage.CLAIM__SUBCLAIM:
         getSubclaim().clear();
@@ -566,8 +655,10 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return assert_ != null;
       case VerifyPackage.CLAIM__ARGUMENT:
         return ARGUMENT_EDEFAULT == null ? argument != null : !ARGUMENT_EDEFAULT.equals(argument);
+      case VerifyPackage.CLAIM__ARGUMENT_UNCERTAINTY:
+        return argumentUncertainty != null;
       case VerifyPackage.CLAIM__RATIONALE:
-        return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
+        return rationale != null;
       case VerifyPackage.CLAIM__SUBCLAIM:
         return subclaim != null && !subclaim.isEmpty();
     }
@@ -593,8 +684,6 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     result.append(weight);
     result.append(", argument: ");
     result.append(argument);
-    result.append(", rationale: ");
-    result.append(rationale);
     result.append(')');
     return result.toString();
   }

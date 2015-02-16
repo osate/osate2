@@ -16,19 +16,35 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
+Timecriticality : ('T'|'t')('I'|'i')('M'|'m')('E'|'e')('C'|'c')('R'|'r')('I'|'i')('T'|'t')('I'|'i')('C'|'c')('A'|'a')('L'|'l')('I'|'i')('T'|'t')('Y'|'y');
+
+Scheduleimpact : ('S'|'s')('C'|'c')('H'|'h')('E'|'e')('D'|'d')('U'|'u')('L'|'l')('E'|'e')('I'|'i')('M'|'m')('P'|'p')('A'|'a')('C'|'c')('T'|'t');
+
+Maturityindex : ('M'|'m')('A'|'a')('T'|'t')('U'|'u')('R'|'r')('I'|'i')('T'|'t')('Y'|'y')('I'|'i')('N'|'n')('D'|'d')('E'|'e')('X'|'x');
+
 Specification : ('S'|'s')('P'|'p')('E'|'e')('C'|'c')('I'|'i')('F'|'f')('I'|'i')('C'|'c')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+
+Stakeholders : ('S'|'s')('T'|'t')('A'|'a')('K'|'k')('E'|'e')('H'|'h')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r')('S'|'s');
 
 Synchronized : ('S'|'s')('Y'|'y')('N'|'n')('C'|'c')('H'|'h')('R'|'r')('O'|'o')('N'|'n')('I'|'i')('Z'|'z')('E'|'e')('D'|'d');
 
 Description : ('D'|'d')('E'|'e')('S'|'s')('C'|'c')('R'|'r')('I'|'i')('P'|'p')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
+Familiarity : ('F'|'f')('A'|'a')('M'|'m')('I'|'i')('L'|'l')('I'|'i')('A'|'a')('R'|'r')('I'|'i')('T'|'t')('Y'|'y');
+
 Requirement : ('R'|'r')('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('R'|'r')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t');
 
 Stakeholder : ('S'|'s')('T'|'t')('A'|'a')('K'|'k')('E'|'e')('H'|'h')('O'|'o')('L'|'l')('D'|'d')('E'|'e')('R'|'r');
 
+Uncertainty : ('U'|'u')('N'|'n')('C'|'c')('E'|'e')('R'|'r')('T'|'t')('A'|'a')('I'|'i')('N'|'n')('T'|'t')('Y'|'y');
+
 Assumption : ('A'|'a')('S'|'s')('S'|'s')('U'|'u')('M'|'m')('P'|'p')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
+Costimpact : ('C'|'c')('O'|'o')('S'|'s')('T'|'t')('I'|'i')('M'|'m')('P'|'p')('A'|'a')('C'|'c')('T'|'t');
+
 Instanceof : ('I'|'i')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('C'|'c')('E'|'e')('O'|'o')('F'|'f');
+
+Volatility : ('V'|'v')('O'|'o')('L'|'l')('A'|'a')('T'|'t')('I'|'i')('L'|'l')('I'|'i')('T'|'t')('Y'|'y');
 
 Conflicts : ('C'|'c')('O'|'o')('N'|'n')('F'|'f')('L'|'l')('I'|'i')('C'|'c')('T'|'t')('S'|'s');
 
@@ -43,6 +59,8 @@ Mitigates : ('M'|'m')('I'|'i')('T'|'t')('I'|'i')('G'|'g')('A'|'a')('T'|'t')('E'|
 Predicate : ('P'|'p')('R'|'r')('E'|'e')('D'|'d')('I'|'i')('C'|'c')('A'|'a')('T'|'t')('E'|'e');
 
 Rationale : ('R'|'r')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('A'|'a')('L'|'l')('E'|'e');
+
+Riskindex : ('R'|'r')('I'|'i')('S'|'s')('K'|'k')('I'|'i')('N'|'n')('D'|'d')('E'|'e')('X'|'x');
 
 Category : ('C'|'c')('A'|'a')('T'|'t')('E'|'e')('G'|'g')('O'|'o')('R'|'r')('Y'|'y');
 
@@ -115,6 +133,8 @@ ExclamationMarkEqualsSignEqualsSign : '!''=''=';
 FullStopFullStopLessThanSign : '.''.''<';
 
 EqualsSignEqualsSignEqualsSign : '=''=''=';
+
+All : ('A'|'a')('L'|'l')('L'|'l');
 
 For : ('F'|'f')('O'|'o')('R'|'r');
 
@@ -211,6 +231,8 @@ EqualsSign : '=';
 GreaterThanSign : '>';
 
 QuestionMark : '?';
+
+CommercialAt : '@';
 
 LeftSquareBracket : '[';
 

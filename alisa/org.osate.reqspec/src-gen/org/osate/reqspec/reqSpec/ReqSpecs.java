@@ -23,6 +23,8 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription <em>Target Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getComputes <em>Computes</em>}</li>
@@ -113,6 +115,58 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
    * @generated
    */
   void setTarget(Classifier value);
+
+  /**
+   * Returns the value of the '<em><b>Target Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target Description</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target Description</em>' attribute.
+   * @see #setTargetDescription(String)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_TargetDescription()
+   * @model
+   * @generated
+   */
+  String getTargetDescription();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription <em>Target Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target Description</em>' attribute.
+   * @see #getTargetDescription()
+   * @generated
+   */
+  void setTargetDescription(String value);
+
+  /**
+   * Returns the value of the '<em><b>Global</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Global</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Global</em>' attribute.
+   * @see #setGlobal(boolean)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_Global()
+   * @model
+   * @generated
+   */
+  boolean isGlobal();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ReqSpecs#isGlobal <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Global</em>' attribute.
+   * @see #isGlobal()
+   * @generated
+   */
+  void setGlobal(boolean value);
 
   /**
    * Returns the value of the '<em><b>Otherreqspecs</b></em>' reference list.

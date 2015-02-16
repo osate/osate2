@@ -6,6 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.categories.categories.SelectionCategory;
@@ -25,6 +26,7 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getVerifiedAssumption <em>Verified Assumption</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
@@ -154,6 +156,22 @@ public interface AssuranceEvidenceConfiguration extends EObject
    * @generated
    */
   EList<VerificationPlan> getPlans();
+
+  /**
+   * Returns the value of the '<em><b>Verified Assumption</b></em>' reference list.
+   * The list contents are of type {@link org.osate.aadl2.ComponentClassifier}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Verified Assumption</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Verified Assumption</em>' reference list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssuranceEvidenceConfiguration_VerifiedAssumption()
+   * @model
+   * @generated
+   */
+  EList<ComponentClassifier> getVerifiedAssumption();
 
   /**
    * Returns the value of the '<em><b>Selection Filter</b></em>' reference list.

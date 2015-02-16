@@ -85,7 +85,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.BEHAVIOR_EQUATION: return createBehaviorEquation();
       case ReqSpecPackage.SPE_AR_PREDICATE: return createSPeARPredicate();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
-      case ReqSpecPackage.VAL_TO_PROPERTY_MAPPING: return createValToPropertyMapping();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -320,17 +319,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     ExternalDocumentImpl externalDocument = new ExternalDocumentImpl();
     return externalDocument;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ValToPropertyMapping createValToPropertyMapping()
-  {
-    ValToPropertyMappingImpl valToPropertyMapping = new ValToPropertyMappingImpl();
-    return valToPropertyMapping;
   }
 
   /**

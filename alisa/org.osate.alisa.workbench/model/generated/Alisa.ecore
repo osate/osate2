@@ -14,6 +14,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="plans" unique="false" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="verifiedAssumption" unique="false"
+        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="selectionFilter" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//SelectionCategory"/>
   </eClassifiers>

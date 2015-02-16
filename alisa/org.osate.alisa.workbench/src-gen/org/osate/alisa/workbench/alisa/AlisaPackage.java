@@ -149,13 +149,22 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_EVIDENCE_CONFIGURATION__PLANS = 4;
 
   /**
+   * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION = 5;
+
+  /**
    * The feature id for the '<em><b>Selection Filter</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER = 5;
+  int ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER = 6;
 
   /**
    * The number of structural features of the '<em>Assurance Evidence Configuration</em>' class.
@@ -164,7 +173,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION_FEATURE_COUNT = 6;
+  int ASSURANCE_EVIDENCE_CONFIGURATION_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -330,6 +339,17 @@ public interface AlisaPackage extends EPackage
   EReference getAssuranceEvidenceConfiguration_Plans();
 
   /**
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getVerifiedAssumption <em>Verified Assumption</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Verified Assumption</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getVerifiedAssumption()
+   * @see #getAssuranceEvidenceConfiguration()
+   * @generated
+   */
+  EReference getAssuranceEvidenceConfiguration_VerifiedAssumption();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSelectionFilter <em>Selection Filter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -491,6 +511,14 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EReference ASSURANCE_EVIDENCE_CONFIGURATION__PLANS = eINSTANCE.getAssuranceEvidenceConfiguration_Plans();
+
+    /**
+     * The meta object literal for the '<em><b>Verified Assumption</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION = eINSTANCE.getAssuranceEvidenceConfiguration_VerifiedAssumption();
 
     /**
      * The meta object literal for the '<em><b>Selection Filter</b></em>' reference list feature.

@@ -159,7 +159,7 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__DESCRIPTION = 5;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -168,13 +168,22 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__RATIONALE = 6;
 
   /**
+   * The feature id for the '<em><b>Change Uncertainty</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY = 7;
+
+  /**
    * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT = 7;
+  int CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT = 8;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -183,7 +192,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 8;
+  int CONTRACTUAL_ELEMENT__DOC_REFERENCE = 9;
 
   /**
    * The number of structural features of the '<em>Contractual Element</em>' class.
@@ -192,7 +201,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 9;
+  int CONTRACTUAL_ELEMENT_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqRootImpl <em>Req Root</em>}' class.
@@ -260,13 +269,22 @@ public interface ReqSpecPackage extends EPackage
   int STAKEHOLDER_GOALS__TARGET_DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Global</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STAKEHOLDER_GOALS__GLOBAL = REQ_SPEC_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 4;
+  int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -275,7 +293,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__CONTENT = REQ_SPEC_FEATURE_COUNT + 5;
+  int STAKEHOLDER_GOALS__CONTENT = REQ_SPEC_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Stakeholder Goals</em>' class.
@@ -284,7 +302,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 6;
+  int STAKEHOLDER_GOALS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl <em>Req Document</em>}' class.
@@ -434,13 +452,31 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPECS__TARGET = REQ_SPEC_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Target Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_SPECS__TARGET_DESCRIPTION = REQ_SPEC_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Global</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_SPECS__GLOBAL = REQ_SPEC_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Otherreqspecs</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_FEATURE_COUNT + 3;
+  int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
@@ -449,7 +485,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONSTANTS = REQ_SPEC_FEATURE_COUNT + 4;
+  int REQ_SPECS__CONSTANTS = REQ_SPEC_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Computes</b></em>' containment reference list.
@@ -458,7 +494,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__COMPUTES = REQ_SPEC_FEATURE_COUNT + 5;
+  int REQ_SPECS__COMPUTES = REQ_SPEC_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -467,7 +503,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONTENT = REQ_SPEC_FEATURE_COUNT + 6;
+  int REQ_SPECS__CONTENT = REQ_SPEC_FEATURE_COUNT + 8;
 
   /**
    * The number of structural features of the '<em>Req Specs</em>' class.
@@ -476,7 +512,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 7;
+  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_FEATURE_COUNT + 9;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecFolderImpl <em>Folder</em>}' class.
@@ -635,13 +671,22 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__DESCRIPTION = CONTRACTUAL_ELEMENT__DESCRIPTION;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
   int GOAL__RATIONALE = CONTRACTUAL_ELEMENT__RATIONALE;
+
+  /**
+   * The feature id for the '<em><b>Change Uncertainty</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__CHANGE_UNCERTAINTY = CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY;
 
   /**
    * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
@@ -762,13 +807,22 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__DESCRIPTION = CONTRACTUAL_ELEMENT__DESCRIPTION;
 
   /**
-   * The feature id for the '<em><b>Rationale</b></em>' attribute.
+   * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
   int REQUIREMENT__RATIONALE = CONTRACTUAL_ELEMENT__RATIONALE;
+
+  /**
+   * The feature id for the '<em><b>Change Uncertainty</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__CHANGE_UNCERTAINTY = CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY;
 
   /**
    * The feature id for the '<em><b>Document Requirement</b></em>' reference list.
@@ -964,22 +1018,13 @@ public interface ReqSpecPackage extends EPackage
   int VALUE_ASSERTION__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Val To Property Mappings</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS = REQ_PREDICATE_FEATURE_COUNT + 1;
-
-  /**
    * The number of structural features of the '<em>Value Assertion</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VALUE_ASSERTION_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 2;
+  int VALUE_ASSERTION_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.InputAssumptionImpl <em>Input Assumption</em>}' class.
@@ -1157,43 +1202,6 @@ public interface ReqSpecPackage extends EPackage
    */
   int EXTERNAL_DOCUMENT_FEATURE_COUNT = 2;
 
-  /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ValToPropertyMappingImpl <em>Val To Property Mapping</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.ValToPropertyMappingImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValToPropertyMapping()
-   * @generated
-   */
-  int VAL_TO_PROPERTY_MAPPING = 21;
-
-  /**
-   * The feature id for the '<em><b>Constant</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAL_TO_PROPERTY_MAPPING__CONSTANT = 0;
-
-  /**
-   * The feature id for the '<em><b>Property</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAL_TO_PROPERTY_MAPPING__PROPERTY = 1;
-
-  /**
-   * The number of structural features of the '<em>Val To Property Mapping</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAL_TO_PROPERTY_MAPPING_FEATURE_COUNT = 2;
-
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqSpec <em>Req Spec</em>}'.
@@ -1292,15 +1300,26 @@ public interface ReqSpecPackage extends EPackage
   EReference getContractualElement_Description();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Rationale</em>'.
+   * @return the meta object for the containment reference '<em>Rationale</em>'.
    * @see org.osate.reqspec.reqSpec.ContractualElement#getRationale()
    * @see #getContractualElement()
    * @generated
    */
-  EAttribute getContractualElement_Rationale();
+  EReference getContractualElement_Rationale();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getChangeUncertainty <em>Change Uncertainty</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Change Uncertainty</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#getChangeUncertainty()
+   * @see #getContractualElement()
+   * @generated
+   */
+  EReference getContractualElement_ChangeUncertainty();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}'.
@@ -1387,6 +1406,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EAttribute getStakeholderGoals_TargetDescription();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal <em>Global</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Global</em>'.
+   * @see org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal()
+   * @see #getStakeholderGoals()
+   * @generated
+   */
+  EAttribute getStakeholderGoals_Global();
 
   /**
    * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}'.
@@ -1560,6 +1590,28 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getReqSpecs_Target();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription <em>Target Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Target Description</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription()
+   * @see #getReqSpecs()
+   * @generated
+   */
+  EAttribute getReqSpecs_TargetDescription();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ReqSpecs#isGlobal <em>Global</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Global</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqSpecs#isGlobal()
+   * @see #getReqSpecs()
+   * @generated
+   */
+  EAttribute getReqSpecs_Global();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}'.
@@ -1906,17 +1958,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getValueAssertion_Xpression();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ValueAssertion#getValToPropertyMappings <em>Val To Property Mappings</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Val To Property Mappings</em>'.
-   * @see org.osate.reqspec.reqSpec.ValueAssertion#getValToPropertyMappings()
-   * @see #getValueAssertion()
-   * @generated
-   */
-  EReference getValueAssertion_ValToPropertyMappings();
-
-  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.InputAssumption <em>Input Assumption</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2066,38 +2107,6 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getExternalDocument_DocFragment();
 
   /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ValToPropertyMapping <em>Val To Property Mapping</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Val To Property Mapping</em>'.
-   * @see org.osate.reqspec.reqSpec.ValToPropertyMapping
-   * @generated
-   */
-  EClass getValToPropertyMapping();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.ValToPropertyMapping#getConstant <em>Constant</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Constant</em>'.
-   * @see org.osate.reqspec.reqSpec.ValToPropertyMapping#getConstant()
-   * @see #getValToPropertyMapping()
-   * @generated
-   */
-  EReference getValToPropertyMapping_Constant();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.ValToPropertyMapping#getProperty <em>Property</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Property</em>'.
-   * @see org.osate.reqspec.reqSpec.ValToPropertyMapping#getProperty()
-   * @see #getValToPropertyMapping()
-   * @generated
-   */
-  EReference getValToPropertyMapping_Property();
-
-  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2199,12 +2208,20 @@ public interface ReqSpecPackage extends EPackage
     EReference CONTRACTUAL_ELEMENT__DESCRIPTION = eINSTANCE.getContractualElement_Description();
 
     /**
-     * The meta object literal for the '<em><b>Rationale</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Rationale</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CONTRACTUAL_ELEMENT__RATIONALE = eINSTANCE.getContractualElement_Rationale();
+    EReference CONTRACTUAL_ELEMENT__RATIONALE = eINSTANCE.getContractualElement_Rationale();
+
+    /**
+     * The meta object literal for the '<em><b>Change Uncertainty</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY = eINSTANCE.getContractualElement_ChangeUncertainty();
 
     /**
      * The meta object literal for the '<em><b>Document Requirement</b></em>' reference list feature.
@@ -2273,6 +2290,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute STAKEHOLDER_GOALS__TARGET_DESCRIPTION = eINSTANCE.getStakeholderGoals_TargetDescription();
+
+    /**
+     * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute STAKEHOLDER_GOALS__GLOBAL = eINSTANCE.getStakeholderGoals_Global();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
@@ -2407,6 +2432,22 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQ_SPECS__TARGET = eINSTANCE.getReqSpecs_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Target Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQ_SPECS__TARGET_DESCRIPTION = eINSTANCE.getReqSpecs_TargetDescription();
+
+    /**
+     * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REQ_SPECS__GLOBAL = eINSTANCE.getReqSpecs_Global();
 
     /**
      * The meta object literal for the '<em><b>Otherreqspecs</b></em>' reference list feature.
@@ -2681,14 +2722,6 @@ public interface ReqSpecPackage extends EPackage
     EReference VALUE_ASSERTION__XPRESSION = eINSTANCE.getValueAssertion_Xpression();
 
     /**
-     * The meta object literal for the '<em><b>Val To Property Mappings</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS = eINSTANCE.getValueAssertion_ValToPropertyMappings();
-
-    /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.InputAssumptionImpl <em>Input Assumption</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2809,32 +2842,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EAttribute EXTERNAL_DOCUMENT__DOC_FRAGMENT = eINSTANCE.getExternalDocument_DocFragment();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ValToPropertyMappingImpl <em>Val To Property Mapping</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.ValToPropertyMappingImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValToPropertyMapping()
-     * @generated
-     */
-    EClass VAL_TO_PROPERTY_MAPPING = eINSTANCE.getValToPropertyMapping();
-
-    /**
-     * The meta object literal for the '<em><b>Constant</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VAL_TO_PROPERTY_MAPPING__CONSTANT = eINSTANCE.getValToPropertyMapping_Constant();
-
-    /**
-     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VAL_TO_PROPERTY_MAPPING__PROPERTY = eINSTANCE.getValToPropertyMapping_Property();
 
   }
 

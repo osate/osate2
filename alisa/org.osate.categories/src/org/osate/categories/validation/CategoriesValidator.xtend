@@ -6,10 +6,16 @@ package org.osate.categories.validation
 import com.google.inject.Inject
 import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import org.eclipse.xtext.validation.Check
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.Category
 import org.osate.categories.util.CategoriesUtil
+import org.eclipse.xtext.naming.IQualifiedNameProvider
+import java.util.List
+import org.eclipse.xtext.resource.IEObjectDescription
+import java.util.Stack
+import java.util.Collections
+import com.google.common.collect.Lists
+import org.eclipse.emf.ecore.EObject
 
 //import org.eclipse.xtext.validation.Check
 /**
@@ -28,22 +34,22 @@ class CategoriesValidator extends AbstractCategoriesValidator {
 	/**
  * Check that Category are globally unique
  */
-	@Check
-	def void checkDuplicatesCategory(Category cat) {
-		val dups = ( scopeProvider as CommonGlobalScopeProvider).getDuplicates(cat)
-		if (!dups.empty) {
-
-			// the original is in the set
-			for (dup : dups) {
-				error(
-					"Duplicate category '" + dup.name + "'",
-					CategoriesPackage::eINSTANCE.category_Name,
-					DUPLICATE_CATEGORY,
-					dup.name.toString
-				)
-			}
-		}
-	}
+//	@Check
+//	def void checkDuplicatesCategory(Category cat) {
+//		val dups = ( scopeProvider as CommonGlobalScopeProvider).getDuplicates(cat)
+//		if (!dups.empty) {
+//
+//			// the original is in the set
+//			for (dup : dups) {
+//				error(
+//					"Duplicate category '" + dup.name + "'",
+//					CategoriesPackage::eINSTANCE.category_Name,
+//					DUPLICATE_CATEGORY,
+//					dup.name.toString
+//				)
+//			}
+//		}
+//	}
 
 /**
  * check that there are no cycles in Category extends hierarchy

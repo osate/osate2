@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
@@ -40,6 +41,7 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getSystem <em>System</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getVerifiedAssumption <em>Verified Assumption</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
@@ -117,6 +119,16 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
    * @ordered
    */
   protected EList<VerificationPlan> plans;
+
+  /**
+   * The cached value of the '{@link #getVerifiedAssumption() <em>Verified Assumption</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVerifiedAssumption()
+   * @generated
+   * @ordered
+   */
+  protected EList<ComponentClassifier> verifiedAssumption;
 
   /**
    * The cached value of the '{@link #getSelectionFilter() <em>Selection Filter</em>}' reference list.
@@ -305,6 +317,20 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ComponentClassifier> getVerifiedAssumption()
+  {
+    if (verifiedAssumption == null)
+    {
+      verifiedAssumption = new EObjectResolvingEList<ComponentClassifier>(ComponentClassifier.class, this, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION);
+    }
+    return verifiedAssumption;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<SelectionCategory> getSelectionFilter()
   {
     if (selectionFilter == null)
@@ -351,6 +377,8 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
         return getDescription();
       case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
         return getPlans();
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION:
+        return getVerifiedAssumption();
       case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
         return getSelectionFilter();
     }
@@ -383,6 +411,10 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
       case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
         getPlans().clear();
         getPlans().addAll((Collection<? extends VerificationPlan>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION:
+        getVerifiedAssumption().clear();
+        getVerifiedAssumption().addAll((Collection<? extends ComponentClassifier>)newValue);
         return;
       case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
         getSelectionFilter().clear();
@@ -417,6 +449,9 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
       case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
         getPlans().clear();
         return;
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION:
+        getVerifiedAssumption().clear();
+        return;
       case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
         getSelectionFilter().clear();
         return;
@@ -444,6 +479,8 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
         return description != null;
       case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
         return plans != null && !plans.isEmpty();
+      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION:
+        return verifiedAssumption != null && !verifiedAssumption.isEmpty();
       case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
         return selectionFilter != null && !selectionFilter.isEmpty();
     }

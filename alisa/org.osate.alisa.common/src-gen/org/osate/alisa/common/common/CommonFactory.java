@@ -41,6 +41,24 @@ public interface CommonFactory extends EFactory
   DescriptionElement createDescriptionElement();
 
   /**
+   * Returns a new object of class '<em>Rationale</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Rationale</em>'.
+   * @generated
+   */
+  Rationale createRationale();
+
+  /**
+   * Returns a new object of class '<em>Uncertainty</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Uncertainty</em>'.
+   * @generated
+   */
+  Uncertainty createUncertainty();
+
+  /**
    * Returns a new object of class '<em>Compute Declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -57,6 +75,15 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   ShowValue createShowValue();
+
+  /**
+   * Returns a new object of class '<em>AProperty Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>AProperty Reference</em>'.
+   * @generated
+   */
+  APropertyReference createAPropertyReference();
 
   /**
    * Returns a new object of class '<em>XNumber Literal Unit</em>'.

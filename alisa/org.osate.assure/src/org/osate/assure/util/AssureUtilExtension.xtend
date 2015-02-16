@@ -834,7 +834,7 @@ class AssureUtilExtension {
 
 	def static constructLabel(AssureResult ar) {
 
-		// has to be a string without space (ID)
+		// has to be a string without space (ID) 
 		switch (ar) {
 			AssuranceEvidence:
 				return ar.name

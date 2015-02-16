@@ -17,6 +17,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/system"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/plans"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/verifiedAssumption"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceEvidenceConfiguration/selectionFilter"/>
     </genClasses>
     <genClasses ecoreClass="Alisa.ecore#//Description">

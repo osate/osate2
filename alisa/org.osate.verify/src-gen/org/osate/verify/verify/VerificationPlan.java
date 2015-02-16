@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.ComponentClassifier;
 
+import org.osate.alisa.common.common.Rationale;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Plan</b></em>'.
@@ -22,7 +24,7 @@ import org.osate.aadl2.ComponentClassifier;
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationPlan#getPlanAssumption <em>Plan Assumption</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationPlan#getVerifiedAssumption <em>Verified Assumption</em>}</li>
  * </ul>
  * </p>
  *
@@ -153,45 +155,45 @@ public interface VerificationPlan extends EObject
   EList<Claim> getClaim();
 
   /**
-   * Returns the value of the '<em><b>Rationale</b></em>' attribute.
+   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rationale</em>' attribute isn't clear,
+   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' attribute.
-   * @see #setRationale(String)
+   * @return the value of the '<em>Rationale</em>' containment reference.
+   * @see #setRationale(Rationale)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Rationale()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getRationale();
+  Rationale getRationale();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' attribute.
+   * @param value the new value of the '<em>Rationale</em>' containment reference.
    * @see #getRationale()
    * @generated
    */
-  void setRationale(String value);
+  void setRationale(Rationale value);
 
   /**
-   * Returns the value of the '<em><b>Plan Assumption</b></em>' reference list.
-   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
+   * Returns the value of the '<em><b>Verified Assumption</b></em>' reference list.
+   * The list contents are of type {@link org.osate.aadl2.ComponentClassifier}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Plan Assumption</em>' reference list isn't clear,
+   * If the meaning of the '<em>Verified Assumption</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Plan Assumption</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_PlanAssumption()
+   * @return the value of the '<em>Verified Assumption</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_VerifiedAssumption()
    * @model
    * @generated
    */
-  EList<VerificationPlan> getPlanAssumption();
+  EList<ComponentClassifier> getVerifiedAssumption();
 
 } // VerificationPlan

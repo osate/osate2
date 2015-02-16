@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.ComponentClassifier;
 
+import org.osate.alisa.common.common.Rationale;
+
 import org.osate.verify.verify.Claim;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerifyPackage;
@@ -39,7 +41,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getPlanAssumption <em>Plan Assumption</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getVerifiedAssumption <em>Verified Assumption</em>}</li>
  * </ul>
  * </p>
  *
@@ -128,34 +130,24 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
   protected EList<Claim> claim;
 
   /**
-   * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getRationale()
    * @generated
    * @ordered
    */
-  protected static final String RATIONALE_EDEFAULT = null;
+  protected Rationale rationale;
 
   /**
-   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getVerifiedAssumption() <em>Verified Assumption</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRationale()
+   * @see #getVerifiedAssumption()
    * @generated
    * @ordered
    */
-  protected String rationale = RATIONALE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getPlanAssumption() <em>Plan Assumption</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPlanAssumption()
-   * @generated
-   * @ordered
-   */
-  protected EList<VerificationPlan> planAssumption;
+  protected EList<ComponentClassifier> verifiedAssumption;
 
   /**
    * <!-- begin-user-doc -->
@@ -309,7 +301,7 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getRationale()
+  public Rationale getRationale()
   {
     return rationale;
   }
@@ -319,12 +311,16 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRationale(String newRationale)
+  public NotificationChain basicSetRationale(Rationale newRationale, NotificationChain msgs)
   {
-    String oldRationale = rationale;
+    Rationale oldRationale = rationale;
     rationale = newRationale;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__RATIONALE, oldRationale, rationale));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__RATIONALE, oldRationale, newRationale);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -332,13 +328,34 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VerificationPlan> getPlanAssumption()
+  public void setRationale(Rationale newRationale)
   {
-    if (planAssumption == null)
+    if (newRationale != rationale)
     {
-      planAssumption = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION);
+      NotificationChain msgs = null;
+      if (rationale != null)
+        msgs = ((InternalEObject)rationale).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_PLAN__RATIONALE, null, msgs);
+      if (newRationale != null)
+        msgs = ((InternalEObject)newRationale).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_PLAN__RATIONALE, null, msgs);
+      msgs = basicSetRationale(newRationale, msgs);
+      if (msgs != null) msgs.dispatch();
     }
-    return planAssumption;
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_PLAN__RATIONALE, newRationale, newRationale));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ComponentClassifier> getVerifiedAssumption()
+  {
+    if (verifiedAssumption == null)
+    {
+      verifiedAssumption = new EObjectResolvingEList<ComponentClassifier>(ComponentClassifier.class, this, VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION);
+    }
+    return verifiedAssumption;
   }
 
   /**
@@ -353,6 +370,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
     {
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
         return ((InternalEList<?>)getClaim()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
+        return basicSetRationale(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -380,8 +399,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return getClaim();
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
         return getRationale();
-      case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
-        return getPlanAssumption();
+      case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
+        return getVerifiedAssumption();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -414,11 +433,11 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         getClaim().addAll((Collection<? extends Claim>)newValue);
         return;
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
-        setRationale((String)newValue);
+        setRationale((Rationale)newValue);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
-        getPlanAssumption().clear();
-        getPlanAssumption().addAll((Collection<? extends VerificationPlan>)newValue);
+      case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
+        getVerifiedAssumption().clear();
+        getVerifiedAssumption().addAll((Collection<? extends ComponentClassifier>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -450,10 +469,10 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         getClaim().clear();
         return;
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
-        setRationale(RATIONALE_EDEFAULT);
+        setRationale((Rationale)null);
         return;
-      case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
-        getPlanAssumption().clear();
+      case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
+        getVerifiedAssumption().clear();
         return;
     }
     super.eUnset(featureID);
@@ -480,9 +499,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__CLAIM:
         return claim != null && !claim.isEmpty();
       case VerifyPackage.VERIFICATION_PLAN__RATIONALE:
-        return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
-      case VerifyPackage.VERIFICATION_PLAN__PLAN_ASSUMPTION:
-        return planAssumption != null && !planAssumption.isEmpty();
+        return rationale != null;
+      case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
+        return verifiedAssumption != null && !verifiedAssumption.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -504,8 +523,6 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
     result.append(title);
     result.append(", description: ");
     result.append(description);
-    result.append(", rationale: ");
-    result.append(rationale);
     result.append(')');
     return result.toString();
   }

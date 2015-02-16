@@ -15,8 +15,6 @@ Workflow {
     bean = StandaloneSetup {
     	scanClassPath = true
     	platformUri = "${runtimeProject}/.."
- 		registerGeneratedEPackage = "org.osate.alisa.common.common.CommonPackage"
-		registerGenModelFile = "platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel"
     }
     
     component = DirectoryCleaner {
@@ -72,7 +70,7 @@ Workflow {
     		// Xtend-based API for validation
     		fragment = validation.ValidatorFragment auto-inject {
     		//    composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
-    		//    composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+    		    composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
     		}
     
     		// old scoping and exporting API

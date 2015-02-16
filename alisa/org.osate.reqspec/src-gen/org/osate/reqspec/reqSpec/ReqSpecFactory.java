@@ -212,15 +212,6 @@ public interface ReqSpecFactory extends EFactory
   ExternalDocument createExternalDocument();
 
   /**
-   * Returns a new object of class '<em>Val To Property Mapping</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Val To Property Mapping</em>'.
-   * @generated
-   */
-  ValToPropertyMapping createValToPropertyMapping();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

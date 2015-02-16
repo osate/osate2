@@ -89,6 +89,20 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.RATIONALE:
+      {
+        Rationale rationale = (Rationale)theEObject;
+        T result = caseRationale(rationale);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.UNCERTAINTY:
+      {
+        Uncertainty uncertainty = (Uncertainty)theEObject;
+        T result = caseUncertainty(uncertainty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.COMPUTE_DECLARATION:
       {
         ComputeDeclaration computeDeclaration = (ComputeDeclaration)theEObject;
@@ -100,6 +114,14 @@ public class CommonSwitch<T> extends Switch<T>
       {
         ShowValue showValue = (ShowValue)theEObject;
         T result = caseShowValue(showValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.APROPERTY_REFERENCE:
+      {
+        APropertyReference aPropertyReference = (APropertyReference)theEObject;
+        T result = caseAPropertyReference(aPropertyReference);
+        if (result == null) result = caseXExpression(aPropertyReference);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -149,6 +171,38 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Rationale</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Rationale</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseRationale(Rationale object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Uncertainty</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Uncertainty</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUncertainty(Uncertainty object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -176,6 +230,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseShowValue(ShowValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AProperty Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AProperty Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAPropertyReference(APropertyReference object)
   {
     return null;
   }

@@ -39,6 +39,7 @@ public class CommonParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getXValDeclarationAccess().getAlternatives_2(), "rule__XValDeclaration__Alternatives_2");
+					put(grammarAccess.getXValDeclarationAccess().getRightAlternatives_4_0(), "rule__XValDeclaration__RightAlternatives_4_0");
 					put(grammarAccess.getXAssignmentAccess().getAlternatives(), "rule__XAssignment__Alternatives");
 					put(grammarAccess.getOpMultiAssignAccess().getAlternatives(), "rule__OpMultiAssign__Alternatives");
 					put(grammarAccess.getOpEqualityAccess().getAlternatives(), "rule__OpEquality__Alternatives");
@@ -78,15 +79,29 @@ public class CommonParser extends AbstractContentAssistParser {
 					put(grammarAccess.getJvmWildcardTypeReferenceAccess().getAlternatives_2(), "rule__JvmWildcardTypeReference__Alternatives_2");
 					put(grammarAccess.getXImportDeclarationAccess().getAlternatives_1(), "rule__XImportDeclaration__Alternatives_1");
 					put(grammarAccess.getXImportDeclarationAccess().getAlternatives_1_0_3(), "rule__XImportDeclaration__Alternatives_1_0_3");
+					put(grammarAccess.getDescriptionAccess().getGroup(), "rule__Description__Group__0");
+					put(grammarAccess.getRationaleAccess().getGroup(), "rule__Rationale__Group__0");
+					put(grammarAccess.getRationaleAccess().getGroup_2(), "rule__Rationale__Group_2__0");
+					put(grammarAccess.getUncertaintyAccess().getGroup(), "rule__Uncertainty__Group__0");
+					put(grammarAccess.getUncertaintyAccess().getGroup_3_0(), "rule__Uncertainty__Group_3_0__0");
+					put(grammarAccess.getUncertaintyAccess().getGroup_3_1(), "rule__Uncertainty__Group_3_1__0");
+					put(grammarAccess.getUncertaintyAccess().getGroup_3_2(), "rule__Uncertainty__Group_3_2__0");
+					put(grammarAccess.getUncertaintyAccess().getGroup_3_3(), "rule__Uncertainty__Group_3_3__0");
+					put(grammarAccess.getUncertaintyAccess().getGroup_3_4(), "rule__Uncertainty__Group_3_4__0");
+					put(grammarAccess.getUncertaintyAccess().getGroup_3_5(), "rule__Uncertainty__Group_3_5__0");
+					put(grammarAccess.getUncertaintyAccess().getGroup_3_6(), "rule__Uncertainty__Group_3_6__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup(), "rule__XValDeclaration__Group__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0(), "rule__XValDeclaration__Group_2_0__0");
 					put(grammarAccess.getXValDeclarationAccess().getGroup_2_0_0(), "rule__XValDeclaration__Group_2_0_0__0");
+					put(grammarAccess.getAPropertyReferenceAccess().getGroup(), "rule__APropertyReference__Group__0");
 					put(grammarAccess.getComputeDeclarationAccess().getGroup(), "rule__ComputeDeclaration__Group__0");
 					put(grammarAccess.getXNumberLiteralAccess().getGroup(), "rule__XNumberLiteral__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup(), "rule__ShowValue__Group__0");
 					put(grammarAccess.getShowValueAccess().getGroup_1(), "rule__ShowValue__Group_1__0");
-					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
-					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_3(), "rule__AadlClassifierReference__Group_3__0");
+					put(grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getGroup(), "rule__AADLCLASSIFIERREFERENCE__Group__0");
+					put(grammarAccess.getAADLCLASSIFIERREFERENCEAccess().getGroup_3(), "rule__AADLCLASSIFIERREFERENCE__Group_3__0");
+					put(grammarAccess.getAADLPROPERTYREFERENCEAccess().getGroup(), "rule__AADLPROPERTYREFERENCE__Group__0");
+					put(grammarAccess.getAADLPROPERTYREFERENCEAccess().getGroup_1(), "rule__AADLPROPERTYREFERENCE__Group_1__0");
 					put(grammarAccess.getXAssignmentAccess().getGroup_0(), "rule__XAssignment__Group_0__0");
 					put(grammarAccess.getXAssignmentAccess().getGroup_1(), "rule__XAssignment__Group_1__0");
 					put(grammarAccess.getXAssignmentAccess().getGroup_1_1(), "rule__XAssignment__Group_1_1__0");
@@ -265,14 +280,25 @@ public class CommonParser extends AbstractContentAssistParser {
 					put(grammarAccess.getXImportDeclarationAccess().getGroup(), "rule__XImportDeclaration__Group__0");
 					put(grammarAccess.getXImportDeclarationAccess().getGroup_1_0(), "rule__XImportDeclaration__Group_1_0__0");
 					put(grammarAccess.getQualifiedNameInStaticImportAccess().getGroup(), "rule__QualifiedNameInStaticImport__Group__0");
-					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
+					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment_1(), "rule__Description__DescriptionAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getShowValueAssignment_1(), "rule__DescriptionElement__ShowValueAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_2(), "rule__DescriptionElement__ThisTargetAssignment_2");
+					put(grammarAccess.getRationaleAccess().getTextAssignment_1(), "rule__Rationale__TextAssignment_1");
+					put(grammarAccess.getRationaleAccess().getStakeholdersAssignment_2_1(), "rule__Rationale__StakeholdersAssignment_2_1");
+					put(grammarAccess.getUncertaintyAccess().getNameAssignment_1(), "rule__Uncertainty__NameAssignment_1");
+					put(grammarAccess.getUncertaintyAccess().getVolatilityAssignment_3_0_1(), "rule__Uncertainty__VolatilityAssignment_3_0_1");
+					put(grammarAccess.getUncertaintyAccess().getCostimpactAssignment_3_1_1(), "rule__Uncertainty__CostimpactAssignment_3_1_1");
+					put(grammarAccess.getUncertaintyAccess().getScheduleimpactAssignment_3_2_1(), "rule__Uncertainty__ScheduleimpactAssignment_3_2_1");
+					put(grammarAccess.getUncertaintyAccess().getFamiliarityAssignment_3_3_1(), "rule__Uncertainty__FamiliarityAssignment_3_3_1");
+					put(grammarAccess.getUncertaintyAccess().getTimecriticalityAssignment_3_4_1(), "rule__Uncertainty__TimecriticalityAssignment_3_4_1");
+					put(grammarAccess.getUncertaintyAccess().getRiskindexAssignment_3_5_1(), "rule__Uncertainty__RiskindexAssignment_3_5_1");
+					put(grammarAccess.getUncertaintyAccess().getMaturityindexAssignment_3_6_1(), "rule__Uncertainty__MaturityindexAssignment_3_6_1");
 					put(grammarAccess.getXValDeclarationAccess().getTypeAssignment_2_0_0_0(), "rule__XValDeclaration__TypeAssignment_2_0_0_0");
 					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_0_0_1(), "rule__XValDeclaration__NameAssignment_2_0_0_1");
 					put(grammarAccess.getXValDeclarationAccess().getNameAssignment_2_1(), "rule__XValDeclaration__NameAssignment_2_1");
 					put(grammarAccess.getXValDeclarationAccess().getRightAssignment_4(), "rule__XValDeclaration__RightAssignment_4");
+					put(grammarAccess.getAPropertyReferenceAccess().getPropertyAssignment_2(), "rule__APropertyReference__PropertyAssignment_2");
 					put(grammarAccess.getComputeDeclarationAccess().getWriteableAssignment_1(), "rule__ComputeDeclaration__WriteableAssignment_1");
 					put(grammarAccess.getComputeDeclarationAccess().getNameAssignment_2(), "rule__ComputeDeclaration__NameAssignment_2");
 					put(grammarAccess.getXNumberLiteralAccess().getValueAssignment_1(), "rule__XNumberLiteral__ValueAssignment_1");
@@ -422,6 +448,7 @@ public class CommonParser extends AbstractContentAssistParser {
 					put(grammarAccess.getXImportDeclarationAccess().getMemberNameAssignment_1_0_3_1(), "rule__XImportDeclaration__MemberNameAssignment_1_0_3_1");
 					put(grammarAccess.getXImportDeclarationAccess().getImportedTypeAssignment_1_1(), "rule__XImportDeclaration__ImportedTypeAssignment_1_1");
 					put(grammarAccess.getXImportDeclarationAccess().getImportedNamespaceAssignment_1_2(), "rule__XImportDeclaration__ImportedNamespaceAssignment_1_2");
+					put(grammarAccess.getUncertaintyAccess().getUnorderedGroup_3(), "rule__Uncertainty__UnorderedGroup_3");
 				}
 			};
 		}

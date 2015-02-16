@@ -15,11 +15,27 @@ import org.eclipse.jface.viewers.StyledString
 import org.eclipse.swt.graphics.Image
 import org.osate.aadl2.Aadl2Package
 import org.osate.xtext.aadl2.naming.Aadl2QualifiedNameConverter
+import org.eclipse.xtext.Assignment
+import org.eclipse.xtext.CrossReference
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 
 /**
  * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
  */
 class CommonProposalProvider extends AbstractCommonProposalProvider {
+
+
+
+	override void completeAPropertyReference_Property(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		lookupCrossReference(assignment.getTerminal() as CrossReference, context, acceptor,
+			[description | model.propertyUsedIn(context.currentModel)]
+		);
+	}
+	
+	def propertyUsedIn(EObject model, EObject context){
+		true
+	}
+
 	
 	val Aadl2QualifiedNameConverter aadl2QNC = new Aadl2QualifiedNameConverter()
 	

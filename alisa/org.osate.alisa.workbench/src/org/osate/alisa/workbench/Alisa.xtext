@@ -17,7 +17,8 @@ AssuranceEvidenceConfiguration:
 	(
 	('description' description=Description)?
 //	& (  constants+=XValDeclaration* )
-	& ('plans' plans+=[Verify::VerificationPlan|QualifiedName]+)
+	& ('to' 'verify' plans+=[Verify::VerificationPlan|QualifiedName]+)
+	& ('assume' 'verified' verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)?
 	&('filter' (selectionFilter+=[categories::SelectionCategory|ID])+)?
 	)
 	']';

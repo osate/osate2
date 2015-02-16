@@ -2,25 +2,17 @@
  */
 package org.osate.reqspec.reqSpec.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
-import org.osate.reqspec.reqSpec.ValToPropertyMapping;
 import org.osate.reqspec.reqSpec.ValueAssertion;
 
 /**
@@ -31,7 +23,6 @@ import org.osate.reqspec.reqSpec.ValueAssertion;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ValueAssertionImpl#getXpression <em>Xpression</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ValueAssertionImpl#getValToPropertyMappings <em>Val To Property Mappings</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,16 +39,6 @@ public class ValueAssertionImpl extends ReqPredicateImpl implements ValueAsserti
    * @ordered
    */
   protected XExpression xpression;
-
-  /**
-   * The cached value of the '{@link #getValToPropertyMappings() <em>Val To Property Mappings</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getValToPropertyMappings()
-   * @generated
-   * @ordered
-   */
-  protected EList<ValToPropertyMapping> valToPropertyMappings;
 
   /**
    * <!-- begin-user-doc -->
@@ -133,20 +114,6 @@ public class ValueAssertionImpl extends ReqPredicateImpl implements ValueAsserti
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ValToPropertyMapping> getValToPropertyMappings()
-  {
-    if (valToPropertyMappings == null)
-    {
-      valToPropertyMappings = new EObjectContainmentEList<ValToPropertyMapping>(ValToPropertyMapping.class, this, ReqSpecPackage.VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS);
-    }
-    return valToPropertyMappings;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -154,8 +121,6 @@ public class ValueAssertionImpl extends ReqPredicateImpl implements ValueAsserti
     {
       case ReqSpecPackage.VALUE_ASSERTION__XPRESSION:
         return basicSetXpression(null, msgs);
-      case ReqSpecPackage.VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS:
-        return ((InternalEList<?>)getValToPropertyMappings()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -172,8 +137,6 @@ public class ValueAssertionImpl extends ReqPredicateImpl implements ValueAsserti
     {
       case ReqSpecPackage.VALUE_ASSERTION__XPRESSION:
         return getXpression();
-      case ReqSpecPackage.VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS:
-        return getValToPropertyMappings();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -183,7 +146,6 @@ public class ValueAssertionImpl extends ReqPredicateImpl implements ValueAsserti
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -191,10 +153,6 @@ public class ValueAssertionImpl extends ReqPredicateImpl implements ValueAsserti
     {
       case ReqSpecPackage.VALUE_ASSERTION__XPRESSION:
         setXpression((XExpression)newValue);
-        return;
-      case ReqSpecPackage.VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS:
-        getValToPropertyMappings().clear();
-        getValToPropertyMappings().addAll((Collection<? extends ValToPropertyMapping>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -213,9 +171,6 @@ public class ValueAssertionImpl extends ReqPredicateImpl implements ValueAsserti
       case ReqSpecPackage.VALUE_ASSERTION__XPRESSION:
         setXpression((XExpression)null);
         return;
-      case ReqSpecPackage.VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS:
-        getValToPropertyMappings().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -232,8 +187,6 @@ public class ValueAssertionImpl extends ReqPredicateImpl implements ValueAsserti
     {
       case ReqSpecPackage.VALUE_ASSERTION__XPRESSION:
         return xpression != null;
-      case ReqSpecPackage.VALUE_ASSERTION__VAL_TO_PROPERTY_MAPPINGS:
-        return valToPropertyMappings != null && !valToPropertyMappings.isEmpty();
     }
     return super.eIsSet(featureID);
   }

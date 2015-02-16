@@ -180,11 +180,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createExternalDocumentAdapter();
       }
       @Override
-      public Adapter caseValToPropertyMapping(ValToPropertyMapping object)
-      {
-        return createValToPropertyMappingAdapter();
-      }
-      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -517,21 +512,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExternalDocumentAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ValToPropertyMapping <em>Val To Property Mapping</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.ValToPropertyMapping
-   * @generated
-   */
-  public Adapter createValToPropertyMappingAdapter()
   {
     return null;
   }

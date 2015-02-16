@@ -220,9 +220,19 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAssuranceEvidenceConfiguration_SelectionFilter()
+  public EReference getAssuranceEvidenceConfiguration_VerifiedAssumption()
   {
     return (EReference)assuranceEvidenceConfigurationEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAssuranceEvidenceConfiguration_SelectionFilter()
+  {
+    return (EReference)assuranceEvidenceConfigurationEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -315,6 +325,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     createEReference(assuranceEvidenceConfigurationEClass, ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM);
     createEReference(assuranceEvidenceConfigurationEClass, ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION);
     createEReference(assuranceEvidenceConfigurationEClass, ASSURANCE_EVIDENCE_CONFIGURATION__PLANS);
+    createEReference(assuranceEvidenceConfigurationEClass, ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION);
     createEReference(assuranceEvidenceConfigurationEClass, ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER);
 
     descriptionEClass = createEClass(DESCRIPTION);
@@ -372,6 +383,7 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
     initEReference(getAssuranceEvidenceConfiguration_System(), theAadl2Package.getComponentImplementation(), null, "system", null, 0, 1, AssuranceEvidenceConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceEvidenceConfiguration_Description(), this.getDescription(), null, "description", null, 0, 1, AssuranceEvidenceConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceEvidenceConfiguration_Plans(), theVerifyPackage.getVerificationPlan(), null, "plans", null, 0, -1, AssuranceEvidenceConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceEvidenceConfiguration_VerifiedAssumption(), theAadl2Package.getComponentClassifier(), null, "verifiedAssumption", null, 0, -1, AssuranceEvidenceConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceEvidenceConfiguration_SelectionFilter(), theCategoriesPackage.getSelectionCategory(), null, "selectionFilter", null, 0, -1, AssuranceEvidenceConfiguration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

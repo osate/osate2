@@ -19,18 +19,18 @@ ReqRoot:  StakeholderGoals | ReqDocument | ReqSpecs;
 
 
 StakeholderGoals: 'stakeholder' 'goals' name=ID (':' title=STRING)?
-	( 'for' (target=[aadl2::Classifier|AadlClassifierReference]| targetDescription=STRING))?
-	 ('description'  description=Description)? 
+	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))?
+	 (  description=Description)? 
 	'[' content+=( Goal | GoalFolder)* ']'
 ;
 
 ReqDocument: 'document' name=ID (':' title=STRING)?
-	 ('description'  description=Description)? 
+	 (  description=Description)? 
 	'[' content+=DocumentSection* ']'
 ;
 DocumentSection returns DocumentSection:
 	'section' label =ID (':' title=STRING)?
-	 ('description'  description=Description)? 
+	 (  description=Description)? 
 	'[' (content+= (Goal | Requirement |  DocumentSection))*
 	']' 
 	;
@@ -38,7 +38,7 @@ DocumentSection returns DocumentSection:
 ReqSpecs returns ReqSpecs:
 	'requirement' 'specification' name =ID (':' title=STRING)?
 //	('import' importedNamespace=QualifiedNameWithWildCard)?
-	( 'for' target=[aadl2::Classifier|AadlClassifierReference])?
+	( 'for' (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING| global?='all'))?
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
 	(
@@ -67,13 +67,14 @@ GoalFolder returns GoalFolder:
 
 Goal returns Goal:
 	'goal' name=ID (':'  title=STRING )? // short string for title
-	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=STRING) 
+	( 'for' (target=[aadl2::NamedElement|ID] | targetDescription=STRING)
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['  (
 	 ('category'  category=[categories::RequirementCategory|ID])?
-	 &('description'  description=Description)? 
-	 &('rationale'  rationale=STRING)? 
+	 &(  description=Description)? 
+	 &(rationale=Rationale)? 
+	 &(changeUncertainty=Uncertainty)? 
 	 &('refines' refinesReference+=[Goal|QualifiedName]+)? 
 	 &('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? 
 	 &('stakeholder'  stakeholderReference+=[org::Stakeholder|QualifiedName]+)?
@@ -93,11 +94,12 @@ Requirement:
 	)?
 '['	(
  	('category'  category=[categories::RequirementCategory|ID] )?
-	&('description'  description=Description)? 
+	&(  description=Description)? 
 	& (  constants+=XValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
 	&(  predicate=ReqPredicate)?  // predicate expression 
-	&('rationale'  rationale=STRING)? 
+	&(rationale=Rationale)? 
+	 &(changeUncertainty=Uncertainty)? 
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
 	&('refines' refinedReference+=[Requirement|QualifiedName]+)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
@@ -112,7 +114,7 @@ ReqPredicate: InformalPredicate | XPredicate | ValueAssertion | InputAssumption 
 InformalPredicate: 'text' description=STRING ;
 XPredicate: 'predicate' xpression=XExpression ;
 
-ValueAssertion: 'assert' 'value' xpression=XExpression ( 'with' valToPropertyMappings+=ValToPropertyMapping )?;	
+ValueAssertion: 'assert' 'value' xpression=XExpression;	
 InputAssumption: 'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 BehaviorEquation: 'eq' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
@@ -123,14 +125,10 @@ ExternalDocument :
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?
 ;
 
-ValToPropertyMapping: constant=[xbase::XVariableDeclaration|ID] 'as' property=[aadl2::Property|PROPERTYREFERENCE];
-
 
 // path to external document and its fragment
 DOCPATH: ( ID '/')* ID '.' ID;
 
 DOCFRAGMENT: ID ('.' ID)*;
-
-PROPERTYREFERENCE: ID '::' ID;
 
 	

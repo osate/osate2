@@ -57,11 +57,14 @@ import org.eclipse.xtext.xtype.XFunctionTypeRef;
 import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
+import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.services.CommonGrammarAccess;
 
@@ -73,6 +76,12 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.APROPERTY_REFERENCE:
+				if(context == grammarAccess.getAPropertyReferenceRule()) {
+					sequence_APropertyReference(context, (APropertyReference) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.COMPUTE_DECLARATION:
 				if(context == grammarAccess.getComputeDeclarationRule()) {
 					sequence_ComputeDeclaration(context, (ComputeDeclaration) semanticObject); 
@@ -91,9 +100,21 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 					return; 
 				}
 				else break;
+			case CommonPackage.RATIONALE:
+				if(context == grammarAccess.getRationaleRule()) {
+					sequence_Rationale(context, (Rationale) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.SHOW_VALUE:
 				if(context == grammarAccess.getShowValueRule()) {
 					sequence_ShowValue(context, (ShowValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.UNCERTAINTY:
+				if(context == grammarAccess.getUncertaintyRule()) {
+					sequence_Uncertainty(context, (Uncertainty) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1214,6 +1235,22 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     property=[Property|AADLPROPERTYREFERENCE]
+	 */
+	protected void sequence_APropertyReference(EObject context, APropertyReference semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.APROPERTY_REFERENCE__PROPERTY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.APROPERTY_REFERENCE__PROPERTY));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getAPropertyReferenceAccess().getPropertyPropertyAADLPROPERTYREFERENCEParserRuleCall_2_0_1(), semanticObject.getProperty());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (writeable?='compute' name=ValidID)
 	 */
 	protected void sequence_ComputeDeclaration(EObject context, ComputeDeclaration semanticObject) {
@@ -1251,10 +1288,65 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (text=STRING stakeholders+=[Stakeholder|QualifiedName]?)
+	 */
+	protected void sequence_Rationale(EObject context, Rationale semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (ref=[XVariableDeclaration|ID] unit=[UnitLiteral|ID]?)
 	 */
 	protected void sequence_ShowValue(EObject context, ShowValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ValidID 
+	 *         volatility=INT 
+	 *         costimpact=INT 
+	 *         scheduleimpact=INT 
+	 *         familiarity=INT 
+	 *         timecriticality=INT 
+	 *         riskindex=INT 
+	 *         maturityindex=INT
+	 *     )
+	 */
+	protected void sequence_Uncertainty(EObject context, Uncertainty semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__NAME));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__VOLATILITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__VOLATILITY));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__COSTIMPACT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__COSTIMPACT));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__SCHEDULEIMPACT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__SCHEDULEIMPACT));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__FAMILIARITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__FAMILIARITY));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__TIMECRITICALITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__TIMECRITICALITY));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__RISKINDEX) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__RISKINDEX));
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.UNCERTAINTY__MATURITYINDEX) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.UNCERTAINTY__MATURITYINDEX));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getUncertaintyAccess().getNameValidIDParserRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getUncertaintyAccess().getVolatilityINTTerminalRuleCall_3_0_1_0(), semanticObject.getVolatility());
+		feeder.accept(grammarAccess.getUncertaintyAccess().getCostimpactINTTerminalRuleCall_3_1_1_0(), semanticObject.getCostimpact());
+		feeder.accept(grammarAccess.getUncertaintyAccess().getScheduleimpactINTTerminalRuleCall_3_2_1_0(), semanticObject.getScheduleimpact());
+		feeder.accept(grammarAccess.getUncertaintyAccess().getFamiliarityINTTerminalRuleCall_3_3_1_0(), semanticObject.getFamiliarity());
+		feeder.accept(grammarAccess.getUncertaintyAccess().getTimecriticalityINTTerminalRuleCall_3_4_1_0(), semanticObject.getTimecriticality());
+		feeder.accept(grammarAccess.getUncertaintyAccess().getRiskindexINTTerminalRuleCall_3_5_1_0(), semanticObject.getRiskindex());
+		feeder.accept(grammarAccess.getUncertaintyAccess().getMaturityindexINTTerminalRuleCall_3_6_1_0(), semanticObject.getMaturityindex());
+		feeder.finish();
 	}
 	
 	
@@ -1269,7 +1361,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (((type=JvmTypeReference name=ValidID) | name=ValidID) right=XExpression)
+	 *     (((type=JvmTypeReference name=ValidID) | name=ValidID) (right=APropertyReference | right=XExpression))
 	 */
 	protected void sequence_XValDeclaration(EObject context, XVariableDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

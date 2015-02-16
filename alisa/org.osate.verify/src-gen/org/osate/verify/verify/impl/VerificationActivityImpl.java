@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.Rationale;
 
 import org.osate.reqspec.reqSpec.Requirement;
 
@@ -143,24 +144,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected int timeout = TIMEOUT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getRationale()
    * @generated
    * @ordered
    */
-  protected static final String RATIONALE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRationale()
-   * @generated
-   * @ordered
-   */
-  protected String rationale = RATIONALE_EDEFAULT;
+  protected Rationale rationale;
 
   /**
    * <!-- begin-user-doc -->
@@ -434,7 +425,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getRationale()
+  public Rationale getRationale()
   {
     return rationale;
   }
@@ -444,12 +435,37 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRationale(String newRationale)
+  public NotificationChain basicSetRationale(Rationale newRationale, NotificationChain msgs)
   {
-    String oldRationale = rationale;
+    Rationale oldRationale = rationale;
     rationale = newRationale;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, oldRationale, rationale));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, oldRationale, newRationale);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRationale(Rationale newRationale)
+  {
+    if (newRationale != rationale)
+    {
+      NotificationChain msgs = null;
+      if (rationale != null)
+        msgs = ((InternalEObject)rationale).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, null, msgs);
+      if (newRationale != null)
+        msgs = ((InternalEObject)newRationale).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, null, msgs);
+      msgs = basicSetRationale(newRationale, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, newRationale, newRationale));
   }
 
   /**
@@ -464,6 +480,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
         return basicSetDescription(null, msgs);
+      case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
+        return basicSetRationale(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -533,7 +551,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         setTimeout((Integer)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        setRationale((String)newValue);
+        setRationale((Rationale)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -571,7 +589,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         setTimeout(TIMEOUT_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        setRationale(RATIONALE_EDEFAULT);
+        setRationale((Rationale)null);
         return;
     }
     super.eUnset(featureID);
@@ -602,7 +620,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
       case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
+        return rationale != null;
     }
     return super.eIsSet(featureID);
   }
@@ -624,8 +642,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     result.append(title);
     result.append(", timeout: ");
     result.append(timeout);
-    result.append(", rationale: ");
-    result.append(rationale);
     result.append(')');
     return result.toString();
   }

@@ -88,6 +88,16 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createDescriptionElementAdapter();
       }
       @Override
+      public Adapter caseRationale(Rationale object)
+      {
+        return createRationaleAdapter();
+      }
+      @Override
+      public Adapter caseUncertainty(Uncertainty object)
+      {
+        return createUncertaintyAdapter();
+      }
+      @Override
       public Adapter caseComputeDeclaration(ComputeDeclaration object)
       {
         return createComputeDeclarationAdapter();
@@ -96,6 +106,11 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       public Adapter caseShowValue(ShowValue object)
       {
         return createShowValueAdapter();
+      }
+      @Override
+      public Adapter caseAPropertyReference(APropertyReference object)
+      {
+        return createAPropertyReferenceAdapter();
       }
       @Override
       public Adapter caseXNumberLiteralUnit(XNumberLiteralUnit object)
@@ -165,6 +180,36 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.Rationale <em>Rationale</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.Rationale
+   * @generated
+   */
+  public Adapter createRationaleAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.Uncertainty <em>Uncertainty</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.Uncertainty
+   * @generated
+   */
+  public Adapter createUncertaintyAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -190,6 +235,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createShowValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.APropertyReference <em>AProperty Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.APropertyReference
+   * @generated
+   */
+  public Adapter createAPropertyReferenceAdapter()
   {
     return null;
   }

@@ -6,6 +6,9 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.Uncertainty;
+
 import org.osate.reqspec.reqSpec.Requirement;
 
 /**
@@ -22,6 +25,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getArgument <em>Argument</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getArgumentUncertainty <em>Argument Uncertainty</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getSubclaim <em>Subclaim</em>}</li>
  * </ul>
@@ -190,30 +194,56 @@ public interface Claim extends EObject
   void setArgument(String value);
 
   /**
-   * Returns the value of the '<em><b>Rationale</b></em>' attribute.
+   * Returns the value of the '<em><b>Argument Uncertainty</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rationale</em>' attribute isn't clear,
+   * If the meaning of the '<em>Argument Uncertainty</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' attribute.
-   * @see #setRationale(String)
-   * @see org.osate.verify.verify.VerifyPackage#getClaim_Rationale()
-   * @model
+   * @return the value of the '<em>Argument Uncertainty</em>' containment reference.
+   * @see #setArgumentUncertainty(Uncertainty)
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_ArgumentUncertainty()
+   * @model containment="true"
    * @generated
    */
-  String getRationale();
+  Uncertainty getArgumentUncertainty();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.Claim#getArgumentUncertainty <em>Argument Uncertainty</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' attribute.
+   * @param value the new value of the '<em>Argument Uncertainty</em>' containment reference.
+   * @see #getArgumentUncertainty()
+   * @generated
+   */
+  void setArgumentUncertainty(Uncertainty value);
+
+  /**
+   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Rationale</em>' containment reference.
+   * @see #setRationale(Rationale)
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Rationale()
+   * @model containment="true"
+   * @generated
+   */
+  Rationale getRationale();
+
+  /**
+   * Sets the value of the '{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Rationale</em>' containment reference.
    * @see #getRationale()
    * @generated
    */
-  void setRationale(String value);
+  void setRationale(Rationale value);
 
   /**
    * Returns the value of the '<em><b>Subclaim</b></em>' containment reference list.

@@ -14,13 +14,18 @@ import org.eclipse.xtext.xbase.XbasePackage;
 
 import org.osate.aadl2.Aadl2Package;
 
+import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.CommonFactory;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.XNumberLiteralUnit;
+
+import org.osate.organization.organization.OrganizationPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,6 +54,20 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass rationaleEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass uncertaintyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass computeDeclarationEClass = null;
 
   /**
@@ -57,6 +76,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * @generated
    */
   private EClass showValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass aPropertyReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -116,6 +142,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     // Initialize simple dependencies
     XbasePackage.eINSTANCE.eClass();
     Aadl2Package.eINSTANCE.eClass();
+    OrganizationPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theCommonPackage.createPackageContents();
@@ -197,6 +224,126 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getRationale()
+  {
+    return rationaleEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getRationale_Text()
+  {
+    return (EAttribute)rationaleEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getRationale_Stakeholders()
+  {
+    return (EReference)rationaleEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUncertainty()
+  {
+    return uncertaintyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Name()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Volatility()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Costimpact()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Scheduleimpact()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Familiarity()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Timecriticality()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Riskindex()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Maturityindex()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getComputeDeclaration()
   {
     return computeDeclarationEClass;
@@ -257,6 +404,26 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getAPropertyReference()
+  {
+    return aPropertyReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAPropertyReference_Property()
+  {
+    return (EReference)aPropertyReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getXNumberLiteralUnit()
   {
     return xNumberLiteralUnitEClass;
@@ -310,6 +477,20 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     createEReference(descriptionElementEClass, DESCRIPTION_ELEMENT__SHOW_VALUE);
     createEAttribute(descriptionElementEClass, DESCRIPTION_ELEMENT__THIS_TARGET);
 
+    rationaleEClass = createEClass(RATIONALE);
+    createEAttribute(rationaleEClass, RATIONALE__TEXT);
+    createEReference(rationaleEClass, RATIONALE__STAKEHOLDERS);
+
+    uncertaintyEClass = createEClass(UNCERTAINTY);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__NAME);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__VOLATILITY);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__COSTIMPACT);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__SCHEDULEIMPACT);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__FAMILIARITY);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__TIMECRITICALITY);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__RISKINDEX);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__MATURITYINDEX);
+
     computeDeclarationEClass = createEClass(COMPUTE_DECLARATION);
     createEAttribute(computeDeclarationEClass, COMPUTE_DECLARATION__WRITEABLE);
     createEAttribute(computeDeclarationEClass, COMPUTE_DECLARATION__NAME);
@@ -317,6 +498,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     showValueEClass = createEClass(SHOW_VALUE);
     createEReference(showValueEClass, SHOW_VALUE__REF);
     createEReference(showValueEClass, SHOW_VALUE__UNIT);
+
+    aPropertyReferenceEClass = createEClass(APROPERTY_REFERENCE);
+    createEReference(aPropertyReferenceEClass, APROPERTY_REFERENCE__PROPERTY);
 
     xNumberLiteralUnitEClass = createEClass(XNUMBER_LITERAL_UNIT);
     createEReference(xNumberLiteralUnitEClass, XNUMBER_LITERAL_UNIT__UNIT);
@@ -348,6 +532,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
+    OrganizationPackage theOrganizationPackage = (OrganizationPackage)EPackage.Registry.INSTANCE.getEPackage(OrganizationPackage.eNS_URI);
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
 
@@ -356,6 +541,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    aPropertyReferenceEClass.getESuperTypes().add(theXbasePackage.getXExpression());
     xNumberLiteralUnitEClass.getESuperTypes().add(theXbasePackage.getXNumberLiteral());
 
     // Initialize classes and features; add operations and parameters
@@ -367,6 +553,20 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEReference(getDescriptionElement_ShowValue(), this.getShowValue(), null, "showValue", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getDescriptionElement_ThisTarget(), theEcorePackage.getEBoolean(), "thisTarget", null, 0, 1, DescriptionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(rationaleEClass, Rationale.class, "Rationale", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getRationale_Text(), theEcorePackage.getEString(), "text", null, 0, 1, Rationale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRationale_Stakeholders(), theOrganizationPackage.getStakeholder(), null, "stakeholders", null, 0, -1, Rationale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(uncertaintyEClass, Uncertainty.class, "Uncertainty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getUncertainty_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Volatility(), theEcorePackage.getEInt(), "volatility", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Costimpact(), theEcorePackage.getEInt(), "costimpact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Scheduleimpact(), theEcorePackage.getEInt(), "scheduleimpact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Familiarity(), theEcorePackage.getEInt(), "familiarity", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Timecriticality(), theEcorePackage.getEInt(), "timecriticality", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Riskindex(), theEcorePackage.getEInt(), "riskindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Maturityindex(), theEcorePackage.getEInt(), "maturityindex", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(computeDeclarationEClass, ComputeDeclaration.class, "ComputeDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getComputeDeclaration_Writeable(), theEcorePackage.getEBoolean(), "writeable", null, 0, 1, ComputeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getComputeDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ComputeDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -374,6 +574,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     initEClass(showValueEClass, ShowValue.class, "ShowValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getShowValue_Ref(), theXbasePackage.getXVariableDeclaration(), null, "ref", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getShowValue_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, ShowValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(aPropertyReferenceEClass, APropertyReference.class, "APropertyReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAPropertyReference_Property(), theAadl2Package.getProperty(), null, "property", null, 0, 1, APropertyReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(xNumberLiteralUnitEClass, XNumberLiteralUnit.class, "XNumberLiteralUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getXNumberLiteralUnit_Unit(), theAadl2Package.getUnitLiteral(), null, "unit", null, 0, 1, XNumberLiteralUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

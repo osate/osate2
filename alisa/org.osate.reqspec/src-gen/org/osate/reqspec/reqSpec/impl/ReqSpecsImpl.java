@@ -38,6 +38,8 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTargetDescription <em>Target Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getComputes <em>Computes</em>}</li>
@@ -98,6 +100,46 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * @ordered
    */
   protected Classifier target;
+
+  /**
+   * The default value of the '{@link #getTargetDescription() <em>Target Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetDescription()
+   * @generated
+   * @ordered
+   */
+  protected static final String TARGET_DESCRIPTION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTargetDescription() <em>Target Description</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetDescription()
+   * @generated
+   * @ordered
+   */
+  protected String targetDescription = TARGET_DESCRIPTION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean GLOBAL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected boolean global = GLOBAL_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getOtherreqspecs() <em>Otherreqspecs</em>}' reference list.
@@ -254,6 +296,52 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getTargetDescription()
+  {
+    return targetDescription;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTargetDescription(String newTargetDescription)
+  {
+    String oldTargetDescription = targetDescription;
+    targetDescription = newTargetDescription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION, oldTargetDescription, targetDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isGlobal()
+  {
+    return global;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGlobal(boolean newGlobal)
+  {
+    boolean oldGlobal = global;
+    global = newGlobal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQ_SPECS__GLOBAL, oldGlobal, global));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ReqSpecs> getOtherreqspecs()
   {
     if (otherreqspecs == null)
@@ -342,6 +430,10 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
+        return getTargetDescription();
+      case ReqSpecPackage.REQ_SPECS__GLOBAL:
+        return isGlobal();
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         return getOtherreqspecs();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
@@ -373,6 +465,12 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return;
       case ReqSpecPackage.REQ_SPECS__TARGET:
         setTarget((Classifier)newValue);
+        return;
+      case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
+        setTargetDescription((String)newValue);
+        return;
+      case ReqSpecPackage.REQ_SPECS__GLOBAL:
+        setGlobal((Boolean)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         getOtherreqspecs().clear();
@@ -413,6 +511,12 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__TARGET:
         setTarget((Classifier)null);
         return;
+      case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
+        setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
+        return;
+      case ReqSpecPackage.REQ_SPECS__GLOBAL:
+        setGlobal(GLOBAL_EDEFAULT);
+        return;
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         getOtherreqspecs().clear();
         return;
@@ -445,6 +549,10 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case ReqSpecPackage.REQ_SPECS__TARGET:
         return target != null;
+      case ReqSpecPackage.REQ_SPECS__TARGET_DESCRIPTION:
+        return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
+      case ReqSpecPackage.REQ_SPECS__GLOBAL:
+        return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         return otherreqspecs != null && !otherreqspecs.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
@@ -472,6 +580,10 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", targetDescription: ");
+    result.append(targetDescription);
+    result.append(", global: ");
+    result.append(global);
     result.append(')');
     return result.toString();
   }

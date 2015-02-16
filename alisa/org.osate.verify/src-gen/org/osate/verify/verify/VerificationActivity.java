@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.Rationale;
 
 import org.osate.reqspec.reqSpec.Requirement;
 
@@ -217,29 +218,29 @@ public interface VerificationActivity extends EObject
   void setTimeout(int value);
 
   /**
-   * Returns the value of the '<em><b>Rationale</b></em>' attribute.
+   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rationale</em>' attribute isn't clear,
+   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' attribute.
-   * @see #setRationale(String)
+   * @return the value of the '<em>Rationale</em>' containment reference.
+   * @see #setRationale(Rationale)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Rationale()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getRationale();
+  Rationale getRationale();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' attribute.
+   * @param value the new value of the '<em>Rationale</em>' containment reference.
    * @see #getRationale()
    * @generated
    */
-  void setRationale(String value);
+  void setRationale(Rationale value);
 
 } // VerificationActivity

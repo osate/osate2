@@ -5,12 +5,17 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XVariableDeclaration;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
@@ -59,6 +64,20 @@ public class CommonUtilExtension {
           _right=decl.getRight();
         }
         final XExpression x = _right;
+        if ((x instanceof APropertyReference)) {
+          final Property pd = ((APropertyReference)x).getProperty();
+          try {
+            final PropertyExpression pval = target.getSimplePropertyValue(pd);
+            return pval.toString();
+          } catch (final Throwable _t) {
+            if (_t instanceof PropertyLookupException) {
+              final PropertyLookupException e = (PropertyLookupException)_t;
+              return pd.qualifiedName();
+            } else {
+              throw Exceptions.sneakyThrow(_t);
+            }
+          }
+        }
         if ((x instanceof XNumberLiteralUnit)) {
           String _elvis = null;
           String _value = ((XNumberLiteralUnit)x).getValue();

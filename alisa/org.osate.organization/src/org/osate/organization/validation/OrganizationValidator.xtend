@@ -3,13 +3,11 @@
  */
 package org.osate.organization.validation
 
-import org.osate.organization.organization.Stakeholder
-import org.eclipse.xtext.validation.Check
-import org.osate.organization.organization.Organization
-import org.osate.organization.organization.OrganizationPackage
-import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
-import org.eclipse.xtext.scoping.IGlobalScopeProvider
 import com.google.inject.Inject
+import org.eclipse.xtext.scoping.IGlobalScopeProvider
+import org.eclipse.xtext.validation.Check
+import org.osate.organization.organization.OrganizationPackage
+import org.osate.organization.organization.Stakeholder
 import org.osate.organization.util.OrganizationUtil
 
 /**
@@ -41,23 +39,5 @@ class OrganizationValidator extends AbstractOrganizationValidator {
 			)
 	}
 
-	/**
- * Check that organizations are globally unique
- */
-	@Check
-	def void checkDuplicatesOrganization(Organization org) {
-		val dups = ( scopeProvider as CommonGlobalScopeProvider).getDuplicates(org)
-		if (!dups.empty) {
-			// the original is in the set
-			for (dup : dups) {
-			error(
-				"Duplicate organization '" + dup.name + "'",
-				OrganizationPackage::eINSTANCE.organization_Name,
-				DUPLICATE_ORGANIZATION,
-				dup.name.toString
-			)
-			}
-		}
-	}
 
 }

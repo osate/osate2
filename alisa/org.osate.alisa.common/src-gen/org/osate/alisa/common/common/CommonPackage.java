@@ -133,6 +133,134 @@ public interface CommonPackage extends EPackage
   int DESCRIPTION_ELEMENT_FEATURE_COUNT = 3;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.RationaleImpl <em>Rationale</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.RationaleImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getRationale()
+   * @generated
+   */
+  int RATIONALE = 2;
+
+  /**
+   * The feature id for the '<em><b>Text</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATIONALE__TEXT = 0;
+
+  /**
+   * The feature id for the '<em><b>Stakeholders</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATIONALE__STAKEHOLDERS = 1;
+
+  /**
+   * The number of structural features of the '<em>Rationale</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATIONALE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.UncertaintyImpl <em>Uncertainty</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.UncertaintyImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getUncertainty()
+   * @generated
+   */
+  int UNCERTAINTY = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Volatility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__VOLATILITY = 1;
+
+  /**
+   * The feature id for the '<em><b>Costimpact</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__COSTIMPACT = 2;
+
+  /**
+   * The feature id for the '<em><b>Scheduleimpact</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__SCHEDULEIMPACT = 3;
+
+  /**
+   * The feature id for the '<em><b>Familiarity</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__FAMILIARITY = 4;
+
+  /**
+   * The feature id for the '<em><b>Timecriticality</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__TIMECRITICALITY = 5;
+
+  /**
+   * The feature id for the '<em><b>Riskindex</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__RISKINDEX = 6;
+
+  /**
+   * The feature id for the '<em><b>Maturityindex</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__MATURITYINDEX = 7;
+
+  /**
+   * The number of structural features of the '<em>Uncertainty</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY_FEATURE_COUNT = 8;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -140,7 +268,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
    * @generated
    */
-  int COMPUTE_DECLARATION = 2;
+  int COMPUTE_DECLARATION = 4;
 
   /**
    * The feature id for the '<em><b>Writeable</b></em>' attribute.
@@ -177,7 +305,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getShowValue()
    * @generated
    */
-  int SHOW_VALUE = 3;
+  int SHOW_VALUE = 5;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -207,6 +335,34 @@ public interface CommonPackage extends EPackage
   int SHOW_VALUE_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.APropertyReferenceImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAPropertyReference()
+   * @generated
+   */
+  int APROPERTY_REFERENCE = 6;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APROPERTY_REFERENCE__PROPERTY = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>AProperty Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APROPERTY_REFERENCE_FEATURE_COUNT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl <em>XNumber Literal Unit</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -214,7 +370,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXNumberLiteralUnit()
    * @generated
    */
-  int XNUMBER_LITERAL_UNIT = 4;
+  int XNUMBER_LITERAL_UNIT = 7;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -309,6 +465,136 @@ public interface CommonPackage extends EPackage
   EAttribute getDescriptionElement_ThisTarget();
 
   /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.Rationale <em>Rationale</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Rationale</em>'.
+   * @see org.osate.alisa.common.common.Rationale
+   * @generated
+   */
+  EClass getRationale();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Rationale#getText <em>Text</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Text</em>'.
+   * @see org.osate.alisa.common.common.Rationale#getText()
+   * @see #getRationale()
+   * @generated
+   */
+  EAttribute getRationale_Text();
+
+  /**
+   * Returns the meta object for the reference list '{@link org.osate.alisa.common.common.Rationale#getStakeholders <em>Stakeholders</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Stakeholders</em>'.
+   * @see org.osate.alisa.common.common.Rationale#getStakeholders()
+   * @see #getRationale()
+   * @generated
+   */
+  EReference getRationale_Stakeholders();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.Uncertainty <em>Uncertainty</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Uncertainty</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty
+   * @generated
+   */
+  EClass getUncertainty();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getName()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Volatility</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getVolatility()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Volatility();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getCostimpact <em>Costimpact</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Costimpact</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getCostimpact()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Costimpact();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getScheduleimpact <em>Scheduleimpact</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Scheduleimpact</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getScheduleimpact()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Scheduleimpact();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getFamiliarity <em>Familiarity</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Familiarity</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getFamiliarity()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Familiarity();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getTimecriticality <em>Timecriticality</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Timecriticality</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getTimecriticality()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Timecriticality();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getRiskindex <em>Riskindex</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Riskindex</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getRiskindex()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Riskindex();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getMaturityindex <em>Maturityindex</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Maturityindex</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getMaturityindex()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Maturityindex();
+
+  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -371,6 +657,27 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EReference getShowValue_Unit();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.APropertyReference <em>AProperty Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>AProperty Reference</em>'.
+   * @see org.osate.alisa.common.common.APropertyReference
+   * @generated
+   */
+  EClass getAPropertyReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.common.common.APropertyReference#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Property</em>'.
+   * @see org.osate.alisa.common.common.APropertyReference#getProperty()
+   * @see #getAPropertyReference()
+   * @generated
+   */
+  EReference getAPropertyReference_Property();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.XNumberLiteralUnit <em>XNumber Literal Unit</em>}'.
@@ -469,6 +776,106 @@ public interface CommonPackage extends EPackage
     EAttribute DESCRIPTION_ELEMENT__THIS_TARGET = eINSTANCE.getDescriptionElement_ThisTarget();
 
     /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.RationaleImpl <em>Rationale</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.RationaleImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getRationale()
+     * @generated
+     */
+    EClass RATIONALE = eINSTANCE.getRationale();
+
+    /**
+     * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RATIONALE__TEXT = eINSTANCE.getRationale_Text();
+
+    /**
+     * The meta object literal for the '<em><b>Stakeholders</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RATIONALE__STAKEHOLDERS = eINSTANCE.getRationale_Stakeholders();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.UncertaintyImpl <em>Uncertainty</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.UncertaintyImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getUncertainty()
+     * @generated
+     */
+    EClass UNCERTAINTY = eINSTANCE.getUncertainty();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__NAME = eINSTANCE.getUncertainty_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Volatility</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__VOLATILITY = eINSTANCE.getUncertainty_Volatility();
+
+    /**
+     * The meta object literal for the '<em><b>Costimpact</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__COSTIMPACT = eINSTANCE.getUncertainty_Costimpact();
+
+    /**
+     * The meta object literal for the '<em><b>Scheduleimpact</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__SCHEDULEIMPACT = eINSTANCE.getUncertainty_Scheduleimpact();
+
+    /**
+     * The meta object literal for the '<em><b>Familiarity</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__FAMILIARITY = eINSTANCE.getUncertainty_Familiarity();
+
+    /**
+     * The meta object literal for the '<em><b>Timecriticality</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__TIMECRITICALITY = eINSTANCE.getUncertainty_Timecriticality();
+
+    /**
+     * The meta object literal for the '<em><b>Riskindex</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__RISKINDEX = eINSTANCE.getUncertainty_Riskindex();
+
+    /**
+     * The meta object literal for the '<em><b>Maturityindex</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__MATURITYINDEX = eINSTANCE.getUncertainty_Maturityindex();
+
+    /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -519,6 +926,24 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference SHOW_VALUE__UNIT = eINSTANCE.getShowValue_Unit();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.APropertyReferenceImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAPropertyReference()
+     * @generated
+     */
+    EClass APROPERTY_REFERENCE = eINSTANCE.getAPropertyReference();
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference APROPERTY_REFERENCE__PROPERTY = eINSTANCE.getAPropertyReference_Property();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.XNumberLiteralUnitImpl <em>XNumber Literal Unit</em>}' class.

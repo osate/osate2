@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.alisa.common.common.Description;
+import org.osate.alisa.common.common.Rationale;
+import org.osate.alisa.common.common.Uncertainty;
 
 import org.osate.categories.categories.RequirementCategory;
 
@@ -44,6 +46,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getChangeUncertainty <em>Change Uncertainty</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocReference <em>Doc Reference</em>}</li>
  * </ul>
@@ -144,24 +147,24 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
   protected Description description;
 
   /**
-   * The default value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getRationale()
    * @generated
    * @ordered
    */
-  protected static final String RATIONALE_EDEFAULT = null;
+  protected Rationale rationale;
 
   /**
-   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' attribute.
+   * The cached value of the '{@link #getChangeUncertainty() <em>Change Uncertainty</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRationale()
+   * @see #getChangeUncertainty()
    * @generated
    * @ordered
    */
-  protected String rationale = RATIONALE_EDEFAULT;
+  protected Uncertainty changeUncertainty;
 
   /**
    * The cached value of the '{@link #getDocumentRequirement() <em>Document Requirement</em>}' reference list.
@@ -412,7 +415,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getRationale()
+  public Rationale getRationale()
   {
     return rationale;
   }
@@ -422,12 +425,85 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRationale(String newRationale)
+  public NotificationChain basicSetRationale(Rationale newRationale, NotificationChain msgs)
   {
-    String oldRationale = rationale;
+    Rationale oldRationale = rationale;
     rationale = newRationale;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE, oldRationale, rationale));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE, oldRationale, newRationale);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRationale(Rationale newRationale)
+  {
+    if (newRationale != rationale)
+    {
+      NotificationChain msgs = null;
+      if (rationale != null)
+        msgs = ((InternalEObject)rationale).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE, null, msgs);
+      if (newRationale != null)
+        msgs = ((InternalEObject)newRationale).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE, null, msgs);
+      msgs = basicSetRationale(newRationale, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE, newRationale, newRationale));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Uncertainty getChangeUncertainty()
+  {
+    return changeUncertainty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetChangeUncertainty(Uncertainty newChangeUncertainty, NotificationChain msgs)
+  {
+    Uncertainty oldChangeUncertainty = changeUncertainty;
+    changeUncertainty = newChangeUncertainty;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY, oldChangeUncertainty, newChangeUncertainty);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setChangeUncertainty(Uncertainty newChangeUncertainty)
+  {
+    if (newChangeUncertainty != changeUncertainty)
+    {
+      NotificationChain msgs = null;
+      if (changeUncertainty != null)
+        msgs = ((InternalEObject)changeUncertainty).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY, null, msgs);
+      if (newChangeUncertainty != null)
+        msgs = ((InternalEObject)newChangeUncertainty).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY, null, msgs);
+      msgs = basicSetChangeUncertainty(newChangeUncertainty, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY, newChangeUncertainty, newChangeUncertainty));
   }
 
   /**
@@ -470,6 +546,10 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     {
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return basicSetDescription(null, msgs);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
+        return basicSetRationale(null, msgs);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
+        return basicSetChangeUncertainty(null, msgs);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
     }
@@ -502,6 +582,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return getDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return getRationale();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
+        return getChangeUncertainty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
         return getDocumentRequirement();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
@@ -540,7 +622,10 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         setDescription((Description)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
-        setRationale((String)newValue);
+        setRationale((Rationale)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
+        setChangeUncertainty((Uncertainty)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
         getDocumentRequirement().clear();
@@ -583,7 +668,10 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         setDescription((Description)null);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
-        setRationale(RATIONALE_EDEFAULT);
+        setRationale((Rationale)null);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
+        setChangeUncertainty((Uncertainty)null);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
         getDocumentRequirement().clear();
@@ -618,7 +706,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return description != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
-        return RATIONALE_EDEFAULT == null ? rationale != null : !RATIONALE_EDEFAULT.equals(rationale);
+        return rationale != null;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
+        return changeUncertainty != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOCUMENT_REQUIREMENT:
         return documentRequirement != null && !documentRequirement.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
@@ -644,8 +734,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     result.append(title);
     result.append(", targetDescription: ");
     result.append(targetDescription);
-    result.append(", rationale: ");
-    result.append(rationale);
     result.append(')');
     return result.toString();
   }

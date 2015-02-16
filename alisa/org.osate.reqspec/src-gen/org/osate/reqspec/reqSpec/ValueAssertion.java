@@ -2,8 +2,6 @@
  */
 package org.osate.reqspec.reqSpec;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.xtext.xbase.XExpression;
 
 /**
@@ -15,7 +13,6 @@ import org.eclipse.xtext.xbase.XExpression;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.ValueAssertion#getXpression <em>Xpression</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ValueAssertion#getValToPropertyMappings <em>Val To Property Mappings</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,21 +47,5 @@ public interface ValueAssertion extends ReqPredicate
    * @generated
    */
   void setXpression(XExpression value);
-
-  /**
-   * Returns the value of the '<em><b>Val To Property Mappings</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.ValToPropertyMapping}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Val To Property Mappings</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Val To Property Mappings</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getValueAssertion_ValToPropertyMappings()
-   * @model containment="true"
-   * @generated
-   */
-  EList<ValToPropertyMapping> getValToPropertyMappings();
 
 } // ValueAssertion

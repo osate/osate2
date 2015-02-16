@@ -56,11 +56,14 @@ import org.eclipse.xtext.xtype.XFunctionTypeRef;
 import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
+import org.osate.alisa.common.common.APropertyReference;
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
+import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.XNumberLiteralUnit;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.reqspec.reqSpec.BehaviorEquation;
@@ -78,7 +81,6 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.SPeARPredicate;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
-import org.osate.reqspec.reqSpec.ValToPropertyMapping;
 import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.reqSpec.XPredicate;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
@@ -91,6 +93,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case CommonPackage.APROPERTY_REFERENCE:
+				if(context == grammarAccess.getAPropertyReferenceRule()) {
+					sequence_APropertyReference(context, (APropertyReference) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.COMPUTE_DECLARATION:
 				if(context == grammarAccess.getComputeDeclarationRule()) {
 					sequence_ComputeDeclaration(context, (ComputeDeclaration) semanticObject); 
@@ -109,9 +117,21 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 					return; 
 				}
 				else break;
+			case CommonPackage.RATIONALE:
+				if(context == grammarAccess.getRationaleRule()) {
+					sequence_Rationale(context, (Rationale) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.SHOW_VALUE:
 				if(context == grammarAccess.getShowValueRule()) {
 					sequence_ShowValue(context, (ShowValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.UNCERTAINTY:
+				if(context == grammarAccess.getUncertaintyRule()) {
+					sequence_Uncertainty(context, (Uncertainty) semanticObject); 
 					return; 
 				}
 				else break;
@@ -252,12 +272,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				   context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getStakeholderGoalsRule()) {
 					sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
-					return; 
-				}
-				else break;
-			case ReqSpecPackage.VAL_TO_PROPERTY_MAPPING:
-				if(context == grammarAccess.getValToPropertyMappingRule()) {
-					sequence_ValToPropertyMapping(context, (ValToPropertyMapping) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1398,7 +1412,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
 	 *         category=[RequirementCategory|ID]? 
 	 *         description=Description? 
-	 *         rationale=STRING? 
+	 *         rationale=Rationale? 
+	 *         changeUncertainty=Uncertainty? 
 	 *         refinesReference+=[Goal|QualifiedName]* 
 	 *         conflictsReference+=[Goal|QualifiedName]* 
 	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
@@ -1468,7 +1483,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         target=[Classifier|AadlClassifierReference]? 
+	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -1491,7 +1506,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
 	 *         predicate=ReqPredicate? 
-	 *         rationale=STRING? 
+	 *         rationale=Rationale? 
+	 *         changeUncertainty=Uncertainty? 
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinedReference+=[Requirement|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
@@ -1526,7 +1542,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (target=[Classifier|AadlClassifierReference] | targetDescription=STRING)? 
+	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         description=Description? 
 	 *         (content+=Goal | content+=GoalFolder)*
 	 *     )
@@ -1538,29 +1554,17 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (constant=[XVariableDeclaration|ID] property=[Property|PROPERTYREFERENCE])
+	 *     xpression=XExpression
 	 */
-	protected void sequence_ValToPropertyMapping(EObject context, ValToPropertyMapping semanticObject) {
+	protected void sequence_ValueAssertion(EObject context, ValueAssertion semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.VAL_TO_PROPERTY_MAPPING__CONSTANT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.VAL_TO_PROPERTY_MAPPING__CONSTANT));
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.VAL_TO_PROPERTY_MAPPING__PROPERTY) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.VAL_TO_PROPERTY_MAPPING__PROPERTY));
+			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.VALUE_ASSERTION__XPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.VALUE_ASSERTION__XPRESSION));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getValToPropertyMappingAccess().getConstantXVariableDeclarationIDTerminalRuleCall_0_0_1(), semanticObject.getConstant());
-		feeder.accept(grammarAccess.getValToPropertyMappingAccess().getPropertyPropertyPROPERTYREFERENCEParserRuleCall_2_0_1(), semanticObject.getProperty());
+		feeder.accept(grammarAccess.getValueAssertionAccess().getXpressionXExpressionParserRuleCall_2_0(), semanticObject.getXpression());
 		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (xpression=XExpression valToPropertyMappings+=ValToPropertyMapping?)
-	 */
-	protected void sequence_ValueAssertion(EObject context, ValueAssertion semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

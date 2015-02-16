@@ -16,7 +16,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/targetDescription"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/category"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ContractualElement/rationale"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/rationale"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/changeUncertainty"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/documentRequirement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ContractualElement/docReference"/>
     </genClasses>
@@ -26,6 +27,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/targetDescription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/global"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/content"/>
     </genClasses>
@@ -45,6 +47,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecs/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecs/title"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecs/targetDescription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecs/global"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/otherreqspecs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/constants"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/computes"/>
@@ -84,7 +88,6 @@
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ValueAssertion">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValueAssertion/xpression"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValueAssertion/valToPropertyMappings"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//InputAssumption">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//InputAssumption/xpression"/>
@@ -104,10 +107,6 @@
     <genClasses ecoreClass="ReqSpec.ecore#//ExternalDocument">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docReference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ExternalDocument/docFragment"/>
-    </genClasses>
-    <genClasses ecoreClass="ReqSpec.ecore#//ValToPropertyMapping">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValToPropertyMapping/constant"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValToPropertyMapping/property"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

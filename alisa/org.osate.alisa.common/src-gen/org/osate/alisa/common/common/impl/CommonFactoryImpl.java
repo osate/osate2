@@ -66,8 +66,11 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     {
       case CommonPackage.DESCRIPTION: return createDescription();
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
+      case CommonPackage.RATIONALE: return createRationale();
+      case CommonPackage.UNCERTAINTY: return createUncertainty();
       case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.SHOW_VALUE: return createShowValue();
+      case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
       case CommonPackage.XNUMBER_LITERAL_UNIT: return createXNumberLiteralUnit();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -101,6 +104,28 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Rationale createRationale()
+  {
+    RationaleImpl rationale = new RationaleImpl();
+    return rationale;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Uncertainty createUncertainty()
+  {
+    UncertaintyImpl uncertainty = new UncertaintyImpl();
+    return uncertainty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ComputeDeclaration createComputeDeclaration()
   {
     ComputeDeclarationImpl computeDeclaration = new ComputeDeclarationImpl();
@@ -116,6 +141,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     ShowValueImpl showValue = new ShowValueImpl();
     return showValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public APropertyReference createAPropertyReference()
+  {
+    APropertyReferenceImpl aPropertyReference = new APropertyReferenceImpl();
+    return aPropertyReference;
   }
 
   /**

@@ -5,6 +5,8 @@ import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.XNumberLiteralUnit
+import org.osate.alisa.common.common.APropertyReference
+import org.osate.aadl2.properties.PropertyLookupException
 
 class CommonUtilExtension {
 		
@@ -21,6 +23,15 @@ class CommonUtilExtension {
 			}
 			// TODO handle unit specified at ShowValue level
 			val x = decl?.right
+			if (x instanceof APropertyReference){
+				val pd = x.property
+				try {
+				val pval = target.getSimplePropertyValue(pd)
+				return pval.toString
+				} catch (PropertyLookupException e){
+					return pd.qualifiedName()
+				}
+			}
 			if (x instanceof XNumberLiteralUnit){
 				return x.value + x.unit?.name?:""
 			}
