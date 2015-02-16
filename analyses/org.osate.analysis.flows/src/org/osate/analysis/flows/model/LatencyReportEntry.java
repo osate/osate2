@@ -333,6 +333,7 @@ public class LatencyReportEntry {
 						// add the period. Even for partition with offset we have the worst case of a period
 						if (doMaximum) {
 							res = res + lc.getSamplingPeriod();
+							lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
 						}
 						lc.reportSubtotal(res, doMaximum);
 					}
