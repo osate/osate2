@@ -6,19 +6,22 @@ section:AssuranceTasks[Assurance tasks and Configurations]
 code[Alisa][
 <AlisaWorkArea> ::=
 	alisa workareaname
-	<AssuranceCaseConfiguration>*
+	<AssuranceTaskConfiguration>*
 
 <AssuranceCaseConfiguration>:
-	case name=ID (':' title=ValueString)?
+	assurance task name=ID (':' title=ValueString)?
 	for <ComponentImplementationReferene>
 	\[
 		( description Description)?
-		( constants ConstantDecl+ )?
-		plans <VerificationPlanReference>+
-		( when <SelectionCategory>+ )?
+		assert <VerificationPlanReference>+
+		assume verified <Aadl component type or implementation>
+		( filter <SelectionCategory>+ )?
 	\]
 ]
 
+Currently filtering is limited to selection categories. We intend to allow also the specificaiton of
+requirement categories and verification categories. We are looking for inpout as to whether the combination
+of category types should be interpreted as e[and] or e[or].
 
 section:Uncertainty[Uncertainty in Requirements and Arguments]
 

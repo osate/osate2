@@ -7,7 +7,7 @@ of the AADL model for the system of interest.
 You then create a project as an AADL project for which the Xtext nature will be enabled when you create
 model files for one of the Alisa notations. You can create separate projects for your architecture models
 in AADL, for your requirement/verification specifications, and for other specifications such as Resolute
-libraries used in teh verification - as shown in the example. Make sure you specify e[Project References]
+libraries used in the verification - as shown in the example. Make sure you specify e[Project References]
 through the e[Preferences] menu. Select a project, selecte e[Preferences] under the e[Window] menu, (type e[pref] into the search bar of the preferences dialog and then
 specify the projects in which this project will reference file content.
 
@@ -17,45 +17,48 @@ You will create stakeholder goals and system requirements. You will do so in the
 AADL model that represents the system of interest in its operational context by explicitly modeling all
 the entities in the operational environment that the system may be exposed to and interact with.
 
-In the case of stakeholder goals you will identify the stakeholders. Those are defined in a separate
-e[.org] file.
+Stakeholders are defined as members of an organization. Each organization and its members is defined in a 
+separate e[.org] file.
 
-img[images/stakeholderorg.png][Stekeholder Descriptions as Members of Organizations][][]
+img[images/stakeholderorg.png][Stakeholder Descriptions as Members of Organizations][][]
 
-Users can specify stakeholder goals and identify stekeholders responsible for those goals.
+Users can define a collection of stakeholder e[goals] for a system . For each goal one or more stakeholders can be identified.
+In the process the user want to utilize a use case notation such as the URN Use Case Maps (UCM) - see
+http://jucmnav.softwareengineering.ca/ucm/bin/view/ProjetSEG/WebHome .
 
 img[images/goals.png][Stakeholder Goals][][]
 
-Next we specify system requirements. They are traced to stakeholder goals and they idnetify the component
-specification (component type or implementation) in teh AADL model the requirement is associated with.
-It also specifies constants that can be used in descriptions and as operands in assert expressions. 
+System e[requirements] are specified in a system e[requirement specification].  They are traced to stakeholder goals and they identify the component
+ type or implementation in the AADL model the requirement is associated with.
+Users can also specifies values as constants that can be used in descriptions and as operands in assert expressions. Typically,
+those are values that the user may want to change.
 
-Requirmeents can be refined into requirements that are verifable. All e[leaf] requirements are expected
+Requirements can be refined into requirements that are verifable. All e[leaf] requirements are expected
 to be verifiable.
 
 img[images/requirementexample.png][System Requirements in Context of an AADL Model][][]
 
-For each requirement the user specifies how the requirement is verified. This is done through a verification
-plans for each system component. Such a plan specifies a claim for each requirement that a particular
-collection of verification activities is sufficient evidence that a system implementation meets the requirement.
-Users may specify collections of verification activities, impose an order to indicate that some are dependent
-on the successful completion of others, and that specify that in case of failure to complete execution, or returning a negative
+For each system the user specifies a verificaiton plan. The verification plan specifies a claim for each requirement of the system of interest,
+identifying a collection of verification activities and making the argument of sufficient evidence if these verification activities applied to a system implementation pass. 
+Users may impose an order to indicate that some are dependent
+on the successful completion of others, and specify that in case of failure to complete execution, or returning a negative
 result (e[fail]) an alternative verification activity may be performed.
 
 img[images/verificationplan.png][System Requirements in Context of an AADL Model][][] 
 
 Typically the user will work with an existing e[registry] of e[verification methods]. This registry identifies the methods available for use in verification activities. You may add methods to the registry as you may
-develop additional analysis,verification, and test methods. 
+develop additional analysis,verification, and test methods. Users can build up libraries of verificaion
+methods that can be used on different projects.
 
-Finally, you will define the an assurance task configuration for a particular system by identifying
-the verification plans of those components in your system you are responsbile for verifying and a verification perspective that specifies selection criteria for a subset of the verificaitona ctivities as part of this assurance task.
+Finally, the user will define the an e[assurance task] for a particular system. The assurance task identifies
+the verification plans of those system components that the user wants to verify. The user may specify
+selection criteria for a subset of the verificaitona activities that are to be performed as part of this assurance task.
 The selection criterion is expressed in terms of e[selection category] tags that have been attached to
-verificaiton methods or activities.
+verification methods or activities.
  
- The assurance task configuration is used to automatically
- generate an instance of the specified assurance task that will execute and track the results of verification
- activities as a record of evidence at any time during the life cycle. This instance can be found in
- the folder e[assure] as a file with the extension e[assure].
+ From the assurance task specification an assurance task instance is created. 
+ This instance is used to drive the execution of the verification activities and to record the resultss as e[assuanrce evidence]. 
+ 
  
 img[images/assureexample.png][Snippet of a Generated Assure file][][] 
  
@@ -76,5 +79,5 @@ img[images/assureexample.png][Snippet of a Generated Assure file][][]
  when assurance evidence instances are created.]
  ]
  
- for more on any of the Alisa concepts see the respective section.
+For more on any of the Alisa concepts see the respective section.
  

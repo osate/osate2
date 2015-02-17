@@ -38,9 +38,9 @@ codelanguage-def[ReqSpec]
 
 codelanguage-def[Verify]
 [
-	plan,for,title,description,weights, as, enum,
+	plan,for,title,description,weights, as, enum, assume, verified,
 	assert,rationale,library,folder,activity,category,method,timeout
-	,all,andthen,failthen,when,registry, assumption, claim, marker
+	,all,andthen,failthen,unknownthen,path,when,registry, argument, claim, validation, precondition
 ]
 
 codelanguage-def[Assure]
@@ -54,8 +54,8 @@ codelanguage-def[Assure]
 
 codelanguage-def[Alisa]
 [
-	alisa,for,description,rationale,case, constants, plans, when
-	, scheduleImpact, uncertainty, costImpact, familiarity, maturityIndex, timeCriticality, riskIndex, propRiskIndex
+	alisa,for,description,rationale, filter,constants,  assurance, task, assume, assert, verified,
+	scheduleImpact, uncertainty, costImpact, familiarity, maturityIndex, timeCriticality, riskIndex, propRiskIndex
 ]
 
 

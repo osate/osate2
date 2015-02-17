@@ -1,7 +1,7 @@
 chapter:Introduction[Introduction]
 
 Architecture-led Incremental System Assurance (ALISA) is an incremental life-cycle assurance workbench
-for high-assurance software reliant systems. It utlizes architecture abstractions in models to manage
+for high-assurance software-reliant systems. It utlizes architecture abstractions in models to manage
 requirements across multiple layer of a system architecture and the verification of a system implementation
 agains tthese requirements. The workbench complements the capabilities of an architecture-centric virtual
 system integration workbench for the development of such systems.
@@ -20,7 +20,7 @@ ul[
 	activities.]
 	item[e[Alisa:] a notation for defining assurance tasks to produce assurance evidence from execution
 	of verification plans configured to specific perspectives.]
-	item[e[Assure:] a notation that represents the assurance results, i.e., the results of executing verification
+	item[e[Assure:] a notation that represents the assurance evidence, i.e., the results of executing verification
 	plans on a system instance. Models in this notation are automatically generated from an asurance
 	task specification.]
 ]

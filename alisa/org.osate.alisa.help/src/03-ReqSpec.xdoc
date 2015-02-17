@@ -33,14 +33,15 @@ goal goalname
 	( :  "short descriptive title" )?
 	( for ComponentElement | "Target description" )?
 	\[  
-	 (category safety )?
-	 (description  "Textline")? 
-	 (rationale "explanation")? 
+	 (category ( safety )+ )?
+	 (description  "one or more lines of descriptoive text" )? 
+	 (rationale "explanation" )? 
 	 (refines ( docx.goal1 )+ )? 
 	 (conflicts with docx.goal15 )+)? 
 	 (stakeholder  ( SEI.Feiler )+ )?
 	 (see document requirement ( ReqDoc.Req14 )+)?
 	 (see document ( filepath/file.doc#path.within.doc )+)? 
+	 ( <change Uncertainty> )?  
 	\]
 ]
 
@@ -50,7 +51,7 @@ ul[
 item[The e[for] attribute either points to an element in an AADL componenbt classifier (the classifier
 itself is identified in the enclosing container), or it provides a string description of the target of
 the goal. If absent the goal applies to any system component.]
-item[The e[category] attribute identifies a requirment category. Requirement categories are user-definable
+item[The e[category] attribute identifies one or more requirment categories. Requirement categories are user-definable
 and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
 ]
 item[The e[description] attribute allows user to provide a description that spans multiple lines. The description consists of a sequence of strings,
@@ -68,6 +69,7 @@ item[The e[see document requirement] attribute identifies a stakeholder requirem
 requirement document.]
 item[The e[see document] attribute is a reference to an external document that may not be in a format
 importable to Alisa.]
+item[The e[uncertainty] attribute specifies a potential requirement change ref:Uncertainty[uncertainty].]
 ]
 
 Goals can used to represent stakeholder requirements imported from existing documents, or aligned with
@@ -85,18 +87,19 @@ requirement reqname
 	( :  "short descriptive title" )?
 	( for ComponentElement | "Target description" )?
 	\[  
-	 (category guarantee )?
+	 (category ( safety )+ )?
 	 (description  this " shall not exceed " limit%sec " latency")? 
 	 (val limit = 200 ms )* 
 	 (compute actualbudget )*
-	 ( <Assertion> )*
+	 ( <Requirement Predicate> )*
 	 (rationale "explanation")? 
-	 (see goal (docx.goal2 )+ )?
 	 (mitigates ( model.hazard3 )+ )? 
 	 (refines ( docx.req1 )+ )? 
+	 (see goal (docx.goal2 )+ )?
 	 (see document goal ( ReqDoc.goal12 )+)?
 	 (see document requirement ( ReqDoc.Req14 )+)?
 	 (see document ( filepath/file.doc#path.within.doc )+)? 
+	 ( <change Uncertainty> )?  
 	\]
 ]
 
@@ -106,51 +109,46 @@ ul[
 item[The e[for] attribute either points to an element in an AADL componenbt classifier (the classifier
 itself is identified in the enclosing container), or it provides a string description of the target of
 the goal.]
-item[The e[category] attribute identifies a requirment category. Requirement categories are user-definable
+item[The e[category] attribute identifies one or more requirment category. Requirement categories are user-definable
 and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
 ]
 item[The e[description] attribute allows user to provide a description that spans multiple lines. The description consists of a sequence of strings,
-name of the model element the requirement applies to (e[this]), a reference to one of the constants defined in the requirement,
-and the newline operator 
-e[&] to create multi line strings. The optional e[%ID] is used to specify the measurement unit to be
+name of the model element the requirement applies to (e[this]), a reference to one of the constants defined in the requirement. The optional e[%ID] is used to specify the measurement unit to be
 used for showing the value of numeric constants.]
 
 item[The e[val] field allows users to define values to be used in the requirement specification. These
 may be values that the user may want to change and are used in more than one location. The values can be numeric,
-optionally with measurement unit, or a string. They can be referenced
+optionally with measurement unit, ranges, a string, or a references to an AADL property, e.g., e[@SEI::MIPSCapacity]. They can be referenced
 in the predicate of the e[assertions] or in the e[description].
 ]
-item[The e[compute] field allows users to introduce variables whose value will be computed by a verificaiton
-method. Theis vraiable can then be referenced in assertion expressions.]
+item[The e[compute] field allows users to introduce variables whose value will be computed by a verification
+method that is identified in a verificaiton activity declaration. This variable can then be referenced in assertion expressions.]
 item[The e[rationale] attributes is a multi line text field]
-item[The e[see goal] attributes provides traceability to stakeholder goals expressed in ALRS form that relate to the requirement.]
 item[The e[mitigates] attributes specifies a reference to a hazard expressed in EMV2 that is being mitigated
 by the requirement.]
-
 item[The e[refines] attribute is a list of one or more references to other requirements of the same component that this requirement refines. The prupose of requirement refinement is to achieve a verifable requirement specification.
-The referenced requirement
-is identified by its qualified name.]
-
+The referenced requirement is identified by its qualified name.]
+item[The e[see goal] attributes provides traceability to stakeholder goals expressed in ALRS form that relate to the requirement.]
 item[The e[see document goal] attribute refers to a stakeholder goal documented in a stakeholder requirement
 document and imported into Alisa.]
 item[The e[see document requirement] attribute identifies a stakeholder requirement in an imported stakeholder
 requirement document.]
 item[The e[see document] attribute is a reference to an external document that may not be in a format
 importable to Alisa.]
+item[The e[uncertainty] attribute specifies a potential requirement change ref:Uncertainty[uncertainty].]
 ]
 
 code[ReqSpec][
-<Assertion> ::=
-	 assert value  <expression involving constant e[val] and e[compute] variables>
-	| text "informal specification"
+<Requirement Predicate> ::=
+	text "informal specification"
+	| assert value  <expression involving constant e[val] and e[compute] variables>
 	| input assumption <agree styl Xbase expression or e[as] reference into Agree subclause>
 	| output guarantee <agree styl Xbase expression or e[as] reference into Agree subclause>
-	| eq <agree styl Xbase expression or e[as] reference into Agree subclause>
-	| invariant <SPeAR statement as string>
+	| invariant <agree style Xbase expression or e[as] reference into Agree subclause>
 	| predicate <general XBase expression>
 ]
 
-We distiguoish between different types of assertions.
+We distinguish between different types of assertions.
 ul[
 item[The e[text] assertions allows the user to specify a condition informally as a text string.
 This is useful if the user has not figured out yet how to specify the requirement more formally.]
@@ -175,12 +173,11 @@ item[The e[output guarantee] assertion represents guarantees made about outgoing
 can express these guarantees as an e[XBase]
 expression, or by referring to a e[guarantee] statement in an e[agree] subclause in the model.]
 
-item[The e[eq] assertion represents an invariant equation tha tmust hold between inputs and outputs.
+item[The e[invariant] assertion represents an invariant equation e[eq] that must hold between inputs and outputs.
 Users
 can express these guarantees as an e[XBase]
 expression, or by referring to an e[eq] or other statement in an e[agree] subclause in the model.]
 
-item[The e[invariant] assertion represents an invariant expressed in SPeAR, currently expressed as a string.]
 item[The e[predicate] assertions allows the user to specify a condition in e[XBase].]
 
 ]
@@ -258,6 +255,7 @@ requirement specification Sysspec (':' "short title" )?
 (description Description)? 
 \[ 
 	(val ( limit = 200 ms )+ )?
+	(compute actualbudget )*
 	( <ReqFolder> | <Requirement> )*
 \]
 
@@ -267,6 +265,13 @@ folder name (':' "my title text")?
 	( <ReqFolder> |  <Requirement> )*
 \]
 ]
+
+ul[
+item[e[include] identifies other requirement specifications for the target component. It allows users
+to identify requirements that are kept in separate ReqSpecs declaraiton to be part of a set of system
+requirements.]
+item[e[val] and e[compute] variables can be defined to be applicable to all requirement declarations
+in a given system requirement specification.]]
 
 Here is an example of a set of system requirement specifications.
 
@@ -300,7 +305,8 @@ code[Categories][
 	\]
 
 <RequirementCategory> :
-	safety ( extends dependebility )? 
+	dependeability
+	safety ( extends dependability )? 
 ]
 
 Requirement categories must have globally unique names. References to a category do not have to be qualified.

@@ -28,7 +28,7 @@ code[Verify][
 		( description "Verification plan for a" & "second line" )? // multi-line text
 		<Claim>*
 		( rationale <String> )?
-		( plan assumption <VerificationPlan>+ )?
+		( assume verified <VerificationPlan>+ )?
 	\]
 ]
 
@@ -36,17 +36,18 @@ A verification plan is for a single system identified by the reference to its AA
 
 The verification plan specifies a claim for each of the requirements that have been specified for a system.
 
-e[Plan assumptions] identify verification plans for subsytems that are assumed to have been verified
+e[assume verified] identifies subsytems (system components) that are assumed to have been verified
 separately. This allows us to support compositional assurance of systems.
 
 code[Verify][
 <Claim> ::=
-	claim claimID ( : "Desriptive title" )?
-	( '(' <claimweight as integer> ')' )?
+	claim claimID ( : "Descriptive title" )?
+	( '(' <claimweight> ')' )?
 	for <requirement reference>
 	\[
 		( assert <ArgumentExpression>
-	 	( rationale <String> <)?
+		( argument <String> <Uncertainty> )?
+	 	( rationale <String> )?
 		( <Claim> )*  
 	\]
 ]
@@ -56,24 +57,29 @@ only the leaf elements of a requirement refinement hierarchy involve veriticatio
 the notation supports the possibility for a veritication activity for each requirement in the refinement
 hierarchy.
 
-Weights are used as integer values to specify the value of evidence contribution a particualr claim or
+Weights are used to specify the value of evidence contribution a particular claim or
 verification activity has.
 
 code[Verify][
 <ArgumentExpr> ::=
 		all \[ <ArgumentExpr>+ \] |
 		<ArgumentExpr> failthen <ArgumentExpr> |
+		<ArgumentExpr> unknownthen <ArgumentExpr> |
 		<ArgumentExpr> andthen <ArgumentExpr> |
 		<ConditionalEvidence> 
 		( <ArgumentExpr> )
 		
 ConditionalEvidence ::=
-	verificationActivity1 ( '(' 8 ')' )? ( when <sectioncategoryreference>+ )?
+	verificationActivity1 ( '(' 0.8 ')' )? ( when <sectioncategoryreference>+ )?
 ]
 
 e[all] means that all verification activities will be executed independent of whether they are successful
 or fail. The result state of the e[all] operator is then evaluated ans is only sucvcessful if all listed
 verification activities.
+
+e[unknownthen] means that the second test is only executed as an alternative if the first verification activity produces an unknown result,,
+i.e., has a timeout or otherwise fails to complete executing the verificaiton method.
+In other words, users can specify alternate verification activities if the original ones fail.
 
 e[failthen] means that the second test is only executed as an alternative if the first verification activity fails.
 In other words, users can specify alternate verification activities if the original ones fail.
@@ -98,7 +104,7 @@ A library of verification activities is defined in a separate file with the exte
 
 code[Verify][
 <VerificationLibrary> ::=
-	library libraryname ( :  "desriptive title" )?
+	library libraryname ( :  "descriptive title" )?
 	( for mypackage::myGPS )?
 	\[
 		( description Description)?
@@ -119,7 +125,7 @@ code[Verify][
 		( description Description )?
 		method <VerificationMethodReference> ( as <ComputeVariable Reference> )?
 		( timeout  <integer> )?
-		( rationale <MultiLineString> )?
+		( rationale "explanation" )?
 	\]
 ]
 
@@ -140,22 +146,33 @@ code[Verify][
 	method methodname ( :  "descriptive title" )?
 	( for <requirementreference> )?	
 	\[
-		<MethodType>  my.pack.myclass.mymethod
-		( marker "EclispeMarkerIdentifier" )?
+		<MethodType>  <MethodScope> ( <MethodReporting> )?
+		path "my.pack.myclass.mymethod"
 		( description Description )?
 		( category <VerificationCategory> )?
-		( VerificationAssumption | VerificationPrecondition)*
+		( VerificationValidation | VerificationPrecondition)*
 	\];
 
-VerificationAssumption ::=
-	( assumption myname
-	( : "descriptive title" )?
+VerificationValidation ::=
+	( validation myname
+	( : "title" )?
 	\[ (
-	 (description Description)?
-	( assert <ArgumentExpr> )?
+	( description Description)?
+	  method <methodid> ( as <computer variable> )?
 	( rationale <MultiLineString> )?
 	)
 	\]
+
+
+VerificationPrecondition ::=
+	( precondition myname
+	( : "title" )?
+	\[ 
+	( description Description)?
+	  method <methodid> ( as <computer variable> )?
+	( rationale <MultiLineString> )?
+	\]
+
 
 enum MethodTypes:
 	singlepredicate | singleanalysis | assertionexception | multimarker | ownmultimarker | multidiagnostics | resultreport 
@@ -164,29 +181,43 @@ enum MethodTypes:
 
 The method types are:
 ul[
-item[e[singlepredicate:] the method evaluates one instance model element and returns true (success) or false (fail) according to a built-in predicate. The predicate may interpret a property in the model as the limit value of the predicate.
-Failure to execute in the form of an exception is mapped into an e[error].
+item[e[predicate:] the method evaluates one instance model element and returns true (success) or false (fail) according to a built-in predicate. The predicate may interpret a property in the model as the limit value of the predicate.
+Fail can be reported by an e[AssertionException]. Failure to complete verification method execution,
+e.g., timeout or an exception other than e[AssertionException] is mapped into e[unknown].
 ]
-item[e[singleanalysis:] the method calculates a single value on one instance model element and returns
-the value. Failure
-to execute in the form of an exception is mapped into an e[error].]
-item[e[assertionexception:] the method uses Java or JUnit e[assert] statements to evaluate predicates.
-Exceptions that are the result of failing assertions are mapped into e[fail]. Failure
-to execute in the form of an exception is mapped into an e[error].]
-item[e[multimarker:] the method evaluates the complete instance model to produce multiple results and evaluates
-a built-in predicate that may use a property value as its limit. Predicates returning e[false] are assumed to be mapped into Eclipse e[markers]. Failure
-to execute in the form of an exception is mapped into an e[error]. All error markers are shown.
+item[e[analysis:] the method represents procesisng by an OSATE analysis plug-in. Typically it processes
+multiple model elements and reports results via markers.]
+item[e[compute:] the method processes one model element and returns a single value as a result. This
+value is then evaluated by the specified predicate of the requirement.]
+item[e[resoluteprove:] the method interpretively evaluates a Resolute claim function as if it where declared
+in a e[prove] statement in a e[resolute subclause]. This allows resolute claim functions to be associated
+with AADL models without embedding them in the model.
 ]
-item[e[ownmultimarker:] the method evaluates the instance model to produce multiple results and evaluates
-a built-in predicate that may use a property value as its limit. Predicates returning e[false] are assumed to be mapped into Eclipse e[markers]. Failure
-to execute in the form of an exception is mapped into an e[error]. Only the markers of the instance object,
-or those contained directly in the component instance for which the verificaiton method is performed
-are shown.
+item[e[manual:] the method represents a manual method, i.e., a method that is performed by a human. The
+person will interactively report the result of the verification, e.g., the result of performing a review.]
 ]
-item[e[multidiagnostics:] Same as e[multimarker] except that the evaluation results are recorded as e[diagnostics]
-rather than e[markers].]
-item[e[resultreport:] The method uses the Alisa e[ResultReport] mechanism to record analysis results
-and predicate evaluation results.]
+
+The following are scopes of application that can be defined for verificaiton methods:
+ul[
+item[e[self:] the method applies to the model element identified by the requirement.]
+item[e[parts:] the method applies to all parts of a component that is identified by the requirement.
+The parts are all directly contained elements without recursively traversing the component hierarchy.
+For example, the method may evaluate all ports or all end to end flows defined in a component.]
+item[e[all:] the method applies to all elements of the component identified by the requirement - recursively
+traversing the hierarchy. ]
+]
+
+The following are reporting mechanisms that may be used by a veriifcation method. If not specified, th
+e use of Eclispe markers is assumed.
+ul[
+item[e[marker:] Eclipse e[markers] of types e[error], e[warning], and e[info] may be used to report back
+results of teh verification method.]
+item[e[errormarker:] Eclipse e[markers] of type e[error] are used to report back issues in the exectuion
+of the veriifcation method.]
+item[e[diagnostics:] The Eclipse e[Diagnostics] mechanism is used to rept back results.]
+item[e[assertexception:] An e[AssertionException] is thrown by the veriifcation method to report back
+a failed test or failure to compelte execution. ]
+item[e[resultreport:] A result report format defined by e[Alisa] is used to report back results.]
 ]
 
 section:SelectionCategories[Selective Verification]
@@ -211,7 +242,7 @@ code[Categories][
 	phase1 ( extends phase )? 
 ]
 
-election categories must have globally unique names among selection category declarations within an Eclipse workspace. 
+Selection categories must have globally unique names among selection category declarations within an Eclipse workspace. 
 References to a category do not have to be qualified.
 
 Requirement categories can be placed into an extends hierarchy.
