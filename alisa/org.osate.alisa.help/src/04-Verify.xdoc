@@ -220,6 +220,30 @@ a failed test or failure to compelte execution. ]
 item[e[resultreport:] A result report format defined by e[Alisa] is used to report back results.]
 ]
 
+section:BuiltinRegistry[Built-in and User-defined Registries]
+
+Alisa comes with a built-in registry of verification methods. The registry is ucrrently omly partially
+populated. The registry include several verification methods that interface with OSATE analysis plug-ins,
+methods written in Xtend specifically for use in Alisa, and methods written in Resolute. See the method
+registry in the e[Alisa  Test Case] on teh SVN repository.
+
+Users can add currently verificaiton methods to Alisa in two ways. First, users can write claim functions
+and computational methods in Resolute (see Resolute language specificaiton for details). Uses then define
+their own verification method registry to complement the "predefined" registry. SInce Resolute is an
+interpreted notation, these newly registered methods are immediately available for use.
+
+Users can also write or make use of verification methods written in compiled languages, such as Java
+or Xtend. In some cases, users may write wrapper methods to interface existing tools or external tools, such as
+e[JUnit] or e[Simulink]. This currently requires users to write a e[dispatcher] that handles newly introduced
+verification methods by overridind the dispatcher for the builtin methods. See the builtin e[AnalysisPluginDispatcher]
+in e[org.osate.assure.analysis] for a pattern. You want to put this code in a new Eclipse plug-in. You
+can test the code by invoking Eclispe recursively from OSATE as if it is a development environment. Once
+tested you can add the plug-in into the dropins folder of your OSATE/Alisa installation.
+
+In the future we will make use of relfective invocation to allow for more interactive development of
+verificaiotn methods. We wil also integrate frameworks such as JUnit into Alisa via teh verificaiton
+method registry.
+
 section:SelectionCategories[Selective Verification]
 
 Selective verification is patterned after JUnit. Users can attach multiple category labels with a referenced
