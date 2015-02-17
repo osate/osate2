@@ -141,7 +141,7 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION = 3;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -653,7 +653,7 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__TARGET_DESCRIPTION = CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -789,7 +789,7 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__TARGET_DESCRIPTION = CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1250,10 +1250,10 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getContractualElement_TargetDescription();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Category</em>'.
+   * @return the meta object for the reference list '<em>Category</em>'.
    * @see org.osate.reqspec.reqSpec.ContractualElement#getCategory()
    * @see #getContractualElement()
    * @generated
@@ -2143,7 +2143,7 @@ public interface ReqSpecPackage extends EPackage
     EAttribute CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION = eINSTANCE.getContractualElement_TargetDescription();
 
     /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

@@ -34,14 +34,16 @@ it represents the uncertainty in the argument.
 
 code[Alisa][
 uncertainty \[
-costImpact <int>
-scheduleImpact <int>
-familiarity <int>
-riskIndex <int>
-propRiskIndex <int>
-maturityIndex <int>
+costImpact <number>
+scheduleImpact <number>
+familiarity <number>
+riskIndex <number>
+propRiskIndex <number>
+maturityIndex <number>
 \]
 ]
+
+e[Number] can be an real or integer.
 
 ul[
 item[e[volatility (mandatory):] A ratio attribute representing the engineer‘s best judgment as to the probability the contractual element will change throughout the course of the project.]

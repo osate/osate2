@@ -152,22 +152,13 @@ public interface CommonPackage extends EPackage
   int RATIONALE__TEXT = 0;
 
   /**
-   * The feature id for the '<em><b>Stakeholders</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RATIONALE__STAKEHOLDERS = 1;
-
-  /**
    * The number of structural features of the '<em>Rationale</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RATIONALE_FEATURE_COUNT = 2;
+  int RATIONALE_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.UncertaintyImpl <em>Uncertainty</em>}' class.
@@ -477,17 +468,6 @@ public interface CommonPackage extends EPackage
   EAttribute getRationale_Text();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.common.common.Rationale#getStakeholders <em>Stakeholders</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Stakeholders</em>'.
-   * @see org.osate.alisa.common.common.Rationale#getStakeholders()
-   * @see #getRationale()
-   * @generated
-   */
-  EReference getRationale_Stakeholders();
-
-  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.Uncertainty <em>Uncertainty</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -772,14 +752,6 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute RATIONALE__TEXT = eINSTANCE.getRationale_Text();
-
-    /**
-     * The meta object literal for the '<em><b>Stakeholders</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference RATIONALE__STAKEHOLDERS = eINSTANCE.getRationale_Stakeholders();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.UncertaintyImpl <em>Uncertainty</em>}' class.

@@ -3649,7 +3649,6 @@ finally {
 
 
 
-
 rule__APropertyReference__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -17630,7 +17629,6 @@ rule__DescriptionElement__ThisTargetAssignment_2
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 
 

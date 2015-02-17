@@ -25,8 +25,6 @@ import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.XNumberLiteralUnit;
 
-import org.osate.organization.organization.OrganizationPackage;
-
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.
@@ -142,7 +140,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     // Initialize simple dependencies
     XbasePackage.eINSTANCE.eClass();
     Aadl2Package.eINSTANCE.eClass();
-    OrganizationPackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theCommonPackage.createPackageContents();
@@ -237,16 +234,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
   public EAttribute getRationale_Text()
   {
     return (EAttribute)rationaleEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getRationale_Stakeholders()
-  {
-    return (EReference)rationaleEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -469,7 +456,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     rationaleEClass = createEClass(RATIONALE);
     createEAttribute(rationaleEClass, RATIONALE__TEXT);
-    createEReference(rationaleEClass, RATIONALE__STAKEHOLDERS);
 
     uncertaintyEClass = createEClass(UNCERTAINTY);
     createEAttribute(uncertaintyEClass, UNCERTAINTY__VOLATILITY);
@@ -521,7 +507,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
-    OrganizationPackage theOrganizationPackage = (OrganizationPackage)EPackage.Registry.INSTANCE.getEPackage(OrganizationPackage.eNS_URI);
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
     Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
 
@@ -544,7 +529,6 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     initEClass(rationaleEClass, Rationale.class, "Rationale", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getRationale_Text(), theEcorePackage.getEString(), "text", null, 0, 1, Rationale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRationale_Stakeholders(), theOrganizationPackage.getStakeholder(), null, "stakeholders", null, 0, -1, Rationale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(uncertaintyEClass, Uncertainty.class, "Uncertainty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getUncertainty_Volatility(), theEcorePackage.getEString(), "volatility", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

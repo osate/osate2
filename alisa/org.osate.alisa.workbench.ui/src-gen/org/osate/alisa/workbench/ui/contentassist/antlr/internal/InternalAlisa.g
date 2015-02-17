@@ -784,11 +784,11 @@ rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssureKeyword_7_1_0()); }
+{ before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssertKeyword_7_1_0()); }
 
-	'assure' 
+	'assert' 
 
-{ after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssureKeyword_7_1_0()); }
+{ after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssertKeyword_7_1_0()); }
 )
 
 ;

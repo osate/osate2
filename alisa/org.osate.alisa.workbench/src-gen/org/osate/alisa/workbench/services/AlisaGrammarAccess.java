@@ -72,7 +72,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDescriptionAssignment_7_0_1 = (Assignment)cGroup_7_0.eContents().get(1);
 		private final RuleCall cDescriptionDescriptionParserRuleCall_7_0_1_0 = (RuleCall)cDescriptionAssignment_7_0_1.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
-		private final Keyword cAssureKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
+		private final Keyword cAssertKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
 		private final Assignment cPlansAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
 		private final CrossReference cPlansVerificationPlanCrossReference_7_1_1_0 = (CrossReference)cPlansAssignment_7_1_1.eContents().get(0);
 		private final RuleCall cPlansVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1 = (RuleCall)cPlansVerificationPlanCrossReference_7_1_1_0.eContents().get(1);
@@ -91,16 +91,14 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AssuranceEvidenceConfiguration:
 		//	"assurance" "task" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference]
-		//	"[" (("description" description=Description)? //	& (  constants+=XValDeclaration* )
-		//	& "assure" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("assume" "verified"
-		//	verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("filter"
+		//	"[" (("description" description=Description)? & "assert" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("assume"
+		//	"verified" verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("filter"
 		//	selectionFilter+=[categories::SelectionCategory]+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"assurance" "task" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference] "["
-		//(("description" description=Description)? //	& (  constants+=XValDeclaration* )
-		//& "assure" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("assume" "verified"
-		//verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("filter"
+		//(("description" description=Description)? & "assert" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("assume"
+		//"verified" verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("filter"
 		//selectionFilter+=[categories::SelectionCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -143,9 +141,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//("description" description=Description)? //	& (  constants+=XValDeclaration* )
-		//& "assure" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("assume" "verified"
-		//verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("filter"
+		//("description" description=Description)? & "assert" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("assume"
+		//"verified" verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("filter"
 		//selectionFilter+=[categories::SelectionCategory]+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
@@ -161,11 +158,11 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_1_0() { return cDescriptionDescriptionParserRuleCall_7_0_1_0; }
 
-		//"assure" plans+=[Verify::VerificationPlan|QualifiedName]+
+		//"assert" plans+=[Verify::VerificationPlan|QualifiedName]+
 		public Group getGroup_7_1() { return cGroup_7_1; }
 
-		//"assure"
-		public Keyword getAssureKeyword_7_1_0() { return cAssureKeyword_7_1_0; }
+		//"assert"
+		public Keyword getAssertKeyword_7_1_0() { return cAssertKeyword_7_1_0; }
 
 		//plans+=[Verify::VerificationPlan|QualifiedName]+
 		public Assignment getPlansAssignment_7_1_1() { return cPlansAssignment_7_1_1; }
@@ -400,9 +397,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssuranceEvidenceConfiguration:
 	//	"assurance" "task" name=ID (":" title=STRING)? "for" system=[aadl2::ComponentImplementation|AadlClassifierReference]
-	//	"[" (("description" description=Description)? //	& (  constants+=XValDeclaration* )
-	//	& "assure" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("assume" "verified"
-	//	verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("filter"
+	//	"[" (("description" description=Description)? & "assert" plans+=[Verify::VerificationPlan|QualifiedName]+ & ("assume"
+	//	"verified" verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)? & ("filter"
 	//	selectionFilter+=[categories::SelectionCategory]+)?) "]";
 	public AssuranceEvidenceConfigurationElements getAssuranceEvidenceConfigurationAccess() {
 		return pAssuranceEvidenceConfiguration;

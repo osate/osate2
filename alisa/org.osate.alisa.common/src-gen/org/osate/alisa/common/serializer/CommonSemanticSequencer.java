@@ -1288,10 +1288,17 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (text=STRING stakeholders+=[Stakeholder|QualifiedName]*)
+	 *     text=STRING
 	 */
 	protected void sequence_Rationale(EObject context, Rationale semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.RATIONALE__TEXT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.RATIONALE__TEXT));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0(), semanticObject.getText());
+		feeder.finish();
 	}
 	
 	

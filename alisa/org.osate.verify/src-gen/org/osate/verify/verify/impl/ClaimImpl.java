@@ -98,7 +98,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * @generated
    * @ordered
    */
-  protected static final int WEIGHT_EDEFAULT = 0;
+  protected static final String WEIGHT_EDEFAULT = null;
 
   /**
    * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -108,7 +108,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * @generated
    * @ordered
    */
-  protected int weight = WEIGHT_EDEFAULT;
+  protected String weight = WEIGHT_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
@@ -252,7 +252,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getWeight()
+  public String getWeight()
   {
     return weight;
   }
@@ -262,9 +262,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setWeight(int newWeight)
+  public void setWeight(String newWeight)
   {
-    int oldWeight = weight;
+    String oldWeight = weight;
     weight = newWeight;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__WEIGHT, oldWeight, weight));
@@ -567,7 +567,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         setTitle((String)newValue);
         return;
       case VerifyPackage.CLAIM__WEIGHT:
-        setWeight((Integer)newValue);
+        setWeight((String)newValue);
         return;
       case VerifyPackage.CLAIM__REQUIREMENT:
         setRequirement((Requirement)newValue);
@@ -648,7 +648,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.CLAIM__WEIGHT:
-        return weight != WEIGHT_EDEFAULT;
+        return WEIGHT_EDEFAULT == null ? weight != null : !WEIGHT_EDEFAULT.equals(weight);
       case VerifyPackage.CLAIM__REQUIREMENT:
         return requirement != null;
       case VerifyPackage.CLAIM__ASSERT:

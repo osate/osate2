@@ -219,10 +219,10 @@ public class InternalAlisaLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:19:7: ( 'assure' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:19:9: 'assure'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:19:7: ( 'assert' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:19:9: 'assert'
             {
-            match("assure"); 
+            match("assert"); 
 
 
             }
@@ -1026,34 +1026,34 @@ public class InternalAlisaLexer extends Lexer {
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
         "\1\uffff\3\24\2\uffff\1\34\2\24\1\uffff\1\21\2\uffff\3\21\2\uffff"+
-        "\2\24\1\uffff\4\24\4\uffff\2\24\6\uffff\4\24\1\61\5\24\1\70\1\71"+
-        "\1\uffff\3\24\1\75\2\24\2\uffff\3\24\1\uffff\1\24\1\105\1\106\1"+
-        "\107\3\24\3\uffff\4\24\1\117\1\120\1\24\2\uffff\1\24\1\123\1\uffff";
+        "\2\24\1\uffff\4\24\4\uffff\2\24\6\uffff\4\24\1\62\6\24\1\72\1\73"+
+        "\1\uffff\3\24\1\77\3\24\2\uffff\3\24\1\uffff\1\24\1\107\1\110\1"+
+        "\111\3\24\3\uffff\4\24\1\121\1\122\1\24\2\uffff\1\24\1\125\1\uffff";
     static final String DFA12_eofS =
-        "\124\uffff";
+        "\126\uffff";
     static final String DFA12_minS =
         "\1\0\1\154\1\141\1\151\2\uffff\1\72\2\145\1\uffff\1\101\2\uffff"+
         "\2\0\1\52\2\uffff\1\151\1\163\1\uffff\1\163\1\151\1\162\1\154\4"+
-        "\uffff\1\163\1\162\6\uffff\1\163\1\165\1\153\1\163\1\60\1\164\1"+
-        "\143\1\151\1\141\1\155\2\60\1\uffff\1\145\1\162\1\146\1\60\1\141"+
-        "\1\145\2\uffff\1\162\2\151\1\uffff\1\156\3\60\1\160\1\145\1\143"+
-        "\3\uffff\1\164\1\144\1\145\1\151\2\60\1\157\2\uffff\1\156\1\60\1"+
-        "\uffff";
+        "\uffff\1\163\1\162\6\uffff\1\163\1\145\1\153\1\163\1\60\1\164\1"+
+        "\143\1\151\1\141\1\155\1\162\2\60\1\uffff\1\145\1\162\1\146\1\60"+
+        "\1\141\1\145\1\164\2\uffff\1\162\2\151\1\uffff\1\156\3\60\1\160"+
+        "\1\145\1\143\3\uffff\1\164\1\144\1\145\1\151\2\60\1\157\2\uffff"+
+        "\1\156\1\60\1\uffff";
     static final String DFA12_maxS =
         "\1\uffff\1\163\1\150\1\157\2\uffff\1\72\2\145\1\uffff\1\172\2\uffff"+
         "\2\uffff\1\57\2\uffff\1\151\1\163\1\uffff\1\163\1\151\1\162\1\154"+
         "\4\uffff\1\163\1\162\6\uffff\1\163\1\165\1\153\1\163\1\172\1\164"+
-        "\1\143\1\151\1\141\1\162\2\172\1\uffff\1\145\1\162\1\146\1\172\2"+
-        "\145\2\uffff\1\162\2\151\1\uffff\1\156\3\172\1\160\1\145\1\143\3"+
-        "\uffff\1\164\1\144\1\145\1\151\2\172\1\157\2\uffff\1\156\1\172\1"+
-        "\uffff";
+        "\1\143\1\151\1\141\2\162\2\172\1\uffff\1\145\1\162\1\146\1\172\1"+
+        "\141\1\145\1\164\2\uffff\1\162\2\151\1\uffff\1\156\3\172\1\160\1"+
+        "\145\1\143\3\uffff\1\164\1\144\1\145\1\151\2\172\1\157\2\uffff\1"+
+        "\156\1\172\1\uffff";
     static final String DFA12_acceptS =
         "\4\uffff\1\5\1\6\3\uffff\1\16\1\uffff\1\20\1\21\3\uffff\1\25\1"+
         "\26\2\uffff\1\20\4\uffff\1\5\1\6\1\15\1\7\2\uffff\1\16\1\21\1\22"+
-        "\1\23\1\24\1\25\14\uffff\1\4\6\uffff\1\3\1\17\3\uffff\1\1\7\uffff"+
-        "\1\11\1\12\1\14\7\uffff\1\13\1\2\2\uffff\1\10";
+        "\1\23\1\24\1\25\15\uffff\1\4\7\uffff\1\3\1\17\3\uffff\1\1\7\uffff"+
+        "\1\12\1\11\1\14\7\uffff\1\13\1\2\2\uffff\1\10";
     static final String DFA12_specialS =
-        "\1\1\14\uffff\1\2\1\0\105\uffff}>";
+        "\1\1\14\uffff\1\2\1\0\107\uffff}>";
     static final String[] DFA12_transitionS = {
             "\11\21\2\20\2\21\1\20\22\21\1\20\1\21\1\15\4\21\1\16\6\21\1"+
             "\11\1\17\12\14\1\6\6\21\32\13\1\4\1\21\1\5\1\12\1\13\1\21\1"+
@@ -1095,50 +1095,52 @@ public class InternalAlisaLexer extends Lexer {
             "",
             "",
             "\1\55",
-            "\1\56",
-            "\1\57",
+            "\1\57\17\uffff\1\56",
             "\1\60",
+            "\1\61",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
-            "\1\62",
             "\1\63",
             "\1\64",
             "\1\65",
-            "\1\67\4\uffff\1\66",
+            "\1\66",
+            "\1\70\4\uffff\1\67",
+            "\1\71",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
             "",
-            "\1\72",
-            "\1\73",
             "\1\74",
+            "\1\75",
+            "\1\76",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
-            "\1\76\3\uffff\1\77",
             "\1\100",
-            "",
-            "",
             "\1\101",
             "\1\102",
+            "",
+            "",
             "\1\103",
-            "",
             "\1\104",
+            "\1\105",
+            "",
+            "\1\106",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
-            "\1\110",
-            "\1\111",
             "\1\112",
-            "",
-            "",
-            "",
             "\1\113",
             "\1\114",
+            "",
+            "",
+            "",
             "\1\115",
             "\1\116",
+            "\1\117",
+            "\1\120",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
-            "\1\121",
+            "\1\123",
             "",
             "",
-            "\1\122",
+            "\1\124",
             "\12\24\7\uffff\32\24\4\uffff\1\24\1\uffff\32\24",
             ""
     };

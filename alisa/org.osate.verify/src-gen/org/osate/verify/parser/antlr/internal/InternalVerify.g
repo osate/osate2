@@ -433,19 +433,19 @@ ruleClaim returns [EObject current=null]
     }
 (
 (
-		lv_weight_5_0=RULE_INT
-		{
-			newLeafNode(lv_weight_5_0, grammarAccess.getClaimAccess().getWeightINTTerminalRuleCall_3_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getClaimAccess().getWeightNumberParserRuleCall_3_1_0()); 
+	    }
+		lv_weight_5_0=ruleNumber		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getClaimRule());
+	            $current = createModelElementForParent(grammarAccess.getClaimRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"weight",
         		lv_weight_5_0, 
-        		"INT");
+        		"Number");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -2400,26 +2400,7 @@ ruleRationale returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_2='stakeholders' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getRationaleAccess().getStakeholdersKeyword_2_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getRationaleRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getRationaleAccess().getStakeholdersStakeholderCrossReference_2_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+)?)
+))
 ;
 
 

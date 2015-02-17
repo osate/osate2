@@ -257,9 +257,9 @@ ruleAssuranceEvidenceConfiguration returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), 1);
 	 				}
-					({true}?=>(	otherlv_11='assure' 
+					({true}?=>(	otherlv_11='assert' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssureKeyword_7_1_0());
+    	newLeafNode(otherlv_11, grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssertKeyword_7_1_0());
     }
 (
 (

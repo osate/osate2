@@ -1223,7 +1223,7 @@ ruleGoal returns [EObject current=null]
 	    }
 
 )
-)))
+)+))
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getGoalAccess().getUnorderedGroup_5());
 	 				}
@@ -1656,7 +1656,7 @@ ruleRequirement returns [EObject current=null]
 	}
 
 )
-)))
+)+))
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getRequirementAccess().getUnorderedGroup_5());
 	 				}
@@ -2835,27 +2835,7 @@ ruleRationale returns [EObject current=null]
 	    }
 
 )
-)(
-	otherlv_2=Stakeholders
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getRationaleAccess().getStakeholdersKeyword_2_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getRationaleRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getRationaleAccess().getStakeholdersStakeholderCrossReference_2_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)+)?)
+))
 ;
 
 

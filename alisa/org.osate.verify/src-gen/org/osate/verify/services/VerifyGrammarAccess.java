@@ -188,7 +188,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cWeightAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cWeightINTTerminalRuleCall_3_1_0 = (RuleCall)cWeightAssignment_3_1.eContents().get(0);
+		private final RuleCall cWeightNumberParserRuleCall_3_1_0 = (RuleCall)cWeightAssignment_3_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
 		private final Keyword cForKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cRequirementAssignment_5 = (Assignment)cGroup.eContents().get(5);
@@ -213,13 +213,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//Claim:
-		//	"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-		//	("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
-		//	& subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
+		//	"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
+		//	"[" ("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? &
+		//	rationale=Rationale? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 		//	"]";
 		public ParserRule getRule() { return rule; }
 
-		//"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
+		//"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
 		//("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
 		//& subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 		//"]"
@@ -246,17 +246,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
 
-		//("(" weight=INT ")")?
+		//("(" weight=Number ")")?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
 
-		//weight=INT
+		//weight=Number
 		public Assignment getWeightAssignment_3_1() { return cWeightAssignment_3_1; }
 
-		//INT
-		public RuleCall getWeightINTTerminalRuleCall_3_1_0() { return cWeightINTTerminalRuleCall_3_1_0; }
+		//Number
+		public RuleCall getWeightNumberParserRuleCall_3_1_0() { return cWeightNumberParserRuleCall_3_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
@@ -1113,11 +1113,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cMethodsVerificationMethodParserRuleCall_4_1_0 = (RuleCall)cMethodsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		////VerificationAction : VerificationActivity | VerificationMethod;
-		//// need to distinguish between method with/out predicate
-		//// method producing multiple results
-		//// Java based methods: all
-		//// interface methods to external or built-in
 		//VerificationMethodRegistry:
 		//	"registry" name=ID (":" title=STRING)? "[" (description=Description? methods+=VerificationMethod*) "]";
 		public ParserRule getRule() { return rule; }
@@ -1576,9 +1571,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Claim:
-	//	"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-	//	("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
-	//	& subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
+	//	"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
+	//	"[" ("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? &
+	//	rationale=Rationale? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 	//	"]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
@@ -1720,11 +1715,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getVAReferenceAccess().getRule();
 	}
 
-	////VerificationAction : VerificationActivity | VerificationMethod;
-	//// need to distinguish between method with/out predicate
-	//// method producing multiple results
-	//// Java based methods: all
-	//// interface methods to external or built-in
 	//VerificationMethodRegistry:
 	//	"registry" name=ID (":" title=STRING)? "[" (description=Description? methods+=VerificationMethod*) "]";
 	public VerificationMethodRegistryElements getVerificationMethodRegistryAccess() {
@@ -1800,7 +1790,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Rationale:
-	//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?;
+	//	"rationale" text=STRING;
 	public CommonGrammarAccess.RationaleElements getRationaleAccess() {
 		return gaCommon.getRationaleAccess();
 	}

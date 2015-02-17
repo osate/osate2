@@ -1402,7 +1402,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
-	 *         category=[RequirementCategory|ValidID]? 
+	 *         category+=[RequirementCategory|ValidID]* 
 	 *         description=Description? 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
@@ -1493,7 +1493,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
-	 *         category=[RequirementCategory|ID]? 
+	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 

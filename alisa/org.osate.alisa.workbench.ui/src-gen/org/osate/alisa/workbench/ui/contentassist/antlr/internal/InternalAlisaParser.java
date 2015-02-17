@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalAlisaParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'alisa'", "'assurance'", "'task'", "'for'", "'['", "']'", "':'", "'description'", "'assure'", "'assume'", "'verified'", "'filter'", "'::'", "'.'", "'this'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'alisa'", "'assurance'", "'task'", "'for'", "'['", "']'", "':'", "'description'", "'assert'", "'assume'", "'verified'", "'filter'", "'::'", "'.'", "'this'"
     };
     public static final int RULE_ID=4;
     public static final int T__25=25;
@@ -2009,21 +2009,21 @@ public class InternalAlisaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl"
-    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:781:1: rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl : ( 'assure' ) ;
+    // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:781:1: rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl : ( 'assert' ) ;
     public final void rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:785:1: ( ( 'assure' ) )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:786:1: ( 'assure' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:785:1: ( ( 'assert' ) )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:786:1: ( 'assert' )
             {
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:786:1: ( 'assure' )
-            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:787:1: 'assure'
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:786:1: ( 'assert' )
+            // ../org.osate.alisa.workbench.ui/src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/internal/InternalAlisa.g:787:1: 'assert'
             {
-             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssureKeyword_7_1_0()); 
+             before(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssertKeyword_7_1_0()); 
             match(input,19,FOLLOW_19_in_rule__AssuranceEvidenceConfiguration__Group_7_1__0__Impl1527); 
-             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssureKeyword_7_1_0()); 
+             after(grammarAccess.getAssuranceEvidenceConfigurationAccess().getAssertKeyword_7_1_0()); 
 
             }
 

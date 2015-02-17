@@ -52,14 +52,12 @@ public class OrganizationSemanticSequencer extends AbstractDelegatingSemanticSeq
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         (
-	 *             fullname=STRING? 
-	 *             title=STRING? 
-	 *             description=STRING? 
-	 *             role=STRING? 
-	 *             email=STRING? 
-	 *             phone=STRING?
-	 *         )?
+	 *         fullname=STRING? 
+	 *         title=STRING? 
+	 *         description=STRING? 
+	 *         role=STRING? 
+	 *         email=STRING? 
+	 *         phone=STRING?
 	 *     )
 	 */
 	protected void sequence_Stakeholder(EObject context, Stakeholder semanticObject) {

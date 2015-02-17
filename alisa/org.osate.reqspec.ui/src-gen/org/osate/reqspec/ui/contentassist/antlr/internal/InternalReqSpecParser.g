@@ -144,7 +144,6 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Requirement", "'requirement'");
 		tokenNameToValue.put("Stakeholder", "'stakeholder'");
 		tokenNameToValue.put("Uncertainty", "'uncertainty'");
-		tokenNameToValue.put("Stakeholders", "'stakeholders'");
 		tokenNameToValue.put("Synchronized", "'synchronized'");
 		tokenNameToValue.put("Maturityindex", "'maturityindex'");
 		tokenNameToValue.put("Specification", "'specification'");
@@ -7148,9 +7147,16 @@ rule__Goal__Group_5_0__1__Impl
     }
 :
 (
+(
 { before(grammarAccess.getGoalAccess().getCategoryAssignment_5_0_1()); }
 (rule__Goal__CategoryAssignment_5_0_1)
 { after(grammarAccess.getGoalAccess().getCategoryAssignment_5_0_1()); }
+)
+(
+{ before(grammarAccess.getGoalAccess().getCategoryAssignment_5_0_1()); }
+(rule__Goal__CategoryAssignment_5_0_1)*
+{ after(grammarAccess.getGoalAccess().getCategoryAssignment_5_0_1()); }
+)
 )
 
 ;
@@ -8041,9 +8047,16 @@ rule__Requirement__Group_5_0__1__Impl
     }
 :
 (
+(
 { before(grammarAccess.getRequirementAccess().getCategoryAssignment_5_0_1()); }
 (rule__Requirement__CategoryAssignment_5_0_1)
 { after(grammarAccess.getRequirementAccess().getCategoryAssignment_5_0_1()); }
+)
+(
+{ before(grammarAccess.getRequirementAccess().getCategoryAssignment_5_0_1()); }
+(rule__Requirement__CategoryAssignment_5_0_1)*
+{ after(grammarAccess.getRequirementAccess().getCategoryAssignment_5_0_1()); }
+)
 )
 
 ;
@@ -9876,7 +9889,6 @@ rule__Rationale__Group__1
     }
 :
 	rule__Rationale__Group__1__Impl
-	rule__Rationale__Group__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -9891,106 +9903,6 @@ rule__Rationale__Group__1__Impl
 { before(grammarAccess.getRationaleAccess().getTextAssignment_1()); }
 (rule__Rationale__TextAssignment_1)
 { after(grammarAccess.getRationaleAccess().getTextAssignment_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__Rationale__Group__2
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__Rationale__Group__2__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Rationale__Group__2__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getRationaleAccess().getGroup_2()); }
-(rule__Rationale__Group_2__0)?
-{ after(grammarAccess.getRationaleAccess().getGroup_2()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
-
-
-
-
-
-rule__Rationale__Group_2__0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__Rationale__Group_2__0__Impl
-	rule__Rationale__Group_2__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Rationale__Group_2__0__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getRationaleAccess().getStakeholdersKeyword_2_0()); }
-
-	Stakeholders 
-
-{ after(grammarAccess.getRationaleAccess().getStakeholdersKeyword_2_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__Rationale__Group_2__1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__Rationale__Group_2__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Rationale__Group_2__1__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-(
-{ before(grammarAccess.getRationaleAccess().getStakeholdersAssignment_2_1()); }
-(rule__Rationale__StakeholdersAssignment_2_1)
-{ after(grammarAccess.getRationaleAccess().getStakeholdersAssignment_2_1()); }
-)
-(
-{ before(grammarAccess.getRationaleAccess().getStakeholdersAssignment_2_1()); }
-(rule__Rationale__StakeholdersAssignment_2_1)*
-{ after(grammarAccess.getRationaleAccess().getStakeholdersAssignment_2_1()); }
-)
 )
 
 ;
@@ -27542,25 +27454,6 @@ rule__Rationale__TextAssignment_1
 (
 { before(grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0()); }
 	RULE_STRING{ after(grammarAccess.getRationaleAccess().getTextSTRINGTerminalRuleCall_1_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__Rationale__StakeholdersAssignment_2_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getRationaleAccess().getStakeholdersStakeholderCrossReference_2_1_0()); }
-(
-{ before(grammarAccess.getRationaleAccess().getStakeholdersStakeholderQualifiedNameParserRuleCall_2_1_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getRationaleAccess().getStakeholdersStakeholderQualifiedNameParserRuleCall_2_1_0_1()); }
-)
-{ after(grammarAccess.getRationaleAccess().getStakeholdersStakeholderCrossReference_2_1_0()); }
 )
 
 ;

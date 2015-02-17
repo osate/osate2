@@ -85,17 +85,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRationaleKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cTextAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cTextSTRINGTerminalRuleCall_1_0 = (RuleCall)cTextAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cStakeholdersKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cStakeholdersAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final CrossReference cStakeholdersStakeholderCrossReference_2_1_0 = (CrossReference)cStakeholdersAssignment_2_1.eContents().get(0);
-		private final RuleCall cStakeholdersStakeholderQualifiedNameParserRuleCall_2_1_0_1 = (RuleCall)cStakeholdersStakeholderCrossReference_2_1_0.eContents().get(1);
 		
 		//Rationale:
-		//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?;
+		//	"rationale" text=STRING;
 		public ParserRule getRule() { return rule; }
 
-		//"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?
+		//"rationale" text=STRING
 		public Group getGroup() { return cGroup; }
 
 		//"rationale"
@@ -106,21 +101,6 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getTextSTRINGTerminalRuleCall_1_0() { return cTextSTRINGTerminalRuleCall_1_0; }
-
-		//("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?
-		public Group getGroup_2() { return cGroup_2; }
-
-		//"stakeholders"
-		public Keyword getStakeholdersKeyword_2_0() { return cStakeholdersKeyword_2_0; }
-
-		//stakeholders+=[org::Stakeholder|QualifiedName]+
-		public Assignment getStakeholdersAssignment_2_1() { return cStakeholdersAssignment_2_1; }
-
-		//[org::Stakeholder|QualifiedName]
-		public CrossReference getStakeholdersStakeholderCrossReference_2_1_0() { return cStakeholdersStakeholderCrossReference_2_1_0; }
-
-		//QualifiedName
-		public RuleCall getStakeholdersStakeholderQualifiedNameParserRuleCall_2_1_0_1() { return cStakeholdersStakeholderQualifiedNameParserRuleCall_2_1_0_1; }
 	}
 
 	public class UncertaintyElements extends AbstractParserRuleElementFinder {
@@ -660,7 +640,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Rationale:
-	//	"rationale" text=STRING ("stakeholders" stakeholders+=[org::Stakeholder|QualifiedName]+)?;
+	//	"rationale" text=STRING;
 	public RationaleElements getRationaleAccess() {
 		return pRationale;
 	}

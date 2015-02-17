@@ -27,7 +27,7 @@ codelanguage-def[Aadl]
 
 codelanguage-def[ReqSpec]
 [
-	library,for,specification,goal,import,
+	library,for,specification,goal,import,mine,
 	document,constants,folder,goal,of,category,
 	description,assert,title,
 	assert,rationale,refined,decomposed,to,evolved,

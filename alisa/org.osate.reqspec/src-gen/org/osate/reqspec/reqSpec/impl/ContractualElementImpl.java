@@ -127,14 +127,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
   protected String targetDescription = TARGET_DESCRIPTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCategory()
    * @generated
    * @ordered
    */
-  protected RequirementCategory category;
+  protected EList<RequirementCategory> category;
 
   /**
    * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
@@ -324,42 +324,13 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public RequirementCategory getCategory()
+  public EList<RequirementCategory> getCategory()
   {
-    if (category != null && category.eIsProxy())
+    if (category == null)
     {
-      InternalEObject oldCategory = (InternalEObject)category;
-      category = (RequirementCategory)eResolveProxy(oldCategory);
-      if (category != oldCategory)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY, oldCategory, category));
-      }
+      category = new EObjectResolvingEList<RequirementCategory>(RequirementCategory.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY);
     }
     return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public RequirementCategory basicGetCategory()
-  {
-    return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCategory(RequirementCategory newCategory)
-  {
-    RequirementCategory oldCategory = category;
-    category = newCategory;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY, oldCategory, category));
   }
 
   /**
@@ -576,8 +547,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         return getTargetDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
-        if (resolve) return getCategory();
-        return basicGetCategory();
+        return getCategory();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return getDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
@@ -616,7 +586,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         setTargetDescription((String)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
-        setCategory((RequirementCategory)newValue);
+        getCategory().clear();
+        getCategory().addAll((Collection<? extends RequirementCategory>)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         setDescription((Description)newValue);
@@ -662,7 +633,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
-        setCategory((RequirementCategory)null);
+        getCategory().clear();
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         setDescription((Description)null);
@@ -702,7 +673,7 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
-        return category != null;
+        return category != null && !category.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return description != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:

@@ -25,7 +25,7 @@ VerificationPlan:
 
 Claim:
 	'claim' name=ID (':' title=STRING)?
-	( '(' weight=INT ')' )?
+	( '(' weight=Number ')' )?
 	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
 	(('assert' assert=ArgumentExpr)
@@ -102,13 +102,6 @@ VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]
 	('(' weight=INT ')')?;
 
-//VerificationAction : VerificationActivity | VerificationMethod;
-
-
-	// need to distinguish between method with/out predicate
-// method producing multiple results
-// Java based methods: all
-// interface methods to external or built-in
 VerificationMethodRegistry returns VerificationMethodRegistry:
 	'registry' name=ID
 	(':' title=STRING)?

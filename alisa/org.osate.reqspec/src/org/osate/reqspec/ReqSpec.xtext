@@ -71,7 +71,7 @@ Goal returns Goal:
 //		('of' targetContext=[aadl2::Classifier|AadlClassifierReference])?
 	)?
 '['  (
-	 ('category'  category=[categories::RequirementCategory|ValidID])?
+	 ('category'  category+=[categories::RequirementCategory|ValidID]+)?
 	 &(  description=Description)? 
 	 &(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
@@ -93,7 +93,7 @@ Requirement:
 //		('of' targetContext=[aadl2::ComponentImplementation|AadlClassifierReference])?
 	)?
 '['	(
- 	('category'  category=[categories::RequirementCategory|ID] )?
+ 	('category'  category+=[categories::RequirementCategory|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=XValDeclaration* )
 	& (  computes+=ComputeDeclaration* )

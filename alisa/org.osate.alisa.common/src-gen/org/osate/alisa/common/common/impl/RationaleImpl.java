@@ -2,23 +2,15 @@
  */
 package org.osate.alisa.common.common.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.Rationale;
-
-import org.osate.organization.organization.Stakeholder;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,7 +20,6 @@ import org.osate.organization.organization.Stakeholder;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.RationaleImpl#getText <em>Text</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.impl.RationaleImpl#getStakeholders <em>Stakeholders</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,16 +46,6 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
    * @ordered
    */
   protected String text = TEXT_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getStakeholders() <em>Stakeholders</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getStakeholders()
-   * @generated
-   * @ordered
-   */
-  protected EList<Stakeholder> stakeholders;
 
   /**
    * <!-- begin-user-doc -->
@@ -115,20 +96,6 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Stakeholder> getStakeholders()
-  {
-    if (stakeholders == null)
-    {
-      stakeholders = new EObjectResolvingEList<Stakeholder>(Stakeholder.class, this, CommonPackage.RATIONALE__STAKEHOLDERS);
-    }
-    return stakeholders;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -136,8 +103,6 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
     {
       case CommonPackage.RATIONALE__TEXT:
         return getText();
-      case CommonPackage.RATIONALE__STAKEHOLDERS:
-        return getStakeholders();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -147,7 +112,6 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -155,10 +119,6 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
     {
       case CommonPackage.RATIONALE__TEXT:
         setText((String)newValue);
-        return;
-      case CommonPackage.RATIONALE__STAKEHOLDERS:
-        getStakeholders().clear();
-        getStakeholders().addAll((Collection<? extends Stakeholder>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -177,9 +137,6 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
       case CommonPackage.RATIONALE__TEXT:
         setText(TEXT_EDEFAULT);
         return;
-      case CommonPackage.RATIONALE__STAKEHOLDERS:
-        getStakeholders().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -196,8 +153,6 @@ public class RationaleImpl extends MinimalEObjectImpl.Container implements Ratio
     {
       case CommonPackage.RATIONALE__TEXT:
         return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
-      case CommonPackage.RATIONALE__STAKEHOLDERS:
-        return stakeholders != null && !stakeholders.isEmpty();
     }
     return super.eIsSet(featureID);
   }

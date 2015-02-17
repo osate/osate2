@@ -148,7 +148,6 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDOCFRAGMENTAccess().getGroup_1(), "rule__DOCFRAGMENT__Group_1__0");
 					put(grammarAccess.getDescriptionAccess().getGroup(), "rule__Description__Group__0");
 					put(grammarAccess.getRationaleAccess().getGroup(), "rule__Rationale__Group__0");
-					put(grammarAccess.getRationaleAccess().getGroup_2(), "rule__Rationale__Group_2__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup(), "rule__Uncertainty__Group__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup_2_0(), "rule__Uncertainty__Group_2_0__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup_2_1(), "rule__Uncertainty__Group_2_1__0");
@@ -424,7 +423,6 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDescriptionElementAccess().getShowValueAssignment_1(), "rule__DescriptionElement__ShowValueAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_2(), "rule__DescriptionElement__ThisTargetAssignment_2");
 					put(grammarAccess.getRationaleAccess().getTextAssignment_1(), "rule__Rationale__TextAssignment_1");
-					put(grammarAccess.getRationaleAccess().getStakeholdersAssignment_2_1(), "rule__Rationale__StakeholdersAssignment_2_1");
 					put(grammarAccess.getUncertaintyAccess().getVolatilityAssignment_2_0_1(), "rule__Uncertainty__VolatilityAssignment_2_0_1");
 					put(grammarAccess.getUncertaintyAccess().getCostimpactAssignment_2_1_1(), "rule__Uncertainty__CostimpactAssignment_2_1_1");
 					put(grammarAccess.getUncertaintyAccess().getScheduleimpactAssignment_2_2_1(), "rule__Uncertainty__ScheduleimpactAssignment_2_2_1");

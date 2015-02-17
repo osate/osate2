@@ -17,7 +17,7 @@ DescriptionElement :
  	text = STRING | showValue = ShowValue |thisTarget?='this'
  ;
 
-Rationale: 'rationale' text=STRING ('stakeholders' stakeholders+=[org::Stakeholder|QualifiedName]+)?;
+Rationale: 'rationale' text=STRING ;
 
 
 Uncertainty:
