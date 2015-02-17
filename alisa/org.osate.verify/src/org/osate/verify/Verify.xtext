@@ -28,7 +28,7 @@ Claim:
 	( '(' weight=INT ')' )?
 	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
-	(('assure' assert=ArgumentExpr)
+	(('assert' assert=ArgumentExpr)
 	& ('argument' argument=STRING ( argumentUncertainty=Uncertainty)? )?
 	& (rationale=Rationale)?
 	& (subclaim+=Claim)*)  // if we have a requirement with refined requirements and we verify each

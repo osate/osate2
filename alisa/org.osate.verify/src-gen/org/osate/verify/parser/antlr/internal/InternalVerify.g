@@ -490,9 +490,9 @@ ruleClaim returns [EObject current=null]
 					{ 
 	 				  getUnorderedGroupHelper().select(grammarAccess.getClaimAccess().getUnorderedGroup_7(), 0);
 	 				}
-					({true}?=>(	otherlv_11='assure' 
+					({true}?=>(	otherlv_11='assert' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getClaimAccess().getAssureKeyword_7_0_0());
+    	newLeafNode(otherlv_11, grammarAccess.getClaimAccess().getAssertKeyword_7_0_0());
     }
 (
 (

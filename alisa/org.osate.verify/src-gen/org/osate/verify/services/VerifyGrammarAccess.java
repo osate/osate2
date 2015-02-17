@@ -197,7 +197,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final UnorderedGroup cUnorderedGroup_7 = (UnorderedGroup)cGroup.eContents().get(7);
 		private final Group cGroup_7_0 = (Group)cUnorderedGroup_7.eContents().get(0);
-		private final Keyword cAssureKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
+		private final Keyword cAssertKeyword_7_0_0 = (Keyword)cGroup_7_0.eContents().get(0);
 		private final Assignment cAssertAssignment_7_0_1 = (Assignment)cGroup_7_0.eContents().get(1);
 		private final RuleCall cAssertArgumentExprParserRuleCall_7_0_1_0 = (RuleCall)cAssertAssignment_7_0_1.eContents().get(0);
 		private final Group cGroup_7_1 = (Group)cUnorderedGroup_7.eContents().get(1);
@@ -214,13 +214,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Claim:
 		//	"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-		//	("assure" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
+		//	("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
 		//	& subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 		//	"]";
 		public ParserRule getRule() { return rule; }
 
 		//"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-		//("assure" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
+		//("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
 		//& subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 		//"]"
 		public Group getGroup() { return cGroup; }
@@ -276,15 +276,15 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//"assure" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale? &
+		//"assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale? &
 		//subclaim+=Claim*
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
-		//"assure" assert=ArgumentExpr
+		//"assert" assert=ArgumentExpr
 		public Group getGroup_7_0() { return cGroup_7_0; }
 
-		//"assure"
-		public Keyword getAssureKeyword_7_0_0() { return cAssureKeyword_7_0_0; }
+		//"assert"
+		public Keyword getAssertKeyword_7_0_0() { return cAssertKeyword_7_0_0; }
 
 		//assert=ArgumentExpr
 		public Assignment getAssertAssignment_7_0_1() { return cAssertAssignment_7_0_1; }
@@ -1577,7 +1577,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Claim:
 	//	"claim" name=ID (":" title=STRING)? ("(" weight=INT ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-	//	("assure" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
+	//	("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
 	//	& subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
 	//	"]";
 	public ClaimElements getClaimAccess() {
