@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.verify
-Bundle-Vendor: My Company
+Bundle-Vendor: SEI
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.verify; singleton:=true
 Bundle-ActivationPolicy: lazy
