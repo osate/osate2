@@ -38,13 +38,12 @@ import org.osate.aadl2.modelsupport.errorreporting.StringBufferAnalysisErrorRepo
 import org.osate.analysis.resource.budgets.logic.DoResourceBudgetLogic;
 import org.osate.ui.actions.AbstractAnalysis;
 
-
 public class DoResourceBudgetAutoAnalysis extends AbstractAnalysis {
 	private final StringBuffer reportMessage = new StringBuffer();
 
 	protected boolean runImpl() {
-		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new StringBufferAnalysisErrorReporter.Factory("*** ",
-				"* ", "", reportMessage));
+		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(
+				new StringBufferAnalysisErrorReporter.Factory("*** ", "* ", "", reportMessage));
 		DoResourceBudgetLogic logic = null;
 //		final SOMIterator soms = new SOMIterator((SystemInstance)getParameter());
 //		while (soms.hasNext())
@@ -62,7 +61,7 @@ public class DoResourceBudgetAutoAnalysis extends AbstractAnalysis {
 		return true;
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.ResourceObjectMarker";
 	}
 }

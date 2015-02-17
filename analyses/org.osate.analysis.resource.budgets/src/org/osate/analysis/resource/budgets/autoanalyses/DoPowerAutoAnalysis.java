@@ -51,7 +51,7 @@ public class DoPowerAutoAnalysis extends AbstractAnalysis {
 		return true;
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.ResourceObjectMarker";
 	}
 }

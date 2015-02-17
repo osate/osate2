@@ -44,13 +44,12 @@ import org.osate.analysis.security.SecurityPlugin;
 import org.osate.contribution.sei.names.SEI;
 import org.osgi.framework.Bundle;
 
-
 public final class CheckSecurity extends AbstractLevelChecker {
 	protected Bundle getBundle() {
 		return SecurityPlugin.getDefault().getBundle();
 	}
-	
-	protected String getMarkerType() {
+
+	public String getMarkerType() {
 		return "org.osate.analysis.security.SecurityCheckerObjectMarker";
 	}
 
@@ -65,8 +64,7 @@ public final class CheckSecurity extends AbstractLevelChecker {
 	protected String getLevelPropertyName() {
 		return SEI.SECURITY_LEVEL;
 	}
-	
-	
+
 	protected LevelComparator getLevelComparator() {
 		return destMustBeGreater;
 	}

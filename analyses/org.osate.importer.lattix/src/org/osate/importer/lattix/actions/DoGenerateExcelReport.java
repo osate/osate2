@@ -37,16 +37,10 @@
 
 package org.osate.importer.lattix.actions;
 
-
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -57,53 +51,46 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.importer.Utils;
 import org.osate.importer.lattix.vdid.Activator;
-import org.osate.importer.lattix.vdid.CostGenerator;
 import org.osate.importer.lattix.vdid.ExcelGenerator;
-import org.osate.importer.lattix.vdid.LdmGenerator;
 import org.osate.importer.lattix.vdid.MatrixGenerator;
 import org.osate.importer.lattix.vdid.MetricsReporter;
-import org.osate.importer.properties.InspectProperty;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
-
-
 public final class DoGenerateExcelReport extends AaxlReadOnlyActionAsJob {
-	
+
 	private static String path;
-	
+
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "edu.cmu.sei.vdid.dsm.ExcelReportGeneratorObjectMarker";
 	}
 
 	protected String getActionName() {
 		return "Excel Report Generator";
 	}
-	protected Resource buildFile (SystemInstance si) {
-		
+
+	protected Resource buildFile(SystemInstance si) {
 
 		URI Instanceuri = si.eResource().getURI();
 		URI resourceURI = Instanceuri.trimSegments(1).appendSegment(si.getName());
 		resourceURI = resourceURI.appendFileExtension("dsm");
 		return OsateResourceUtil.getEmptyAaxl2Resource(resourceURI);
 	}
-		
-	
+
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 
 		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable(){
+		d.syncExec(new Runnable() {
 
 			public void run() {
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -111,75 +98,59 @@ public final class DoGenerateExcelReport extends AaxlReadOnlyActionAsJob {
 				Shell sh = window.getShell();
 				FileDialog fd = new FileDialog(sh, SWT.SAVE);
 				path = fd.open();
-			}});
-		
-		
+			}
+		});
+
 		monitor.beginTask("Generating Excel Report", IProgressMonitor.UNKNOWN);
 		Element root = obj.getElementRoot();
-		List<String> componentList = new ArrayList<String>(); 
-
+		List<String> componentList = new ArrayList<String>();
 
 		SystemInstance si;
 		si = null;
-		
-		if (obj instanceof InstanceObject)
-		{
-			si = ((InstanceObject)obj).getSystemInstance();
+
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
 		}
-		
-		if (si == null)
-		{
-			Dialog.showInfo("Metrics Reports", "Please choose an instance system");	
+
+		if (si == null) {
+			Dialog.showInfo("Metrics Reports", "Please choose an instance system");
 			return;
 		}
 
-		MetricsReporter metricsReporter = new MetricsReporter(monitor,getErrorManager());
+		MetricsReporter metricsReporter = new MetricsReporter(monitor, getErrorManager());
 //		metricsReporter.defaultTraversalAllDeclarativeModels();
 //		
 //		
-		MatrixGenerator matrixGenerator = new MatrixGenerator(monitor,getErrorManager(), si);
+		MatrixGenerator matrixGenerator = new MatrixGenerator(monitor, getErrorManager(), si);
 //		matrixGenerator.defaultTraversalAllDeclarativeModels();
-		
-		
-		if (si != null) 
-		{
+
+		if (si != null) {
 
 			matrixGenerator.defaultTraversal(si);
 
 			metricsReporter.defaultTraversal(si);
-			
+
 			Utils.listComponentsNames(si, componentList);
-			
-			try 
-			{
+
+			try {
 				ExcelGenerator.writeReport(path, si, metricsReporter, matrixGenerator, componentList);
-			} 
-			catch (IOException e) 
-			{
+			} catch (IOException e) {
 				Dialog.showInfo("Excel Report Generator", "Error when trying to write the file");
 				monitor.done();
 				e.printStackTrace();
 				return;
-			}
-			catch (Exception e) 
-			{
+			} catch (Exception e) {
 				Dialog.showInfo("Excel Report Generator", "Unknown error");
 				monitor.done();
 				e.printStackTrace();
 				return;
 			}
-			
-
 
 			Dialog.showInfo("Excel Report Generator", "Report Generated");
-		}
-		else
-		{
-			Dialog.showInfo("Excel Report Generator", "Please choose an instance model");	
+		} else {
+			Dialog.showInfo("Excel Report Generator", "Please choose an instance model");
 		}
 		monitor.done();
 
-
-		
 	}
 }

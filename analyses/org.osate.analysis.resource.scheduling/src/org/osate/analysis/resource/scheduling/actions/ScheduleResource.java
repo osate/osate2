@@ -204,7 +204,7 @@ public class ScheduleResource extends AbstractInstanceOrDeclarativeModelReadOnly
 		return Activator.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.scheduling.ResourceScheduleObjectMarker";
 	}
 

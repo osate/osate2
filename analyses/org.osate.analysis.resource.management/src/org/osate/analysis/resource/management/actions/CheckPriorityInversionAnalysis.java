@@ -40,39 +40,30 @@ import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.analysis.scheduling.inversion.PriorityInversion;
 import org.osate.ui.actions.AbstractAnalysis;
 
+public class CheckPriorityInversionAnalysis extends AbstractAnalysis {
 
-public class CheckPriorityInversionAnalysis extends AbstractAnalysis
-{
-	
-	protected boolean runImpl()
-	{
-		if (getParameter() instanceof InstanceObject)
-		{
-			try
-			{
-				SystemInstance root = ((InstanceObject)getParameter()).getSystemInstance();
-				final PriorityInversion pi = new PriorityInversion( getErrorManager());
+	protected boolean runImpl() {
+		if (getParameter() instanceof InstanceObject) {
+			try {
+				SystemInstance root = ((InstanceObject) getParameter()).getSystemInstance();
+				final PriorityInversion pi = new PriorityInversion(getErrorManager());
 				pi.checkSystemPriorityInversion(root);
-			}
-			catch (InvalidModelException e)
-			{
-				//Should never happen.  We already check for SEI::Priority
+			} catch (InvalidModelException e) {
+				// Should never happen. We already check for SEI::Priority
 				ResourcemanagementPlugin.logThrowable(e);
 			}
-		}
-		else
-			//Should never happen.
-			ResourcemanagementPlugin.logErrorMessage("The object passed to CheckPriorityInversionAnalysis is not a System Instance.");
+		} else
+			// Should never happen.
+			ResourcemanagementPlugin
+					.logErrorMessage("The object passed to CheckPriorityInversionAnalysis is not a System Instance.");
 		return getErrorManager().getNumErrors() == 0;
 	}
 
-	protected boolean readyToRunImpl()
-	{
+	protected boolean readyToRunImpl() {
 		return true;
 	}
-	
-	protected String getMarkerType()
-	{
+
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.management.InversionObjectMarker";
 	}
 }

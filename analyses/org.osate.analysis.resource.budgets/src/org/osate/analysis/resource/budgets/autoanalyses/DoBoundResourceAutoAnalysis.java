@@ -37,13 +37,12 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.StringBufferAnalysisErrorReporter;
 import org.osate.ui.actions.AbstractAnalysis;
 
-
 public class DoBoundResourceAutoAnalysis extends AbstractAnalysis {
 	protected final StringBuffer reportMessage = new StringBuffer();
 
 	protected final boolean runImpl() {
-		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new StringBufferAnalysisErrorReporter.Factory("*** ",
-				"* ", "", reportMessage));
+		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(
+				new StringBufferAnalysisErrorReporter.Factory("*** ", "* ", "", reportMessage));
 //		getLogicObject(loggingErrManager).analysisBody(new NullProgressMonitor(), getParameter());
 		return getErrorManager().getNumErrors() == 0;
 	}
@@ -52,7 +51,7 @@ public class DoBoundResourceAutoAnalysis extends AbstractAnalysis {
 		return true;
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.ResourceObjectMarker";
 	}
 //

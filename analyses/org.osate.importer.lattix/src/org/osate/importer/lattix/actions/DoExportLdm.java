@@ -37,106 +37,79 @@
 
 package org.osate.importer.lattix.actions;
 
-
-import org.eclipse.core.resources.IFolder;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.importer.lattix.ldmexporter.LdmExporter;
-import org.osate.importer.lattix.ldmimporter.LdmImporter;
-import org.osate.importer.lattix.vdid.Activator;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeSelection;
-import org.eclipse.jface.viewers.TreePath;
-import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.importer.lattix.ldmexporter.LdmExporter;
+import org.osate.importer.lattix.vdid.Activator;
+import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
+public final class DoExportLdm extends AaxlReadOnlyActionAsJob {
 
-
-public final class DoExportLdm extends AaxlReadOnlyActionAsJob  {
-	
 	private String outputFile;
 	private IWorkbenchWindow window;
-	
+
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "edu.cmu.sei.vdid.dsm.ExcelReportGeneratorObjectMarker";
 	}
 
 	protected String getActionName() {
 		return "Lattix Exporter";
 	}
-	
-	public void doAaxlAction(IProgressMonitor monitor, Element obj) 
-	{
+
+	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		boolean canRun;
 		Display d;
 		final SystemInstance si;
-		
+
 		outputFile = null;
-		
+
 		d = PlatformUI.getWorkbench().getDisplay();
-		
-		
-		if (obj instanceof InstanceObject)
-		{
-			si = ((InstanceObject)obj).getSystemInstance();
-		}
-		else
-		{
+
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+		} else {
 			si = null;
 		}
-		
-		
-		if (si == null)
-		{
+
+		if (si == null) {
 			Dialog.showError("DSM Matrix Generator", "Invalid System Instance");
 			return;
 		}
-		
-		Job ldmGenerator = new Job("AADL2LDM") {
-			  protected IStatus run(IProgressMonitor monitor) {
-				monitor.beginTask("Generating LDM file from AADL", 100);
-			    
 
-				try
-				{
-				    LdmExporter.convert (si, outputFile);
-				}
-				catch (Exception e)
-				{
+		Job ldmGenerator = new Job("AADL2LDM") {
+			protected IStatus run(IProgressMonitor monitor) {
+				monitor.beginTask("Generating LDM file from AADL", 100);
+
+				try {
+					LdmExporter.convert(si, outputFile);
+				} catch (Exception e) {
 					monitor.done();
-				    return Status.CANCEL_STATUS;
+					return Status.CANCEL_STATUS;
 				}
 
 				monitor.done();
-			    return Status.OK_STATUS;
-			  }
-			};
-		
-		d.syncExec(new Runnable(){
+				return Status.OK_STATUS;
+			}
+		};
+
+		d.syncExec(new Runnable() {
 
 			public void run() {
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -144,24 +117,18 @@ public final class DoExportLdm extends AaxlReadOnlyActionAsJob  {
 				Shell sh = window.getShell();
 				FileDialog fd = new FileDialog(sh, SWT.SAVE);
 				outputFile = fd.open();
-			}});
+			}
+		});
 
-		
 		ldmGenerator.schedule();
-		
 
 	}
 
-	
+	public void dispose() {
 
-
-	public void dispose() 
-	{
-		
 	}
 
-	public void init(IWorkbenchWindow window)
-	{
+	public void init(IWorkbenchWindow window) {
 		this.window = window;
 	}
 

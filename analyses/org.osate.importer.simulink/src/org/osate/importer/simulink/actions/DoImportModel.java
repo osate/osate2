@@ -84,7 +84,7 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 		return Activator.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.importer.SimulinkImporterMarker";
 	}
 

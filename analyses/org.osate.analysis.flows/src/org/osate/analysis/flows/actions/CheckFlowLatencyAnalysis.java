@@ -36,30 +36,22 @@ package org.osate.analysis.flows.actions;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AbstractAnalysis;
 
+public class CheckFlowLatencyAnalysis extends AbstractAnalysis {
 
-public class CheckFlowLatencyAnalysis extends AbstractAnalysis
-{
-	
-	protected boolean runImpl()
-	{
-		if (getParameter() instanceof SystemInstance)
-		{ // TODO
-		}
-		else
-		{
+	protected boolean runImpl() {
+		if (getParameter() instanceof SystemInstance) { // TODO
+		} else {
 //			final FlowLatencyAnalysisSwitch flowLatencySwitch = new FlowLatencyAnalysisSwitch( new NullProgressMonitor(), getErrorManager(), getParameter());
 //			flowLatencySwitch.processBottomUpComponentImpl(); //(ComponentImplementation)getParameter());
 		}
 		return getErrorManager().getNumErrors() == 0;
 	}
 
-	protected boolean readyToRunImpl()
-	{
+	protected boolean readyToRunImpl() {
 		return true;
 	}
-	
-	protected String getMarkerType()
-	{
+
+	public String getMarkerType() {
 		return "org.osate.analysis.flows.FlowLatencyObjectMarker";
 	}
 }

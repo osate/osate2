@@ -138,7 +138,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		return ResourcemanagementPlugin.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.management.BinpackObjectMarker";
 	}
 

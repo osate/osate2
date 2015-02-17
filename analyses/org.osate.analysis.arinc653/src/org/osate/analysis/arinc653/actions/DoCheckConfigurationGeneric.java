@@ -34,13 +34,12 @@
  */
 package org.osate.analysis.arinc653.actions;
 
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.analysis.arinc653.Activator; 
+import org.osate.analysis.arinc653.Activator;
 import org.osate.analysis.arinc653.ConfigurationValidation;
 import org.osate.analysis.lute.utils.Invoke;
 import org.osate.analysis.lute.utils.LuteLogger;
@@ -48,20 +47,17 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
-
-
 abstract class DoCheckConfigurationGeneric extends AaxlReadOnlyActionAsJob {
 
 	abstract String getTheoremFile();
-	
+
 	abstract String getValidationString();
 
-	
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.arinc653.Arinc653ObjectMarker";
 	}
 
@@ -69,36 +65,29 @@ abstract class DoCheckConfigurationGeneric extends AaxlReadOnlyActionAsJob {
 		return "ARINC653 configuration analysis";
 	}
 
-
-
-	public void doAaxlAction(IProgressMonitor monitor, Element obj)
-	{
+	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		final SystemInstance si;
 
 		monitor.beginTask("Check ARINC653 configuration compliance", IProgressMonitor.UNKNOWN);
 
-		if (obj instanceof InstanceObject)
-		{
-			si = ((InstanceObject)obj).getSystemInstance();
-		}
-		else
-		{
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+		} else {
 			si = null;
 		}
 
-		if (si != null) 
-		{
-			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable(){
+		if (si != null) {
+			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 
 				public void run() {
 					LuteLogger logger = new LuteLogger(LuteLogger.INFO, "AADL Validation", getWindow());
-					Invoke.invokeLuteLogger (si, ConfigurationValidation.class.getResourceAsStream(getTheoremFile()), logger); 
+					Invoke.invokeLuteLogger(si, ConfigurationValidation.class.getResourceAsStream(getTheoremFile()),
+							logger);
 					return;
-				}}); 
-		}
-		else
-		{
-			Dialog.showInfo("Configuration compliance checking", "Please choose an instance model");	
+				}
+			});
+		} else {
+			Dialog.showInfo("Configuration compliance checking", "Please choose an instance model");
 		}
 		monitor.done();
 	}

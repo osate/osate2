@@ -36,16 +36,10 @@
  */
 package org.osate.importer.lattix.actions;
 
-
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -64,46 +58,37 @@ import org.osate.importer.Utils;
 import org.osate.importer.lattix.vdid.Activator;
 import org.osate.importer.lattix.vdid.LdmGenerator;
 import org.osate.importer.lattix.vdid.MatrixGenerator;
-import org.osate.importer.properties.InspectProperty;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
-
-
 public final class DoGenerateDsmMatrix extends AaxlReadOnlyActionAsJob {
-	
+
 	private static String path;
-	
-	protected Bundle getBundle() 
-	{
+
+	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
 
-	protected String getMarkerType()
-	{
+	public String getMarkerType() {
 		return "edu.cmu.sei.vdid.dsm.DSMGeneratorMatrixObjectMarker";
 	}
 
-	protected String getActionName()
-	{
+	protected String getActionName() {
 		return "DSM Matrix Generator";
 	}
-	
-	protected Resource buildFile (SystemInstance si)
-	{
+
+	protected Resource buildFile(SystemInstance si) {
 		URI Instanceuri = si.eResource().getURI();
 		URI resourceURI = Instanceuri.trimSegments(1).appendSegment(si.getName());
 		resourceURI = resourceURI.appendFileExtension("dsm");
 		return OsateResourceUtil.getEmptyAaxl2Resource(resourceURI);
 	}
-		
-	
-	public void doAaxlAction(IProgressMonitor monitor, Element obj) 
-	{
+
+	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 
 		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable(){
+		d.syncExec(new Runnable() {
 
 			public void run() {
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
@@ -111,58 +96,47 @@ public final class DoGenerateDsmMatrix extends AaxlReadOnlyActionAsJob {
 				Shell sh = window.getShell();
 				FileDialog fd = new FileDialog(sh, SWT.SAVE);
 				path = fd.open();
-			}});
-		
-		
+			}
+		});
+
 		monitor.beginTask("Generating Matrix", IProgressMonitor.UNKNOWN);
-		List<String> componentList = new ArrayList<String>(); 
+		List<String> componentList = new ArrayList<String>();
 
 		SystemInstance si;
 		if (obj instanceof InstanceObject)
-			si = ((InstanceObject)obj).getSystemInstance();
+			si = ((InstanceObject) obj).getSystemInstance();
 		else
 			si = null;
 
-
-		MatrixGenerator generator = new MatrixGenerator(monitor,getErrorManager(), si);
+		MatrixGenerator generator = new MatrixGenerator(monitor, getErrorManager(), si);
 
 		generator.defaultTraversalAllDeclarativeModels();
-		
-		if (si != null) 
-		{
+
+		if (si != null) {
 			generator.defaultTraversal(si);
-			for (Element c : si.getChildren())
-			{
-				if (c instanceof ComponentInstance)
-				{
-					
+			for (Element c : si.getChildren()) {
+				if (c instanceof ComponentInstance) {
+
 					ComponentInstance ci = (ComponentInstance) c;
 					String componentName = Utils.getComponentName(ci);
 					componentList.add(componentName);
 
 				}
-				
+
 			}
-			
-			try 
-			{
+
+			try {
 				LdmGenerator.writeMatrix(path, componentList, generator.getMatrix());
-			} 
-			catch (IOException e) 
-			{
+			} catch (IOException e) {
 				Dialog.showInfo("DSM Matrix Generator", "Error when trying to write the file");
 				monitor.done();
 				e.printStackTrace();
 				return;
 			}
-			
-
 
 			Dialog.showInfo("DSM Matrix Generator", "Matrix Generated");
-		}
-		else
-		{
-			Dialog.showInfo("DSM Matrix Generator", "Please choose an instance model");	
+		} else {
+			Dialog.showInfo("DSM Matrix Generator", "Please choose an instance model");
 		}
 		monitor.done();
 	}

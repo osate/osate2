@@ -37,27 +37,19 @@
 
 package org.osate.importer.lattix.actions;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeSelection;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TreePath;
-import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -71,7 +63,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
@@ -88,210 +79,184 @@ import org.osgi.framework.Bundle;
  * @author jdelange
  *
  */
- class ModulesSelectionDialog extends Dialog {
-	  private String 			message;
-	  private List<String> 		selectedModules;
-	  private List<String> 		modulesList;
+class ModulesSelectionDialog extends Dialog {
+	private String message;
+	private List<String> selectedModules;
+	private List<String> modulesList;
 
+	public ModulesSelectionDialog(Shell parent, List<String> ml) {
+		this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+		this.modulesList = ml;
 
-	  public ModulesSelectionDialog(Shell parent, List<String> ml) {
-	    this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-	    this.modulesList = ml;
-	    
-	  }
+	}
 
+	public ModulesSelectionDialog(Shell parent, int style) {
+		super(parent, style);
+		setText("Select your modules");
+		setMessage("Please select the modules to import:");
+		this.selectedModules = new ArrayList<String>();
+	}
 
-	  public ModulesSelectionDialog(Shell parent, int style) {
-	    super(parent, style);
-	    setText("Select your modules");
-	    setMessage("Please select the modules to import:");
-	    this.selectedModules = new ArrayList<String>();
-	  }
+	public String getMessage() {
+		return message;
+	}
 
-
-	  public String getMessage() 
-	  {
-	    return message;
-	  }
-
-
-	  public void setMessage(String message) {
-	    this.message = message;
-	  }
-
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	/**
 	 * Open the dialog box, display the content and wait for the result from the user
 	 * @return The list of modules names selected by the user.
 	 */
-	  public List<String> open()
-	  {
-	    Shell shell = new Shell(getParent(), getStyle());
-	    shell.setText(getText());
-	    createContents(shell);
-	    shell.pack();
-	    shell.open();
-	    Display display = getParent().getDisplay();
-	    while (!shell.isDisposed()) 
-	    {
-	      if (!display.readAndDispatch()) 
-	      {
-	        display.sleep();
-	      }
-	    }
-	    return this.selectedModules;
-	  }
-
-/**
- * Create all the widgets necessary to create the dialog
- * @param shell
- */
-	  private void createContents(final Shell shell) {
-	    shell.setLayout(new GridLayout(2, true));
-
-	    // Show the message
-	    Label label = new Label(shell, SWT.NONE);
-	    label.setText(message);
-	    GridData data = new GridData();
-	    data.horizontalSpan = 2;
-	    label.setLayoutData(data);
-
-    
-	    final Table table = new Table(shell, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-	    /**
-	     * Add the data to the table. For each
-	     * item to be displayed, we create an item with
-	     * a text field and a checkbox.
-	     */
-	    for (String moduleName : modulesList)
-	    {
-		    TableItem ti = new TableItem(table, SWT.NONE);
-		    ti.setText(moduleName);
-	    }
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    data.horizontalSpan = 2;
-	    table.setLayoutData(data);
-
-	/**
-	 * The OK button that register the selected
-	 * items.
-	 */
-	    Button ok = new Button(shell, SWT.PUSH);
-	    ok.setText("OK");
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    ok.setLayoutData(data);
-	    ok.addSelectionListener(new SelectionAdapter() {
-	      public void widgetSelected(SelectionEvent event) {
-	    	  for (TableItem ti : table.getItems())
-	    	  {
-	    		  if (ti.getChecked())
-	    		  {
-	    			  selectedModules.add(ti.getText());
-	    		  }
-	    	  }
-	        shell.close();
-	      }
-	    });
-
-	    // Create the cancel button and add a handler
-	    // so that pressing it will set input to null
-	    Button cancel = new Button(shell, SWT.PUSH);
-	    cancel.setText("Cancel");
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    cancel.setLayoutData(data);
-	    cancel.addSelectionListener(new SelectionAdapter() {
-	      public void widgetSelected(SelectionEvent event) {
-	        selectedModules = null;
-	        shell.close();
-	      }
-	    });
-
-	    // Set the OK button as the default, so
-	    // user can type input and press Enter
-	    // to dismiss
-	    shell.setDefaultButton(ok);
-	  }
+	public List<String> open() {
+		Shell shell = new Shell(getParent(), getStyle());
+		shell.setText(getText());
+		createContents(shell);
+		shell.pack();
+		shell.open();
+		Display display = getParent().getDisplay();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+		return this.selectedModules;
 	}
 
-public final class DoImportLdm implements IWorkbenchWindowActionDelegate  {
-	
+	/**
+	 * Create all the widgets necessary to create the dialog
+	 * @param shell
+	 */
+	private void createContents(final Shell shell) {
+		shell.setLayout(new GridLayout(2, true));
+
+		// Show the message
+		Label label = new Label(shell, SWT.NONE);
+		label.setText(message);
+		GridData data = new GridData();
+		data.horizontalSpan = 2;
+		label.setLayoutData(data);
+
+		final Table table = new Table(shell, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		/**
+		 * Add the data to the table. For each
+		 * item to be displayed, we create an item with
+		 * a text field and a checkbox.
+		 */
+		for (String moduleName : modulesList) {
+			TableItem ti = new TableItem(table, SWT.NONE);
+			ti.setText(moduleName);
+		}
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 2;
+		table.setLayoutData(data);
+
+		/**
+		 * The OK button that register the selected
+		 * items.
+		 */
+		Button ok = new Button(shell, SWT.PUSH);
+		ok.setText("OK");
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		ok.setLayoutData(data);
+		ok.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
+				for (TableItem ti : table.getItems()) {
+					if (ti.getChecked()) {
+						selectedModules.add(ti.getText());
+					}
+				}
+				shell.close();
+			}
+		});
+
+		// Create the cancel button and add a handler
+		// so that pressing it will set input to null
+		Button cancel = new Button(shell, SWT.PUSH);
+		cancel.setText("Cancel");
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		cancel.setLayoutData(data);
+		cancel.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
+				selectedModules = null;
+				shell.close();
+			}
+		});
+
+		// Set the OK button as the default, so
+		// user can type input and press Enter
+		// to dismiss
+		shell.setDefaultButton(ok);
+	}
+}
+
+public final class DoImportLdm implements IWorkbenchWindowActionDelegate {
+
 	private String inputFile;
 	private String outputDirectory;
 	List<String> selectedModules;
-	
+
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "edu.cmu.sei.vdid.dsm.ExcelReportGeneratorObjectMarker";
 	}
 
 	protected String getActionName() {
 		return "Lattix Importer";
 	}
-	
 
-	
-	public void run(IAction action) 
-	{
-		
-		
+	public void run(IAction action) {
+
 		outputDirectory = Utils.getSelectedDirectory();
-		
-       
-        if (outputDirectory == null)
-        {
-        	System.out.println("Selection is not a directory" + outputDirectory );
-        	return;
-        }
-		
-		
-		final Display d = PlatformUI.getWorkbench().getDisplay();
-		
-		Job aadlGenerator = new Job("LDM2AADL") {
-			  protected IStatus run(IProgressMonitor monitor) {
-				monitor.beginTask("Generating AADL files from LDM", 100);
-			    
 
-			    LdmImporter.convert (inputFile, outputDirectory, selectedModules);
-			    
-			    /**
-			     * Here, we try to refresh the current workspace
-			     * and display the new created files.
-			     */
-				try 
-				{
-					for (IProject p : ResourcesPlugin.getWorkspace().getRoot().getProjects())
-					{
+		if (outputDirectory == null) {
+			System.out.println("Selection is not a directory" + outputDirectory);
+			return;
+		}
+
+		final Display d = PlatformUI.getWorkbench().getDisplay();
+
+		Job aadlGenerator = new Job("LDM2AADL") {
+			protected IStatus run(IProgressMonitor monitor) {
+				monitor.beginTask("Generating AADL files from LDM", 100);
+
+				LdmImporter.convert(inputFile, outputDirectory, selectedModules);
+
+				/**
+				 * Here, we try to refresh the current workspace
+				 * and display the new created files.
+				 */
+				try {
+					for (IProject p : ResourcesPlugin.getWorkspace().getRoot().getProjects()) {
 						p.refreshLocal(IResource.DEPTH_INFINITE, null);
 					}
-				} 
-				catch (CoreException e)
-				{
+				} catch (CoreException e) {
 					OsateDebug.osateDebug("[DoImportLdm] Error when refreshing the workspace");
 					e.printStackTrace();
 				}
 				monitor.done();
 
-			    return Status.OK_STATUS;
-			  }
-			};
-		
-		d.syncExec(new Runnable(){
+				return Status.OK_STATUS;
+			}
+		};
+
+		d.syncExec(new Runnable() {
 
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
 				List<String> modulesList;
-				
 
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
-				
+
 				FileDialog fd = new FileDialog(sh, SWT.OPEN);
 				inputFile = fd.open();
-				
+
 				/**
 				 * Then, we open a new window 
 				 * to choose the module to be included
@@ -302,17 +267,15 @@ public final class DoImportLdm implements IWorkbenchWindowActionDelegate  {
 				 */
 				Matrix matrix = LdmImporter.loadFile(inputFile);
 				modulesList = new ArrayList<String>();
-				for (Component m : matrix.getModules())
-				{
+				for (Component m : matrix.getModules()) {
 					modulesList.add(m.getName());
 				}
-				
+
 				ModulesSelectionDialog msd = new ModulesSelectionDialog(sh, modulesList);
 				selectedModules = msd.open();
-					
-			}});
-		
-		
+
+			}
+		});
 
 		/**
 		 * if selectedModules is null, it means that the user
@@ -321,25 +284,21 @@ public final class DoImportLdm implements IWorkbenchWindowActionDelegate  {
 		 * AADL model. Then, we cancel the AADL model
 		 * production.
 		 */
-		if (selectedModules != null)
-		{
+		if (selectedModules != null) {
 			aadlGenerator.schedule();
 		}
-		
+
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	public void dispose() {
 
-	public void dispose() 
-	{
-		
 	}
 
-	public void init(IWorkbenchWindow window)
-	{
+	public void init(IWorkbenchWindow window) {
 	}
 }

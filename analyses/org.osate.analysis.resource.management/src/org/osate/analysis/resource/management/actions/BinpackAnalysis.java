@@ -35,21 +35,17 @@ package org.osate.analysis.resource.management.actions;
 
 import org.osate.ui.actions.AbstractAnalysis;
 
-public class BinpackAnalysis extends AbstractAnalysis
-{
-	
-	protected boolean runImpl()
-	{
+public class BinpackAnalysis extends AbstractAnalysis {
+
+	protected boolean runImpl() {
 		return true;
 	}
 
-	protected boolean readyToRunImpl()
-	{
+	protected boolean readyToRunImpl() {
 		return true;
 	}
-	
-	protected String getMarkerType()
-	{
+
+	public String getMarkerType() {
 		return "org.osate.analysis.resource.management.BinpackObjectMarker";
 	}
 }

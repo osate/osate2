@@ -36,27 +36,20 @@ package org.osate.analysis.security.actions;
 import org.osate.analysis.security.LevelComparator;
 import org.osate.contribution.sei.names.SEI;
 
-
-
-public class CheckSafetyAnalysis extends AbstractLevelCheckerAnalysis
-{
-	protected String getLevelPropertyPropertySet()
-	{
+public class CheckSafetyAnalysis extends AbstractLevelCheckerAnalysis {
+	protected String getLevelPropertyPropertySet() {
 		return SEI._NAME;
 	}
 
-	protected String getLevelPropertyName()
-	{
+	protected String getLevelPropertyName() {
 		return SEI.SAFETY_CRITICALITY;
 	}
-	
-	protected LevelComparator getLevelComparator()
-	{
+
+	protected LevelComparator getLevelComparator() {
 		return sourceMustBeGreater;
 	}
-	
-	protected String getMarkerType()
-	{
+
+	public String getMarkerType() {
 		return "org.osate.analysis.security.SafetyCheckerObjectMarker";
 	}
 }

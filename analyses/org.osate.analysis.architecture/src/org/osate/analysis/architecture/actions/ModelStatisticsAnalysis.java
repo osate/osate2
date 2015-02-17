@@ -39,14 +39,12 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.architecture.ModelStatistics;
 import org.osate.ui.actions.AbstractAnalysis;
 
-
-
 public class ModelStatisticsAnalysis extends AbstractAnalysis {
 	protected boolean runImpl() {
 		// Get the system instance (if any)
 		SystemInstance si = null;
 		if (getParameter() instanceof InstanceObject)
-			si = ((InstanceObject)getParameter()).getSystemInstance();
+			si = ((InstanceObject) getParameter()).getSystemInstance();
 
 		/*
 		 * Create a new model statistics analysis object and run it over the
@@ -78,7 +76,7 @@ public class ModelStatisticsAnalysis extends AbstractAnalysis {
 		return true;
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.architecture.ModelStatisticsObjectMarker";
 	}
 }

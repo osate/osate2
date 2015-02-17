@@ -50,27 +50,24 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
-
 public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 	protected Bundle getBundle() {
 		return ArchitecturePlugin.getDefault().getBundle();
 	}
 
-	protected String getMarkerType() {
+	public String getMarkerType() {
 		return "org.osate.analysis.architecture.ModelStatisticsObjectMarker";
 	}
 
 	protected String getActionName() {
 		return "Model statistics";
 	}
-	
 
 	@Override
 	protected boolean initializeAction(NamedElement obj) {
-	    	setCSVLog("ModelStatistics", obj);
-			return true;
+		setCSVLog("ModelStatistics", obj);
+		return true;
 	}
-
 
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		/*
@@ -85,20 +82,19 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		// Get the system instance (if any)
 		SystemInstance si;
 		if (obj instanceof InstanceObject)
-			si = ((InstanceObject)obj).getSystemInstance();
+			si = ((InstanceObject) obj).getSystemInstance();
 		else
 			si = null;
-
 
 		/**
 		 * Examples of using the Index to look up a specific package, classifier, property, etc.
 		 * In this case any scoping rules based on with clauses or project dependencies are ignored
 		 */
-		
+
 //		Element e = EMFIndexRetrieval.getPropertyDefinitionInWorkspace("Deadline");
 //		Element p = EMFIndexRetrieval.getPackageInWorkspace("mydata::dd");
 //		Element c = EMFIndexRetrieval.getClassifierInWorkspace("mydata::dd::sys");
-		
+
 		/**
 		 * Example of using the Index to get all classifiers
 		 * In this case we then call on the resolver for the reference (causing the classifier to be loaded)
@@ -109,22 +105,22 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 //				Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), OsateResourceUtil.getResourceSet());//obj.eResource().getResourceSet());
 //				stats.process(cl);
 //			}
-		
+
 		/**
 		 * Example of counting without causing the classifier to load
 		 */
-		
+
 //		EList<IEObjectDescription> classifierlist1 = EMFIndexRetrieval.getAllClassifiersInWorkspace();
 //		Resource res = obj.eResource();
 //		for (IEObjectDescription cleod : classifierlist1){
 //			stats.countClassifier(cleod.getEClass());
 //		}
-		
+
 		/*
 		 * Create a new model statistics analysis object and run it over the
 		 * declarative model. If an instance model exists, run it over that too.
 		 */
-		ModelStatistics stats = new ModelStatistics(monitor,getErrorManager());
+		ModelStatistics stats = new ModelStatistics(monitor, getErrorManager());
 		/*
 		 * Accumulate the results in a StringBuffer, but also report them using
 		 * info markers attached to the root model object.
@@ -139,7 +135,6 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		msg.append(modelStats);
 		msg.append(flowStats);
 
-
 		if (si != null) {
 			stats.defaultTraversal(si);
 			final String appStats = stats.getApplicationResult();
@@ -150,7 +145,6 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 			msg.append(epStats);
 		}
 		monitor.done();
-
 
 		Dialog.showInfo("Model Statistics", msg.toString());
 	}
