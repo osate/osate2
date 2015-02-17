@@ -33,8 +33,9 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.alisa.workbench.ui,
  org.osate.alisa.workbench.ui.contentassist,
  org.osate.alisa.workbench.ui.contentassist.antlr,
+ org.osate.alisa.workbench.ui.contentassist.antlr.internal;x-internal:=true,
  org.osate.alisa.workbench.ui.handlers,
- org.osate.alisa.workbench.ui.internal,
+ org.osate.alisa.workbench.ui.internal;x-internal:=true,
  org.osate.alisa.workbench.ui.labeling,
  org.osate.alisa.workbench.ui.outline,
  org.osate.alisa.workbench.ui.quickfix
