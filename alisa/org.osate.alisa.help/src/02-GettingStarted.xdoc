@@ -44,7 +44,7 @@ Users may impose an order to indicate that some are dependent
 on the successful completion of others, and specify that in case of failure to complete execution, or returning a negative
 result (e[fail]) an alternative verification activity may be performed.
 
-img[images/verificationplan.png][System Requirements in Context of an AADL Model][][] 
+img[images/claimexample.png][System Requirements in Context of an AADL Model][][] 
 
 Typically the user will work with an existing e[registry] of e[verification methods]. This registry identifies the methods available for use in verification activities. You may add methods to the registry as you may
 develop additional analysis,verification, and test methods. Users can build up libraries of verificaion
@@ -60,7 +60,7 @@ verification methods or activities.
  This instance is used to drive the execution of the verification activities and to record the resultss as e[assuanrce evidence]. 
  
  
-img[images/assureexample.png][Snippet of a Generated Assure file][][] 
+img[images/assuresnippet.png][Snippet of a Generated Assure file][][] 
  
  Users then initiate the execution of all verification activities for an assurance case by opening the
  e[assure] file and selecting the root element in the e[Outline] view, bring up the cotnext menu by right clicking, and invoking
