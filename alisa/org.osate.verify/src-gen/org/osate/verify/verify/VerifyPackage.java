@@ -123,7 +123,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__TARGET = 2;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -608,7 +608,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD_REGISTRY__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -699,7 +699,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__REPORTING = 5;
 
   /**
-   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1179,15 +1179,15 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationPlan_Target();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Description</em>'.
+   * @return the meta object for the containment reference '<em>Description</em>'.
    * @see org.osate.verify.verify.VerificationPlan#getDescription()
    * @see #getVerificationPlan()
    * @generated
    */
-  EAttribute getVerificationPlan_Description();
+  EReference getVerificationPlan_Description();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}'.
@@ -1644,15 +1644,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethodRegistry_Title();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethodRegistry#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethodRegistry#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Description</em>'.
+   * @return the meta object for the containment reference '<em>Description</em>'.
    * @see org.osate.verify.verify.VerificationMethodRegistry#getDescription()
    * @see #getVerificationMethodRegistry()
    * @generated
    */
-  EAttribute getVerificationMethodRegistry_Description();
+  EReference getVerificationMethodRegistry_Description();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.verify.verify.VerificationMethodRegistry#getMethods <em>Methods</em>}'.
@@ -1742,15 +1742,15 @@ public interface VerifyPackage extends EPackage
   EAttribute getVerificationMethod_Reporting();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.VerificationMethod#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Description</em>'.
+   * @return the meta object for the containment reference '<em>Description</em>'.
    * @see org.osate.verify.verify.VerificationMethod#getDescription()
    * @see #getVerificationMethod()
    * @generated
    */
-  EAttribute getVerificationMethod_Description();
+  EReference getVerificationMethod_Description();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationMethod#getMethodPath <em>Method Path</em>}'.
@@ -2082,12 +2082,12 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_PLAN__TARGET = eINSTANCE.getVerificationPlan_Target();
 
     /**
-     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_PLAN__DESCRIPTION = eINSTANCE.getVerificationPlan_Description();
+    EReference VERIFICATION_PLAN__DESCRIPTION = eINSTANCE.getVerificationPlan_Description();
 
     /**
      * The meta object literal for the '<em><b>Claim</b></em>' containment reference list feature.
@@ -2442,12 +2442,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD_REGISTRY__TITLE = eINSTANCE.getVerificationMethodRegistry_Title();
 
     /**
-     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_METHOD_REGISTRY__DESCRIPTION = eINSTANCE.getVerificationMethodRegistry_Description();
+    EReference VERIFICATION_METHOD_REGISTRY__DESCRIPTION = eINSTANCE.getVerificationMethodRegistry_Description();
 
     /**
      * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
@@ -2516,12 +2516,12 @@ public interface VerifyPackage extends EPackage
     EAttribute VERIFICATION_METHOD__REPORTING = eINSTANCE.getVerificationMethod_Reporting();
 
     /**
-     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_METHOD__DESCRIPTION = eINSTANCE.getVerificationMethod_Description();
+    EReference VERIFICATION_METHOD__DESCRIPTION = eINSTANCE.getVerificationMethod_Description();
 
     /**
      * The meta object literal for the '<em><b>Method Path</b></em>' attribute feature.

@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.categories.categories.VerificationCategory;
 
 import org.osate.reqspec.reqSpec.Requirement;
@@ -164,24 +166,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected SupportedReporting reporting = REPORTING_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDescription()
    * @generated
    * @ordered
    */
-  protected static final String DESCRIPTION_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected String description = DESCRIPTION_EDEFAULT;
+  protected Description description;
 
   /**
    * The default value of the '{@link #getMethodPath() <em>Method Path</em>}' attribute.
@@ -407,7 +399,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getDescription()
+  public Description getDescription()
   {
     return description;
   }
@@ -417,12 +409,37 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDescription(String newDescription)
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
   {
-    String oldDescription = description;
+    Description oldDescription = description;
     description = newDescription;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, oldDescription, description));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, oldDescription, newDescription);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(Description newDescription)
+  {
+    if (newDescription != description)
+    {
+      NotificationChain msgs = null;
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__DESCRIPTION, newDescription, newDescription));
   }
 
   /**
@@ -515,6 +532,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
+      case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
+        return basicSetDescription(null, msgs);
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
         return ((InternalEList<?>)getConditions()).basicRemove(otherEnd, msgs);
     }
@@ -587,7 +606,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         setReporting((SupportedReporting)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
-        setDescription((String)newValue);
+        setDescription((Description)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
         setMethodPath((String)newValue);
@@ -632,7 +651,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         setReporting(REPORTING_EDEFAULT);
         return;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
-        setDescription(DESCRIPTION_EDEFAULT);
+        setDescription((Description)null);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
         setMethodPath(METHOD_PATH_EDEFAULT);
@@ -670,7 +689,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__REPORTING:
         return reporting != REPORTING_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__DESCRIPTION:
-        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+        return description != null;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_PATH:
         return METHOD_PATH_EDEFAULT == null ? methodPath != null : !METHOD_PATH_EDEFAULT.equals(methodPath);
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
@@ -702,8 +721,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     result.append(scope);
     result.append(", reporting: ");
     result.append(reporting);
-    result.append(", description: ");
-    result.append(description);
     result.append(", methodPath: ");
     result.append(methodPath);
     result.append(')');

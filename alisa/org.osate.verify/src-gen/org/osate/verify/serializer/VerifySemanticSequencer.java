@@ -1518,7 +1518,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? description=STRING? methods+=VerificationMethod*)
+	 *     (name=ID title=STRING? description=Description? methods+=VerificationMethod*)
 	 */
 	protected void sequence_VerificationMethodRegistry(EObject context, VerificationMethodRegistry semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1534,7 +1534,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         methodType=SupportedTypes 
 	 *         scope=SupportedScopes 
 	 *         reporting=SupportedReporting? 
-	 *         description=STRING? 
+	 *         description=Description? 
 	 *         methodPath=QualifiedName? 
 	 *         conditions+=VerificationCondition* 
 	 *         category=[VerificationCategory|ID]?
@@ -1551,7 +1551,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         target=[ComponentClassifier|AADLCLASSIFIERREFERENCE] 
-	 *         description=STRING? 
+	 *         description=Description? 
 	 *         claim+=Claim* 
 	 *         rationale=Rationale? 
 	 *         verifiedAssumption+=[ComponentClassifier|AADLCLASSIFIERREFERENCE]*

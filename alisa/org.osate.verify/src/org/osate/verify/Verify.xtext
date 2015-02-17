@@ -16,7 +16,7 @@ VerificationPlan:
 	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
 	(
-		( description=STRING)?
+		( description=Description)?
 	& claim+=Claim*
 	& (rationale=Rationale)?
 	& ('assume' 'verified' verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+)?
@@ -113,7 +113,7 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 	'registry' name=ID
 	(':' title=STRING)?
 	'[' (
-	( description=STRING)?
+	( description=Description)?
 	methods+=VerificationMethod*)
 	']';
 
@@ -123,7 +123,7 @@ VerificationMethod:
 	'['
 	(
 	(methodType=SupportedTypes scope=SupportedScopes (reporting=SupportedReporting)?)
-	&( description=STRING)?
+	&( description=Description)?
 	&('path' methodPath=QualifiedName)?
 	& (conditions+=VerificationCondition)*
 	// parameters (in addition to the model element

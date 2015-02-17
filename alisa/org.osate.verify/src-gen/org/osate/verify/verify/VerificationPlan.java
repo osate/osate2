@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.ComponentClassifier;
 
+import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.Rationale;
 
 /**
@@ -113,30 +114,30 @@ public interface VerificationPlan extends EObject
   void setTarget(ComponentClassifier value);
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' attribute.
+   * Returns the value of the '<em><b>Description</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Description</em>' attribute isn't clear,
+   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' attribute.
-   * @see #setDescription(String)
+   * @return the value of the '<em>Description</em>' containment reference.
+   * @see #setDescription(Description)
    * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Description()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  String getDescription();
+  Description getDescription();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.VerificationPlan#getDescription <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' attribute.
+   * @param value the new value of the '<em>Description</em>' containment reference.
    * @see #getDescription()
    * @generated
    */
-  void setDescription(String value);
+  void setDescription(Description value);
 
   /**
    * Returns the value of the '<em><b>Claim</b></em>' containment reference list.

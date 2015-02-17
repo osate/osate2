@@ -233,19 +233,19 @@ ruleVerificationPlan returns [EObject current=null]
 	 				}
 					({true}?=>(
 (
-		lv_description_8_0=RULE_STRING
-		{
-			newLeafNode(lv_description_8_0, grammarAccess.getVerificationPlanAccess().getDescriptionSTRINGTerminalRuleCall_6_0_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationPlanAccess().getDescriptionDescriptionParserRuleCall_6_0_0()); 
+	    }
+		lv_description_8_0=ruleDescription		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationPlanRule());
+	            $current = createModelElementForParent(grammarAccess.getVerificationPlanRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"description",
         		lv_description_8_0, 
-        		"STRING");
+        		"Description");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -1904,19 +1904,19 @@ ruleVerificationMethodRegistry returns [EObject current=null]
     }
 ((
 (
-		lv_description_5_0=RULE_STRING
-		{
-			newLeafNode(lv_description_5_0, grammarAccess.getVerificationMethodRegistryAccess().getDescriptionSTRINGTerminalRuleCall_4_0_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionDescriptionParserRuleCall_4_0_0()); 
+	    }
+		lv_description_5_0=ruleDescription		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationMethodRegistryRule());
+	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRegistryRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"description",
         		lv_description_5_0, 
-        		"STRING");
+        		"Description");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -2112,19 +2112,19 @@ ruleVerificationMethod returns [EObject current=null]
 	 				}
 					({true}?=>(
 (
-		lv_description_11_0=RULE_STRING
-		{
-			newLeafNode(lv_description_11_0, grammarAccess.getVerificationMethodAccess().getDescriptionSTRINGTerminalRuleCall_5_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getDescriptionDescriptionParserRuleCall_5_1_0()); 
+	    }
+		lv_description_11_0=ruleDescription		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationMethodRule());
+	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"description",
         		lv_description_11_0, 
-        		"STRING");
+        		"Description");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )

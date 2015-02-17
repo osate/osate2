@@ -25288,8 +25288,8 @@ rule__VerificationPlan__DescriptionAssignment_6_0
     }
 :
 (
-{ before(grammarAccess.getVerificationPlanAccess().getDescriptionSTRINGTerminalRuleCall_6_0_0()); }
-	RULE_STRING{ after(grammarAccess.getVerificationPlanAccess().getDescriptionSTRINGTerminalRuleCall_6_0_0()); }
+{ before(grammarAccess.getVerificationPlanAccess().getDescriptionDescriptionParserRuleCall_6_0_0()); }
+	ruleDescription{ after(grammarAccess.getVerificationPlanAccess().getDescriptionDescriptionParserRuleCall_6_0_0()); }
 )
 
 ;
@@ -26021,8 +26021,8 @@ rule__VerificationMethodRegistry__DescriptionAssignment_4_0
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionSTRINGTerminalRuleCall_4_0_0()); }
-	RULE_STRING{ after(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionSTRINGTerminalRuleCall_4_0_0()); }
+{ before(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionDescriptionParserRuleCall_4_0_0()); }
+	ruleDescription{ after(grammarAccess.getVerificationMethodRegistryAccess().getDescriptionDescriptionParserRuleCall_4_0_0()); }
 )
 
 ;
@@ -26145,8 +26145,8 @@ rule__VerificationMethod__DescriptionAssignment_5_1
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodAccess().getDescriptionSTRINGTerminalRuleCall_5_1_0()); }
-	RULE_STRING{ after(grammarAccess.getVerificationMethodAccess().getDescriptionSTRINGTerminalRuleCall_5_1_0()); }
+{ before(grammarAccess.getVerificationMethodAccess().getDescriptionDescriptionParserRuleCall_5_1_0()); }
+	ruleDescription{ after(grammarAccess.getVerificationMethodAccess().getDescriptionDescriptionParserRuleCall_5_1_0()); }
 )
 
 ;
