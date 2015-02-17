@@ -210,19 +210,8 @@
  
  <!-- adding Alisa specific stuff XXX-->
     
- <!--	<extension point="org.eclipse.ui.handlers">
-            <handler
-            class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.osate.alisa.workbench.ui.handlers.AlisaTestHandler"
-            commandId="org.osate.alisa.commands.TestMe">
-         <enabledWhen>
-            <reference
-                  definitionId="org.osate.alisa.expressions.isSingleOutlineSelection">
-            </reference>
-        
-         </enabledWhen> 
-      </handler>
-     </extension>  
-      
+ <!--	
+       
     <extension
          point="org.eclipse.ui.commands">
      <category
