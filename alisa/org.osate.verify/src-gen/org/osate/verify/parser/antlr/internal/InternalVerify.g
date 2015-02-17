@@ -2146,19 +2146,19 @@ ruleVerificationMethod returns [EObject current=null]
     }
 (
 (
-		{ 
-	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_5_2_1_0()); 
-	    }
-		lv_methodPath_13_0=ruleQualifiedName		{
+		lv_methodPath_13_0=RULE_STRING
+		{
+			newLeafNode(lv_methodPath_13_0, grammarAccess.getVerificationMethodAccess().getMethodPathSTRINGTerminalRuleCall_5_2_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getVerificationMethodRule());
+	            $current = createModelElement(grammarAccess.getVerificationMethodRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"methodPath",
         		lv_methodPath_13_0, 
-        		"QualifiedName");
-	        afterParserOrEnumRuleCall();
+        		"STRING");
 	    }
 
 )

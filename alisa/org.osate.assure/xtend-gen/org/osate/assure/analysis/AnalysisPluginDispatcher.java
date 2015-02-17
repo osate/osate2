@@ -23,37 +23,37 @@ public class AnalysisPluginDispatcher extends DefaultVerificationMethodDispatche
     String _methodPath = vm.getMethodPath();
     boolean _matched = false;
     if (!_matched) {
-      if (Objects.equal(_methodPath, "org.osate.assure.util.PlatformResourceBudgets.flowLatencyAnalysis")) {
+      if (Objects.equal(_methodPath, "org.osate.assure.analysis.PlatformResourceBudgets.flowLatencyAnalysis")) {
         _matched=true;
         return AnalysisPluginInterface.flowLatencyAnalysis(target);
       }
     }
     if (!_matched) {
-      if (Objects.equal(_methodPath, "org.osate.assure.util.PlatformResourceBudgets.A429Consistency")) {
+      if (Objects.equal(_methodPath, "org.osate.assure.analysis.PlatformResourceBudgets.A429Consistency")) {
         _matched=true;
         return AnalysisPluginInterface.A429Consistency(target);
       }
     }
     if (!_matched) {
-      if (Objects.equal(_methodPath, "org.osate.assure.util.PlatformResourceBudgets.ConnectionBindingConsistency")) {
+      if (Objects.equal(_methodPath, "org.osate.assure.analysis.PlatformResourceBudgets.ConnectionBindingConsistency")) {
         _matched=true;
         return AnalysisPluginInterface.ConnectionBindingConsistency(target);
       }
     }
     if (!_matched) {
-      if (Objects.equal(_methodPath, "org.osate.assure.util.PlatformResourceBudgets.PowerAnalysis")) {
+      if (Objects.equal(_methodPath, "org.osate.assure.analysis.PlatformResourceBudgets.PowerAnalysis")) {
         _matched=true;
         return AnalysisPluginInterface.PowerAnalysis(target);
       }
     }
     if (!_matched) {
-      if (Objects.equal(_methodPath, "org.osate.assure.util.PlatformResourceBudgets.PortDataConsistency")) {
+      if (Objects.equal(_methodPath, "org.osate.assure.analysis.PlatformResourceBudgets.PortDataConsistency")) {
         _matched=true;
         return AnalysisPluginInterface.PortDataConsistency(target);
       }
     }
     if (!_matched) {
-      if (Objects.equal(_methodPath, "org.osate.assure.util.PlatformResourceBudgets.MassAnalysis")) {
+      if (Objects.equal(_methodPath, "org.osate.assure.analysis.PlatformResourceBudgets.MassAnalysis")) {
         _matched=true;
         return AnalysisPluginInterface.MassAnalysis(target);
       }

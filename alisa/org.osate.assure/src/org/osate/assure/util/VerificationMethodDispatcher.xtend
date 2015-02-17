@@ -85,7 +85,7 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 								val subject = verificationResult.caseSubject
 								val errors = addMarkers(verificationResult, subject, res, method)
 								if (errors) {
-									setToFail(verificationResult, "");
+									setToFail(verificationResult);
 								} else {
 									setToSuccess(verificationResult)
 								}

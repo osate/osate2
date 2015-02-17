@@ -1106,7 +1106,18 @@ public class AssureUtilExtension {
   }
   
   public static void setToFail(final VerificationResult verificationActivityResult, final String message) {
-    AssureUtilExtension.addErrorIssue(verificationActivityResult, null, message, null);
+    boolean _and = false;
+    boolean _notEquals = (!Objects.equal(message, null));
+    if (!_notEquals) {
+      _and = false;
+    } else {
+      boolean _isEmpty = message.isEmpty();
+      boolean _not = (!_isEmpty);
+      _and = _not;
+    }
+    if (_and) {
+      AssureUtilExtension.addErrorIssue(verificationActivityResult, null, message, null);
+    }
     boolean _updateOwnResultState = AssureUtilExtension.updateOwnResultState(verificationActivityResult, VerificationResultState.FAIL);
     if (_updateOwnResultState) {
       AssureUtilExtension.propagateCountChangeUp(verificationActivityResult);

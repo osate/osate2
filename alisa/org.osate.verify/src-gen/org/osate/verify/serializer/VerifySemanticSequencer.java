@@ -1535,7 +1535,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         scope=SupportedScopes 
 	 *         reporting=SupportedReporting? 
 	 *         description=Description? 
-	 *         methodPath=QualifiedName? 
+	 *         methodPath=STRING? 
 	 *         conditions+=VerificationCondition* 
 	 *         category=[VerificationCategory|ID]?
 	 *     )

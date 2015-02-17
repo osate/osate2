@@ -124,7 +124,7 @@ VerificationMethod:
 	(
 	(methodType=SupportedTypes scope=SupportedScopes (reporting=SupportedReporting)?)
 	&( description=Description)?
-	&('path' methodPath=QualifiedName)?
+	&('path' methodPath=STRING)?
 	& (conditions+=VerificationCondition)*
 	// parameters (in addition to the model element
 	& ('category' category=[categories::VerificationCategory|ID])?

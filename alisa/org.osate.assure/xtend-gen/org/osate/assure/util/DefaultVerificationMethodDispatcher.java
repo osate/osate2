@@ -140,7 +140,7 @@ public class DefaultVerificationMethodDispatcher implements IVerificationMethodD
                     final InstanceObject subject = AssureUtilExtension.getCaseSubject(verificationResult);
                     final boolean errors = AssureUtilExtension.addMarkers(verificationResult, subject, ((String)res), method);
                     if (errors) {
-                      AssureUtilExtension.setToFail(verificationResult, "");
+                      AssureUtilExtension.setToFail(verificationResult);
                     } else {
                       AssureUtilExtension.setToSuccess(verificationResult);
                     }

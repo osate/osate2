@@ -602,7 +602,7 @@ class AssureUtilExtension {
 	}
 
 	def static void setToFail(VerificationResult verificationActivityResult, String message) {
-		verificationActivityResult.addErrorIssue(null, message, null);
+		if (message != null && !message.isEmpty) verificationActivityResult.addErrorIssue(null, message, null);
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
 			verificationActivityResult.propagateCountChangeUp
 	}

@@ -26160,8 +26160,8 @@ rule__VerificationMethod__MethodPathAssignment_5_2_1
     }
 :
 (
-{ before(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_5_2_1_0()); }
-	ruleQualifiedName{ after(grammarAccess.getVerificationMethodAccess().getMethodPathQualifiedNameParserRuleCall_5_2_1_0()); }
+{ before(grammarAccess.getVerificationMethodAccess().getMethodPathSTRINGTerminalRuleCall_5_2_1_0()); }
+	RULE_STRING{ after(grammarAccess.getVerificationMethodAccess().getMethodPathSTRINGTerminalRuleCall_5_2_1_0()); }
 )
 
 ;

@@ -1197,7 +1197,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_5_2 = (Group)cUnorderedGroup_5.eContents().get(2);
 		private final Keyword cPathKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
 		private final Assignment cMethodPathAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
-		private final RuleCall cMethodPathQualifiedNameParserRuleCall_5_2_1_0 = (RuleCall)cMethodPathAssignment_5_2_1.eContents().get(0);
+		private final RuleCall cMethodPathSTRINGTerminalRuleCall_5_2_1_0 = (RuleCall)cMethodPathAssignment_5_2_1.eContents().get(0);
 		private final Assignment cConditionsAssignment_5_3 = (Assignment)cUnorderedGroup_5.eContents().get(3);
 		private final RuleCall cConditionsVerificationConditionParserRuleCall_5_3_0 = (RuleCall)cConditionsAssignment_5_3.eContents().get(0);
 		private final Group cGroup_5_4 = (Group)cUnorderedGroup_5.eContents().get(4);
@@ -1210,13 +1210,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationMethod:
 		//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 		//	(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
-		//	& description=Description? & ("path" methodPath=QualifiedName)? & conditions+=VerificationCondition* & ("category"
+		//	& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 		//	category=[categories::VerificationCategory])?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 		//(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
-		//& description=Description? & ("path" methodPath=QualifiedName)? & conditions+=VerificationCondition* & ("category"
+		//& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 		//category=[categories::VerificationCategory])?) "]"
 		public Group getGroup() { return cGroup; }
 
@@ -1260,7 +1260,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
 		//methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
-		//& description=Description? & ("path" methodPath=QualifiedName)? & conditions+=VerificationCondition* & ("category"
+		//& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 		//category=[categories::VerificationCategory])?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
@@ -1291,17 +1291,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_5_1_0() { return cDescriptionDescriptionParserRuleCall_5_1_0; }
 
-		//("path" methodPath=QualifiedName)?
+		//("path" methodPath=STRING)?
 		public Group getGroup_5_2() { return cGroup_5_2; }
 
 		//"path"
 		public Keyword getPathKeyword_5_2_0() { return cPathKeyword_5_2_0; }
 
-		//methodPath=QualifiedName
+		//methodPath=STRING
 		public Assignment getMethodPathAssignment_5_2_1() { return cMethodPathAssignment_5_2_1; }
 
-		//QualifiedName
-		public RuleCall getMethodPathQualifiedNameParserRuleCall_5_2_1_0() { return cMethodPathQualifiedNameParserRuleCall_5_2_1_0; }
+		//STRING
+		public RuleCall getMethodPathSTRINGTerminalRuleCall_5_2_1_0() { return cMethodPathSTRINGTerminalRuleCall_5_2_1_0; }
 
 		//conditions+=VerificationCondition*
 		public Assignment getConditionsAssignment_5_3() { return cConditionsAssignment_5_3; }
@@ -1738,7 +1738,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//VerificationMethod:
 	//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 	//	(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
-	//	& description=Description? & ("path" methodPath=QualifiedName)? & conditions+=VerificationCondition* & ("category"
+	//	& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 	//	category=[categories::VerificationCategory])?) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {
 		return pVerificationMethod;
