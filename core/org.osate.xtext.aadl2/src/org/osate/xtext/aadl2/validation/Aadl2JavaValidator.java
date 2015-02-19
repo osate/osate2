@@ -201,6 +201,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Check(CheckType.FAST)
+	public void caseArraySize(ArraySize arraySize) {
+		if (arraySize.getSizeProperty() != null) {
+			checkPropertySetElementReference((NamedElement) (arraySize.getSizeProperty()), arraySize);
+		}
+	}
+
+	@Check(CheckType.FAST)
 	public void caseComponentImplementationReference(ComponentImplementationReference ciref) {
 		checkClassifierReferenceInWith(ciref.getImplementation(), ciref);
 	}
