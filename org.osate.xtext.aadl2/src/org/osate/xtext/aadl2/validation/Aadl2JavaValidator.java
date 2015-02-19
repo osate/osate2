@@ -204,6 +204,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseArraySize(ArraySize arraySize) {
 		if (arraySize.getSizeProperty() != null) {
 			checkPropertySetElementReference((NamedElement) (arraySize.getSizeProperty()), arraySize);
+			checkArraySizeIsAadlintegerNoUnits(arraySize);
 		}
 	}
 
@@ -5475,6 +5476,38 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							+ ul.getFactor().toString() + ")");
 				}
 			}
+		}
+	}
+
+	/**
+	 * Check that an ArraySizeProperty is aadlinteger type has no unit
+	 */
+	protected void checkArraySizeIsAadlintegerNoUnits(final ArraySize arraySize) {
+
+		boolean foundError = false;
+		PropertyType propertyType = null;
+
+		ArraySizeProperty asp = arraySize.getSizeProperty();
+		if (null == asp)
+			return;
+		if (asp instanceof Property) {
+			propertyType = ((Property) asp).getPropertyType();
+		} else if (asp instanceof PropertyConstant) {
+			propertyType = ((PropertyConstant) asp).getPropertyType();
+		}
+
+		if (null != propertyType && !propertyType.eIsProxy()) {
+			if (!(propertyType instanceof AadlInteger)) {
+				foundError = true;
+			} else {
+				if (((AadlInteger) propertyType).getUnitsType() != null) {
+					foundError = true;
+				}
+			}
+		}
+
+		if (foundError) {
+			error(arraySize, "Array size should only be an Integer type with no units");
 		}
 	}
 
