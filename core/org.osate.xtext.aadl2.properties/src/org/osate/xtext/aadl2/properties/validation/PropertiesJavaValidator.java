@@ -343,13 +343,13 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			if (!(pt instanceof AadlInteger)) {
 				error(holder, prefix + "Assigning Integer value" + msg);
 			} else {
-				checkUnits((AadlInteger) pt, (IntegerLiteral) pv);
+				checkUnits((AadlInteger) pt, (IntegerLiteral) pv, holder);
 			}
 		} else if (pv instanceof RealLiteral) {
 			if (!(pt instanceof AadlReal)) {
 				error(holder, prefix + "Assigning Real value" + msg);
 			} else {
-				checkUnits((AadlReal) pt, (RealLiteral) pv);
+				checkUnits((AadlReal) pt, (RealLiteral) pv, holder);
 			}
 		} else if (pv instanceof RangeValue) {
 			if (!(pt instanceof RangeType)) {
@@ -428,16 +428,16 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
-	protected void checkUnits(NumberType nt, NumberValue nv) {
+	protected void checkUnits(NumberType nt, NumberValue nv, Element holder) {
 		UnitsType ut = nt.getUnitsType();
 		UnitLiteral ul = nv.getUnit();
 		if (Aadl2Util.isNull(ut) && Aadl2Util.isNull(ul)) {
 			return;
 		}
 		if (ul == null) {
-			error(nv, "Number value is missing a unit");
+			error(holder, "Number value is missing a unit");
 		} else if (!ut.getOwnedLiterals().contains(ul)) {
-			error(nv, "Unit '" + ul.getName() + "'of number value is not of Units type " + ut.getQualifiedName());
+			error(holder, "Unit '" + ul.getName() + "'of number value is not of Units type " + ut.getQualifiedName());
 		}
 	}
 
