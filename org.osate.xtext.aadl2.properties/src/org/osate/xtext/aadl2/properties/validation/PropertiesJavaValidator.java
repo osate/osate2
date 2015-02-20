@@ -55,6 +55,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
+import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
@@ -133,7 +134,26 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		typeCheckContainmentPathElement(pathElement);
 	}
 
+	@Check(CheckType.FAST)
+	public void caseRecordValue(RecordValue recordValue) {
+		checkDuplicateFieldAssignment(recordValue);
+	}
+
 	// checking methods
+
+	protected void checkDuplicateFieldAssignment(RecordValue recordValue) {
+		EList<BasicPropertyAssociation> ownedValues = recordValue.getOwnedFieldValues();
+
+		for (BasicPropertyAssociation association : ownedValues) {
+			BasicProperty property = association.getProperty();
+
+			for (BasicPropertyAssociation association2 : ownedValues) {
+				if (!(association.equals(association2)) && association.getProperty().equals(association2.getProperty())) {
+					error(association, "Duplicate assignment of record value");
+				}
+			}
+		}
+	}
 
 	protected void checkPropertyAssociation(PropertyAssociation pa) {
 		// type check value against type
