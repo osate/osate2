@@ -398,4 +398,11 @@
     </provider>
   </extension>
 
+  <extension
+        point="org.eclipse.xtext.ui.shared.sharedStateContributingModule">
+     <module
+           class="org.osate.alisa.common.ui.shared.AlisaSharedContribution">
+     </module>
+  </extension>
+
 </plugin>
