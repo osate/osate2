@@ -1396,7 +1396,7 @@ public final class AadlUtil {
 				if (f instanceof IResource) {
 					Resource res = OsateResourceUtil.getResource((IResource) f);
 					EList<EObject> rl = res.getContents();
-					if (rl.isEmpty() && rl.get(0) instanceof Element) {
+					if (!rl.isEmpty() && rl.get(0) instanceof Element) {
 						return (Element) rl.get(0);
 					}
 				}
