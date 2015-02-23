@@ -47,6 +47,7 @@ import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProviderDelegate;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
+import org.osate.xtext.aadl2.validation.Aadl2NamesAreUniqueValidationHelper;
 import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
 
 import com.google.inject.Binder;
@@ -90,6 +91,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	@Override
 	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
 		return AnnexParserAgent.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.validation.INamesAreUniqueValidationHelper> bindINamesAreUniqueValidationHelper() {
+		return Aadl2NamesAreUniqueValidationHelper.class;
 	}
 
 	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
