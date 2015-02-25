@@ -16,12 +16,7 @@
 	<repositories>
 		<repository>
 			<id>luna</id>
-			<url>http://download.eclipse.org/releases/luna</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>xtext</id>
-			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
+			<url>http://download.eclipse.org/releases/luna/201409261001</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
@@ -29,8 +24,7 @@
 			<url>http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x</url>
 			<layout>p2</layout>
 		</repository>
-	</repositories>
-
+ 	</repositories>
 
 	<profiles>
 		<profile>
