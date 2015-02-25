@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -400,6 +402,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFeatureGroupTypeUniqueNames(featureGroupType);
 		checkEndId(featureGroupType);
 		checkClassifierReferenceInWith(featureGroupType.getInverse(), featureGroupType);
+		checkFeaturesInInverseFeatureGroupType(featureGroupType);
 	}
 
 	@Check(CheckType.FAST)
@@ -2937,6 +2940,52 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			error(featureGroupType,
 					"A feature group type cannot be an inverse of another feature group type that already contains an"
 							+ " 'inverse of' declaration.");
+		}
+	}
+
+	private List<Feature> sortFeaturesByOffset(List<Feature> features) {
+		if (features == null)
+			return null;
+		SortedMap<Integer, Feature> featureMap = new TreeMap<Integer, Feature>();
+		for (Feature nextFeature : features) {
+			featureMap.put(NodeModelUtils.getNode(nextFeature).getOffset(), nextFeature);
+		}
+		return new ArrayList<Feature>(featureMap.values());
+	}
+
+	private void checkFeaturesInInverseFeatureGroupType(FeatureGroupType featureGroupType) {
+		FeatureGroupType inverse = featureGroupType.getInverse();
+		if (inverse != null) {
+			List<Feature> features = sortFeaturesByOffset(featureGroupType.getOwnedFeatures());
+			List<Feature> inverseFeatures = sortFeaturesByOffset(inverse.getOwnedFeatures());
+			if (features.size() != inverseFeatures.size()) {
+				error(featureGroupType, "Feature Group features list count differs from that of its inverse");
+				return;
+			}
+			for (int i = 0; i < features.size(); i++) {
+				Feature feature = features.get(i);
+				Feature inverseFeature = inverseFeatures.get(i);
+
+				if (!feature.eClass().equals(inverseFeature.eClass())) {
+					error(feature, "Feature Group feature type differs from that of its inverse");
+					continue;
+				}
+
+				// cast to type, if port or access then make sure directions are opposite
+				if (feature instanceof DirectedFeature) {
+					DirectionType directType = ((DirectedFeature) feature).getDirection();
+					DirectionType directTypeInversed = directType.getInverseDirection();
+					DirectionType inverseDirection = ((DirectedFeature) inverseFeature).getDirection();
+					if (!directTypeInversed.equals(inverseDirection)) {
+						error(feature, "Feature Group feature direction not opposite that of its inverse");
+					}
+				}
+				if (feature instanceof Access) {
+					if (((Access) feature).getKind().equals(((Access) inverseFeature).getKind())) {
+						error(feature, "Feature Group feature access kind is same as that of its inverse");
+					}
+				}
+			}
 		}
 	}
 
