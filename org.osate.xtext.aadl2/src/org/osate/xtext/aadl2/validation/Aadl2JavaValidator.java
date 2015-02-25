@@ -137,6 +137,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkSubcomponentRefinementClassifierSubstitution(subcomponent);
 		checkSubcomponentsHierarchy(subcomponent);
 		checkClassifierReferenceInWith(subcomponent.getClassifier(), subcomponent);
+		checkSubcomponentImplementationReferenceList(subcomponent);
 //		checkPropertyAssocs(subcomponent);
 	}
 
@@ -1951,6 +1952,68 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				error(componentImplementation.getOwnedExtension(), "A " + implementationCategory.getName()
 						+ " implementation cannot extend an abstract implementation that contains a "
 						+ subcomponentCategory.getName() + " subcomponent.");
+			}
+		}
+	}
+
+	private void checkSubcomponentImplementationReferenceList(Subcomponent subcomponent) {
+
+		EList<ComponentImplementationReference> impReferences = subcomponent.getImplementationReferences();
+		if (impReferences != null && !impReferences.isEmpty()) {
+			warning(subcomponent, "List of implementation reference not fully implemented in instantiator.");
+			ComponentClassifier classifier = subcomponent.getClassifier();
+
+			if (!(null != classifier && classifier instanceof ComponentType)) {
+				error(subcomponent,
+						"Implementation reference list not allowed when the subcomponent classifier is not a component type.");
+				return;
+			}
+			ComponentType componentType = subcomponent.getComponentType();
+
+			for (ComponentImplementationReference nextReference : impReferences) {
+				ComponentType refType = nextReference.getImplementation().getType();
+				if (!componentType.equals(refType)) {
+					error(nextReference, "Implementation reference not of the specified type.");
+				}
+			}
+
+			List<ArrayDimension> arrayDimensions = subcomponent.getArrayDimensions();
+
+			long arrayProduct = 0;
+			for (ArrayDimension dimension : arrayDimensions) {
+
+				long dimensionSize = 0;
+				if (dimension == null || dimension.getSize() == null) {
+					return;
+				} else if (dimension.getSize().getSize() != 0) {
+					dimensionSize = dimension.getSize().getSize();
+				} else if (dimension.getSize().getSizeProperty() == null) {
+					return;
+				} else {
+					// look up property, if not valid then return
+					ArraySizeProperty asp = dimension.getSize().getSizeProperty();
+					if (asp instanceof PropertyConstant) {
+						PropertyConstant pc = (PropertyConstant) asp;
+						PropertyExpression cv = pc.getConstantValue();
+						if (cv instanceof IntegerLiteral) {
+							dimensionSize = ((IntegerLiteral) cv).getValue();
+						}
+					} else if (asp instanceof Property) {
+						error(dimension, "Array size cannot be a property if implementation reference list is defined.");
+						return;
+					}
+				}
+
+				if (dimensionSize < 1) {
+					return;
+				} else {
+					if (arrayProduct == 0)
+						arrayProduct++;
+					arrayProduct = arrayProduct * dimensionSize;
+				}
+			}
+			if (impReferences.size() != arrayProduct) {
+				error(subcomponent, "Size of component implementation reference list not the same as array size.");
 			}
 		}
 	}
