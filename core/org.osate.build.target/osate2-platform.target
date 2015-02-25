@@ -28,15 +28,12 @@
 <unit id="org.eclipse.sdk.feature.group" version="4.4.0.v20140925-0400"/>
 <unit id="org.eclipse.uml2.feature.group" version="5.0.0.v20140910-1354"/>
 <unit id="org.eclipse.zest.feature.group" version="1.5.101.201408150207"/>
+<unit id="org.eclipse.m2m.atl.sdk.feature.group" version="3.5.0.v201405260755"/>
 <repository location="http://download.eclipse.org/releases/luna/201409261001"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.xtext.redist.feature.group" version="2.7.3.v201411190455"/>
 <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/maintenance/R201411190455"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.m2m.atl.emftvm.feature.group" version="0.0.0"/>
-<repository location="http://download.eclipse.org/mmt/atl/updates/releases/3.4"/>
 </location>
 <!-- certware and dependencies -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
