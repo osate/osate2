@@ -55,7 +55,6 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
-import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
@@ -72,6 +71,7 @@ import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Namespace;
@@ -118,6 +118,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	@Check(CheckType.FAST)
 	public void casePropertyAssociation(PropertyAssociation pa) {
 		checkPropertyAssociation(pa);
+		checkPropertyAssociationModalBindings(pa);
 	}
 
 	/**
@@ -141,12 +142,46 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	// checking methods
 
+	protected void checkPropertyAssociationModalBindings(PropertyAssociation pa) {
+		List<ModalPropertyValue> modalPropertyValues = pa.getOwnedValues();
+		Iterator<ModalPropertyValue> mpvIt = modalPropertyValues.iterator();
+		while (mpvIt.hasNext()) {
+			ModalPropertyValue mpv = mpvIt.next();
+			if (mpvIt.hasNext()) {
+				List<Mode> modes = mpv.getInModes();
+				if (null == modes || modes.isEmpty()) {
+					error(mpv, "Missing 'in modes'");
+				}
+			}
+		}
+
+		for (ModalPropertyValue mpv1 : modalPropertyValues) {
+			if (null == mpv1)
+				continue;
+			List<Mode> inModes1 = mpv1.getInModes();
+			for (ModalPropertyValue mpv2 : modalPropertyValues) {
+				if (null == mpv2)
+					continue;
+				List<Mode> inModes2 = mpv2.getInModes();
+				if (mpv1 != mpv2) {
+					for (Mode inMode1 : inModes1) {
+						if (null == inMode1)
+							continue;
+						for (Mode inMode2 : inModes2) {
+							if (inMode1.equals(inMode2)) {
+								error(mpv2, "Assignment to duplicate modes");
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	protected void checkDuplicateFieldAssignment(RecordValue recordValue) {
 		EList<BasicPropertyAssociation> ownedValues = recordValue.getOwnedFieldValues();
 
 		for (BasicPropertyAssociation association : ownedValues) {
-			BasicProperty property = association.getProperty();
-
 			for (BasicPropertyAssociation association2 : ownedValues) {
 				if (!(association.equals(association2)) && association.getProperty().equals(association2.getProperty())) {
 					error(association, "Duplicate assignment of record value");
