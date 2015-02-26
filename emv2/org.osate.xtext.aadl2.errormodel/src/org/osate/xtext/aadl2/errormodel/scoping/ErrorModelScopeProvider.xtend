@@ -3,7 +3,7 @@
  */
 package org.osate.xtext.aadl2.errormodel.scoping;
 
-import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.*
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
@@ -27,12 +27,23 @@ public class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	def Iterable<ErrorType> getErrorTypesFromLib(ErrorModelLibrary lib) {
 		return (#[lib.types] + lib.extends.map[it | getErrorTypesFromLib(it)]).flatten();
 	}
+
+	def scope_ErrorType_superType(ErrorModelLibrary context, EReference reference) {
+		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
+		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
+	}
+
+	def scope_ErrorType_aliasedType(ErrorModelLibrary context, EReference reference) {
+		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
+		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
+	}
+	
 	def scope_TypeToken_type(TypeSet context, EReference reference) {
+		//println(context);
 		val subclause = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause);
 		val parentScope = delegateGetScope(context, reference);
 		val errorLibs = subclause.useTypes;
 		return errorLibs.map[it | getErrorTypesFromLib(it)].flatten().scopeFor(parentScope);
-		//println(context);
 		//return subclause.useTypes.map[types].flatten().scopeFor(parentScope);
 		//val errorTypes = subclause.useTypes.map[types].flatten().map[new EObjectDescription(QualifiedName::create(it.name), it, null) as IEObjectDescription];
 		//return new SimpleScope(parentScope, errorTypes, true)
