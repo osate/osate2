@@ -192,12 +192,20 @@ abstract class OsateTest extends XtextTest {
 
 	def protected static assertError(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection,
 		String... expectedMessages) {
-		val errorsForEObject = allIssues.filter[severity == Severity::ERROR && uriToProblem == eObject.URI]
-		val errorMessagesForEObject = errorsForEObject.map[message]
-		if (errorMessagesForEObject.toSet != expectedMessages.toSet) {
-			throw new ComparisonFailure("", expectedMessages.join("\n"), errorMessagesForEObject.join("\n"))
+		assertIssue(eObject, allIssues, issueCollection, Severity.ERROR, expectedMessages)
+	}
+	
+	def protected static assertWarning(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection, String... expectedMessages) {
+		assertIssue(eObject, allIssues, issueCollection, Severity.WARNING, expectedMessages)
+	}
+	
+	def protected static assertIssue(EObject eObject, List<Issue> allIssues, FluentIssueCollection issueCollection, Severity severity, String... expectedMessages) {
+		val issuesForEObject = allIssues.filter[it.severity == severity && uriToProblem == eObject.URI]
+		val messagesForEObject = issuesForEObject.map[message]
+		if (messagesForEObject.toSet != expectedMessages.toSet) {
+			throw new ComparisonFailure("", expectedMessages.join("\n"), messagesForEObject.join("\n"))
 		}
-		errorsForEObject.forEach[issueCollection.addIssue(it)]
+		issuesForEObject.forEach[issueCollection.addIssue(it)]
 	}
 	
 	def protected assertScope(EObject context, EReference reference, boolean applyFilterToUnqualifiedNames, Iterable<String> expected) {
@@ -205,7 +213,7 @@ abstract class OsateTest extends XtextTest {
 			pluginResourcesNames = pluginResources.members.filter(IFile).map[name].filter[
 			toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
 		}
-		expected.sort(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(
+		expected.sortWith(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(
 			context.getScope(reference).allElements.map[name.toString("::")].filter [
 				val separatorIndex = indexOf("::")
 				if (separatorIndex != -1 || applyFilterToUnqualifiedNames) {
@@ -218,7 +226,7 @@ abstract class OsateTest extends XtextTest {
 				} else {
 					true
 				}
-			].sort(CUSTOM_NAME_COMPARATOR).join(", "))
+			].sortWith(CUSTOM_NAME_COMPARATOR).join(", "))
 	}
 	
 	/*
