@@ -1,5 +1,5 @@
 /*
-* <copyright>
+ * <copyright>
  * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
@@ -14,7 +14,7 @@
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
  * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE
-*/
+ */
 package org.osate.xtext.aadl2.errormodel.ui.labeling;
 
 import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
@@ -26,16 +26,16 @@ import org.eclipse.xtext.ui.label.DefaultDescriptionLabelProvider;
  */
 public class ErrorModelDescriptionLabelProvider extends DefaultDescriptionLabelProvider {
 
-/*
-	//Labels and icons can be computed like this:
-
-	String text(IEObjectDescription ele) {
-	  return "my "+ele.getName();
-	}
-
-    String image(IEObjectDescription ele) {
-      return ele.getEClass().getName() + ".gif";
-    }
-*/
+	/*
+	 * //Labels and icons can be computed like this:
+	 * 
+	 * String text(IEObjectDescription ele) {
+	 * return "my "+ele.getName();
+	 * }
+	 * 
+	 * String image(IEObjectDescription ele) {
+	 * return ele.getEClass().getName() + ".gif";
+	 * }
+	 */
 
 }

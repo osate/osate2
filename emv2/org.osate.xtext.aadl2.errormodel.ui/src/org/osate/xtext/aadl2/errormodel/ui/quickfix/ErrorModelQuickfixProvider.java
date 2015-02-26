@@ -1,4 +1,3 @@
-
 package org.osate.xtext.aadl2.errormodel.ui.quickfix;
 
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;

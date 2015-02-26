@@ -13,50 +13,42 @@ import org.osate2.aadl2.errormodel.analysis.prism.expression.Terminal;
  * (why the command should be performed) and several transitions.
  * Each transition has a fixed probability associated that designates
  * if the transition shall be activated or not.
- * 
+ *
  * @author jdelange
  *
  */
-public class Command 
-{
+public class Command {
 	private Expression condition;
 	private List<Transition> transitions;
 	private CommandType commandType;
-	
-	public Command ()
-	{
-		this.condition 		= new Terminal ("unknown_condition");
-		this.transitions 	= new ArrayList<Transition> ();
-		this.commandType    = CommandType.TRANSITION;
+
+	public Command() {
+		condition = new Terminal("unknown_condition");
+		transitions = new ArrayList<Transition>();
+		commandType = CommandType.TRANSITION;
 	}
-	
-	public CommandType getCommandType ()
-	{
-		return this.commandType;
+
+	public CommandType getCommandType() {
+		return commandType;
 	}
-	
-	public void setCommandType (CommandType ct)
-	{
-		this.commandType = ct;
+
+	public void setCommandType(CommandType ct) {
+		commandType = ct;
 	}
-	
-	public void setCondition (Expression e)
-	{
-		this.condition = e;
+
+	public void setCondition(Expression e) {
+		condition = e;
 	}
-	
-	public Expression getCondition ()
-	{
-		return this.condition;
+
+	public Expression getCondition() {
+		return condition;
 	}
-	
-	public void addTransition (Transition t)
-	{
-		this.transitions.add(t);
+
+	public void addTransition(Transition t) {
+		transitions.add(t);
 	}
-	
-	public List<Transition> getTransitions ()
-	{
-		return this.transitions;
+
+	public List<Transition> getTransitions() {
+		return transitions;
 	}
 }

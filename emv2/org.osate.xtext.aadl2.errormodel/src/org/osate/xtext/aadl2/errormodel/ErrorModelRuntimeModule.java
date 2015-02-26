@@ -27,13 +27,13 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {
-	  return ErrorModelValueConverter.class;
+		return ErrorModelValueConverter.class;
 	}
+
 	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameProvider.class;
 	}
-
 
 	@Override
 	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITransientValueService> bindITransientValueService() {

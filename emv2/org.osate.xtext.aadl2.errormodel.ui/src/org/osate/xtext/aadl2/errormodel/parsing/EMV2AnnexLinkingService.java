@@ -17,38 +17,39 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 import com.google.inject.Injector;
 
+public class EMV2AnnexLinkingService implements AnnexLinkingService {
 
-public class EMV2AnnexLinkingService implements AnnexLinkingService{
-	
-    final private Injector injector = OsateCorePlugin.getDefault().getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
-	
+	final private Injector injector = OsateCorePlugin.getDefault().getInjector(
+			"org.osate.xtext.aadl2.errormodel.ErrorModel");
+
 	private ILinkingService linkingService;
-	
+
 	private IQualifiedNameProvider nameProvider;
-	
-	protected  ILinkingService getLinkingService(){
-		if (linkingService == null){
-			linkingService =  injector.getInstance(EMLinkingService.class);
+
+	protected ILinkingService getLinkingService() {
+		if (linkingService == null) {
+			linkingService = injector.getInstance(EMLinkingService.class);
 		}
 		return linkingService;
 	}
-	
-	protected  IQualifiedNameProvider getNameProvider(){
-		if (nameProvider == null){
-			nameProvider =  injector.getInstance(ErrorModelQualifiedNameProvider.class);
+
+	protected IQualifiedNameProvider getNameProvider() {
+		if (nameProvider == null) {
+			nameProvider = injector.getInstance(ErrorModelQualifiedNameProvider.class);
 		}
 		return nameProvider;
 	}
 
-	public List<EObject> resolveAnnexReference(String annexName,
-			EObject context, EReference reference, INode node) {
-		if (annexName.equalsIgnoreCase(EMV2Util.ErrorModelAnnexName)){
-		return getLinkingService().getLinkedObjects(context, reference, node) ;
+	@Override
+	public List<EObject> resolveAnnexReference(String annexName, EObject context, EReference reference, INode node) {
+		if (annexName.equalsIgnoreCase(EMV2Util.ErrorModelAnnexName)) {
+			return getLinkingService().getLinkedObjects(context, reference, node);
 		} else {
 			return Collections.<EObject> emptyList();
 		}
 	}
-	
+
+	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
 		return getNameProvider().getFullyQualifiedName(obj);
 	}

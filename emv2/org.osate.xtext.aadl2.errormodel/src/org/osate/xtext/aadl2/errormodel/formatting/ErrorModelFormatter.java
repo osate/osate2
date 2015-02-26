@@ -37,72 +37,72 @@ public class ErrorModelFormatter extends AbstractDeclarativeFormatter {
 	protected void configureFormatting(FormattingConfig c) {
 
 		ErrorModelGrammarAccess f = (ErrorModelGrammarAccess) getGrammarAccess();
-	    c.setAutoLinewrap(120);
-	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("(", ")")) {
-		      c.setNoSpace().after(pair.getFirst());
-		      c.setNoSpace().before(pair.getSecond());
-		    }
-	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("[", "]")) {
-		      c.setNoSpace().after(pair.getFirst());
-		      c.setNoSpace().before(pair.getSecond());
-		    }
-	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{", "}")) {
-		      c.setIndentationIncrement().after(pair.getFirst());
-		      c.setLinewrap().after(pair.getFirst());
-		      c.setIndentationDecrement().before(pair.getSecond());
-		      c.setLinewrap().before(pair.getSecond());
-		    }
-	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("error_model {**", "**}")) {
-		      c.setIndentationIncrement().after(pair.getFirst());
-		      c.setLinewrap().after(pair.getFirst());
-		      c.setIndentationDecrement().before(pair.getSecond());
-		      c.setLinewrap().before(pair.getSecond());
-		    }
+		c.setAutoLinewrap(120);
+		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("(", ")")) {
+			c.setNoSpace().after(pair.getFirst());
+			c.setNoSpace().before(pair.getSecond());
+		}
+		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("[", "]")) {
+			c.setNoSpace().after(pair.getFirst());
+			c.setNoSpace().before(pair.getSecond());
+		}
+		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{", "}")) {
+			c.setIndentationIncrement().after(pair.getFirst());
+			c.setLinewrap().after(pair.getFirst());
+			c.setIndentationDecrement().before(pair.getSecond());
+			c.setLinewrap().before(pair.getSecond());
+		}
+		for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("error_model {**", "**}")) {
+			c.setIndentationIncrement().after(pair.getFirst());
+			c.setLinewrap().after(pair.getFirst());
+			c.setIndentationDecrement().before(pair.getSecond());
+			c.setLinewrap().before(pair.getSecond());
+		}
 
-	    for (Keyword comma : f.findKeywords(",")) {
-		      c.setNoSpace().before(comma);
-		    }
-	    for (Keyword semi : f.findKeywords(";")) {
-		      c.setLinewrap().after(semi);
-		    }
-	    for (Keyword dot : f.findKeywords(".")) {
-		      c.setNoSpace().around(dot);
-		    }
-	    for (Keyword doublecolon : f.findKeywords("::")) {
-		      c.setNoSpace().around(doublecolon);
-		    }
-	    for (Keyword fea : f.findKeywords("conditions")) {
-		      c.setLinewrap().after(fea);
-		      c.setIndentationDecrement().before(fea);
-		      c.setIndentationIncrement().after(fea);
-		    }
-	    for (Keyword fea : f.findKeywords("states")) {
-		      c.setLinewrap().around(fea);
-		      c.setIndentationDecrement().before(fea);
-		      c.setIndentationIncrement().after(fea);
-		    }
-	    for (Keyword fea : f.findKeywords("events")) {
-		      c.setLinewrap().around(fea);
-		      c.setIndentationDecrement().before(fea);
-		      c.setIndentationIncrement().after(fea);
-		    }
-	    for (Keyword fea : f.findKeywords("transitions")) {
-		      c.setLinewrap().around(fea);
-		      c.setIndentationDecrement().before(fea);
-		      c.setIndentationIncrement().after(fea);
-		    }
-	    for (Keyword fea : f.findKeywords("properties")) {
-		      c.setLinewrap().around(fea);
-		      c.setIndentationDecrement().before(fea);
-		      c.setIndentationIncrement().after(fea);
-		    }
-	    for (Keyword end : f.findKeywords("end")) {
-		      c.setIndentationDecrement().before(end);
-		      c.setLinewrap().before(end);
-		    }
-	      c.setIndentationIncrement().after(f.getErrorModelLibraryAccess().getTypesKeyword_1_1());
-	      c.setLinewrap().after(f.getErrorModelLibraryAccess().getTypesKeyword_1_1());
-	      c.setIndentationIncrement().after(f.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
+		for (Keyword comma : f.findKeywords(",")) {
+			c.setNoSpace().before(comma);
+		}
+		for (Keyword semi : f.findKeywords(";")) {
+			c.setLinewrap().after(semi);
+		}
+		for (Keyword dot : f.findKeywords(".")) {
+			c.setNoSpace().around(dot);
+		}
+		for (Keyword doublecolon : f.findKeywords("::")) {
+			c.setNoSpace().around(doublecolon);
+		}
+		for (Keyword fea : f.findKeywords("conditions")) {
+			c.setLinewrap().after(fea);
+			c.setIndentationDecrement().before(fea);
+			c.setIndentationIncrement().after(fea);
+		}
+		for (Keyword fea : f.findKeywords("states")) {
+			c.setLinewrap().around(fea);
+			c.setIndentationDecrement().before(fea);
+			c.setIndentationIncrement().after(fea);
+		}
+		for (Keyword fea : f.findKeywords("events")) {
+			c.setLinewrap().around(fea);
+			c.setIndentationDecrement().before(fea);
+			c.setIndentationIncrement().after(fea);
+		}
+		for (Keyword fea : f.findKeywords("transitions")) {
+			c.setLinewrap().around(fea);
+			c.setIndentationDecrement().before(fea);
+			c.setIndentationIncrement().after(fea);
+		}
+		for (Keyword fea : f.findKeywords("properties")) {
+			c.setLinewrap().around(fea);
+			c.setIndentationDecrement().before(fea);
+			c.setIndentationIncrement().after(fea);
+		}
+		for (Keyword end : f.findKeywords("end")) {
+			c.setIndentationDecrement().before(end);
+			c.setLinewrap().before(end);
+		}
+		c.setIndentationIncrement().after(f.getErrorModelLibraryAccess().getTypesKeyword_1_1());
+		c.setLinewrap().after(f.getErrorModelLibraryAccess().getTypesKeyword_1_1());
+		c.setIndentationIncrement().after(f.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
 //	      c.setLinewrap().after(f.getErrorBehaviorStateMachineAccess().getBehaviorKeyword_1());
 
 //	      c.setLinewrap().after(f.getErrorPropagationsAccess().getPropagationsKeyword_1());
@@ -111,7 +111,6 @@ public class ErrorModelFormatter extends AbstractDeclarativeFormatter {
 //	      c.setIndentationIncrement().after(f.getComponentErrorBehaviorAccess().getBehaviorKeyword_2());
 //	      c.setLinewrap().after(f.getCompositeErrorBehaviorAccess().getBehaviorKeyword_2());
 //	      c.setIndentationIncrement().after(f.getCompositeErrorBehaviorAccess().getBehaviorKeyword_2());
-
 
 		// It's usually a good idea to activate the following three statements.
 // They will add and preserve newlines around comments

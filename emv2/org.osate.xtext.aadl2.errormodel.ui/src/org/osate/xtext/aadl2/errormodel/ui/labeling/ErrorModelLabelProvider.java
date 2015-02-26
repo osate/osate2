@@ -1,5 +1,5 @@
 /*
-* <copyright>
+ * <copyright>
  * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
@@ -14,7 +14,7 @@
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
  * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
  * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE
-*/
+ */
 package org.osate.xtext.aadl2.errormodel.ui.labeling;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -47,55 +47,60 @@ public class ErrorModelLabelProvider extends DefaultEObjectLabelProvider {
 		super(delegate);
 	}
 
-
-	//Labels and icons can be computed like this:
+	// Labels and icons can be computed like this:
 
 	String text(AndExpression ele) {
-		  return "and";
-		}
+		return "and";
+	}
+
 	String text(OrExpression ele) {
-		  return "or";
-		}
+		return "or";
+	}
+
 	String text(OrmoreExpression ele) {
-		  return "ormore "+ele.getCount();
-		}
+		return "ormore " + ele.getCount();
+	}
+
 	String text(OrlessExpression ele) {
-		  return "orless "+ele.getCount();
-		}
+		return "orless " + ele.getCount();
+	}
+
 	String text(ErrorDetection ele) {
 		String s = ele.getDetectionReportingPort().getName();
-		  return "event "+s+" when";
-		}
-	String text(ErrorBehaviorTransition ele) {
-		String s = ele.isSteadyState()?"steady state":ele.getName();
-		  return "transition "+s+" when";
-		}
-	String text(ErrorModelLibrary ele) {
-		  return "Error Model Library";
-		}
-	String text(ErrorModelSubclause ele) {
-		  return "Error Model Subclause";
-		}
-	String text(TypeSet ele) {
-		  return "Type Set "+(ele.getName()!=null?ele.getName():"");
-		}
-	String text(ErrorType ele) {
-		  return "Type "+(ele.getName()!=null?ele.getName():"");
-		}
-	String text(TypeToken ele) {
-		  return EMV2Util.getPrintName(ele);
-		}
+		return "event " + s + " when";
+	}
 
+	String text(ErrorBehaviorTransition ele) {
+		String s = ele.isSteadyState() ? "steady state" : ele.getName();
+		return "transition " + s + " when";
+	}
+
+	String text(ErrorModelLibrary ele) {
+		return "Error Model Library";
+	}
+
+	String text(ErrorModelSubclause ele) {
+		return "Error Model Subclause";
+	}
+
+	String text(TypeSet ele) {
+		return "Type Set " + (ele.getName() != null ? ele.getName() : "");
+	}
+
+	String text(ErrorType ele) {
+		return "Type " + (ele.getName() != null ? ele.getName() : "");
+	}
+
+	String text(TypeToken ele) {
+		return EMV2Util.getPrintName(ele);
+	}
 
 	String text(ErrorPropagation ele) {
-		  return (ele.isNot()?"not ":"")+"propagation "+
-	EMV2Util.getPrintName(ele)
-	;
-		}
+		return (ele.isNot() ? "not " : "") + "propagation " + EMV2Util.getPrintName(ele);
+	}
 //
 //    String image(MyModel ele) {
 //      return "MyModel.gif";
 //    }
-
 
 }

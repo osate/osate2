@@ -34,8 +34,6 @@
 package org.osate.aadl2.errormodel.analysis.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
@@ -45,90 +43,88 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.errormodel.analysis.fta.Event;
 import org.osate.aadl2.errormodel.analysis.fta.FTAUtils;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-public final class FTAAction extends AaxlReadOnlyActionAsJob 
-{
-	
-	private static String 				ERROR_STATE_NAME = null;
-	private WriteToFile     			ftaFile;
-	private WriteToFile     			pedFile;
-	private WriteToFile     			xmlFile;
-	private Event     					ftaEvent;
-	
+public final class FTAAction extends AaxlReadOnlyActionAsJob {
+
+	private static String ERROR_STATE_NAME = null;
+	private WriteToFile ftaFile;
+	private WriteToFile pedFile;
+	private WriteToFile xmlFile;
+	private Event ftaEvent;
+
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "FTA";
 	}
 
-		
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
-		
+
 		monitor.beginTask("Fault Tree Analysis", IProgressMonitor.UNKNOWN);
 
 		si = null;
 
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
 		}
-		
-		if (si == null)
-		{
-			Dialog.showInfo("Fault Tree Analysis", "Please choose an instance model");	
-			monitor.done();
-		}
-		
-		if (! EMV2Util.hasCompositeErrorBehavior (si))
-		{
-			Dialog.showInfo("Fault Tree Analysis", "Your system instance does not have a composite error behavior");	
-			monitor.done();
-		}
-		
-		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable(){
 
+		if (si == null) {
+			Dialog.showInfo("Fault Tree Analysis", "Please choose an instance model");
+			monitor.done();
+		}
+
+		if (!EMV2Util.hasCompositeErrorBehavior(si)) {
+			Dialog.showInfo("Fault Tree Analysis", "Your system instance does not have a composite error behavior");
+			monitor.done();
+		}
+
+		final Display d = PlatformUI.getWorkbench().getDisplay();
+		d.syncExec(new Runnable() {
+
+			@Override
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
-				
+
 				window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				sh = window.getShell();
-				
-				InputDialog fd = new InputDialog(sh, "Error State name", "Please specify the name of the error state name\n(with the optional error type separated by a space)", "failed", null);
-				if (fd.open() == Window.OK)
-				{
+
+				InputDialog fd = new InputDialog(
+						sh,
+						"Error State name",
+						"Please specify the name of the error state name\n(with the optional error type separated by a space)",
+						"failed", null);
+				if (fd.open() == Window.OK) {
 					ERROR_STATE_NAME = fd.getValue();
-				}
-				else
-				{
+				} else {
 					ERROR_STATE_NAME = null;
 				}
 
-					
-			}});
-		
-		if (ERROR_STATE_NAME != null)
-		{
+			}
+		});
+
+		if (ERROR_STATE_NAME != null) {
 			String errorStateName;
 			String errorStateTypeName;
 			ErrorBehaviorState errorState;
-			ErrorTypes         errorType;
-			
+			ErrorTypes errorType;
+
 			/**
 			 * Init variables and environment
 			 */
@@ -136,35 +132,27 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 			errorStateTypeName = null;
 			errorState = null;
 			errorType = null;
-			
-			FTAUtils.init (si);
-			
-			if (ERROR_STATE_NAME.contains (" "))
-			{
+
+			FTAUtils.init(si);
+
+			if (ERROR_STATE_NAME.contains(" ")) {
 				errorStateName = ERROR_STATE_NAME.substring(0, ERROR_STATE_NAME.indexOf(" "));
-				errorStateTypeName = ERROR_STATE_NAME.substring(ERROR_STATE_NAME.indexOf(" "), ERROR_STATE_NAME.length());
-			}
-			else
-			{
+				errorStateTypeName = ERROR_STATE_NAME.substring(ERROR_STATE_NAME.indexOf(" "),
+						ERROR_STATE_NAME.length());
+			} else {
 				errorStateName = ERROR_STATE_NAME;
 			}
-			
+
 			OsateDebug.osateDebug("[FTAAction] error state=" + errorStateName + "|related type=" + errorStateTypeName);
-			
-			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(si))
-			{
-				if (ebs.getName().equalsIgnoreCase(errorStateName))
-				{
+
+			for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(si)) {
+				if (ebs.getName().equalsIgnoreCase(errorStateName)) {
 					errorState = ebs;
-					
-					if (errorStateTypeName != null)
-					{
-						for (TypeToken tt : ebs.getTypeSet().getTypeTokens())
-						{
-							for (ErrorTypes et : tt.getType())
-							{
-								if (et.getName().equalsIgnoreCase(errorStateTypeName))
-								{
+
+					if (errorStateTypeName != null) {
+						for (TypeToken tt : ebs.getTypeSet().getTypeTokens()) {
+							for (ErrorTypes et : tt.getType()) {
+								if (et.getName().equalsIgnoreCase(errorStateTypeName)) {
 									errorType = et;
 								}
 							}
@@ -172,41 +160,35 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob
 					}
 				}
 			}
-			
+
 			ftaEvent = null;
-			
-			if (errorState != null)
-			{
-				ftaEvent = FTAUtils.processErrorState (si, errorState, errorType);
+
+			if (errorState != null) {
+				ftaEvent = FTAUtils.processErrorState(si, errorState, errorType);
 			}
-			
-	
-			if (ftaEvent != null)
-			{
-				this.xmlFile = new WriteToFile("FTA", si);
-				this.xmlFile.setFileExtension("xml");
-				this.xmlFile.addOutput(ftaEvent.toXML());
-				this.xmlFile.saveToFile();
-				
-				this.ftaFile = new WriteToFile("FTA", si);
-				this.ftaFile.setFileExtension("fta");
-				this.ftaFile.addOutput(WriteToFile.getFileName("FTA", si)+".ped\nS NULL 0\n3 fta\n");
-				this.ftaFile.addOutput(ftaEvent.toFTA());
-				this.ftaFile.saveToFile();
-				
-				this.pedFile = new WriteToFile("FTA", si);
-				this.pedFile.setFileExtension("ped");
-				this.pedFile.addOutput(ftaEvent.toPED());
-				this.pedFile.saveToFile();
-			}
-			else
-			{
-				Dialog.showInfo("Fault Tree Analysis", "Unable to create the Fault Tree Analysis, please read the help content");	
+
+			if (ftaEvent != null) {
+				xmlFile = new WriteToFile("FTA", si);
+				xmlFile.setFileExtension("xml");
+				xmlFile.addOutput(ftaEvent.toXML());
+				xmlFile.saveToFile();
+
+				ftaFile = new WriteToFile("FTA", si);
+				ftaFile.setFileExtension("fta");
+				ftaFile.addOutput(WriteToFile.getFileName("FTA", si) + ".ped\nS NULL 0\n3 fta\n");
+				ftaFile.addOutput(ftaEvent.toFTA());
+				ftaFile.saveToFile();
+
+				pedFile = new WriteToFile("FTA", si);
+				pedFile.setFileExtension("ped");
+				pedFile.addOutput(ftaEvent.toPED());
+				pedFile.saveToFile();
+			} else {
+				Dialog.showInfo("Fault Tree Analysis",
+						"Unable to create the Fault Tree Analysis, please read the help content");
 			}
 		}
-		
-		
-		
+
 		monitor.done();
 	}
 

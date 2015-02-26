@@ -36,8 +36,8 @@ package org.osate.aadl2.errormodel.analysis.actions;
 /**
  * Also, this class implement the following consistency rule from
  * the official documentation:
- * C1, C5, C7, C11, C12 
- * 
+ * C1, C5, C7, C11, C12
+ *
  */
 import java.util.Collection;
 
@@ -85,14 +85,17 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 	AnalysisModel model;
 
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Consistency";
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		monitor.beginTask("ConsistencyCheck", IProgressMonitor.UNKNOWN);
 
@@ -100,8 +103,9 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 		SystemInstance si;
 		if (obj instanceof InstanceObject) {
 			si = ((InstanceObject) obj).getSystemInstance();
-		} else
+		} else {
 			return;
+		}
 
 		setCSVLog("Consistency", si);
 		model = new AnalysisModel(si);
@@ -248,7 +252,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance
 					.getComponentClassifier())) {
 				/**
-				 * 
+				 *
 				 * In the following, we check that all the types and subtypes for a given components
 				 * are declared as error source for each out propagation. This would be enhanced
 				 * when defining different error sources/path for the same propagation point.
@@ -277,7 +281,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //				OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
 
 				/**
-				 * 
+				 *
 				 * In the following, we check that all the types and subtypes for a given components
 				 * are declared as error source for each out propagation. This would be enhanced
 				 * when defining different error sources/path for the same propagation point.
@@ -313,7 +317,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //					OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
 					EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep2.getTypeSet(),
 							EMV2Util.getContainingTypeUseContext(ep));
-//				
+//
 //					for (TypeToken tt1 : srcTokens)
 //					{
 //						if (! EM2TypeSetUtil.contains (ep2.getTypeSet(), tt1))
@@ -321,7 +325,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //							error(componentInstance, "Error type " + EMV2Util.getPrintName(tt1)  +  " between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
 					//
 //						}
-//						
+//
 //					}
 					for (TypeToken tt1 : dstTokens) {
 						if (!EM2TypeSetUtil.contains(ep.getTypeSet(), tt1)) {
@@ -622,7 +626,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 
 			/**
 			 * Rule C11: Composite error behavior: indicate the condition for each state of the component
-			 * 
+			 *
 			 * Let also check that if a components has an composite error state, all
 			 * states are referenced.
 			 */
@@ -722,7 +726,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 
 					/**
 					 * FIXME JD
-					 * 
+					 *
 					 * For now, we just sum the properties but we should introduce something more intelligent to make
 					 * some consistency check and handle the different operators such as and, or, etc.
 					 */
@@ -764,7 +768,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					}
 //					OsateDebug.osateDebug("State " + ebs.getName() + "probability composite = " + probabilityComposite);
 //					OsateDebug.osateDebug("State " + ebs.getName() + "probability behavior  = " + probabilityBehavior);
-//					
+//
 
 					if (probabilityBehavior != probabilityComposite) {
 						error(componentInstance, "C13: in component " + componentInstance.getName()
@@ -803,7 +807,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						Connection conn = cr.getConnection();
 						// OsateDebug.osateDebug("conn dest=" + conn.getDestination());
 						if ((conn.getDestination() != null) && (conn.getDestination() instanceof ConnectedElement)) {
-							ConnectedElement connected = (ConnectedElement) conn.getDestination();
+							ConnectedElement connected = conn.getDestination();
 							// OsateDebug.osateDebug("connected dest=" + connected.getConnectionEnd());
 							for (FeatureInstance fi2 : componentInstance.getFeatureInstances()) {
 								// OsateDebug.osateDebug("fi2=" + fi2.getFeature());
@@ -861,22 +865,22 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //						OsateDebug.osateDebug("ep in  getref=" + ep.getIncoming().getFeatureorPPRefs());
 //						OsateDebug.osateDebug("ep out getref=" + ep.getOutgoing().getFeatureorPPRefs());
 //					}
-//					
+//
 //					if (ef instanceof ErrorSink)
 //					{
 //						ErrorSink es = (ErrorSink) ef;
 //						OsateDebug.osateDebug("es in  getref=" + es.getIncoming().getFeatureorPPRefs());
 //
-//						
+//
 //					}
-//					
+//
 //					if (ef instanceof ErrorSource)
 //					{
 //						ErrorSource es = (ErrorSource)ef;
 //						OsateDebug.osateDebug("es out getref=" + es.getOutgoing().getFeatureorPPRefs());
 //
 //					}
-//					
+//
 //				}
 
 			}
@@ -932,7 +936,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 									cl = (ComponentClassifier) sub.getContainingClassifier();
 								}
 								if (sub.getComponentImplementation() != null) {
-									cl = (ComponentClassifier) sub.getComponentImplementation();
+									cl = sub.getComponentImplementation();
 								}
 
 								for (ErrorFlow ef2 : EMV2Util.getAllErrorFlows(cl)) {

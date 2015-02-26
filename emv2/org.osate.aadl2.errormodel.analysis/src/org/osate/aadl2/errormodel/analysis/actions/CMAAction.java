@@ -57,18 +57,20 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public final class CMAAction extends AaxlReadOnlyActionAsJob {
 
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "CMA";
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 
 		SystemInstance si;
-		int targetSeverity;
 
 		if (obj instanceof InstanceObject) {
 			si = ((InstanceObject) obj).getSystemInstance();
@@ -80,6 +82,7 @@ public final class CMAAction extends AaxlReadOnlyActionAsJob {
 		final Display d = PlatformUI.getWorkbench().getDisplay();
 		d.syncExec(new Runnable() {
 
+			@Override
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;

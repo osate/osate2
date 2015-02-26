@@ -39,18 +39,18 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.parsetree.reconstr.impl.DefaultTransientValueService;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
-public class EMV2TransientValueService  extends DefaultTransientValueService {
+public class EMV2TransientValueService extends DefaultTransientValueService {
 
-		@Override
-		public boolean isTransient(EObject owner, EStructuralFeature feature, int index) {
-			if (owner instanceof ErrorModelLibrary && feature ==  Aadl2Package.eINSTANCE.getNamedElement_Name()
-					||	owner instanceof ErrorModelSubclause && feature ==  Aadl2Package.eINSTANCE.getNamedElement_Name()
-					||	owner instanceof ErrorModelLibrary && feature ==  Aadl2Package.eINSTANCE.getNamedElement_Name()
-					) return true;
-			return super.isTransient(owner, feature, index);
-			}
+	@Override
+	public boolean isTransient(EObject owner, EStructuralFeature feature, int index) {
+		if (owner instanceof ErrorModelLibrary && feature == Aadl2Package.eINSTANCE.getNamedElement_Name()
+				|| owner instanceof ErrorModelSubclause && feature == Aadl2Package.eINSTANCE.getNamedElement_Name()
+				|| owner instanceof ErrorModelLibrary && feature == Aadl2Package.eINSTANCE.getNamedElement_Name()) {
+			return true;
+		}
+		return super.isTransient(owner, feature, index);
+	}
 
 }

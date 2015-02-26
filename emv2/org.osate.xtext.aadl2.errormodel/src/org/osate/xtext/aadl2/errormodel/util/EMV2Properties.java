@@ -95,7 +95,7 @@ public class EMV2Properties {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param element - the EMV2 element that refers to the artifact
 	 * @param relatedComponent - the component (instance, subcomponent or classifier that have the property association
 	 * @return - the text related to the description part of the hazards property. Null if not defined
@@ -160,7 +160,7 @@ public class EMV2Properties {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param element - the EMV2 element that referes to the artifact
 	 * @param relatedComponent - the component the component (instance, subcomponent or classifier) that have the property association
 	 * @return - the text related to the failure part of the hazards property. Null if not defined
@@ -233,10 +233,12 @@ public class EMV2Properties {
 	 */
 	public static EList<ContainedNamedElement> getHazardsProperty(NamedElement ci, Element target, TypeSet ts) {
 		EList<ContainedNamedElement> result = getProperty("EMV2::hazards", ci, target, ts);
-		if (result.isEmpty())
+		if (result.isEmpty()) {
 			result = getProperty("ARP4761::hazards", ci, target, ts);
-		if (result.isEmpty())
+		}
+		if (result.isEmpty()) {
 			result = getProperty("MILSTD882::hazards", ci, target, ts);
+		}
 		return result;
 	}
 
@@ -245,7 +247,7 @@ public class EMV2Properties {
 	 * EMV2 property. You can use it like this:
 	 * 	ContainedNamedElement PA = EM2Util.getOccurenceDistributionProperty(instance,null,ee,null);
 	 * res = EM2Util.getOccurenceValue (PA);
-	 * 
+	 *
 	 * @see		Util
 	 * @param 	ci				Component instance, subcomponent or classifier that contains the property
 	 * @param target			the property
@@ -375,7 +377,7 @@ public class EMV2Properties {
 	}
 
 	/** return list of property associations that meet the property name
-	 * 
+	 *
 	 * @param props property association list from the properties section
 	 * @param propertyName name of property
 	 * @return EList<PropertyAssociation>
@@ -404,16 +406,18 @@ public class EMV2Properties {
 	 */
 	public static EList<ContainedNamedElement> getMatchingPropertiesInList(EList<PropertyAssociation> props,
 			String propertyName, Element target, Stack<NamedElement> ciStack, TypeSet ts) {
-		if (props.isEmpty())
+		if (props.isEmpty()) {
 			return new BasicEList<ContainedNamedElement>();
+		}
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)) {
 				ContainedNamedElement res = isErrorModelElementProperty(propertyAssociation, target, ciStack, ts);
-				if (res != null)
+				if (res != null) {
 					result.add(res);
+				}
 			}
 		}
 		return result;
@@ -533,15 +537,17 @@ public class EMV2Properties {
 	public static EList<ContainedNamedElement> getMatchingErrorModelElementPropertyAssociationsInList(
 			EList<PropertyAssociation> props, String propertyName, Element target, TypeSet ts) {
 		EList<ContainedNamedElement> result = new BasicEList<ContainedNamedElement>();
-		if (props == null)
+		if (props == null) {
 			return result;
+		}
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
 			if (propertyName.equalsIgnoreCase(name)) {
 				ContainedNamedElement res = isErrorModelElementProperty(propertyAssociation, target, null, ts);
-				if (res != null)
+				if (res != null) {
 					result.add(res);
+				}
 			}
 		}
 		return result;
@@ -595,8 +601,9 @@ public class EMV2Properties {
 				EList<ContainedNamedElement> result = getPropertyInInstanceHierarchy(propertyName,
 						ci.getContainingComponentInstance(), target, ciStack, ts);
 				ciStack.pop();
-				if (!result.isEmpty())
+				if (!result.isEmpty()) {
 					return result;
+				}
 			}
 			// deals with inherited properties by walking subclause inheritance
 			EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
@@ -636,8 +643,9 @@ public class EMV2Properties {
 			cl = (ComponentClassifier) ((Subcomponent) ci).getContainingClassifier();
 			ciStack.push(ci);
 			EList<ContainedNamedElement> result = getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
-			if (result != null)
+			if (result != null) {
 				return result;
+			}
 			ciStack.pop();
 			cl = ((Subcomponent) ci).getAllClassifier();
 			return getPropertyInClassifier(propertyName, cl, target, ciStack, ts);
