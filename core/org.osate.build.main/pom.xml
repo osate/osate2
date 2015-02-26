@@ -24,7 +24,7 @@
 			<url>http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x</url>
 			<layout>p2</layout>
 		</repository>
- 	</repositories>
+	</repositories>
 
 	<profiles>
 		<profile>
@@ -118,7 +118,7 @@
 				<module>../../osate2-ocarina/org.osate.ocarina.help</module>
 				<module>../../osate2-ocarina/org.osate.ocarina.real.xtext</module>
 				<module>../../osate2-ocarina/org.osate.ocarina.real.xtext.ui</module>
-				
+
 				<module>../org.osate.core.tests</module>
 				<module>../../osate2-plugins/org.osate.analysis.flows.tests</module>
 			</modules>
@@ -193,7 +193,7 @@
 				<module>../../osate2-ocarina/org.osate.ocarina.help</module>
 				<module>../../osate2-ocarina/org.osate.ocarina.real.xtext</module>
 				<module>../../osate2-ocarina/org.osate.ocarina.real.xtext.ui</module>
-				
+
 				<module>../org.osate.aadl2</module>
 				<module>../org.osate.aadl2.edit</module>
 				<module>../org.osate.aadl2.model.editor</module>
@@ -267,7 +267,7 @@
 				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ui</module>
 				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
 				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
-				
+
 			</modules>
 			<build>
 				<plugins>
@@ -295,6 +295,28 @@
 								</environment>
 							</environments>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>test</id>
+			<modules>
+				<module>../org.osate.core.tests</module>
+				<module>../../osate2-plugins/org.osate.analysis.flows.tests</module>
+			</modules>
+			<build>
+				<plugins>
+					<!-- run unit tests -->
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-surefire-plugin</artifactId>
+						<version>${tycho-version}</version>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
 					</plugin>
 				</plugins>
 			</build>
