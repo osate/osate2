@@ -38,6 +38,7 @@ import com.google.inject.Inject
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -340,7 +341,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	 */
 	@Test
 	def void testPrototypeBindings() {
-		('''
+		createFiles("pack.aadl" -> '''
 			package pack
 			public
 			  abstract a1
@@ -365,7 +366,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			  
 			  abstract implementation a1.i1
 			  subcomponents
-			    asub1: abstract [](a3.i1 (
+			    asub1: abstract a3 [](a3.i1 (
 			      proto2 => in data port
 			    ));
 			    asub2: abstract a3 (
@@ -414,9 +415,12 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			    proto13: abstract;
 			  end fgt2;
 			end pack;
-		'''.parse as AadlPackage) => [
+		''')
+		suppressSerialization
+		val testFileResult = testFile("pack.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
-			assertNoIssues
 			publicSection.ownedClassifiers.get(1) => [
 				"a2".assertEquals(name)
 				ownedPrototypeBindings.get(0) as ComponentPrototypeBinding => [
@@ -458,6 +462,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				"a1.i1".assertEquals(name)
 				ownedSubcomponents.get(0) => [
 					"asub1".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.")
 					implementationReferences.head => [
 						"a3.i1".assertEquals(implementation.name)
 						ownedPrototypeBindings.head => [
@@ -568,6 +573,8 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 				]
 			]
 		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
 	}
 	
 	//Tests scope_ModalPath_inModeOrTransition and scope_FlowImplementation_specification
