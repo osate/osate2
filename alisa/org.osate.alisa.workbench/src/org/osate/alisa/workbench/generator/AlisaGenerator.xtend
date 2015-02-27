@@ -12,7 +12,7 @@ import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.alisa.workbench.alisa.AlisaWorkArea
-import org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration
+import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.VerificationExecutionState
@@ -55,19 +55,19 @@ class AlisaGenerator implements IGenerator {
 	
 	var EList<SelectionCategory> selectionCriteria 
 
-	def constructCase(AssuranceEvidenceConfiguration acp) {
+	def constructCase(AssurancePlan acp) {
 		val si = acp.system.buildInstanceModelFile
 		selectionCriteria = acp.selectionFilter
 		si.construct(acp)
 	}
 
-	def generateCase(AssuranceEvidenceConfiguration acp) {
+	def generateCase(AssurancePlan acp) {
 		val si = acp.system.buildInstanceModelFile
 		selectionCriteria = acp.selectionFilter
 		si.generate(acp)
 	}
 
-	def AssuranceEvidence construct(ComponentInstance ci, AssuranceEvidenceConfiguration acp) {
+	def AssuranceEvidence construct(ComponentInstance ci, AssurancePlan acp) {
 		val myplans = ci.getVerificationPlans(acp);
 		var AssuranceEvidence acase = null
 		if (!myplans.empty) {
@@ -87,7 +87,7 @@ class AlisaGenerator implements IGenerator {
 		acase
 	}
 
-	def CharSequence generate(ComponentInstance ci, AssuranceEvidenceConfiguration acp) {
+	def CharSequence generate(ComponentInstance ci, AssurancePlan acp) {
 		val myplans = ci.getVerificationPlans(acp);
 		'''	
 			«IF !myplans.empty»

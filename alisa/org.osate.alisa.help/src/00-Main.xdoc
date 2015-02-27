@@ -31,8 +31,8 @@ codelanguage-def[ReqSpec]
 	document,constants,folder,of,category,
 	description,assert,title, refines, mitigates, 
 	assert,rationale,refined,decomposed,to,evolved, this,
-	conflicts,with,stakeholder,see,requirement, section, goals,
-	predicate, invariant, input, assumption, output, guarantee,eq
+	conflicts,with,stakeholder,see,requirement, section, goals, as, all,
+	predicate, invariant, input, assumption, output, guarantee, item, issues
 ]
 
 

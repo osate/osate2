@@ -8,10 +8,10 @@ import "http://www.osate.org/categories/Categories" as categories
 
 AlisaWorkArea:
 	'alisa' name=ID
-	cases+=AssuranceEvidenceConfiguration*;
+	cases+=(AssurancePlan|AssuranceTask)*;
 
-AssuranceEvidenceConfiguration:
-	'assurance' 'task' name=ID (':' title=STRING)?
+AssurancePlan:
+	'assurance' 'plan' name=ID (':' title=STRING)?
 	'for' system=[aadl2::ComponentImplementation|AadlClassifierReference]
 	'['
 	(
@@ -21,6 +21,10 @@ AssuranceEvidenceConfiguration:
 	&('filter' (selectionFilter+=[categories::SelectionCategory|ID])+)?
 	)
 	']';
+	
+	AssuranceTask returns AssurancePlan :
+		'assurance' 'task'{AssuranceTask} name=ID (':' title=STRING)? 'of' assurancePlan=[AssurancePlan|ID]
+	;
 	
 Description : 
 	( description += DescriptionElement  )+

@@ -32,13 +32,13 @@ public interface AlisaFactory extends EFactory
   AlisaWorkArea createAlisaWorkArea();
 
   /**
-   * Returns a new object of class '<em>Assurance Evidence Configuration</em>'.
+   * Returns a new object of class '<em>Assurance Plan</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Assurance Evidence Configuration</em>'.
+   * @return a new object of class '<em>Assurance Plan</em>'.
    * @generated
    */
-  AssuranceEvidenceConfiguration createAssuranceEvidenceConfiguration();
+  AssurancePlan createAssurancePlan();
 
   /**
    * Returns a new object of class '<em>Description</em>'.
@@ -57,6 +57,15 @@ public interface AlisaFactory extends EFactory
    * @generated
    */
   DescriptionElement createDescriptionElement();
+
+  /**
+   * Returns a new object of class '<em>Assurance Task</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Assurance Task</em>'.
+   * @generated
+   */
+  AssuranceTask createAssuranceTask();
 
   /**
    * Returns the package supported by this factory.

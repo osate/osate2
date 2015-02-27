@@ -31,25 +31,26 @@ code[ReqSpec][
 <Goal>::=
 goal goalname
 	( :  "short descriptive title" )?
-	( for ComponentElement | "Target description" )?
+	( for ( ComponentElement | "Target description" | Classifier item ComponentElement ) )?
 	\[  
 	 (category ( safety )+ )?
 	 (description  "one or more lines of descriptoive text" )? 
 	 (rationale "explanation" )? 
-	 (refines ( docx.goal1 )+ )? 
-	 (conflicts with docx.goal15 )+)? 
+	 (refines ( goalsx.goal1 )+ )? 
+	 (conflicts with goalsx.goal15 )+)? 
 	 (stakeholder  ( SEI.Feiler )+ )?
 	 (see document requirement ( ReqDoc.Req14 )+)?
 	 (see document ( filepath/file.doc#path.within.doc )+)? 
 	 ( <change Uncertainty> )?  
+	 (issues ("explanation")+ )? 
 	\]
 ]
 
 e[Note:] The items declared between the square brackets can be specified in any order.
 
 ul[
-item[The e[for] attribute either points to an element in an AADL componenbt classifier (the classifier
-itself is identified in the enclosing container), or it provides a string description of the target of
+item[The e[for] attribute either points to an element in an AADL component classifier (the classifier
+itself is identified in the enclosing container), to a component classifier and an element, or it provides a string description of the target of
 the goal. If absent the goal applies to any system component.]
 item[The e[category] attribute identifies one or more requirment categories. Requirement categories are user-definable
 and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
@@ -70,6 +71,7 @@ requirement document.]
 item[The e[see document] attribute is a reference to an external document that may not be in a format
 importable to Alisa.]
 item[The e[uncertainty] attribute specifies a potential requirement change ref:Uncertainty[uncertainty].]
+item[The e[issues] attribute allows users to record issues as a sequence of string notes.]
 ]
 
 Goals can used to represent stakeholder requirements imported from existing documents, or aligned with
@@ -85,30 +87,32 @@ code[ReqSpec][
 <Requirement> ::=
 requirement reqname
 	( :  "short descriptive title" )?
-	( for ComponentElement | "Target description" )?
+	( for ( ComponentElement | "Target description" | Classifier item ComponentElement ) )?
 	\[  
 	 (category ( safety )+ )?
 	 (description  this " shall not exceed " limit%sec " latency")? 
 	 (val limit = 200 ms )* 
+	 (val latencyLimit as Timning_Properties::MaxLatency )* 
 	 (compute actualbudget )*
 	 ( <Requirement Predicate> )*
 	 (rationale "explanation")? 
 	 (mitigates ( model.hazard3 )+ )? 
-	 (refines ( docx.req1 )+ )? 
-	 (see goal (docx.goal2 )+ )?
-	 (see document goal ( ReqDoc.goal12 )+)?
+	 (refines ( reqsx.req1 )+ )? 
+	 (see goal (goalsx.goal2 )+ )?
+	 (see document goal ( GoalsDoc.goal12 )+)?
 	 (see document requirement ( ReqDoc.Req14 )+)?
 	 (see document ( filepath/file.doc#path.within.doc )+)? 
 	 ( <change Uncertainty> )?  
+	 (issues ("explanation")+ )? 
 	\]
 ]
 
 e[Note:] The items declared between the square brackets can be specified in any order.
 
 ul[
-item[The e[for] attribute either points to an element in an AADL componenbt classifier (the classifier
-itself is identified in the enclosing container), or it provides a string description of the target of
-the goal.]
+item[The e[for] attribute either points to an element in an AADL component classifier (the classifier
+itself is identified in the enclosing container), to a component classifier and an element, or it provides a string description of the target of
+the goal. If absent the goal applies to any system component.]
 item[The e[category] attribute identifies one or more requirment category. Requirement categories are user-definable
 and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
 ]
@@ -136,21 +140,22 @@ requirement document.]
 item[The e[see document] attribute is a reference to an external document that may not be in a format
 importable to Alisa.]
 item[The e[uncertainty] attribute specifies a potential requirement change ref:Uncertainty[uncertainty].]
+item[The e[issues] attribute allows users to record issues as a sequence of string notes.]
 ]
 
 code[ReqSpec][
 <Requirement Predicate> ::=
-	text "informal specification"
+	assert "informal specification"
 	| assert value  <expression involving constant e[val] and e[compute] variables>
 	| input assumption <agree styl Xbase expression or e[as] reference into Agree subclause>
 	| output guarantee <agree styl Xbase expression or e[as] reference into Agree subclause>
-	| invariant <agree style Xbase expression or e[as] reference into Agree subclause>
-	| predicate <general XBase expression>
+	| assert invariant <agree style Xbase expression or e[as] reference into Agree subclause>
+	| assert predicate <general XBase expression>
 ]
 
 We distinguish between different types of assertions.
 ul[
-item[The e[text] assertions allows the user to specify a condition informally as a text string.
+item[The e[assert] assertions allows the user to specify a condition informally as a text string.
 This is useful if the user has not figured out yet how to specify the requirement more formally.]
 
 item[The e[assert value] assertion specifies a condition that a computed value must satisfy. Typically
@@ -173,15 +178,13 @@ item[The e[output guarantee] assertion represents guarantees made about outgoing
 can express these guarantees as an e[XBase]
 expression, or by referring to a e[guarantee] statement in an e[agree] subclause in the model.]
 
-item[The e[invariant] assertion represents an invariant equation e[eq] that must hold between inputs and outputs.
+item[The e[assert invariant] assertion represents an invariant equation e[eq] that must hold between inputs and outputs.
 Users
 can express these guarantees as an e[XBase]
 expression, or by referring to an e[eq] or other statement in an e[agree] subclause in the model.]
 
-item[The e[predicate] assertions allows the user to specify a condition in e[XBase].]
-
+item[The e[assert predicate] assertions allows the user to specify a condition in e[XBase].]
 ]
-
 
 Requirements can used to represent system requirements imported from existing documents, or aligned with
 the architecture model using the architecture-led requirement specification process. 
@@ -202,6 +205,7 @@ document docname ( : "myTitle")?
  (description MultiLineString)? 
 \[ 
 	<DocumentSection>
+	 (issues ("explanation")+ )? 
 \]
 
 
@@ -231,10 +235,11 @@ The following constructs are available to define stakeholder goals.
 code[ReqSpec][
 <StakeholderGoals> ::=
 stakeholder goals SysGoals (':' "short title" )?
-( for mypack::GPSDevice | "Target description" )?
+( for ( mypack::GPSDevice | "Target description" | all ) )?
  (description Description)? 
 \[ 
 	( <GoalFolder> | <Goal> )*
+	 (issues ("explanation")+ )? 
 \]
 
 <Goalfolder> ::=
@@ -250,13 +255,14 @@ a requirement specification for a system.
 code[ReqSpec][
 <ReqSpecs> ::=
 requirement specification Sysspec (':' "short title" )?
-( for mypack::GPSDevice )?
+( for ( mypack::GPSDevice | "Target description" | all ) )?
 ( include ( Sysspec1 )+ )?
 (description Description)? 
 \[ 
 	(val ( limit = 200 ms )+ )?
 	(compute actualbudget )*
 	( <ReqFolder> | <Requirement> )*
+	 (issues ("explanation")+ )? 
 \]
 
 <Reqfolder> ::=
@@ -281,13 +287,15 @@ for resourcebudgets::SCS
 \[ 
 	val MaxBudget = 400 kg
 	val MaxLatency = 50ms
+	compute ActualBudget
+	compute ActualLatency
 	requirement R1 \[
 		description this " shall have a budget within " Maxbudget
-		assert value actualbudget <= MaxBudget
+		assert value ActualBudget <= MaxBudget
 	\]
 	requirement R2 \[
-		description "hello"
-		assert value actuallatency <= MaxLatency
+		description "Response time shall be within " MaxLatency
+		assert value ActualLatency <= MaxLatency
 	\]
 \]
 ]

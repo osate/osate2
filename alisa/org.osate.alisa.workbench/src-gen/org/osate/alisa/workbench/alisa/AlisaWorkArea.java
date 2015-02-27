@@ -53,7 +53,7 @@ public interface AlisaWorkArea extends EObject
 
   /**
    * Returns the value of the '<em><b>Cases</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration}.
+   * The list contents are of type {@link org.osate.alisa.workbench.alisa.AssurancePlan}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Cases</em>' containment reference list isn't clear,
@@ -65,6 +65,6 @@ public interface AlisaWorkArea extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<AssuranceEvidenceConfiguration> getCases();
+  EList<AssurancePlan> getCases();
 
 } // AlisaWorkArea

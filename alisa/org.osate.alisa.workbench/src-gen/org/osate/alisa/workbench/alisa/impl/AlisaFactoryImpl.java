@@ -65,9 +65,10 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
     switch (eClass.getClassifierID())
     {
       case AlisaPackage.ALISA_WORK_AREA: return createAlisaWorkArea();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION: return createAssuranceEvidenceConfiguration();
+      case AlisaPackage.ASSURANCE_PLAN: return createAssurancePlan();
       case AlisaPackage.DESCRIPTION: return createDescription();
       case AlisaPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
+      case AlisaPackage.ASSURANCE_TASK: return createAssuranceTask();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -89,10 +90,10 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public AssuranceEvidenceConfiguration createAssuranceEvidenceConfiguration()
+  public AssurancePlan createAssurancePlan()
   {
-    AssuranceEvidenceConfigurationImpl assuranceEvidenceConfiguration = new AssuranceEvidenceConfigurationImpl();
-    return assuranceEvidenceConfiguration;
+    AssurancePlanImpl assurancePlan = new AssurancePlanImpl();
+    return assurancePlan;
   }
 
   /**
@@ -115,6 +116,17 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
   {
     DescriptionElementImpl descriptionElement = new DescriptionElementImpl();
     return descriptionElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public AssuranceTask createAssuranceTask()
+  {
+    AssuranceTaskImpl assuranceTask = new AssuranceTaskImpl();
+    return assuranceTask;
   }
 
   /**

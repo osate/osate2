@@ -80,9 +80,9 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
         return createAlisaWorkAreaAdapter();
       }
       @Override
-      public Adapter caseAssuranceEvidenceConfiguration(AssuranceEvidenceConfiguration object)
+      public Adapter caseAssurancePlan(AssurancePlan object)
       {
-        return createAssuranceEvidenceConfigurationAdapter();
+        return createAssurancePlanAdapter();
       }
       @Override
       public Adapter caseDescription(Description object)
@@ -93,6 +93,11 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseDescriptionElement(DescriptionElement object)
       {
         return createDescriptionElementAdapter();
+      }
+      @Override
+      public Adapter caseAssuranceTask(AssuranceTask object)
+      {
+        return createAssuranceTaskAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -132,16 +137,16 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration <em>Assurance Evidence Configuration</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.AssurancePlan <em>Assurance Plan</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan
    * @generated
    */
-  public Adapter createAssuranceEvidenceConfigurationAdapter()
+  public Adapter createAssurancePlanAdapter()
   {
     return null;
   }
@@ -172,6 +177,21 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDescriptionElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.AssuranceTask <em>Assurance Task</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask
+   * @generated
+   */
+  public Adapter createAssuranceTaskAdapter()
   {
     return null;
   }

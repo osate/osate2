@@ -37,31 +37,37 @@ public class AlisaParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
+					put(grammarAccess.getAlisaWorkAreaAccess().getCasesAlternatives_2_0(), "rule__AlisaWorkArea__CasesAlternatives_2_0");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getAlisaWorkAreaAccess().getGroup(), "rule__AlisaWorkArea__Group__0");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup(), "rule__AssuranceEvidenceConfiguration__Group__0");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_3(), "rule__AssuranceEvidenceConfiguration__Group_3__0");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_7_0(), "rule__AssuranceEvidenceConfiguration__Group_7_0__0");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_7_1(), "rule__AssuranceEvidenceConfiguration__Group_7_1__0");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_7_2(), "rule__AssuranceEvidenceConfiguration__Group_7_2__0");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getGroup_7_3(), "rule__AssuranceEvidenceConfiguration__Group_7_3__0");
+					put(grammarAccess.getAssurancePlanAccess().getGroup(), "rule__AssurancePlan__Group__0");
+					put(grammarAccess.getAssurancePlanAccess().getGroup_3(), "rule__AssurancePlan__Group_3__0");
+					put(grammarAccess.getAssurancePlanAccess().getGroup_7_0(), "rule__AssurancePlan__Group_7_0__0");
+					put(grammarAccess.getAssurancePlanAccess().getGroup_7_1(), "rule__AssurancePlan__Group_7_1__0");
+					put(grammarAccess.getAssurancePlanAccess().getGroup_7_2(), "rule__AssurancePlan__Group_7_2__0");
+					put(grammarAccess.getAssurancePlanAccess().getGroup_7_3(), "rule__AssurancePlan__Group_7_3__0");
+					put(grammarAccess.getAssuranceTaskAccess().getGroup(), "rule__AssuranceTask__Group__0");
+					put(grammarAccess.getAssuranceTaskAccess().getGroup_4(), "rule__AssuranceTask__Group_4__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup(), "rule__AadlClassifierReference__Group__0");
 					put(grammarAccess.getAadlClassifierReferenceAccess().getGroup_3(), "rule__AadlClassifierReference__Group_3__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup(), "rule__QualifiedName__Group__0");
 					put(grammarAccess.getQualifiedNameAccess().getGroup_1(), "rule__QualifiedName__Group_1__0");
 					put(grammarAccess.getAlisaWorkAreaAccess().getNameAssignment_1(), "rule__AlisaWorkArea__NameAssignment_1");
 					put(grammarAccess.getAlisaWorkAreaAccess().getCasesAssignment_2(), "rule__AlisaWorkArea__CasesAssignment_2");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getNameAssignment_2(), "rule__AssuranceEvidenceConfiguration__NameAssignment_2");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getTitleAssignment_3_1(), "rule__AssuranceEvidenceConfiguration__TitleAssignment_3_1");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSystemAssignment_5(), "rule__AssuranceEvidenceConfiguration__SystemAssignment_5");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getDescriptionAssignment_7_0_1(), "rule__AssuranceEvidenceConfiguration__DescriptionAssignment_7_0_1");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getPlansAssignment_7_1_1(), "rule__AssuranceEvidenceConfiguration__PlansAssignment_7_1_1");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getVerifiedAssumptionAssignment_7_2_2(), "rule__AssuranceEvidenceConfiguration__VerifiedAssumptionAssignment_7_2_2");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getSelectionFilterAssignment_7_3_1(), "rule__AssuranceEvidenceConfiguration__SelectionFilterAssignment_7_3_1");
+					put(grammarAccess.getAssurancePlanAccess().getNameAssignment_2(), "rule__AssurancePlan__NameAssignment_2");
+					put(grammarAccess.getAssurancePlanAccess().getTitleAssignment_3_1(), "rule__AssurancePlan__TitleAssignment_3_1");
+					put(grammarAccess.getAssurancePlanAccess().getSystemAssignment_5(), "rule__AssurancePlan__SystemAssignment_5");
+					put(grammarAccess.getAssurancePlanAccess().getDescriptionAssignment_7_0_1(), "rule__AssurancePlan__DescriptionAssignment_7_0_1");
+					put(grammarAccess.getAssurancePlanAccess().getPlansAssignment_7_1_1(), "rule__AssurancePlan__PlansAssignment_7_1_1");
+					put(grammarAccess.getAssurancePlanAccess().getVerifiedAssumptionAssignment_7_2_2(), "rule__AssurancePlan__VerifiedAssumptionAssignment_7_2_2");
+					put(grammarAccess.getAssurancePlanAccess().getSelectionFilterAssignment_7_3_1(), "rule__AssurancePlan__SelectionFilterAssignment_7_3_1");
+					put(grammarAccess.getAssuranceTaskAccess().getNameAssignment_3(), "rule__AssuranceTask__NameAssignment_3");
+					put(grammarAccess.getAssuranceTaskAccess().getTitleAssignment_4_1(), "rule__AssuranceTask__TitleAssignment_4_1");
+					put(grammarAccess.getAssuranceTaskAccess().getAssurancePlanAssignment_6(), "rule__AssuranceTask__AssurancePlanAssignment_6");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment(), "rule__Description__DescriptionAssignment");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_1(), "rule__DescriptionElement__ThisTargetAssignment_1");
-					put(grammarAccess.getAssuranceEvidenceConfigurationAccess().getUnorderedGroup_7(), "rule__AssuranceEvidenceConfiguration__UnorderedGroup_7");
+					put(grammarAccess.getAssurancePlanAccess().getUnorderedGroup_7(), "rule__AssurancePlan__UnorderedGroup_7");
 				}
 			};
 		}

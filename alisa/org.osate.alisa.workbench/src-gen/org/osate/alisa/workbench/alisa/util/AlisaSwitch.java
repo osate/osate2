@@ -79,10 +79,10 @@ public class AlisaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION:
+      case AlisaPackage.ASSURANCE_PLAN:
       {
-        AssuranceEvidenceConfiguration assuranceEvidenceConfiguration = (AssuranceEvidenceConfiguration)theEObject;
-        T result = caseAssuranceEvidenceConfiguration(assuranceEvidenceConfiguration);
+        AssurancePlan assurancePlan = (AssurancePlan)theEObject;
+        T result = caseAssurancePlan(assurancePlan);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -97,6 +97,14 @@ public class AlisaSwitch<T> extends Switch<T>
       {
         DescriptionElement descriptionElement = (DescriptionElement)theEObject;
         T result = caseDescriptionElement(descriptionElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlisaPackage.ASSURANCE_TASK:
+      {
+        AssuranceTask assuranceTask = (AssuranceTask)theEObject;
+        T result = caseAssuranceTask(assuranceTask);
+        if (result == null) result = caseAssurancePlan(assuranceTask);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -121,17 +129,17 @@ public class AlisaSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Assurance Evidence Configuration</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Assurance Plan</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Assurance Evidence Configuration</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Assurance Plan</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAssuranceEvidenceConfiguration(AssuranceEvidenceConfiguration object)
+  public T caseAssurancePlan(AssurancePlan object)
   {
     return null;
   }
@@ -164,6 +172,22 @@ public class AlisaSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDescriptionElement(DescriptionElement object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Assurance Task</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Assurance Task</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAssuranceTask(AssuranceTask object)
   {
     return null;
   }

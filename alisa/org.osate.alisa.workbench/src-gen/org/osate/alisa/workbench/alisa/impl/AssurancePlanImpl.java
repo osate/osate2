@@ -22,7 +22,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
-import org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration;
+import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.Description;
 
 import org.osate.categories.categories.SelectionCategory;
@@ -31,24 +31,24 @@ import org.osate.verify.verify.VerificationPlan;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Assurance Evidence Configuration</b></em>'.
+ * An implementation of the model object '<em><b>Assurance Plan</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getSystem <em>System</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getPlans <em>Plans</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getVerifiedAssumption <em>Verified Assumption</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl#getSelectionFilter <em>Selection Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getTitle <em>Title</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getSystem <em>System</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getVerifiedAssumption <em>Verified Assumption</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Container implements AssuranceEvidenceConfiguration
+public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements AssurancePlan
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -145,7 +145,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AssuranceEvidenceConfigurationImpl()
+  protected AssurancePlanImpl()
   {
     super();
   }
@@ -158,7 +158,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   @Override
   protected EClass eStaticClass()
   {
-    return AlisaPackage.Literals.ASSURANCE_EVIDENCE_CONFIGURATION;
+    return AlisaPackage.Literals.ASSURANCE_PLAN;
   }
 
   /**
@@ -181,7 +181,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_PLAN__NAME, oldName, name));
   }
 
   /**
@@ -204,7 +204,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
     String oldTitle = title;
     title = newTitle;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE, oldTitle, title));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_PLAN__TITLE, oldTitle, title));
   }
 
   /**
@@ -221,7 +221,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
       if (system != oldSystem)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM, oldSystem, system));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AlisaPackage.ASSURANCE_PLAN__SYSTEM, oldSystem, system));
       }
     }
     return system;
@@ -247,7 +247,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
     ComponentImplementation oldSystem = system;
     system = newSystem;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM, oldSystem, system));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_PLAN__SYSTEM, oldSystem, system));
   }
 
   /**
@@ -271,7 +271,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
     description = newDescription;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION, oldDescription, newDescription);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_PLAN__DESCRIPTION, oldDescription, newDescription);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -288,14 +288,14 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
     {
       NotificationChain msgs = null;
       if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION, null, msgs);
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_PLAN__DESCRIPTION, null, msgs);
       if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION, null, msgs);
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_PLAN__DESCRIPTION, null, msgs);
       msgs = basicSetDescription(newDescription, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION, newDescription, newDescription));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_PLAN__DESCRIPTION, newDescription, newDescription));
   }
 
   /**
@@ -307,7 +307,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   {
     if (plans == null)
     {
-      plans = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS);
+      plans = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, AlisaPackage.ASSURANCE_PLAN__PLANS);
     }
     return plans;
   }
@@ -321,7 +321,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   {
     if (verifiedAssumption == null)
     {
-      verifiedAssumption = new EObjectResolvingEList<ComponentClassifier>(ComponentClassifier.class, this, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION);
+      verifiedAssumption = new EObjectResolvingEList<ComponentClassifier>(ComponentClassifier.class, this, AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION);
     }
     return verifiedAssumption;
   }
@@ -335,7 +335,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   {
     if (selectionFilter == null)
     {
-      selectionFilter = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER);
+      selectionFilter = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER);
     }
     return selectionFilter;
   }
@@ -350,7 +350,7 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         return basicSetDescription(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -366,20 +366,20 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME:
+      case AlisaPackage.ASSURANCE_PLAN__NAME:
         return getName();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE:
+      case AlisaPackage.ASSURANCE_PLAN__TITLE:
         return getTitle();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM:
+      case AlisaPackage.ASSURANCE_PLAN__SYSTEM:
         if (resolve) return getSystem();
         return basicGetSystem();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         return getDescription();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
+      case AlisaPackage.ASSURANCE_PLAN__PLANS:
         return getPlans();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION:
+      case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         return getVerifiedAssumption();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
+      case AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER:
         return getSelectionFilter();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -396,27 +396,27 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME:
+      case AlisaPackage.ASSURANCE_PLAN__NAME:
         setName((String)newValue);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE:
+      case AlisaPackage.ASSURANCE_PLAN__TITLE:
         setTitle((String)newValue);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM:
+      case AlisaPackage.ASSURANCE_PLAN__SYSTEM:
         setSystem((ComponentImplementation)newValue);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
+      case AlisaPackage.ASSURANCE_PLAN__PLANS:
         getPlans().clear();
         getPlans().addAll((Collection<? extends VerificationPlan>)newValue);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION:
+      case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         getVerifiedAssumption().clear();
         getVerifiedAssumption().addAll((Collection<? extends ComponentClassifier>)newValue);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
+      case AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER:
         getSelectionFilter().clear();
         getSelectionFilter().addAll((Collection<? extends SelectionCategory>)newValue);
         return;
@@ -434,25 +434,25 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME:
+      case AlisaPackage.ASSURANCE_PLAN__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE:
+      case AlisaPackage.ASSURANCE_PLAN__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM:
+      case AlisaPackage.ASSURANCE_PLAN__SYSTEM:
         setSystem((ComponentImplementation)null);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
+      case AlisaPackage.ASSURANCE_PLAN__PLANS:
         getPlans().clear();
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION:
+      case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         getVerifiedAssumption().clear();
         return;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
+      case AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER:
         getSelectionFilter().clear();
         return;
     }
@@ -469,19 +469,19 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__NAME:
+      case AlisaPackage.ASSURANCE_PLAN__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__TITLE:
+      case AlisaPackage.ASSURANCE_PLAN__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM:
+      case AlisaPackage.ASSURANCE_PLAN__SYSTEM:
         return system != null;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION:
+      case AlisaPackage.ASSURANCE_PLAN__DESCRIPTION:
         return description != null;
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__PLANS:
+      case AlisaPackage.ASSURANCE_PLAN__PLANS:
         return plans != null && !plans.isEmpty();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION:
+      case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         return verifiedAssumption != null && !verifiedAssumption.isEmpty();
-      case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER:
+      case AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER:
         return selectionFilter != null && !selectionFilter.isEmpty();
     }
     return super.eIsSet(featureID);
@@ -506,4 +506,4 @@ public class AssuranceEvidenceConfigurationImpl extends MinimalEObjectImpl.Conta
     return result.toString();
   }
 
-} //AssuranceEvidenceConfigurationImpl
+} //AssurancePlanImpl

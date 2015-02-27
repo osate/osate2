@@ -7,15 +7,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
-import org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration;
+import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.ui.dialogs.Dialog;
 
 public class ExecuteAssurancePlanHandler extends EditorObjectHandler {
 
 	@Override
 	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
-		if (sel instanceof AssuranceEvidenceConfiguration) {
-			AssuranceEvidenceConfiguration plan = (AssuranceEvidenceConfiguration) sel;
+		if (sel instanceof AssurancePlan) {
+			AssurancePlan plan = (AssurancePlan) sel;
 			ComponentImplementation compImpl = plan.getSystem();
 			try {
 				ComponentInstance si = InstantiateModel.buildInstanceModelFile(compImpl);

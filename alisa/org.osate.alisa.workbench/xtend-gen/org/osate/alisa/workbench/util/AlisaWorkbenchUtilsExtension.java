@@ -11,13 +11,13 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration;
+import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.verify.verify.VerificationPlan;
 
 @SuppressWarnings("all")
 public class AlisaWorkbenchUtilsExtension {
-  public static Iterable<VerificationPlan> getVerificationPlans(final ComponentInstance io, final AssuranceEvidenceConfiguration acp) {
+  public static Iterable<VerificationPlan> getVerificationPlans(final ComponentInstance io, final AssurancePlan acp) {
     Iterable<VerificationPlan> _xblockexpression = null;
     {
       EList<VerificationPlan> _plans = acp.getPlans();

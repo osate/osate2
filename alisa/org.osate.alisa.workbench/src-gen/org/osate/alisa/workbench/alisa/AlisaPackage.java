@@ -94,14 +94,14 @@ public interface AlisaPackage extends EPackage
   int ALISA_WORK_AREA_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl <em>Assurance Evidence Configuration</em>}' class.
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl <em>Assurance Plan</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl
-   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceEvidenceConfiguration()
+   * @see org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssurancePlan()
    * @generated
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION = 1;
+  int ASSURANCE_PLAN = 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -110,7 +110,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION__NAME = 0;
+  int ASSURANCE_PLAN__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -119,7 +119,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION__TITLE = 1;
+  int ASSURANCE_PLAN__TITLE = 1;
 
   /**
    * The feature id for the '<em><b>System</b></em>' reference.
@@ -128,7 +128,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM = 2;
+  int ASSURANCE_PLAN__SYSTEM = 2;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -137,7 +137,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION = 3;
+  int ASSURANCE_PLAN__DESCRIPTION = 3;
 
   /**
    * The feature id for the '<em><b>Plans</b></em>' reference list.
@@ -146,7 +146,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION__PLANS = 4;
+  int ASSURANCE_PLAN__PLANS = 4;
 
   /**
    * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
@@ -155,7 +155,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION = 5;
+  int ASSURANCE_PLAN__VERIFIED_ASSUMPTION = 5;
 
   /**
    * The feature id for the '<em><b>Selection Filter</b></em>' reference list.
@@ -164,16 +164,16 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER = 6;
+  int ASSURANCE_PLAN__SELECTION_FILTER = 6;
 
   /**
-   * The number of structural features of the '<em>Assurance Evidence Configuration</em>' class.
+   * The number of structural features of the '<em>Assurance Plan</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_EVIDENCE_CONFIGURATION_FEATURE_COUNT = 7;
+  int ASSURANCE_PLAN_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -240,6 +240,97 @@ public interface AlisaPackage extends EPackage
    */
   int DESCRIPTION_ELEMENT_FEATURE_COUNT = 2;
 
+  /**
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceTask()
+   * @generated
+   */
+  int ASSURANCE_TASK = 4;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__NAME = ASSURANCE_PLAN__NAME;
+
+  /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__TITLE = ASSURANCE_PLAN__TITLE;
+
+  /**
+   * The feature id for the '<em><b>System</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__SYSTEM = ASSURANCE_PLAN__SYSTEM;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__DESCRIPTION = ASSURANCE_PLAN__DESCRIPTION;
+
+  /**
+   * The feature id for the '<em><b>Plans</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__PLANS = ASSURANCE_PLAN__PLANS;
+
+  /**
+   * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__VERIFIED_ASSUMPTION = ASSURANCE_PLAN__VERIFIED_ASSUMPTION;
+
+  /**
+   * The feature id for the '<em><b>Selection Filter</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__SELECTION_FILTER = ASSURANCE_PLAN__SELECTION_FILTER;
+
+  /**
+   * The feature id for the '<em><b>Assurance Plan</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__ASSURANCE_PLAN = ASSURANCE_PLAN_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Assurance Task</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK_FEATURE_COUNT = ASSURANCE_PLAN_FEATURE_COUNT + 1;
+
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AlisaWorkArea <em>Work Area</em>}'.
@@ -274,91 +365,91 @@ public interface AlisaPackage extends EPackage
   EReference getAlisaWorkArea_Cases();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration <em>Assurance Evidence Configuration</em>}'.
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssurancePlan <em>Assurance Plan</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Assurance Evidence Configuration</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration
+   * @return the meta object for class '<em>Assurance Plan</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan
    * @generated
    */
-  EClass getAssuranceEvidenceConfiguration();
+  EClass getAssurancePlan();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getName()
-   * @see #getAssuranceEvidenceConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getName()
+   * @see #getAssurancePlan()
    * @generated
    */
-  EAttribute getAssuranceEvidenceConfiguration_Name();
+  EAttribute getAssurancePlan_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getTitle <em>Title</em>}'.
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getTitle <em>Title</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Title</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getTitle()
-   * @see #getAssuranceEvidenceConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getTitle()
+   * @see #getAssurancePlan()
    * @generated
    */
-  EAttribute getAssuranceEvidenceConfiguration_Title();
+  EAttribute getAssurancePlan_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSystem <em>System</em>}'.
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getSystem <em>System</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference '<em>System</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSystem()
-   * @see #getAssuranceEvidenceConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getSystem()
+   * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssuranceEvidenceConfiguration_System();
+  EReference getAssurancePlan_System();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getDescription <em>Description</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Description</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getDescription()
-   * @see #getAssuranceEvidenceConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getDescription()
+   * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssuranceEvidenceConfiguration_Description();
+  EReference getAssurancePlan_Description();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getPlans <em>Plans</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getPlans <em>Plans</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Plans</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getPlans()
-   * @see #getAssuranceEvidenceConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getPlans()
+   * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssuranceEvidenceConfiguration_Plans();
+  EReference getAssurancePlan_Plans();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getVerifiedAssumption <em>Verified Assumption</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getVerifiedAssumption <em>Verified Assumption</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Verified Assumption</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getVerifiedAssumption()
-   * @see #getAssuranceEvidenceConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getVerifiedAssumption()
+   * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssuranceEvidenceConfiguration_VerifiedAssumption();
+  EReference getAssurancePlan_VerifiedAssumption();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSelectionFilter <em>Selection Filter</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getSelectionFilter <em>Selection Filter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the reference list '<em>Selection Filter</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration#getSelectionFilter()
-   * @see #getAssuranceEvidenceConfiguration()
+   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getSelectionFilter()
+   * @see #getAssurancePlan()
    * @generated
    */
-  EReference getAssuranceEvidenceConfiguration_SelectionFilter();
+  EReference getAssurancePlan_SelectionFilter();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.Description <em>Description</em>}'.
@@ -414,6 +505,27 @@ public interface AlisaPackage extends EPackage
   EAttribute getDescriptionElement_ThisTarget();
 
   /**
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssuranceTask <em>Assurance Task</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Assurance Task</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask
+   * @generated
+   */
+  EClass getAssuranceTask();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan <em>Assurance Plan</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Assurance Plan</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EReference getAssuranceTask_AssurancePlan();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -463,14 +575,14 @@ public interface AlisaPackage extends EPackage
     EReference ALISA_WORK_AREA__CASES = eINSTANCE.getAlisaWorkArea_Cases();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl <em>Assurance Evidence Configuration</em>}' class.
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl <em>Assurance Plan</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.alisa.workbench.alisa.impl.AssuranceEvidenceConfigurationImpl
-     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceEvidenceConfiguration()
+     * @see org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssurancePlan()
      * @generated
      */
-    EClass ASSURANCE_EVIDENCE_CONFIGURATION = eINSTANCE.getAssuranceEvidenceConfiguration();
+    EClass ASSURANCE_PLAN = eINSTANCE.getAssurancePlan();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -478,7 +590,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURANCE_EVIDENCE_CONFIGURATION__NAME = eINSTANCE.getAssuranceEvidenceConfiguration_Name();
+    EAttribute ASSURANCE_PLAN__NAME = eINSTANCE.getAssurancePlan_Name();
 
     /**
      * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
@@ -486,7 +598,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ASSURANCE_EVIDENCE_CONFIGURATION__TITLE = eINSTANCE.getAssuranceEvidenceConfiguration_Title();
+    EAttribute ASSURANCE_PLAN__TITLE = eINSTANCE.getAssurancePlan_Title();
 
     /**
      * The meta object literal for the '<em><b>System</b></em>' reference feature.
@@ -494,7 +606,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_EVIDENCE_CONFIGURATION__SYSTEM = eINSTANCE.getAssuranceEvidenceConfiguration_System();
+    EReference ASSURANCE_PLAN__SYSTEM = eINSTANCE.getAssurancePlan_System();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
@@ -502,7 +614,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_EVIDENCE_CONFIGURATION__DESCRIPTION = eINSTANCE.getAssuranceEvidenceConfiguration_Description();
+    EReference ASSURANCE_PLAN__DESCRIPTION = eINSTANCE.getAssurancePlan_Description();
 
     /**
      * The meta object literal for the '<em><b>Plans</b></em>' reference list feature.
@@ -510,7 +622,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_EVIDENCE_CONFIGURATION__PLANS = eINSTANCE.getAssuranceEvidenceConfiguration_Plans();
+    EReference ASSURANCE_PLAN__PLANS = eINSTANCE.getAssurancePlan_Plans();
 
     /**
      * The meta object literal for the '<em><b>Verified Assumption</b></em>' reference list feature.
@@ -518,7 +630,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_EVIDENCE_CONFIGURATION__VERIFIED_ASSUMPTION = eINSTANCE.getAssuranceEvidenceConfiguration_VerifiedAssumption();
+    EReference ASSURANCE_PLAN__VERIFIED_ASSUMPTION = eINSTANCE.getAssurancePlan_VerifiedAssumption();
 
     /**
      * The meta object literal for the '<em><b>Selection Filter</b></em>' reference list feature.
@@ -526,7 +638,7 @@ public interface AlisaPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_EVIDENCE_CONFIGURATION__SELECTION_FILTER = eINSTANCE.getAssuranceEvidenceConfiguration_SelectionFilter();
+    EReference ASSURANCE_PLAN__SELECTION_FILTER = eINSTANCE.getAssurancePlan_SelectionFilter();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -571,6 +683,24 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EAttribute DESCRIPTION_ELEMENT__THIS_TARGET = eINSTANCE.getDescriptionElement_ThisTarget();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceTask()
+     * @generated
+     */
+    EClass ASSURANCE_TASK = eINSTANCE.getAssuranceTask();
+
+    /**
+     * The meta object literal for the '<em><b>Assurance Plan</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_TASK__ASSURANCE_PLAN = eINSTANCE.getAssuranceTask_AssurancePlan();
 
   }
 

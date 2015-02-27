@@ -12,7 +12,8 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
-import org.osate.alisa.workbench.alisa.AssuranceEvidenceConfiguration;
+import org.osate.alisa.workbench.alisa.AssurancePlan;
+import org.osate.alisa.workbench.alisa.AssuranceTask;
 import org.osate.alisa.workbench.alisa.Description;
 import org.osate.alisa.workbench.alisa.DescriptionElement;
 import org.osate.alisa.workbench.services.AlisaGrammarAccess;
@@ -31,9 +32,15 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 					return; 
 				}
 				else break;
-			case AlisaPackage.ASSURANCE_EVIDENCE_CONFIGURATION:
-				if(context == grammarAccess.getAssuranceEvidenceConfigurationRule()) {
-					sequence_AssuranceEvidenceConfiguration(context, (AssuranceEvidenceConfiguration) semanticObject); 
+			case AlisaPackage.ASSURANCE_PLAN:
+				if(context == grammarAccess.getAssurancePlanRule()) {
+					sequence_AssurancePlan(context, (AssurancePlan) semanticObject); 
+					return; 
+				}
+				else break;
+			case AlisaPackage.ASSURANCE_TASK:
+				if(context == grammarAccess.getAssuranceTaskRule()) {
+					sequence_AssuranceTask(context, (AssuranceTask) semanticObject); 
 					return; 
 				}
 				else break;
@@ -55,7 +62,7 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (name=ID cases+=AssuranceEvidenceConfiguration*)
+	 *     (name=ID (cases+=AssurancePlan | cases+=AssuranceTask)*)
 	 */
 	protected void sequence_AlisaWorkArea(EObject context, AlisaWorkArea semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -74,7 +81,16 @@ public class AlisaSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *         selectionFilter+=[SelectionCategory|ID]*
 	 *     )
 	 */
-	protected void sequence_AssuranceEvidenceConfiguration(EObject context, AssuranceEvidenceConfiguration semanticObject) {
+	protected void sequence_AssurancePlan(EObject context, AssurancePlan semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID title=STRING? assurancePlan=[AssurancePlan|ID])
+	 */
+	protected void sequence_AssuranceTask(EObject context, AssuranceTask semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

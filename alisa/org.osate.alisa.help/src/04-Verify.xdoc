@@ -17,7 +17,7 @@ A verification method registry allows users to specify the type and signature of
 section:VerificationPlans[Verification Plans]
 
 
-A verification paln is defined in a separate file with the extension e[verify].
+A verification plan is defined in a separate file with the extension e[verify].
 
 
 code[Verify][
@@ -25,7 +25,7 @@ code[Verify][
 	plan myplan ( : "descriptive title" )?
 	for MyPackage::GPSSystem
 	\[
-		( description "Verification plan for a" & "second line" )? // multi-line text
+		( description "Verification plan for a second line" )? 
 		<Claim>*
 		( rationale <String> )?
 		( assume verified <VerificationPlan>+ )?
@@ -35,6 +35,8 @@ code[Verify][
 A verification plan is for a single system identified by the reference to its AADL classifier.
 
 The verification plan specifies a claim for each of the requirements that have been specified for a system.
+
+A system can have multiple verification plans that get combined into an assurance plan.
 
 e[assume verified] identifies subsytems (system components) that are assumed to have been verified
 separately. This allows us to support compositional assurance of systems.
@@ -159,7 +161,7 @@ VerificationValidation ::=
 	\[ (
 	( description Description)?
 	  method <methodid> ( as <computer variable> )?
-	( rationale <MultiLineString> )?
+	( rationale "rationale description" )?
 	)
 	\]
 
@@ -170,13 +172,15 @@ VerificationPrecondition ::=
 	\[ 
 	( description Description)?
 	  method <methodid> ( as <computer variable> )?
-	( rationale <MultiLineString> )?
+	( rationale "rationale description" )?
 	\]
 
 
-enum MethodTypes:
-	singlepredicate | singleanalysis | assertionexception | multimarker | ownmultimarker | multidiagnostics | resultreport 
-	| resoluteprove | manual
+enum MethodTypes::= analysis | predicate | compute | resoluteprove | manual
+	
+enum MethodScope::= self | parts | all 
+
+enum MethodReporting::= marker| errormarker | diagnostics | assertexception | resultreport
 ]
 
 The method types are:
