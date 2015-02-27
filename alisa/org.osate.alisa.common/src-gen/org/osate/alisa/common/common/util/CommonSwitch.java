@@ -117,6 +117,13 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CommonPackage.IMAGE_REFERENCE:
+      {
+        ImageReference imageReference = (ImageReference)theEObject;
+        T result = caseImageReference(imageReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CommonPackage.APROPERTY_REFERENCE:
       {
         APropertyReference aPropertyReference = (APropertyReference)theEObject;
@@ -230,6 +237,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseShowValue(ShowValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Image Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Image Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseImageReference(ImageReference object)
   {
     return null;
   }

@@ -26,7 +26,8 @@ class ReqSpecUtilExtension {
 	}
 	
 	def static requirementTarget(Requirement req){
-		req.target?:req.contextClassifier
+	req.target?:
+		req.contextClassifier
 	}
 
 	def static containingRequirement(EObject sh){

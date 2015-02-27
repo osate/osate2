@@ -16,10 +16,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.alisa.common.common.Description;
@@ -41,14 +43,16 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetElement <em>Target Element</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetDescription <em>Target Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getChangeUncertainty <em>Change Uncertainty</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocReference <em>Doc Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -97,14 +101,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * The cached value of the '{@link #getTargetElement() <em>Target Element</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTarget()
+   * @see #getTargetElement()
    * @generated
    * @ordered
    */
-  protected NamedElement target;
+  protected NamedElement targetElement;
 
   /**
    * The default value of the '{@link #getTargetDescription() <em>Target Description</em>}' attribute.
@@ -125,6 +129,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected String targetDescription = TARGET_DESCRIPTION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTarget()
+   * @generated
+   * @ordered
+   */
+  protected Classifier target;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
@@ -185,6 +199,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected EList<ExternalDocument> docReference;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -258,19 +282,19 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement getTarget()
+  public NamedElement getTargetElement()
   {
-    if (target != null && ((EObject)target).eIsProxy())
+    if (targetElement != null && ((EObject)targetElement).eIsProxy())
     {
-      InternalEObject oldTarget = (InternalEObject)target;
-      target = (NamedElement)eResolveProxy(oldTarget);
-      if (target != oldTarget)
+      InternalEObject oldTargetElement = (InternalEObject)targetElement;
+      targetElement = (NamedElement)eResolveProxy(oldTargetElement);
+      if (targetElement != oldTargetElement)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET, oldTarget, target));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT, oldTargetElement, targetElement));
       }
     }
-    return target;
+    return targetElement;
   }
 
   /**
@@ -278,9 +302,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement basicGetTarget()
+  public NamedElement basicGetTargetElement()
   {
-    return target;
+    return targetElement;
   }
 
   /**
@@ -288,12 +312,12 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(NamedElement newTarget)
+  public void setTargetElement(NamedElement newTargetElement)
   {
-    NamedElement oldTarget = target;
-    target = newTarget;
+    NamedElement oldTargetElement = targetElement;
+    targetElement = newTargetElement;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET, oldTarget, target));
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT, oldTargetElement, targetElement));
   }
 
   /**
@@ -317,6 +341,49 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     targetDescription = newTargetDescription;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION, oldTargetDescription, targetDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Classifier getTarget()
+  {
+    if (target != null && ((EObject)target).eIsProxy())
+    {
+      InternalEObject oldTarget = (InternalEObject)target;
+      target = (Classifier)eResolveProxy(oldTarget);
+      if (target != oldTarget)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET, oldTarget, target));
+      }
+    }
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Classifier basicGetTarget()
+  {
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTarget(Classifier newTarget)
+  {
+    Classifier oldTarget = target;
+    target = newTarget;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET, oldTarget, target));
   }
 
   /**
@@ -510,6 +577,20 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<String> getIssues()
+  {
+    if (issues == null)
+    {
+      issues = new EDataTypeEList<String>(String.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES);
+    }
+    return issues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -541,11 +622,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return getName();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         return getTitle();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
+        if (resolve) return getTargetElement();
+        return basicGetTargetElement();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
+        return getTargetDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
-        return getTargetDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         return getCategory();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
@@ -558,6 +642,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return getDocumentRequirement();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         return getDocReference();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -579,11 +665,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         setTitle((String)newValue);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
-        setTarget((NamedElement)newValue);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
+        setTargetElement((NamedElement)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         setTargetDescription((String)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
+        setTarget((Classifier)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         getCategory().clear();
@@ -606,6 +695,10 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         getDocReference().clear();
         getDocReference().addAll((Collection<? extends ExternalDocument>)newValue);
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends String>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -626,11 +719,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
-        setTarget((NamedElement)null);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
+        setTargetElement((NamedElement)null);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
+        setTarget((Classifier)null);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         getCategory().clear();
@@ -650,6 +746,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         getDocReference().clear();
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:
+        getIssues().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -668,10 +767,12 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
-        return target != null;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
+        return targetElement != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
+        return target != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         return category != null && !category.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
@@ -684,6 +785,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return documentRequirement != null && !documentRequirement.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DOC_REFERENCE:
         return docReference != null && !docReference.isEmpty();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -705,6 +808,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     result.append(title);
     result.append(", targetDescription: ");
     result.append(targetDescription);
+    result.append(", issues: ");
+    result.append(issues);
     result.append(')');
     return result.toString();
   }

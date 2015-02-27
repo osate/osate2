@@ -61,6 +61,7 @@ import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
@@ -75,6 +76,7 @@ import org.osate.reqspec.reqSpec.InformalPredicate;
 import org.osate.reqspec.reqSpec.InputAssumption;
 import org.osate.reqspec.reqSpec.OutputGuarantee;
 import org.osate.reqspec.reqSpec.ReqDocument;
+import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
@@ -113,6 +115,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.DESCRIPTION_ELEMENT:
 				if(context == grammarAccess.getDescriptionElementRule()) {
 					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.IMAGE_REFERENCE:
+				if(context == grammarAccess.getImageReferenceRule()) {
+					sequence_ImageReference(context, (ImageReference) semanticObject); 
 					return; 
 				}
 				else break;
@@ -229,9 +237,14 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.REQ_DOCUMENT:
 				if(context == grammarAccess.getReqDocumentRule() ||
 				   context == grammarAccess.getReqRootRule() ||
-				   context == grammarAccess.getReqSpecRule() ||
 				   context == grammarAccess.getReqSpecContainerRule()) {
 					sequence_ReqDocument(context, (ReqDocument) semanticObject); 
+					return; 
+				}
+				else break;
+			case ReqSpecPackage.REQ_SPEC:
+				if(context == grammarAccess.getReqSpecRule()) {
+					sequence_ReqSpec(context, (ReqSpec) semanticObject); 
 					return; 
 				}
 				else break;
@@ -244,7 +257,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case ReqSpecPackage.REQ_SPECS:
 				if(context == grammarAccess.getReqRootRule() ||
-				   context == grammarAccess.getReqSpecRule() ||
 				   context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getReqSpecsRule()) {
 					sequence_ReqSpecs(context, (ReqSpecs) semanticObject); 
@@ -260,7 +272,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				else break;
 			case ReqSpecPackage.STAKEHOLDER_GOALS:
 				if(context == grammarAccess.getReqRootRule() ||
-				   context == grammarAccess.getReqSpecRule() ||
 				   context == grammarAccess.getReqSpecContainerRule() ||
 				   context == grammarAccess.getStakeholderGoalsRule()) {
 					sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
@@ -1401,7 +1412,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
+	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
 	 *         category+=[RequirementCategory|ValidID]* 
 	 *         description=Description? 
 	 *         rationale=Rationale? 
@@ -1410,7 +1421,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         conflictsReference+=[Goal|QualifiedName]* 
 	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
-	 *         docReference+=ExternalDocument*
+	 *         docReference+=ExternalDocument* 
+	 *         issues+=STRING*
 	 *     )
 	 */
 	protected void sequence_Goal(EObject context, Goal semanticObject) {
@@ -1454,7 +1466,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID title=STRING? description=Description? content+=DocumentSection*)
+	 *     (name=ID title=STRING? description=Description? (content+=Goal | content+=Requirement | content+=DocumentSection)* issues+=STRING*)
 	 */
 	protected void sequence_ReqDocument(EObject context, ReqDocument semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1472,6 +1484,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (contents+=ReqSpecs | contents+=StakeholderGoals | contents+=ReqDocument)+
+	 */
+	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
@@ -1479,7 +1500,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
-	 *         (content+=Requirement | content+=ReqSpecFolder)*
+	 *         (content+=Requirement | content+=ReqSpecFolder)* 
+	 *         issues+=STRING*
 	 *     )
 	 */
 	protected void sequence_ReqSpecs(EObject context, ReqSpecs semanticObject) {
@@ -1492,8 +1514,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (target=[NamedElement|ID] | targetDescription=STRING)? 
-	 *         category+=[RequirementCategory|ID]* 
+	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         category+=[RequirementCategory|ValidID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -1505,7 +1527,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 
-	 *         docReference+=ExternalDocument*
+	 *         docReference+=ExternalDocument* 
+	 *         issues+=STRING*
 	 *     )
 	 */
 	protected void sequence_Requirement(EObject context, Requirement semanticObject) {
@@ -1520,7 +1543,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         description=Description? 
-	 *         (content+=Goal | content+=GoalFolder)*
+	 *         (content+=Goal | content+=GoalFolder)* 
+	 *         issues+=STRING*
 	 *     )
 	 */
 	protected void sequence_StakeholderGoals(EObject context, StakeholderGoals semanticObject) {
@@ -1555,7 +1579,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getXPredicateAccess().getXpressionXExpressionParserRuleCall_1_0(), semanticObject.getXpression());
+		feeder.accept(grammarAccess.getXPredicateAccess().getXpressionXExpressionParserRuleCall_2_0(), semanticObject.getXpression());
 		feeder.finish();
 	}
 }

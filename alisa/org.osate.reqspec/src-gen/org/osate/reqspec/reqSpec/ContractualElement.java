@@ -6,6 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.alisa.common.common.Description;
@@ -24,14 +25,16 @@ import org.osate.categories.categories.RequirementCategory;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetDescription <em>Target Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getChangeUncertainty <em>Change Uncertainty</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocReference <em>Doc Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,30 +97,30 @@ public interface ContractualElement extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * Returns the value of the '<em><b>Target Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * If the meaning of the '<em>Target Element</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(NamedElement)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Target()
+   * @return the value of the '<em>Target Element</em>' reference.
+   * @see #setTargetElement(NamedElement)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_TargetElement()
    * @model
    * @generated
    */
-  NamedElement getTarget();
+  NamedElement getTargetElement();
 
   /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}' reference.
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target</em>' reference.
-   * @see #getTarget()
+   * @param value the new value of the '<em>Target Element</em>' reference.
+   * @see #getTargetElement()
    * @generated
    */
-  void setTarget(NamedElement value);
+  void setTargetElement(NamedElement value);
 
   /**
    * Returns the value of the '<em><b>Target Description</b></em>' attribute.
@@ -144,6 +147,32 @@ public interface ContractualElement extends EObject
    * @generated
    */
   void setTargetDescription(String value);
+
+  /**
+   * Returns the value of the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' reference.
+   * @see #setTarget(Classifier)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Target()
+   * @model
+   * @generated
+   */
+  Classifier getTarget();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(Classifier value);
 
   /**
    * Returns the value of the '<em><b>Category</b></em>' reference list.
@@ -270,5 +299,21 @@ public interface ContractualElement extends EObject
    * @generated
    */
   EList<ExternalDocument> getDocReference();
+
+  /**
+   * Returns the value of the '<em><b>Issues</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issues</em>' attribute list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Issues()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getIssues();
 
 } // ContractualElement

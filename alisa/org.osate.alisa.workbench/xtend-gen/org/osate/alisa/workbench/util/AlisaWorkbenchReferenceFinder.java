@@ -18,8 +18,8 @@ import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.alisa.common.scoping.CommonGlobalScopeProvider;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -53,7 +53,7 @@ public class AlisaWorkbenchReferenceFinder {
       final Iterable<Requirement> y = IterableExtensions.<IEObjectDescription, Requirement>map(x, _function);
       for (final Requirement r : y) {
         {
-          final NamedElement cl1 = r.getTarget();
+          final Classifier cl1 = r.getTarget();
           final ComponentClassifier t2 = ((ComponentInstance) io).getComponentClassifier();
           final String c1n = cl1.getQualifiedName();
           final String c2n = t2.getQualifiedName();
@@ -62,7 +62,7 @@ public class AlisaWorkbenchReferenceFinder {
       }
       final Function1<Requirement, Boolean> _function_1 = new Function1<Requirement, Boolean>() {
         public Boolean apply(final Requirement req) {
-          NamedElement _target = ((Requirement) req).getTarget();
+          Classifier _target = ((Requirement) req).getTarget();
           ComponentClassifier _componentClassifier = ((ComponentInstance) io).getComponentClassifier();
           return Boolean.valueOf(AlisaWorkbenchReferenceFinder.this.isSame(((ComponentClassifier) _target), _componentClassifier));
         }

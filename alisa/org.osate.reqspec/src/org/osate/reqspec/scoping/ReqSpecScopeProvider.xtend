@@ -16,6 +16,7 @@ import org.osate.reqspec.reqSpec.ContractualElement
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.Goal
+import org.osate.aadl2.ComponentImplementation
 
 /**
  * This class contains custom scoping description.
@@ -30,10 +31,17 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	def scope_NamedElement(ContractualElement context, EReference reference) {
 		val targetClassifier = contextClassifier(context)
 		if (targetClassifier != null) {
-			targetClassifier.getAllFeatures.scopeFor
-			new SimpleScope(IScope::NULLSCOPE,
+//			targetClassifier.getAllFeatures.scopeFor
+			val thescope = new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(targetClassifier.getAllFeatures,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			if (targetClassifier instanceof ComponentImplementation){
+			new SimpleScope(thescope,
+				Scopes::scopedElementsFor(targetClassifier.allSubcomponents,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)			
+			} else {
+				return thescope
+			}
 		} else {
 			IScope.NULLSCOPE
 		}

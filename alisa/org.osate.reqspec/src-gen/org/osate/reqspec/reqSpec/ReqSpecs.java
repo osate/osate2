@@ -29,6 +29,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,7 +37,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  * @model
  * @generated
  */
-public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
+public interface ReqSpecs extends ReqSpecContainer, ReqRoot
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -231,5 +232,21 @@ public interface ReqSpecs extends ReqSpec, ReqSpecContainer, ReqRoot
    * @generated
    */
   EList<EObject> getContent();
+
+  /**
+   * Returns the value of the '<em><b>Issues</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issues</em>' attribute list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_Issues()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getIssues();
 
 } // ReqSpecs

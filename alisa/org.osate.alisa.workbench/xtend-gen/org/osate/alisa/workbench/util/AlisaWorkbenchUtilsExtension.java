@@ -3,6 +3,7 @@ package org.osate.alisa.workbench.util;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -66,7 +67,7 @@ public class AlisaWorkbenchUtilsExtension {
   }
   
   public static InstanceObject getRequirementTarget(final Requirement req, final ComponentInstance io) {
-    NamedElement _target = req.getTarget();
+    Classifier _target = req.getTarget();
     return AlisaWorkbenchUtilsExtension.findElementInstance(io, _target);
   }
   

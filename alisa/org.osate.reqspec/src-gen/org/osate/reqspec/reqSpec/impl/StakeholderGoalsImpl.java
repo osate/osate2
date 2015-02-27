@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -39,12 +40,13 @@ import org.osate.reqspec.reqSpec.StakeholderGoals;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoals
+public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements StakeholderGoals
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -155,6 +157,16 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * @ordered
    */
   protected EList<EObject> content;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -379,6 +391,20 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<String> getIssues()
+  {
+    if (issues == null)
+    {
+      issues = new EDataTypeEList<String>(String.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES);
+    }
+    return issues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -417,6 +443,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         return getDescription();
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         return getContent();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -454,6 +482,10 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         getContent().clear();
         getContent().addAll((Collection<? extends EObject>)newValue);
         return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends String>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -489,6 +521,9 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();
         return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
+        getIssues().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -517,6 +552,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
         return description != null;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         return content != null && !content.isEmpty();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -540,6 +577,8 @@ public class StakeholderGoalsImpl extends ReqSpecImpl implements StakeholderGoal
     result.append(targetDescription);
     result.append(", global: ");
     result.append(global);
+    result.append(", issues: ");
+    result.append(issues);
     result.append(')');
     return result.toString();
   }

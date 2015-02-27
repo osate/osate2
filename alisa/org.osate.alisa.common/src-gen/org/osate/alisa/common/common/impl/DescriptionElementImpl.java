@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.ShowValue;
 
 /**
@@ -25,6 +26,7 @@ import org.osate.alisa.common.common.ShowValue;
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getText <em>Text</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getShowValue <em>Show Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#isThisTarget <em>This Target</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.DescriptionElementImpl#getImage <em>Image</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,6 +83,16 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected boolean thisTarget = THIS_TARGET_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getImage() <em>Image</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImage()
+   * @generated
+   * @ordered
+   */
+  protected ImageReference image;
 
   /**
    * <!-- begin-user-doc -->
@@ -202,6 +214,54 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public ImageReference getImage()
+  {
+    return image;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetImage(ImageReference newImage, NotificationChain msgs)
+  {
+    ImageReference oldImage = image;
+    image = newImage;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__IMAGE, oldImage, newImage);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setImage(ImageReference newImage)
+  {
+    if (newImage != image)
+    {
+      NotificationChain msgs = null;
+      if (image != null)
+        msgs = ((InternalEObject)image).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.DESCRIPTION_ELEMENT__IMAGE, null, msgs);
+      if (newImage != null)
+        msgs = ((InternalEObject)newImage).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.DESCRIPTION_ELEMENT__IMAGE, null, msgs);
+      msgs = basicSetImage(newImage, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.DESCRIPTION_ELEMENT__IMAGE, newImage, newImage));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -209,6 +269,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
     {
       case CommonPackage.DESCRIPTION_ELEMENT__SHOW_VALUE:
         return basicSetShowValue(null, msgs);
+      case CommonPackage.DESCRIPTION_ELEMENT__IMAGE:
+        return basicSetImage(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -229,6 +291,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
         return getShowValue();
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         return isThisTarget();
+      case CommonPackage.DESCRIPTION_ELEMENT__IMAGE:
+        return getImage();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -251,6 +315,9 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         setThisTarget((Boolean)newValue);
+        return;
+      case CommonPackage.DESCRIPTION_ELEMENT__IMAGE:
+        setImage((ImageReference)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -275,6 +342,9 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         setThisTarget(THIS_TARGET_EDEFAULT);
         return;
+      case CommonPackage.DESCRIPTION_ELEMENT__IMAGE:
+        setImage((ImageReference)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -295,6 +365,8 @@ public class DescriptionElementImpl extends MinimalEObjectImpl.Container impleme
         return showValue != null;
       case CommonPackage.DESCRIPTION_ELEMENT__THIS_TARGET:
         return thisTarget != THIS_TARGET_EDEFAULT;
+      case CommonPackage.DESCRIPTION_ELEMENT__IMAGE:
+        return image != null;
     }
     return super.eIsSet(featureID);
   }

@@ -26,7 +26,8 @@ class AlisaWorkbenchReferenceFinder {
 
 		def getRequirements(ComponentInstance io){
 			val x = io.componentClassifier.getGlobalEObjectDescriptions(ReqSpecPackage.eINSTANCE.requirement,null)
-			
+			// TODO if implementation also look at the type.
+			// TODO if classifier is an extension we inherit requirements
 			val y = x.map[EObjectOrProxy as Requirement]
 			for ( r : y) {
 				val cl1 = r.target

@@ -14,7 +14,7 @@ Description :
 ;
 
 DescriptionElement :
- 	text = STRING | showValue = ShowValue |thisTarget?='this'
+ 	text = STRING | showValue = ShowValue |thisTarget?='this'| image=ImageReference
  ;
 
 Rationale: 'rationale' text=STRING ;
@@ -64,11 +64,14 @@ XNumberLiteral returns xbase::XNumberLiteral :
  
 // ShowValue: ref=[ConstantDecl|ID] ('%' unit=ID)?;	
  ShowValue returns ShowValue: ref=[xbase::XVariableDeclaration] ('%' unit=[aadl2::UnitLiteral|ID])?;	
- 
+
+ImageReference : 'img' imgfile=IMGREF;
+
+IMGREF : (ID '/')ID '.' ID; 
 
 // Qualified classifier reference
 AADLCLASSIFIERREFERENCE:
-	ID '::' ID ('.' ID)?;
+	ID ('::' ID)+ ('.' ID)?;
 
 AADLPROPERTYREFERENCE: ID ('::' ID)?;
 

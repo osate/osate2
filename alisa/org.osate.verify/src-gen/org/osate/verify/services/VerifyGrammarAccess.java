@@ -1780,7 +1780,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | showValue=ShowValue | thisTarget?="this";
+	//	text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference;
 	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
 		return gaCommon.getDescriptionElementAccess();
 	}
@@ -1869,9 +1869,29 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getShowValueAccess().getRule();
 	}
 
+	//ImageReference:
+	//	"img" imgfile=IMGREF;
+	public CommonGrammarAccess.ImageReferenceElements getImageReferenceAccess() {
+		return gaCommon.getImageReferenceAccess();
+	}
+	
+	public ParserRule getImageReferenceRule() {
+		return getImageReferenceAccess().getRule();
+	}
+
+	//IMGREF:
+	//	(ID "/") ID "." ID;
+	public CommonGrammarAccess.IMGREFElements getIMGREFAccess() {
+		return gaCommon.getIMGREFAccess();
+	}
+	
+	public ParserRule getIMGREFRule() {
+		return getIMGREFAccess().getRule();
+	}
+
 	//// Qualified classifier reference
 	//AADLCLASSIFIERREFERENCE:
-	//	ID "::" ID ("." ID)?;
+	//	ID ("::" ID)+ ("." ID)?;
 	public CommonGrammarAccess.AADLCLASSIFIERREFERENCEElements getAADLCLASSIFIERREFERENCEAccess() {
 		return gaCommon.getAADLCLASSIFIERREFERENCEAccess();
 	}

@@ -4,7 +4,6 @@ import com.google.common.base.Objects;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.NamedElement;
 import org.osate.reqspec.reqSpec.ContractualElement;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 import org.osate.reqspec.reqSpec.Requirement;
@@ -40,9 +39,9 @@ public class ReqSpecUtilExtension {
     return null;
   }
   
-  public static NamedElement requirementTarget(final Requirement req) {
-    NamedElement _elvis = null;
-    NamedElement _target = req.getTarget();
+  public static Classifier requirementTarget(final Requirement req) {
+    Classifier _elvis = null;
+    Classifier _target = req.getTarget();
     if (_target != null) {
       _elvis = _target;
     } else {

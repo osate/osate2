@@ -4,6 +4,8 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.osate.alisa.common.common.Description;
 
 /**
@@ -18,6 +20,7 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqDocument#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -25,7 +28,7 @@ import org.osate.alisa.common.common.Description;
  * @model
  * @generated
  */
-public interface ReqDocument extends ReqSpec, ReqSpecContainer, ReqRoot
+public interface ReqDocument extends ReqSpecContainer, ReqRoot
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -107,7 +110,7 @@ public interface ReqDocument extends ReqSpec, ReqSpecContainer, ReqRoot
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.reqspec.reqSpec.DocumentSection}.
+   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Content</em>' containment reference list isn't clear,
@@ -119,6 +122,22 @@ public interface ReqDocument extends ReqSpec, ReqSpecContainer, ReqRoot
    * @model containment="true"
    * @generated
    */
-  EList<DocumentSection> getContent();
+  EList<EObject> getContent();
+
+  /**
+   * Returns the value of the '<em><b>Issues</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issues</em>' attribute list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqDocument_Issues()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getIssues();
 
 } // ReqDocument

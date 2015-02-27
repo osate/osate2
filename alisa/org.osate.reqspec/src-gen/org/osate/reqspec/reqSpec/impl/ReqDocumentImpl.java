@@ -10,16 +10,17 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa.common.common.Description;
 
-import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
@@ -34,12 +35,13 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqDocumentImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
+public class ReqDocumentImpl extends ReqSpecContainerImpl implements ReqDocument
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -99,7 +101,17 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
    * @generated
    * @ordered
    */
-  protected EList<DocumentSection> content;
+  protected EList<EObject> content;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -221,13 +233,27 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<DocumentSection> getContent()
+  public EList<EObject> getContent()
   {
     if (content == null)
     {
-      content = new EObjectContainmentEList<DocumentSection>(DocumentSection.class, this, ReqSpecPackage.REQ_DOCUMENT__CONTENT);
+      content = new EObjectContainmentEList<EObject>(EObject.class, this, ReqSpecPackage.REQ_DOCUMENT__CONTENT);
     }
     return content;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getIssues()
+  {
+    if (issues == null)
+    {
+      issues = new EDataTypeEList<String>(String.class, this, ReqSpecPackage.REQ_DOCUMENT__ISSUES);
+    }
+    return issues;
   }
 
   /**
@@ -266,6 +292,8 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
         return getDescription();
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         return getContent();
+      case ReqSpecPackage.REQ_DOCUMENT__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -292,7 +320,11 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
         return;
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         getContent().clear();
-        getContent().addAll((Collection<? extends DocumentSection>)newValue);
+        getContent().addAll((Collection<? extends EObject>)newValue);
+        return;
+      case ReqSpecPackage.REQ_DOCUMENT__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -320,6 +352,9 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         getContent().clear();
         return;
+      case ReqSpecPackage.REQ_DOCUMENT__ISSUES:
+        getIssues().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -342,6 +377,8 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
         return description != null;
       case ReqSpecPackage.REQ_DOCUMENT__CONTENT:
         return content != null && !content.isEmpty();
+      case ReqSpecPackage.REQ_DOCUMENT__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -361,6 +398,8 @@ public class ReqDocumentImpl extends ReqSpecImpl implements ReqDocument
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", issues: ");
+    result.append(issues);
     result.append(')');
     return result.toString();
   }

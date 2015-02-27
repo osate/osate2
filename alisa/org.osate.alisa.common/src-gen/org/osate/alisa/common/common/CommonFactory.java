@@ -77,6 +77,15 @@ public interface CommonFactory extends EFactory
   ShowValue createShowValue();
 
   /**
+   * Returns a new object of class '<em>Image Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Image Reference</em>'.
+   * @generated
+   */
+  ImageReference createImageReference();
+
+  /**
    * Returns a new object of class '<em>AProperty Reference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

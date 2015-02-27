@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -44,12 +45,13 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
+public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -180,6 +182,16 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * @ordered
    */
   protected EList<EObject> content;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -398,6 +410,20 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<String> getIssues()
+  {
+    if (issues == null)
+    {
+      issues = new EDataTypeEList<String>(String.class, this, ReqSpecPackage.REQ_SPECS__ISSUES);
+    }
+    return issues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -442,6 +468,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return getComputes();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return getContent();
+      case ReqSpecPackage.REQ_SPECS__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -488,6 +516,10 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         getContent().clear();
         getContent().addAll((Collection<? extends EObject>)newValue);
         return;
+      case ReqSpecPackage.REQ_SPECS__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends String>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -529,6 +561,9 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
         return;
+      case ReqSpecPackage.REQ_SPECS__ISSUES:
+        getIssues().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -561,6 +596,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
         return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return content != null && !content.isEmpty();
+      case ReqSpecPackage.REQ_SPECS__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -584,6 +621,8 @@ public class ReqSpecsImpl extends ReqSpecImpl implements ReqSpecs
     result.append(targetDescription);
     result.append(", global: ");
     result.append(global);
+    result.append(", issues: ");
+    result.append(issues);
     result.append(')');
     return result.toString();
   }

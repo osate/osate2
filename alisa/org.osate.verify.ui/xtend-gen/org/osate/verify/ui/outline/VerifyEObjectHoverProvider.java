@@ -2,10 +2,11 @@ package org.osate.verify.ui.outline;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Classifier;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.util.CommonUtilExtension;
 import org.osate.reqspec.reqSpec.Requirement;
+import org.osate.reqspec.util.ReqSpecUtilExtension;
 import org.osate.verify.verify.VerificationActivity;
 
 @SuppressWarnings("all")
@@ -27,8 +28,8 @@ public class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
         Description _description = req.getDescription();
         String _text = null;
         if (_description!=null) {
-          NamedElement _target = req.getTarget();
-          _text=CommonUtilExtension.toText(_description, _target);
+          Classifier _requirementTarget = ReqSpecUtilExtension.requirementTarget(req);
+          _text=CommonUtilExtension.toText(_description, _requirementTarget);
         }
         final String zz = _text;
         final String res = ((z + ": ") + zz);

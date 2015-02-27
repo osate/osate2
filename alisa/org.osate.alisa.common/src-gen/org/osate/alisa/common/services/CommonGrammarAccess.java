@@ -52,12 +52,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cShowValueShowValueParserRuleCall_1_0 = (RuleCall)cShowValueAssignment_1.eContents().get(0);
 		private final Assignment cThisTargetAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final Keyword cThisTargetThisKeyword_2_0 = (Keyword)cThisTargetAssignment_2.eContents().get(0);
+		private final Assignment cImageAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final RuleCall cImageImageReferenceParserRuleCall_3_0 = (RuleCall)cImageAssignment_3.eContents().get(0);
 		
 		//DescriptionElement:
-		//	text=STRING | showValue=ShowValue | thisTarget?="this";
+		//	text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference;
 		public ParserRule getRule() { return rule; }
 
-		//text=STRING | showValue=ShowValue | thisTarget?="this"
+		//text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//text=STRING
@@ -77,6 +79,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"this"
 		public Keyword getThisTargetThisKeyword_2_0() { return cThisTargetThisKeyword_2_0; }
+
+		//image=ImageReference
+		public Assignment getImageAssignment_3() { return cImageAssignment_3; }
+
+		//ImageReference
+		public RuleCall getImageImageReferenceParserRuleCall_3_0() { return cImageImageReferenceParserRuleCall_3_0; }
 	}
 
 	public class RationaleElements extends AbstractParserRuleElementFinder {
@@ -478,41 +486,105 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_1_0_1; }
 	}
 
+	public class ImageReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ImageReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cImgKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cImgfileAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cImgfileIMGREFParserRuleCall_1_0 = (RuleCall)cImgfileAssignment_1.eContents().get(0);
+		
+		//ImageReference:
+		//	"img" imgfile=IMGREF;
+		public ParserRule getRule() { return rule; }
+
+		//"img" imgfile=IMGREF
+		public Group getGroup() { return cGroup; }
+
+		//"img"
+		public Keyword getImgKeyword_0() { return cImgKeyword_0; }
+
+		//imgfile=IMGREF
+		public Assignment getImgfileAssignment_1() { return cImgfileAssignment_1; }
+
+		//IMGREF
+		public RuleCall getImgfileIMGREFParserRuleCall_1_0() { return cImgfileIMGREFParserRuleCall_1_0; }
+	}
+
+	public class IMGREFElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IMGREF");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Keyword cSolidusKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cIDTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		
+		//IMGREF:
+		//	(ID "/") ID "." ID;
+		public ParserRule getRule() { return rule; }
+
+		//(ID "/") ID "." ID
+		public Group getGroup() { return cGroup; }
+
+		//ID "/"
+		public Group getGroup_0() { return cGroup_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
+
+		//"/"
+		public Keyword getSolidusKeyword_0_1() { return cSolidusKeyword_0_1; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
+
+		//"."
+		public Keyword getFullStopKeyword_2() { return cFullStopKeyword_2; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_3() { return cIDTerminalRuleCall_3; }
+	}
+
 	public class AADLCLASSIFIERREFERENCEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AADLCLASSIFIERREFERENCE");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cFullStopKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
 		//// Qualified classifier reference
 		//AADLCLASSIFIERREFERENCE:
-		//	ID "::" ID ("." ID)?;
+		//	ID ("::" ID)+ ("." ID)?;
 		public ParserRule getRule() { return rule; }
 
-		//ID "::" ID ("." ID)?
+		//ID ("::" ID)+ ("." ID)?
 		public Group getGroup() { return cGroup; }
 
 		//ID
 		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
 
+		//("::" ID)+
+		public Group getGroup_1() { return cGroup_1; }
+
 		//"::"
-		public Keyword getColonColonKeyword_1() { return cColonColonKeyword_1; }
+		public Keyword getColonColonKeyword_1_0() { return cColonColonKeyword_1_0; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 
 		//("." ID)?
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//"."
-		public Keyword getFullStopKeyword_3_0() { return cFullStopKeyword_3_0; }
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_3_1() { return cIDTerminalRuleCall_3_1; }
+		public RuleCall getIDTerminalRuleCall_2_1() { return cIDTerminalRuleCall_2_1; }
 	}
 
 	public class AADLPROPERTYREFERENCEElements extends AbstractParserRuleElementFinder {
@@ -565,6 +637,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	private final ComputeDeclarationElements pComputeDeclaration;
 	private final XNumberLiteralElements pXNumberLiteral;
 	private final ShowValueElements pShowValue;
+	private final ImageReferenceElements pImageReference;
+	private final IMGREFElements pIMGREF;
 	private final AADLCLASSIFIERREFERENCEElements pAADLCLASSIFIERREFERENCE;
 	private final AADLPROPERTYREFERENCEElements pAADLPROPERTYREFERENCE;
 	private final URIIDElements pURIID;
@@ -587,6 +661,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		this.pComputeDeclaration = new ComputeDeclarationElements();
 		this.pXNumberLiteral = new XNumberLiteralElements();
 		this.pShowValue = new ShowValueElements();
+		this.pImageReference = new ImageReferenceElements();
+		this.pIMGREF = new IMGREFElements();
 		this.pAADLCLASSIFIERREFERENCE = new AADLCLASSIFIERREFERENCEElements();
 		this.pAADLPROPERTYREFERENCE = new AADLPROPERTYREFERENCEElements();
 		this.pURIID = new URIIDElements();
@@ -630,7 +706,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | showValue=ShowValue | thisTarget?="this";
+	//	text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference;
 	public DescriptionElementElements getDescriptionElementAccess() {
 		return pDescriptionElement;
 	}
@@ -719,9 +795,29 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getShowValueAccess().getRule();
 	}
 
+	//ImageReference:
+	//	"img" imgfile=IMGREF;
+	public ImageReferenceElements getImageReferenceAccess() {
+		return pImageReference;
+	}
+	
+	public ParserRule getImageReferenceRule() {
+		return getImageReferenceAccess().getRule();
+	}
+
+	//IMGREF:
+	//	(ID "/") ID "." ID;
+	public IMGREFElements getIMGREFAccess() {
+		return pIMGREF;
+	}
+	
+	public ParserRule getIMGREFRule() {
+		return getIMGREFAccess().getRule();
+	}
+
 	//// Qualified classifier reference
 	//AADLCLASSIFIERREFERENCE:
-	//	ID "::" ID ("." ID)?;
+	//	ID ("::" ID)+ ("." ID)?;
 	public AADLCLASSIFIERREFERENCEElements getAADLCLASSIFIERREFERENCEAccess() {
 		return pAADLCLASSIFIERREFERENCE;
 	}

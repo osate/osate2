@@ -62,6 +62,7 @@ import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
@@ -97,6 +98,12 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 			case CommonPackage.DESCRIPTION_ELEMENT:
 				if(context == grammarAccess.getDescriptionElementRule()) {
 					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.IMAGE_REFERENCE:
+				if(context == grammarAccess.getImageReferenceRule()) {
+					sequence_ImageReference(context, (ImageReference) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1270,7 +1277,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (text=STRING | showValue=ShowValue | thisTarget?='this')
+	 *     (text=STRING | showValue=ShowValue | thisTarget?='this' | image=ImageReference)
 	 */
 	protected void sequence_DescriptionElement(EObject context, DescriptionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1283,6 +1290,22 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	 */
 	protected void sequence_Description(EObject context, Description semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     imgfile=IMGREF
+	 */
+	protected void sequence_ImageReference(EObject context, ImageReference semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, CommonPackage.Literals.IMAGE_REFERENCE__IMGFILE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.IMAGE_REFERENCE__IMGFILE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getImageReferenceAccess().getImgfileIMGREFParserRuleCall_1_0(), semanticObject.getImgfile());
+		feeder.finish();
 	}
 	
 	

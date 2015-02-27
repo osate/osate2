@@ -25,6 +25,7 @@ import org.osate.alisa.common.common.Description;
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.StakeholderGoals#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -32,7 +33,7 @@ import org.osate.alisa.common.common.Description;
  * @model
  * @generated
  */
-public interface StakeholderGoals extends ReqSpec, ReqSpecContainer, ReqRoot
+public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -205,5 +206,21 @@ public interface StakeholderGoals extends ReqSpec, ReqSpecContainer, ReqRoot
    * @generated
    */
   EList<EObject> getContent();
+
+  /**
+   * Returns the value of the '<em><b>Issues</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issues</em>' attribute list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getStakeholderGoals_Issues()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getIssues();
 
 } // StakeholderGoals

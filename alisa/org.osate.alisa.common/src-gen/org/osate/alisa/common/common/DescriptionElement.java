@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getText <em>Text</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#isThisTarget <em>This Target</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getImage <em>Image</em>}</li>
  * </ul>
  * </p>
  *
@@ -101,5 +102,31 @@ public interface DescriptionElement extends EObject
    * @generated
    */
   void setThisTarget(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Image</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Image</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Image</em>' containment reference.
+   * @see #setImage(ImageReference)
+   * @see org.osate.alisa.common.common.CommonPackage#getDescriptionElement_Image()
+   * @model containment="true"
+   * @generated
+   */
+  ImageReference getImage();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.DescriptionElement#getImage <em>Image</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Image</em>' containment reference.
+   * @see #getImage()
+   * @generated
+   */
+  void setImage(ImageReference value);
 
 } // DescriptionElement

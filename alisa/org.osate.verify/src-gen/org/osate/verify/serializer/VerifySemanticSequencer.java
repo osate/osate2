@@ -61,6 +61,7 @@ import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.Description;
 import org.osate.alisa.common.common.DescriptionElement;
+import org.osate.alisa.common.common.ImageReference;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.Uncertainty;
@@ -113,6 +114,12 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.DESCRIPTION_ELEMENT:
 				if(context == grammarAccess.getDescriptionElementRule()) {
 					sequence_DescriptionElement(context, (DescriptionElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case CommonPackage.IMAGE_REFERENCE:
+				if(context == grammarAccess.getImageReferenceRule()) {
+					sequence_ImageReference(context, (ImageReference) semanticObject); 
 					return; 
 				}
 				else break;

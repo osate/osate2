@@ -173,6 +173,25 @@ ruleDescriptionElement returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDescriptionElementAccess().getImageImageReferenceParserRuleCall_3_0()); 
+	    }
+		lv_image_3_0=ruleImageReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDescriptionElementRule());
+	        }
+       		set(
+       			$current, 
+       			"image",
+        		lv_image_3_0, 
+        		"ImageReference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 ))
 ;
 
@@ -343,6 +362,103 @@ ruleShowValue returns [EObject current=null]
 )
 ))?)
 ;
+
+
+
+
+
+// Entry rule entryRuleImageReference
+entryRuleImageReference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getImageReferenceRule()); }
+	 iv_ruleImageReference=ruleImageReference 
+	 { $current=$iv_ruleImageReference.current; } 
+	 EOF 
+;
+
+// Rule ImageReference
+ruleImageReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='img' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getImageReferenceAccess().getImgKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getImageReferenceAccess().getImgfileIMGREFParserRuleCall_1_0()); 
+	    }
+		lv_imgfile_1_0=ruleIMGREF		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getImageReferenceRule());
+	        }
+       		set(
+       			$current, 
+       			"imgfile",
+        		lv_imgfile_1_0, 
+        		"IMGREF");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleIMGREF
+entryRuleIMGREF returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getIMGREFRule()); } 
+	 iv_ruleIMGREF=ruleIMGREF 
+	 { $current=$iv_ruleIMGREF.current.getText(); }  
+	 EOF 
+;
+
+// Rule IMGREF
+ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); 
+    }
+
+	kw='/' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getIMGREFAccess().getSolidusKeyword_0_1()); 
+    }
+)    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_1()); 
+    }
+
+	kw='.' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getIMGREFAccess().getFullStopKeyword_2()); 
+    }
+    this_ID_4=RULE_ID    {
+		$current.merge(this_ID_4);
+    }
+
+    { 
+    newLeafNode(this_ID_4, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_3()); 
+    }
+)
+    ;
 
 
 

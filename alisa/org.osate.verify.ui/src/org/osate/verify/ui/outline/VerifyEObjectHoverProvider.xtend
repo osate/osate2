@@ -14,7 +14,7 @@ class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
 			VerificationActivity: {
 				val Requirement req = o.requirement
 		val z =  (req.title?:"") 
-		val zz = req.description?.toText(req.target)
+		val zz = req.description?.toText(req.requirementTarget)
 				val res =  z + ": " + zz
 				return res
 				}

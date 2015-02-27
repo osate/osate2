@@ -124,13 +124,22 @@ public interface CommonPackage extends EPackage
   int DESCRIPTION_ELEMENT__THIS_TARGET = 2;
 
   /**
+   * The feature id for the '<em><b>Image</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DESCRIPTION_ELEMENT__IMAGE = 3;
+
+  /**
    * The number of structural features of the '<em>Description Element</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DESCRIPTION_ELEMENT_FEATURE_COUNT = 3;
+  int DESCRIPTION_ELEMENT_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.RationaleImpl <em>Rationale</em>}' class.
@@ -317,6 +326,34 @@ public interface CommonPackage extends EPackage
   int SHOW_VALUE_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ImageReferenceImpl <em>Image Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ImageReferenceImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getImageReference()
+   * @generated
+   */
+  int IMAGE_REFERENCE = 6;
+
+  /**
+   * The feature id for the '<em><b>Imgfile</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMAGE_REFERENCE__IMGFILE = 0;
+
+  /**
+   * The number of structural features of the '<em>Image Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMAGE_REFERENCE_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -324,7 +361,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getAPropertyReference()
    * @generated
    */
-  int APROPERTY_REFERENCE = 6;
+  int APROPERTY_REFERENCE = 7;
 
   /**
    * The feature id for the '<em><b>Property</b></em>' reference.
@@ -352,7 +389,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getXNumberLiteralUnit()
    * @generated
    */
-  int XNUMBER_LITERAL_UNIT = 7;
+  int XNUMBER_LITERAL_UNIT = 8;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -445,6 +482,17 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EAttribute getDescriptionElement_ThisTarget();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.DescriptionElement#getImage <em>Image</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Image</em>'.
+   * @see org.osate.alisa.common.common.DescriptionElement#getImage()
+   * @see #getDescriptionElement()
+   * @generated
+   */
+  EReference getDescriptionElement_Image();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.Rationale <em>Rationale</em>}'.
@@ -619,6 +667,27 @@ public interface CommonPackage extends EPackage
   EReference getShowValue_Unit();
 
   /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ImageReference <em>Image Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Image Reference</em>'.
+   * @see org.osate.alisa.common.common.ImageReference
+   * @generated
+   */
+  EClass getImageReference();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ImageReference#getImgfile <em>Imgfile</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Imgfile</em>'.
+   * @see org.osate.alisa.common.common.ImageReference#getImgfile()
+   * @see #getImageReference()
+   * @generated
+   */
+  EAttribute getImageReference_Imgfile();
+
+  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.APropertyReference <em>AProperty Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -734,6 +803,14 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute DESCRIPTION_ELEMENT__THIS_TARGET = eINSTANCE.getDescriptionElement_ThisTarget();
+
+    /**
+     * The meta object literal for the '<em><b>Image</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DESCRIPTION_ELEMENT__IMAGE = eINSTANCE.getDescriptionElement_Image();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.RationaleImpl <em>Rationale</em>}' class.
@@ -870,6 +947,24 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EReference SHOW_VALUE__UNIT = eINSTANCE.getShowValue_Unit();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ImageReferenceImpl <em>Image Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ImageReferenceImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getImageReference()
+     * @generated
+     */
+    EClass IMAGE_REFERENCE = eINSTANCE.getImageReference();
+
+    /**
+     * The meta object literal for the '<em><b>Imgfile</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IMAGE_REFERENCE__IMGFILE = eINSTANCE.getImageReference_Imgfile();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.
