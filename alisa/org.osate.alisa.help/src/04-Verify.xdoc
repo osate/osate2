@@ -151,7 +151,7 @@ code[Verify][
 		( description Description )?
 		( category <VerificationCategory> )?
 		( VerificationValidation | VerificationPrecondition)*
-	\];
+	\]
 
 VerificationValidation ::=
 	( validation myname

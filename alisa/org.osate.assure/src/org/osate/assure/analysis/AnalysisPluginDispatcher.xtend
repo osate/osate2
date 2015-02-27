@@ -10,12 +10,12 @@ import org.osate.assure.util.IVerificationMethodDispatcher
 
 class AnalysisPluginDispatcher extends DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
-	/**
-	 * normal constructor
-	 */
-	public new() {
-		super()
-	}
+//	/**
+//	 * normal constructor
+//	 */
+//	public new() {
+//		super()
+//	}
 
 
 	override Object dispatchVerificationMethod(VerificationMethod vm, VerificationResult vr) {

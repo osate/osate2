@@ -11,13 +11,6 @@ import org.osate.verify.verify.VerificationMethod;
 
 @SuppressWarnings("all")
 public class AnalysisPluginDispatcher extends DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
-  /**
-   * normal constructor
-   */
-  public AnalysisPluginDispatcher() {
-    super();
-  }
-  
   public Object dispatchVerificationMethod(final VerificationMethod vm, final VerificationResult vr) {
     final InstanceObject target = AssureUtilExtension.getClaimSubject(vr);
     String _methodPath = vm.getMethodPath();
