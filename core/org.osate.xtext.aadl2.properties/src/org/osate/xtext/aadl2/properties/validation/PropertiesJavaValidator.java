@@ -142,6 +142,27 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	// checking methods
 
+	protected boolean isPropertySetForMode(Mode mode, Property property, List<PropertyAssociation> propertyAssociations) {
+
+		for (PropertyAssociation pa : propertyAssociations) {
+			if (pa.getProperty().equals(property)) {
+				List<ModalPropertyValue> modalPropertyValues = pa.getOwnedValues();
+				ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
+				if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
+					return true;
+				} else {
+					for (ModalPropertyValue mpv : modalPropertyValues) {
+						List<Mode> inModes = mpv.getInModes();
+						if (inModes.contains(mode)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	protected void checkPropertyAssociationModalBindings(PropertyAssociation pa) {
 		List<ModalPropertyValue> modalPropertyValues = pa.getOwnedValues();
 		Iterator<ModalPropertyValue> mpvIt = modalPropertyValues.iterator();
