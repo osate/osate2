@@ -75,6 +75,7 @@ import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.util.AadlHelper;
 
 public class SubprogramCallPattern extends AgePattern implements Categorized {
 	private static final String nameShapeName = "label";
@@ -153,7 +154,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
         link(shape, new AadlElementWrapper(call));       
         
         // Finish creating
-        refresh(shape, call, context.getX(), context.getY(), layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+        refresh(shape, call, context.getX(), context.getY());
         
         return shape;
 	}
@@ -167,9 +168,9 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 		if(pe instanceof ContainerShape) {
 			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
 			if(ga == null) {
-				refresh((ContainerShape)pe, call, 255, 255, layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+				refresh((ContainerShape)pe, call, 255, 255);
 			} else {
-				refresh((ContainerShape)pe, call, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight());
+				refresh((ContainerShape)pe, call, ga.getX(), ga.getY());
 			}
 		}
 		return true;
@@ -205,7 +206,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	}
 	
 	// Shared Between add and update
-	private void refresh(final ContainerShape shape, final SubprogramCall call, final int x, final int y, final int minWidth, final int minHeight) {
+	private void refresh(final ContainerShape shape, final SubprogramCall call, final int x, final int y) {
 		// Handle ghosting
 		ghostingService.setIsGhost(shape, false);
 		ghostingService.ghostInvalidChildShapes(shape);
@@ -378,7 +379,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	@Override
 	public boolean canCreate(final ICreateContext context) {
 		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-		return context.getTargetContainer() instanceof ContainerShape && containerBo instanceof SubprogramCallSequence;
+		return context.getTargetContainer() instanceof ContainerShape && containerBo instanceof SubprogramCallSequence && ((SubprogramCallSequence)containerBo).getContainingClassifier() == getComponentImplementation(context.getTargetContainer());
 	}
 	
 	@Override
@@ -417,6 +418,9 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	 			newSubprogramCall.setName(newSubprogramCallName);	 			
 	 			newSubprogramCall.setContext(callContext);
 	 			newSubprogramCall.setCalledSubprogram(calledSubprogram);
+	 			
+	 			AadlHelper.ensurePackageIsImported(bi, callContext);
+	 			AadlHelper.ensurePackageIsImported(bi, calledSubprogram);
 				
 				return newSubprogramCall;
 			}
@@ -424,14 +428,14 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 			@Override
 			public void beforeCommit(final Resource resource, final SubprogramCallSequence cs, final SubprogramCall sc) {
 				diagramMod.commit();
-				shapeCreationService.createShape(context.getTargetContainer(), sc, context.getX(), context.getY());							
+				shapeCreationService.createShape(context.getTargetContainer(), sc, context.getX(), context.getY());	
 			}
 		});
 		
 		// Return the new subprogram call if it was created
 		return newSc == null ? EMPTY : new Object[] {newSc};
 	}
-	
+
 	// Direct Edit / Rename
     @Override
     public boolean canDirectEdit(final IDirectEditingContext context) {

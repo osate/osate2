@@ -85,6 +85,8 @@ import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
 import org.osate.ge.diagrams.componentImplementation.features.ChangeSubcomponentTypeFeature;
 import org.osate.ge.diagrams.componentImplementation.features.EditFlowsFeature;
+import org.osate.ge.diagrams.componentImplementation.features.MoveSubprogramCallDownFeature;
+import org.osate.ge.diagrams.componentImplementation.features.MoveSubprogramCallUpFeature;
 import org.osate.ge.diagrams.componentImplementation.features.RefineConnectionFeature;
 import org.osate.ge.diagrams.componentImplementation.features.RefineSubcomponentFeature;
 import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFeature;
@@ -282,6 +284,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(createSetFeatureKindFeature(AccessType.REQUIRES));		
 		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE));
 		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SINK));
+		
+		// Subprogram Call
+		features.add(make(MoveSubprogramCallUpFeature.class));
+		features.add(make(MoveSubprogramCallDownFeature.class));
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {

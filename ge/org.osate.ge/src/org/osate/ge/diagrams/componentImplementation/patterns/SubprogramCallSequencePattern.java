@@ -44,6 +44,7 @@ import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
@@ -70,6 +71,7 @@ import org.osate.ge.services.NamingService;
 import org.osate.ge.services.ShapeCreationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
+import org.osate.ge.util.AadlHelper;
 
 public class SubprogramCallSequencePattern extends AgePattern implements Categorized {
 	private static final String nameShapeName = "label";
@@ -130,7 +132,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	public boolean canAdd(final IAddContext context) {
 		if(isMainBusinessObjectApplicable(context.getNewObject())) {
 			final Object targetBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-			return targetBo instanceof BehavioredImplementation;
+			return targetBo instanceof BehavioredImplementation || targetBo instanceof Subcomponent;
 		}
 
 		return false;
@@ -146,7 +148,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
         link(shape, new AadlElementWrapper(cs));       
         
         // Finish creating
-        refresh(shape, cs, context.getX(), context.getY(), layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+        refresh(shape, cs, context.getX(), context.getY());
         
         return shape;
 	}
@@ -160,9 +162,9 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		if(pe instanceof ContainerShape) {
 			final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
 			if(ga == null) {
-				refresh((ContainerShape)pe, cs, 255, 255, layoutService.getMinimumWidth(), layoutService.getMinimumHeight());
+				refresh((ContainerShape)pe, cs, 255, 255);
 			} else {
-				refresh((ContainerShape)pe, cs, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight());
+				refresh((ContainerShape)pe, cs, ga.getX(), ga.getY());
 			}
 		}
 		return true;
@@ -180,7 +182,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	}
 	
 	// Shared Between add and update
-	private void refresh(final ContainerShape shape, final SubprogramCallSequence cs, final int x, final int y, final int minWidth, final int minHeight) {
+	private void refresh(final ContainerShape shape, final SubprogramCallSequence cs, final int x, final int y) {
 		// Handle ghosting
 		ghostingService.setIsGhost(shape, false);
 		ghostingService.ghostInvalidChildShapes(shape);				
@@ -208,8 +210,13 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
         labelService.createLabelShape(shape, nameShapeName, cs, getName(cs));
         
         // Create appropriate symbol
+        final GraphicsAlgorithm oldGa = shape.getGraphicsAlgorithm();
         final IGaService gaService = Graphiti.getGaService();
         final GraphicsAlgorithm ga = gaService.createPlainRectangle(shape);
+        if(oldGa != null) {
+        	ga.setWidth(oldGa.getWidth());
+        	ga.setHeight(oldGa.getHeight());
+        }
         ga.setStyle(styleService.getStyle("subprogram_call_sequence"));
         ga.setFilled(false);
         
@@ -355,6 +362,9 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	 			initialSubprogramCall.setName(initialSubprogramCallName);	 			
 	 			initialSubprogramCall.setContext(callContext);
 	 			initialSubprogramCall.setCalledSubprogram(calledSubprogram);
+
+	 			AadlHelper.ensurePackageIsImported(bi, callContext);
+	 			AadlHelper.ensurePackageIsImported(bi, calledSubprogram);
 	 			
 				// Clear the no calls flag
 	 			bi.setNoCalls(false);

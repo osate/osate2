@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import javax.inject.Inject;
+
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
@@ -29,6 +31,7 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramService;
@@ -169,7 +172,7 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
 							dstToSrcShapeMap.put(innerShape, srcInnerShape);
 							
 							// Adjust inner shapes
-							if(bo instanceof Subcomponent) { 
+							if(bo instanceof Subcomponent || bo instanceof SubprogramCallSequence) { 
 								if(innerShape instanceof ContainerShape && srcInnerShape instanceof ContainerShape) {
 									adjustInnerShapes((ContainerShape)innerShape, (ContainerShape)srcInnerShape, dstToSrcShapeMap);
 								}

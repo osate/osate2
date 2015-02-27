@@ -33,6 +33,7 @@ public class DefaultLayoutService implements LayoutService {
 	private final IFeatureProvider fp;
 	private final static int minimumWidth = 150;
 	private final static int minimumHeight = 50;
+	private final static int minimumVerticalPadding = 30;
 	
 	public DefaultLayoutService(final PropertyService propertyService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.propertyService = propertyService;
@@ -145,7 +146,7 @@ public class DefaultLayoutService implements LayoutService {
 							shiftX = Math.max(shiftX, featureWidth - childGa.getX());
 						}
 						
-						shiftY = Math.max(shiftY, 30-childGa.getY());				
+						shiftY = Math.max(shiftY, minimumVerticalPadding-childGa.getY());	
 					}
 				}
 			}
@@ -171,12 +172,12 @@ public class DefaultLayoutService implements LayoutService {
 						childGa.setX(childGa.getX()+shiftX);
 					}			
 					
-					maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + shiftY + 25);					
+					maxHeight = Math.max(maxHeight, childGa.getY() + childGa.getHeight() + shiftY + minimumVerticalPadding);					
 					childGa.setY(childGa.getY()+shiftY);
 				}
 			}
 		}
-		
+
 		// Adjust fix point anchors
 		for(final Anchor anchor : shape.getAnchors()) {
 			if(anchor instanceof FixPointAnchor) {
