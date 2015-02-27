@@ -605,6 +605,24 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckModeTransitionTrigger(trigger);
 	}
 
+//	public void checkInheritedMissingModes(ComponentType componentType) {
+//
+//		ComponentType extendedComponent = componentType.getExtended();
+//		if (null == extendedComponent)
+//			return;
+//		List<Mode> allModes = componentType.getAllModes();
+//		List<PropertyAssociation> propertyAssociations = componentType.getAllPropertyAssociations();
+//
+//		for (Mode mode : allModes) {
+////			java.lang.System.out.println("mode = " + mode);
+//		}
+//		for (PropertyAssociation propertyAssociation : propertyAssociations) {
+//			java.lang.System.out.println("propertyAssociation = " + propertyAssociation);
+//			// TODO: Loop through the porpertyAssociations
+//		}
+//
+//	}
+
 	/**
 	 * check ID at after 'end'
 	 */
@@ -3021,6 +3039,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (inverse != null) {
 			List<Feature> features = sortFeaturesByOffset(featureGroupType.getOwnedFeatures());
 			List<Feature> inverseFeatures = sortFeaturesByOffset(inverse.getOwnedFeatures());
+			if (features.size() == 0)
+				return;
 			if (features.size() != inverseFeatures.size()) {
 				error(featureGroupType, "Feature Group features list count differs from that of its inverse");
 				return;
