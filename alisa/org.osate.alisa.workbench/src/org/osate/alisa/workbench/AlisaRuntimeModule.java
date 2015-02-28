@@ -15,7 +15,7 @@ public class AlisaRuntimeModule extends org.osate.alisa.workbench.AbstractAlisaR
 	}
 
 	public Class<? extends IOutputConfigurationProvider> bindIOutputConfigurationProvider() {
-		return org.osate.alisa.workbench.generator.AlisaOutputConfiugrationProvider.class;
+		return org.osate.alisa.workbench.generator.AlisaOutputConfigurationProvider.class;
 	}
 
 }
