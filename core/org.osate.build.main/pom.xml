@@ -112,6 +112,8 @@
 				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
 				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
 
+				<module>../org.osate.resolute.help</module>
+				
 				<module>../../osate2-ocarina/org.osate.ocarina</module>
 				<module>../../osate2-ocarina/org.osate.ocarina.aadlcontribution</module>
 				<module>../../osate2-ocarina/org.osate.ocarina.feature</module>
@@ -210,6 +212,7 @@
 				<module>../org.osate.help</module>
 				<module>../org.osate.pluginsupport</module>
 				<module>../org.osate.reporter</module>
+				<module>../org.osate.resolute.help</module>
 				<module>../org.osate.ui</module>
 				<module>../org.osate.wizards</module>
 				<module>../org.osate.workspace</module>
