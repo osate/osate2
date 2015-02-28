@@ -267,7 +267,7 @@ class AssureUtilExtension {
 		ar.failCount == 0 && ar.unknownCount == 0 && ar.tbdCount == 0
 	}
 
-	def static hasFailedorError(AssureResult ar) {
+	def static hasFailedorUnknown(AssureResult ar) {
 		ar.failCount != 0 || ar.unknownCount != 0
 	}
 
@@ -294,17 +294,17 @@ class AssureUtilExtension {
 	}
 
 	/**
-	 * true iff at least one has a non-zero fail or error count
+	 * true iff at least one has a non-zero fail or unknown count
 	 */
 	
-	def static boolean hasFailedOrError(EList<VerificationExpr> vel) {
+	def static boolean hasFailedOrUnknown(EList<VerificationExpr> vel) {
 		for (ar : vel) {
 			if(ar.failCount != 0 || ar.unknownCount != 0) return true
 		}
 		return false
 	}
 
-	def static boolean hasError(EList<VerificationExpr> vel) {
+	def static boolean hasUnknown(EList<VerificationExpr> vel) {
 		for (ar : vel) {
 			if(ar.unknownCount != 0) return true
 		}

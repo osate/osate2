@@ -47,13 +47,13 @@ class AssureProcessor implements IAssureProcessor {
 
 	def void doProcess(FailThenResult vaResult) {
 		vaResult.first.forEach[expr|expr.process]
-		if (vaResult.unknownThen && vaResult.first.hasError) {
+		if (vaResult.unknownThen && vaResult.first.hasUnknown) {
 			vaResult.recordFailThen
 			vaResult.second.forEach[expr|expr.process]
 		} else if (vaResult.failThen && vaResult.first.hasFailed) {
 			vaResult.recordFailThen
 			vaResult.second.forEach[expr|expr.process]
-		} else if (vaResult.first.hasFailedOrError) {
+		} else if (vaResult.first.hasFailedOrUnknown) {
 			vaResult.recordFailThen
 			vaResult.second.forEach[expr|expr.process]
 		} else {

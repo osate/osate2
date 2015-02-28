@@ -487,7 +487,7 @@ public class AssureUtilExtension {
     return _and;
   }
   
-  public static boolean hasFailedorError(final AssureResult ar) {
+  public static boolean hasFailedorUnknown(final AssureResult ar) {
     boolean _or = false;
     int _failCount = ar.getFailCount();
     boolean _notEquals = (_failCount != 0);
@@ -565,9 +565,9 @@ public class AssureUtilExtension {
   }
   
   /**
-   * true iff at least one has a non-zero fail or error count
+   * true iff at least one has a non-zero fail or unknown count
    */
-  public static boolean hasFailedOrError(final EList<VerificationExpr> vel) {
+  public static boolean hasFailedOrUnknown(final EList<VerificationExpr> vel) {
     for (final VerificationExpr ar : vel) {
       boolean _or = false;
       int _failCount = ar.getFailCount();
@@ -586,7 +586,7 @@ public class AssureUtilExtension {
     return false;
   }
   
-  public static boolean hasError(final EList<VerificationExpr> vel) {
+  public static boolean hasUnknown(final EList<VerificationExpr> vel) {
     for (final VerificationExpr ar : vel) {
       int _unknownCount = ar.getUnknownCount();
       boolean _notEquals = (_unknownCount != 0);

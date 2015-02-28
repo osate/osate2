@@ -68,37 +68,37 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	
 	def image(ClaimResult ele) {
 		if (ele.isSuccessful) return 'claimsuccess.png'
-		if (ele.hasFailedorError) return 'claimfail.png'
+		if (ele.hasFailedorUnknown) return 'claimfail.png'
 		return 'claim.png'
 	}
 	
 	def image(VerificationActivityResult ele) {
 		if (ele.isSuccessful) return 'evidencesuccess.png'
-		if (ele.hasFailedorError) return 'evidencefail.png'
+		if (ele.hasFailedorUnknown) return 'evidencefail.png'
 		return 'evidence.png'
 	}
 	
 	def image(AssuranceEvidence ele) {
 		if (ele.isSuccessful) return 'assuresuccess.png'
-		if (ele.hasFailedorError) return 'assurefail.png'
+		if (ele.hasFailedorUnknown) return 'assurefail.png'
 		return 'assure.png'
 	}
 	
 	def image(ValidationResult ele) {
 		if (ele.isSuccessful) return 'validationsuccess.png'
-		if (ele.hasFailedorError) return 'validationfail.png'
+		if (ele.hasFailedorUnknown) return 'validationfail.png'
 		return 'validation.png'
 	}
 	
 	def image(AndThenResult ele) {
 		if (ele.isSuccessful) return 'valid.png'
-		if (ele.hasFailedorError) return 'error.png'
+		if (ele.hasFailedorUnknown) return 'error.png'
 		return 'questionmark.png'
 	}
 	
 	def image(FailThenResult ele) {
 		if (ele.isSuccessful) return 'valid.png'
-		if (ele.hasFailedorError) return 'error.png'
+		if (ele.hasFailedorUnknown) return 'error.png'
 		return 'questionmark.png'
 	}
 	

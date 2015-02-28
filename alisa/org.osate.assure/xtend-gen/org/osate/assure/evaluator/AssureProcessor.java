@@ -99,8 +99,8 @@ public class AssureProcessor implements IAssureProcessor {
       _and = false;
     } else {
       EList<VerificationExpr> _first_1 = vaResult.getFirst();
-      boolean _hasError = AssureUtilExtension.hasError(_first_1);
-      _and = _hasError;
+      boolean _hasUnknown = AssureUtilExtension.hasUnknown(_first_1);
+      _and = _hasUnknown;
     }
     if (_and) {
       AssureUtilExtension.recordFailThen(vaResult);
@@ -132,8 +132,8 @@ public class AssureProcessor implements IAssureProcessor {
         IterableExtensions.<VerificationExpr>forEach(_second_1, _function_2);
       } else {
         EList<VerificationExpr> _first_3 = vaResult.getFirst();
-        boolean _hasFailedOrError = AssureUtilExtension.hasFailedOrError(_first_3);
-        if (_hasFailedOrError) {
+        boolean _hasFailedOrUnknown = AssureUtilExtension.hasFailedOrUnknown(_first_3);
+        if (_hasFailedOrUnknown) {
           AssureUtilExtension.recordFailThen(vaResult);
           EList<VerificationExpr> _second_2 = vaResult.getSecond();
           final Procedure1<VerificationExpr> _function_3 = new Procedure1<VerificationExpr>() {
