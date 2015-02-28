@@ -1,5 +1,7 @@
 package org.osate.ge.services.impl;
 
+import java.util.Collection;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -7,11 +9,14 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.UsageCrossReferencer;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -41,6 +46,7 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.Activator;
@@ -164,8 +170,34 @@ public class DefaultRefactoringService implements RefactoringService {
 		});
 	}
 	
+	/**
+	 * A specialized version of UsageCrossReferencer. Ignores derived references. Created to avoid an exception caused by trying to find references to subprogram calls.
+	 * @author philip.alldredge
+	 *
+	 */
+	@SuppressWarnings("serial")
+	private static class AgeUsageCrossReferencer extends UsageCrossReferencer {
+		protected AgeUsageCrossReferencer(ResourceSet resourceSet) {
+			super(resourceSet);
+		}
+		
+		public static Collection<EStructuralFeature.Setting> find(EObject eObjectOfInterest, ResourceSet resourceSet)
+	    {
+			return new AgeUsageCrossReferencer(resourceSet).findUsage(eObjectOfInterest);
+	    }
+		
+		@Override
+		protected void add(InternalEObject eObject, EReference eReference, EObject crossReferencedEObject)
+	    {
+			if(!eReference.isDerived()) {
+				getCollection(crossReferencedEObject).add(eObject.eSetting(eReference));
+			}
+	    }
+		
+	};
+	
 	private void updateReferences(final NamedElement ne, final ResourceSet resourceSet, final DiagramModificationService.Modification diagramMod) {
-		for(final Setting s : EcoreUtil.UsageCrossReferencer.find(ne, resourceSet)) {
+		for(final Setting s : AgeUsageCrossReferencer.find(ne, resourceSet)) {
 			final EStructuralFeature sf = s.getEStructuralFeature();
 			if(!sf.isDerived() && sf.isChangeable()) {
 				if(ne instanceof Feature || ne instanceof InternalFeature || ne instanceof ProcessorFeature) {
@@ -180,6 +212,8 @@ public class DefaultRefactoringService implements RefactoringService {
 	 				updateFlowSpecificationReference((FlowSpecification)ne, s, resourceSet, diagramMod);
 	 			} else if(ne instanceof Classifier) {
 	 				updateClassifierReference((Classifier)ne, s, resourceSet, diagramMod);
+	 			} else if(ne instanceof SubprogramCall) {
+	 				updateSubprogramCallReference((SubprogramCall)ne, s, resourceSet, diagramMod);
 	 			}
 			
 				updateNamedElementReference(ne, s, resourceSet, diagramMod);
@@ -405,6 +439,18 @@ public class DefaultRefactoringService implements RefactoringService {
 				cv.setClassifier(classifier);
 			}
 		}
+	}
+	
+	private void updateSubprogramCallReference(final SubprogramCall call, final Setting setting, final ResourceSet resourceSet, final DiagramModificationService.Modification diagramMod) {
+    	final EObject obj = setting.getEObject();
+    	if(obj instanceof ConnectedElement) {
+			final ConnectedElement connectedElement = (ConnectedElement)obj;
+			if(connectedElement.getContext() == call) {
+				// Reset the the context. This will trigger an update by xtext
+				connectedElement.setContext(null);
+				connectedElement.setContext(call);							
+			}
+    	}
 	}
 	
 	private void markLinkagesToOwnedMembersAsDirty(final Namespace ns, final DiagramModificationService.Modification diagramMod) {

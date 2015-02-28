@@ -8,10 +8,14 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
+import java.util.List;
+
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 
 /**
  * Contains methods for working with AADL Subcomponents
@@ -19,9 +23,27 @@ import org.osate.aadl2.Subcomponent;
  *
  */
 public interface SubcomponentService {
+	/**
+	 * Resolves the component classifier for the subcomponent
+	 * @param shape
+	 * @param sc
+	 * @return
+	 */
 	ComponentClassifier getComponentClassifier(Shape shape, Subcomponent sc);
-
+	
 	ComponentCategory getComponentCategory(Shape shape, Subcomponent sc);
 
 	boolean isImplementation(Shape shape, Subcomponent sc);
+	
+	/**
+	 * Gets the subcomponent type for a subcomponent. Checks refined subcomponents.
+	 * This is different from getComponentClassifier() because it does not resolve the type if it is a prototype
+	 * @param sc
+	 * @return
+	 */
+	SubcomponentType getAllSubcomponentType(Subcomponent sc);
+
+	// Checks the subcomponent and then refined subcomponents and returns the first non-empty list of component implementation references.
+	// Returns an empty list if they are all empty.
+	List<ComponentImplementationReference> getArrayComponentImplementationReferences(Subcomponent sc);
 }

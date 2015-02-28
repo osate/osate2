@@ -27,7 +27,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.diagrams.componentImplementation.patterns.SubcomponentPattern;
+import org.osate.ge.diagrams.common.patterns.ClassifierPattern;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
@@ -73,7 +73,7 @@ public class ChangeSubcomponentTypeFeature extends AbstractCustomFeature {
 		final Subcomponent sc = (Subcomponent)bo;
 		final ComponentImplementation ci = (ComponentImplementation)containerBo;		
 		return sc.getContainingClassifier() == ci && 
-				SubcomponentPattern.canContainSubcomponentType(ci, subcomponentType) &&
+				ClassifierPattern.canContainSubcomponentType(ci, subcomponentType) &&
 				(sc.getRefined() == null || sc.getRefined() instanceof AbstractSubcomponent);
 	}   	
     
@@ -100,7 +100,7 @@ public class ChangeSubcomponentTypeFeature extends AbstractCustomFeature {
 			@Override
 			public Object modify(final Resource resource, final Subcomponent sc) {
 				final ComponentImplementation ci = sc.getContainingComponentImpl();
-				final Subcomponent replacementSc = SubcomponentPattern.createSubcomponent(ci, subcomponentType);
+				final Subcomponent replacementSc = ClassifierPattern.createSubcomponent(ci, subcomponentType);
 				
 				// Copy structural feature values to the replacement object.
 				transferStructuralFeatureValues(sc, replacementSc);

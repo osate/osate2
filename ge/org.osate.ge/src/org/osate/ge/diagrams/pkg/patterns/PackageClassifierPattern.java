@@ -56,6 +56,8 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeLeafShapePattern;
 import org.osate.ge.dialogs.ElementSelectionDialog;
 import org.osate.ge.services.AadlModificationService;
@@ -68,13 +70,13 @@ import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.RefactoringService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
-public class PackageClassifierPattern extends AgeLeafShapePattern {
+public class PackageClassifierPattern extends AgeLeafShapePattern implements Categorized {
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final PropertyService propertyUtil;
 	private final AadlModificationService modificationService;
@@ -85,13 +87,12 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
-
 	@Inject
-	public PackageClassifierPattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
+	public PackageClassifierPattern(final AnchorService anchorUtil, final GhostingService ghostingService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
 			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
 			final NamingService namingService, final RefactoringService refactoringService, final DiagramModificationService diagramModService,
 			final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
-		super(anchorUtil, visibilityHelper);
+		super(anchorUtil, ghostingService);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.propertyUtil = propertyUtil;
 		this.modificationService = modificationService;
@@ -106,9 +107,12 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject)	{
-		final Object bo = AadlElementWrapper.unwrap(mainBusinessObject);
-
-		return classifierType.isInstance(bo);
+		return isPackageDiagram() && classifierType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
+	}
+	
+	@Override
+	public boolean isPaletteApplicable() {
+		return isPackageDiagram();
 	}
 
 	@Override
@@ -135,6 +139,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
         
 		// Create label
         final Shape labelShape = peCreateService.createShape(shape, false);
+        propertyUtil.setIsManuallyPositioned(labelShape, true);
         this.link(labelShape, new AadlElementWrapper(classifier));
         final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
         
@@ -173,7 +178,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
-		return super.canResizeShape(context);
+		return false;
 	}
 	
 	public void resizeShape(final IResizeShapeContext context) {
@@ -224,6 +229,12 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
 	public boolean canCreate(ICreateContext context) {
 		return true;
 	}
+	
+	@Override
+	public String getCreateImageId() {
+		return AgeImageProvider.getImage(classifierType);
+	}
+	
 	
 	@Override
 	public String getCreateName() {
@@ -592,4 +603,9 @@ public class PackageClassifierPattern extends AgeLeafShapePattern {
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(pe);    	
     	refactoringService.renameElement(classifier,  value);  	   
     }
+
+	@Override
+	public Category getCategory() {
+		return Category.CLASSIFIERS;
+	}
 }

@@ -26,7 +26,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.PropertyService;
 
-public class FlowContributionItem extends ComboContributionItem {
+public class FlowContributionItem extends ComboContributionItem implements ComponentClassifierItem {
 	private static final String emptySelectionTxt = "<Flows>";
 	private static final String selectedFlowPropertyKey = "org.osate.ge.ui.editor.selectedFlow";
 	private final PropertyService propertyUtil;

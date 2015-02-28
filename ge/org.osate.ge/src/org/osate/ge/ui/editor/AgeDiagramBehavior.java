@@ -10,14 +10,19 @@ package org.osate.ge.ui.editor;
 
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.ui.actions.ActionRegistry;
+import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -32,7 +37,10 @@ import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
+import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Display;
@@ -43,21 +51,29 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
+import org.osate.ge.services.AadlModificationService;
+import org.osate.ge.services.BusinessObjectResolutionService;
+import org.osate.ge.services.CachingService;
+import org.osate.ge.services.ConnectionService;
+import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.ui.xtext.AgeXtextUtil;
 import org.osate.ge.util.Log;
 import org.eclipse.core.runtime.IProgressMonitor;
+
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
+	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	private final GhostPurger ghostPurger;
 	private final DiagramService diagramService;
+	private final PropertyService propertyService;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
 	private boolean forceNotDirty = false;
 	private boolean updatingFeatureWhileForcingNotDirty = false;
-	
 	private PaintListener paintListener = new PaintListener() {
 		@Override
 		public void paintControl(PaintEvent e) {
@@ -68,11 +84,43 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}			
 	};
 	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService, final PropertyService propertyService) {
 		super(diagramContainer);
 		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;
+		this.propertyService = propertyService;
 	}	
+	
+	@Override
+	public void configureGraphicalViewer() {
+		super.configureGraphicalViewer();
+
+		final AgeDiagramEditor parentPart = (AgeDiagramEditor)this.getParentPart();
+		if(parentPart != null) {
+			final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
+			@SuppressWarnings("unchecked")
+			final List<String> selectionActions = getDiagramContainer().getSelectionActions();
+			IAction action;
+			action = new MatchSizeAction(parentPart);
+			actionRegistry.registerAction(action);
+			selectionActions.add(action.getId());
+			action = new DistributeHorizontallyAction(parentPart);
+			actionRegistry.registerAction(action);
+			selectionActions.add(action.getId());
+			action = new DistributeVerticallyAction(parentPart);
+			actionRegistry.registerAction(action);
+			selectionActions.add(action.getId());
+			
+			registerAction(new IncreaseNestingDepthAction(parentPart, propertyService));
+	 		registerAction(new DecreaseNestingDepthAction(parentPart, propertyService));
+
+			final AadlModificationService aadlModService = (AadlModificationService)getAdapter(AadlModificationService.class);		
+			final DiagramModificationService diagramModService = (DiagramModificationService)getAdapter(DiagramModificationService.class);
+			final ConnectionService connectionService = (ConnectionService)getAdapter(ConnectionService.class);
+			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)getAdapter(BusinessObjectResolutionService.class);		
+	 		registerAction(new SetBindingAction(parentPart, aadlModService, diagramModService, connectionService, bor));
+		}
+	}
 	
 	@Override
 	protected void addGefListeners() {
@@ -84,15 +132,35 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		@Override
 		public void modelChanged(final XtextResource resource) {
 			if(resource.getContents().size() > 0) {
-				final EObject contents = resource.getContents().get(0);
-				final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
-				if(contents instanceof NamedElement && bo instanceof NamedElement) {
-					final NamedElement namedElement = (NamedElement)bo;
-					final String resourceContentsName = ((NamedElement)contents).getQualifiedName();
-					final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
+				// Invalidate the cache
+				final CachingService cachingService = (CachingService)getAdapter(CachingService.class);
+				if(cachingService != null) {
+					cachingService.invalidate();
+				}
 				
-					if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
-						update();
+				// Update the diagram
+				final EObject contents = resource.getContents().get(0);
+				if(contents instanceof NamedElement) {
+					final String resourceContentsName = ((NamedElement)contents).getQualifiedName();
+					
+					final Runnable updateIfPackageMatches = new Runnable() {
+						@Override
+						public void run() {
+							final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
+							if(bo instanceof NamedElement) {
+								final NamedElement namedElement = (NamedElement)bo;
+								final AadlPackage relevantPkg = bo instanceof AadlPackage ? (AadlPackage)bo : (AadlPackage)namedElement.getNamespace().getOwner();
+								if(resourceContentsName.equalsIgnoreCase(relevantPkg.getQualifiedName())) {
+									update();
+								}
+							}							
+						}						
+					};
+			
+					if(Display.getDefault().getThread() == Thread.currentThread()) {
+						updateIfPackageMatches.run();
+					} else {
+						Display.getDefault().asyncExec(updateIfPackageMatches);	
 					}
 				}
 			}					
@@ -119,6 +187,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 							// Queue the update for when the control becomes visible
 							updateWhenVisible = true;
 						}
+						
 					} finally {
 						updateInProgress = false;
 					}
@@ -126,7 +195,8 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					// Check if an update has been queued
 					if(updateQueued) {
 						update();
-					}					
+					}
+				
 				} else {
 					// Queue the update
 					updateQueued = true;
@@ -142,11 +212,11 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			Display.getDefault().asyncExec(updateDiagramRunnable);	
 		}
 	}
-	
+
 	@Override
 	protected DefaultUpdateBehavior createUpdateBehavior() {
 		return new AgeUpdateBehavior(this);
-	}
+	}	
 	
 	@Override
 	protected DefaultRefreshBehavior createRefreshBehavior() {		
@@ -177,6 +247,20 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		return super.getPersistencyBehavior();
 	}
 	
+	@Override
+	protected ContextMenuProvider createContextMenuProvider() {
+		return new DiagramEditorContextMenuProvider(getDiagramContainer().getGraphicalViewer(),
+				getDiagramContainer().getActionRegistry(),
+				getConfigurationProvider()) {
+			
+			@Override
+			protected void addDefaultMenuGroupRest(final IMenuManager manager) {
+				super.addDefaultMenuGroupRest(manager);
+				addActionToMenu(manager, SetBindingAction.ID, GEFActionConstants.GROUP_REST);
+			}
+		};
+	}
+	
 	/**
 	 * Returns the number of visible objects in the diagram. Only certain objects are checked. Used to decide whether the diagram has changed after an update
 	 * @return
@@ -201,7 +285,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	public Object executeFeature(final IFeature feature, final IContext context) {
 		// If we are forcing the diagram to not be seen as dirty, decide whether to start using the typical dirty check
 		if(forceNotDirty) {
-			// Prevent the initial diagrma update from making the diagram dirty if the number of objects doesn't change.			
+			// Prevent the initial diagram update from making the diagram dirty if the number of objects doesn't change.			
 			if(feature instanceof DiagramUpdateFeature) {
 				final int startCount = getVisibleObjectsInDiagram();
 				updatingFeatureWhileForcingNotDirty = true;
@@ -218,9 +302,9 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				}
 			}
 		}
-		
 		return super.executeFeature(feature, context);
 	}
+	
 	
 	@Override
 	protected void editingDomainInitialized() {
@@ -248,13 +332,36 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	@Override
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
 		return new DefaultPersistencyBehavior(this) {
+			@Override
+			public Diagram loadDiagram(final URI uri) {
+				final Diagram diagram = super.loadDiagram(uri);
+				
+				if(diagram != null) {
+					// Check if the diagram type is a legacy type. If so, convert it to the newer diagram type ID
+					final String diagramTypeId = diagram.getDiagramTypeId();
+					if("AADL Package".equals(diagramTypeId) ||
+							"AADL Type".equals(diagramTypeId) ||
+							"AADL Component Implementation".equals(diagramTypeId)) {						
+						final TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
+						editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+							@Override
+							protected void doExecute() {
+								diagram.setDiagramTypeId(AADL_DIAGRAM_TYPE_ID);
+							}				
+						});	
+					}
+				}
+				
+				return diagram;
+			}
+			
 			protected Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> saveOptions, final IProgressMonitor monitor) {
 				final Diagram diagram = getDiagramTypeProvider().getDiagram();
 
-				// Delete all the ghosts
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 					@Override
 					protected void doExecute() {
+						// Delete all the ghosts
 						ghostPurger.purgeGhosts(diagram);
 					}				
 				});				
@@ -268,9 +375,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				return retValue;
 			}
 			
-			// Part of this is from the fixed 0.11.x branch of Graphitti. Work around for #67.
-			// See: https://bugs.eclipse.org/bugs/show_bug.cgi?id=437933
-			// TODO: Remove wants the released version of Graphiti includes the fix
 			// Keep the forceNotDirty check
 			@Override
 			public boolean isDirty() {
@@ -278,20 +382,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					return false;
 				}
 				
-				TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
-				if (editingDomain == null) {
-					// Right in the middle of closing the editor, it cannot be dirty
-					// without an editing domain
-					return false;
-				}
-				BasicCommandStack commandStack = (BasicCommandStack) editingDomain.getCommandStack();
-				if (commandStack == null) {
-					// Right in the middle of closing the editor, it cannot be dirty
-					// without a command stack
-					return false;
-				}
-				
-				return savedCommand != commandStack.getUndoCommand();
+				return super.isDirty();
 			}
 		};
 	}

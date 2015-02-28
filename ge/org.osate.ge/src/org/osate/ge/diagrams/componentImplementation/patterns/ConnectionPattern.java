@@ -24,17 +24,17 @@ import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Style;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessCategory;
@@ -51,13 +51,21 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.FeatureConnectionEnd;
 import org.osate.aadl2.FeatureGroupConnectionEnd;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.ParameterConnectionEnd;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PortConnectionEnd;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.AadlFeatureService;
 import org.osate.ge.services.AadlModificationService;
@@ -66,25 +74,30 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.HighlightingService;
 import org.osate.ge.services.NamingService;
+import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.util.StringUtil;
+import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
-public class ConnectionPattern extends AgeConnectionPattern {
+public class ConnectionPattern extends AgeConnectionPattern implements Categorized {
+	private static final String labelDecoratorName = "label";
+	private static final String connectionPatternDecoratorName = "connection_pattern";
 	private final AadlFeatureService featureService;
 	private final StyleService styleUtil;
 	private final HighlightingService highlightingHelper;
-	private final ConnectionService connectionHelper;
 	private final BusinessObjectResolutionService bor;
 	private final AadlModificationService aadlModService;
 	private final NamingService namingService;
 	private final DiagramModificationService diagramModService;
 	private final ShapeService shapeService;
 	private final UserInputService userInputService;
+	private final PropertyService propertyService;
 	private final EClass connectionType;
 	private static LinkedHashMap<EClass, String> connectionTypeToMethodNameMap = new LinkedHashMap<EClass, String>();
 	
@@ -105,21 +118,22 @@ public class ConnectionPattern extends AgeConnectionPattern {
 	}
 	
 	@Inject
-	public ConnectionPattern(final AadlFeatureService featureService, final VisibilityService visibilityHelper, final StyleService styleUtil,final HighlightingService highlightingHelper, 
+	public ConnectionPattern(final AadlFeatureService featureService, final GhostingService ghostingService, final StyleService styleUtil,final HighlightingService highlightingHelper, 
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
-			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final @Named("Connection Type") EClass connectionType) {
-		super(visibilityHelper);
+			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
+			final @Named("Connection Type") EClass connectionType) {
+		super(ghostingService, connectionHelper, bor);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
 		this.highlightingHelper = highlightingHelper;
-		this.connectionHelper = connectionHelper;
 		this.bor = bor;
 		this.aadlModService = aadlModService;
 		this.namingService = namingService;
 		this.connectionType = connectionType;
 		this.diagramModService = diagramModService;
 		this.shapeService = shapeService;
-		this.userInputService = userInputService;
+		this.userInputService = userInputService;		
+		this.propertyService = propertyService;
 	}
 
 	@Override
@@ -127,8 +141,24 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		return connectionType.isInstance(AadlElementWrapper.unwrap(mainBusinessObject));
 	}
 	
+	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		return diagramBo instanceof ComponentImplementation;
+	}
+	
 	private org.osate.aadl2.Connection getAadlConnection(final Connection connection) {
 		return (org.osate.aadl2.Connection)AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
+	}
+	
+	@Override
+	protected void onAfterRefresh(final Connection connection) {
+		updateAnchors(connection);
+		super.onAfterRefresh(connection);
+	}
+	
+	private void updateAnchors(final Connection connection) {
+		connectionService.createUpdateMidpointAnchor(connection);
 	}
 	
 	@Override
@@ -136,21 +166,47 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
+		if(aadlConnection == null) {
+			connection.getConnectionDecorators().clear();
+			return;
+		}
+		
+		// Determine fonts and values for text decorators
+		final Font decoratorFont = GraphitiUi.getGaService().manageDefaultFont(getDiagram());
+		final String labelTxtValue = aadlConnection.getName();
+		final String connectionPatternTxtValue = getConnectionPatterns(aadlConnection);
+		int labelTxtWidth = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxtValue, decoratorFont).getWidth();
+		int connectionPatternTxtWidth = GraphitiUi.getUiLayoutService().calculateTextSize(connectionPatternTxtValue, decoratorFont).getWidth();
+		
 		// Before removing all the decorators, get position of the label(if one exists)
-		int labelX = 5;
-		int labelY = 10;
+		int labelX = -labelTxtWidth/2;
+		int labelY = -20;
+		// Determine position of the label pattern
 		for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
 			if(d.getGraphicsAlgorithm() instanceof Text) {
-				final Text text = (Text)d.getGraphicsAlgorithm();
-				labelX = text.getX();
-				labelY = text.getY();
+				final String name = propertyService.getName(d);
+				if(name == null || labelDecoratorName.equals(name)) {
+					final Text text = (Text)d.getGraphicsAlgorithm();
+					labelX = text.getX();
+					labelY = text.getY();
+				}				
 			}
 		}
 		
-		connection.getConnectionDecorators().clear();
-		if(aadlConnection == null) {
-			return;
+		// Determine position for the connection pattern decorator. Initial position is based on the label position
+		int connectionPatternX = -connectionPatternTxtWidth/2;
+		int connectionPatternY = labelY+30;
+		for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
+			if(d.getGraphicsAlgorithm() instanceof Text) {
+				if(connectionPatternDecoratorName.equals(propertyService.getName(d))) {
+					final Text text = (Text)d.getGraphicsAlgorithm();
+					connectionPatternX = text.getX();
+					connectionPatternY = text.getY();
+				}				
+			}
 		}
+		
+		connection.getConnectionDecorators().clear();		
 			
 		final boolean showImmediateDecoration;
 		final boolean showDelayedDecoration;
@@ -216,14 +272,60 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		// Create Label
 		final IGaService gaService = Graphiti.getGaService();
 		final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
+		propertyService.setName(textDecorator, labelDecoratorName);
 		final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
 		text.setStyle(styleUtil.getLabelStyle());
 		gaService.setLocation(text, labelX, labelY);
-	    text.setValue(aadlConnection.getName());
+	    text.setValue(labelTxtValue);
 	    getFeatureProvider().link(textDecorator, new AadlElementWrapper(aadlConnection));
+		
+	    // Create Connection Pattern Label
+		final ConnectionDecorator patternTxtDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
+		propertyService.setName(patternTxtDecorator, connectionPatternDecoratorName);
+		final Text patternTxt = gaService.createDefaultText(getDiagram(), patternTxtDecorator);
+		patternTxt.setStyle(styleUtil.getLabelStyle());
+		patternTxt.setValue(connectionPatternTxtValue);
+		gaService.setLocation(patternTxt, connectionPatternX, connectionPatternY);
+	    getFeatureProvider().link(patternTxtDecorator, new AadlElementWrapper(aadlConnection));
 	    
 	    // Set color based on current mode/mode transition
 	    highlightingHelper.highlight(aadlConnection, null, connection.getGraphicsAlgorithm());
+	}
+	
+	/**
+	 * Returns a string representation of the connection's connection patterns
+	 * @param aadlConnection
+	 * @return
+	 */
+	private String getConnectionPatterns(final org.osate.aadl2.Connection aadlConnection) {
+		final Property cpProperty = GetProperties.lookupPropertyDefinition(aadlConnection, CommunicationProperties._NAME, "Connection_Pattern");
+		String patterns = "";
+		try {
+			final ListValue cpValues = (ListValue)PropertyUtils.getSimplePropertyListValue(aadlConnection, cpProperty);
+			patterns = StringUtil.join(cpValues.getOwnedListElements(), ",", new StringUtil.Converter<PropertyExpression, String>() {
+				private final StringUtil.Converter<PropertyExpression, String> innerListConverter = new StringUtil.Converter<PropertyExpression, String>() {
+					@Override
+					public String convert(PropertyExpression input) {
+						if(input instanceof NamedValue) {
+							final Object v = ((NamedValue) input).getNamedValue();
+							if(v instanceof EnumerationLiteral) {
+								return ((EnumerationLiteral) v).getName();
+							}
+						}
+						
+						return "";
+					}					
+				};
+				
+				@Override
+				public String convert(PropertyExpression input) {
+					return "(" + StringUtil.join(((ListValue)input).getOwnedListElements(), ",", innerListConverter) + ")";
+				}				
+			});
+		} catch (PropertyNotPresentException e) {
+		}
+
+		return patterns;
 	}
 
 	@Override
@@ -249,16 +351,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 			x, -10, 
 			x, 10}).setStyle(style);
 	}
-	
-	@Override
-	protected Anchor[] getAnchors(final Connection connection) {
-		final org.osate.aadl2.Connection aadlConnection = getAadlConnection(connection);
-		final ContainerShape ownerShape = connectionHelper.getOwnerShape(connection);
-		
-		return (ownerShape == null) ? null : connectionHelper.getAnchors(ownerShape, aadlConnection);	
-	}
 
-	// TODO: Document
 	private ConnectedElement getConnectedElementForShape(PictogramElement pe) {
 		if(!(pe instanceof Shape)) {
 			return null;
@@ -268,11 +361,13 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		
 		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
 		for(; shape != null; shape = shape.getContainer()) {
-			final Object bo = bor.getBusinessObjectForPictogramElement(shape);
-			if(bo instanceof ConnectionEnd) {
-				ce.setConnectionEnd((ConnectionEnd)bo);
-				break;
-			}			
+			if(!propertyService.isInnerShape(shape)) {
+				final Object bo = bor.getBusinessObjectForPictogramElement(shape);
+				if(bo instanceof ConnectionEnd) {
+					ce.setConnectionEnd((ConnectionEnd)bo);
+					break;
+				}			
+			}
 		}
 		
 		if(ce.getConnectionEnd() == null) {
@@ -290,7 +385,6 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		return ce;
 	}
 	
-	// TODO: Comment
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
@@ -353,7 +447,11 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		// Clear selection
 		getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
-
+	@Override
+	public String getCreateImageId() { 
+		return AgeImageProvider.getImage(connectionType);
+	}
+	
 	@Override
 	public String getCreateName() {
 		return StringUtil.camelCaseToUser(connectionType.getName());
@@ -377,7 +475,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 			return false;
 		}
 		
-		final Subcomponent srcScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), Subcomponent.class);
+		final Context srcScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), Subcomponent.class, SubprogramCall.class);
 		final ConnectionEnd srcConnectionEnd = srcConnectedElement.getConnectionEnd();
 		if(srcConnectionEnd instanceof DirectedFeature) {
 			final DirectionType direction = featureService.getFeatureDirection((Shape)context.getSourcePictogramElement(), (DirectedFeature)srcConnectionEnd);
@@ -437,7 +535,7 @@ public class ConnectionPattern extends AgeConnectionPattern {
 			return false;
 		}
 		
-		final Subcomponent dstScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getTargetPictogramElement(), Subcomponent.class);
+		final Context dstScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getTargetPictogramElement(), Subcomponent.class, SubprogramCall.class);
 		final ConnectionEnd dstConnectionEnd = dstConnectedElement.getConnectionEnd();
 		if(dstConnectionEnd instanceof DirectedFeature) {
 			final DirectionType direction = featureService.getFeatureDirection((Shape)context.getTargetPictogramElement(), (DirectedFeature)dstConnectionEnd);
@@ -468,13 +566,14 @@ public class ConnectionPattern extends AgeConnectionPattern {
 				if(newAadlConnection == null) {
 					return null;
 				}
+				
+				// Reset the no connections flag
+				ci.setNoConnections(false);
 
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
 	 			diagramMod.markRelatedDiagramsAsDirty(ci);
 	 			
-			//	newAadlConnection.setBidirectional(true); // TODO: Don't set this? May not always be a valid option?
-				
 				// Set the name
 				newAadlConnection.setName(newConnectionName);
 				
@@ -541,5 +640,10 @@ public class ConnectionPattern extends AgeConnectionPattern {
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public Category getCategory() {
+		return Category.CONNECTIONS;
 	}
 }

@@ -17,7 +17,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.osate.aadl2.Element;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.AnchorService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 
 /**
  * Class for shapes that have their inside recreated on updating. Even though they may have child shapes they are created as an automatic unit because their children may 
@@ -27,11 +27,11 @@ import org.osate.ge.services.VisibilityService;
  */
 public abstract class AgeLeafShapePattern extends AgePattern {
 	private final AnchorService anchorUtil;
-	private VisibilityService visibilityHelper;
+	private GhostingService ghostingService;
 	
-	public AgeLeafShapePattern(final AnchorService anchorUtil, final VisibilityService visibilityHelper) {
+	public AgeLeafShapePattern(final AnchorService anchorUtil, final GhostingService ghostingService) {
 		this.anchorUtil = anchorUtil;
-		this.visibilityHelper = visibilityHelper;
+		this.ghostingService = ghostingService;
 	}
 	
 	@Override
@@ -63,14 +63,14 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 	}
 	
 	@Override
-	public final boolean update(final IUpdateContext context) {
+	public boolean update(final IUpdateContext context) {
 		final PictogramElement pe = context.getPictogramElement();
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(pe));
 		
 		if(pe instanceof ContainerShape) {
 			final ContainerShape shape = (ContainerShape)pe;		
 
-			visibilityHelper.setIsGhost(shape, false);
+			ghostingService.setIsGhost(shape, false);
 			
 			// Update/Recreate the child shapes and the graphics algorithm for the shape
 			createGaAndInnerShapes(shape, bo, pe.getGraphicsAlgorithm().getX(), pe.getGraphicsAlgorithm().getY());
@@ -86,6 +86,10 @@ public abstract class AgeLeafShapePattern extends AgePattern {
 		return true;
 	}
 
+	protected GhostingService getVisibilityService() {
+		return ghostingService;
+	}
+	
 	/**
 	 * Called to set properties after the shape has been created/updated
 	 * @param container

@@ -34,7 +34,8 @@ public class DefaultUserInputService implements UserInputService {
 				return false;
 			}
 			
-			final String msg = bo instanceof NamedElement ? MessageFormat.format("Are you sure you want to delete {0}?", ((NamedElement)bo).getName()) : "Are you sure you want to delete this element?";
+			final String elementName = (bo instanceof NamedElement) ? ((NamedElement) bo).getName() : null;
+			final String msg = (elementName != null) ? MessageFormat.format("Are you sure you want to delete {0}?", elementName) : "Are you sure you want to delete this element?";
 			if(!MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Confirm Delete", msg)) {
 				return false;
 			}

@@ -10,6 +10,7 @@ package org.osate.ge.services.impl;
 
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.aadl2.Element;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.BusinessObjectResolutionService;
 
@@ -22,5 +23,15 @@ public class DefaultBusinessObjectResolutionService implements BusinessObjectRes
 	@Override
 	public Object getBusinessObjectForPictogramElement(PictogramElement pe) {
 		return AadlElementWrapper.unwrap(mappingProvider.getBusinessObjectForPictogramElement(pe));
+	}
+	
+	@Override
+	public boolean areBusinessObjectsEqual(final Object o1, final Object o2) {
+		// For elements to match, they must be the exact same object.
+		if(o1 == null || o1 instanceof Element) {
+			return o1 == o2;
+		}
+		
+		return o1.equals(o2);
 	}
 }

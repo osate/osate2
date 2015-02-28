@@ -26,10 +26,11 @@ import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
@@ -45,6 +46,8 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeImageProvider;
+import org.osate.ge.diagrams.common.Categorized;
 import org.osate.ge.diagrams.common.patterns.AgeConnectionPattern;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
@@ -54,26 +57,24 @@ import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.StyleService;
 import org.osate.ge.services.UserInputService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 
-public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection {
+public class PackageGeneralizationPattern extends AgeConnectionPattern implements IReconnection, Categorized {
 	private final StyleService styleUtil;
 	private final AadlModificationService modificationService;
-	private final ConnectionService connectionService;
 	private final ConnectionCreationService connectionCreationService;
 	private final UserInputService userInputService;
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 
 	@Inject
-	public PackageGeneralizationPattern(final VisibilityService visibilityHelper, final StyleService styleUtil,
+	public PackageGeneralizationPattern(final GhostingService ghostingService, final StyleService styleUtil,
 			final AadlModificationService modificationService, final ConnectionService connectionService,
 			final ConnectionCreationService connectionCreationService, final UserInputService userInputService, 
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor) {
-		super(visibilityHelper);
+		super(ghostingService, connectionService, bor);
 		this.styleUtil = styleUtil;
 		this.modificationService = modificationService;
-		this.connectionService = connectionService;
 		this.connectionCreationService = connectionCreationService;
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
@@ -87,6 +88,12 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 				|| unwrappedObj instanceof ImplementationExtension || unwrappedObj instanceof GroupExtension);
 	}
 
+	@Override
+	public boolean isPaletteApplicable() {
+		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
+		return diagramBo instanceof AadlPackage;
+	}
+	
 	@Override
 	protected void createDecorators(final Connection connection) {
 		connection.getConnectionDecorators().clear();
@@ -122,13 +129,6 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 		return (Generalization) AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(connection));
 	}
 
-	@Override
-	protected Anchor[] getAnchors(final Connection connection) {
-		final Generalization generalization = getGeneralization(connection);
-		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
-		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, generalization);
-	}
-
 	protected void createGraphicsAlgorithmOnUpdate(final Connection connection) {
 		final Generalization generalization = (Generalization) AadlElementWrapper
 				.unwrap(getBusinessObjectForPictogramElement(connection));
@@ -141,10 +141,15 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	}
 
 	@Override
+	public String getCreateImageId(){
+		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		return AgeImageProvider.getImage(p.getGeneralization());
+	}
+	@Override
 	public String getCreateName() {
 		return "Extension";
 	}
-
+	
 	@Override
 	public boolean canCreate(final ICreateConnectionContext context) {
 		if (context.getSourceAnchor() == null || context.getTargetAnchor() == null) {
@@ -160,7 +165,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 
 	private boolean areSrcAndDestCompatible(final Object srcBo, final Object dstBo) {
 		// Ensure they are valid and are not the same
-		if (srcBo == null || dstBo == null || srcBo == dstBo) {
+		if (srcBo == null || dstBo == null || bor.areBusinessObjectsEqual(srcBo, dstBo)) {
 			return false;
 		}
 
@@ -350,7 +355,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 			dstBo = newBo;
 		}
 
-		if (oldBo == newBo || otherBo == newBo || !areSrcAndDestCompatible(srcBo, dstBo)) {
+		if (bor.areBusinessObjectsEqual(oldBo, newBo) || bor.areBusinessObjectsEqual(otherBo, newBo) || !areSrcAndDestCompatible(srcBo, dstBo)) {
 			return false;
 		}
 
@@ -463,6 +468,11 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	 */
 	private AadlPackage getDiagramPackage() {
 		return (AadlPackage)bor.getBusinessObjectForPictogramElement(getDiagram());
+	}
+
+	@Override
+	public Category getCategory() {
+		return Category.RELATIONSHIPS;
 	}
 	
 }

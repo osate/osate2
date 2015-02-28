@@ -18,23 +18,32 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 public interface LayoutService {
 
 	/**
-	 * Checks the size of the container and resizes it if necessary
+	 * Checks the size of the specified shape's container and resizes it if necessary. If resizing takes place, it also recursively checks the container's container.
+	 * @returns whether or not the shape was layed out.
 	 */
-	void checkContainerSize(ContainerShape shape);
+	boolean checkContainerSize(ContainerShape shape);
 
 	/**
 	 * Checks that the specified container's children fits in the container. If they do not, the container's update feature is called
 	 *  @param container
-	 *  @returns whether or not the update feature was called.
+	 *  @returns whether or not the shape was layed out.
 	 */
 	boolean checkSize(ContainerShape container);
 	
 	void layoutChildren(ContainerShape shape);
 
 	/**
-	 * Adjusts the positions of the child shapes so that they are non-negative and determines the needed size for the container
+	 * Adjusts the positions of the child shapes so that they are non-negative and determines the needed size for the container. Never returns a size smaller than the current size.
+	 * The first element is the x-coordinate, the second element is the y-coordinate.
 	 * @param shape
 	 * @param fp
 	 */
 	int[] adjustChildShapePositions(ContainerShape shape);
+	
+	/**
+	 * Returns the minimum width and height for a shape layed out in accordance to adjustChildShapePosition
+	 * @return
+	 */
+	int getMinimumWidth();
+	int getMinimumHeight();
 }

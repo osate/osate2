@@ -2,6 +2,7 @@ package org.osate.ge.services;
 
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.AccessCategory;
@@ -20,6 +21,9 @@ import org.osate.aadl2.PortCategory;
 public interface GraphicsAlgorithmCreationService {
 
 	Text createLabelGraphicsAlgorithm(GraphicsAlgorithmContainer container, String labelTxt);
+	
+	MultiText createMultiLineLabelGraphicsAlgorithm(GraphicsAlgorithmContainer container, String labelTxt);
+	
 	Text createAnnotationGraphicsAlgorithm(GraphicsAlgorithmContainer container, String annotationTxt);
 
 	/**

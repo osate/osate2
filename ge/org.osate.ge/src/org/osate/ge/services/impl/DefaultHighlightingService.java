@@ -50,28 +50,14 @@ public class DefaultHighlightingService implements HighlightingService {
 	 */
 	@Override
 	public void highlight(final Element element, final Context context, final GraphicsAlgorithm ga) {
+ 		// Check the mode of the element
 		final String selectedModeName = propertyUtil.getSelectedMode(getDiagram());
  		final boolean isModeSelected = !selectedModeName.equals(""); 	
  		boolean inSelectedMode = false;
- 		
- 		// Check the mode of the element
  		if(isModeSelected && !(context instanceof Subcomponent)) {
 			if(element instanceof ModalElement) {
 				final ModalElement modalElement = (ModalElement)element;
-				
-	 			// Determine the total number of modes/mode transitions
-	 			final int numModesSpecified = (modalElement instanceof ModalPath) ? (modalElement.getAllInModes().size() + ((ModalPath)modalElement).getAllInModeTransitions().size()) : modalElement.getAllInModes().size();
-	 			
-		 		if(numModesSpecified == 0 || listContainsElementWithName(modalElement.getAllInModes(), selectedModeName)) {
-		 			inSelectedMode = true;
-		 		} else {
-		 			if(modalElement instanceof ModalPath) {
-		 				final ModalPath modalPath = (ModalPath)modalElement;
-		 				if(numModesSpecified == 0 || listContainsElementWithName(modalPath.getAllInModeTransitions(), selectedModeName)) {
-		 					inSelectedMode = true;
-		 				}
-		 	 		}	
-		 		}
+				inSelectedMode = isInMode(modalElement, selectedModeName);	 			
 			}
  		}
 		
@@ -79,6 +65,7 @@ public class DefaultHighlightingService implements HighlightingService {
 		final String selectedFlowName = propertyUtil.getSelectedFlow(getDiagram());
  		final boolean isFlowSelected = !selectedFlowName.equals("");
  		boolean inSelectedFlow = false;
+ 		ModalPath selectedFlow = null;
  		if(isFlowSelected) {
  			if(element instanceof NamedElement) {
  				final NamedElement namedElement = (NamedElement)element;
@@ -92,16 +79,23 @@ public class DefaultHighlightingService implements HighlightingService {
 		 				if(flow.getSpecification() != null && selectedFlowName.equalsIgnoreCase(flow.getSpecification().getName())) {					
 		 					if(flow.getSpecification().getInEnd() != null && doesElementMatchFlowElement(namedElement, context, flow.getSpecification().getInEnd().getFeature(), flow.getSpecification().getInEnd().getContext() )) {
 	 							inSelectedFlow = true;
+	 							selectedFlow = flow;
 	 						} else if(flow.getSpecification().getOutEnd() != null && doesElementMatchFlowElement(namedElement, context, flow.getSpecification().getOutEnd().getFeature(), flow.getSpecification().getOutEnd().getContext())) {
 	 							inSelectedFlow = true;
+	 							selectedFlow = flow;
 	 						} else {
 			 					for(final FlowSegment fs : flow.getOwnedFlowSegments()) {
 			 						if(doesElementMatchFlowElement(namedElement, context, fs.getFlowElement(), fs.getContext())) {
 			 							inSelectedFlow = true;
+			 							selectedFlow = flow;
 										break;
 			 						}
 			 					}
 	 						}
+		 				}
+		 				
+		 				if(inSelectedFlow) {
+		 					break;
 		 				}
 		 			}
 		 			
@@ -109,22 +103,43 @@ public class DefaultHighlightingService implements HighlightingService {
 					for(final EndToEndFlow flow : ci.getAllEndToEndFlows()) {
 						if(selectedFlowName.equalsIgnoreCase(flow.getName())) {
 							inSelectedFlow = isInEndToEndFlow(namedElement, context, flow);
+							selectedFlow = flow;
 							break;
 		 				}
 					}
 		 		}
  			}
  		}
+ 		
+ 		boolean isFlowInMode =  (isModeSelected && selectedFlow != null) ? isInMode(selectedFlow, selectedModeName) : false;
 		
 		// Highlight accordingly
- 		if(inSelectedMode && inSelectedFlow) {
+ 		if(inSelectedMode && (inSelectedFlow && isFlowInMode)) {
  			setForeground(ga, Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedModeAndFlowColor()));
  		} else if(inSelectedMode) {
  			setForeground(ga, Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedModeColor()));
- 		} else if(inSelectedFlow) {
+ 		} else if(inSelectedFlow && isFlowInMode) {
  			setForeground(ga, Graphiti.getGaService().manageColor(getDiagram(), styleUtil.getInSelectedFlowColor()));
  		}
  	}
+	
+	private boolean isInMode(final ModalElement modalElement, final String modeName) {
+		// Determine the total number of modes/mode transitions
+		final int numModesSpecified = (modalElement instanceof ModalPath) ? (modalElement.getAllInModes().size() + ((ModalPath)modalElement).getAllInModeTransitions().size()) : modalElement.getAllInModes().size();
+			
+ 		if(numModesSpecified == 0 || listContainsElementWithName(modalElement.getAllInModes(), modeName)) {
+ 			return true;
+ 		} else {
+ 			if(modalElement instanceof ModalPath) {
+ 				final ModalPath modalPath = (ModalPath)modalElement;
+ 				if(numModesSpecified == 0 || listContainsElementWithName(modalPath.getAllInModeTransitions(), modeName)) {
+ 					return true;
+ 				}
+ 	 		}	
+ 		}
+ 		
+ 		return false;
+	}
 	
 	private void setForeground(final GraphicsAlgorithm ga, Color color) {
 		ga.setForeground(color);

@@ -32,6 +32,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.Subcomponent;
@@ -107,7 +108,7 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 		if(!(startContainer instanceof Shape)) {
 			return null;
 		}
-		
+
 		return shapeService.getClosestBusinessObjectOfType((Shape)startContainer, ComponentClassifier.class);
 	}
     
@@ -158,22 +159,29 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 			final ModalPath modalPath = (ModalPath)me;
 			for(final ModeFeature mf : modalPath.getInModeOrTransitions()) {
 				localToChildModeMap.put(mf.getName(), null);
-			}		
+			}
 		} else {
 			throw new RuntimeException("Unsupported type: " + me.getClass());
 		}
-		
+		//Sort mode and transition names for dialog menu
 		final List<String> localModeFeatureNames = new ArrayList<String>();
+		final List<String> localModeTransitionFeatureNames = new ArrayList<String>();
 		for(final ModeFeature tmpMode : localModeFeatures) {
-			localModeFeatureNames.add(tmpMode.getName());
+			if (tmpMode instanceof Mode){
+				localModeFeatureNames.add(tmpMode.getName());
+			} else {
+				if(tmpMode instanceof ModeTransition){
+					localModeTransitionFeatureNames.add(tmpMode.getName());
+				}
+			}
 		}
 		
 		// Show the dialog
-		final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(Display.getCurrent().getActiveShell(), localModeFeatureNames, childModeNames, localToChildModeMap);
+		final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(Display.getCurrent().getActiveShell(), localModeFeatureNames, localModeTransitionFeatureNames, childModeNames, localToChildModeMap);
 		if(dlg.open() == Dialog.CANCEL) {
 			return;
 		}
-		
+	
 		// Make the modification to the mode
 		aadlModService.modify(me, new AbstractModifier<ModalElement, Object>() {
 			@Override

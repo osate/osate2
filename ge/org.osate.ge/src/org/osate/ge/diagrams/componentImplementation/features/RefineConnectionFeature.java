@@ -62,7 +62,7 @@ public class RefineConnectionFeature extends AbstractCustomFeature {
 		final Connection connection = (Connection)pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 		final ComponentImplementation ci = getComponentImplementation(connection);
-		return bo instanceof org.osate.aadl2.Connection && ci != null && ((org.osate.aadl2.Connection)bo).getContainingClassifier() != ci;
+		return bo instanceof org.osate.aadl2.Connection && ci != null && ((org.osate.aadl2.Connection)bo).getContainingClassifier() != ci && ci.getAllConnections().contains((org.osate.aadl2.Connection)bo);
 	}
     
     @Override

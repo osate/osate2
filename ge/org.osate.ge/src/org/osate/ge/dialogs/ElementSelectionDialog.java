@@ -14,7 +14,6 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.NamedElement;
 
 /**
  * Dialog to allow the user to select objects. Uses org.eclipse.ui.dialogs.ElementListSelectionDialog internally, but handles null objects. Contains
@@ -27,21 +26,7 @@ public class ElementSelectionDialog {
 	private final org.eclipse.ui.dialogs.ElementListSelectionDialog dlg;
 	
 	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt, final List<?> elementDescriptions) {
-		dlg = new org.eclipse.ui.dialogs.ElementListSelectionDialog(parentShell, new org.eclipse.jface.viewers.LabelProvider() {
-			@Override
-			public String getText(Object element) {
-				if(element == nullObject) {
-					return "<None>";
-				} else if(element instanceof IEObjectDescription){
-					return ((IEObjectDescription)element).getName().toString("::");
-				} else if(element instanceof NamedElement){
-					return ((NamedElement)element).getName();
-				} else {
-					return element.toString();
-				}				
-			}
-		});
-		
+		dlg = new org.eclipse.ui.dialogs.ElementListSelectionDialog(parentShell, new ElementLabelProvider(nullObject));		
 		dlg.setTitle(dlgTitle);
 		dlg.setMessage(prompt);
 		

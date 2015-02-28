@@ -10,6 +10,7 @@ package org.osate.ge.services.impl;
 
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.MultiText;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
@@ -72,6 +73,14 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	}
 	
 	@Override
+	public MultiText createMultiLineLabelGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String labelTxt) {
+		final IGaService gaService = Graphiti.getGaService();
+		final MultiText text = gaService.createPlainMultiText(container, labelTxt);
+        text.setStyle(styleService.getLabelStyle());
+        return text;
+	}
+	
+	@Override
 	public Text createAnnotationGraphicsAlgorithm(final GraphicsAlgorithmContainer container, final String annotationTxt) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, annotationTxt);
@@ -86,6 +95,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		background.setStyle(styleService.getTextBackgroundStyle());		
 		return background;
 	}
+	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.GraphicsAlgorithmCreationService#createClassifierGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Element, int, int)
 	 */
@@ -278,7 +288,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
         ga.setStyle(style);
         gaService.setSize(ga,  width, height);
         graphicsAlgorithmUtil.shrink(ga);
-        
+
         return ga;
 	}
 	
@@ -462,7 +472,8 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		final GraphicsAlgorithm ellipseGa = gaService.createPlainEllipse(ga);
 		gaService.setSize(ellipseGa, width, height);
 		ellipseGa.setStyle(style);
-         
+		ellipseGa.setFilled(false);
+		
     	return ga;
 	}
 	
@@ -549,41 +560,42 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		ga = gaService.createPlainPolygon(outline, new int[] {
     			width, 0,
     			width, height,
-    			width-padding-3, height-padding-3,
-    			width-padding-3, padding+3});
+    			width-padding, height-padding,
+    			width-padding, padding});
 		ga.setStyle(shadedStyle);
 		ga.setLineVisible(false);
 		
 		ga = gaService.createPlainPolygon(outline, new int[] {
     			width, height,
     			0, height,
-    			padding+3, height-padding-3,
-    			width-padding-3, height-padding-3});
+    			padding, height-padding,
+    			width-padding, height-padding});
 		ga.setStyle(shadedStyle);
 		ga.setLineVisible(false);
-		
+				
 		// Create inner rectangle
 		final GraphicsAlgorithm inner = gaService.createPlainRectangle(outline);
 		gaService.setLocation(inner, padding, padding);
 		gaService.setSize(inner, width-padding*2, height-padding*2);
 		inner.setStyle(style);
+		inner.setFilled(false);
 		
 		// Create additional line segments
 		gaService.createPlainPolyline(outline, new int[] {
     			0, 0,
-    			padding+3, padding+3}).setStyle(style);
+    			padding+1, padding+1}).setStyle(style);
 		
 		gaService.createPlainPolyline(outline, new int[] {
     			width, 0,
-    			width-padding-3, padding+3}).setStyle(style);
+    			width-padding-1, padding+1}).setStyle(style);
 		
 		gaService.createPlainPolyline(outline, new int[] {
-    			width-padding-3, height-padding-3,
+    			width-padding-1, height-padding-1,
     			width, height}).setStyle(style);
 		
 		gaService.createPlainPolyline(outline, new int[] {
     			0, height,
-    			padding+3, height-padding-3}).setStyle(style);
+    			padding+1, height-padding-1}).setStyle(style);
 		
 		return outline;
 	}

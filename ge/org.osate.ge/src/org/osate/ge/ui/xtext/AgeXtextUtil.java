@@ -8,7 +8,19 @@
  *******************************************************************************/
 package org.osate.ge.ui.xtext;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IResourceDeltaVisitor;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWindowListener;
@@ -18,10 +30,12 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ge.services.CachingService;
+import org.osate.ge.ui.editor.AgeDiagramEditor;
 import org.osate.ge.util.StringUtil;
 
 public class AgeXtextUtil {
+	private static final XtextResourceSet defaultResourceSet = new XtextResourceSet();
 	private static final ModelListener modelListener = new ModelListener();
 	
 	/**
@@ -57,6 +71,10 @@ public class AgeXtextUtil {
 					for(final IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
 						registerListenersForWindow(window);		
 					}
+					
+					// Register a resource change listener
+					final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+					workspace.addResourceChangeListener(resourceChangeListener);
 				}
 			});
 		}
@@ -111,7 +129,15 @@ public class AgeXtextUtil {
 		final String segs[] = qualifiedName.split("::");
 		final String packageName = StringUtil.join(segs, 0, segs.length-1, "::");
 		rs = modelListener.getResourceSet(packageName);
-		return rs == null ? OsateResourceUtil.getResourceSet() : rs;
+		return rs == null ? getDefaultResourceSet() : rs;
+	}
+	
+	/**
+	 * Returns the resource set used when the model element does not have one. In other words, the one used when there isn't an xtext editor for the package open.
+	 * @return
+	 */
+	private static XtextResourceSet getDefaultResourceSet() {
+		return defaultResourceSet;
 	}
 	
 	/**
@@ -130,4 +156,53 @@ public class AgeXtextUtil {
 	public static void removeModelListener(final IXtextModelListener listener) {
 		modelListener.removeListener(listener);
 	}
+	
+	private static final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
+		@Override
+		public void resourceChanged(final IResourceChangeEvent event) {
+			final IResourceDelta delta = event.getDelta();
+			if(delta != null) {
+				try {
+					delta.accept(visitor);
+				} catch (CoreException e) {
+				}
+			}
+		}
+		
+		private IResourceDeltaVisitor visitor = new IResourceDeltaVisitor() {
+            public boolean visit(final IResourceDelta delta) {
+               // If the resource's contents has changed changed
+               if(delta.getKind() != IResourceDelta.CHANGED || (delta.getFlags() & IResourceDelta.CONTENT) == 0)
+                  return true;
+
+               // Check AADL files
+               final IResource resource = delta.getResource();
+               if (resource.getType() == IResource.FILE && "aadl".equalsIgnoreCase(resource.getFileExtension())) {
+            	   final URI resourceUri = URI.createPlatformResourceURI(resource.getFullPath().toString(), true);
+
+            	   // If the resource is loaded into our resource set, unload it.
+            	   for(final Resource rsResource : getDefaultResourceSet().getResources()) {
+            		   if(resourceUri.equals(rsResource.getURI())) {
+            			   // Unload the resource
+            			   rsResource.unload();
+            		   }            		   
+            	   }
+            	   
+            	   // Invalidate all caches
+            	   for(final IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+            		   for(final IWorkbenchPage page : window.getPages()) {
+            			   for(final IEditorReference editorRef : page.getEditorReferences()) {
+            				   final IEditorPart editor = editorRef.getEditor(false);
+            				   if(editor instanceof AgeDiagramEditor) {
+            					   final CachingService cachingService = (CachingService)editor.getAdapter(CachingService.class);
+            					   cachingService.invalidate();
+            				   }
+            			   }
+            		   }
+            	   }
+               }
+               return true;
+            }
+         };
+	};
 }

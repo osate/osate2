@@ -16,45 +16,60 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.IMoveShapeFeature;
+import org.eclipse.graphiti.features.IResizeConfiguration;
+import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
+import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
+import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.zest.layouts.InvalidLayoutConfiguration;
-import org.eclipse.zest.layouts.LayoutAlgorithm;
-import org.eclipse.zest.layouts.LayoutEntity;
-import org.eclipse.zest.layouts.LayoutStyles;
-import org.eclipse.zest.layouts.algorithms.CompositeLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.HorizontalShift;
-import org.eclipse.zest.layouts.exampleStructures.SimpleNode;
-import org.eclipse.zest.layouts.exampleStructures.SimpleRelationship;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ProcessorFeature;
-import org.osate.ge.diagrams.common.AadlElementWrapper;
+import org.osate.ge.diagrams.common.AgeResizeConfiguration;
+import org.osate.ge.layout.MonteCarloLayout;
+import org.osate.ge.layout.MonteCarloLayout.LayoutOperation;
+import org.osate.ge.layout.Shape.PositionMode;
+import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.PropertyService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.ShapeService;
+import org.osate.ge.util.Log;
 
+/**
+ * Lays out the pictogram elements included in a diagram using an algorithm.
+ * To specify a minimum size for a shape, the resize feature or pattern for the shape must return a resize configuration that implements AgeResizeConfiguration.
+ * @author philip.alldredge
+ *
+ */
 public class LayoutDiagramFeature extends AbstractCustomFeature {
-	private static String RELAYOUT_SHAPES_PROPERTY_KEY = "relayout";
-	private final VisibilityService visibilityHelper;
+	private static String relayoutShapesPropertyKey = "relayout";
+	// Settings that determine how many different layouts to test. See usage for more details.
+	private static final long layoutTimeout = 2000; // In miliseconds
+	private static final int minLayoutSamples = 200000;
+	private static final int maxLayoutSamples = 1000000;
+	private final BusinessObjectResolutionService bor;
+	private final ShapeService shapeService;
 	private final LayoutService resizeHelper;
-	private final PropertyService propertyUtil;
+	private final PropertyService propertyService;
 	
 	@Inject
-	public LayoutDiagramFeature(final IFeatureProvider fp, final VisibilityService visibilityHelper, final LayoutService resizeHelper, final PropertyService propertyUtil) {
+	public LayoutDiagramFeature(final IFeatureProvider fp, final ShapeService shapeService, final LayoutService resizeHelper, final PropertyService propertyService, final BusinessObjectResolutionService bor) {
 		super(fp);
-		this.visibilityHelper = visibilityHelper;
+		this.shapeService = shapeService;
 		this.resizeHelper = resizeHelper;
-		this.propertyUtil = propertyUtil;
+		this.propertyService = propertyService;
+		this.bor = bor;
 	}
 
 	@Override
@@ -70,15 +85,12 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	@Override
 	public boolean isAvailable(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
-		//Checks if inner Graphics algorithm is null if yes the right clicked area was the empty space.
-		if(customCtx.getInnerGraphicsAlgorithm() != null) {
-			return false;
-		}
-		return true;
+		// Only make the feature available if the user is right clicking on the outer diagram.
+		return customCtx.getPictogramElements().length == 1 && customCtx.getPictogramElements()[0] instanceof Diagram;
 	}
 	
 	@Override
-	public boolean canExecute(ICustomContext context) {
+	public boolean canExecute(final ICustomContext context) {
 		return true;
 	}
 
@@ -90,150 +102,223 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	// Helper method to create a context for executing the feature
 	public static ICustomContext createContext(final boolean relayoutShapes) {
 		final ICustomContext context = new CustomContext();
-		context.putProperty(RELAYOUT_SHAPES_PROPERTY_KEY, relayoutShapes);
+		context.putProperty(relayoutShapesPropertyKey, relayoutShapes);
 		return context;
 	}
-
 		
 	@Override
 	public void execute(final ICustomContext context) {
-		try {
-			boolean relayoutShapes = !Boolean.FALSE.equals(context.getProperty(RELAYOUT_SHAPES_PROPERTY_KEY)); // Defaults to true
-			
-			final ContainerShape shape = getDiagram();			
-			
-			// TODO: Horizontal shift sometimes doesn't work. Can result in overlapping shapes... Implement alternative
-			// Also, the positioning is off.. Only spacing horizontally... sometimes excessively..
-			// Exacerbated by many of the shapes being unmoveable?
-			
-			// Create the layout algorithm
-			final int layoutStyles = LayoutStyles.NO_LAYOUT_NODE_RESIZING;
-			final LayoutAlgorithm alg = new CompositeLayoutAlgorithm( new LayoutAlgorithm[] {
-					new DirectedGraphLayoutAlgorithm(layoutStyles),
-					new HorizontalShift(layoutStyles)
-			});
-
-			// Layout the shapes and refresh the diagram visualization if necessary
-			if(layout(shape, alg, relayoutShapes)) {
-				getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();				
-			}
-			
-		} catch (final InvalidLayoutConfiguration e) {
-			throw new RuntimeException(e);
+		boolean relayoutShapes = !Boolean.FALSE.equals(context.getProperty(relayoutShapesPropertyKey)); // Defaults to true
+		if(layout(getDiagram(), relayoutShapes)) {
+			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();				
 		}
 	}
 	
-	private boolean layout(final ContainerShape shape, final LayoutAlgorithm alg, final boolean relayoutShapes) throws InvalidLayoutConfiguration {
-		final List<Shape> children = visibilityHelper.getNonGhostChildren(shape);
-		boolean updateVisualization = false;
+	private boolean layout(final Diagram diagram, final boolean relayoutShapes) {
+		// Convert the diagram shapes to shapes used by the layout algorithm
+		final List<org.osate.ge.layout.Shape> rootLayoutShapes = new ArrayList<org.osate.ge.layout.Shape>();
+		final Map<Object, Object> shapeMap = new HashMap<Object, Object>(); // Map that contains a mapping from layout/diagram shapes to the other one.
+		for(final Shape shape : shapeService.getNonGhostChildren(diagram)) {
+			final org.osate.ge.layout.Shape newLayoutShape = createLayoutShape(shape, shapeMap, null, relayoutShapes);
+			if(newLayoutShape != null) {
+				rootLayoutShapes.add(newLayoutShape);
+			}
+		}
+				
+		// Don't perform any automatic layout if there is not more than 1 child shape
+		if(!hasUnlockedShapes(rootLayoutShapes)) {
+			return false;
+		}	
 
-		// Layout the inside of the child shapes
-		for(final Shape child : children) {
-			if(child instanceof ContainerShape) {
-				if(layout((ContainerShape)child, alg, relayoutShapes)) {
-					updateVisualization = true;					
+		// Create layout connections
+		final List<org.osate.ge.layout.Connection> layoutConnections = new ArrayList<org.osate.ge.layout.Connection>();		
+		for(final Connection connection : getDiagram().getConnections()) {
+			// Prevents connections such as binding connections that aren't handled properly from being used during the layout process
+			if(bor.getBusinessObjectForPictogramElement(connection) != null) {
+				final org.osate.ge.layout.Shape startLayoutShape = getLayoutShape(connection.getStart(), shapeMap);
+				final org.osate.ge.layout.Shape endLayoutShape = getLayoutShape(connection.getEnd(), shapeMap);
+				if(startLayoutShape != null && endLayoutShape != null && startLayoutShape != endLayoutShape) {
+					layoutConnections.add(new org.osate.ge.layout.Connection(startLayoutShape, endLayoutShape));
+					
+					// Remove all bendpoints because the layout algorithm assumes that all connections are straight lines
+					if(connection instanceof FreeFormConnection) {
+						final FreeFormConnection ffc = (FreeFormConnection)connection;
+						ffc.getBendpoints().clear();
+					}
 				}
+			}			
+		}
+	
+		final MonteCarloLayout layoutAlg = new MonteCarloLayout();
+		layoutAlg.setShapeIntersectionsWeight(1.0);
+		layoutAlg.setConnectionIntersectionsWeight(0.1);
+		layoutAlg.setShapeConnectionIntersectionsWeight(0.1);
+		layoutAlg.setTargetConnectionLengthWeight(0.05);
+		
+		// Perform the layout. Continue the operation until the minimum number of samples has been reached and the timeout expired or the max number of samples is reached.
+		final LayoutOperation op = layoutAlg.start(rootLayoutShapes, layoutConnections);
+		final long startTime = System.currentTimeMillis();
+		int sampleCount = 0;
+		long elapsedTime;
+		do {
+			sampleCount++;
+			op.next();
+			elapsedTime = System.currentTimeMillis() - startTime;
+		} while((((elapsedTime < layoutTimeout) && sampleCount < maxLayoutSamples) || sampleCount < minLayoutSamples));
+		
+		Log.info("Layout finished. Elapsed time: " + elapsedTime + ". Number of samples: " + sampleCount + ". Seed: " + op.getBestSeed() + ". Score: " + op.getBestScore());
+		op.accept();		
+
+		// Update the layout shapes
+		for(final org.osate.ge.layout.Shape layoutShape : rootLayoutShapes) {
+			updateShape(layoutShape, shapeMap);
+		}
+
+		return true;
+	}
+	
+	private org.osate.ge.layout.Shape createLayoutShape(final Shape diagramShape, Map<Object, Object> shapeMap, final org.osate.ge.layout.Shape parentLayoutShape, final boolean relayoutShapes) {
+		// Restrict what shapes are positioned
+		final Object bo = bor.getBusinessObjectForPictogramElement(diagramShape);
+		
+		// Determine the position mode to use for the new layout shape			
+		// Don't change the position of shapes that have already been positioned if not repositioning all shapes
+		final PositionMode positionMode;
+		if(bo == null || propertyService.isManuallyPositioned(diagramShape) || (propertyService.isLayedOut(diagramShape) && !relayoutShapes)) {
+			positionMode = PositionMode.LOCKED;
+		} else {
+			if(bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature) {
+				positionMode = PositionMode.SNAP_LEFT_RIGHT;
+			} else {
+				positionMode = PositionMode.FREE;
+			}
+		}
+		
+		// Create the layout shape
+		final GraphicsAlgorithm ga = diagramShape.getGraphicsAlgorithm();
+		final IResizeShapeContext resizeContext = createNoOpResizeShapeContext(diagramShape);
+		final IResizeShapeFeature resizeFeature = getFeatureProvider().getResizeShapeFeature(resizeContext);
+		final boolean canResize = resizeFeature != null && resizeFeature.canResizeShape(resizeContext);
+		final org.osate.ge.layout.Shape newLayoutShape = new org.osate.ge.layout.Shape(parentLayoutShape, ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight(), canResize, positionMode);
+
+		final IResizeConfiguration resizeConfiguration = resizeFeature == null ? null : resizeFeature.getResizeConfiguration(resizeContext);
+		if(resizeConfiguration instanceof AgeResizeConfiguration) {
+			final AgeResizeConfiguration ageConf = (AgeResizeConfiguration)resizeConfiguration;
+			if(ageConf.hasMinimumSize()) {
+				newLayoutShape.setMinimumSize(ageConf.getMinimumWidth(), ageConf.getMinimumHeight());
 			}
 		}		
 		
-		// Don't perform any automatic layout if there is not more than 1 child shape
-		if(children.size() <= 1) {
-			return updateVisualization;
-		}
+		shapeMap.put(newLayoutShape, diagramShape);
+		shapeMap.put(diagramShape, newLayoutShape);
 
-		final Map<Shape, SimpleNode> shapeToNodeMap = new HashMap<Shape, SimpleNode>();
-
-		boolean performLayout = false; // Flag used to short-circuit execution when all child objects are not going to be touched by layout algorithm
-		for(int i = 0; i < children.size(); i++) {
-			final Shape child = children.get(i);
-			final SimpleNode node = createLayoutEntity(child);
-			if(shouldIgnoreShape(child, relayoutShapes)) {
-				node.ignoreInLayout(true);
-			} else {
-				performLayout = true;
-			}
-			
-			shapeToNodeMap.put(child, node);
-		}						
-		
-		if(!performLayout) {
-			return updateVisualization;
-		}
-		
-		// Create relationships between every node and it's container
-		final List<SimpleRelationship> relationships = new ArrayList<SimpleRelationship>();
-		for(final Connection connection : getDiagram().getConnections()) {				
-			final LayoutEntity startNode = getLayoutEntity(connection.getStart(), shapeToNodeMap);
-			final LayoutEntity endNode = getLayoutEntity(connection.getEnd(), shapeToNodeMap);
-			if(startNode != null && endNode != null && startNode != endNode) {
-				relationships.add(new SimpleRelationship(startNode, endNode, true));
-			}			
-		}
-		
-		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		final int width = ga.getWidth();
-		final int height = ga.getHeight();
-		
-		alg.applyLayout(shapeToNodeMap.values().toArray(new SimpleNode[0]), relationships.toArray(new SimpleRelationship[0]), 0, 0, width, height, false, false);			
-
-		// Update the shapes
-		for(final SimpleNode entity : shapeToNodeMap.values()) {
-			updateShape(entity);
-			updateVisualization = true;
-		}
-		
-		// Use the resize helper to resize the shape
-		if(!(shape instanceof Diagram)) {
-			if(resizeHelper.checkSize(shape)) {
-				updateVisualization = true;
+		// Don't layout shapes that are inside locked shapes
+		// If bo is not null and it isn't manually positioned, then create layout shapes of its children
+		if(bo != null && !propertyService.isManuallyPositioned(diagramShape)) {
+			// Create layout shape for the diagram shape's children
+			if(diagramShape instanceof ContainerShape) {
+				final List<Shape> children = shapeService.getNonGhostChildren((ContainerShape)diagramShape);
+				for(final Shape child : children) {
+					createLayoutShape(child, shapeMap, newLayoutShape, relayoutShapes);
+				}		
 			}
 		}
 		
-		return updateVisualization;
+		return newLayoutShape;
 	}
 	
-	private boolean shouldIgnoreShape(final Shape shape, final boolean relayoutShapes) {
-		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(shape));
-		return bo == null || bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature || (propertyUtil.isLayedOut(shape) && !relayoutShapes);
+	private boolean hasUnlockedShapes(final List<org.osate.ge.layout.Shape> shapes) {
+		for(final org.osate.ge.layout.Shape shape : shapes) {
+			if(shape.getPositionMode() != PositionMode.LOCKED || hasUnlockedShapes(shape.getChildren())) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
+	
+	/** 
+	 * Creates a resize shape context that uses the shapes existing location and size. Useful for determining if resizing is supported.
+	 * @param shape
+	 * @return
+	 */
+	private IResizeShapeContext createNoOpResizeShapeContext(final Shape shape) {
+		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+		if(ga == null) {
+			return null;
+		}
+		
+		final ResizeShapeContext context = new ResizeShapeContext(shape);
+		context.setSize(ga.getWidth(), ga.getHeight());
+		context.setLocation(ga.getX(), ga.getY());
+		
+		return context;
+	}
+	
+	private void updateShape(final org.osate.ge.layout.Shape layoutShape, final Map<Object, Object> shapeMap) {
+		for(final org.osate.ge.layout.Shape childLayoutShape : layoutShape.getChildren()) {
+			updateShape(childLayoutShape, shapeMap);
+		}
+
+		final Shape diagramShape = (Shape)shapeMap.get(layoutShape);
+		if(layoutShape.getPositionMode() != PositionMode.LOCKED) {
+			final ResizeShapeContext context = new ResizeShapeContext(diagramShape);
+			context.setSize(layoutShape.getWidth(), layoutShape.getHeight());
+			context.setLocation(layoutShape.getX(), layoutShape.getY());
+			
+			// Try to resize the shape
+			final IResizeShapeFeature feature = getFeatureProvider().getResizeShapeFeature(context);
+			if(feature != null && feature.canResizeShape(context)) {
+				feature.resizeShape(context);
+			} else {
+				// Try simply moving the shape
+				move(diagramShape, layoutShape.getX(), layoutShape.getY());
+			}
+			
+			propertyService.setIsLayedOut(diagramShape, true);
+		}
+		
+		// Check the diagram shape's size and container size?
+		if(!(diagramShape instanceof Diagram) && diagramShape instanceof ContainerShape) {
+			if(resizeHelper.checkSize((ContainerShape)diagramShape)) {
+				resizeHelper.checkContainerSize((ContainerShape)diagramShape);
+			}
+		}
+	}
+	
+	private void move(final Shape shape, final int x, final int y) {
+		final MoveShapeContext context = new MoveShapeContext(shape);
+		context.setLocation(x, y);
+		context.setSourceContainer(shape.getContainer());
+		context.setTargetContainer(shape.getContainer());
+		
+		// Move the shape
+		final IMoveShapeFeature feature = getFeatureProvider().getMoveShapeFeature(context);
+		if(feature != null && feature.canMoveShape(context)) {
+			feature.moveShape(context);
+		}
+	}
+	
 	/**
-	 * Gets the layout entity that is the closest match to the specified anchor
+	 * Gets the layout shape that is the closest match to the specified anchor
 	 * @param anchor
 	 * @param shapeToNodeMap
 	 * @return
 	 */
-	private static LayoutEntity getLayoutEntity(final Anchor anchor, final Map<Shape, SimpleNode> shapeToNodeMap) {
+	private static org.osate.ge.layout.Shape getLayoutShape(final Anchor anchor, final Map<Object, Object> shapeMap) {
 		if(anchor != null && anchor.getParent() instanceof Shape) {
-			Shape shape = (Shape)anchor.getParent();
-			while(shape != null) {
-				final LayoutEntity entity = shapeToNodeMap.get(shape);
-				if(entity != null) {
-					return entity;
+			Shape diagramShape = (Shape)anchor.getParent();
+			while(diagramShape != null) {
+				final org.osate.ge.layout.Shape layoutShape = (org.osate.ge.layout.Shape)shapeMap.get(diagramShape);
+				if(layoutShape != null) {
+					return layoutShape;
 				}
 
-				shape = shape.getContainer();
+				diagramShape = diagramShape.getContainer();
 			}
 		}
 		return null;	
 				
 	}
-
-	private static SimpleNode createLayoutEntity(final Shape shape) {
-		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		return new SimpleNode(shape, ga.getX(), ga.getY(), ga.getWidth()+50, ga.getHeight()+50);		
-	}
-
-	/**
-	 * Updates the shapes position
-	 * @param entity
-	 */
-	private void updateShape(final SimpleNode entity) {
-		final Shape shape = (Shape)entity.getRealObject();
-		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		if(!entity.hasPreferredLocation()) {
-			ga.setX((int)entity.getXInLayout());
-			ga.setY((int)entity.getYInLayout());
-			propertyUtil.setIsLayedOut(shape, true);
-		}
-	}
+	
 }

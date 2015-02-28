@@ -25,6 +25,10 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
+import org.eclipse.xtext.nodemodel.ILeafNode;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -32,7 +36,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 public class SelectionHelper {
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
-
+	
 	private static ISelection getSelection() {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
@@ -73,10 +77,25 @@ public class SelectionHelper {
 										.getEObject(resource);
 							}
 						} else {
-							targetElement = eObjectAtOffsetHelper
-									.resolveElementAt(resource,
-											((ITextSelection) selection)
-													.getOffset());
+							final int offset = ((ITextSelection) selection).getOffset();
+							targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource, offset);
+
+							// Check if the node for the semantic element that was retrieved by the offset helper starts after the line number of the node
+							// retrieved using the offset. If it is, return the container. This prevents returning a classifier when the select is actually in
+							// whitespace before the classifier.
+							final IParseResult parseResult = resource.getParseResult();
+							if(targetElement != null && parseResult != null) {
+								final ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
+								final INode targetElementNode = NodeModelUtils.getNode(targetElement);
+								if(leaf.getStartLine() < targetElementNode.getStartLine()) {
+									targetElement = targetElement.eContainer();
+								}
+							}
+							
+							// If there isn't a selected element, that usually means the selection is outside of the root package. Get the first EObject in the resource
+							if(targetElement == null && resource.getContents().size() > 0) {
+								targetElement = resource.getContents().get(0);	
+							}
 						}
 
 						return targetElement;

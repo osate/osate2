@@ -49,24 +49,25 @@ import org.osate.ge.diagrams.common.features.DiagramUpdateFeature;
 import org.osate.ge.diagrams.common.features.LayoutDiagramFeature;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionCreationService;
+import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.StyleService;
-import org.osate.ge.services.VisibilityService;
+import org.osate.ge.services.GhostingService;
 import org.osate.ge.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements DiagramUpdateFeature {
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
-	private final VisibilityService visibilityService;
+	private final GhostingService ghostingService;
 	private final ShapeService shapeService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionCreationService connectionCreationService, final VisibilityService visibilityService, final ShapeService shapeService, final BusinessObjectResolutionService bor) {
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, final BusinessObjectResolutionService bor) {
 		super(fp);
 		this.styleService = styleService;
 		this.connectionCreationService = connectionCreationService;
-		this.visibilityService = visibilityService;
+		this.ghostingService = ghostingService;
 		this.shapeService = shapeService;
 		this.bor = bor;
 	}
@@ -107,10 +108,10 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		}
 				
 		// Prune Invalid Generalizations
-		visibilityService.ghostInvalidConnections(null);
+		ghostingService.ghostConnections(diagram);
 
 		// Prune Invalid Shapes
-		visibilityService.ghostInvalidShapes(diagram);
+		ghostingService.ghostInvalidChildShapes(diagram);
 		
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<NamedElement> relevantElements = new HashSet<NamedElement>();
@@ -165,11 +166,11 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	
 	private void updateClassifiers(final Diagram diagram, final Set<NamedElement> elements, int x, int y) {
 		// Ghost any classifier shapes that are not in the element list. This will ensure that classifiers in other packages are ghosted.
-		for(final Shape childShape : visibilityService.getNonGhostChildren(diagram)) {
+		for(final Shape childShape : shapeService.getNonGhostChildren(diagram)) {
 			// Check if the shape has a business object and can be updated
 			final Object bo = bor.getBusinessObjectForPictogramElement(childShape);
 			if(bo instanceof Classifier && !elements.contains(bo)) {
-				visibilityService.setIsGhost(childShape, true);
+				ghostingService.setIsGhost(childShape, true);
 			}
 		}
 		

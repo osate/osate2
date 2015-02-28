@@ -17,10 +17,16 @@
 					<para>Open the new file dialog by selecting <emphasis>File->New->Other...</emphasis></para>
 				</listitem>
 				<listitem>
-					<para>Select <emphasis>Aadl Package (Graphical).</emphasis></para>
+					<para>Select <emphasis>Aadl Package (Graphical)</emphasis> and click <emphasis>Next.</emphasis></para>
+					<imageobject>
+    				<imagedata fileref="images/AadlPackage(Graphical).png" format="PNG"/>
+  				</imageobject>
 				</listitem>
 				<listitem>
 					<para>Enter a name for the new package.</para>
+					<imageobject>
+    				<imagedata fileref="images/AadlPackageName.png" format="PNG"/>
+  				</imageobject>
 				</listitem>
 				<listitem>
 					<para>Select the AADL Project to create the package inside.</para>
@@ -42,7 +48,10 @@
 					<para>Right click the AADL package or component in the <emphasis>Outline</emphasis> view.</para>
 				</listitem>
 				<listitem>
-					<para>Select <emphasis>Open Package Diagram</emphasis> to open the package diagram for the package that contains the element. Select <emphasis>Open Classifier Diagram</emphasis> to open the diagram for the selected classifier. The diagram will be created if one does not already exist. The appropriate diagram will appear in the graphical editor.</para>
+					<para>Select <emphasis>Open Diagram</emphasis> to open the diagram for the selected classifier.  If a classifier is not selected, <emphasis>Open Diagram</emphasis> opens the package diagram for the selected package.  The diagram will be created if one does not already exist. The appropriate diagram will appear in the graphical editor.</para>
+				</listitem>
+				<listitem>
+					<para>You can also use the keyboard shortcut <emphasis><emphasis role="bold">Ctrl+Shift+V</emphasis></emphasis> to switch between the selected element in the diagram and the selected element in the source file.</para>
 				</listitem>
 			</orderedlist>
 		</section>
@@ -54,14 +63,23 @@
 		<section>
 			<title>Opening an Associated Diagram</title>
 			<para>Diagrams associated with a particular element can be opened by double-clicking on the model element. For example, double-clicking a classifier inside a package diagram will open that classifier's diagram. Alternatively, the associated diagram can be open by right-clicking on the element and selecting <emphasis>Open Associated Diagram</emphasis> from the context menu.</para>
+				<imageobject>
+    				<imagedata fileref="images/OpenAssociatedDiagram.png" format="PNG"/>
+  				</imageobject>
 		</section>
 		<section>
 			<title>Opening an Element's Package Diagram</title>
 			<para>When viewing a diagram, the package diagram associated with an element can be opened by right-clicking inside the diagram or element and selecting <emphasis>Go to Package Diagram</emphasis> from the context menu.</para>
+			<imageobject>
+    			<imagedata fileref="images/GoToPackageDiagram.png" format="PNG"/>
+  			</imageobject>
 		</section>
 		<section>
 			<title>Opening the Type Diagram for a Component Implementation</title>
 			<para>When viewing a component implementation diagram, the diagram for the component implementation's type can be opened by right-clicking inside the diagram and selecting <emphasis>Go to Type Diagram</emphasis> from the context menu.</para>
+			<imageobject>
+    			<imagedata fileref="images/GoToTypeDiagram.png" format="PNG"/>
+  			</imageobject>
 		</section>
 	</chapter>
 		
@@ -73,7 +91,10 @@
 			<para>Many of the operations in the graphical editor apply to multiple types of elements.</para>
 			<section>
 				<title>Deleting</title>
-				<para>An element can be deleted from the AADL model by selecting it and pressing the <emphasis>delete</emphasis> key. An element can also be deleted by right-clicking on it and selecting <emphasis>Delete</emphasis> from the context menu.</para>
+				<para>An element can be deleted from the AADL model by selecting it and pressing the <emphasis><emphasis role="bold">Delete</emphasis></emphasis> key. An element can also be deleted by right-clicking on it and selecting <emphasis>Delete</emphasis> from the context menu.</para>
+				<imageobject>
+    				<imagedata fileref="images/Delete.png" format="PNG"/>
+  				</imageobject>
 				<para>Elements can only be deleted when viewing the element which contains it. For example, a feature defined in a system type cannot be deleted while editing the diagram of a system implementation.</para>
 			</section>
 			<section>
@@ -85,12 +106,15 @@
 					</listitem>
 					<listitem>
 						<para>Click the name label. An editable field will appear.</para>
+						<imageobject>
+    						<imagedata fileref="images/Renaming.png" format="PNG"/>
+  						</imageobject>
 					</listitem>
 					<listitem>
 						<para>Adjust the name as desired.</para>
 					</listitem>
 					<listitem>
-						<para>Press the <emphasis>Enter</emphasis> key.</para>
+						<para>Press the <emphasis><emphasis role="bold">Enter</emphasis></emphasis> key.</para>
 					</listitem>
 				</orderedlist>
 				<para>Elements can only be renamed when viewing the element which contains it. For example, a feature defined in a system type cannot be renamed while editing the diagram of a system implementation.</para>
@@ -100,12 +124,39 @@
 				<para>Appropriate elements can be refined by right-clicking on them and selecting <emphasis>Refine</emphasis> from the context menu. Once an element is refined. Deleting a refined element will only delete the refinement.</para>
 			</section>
 			<section>
+				<title>Instantiating</title>
+				<para>When viewing a package diagram, component implementations can be instantiated by right-clicking on them and selecting <emphasis>Instantiate</emphasis> from the context menu. The instance model will be created in that projects <emphasis>instances</emphasis> folder in the AADL Navigator.</para>
+				<imageobject>
+    				<imagedata fileref="images/Instantiate.png" format="PNG"/>
+  				</imageobject>
+			</section>
+			<section>
 				<title>Editing Property Associations</title>
 				<para>Property associations can be edited using OSATE's <emphasis>AADL Property Values</emphasis> view. Selecting an element in the diagram updates the view to show property values for that element.</para>
 			</section>
 			<section>
+				<title>Moving Shapes Using Arrow Keys</title>
+				<orderedlist>
+					<listitem>
+						<para>Select the item to be moved.</para>
+					</listitem>
+					<listitem>
+						<para>Press the <emphasis><emphasis role="bold">.</emphasis></emphasis> key.</para>
+					</listitem>
+					<listitem>
+						<para>Using the <emphasis><emphasis role="bold">Arrow</emphasis></emphasis> keys, move the item to desired location.</para>
+					</listitem>
+					<listitem>
+						<para>Press the <emphasis><emphasis role="bold">Enter</emphasis></emphasis> key.</para>
+					</listitem>
+				</orderedlist>
+			</section>
+			<section>
 				<title>Performing Diagram Layout</title>
 				<para>When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right clicking inside the diagram and select <emphasis>Layout Diagram</emphasis>. Doing so will adjust the positions of all the shapes in the diagram.</para>
+				<imageobject>
+    				<imagedata fileref="images/LayoutDiagram.png" format="PNG"/>
+  				</imageobject>
 			</section>
 		</section>
 		<section>
@@ -120,6 +171,9 @@
 					</listitem>
 					<listitem>
 						<para>Drag the appropriate classifier type from the palette onto the diagram.</para>
+						<imageobject>
+    						<imagedata fileref="images/Palette.png" format="PNG"/>
+  						</imageobject>
 					</listitem>
 					<listitem>
 						<para>If a component implementation was dropped onto the diagram, select the classifier for the implementation to implement or extend.</para>
@@ -152,12 +206,19 @@
 						</listitem>
 						<listitem>
 							<para>Select the classifier to extend.</para>
+							<imageobject>
+    							<imagedata fileref="images/SetExtendedClassifier.png" format="PNG"/>
+  							</imageobject>
 						</listitem>
 						<listitem>
 							<para>Select <emphasis>OK</emphasis>. The appropriate arrow indicating the extension will appear.</para>
 						</listitem>
 					</orderedlist>
 				</section>
+			</section>
+			<section>
+				<title>Performing Update Layout from Classifier Diagram</title>
+				<para>When extending a classifier, the editor lays out the extending classifier diagram automatically.  The layout of the extending classifier diagram can be redone to match the extended classifier diagram by right clicking the extending claissifier diagram and selecting <emphasis>Perform Update Layout from Classifier Diagram</emphasis> from the context menu.  Doing so will change the height, width, and layout of elements of the extending classifier to match the extended classifier.</para>
 			</section>
 		</section>
 		<section>
@@ -170,6 +231,9 @@
 			<section>
 				<title>Setting the Feature Classifier</title>
 				<para>The classifier can be set on features such as feature groups, data ports, and access features. Set the classifier by right clicking on the feature and selecting <emphasis>Set Classifier...</emphasis> from the context menu.</para>
+				<imageobject>
+    				<imagedata fileref="images/SetClassifier.png" format="PNG"/>
+  				</imageobject>
 			</section>
 			<section>
 				<title>Setting the Feature Direction (Directional Features Only)</title>
@@ -194,11 +258,36 @@
 			<section>
 				<title>Setting the Classifier</title>
 				<para>Select the subcomponent classifier by right-clicking on the subcomponent and selecting <emphasis>Set Classifier...</emphasis> from the context menu. After selecting the classifier, the subcomponent will be updated to show the appropriate features.</para>
+				<imageobject>
+    				<imagedata fileref="images/SetClassifierSubComponent.png" format="PNG"/>
+  				</imageobject>
 			</section>
 			<section>
 				<title>Setting Modes</title>
 				<para>To set the modes in which subcomponents are active, see <xref linkend="modes_configuring_in_modes"/>.</para>
-			</section>			
+			</section>
+			<section>
+				<title>Displaying Details</title>
+				<para>Internal details of subcomponents such as inner connections and subcomponents can be displayed within a diagram. The number of subcomponent levels to display is determined by the nesting depth. The nesting depth can be set to customize how many subcomponent levels to show. Anything beyond the specified nesting depth is hidden from the diagram.</para>
+				<section>
+					<title>Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth</title>
+					<orderedlist>
+						<para>Nesting depth can be set using the Increase and Decrease Nesting Depth buttons on the toolbar.</para>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Using the Depth Selector Drop-Down to Select a Nesting Depth</title>
+					<orderedlist>
+					<para>The nesting depth can be set using the depth selector on the toolbar.</para>
+						<listitem>
+							<para>Select the depth selector drop-down.</para>
+						</listitem>
+						<listitem>
+							<para>Select the preferred nesting depth.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+			</section>
 		</section>
 		<section>
 			<title>Flows</title>
@@ -210,6 +299,9 @@
 			<section>
 				<title>Creating Flow Sinks</title>
 				<para>Flow sources can be created when editing a component type. Create the flow source by right-clicking on an appropriate feature and selecting <emphasis>Create Sink</emphasis> from the context menu. The new flow sink will appear.</para>
+				<imageobject>
+    				<imagedata fileref="images/CreateSource.png" format="PNG"/>
+  				</imageobject>
 			</section>
 			<section>
 				<title>Creating Flow Paths</title>
@@ -229,6 +321,9 @@
 			<section>
 				<title>Editing Flow Implementations and End-to-End Flows</title>
 				<para>When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. It can be accessed by right-clicking in the diagram and selecting <emphasis>Edit Flows...</emphasis> from the context menu.</para>
+				<imageobject>
+    				<imagedata fileref="images/EditFlows.png" format="PNG"/>
+  				</imageobject>
 			</section>
 			<section>
 				<title>Highlighting Flow Implementations and End-to-End Flows</title>
@@ -258,6 +353,9 @@
 					</listitem>
 					<listitem>
 						<para>Click the destination mode. The <emphasis>Select Trigger Ports</emphasis> dialog will appear.</para>
+						<imageobject>
+    						<imagedata fileref="images/PortTriggerDialog.png" format="PNG"/>
+  						</imageobject>
 					</listitem>
 					<listitem>
 						<para>Select the ports to use as the triggers for the transition. Multiple ports can be selected by holding down <emphasis>Ctrl</emphasis>.</para>
@@ -285,6 +383,80 @@
 				<para>The editor allows specifying the modes in which a modal element, such as a subcomponent, is active as well as the mapping between modes in the case of derived modes. The modes can be specified by right-clicking on the element and selecting <emphasis>Configure In Modes...</emphasis> from the context menu.</para>
 			</section>
 		</section>
+		<section>
+			<title>Bindings</title>
+			<section>
+				<title>Creating Bindings</title>
+				<para>When viewing a component implementation diagram, a binding property associations can be created.</para>
+			</section>
+			<section>
+				<title>Setting Bindings</title>
+				<section>
+					<title>Using the Context Menu to Set Bindings</title>
+					<orderedlist>
+						<listitem>
+							<para>Right click on the diagram element for which to set the binding.</para>
+						</listitem>
+						<listitem>
+							<para>Select <emphasis>Bind...</emphasis> from the context menu.</para>
+						</listitem>
+						<listitem>
+							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
+							<imageobject>
+    						<imagedata fileref="images/Bindings.png" format="PNG"/>
+  							</imageobject>
+						</listitem>
+						<listitem>
+							<para>Select one or more elements from the diagram to bind to the initially selected element.</para>
+						</listitem>
+						<listitem>
+							<para>Select <emphasis>OK</emphasis>.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Using the Toolbar to Set Bindings</title>
+					<orderedlist>
+						<listitem>
+							<para>Select the diagram element for which to set the binding.</para>
+						</listitem>
+						<listitem>
+							<para>Select the <emphasis>Bind...</emphasis> button from the toolbar.</para>
+						</listitem>
+						<listitem>
+							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
+							<imageobject>
+    							<imagedata fileref="images/Bindings.png" format="PNG"/>
+  							</imageobject>
+						</listitem>
+						<listitem>
+							<para>Select one or more elements from the diagram to bind to the initially selected element.</para>
+						</listitem>
+						<listitem>
+							<para>Select <emphasis>OK</emphasis>.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+			</section>
+			<section>
+				<title>Bindings Diagram Properties</title>
+				<para>The <emphasis>Properties</emphasis> view can be used to customize which bindings are shown in a diagram. By default, all supported bindings are displayed.</para>
+				<orderedlist>
+					<listitem>
+						<para>Left-click the empty space outside of the elements in a diagram.</para>
+					</listitem>
+					<listitem>
+						<para>In the <emphasis>Properties</emphasis> view, select the <emphasis>Bindings</emphasis> tab. </para>
+					</listitem>
+					<listitem>
+						<para>Select the checkboxes to configure which bindings to show.</para>
+						<imageobject>
+    							<imagedata fileref="images/BindingProperties.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+				</orderedlist>
+			</section>
+		</section>	
 	</chapter>
 	<chapter>
 		<title>Troubleshooting</title>
@@ -292,14 +464,20 @@
 		<section>
 			<title>Build Automatically</title>
 			<para><emphasis>Project->Build Automatically</emphasis> must be enabled. If it is not enabled, the graphical editor will not function properly.</para>
+			<imageobject>
+    			<imagedata fileref="images/BuildAutomatically.png" format="PNG"/>
+  			</imageobject>
 		</section>
 		<section>
 			<title>Updating a Diagram</title>
-			<para>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside the diagram and selecting <emphasis>Update</emphasis> from the context menu.</para>
+			<para>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting <emphasis>Update</emphasis> from the context menu.</para>
+			<imageobject>
+    			<imagedata fileref="images/LayoutDiagram.png" format="PNG"/>
+  			</imageobject>
 		</section>
 		<section>
 			<title>Reporting Bugs</title>
 			<para>Bugs should be reported to the issue tracker on the graphical editor's <ulink url="https://github.com/osate/osate-ge">GitHub Site</ulink>.</para>
 		</section>
 	</chapter>
-</book> 
+</book>

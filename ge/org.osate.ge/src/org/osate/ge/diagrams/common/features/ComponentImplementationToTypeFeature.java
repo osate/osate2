@@ -33,7 +33,7 @@ public class ComponentImplementationToTypeFeature extends AbstractCustomFeature 
 
 	@Override
     public String getName() {
-        return "Go to Type diagram";
+        return "Go to Type Diagram";
     }
  
     @Override
