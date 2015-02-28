@@ -967,6 +967,7 @@ public class AssureUtilExtension {
     FailThenResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(vaResult);
+      vaResult.setDidFail(false);
       EList<VerificationExpr> _first = vaResult.getFirst();
       AssureUtilExtension.recomputeAllCounts(vaResult, _first);
       EList<VerificationExpr> _first_1 = vaResult.getFirst();
@@ -987,6 +988,7 @@ public class AssureUtilExtension {
     AndThenResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(vaResult);
+      vaResult.setDidAndThenFail(false);
       EList<VerificationExpr> _first = vaResult.getFirst();
       AssureUtilExtension.recomputeAllCounts(vaResult, _first);
       EList<VerificationExpr> _first_1 = vaResult.getFirst();
@@ -1173,7 +1175,6 @@ public class AssureUtilExtension {
   
   /**
    * the next methods update the counts for FailThen and AndThen
-   * returns true if change of state
    */
   public static void recordFailThen(final FailThenResult result) {
     boolean _isDidFail = result.isDidFail();
@@ -1189,7 +1190,7 @@ public class AssureUtilExtension {
   
   /**
    * the next methods update the counts for FailThen and AndThen
-   * returns true if change of state
+   * Initial didFail is false
    */
   public static void recordNoFailThen(final FailThenResult result) {
     boolean _isDidFail = result.isDidFail();
@@ -1412,6 +1413,7 @@ public class AssureUtilExtension {
     FailThenResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(vaResult);
+      vaResult.setDidFail(false);
       EList<VerificationExpr> _first = vaResult.getFirst();
       final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
         public void apply(final VerificationExpr e) {
@@ -1442,6 +1444,7 @@ public class AssureUtilExtension {
     AndThenResult _xblockexpression = null;
     {
       AssureUtilExtension.resetCounts(vaResult);
+      vaResult.setDidAndThenFail(false);
       EList<VerificationExpr> _first = vaResult.getFirst();
       final Procedure1<VerificationExpr> _function = new Procedure1<VerificationExpr>() {
         public void apply(final VerificationExpr e) {

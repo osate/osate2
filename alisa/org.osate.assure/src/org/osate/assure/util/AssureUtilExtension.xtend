@@ -529,6 +529,7 @@ class AssureUtilExtension {
 
 	private def static FailThenResult recomputeAllCounts(FailThenResult vaResult) {
 		vaResult.resetCounts
+		vaResult.didFail = false
 		vaResult.recomputeAllCounts(vaResult.first)
 		if (vaResult.first.isSuccessFul) {
 			vaResult.recordNoFailThen
@@ -541,6 +542,7 @@ class AssureUtilExtension {
 
 	private def static AndThenResult recomputeAllCounts(AndThenResult vaResult) {
 		vaResult.resetCounts
+		vaResult.didAndThenFail = false
 		vaResult.recomputeAllCounts(vaResult.first)
 		if (vaResult.first.isSuccessFul) {
 			vaResult.recordSkip
@@ -639,7 +641,6 @@ class AssureUtilExtension {
 
 	/**
   * the next methods update the counts for FailThen and AndThen
-  * returns true if change of state
   */
 	def static void recordFailThen(FailThenResult result) {
 		if (result.didFail) {
@@ -653,7 +654,7 @@ class AssureUtilExtension {
 
 	/**
   * the next methods update the counts for FailThen and AndThen
-  * returns true if change of state
+  * Initial didFail is false
   */
 	def static void recordNoFailThen(FailThenResult result) {
 		if (result.didFail) {
@@ -772,6 +773,7 @@ class AssureUtilExtension {
 
 	private def static FailThenResult addAllSubCounts(FailThenResult vaResult) {
 		vaResult.resetCounts
+		vaResult.didFail = false
 		vaResult.first.forEach[e|e.addTo(vaResult)]
 		if (vaResult.first.isSuccessFul) {
 			vaResult.recordNoFailThen
@@ -784,6 +786,7 @@ class AssureUtilExtension {
 
 	private def static AndThenResult addAllSubCounts(AndThenResult vaResult) {
 		vaResult.resetCounts
+		vaResult.didAndThenFail = false
 		vaResult.first.forEach[e|e.addTo(vaResult)]
 		if (vaResult.first.isSuccessFul) {
 			vaResult.recordSkip
