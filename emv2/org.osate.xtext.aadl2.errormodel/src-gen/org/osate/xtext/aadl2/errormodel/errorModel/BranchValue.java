@@ -4,7 +4,8 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.Property;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +25,7 @@ import org.osate.aadl2.PropertyConstant;
  * @model
  * @generated
  */
-public interface BranchValue extends EObject
+public interface BranchValue extends EObject, Element
 {
   /**
    * Returns the value of the '<em><b>Realvalue</b></em>' attribute.
@@ -61,12 +62,12 @@ public interface BranchValue extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Symboliclabel</em>' reference.
-   * @see #setSymboliclabel(PropertyConstant)
+   * @see #setSymboliclabel(Property)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getBranchValue_Symboliclabel()
    * @model
    * @generated
    */
-  PropertyConstant getSymboliclabel();
+  Property getSymboliclabel();
 
   /**
    * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.BranchValue#getSymboliclabel <em>Symboliclabel</em>}' reference.
@@ -76,7 +77,7 @@ public interface BranchValue extends EObject
    * @see #getSymboliclabel()
    * @generated
    */
-  void setSymboliclabel(PropertyConstant value);
+  void setSymboliclabel(Property value);
 
   /**
    * Returns the value of the '<em><b>Others</b></em>' attribute.

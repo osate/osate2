@@ -44,7 +44,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -112,22 +111,25 @@ public class PropagateErrorSources {
 	}
 
 	public void addText(String text) {
-		if (report != null)
+		if (report != null) {
 			report.addOutput(text);
+		}
 	}
 
 	public int getMaxLevel() {
-		return this.maxLevel;
+		return maxLevel;
 	}
 
 	public void addTextNewline(String text) {
-		if (report != null)
+		if (report != null) {
 			report.addOutputNewline(text);
+		}
 	}
 
 	public void addNewline() {
-		if (report != null)
+		if (report != null) {
 			report.addOutputNewline("");
+		}
 	}
 
 	public void saveReport() {
@@ -136,7 +138,7 @@ public class PropagateErrorSources {
 
 	public void reportTableHeading() {
 		report.addOutput("Component, Initial Failure Mode, 1st Level Effect");
-		for (int i = 2; i <= this.maxLevel; i++) {
+		for (int i = 2; i <= maxLevel; i++) {
 			report.addOutput(", Failure Mode, " + (i == 2 ? "second" : i == 3 ? "third" : Integer.toString(i) + "th")
 					+ " Level Effect");
 		}
@@ -145,7 +147,7 @@ public class PropagateErrorSources {
 
 	public void reportExternalTableHeading() {
 		report.addOutput("Root System, External Error Source, 1st Level Effect");
-		for (int i = 2; i <= this.maxLevel; i++) {
+		for (int i = 2; i <= maxLevel; i++) {
 			report.addOutput(", Failure Mode, " + (i == 2 ? "second" : i == 3 ? "third" : Integer.toString(i) + "th")
 					+ " Level Effect");
 		}
@@ -170,7 +172,7 @@ public class PropagateErrorSources {
 //		for (int i = curLevel; i < maxLevel; i++) {
 //			report.addOutput(", , ");
 //		}
-//		report.addOutputNewline(", "+"Severe");	
+//		report.addOutputNewline(", "+"Severe");
 	}
 
 	/**
@@ -215,7 +217,6 @@ public class PropagateErrorSources {
 					if (ts == null) {
 						ts = ep.getTypeSet();
 					}
-					ErrorBehaviorState failureMode = null;
 
 					EList<TypeToken> result = EM2TypeSetUtil.generateAllLeafTypeTokens(ts,
 							EMV2Util.getContainingTypeUseContext(ep));
@@ -284,13 +285,13 @@ public class PropagateErrorSources {
 	public void startExternalFlows(ComponentInstance root) {
 		Collection<ErrorPropagation> eplist = EMV2Util.getAllIncomingErrorPropagations(root.getComponentClassifier());
 		String componentText = generateComponentInstanceText(root);
-		if (eplist.isEmpty())
+		if (eplist.isEmpty()) {
 			return;
+		}
 		reportExternalImpactHeading();
 		reportExternalTableHeading();
 		for (ErrorPropagation ep : eplist) {
 			EMSUtil.unsetAll(root);
-			FeatureInstance fi = EMV2Util.findFeatureInstance(ep, root);
 			TypeSet tsep = ep.getTypeSet();
 			if (tsep != null) {
 				EList<TypeToken> result = tsep.getTypeTokens();
@@ -311,12 +312,12 @@ public class PropagateErrorSources {
 		Collection<ConnectionErrorSource> ceslist = EMV2Util
 				.getAllConnectionErrorSources(root.getComponentClassifier());
 		String componentText = generateComponentInstanceText(root);
-		if (ceslist.isEmpty())
+		if (ceslist.isEmpty()) {
 			return;
+		}
 		reportExternalImpactHeading();
 		reportExternalTableHeading();
 		for (ConnectionErrorSource ces : ceslist) {
-			Connection conn = ces.getConnection();
 			// find connection instances that this connection is part of
 			ErrorPropagation ep = null;
 			TypeSet fmType = ces.getFailureModeType();
@@ -369,7 +370,7 @@ public class PropagateErrorSources {
 //			SystemImplementation simpl = ((SystemInstance)io).getSystemImplementation();
 //			return simpl.getName();
 		} else {
-			return ((ComponentInstance) io).getComponentInstancePath();
+			return io.getComponentInstancePath();
 		}
 	}
 
@@ -444,8 +445,9 @@ public class PropagateErrorSources {
 	 * @param ep Error Propagation
 	 */
 	public String generateErrorPropTypeSetText(ErrorPropagation ep) {
-		if (ep == null)
+		if (ep == null) {
 			return "";
+		}
 		TypeSet ts = ep.getTypeSet();
 		return ((EMV2Util.getPrintName(ep)) + (ts != null ? " " + EMV2Util.getPrintName(ts) : ""));
 	}
@@ -481,7 +483,7 @@ public class PropagateErrorSources {
 	}
 
 	/**
-	 * traverse to the destination of the propagation path 
+	 * traverse to the destination of the propagation path
 	 * @param conni
 	 */
 	protected void traceErrorPaths(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText) {
@@ -611,7 +613,7 @@ public class PropagateErrorSources {
 	}
 
 	/**
-	 * traverse through the destination of the connection instance 
+	 * traverse through the destination of the connection instance
 	 * @param conni
 	 */
 	protected void traceErrorFlows(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, int depth, String entryText) {
@@ -644,7 +646,7 @@ public class PropagateErrorSources {
 				 * For example, if the error sink triggers to switch to
 				 * another behavior state and that states is used to propagate
 				 * an error through an error source. Then, we do not consider
-				 * it as an error sink but as an error path and continue 
+				 * it as an error sink but as an error path and continue
 				 * to trace the flow using this additional error propagation.
 				 */
 				EList<OutgoingPropagationCondition> additionalPropagations = EMV2Util.getAdditionalOutgoingPropagation(
@@ -701,7 +703,7 @@ public class PropagateErrorSources {
 						handled = true;
 					}
 				} else {
-					Collection<TypeToken> intersection = Collections.EMPTY_LIST;
+					Collection<TypeToken> intersection = Collections.emptyList();
 					TypeSet ts = null;
 					if (ef.getTypeTokenConstraint() != null) {
 						ts = ef.getTypeTokenConstraint();
@@ -754,8 +756,9 @@ public class PropagateErrorSources {
 							// do all since we have a flow sink
 							EList<FeatureInstance> filist = ci.getFeatureInstances();
 							boolean res = doAllOutPropagationsOrFeatures(ci, filist, ep, tt, depth, entryText);
-							if (res)
+							if (res) {
 								handled = true;
+							}
 						}
 					}
 				}
@@ -783,7 +786,7 @@ public class PropagateErrorSources {
 			 * JD
 			 * The toAnalyze boolean indicate if we have to analyze the current feature or not
 			 * This is made to try to detect cycle in the error path.
-			 * 
+			 *
 			 */
 			boolean toAnalyze = true;
 

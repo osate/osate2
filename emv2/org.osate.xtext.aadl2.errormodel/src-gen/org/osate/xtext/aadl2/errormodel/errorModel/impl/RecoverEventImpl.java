@@ -4,9 +4,13 @@ package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
@@ -22,6 +26,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RecoverEventImpl#getEventInitiator <em>Event Initiator</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RecoverEventImpl#getCondition <em>Condition</em>}</li>
  * </ul>
  * </p>
@@ -31,14 +36,34 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverEvent
 {
   /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
+   * The cached value of the '{@link #getEventInitiator() <em>Event Initiator</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEventInitiator()
+   * @generated
+   * @ordered
+   */
+  protected EList<NamedElement> eventInitiator;
+
+  /**
+   * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected EList<NamedElement> condition;
+  protected static final String CONDITION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
+  protected String condition = CONDITION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -66,13 +91,36 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<NamedElement> getCondition()
+  public EList<NamedElement> getEventInitiator()
   {
-    if (condition == null)
+    if (eventInitiator == null)
     {
-      condition = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ErrorModelPackage.RECOVER_EVENT__CONDITION);
+      eventInitiator = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ErrorModelPackage.RECOVER_EVENT__EVENT_INITIATOR);
     }
+    return eventInitiator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getCondition()
+  {
     return condition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCondition(String newCondition)
+  {
+    String oldCondition = condition;
+    condition = newCondition;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.RECOVER_EVENT__CONDITION, oldCondition, condition));
   }
 
   /**
@@ -85,6 +133,8 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
   {
     switch (featureID)
     {
+      case ErrorModelPackage.RECOVER_EVENT__EVENT_INITIATOR:
+        return getEventInitiator();
       case ErrorModelPackage.RECOVER_EVENT__CONDITION:
         return getCondition();
     }
@@ -102,9 +152,12 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
   {
     switch (featureID)
     {
+      case ErrorModelPackage.RECOVER_EVENT__EVENT_INITIATOR:
+        getEventInitiator().clear();
+        getEventInitiator().addAll((Collection<? extends NamedElement>)newValue);
+        return;
       case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-        getCondition().clear();
-        getCondition().addAll((Collection<? extends NamedElement>)newValue);
+        setCondition((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -120,8 +173,11 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
   {
     switch (featureID)
     {
+      case ErrorModelPackage.RECOVER_EVENT__EVENT_INITIATOR:
+        getEventInitiator().clear();
+        return;
       case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-        getCondition().clear();
+        setCondition(CONDITION_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -137,10 +193,29 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
   {
     switch (featureID)
     {
+      case ErrorModelPackage.RECOVER_EVENT__EVENT_INITIATOR:
+        return eventInitiator != null && !eventInitiator.isEmpty();
       case ErrorModelPackage.RECOVER_EVENT__CONDITION:
-        return condition != null && !condition.isEmpty();
+        return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (condition: ");
+    result.append(condition);
+    result.append(')');
+    return result.toString();
   }
 
 } //RecoverEventImpl

@@ -41,29 +41,31 @@ import org.osate.aadl2.errormodel.analysis.PropagateErrorSources;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 
 public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Fault impact analysis";
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		monitor.beginTask("Fault impact analysis", IProgressMonitor.UNKNOWN);
 
 		// Get the system instance (if any)
 		SystemInstance si;
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+		} else {
+			return;
 		}
-		else return;
 
-		
 		/*
 		 * Create a new model statistics analysis object and run it over the
 		 * declarative model. If an instance model exists, run it over that too.
@@ -72,11 +74,9 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 		faultimpact.reportImpactHeading();
 		faultimpact.reportTableHeading();
 		List<ComponentInstance> cilist = faultimpact.getSubcomponents();
-		for (ComponentInstance componentInstance : cilist) 
-		{
-			if (componentInstance != null)
-			{
-				//OsateDebug.osateDebug("start flow for ci="+componentInstance.getName());
+		for (ComponentInstance componentInstance : cilist) {
+			if (componentInstance != null) {
+				// OsateDebug.osateDebug("start flow for ci="+componentInstance.getName());
 				faultimpact.startErrorFlows(componentInstance);
 			}
 		}
@@ -85,7 +85,5 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.done();
 	}
-
-
 
 }

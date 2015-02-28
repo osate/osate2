@@ -43,6 +43,10 @@ DurationDistribution : EMV2::DurationDistributionSpecification applies to ({emv2
 PropagationTimeDelay: EMV2::DurationDistributionSpecification
     applies to (connection, {emv2}**propagation path);
 
+-- property used to paramterize the transition branches in predeclared Error Behavior State Machines
+	TransientFailureRatio: aadlreal applies to ({EMV2}** Error Behavior Transition);
+	RecoveryFailureRatio: aadlreal applies to ({EMV2}** Error Behavior Transition);
+
 StateKind : EMV2::StateKindEnum
 	  applies to ({emv2}**error behavior state);
 

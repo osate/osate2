@@ -33,13 +33,11 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-
-
 /**
  * Also, this class implement the following consistency rule from
  * the official documentation:
- * C1, C5, C7, C11, C12 
- * 
+ * C1, C5, C7, C11, C12
+ *
  */
 import java.util.Collection;
 
@@ -86,24 +84,28 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
 public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 	AnalysisModel model;
-	
+
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Consistency";
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		monitor.beginTask("ConsistencyCheck", IProgressMonitor.UNKNOWN);
 
 		// Get the system instance (if any)
 		SystemInstance si;
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+		} else {
+			return;
 		}
-		else return;
 
 		setCSVLog("Consistency", si);
 		model = new AnalysisModel(si);
@@ -111,14 +113,13 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 		for (PropagationPathRecord path : pathlist) {
 			checkPropagationPathErrorTypes(path);
 		}
-		for (ComponentInstance ci : EMV2Util.getComponentInstancesWithEMV2Subclause(si))
-		{
-			checkComponent (ci, model);
+		for (ComponentInstance ci : EMV2Util.getComponentInstancesWithEMV2Subclause(si)) {
+			checkComponent(ci, model);
 		}
 		monitor.done();
 	}
-	
-	protected void processMatchingErrorPropagation(ConnectionInstance connectionInstance){
+
+	protected void processMatchingErrorPropagation(ConnectionInstance connectionInstance) {
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
 		ErrorPropagation srcprop = null;
 		ErrorPropagation dstprop = null;
@@ -127,33 +128,33 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 		for (ConnectionReference connectionReference : connrefs) {
 			ConnectionInstanceEnd src = connectionReference.getSource();
 			ConnectionInstanceEnd dst = connectionReference.getDestination();
-			if (srcprop == null && src instanceof FeatureInstance){
-				srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
+			if (srcprop == null && src instanceof FeatureInstance) {
+				srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
 			}
-			if (srccontain == null && src instanceof FeatureInstance){
-				srccontain = EMV2Util.getOutgoingErrorContainment((FeatureInstance)src);
+			if (srccontain == null && src instanceof FeatureInstance) {
+				srccontain = EMV2Util.getOutgoingErrorContainment((FeatureInstance) src);
 			}
 			// determine outgoing and find outgoing. if incoming then incoming.
 			// once matched, make dst the source and look for the next dst with prop/containment
 //			connectionReference.getConnection().ge
-			if (dst instanceof FeatureInstance){
-				ErrorPropagation founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance)dst);
-				if (founddst != null){
+			if (dst instanceof FeatureInstance) {
+				ErrorPropagation founddst = EMV2Util.getIncomingErrorPropagation((FeatureInstance) dst);
+				if (founddst != null) {
 					dstprop = founddst;
 				}
 			}
-			if (dst instanceof FeatureInstance){
-				ErrorPropagation founddst = EMV2Util.getIncomingErrorContainment((FeatureInstance)dst);
-				if (founddst != null){
+			if (dst instanceof FeatureInstance) {
+				ErrorPropagation founddst = EMV2Util.getIncomingErrorContainment((FeatureInstance) dst);
+				if (founddst != null) {
 					dstcontain = founddst;
 				}
 			}
 		}
-		if (srcprop != null & dstprop != null){
+		if (srcprop != null & dstprop != null) {
 			// need to check whether all error types are handled by the destination
 			checkConnectionErrorTypes(connectionInstance, srcprop, srccontain, dstprop, dstcontain);
 		}
-		if (connectionInstance.isBidirectional()){
+		if (connectionInstance.isBidirectional()) {
 			srcprop = null;
 			dstprop = null;
 			srccontain = null;
@@ -161,343 +162,332 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			for (ConnectionReference connectionReference : connrefs) {
 				ConnectionInstanceEnd src = connectionReference.getSource();
 				ConnectionInstanceEnd dst = connectionReference.getDestination();
-				if (srcprop == null && dst instanceof FeatureInstance){
-					srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)dst);
+				if (srcprop == null && dst instanceof FeatureInstance) {
+					srcprop = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) dst);
 				}
-				if (srccontain == null && dst instanceof FeatureInstance){
-					srccontain = EMV2Util.getOutgoingErrorContainment((FeatureInstance)dst);
+				if (srccontain == null && dst instanceof FeatureInstance) {
+					srccontain = EMV2Util.getOutgoingErrorContainment((FeatureInstance) dst);
 				}
-				if (src instanceof FeatureInstance){
-					ErrorPropagation founddst = EMV2Util.getOutgoingErrorPropagation((FeatureInstance)src);
-					if (founddst != null){
+				if (src instanceof FeatureInstance) {
+					ErrorPropagation founddst = EMV2Util.getOutgoingErrorPropagation((FeatureInstance) src);
+					if (founddst != null) {
 						dstprop = founddst;
 					}
 				}
-				if (src instanceof FeatureInstance){
-					ErrorPropagation founddst = EMV2Util.getOutgoingErrorContainment((FeatureInstance)src);
-					if (founddst != null){
+				if (src instanceof FeatureInstance) {
+					ErrorPropagation founddst = EMV2Util.getOutgoingErrorContainment((FeatureInstance) src);
+					if (founddst != null) {
 						dstcontain = founddst;
 					}
 				}
 			}
-			if (srcprop != null & dstprop != null){
+			if (srcprop != null & dstprop != null) {
 				// need to check whether all error types are handled by the destination
 				checkConnectionErrorTypes(connectionInstance, srcprop, srccontain, dstprop, dstcontain);
 			}
 		}
 	}
-	
 
-	protected void checkConnectionErrorTypes(ConnectionInstance connectionInstance,ErrorPropagation srcprop,ErrorPropagation srccontain,ErrorPropagation dstprop,ErrorPropagation dstcontain){
+	protected void checkConnectionErrorTypes(ConnectionInstance connectionInstance, ErrorPropagation srcprop,
+			ErrorPropagation srccontain, ErrorPropagation dstprop, ErrorPropagation dstcontain) {
 
-		if (srcprop != null && dstprop != null){
-			if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
-				error(connectionInstance,"C1: Outgoing propagation  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+		if (srcprop != null && dstprop != null) {
+			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
+				error(connectionInstance,
+						"C1: Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
+								+ EMV2Util.getPrintName(srcprop.getTypeSet())
+								+ " has error types not handled by incoming propagation "
+								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		if (srccontain != null && dstcontain != null){
-			if(! EM2TypeSetUtil.contains(srccontain.getTypeSet(),dstcontain.getTypeSet())){
-				error(connectionInstance,"C1: Outgoing containment  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" does not contain error types listed by incoming containment "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+		if (srccontain != null && dstcontain != null) {
+			if (!EM2TypeSetUtil.contains(srccontain.getTypeSet(), dstcontain.getTypeSet())) {
+				error(connectionInstance,
+						"C1: Outgoing containment  " + EMV2Util.getPrintName(srcprop)
+								+ EMV2Util.getPrintName(srcprop.getTypeSet())
+								+ " does not contain error types listed by incoming containment "
+								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		if ( srcprop == null&&srccontain == null && (dstprop != null||dstcontain != null)){
-				// has an EMV2 subclause but no propagation specification for the feature
-				warning(connectionInstance,"C1: Connection source has no error propagation/containment but target does: "+(dstprop!=null?EMV2Util.getPrintName(dstprop):EMV2Util.getPrintName(dstcontain)));
+		if (srcprop == null && srccontain == null && (dstprop != null || dstcontain != null)) {
+			// has an EMV2 subclause but no propagation specification for the feature
+			warning(connectionInstance, "C1: Connection source has no error propagation/containment but target does: "
+					+ (dstprop != null ? EMV2Util.getPrintName(dstprop) : EMV2Util.getPrintName(dstcontain)));
 		}
-		if ( dstprop == null  && dstcontain == null && (srcprop != null||srccontain != null)){
-				// has an EMV2 subclause but no propagation specification for the feature
-				error(connectionInstance,"C1: Connection target has no error propagation/containment but source does: "+(srcprop!=null?EMV2Util.getPrintName(srcprop):EMV2Util.getPrintName(srccontain)));
+		if (dstprop == null && dstcontain == null && (srcprop != null || srccontain != null)) {
+			// has an EMV2 subclause but no propagation specification for the feature
+			error(connectionInstance, "C1: Connection target has no error propagation/containment but source does: "
+					+ (srcprop != null ? EMV2Util.getPrintName(srcprop) : EMV2Util.getPrintName(srccontain)));
 		}
 	}
 
-	protected void checkPropagationPathErrorTypes(PropagationPathRecord path){
+	protected void checkPropagationPathErrorTypes(PropagationPathRecord path) {
 		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
 		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
-		if (srcprop != null && dstprop != null){
-			if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
-				error(path.getConnectionInstance()!=null?path.getConnectionInstance():path.getSrcCI(),"Outgoing propagation  "+EMV2Util.getPrintName(srcprop)+EMV2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EMV2Util.getPrintName(dstprop)+EMV2Util.getPrintName(dstprop.getTypeSet()));
+		if (srcprop != null && dstprop != null) {
+			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
+				error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
+						"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
+								+ EMV2Util.getPrintName(srcprop.getTypeSet())
+								+ " has error types not handled by incoming propagation "
+								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		if ( dstprop == null   && srcprop != null){
-				// has an EMV2 subclause but no propagation specification for the feature
-				error(path.getConnectionInstance()!=null?path.getConnectionInstance():path.getSrcCI(),"Connection target has no error propagation/containment but source does: "+EMV2Util.getPrintName(srcprop));
+		if (dstprop == null && srcprop != null) {
+			// has an EMV2 subclause but no propagation specification for the feature
+			error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
+					"Connection target has no error propagation/containment but source does: "
+							+ EMV2Util.getPrintName(srcprop));
 		}
 	}
-	
-	protected void checkComponent(ComponentInstance componentInstance, AnalysisModel model)
-	{
-		
-		if (EMV2Util.hasEMV2Subclause(componentInstance))
-		{
-			
+
+	protected void checkComponent(ComponentInstance componentInstance, AnalysisModel model) {
+
+		if (EMV2Util.hasEMV2Subclause(componentInstance)) {
+
 			/**
 			 * C1: for each error source there is an error sink.
 			 * The error sink handles all the error types form the source.
 			 */
-			for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
-			{			
+			for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance
+					.getComponentClassifier())) {
 				/**
-				 * 
+				 *
 				 * In the following, we check that all the types and subtypes for a given components
 				 * are declared as error source for each out propagation. This would be enhanced
 				 * when defining different error sources/path for the same propagation point.
 				 */
-				for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance.getComponentClassifier()))
-				{
-					if (ef instanceof ErrorSink)
-					{
-						ErrorSink es = (ErrorSink)ef;
-						if (es.getIncoming() == ep)
-						{
-			
-							for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep)))
-							{
-			
-								if (! EM2TypeSetUtil.contains (es.getTypeTokenConstraint(), tt))
-								{
-									error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " does not declare " + tt.getType().get(0).getName() + " as error source");
-			
+				for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance.getComponentClassifier())) {
+					if (ef instanceof ErrorSink) {
+						ErrorSink es = (ErrorSink) ef;
+						if (es.getIncoming() == ep) {
+
+							for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
+									EMV2Util.getContainingTypeUseContext(ep))) {
+
+								if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
+									error(componentInstance, "Incoming propagation " + EMV2Util.getPrintName(ep)
+											+ " does not declare " + tt.getType().get(0).getName() + " as error source");
+
 								}
 							}
 						}
 					}
 				}
 			}
-			
-			
-			for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
-			{
+
+			for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance
+					.getComponentClassifier())) {
 //				OsateDebug.osateDebug("ci=" + componentInstance.getName() + "ep =" + EMV2Util.getPrintName(ep));
-			
+
 				/**
-				 * 
+				 *
 				 * In the following, we check that all the types and subtypes for a given components
 				 * are declared as error source for each out propagation. This would be enhanced
 				 * when defining different error sources/path for the same propagation point.
 				 */
-				for (ErrorSource es : EMV2Util.getAllErrorSources(componentInstance.getComponentClassifier()))
-				{
-					if (es.getOutgoing() == ep)
-					{
-		
-						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep)))
-						{
-		
-							if (! EM2TypeSetUtil.contains (es.getTypeTokenConstraint(), tt))
-							{
-								error(componentInstance,"Outgoing propagation " +EMV2Util.getPrintName(ep) + " does not declare " + tt.getType().get(0).getName() + " as error source");
-		
+				for (ErrorSource es : EMV2Util.getAllErrorSources(componentInstance.getComponentClassifier())) {
+					if (es.getOutgoing() == ep) {
+
+						for (TypeToken tt : EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
+								EMV2Util.getContainingTypeUseContext(ep))) {
+
+							if (!EM2TypeSetUtil.contains(es.getTypeTokenConstraint(), tt)) {
+								error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
+										+ " does not declare " + tt.getType().get(0).getName() + " as error source");
+
 							}
 						}
 					}
 				}
-				
-				if (model.getAllPropagationPaths(componentInstance, ep).size() == 0)
-				{
-					error(componentInstance,"Outgoing propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
 
-					//OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " + ep.getName());
+				if (model.getAllPropagationPaths(componentInstance, ep).size() == 0) {
+					error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
+							+ " not correctly handled");
+
+					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " +
+// ep.getName());
 					continue;
 				}
-				
-				for (PropagationPathRecord pp : model.getAllPropagationPaths(componentInstance, ep))
-				{
+
+				for (PropagationPathRecord pp : model.getAllPropagationPaths(componentInstance, ep)) {
 					ErrorPropagation ep2 = pp.getPathDst().getErrorPropagation();
-					
+
 //					OsateDebug.osateDebug("epts =" + EMV2Util.getPrintName(ep.getTypeSet()));
 //					OsateDebug.osateDebug("ep2ts =" + EMV2Util.getPrintName(ep2.getTypeSet()));
-					EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep2.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
-//				
+					EList<TypeToken> dstTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep2.getTypeSet(),
+							EMV2Util.getContainingTypeUseContext(ep));
+//
 //					for (TypeToken tt1 : srcTokens)
 //					{
 //						if (! EM2TypeSetUtil.contains (ep2.getTypeSet(), tt1))
 //						{
 //							error(componentInstance, "Error type " + EMV2Util.getPrintName(tt1)  +  " between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
-	//
+					//
 //						}
-//						
+//
 //					}
-					for (TypeToken tt1 : dstTokens)
-					{
-						if (! EM2TypeSetUtil.contains (ep.getTypeSet(), tt1))
-						{
-							error(componentInstance, "Type " + EMV2Util.getPrintName(tt1)  +  " is not propagated by the error source " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " but is expected by the error sink " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
+					for (TypeToken tt1 : dstTokens) {
+						if (!EM2TypeSetUtil.contains(ep.getTypeSet(), tt1)) {
+							error(componentInstance, "Type " + EMV2Util.getPrintName(tt1)
+									+ " is not propagated by the error source " + EMV2Util.getPrintName(ep) + "/"
+									+ EMV2Util.getPrintName(ep.getTypeSet()) + " but is expected by the error sink "
+									+ EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
 
 						}
-						
+
 					}
 //					if (!(EM2TypeSetUtil.contains(, ep2.getTypeSet()) && EM2TypeSetUtil.contains(ep2.getTypeSet(), ep.getTypeSet())))
 //					{
 //						error(componentInstance, "Some errors are not handled between " + EMV2Util.getPrintName(ep) + "/" + EMV2Util.getPrintName(ep.getTypeSet()) + " and " + EMV2Util.getPrintName(ep2) + "/" + EMV2Util.getPrintName(ep2.getTypeSet()));
 //						continue;
-					
-				}
-			}
-			for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier()))
-			{
-				if (model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0)
-				{
-					error(componentInstance,"Incoming propagation " +EMV2Util.getPrintName(ep) + " not correctly handled");
 
-					//OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " + ep.getName());
 				}
 			}
-			
+			for (ErrorPropagation ep : EMV2Util.getAllIncomingErrorPropagations(componentInstance
+					.getComponentClassifier())) {
+				if (model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0) {
+					error(componentInstance, "Incoming propagation " + EMV2Util.getPrintName(ep)
+							+ " not correctly handled");
+
+					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " +
+// ep.getName());
+				}
+			}
+
 			/**
 			 * End of implementation of C1
 			 */
-			
-			
+
 			/**
 			 * C2: Transitions of error component behavior use all incoming error propagations and error events
 			 *
 			 * First, we check that if the component has error propagation, it references
 			 * at least ALL error types from ALL incoming propagations.
 			 */
-			
-			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-			{	
-				for (ErrorBehaviorEvent ebe : EMV2Util.getAllErrorBehaviorEvents(componentInstance))
-				{
+
+			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
+				for (ErrorBehaviorEvent ebe : EMV2Util.getAllErrorBehaviorEvents(componentInstance)) {
 					boolean found = false;
-					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (ebt))
-					{
-						if (ce.getIncoming() != null)
-						{
-							if (ce.getIncoming() instanceof ErrorEvent)
-							{
+					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(ebt)) {
+						if (ce.getIncoming() != null) {
+							if (ce.getIncoming() instanceof ErrorEvent) {
 								ErrorEvent ee = (ErrorEvent) ce.getIncoming();
-								if(ee == ebe)
-								{
+								if (ee == ebe) {
 									found = true;
 								}
 							}
 						}
 					}
-					
-					if (!found)
-					{
-						error(componentInstance,"C2: transition " + EMV2Util.getPrintName(ebt) + " in component " + componentInstance.getName() + " does not reference event " + EMV2Util.getPrintName(ebe));
+
+					if (!found) {
+						error(componentInstance,
+								"C2: transition " + EMV2Util.getPrintName(ebt) + " in component "
+										+ componentInstance.getName() + " does not reference event "
+										+ EMV2Util.getPrintName(ebe));
 					}
 				}
-				
-				for (ErrorSink es : EMV2Util.getAllErrorSinks (componentInstance))
-				{
+
+				for (ErrorSink es : EMV2Util.getAllErrorSinks(componentInstance)) {
 					boolean found = false;
-					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (ebt))
-					{
-						if (ce.getIncoming() != null)
-						{
-							if (ce.getIncoming() instanceof ErrorPropagation)
-							{
+					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(ebt)) {
+						if (ce.getIncoming() != null) {
+							if (ce.getIncoming() instanceof ErrorPropagation) {
 								ErrorPropagation ep = (ErrorPropagation) ce.getIncoming();
-								if(ep == ce.getIncoming())
-								{
+								if (ep == ce.getIncoming()) {
 									found = true;
 								}
 							}
 						}
 					}
-					
-					if (!found)
-					{
-						error(componentInstance,"C2: transition " + EMV2Util.getPrintName(ebt) + " in component " + componentInstance.getName() + " does not reference error sink " + EMV2Util.getPrintName(es));
+
+					if (!found) {
+						error(componentInstance,
+								"C2: transition " + EMV2Util.getPrintName(ebt) + " in component "
+										+ componentInstance.getName() + " does not reference error sink "
+										+ EMV2Util.getPrintName(es));
 					}
 				}
-				
+
 			}
-			
+
 			/**
 			 * End of implementation of C2
 			 */
-			
-			
+
 			/**
 			 * Rule C3: propagation without a condition
 			 * must propagate to an error source declared in the flow.
 			 */
-			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
-			{
+			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance)) {
 				/**
 				 * if the associated condition is null, then, the outgoing propagation
 				 * shoulbd an error source.
 				 */
-				if (opc.getCondition() == null)
-				{
-					if ( EMV2Util.getErrorSource (componentInstance, opc.getOutgoing()) == null)
-					{
-						error(componentInstance,"C3: propagation " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " has no condition and thus, should output to an error source only");
+				if (opc.getCondition() == null) {
+					if (EMV2Util.getErrorSource(componentInstance, opc.getOutgoing()) == null) {
+						error(componentInstance, "C3: propagation " + EMV2Util.getPrintName(opc) + " in component "
+								+ componentInstance.getName()
+								+ " has no condition and thus, should output to an error source only");
 
 					}
-				}	
+				}
 			}
-			
+
 			/**
 			 * End of implementation of C3
 			 */
-			
-			
+
 			/**
 			 * Rule C4: Outgoing propagation condition with condition must have an associated flow path
 			 */
-			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
-			{
-				if (opc.getCondition() != null)
-				{
+			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance)) {
+				if (opc.getCondition() != null) {
 					boolean found = false;
-					
-					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(opc))
-					{
-						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorPropagation))
-						{
+
+					for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(opc)) {
+						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorPropagation)) {
 							ErrorPropagation conditionIncoming = (ErrorPropagation) ce.getIncoming();
-							for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
-							{
-								if (ef instanceof ErrorPath)
-								{
+							for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance)) {
+								if (ef instanceof ErrorPath) {
 									ErrorPath ep = (ErrorPath) ef;
 									ErrorPropagation pathIncoming = ep.getIncoming();
 									ErrorPropagation pathOutgoing = ep.getOutgoing();
 
-									if ((conditionIncoming == pathIncoming) && (opc.getOutgoing() == pathOutgoing))
-									{
+									if ((conditionIncoming == pathIncoming) && (opc.getOutgoing() == pathOutgoing)) {
 										found = true;
 									}
 								}
 							}
 						}
 					}
-					//EMV2Util.getAllConditionElementsFromOutgoingPropagationCondition(opc)
-					if (!found)
-					{
-						error(componentInstance,"C4: outgoing propagation condition " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " does not have error path defined");
+					// EMV2Util.getAllConditionElementsFromOutgoingPropagationCondition(opc)
+					if (!found) {
+						error(componentInstance, "C4: outgoing propagation condition " + EMV2Util.getPrintName(opc)
+								+ " in component " + componentInstance.getName() + " does not have error path defined");
 					}
 				}
 			}
 			/**
 			 * End of implementation of C4
 			 */
-			
+
 			/**
 			 * Rule C5: In the component error behavior, check that we have a transition between each state
 			 * Let also check that if a components has an error state machine, all
 			 * states are referenced.
 			 */
-			if (EMV2Util.hasComponentErrorBehaviorStates(componentInstance))
-			{
-				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
-				{
+			if (EMV2Util.hasComponentErrorBehaviorStates(componentInstance)) {
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
 					boolean found = false;
-					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-					{
-						if ((ebt.getSource() == ebs) && (ebt.getSource() == ebt.getTarget())) 
-						{
+					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
+						if ((ebt.getSource() == ebs) || (ebt.getTarget() == ebs)) {
 							found = true;
 						}
 					}
-					if (found == false)
-					{
-						error(componentInstance,"State " + EMV2Util.getPrintName(ebs) + " has no associated transition for component " + componentInstance.getName());
+					if (found == false) {
+						error(componentInstance, "State " + EMV2Util.getPrintName(ebs)
+								+ " has no associated transition for component " + componentInstance.getName());
 
 					}
 				}
@@ -506,142 +496,125 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * End of implementation of C5
 			 */
-			
+
 			/**
 			 * Rule C6: Check completeness of all outgoing error propagation condition: we address and cover all error types
 			 */
-			if (EMV2Util.hasErrorPropagations(componentInstance))
-			{
-				for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance.getComponentClassifier()))
-				{
-					EList<TypeToken> epTokens = EM2TypeSetUtil.generateAllLeafTypeTokens (ep.getTypeSet(),EMV2Util.getContainingTypeUseContext(ep));
-	
-					for (TypeToken tt : epTokens)
-					{
-					//	OsateDebug.osateDebug("check for type" + EMV2Util.getPrintName(tt) );
+			if (EMV2Util.hasErrorPropagations(componentInstance)) {
+				for (ErrorPropagation ep : EMV2Util.getAllOutgoingErrorPropagations(componentInstance
+						.getComponentClassifier())) {
+					EList<TypeToken> epTokens = EM2TypeSetUtil.generateAllLeafTypeTokens(ep.getTypeSet(),
+							EMV2Util.getContainingTypeUseContext(ep));
+
+					for (TypeToken tt : epTokens) {
+						// OsateDebug.osateDebug("check for type" + EMV2Util.getPrintName(tt) );
 						boolean found = false;
-						for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
-						{
-							if (opc.getOutgoing() == ep)
-							{
-								
-								if (EM2TypeSetUtil.contains(opc.getTypeToken(), tt))	
-								{
-								//	OsateDebug.osateDebug("found" + EMV2Util.getPrintName(tt) );
+						for (OutgoingPropagationCondition opc : EMV2Util
+								.getAllOutgoingPropagationConditions(componentInstance)) {
+							if (opc.getOutgoing() == ep) {
+
+								if (EM2TypeSetUtil.contains(opc.getTypeToken(), tt)) {
+									// OsateDebug.osateDebug("found" + EMV2Util.getPrintName(tt) );
 
 									found = true;
-								}		
+								}
 							}
 						}
-	
-						if (!found)
-						{
-							error(componentInstance,"C6: error propagation " + EMV2Util.getPrintName(ep) + " does not have a corresponding propagation condition for type " + EMV2Util.getPrintName(tt) + "or any other super-type");
+
+						if (!found) {
+							error(componentInstance,
+									"C6: error propagation " + EMV2Util.getPrintName(ep)
+											+ " does not have a corresponding propagation condition for type "
+											+ EMV2Util.getPrintName(tt) + "or any other super-type");
 						}
 					}
-	
+
 				}
 			}
 			/**
 			 * End of implementation of C6
 			 */
-			
-			
+
 			/**
 			 * Rule C7: we do not propagate error with a condition from a sink
 			 */
-			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance))
-			{
+			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(componentInstance)) {
 
-				for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (opc))
-				{
-					if (ce.getIncoming() != null)
-					{
-						for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
-						{
-							if (ef instanceof ErrorSink)
-							{
+				for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(opc)) {
+					if (ce.getIncoming() != null) {
+						for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance)) {
+							if (ef instanceof ErrorSink) {
 								ErrorSink es = (ErrorSink) ef;
-								if (es.getIncoming() == ce.getIncoming())
-								{
-									error(componentInstance,"C7: propagation " + EMV2Util.getPrintName(opc) + " in component " + componentInstance.getName() + " depends on an error sink");
+								if (es.getIncoming() == ce.getIncoming()) {
+									error(componentInstance, "C7: propagation " + EMV2Util.getPrintName(opc)
+											+ " in component " + componentInstance.getName()
+											+ " depends on an error sink");
 
 								}
 							}
 						}
 					}
-					
+
 				}
 			}
 			/**
 			 * End of implementation of C7
 			 */
-			
+
 			/**
 			 * Rule C9: Check that there is no transition with the same condition and source state
 			 */
-			for (ErrorBehaviorTransition ebt1 : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-			{	
-				for (ErrorBehaviorTransition ebt2 : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-				{	
-					if ((ebt1 != ebt2) && (ebt1.getSource() == ebt2.getSource()))
-					{
-						if (EMV2Util.isEqual (ebt1.getCondition(), ebt2.getCondition()))
-						{
-							error(componentInstance,"C9: transition " + EMV2Util.getPrintName(ebt1) + " is similar to transition " + EMV2Util.getPrintName(ebt2) +  " in component " + componentInstance.getName());
+			for (ErrorBehaviorTransition ebt1 : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
+				for (ErrorBehaviorTransition ebt2 : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
+					if ((ebt1 != ebt2) && (ebt1.getSource() == ebt2.getSource())) {
+						if (EMV2Util.isEqual(ebt1.getCondition(), ebt2.getCondition())) {
+							error(componentInstance, "C9: transition " + EMV2Util.getPrintName(ebt1)
+									+ " is similar to transition " + EMV2Util.getPrintName(ebt2) + " in component "
+									+ componentInstance.getName());
 
 						}
 					}
-				}	
+				}
 			}
 			/**
 			 * End of implementation of C9
 			 */
-			
-			
+
 			/**
 			 * Rule C10: Check that for each state transition, all elements are referenced
 			 */
-			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-			{	
-				Collection<ConditionElement> allCE = EMV2Util.getAllConditionElementsFromConditionExpression (ebt);
-				for (ErrorSink es : EMV2Util.getAllErrorSinks(componentInstance))
-				{
+			for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
+				Collection<ConditionElement> allCE = EMV2Util.getAllConditionElementsFromConditionExpression(ebt);
+				for (ErrorSink es : EMV2Util.getAllErrorSinks(componentInstance)) {
 					boolean found = false;
-					for (ConditionElement ce : allCE)
-					{
-						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorPropagation))
-						{
-							if (ce.getIncoming() == es.getIncoming())
-							{
+					for (ConditionElement ce : allCE) {
+						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorPropagation)) {
+							if (ce.getIncoming() == es.getIncoming()) {
 								found = true;
 							}
 						}
 					}
-					if ( ! found)
-					{
-						error(componentInstance,"C10: transition " + EMV2Util.getPrintName(ebt) + " does not references error sink " + EMV2Util.getPrintName(es) +  " in component " + componentInstance.getName());
+					if (!found) {
+						error(componentInstance, "C10: transition " + EMV2Util.getPrintName(ebt)
+								+ " does not references error sink " + EMV2Util.getPrintName(es) + " in component "
+								+ componentInstance.getName());
 
 					}
 				}
-				
-				
-				for (ErrorBehaviorEvent ebe : EMV2Util.getAllErrorBehaviorEvents(componentInstance))
-				{
+
+				for (ErrorBehaviorEvent ebe : EMV2Util.getAllErrorBehaviorEvents(componentInstance)) {
 					boolean found = false;
-					for (ConditionElement ce : allCE)
-					{
-						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorEvent))
-						{
-							if (ce.getIncoming() == ebe)
-							{
+					for (ConditionElement ce : allCE) {
+						if ((ce.getIncoming() != null) && (ce.getIncoming() instanceof ErrorEvent)) {
+							if (ce.getIncoming() == ebe) {
 								found = true;
 							}
 						}
 					}
-					if ( ! found)
-					{
-						error(componentInstance,"C10: transition " + EMV2Util.getPrintName(ebt) + " does not references error event " + EMV2Util.getPrintName(ebe) +  " in component " + componentInstance.getName());
+					if (!found) {
+						error(componentInstance, "C10: transition " + EMV2Util.getPrintName(ebt)
+								+ " does not references error event " + EMV2Util.getPrintName(ebe) + " in component "
+								+ componentInstance.getName());
 
 					}
 				}
@@ -650,28 +623,25 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * End of implementation of C10
 			 */
-			
+
 			/**
 			 * Rule C11: Composite error behavior: indicate the condition for each state of the component
-			 * 
+			 *
 			 * Let also check that if a components has an composite error state, all
 			 * states are referenced.
 			 */
-			if (EMV2Util.hasCompositeErrorBehavior(componentInstance))
-			{
-				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
-				{
+			if (EMV2Util.hasCompositeErrorBehavior(componentInstance)) {
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
 					boolean found = false;
-					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance))
-					{
-							if (cs.getState() == ebs)
-							{
-								found = true;
-							}
+					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
+						if (cs.getState() == ebs) {
+							found = true;
+						}
 					}
-					if (found == false)
-					{
-						error(componentInstance,"C11: state " + EMV2Util.getPrintName(ebs) + " has no associated transition for composite behavior of component " + componentInstance.getName());
+					if (found == false) {
+						error(componentInstance, "C11: state " + EMV2Util.getPrintName(ebs)
+								+ " has no associated transition for composite behavior of component "
+								+ componentInstance.getName());
 
 					}
 				}
@@ -679,28 +649,21 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * End of implementation of C11
 			 */
-			
+
 			/**
 			 * Rule C12: Composite error behavior references all subcomponents
 			 */
-			if (EMV2Util.hasCompositeErrorBehavior(componentInstance))
-			{
+			if (EMV2Util.hasCompositeErrorBehavior(componentInstance)) {
 				EList<Subcomponent> subcomponents;
-				
-				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
-				{
+
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
 					subcomponents = new BasicEList<Subcomponent>();
 
-					for (CompositeState cs : EMV2Util.getAllCompositeStates (componentInstance))
-					{
-						if (cs.getState() == ebs)
-						{
-							for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression (cs))
-							{
-								for (SubcomponentElement se : ce.getSubcomponents())
-								{
-									if (se != null)
-									{
+					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
+						if (cs.getState() == ebs) {
+							for (ConditionElement ce : EMV2Util.getAllConditionElementsFromConditionExpression(cs)) {
+								for (SubcomponentElement se : ce.getSubcomponents()) {
+									if (se != null) {
 										subcomponents.add(se.getSubcomponent());
 									}
 								}
@@ -708,20 +671,17 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 						}
 
 					}
-					
-					for (ComponentInstance ci : componentInstance.getComponentInstances())
-					{
+
+					for (ComponentInstance ci : componentInstance.getComponentInstances()) {
 						boolean found = false;
-						for (Subcomponent s : subcomponents)
-						{
-							if (s == ci.getSubcomponent())
-							{
+						for (Subcomponent s : subcomponents) {
+							if (s == ci.getSubcomponent()) {
 								found = true;
 							}
 						}
-						if (! found)
-						{
-							error(componentInstance,"C12: component " + ci.getName() + " is not referenced for state " + EMV2Util.getPrintName(ebs) + " in component " + componentInstance.getName() );
+						if (!found) {
+							error(componentInstance, "C12: component " + ci.getName() + " is not referenced for state "
+									+ EMV2Util.getPrintName(ebs) + " in component " + componentInstance.getName());
 						}
 					}
 				}
@@ -729,105 +689,95 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * End of implementation of C12
 			 */
-			
-			
-		
+
 			/**
 			 * Rule C13: Composite error behavior: check compliance between component state machine and composite error state machine
 			 */
-			if (EMV2Util.hasCompositeErrorBehavior(componentInstance) && EMV2Util.hasComponentErrorBehaviorStates(componentInstance))
-			{
-
+			if (EMV2Util.hasCompositeErrorBehavior(componentInstance)
+					&& EMV2Util.hasComponentErrorBehaviorStates(componentInstance)) {
 
 				/**
 				 * For each state, we will get all the conditions for both the error behavior
 				 * AND the composite error model.
 				 */
-				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance))
-				{
+				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
 					EList<ConditionElement> elementsBehavior = new BasicEList<ConditionElement>();
-					EList<ConditionElement> elementsComposite= new BasicEList<ConditionElement>();
+					EList<ConditionElement> elementsComposite = new BasicEList<ConditionElement>();
 					double probabilityBehavior = 0;
 					double probabilityComposite = 0;
 					double tmp;
 					/**
 					 * We retrieve all the elements within the error behavior specifications
 					 */
-					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance))
-					{
-						if (ebt.getTarget() == ebs)
-						{
+					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
+						if (ebt.getTarget() == ebs) {
 							elementsBehavior.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(ebt));
 						}
 					}
-					
-					
+
 					/**
 					 * We retrieve all the elements within the composite error behavior
 					 */
-					for ( CompositeState cs : EMV2Util.getAllCompositeStates (componentInstance))
-					{
-							if (cs.getState() == ebs)
-							{
-								elementsComposite.addAll(EMV2Util.getAllConditionElementsFromConditionExpression (cs));
-							}
+					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
+						if (cs.getState() == ebs) {
+							elementsComposite.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(cs));
+						}
 					}
-					
+
 					/**
 					 * FIXME JD
-					 * 
+					 *
 					 * For now, we just sum the properties but we should introduce something more intelligent to make
 					 * some consistency check and handle the different operators such as and, or, etc.
 					 */
-					for (ConditionElement ce : elementsComposite)
-					{
-						for (SubcomponentElement se : ce.getSubcomponents())
-						{
+					for (ConditionElement ce : elementsComposite) {
+						for (SubcomponentElement se : ce.getSubcomponents()) {
 							se.getSubcomponent();
-							//OsateDebug.osateDebug("se=" + se);
-							EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,ce.getState(),null);
-							if (PA.isEmpty())
-							{
-								warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for " + EMV2Util.getPrintName(se) + " and state " + EMV2Util.getPrintName(ce.getState()) );
-							}
-							else
-							{
-							//OsateDebug.osateDebug("         PA " + PA);
-								tmp = EMV2Properties.getOccurenceValue (PA.get(0));
-								//OsateDebug.osateDebug("tmp=" + tmp);
+							// OsateDebug.osateDebug("se=" + se);
+							EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(
+									componentInstance, ce.getState(), null);
+							if (PA.isEmpty()) {
+								warning(componentInstance, "C13: component " + componentInstance.getName()
+										+ " does not define occurrence for " + EMV2Util.getPrintName(se)
+										+ " and state " + EMV2Util.getPrintName(ce.getState()));
+							} else {
+								// OsateDebug.osateDebug("         PA " + PA);
+								tmp = EMV2Properties.getOccurenceValue(PA.get(0));
+								// OsateDebug.osateDebug("tmp=" + tmp);
 								probabilityComposite = probabilityComposite + tmp;
 							}
 						}
 
 					}
-					
-					for (ConditionElement ce : elementsBehavior)
-					{
-						EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(componentInstance,ce.getIncoming(),null);
-						//OsateDebug.osateDebug("         PA " + PA);
-						if (PA.isEmpty())
-						{
-							warning(componentInstance,"C13: component " + componentInstance.getName() + " does not define occurrence for incoming propagation " + EMV2Util.getPrintName(ce.getIncoming()));
-						}
-						else
-						{
-							//OsateDebug.osateDebug("         PA " + PA);
-							tmp = EMV2Properties.getOccurenceValue (PA.get(0));
-							//OsateDebug.osateDebug("tmp=" + tmp);
-							probabilityBehavior = probabilityBehavior + tmp;							
+
+					for (ConditionElement ce : elementsBehavior) {
+						EList<ContainedNamedElement> PA = EMV2Properties.getOccurenceDistributionProperty(
+								componentInstance, ce.getIncoming(), null);
+						// OsateDebug.osateDebug("         PA " + PA);
+						if (PA.isEmpty()) {
+							warning(componentInstance,
+									"C13: component " + componentInstance.getName()
+											+ " does not define occurrence for incoming propagation "
+											+ EMV2Util.getPrintName(ce.getIncoming()));
+						} else {
+							// OsateDebug.osateDebug("         PA " + PA);
+							tmp = EMV2Properties.getOccurenceValue(PA.get(0));
+							// OsateDebug.osateDebug("tmp=" + tmp);
+							probabilityBehavior = probabilityBehavior + tmp;
 						}
 					}
 //					OsateDebug.osateDebug("State " + ebs.getName() + "probability composite = " + probabilityComposite);
 //					OsateDebug.osateDebug("State " + ebs.getName() + "probability behavior  = " + probabilityBehavior);
-//					
-					
-					if (probabilityBehavior != probabilityComposite)
-					{
-						error(componentInstance,"C13: in component " + componentInstance.getName() + " inconsistent probability values for state " + ebs.getName() + " (for composite, probability=" + probabilityComposite + " ; for behavior, probability=" + probabilityBehavior + ")");
-					}
-					else
-					{
-						info(componentInstance,"C13: component " + componentInstance.getName() + " has consistent probability values for state " + ebs.getName());
+//
+
+					if (probabilityBehavior != probabilityComposite) {
+						error(componentInstance, "C13: in component " + componentInstance.getName()
+								+ " inconsistent probability values for state " + ebs.getName()
+								+ " (for composite, probability=" + probabilityComposite
+								+ " ; for behavior, probability=" + probabilityBehavior + ")");
+					} else {
+						info(componentInstance, "C13: component " + componentInstance.getName()
+								+ " has consistent probability values for state " + ebs.getName());
 
 					}
 				}
@@ -835,50 +785,42 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * End of implementation of C13
 			 */
-			
-			
-			
+
 			/**
 			 * Rule C14: Check for undeclared error path
 			 */
-			for (FeatureInstance fi : componentInstance.getFeatureInstances())
-			{
+			for (FeatureInstance fi : componentInstance.getFeatureInstances()) {
 				Feature srcFeature = null;
 				Feature dstFeature = null;
 				EList<ConnectionInstance> connections = fi.getAllEnclosingConnectionInstances();
-				
+
 				srcFeature = fi.getFeature();
-				
-				if ( (fi.getDirection() != DirectionType.IN) && (fi.getDirection() != DirectionType.IN_OUT))
-				{
+
+				if ((fi.getDirection() != DirectionType.IN) && (fi.getDirection() != DirectionType.IN_OUT)) {
 					continue;
 				}
-				
-				for (ConnectionInstance ci : connections)
-				{
-					//OsateDebug.osateDebug("ci=" + ci);
-					
-					for (ConnectionReference cr : ci.getConnectionReferences())
-					{
-						Connection conn = cr.getConnection();
-						//OsateDebug.osateDebug("conn dest=" + conn.getDestination());
-						if ((conn.getDestination() != null) && (conn.getDestination() instanceof ConnectedElement))
-						{
-							ConnectedElement connected = (ConnectedElement) conn.getDestination();
-							//OsateDebug.osateDebug("connected dest=" + connected.getConnectionEnd());
-							for (FeatureInstance fi2 : componentInstance.getFeatureInstances())
-							{
-								//OsateDebug.osateDebug("fi2=" + fi2.getFeature());
 
-								if ((connected.getConnectionEnd() != null ) && (fi2.getFeature() == connected.getConnectionEnd()) && (fi2.getFeature() != srcFeature))
-								{
+				for (ConnectionInstance ci : connections) {
+					// OsateDebug.osateDebug("ci=" + ci);
+
+					for (ConnectionReference cr : ci.getConnectionReferences()) {
+						Connection conn = cr.getConnection();
+						// OsateDebug.osateDebug("conn dest=" + conn.getDestination());
+						if ((conn.getDestination() != null) && (conn.getDestination() instanceof ConnectedElement)) {
+							ConnectedElement connected = conn.getDestination();
+							// OsateDebug.osateDebug("connected dest=" + connected.getConnectionEnd());
+							for (FeatureInstance fi2 : componentInstance.getFeatureInstances()) {
+								// OsateDebug.osateDebug("fi2=" + fi2.getFeature());
+
+								if ((connected.getConnectionEnd() != null)
+										&& (fi2.getFeature() == connected.getConnectionEnd())
+										&& (fi2.getFeature() != srcFeature)) {
 									dstFeature = fi2.getFeature();
 								}
 							}
-			
-							
+
 						}
-						
+
 //						for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
 //						{
 //							if (ef instanceof ErrorPath)
@@ -892,29 +834,25 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					}
 
 				}
-				
-				if ((dstFeature != null) && (srcFeature != null))
-				{
+
+				if ((dstFeature != null) && (srcFeature != null)) {
 					boolean found = false;
 //					OsateDebug.osateDebug("connection between " + srcFeature + " and " + dstFeature);
-					for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
-					{
-						if (ef instanceof ErrorPath)
-						{
+					for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance)) {
+						if (ef instanceof ErrorPath) {
 							ErrorPath ep = (ErrorPath) ef;
 //							OsateDebug.osateDebug("ep=" + ep);
 //							OsateDebug.osateDebug("ep in  getref=" + ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP());
 //							OsateDebug.osateDebug("ep out getref=" + ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP());
-							if ((ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP() == srcFeature) &&
-								(ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP() == dstFeature))
-							{
+							if ((ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP() == srcFeature)
+									&& (ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP() == dstFeature)) {
 								found = true;
 							}
 						}
 					}
-					if (! found)
-					{
-						error(componentInstance,"C14: in component " + componentInstance.getName() + " missing flow path between " + srcFeature.getName() + " and " + dstFeature.getName());
+					if (!found) {
+						error(componentInstance, "C14: in component " + componentInstance.getName()
+								+ " missing flow path between " + srcFeature.getName() + " and " + dstFeature.getName());
 					}
 				}
 
@@ -927,60 +865,56 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //						OsateDebug.osateDebug("ep in  getref=" + ep.getIncoming().getFeatureorPPRefs());
 //						OsateDebug.osateDebug("ep out getref=" + ep.getOutgoing().getFeatureorPPRefs());
 //					}
-//					
+//
 //					if (ef instanceof ErrorSink)
 //					{
 //						ErrorSink es = (ErrorSink) ef;
 //						OsateDebug.osateDebug("es in  getref=" + es.getIncoming().getFeatureorPPRefs());
 //
-//						
+//
 //					}
-//					
+//
 //					if (ef instanceof ErrorSource)
 //					{
 //						ErrorSource es = (ErrorSource)ef;
 //						OsateDebug.osateDebug("es out getref=" + es.getOutgoing().getFeatureorPPRefs());
 //
 //					}
-//					
+//
 //				}
-				
 
 			}
-		
+
 			/**
 			 * End of implementation of C14
 			 */
-			
+
 			/**
 			 * Rule C15: Check that if a component declare an error path, any connection from the associated feature go into a feature which is also an error sink
 			 */
-			for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance))
-			{
+			for (ErrorFlow ef : EMV2Util.getAllErrorFlows(componentInstance)) {
 				/**
 				 * First, we take all error sink from a component
 				 */
-				if ((componentInstance.getComponentClassifier() instanceof ComponentImplementation) && (ef instanceof ErrorSink))
-				{
-					ErrorSink es = (ErrorSink)ef;
+				if ((componentInstance.getComponentClassifier() instanceof ComponentImplementation)
+						&& (ef instanceof ErrorSink)) {
+					ErrorSink es = (ErrorSink) ef;
 					Feature src = (Feature) es.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP();
-					ComponentImplementation impl = (ComponentImplementation)componentInstance.getComponentClassifier();
-					//OsateDebug.osateDebug("src="+src);
-					
+					ComponentImplementation impl = (ComponentImplementation) componentInstance.getComponentClassifier();
+					// OsateDebug.osateDebug("src="+src);
+
 					/**
 					 * We inspect the connection of the feature related to this error sink
 					 */
-					for (Connection conn : impl.getAllConnections())
-					{
-						//OsateDebug.osateDebug("conn src="+conn.getSource());
-						ConnectedElementImpl ceiSrc = (ConnectedElementImpl)conn.getSource();
+					for (Connection conn : impl.getAllConnections()) {
+						// OsateDebug.osateDebug("conn src="+conn.getSource());
+						ConnectedElementImpl ceiSrc = (ConnectedElementImpl) conn.getSource();
 
-						if (ceiSrc.getConnectionEnd() == src)
-						{
+						if (ceiSrc.getConnectionEnd() == src) {
 							boolean found = false;
 
-							ConnectedElementImpl ceiDst = (ConnectedElementImpl)conn.getDestination();
-							//OsateDebug.osateDebug("before");
+							ConnectedElementImpl ceiDst = (ConnectedElementImpl) conn.getDestination();
+							// OsateDebug.osateDebug("before");
 
 							/**
 							 * Then, we finally check that the feature of the component
@@ -989,69 +923,59 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 							 * its error flow and check that it declares
 							 * an error sink for this feature.
 							 */
-							if (ceiDst.getConnectionEnd() instanceof Feature)
-							{
-								//OsateDebug.osateDebug("after");
+							if (ceiDst.getConnectionEnd() instanceof Feature) {
+								// OsateDebug.osateDebug("after");
 
-								Feature featureDst = (Feature)ceiDst.getConnectionEnd();
-								//OsateDebug.osateDebug("feature" + featureDst);
-								//OsateDebug.osateDebug("classifier" + conn.getAllDstContextComponent());
+								Feature featureDst = (Feature) ceiDst.getConnectionEnd();
+								// OsateDebug.osateDebug("feature" + featureDst);
+								// OsateDebug.osateDebug("classifier" + conn.getAllDstContextComponent());
 								Subcomponent sub = (Subcomponent) conn.getAllDstContextComponent();
-								//OsateDebug.osateDebug("sub" + sub.getComponentImplementation());
+								// OsateDebug.osateDebug("sub" + sub.getComponentImplementation());
 								ComponentClassifier cl = null;
-								if (sub.getContainingClassifier() != null)
-								{
+								if (sub.getContainingClassifier() != null) {
 									cl = (ComponentClassifier) sub.getContainingClassifier();
 								}
-								if (sub.getComponentImplementation() != null)
-								{
-									cl = (ComponentClassifier) sub.getComponentImplementation();
+								if (sub.getComponentImplementation() != null) {
+									cl = sub.getComponentImplementation();
 								}
-								
-								for (ErrorFlow ef2 : EMV2Util.getAllErrorFlows(cl))
-								{
 
-									//OsateDebug.osateDebug("ef2="+ef2);
-									if (ef2 instanceof ErrorSink)
-									{
-										//OsateDebug.osateDebug("ef2 error sink="+ef2);
+								for (ErrorFlow ef2 : EMV2Util.getAllErrorFlows(cl)) {
 
-										ErrorSink es2 = (ErrorSink)ef2;
-										Feature dst = (Feature) es2.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP();
-										//OsateDebug.osateDebug("src="+src);
+									// OsateDebug.osateDebug("ef2="+ef2);
+									if (ef2 instanceof ErrorSink) {
+										// OsateDebug.osateDebug("ef2 error sink="+ef2);
 
-										//OsateDebug.osateDebug("featureDst="+featureDst);
-										//OsateDebug.osateDebug("dst="+dst);
-										if (dst == featureDst)
-										{
+										ErrorSink es2 = (ErrorSink) ef2;
+										Feature dst = (Feature) es2.getIncoming().getFeatureorPPRefs().get(0)
+												.getFeatureorPP();
+										// OsateDebug.osateDebug("src="+src);
+
+										// OsateDebug.osateDebug("featureDst="+featureDst);
+										// OsateDebug.osateDebug("dst="+dst);
+										if (dst == featureDst) {
 											found = true;
 										}
 									}
 								}
 							}
-							
-							if (! found)
-							{
-								error(componentInstance,"C15: in component " + componentInstance.getName() + " feature " + src.getName() + " is an error sink while it is connected to a non error-sink");
+
+							if (!found) {
+								error(componentInstance, "C15: in component " + componentInstance.getName()
+										+ " feature " + src.getName()
+										+ " is an error sink while it is connected to a non error-sink");
 							}
-							
-							
+
 						}
 					}
 				}
-					
+
 			}
 			/**
 			 * End of implementation of C15
 			 */
-			
-	
-		}
-		
 
-		
+		}
 
 	}
-
 
 }

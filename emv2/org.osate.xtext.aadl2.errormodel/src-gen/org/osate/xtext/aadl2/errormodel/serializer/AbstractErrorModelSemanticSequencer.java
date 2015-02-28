@@ -125,10 +125,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_ContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getQualifiedContainmentPathElementRule()) {
-					sequence_QualifiedContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
-					return; 
-				}
 				else break;
 			case Aadl2Package.INTEGER_LITERAL:
 				if(context == grammarAccess.getIntegerTermRule() ||
@@ -253,7 +249,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.BRANCH_VALUE:
-				if(context == grammarAccess.getBranchValueRule()) {
+				if(context == grammarAccess.getBranchValueRule() ||
+				   context == grammarAccess.getElementRule()) {
 					sequence_BranchValue(context, (BranchValue) semanticObject); 
 					return; 
 				}
@@ -318,7 +315,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.ERROR_CODE_VALUE:
-				if(context == grammarAccess.getErrorCodeValueRule()) {
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getErrorCodeValueRule()) {
 					sequence_ErrorCodeValue(context, (ErrorCodeValue) semanticObject); 
 					return; 
 				}
@@ -643,7 +641,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (realvalue=REAL_LIT | symboliclabel=[PropertyConstant|QEMREF] | others?='others')
+	 *     (realvalue=REAL_LIT | symboliclabel=[Property|QEMREF] | others?='others')
 	 */
 	protected void sequence_BranchValue(EObject context, BranchValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -683,7 +681,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID 
 	 *         (connection=[Connection|ID] | all?='all') 
 	 *         typeTokenConstraint=TypeTokenConstraint? 
-	 *         (failureModeType=TypeSetConstructor | failureModeDescription=STRING)?
+	 *         (failureModeType=TypeSetConstructor | failureModeDescription=STRING)? 
+	 *         condition=CONDITION?
 	 *     )
 	 */
 	protected void sequence_ConnectionErrorSource(EObject context, ConnectionErrorSource semanticObject) {
@@ -770,7 +769,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID typeSet=TypeSetReference? condition=STRING?)
+	 *     (name=ID typeSet=TypeSetReference? condition=CONDITION?)
 	 */
 	protected void sequence_ErrorEvent(EObject context, ErrorEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -879,7 +878,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *             (failureModeReference=[ErrorBehaviorStateOrTypeSet|ID] failureModeType=TypeSetReference?) | 
 	 *             failureModeType=TypeSetConstructor | 
 	 *             failureModeDescription=STRING
-	 *         )?
+	 *         )? 
+	 *         condition=CONDITION?
 	 *     )
 	 */
 	protected void sequence_ErrorSource(EObject context, ErrorSource semanticObject) {
@@ -1012,7 +1012,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (condition+=[NamedElement|ID] condition+=[NamedElement|ID]*)?)
+	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)? condition=CONDITION?)
 	 */
 	protected void sequence_RecoverEvent(EObject context, RecoverEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1021,7 +1021,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (condition+=[NamedElement|ID] condition+=[NamedElement|ID]*)?)
+	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)?)
 	 */
 	protected void sequence_RepairEvent(EObject context, RepairEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

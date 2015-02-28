@@ -31,6 +31,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl#getTypeTokenConstraint <em>Type Token Constraint</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl#getFailureModeType <em>Failure Mode Type</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl#getFailureModeDescription <em>Failure Mode Description</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ConnectionErrorSourceImpl#getCondition <em>Condition</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,6 +108,26 @@ public class ConnectionErrorSourceImpl extends NamedElementImpl implements Conne
    * @ordered
    */
   protected String failureModeDescription = FAILURE_MODE_DESCRIPTION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
+  protected static final String CONDITION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
+  protected String condition = CONDITION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -319,6 +340,29 @@ public class ConnectionErrorSourceImpl extends NamedElementImpl implements Conne
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getCondition()
+  {
+    return condition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCondition(String newCondition)
+  {
+    String oldCondition = condition;
+    condition = newCondition;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.CONNECTION_ERROR_SOURCE__CONDITION, oldCondition, condition));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -353,6 +397,8 @@ public class ConnectionErrorSourceImpl extends NamedElementImpl implements Conne
         return getFailureModeType();
       case ErrorModelPackage.CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION:
         return getFailureModeDescription();
+      case ErrorModelPackage.CONNECTION_ERROR_SOURCE__CONDITION:
+        return getCondition();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -381,6 +427,9 @@ public class ConnectionErrorSourceImpl extends NamedElementImpl implements Conne
         return;
       case ErrorModelPackage.CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION:
         setFailureModeDescription((String)newValue);
+        return;
+      case ErrorModelPackage.CONNECTION_ERROR_SOURCE__CONDITION:
+        setCondition((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -411,6 +460,9 @@ public class ConnectionErrorSourceImpl extends NamedElementImpl implements Conne
       case ErrorModelPackage.CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION:
         setFailureModeDescription(FAILURE_MODE_DESCRIPTION_EDEFAULT);
         return;
+      case ErrorModelPackage.CONNECTION_ERROR_SOURCE__CONDITION:
+        setCondition(CONDITION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -435,6 +487,8 @@ public class ConnectionErrorSourceImpl extends NamedElementImpl implements Conne
         return failureModeType != null;
       case ErrorModelPackage.CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION:
         return FAILURE_MODE_DESCRIPTION_EDEFAULT == null ? failureModeDescription != null : !FAILURE_MODE_DESCRIPTION_EDEFAULT.equals(failureModeDescription);
+      case ErrorModelPackage.CONNECTION_ERROR_SOURCE__CONDITION:
+        return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
     }
     return super.eIsSet(featureID);
   }
@@ -454,6 +508,8 @@ public class ConnectionErrorSourceImpl extends NamedElementImpl implements Conne
     result.append(all);
     result.append(", failureModeDescription: ");
     result.append(failureModeDescription);
+    result.append(", condition: ");
+    result.append(condition);
     result.append(')');
     return result.toString();
   }

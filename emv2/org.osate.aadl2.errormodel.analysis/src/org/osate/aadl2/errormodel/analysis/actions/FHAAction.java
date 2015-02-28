@@ -74,27 +74,32 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public final class FHAAction extends AaxlReadOnlyActionAsJob {
-	
-	public static final int REPORT_TYPE_ARP4761    = 1;
-	public static final int REPORT_TYPE_MILSTD882  = 2;
-	public static final int INVALID_VALUE          = 9999;
+
+	public static final int REPORT_TYPE_ARP4761 = 1;
+	public static final int REPORT_TYPE_MILSTD882 = 2;
+	public static final int INVALID_VALUE = 9999;
+
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "FHA";
-	}	
+	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
 
 		// Get the system instance (if any)
 		SystemInstance si;
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+		} else {
+			return;
 		}
-		else return;
 
 		WriteToFile report = new WriteToFile("FHA", si);
 		reportHeading(report);
@@ -107,47 +112,46 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.done();
 	}
-	
-	public enum HazardFormat { EMV2, MILSTD882, ARP4761};
-	
 
-	protected void processHazards(ComponentInstance ci, WriteToFile report)
-	{
+	public enum HazardFormat {
+		EMV2, MILSTD882, ARP4761
+	};
 
-		for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(ci.getComponentClassifier()))
-		{
+	protected void processHazards(ComponentInstance ci, WriteToFile report) {
+
+		for (ErrorBehaviorTransition trans : EMV2Util.getAllErrorBehaviorTransitions(ci.getComponentClassifier())) {
 			ConditionExpression cond = trans.getCondition();
-			if (cond instanceof ConditionElement)
-			{
-				ConditionElement condElement = (ConditionElement)trans.getCondition();
-				if (condElement.getIncoming() instanceof ErrorEvent)
-				{
-					ErrorEvent errorEvent = (ErrorEvent)condElement.getIncoming();
-					EList<ContainedNamedElement> PA  = EMV2Properties.getHazardsProperty(ci, errorEvent,errorEvent.getTypeSet());
-					EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,errorEvent.getTypeSet());
-					EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,errorEvent.getTypeSet());
-					for (ContainedNamedElement hazProp: PA)
-					{
-						reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev), EMV2Util.findMatchingErrorType(hazProp, Like), errorEvent, errorEvent.getTypeSet(), errorEvent,report);
+			if (cond instanceof ConditionElement) {
+				ConditionElement condElement = (ConditionElement) trans.getCondition();
+				if (condElement.getIncoming() instanceof ErrorEvent) {
+					ErrorEvent errorEvent = (ErrorEvent) condElement.getIncoming();
+					EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
+							errorEvent.getTypeSet());
+					EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
+							errorEvent.getTypeSet());
+					EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, errorEvent,
+							errorEvent.getTypeSet());
+					for (ContainedNamedElement hazProp : PA) {
+						reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
+								EMV2Util.findMatchingErrorType(hazProp, Like), errorEvent, errorEvent.getTypeSet(),
+								errorEvent, report);
 					}
 				}
-				//condElement.getIncoming()
+				// condElement.getIncoming()
 			}
 
 		}
-		 
-		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci))
-		{
 
-			EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(ci, state,state.getTypeSet());
-			EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci,state,state.getTypeSet());
-			EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, state,state.getTypeSet());
-			for (ContainedNamedElement hazProp: PA)
-			{
-				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev), EMV2Util.findMatchingErrorType(hazProp, Like), state, state.getTypeSet(), state,report);
+		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci)) {
+
+			EList<ContainedNamedElement> PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
+			EList<ContainedNamedElement> Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
+			EList<ContainedNamedElement> Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
+			for (ContainedNamedElement hazProp : PA) {
+				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
+						EMV2Util.findMatchingErrorType(hazProp, Like), state, state.getTypeSet(), state, report);
 			}
 		}
-
 
 		// report all error sources as hazards if they have the property
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
@@ -159,176 +163,178 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			EList<ContainedNamedElement> Like = null;
 			TypeSet ts = null;
 			ErrorBehaviorState failureMode = null;
-			Element target =null;
+			Element target = null;
 			Element localContext = null;
 			// not dealing with type set as failure mode
-			if (fmr instanceof ErrorBehaviorState){
+			if (fmr instanceof ErrorBehaviorState) {
 				// state is originating hazard, possibly with a type set
-				failureMode =  (ErrorBehaviorState) fmr;
+				failureMode = (ErrorBehaviorState) fmr;
 				ts = failureMode.getTypeSet();
 				// error source a local context
-				HazardPA = EMV2Properties.getHazardsProperty(ci,failureMode,ts);
-				Sev = EMV2Properties.getSeverityProperty(ci,failureMode,ts);
-				Like = EMV2Properties.getLikelihoodProperty(ci,failureMode,ts);
+				HazardPA = EMV2Properties.getHazardsProperty(ci, failureMode, ts);
+				Sev = EMV2Properties.getSeverityProperty(ci, failureMode, ts);
+				Like = EMV2Properties.getLikelihoodProperty(ci, failureMode, ts);
 				target = failureMode;
 				localContext = errorSource;
 			}
-			if (HazardPA==null) {
+			if ((HazardPA == null) || (HazardPA.isEmpty())) {
 				// error propagation is originating hazard
 				ts = ep.getTypeSet();
-				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
-				HazardPA = EMV2Properties.getHazardsProperty(ci, ep,ts);
-				Sev = EMV2Properties.getSeverityProperty(ci, ep,ts);
-				Like = EMV2Properties.getLikelihoodProperty(ci, ep,ts);
+				if (ts == null && failureMode != null) {
+					ts = failureMode.getTypeSet();
+				}
+				HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
+				Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
+				Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
 				target = ep;
 				localContext = null;
 			}
-			if (HazardPA==null) {
+			if ((HazardPA == null) || (HazardPA.isEmpty())) {
 				// error source is originating hazard
 				ts = errorSource.getTypeTokenConstraint();
-				if (ts == null) ts = ep.getTypeSet();
-				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
-				HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource,ts);
-				Sev = EMV2Properties.getSeverityProperty(ci, errorSource,ts);
-				Like = EMV2Properties.getLikelihoodProperty(ci, errorSource,ts);
+				if (ts == null) {
+					ts = ep.getTypeSet();
+				}
+				if (ts == null && failureMode != null) {
+					ts = failureMode.getTypeSet();
+				}
+				HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource, ts);
+				Sev = EMV2Properties.getSeverityProperty(ci, errorSource, ts);
+				Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
 				target = errorSource;
 				localContext = null;
 			}
-			for (ContainedNamedElement hazProp: HazardPA)
-			{
-				reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev), EMV2Util.findMatchingErrorType(hazProp, Like), target, ts, localContext,report);
+			if (HazardPA != null) {
+				for (ContainedNamedElement hazProp : HazardPA) {
+					reportHazardProperty(ci, hazProp, EMV2Util.findMatchingErrorType(hazProp, Sev),
+							EMV2Util.findMatchingErrorType(hazProp, Like), target, ts, localContext, report);
+				}
 			}
 		}
 	}
-	
 
-	
-	protected String getEnumerationorIntegerPropertyValue(ContainedNamedElement containmentPath){
-		if (containmentPath == null){
+	protected String getEnumerationorIntegerPropertyValue(ContainedNamedElement containmentPath) {
+		if (containmentPath == null) {
 			return "";
 		}
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath).getOwnedValues()) {
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(containmentPath)
+				.getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
-			if (val instanceof NamedValue){
-				AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
-				if (eval instanceof EnumerationLiteral){
-					return ((EnumerationLiteral)eval).getName();
+			if (val instanceof NamedValue) {
+				AbstractNamedValue eval = ((NamedValue) val).getNamedValue();
+				if (eval instanceof EnumerationLiteral) {
+					return ((EnumerationLiteral) eval).getName();
 
-				}else if (eval instanceof PropertyConstant){
-					return ((PropertyConstant)eval).getName();
+				} else if (eval instanceof PropertyConstant) {
+					return ((PropertyConstant) eval).getName();
 				}
-			} else if (val instanceof IntegerLiteral){
+			} else if (val instanceof IntegerLiteral) {
 				// empty string to force integer conversion to string
-				return ""+((IntegerLiteral)val).getValue();
+				return "" + ((IntegerLiteral) val).getValue();
 			}
 		}
-		
+
 		return "";
 	}
-	
-	protected void reportHazardProperty(ComponentInstance ci,ContainedNamedElement PAContainmentPath, 
-			ContainedNamedElement SevContainmentPath,ContainedNamedElement LikeContainmentPath,
-			Element target, TypeSet ts, Element localContext,WriteToFile report){
-		
+
+	protected void reportHazardProperty(ComponentInstance ci, ContainedNamedElement PAContainmentPath,
+			ContainedNamedElement SevContainmentPath, ContainedNamedElement LikeContainmentPath, Element target,
+			TypeSet ts, Element localContext, WriteToFile report) {
+
 		ErrorType targetType = EMV2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
 		String targetName;
-		
-		if (target == null)
-		{
+
+		if (target == null) {
 			targetName = "";
-		}
-		else
-		{
+		} else {
 			targetName = EMV2Util.getPrintName(target);
-			if (target instanceof ErrorEvent)
-			{
+			if (target instanceof ErrorEvent) {
 				targetName = "event " + targetName;
 			}
-			
-			if (target instanceof ErrorBehaviorState)
-			{
+
+			if (target instanceof ErrorBehaviorState) {
 				targetName = "state " + targetName;
 			}
 		}
-		
-		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues())
-		{
+
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath)
+				.getOwnedValues()) {
 			PropertyExpression peVal = modalPropertyValue.getOwnedValue();
-			if (peVal instanceof ListValue)
-			{ // it is always a list
-				ListValue lv = (ListValue)peVal;
-				for (PropertyExpression pe : lv.getOwnedListElements())
-				{
-					//OsateDebug.osateDebug ("pe=" + pe);
-					if (pe instanceof RecordValue){
-						PropertyExpression severityValue = EMV2Properties.getPropertyValue (SevContainmentPath);
-						PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue (LikeContainmentPath);
-						EList<BasicPropertyAssociation> fields = ((RecordValue)pe).getOwnedFieldValues();
-						// for all error types/aliases in type set or the element identified in the containment clause 
-		
-						if (targetType==null){
-							if (ts != null){
-								for(TypeToken token: ts.getTypeTokens()){
-									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,EMV2Util.getName(token));
+			if (peVal instanceof ListValue) { // it is always a list
+				ListValue lv = (ListValue) peVal;
+				for (PropertyExpression pe : lv.getOwnedListElements()) {
+					// OsateDebug.osateDebug ("pe=" + pe);
+					if (pe instanceof RecordValue) {
+						PropertyExpression severityValue = EMV2Properties.getPropertyValue(SevContainmentPath);
+						PropertyExpression likelihoodValue = EMV2Properties.getPropertyValue(LikeContainmentPath);
+						EList<BasicPropertyAssociation> fields = ((RecordValue) pe).getOwnedFieldValues();
+						// for all error types/aliases in type set or the element identified in the containment clause
+
+						if (targetType == null) {
+							if (ts != null) {
+								for (TypeToken token : ts.getTypeTokens()) {
+									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
+											EMV2Util.getName(token));
 								}
 							} else {
 								// did not have a type set. Let's use fmr (state of type set as failure mode.
 
-								if (localContext == null)
-								{
-									reportFHAEntry(report, fields, severityValue, likelihoodValue,ci, targetName,"");
+								if (localContext == null) {
+									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName, "");
 								} else {
-									reportFHAEntry(report, fields, severityValue, likelihoodValue,ci, EMV2Util.getPrintName(localContext),EMV2Util.getPrintName(target));
+									reportFHAEntry(report, fields, severityValue, likelihoodValue, ci,
+											EMV2Util.getPrintName(localContext), EMV2Util.getPrintName(target));
 								}
 							}
 						} else {
 							// property points to type
-							reportFHAEntry(report, fields,  severityValue, likelihoodValue,ci,targetName, EMV2Util.getPrintName(targetType));
+							reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
+									EMV2Util.getPrintName(targetType));
 						}
-					}		
+					}
 				}
-				
+
 			}
 		}
 	}
 
-	protected String makeCSVText(String text){
+	protected String makeCSVText(String text) {
 		return text.replaceAll(",", ";");
 	}
-	
-	protected void reportHeading(WriteToFile report){
-		report.addOutputNewline("Component, Error,"+" Hazard Description, Crossreference, " +
-				"Functional Failure, "+//"Failure Effect, " +
-				"Operational Phases, Environment,"+//" Mishap/Failure Condition,"+
+
+	protected void reportHeading(WriteToFile report) {
+		report.addOutputNewline("Component, Error," + " Hazard Description, Crossreference, " + "Functional Failure, " + // "Failure Effect, " +
+				"Operational Phases, Environment," + // " Mishap/Failure Condition,"+
 //				"Effects of Hazard"+ // "Description" old style
-				" Severity, Likelihood,"+
-				//"Target Severity, Target Likelihood, Assurance Level, " +
-				"Verification, "+ //"Safety Report, " +
-				"Comment");	
+				" Severity, Likelihood," +
+				// "Target Severity, Target Likelihood, Assurance Level, " +
+				"Verification, " + // "Safety Report, " +
+				"Comment");
 	}
-	
-	protected void reportFHAEntry(WriteToFile report,EList<BasicPropertyAssociation> fields,
-			PropertyExpression Severity, PropertyExpression Likelihood, ComponentInstance ci,
-			String failureModeName,  String typetext){
+
+	protected void reportFHAEntry(WriteToFile report, EList<BasicPropertyAssociation> fields,
+			PropertyExpression Severity, PropertyExpression Likelihood, ComponentInstance ci, String failureModeName,
+			String typetext) {
 		String componentName = ci.getName();
 		/*
 		 * We include the parent component name if not null and if this is not the root system
 		 * instance.
 		 */
-		if ((ci.getContainingComponentInstance() != null) && (ci.getContainingComponentInstance() != ci.getSystemInstance()))
-		{
+		if ((ci.getContainingComponentInstance() != null)
+				&& (ci.getContainingComponentInstance() != ci.getSystemInstance())) {
 			componentName = ci.getContainingComponentInstance().getName() + "/" + componentName;
 		}
-		if (ci instanceof SystemInstance)
-		{
+		if (ci instanceof SystemInstance) {
 			componentName = "Root system";
 		}
 		// component name & error propagation name/type
-		report.addOutput(componentName+", \""+(typetext.isEmpty()?"":typetext)+(failureModeName.isEmpty()?"":" on "+failureModeName)+"\"");
+		report.addOutput(componentName + ", \"" + (typetext.isEmpty() ? "" : typetext)
+				+ (failureModeName.isEmpty() ? "" : " on " + failureModeName) + "\"");
 		// description (Effect)
 		addComma(report);
-		if (!reportStringProperty(fields,"hazardtitle",report))
+		if (!reportStringProperty(fields, "hazardtitle", report)) {
 			reportStringProperty(fields, "description", report);
+		}
 		// crossreference
 		addComma(report);
 		reportStringProperty(fields, "crossreference", report);
@@ -350,10 +356,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 //			reportStringProperty(fields, "failurecondition", report);
 		// severity
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report,Severity);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report, Severity);
 		// criticality
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report,Likelihood);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report, Likelihood);
 //		// target severity
 //		addComma(report);
 //		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetseverity", report,null);
@@ -374,12 +380,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		reportStringProperty(fields, "comment", report);
 		report.addOutputNewline("");
 	}
-	
-	protected void addComma(WriteToFile report){
+
+	protected void addComma(WriteToFile report) {
 		report.addOutput(", ");
 	}
-	
-	protected void addString(WriteToFile report, String str){
+
+	protected void addString(WriteToFile report, String str) {
 		report.addOutput(str);
 	}
 
@@ -389,32 +395,26 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	 * @param fieldName
 	 * @param report
 	 */
-	protected Boolean reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
+	protected Boolean reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName, WriteToFile report) {
 		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
 		String text = null;
-		if (xref != null)
-		{
+		if (xref != null) {
 			PropertyExpression val = xref.getOwnedValue();
-			if (val instanceof StringLiteral)
-			{
-				text = ((StringLiteral)val).getValue();
+			if (val instanceof StringLiteral) {
+				text = ((StringLiteral) val).getValue();
 			}
-			if (val instanceof ListValue)
-			{
-				ListValue lv = (ListValue)val;
+			if (val instanceof ListValue) {
+				ListValue lv = (ListValue) val;
 				text = "";
-				for (PropertyExpression pe : lv.getOwnedListElements())
-				{
-					if (text.length() > 0)
-					{
+				for (PropertyExpression pe : lv.getOwnedListElements()) {
+					if (text.length() > 0) {
 						text += " or ";
 					}
-					text += stripQuotes(((StringLiteral)pe).getValue());
+					text += stripQuotes(((StringLiteral) pe).getValue());
 				}
 			}
 		}
-		if (text != null)
-		{
+		if (text != null) {
 			text = makeCSVText(stripQuotes(text));
 			text = text.replaceAll(System.getProperty("line.separator"), " ");
 			report.addOutput("\"" + text + "\"");
@@ -422,33 +422,29 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Handle enumeration literals or integer values possibly assigned as property constant
 	 * @param fields
 	 * @param fieldName
 	 * @param report
 	 */
-	protected void reportEnumerationOrIntegerPropertyConstantPropertyValue(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report
-			,PropertyExpression alternativeValue){
+	protected void reportEnumerationOrIntegerPropertyConstantPropertyValue(EList<BasicPropertyAssociation> fields,
+			String fieldName, WriteToFile report, PropertyExpression alternativeValue) {
 		// added code to handle integer value and use of property constant instead of enumeration literal
 		PropertyExpression val = alternativeValue;
 		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
-		if (xref != null){
+		if (xref != null) {
 			val = xref.getOwnedValue();
 		}
 		report.addOutput(EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(val));
 	}
 
-	
-
-
-	protected String stripQuotes(String text){
-		if (text.startsWith("\"")&& text.endsWith("\"")){
-			return text.substring(1, text.length()-1);
+	protected String stripQuotes(String text) {
+		if (text.startsWith("\"") && text.endsWith("\"")) {
+			return text.substring(1, text.length() - 1);
 		}
 		return text;
 	}
-
 
 }

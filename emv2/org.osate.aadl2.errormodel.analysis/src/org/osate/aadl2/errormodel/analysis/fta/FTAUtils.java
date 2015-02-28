@@ -46,7 +46,7 @@ public class FTAUtils {
 	/**
 	 * Fill an Event with all the properties from the AADL model. Likely, all the related
 	 * values in the Hazard property from EMV2.
-	 * 
+	 *
 	 * @param event					- the event related to the EMV2 artifact
 	 * @param component             - the component from the event
 	 * @param errorModelArtifact    - the EMV2 artifact (error event, error propagation, etc)
@@ -358,7 +358,7 @@ public class FTAUtils {
 					if (contributors.size() > 0) {
 						/**
 						 * If there is only one path, then, we add it as an event.
-						 * 
+						 *
 						 */
 						if (contributors.size() == 1) {
 							returnedEvents.add(contributors.get(0));
@@ -401,9 +401,9 @@ public class FTAUtils {
 				 * In the following, it seems that we reference another component.
 				 * This is typically the case when the condition is within
 				 * an composite error behavior.
-				 * 
+				 *
 				 * So, we find the referenced component in the component hierarchy
-				 * and add all its contributors to the returned events. 
+				 * and add all its contributors to the returned events.
 				 */
 //				OsateDebug.osateDebug("[FTAUtils] processCondition subcomponents are present, size=" + conditionElement.getSubcomponents().size());
 				SubcomponentElement subcomponentElement = conditionElement.getSubcomponents().get(0);
@@ -494,7 +494,7 @@ public class FTAUtils {
 	 * Process a particular error behavior state and try to
 	 * get all potential error contributors, either from the
 	 * component error behavior or the composite error behavior.
-	 * 
+	 *
 	 * @param component - the component under analysis
 	 * @param state     - the failure mode under analysis
 	 * @param type      - the type related to the failure mode (null if not useful)

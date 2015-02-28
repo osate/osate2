@@ -56,41 +56,41 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * @author phf
  */
 public class TraverseErrorPropagationPaths {
-	protected WriteToFile report ;
-	protected AnalysisModel faultModel ;
-	protected EList<EObject> visited ;
+	protected WriteToFile report;
+	protected AnalysisModel faultModel;
+	protected EList<EObject> visited;
 	protected int maxLevel = 5;
 
-	public TraverseErrorPropagationPaths(String reportType, ComponentInstance root){
-		if (reportType != null){
-			this.report = new WriteToFile(reportType, root);
-		}
-		this.faultModel = new AnalysisModel(root);
-		this.visited = new UniqueEList<EObject>();
-
-	}
-
-	public TraverseErrorPropagationPaths(String reportType, ComponentInstance root, int maxLevel){
-		if (reportType != null){
+	public TraverseErrorPropagationPaths(String reportType, ComponentInstance root) {
+		if (reportType != null) {
 			report = new WriteToFile(reportType, root);
 		}
-		this.faultModel = new AnalysisModel(root);
-		this.visited = new UniqueEList<EObject>();
+		faultModel = new AnalysisModel(root);
+		visited = new UniqueEList<EObject>();
+
+	}
+
+	public TraverseErrorPropagationPaths(String reportType, ComponentInstance root, int maxLevel) {
+		if (reportType != null) {
+			report = new WriteToFile(reportType, root);
+		}
+		faultModel = new AnalysisModel(root);
+		visited = new UniqueEList<EObject>();
 		this.maxLevel = maxLevel;
 	}
 
-	public TraverseErrorPropagationPaths(ComponentInstance root){
-		this.faultModel = new AnalysisModel(root);
-		this.visited = new UniqueEList<EObject>();
+	public TraverseErrorPropagationPaths(ComponentInstance root) {
+		faultModel = new AnalysisModel(root);
+		visited = new UniqueEList<EObject>();
 	}
 
-	public TraverseErrorPropagationPaths( ComponentInstance root, int maxLevel){
-		this.faultModel = new AnalysisModel(root);
-		this.visited = new UniqueEList<EObject>();
+	public TraverseErrorPropagationPaths(ComponentInstance root, int maxLevel) {
+		faultModel = new AnalysisModel(root);
+		visited = new UniqueEList<EObject>();
 		this.maxLevel = maxLevel;
 	}
 
-	public void setMaxDepth(int maxLevel){
+	public void setMaxDepth(int maxLevel) {
 		this.maxLevel = maxLevel;
 	}
 
@@ -98,49 +98,50 @@ public class TraverseErrorPropagationPaths {
 		return faultModel.getSubcomponents();
 	}
 
-	public void addText(String text){
-		if (report != null)
+	public void addText(String text) {
+		if (report != null) {
 			report.addOutput(text);
-	}
-
-	public int getMaxLevel(){
-		return this.maxLevel;
-	}
-
-	public void addTextNewline(String text){
-		if (report != null)
-			report.addOutputNewline(text);
-	}
-
-	public void addNewline(){
-		if (report != null)
-			report.addOutputNewline("");
-	}
-
-	public void saveReport(){
-		if (report != null){
-			report.saveToFile();
 		}
 	}
 
+	public int getMaxLevel() {
+		return maxLevel;
+	}
+
+	public void addTextNewline(String text) {
+		if (report != null) {
+			report.addOutputNewline(text);
+		}
+	}
+
+	public void addNewline() {
+		if (report != null) {
+			report.addOutputNewline("");
+		}
+	}
+
+	public void saveReport() {
+		if (report != null) {
+			report.saveToFile();
+		}
+	}
 
 	/**
 	 * traverse error flow if the component instance is an error source
 	 * @param ci component instance
 	 */
-	public void startErrorFlows(ComponentInstance ci,Object param){
+	public void startErrorFlows(ComponentInstance ci, Object param) {
 		Collection<ErrorSource> eslist = EMV2Util.getAllErrorSources(ci.getComponentClassifier());
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
-			  EList<TypeToken> sourceTypes = initSource(ci,errorSource, param);
+			EList<TypeToken> sourceTypes = initSource(ci, errorSource, param);
 			for (TypeToken typeToken : sourceTypes) {
-				Object newparam = processStart(ci,ep,typeToken,param);
-				traverseErrorPaths(ci,ep,2,typeToken,newparam);
+				Object newparam = processStart(ci, ep, typeToken, param);
+				traverseErrorPaths(ci, ep, 2, typeToken, newparam);
 			}
 		}
 		saveReport();
 	}
-
 
 //	protected void setToken(InstanceObject io, TypeToken token){
 //		ErrorModelState st = (ErrorModelState) ErrorModelStateAdapterFactory.INSTANCE.adapt(io, ErrorModelState.class);
@@ -152,57 +153,58 @@ public class TraverseErrorPropagationPaths {
 //		return st == null?null:st.getToken();
 //	}
 
-
 	/**
-	 * traverse through the destination of the connection instance 
+	 * traverse through the destination of the connection instance
 	 * @param conni
 	 */
-	protected void traverseErrorPaths(ComponentInstance ci, ErrorPropagation ep,  int depth, TypeToken tt, Object param){
+	protected void traverseErrorPaths(ComponentInstance ci, ErrorPropagation ep, int depth, TypeToken tt, Object param) {
 		EList<PropagationPathRecord> paths = faultModel.getAllPropagationPaths(ci, ep);
-		if (paths.isEmpty()){
-			processEnd(ci,ep, depth,tt, param);
+		if (paths.isEmpty()) {
+			processEnd(ci, ep, depth, tt, param);
 			return;
 		}
 		for (PropagationPathRecord path : paths) {
-			processPath(path,param);
+			processPath(path, param);
 			ComponentInstance destci = path.getDstCI();
 			ErrorPropagation destEP = path.getPathDst().getErrorPropagation();
 			// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-			traverseErrorFlows(destci, destEP,  depth, tt,param);
+			traverseErrorFlows(destci, destEP, depth, tt, param);
 		}
 	}
 
-
 	/**
-	 * traverse through the destination of the connection instance 
+	 * traverse through the destination of the connection instance
 	 * @param conni
 	 */
-	protected void traverseErrorFlows(ComponentInstance ci, ErrorPropagation inprop,  int depth, TypeToken tt,Object param){
+	protected void traverseErrorFlows(ComponentInstance ci, ErrorPropagation inprop, int depth, TypeToken tt,
+			Object param) {
 		Collection<ErrorFlow> efs = EMV2Util.getAllErrorFlows(ci.getComponentClassifier());
-		if (!efs.isEmpty()){
-			Collection<ErrorFlow> outefs=EMV2Util.findErrorFlowFrom(efs, inprop);
+		if (!efs.isEmpty()) {
+			Collection<ErrorFlow> outefs = EMV2Util.findErrorFlowFrom(efs, inprop);
 			for (ErrorFlow ef : outefs) {
-				if (ef instanceof ErrorSink){
+				if (ef instanceof ErrorSink) {
 					// process should have returned false, but for safety we check again
-					processEnd(ci,inprop, depth,tt,param);
-				} else if (ef instanceof ErrorPath){ // error path
-					ErrorPropagation outprop = ((ErrorPath)ef).getOutgoing();
-					Object newparam = processFlow(ci,inprop, outprop,tt,param);
-					traverseErrorPaths(ci,outprop,depth+1,EMV2Util.mapToken(tt,ef),newparam);
-				} 
+					processEnd(ci, inprop, depth, tt, param);
+				} else if (ef instanceof ErrorPath) { // error path
+					ErrorPropagation outprop = ((ErrorPath) ef).getOutgoing();
+					Object newparam = processFlow(ci, inprop, outprop, tt, param);
+					traverseErrorPaths(ci, outprop, depth + 1, EMV2Util.mapToken(tt, ef), newparam);
+				}
 			}
-		} else{
+		} else {
 			// no error flows: XXX need to fix ef being more than one. also no error flows. and no flows condition
 			// try flows or propagate to all outgoing connections
 			EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
-			if (!flowlist.isEmpty()){
+			if (!flowlist.isEmpty()) {
 				for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
-					if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(inprop, ci)){
+					if (flowSpecificationInstance.getSource().getFeature() == EMV2Util.getErrorPropagationFeature(
+							inprop, ci)) {
 						FeatureInstance outfi = flowSpecificationInstance.getDestination();
-						if (outfi != null){
+						if (outfi != null) {
 							ErrorPropagation outprop = EMV2Util.getOutgoingErrorPropagation(outfi);
-							Object newparam = processFlow(ci,inprop,outprop,tt,param);
-							traverseErrorPaths(ci,outprop,depth+1,EMV2Util.mapToken(tt,flowSpecificationInstance),newparam);
+							Object newparam = processFlow(ci, inprop, outprop, tt, param);
+							traverseErrorPaths(ci, outprop, depth + 1,
+									EMV2Util.mapToken(tt, flowSpecificationInstance), newparam);
 						}
 					}
 				}
@@ -210,53 +212,57 @@ public class TraverseErrorPropagationPaths {
 				// now all outgoing connections since we did not find flows
 				EList<FeatureInstance> filist = ci.getFeatureInstances();
 				for (FeatureInstance fi : filist) {
-					if (fi.getDirection().outgoing()){
+					if (fi.getDirection().outgoing()) {
 						ErrorPropagation outprop = EMV2Util.getOutgoingErrorPropagation(fi);
-						Object newparam = processFlow(ci,inprop,outprop,tt,param);
-						traverseErrorPaths(ci,outprop,depth+1,EMV2Util.mapToken(tt,null),newparam);
+						Object newparam = processFlow(ci, inprop, outprop, tt, param);
+						traverseErrorPaths(ci, outprop, depth + 1, EMV2Util.mapToken(tt, null), newparam);
 					}
 				}
 			}
 		}
 	}
-	
-	protected EList<TypeToken> initSource(ComponentInstance ci,ErrorSource errorSource, Object param){
+
+	protected EList<TypeToken> initSource(ComponentInstance ci, ErrorSource errorSource, Object param) {
 		ErrorPropagation ep = errorSource.getOutgoing();
 		TypeSet ts = errorSource.getTypeTokenConstraint();
-		if (ts == null) ep.getTypeSet();
+		if (ts == null) {
+			ep.getTypeSet();
+		}
 		ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
 		ErrorBehaviorState failureMode = null;
-		if (fmr instanceof ErrorBehaviorState){
+		if (fmr instanceof ErrorBehaviorState) {
 			// XXX TODO how about the other case
 			failureMode = (ErrorBehaviorState) fmr;
 		}
-		EList<TypeToken> sourceTokenSet = EM2TypeSetUtil.generateAllLeafTypeTokens(ts,EMV2Util.getContainingTypeUseContext(errorSource));
+		EList<TypeToken> sourceTokenSet = EM2TypeSetUtil.generateAllLeafTypeTokens(ts,
+				EMV2Util.getContainingTypeUseContext(errorSource));
 		return sourceTokenSet;
 	}
-	
-	protected Object processSource(ComponentInstance ci,ErrorSource es, TypeToken tt, Object param){
+
+	protected Object processSource(ComponentInstance ci, ErrorSource es, TypeToken tt, Object param) {
 		ErrorBehaviorStateOrTypeSet fmr = es.getFailureModeReference();
 		ErrorBehaviorState failureMode = null;
-		if (fmr instanceof ErrorBehaviorState){
+		if (fmr instanceof ErrorBehaviorState) {
 			// XXX TODO how about the other case
 			failureMode = (ErrorBehaviorState) fmr;
 		}
 		return param;
 	}
-	
-	protected Object processStart(ComponentInstance ci,ErrorPropagation ep, TypeToken tt,Object param){
+
+	protected Object processStart(ComponentInstance ci, ErrorPropagation ep, TypeToken tt, Object param) {
 		return param;
 	}
-	
-	protected Object processEnd(ComponentInstance ci,ErrorPropagation ep, int depth,TypeToken tt,Object param){
+
+	protected Object processEnd(ComponentInstance ci, ErrorPropagation ep, int depth, TypeToken tt, Object param) {
 		return param;
 	}
-	
-	protected Object processFlow(ComponentInstance ci,ErrorPropagation inprop, ErrorPropagation outprop, TypeToken tt, Object param){
+
+	protected Object processFlow(ComponentInstance ci, ErrorPropagation inprop, ErrorPropagation outprop, TypeToken tt,
+			Object param) {
 		return param;
 	}
-	
-	protected Object processPath(PropagationPathRecord path,  Object param){
+
+	protected Object processPath(PropagationPathRecord path, Object param) {
 		return param;
 	}
 }

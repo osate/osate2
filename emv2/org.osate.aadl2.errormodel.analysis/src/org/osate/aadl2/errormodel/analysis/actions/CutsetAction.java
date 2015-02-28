@@ -33,13 +33,11 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-
-
 /**
  * Also, this class implement the following consistency rule from
  * the official documentation:
- * C1, C5, C7, C11, C12 
- * 
+ * C1, C5, C7, C11, C12
+ *
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -75,190 +73,172 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
 class ComponentSelectionDialog extends Dialog {
-	  private String 			message;
-	  private List<String> 		selectedComponents;
-	  private List<String> 		componentsList;
+	private String message;
+	private List<String> selectedComponents;
+	private List<String> componentsList;
 
+	public ComponentSelectionDialog(Shell parent, List<String> components) {
+		this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+		componentsList = components;
 
-	  public ComponentSelectionDialog(Shell parent, List<String> components) {
-	    this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-	    this.componentsList = components;
-	    
-	  }
+	}
 
+	public ComponentSelectionDialog(Shell parent, int style) {
+		super(parent, style);
+		setText("Select the components");
+		setMessage("Please select the components under investigation:");
+		selectedComponents = new ArrayList<String>();
+	}
 
-	  public ComponentSelectionDialog(Shell parent, int style) {
-	    super(parent, style);
-	    setText("Select the components");
-	    setMessage("Please select the components under investigation:");
-	    this.selectedComponents = new ArrayList<String>();
-	  }
+	public String getMessage() {
+		return message;
+	}
 
-
-	  public String getMessage() 
-	  {
-	    return message;
-	  }
-
-
-	  public void setMessage(String message) {
-	    this.message = message;
-	  }
-
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	/**
 	 * Open the dialog box, display the content and wait for the result from the user
 	 * @return The list of modules names selected by the user.
 	 */
-	  public List<String> open()
-	  {
-	    Shell shell = new Shell(getParent(), getStyle());
-	    shell.setText(getText());
-	    createContents(shell);
-	    shell.pack();
-	    shell.open();
-	    Display display = getParent().getDisplay();
-	    while (!shell.isDisposed()) 
-	    {
-	      if (!display.readAndDispatch()) 
-	      {
-	        display.sleep();
-	      }
-	    }
-	    return this.selectedComponents;
-	  }
-
-/**
-* Create all the widgets necessary to create the dialog
-* @param shell
-*/
-	  private void createContents(final Shell shell) {
-	    shell.setLayout(new GridLayout(2, true));
-
-	    // Show the message
-	    Label label = new Label(shell, SWT.NONE);
-	    label.setText(message);
-	    GridData data = new GridData();
-	    data.horizontalSpan = 2;
-	    label.setLayoutData(data);
-
-  
-	    final Table table = new Table(shell, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-	    /**
-	     * Add the data to the table. For each
-	     * item to be displayed, we create an item with
-	     * a text field and a checkbox.
-	     */
-	    for (String moduleName : componentsList)
-	    {
-		    TableItem ti = new TableItem(table, SWT.NONE);
-		    ti.setText(moduleName);
-	    }
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    data.horizontalSpan = 2;
-	    table.setLayoutData(data);
-
-	/**
-	 * The OK button that register the selected
-	 * items.
-	 */
-	    Button ok = new Button(shell, SWT.PUSH);
-	    ok.setText("OK");
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    ok.setLayoutData(data);
-	    ok.addSelectionListener(new SelectionAdapter() {
-	      public void widgetSelected(SelectionEvent event) {
-	    	  for (TableItem ti : table.getItems())
-	    	  {
-	    		  if (ti.getChecked())
-	    		  {
-	    			  selectedComponents.add(ti.getText());
-	    		  }
-	    	  }
-	        shell.close();
-	      }
-	    });
-
-	    // Create the cancel button and add a handler
-	    // so that pressing it will set input to null
-	    Button cancel = new Button(shell, SWT.PUSH);
-	    cancel.setText("Cancel");
-	    data = new GridData(GridData.FILL_HORIZONTAL);
-	    cancel.setLayoutData(data);
-	    cancel.addSelectionListener(new SelectionAdapter() {
-	      public void widgetSelected(SelectionEvent event) {
-	        selectedComponents = null;
-	        shell.close();
-	      }
-	    });
-
-	    // Set the OK button as the default, so
-	    // user can type input and press Enter
-	    // to dismiss
-	    shell.setDefaultButton(ok);
-	  }
+	public List<String> open() {
+		Shell shell = new Shell(getParent(), getStyle());
+		shell.setText(getText());
+		createContents(shell);
+		shell.pack();
+		shell.open();
+		Display display = getParent().getDisplay();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+		return selectedComponents;
 	}
 
+	/**
+	* Create all the widgets necessary to create the dialog
+	* @param shell
+	*/
+	private void createContents(final Shell shell) {
+		shell.setLayout(new GridLayout(2, true));
+
+		// Show the message
+		Label label = new Label(shell, SWT.NONE);
+		label.setText(message);
+		GridData data = new GridData();
+		data.horizontalSpan = 2;
+		label.setLayoutData(data);
+
+		final Table table = new Table(shell, SWT.CHECK | SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		/**
+		 * Add the data to the table. For each
+		 * item to be displayed, we create an item with
+		 * a text field and a checkbox.
+		 */
+		for (String moduleName : componentsList) {
+			TableItem ti = new TableItem(table, SWT.NONE);
+			ti.setText(moduleName);
+		}
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		data.horizontalSpan = 2;
+		table.setLayoutData(data);
+
+		/**
+		 * The OK button that register the selected
+		 * items.
+		 */
+		Button ok = new Button(shell, SWT.PUSH);
+		ok.setText("OK");
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		ok.setLayoutData(data);
+		ok.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				for (TableItem ti : table.getItems()) {
+					if (ti.getChecked()) {
+						selectedComponents.add(ti.getText());
+					}
+				}
+				shell.close();
+			}
+		});
+
+		// Create the cancel button and add a handler
+		// so that pressing it will set input to null
+		Button cancel = new Button(shell, SWT.PUSH);
+		cancel.setText("Cancel");
+		data = new GridData(GridData.FILL_HORIZONTAL);
+		cancel.setLayoutData(data);
+		cancel.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent event) {
+				selectedComponents = null;
+				shell.close();
+			}
+		});
+
+		// Set the OK button as the default, so
+		// user can type input and press Enter
+		// to dismiss
+		shell.setDefaultButton(ok);
+	}
+}
 
 public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 	AnalysisModel model;
 
-	 List<String> selectedComponents;
-	
+	List<String> selectedComponents;
+
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "CutSet";
 	}
-	
-	protected void reportHeading(WriteToFile report, List<PropagationPathEnd> dests){
+
+	protected void reportHeading(WriteToFile report, List<PropagationPathEnd> dests) {
 		report.addOutput("Failure injected");
-		
-		for (PropagationPathEnd ppe : dests)
-		{
+
+		for (PropagationPathEnd ppe : dests) {
 			report.addOutput("," + ppe.getComponentInstance().getName());
-			
-			if (ppe.getErrorPropagation().getFeatureorPPRefs().size() > 0)
-			{
-				report.addOutput ("/");
-				for (FeatureorPPReference t : ppe.getErrorPropagation().getFeatureorPPRefs())
-				{
+
+			if (ppe.getErrorPropagation().getFeatureorPPRefs().size() > 0) {
+				report.addOutput("/");
+				for (FeatureorPPReference t : ppe.getErrorPropagation().getFeatureorPPRefs()) {
 					report.addOutput(t.getFeatureorPP().getName());
 				}
 			}
 		}
 
-		report.addOutput ("\n");
+		report.addOutput("\n");
 	}
 
-	private boolean isAnalyzed (String s)
-	{
+	private boolean isAnalyzed(String s) {
 		boolean ret;
-		
+
 		ret = false;
-		
-		for (String sc : selectedComponents)
-		{
-			if (s.equalsIgnoreCase(sc))
-			{
+
+		for (String sc : selectedComponents) {
+			if (s.equalsIgnoreCase(sc)) {
 				ret = true;
 			}
 		}
 		return ret;
 	}
-	
-	private boolean isAnalyzed (ComponentInstance ci)
-	{
-		return isAnalyzed (ci.getName());
+
+	private boolean isAnalyzed(ComponentInstance ci) {
+		return isAnalyzed(ci.getName());
 	}
-	
+
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		final List<String> componentsList;
 
-		
-		
 		monitor.beginTask("Generating Cutset", IProgressMonitor.UNKNOWN);
 		List<PropagationPathEnd> sources;
 		List<PropagationPathEnd> destinations;
@@ -266,26 +246,25 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 		destinations = new ArrayList<PropagationPathEnd>();
 		// Get the system instance (if any)
 		SystemInstance si;
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+		} else {
+			return;
 		}
-		else return;
-		
-		
+
 		WriteToFile report = new WriteToFile("CutSet", si);
 
-	
 		model = new AnalysisModel(si);
 		componentsList = new ArrayList<String>();
-		
-		for (ComponentInstance tmpi : model.getSubcomponents())
-		{
+
+		for (ComponentInstance tmpi : model.getSubcomponents()) {
 			componentsList.add(tmpi.getName());
 		}
-		
-		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable(){
 
+		final Display d = PlatformUI.getWorkbench().getDisplay();
+		d.syncExec(new Runnable() {
+
+			@Override
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
@@ -296,78 +275,61 @@ public final class CutsetAction extends AaxlReadOnlyActionAsJob {
 				selectedComponents = csd.open();
 			}
 		});
-		
+
 //		for (String s : selectedComponents)
 //		{
 //			OsateDebug.osateDebug("SELECTED" + s);
 //		}
-		
+
 		EList<PropagationPathRecord> pathlist = model.getPropagationPaths();
-		
-		for (PropagationPathRecord ppr : pathlist)
-		{
-			if (isAnalyzed(ppr.getSrcCI()))
-			{
+
+		for (PropagationPathRecord ppr : pathlist) {
+			if (isAnalyzed(ppr.getSrcCI())) {
 //				OsateDebug.osateDebug("[SRC] ci=" + ppr.getSrcCI());
 				sources.add(ppr.getPathSrc());
 			}
-			if (isAnalyzed(ppr.getDstCI()))
-			{
+			if (isAnalyzed(ppr.getDstCI())) {
 				destinations.add(ppr.getPathDst());
 			}
 		}
-		
+
 		reportHeading(report, destinations);
-		
-		for (PropagationPathEnd src : sources)
-		{
-			
-			for (TypeToken tt : src.getErrorPropagation().getTypeSet().getTypeTokens())
-			{
-				for (ErrorTypes et : tt.getType())
-				{
+
+		for (PropagationPathEnd src : sources) {
+
+			for (TypeToken tt : src.getErrorPropagation().getTypeSet().getTypeTokens()) {
+				for (ErrorTypes et : tt.getType()) {
 
 					report.addOutput(src.getComponentInstance().getName());
-					
+
 					report.addOutput(" - " + et.getName());
-					
-					if (src.getErrorPropagation().getFeatureorPPRefs().size() > 0)
-					{
-						report.addOutput (" on ");
+
+					if (src.getErrorPropagation().getFeatureorPPRefs().size() > 0) {
+						report.addOutput(" on ");
 					}
-					for (FeatureorPPReference t : src.getErrorPropagation().getFeatureorPPRefs())
-					{
+					for (FeatureorPPReference t : src.getErrorPropagation().getFeatureorPPRefs()) {
 						report.addOutput(t.getFeatureorPP().getName());
 					}
-					
-					for (PropagationPathEnd dst : destinations)
-					{
-						report.addOutput("," );
-						if (model.impact(src, dst))
-						{
-							report.addOutput(EMV2Util.getPrintName (dst.getErrorPropagation().getTypeSet()).replace("{", "").replace("}","").replace(',', '/'));
+
+					for (PropagationPathEnd dst : destinations) {
+						report.addOutput(",");
+						if (model.impact(src, dst)) {
+							report.addOutput(EMV2Util.getPrintName(dst.getErrorPropagation().getTypeSet())
+									.replace("{", "").replace("}", "").replace(',', '/'));
 						}
-						
+
 					}
 
-					report.addOutput ("\n");
+					report.addOutput("\n");
 				}
-				
 
 			}
-			
-			
-			
-			
-		
+
 		}
-		
+
 		report.saveToFile();
-		
+
 		monitor.done();
 	}
-	
-
-		
 
 }

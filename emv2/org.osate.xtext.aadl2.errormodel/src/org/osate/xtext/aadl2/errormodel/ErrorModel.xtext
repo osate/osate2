@@ -44,8 +44,8 @@ ErrorModelSubclause
 Element returns aadl2::Element:
 TypeSetElement|TypeToken 
 |TypeTransformation|TypeMapping
-|QualifiedPropagationPoint|TransitionBranch
-|ConditionElement
+|QualifiedPropagationPoint|TransitionBranch|BranchValue | ErrorCodeValue
+|ConditionElement | AndExpression | ConditionTerm
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
 	|ErrorStateToModeMapping 
 | SubcomponentElement | FeatureorPPReference  | TypeUseContext
@@ -244,7 +244,9 @@ ErrorSource returns ErrorSource:
   	('when' (( failureModeReference = [ErrorBehaviorStateOrTypeSet|ID] ( failureModeType = TypeSetReference )?) 
   	| ( failureModeType = TypeSetConstructor )	 | failureModeDescription = STRING
   	) )?
-  ';';
+     ( 'if' condition=CONDITION)?
+     ';'
+  ;
  
 ErrorBehaviorStateOrTypeSet: ErrorBehaviorState | TypeSetDefinition;
 
@@ -297,22 +299,25 @@ ErrorBehaviorEvent returns ErrorBehaviorEvent:
 ErrorEvent returns ErrorEvent:
     name=ID ':' 'error' 'event' 
     (typeSet=TypeSetReference)?
-    ('when' condition=STRING)?
-    ';'; // add event condition 
+     ( 'if' condition=CONDITION)?
+  	';'
+; // add event condition 
     
 RepairEvent returns RepairEvent:
     name=ID ':' 'repair' 'event' 
-    ('when' condition+=[aadl2::NamedElement|ID]
-    	( "," condition+=[aadl2::NamedElement|ID])*
+    ('when' eventInitiator+=[aadl2::NamedElement|ID]
+    	( "," eventInitiator+=[aadl2::NamedElement|ID])*
     )?
     ';';  
     
 RecoverEvent returns RecoverEvent:
     name=ID ':' 'recover' 'event' 
-    ('when' condition+=[aadl2::NamedElement|ID]
-    	( "," condition+=[aadl2::NamedElement|ID])*
+    ('when' eventInitiator+=[aadl2::NamedElement|ID]
+    	( "," eventInitiator+=[aadl2::NamedElement|ID])*
     )?
-    ';'; //add recover initiator 
+      ( 'if' condition=CONDITION)?
+         ';'
+; //add recover initiator 
 
 ErrorBehaviorState returns ErrorBehaviorState: 
     name=ID ':' (intial?='initial')? 'state'
@@ -337,7 +342,7 @@ TransitionBranch returns TransitionBranch:
 // store real literal as integer, ID as reference to property constant
 BranchValue returns BranchValue: 
 	{BranchValue}
-   ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::PropertyConstant|QEMREF]) | (others?='others'));
+   ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::Property|QEMREF]) | (others?='others'));
 
 
 ConnectionErrorSource returns ConnectionErrorSource:
@@ -346,7 +351,8 @@ ConnectionErrorSource returns ConnectionErrorSource:
 	(typeTokenConstraint=TypeTokenConstraint)?
   	('when'  (  failureModeType = TypeSetConstructor | failureModeDescription = STRING)
   	)?
-  	';'
+     ( 'if' condition=CONDITION)?
+     ';'
 ;
 
 TypeUseContext returns TypeUseContext:
@@ -472,6 +478,10 @@ SConditionElement returns ConditionElement:
 SubcomponentElement returns SubcomponentElement:
 	subcomponent = [aadl2::Subcomponent|ID]
 ;
+
+
+ CONDITION:
+	STRING;
 
 
 terminal SL_COMMENT:

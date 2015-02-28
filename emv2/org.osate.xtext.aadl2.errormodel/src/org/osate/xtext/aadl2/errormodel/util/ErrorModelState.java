@@ -13,10 +13,9 @@ public interface ErrorModelState {
 	 * @return
 	 */
 	public TypeToken getToken();
-	
-	
+
 	/**
-	 * set the current state to the token. 
+	 * set the current state to the token.
 	 * Also record it in the visited history.
 	 * return true if previously visited.
 	 * return false if not previously visited.
@@ -25,7 +24,6 @@ public interface ErrorModelState {
 	 */
 	public void setVisitToken(TypeToken token);
 
-	
 	/**
 	 * remove the token from the visited list
 	 * @param token
@@ -52,7 +50,7 @@ public interface ErrorModelState {
 	 * @param token
 	 */
 	public void setToken(TypeToken token);
-	
+
 	/**
 	 * set the type token for model object to null
 	 * @param token
@@ -60,19 +58,19 @@ public interface ErrorModelState {
 	public void unsetToken();
 
 	/**
-	 * current error behavior state of a component 
+	 * current error behavior state of a component
 	 * Should only be set for components
 	 * FOr states with error types, the type token represents the token
 	 * @return
 	 */
 	public ErrorBehaviorState getErrorState();
-	
+
 	/**
 	 * set the current error behavior state of a component
 	 * @param errorBehaviorState
 	 */
 	public void setErrorState(ErrorBehaviorState errorBehaviorState);
-	
+
 	/**
 	 * set all elements of error model state to null
 	 */

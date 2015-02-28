@@ -45,65 +45,58 @@ import org.osate.ui.dialogs.Dialog;
 import org.osate2.aadl2.errormodel.analysis.prism.Model;
 
 public final class PRISMAction extends AaxlReadOnlyActionAsJob {
-	
-	private static AnalysisErrorReporterManager	 	errorManager;
-	
+
+	private static AnalysisErrorReporterManager errorManager;
+
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "PRISM";
 	}
-	
-	
-	public static void reportWarning (ComponentInstance io, String message)
-	{
-		if (errorManager != null)
-		{
+
+	public static void reportWarning(ComponentInstance io, String message) {
+		if (errorManager != null) {
 			errorManager.warning(io, message);
-		}
-		else
-		{
+		} else {
 			OsateDebug.osateDebug("[PRISMAction] no error manager");
 		}
 	}
-		
+
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		SystemInstance si;
 		String message;
 		monitor.beginTask("PRISM", IProgressMonitor.UNKNOWN);
-		
-		errorManager = this.getErrorManager();
-		
-		si = null;  
-		
-		
-		if (obj instanceof InstanceObject){
-			si = ((InstanceObject)obj).getSystemInstance();
-			
+
+		errorManager = getErrorManager();
+
+		si = null;
+
+		if (obj instanceof InstanceObject) {
+			si = ((InstanceObject) obj).getSystemInstance();
+
 		}
-		
-		if (si == null)
-		{
-			Dialog.showInfo("PRISM", "Please choose an instance model");	
+
+		if (si == null) {
+			Dialog.showInfo("PRISM", "Please choose an instance model");
 			monitor.done();
 			return;
 		}
-		
-		try
-		{
 
-			Model prismModel = new Model (si);
-			prismModel.process ();
+		try {
+
+			Model prismModel = new Model(si);
+			prismModel.process();
 			prismModel.saveFile();
-			message  = "Model successfully generated\n";
-		}
-		catch (Exception e)
-		{
+			message = "Model successfully generated\n";
+		} catch (Exception e) {
 			message = "Error while generating the model, reason: " + e.toString();
 			e.printStackTrace();
-			Dialog.showInfo("Generating PRISM model", message);	
+			Dialog.showInfo("Generating PRISM model", message);
 		}
 		OsateDebug.osateDebug("[PRISMAction] DONE");
 

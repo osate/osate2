@@ -33,95 +33,59 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-
-
 /**
  * Also, this class implement the following consistency rule from
  * the official documentation:
- * C1, C5, C7, C11, C12 
- * 
+ * C1, C5, C7, C11, C12
+ *
  */
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.WriteToFile;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
-import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
-import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
-import org.osate.ui.dialogs.*;
-import org.osgi.framework.Bundle;
 
 public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJob {
-	
-	
+
+	@Override
 	protected String getMarkerType() {
 		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "ImplementationCompliance";
 	}
-	
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		ComponentInstance       instance      = null;
-		ComponentType           componentType = null;
+		ComponentInstance instance = null;
+		ComponentType componentType = null;
 		ComponentImplementation componentImplementation = null;
-		
+
 		monitor.beginTask("Checking Compliance", IProgressMonitor.UNKNOWN);
 
-
-		
-		if (obj instanceof ComponentInstance){
-			instance = ((ComponentInstance)obj);
-		}
-		else
-		{
+		if (obj instanceof ComponentInstance) {
+			instance = ((ComponentInstance) obj);
+		} else {
 			Dialog.showError("Integration Compliance", "You must select a component instance");
-			return; 
-		} 
-		
-		if (!(instance.getComponentClassifier() instanceof ComponentImplementation))
-		{
+			return;
+		}
+
+		if (!(instance.getComponentClassifier() instanceof ComponentImplementation)) {
 			Dialog.showError("Integration Compliance", "You must select a component that is a component implementation");
 			return;
 		}
-		
+
 		componentImplementation = (ComponentImplementation) instance.getComponentClassifier();
 		componentType = componentImplementation.getType();
 
@@ -130,19 +94,16 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 		 * between the type and the implementation uses
 		 * the same types.
 		 */
-		for (ErrorPropagation epi : EMV2Util.getAllOutgoingErrorPropagations(componentImplementation))
-		{
+		for (ErrorPropagation epi : EMV2Util.getAllOutgoingErrorPropagations(componentImplementation)) {
 			boolean found = false;
-			
-			for (ErrorPropagation epc : EMV2Util.getAllOutgoingErrorPropagations(componentType))
-			{
-				if (epi.getFeatureorPPRefs().get(0).getFeatureorPP() == epc.getFeatureorPPRefs().get(0).getFeatureorPP())
-				{
+
+			for (ErrorPropagation epc : EMV2Util.getAllOutgoingErrorPropagations(componentType)) {
+				if (epi.getFeatureorPPRefs().get(0).getFeatureorPP() == epc.getFeatureorPPRefs().get(0)
+						.getFeatureorPP()) {
 					found = true;
-	
-					if ( ! EMV2Util.areEquivalent(epi, epc))
-					{
-						error (obj, "Implementation does not match all errors types on outgoing error propagations");
+
+					if (!EMV2Util.areEquivalent(epi, epc)) {
+						error(obj, "Implementation does not match all errors types on outgoing error propagations");
 					}
 
 					/**
@@ -152,135 +113,109 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 					 * budget defined in the classifier.
 					 */
 					double probImplementation = 0;
-					double probClassifier     = 0;
+					double probClassifier = 0;
 					probImplementation = EMV2Properties.getProbability(componentImplementation, epi, epi.getTypeSet());
-					probClassifier = EMV2Properties.getProbability(componentImplementation, epc, epc.getTypeSet());	
-					
-					if (probImplementation > probClassifier)
-					{
-						error (obj, "Failure rate on the implementation is higher than on the classifier (" + probImplementation + " vs " + probClassifier +")");
+					probClassifier = EMV2Properties.getProbability(componentImplementation, epc, epc.getTypeSet());
+
+					if (probImplementation > probClassifier) {
+						error(obj, "Failure rate on the implementation is higher than on the classifier ("
+								+ probImplementation + " vs " + probClassifier + ")");
 					}
 //					OsateDebug.osateDebug("impl="+probImplementation + ";class=" + probClassifier);
 				}
 			}
-			
-			
-			
-			
-			if (found == false)
-			{
-				error (obj, "Object does not have matching error propagations");
+
+			if (found == false) {
+				error(obj, "Object does not have matching error propagations");
 			}
 		}
-		
+
 		/**
 		 * Here, we check that the incoming error propagations
 		 * between the type and the implementation uses
 		 * the same types.
 		 */
-		for (ErrorPropagation epi : EMV2Util.getAllIncomingErrorPropagations(componentImplementation))
-		{
+		for (ErrorPropagation epi : EMV2Util.getAllIncomingErrorPropagations(componentImplementation)) {
 			boolean found = false;
-			
-			for (ErrorPropagation epc : EMV2Util.getAllIncomingErrorPropagations(componentType))
-			{
-				if (epi.getFeatureorPPRefs().get(0).getFeatureorPP() == epc.getFeatureorPPRefs().get(0).getFeatureorPP())
-				{
+
+			for (ErrorPropagation epc : EMV2Util.getAllIncomingErrorPropagations(componentType)) {
+				if (epi.getFeatureorPPRefs().get(0).getFeatureorPP() == epc.getFeatureorPPRefs().get(0)
+						.getFeatureorPP()) {
 					found = true;
-	
-					if ( ! EMV2Util.areEquivalent(epi, epc))
-					{
-						error (obj, "Implementation does not match all type errors in its incoming error propagations");
+
+					if (!EMV2Util.areEquivalent(epi, epc)) {
+						error(obj, "Implementation does not match all type errors in its incoming error propagations");
 					}
-					
 
 				}
 			}
-			
-			
-			if (found == false)
-			{
-				error (obj, "Object does not have matching error propagations");
+
+			if (found == false) {
+				error(obj, "Object does not have matching error propagations");
 			}
 		}
-		
-		
+
 		/**
 		 * Finally, we check the compliance of the components error behavior.
 		 * Check the states of the states and that the states also
 		 * exists.
 		 */
-		for (ErrorBehaviorState typeState : EMV2Util.getAllErrorBehaviorStates(componentType))
-		{
-		
+		for (ErrorBehaviorState typeState : EMV2Util.getAllErrorBehaviorStates(componentType)) {
+
 			boolean found = false;
-			for (ErrorBehaviorState implementationState : EMV2Util.getAllErrorBehaviorStates(componentImplementation))
-			{
-				if (typeState.getName().equalsIgnoreCase(implementationState.getName()))
-				{
-					
+			for (ErrorBehaviorState implementationState : EMV2Util.getAllErrorBehaviorStates(componentImplementation)) {
+				if (typeState.getName().equalsIgnoreCase(implementationState.getName())) {
+
 					found = true;
-					if ((typeState.getTypeSet() != null) && (implementationState.getTypeSet() != null) &&
-					   (! EM2TypeSetUtil.contains(typeState.getTypeSet(), implementationState.getTypeSet())))
-					{
-						error (obj, "State " + typeState.getName() + " does not have the same types between type and impl");
+					if ((typeState.getTypeSet() != null) && (implementationState.getTypeSet() != null)
+							&& (!EM2TypeSetUtil.contains(typeState.getTypeSet(), implementationState.getTypeSet()))) {
+						error(obj, "State " + typeState.getName()
+								+ " does not have the same types between type and impl");
 					}
 				}
 			}
-			
-			
-			if (found == false)
-			{
-				error (obj, "Did not find the error state");
+
+			if (found == false) {
+				error(obj, "Did not find the error state");
 			}
 		}
-		
-		
+
 		/**
 		 * Check the error events now
 		 */
-		for (ErrorBehaviorEvent typeBehaviorEvent : EMV2Util.getAllErrorBehaviorEvents(componentType))
-		{
-		
+		for (ErrorBehaviorEvent typeBehaviorEvent : EMV2Util.getAllErrorBehaviorEvents(componentType)) {
+
 			boolean found = false;
 			ErrorEvent typeEvent = null;
 			ErrorEvent implementationEvent = null;
-			
-			for (ErrorBehaviorEvent implementationBehaviorEvent : EMV2Util.getAllErrorBehaviorEvents(componentImplementation))
-			{
-				if (implementationBehaviorEvent instanceof ErrorEvent)
-				{
+
+			for (ErrorBehaviorEvent implementationBehaviorEvent : EMV2Util
+					.getAllErrorBehaviorEvents(componentImplementation)) {
+				if (implementationBehaviorEvent instanceof ErrorEvent) {
 					implementationEvent = (ErrorEvent) implementationBehaviorEvent;
 				}
-				
-				if (typeBehaviorEvent instanceof ErrorEvent)
-				{
+
+				if (typeBehaviorEvent instanceof ErrorEvent) {
 					typeEvent = (ErrorEvent) typeBehaviorEvent;
 				}
 
-				if (typeEvent.getName().equalsIgnoreCase(implementationEvent.getName()))
-				{
+				if (typeEvent.getName().equalsIgnoreCase(implementationEvent.getName())) {
 
 					found = true;
-					if ((typeEvent.getTypeSet() != null) && (implementationEvent.getTypeSet() != null) &&
-						(! EM2TypeSetUtil.contains(typeEvent.getTypeSet(), implementationEvent.getTypeSet())))
-					{
-						error (obj, "Event " + typeEvent.getName() + " does not have the same types between type and impl");
+					if ((typeEvent.getTypeSet() != null) && (implementationEvent.getTypeSet() != null)
+							&& (!EM2TypeSetUtil.contains(typeEvent.getTypeSet(), implementationEvent.getTypeSet()))) {
+						error(obj, "Event " + typeEvent.getName()
+								+ " does not have the same types between type and impl");
 					}
 				}
 			}
-			
-			
-			if (found == false)
-			{
-				error (obj, "Did not find the error state");
+
+			if (found == false) {
+				error(obj, "Did not find the error state");
 			}
 		}
-		
+
 		monitor.done();
 	}
-	
-
-		
 
 }

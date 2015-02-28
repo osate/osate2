@@ -1170,6 +1170,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getErrorSource_Condition()
+  {
+    return (EAttribute)errorSourceEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getErrorBehaviorStateOrTypeSet()
   {
     return errorBehaviorStateOrTypeSetEClass;
@@ -1470,7 +1480,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRepairEvent_Condition()
+  public EReference getRepairEvent_EventInitiator()
   {
     return (EReference)repairEventEClass.getEStructuralFeatures().get(0);
   }
@@ -1490,9 +1500,19 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRecoverEvent_Condition()
+  public EReference getRecoverEvent_EventInitiator()
   {
     return (EReference)recoverEventEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getRecoverEvent_Condition()
+  {
+    return (EAttribute)recoverEventEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1763,6 +1783,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
   public EAttribute getConnectionErrorSource_FailureModeDescription()
   {
     return (EAttribute)connectionErrorSourceEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getConnectionErrorSource_Condition()
+  {
+    return (EAttribute)connectionErrorSourceEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -2409,6 +2439,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorSourceEClass, ERROR_SOURCE__FAILURE_MODE_REFERENCE);
     createEReference(errorSourceEClass, ERROR_SOURCE__FAILURE_MODE_TYPE);
     createEAttribute(errorSourceEClass, ERROR_SOURCE__FAILURE_MODE_DESCRIPTION);
+    createEAttribute(errorSourceEClass, ERROR_SOURCE__CONDITION);
 
     errorBehaviorStateOrTypeSetEClass = createEClass(ERROR_BEHAVIOR_STATE_OR_TYPE_SET);
 
@@ -2449,10 +2480,11 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEAttribute(errorEventEClass, ERROR_EVENT__CONDITION);
 
     repairEventEClass = createEClass(REPAIR_EVENT);
-    createEReference(repairEventEClass, REPAIR_EVENT__CONDITION);
+    createEReference(repairEventEClass, REPAIR_EVENT__EVENT_INITIATOR);
 
     recoverEventEClass = createEClass(RECOVER_EVENT);
-    createEReference(recoverEventEClass, RECOVER_EVENT__CONDITION);
+    createEReference(recoverEventEClass, RECOVER_EVENT__EVENT_INITIATOR);
+    createEAttribute(recoverEventEClass, RECOVER_EVENT__CONDITION);
 
     errorBehaviorStateEClass = createEClass(ERROR_BEHAVIOR_STATE);
     createEAttribute(errorBehaviorStateEClass, ERROR_BEHAVIOR_STATE__INTIAL);
@@ -2485,6 +2517,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__TYPE_TOKEN_CONSTRAINT);
     createEReference(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__FAILURE_MODE_TYPE);
     createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__FAILURE_MODE_DESCRIPTION);
+    createEAttribute(connectionErrorSourceEClass, CONNECTION_ERROR_SOURCE__CONDITION);
 
     typeUseContextEClass = createEClass(TYPE_USE_CONTEXT);
 
@@ -2624,6 +2657,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     errorBehaviorStateEClass.getESuperTypes().add(this.getErrorBehaviorStateOrTypeSet());
     errorBehaviorTransitionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     transitionBranchEClass.getESuperTypes().add(theAadl2Package.getElement());
+    branchValueEClass.getESuperTypes().add(theAadl2Package.getElement());
     connectionErrorSourceEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     typeUseContextEClass.getESuperTypes().add(theAadl2Package.getElement());
     conditionExpressionEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2636,6 +2670,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     eventOrPropagationEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     outgoingPropagationConditionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     errorDetectionEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
+    errorCodeValueEClass.getESuperTypes().add(theAadl2Package.getElement());
     errorStateToModeMappingEClass.getESuperTypes().add(theAadl2Package.getElement());
     compositeStateEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
     subcomponentElementEClass.getESuperTypes().add(theAadl2Package.getElement());
@@ -2729,6 +2764,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorSource_FailureModeReference(), this.getErrorBehaviorStateOrTypeSet(), null, "failureModeReference", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorSource_FailureModeType(), this.getTypeSet(), null, "failureModeType", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getErrorSource_FailureModeDescription(), theEcorePackage.getEString(), "failureModeDescription", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getErrorSource_Condition(), theEcorePackage.getEString(), "condition", null, 0, 1, ErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorBehaviorStateOrTypeSetEClass, ErrorBehaviorStateOrTypeSet.class, "ErrorBehaviorStateOrTypeSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2769,10 +2805,11 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEAttribute(getErrorEvent_Condition(), theEcorePackage.getEString(), "condition", null, 0, 1, ErrorEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(repairEventEClass, RepairEvent.class, "RepairEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getRepairEvent_Condition(), theAadl2Package.getNamedElement(), null, "condition", null, 0, -1, RepairEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRepairEvent_EventInitiator(), theAadl2Package.getNamedElement(), null, "eventInitiator", null, 0, -1, RepairEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(recoverEventEClass, RecoverEvent.class, "RecoverEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getRecoverEvent_Condition(), theAadl2Package.getNamedElement(), null, "condition", null, 0, -1, RecoverEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRecoverEvent_EventInitiator(), theAadl2Package.getNamedElement(), null, "eventInitiator", null, 0, -1, RecoverEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getRecoverEvent_Condition(), theEcorePackage.getEString(), "condition", null, 0, 1, RecoverEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorBehaviorStateEClass, ErrorBehaviorState.class, "ErrorBehaviorState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getErrorBehaviorState_Intial(), theEcorePackage.getEBoolean(), "intial", null, 0, 1, ErrorBehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2796,7 +2833,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 
     initEClass(branchValueEClass, BranchValue.class, "BranchValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBranchValue_Realvalue(), theEcorePackage.getEString(), "realvalue", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getBranchValue_Symboliclabel(), theAadl2Package.getPropertyConstant(), null, "symboliclabel", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBranchValue_Symboliclabel(), theAadl2Package.getProperty(), null, "symboliclabel", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getBranchValue_Others(), theEcorePackage.getEBoolean(), "others", null, 0, 1, BranchValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(connectionErrorSourceEClass, ConnectionErrorSource.class, "ConnectionErrorSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2805,6 +2842,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getConnectionErrorSource_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConnectionErrorSource_FailureModeType(), this.getTypeSet(), null, "failureModeType", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getConnectionErrorSource_FailureModeDescription(), theEcorePackage.getEString(), "failureModeDescription", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getConnectionErrorSource_Condition(), theEcorePackage.getEString(), "condition", null, 0, 1, ConnectionErrorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeUseContextEClass, TypeUseContext.class, "TypeUseContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -1,5 +1,6 @@
 package org.osate2.aadl2.errormodel.analysis.prism.expression;
 
 public interface Expression {
-	public String toString ();
+	@Override
+	public String toString();
 }
