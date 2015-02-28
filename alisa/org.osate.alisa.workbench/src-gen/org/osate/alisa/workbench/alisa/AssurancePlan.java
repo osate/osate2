@@ -9,8 +9,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
-import org.osate.categories.categories.SelectionCategory;
-
 import org.osate.verify.verify.VerificationPlan;
 
 /**
@@ -27,7 +25,6 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getPlans <em>Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getVerifiedAssumption <em>Verified Assumption</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
  *
@@ -172,21 +169,5 @@ public interface AssurancePlan extends EObject
    * @generated
    */
   EList<ComponentClassifier> getVerifiedAssumption();
-
-  /**
-   * Returns the value of the '<em><b>Selection Filter</b></em>' reference list.
-   * The list contents are of type {@link org.osate.categories.categories.SelectionCategory}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Selection Filter</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Selection Filter</em>' reference list.
-   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_SelectionFilter()
-   * @model
-   * @generated
-   */
-  EList<SelectionCategory> getSelectionFilter();
 
 } // AssurancePlan

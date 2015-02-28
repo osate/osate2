@@ -18,7 +18,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssurancePlan/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssurancePlan/plans"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssurancePlan/verifiedAssumption"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssurancePlan/selectionFilter"/>
+    </genClasses>
+    <genClasses ecoreClass="Alisa.ecore#//AssuranceTask">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AssuranceTask/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/assurancePlan"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/filter"/>
+    </genClasses>
+    <genClasses ecoreClass="Alisa.ecore#//SelectionConditionExpr"/>
+    <genClasses ecoreClass="Alisa.ecore#//SelectionCategoryReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//SelectionCategoryReference/cat"/>
     </genClasses>
     <genClasses ecoreClass="Alisa.ecore#//Description">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//Description/description"/>
@@ -27,8 +36,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//DescriptionElement/text"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//DescriptionElement/thisTarget"/>
     </genClasses>
-    <genClasses ecoreClass="Alisa.ecore#//AssuranceTask">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Alisa.ecore#//AssuranceTask/assurancePlan"/>
+    <genClasses ecoreClass="Alisa.ecore#//AndSelectionConditionExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AndSelectionConditionExpr/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AndSelectionConditionExpr/right"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -86,6 +86,28 @@ public class AlisaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AlisaPackage.ASSURANCE_TASK:
+      {
+        AssuranceTask assuranceTask = (AssuranceTask)theEObject;
+        T result = caseAssuranceTask(assuranceTask);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlisaPackage.SELECTION_CONDITION_EXPR:
+      {
+        SelectionConditionExpr selectionConditionExpr = (SelectionConditionExpr)theEObject;
+        T result = caseSelectionConditionExpr(selectionConditionExpr);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlisaPackage.SELECTION_CATEGORY_REFERENCE:
+      {
+        SelectionCategoryReference selectionCategoryReference = (SelectionCategoryReference)theEObject;
+        T result = caseSelectionCategoryReference(selectionCategoryReference);
+        if (result == null) result = caseSelectionConditionExpr(selectionCategoryReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AlisaPackage.DESCRIPTION:
       {
         Description description = (Description)theEObject;
@@ -100,11 +122,11 @@ public class AlisaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AlisaPackage.ASSURANCE_TASK:
+      case AlisaPackage.AND_SELECTION_CONDITION_EXPR:
       {
-        AssuranceTask assuranceTask = (AssuranceTask)theEObject;
-        T result = caseAssuranceTask(assuranceTask);
-        if (result == null) result = caseAssurancePlan(assuranceTask);
+        AndSelectionConditionExpr andSelectionConditionExpr = (AndSelectionConditionExpr)theEObject;
+        T result = caseAndSelectionConditionExpr(andSelectionConditionExpr);
+        if (result == null) result = caseSelectionConditionExpr(andSelectionConditionExpr);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -145,6 +167,54 @@ public class AlisaSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Assurance Task</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Assurance Task</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAssuranceTask(AssuranceTask object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Selection Condition Expr</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Selection Condition Expr</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSelectionConditionExpr(SelectionConditionExpr object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Selection Category Reference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Selection Category Reference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSelectionCategoryReference(SelectionCategoryReference object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Description</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -177,17 +247,17 @@ public class AlisaSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Assurance Task</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>And Selection Condition Expr</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Assurance Task</em>'.
+   * @return the result of interpreting the object as an instance of '<em>And Selection Condition Expr</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAssuranceTask(AssuranceTask object)
+  public T caseAndSelectionConditionExpr(AndSelectionConditionExpr object)
   {
     return null;
   }

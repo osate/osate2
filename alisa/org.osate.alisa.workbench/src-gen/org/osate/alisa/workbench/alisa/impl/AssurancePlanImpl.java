@@ -25,8 +25,6 @@ import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.Description;
 
-import org.osate.categories.categories.SelectionCategory;
-
 import org.osate.verify.verify.VerificationPlan;
 
 /**
@@ -42,7 +40,6 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getPlans <em>Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getVerifiedAssumption <em>Verified Assumption</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getSelectionFilter <em>Selection Filter</em>}</li>
  * </ul>
  * </p>
  *
@@ -129,16 +126,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * @ordered
    */
   protected EList<ComponentClassifier> verifiedAssumption;
-
-  /**
-   * The cached value of the '{@link #getSelectionFilter() <em>Selection Filter</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getSelectionFilter()
-   * @generated
-   * @ordered
-   */
-  protected EList<SelectionCategory> selectionFilter;
 
   /**
    * <!-- begin-user-doc -->
@@ -331,20 +318,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<SelectionCategory> getSelectionFilter()
-  {
-    if (selectionFilter == null)
-    {
-      selectionFilter = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER);
-    }
-    return selectionFilter;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -379,8 +352,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return getPlans();
       case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         return getVerifiedAssumption();
-      case AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER:
-        return getSelectionFilter();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -416,10 +387,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         getVerifiedAssumption().clear();
         getVerifiedAssumption().addAll((Collection<? extends ComponentClassifier>)newValue);
         return;
-      case AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER:
-        getSelectionFilter().clear();
-        getSelectionFilter().addAll((Collection<? extends SelectionCategory>)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -452,9 +419,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         getVerifiedAssumption().clear();
         return;
-      case AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER:
-        getSelectionFilter().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -481,8 +445,6 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return plans != null && !plans.isEmpty();
       case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         return verifiedAssumption != null && !verifiedAssumption.isEmpty();
-      case AlisaPackage.ASSURANCE_PLAN__SELECTION_FILTER:
-        return selectionFilter != null && !selectionFilter.isEmpty();
     }
     return super.eIsSet(featureID);
   }

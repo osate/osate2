@@ -4,7 +4,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="AlisaWorkArea">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
-        eType="#//AssurancePlan" containment="true"/>
+        eType="ecore:EClass platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssurancePlan">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
@@ -16,8 +17,17 @@
         eType="ecore:EClass platform:/resource/org.osate.verify/model/generated/Verify.ecore#//VerificationPlan"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="verifiedAssumption" unique="false"
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//ComponentClassifier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="selectionFilter" unique="false"
-        upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//SelectionCategory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssuranceTask">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assurancePlan" eType="#//AssurancePlan"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="filter" eType="#//SelectionConditionExpr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SelectionConditionExpr"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SelectionCategoryReference" eSuperTypes="#//SelectionConditionExpr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cat" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//Category"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Description">
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" upperBound="-1"
@@ -27,7 +37,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="thisTarget" eType="ecore:EDataType platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AssuranceTask" eSuperTypes="#//AssurancePlan">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assurancePlan" eType="#//AssurancePlan"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AndSelectionConditionExpr" eSuperTypes="#//SelectionConditionExpr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//SelectionConditionExpr"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//SelectionConditionExpr"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

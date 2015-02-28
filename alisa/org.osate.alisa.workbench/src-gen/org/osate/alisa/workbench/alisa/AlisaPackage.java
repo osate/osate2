@@ -158,22 +158,115 @@ public interface AlisaPackage extends EPackage
   int ASSURANCE_PLAN__VERIFIED_ASSUMPTION = 5;
 
   /**
-   * The feature id for the '<em><b>Selection Filter</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_PLAN__SELECTION_FILTER = 6;
-
-  /**
    * The number of structural features of the '<em>Assurance Plan</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_PLAN_FEATURE_COUNT = 7;
+  int ASSURANCE_PLAN_FEATURE_COUNT = 6;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceTask()
+   * @generated
+   */
+  int ASSURANCE_TASK = 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__TITLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Assurance Plan</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__ASSURANCE_PLAN = 2;
+
+  /**
+   * The feature id for the '<em><b>Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK__FILTER = 3;
+
+  /**
+   * The number of structural features of the '<em>Assurance Task</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSURANCE_TASK_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.SelectionConditionExprImpl <em>Selection Condition Expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.workbench.alisa.impl.SelectionConditionExprImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getSelectionConditionExpr()
+   * @generated
+   */
+  int SELECTION_CONDITION_EXPR = 3;
+
+  /**
+   * The number of structural features of the '<em>Selection Condition Expr</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CONDITION_EXPR_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.SelectionCategoryReferenceImpl <em>Selection Category Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.workbench.alisa.impl.SelectionCategoryReferenceImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getSelectionCategoryReference()
+   * @generated
+   */
+  int SELECTION_CATEGORY_REFERENCE = 4;
+
+  /**
+   * The feature id for the '<em><b>Cat</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORY_REFERENCE__CAT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Selection Category Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SELECTION_CATEGORY_REFERENCE_FEATURE_COUNT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -183,7 +276,7 @@ public interface AlisaPackage extends EPackage
    * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getDescription()
    * @generated
    */
-  int DESCRIPTION = 2;
+  int DESCRIPTION = 5;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference list.
@@ -211,7 +304,7 @@ public interface AlisaPackage extends EPackage
    * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getDescriptionElement()
    * @generated
    */
-  int DESCRIPTION_ELEMENT = 3;
+  int DESCRIPTION_ELEMENT = 6;
 
   /**
    * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -241,95 +334,41 @@ public interface AlisaPackage extends EPackage
   int DESCRIPTION_ELEMENT_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.
+   * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl <em>And Selection Condition Expr</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl
-   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceTask()
+   * @see org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl
+   * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAndSelectionConditionExpr()
    * @generated
    */
-  int ASSURANCE_TASK = 4;
+  int AND_SELECTION_CONDITION_EXPR = 7;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__NAME = ASSURANCE_PLAN__NAME;
+  int AND_SELECTION_CONDITION_EXPR__LEFT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Title</b></em>' attribute.
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__TITLE = ASSURANCE_PLAN__TITLE;
+  int AND_SELECTION_CONDITION_EXPR__RIGHT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>System</b></em>' reference.
+   * The number of structural features of the '<em>And Selection Condition Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ASSURANCE_TASK__SYSTEM = ASSURANCE_PLAN__SYSTEM;
-
-  /**
-   * The feature id for the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__DESCRIPTION = ASSURANCE_PLAN__DESCRIPTION;
-
-  /**
-   * The feature id for the '<em><b>Plans</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__PLANS = ASSURANCE_PLAN__PLANS;
-
-  /**
-   * The feature id for the '<em><b>Verified Assumption</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__VERIFIED_ASSUMPTION = ASSURANCE_PLAN__VERIFIED_ASSUMPTION;
-
-  /**
-   * The feature id for the '<em><b>Selection Filter</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__SELECTION_FILTER = ASSURANCE_PLAN__SELECTION_FILTER;
-
-  /**
-   * The feature id for the '<em><b>Assurance Plan</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK__ASSURANCE_PLAN = ASSURANCE_PLAN_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Assurance Task</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ASSURANCE_TASK_FEATURE_COUNT = ASSURANCE_PLAN_FEATURE_COUNT + 1;
+  int AND_SELECTION_CONDITION_EXPR_FEATURE_COUNT = SELECTION_CONDITION_EXPR_FEATURE_COUNT + 2;
 
 
   /**
@@ -441,15 +480,89 @@ public interface AlisaPackage extends EPackage
   EReference getAssurancePlan_VerifiedAssumption();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.alisa.workbench.alisa.AssurancePlan#getSelectionFilter <em>Selection Filter</em>}'.
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssuranceTask <em>Assurance Task</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Selection Filter</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssurancePlan#getSelectionFilter()
-   * @see #getAssurancePlan()
+   * @return the meta object for class '<em>Assurance Task</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask
    * @generated
    */
-  EReference getAssurancePlan_SelectionFilter();
+  EClass getAssuranceTask();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#getName()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EAttribute getAssuranceTask_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getTitle <em>Title</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Title</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#getTitle()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EAttribute getAssuranceTask_Title();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan <em>Assurance Plan</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Assurance Plan</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EReference getAssuranceTask_AssurancePlan();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getFilter <em>Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter</em>'.
+   * @see org.osate.alisa.workbench.alisa.AssuranceTask#getFilter()
+   * @see #getAssuranceTask()
+   * @generated
+   */
+  EReference getAssuranceTask_Filter();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.SelectionConditionExpr <em>Selection Condition Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Selection Condition Expr</em>'.
+   * @see org.osate.alisa.workbench.alisa.SelectionConditionExpr
+   * @generated
+   */
+  EClass getSelectionConditionExpr();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.SelectionCategoryReference <em>Selection Category Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Selection Category Reference</em>'.
+   * @see org.osate.alisa.workbench.alisa.SelectionCategoryReference
+   * @generated
+   */
+  EClass getSelectionCategoryReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.SelectionCategoryReference#getCat <em>Cat</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Cat</em>'.
+   * @see org.osate.alisa.workbench.alisa.SelectionCategoryReference#getCat()
+   * @see #getSelectionCategoryReference()
+   * @generated
+   */
+  EReference getSelectionCategoryReference_Cat();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.Description <em>Description</em>}'.
@@ -505,25 +618,36 @@ public interface AlisaPackage extends EPackage
   EAttribute getDescriptionElement_ThisTarget();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AssuranceTask <em>Assurance Task</em>}'.
+   * Returns the meta object for class '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr <em>And Selection Condition Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Assurance Task</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceTask
+   * @return the meta object for class '<em>And Selection Condition Expr</em>'.
+   * @see org.osate.alisa.workbench.alisa.AndSelectionConditionExpr
    * @generated
    */
-  EClass getAssuranceTask();
+  EClass getAndSelectionConditionExpr();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan <em>Assurance Plan</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Assurance Plan</em>'.
-   * @see org.osate.alisa.workbench.alisa.AssuranceTask#getAssurancePlan()
-   * @see #getAssuranceTask()
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getLeft()
+   * @see #getAndSelectionConditionExpr()
    * @generated
    */
-  EReference getAssuranceTask_AssurancePlan();
+  EReference getAndSelectionConditionExpr_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.osate.alisa.workbench.alisa.AndSelectionConditionExpr#getRight()
+   * @see #getAndSelectionConditionExpr()
+   * @generated
+   */
+  EReference getAndSelectionConditionExpr_Right();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -633,12 +757,74 @@ public interface AlisaPackage extends EPackage
     EReference ASSURANCE_PLAN__VERIFIED_ASSUMPTION = eINSTANCE.getAssurancePlan_VerifiedAssumption();
 
     /**
-     * The meta object literal for the '<em><b>Selection Filter</b></em>' reference list feature.
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceTask()
+     * @generated
+     */
+    EClass ASSURANCE_TASK = eINSTANCE.getAssuranceTask();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_PLAN__SELECTION_FILTER = eINSTANCE.getAssurancePlan_SelectionFilter();
+    EAttribute ASSURANCE_TASK__NAME = eINSTANCE.getAssuranceTask_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Title</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ASSURANCE_TASK__TITLE = eINSTANCE.getAssuranceTask_Title();
+
+    /**
+     * The meta object literal for the '<em><b>Assurance Plan</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_TASK__ASSURANCE_PLAN = eINSTANCE.getAssuranceTask_AssurancePlan();
+
+    /**
+     * The meta object literal for the '<em><b>Filter</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSURANCE_TASK__FILTER = eINSTANCE.getAssuranceTask_Filter();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.SelectionConditionExprImpl <em>Selection Condition Expr</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.workbench.alisa.impl.SelectionConditionExprImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getSelectionConditionExpr()
+     * @generated
+     */
+    EClass SELECTION_CONDITION_EXPR = eINSTANCE.getSelectionConditionExpr();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.SelectionCategoryReferenceImpl <em>Selection Category Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.workbench.alisa.impl.SelectionCategoryReferenceImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getSelectionCategoryReference()
+     * @generated
+     */
+    EClass SELECTION_CATEGORY_REFERENCE = eINSTANCE.getSelectionCategoryReference();
+
+    /**
+     * The meta object literal for the '<em><b>Cat</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SELECTION_CATEGORY_REFERENCE__CAT = eINSTANCE.getSelectionCategoryReference_Cat();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.DescriptionImpl <em>Description</em>}' class.
@@ -685,22 +871,30 @@ public interface AlisaPackage extends EPackage
     EAttribute DESCRIPTION_ELEMENT__THIS_TARGET = eINSTANCE.getDescriptionElement_ThisTarget();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl <em>Assurance Task</em>}' class.
+     * The meta object literal for the '{@link org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl <em>And Selection Condition Expr</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl
-     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAssuranceTask()
+     * @see org.osate.alisa.workbench.alisa.impl.AndSelectionConditionExprImpl
+     * @see org.osate.alisa.workbench.alisa.impl.AlisaPackageImpl#getAndSelectionConditionExpr()
      * @generated
      */
-    EClass ASSURANCE_TASK = eINSTANCE.getAssuranceTask();
+    EClass AND_SELECTION_CONDITION_EXPR = eINSTANCE.getAndSelectionConditionExpr();
 
     /**
-     * The meta object literal for the '<em><b>Assurance Plan</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ASSURANCE_TASK__ASSURANCE_PLAN = eINSTANCE.getAssuranceTask_AssurancePlan();
+    EReference AND_SELECTION_CONDITION_EXPR__LEFT = eINSTANCE.getAndSelectionConditionExpr_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND_SELECTION_CONDITION_EXPR__RIGHT = eINSTANCE.getAndSelectionConditionExpr_Right();
 
   }
 

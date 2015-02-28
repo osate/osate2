@@ -18,13 +18,22 @@ AssurancePlan:
 	('description' description=Description)?
 	& ('assert' plans+=[Verify::VerificationPlan|QualifiedName]+)
 	& ('assume' 'verified' verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)?
-	&('filter' (selectionFilter+=[categories::SelectionCategory|ID])+)?
 	)
 	']';
 	
-	AssuranceTask returns AssurancePlan :
-		'assurance' 'task'{AssuranceTask} name=ID (':' title=STRING)? 'of' assurancePlan=[AssurancePlan|ID]
+	AssuranceTask returns AssuranceTask :
+		'assurance' 'task' name=ID (':' title=STRING)? 'of' assurancePlan=[AssurancePlan|ID]
+	'filter' filter=OrSelectionConditionExpr
 	;
+	
+OrSelectionConditionExpr returns SelectionConditionExpr:
+	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
+
+AndSelectionConditionExpr returns SelectionConditionExpr:
+	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
+
+SelectionCategoryReference:
+	cat=[categories::Category|ID];
 	
 Description : 
 	( description += DescriptionElement  )+

@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -20,7 +21,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AlisaWorkArea;
-import org.osate.alisa.workbench.alisa.AssurancePlan;
 
 /**
  * <!-- begin-user-doc -->
@@ -66,7 +66,7 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
    * @generated
    * @ordered
    */
-  protected EList<AssurancePlan> cases;
+  protected EList<EObject> cases;
 
   /**
    * <!-- begin-user-doc -->
@@ -117,11 +117,11 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AssurancePlan> getCases()
+  public EList<EObject> getCases()
   {
     if (cases == null)
     {
-      cases = new EObjectContainmentEList<AssurancePlan>(AssurancePlan.class, this, AlisaPackage.ALISA_WORK_AREA__CASES);
+      cases = new EObjectContainmentEList<EObject>(EObject.class, this, AlisaPackage.ALISA_WORK_AREA__CASES);
     }
     return cases;
   }
@@ -176,7 +176,7 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
         return;
       case AlisaPackage.ALISA_WORK_AREA__CASES:
         getCases().clear();
-        getCases().addAll((Collection<? extends AssurancePlan>)newValue);
+        getCases().addAll((Collection<? extends EObject>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

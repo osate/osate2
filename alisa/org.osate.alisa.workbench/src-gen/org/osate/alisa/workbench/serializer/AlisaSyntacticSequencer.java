@@ -19,14 +19,12 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AlisaGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AssurancePlan_AssertKeyword_7_1_0_q;
-	protected AbstractElementAlias match_AssurancePlan_FilterKeyword_7_3_0_q;
 	protected AbstractElementAlias match_AssurancePlan___AssumeKeyword_7_2_0_VerifiedKeyword_7_2_1__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AlisaGrammarAccess) access;
 		match_AssurancePlan_AssertKeyword_7_1_0_q = new TokenAlias(false, true, grammarAccess.getAssurancePlanAccess().getAssertKeyword_7_1_0());
-		match_AssurancePlan_FilterKeyword_7_3_0_q = new TokenAlias(false, true, grammarAccess.getAssurancePlanAccess().getFilterKeyword_7_3_0());
 		match_AssurancePlan___AssumeKeyword_7_2_0_VerifiedKeyword_7_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getAssumeKeyword_7_2_0()), new TokenAlias(false, false, grammarAccess.getAssurancePlanAccess().getVerifiedKeyword_7_2_1()));
 	}
 	
@@ -44,8 +42,6 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if(match_AssurancePlan_AssertKeyword_7_1_0_q.equals(syntax))
 				emit_AssurancePlan_AssertKeyword_7_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan_FilterKeyword_7_3_0_q.equals(syntax))
-				emit_AssurancePlan_FilterKeyword_7_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_AssurancePlan___AssumeKeyword_7_2_0_VerifiedKeyword_7_2_1__q.equals(syntax))
 				emit_AssurancePlan___AssumeKeyword_7_2_0_VerifiedKeyword_7_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -57,14 +53,6 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'assert'?
 	 */
 	protected void emit_AssurancePlan_AssertKeyword_7_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Syntax:
-	 *     'filter'?
-	 */
-	protected void emit_AssurancePlan_FilterKeyword_7_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -34,6 +34,8 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
 import org.osate.assure.assure.AssuranceEvidence
+import org.osate.alisa.workbench.alisa.AssuranceTask
+import org.osate.alisa.workbench.alisa.SelectionConditionExpr
 
 /**
  * Generates code from your model files on save.
@@ -45,7 +47,10 @@ class AlisaGenerator implements IGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val workarea = resource.contents.get(0) as AlisaWorkArea
 		workarea.cases.forEach [ mycase |
-			fsa.generateFile('''«mycase.name».assure''', generateCase(mycase))
+			switch (mycase){
+			AssurancePlan: fsa.generateFile('''«mycase.name».assure''', generateCase(mycase))
+			AssuranceTask: fsa.generateFile('''«mycase.name».assure''', generateAssuranceTask(mycase))
+			}
 		]
 	}
 
@@ -53,17 +58,24 @@ class AlisaGenerator implements IGenerator {
 
 	val factory = AssureFactory.eINSTANCE
 	
-	var EList<SelectionCategory> selectionCriteria 
+	var SelectionConditionExpr selectionCriteria = null
+	
+	def constructAssuranceTask(AssuranceTask at){
+		selectionCriteria = at.filter
+		at.assurancePlan?.constructCase
+	}
+	def generateAssuranceTask(AssuranceTask at){
+		selectionCriteria = at.filter
+		at.assurancePlan?.generateCase
+	}
 
 	def constructCase(AssurancePlan acp) {
 		val si = acp.system.buildInstanceModelFile
-		selectionCriteria = acp.selectionFilter
 		si.construct(acp)
 	}
 
 	def generateCase(AssurancePlan acp) {
 		val si = acp.system.buildInstanceModelFile
-		selectionCriteria = acp.selectionFilter
 		si.generate(acp)
 	}
 
@@ -273,9 +285,11 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def evaluateCondition(WhenExpr expr) {
-		val intersect = expr.condition.copyAll
-		intersect.retainAll(selectionCriteria) 
-		!intersect.isEmpty
+		// TODO handle selectionCriteria as boolean expression
+//		val intersect = expr.condition.copyAll
+//		intersect.retainAll(selectionCriteria) 
+//		!intersect.isEmpty
+		true
 	}
 
 	def keyword(VerificationCondition vc) {
