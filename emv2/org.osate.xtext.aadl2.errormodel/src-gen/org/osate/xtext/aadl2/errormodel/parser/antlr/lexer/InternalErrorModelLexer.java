@@ -12,103 +12,103 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalErrorModelLexer extends Lexer {
-    public static final int Orless=33;
     public static final int RULE_ID=98;
     public static final int RULE_REAL_LIT=94;
-    public static final int RightParenthesis=77;
-    public static final int ExclamationMark=75;
-    public static final int Repair=36;
-    public static final int Path=50;
-    public static final int LeftParenthesis=76;
-    public static final int RightSquareBracket=86;
-    public static final int Extends=24;
-    public static final int Library=26;
+    public static final int KEYWORD_56=35;
+    public static final int KEYWORD_55=34;
+    public static final int KEYWORD_54=33;
+    public static final int KEYWORD_53=32;
+    public static final int KEYWORD_52=31;
+    public static final int KEYWORD_51=30;
+    public static final int KEYWORD_50=48;
     public static final int EOF=-1;
-    public static final int Modes=44;
-    public static final int FullStop=82;
-    public static final int Binding=22;
-    public static final int Point=46;
-    public static final int Out=64;
-    public static final int Recover=28;
-    public static final int To=74;
-    public static final int Mode=49;
-    public static final int When=56;
-    public static final int FullStopFullStop=69;
-    public static final int Access=30;
-    public static final int Use=66;
+    public static final int KEYWORD_59=38;
+    public static final int KEYWORD_58=37;
+    public static final int KEYWORD_57=36;
+    public static final int KEYWORD_65=26;
+    public static final int KEYWORD_64=25;
+    public static final int KEYWORD_67=28;
+    public static final int KEYWORD_66=27;
+    public static final int KEYWORD_61=22;
+    public static final int KEYWORD_60=21;
+    public static final int KEYWORD_63=24;
+    public static final int KEYWORD_62=23;
+    public static final int KEYWORD_69=17;
+    public static final int KEYWORD_68=29;
     public static final int RULE_EXTENDED_DIGIT=95;
-    public static final int Others=35;
-    public static final int Noerror=27;
-    public static final int Properties=12;
-    public static final int Ormore=34;
-    public static final int Colon=83;
-    public static final int LeftCurlyBracket=87;
-    public static final int With=57;
+    public static final int KEYWORD_30=65;
+    public static final int KEYWORD_34=51;
+    public static final int KEYWORD_33=50;
+    public static final int KEYWORD_32=49;
+    public static final int KEYWORD_31=66;
+    public static final int KEYWORD_38=55;
+    public static final int KEYWORD_37=54;
+    public static final int KEYWORD_36=53;
+    public static final int KEYWORD_35=52;
+    public static final int KEYWORD_39=56;
     public static final int RULE_STRING=97;
-    public static final int Propagations=5;
-    public static final int Mappings=20;
-    public static final int Sink=53;
     public static final int RULE_EXPONENT=92;
-    public static final int Behavior=17;
+    public static final int KEYWORD_41=39;
+    public static final int KEYWORD_40=57;
+    public static final int KEYWORD_43=41;
+    public static final int KEYWORD_42=40;
+    public static final int KEYWORD_45=43;
+    public static final int KEYWORD_44=42;
+    public static final int KEYWORD_47=45;
     public static final int RULE_DIGIT=91;
-    public static final int PlusSignEqualsSignGreaterThanSign=58;
-    public static final int HyphenMinusGreaterThanSign=67;
-    public static final int RightCurlyBracket=88;
-    public static final int Types=48;
-    public static final int End=62;
-    public static final int HyphenMinus=81;
+    public static final int KEYWORD_46=44;
+    public static final int KEYWORD_49=47;
+    public static final int KEYWORD_48=46;
     public static final int RULE_INTEGER_LIT=90;
-    public static final int Self=52;
-    public static final int All=60;
-    public static final int False=42;
-    public static final int Constant=19;
-    public static final int Memory=32;
-    public static final int Component=13;
-    public static final int Set=65;
-    public static final int Initial=25;
-    public static final int Equivalence=6;
-    public static final int Transformations=4;
-    public static final int Event=41;
-    public static final int Renames=29;
-    public static final int Classifier=9;
-    public static final int EqualsSignGreaterThanSign=71;
-    public static final int States=38;
-    public static final int Source=37;
-    public static final int Or=73;
-    public static final int LeftSquareBracket=85;
-    public static final int True=54;
-    public static final int Reference=16;
-    public static final int Paths=45;
-    public static final int Propagation=7;
-    public static final int And=61;
-    public static final int Composite=14;
-    public static final int Asterisk=78;
-    public static final int In=72;
-    public static final int Type=55;
-    public static final int Delta=39;
-    public static final int Connection=10;
+    public static final int KEYWORD_19=71;
+    public static final int KEYWORD_17=69;
+    public static final int KEYWORD_18=70;
+    public static final int KEYWORD_15=67;
+    public static final int KEYWORD_16=68;
+    public static final int KEYWORD_13=87;
+    public static final int KEYWORD_14=88;
+    public static final int KEYWORD_11=85;
+    public static final int KEYWORD_12=86;
+    public static final int KEYWORD_10=84;
+    public static final int KEYWORD_6=80;
+    public static final int KEYWORD_7=81;
+    public static final int KEYWORD_8=82;
+    public static final int KEYWORD_9=83;
+    public static final int KEYWORD_28=63;
+    public static final int KEYWORD_29=64;
+    public static final int KEYWORD_24=59;
+    public static final int KEYWORD_25=60;
+    public static final int KEYWORD_26=61;
+    public static final int KEYWORD_27=62;
+    public static final int KEYWORD_20=72;
+    public static final int KEYWORD_21=73;
+    public static final int KEYWORD_22=74;
+    public static final int KEYWORD_23=58;
+    public static final int KEYWORD_79=11;
+    public static final int KEYWORD_71=19;
+    public static final int KEYWORD_72=20;
+    public static final int KEYWORD_73=13;
+    public static final int KEYWORD_74=14;
+    public static final int KEYWORD_75=15;
+    public static final int KEYWORD_76=16;
+    public static final int KEYWORD_77=9;
+    public static final int KEYWORD_78=10;
+    public static final int KEYWORD_1=75;
+    public static final int KEYWORD_5=79;
+    public static final int KEYWORD_4=78;
+    public static final int KEYWORD_70=18;
+    public static final int KEYWORD_3=77;
+    public static final int KEYWORD_2=76;
     public static final int RULE_BASED_INTEGER=96;
-    public static final int Semicolon=84;
-    public static final int Flows=43;
     public static final int RULE_SL_COMMENT=89;
-    public static final int Processor=15;
-    public static final int ColonColon=70;
-    public static final int RightSquareBracketHyphenMinusGreaterThanSign=59;
-    public static final int Detections=11;
-    public static final int PlusSign=79;
-    public static final int Events=31;
-    public static final int Transitions=8;
-    public static final int Bindings=18;
+    public static final int KEYWORD_84=5;
+    public static final int KEYWORD_85=4;
+    public static final int KEYWORD_82=7;
+    public static final int KEYWORD_83=8;
     public static final int RULE_INT_EXPONENT=93;
-    public static final int Error=40;
-    public static final int Not=63;
-    public static final int Applies=21;
-    public static final int HyphenMinusLeftSquareBracket=68;
-    public static final int State=47;
-    public static final int Same=51;
+    public static final int KEYWORD_81=6;
+    public static final int KEYWORD_80=12;
     public static final int RULE_WS=99;
-    public static final int Comma=80;
-    public static final int Compute=23;
 
     // delegates
     // delegators
@@ -123,13 +123,13 @@ public class InternalErrorModelLexer extends Lexer {
     }
     public String getGrammarFileName() { return "../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g"; }
 
-    // $ANTLR start "Transformations"
-    public final void mTransformations() throws RecognitionException {
+    // $ANTLR start "KEYWORD_85"
+    public final void mKEYWORD_85() throws RecognitionException {
         try {
-            int _type = Transformations;
+            int _type = KEYWORD_85;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:19:17: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:19:19: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:19:12: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:19:14: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'F' | 'f' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -275,15 +275,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Transformations"
+    // $ANTLR end "KEYWORD_85"
 
-    // $ANTLR start "Propagations"
-    public final void mPropagations() throws RecognitionException {
+    // $ANTLR start "KEYWORD_84"
+    public final void mKEYWORD_84() throws RecognitionException {
         try {
-            int _type = Propagations;
+            int _type = KEYWORD_84;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:21:14: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:21:16: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:21:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:21:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -402,15 +402,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Propagations"
+    // $ANTLR end "KEYWORD_84"
 
-    // $ANTLR start "Equivalence"
-    public final void mEquivalence() throws RecognitionException {
+    // $ANTLR start "KEYWORD_81"
+    public final void mKEYWORD_81() throws RecognitionException {
         try {
-            int _type = Equivalence;
+            int _type = KEYWORD_81;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:23:13: ( ( 'E' | 'e' ) ( 'Q' | 'q' ) ( 'U' | 'u' ) ( 'I' | 'i' ) ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:23:15: ( 'E' | 'e' ) ( 'Q' | 'q' ) ( 'U' | 'u' ) ( 'I' | 'i' ) ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:23:12: ( ( 'E' | 'e' ) ( 'Q' | 'q' ) ( 'U' | 'u' ) ( 'I' | 'i' ) ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:23:14: ( 'E' | 'e' ) ( 'Q' | 'q' ) ( 'U' | 'u' ) ( 'I' | 'i' ) ( 'V' | 'v' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -520,15 +520,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Equivalence"
+    // $ANTLR end "KEYWORD_81"
 
-    // $ANTLR start "Propagation"
-    public final void mPropagation() throws RecognitionException {
+    // $ANTLR start "KEYWORD_82"
+    public final void mKEYWORD_82() throws RecognitionException {
         try {
-            int _type = Propagation;
+            int _type = KEYWORD_82;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:25:13: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:25:15: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:25:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:25:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'G' | 'g' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -638,15 +638,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Propagation"
+    // $ANTLR end "KEYWORD_82"
 
-    // $ANTLR start "Transitions"
-    public final void mTransitions() throws RecognitionException {
+    // $ANTLR start "KEYWORD_83"
+    public final void mKEYWORD_83() throws RecognitionException {
         try {
-            int _type = Transitions;
+            int _type = KEYWORD_83;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:27:13: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:27:15: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:27:12: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:27:14: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -756,12 +756,12 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Transitions"
+    // $ANTLR end "KEYWORD_83"
 
-    // $ANTLR start "Classifier"
-    public final void mClassifier() throws RecognitionException {
+    // $ANTLR start "KEYWORD_77"
+    public final void mKEYWORD_77() throws RecognitionException {
         try {
-            int _type = Classifier;
+            int _type = KEYWORD_77;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:29:12: ( ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:29:14: ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'R' | 'r' )
@@ -865,12 +865,12 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Classifier"
+    // $ANTLR end "KEYWORD_77"
 
-    // $ANTLR start "Connection"
-    public final void mConnection() throws RecognitionException {
+    // $ANTLR start "KEYWORD_78"
+    public final void mKEYWORD_78() throws RecognitionException {
         try {
-            int _type = Connection;
+            int _type = KEYWORD_78;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:31:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:31:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' )
@@ -974,12 +974,12 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Connection"
+    // $ANTLR end "KEYWORD_78"
 
-    // $ANTLR start "Detections"
-    public final void mDetections() throws RecognitionException {
+    // $ANTLR start "KEYWORD_79"
+    public final void mKEYWORD_79() throws RecognitionException {
         try {
-            int _type = Detections;
+            int _type = KEYWORD_79;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:33:12: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:33:14: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' )
@@ -1083,12 +1083,12 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Detections"
+    // $ANTLR end "KEYWORD_79"
 
-    // $ANTLR start "Properties"
-    public final void mProperties() throws RecognitionException {
+    // $ANTLR start "KEYWORD_80"
+    public final void mKEYWORD_80() throws RecognitionException {
         try {
-            int _type = Properties;
+            int _type = KEYWORD_80;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:35:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:35:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' )
@@ -1192,15 +1192,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Properties"
+    // $ANTLR end "KEYWORD_80"
 
-    // $ANTLR start "Component"
-    public final void mComponent() throws RecognitionException {
+    // $ANTLR start "KEYWORD_73"
+    public final void mKEYWORD_73() throws RecognitionException {
         try {
-            int _type = Component;
+            int _type = KEYWORD_73;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:37:11: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:37:13: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:37:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:37:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1292,15 +1292,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Component"
+    // $ANTLR end "KEYWORD_73"
 
-    // $ANTLR start "Composite"
-    public final void mComposite() throws RecognitionException {
+    // $ANTLR start "KEYWORD_74"
+    public final void mKEYWORD_74() throws RecognitionException {
         try {
-            int _type = Composite;
+            int _type = KEYWORD_74;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:39:11: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:39:13: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:39:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:39:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1392,15 +1392,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Composite"
+    // $ANTLR end "KEYWORD_74"
 
-    // $ANTLR start "Processor"
-    public final void mProcessor() throws RecognitionException {
+    // $ANTLR start "KEYWORD_75"
+    public final void mKEYWORD_75() throws RecognitionException {
         try {
-            int _type = Processor;
+            int _type = KEYWORD_75;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:41:11: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:41:13: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:41:12: ( ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:41:14: ( 'P' | 'p' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -1492,15 +1492,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Processor"
+    // $ANTLR end "KEYWORD_75"
 
-    // $ANTLR start "Reference"
-    public final void mReference() throws RecognitionException {
+    // $ANTLR start "KEYWORD_76"
+    public final void mKEYWORD_76() throws RecognitionException {
         try {
-            int _type = Reference;
+            int _type = KEYWORD_76;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:43:11: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:43:13: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:43:12: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:43:14: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -1592,15 +1592,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Reference"
+    // $ANTLR end "KEYWORD_76"
 
-    // $ANTLR start "Behavior"
-    public final void mBehavior() throws RecognitionException {
+    // $ANTLR start "KEYWORD_69"
+    public final void mKEYWORD_69() throws RecognitionException {
         try {
-            int _type = Behavior;
+            int _type = KEYWORD_69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:45:10: ( ( 'B' | 'b' ) ( 'E' | 'e' ) ( 'H' | 'h' ) ( 'A' | 'a' ) ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:45:12: ( 'B' | 'b' ) ( 'E' | 'e' ) ( 'H' | 'h' ) ( 'A' | 'a' ) ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:45:12: ( ( 'B' | 'b' ) ( 'E' | 'e' ) ( 'H' | 'h' ) ( 'A' | 'a' ) ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:45:14: ( 'B' | 'b' ) ( 'E' | 'e' ) ( 'H' | 'h' ) ( 'A' | 'a' ) ( 'V' | 'v' ) ( 'I' | 'i' ) ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                 input.consume();
@@ -1683,15 +1683,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Behavior"
+    // $ANTLR end "KEYWORD_69"
 
-    // $ANTLR start "Bindings"
-    public final void mBindings() throws RecognitionException {
+    // $ANTLR start "KEYWORD_70"
+    public final void mKEYWORD_70() throws RecognitionException {
         try {
-            int _type = Bindings;
+            int _type = KEYWORD_70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:47:10: ( ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:47:12: ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:47:12: ( ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:47:14: ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                 input.consume();
@@ -1774,15 +1774,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Bindings"
+    // $ANTLR end "KEYWORD_70"
 
-    // $ANTLR start "Constant"
-    public final void mConstant() throws RecognitionException {
+    // $ANTLR start "KEYWORD_71"
+    public final void mKEYWORD_71() throws RecognitionException {
         try {
-            int _type = Constant;
+            int _type = KEYWORD_71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:49:10: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:49:12: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:49:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:49:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -1865,15 +1865,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Constant"
+    // $ANTLR end "KEYWORD_71"
 
-    // $ANTLR start "Mappings"
-    public final void mMappings() throws RecognitionException {
+    // $ANTLR start "KEYWORD_72"
+    public final void mKEYWORD_72() throws RecognitionException {
         try {
-            int _type = Mappings;
+            int _type = KEYWORD_72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:51:10: ( ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:51:12: ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:51:12: ( ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:51:14: ( 'M' | 'm' ) ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -1956,15 +1956,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Mappings"
+    // $ANTLR end "KEYWORD_72"
 
-    // $ANTLR start "Applies"
-    public final void mApplies() throws RecognitionException {
+    // $ANTLR start "KEYWORD_60"
+    public final void mKEYWORD_60() throws RecognitionException {
         try {
-            int _type = Applies;
+            int _type = KEYWORD_60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:53:9: ( ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:53:11: ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:53:12: ( ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:53:14: ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -2038,15 +2038,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Applies"
+    // $ANTLR end "KEYWORD_60"
 
-    // $ANTLR start "Binding"
-    public final void mBinding() throws RecognitionException {
+    // $ANTLR start "KEYWORD_61"
+    public final void mKEYWORD_61() throws RecognitionException {
         try {
-            int _type = Binding;
+            int _type = KEYWORD_61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:55:9: ( ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:55:11: ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:55:12: ( ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:55:14: ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' )
             {
             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                 input.consume();
@@ -2120,15 +2120,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Binding"
+    // $ANTLR end "KEYWORD_61"
 
-    // $ANTLR start "Compute"
-    public final void mCompute() throws RecognitionException {
+    // $ANTLR start "KEYWORD_62"
+    public final void mKEYWORD_62() throws RecognitionException {
         try {
-            int _type = Compute;
+            int _type = KEYWORD_62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:57:9: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:57:11: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:57:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:57:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -2202,15 +2202,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Compute"
+    // $ANTLR end "KEYWORD_62"
 
-    // $ANTLR start "Extends"
-    public final void mExtends() throws RecognitionException {
+    // $ANTLR start "KEYWORD_63"
+    public final void mKEYWORD_63() throws RecognitionException {
         try {
-            int _type = Extends;
+            int _type = KEYWORD_63;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:59:9: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:59:11: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:59:12: ( ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:59:14: ( 'E' | 'e' ) ( 'X' | 'x' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -2284,15 +2284,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Extends"
+    // $ANTLR end "KEYWORD_63"
 
-    // $ANTLR start "Initial"
-    public final void mInitial() throws RecognitionException {
+    // $ANTLR start "KEYWORD_64"
+    public final void mKEYWORD_64() throws RecognitionException {
         try {
-            int _type = Initial;
+            int _type = KEYWORD_64;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:61:9: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:61:11: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'A' | 'a' ) ( 'L' | 'l' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:61:12: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'A' | 'a' ) ( 'L' | 'l' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:61:14: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'I' | 'i' ) ( 'A' | 'a' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -2366,15 +2366,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Initial"
+    // $ANTLR end "KEYWORD_64"
 
-    // $ANTLR start "Library"
-    public final void mLibrary() throws RecognitionException {
+    // $ANTLR start "KEYWORD_65"
+    public final void mKEYWORD_65() throws RecognitionException {
         try {
-            int _type = Library;
+            int _type = KEYWORD_65;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:63:9: ( ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:63:11: ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:63:12: ( ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:63:14: ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'B' | 'b' ) ( 'R' | 'r' ) ( 'A' | 'a' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -2448,15 +2448,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Library"
+    // $ANTLR end "KEYWORD_65"
 
-    // $ANTLR start "Noerror"
-    public final void mNoerror() throws RecognitionException {
+    // $ANTLR start "KEYWORD_66"
+    public final void mKEYWORD_66() throws RecognitionException {
         try {
-            int _type = Noerror;
+            int _type = KEYWORD_66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:65:9: ( ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:65:11: ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:65:12: ( ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:65:14: ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -2530,15 +2530,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Noerror"
+    // $ANTLR end "KEYWORD_66"
 
-    // $ANTLR start "Recover"
-    public final void mRecover() throws RecognitionException {
+    // $ANTLR start "KEYWORD_67"
+    public final void mKEYWORD_67() throws RecognitionException {
         try {
-            int _type = Recover;
+            int _type = KEYWORD_67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:67:9: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:67:11: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:67:12: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:67:14: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2612,15 +2612,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Recover"
+    // $ANTLR end "KEYWORD_67"
 
-    // $ANTLR start "Renames"
-    public final void mRenames() throws RecognitionException {
+    // $ANTLR start "KEYWORD_68"
+    public final void mKEYWORD_68() throws RecognitionException {
         try {
-            int _type = Renames;
+            int _type = KEYWORD_68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:69:9: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:69:11: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:69:12: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:69:14: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -2694,15 +2694,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Renames"
+    // $ANTLR end "KEYWORD_68"
 
-    // $ANTLR start "Access"
-    public final void mAccess() throws RecognitionException {
+    // $ANTLR start "KEYWORD_51"
+    public final void mKEYWORD_51() throws RecognitionException {
         try {
-            int _type = Access;
+            int _type = KEYWORD_51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:71:8: ( ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:71:10: ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:71:12: ( ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:71:14: ( 'A' | 'a' ) ( 'C' | 'c' ) ( 'C' | 'c' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -2767,15 +2767,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Access"
+    // $ANTLR end "KEYWORD_51"
 
-    // $ANTLR start "Events"
-    public final void mEvents() throws RecognitionException {
+    // $ANTLR start "KEYWORD_52"
+    public final void mKEYWORD_52() throws RecognitionException {
         try {
-            int _type = Events;
+            int _type = KEYWORD_52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:73:8: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:73:10: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:73:12: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:73:14: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -2840,15 +2840,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Events"
+    // $ANTLR end "KEYWORD_52"
 
-    // $ANTLR start "Memory"
-    public final void mMemory() throws RecognitionException {
+    // $ANTLR start "KEYWORD_53"
+    public final void mKEYWORD_53() throws RecognitionException {
         try {
-            int _type = Memory;
+            int _type = KEYWORD_53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:75:8: ( ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:75:10: ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:75:12: ( ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:75:14: ( 'M' | 'm' ) ( 'E' | 'e' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'Y' | 'y' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -2913,15 +2913,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Memory"
+    // $ANTLR end "KEYWORD_53"
 
-    // $ANTLR start "Orless"
-    public final void mOrless() throws RecognitionException {
+    // $ANTLR start "KEYWORD_54"
+    public final void mKEYWORD_54() throws RecognitionException {
         try {
-            int _type = Orless;
+            int _type = KEYWORD_54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:77:8: ( ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:77:10: ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:77:12: ( ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:77:14: ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'L' | 'l' ) ( 'E' | 'e' ) ( 'S' | 's' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -2986,15 +2986,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Orless"
+    // $ANTLR end "KEYWORD_54"
 
-    // $ANTLR start "Ormore"
-    public final void mOrmore() throws RecognitionException {
+    // $ANTLR start "KEYWORD_55"
+    public final void mKEYWORD_55() throws RecognitionException {
         try {
-            int _type = Ormore;
+            int _type = KEYWORD_55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:79:8: ( ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:79:10: ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:79:12: ( ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:79:14: ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'R' | 'r' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -3059,15 +3059,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Ormore"
+    // $ANTLR end "KEYWORD_55"
 
-    // $ANTLR start "Others"
-    public final void mOthers() throws RecognitionException {
+    // $ANTLR start "KEYWORD_56"
+    public final void mKEYWORD_56() throws RecognitionException {
         try {
-            int _type = Others;
+            int _type = KEYWORD_56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:81:8: ( ( 'O' | 'o' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:81:10: ( 'O' | 'o' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:81:12: ( ( 'O' | 'o' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:81:14: ( 'O' | 'o' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -3132,15 +3132,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Others"
+    // $ANTLR end "KEYWORD_56"
 
-    // $ANTLR start "Repair"
-    public final void mRepair() throws RecognitionException {
+    // $ANTLR start "KEYWORD_57"
+    public final void mKEYWORD_57() throws RecognitionException {
         try {
-            int _type = Repair;
+            int _type = KEYWORD_57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:83:8: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'I' | 'i' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:83:10: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'I' | 'i' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:83:12: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'I' | 'i' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:83:14: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'I' | 'i' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
                 input.consume();
@@ -3205,15 +3205,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Repair"
+    // $ANTLR end "KEYWORD_57"
 
-    // $ANTLR start "Source"
-    public final void mSource() throws RecognitionException {
+    // $ANTLR start "KEYWORD_58"
+    public final void mKEYWORD_58() throws RecognitionException {
         try {
-            int _type = Source;
+            int _type = KEYWORD_58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:85:8: ( ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:85:10: ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:85:12: ( ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:85:14: ( 'S' | 's' ) ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'R' | 'r' ) ( 'C' | 'c' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3278,15 +3278,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Source"
+    // $ANTLR end "KEYWORD_58"
 
-    // $ANTLR start "States"
-    public final void mStates() throws RecognitionException {
+    // $ANTLR start "KEYWORD_59"
+    public final void mKEYWORD_59() throws RecognitionException {
         try {
-            int _type = States;
+            int _type = KEYWORD_59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:87:8: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:87:10: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:87:12: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:87:14: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3351,15 +3351,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "States"
+    // $ANTLR end "KEYWORD_59"
 
-    // $ANTLR start "Delta"
-    public final void mDelta() throws RecognitionException {
+    // $ANTLR start "KEYWORD_41"
+    public final void mKEYWORD_41() throws RecognitionException {
         try {
-            int _type = Delta;
+            int _type = KEYWORD_41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:89:7: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:89:9: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:89:12: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:89:14: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -3415,15 +3415,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Delta"
+    // $ANTLR end "KEYWORD_41"
 
-    // $ANTLR start "Error"
-    public final void mError() throws RecognitionException {
+    // $ANTLR start "KEYWORD_42"
+    public final void mKEYWORD_42() throws RecognitionException {
         try {
-            int _type = Error;
+            int _type = KEYWORD_42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:91:7: ( ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:91:9: ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:91:12: ( ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:91:14: ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -3479,15 +3479,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Error"
+    // $ANTLR end "KEYWORD_42"
 
-    // $ANTLR start "Event"
-    public final void mEvent() throws RecognitionException {
+    // $ANTLR start "KEYWORD_43"
+    public final void mKEYWORD_43() throws RecognitionException {
         try {
-            int _type = Event;
+            int _type = KEYWORD_43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:93:7: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:93:9: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:93:12: ( ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:93:14: ( 'E' | 'e' ) ( 'V' | 'v' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -3543,15 +3543,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Event"
+    // $ANTLR end "KEYWORD_43"
 
-    // $ANTLR start "False"
-    public final void mFalse() throws RecognitionException {
+    // $ANTLR start "KEYWORD_44"
+    public final void mKEYWORD_44() throws RecognitionException {
         try {
-            int _type = False;
+            int _type = KEYWORD_44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:95:7: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:95:9: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:95:12: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:95:14: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -3607,15 +3607,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "False"
+    // $ANTLR end "KEYWORD_44"
 
-    // $ANTLR start "Flows"
-    public final void mFlows() throws RecognitionException {
+    // $ANTLR start "KEYWORD_45"
+    public final void mKEYWORD_45() throws RecognitionException {
         try {
-            int _type = Flows;
+            int _type = KEYWORD_45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:97:7: ( ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:97:9: ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:97:12: ( ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:97:14: ( 'F' | 'f' ) ( 'L' | 'l' ) ( 'O' | 'o' ) ( 'W' | 'w' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -3671,15 +3671,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Flows"
+    // $ANTLR end "KEYWORD_45"
 
-    // $ANTLR start "Modes"
-    public final void mModes() throws RecognitionException {
+    // $ANTLR start "KEYWORD_46"
+    public final void mKEYWORD_46() throws RecognitionException {
         try {
-            int _type = Modes;
+            int _type = KEYWORD_46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:99:7: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:99:9: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:99:12: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:99:14: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -3735,15 +3735,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Modes"
+    // $ANTLR end "KEYWORD_46"
 
-    // $ANTLR start "Paths"
-    public final void mPaths() throws RecognitionException {
+    // $ANTLR start "KEYWORD_47"
+    public final void mKEYWORD_47() throws RecognitionException {
         try {
-            int _type = Paths;
+            int _type = KEYWORD_47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:101:7: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:101:9: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:101:12: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:101:14: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -3799,15 +3799,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Paths"
+    // $ANTLR end "KEYWORD_47"
 
-    // $ANTLR start "Point"
-    public final void mPoint() throws RecognitionException {
+    // $ANTLR start "KEYWORD_48"
+    public final void mKEYWORD_48() throws RecognitionException {
         try {
-            int _type = Point;
+            int _type = KEYWORD_48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:103:7: ( ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:103:9: ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:103:12: ( ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:103:14: ( 'P' | 'p' ) ( 'O' | 'o' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -3863,15 +3863,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Point"
+    // $ANTLR end "KEYWORD_48"
 
-    // $ANTLR start "State"
-    public final void mState() throws RecognitionException {
+    // $ANTLR start "KEYWORD_49"
+    public final void mKEYWORD_49() throws RecognitionException {
         try {
-            int _type = State;
+            int _type = KEYWORD_49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:105:7: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:105:9: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:105:12: ( ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:105:14: ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -3927,15 +3927,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "State"
+    // $ANTLR end "KEYWORD_49"
 
-    // $ANTLR start "Types"
-    public final void mTypes() throws RecognitionException {
+    // $ANTLR start "KEYWORD_50"
+    public final void mKEYWORD_50() throws RecognitionException {
         try {
-            int _type = Types;
+            int _type = KEYWORD_50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:107:7: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:107:9: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:107:12: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:107:14: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -3991,15 +3991,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Types"
+    // $ANTLR end "KEYWORD_50"
 
-    // $ANTLR start "Mode"
-    public final void mMode() throws RecognitionException {
+    // $ANTLR start "KEYWORD_32"
+    public final void mKEYWORD_32() throws RecognitionException {
         try {
-            int _type = Mode;
+            int _type = KEYWORD_32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:109:6: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:109:8: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:109:12: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:109:14: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -4046,15 +4046,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Mode"
+    // $ANTLR end "KEYWORD_32"
 
-    // $ANTLR start "Path"
-    public final void mPath() throws RecognitionException {
+    // $ANTLR start "KEYWORD_33"
+    public final void mKEYWORD_33() throws RecognitionException {
         try {
-            int _type = Path;
+            int _type = KEYWORD_33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:111:6: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:111:8: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:111:12: ( ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:111:14: ( 'P' | 'p' ) ( 'A' | 'a' ) ( 'T' | 't' ) ( 'H' | 'h' )
             {
             if ( input.LA(1)=='P'||input.LA(1)=='p' ) {
                 input.consume();
@@ -4101,15 +4101,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Path"
+    // $ANTLR end "KEYWORD_33"
 
-    // $ANTLR start "Same"
-    public final void mSame() throws RecognitionException {
+    // $ANTLR start "KEYWORD_34"
+    public final void mKEYWORD_34() throws RecognitionException {
         try {
-            int _type = Same;
+            int _type = KEYWORD_34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:113:6: ( ( 'S' | 's' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:113:8: ( 'S' | 's' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:113:12: ( ( 'S' | 's' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:113:14: ( 'S' | 's' ) ( 'A' | 'a' ) ( 'M' | 'm' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4156,15 +4156,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Same"
+    // $ANTLR end "KEYWORD_34"
 
-    // $ANTLR start "Self"
-    public final void mSelf() throws RecognitionException {
+    // $ANTLR start "KEYWORD_35"
+    public final void mKEYWORD_35() throws RecognitionException {
         try {
-            int _type = Self;
+            int _type = KEYWORD_35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:115:6: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'F' | 'f' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:115:8: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'F' | 'f' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:115:12: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'F' | 'f' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:115:14: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'F' | 'f' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4211,15 +4211,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Self"
+    // $ANTLR end "KEYWORD_35"
 
-    // $ANTLR start "Sink"
-    public final void mSink() throws RecognitionException {
+    // $ANTLR start "KEYWORD_36"
+    public final void mKEYWORD_36() throws RecognitionException {
         try {
-            int _type = Sink;
+            int _type = KEYWORD_36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:117:6: ( ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:117:8: ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:117:12: ( ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:117:14: ( 'S' | 's' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'K' | 'k' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4266,15 +4266,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Sink"
+    // $ANTLR end "KEYWORD_36"
 
-    // $ANTLR start "True"
-    public final void mTrue() throws RecognitionException {
+    // $ANTLR start "KEYWORD_37"
+    public final void mKEYWORD_37() throws RecognitionException {
         try {
-            int _type = True;
+            int _type = KEYWORD_37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:119:6: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:119:8: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:119:12: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:119:14: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -4321,15 +4321,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "True"
+    // $ANTLR end "KEYWORD_37"
 
-    // $ANTLR start "Type"
-    public final void mType() throws RecognitionException {
+    // $ANTLR start "KEYWORD_38"
+    public final void mKEYWORD_38() throws RecognitionException {
         try {
-            int _type = Type;
+            int _type = KEYWORD_38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:121:6: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:121:8: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:121:12: ( ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:121:14: ( 'T' | 't' ) ( 'Y' | 'y' ) ( 'P' | 'p' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -4376,15 +4376,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Type"
+    // $ANTLR end "KEYWORD_38"
 
-    // $ANTLR start "When"
-    public final void mWhen() throws RecognitionException {
+    // $ANTLR start "KEYWORD_39"
+    public final void mKEYWORD_39() throws RecognitionException {
         try {
-            int _type = When;
+            int _type = KEYWORD_39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:123:6: ( ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:123:8: ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:123:12: ( ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'N' | 'n' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:123:14: ( 'W' | 'w' ) ( 'H' | 'h' ) ( 'E' | 'e' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
                 input.consume();
@@ -4431,15 +4431,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "When"
+    // $ANTLR end "KEYWORD_39"
 
-    // $ANTLR start "With"
-    public final void mWith() throws RecognitionException {
+    // $ANTLR start "KEYWORD_40"
+    public final void mKEYWORD_40() throws RecognitionException {
         try {
-            int _type = With;
+            int _type = KEYWORD_40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:125:6: ( ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:125:8: ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:125:12: ( ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:125:14: ( 'W' | 'w' ) ( 'I' | 'i' ) ( 'T' | 't' ) ( 'H' | 'h' )
             {
             if ( input.LA(1)=='W'||input.LA(1)=='w' ) {
                 input.consume();
@@ -4486,15 +4486,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "With"
+    // $ANTLR end "KEYWORD_40"
 
-    // $ANTLR start "PlusSignEqualsSignGreaterThanSign"
-    public final void mPlusSignEqualsSignGreaterThanSign() throws RecognitionException {
+    // $ANTLR start "KEYWORD_23"
+    public final void mKEYWORD_23() throws RecognitionException {
         try {
-            int _type = PlusSignEqualsSignGreaterThanSign;
+            int _type = KEYWORD_23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:127:35: ( '+' '=' '>' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:127:37: '+' '=' '>'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:127:12: ( '+' '=' '>' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:127:14: '+' '=' '>'
             {
             match('+'); 
             match('='); 
@@ -4508,15 +4508,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "PlusSignEqualsSignGreaterThanSign"
+    // $ANTLR end "KEYWORD_23"
 
-    // $ANTLR start "RightSquareBracketHyphenMinusGreaterThanSign"
-    public final void mRightSquareBracketHyphenMinusGreaterThanSign() throws RecognitionException {
+    // $ANTLR start "KEYWORD_24"
+    public final void mKEYWORD_24() throws RecognitionException {
         try {
-            int _type = RightSquareBracketHyphenMinusGreaterThanSign;
+            int _type = KEYWORD_24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:129:46: ( ']' '-' '>' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:129:48: ']' '-' '>'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:129:12: ( ']' '-' '>' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:129:14: ']' '-' '>'
             {
             match(']'); 
             match('-'); 
@@ -4530,15 +4530,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "RightSquareBracketHyphenMinusGreaterThanSign"
+    // $ANTLR end "KEYWORD_24"
 
-    // $ANTLR start "All"
-    public final void mAll() throws RecognitionException {
+    // $ANTLR start "KEYWORD_25"
+    public final void mKEYWORD_25() throws RecognitionException {
         try {
-            int _type = All;
+            int _type = KEYWORD_25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:131:5: ( ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:131:7: ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:131:12: ( ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:131:14: ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'L' | 'l' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4576,15 +4576,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "All"
+    // $ANTLR end "KEYWORD_25"
 
-    // $ANTLR start "And"
-    public final void mAnd() throws RecognitionException {
+    // $ANTLR start "KEYWORD_26"
+    public final void mKEYWORD_26() throws RecognitionException {
         try {
-            int _type = And;
+            int _type = KEYWORD_26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:133:5: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:133:7: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:133:12: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:133:14: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -4622,15 +4622,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "And"
+    // $ANTLR end "KEYWORD_26"
 
-    // $ANTLR start "End"
-    public final void mEnd() throws RecognitionException {
+    // $ANTLR start "KEYWORD_27"
+    public final void mKEYWORD_27() throws RecognitionException {
         try {
-            int _type = End;
+            int _type = KEYWORD_27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:135:5: ( ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:135:7: ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:135:12: ( ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:135:14: ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'D' | 'd' )
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -4668,15 +4668,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "End"
+    // $ANTLR end "KEYWORD_27"
 
-    // $ANTLR start "Not"
-    public final void mNot() throws RecognitionException {
+    // $ANTLR start "KEYWORD_28"
+    public final void mKEYWORD_28() throws RecognitionException {
         try {
-            int _type = Not;
+            int _type = KEYWORD_28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:137:5: ( ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:137:7: ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:137:12: ( ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:137:14: ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
                 input.consume();
@@ -4714,15 +4714,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Not"
+    // $ANTLR end "KEYWORD_28"
 
-    // $ANTLR start "Out"
-    public final void mOut() throws RecognitionException {
+    // $ANTLR start "KEYWORD_29"
+    public final void mKEYWORD_29() throws RecognitionException {
         try {
-            int _type = Out;
+            int _type = KEYWORD_29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:139:5: ( ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:139:7: ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:139:12: ( ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:139:14: ( 'O' | 'o' ) ( 'U' | 'u' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -4760,15 +4760,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Out"
+    // $ANTLR end "KEYWORD_29"
 
-    // $ANTLR start "Set"
-    public final void mSet() throws RecognitionException {
+    // $ANTLR start "KEYWORD_30"
+    public final void mKEYWORD_30() throws RecognitionException {
         try {
-            int _type = Set;
+            int _type = KEYWORD_30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:141:5: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:141:7: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:141:12: ( ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:141:14: ( 'S' | 's' ) ( 'E' | 'e' ) ( 'T' | 't' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4806,15 +4806,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Set"
+    // $ANTLR end "KEYWORD_30"
 
-    // $ANTLR start "Use"
-    public final void mUse() throws RecognitionException {
+    // $ANTLR start "KEYWORD_31"
+    public final void mKEYWORD_31() throws RecognitionException {
         try {
-            int _type = Use;
+            int _type = KEYWORD_31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:143:5: ( ( 'U' | 'u' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:143:7: ( 'U' | 'u' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:143:12: ( ( 'U' | 'u' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:143:14: ( 'U' | 'u' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='U'||input.LA(1)=='u' ) {
                 input.consume();
@@ -4852,15 +4852,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Use"
+    // $ANTLR end "KEYWORD_31"
 
-    // $ANTLR start "HyphenMinusGreaterThanSign"
-    public final void mHyphenMinusGreaterThanSign() throws RecognitionException {
+    // $ANTLR start "KEYWORD_15"
+    public final void mKEYWORD_15() throws RecognitionException {
         try {
-            int _type = HyphenMinusGreaterThanSign;
+            int _type = KEYWORD_15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:145:28: ( '-' '>' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:145:30: '-' '>'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:145:12: ( '-' '>' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:145:14: '-' '>'
             {
             match('-'); 
             match('>'); 
@@ -4873,15 +4873,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "HyphenMinusGreaterThanSign"
+    // $ANTLR end "KEYWORD_15"
 
-    // $ANTLR start "HyphenMinusLeftSquareBracket"
-    public final void mHyphenMinusLeftSquareBracket() throws RecognitionException {
+    // $ANTLR start "KEYWORD_16"
+    public final void mKEYWORD_16() throws RecognitionException {
         try {
-            int _type = HyphenMinusLeftSquareBracket;
+            int _type = KEYWORD_16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:147:30: ( '-' '[' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:147:32: '-' '['
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:147:12: ( '-' '[' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:147:14: '-' '['
             {
             match('-'); 
             match('['); 
@@ -4894,15 +4894,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "HyphenMinusLeftSquareBracket"
+    // $ANTLR end "KEYWORD_16"
 
-    // $ANTLR start "FullStopFullStop"
-    public final void mFullStopFullStop() throws RecognitionException {
+    // $ANTLR start "KEYWORD_17"
+    public final void mKEYWORD_17() throws RecognitionException {
         try {
-            int _type = FullStopFullStop;
+            int _type = KEYWORD_17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:149:18: ( '.' '.' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:149:20: '.' '.'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:149:12: ( '.' '.' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:149:14: '.' '.'
             {
             match('.'); 
             match('.'); 
@@ -4915,12 +4915,12 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "FullStopFullStop"
+    // $ANTLR end "KEYWORD_17"
 
-    // $ANTLR start "ColonColon"
-    public final void mColonColon() throws RecognitionException {
+    // $ANTLR start "KEYWORD_18"
+    public final void mKEYWORD_18() throws RecognitionException {
         try {
-            int _type = ColonColon;
+            int _type = KEYWORD_18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:151:12: ( ':' ':' )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:151:14: ':' ':'
@@ -4936,15 +4936,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "ColonColon"
+    // $ANTLR end "KEYWORD_18"
 
-    // $ANTLR start "EqualsSignGreaterThanSign"
-    public final void mEqualsSignGreaterThanSign() throws RecognitionException {
+    // $ANTLR start "KEYWORD_19"
+    public final void mKEYWORD_19() throws RecognitionException {
         try {
-            int _type = EqualsSignGreaterThanSign;
+            int _type = KEYWORD_19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:153:27: ( '=' '>' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:153:29: '=' '>'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:153:12: ( '=' '>' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:153:14: '=' '>'
             {
             match('='); 
             match('>'); 
@@ -4957,15 +4957,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "EqualsSignGreaterThanSign"
+    // $ANTLR end "KEYWORD_19"
 
-    // $ANTLR start "In"
-    public final void mIn() throws RecognitionException {
+    // $ANTLR start "KEYWORD_20"
+    public final void mKEYWORD_20() throws RecognitionException {
         try {
-            int _type = In;
+            int _type = KEYWORD_20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:155:4: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:155:6: ( 'I' | 'i' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:155:12: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:155:14: ( 'I' | 'i' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -4994,15 +4994,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "In"
+    // $ANTLR end "KEYWORD_20"
 
-    // $ANTLR start "Or"
-    public final void mOr() throws RecognitionException {
+    // $ANTLR start "KEYWORD_21"
+    public final void mKEYWORD_21() throws RecognitionException {
         try {
-            int _type = Or;
+            int _type = KEYWORD_21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:157:4: ( ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:157:6: ( 'O' | 'o' ) ( 'R' | 'r' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:157:12: ( ( 'O' | 'o' ) ( 'R' | 'r' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:157:14: ( 'O' | 'o' ) ( 'R' | 'r' )
             {
             if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
                 input.consume();
@@ -5031,15 +5031,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Or"
+    // $ANTLR end "KEYWORD_21"
 
-    // $ANTLR start "To"
-    public final void mTo() throws RecognitionException {
+    // $ANTLR start "KEYWORD_22"
+    public final void mKEYWORD_22() throws RecognitionException {
         try {
-            int _type = To;
+            int _type = KEYWORD_22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:159:4: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:159:6: ( 'T' | 't' ) ( 'O' | 'o' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:159:12: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:159:14: ( 'T' | 't' ) ( 'O' | 'o' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -5068,15 +5068,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "To"
+    // $ANTLR end "KEYWORD_22"
 
-    // $ANTLR start "ExclamationMark"
-    public final void mExclamationMark() throws RecognitionException {
+    // $ANTLR start "KEYWORD_1"
+    public final void mKEYWORD_1() throws RecognitionException {
         try {
-            int _type = ExclamationMark;
+            int _type = KEYWORD_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:161:17: ( '!' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:161:19: '!'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:161:11: ( '!' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:161:13: '!'
             {
             match('!'); 
 
@@ -5088,15 +5088,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "ExclamationMark"
+    // $ANTLR end "KEYWORD_1"
 
-    // $ANTLR start "LeftParenthesis"
-    public final void mLeftParenthesis() throws RecognitionException {
+    // $ANTLR start "KEYWORD_2"
+    public final void mKEYWORD_2() throws RecognitionException {
         try {
-            int _type = LeftParenthesis;
+            int _type = KEYWORD_2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:163:17: ( '(' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:163:19: '('
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:163:11: ( '(' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:163:13: '('
             {
             match('('); 
 
@@ -5108,15 +5108,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "LeftParenthesis"
+    // $ANTLR end "KEYWORD_2"
 
-    // $ANTLR start "RightParenthesis"
-    public final void mRightParenthesis() throws RecognitionException {
+    // $ANTLR start "KEYWORD_3"
+    public final void mKEYWORD_3() throws RecognitionException {
         try {
-            int _type = RightParenthesis;
+            int _type = KEYWORD_3;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:165:18: ( ')' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:165:20: ')'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:165:11: ( ')' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:165:13: ')'
             {
             match(')'); 
 
@@ -5128,15 +5128,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "RightParenthesis"
+    // $ANTLR end "KEYWORD_3"
 
-    // $ANTLR start "Asterisk"
-    public final void mAsterisk() throws RecognitionException {
+    // $ANTLR start "KEYWORD_4"
+    public final void mKEYWORD_4() throws RecognitionException {
         try {
-            int _type = Asterisk;
+            int _type = KEYWORD_4;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:167:10: ( '*' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:167:12: '*'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:167:11: ( '*' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:167:13: '*'
             {
             match('*'); 
 
@@ -5148,15 +5148,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Asterisk"
+    // $ANTLR end "KEYWORD_4"
 
-    // $ANTLR start "PlusSign"
-    public final void mPlusSign() throws RecognitionException {
+    // $ANTLR start "KEYWORD_5"
+    public final void mKEYWORD_5() throws RecognitionException {
         try {
-            int _type = PlusSign;
+            int _type = KEYWORD_5;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:169:10: ( '+' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:169:12: '+'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:169:11: ( '+' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:169:13: '+'
             {
             match('+'); 
 
@@ -5168,15 +5168,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "PlusSign"
+    // $ANTLR end "KEYWORD_5"
 
-    // $ANTLR start "Comma"
-    public final void mComma() throws RecognitionException {
+    // $ANTLR start "KEYWORD_6"
+    public final void mKEYWORD_6() throws RecognitionException {
         try {
-            int _type = Comma;
+            int _type = KEYWORD_6;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:171:7: ( ',' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:171:9: ','
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:171:11: ( ',' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:171:13: ','
             {
             match(','); 
 
@@ -5188,15 +5188,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Comma"
+    // $ANTLR end "KEYWORD_6"
 
-    // $ANTLR start "HyphenMinus"
-    public final void mHyphenMinus() throws RecognitionException {
+    // $ANTLR start "KEYWORD_7"
+    public final void mKEYWORD_7() throws RecognitionException {
         try {
-            int _type = HyphenMinus;
+            int _type = KEYWORD_7;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:173:13: ( '-' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:173:15: '-'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:173:11: ( '-' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:173:13: '-'
             {
             match('-'); 
 
@@ -5208,15 +5208,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "HyphenMinus"
+    // $ANTLR end "KEYWORD_7"
 
-    // $ANTLR start "FullStop"
-    public final void mFullStop() throws RecognitionException {
+    // $ANTLR start "KEYWORD_8"
+    public final void mKEYWORD_8() throws RecognitionException {
         try {
-            int _type = FullStop;
+            int _type = KEYWORD_8;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:175:10: ( '.' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:175:12: '.'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:175:11: ( '.' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:175:13: '.'
             {
             match('.'); 
 
@@ -5228,15 +5228,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "FullStop"
+    // $ANTLR end "KEYWORD_8"
 
-    // $ANTLR start "Colon"
-    public final void mColon() throws RecognitionException {
+    // $ANTLR start "KEYWORD_9"
+    public final void mKEYWORD_9() throws RecognitionException {
         try {
-            int _type = Colon;
+            int _type = KEYWORD_9;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:177:7: ( ':' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:177:9: ':'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:177:11: ( ':' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:177:13: ':'
             {
             match(':'); 
 
@@ -5248,15 +5248,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Colon"
+    // $ANTLR end "KEYWORD_9"
 
-    // $ANTLR start "Semicolon"
-    public final void mSemicolon() throws RecognitionException {
+    // $ANTLR start "KEYWORD_10"
+    public final void mKEYWORD_10() throws RecognitionException {
         try {
-            int _type = Semicolon;
+            int _type = KEYWORD_10;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:179:11: ( ';' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:179:13: ';'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:179:12: ( ';' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:179:14: ';'
             {
             match(';'); 
 
@@ -5268,15 +5268,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "Semicolon"
+    // $ANTLR end "KEYWORD_10"
 
-    // $ANTLR start "LeftSquareBracket"
-    public final void mLeftSquareBracket() throws RecognitionException {
+    // $ANTLR start "KEYWORD_11"
+    public final void mKEYWORD_11() throws RecognitionException {
         try {
-            int _type = LeftSquareBracket;
+            int _type = KEYWORD_11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:181:19: ( '[' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:181:21: '['
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:181:12: ( '[' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:181:14: '['
             {
             match('['); 
 
@@ -5288,15 +5288,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "LeftSquareBracket"
+    // $ANTLR end "KEYWORD_11"
 
-    // $ANTLR start "RightSquareBracket"
-    public final void mRightSquareBracket() throws RecognitionException {
+    // $ANTLR start "KEYWORD_12"
+    public final void mKEYWORD_12() throws RecognitionException {
         try {
-            int _type = RightSquareBracket;
+            int _type = KEYWORD_12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:183:20: ( ']' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:183:22: ']'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:183:12: ( ']' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:183:14: ']'
             {
             match(']'); 
 
@@ -5308,15 +5308,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "RightSquareBracket"
+    // $ANTLR end "KEYWORD_12"
 
-    // $ANTLR start "LeftCurlyBracket"
-    public final void mLeftCurlyBracket() throws RecognitionException {
+    // $ANTLR start "KEYWORD_13"
+    public final void mKEYWORD_13() throws RecognitionException {
         try {
-            int _type = LeftCurlyBracket;
+            int _type = KEYWORD_13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:185:18: ( '{' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:185:20: '{'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:185:12: ( '{' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:185:14: '{'
             {
             match('{'); 
 
@@ -5328,15 +5328,15 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "LeftCurlyBracket"
+    // $ANTLR end "KEYWORD_13"
 
-    // $ANTLR start "RightCurlyBracket"
-    public final void mRightCurlyBracket() throws RecognitionException {
+    // $ANTLR start "KEYWORD_14"
+    public final void mKEYWORD_14() throws RecognitionException {
         try {
-            int _type = RightCurlyBracket;
+            int _type = KEYWORD_14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:187:19: ( '}' )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:187:21: '}'
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:187:12: ( '}' )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:187:14: '}'
             {
             match('}'); 
 
@@ -5348,7 +5348,7 @@ public class InternalErrorModelLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "RightCurlyBracket"
+    // $ANTLR end "KEYWORD_14"
 
     // $ANTLR start "RULE_SL_COMMENT"
     public final void mRULE_SL_COMMENT() throws RecognitionException {
@@ -6244,642 +6244,642 @@ public class InternalErrorModelLexer extends Lexer {
     // $ANTLR end "RULE_WS"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:8: ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Repair | Source | States | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Self | Sink | True | Type | When | With | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS )
+        // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:8: ( KEYWORD_85 | KEYWORD_84 | KEYWORD_81 | KEYWORD_82 | KEYWORD_83 | KEYWORD_77 | KEYWORD_78 | KEYWORD_79 | KEYWORD_80 | KEYWORD_73 | KEYWORD_74 | KEYWORD_75 | KEYWORD_76 | KEYWORD_69 | KEYWORD_70 | KEYWORD_71 | KEYWORD_72 | KEYWORD_60 | KEYWORD_61 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_65 | KEYWORD_66 | KEYWORD_67 | KEYWORD_68 | KEYWORD_51 | KEYWORD_52 | KEYWORD_53 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_59 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS )
         int alt24=91;
         alt24 = dfa24.predict(input);
         switch (alt24) {
             case 1 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:10: Transformations
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:10: KEYWORD_85
                 {
-                mTransformations(); 
+                mKEYWORD_85(); 
 
                 }
                 break;
             case 2 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:26: Propagations
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:21: KEYWORD_84
                 {
-                mPropagations(); 
+                mKEYWORD_84(); 
 
                 }
                 break;
             case 3 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:39: Equivalence
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:32: KEYWORD_81
                 {
-                mEquivalence(); 
+                mKEYWORD_81(); 
 
                 }
                 break;
             case 4 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:51: Propagation
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:43: KEYWORD_82
                 {
-                mPropagation(); 
+                mKEYWORD_82(); 
 
                 }
                 break;
             case 5 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:63: Transitions
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:54: KEYWORD_83
                 {
-                mTransitions(); 
+                mKEYWORD_83(); 
 
                 }
                 break;
             case 6 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:75: Classifier
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:65: KEYWORD_77
                 {
-                mClassifier(); 
+                mKEYWORD_77(); 
 
                 }
                 break;
             case 7 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:86: Connection
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:76: KEYWORD_78
                 {
-                mConnection(); 
+                mKEYWORD_78(); 
 
                 }
                 break;
             case 8 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:97: Detections
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:87: KEYWORD_79
                 {
-                mDetections(); 
+                mKEYWORD_79(); 
 
                 }
                 break;
             case 9 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:108: Properties
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:98: KEYWORD_80
                 {
-                mProperties(); 
+                mKEYWORD_80(); 
 
                 }
                 break;
             case 10 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:119: Component
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:109: KEYWORD_73
                 {
-                mComponent(); 
+                mKEYWORD_73(); 
 
                 }
                 break;
             case 11 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:129: Composite
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:120: KEYWORD_74
                 {
-                mComposite(); 
+                mKEYWORD_74(); 
 
                 }
                 break;
             case 12 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:139: Processor
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:131: KEYWORD_75
                 {
-                mProcessor(); 
+                mKEYWORD_75(); 
 
                 }
                 break;
             case 13 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:149: Reference
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:142: KEYWORD_76
                 {
-                mReference(); 
+                mKEYWORD_76(); 
 
                 }
                 break;
             case 14 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:159: Behavior
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:153: KEYWORD_69
                 {
-                mBehavior(); 
+                mKEYWORD_69(); 
 
                 }
                 break;
             case 15 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:168: Bindings
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:164: KEYWORD_70
                 {
-                mBindings(); 
+                mKEYWORD_70(); 
 
                 }
                 break;
             case 16 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:177: Constant
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:175: KEYWORD_71
                 {
-                mConstant(); 
+                mKEYWORD_71(); 
 
                 }
                 break;
             case 17 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:186: Mappings
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:186: KEYWORD_72
                 {
-                mMappings(); 
+                mKEYWORD_72(); 
 
                 }
                 break;
             case 18 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:195: Applies
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:197: KEYWORD_60
                 {
-                mApplies(); 
+                mKEYWORD_60(); 
 
                 }
                 break;
             case 19 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:203: Binding
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:208: KEYWORD_61
                 {
-                mBinding(); 
+                mKEYWORD_61(); 
 
                 }
                 break;
             case 20 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:211: Compute
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:219: KEYWORD_62
                 {
-                mCompute(); 
+                mKEYWORD_62(); 
 
                 }
                 break;
             case 21 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:219: Extends
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:230: KEYWORD_63
                 {
-                mExtends(); 
+                mKEYWORD_63(); 
 
                 }
                 break;
             case 22 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:227: Initial
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:241: KEYWORD_64
                 {
-                mInitial(); 
+                mKEYWORD_64(); 
 
                 }
                 break;
             case 23 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:235: Library
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:252: KEYWORD_65
                 {
-                mLibrary(); 
+                mKEYWORD_65(); 
 
                 }
                 break;
             case 24 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:243: Noerror
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:263: KEYWORD_66
                 {
-                mNoerror(); 
+                mKEYWORD_66(); 
 
                 }
                 break;
             case 25 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:251: Recover
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:274: KEYWORD_67
                 {
-                mRecover(); 
+                mKEYWORD_67(); 
 
                 }
                 break;
             case 26 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:259: Renames
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:285: KEYWORD_68
                 {
-                mRenames(); 
+                mKEYWORD_68(); 
 
                 }
                 break;
             case 27 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:267: Access
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:296: KEYWORD_51
                 {
-                mAccess(); 
+                mKEYWORD_51(); 
 
                 }
                 break;
             case 28 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:274: Events
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:307: KEYWORD_52
                 {
-                mEvents(); 
+                mKEYWORD_52(); 
 
                 }
                 break;
             case 29 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:281: Memory
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:318: KEYWORD_53
                 {
-                mMemory(); 
+                mKEYWORD_53(); 
 
                 }
                 break;
             case 30 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:288: Orless
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:329: KEYWORD_54
                 {
-                mOrless(); 
+                mKEYWORD_54(); 
 
                 }
                 break;
             case 31 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:295: Ormore
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:340: KEYWORD_55
                 {
-                mOrmore(); 
+                mKEYWORD_55(); 
 
                 }
                 break;
             case 32 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:302: Others
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:351: KEYWORD_56
                 {
-                mOthers(); 
+                mKEYWORD_56(); 
 
                 }
                 break;
             case 33 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:309: Repair
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:362: KEYWORD_57
                 {
-                mRepair(); 
+                mKEYWORD_57(); 
 
                 }
                 break;
             case 34 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:316: Source
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:373: KEYWORD_58
                 {
-                mSource(); 
+                mKEYWORD_58(); 
 
                 }
                 break;
             case 35 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:323: States
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:384: KEYWORD_59
                 {
-                mStates(); 
+                mKEYWORD_59(); 
 
                 }
                 break;
             case 36 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:330: Delta
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:395: KEYWORD_41
                 {
-                mDelta(); 
+                mKEYWORD_41(); 
 
                 }
                 break;
             case 37 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:336: Error
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:406: KEYWORD_42
                 {
-                mError(); 
+                mKEYWORD_42(); 
 
                 }
                 break;
             case 38 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:342: Event
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:417: KEYWORD_43
                 {
-                mEvent(); 
+                mKEYWORD_43(); 
 
                 }
                 break;
             case 39 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:348: False
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:428: KEYWORD_44
                 {
-                mFalse(); 
+                mKEYWORD_44(); 
 
                 }
                 break;
             case 40 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:354: Flows
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:439: KEYWORD_45
                 {
-                mFlows(); 
+                mKEYWORD_45(); 
 
                 }
                 break;
             case 41 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:360: Modes
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:450: KEYWORD_46
                 {
-                mModes(); 
+                mKEYWORD_46(); 
 
                 }
                 break;
             case 42 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:366: Paths
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:461: KEYWORD_47
                 {
-                mPaths(); 
+                mKEYWORD_47(); 
 
                 }
                 break;
             case 43 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:372: Point
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:472: KEYWORD_48
                 {
-                mPoint(); 
+                mKEYWORD_48(); 
 
                 }
                 break;
             case 44 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:378: State
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:483: KEYWORD_49
                 {
-                mState(); 
+                mKEYWORD_49(); 
 
                 }
                 break;
             case 45 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:384: Types
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:494: KEYWORD_50
                 {
-                mTypes(); 
+                mKEYWORD_50(); 
 
                 }
                 break;
             case 46 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:390: Mode
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:505: KEYWORD_32
                 {
-                mMode(); 
+                mKEYWORD_32(); 
 
                 }
                 break;
             case 47 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:395: Path
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:516: KEYWORD_33
                 {
-                mPath(); 
+                mKEYWORD_33(); 
 
                 }
                 break;
             case 48 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:400: Same
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:527: KEYWORD_34
                 {
-                mSame(); 
+                mKEYWORD_34(); 
 
                 }
                 break;
             case 49 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:405: Self
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:538: KEYWORD_35
                 {
-                mSelf(); 
+                mKEYWORD_35(); 
 
                 }
                 break;
             case 50 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:410: Sink
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:549: KEYWORD_36
                 {
-                mSink(); 
+                mKEYWORD_36(); 
 
                 }
                 break;
             case 51 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:415: True
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:560: KEYWORD_37
                 {
-                mTrue(); 
+                mKEYWORD_37(); 
 
                 }
                 break;
             case 52 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:420: Type
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:571: KEYWORD_38
                 {
-                mType(); 
+                mKEYWORD_38(); 
 
                 }
                 break;
             case 53 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:425: When
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:582: KEYWORD_39
                 {
-                mWhen(); 
+                mKEYWORD_39(); 
 
                 }
                 break;
             case 54 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:430: With
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:593: KEYWORD_40
                 {
-                mWith(); 
+                mKEYWORD_40(); 
 
                 }
                 break;
             case 55 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:435: PlusSignEqualsSignGreaterThanSign
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:604: KEYWORD_23
                 {
-                mPlusSignEqualsSignGreaterThanSign(); 
+                mKEYWORD_23(); 
 
                 }
                 break;
             case 56 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:469: RightSquareBracketHyphenMinusGreaterThanSign
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:615: KEYWORD_24
                 {
-                mRightSquareBracketHyphenMinusGreaterThanSign(); 
+                mKEYWORD_24(); 
 
                 }
                 break;
             case 57 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:514: All
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:626: KEYWORD_25
                 {
-                mAll(); 
+                mKEYWORD_25(); 
 
                 }
                 break;
             case 58 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:518: And
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:637: KEYWORD_26
                 {
-                mAnd(); 
+                mKEYWORD_26(); 
 
                 }
                 break;
             case 59 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:522: End
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:648: KEYWORD_27
                 {
-                mEnd(); 
+                mKEYWORD_27(); 
 
                 }
                 break;
             case 60 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:526: Not
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:659: KEYWORD_28
                 {
-                mNot(); 
+                mKEYWORD_28(); 
 
                 }
                 break;
             case 61 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:530: Out
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:670: KEYWORD_29
                 {
-                mOut(); 
+                mKEYWORD_29(); 
 
                 }
                 break;
             case 62 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:534: Set
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:681: KEYWORD_30
                 {
-                mSet(); 
+                mKEYWORD_30(); 
 
                 }
                 break;
             case 63 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:538: Use
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:692: KEYWORD_31
                 {
-                mUse(); 
+                mKEYWORD_31(); 
 
                 }
                 break;
             case 64 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:542: HyphenMinusGreaterThanSign
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:703: KEYWORD_15
                 {
-                mHyphenMinusGreaterThanSign(); 
+                mKEYWORD_15(); 
 
                 }
                 break;
             case 65 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:569: HyphenMinusLeftSquareBracket
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:714: KEYWORD_16
                 {
-                mHyphenMinusLeftSquareBracket(); 
+                mKEYWORD_16(); 
 
                 }
                 break;
             case 66 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:598: FullStopFullStop
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:725: KEYWORD_17
                 {
-                mFullStopFullStop(); 
+                mKEYWORD_17(); 
 
                 }
                 break;
             case 67 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:615: ColonColon
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:736: KEYWORD_18
                 {
-                mColonColon(); 
+                mKEYWORD_18(); 
 
                 }
                 break;
             case 68 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:626: EqualsSignGreaterThanSign
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:747: KEYWORD_19
                 {
-                mEqualsSignGreaterThanSign(); 
+                mKEYWORD_19(); 
 
                 }
                 break;
             case 69 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:652: In
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:758: KEYWORD_20
                 {
-                mIn(); 
+                mKEYWORD_20(); 
 
                 }
                 break;
             case 70 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:655: Or
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:769: KEYWORD_21
                 {
-                mOr(); 
+                mKEYWORD_21(); 
 
                 }
                 break;
             case 71 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:658: To
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:780: KEYWORD_22
                 {
-                mTo(); 
+                mKEYWORD_22(); 
 
                 }
                 break;
             case 72 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:661: ExclamationMark
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:791: KEYWORD_1
                 {
-                mExclamationMark(); 
+                mKEYWORD_1(); 
 
                 }
                 break;
             case 73 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:677: LeftParenthesis
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:801: KEYWORD_2
                 {
-                mLeftParenthesis(); 
+                mKEYWORD_2(); 
 
                 }
                 break;
             case 74 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:693: RightParenthesis
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:811: KEYWORD_3
                 {
-                mRightParenthesis(); 
+                mKEYWORD_3(); 
 
                 }
                 break;
             case 75 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:710: Asterisk
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:821: KEYWORD_4
                 {
-                mAsterisk(); 
+                mKEYWORD_4(); 
 
                 }
                 break;
             case 76 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:719: PlusSign
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:831: KEYWORD_5
                 {
-                mPlusSign(); 
+                mKEYWORD_5(); 
 
                 }
                 break;
             case 77 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:728: Comma
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:841: KEYWORD_6
                 {
-                mComma(); 
+                mKEYWORD_6(); 
 
                 }
                 break;
             case 78 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:734: HyphenMinus
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:851: KEYWORD_7
                 {
-                mHyphenMinus(); 
+                mKEYWORD_7(); 
 
                 }
                 break;
             case 79 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:746: FullStop
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:861: KEYWORD_8
                 {
-                mFullStop(); 
+                mKEYWORD_8(); 
 
                 }
                 break;
             case 80 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:755: Colon
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:871: KEYWORD_9
                 {
-                mColon(); 
+                mKEYWORD_9(); 
 
                 }
                 break;
             case 81 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:761: Semicolon
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:881: KEYWORD_10
                 {
-                mSemicolon(); 
+                mKEYWORD_10(); 
 
                 }
                 break;
             case 82 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:771: LeftSquareBracket
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:892: KEYWORD_11
                 {
-                mLeftSquareBracket(); 
+                mKEYWORD_11(); 
 
                 }
                 break;
             case 83 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:789: RightSquareBracket
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:903: KEYWORD_12
                 {
-                mRightSquareBracket(); 
+                mKEYWORD_12(); 
 
                 }
                 break;
             case 84 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:808: LeftCurlyBracket
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:914: KEYWORD_13
                 {
-                mLeftCurlyBracket(); 
+                mKEYWORD_13(); 
 
                 }
                 break;
             case 85 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:825: RightCurlyBracket
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:925: KEYWORD_14
                 {
-                mRightCurlyBracket(); 
+                mKEYWORD_14(); 
 
                 }
                 break;
             case 86 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:843: RULE_SL_COMMENT
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:936: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
             case 87 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:859: RULE_INTEGER_LIT
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:952: RULE_INTEGER_LIT
                 {
                 mRULE_INTEGER_LIT(); 
 
                 }
                 break;
             case 88 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:876: RULE_REAL_LIT
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:969: RULE_REAL_LIT
                 {
                 mRULE_REAL_LIT(); 
 
                 }
                 break;
             case 89 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:890: RULE_STRING
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:983: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
             case 90 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:902: RULE_ID
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:995: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
             case 91 :
-                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:910: RULE_WS
+                // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/lexer/InternalErrorModelLexer.g:1:1003: RULE_WS
                 {
                 mRULE_WS(); 
 
@@ -7438,7 +7438,7 @@ public class InternalErrorModelLexer extends Lexer {
             this.transition = DFA24_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( Transformations | Propagations | Equivalence | Propagation | Transitions | Classifier | Connection | Detections | Properties | Component | Composite | Processor | Reference | Behavior | Bindings | Constant | Mappings | Applies | Binding | Compute | Extends | Initial | Library | Noerror | Recover | Renames | Access | Events | Memory | Orless | Ormore | Others | Repair | Source | States | Delta | Error | Event | False | Flows | Modes | Paths | Point | State | Types | Mode | Path | Same | Self | Sink | True | Type | When | With | PlusSignEqualsSignGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | And | End | Not | Out | Set | Use | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | In | Or | To | ExclamationMark | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS );";
+            return "1:1: Tokens : ( KEYWORD_85 | KEYWORD_84 | KEYWORD_81 | KEYWORD_82 | KEYWORD_83 | KEYWORD_77 | KEYWORD_78 | KEYWORD_79 | KEYWORD_80 | KEYWORD_73 | KEYWORD_74 | KEYWORD_75 | KEYWORD_76 | KEYWORD_69 | KEYWORD_70 | KEYWORD_71 | KEYWORD_72 | KEYWORD_60 | KEYWORD_61 | KEYWORD_62 | KEYWORD_63 | KEYWORD_64 | KEYWORD_65 | KEYWORD_66 | KEYWORD_67 | KEYWORD_68 | KEYWORD_51 | KEYWORD_52 | KEYWORD_53 | KEYWORD_54 | KEYWORD_55 | KEYWORD_56 | KEYWORD_57 | KEYWORD_58 | KEYWORD_59 | KEYWORD_41 | KEYWORD_42 | KEYWORD_43 | KEYWORD_44 | KEYWORD_45 | KEYWORD_46 | KEYWORD_47 | KEYWORD_48 | KEYWORD_49 | KEYWORD_50 | KEYWORD_32 | KEYWORD_33 | KEYWORD_34 | KEYWORD_35 | KEYWORD_36 | KEYWORD_37 | KEYWORD_38 | KEYWORD_39 | KEYWORD_40 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_27 | KEYWORD_28 | KEYWORD_29 | KEYWORD_30 | KEYWORD_31 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | KEYWORD_13 | KEYWORD_14 | RULE_SL_COMMENT | RULE_INTEGER_LIT | RULE_REAL_LIT | RULE_STRING | RULE_ID | RULE_WS );";
         }
     }
  

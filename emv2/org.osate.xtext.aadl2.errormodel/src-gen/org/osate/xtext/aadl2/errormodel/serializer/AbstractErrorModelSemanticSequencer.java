@@ -125,6 +125,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					sequence_ContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getQualifiedContainmentPathElementRule()) {
+					sequence_QualifiedContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
+					return; 
+				}
 				else break;
 			case Aadl2Package.INTEGER_LITERAL:
 				if(context == grammarAccess.getIntegerTermRule() ||

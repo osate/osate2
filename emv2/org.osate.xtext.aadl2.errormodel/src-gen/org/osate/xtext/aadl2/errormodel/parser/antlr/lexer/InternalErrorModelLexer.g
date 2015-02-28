@@ -16,175 +16,175 @@ import org.eclipse.xtext.parser.antlr.Lexer;
 
 
 
-Transformations : ('T'|'t')('R'|'r')('A'|'a')('N'|'n')('S'|'s')('F'|'f')('O'|'o')('R'|'r')('M'|'m')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
+KEYWORD_85 : ('T'|'t')('R'|'r')('A'|'a')('N'|'n')('S'|'s')('F'|'f')('O'|'o')('R'|'r')('M'|'m')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
 
-Propagations : ('P'|'p')('R'|'r')('O'|'o')('P'|'p')('A'|'a')('G'|'g')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
+KEYWORD_84 : ('P'|'p')('R'|'r')('O'|'o')('P'|'p')('A'|'a')('G'|'g')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
 
-Equivalence : ('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('V'|'v')('A'|'a')('L'|'l')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
+KEYWORD_81 : ('E'|'e')('Q'|'q')('U'|'u')('I'|'i')('V'|'v')('A'|'a')('L'|'l')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
 
-Propagation : ('P'|'p')('R'|'r')('O'|'o')('P'|'p')('A'|'a')('G'|'g')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+KEYWORD_82 : ('P'|'p')('R'|'r')('O'|'o')('P'|'p')('A'|'a')('G'|'g')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
-Transitions : ('T'|'t')('R'|'r')('A'|'a')('N'|'n')('S'|'s')('I'|'i')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
+KEYWORD_83 : ('T'|'t')('R'|'r')('A'|'a')('N'|'n')('S'|'s')('I'|'i')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
 
-Classifier : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
+KEYWORD_77 : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
 
-Connection : ('C'|'c')('O'|'o')('N'|'n')('N'|'n')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
+KEYWORD_78 : ('C'|'c')('O'|'o')('N'|'n')('N'|'n')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
-Detections : ('D'|'d')('E'|'e')('T'|'t')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
+KEYWORD_79 : ('D'|'d')('E'|'e')('T'|'t')('E'|'e')('C'|'c')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
 
-Properties : ('P'|'p')('R'|'r')('O'|'o')('P'|'p')('E'|'e')('R'|'r')('T'|'t')('I'|'i')('E'|'e')('S'|'s');
+KEYWORD_80 : ('P'|'p')('R'|'r')('O'|'o')('P'|'p')('E'|'e')('R'|'r')('T'|'t')('I'|'i')('E'|'e')('S'|'s');
 
-Component : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('N'|'n')('E'|'e')('N'|'n')('T'|'t');
+KEYWORD_73 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('N'|'n')('E'|'e')('N'|'n')('T'|'t');
 
-Composite : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('S'|'s')('I'|'i')('T'|'t')('E'|'e');
+KEYWORD_74 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('O'|'o')('S'|'s')('I'|'i')('T'|'t')('E'|'e');
 
-Processor : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s')('O'|'o')('R'|'r');
+KEYWORD_75 : ('P'|'p')('R'|'r')('O'|'o')('C'|'c')('E'|'e')('S'|'s')('S'|'s')('O'|'o')('R'|'r');
 
-Reference : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
+KEYWORD_76 : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
 
-Behavior : ('B'|'b')('E'|'e')('H'|'h')('A'|'a')('V'|'v')('I'|'i')('O'|'o')('R'|'r');
+KEYWORD_69 : ('B'|'b')('E'|'e')('H'|'h')('A'|'a')('V'|'v')('I'|'i')('O'|'o')('R'|'r');
 
-Bindings : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g')('S'|'s');
+KEYWORD_70 : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g')('S'|'s');
 
-Constant : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
+KEYWORD_71 : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
 
-Mappings : ('M'|'m')('A'|'a')('P'|'p')('P'|'p')('I'|'i')('N'|'n')('G'|'g')('S'|'s');
+KEYWORD_72 : ('M'|'m')('A'|'a')('P'|'p')('P'|'p')('I'|'i')('N'|'n')('G'|'g')('S'|'s');
 
-Applies : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
+KEYWORD_60 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
 
-Binding : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g');
+KEYWORD_61 : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g');
 
-Compute : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
+KEYWORD_62 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
 
-Extends : ('E'|'e')('X'|'x')('T'|'t')('E'|'e')('N'|'n')('D'|'d')('S'|'s');
+KEYWORD_63 : ('E'|'e')('X'|'x')('T'|'t')('E'|'e')('N'|'n')('D'|'d')('S'|'s');
 
-Initial : ('I'|'i')('N'|'n')('I'|'i')('T'|'t')('I'|'i')('A'|'a')('L'|'l');
+KEYWORD_64 : ('I'|'i')('N'|'n')('I'|'i')('T'|'t')('I'|'i')('A'|'a')('L'|'l');
 
-Library : ('L'|'l')('I'|'i')('B'|'b')('R'|'r')('A'|'a')('R'|'r')('Y'|'y');
+KEYWORD_65 : ('L'|'l')('I'|'i')('B'|'b')('R'|'r')('A'|'a')('R'|'r')('Y'|'y');
 
-Noerror : ('N'|'n')('O'|'o')('E'|'e')('R'|'r')('R'|'r')('O'|'o')('R'|'r');
+KEYWORD_66 : ('N'|'n')('O'|'o')('E'|'e')('R'|'r')('R'|'r')('O'|'o')('R'|'r');
 
-Recover : ('R'|'r')('E'|'e')('C'|'c')('O'|'o')('V'|'v')('E'|'e')('R'|'r');
+KEYWORD_67 : ('R'|'r')('E'|'e')('C'|'c')('O'|'o')('V'|'v')('E'|'e')('R'|'r');
 
-Renames : ('R'|'r')('E'|'e')('N'|'n')('A'|'a')('M'|'m')('E'|'e')('S'|'s');
+KEYWORD_68 : ('R'|'r')('E'|'e')('N'|'n')('A'|'a')('M'|'m')('E'|'e')('S'|'s');
 
-Access : ('A'|'a')('C'|'c')('C'|'c')('E'|'e')('S'|'s')('S'|'s');
+KEYWORD_51 : ('A'|'a')('C'|'c')('C'|'c')('E'|'e')('S'|'s')('S'|'s');
 
-Events : ('E'|'e')('V'|'v')('E'|'e')('N'|'n')('T'|'t')('S'|'s');
+KEYWORD_52 : ('E'|'e')('V'|'v')('E'|'e')('N'|'n')('T'|'t')('S'|'s');
 
-Memory : ('M'|'m')('E'|'e')('M'|'m')('O'|'o')('R'|'r')('Y'|'y');
+KEYWORD_53 : ('M'|'m')('E'|'e')('M'|'m')('O'|'o')('R'|'r')('Y'|'y');
 
-Orless : ('O'|'o')('R'|'r')('L'|'l')('E'|'e')('S'|'s')('S'|'s');
+KEYWORD_54 : ('O'|'o')('R'|'r')('L'|'l')('E'|'e')('S'|'s')('S'|'s');
 
-Ormore : ('O'|'o')('R'|'r')('M'|'m')('O'|'o')('R'|'r')('E'|'e');
+KEYWORD_55 : ('O'|'o')('R'|'r')('M'|'m')('O'|'o')('R'|'r')('E'|'e');
 
-Others : ('O'|'o')('T'|'t')('H'|'h')('E'|'e')('R'|'r')('S'|'s');
+KEYWORD_56 : ('O'|'o')('T'|'t')('H'|'h')('E'|'e')('R'|'r')('S'|'s');
 
-Repair : ('R'|'r')('E'|'e')('P'|'p')('A'|'a')('I'|'i')('R'|'r');
+KEYWORD_57 : ('R'|'r')('E'|'e')('P'|'p')('A'|'a')('I'|'i')('R'|'r');
 
-Source : ('S'|'s')('O'|'o')('U'|'u')('R'|'r')('C'|'c')('E'|'e');
+KEYWORD_58 : ('S'|'s')('O'|'o')('U'|'u')('R'|'r')('C'|'c')('E'|'e');
 
-States : ('S'|'s')('T'|'t')('A'|'a')('T'|'t')('E'|'e')('S'|'s');
+KEYWORD_59 : ('S'|'s')('T'|'t')('A'|'a')('T'|'t')('E'|'e')('S'|'s');
 
-Delta : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
+KEYWORD_41 : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
 
-Error : ('E'|'e')('R'|'r')('R'|'r')('O'|'o')('R'|'r');
+KEYWORD_42 : ('E'|'e')('R'|'r')('R'|'r')('O'|'o')('R'|'r');
 
-Event : ('E'|'e')('V'|'v')('E'|'e')('N'|'n')('T'|'t');
+KEYWORD_43 : ('E'|'e')('V'|'v')('E'|'e')('N'|'n')('T'|'t');
 
-False : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
+KEYWORD_44 : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
 
-Flows : ('F'|'f')('L'|'l')('O'|'o')('W'|'w')('S'|'s');
+KEYWORD_45 : ('F'|'f')('L'|'l')('O'|'o')('W'|'w')('S'|'s');
 
-Modes : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
+KEYWORD_46 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
 
-Paths : ('P'|'p')('A'|'a')('T'|'t')('H'|'h')('S'|'s');
+KEYWORD_47 : ('P'|'p')('A'|'a')('T'|'t')('H'|'h')('S'|'s');
 
-Point : ('P'|'p')('O'|'o')('I'|'i')('N'|'n')('T'|'t');
+KEYWORD_48 : ('P'|'p')('O'|'o')('I'|'i')('N'|'n')('T'|'t');
 
-State : ('S'|'s')('T'|'t')('A'|'a')('T'|'t')('E'|'e');
+KEYWORD_49 : ('S'|'s')('T'|'t')('A'|'a')('T'|'t')('E'|'e');
 
-Types : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e')('S'|'s');
+KEYWORD_50 : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e')('S'|'s');
 
-Mode : ('M'|'m')('O'|'o')('D'|'d')('E'|'e');
+KEYWORD_32 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e');
 
-Path : ('P'|'p')('A'|'a')('T'|'t')('H'|'h');
+KEYWORD_33 : ('P'|'p')('A'|'a')('T'|'t')('H'|'h');
 
-Same : ('S'|'s')('A'|'a')('M'|'m')('E'|'e');
+KEYWORD_34 : ('S'|'s')('A'|'a')('M'|'m')('E'|'e');
 
-Self : ('S'|'s')('E'|'e')('L'|'l')('F'|'f');
+KEYWORD_35 : ('S'|'s')('E'|'e')('L'|'l')('F'|'f');
 
-Sink : ('S'|'s')('I'|'i')('N'|'n')('K'|'k');
+KEYWORD_36 : ('S'|'s')('I'|'i')('N'|'n')('K'|'k');
 
-True : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
+KEYWORD_37 : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
-Type : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e');
+KEYWORD_38 : ('T'|'t')('Y'|'y')('P'|'p')('E'|'e');
 
-When : ('W'|'w')('H'|'h')('E'|'e')('N'|'n');
+KEYWORD_39 : ('W'|'w')('H'|'h')('E'|'e')('N'|'n');
 
-With : ('W'|'w')('I'|'i')('T'|'t')('H'|'h');
+KEYWORD_40 : ('W'|'w')('I'|'i')('T'|'t')('H'|'h');
 
-PlusSignEqualsSignGreaterThanSign : '+''=''>';
+KEYWORD_23 : '+''=''>';
 
-RightSquareBracketHyphenMinusGreaterThanSign : ']''-''>';
+KEYWORD_24 : ']''-''>';
 
-All : ('A'|'a')('L'|'l')('L'|'l');
+KEYWORD_25 : ('A'|'a')('L'|'l')('L'|'l');
 
-And : ('A'|'a')('N'|'n')('D'|'d');
+KEYWORD_26 : ('A'|'a')('N'|'n')('D'|'d');
 
-End : ('E'|'e')('N'|'n')('D'|'d');
+KEYWORD_27 : ('E'|'e')('N'|'n')('D'|'d');
 
-Not : ('N'|'n')('O'|'o')('T'|'t');
+KEYWORD_28 : ('N'|'n')('O'|'o')('T'|'t');
 
-Out : ('O'|'o')('U'|'u')('T'|'t');
+KEYWORD_29 : ('O'|'o')('U'|'u')('T'|'t');
 
-Set : ('S'|'s')('E'|'e')('T'|'t');
+KEYWORD_30 : ('S'|'s')('E'|'e')('T'|'t');
 
-Use : ('U'|'u')('S'|'s')('E'|'e');
+KEYWORD_31 : ('U'|'u')('S'|'s')('E'|'e');
 
-HyphenMinusGreaterThanSign : '-''>';
+KEYWORD_15 : '-''>';
 
-HyphenMinusLeftSquareBracket : '-''[';
+KEYWORD_16 : '-''[';
 
-FullStopFullStop : '.''.';
+KEYWORD_17 : '.''.';
 
-ColonColon : ':'':';
+KEYWORD_18 : ':'':';
 
-EqualsSignGreaterThanSign : '=''>';
+KEYWORD_19 : '=''>';
 
-In : ('I'|'i')('N'|'n');
+KEYWORD_20 : ('I'|'i')('N'|'n');
 
-Or : ('O'|'o')('R'|'r');
+KEYWORD_21 : ('O'|'o')('R'|'r');
 
-To : ('T'|'t')('O'|'o');
+KEYWORD_22 : ('T'|'t')('O'|'o');
 
-ExclamationMark : '!';
+KEYWORD_1 : '!';
 
-LeftParenthesis : '(';
+KEYWORD_2 : '(';
 
-RightParenthesis : ')';
+KEYWORD_3 : ')';
 
-Asterisk : '*';
+KEYWORD_4 : '*';
 
-PlusSign : '+';
+KEYWORD_5 : '+';
 
-Comma : ',';
+KEYWORD_6 : ',';
 
-HyphenMinus : '-';
+KEYWORD_7 : '-';
 
-FullStop : '.';
+KEYWORD_8 : '.';
 
-Colon : ':';
+KEYWORD_9 : ':';
 
-Semicolon : ';';
+KEYWORD_10 : ';';
 
-LeftSquareBracket : '[';
+KEYWORD_11 : '[';
 
-RightSquareBracket : ']';
+KEYWORD_12 : ']';
 
-LeftCurlyBracket : '{';
+KEYWORD_13 : '{';
 
-RightCurlyBracket : '}';
+KEYWORD_14 : '}';
 
 
 
