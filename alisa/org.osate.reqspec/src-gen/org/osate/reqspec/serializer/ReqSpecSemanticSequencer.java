@@ -1373,7 +1373,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ID])
+	 *     (xpression=XExpression | reference=[EObject|ValidID])
 	 */
 	protected void sequence_BehaviorEquation(EObject context, BehaviorEquation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1412,7 +1412,11 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         (
+	 *             targetElement=[NamedElement|ValidID] | 
+	 *             targetDescription=STRING | 
+	 *             (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ValidID]?)
+	 *         )? 
 	 *         category+=[RequirementCategory|ValidID]* 
 	 *         description=Description? 
 	 *         rationale=Rationale? 
@@ -1448,7 +1452,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ID])
+	 *     (xpression=XExpression | reference=[EObject|ValidID])
 	 */
 	protected void sequence_InputAssumption(EObject context, InputAssumption semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1457,7 +1461,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ID])
+	 *     (xpression=XExpression | reference=[EObject|ValidID])
 	 */
 	protected void sequence_OutputGuarantee(EObject context, OutputGuarantee semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1514,7 +1518,11 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         (
+	 *             targetElement=[NamedElement|ValidID] | 
+	 *             targetDescription=STRING | 
+	 *             (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ValidID]?)
+	 *         )? 
 	 *         category+=[RequirementCategory|ValidID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
@@ -1522,7 +1530,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         predicate=ReqPredicate? 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
-	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
+	 *         (exception=[EObject|ValidID] | exceptionText=STRING)? 
 	 *         refinedReference+=[Requirement|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 

@@ -424,12 +424,16 @@ ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
+((
+    { 
+        newCompositeNode(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_0_0()); 
+    }
+    this_ValidID_0=ruleValidID    {
+		$current.merge(this_ValidID_0);
     }
 
     { 
-    newLeafNode(this_ID_0, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); 
+        afterParserOrEnumRuleCall();
     }
 
 	kw='/' 
@@ -437,12 +441,16 @@ ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getIMGREFAccess().getSolidusKeyword_0_1()); 
     }
-)    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
+)
+    { 
+        newCompositeNode(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_1()); 
+    }
+    this_ValidID_2=ruleValidID    {
+		$current.merge(this_ValidID_2);
     }
 
     { 
-    newLeafNode(this_ID_2, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_1()); 
+        afterParserOrEnumRuleCall();
     }
 
 	kw='.' 
@@ -450,12 +458,16 @@ ruleIMGREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getIMGREFAccess().getFullStopKeyword_2()); 
     }
-    this_ID_4=RULE_ID    {
-		$current.merge(this_ID_4);
+
+    { 
+        newCompositeNode(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_3()); 
+    }
+    this_ValidID_4=ruleValidID    {
+		$current.merge(this_ValidID_4);
     }
 
     { 
-    newLeafNode(this_ID_4, grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_3()); 
+        afterParserOrEnumRuleCall();
     }
 )
     ;
@@ -480,12 +492,16 @@ ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatat
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
+(
+    { 
+        newCompositeNode(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_0()); 
+    }
+    this_ValidID_0=ruleValidID    {
+		$current.merge(this_ValidID_0);
     }
 
     { 
-    newLeafNode(this_ID_0, grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); 
+        afterParserOrEnumRuleCall();
     }
 (
 	kw='::' 
@@ -493,12 +509,16 @@ ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatat
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getAADLPROPERTYREFERENCEAccess().getColonColonKeyword_1_0()); 
     }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
+
+    { 
+        newCompositeNode(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_1_1()); 
+    }
+    this_ValidID_2=ruleValidID    {
+		$current.merge(this_ValidID_2);
     }
 
     { 
-    newLeafNode(this_ID_2, grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_1_1()); 
+        afterParserOrEnumRuleCall();
     }
 )?)
     ;

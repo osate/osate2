@@ -7398,11 +7398,11 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
                 {
                 int LA3_5 = input.LA(2);
 
-                if ( (LA3_5==13) ) {
-                    alt3=1;
-                }
-                else if ( (LA3_5==EOF||(LA3_5>=RULE_ID && LA3_5<=RULE_STRING)||(LA3_5>=14 && LA3_5<=50)||(LA3_5>=54 && LA3_5<=83)||LA3_5==87||(LA3_5>=89 && LA3_5<=90)) ) {
+                if ( (LA3_5==EOF||(LA3_5>=RULE_ID && LA3_5<=RULE_STRING)||(LA3_5>=14 && LA3_5<=50)||(LA3_5>=54 && LA3_5<=83)||LA3_5==87||(LA3_5>=89 && LA3_5<=90)) ) {
                     alt3=2;
+                }
+                else if ( (LA3_5==13) ) {
+                    alt3=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -8003,11 +8003,11 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
                 {
                 int LA7_2 = input.LA(2);
 
-                if ( (LA7_2==EOF||(LA7_2>=RULE_ID && LA7_2<=RULE_STRING)||LA7_2==27||(LA7_2>=34 && LA7_2<=35)||LA7_2==40||(LA7_2>=45 && LA7_2<=50)||(LA7_2>=59 && LA7_2<=60)||LA7_2==62||(LA7_2>=65 && LA7_2<=66)||LA7_2==68||(LA7_2>=72 && LA7_2<=80)||LA7_2==82||LA7_2==90) ) {
-                    alt7=4;
-                }
-                else if ( (LA7_2==13) ) {
+                if ( (LA7_2==13) ) {
                     alt7=2;
+                }
+                else if ( (LA7_2==EOF||(LA7_2>=RULE_ID && LA7_2<=RULE_STRING)||LA7_2==27||(LA7_2>=34 && LA7_2<=35)||LA7_2==40||(LA7_2>=45 && LA7_2<=50)||(LA7_2>=59 && LA7_2<=60)||LA7_2==62||(LA7_2>=65 && LA7_2<=66)||LA7_2==68||(LA7_2>=72 && LA7_2<=80)||LA7_2==82||LA7_2==90) ) {
+                    alt7=4;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -13385,24 +13385,28 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IMGREF__Group__1__Impl"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4133:1: rule__IMGREF__Group__1__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4133:1: rule__IMGREF__Group__1__Impl : ( ruleValidID ) ;
     public final void rule__IMGREF__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4137:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4138:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4137:1: ( ( ruleValidID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4138:1: ( ruleValidID )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4138:1: ( RULE_ID )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4139:1: RULE_ID
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4138:1: ( ruleValidID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4139:1: ruleValidID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_1()); 
+               before(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMGREF__Group__1__Impl8927); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleValidID_in_rule__IMGREF__Group__1__Impl8927);
+            ruleValidID();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_1()); 
+               after(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_1()); 
             }
 
             }
@@ -13538,24 +13542,28 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IMGREF__Group__3__Impl"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4192:1: rule__IMGREF__Group__3__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4192:1: rule__IMGREF__Group__3__Impl : ( ruleValidID ) ;
     public final void rule__IMGREF__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4196:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4197:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4196:1: ( ( ruleValidID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4197:1: ( ruleValidID )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4197:1: ( RULE_ID )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4198:1: RULE_ID
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4197:1: ( ruleValidID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4198:1: ruleValidID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_3()); 
+               before(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_3()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMGREF__Group__3__Impl9045); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleValidID_in_rule__IMGREF__Group__3__Impl9045);
+            ruleValidID();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_3()); 
+               after(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_3()); 
             }
 
             }
@@ -13617,24 +13625,28 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IMGREF__Group_0__0__Impl"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4229:1: rule__IMGREF__Group_0__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4229:1: rule__IMGREF__Group_0__0__Impl : ( ruleValidID ) ;
     public final void rule__IMGREF__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4233:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4234:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4233:1: ( ( ruleValidID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4234:1: ( ruleValidID )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4234:1: ( RULE_ID )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4235:1: RULE_ID
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4234:1: ( ruleValidID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4235:1: ruleValidID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); 
+               before(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_0_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__IMGREF__Group_0__0__Impl9112); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleValidID_in_rule__IMGREF__Group_0__0__Impl9112);
+            ruleValidID();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); 
+               after(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_0_0()); 
             }
 
             }
@@ -13770,24 +13782,28 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group__0__Impl"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4295:1: rule__AADLPROPERTYREFERENCE__Group__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4295:1: rule__AADLPROPERTYREFERENCE__Group__0__Impl : ( ruleValidID ) ;
     public final void rule__AADLPROPERTYREFERENCE__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4299:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4300:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4299:1: ( ( ruleValidID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4300:1: ( ruleValidID )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4300:1: ( RULE_ID )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4301:1: RULE_ID
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4300:1: ( ruleValidID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4301:1: ruleValidID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); 
+               before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group__0__Impl9237); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleValidID_in_rule__AADLPROPERTYREFERENCE__Group__0__Impl9237);
+            ruleValidID();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); 
+               after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_0()); 
             }
 
             }
@@ -14018,24 +14034,28 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group_1__1__Impl"
-    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4386:1: rule__AADLPROPERTYREFERENCE__Group_1__1__Impl : ( RULE_ID ) ;
+    // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4386:1: rule__AADLPROPERTYREFERENCE__Group_1__1__Impl : ( ruleValidID ) ;
     public final void rule__AADLPROPERTYREFERENCE__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4390:1: ( ( RULE_ID ) )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4391:1: ( RULE_ID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4390:1: ( ( ruleValidID ) )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4391:1: ( ruleValidID )
             {
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4391:1: ( RULE_ID )
-            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4392:1: RULE_ID
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4391:1: ( ruleValidID )
+            // ../org.osate.alisa.common.ui/src-gen/org/osate/alisa/common/ui/contentassist/antlr/internal/InternalCommon.g:4392:1: ruleValidID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_1_1()); 
+               before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_1_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl9417); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleValidID_in_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl9417);
+            ruleValidID();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_1_1()); 
+               after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_1_1()); 
             }
 
             }
@@ -59355,14 +59375,14 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
     static final String DFA8_maxS =
         "\1\41\2\uffff\1\36\7\uffff";
     static final String DFA8_acceptS =
-        "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\6\1\3";
+        "\1\uffff\1\1\1\2\1\uffff\1\4\1\5\1\7\1\10\1\11\1\3\1\6";
     static final String DFA8_specialS =
         "\13\uffff}>";
     static final String[] DFA8_transitionS = {
             "\1\3\1\6\1\1\1\2\1\4\1\5\1\7\1\10",
             "",
             "",
-            "\1\11\3\uffff\1\12",
+            "\1\12\3\uffff\1\11",
             "",
             "",
             "",
@@ -60132,7 +60152,7 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
     static final String DFA46_acceptS =
         "\10\uffff\1\2\1\1";
     static final String DFA46_specialS =
-        "\1\uffff\1\1\1\5\1\3\1\4\1\6\1\0\1\2\2\uffff}>";
+        "\1\uffff\1\2\1\4\1\1\1\0\1\6\1\5\1\3\2\uffff}>";
     static final String[] DFA46_transitionS = {
             "\5\10\5\uffff\2\10\1\1\1\2\1\3\1\4\1\5\5\10\1\7\1\6\27\10\3"+
             "\uffff\36\10\3\uffff\1\10\1\uffff\2\10",
@@ -60184,66 +60204,6 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA46_6 = input.LA(1);
-
-                         
-                        int index46_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred91_InternalCommon()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index46_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA46_1 = input.LA(1);
-
-                         
-                        int index46_1 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred91_InternalCommon()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index46_1);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA46_7 = input.LA(1);
-
-                         
-                        int index46_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred91_InternalCommon()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index46_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA46_3 = input.LA(1);
-
-                         
-                        int index46_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred91_InternalCommon()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index46_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
                         int LA46_4 = input.LA(1);
 
                          
@@ -60258,7 +60218,52 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
                         input.seek(index46_4);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 1 : 
+                        int LA46_3 = input.LA(1);
+
+                         
+                        int index46_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred91_InternalCommon()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index46_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA46_1 = input.LA(1);
+
+                         
+                        int index46_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred91_InternalCommon()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index46_1);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA46_7 = input.LA(1);
+
+                         
+                        int index46_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred91_InternalCommon()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index46_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
                         int LA46_2 = input.LA(1);
 
                          
@@ -60271,6 +60276,21 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index46_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA46_6 = input.LA(1);
+
+                         
+                        int index46_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred91_InternalCommon()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index46_6);
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
@@ -60307,7 +60327,7 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
     static final String DFA52_acceptS =
         "\1\uffff\1\2\10\uffff\1\1";
     static final String DFA52_specialS =
-        "\2\uffff\1\6\1\3\1\1\1\5\1\4\1\0\1\2\1\7\1\uffff}>";
+        "\2\uffff\1\5\1\1\1\3\1\0\1\2\1\7\1\6\1\4\1\uffff}>";
     static final String[] DFA52_transitionS = {
             "\5\1\5\uffff\14\1\1\3\1\2\1\4\1\5\1\6\1\7\1\10\1\11\21\1\3"+
             "\uffff\36\1\3\uffff\1\1\1\uffff\2\1",
@@ -60360,81 +60380,6 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA52_7 = input.LA(1);
-
-                         
-                        int index52_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred97_InternalCommon()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index52_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA52_4 = input.LA(1);
-
-                         
-                        int index52_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred97_InternalCommon()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index52_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA52_8 = input.LA(1);
-
-                         
-                        int index52_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred97_InternalCommon()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index52_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA52_3 = input.LA(1);
-
-                         
-                        int index52_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred97_InternalCommon()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index52_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA52_6 = input.LA(1);
-
-                         
-                        int index52_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred97_InternalCommon()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index52_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
                         int LA52_5 = input.LA(1);
 
                          
@@ -60449,7 +60394,67 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
                         input.seek(index52_5);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
+                    case 1 : 
+                        int LA52_3 = input.LA(1);
+
+                         
+                        int index52_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred97_InternalCommon()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index52_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA52_6 = input.LA(1);
+
+                         
+                        int index52_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred97_InternalCommon()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index52_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA52_4 = input.LA(1);
+
+                         
+                        int index52_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred97_InternalCommon()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index52_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA52_9 = input.LA(1);
+
+                         
+                        int index52_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred97_InternalCommon()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index52_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
                         int LA52_2 = input.LA(1);
 
                          
@@ -60464,11 +60469,11 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
                         input.seek(index52_2);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
-                        int LA52_9 = input.LA(1);
+                    case 6 : 
+                        int LA52_8 = input.LA(1);
 
                          
-                        int index52_9 = input.index();
+                        int index52_8 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred97_InternalCommon()) ) {s = 10;}
@@ -60476,7 +60481,22 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index52_9);
+                        input.seek(index52_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA52_7 = input.LA(1);
+
+                         
+                        int index52_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred97_InternalCommon()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index52_7);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -63157,27 +63177,27 @@ public class InternalCommonParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__IMGREF__Group_0__0_in_rule__IMGREF__Group__0__Impl8867 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IMGREF__Group__1__Impl_in_rule__IMGREF__Group__18897 = new BitSet(new long[]{0x0000080000000000L});
     public static final BitSet FOLLOW_rule__IMGREF__Group__2_in_rule__IMGREF__Group__18900 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__IMGREF__Group__1__Impl8927 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__IMGREF__Group__1__Impl8927 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IMGREF__Group__2__Impl_in_rule__IMGREF__Group__28956 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__IMGREF__Group__3_in_rule__IMGREF__Group__28959 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_43_in_rule__IMGREF__Group__2__Impl8987 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IMGREF__Group__3__Impl_in_rule__IMGREF__Group__39018 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__IMGREF__Group__3__Impl9045 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__IMGREF__Group__3__Impl9045 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IMGREF__Group_0__0__Impl_in_rule__IMGREF__Group_0__09082 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_rule__IMGREF__Group_0__1_in_rule__IMGREF__Group_0__09085 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__IMGREF__Group_0__0__Impl9112 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__IMGREF__Group_0__0__Impl9112 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__IMGREF__Group_0__1__Impl_in_rule__IMGREF__Group_0__19141 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_38_in_rule__IMGREF__Group_0__1__Impl9169 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group__09207 = new BitSet(new long[]{0x0040000000000000L});
     public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1_in_rule__AADLPROPERTYREFERENCE__Group__09210 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group__0__Impl9237 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__AADLPROPERTYREFERENCE__Group__0__Impl9237 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group__19266 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0_in_rule__AADLPROPERTYREFERENCE__Group__1__Impl9293 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__09328 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1_in_rule__AADLPROPERTYREFERENCE__Group_1__09331 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_54_in_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl9359 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__19390 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl9417 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidID_in_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl9417 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__XAssignment__Group_0__0__Impl_in_rule__XAssignment__Group_0__09450 = new BitSet(new long[]{0x0001E00000000010L});
     public static final BitSet FOLLOW_rule__XAssignment__Group_0__1_in_rule__XAssignment__Group_0__09453 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__XAssignment__Group_0__1__Impl_in_rule__XAssignment__Group_0__19511 = new BitSet(new long[]{0x0000000000002000L});

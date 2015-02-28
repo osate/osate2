@@ -52,7 +52,7 @@ methods that can be used on different projects.
 
 Finally, the user will define the an e[assurance task] for a particular system. The assurance task identifies
 the verification plans of those system components that the user wants to verify. The user may specify
-selection criteria for a subset of the verificaitona activities that are to be performed as part of this assurance task.
+selection criteria for a subset of the verification activities that are to be performed as part of this assurance task.
 The selection criterion is expressed in terms of e[selection category] tags that have been attached to
 verification methods or activities.
  
@@ -75,7 +75,7 @@ img[images/assuresnippet.png][Snippet of a Generated Assure file][][]
  ul[
  item[e[requirement categories:] These categories are used to categorize requirements and goals.]
  item[e[verification categories:] These categories are used to categorize verification methods.]
- item[e[Selection categories:] These categories are used to categorize additional selection criteria
+ item[e[selection categories:] These categories are used to categorize additional selection criteria
  when assurance evidence instances are created.]
  ]
  

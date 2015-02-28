@@ -58,7 +58,7 @@ VerificationActivity:
 	'[' (
 	( description=Description)?
 //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
-	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
+	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ValidID])?)
 	&('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model
@@ -72,7 +72,7 @@ VerificationCondition:
 	(':' title=STRING)?
 	'[' (
 	 ( description=Description)?
-	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
+	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ValidID])?)
 	& (rationale=Rationale)?
 	)
 	']';
@@ -96,7 +96,7 @@ AtomicEvidenceExpr returns ArgumentExpr:
 	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr;
 
 ConditionalEvidence returns ArgumentExpr:
-	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?;
+	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ValidID]+)?;
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]
@@ -120,7 +120,7 @@ VerificationMethod:
 	&('path' methodPath=STRING)?
 	& (conditions+=VerificationCondition)*
 	// parameters (in addition to the model element
-	& ('category' category=[categories::VerificationCategory|ID])?
+	& ('category' category=[categories::VerificationCategory|ValidID])?
 	)
 	']';
 

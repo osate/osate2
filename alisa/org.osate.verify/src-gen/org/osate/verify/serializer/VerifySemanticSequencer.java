@@ -1424,7 +1424,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verification=ConditionalEvidence_WhenExpr_1_0_0_0 condition+=[VerificationCategory|ID]+)
+	 *     (verification=ConditionalEvidence_WhenExpr_1_0_0_0 condition+=[VerificationCategory|ValidID]+)
 	 */
 	protected void sequence_ConditionalEvidence(EObject context, WhenExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1457,7 +1457,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         requirement=[Requirement|QualifiedName]? 
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ID]? 
+	 *         computeVariable=[ComputeDeclaration|ValidID]? 
 	 *         timeout=INT? 
 	 *         rationale=Rationale?
 	 *     )
@@ -1474,7 +1474,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ID]? 
+	 *         computeVariable=[ComputeDeclaration|ValidID]? 
 	 *         rationale=Rationale?
 	 *     )
 	 */
@@ -1490,7 +1490,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ID]? 
+	 *         computeVariable=[ComputeDeclaration|ValidID]? 
 	 *         rationale=Rationale?
 	 *     )
 	 */
@@ -1544,7 +1544,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         methodPath=STRING? 
 	 *         conditions+=VerificationCondition* 
-	 *         category=[VerificationCategory|ID]?
+	 *         category=[VerificationCategory|ValidID]?
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {
