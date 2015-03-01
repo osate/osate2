@@ -16,7 +16,7 @@
 	<repositories>
 		<repository>
 			<id>luna</id>
-			<url>http://download.eclipse.org/releases/luna/201409261001</url>
+			<url>http://download.eclipse.org/releases/luna/201501121000</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
