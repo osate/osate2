@@ -87,6 +87,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkComponentImplementationModes(componentImplementation);
 		checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(componentImplementation);
 		checkModeSpecificFlowImplementations(componentImplementation);
+		checkInheritedMissingModes(componentImplementation);
 		checkEndId(componentImplementation);
 	}
 
@@ -103,6 +104,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkComponentTypeModes(componentType);
 		checkForInheritedFeatureArrays(componentType);
 		checkEndId(componentType);
+		checkInheritedMissingModes(componentType);
 	}
 
 	@Check(CheckType.FAST)
@@ -138,7 +140,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkSubcomponentsHierarchy(subcomponent);
 		checkClassifierReferenceInWith(subcomponent.getClassifier(), subcomponent);
 		checkSubcomponentImplementationReferenceList(subcomponent);
+		checkSubcomponentMissingModeValues(subcomponent);
 //		checkPropertyAssocs(subcomponent);
+	}
+
+	@Check(CheckType.FAST)
+	public void caseModalElement(ModalElement modalElement) {
+		checkModalElementMissingModeValues(modalElement);
 	}
 
 	@Check(CheckType.FAST)
@@ -306,6 +314,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseConnection(Connection connection) {
 		checkDefiningID(connection);
+		checkReferencesToInternalFeatures(connection);
 
 	}
 
@@ -605,23 +614,131 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckModeTransitionTrigger(trigger);
 	}
 
-//	public void checkInheritedMissingModes(ComponentType componentType) {
-//
-//		ComponentType extendedComponent = componentType.getExtended();
-//		if (null == extendedComponent)
-//			return;
-//		List<Mode> allModes = componentType.getAllModes();
-//		List<PropertyAssociation> propertyAssociations = componentType.getAllPropertyAssociations();
-//
-//		for (Mode mode : allModes) {
-////			java.lang.System.out.println("mode = " + mode);
-//		}
-//		for (PropertyAssociation propertyAssociation : propertyAssociations) {
-//			java.lang.System.out.println("propertyAssociation = " + propertyAssociation);
-//			// TODO: Loop through the porpertyAssociations
-//		}
-//
-//	}
+	public void checkModalElementMissingModeValues(ModalElement modalElement) {
+		if (modalElement instanceof Subcomponent) {
+			return;
+		}
+		List<Mode> modalElementInModes = modalElement.getInModes();
+		List<Mode> elementAllInModes = modalElement.getAllInModes();
+		List<Mode> allContainerModes = new ArrayList<Mode>();
+
+		if (null == elementAllInModes || elementAllInModes.isEmpty()) {
+			Classifier containingClassifier = modalElement.getContainingClassifier();
+			if (containingClassifier instanceof ComponentImplementation) {
+				ComponentImplementation componentImpl = (ComponentImplementation) containingClassifier;
+				allContainerModes = componentImpl.getAllModes();
+			} else if (containingClassifier instanceof ComponentType) {
+				ComponentType componentType = (ComponentType) containingClassifier;
+				allContainerModes = componentType.getAllModes();
+			}
+		}
+
+		List<PropertyAssociation> ownedPropertyAssociations = modalElement.getOwnedPropertyAssociations();
+		for (PropertyAssociation ownedPropertyAssociation : ownedPropertyAssociations) {
+			Property property = ownedPropertyAssociation.getProperty();
+			boolean defaultValue = false;
+			List<ModalPropertyValue> modalPropertyValues = ownedPropertyAssociation.getOwnedValues();
+			List<Mode> modesForAllModalPropertyValues = buildModeListForAllModalPropertyValues(modalPropertyValues,
+					modalElementInModes);
+			if (null != modalPropertyValues && !modalPropertyValues.isEmpty()) {
+				ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
+				if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
+					defaultValue = true;
+				}
+			}
+
+			for (ModalPropertyValue modalPropertyValue : modalPropertyValues) {
+				List<Mode> inModes = modalPropertyValue.getInModes();
+				boolean modeNotDefined = false;
+				for (Mode inMode : inModes) {
+					if (null != modalElementInModes && !modalElementInModes.isEmpty()) {
+						if (!modalElementInModes.contains(inMode)) {
+							error(modalPropertyValue, inMode.getName()
+									+ " is not a valid mode because it is not in the modes defined for container "
+									+ modalElement.getName());
+							modeNotDefined = true;
+							continue;
+						}
+					}
+				}
+
+				if (null == allContainerModes || allContainerModes.isEmpty()) {
+					if (!modeNotDefined) {
+						for (Mode modalElementInMode : modalElementInModes) {
+							if (!modesForAllModalPropertyValues.contains(modalElementInMode) && !defaultValue) {
+								warning(ownedPropertyAssociation,
+										"Value not set for  mode " + modalElementInMode.getName() + " for property "
+												+ property.getQualifiedName());
+							}
+						}
+					}
+				} else {
+					for (Mode containerMode : allContainerModes) {
+						if (!modesForAllModalPropertyValues.contains(containerMode) && !defaultValue) {
+							warning(ownedPropertyAssociation, "Value not set for  mode " + containerMode.getName()
+									+ " for property " + property.getQualifiedName());
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public List<Mode> buildModeListForAllModalPropertyValues(List<ModalPropertyValue> modalPropertyValues,
+			List<Mode> modalElementInModes) {
+		List<Mode> resultModes = new ArrayList<Mode>();
+
+		if (null != modalPropertyValues && !modalPropertyValues.isEmpty()) {
+			ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
+			if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
+				resultModes.addAll(modalElementInModes);
+			} else {
+				for (ModalPropertyValue modalPropertyValue : modalPropertyValues) {
+					List<Mode> inModes = modalPropertyValue.getInModes();
+					for (Mode inMode : inModes) {
+						if (!resultModes.contains(inMode)) {
+							resultModes.add(inMode);
+						}
+					}
+				}
+			}
+		}
+		return resultModes;
+	}
+
+	public void checkReferencesToInternalFeatures(Connection connection) {
+		List<ConnectedElement> connectedElements = new ArrayList<ConnectedElement>();
+		connectedElements.add(connection.getSource());
+		connectedElements.add(connection.getDestination());
+
+		for (ConnectedElement connectedElement : connectedElements) {
+			ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+			ICompositeNode conElemNNode = NodeModelUtils.getNode(connectedElement);
+			INode lln = getLastLeaf(conElemNNode).getPreviousSibling();
+
+			String prefix = "";
+			while (!prefix.equalsIgnoreCase("self") && !prefix.equalsIgnoreCase("processor")) {
+				while (lln instanceof HiddenLeafNode) {
+					lln = lln.getPreviousSibling();
+				}
+				if (lln == null) {
+					return;
+				} else {
+					prefix = (null == lln.getText() ? "" : lln.getText());
+					lln = lln.getPreviousSibling();
+				}
+			}
+			if (prefix.equalsIgnoreCase("self")) {
+				if (!(connectionEnd instanceof InternalFeature)) {
+					error(connectedElement, "Only internal features may follow the keyword 'self'");
+				}
+			} else if (prefix.equalsIgnoreCase("processor")) {
+				if (!(connectionEnd instanceof ProcessorFeature)) {
+					error(connectedElement, "Only processor features may follow the keyword 'processor'");
+				}
+			}
+		}
+	}
 
 	/**
 	 * check ID at after 'end'
