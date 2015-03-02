@@ -2,8 +2,12 @@
  */
 package org.osate.alisa.workbench.alisa.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -11,10 +15,19 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 import org.osate.alisa.workbench.alisa.AssuranceTask;
-import org.osate.alisa.workbench.alisa.SelectionConditionExpr;
+import org.osate.alisa.workbench.alisa.Description;
+
+import org.osate.categories.categories.RequirementCategory;
+import org.osate.categories.categories.SelectionCategory;
+import org.osate.categories.categories.VerificationCategory;
+
+import org.osate.verify.verify.Claim;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +39,12 @@ import org.osate.alisa.workbench.alisa.SelectionConditionExpr;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getAssurancePlan <em>Assurance Plan</em>}</li>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getFilter <em>Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getRequirementFilter <em>Requirement Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getVerificationFilter <em>Verification Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getSelectionFilter <em>Selection Filter</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getClaims <em>Claims</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssuranceTaskImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,14 +103,64 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
   protected AssurancePlan assurancePlan;
 
   /**
-   * The cached value of the '{@link #getFilter() <em>Filter</em>}' containment reference.
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFilter()
+   * @see #getDescription()
    * @generated
    * @ordered
    */
-  protected SelectionConditionExpr filter;
+  protected Description description;
+
+  /**
+   * The cached value of the '{@link #getRequirementFilter() <em>Requirement Filter</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRequirementFilter()
+   * @generated
+   * @ordered
+   */
+  protected EList<RequirementCategory> requirementFilter;
+
+  /**
+   * The cached value of the '{@link #getVerificationFilter() <em>Verification Filter</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVerificationFilter()
+   * @generated
+   * @ordered
+   */
+  protected EList<VerificationCategory> verificationFilter;
+
+  /**
+   * The cached value of the '{@link #getSelectionFilter() <em>Selection Filter</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSelectionFilter()
+   * @generated
+   * @ordered
+   */
+  protected EList<SelectionCategory> selectionFilter;
+
+  /**
+   * The cached value of the '{@link #getClaims() <em>Claims</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getClaims()
+   * @generated
+   * @ordered
+   */
+  protected EList<Claim> claims;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -209,9 +277,9 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public SelectionConditionExpr getFilter()
+  public Description getDescription()
   {
-    return filter;
+    return description;
   }
 
   /**
@@ -219,13 +287,13 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetFilter(SelectionConditionExpr newFilter, NotificationChain msgs)
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
   {
-    SelectionConditionExpr oldFilter = filter;
-    filter = newFilter;
+    Description oldDescription = description;
+    description = newDescription;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__FILTER, oldFilter, newFilter);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__DESCRIPTION, oldDescription, newDescription);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -236,20 +304,90 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setFilter(SelectionConditionExpr newFilter)
+  public void setDescription(Description newDescription)
   {
-    if (newFilter != filter)
+    if (newDescription != description)
     {
       NotificationChain msgs = null;
-      if (filter != null)
-        msgs = ((InternalEObject)filter).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_TASK__FILTER, null, msgs);
-      if (newFilter != null)
-        msgs = ((InternalEObject)newFilter).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_TASK__FILTER, null, msgs);
-      msgs = basicSetFilter(newFilter, msgs);
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_TASK__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlisaPackage.ASSURANCE_TASK__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__FILTER, newFilter, newFilter));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ASSURANCE_TASK__DESCRIPTION, newDescription, newDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<RequirementCategory> getRequirementFilter()
+  {
+    if (requirementFilter == null)
+    {
+      requirementFilter = new EObjectResolvingEList<RequirementCategory>(RequirementCategory.class, this, AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER);
+    }
+    return requirementFilter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<VerificationCategory> getVerificationFilter()
+  {
+    if (verificationFilter == null)
+    {
+      verificationFilter = new EObjectResolvingEList<VerificationCategory>(VerificationCategory.class, this, AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER);
+    }
+    return verificationFilter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<SelectionCategory> getSelectionFilter()
+  {
+    if (selectionFilter == null)
+    {
+      selectionFilter = new EObjectResolvingEList<SelectionCategory>(SelectionCategory.class, this, AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER);
+    }
+    return selectionFilter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Claim> getClaims()
+  {
+    if (claims == null)
+    {
+      claims = new EObjectResolvingEList<Claim>(Claim.class, this, AlisaPackage.ASSURANCE_TASK__CLAIMS);
+    }
+    return claims;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getIssues()
+  {
+    if (issues == null)
+    {
+      issues = new EDataTypeEList<String>(String.class, this, AlisaPackage.ASSURANCE_TASK__ISSUES);
+    }
+    return issues;
   }
 
   /**
@@ -262,8 +400,8 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
   {
     switch (featureID)
     {
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        return basicSetFilter(null, msgs);
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        return basicSetDescription(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -285,8 +423,18 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_TASK__ASSURANCE_PLAN:
         if (resolve) return getAssurancePlan();
         return basicGetAssurancePlan();
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        return getFilter();
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        return getDescription();
+      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER:
+        return getRequirementFilter();
+      case AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER:
+        return getVerificationFilter();
+      case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
+        return getSelectionFilter();
+      case AlisaPackage.ASSURANCE_TASK__CLAIMS:
+        return getClaims();
+      case AlisaPackage.ASSURANCE_TASK__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -296,6 +444,7 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -310,8 +459,28 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_TASK__ASSURANCE_PLAN:
         setAssurancePlan((AssurancePlan)newValue);
         return;
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        setFilter((SelectionConditionExpr)newValue);
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        setDescription((Description)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER:
+        getRequirementFilter().clear();
+        getRequirementFilter().addAll((Collection<? extends RequirementCategory>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER:
+        getVerificationFilter().clear();
+        getVerificationFilter().addAll((Collection<? extends VerificationCategory>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
+        getSelectionFilter().clear();
+        getSelectionFilter().addAll((Collection<? extends SelectionCategory>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__CLAIMS:
+        getClaims().clear();
+        getClaims().addAll((Collection<? extends Claim>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -336,8 +505,23 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_TASK__ASSURANCE_PLAN:
         setAssurancePlan((AssurancePlan)null);
         return;
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        setFilter((SelectionConditionExpr)null);
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        setDescription((Description)null);
+        return;
+      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER:
+        getRequirementFilter().clear();
+        return;
+      case AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER:
+        getVerificationFilter().clear();
+        return;
+      case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
+        getSelectionFilter().clear();
+        return;
+      case AlisaPackage.ASSURANCE_TASK__CLAIMS:
+        getClaims().clear();
+        return;
+      case AlisaPackage.ASSURANCE_TASK__ISSUES:
+        getIssues().clear();
         return;
     }
     super.eUnset(featureID);
@@ -359,8 +543,18 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case AlisaPackage.ASSURANCE_TASK__ASSURANCE_PLAN:
         return assurancePlan != null;
-      case AlisaPackage.ASSURANCE_TASK__FILTER:
-        return filter != null;
+      case AlisaPackage.ASSURANCE_TASK__DESCRIPTION:
+        return description != null;
+      case AlisaPackage.ASSURANCE_TASK__REQUIREMENT_FILTER:
+        return requirementFilter != null && !requirementFilter.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__VERIFICATION_FILTER:
+        return verificationFilter != null && !verificationFilter.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__SELECTION_FILTER:
+        return selectionFilter != null && !selectionFilter.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__CLAIMS:
+        return claims != null && !claims.isEmpty();
+      case AlisaPackage.ASSURANCE_TASK__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -380,6 +574,8 @@ public class AssuranceTaskImpl extends MinimalEObjectImpl.Container implements A
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", issues: ");
+    result.append(issues);
     result.append(')');
     return result.toString();
   }

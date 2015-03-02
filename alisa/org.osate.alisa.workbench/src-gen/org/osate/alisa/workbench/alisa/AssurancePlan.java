@@ -6,7 +6,6 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.verify.verify.VerificationPlan;
@@ -25,6 +24,7 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getPlans <em>Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getVerifiedAssumption <em>Verified Assumption</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.AssurancePlan#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -156,7 +156,7 @@ public interface AssurancePlan extends EObject
 
   /**
    * Returns the value of the '<em><b>Verified Assumption</b></em>' reference list.
-   * The list contents are of type {@link org.osate.aadl2.ComponentClassifier}.
+   * The list contents are of type {@link org.osate.alisa.workbench.alisa.AssurancePlan}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Verified Assumption</em>' reference list isn't clear,
@@ -168,6 +168,22 @@ public interface AssurancePlan extends EObject
    * @model
    * @generated
    */
-  EList<ComponentClassifier> getVerifiedAssumption();
+  EList<AssurancePlan> getVerifiedAssumption();
+
+  /**
+   * Returns the value of the '<em><b>Issues</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issues</em>' attribute list.
+   * @see org.osate.alisa.workbench.alisa.AlisaPackage#getAssurancePlan_Issues()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getIssues();
 
 } // AssurancePlan

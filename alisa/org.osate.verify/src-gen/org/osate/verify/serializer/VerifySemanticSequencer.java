@@ -1414,7 +1414,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         assert=ArgumentExpr 
 	 *         (argument=STRING argumentUncertainty=Uncertainty?)? 
 	 *         rationale=Rationale? 
-	 *         subclaim+=Claim*
+	 *         subclaim+=Claim* 
+	 *         issues+=STRING*
 	 *     )
 	 */
 	protected void sequence_Claim(EObject context, Claim semanticObject) {
@@ -1424,7 +1425,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (verification=ConditionalEvidence_WhenExpr_1_0_0_0 condition+=[VerificationCategory|ValidID]+)
+	 *     (verification=ConditionalEvidence_WhenExpr_1_0_0_0 condition+=[VerificationCategory|ID]+)
 	 */
 	protected void sequence_ConditionalEvidence(EObject context, WhenExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1457,7 +1458,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         requirement=[Requirement|QualifiedName]? 
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ValidID]? 
+	 *         computeVariable=[ComputeDeclaration|ID]? 
 	 *         timeout=INT? 
 	 *         rationale=Rationale?
 	 *     )
@@ -1474,7 +1475,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ValidID]? 
+	 *         computeVariable=[ComputeDeclaration|ID]? 
 	 *         rationale=Rationale?
 	 *     )
 	 */
@@ -1490,7 +1491,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         description=Description? 
 	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ValidID]? 
+	 *         computeVariable=[ComputeDeclaration|ID]? 
 	 *         rationale=Rationale?
 	 *     )
 	 */
@@ -1544,7 +1545,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         methodPath=STRING? 
 	 *         conditions+=VerificationCondition* 
-	 *         category=[VerificationCategory|ValidID]?
+	 *         category+=[VerificationCategory|ID]*
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {
@@ -1561,7 +1562,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         claim+=Claim* 
 	 *         rationale=Rationale? 
-	 *         verifiedAssumption+=[ComponentClassifier|AADLCLASSIFIERREFERENCE]*
+	 *         verifiedAssumption+=[VerificationPlan|QualifiedName]* 
+	 *         issues+=STRING*
 	 *     )
 	 */
 	protected void sequence_VerificationPlan(EObject context, VerificationPlan semanticObject) {

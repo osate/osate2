@@ -90,16 +90,6 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
         return createAssuranceTaskAdapter();
       }
       @Override
-      public Adapter caseSelectionConditionExpr(SelectionConditionExpr object)
-      {
-        return createSelectionConditionExprAdapter();
-      }
-      @Override
-      public Adapter caseSelectionCategoryReference(SelectionCategoryReference object)
-      {
-        return createSelectionCategoryReferenceAdapter();
-      }
-      @Override
       public Adapter caseDescription(Description object)
       {
         return createDescriptionAdapter();
@@ -108,11 +98,6 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseDescriptionElement(DescriptionElement object)
       {
         return createDescriptionElementAdapter();
-      }
-      @Override
-      public Adapter caseAndSelectionConditionExpr(AndSelectionConditionExpr object)
-      {
-        return createAndSelectionConditionExprAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -182,36 +167,6 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.SelectionConditionExpr <em>Selection Condition Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.workbench.alisa.SelectionConditionExpr
-   * @generated
-   */
-  public Adapter createSelectionConditionExprAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.SelectionCategoryReference <em>Selection Category Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.workbench.alisa.SelectionCategoryReference
-   * @generated
-   */
-  public Adapter createSelectionCategoryReferenceAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.Description <em>Description</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -237,21 +192,6 @@ public class AlisaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDescriptionElementAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.workbench.alisa.AndSelectionConditionExpr <em>And Selection Condition Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.workbench.alisa.AndSelectionConditionExpr
-   * @generated
-   */
-  public Adapter createAndSelectionConditionExprAdapter()
   {
     return null;
   }

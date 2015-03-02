@@ -26,6 +26,7 @@ import org.osate.alisa.common.common.Rationale;
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationPlan#getVerifiedAssumption <em>Verified Assumption</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationPlan#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -183,7 +184,7 @@ public interface VerificationPlan extends EObject
 
   /**
    * Returns the value of the '<em><b>Verified Assumption</b></em>' reference list.
-   * The list contents are of type {@link org.osate.aadl2.ComponentClassifier}.
+   * The list contents are of type {@link org.osate.verify.verify.VerificationPlan}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Verified Assumption</em>' reference list isn't clear,
@@ -195,6 +196,22 @@ public interface VerificationPlan extends EObject
    * @model
    * @generated
    */
-  EList<ComponentClassifier> getVerifiedAssumption();
+  EList<VerificationPlan> getVerifiedAssumption();
+
+  /**
+   * Returns the value of the '<em><b>Issues</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issues</em>' attribute list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationPlan_Issues()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getIssues();
 
 } // VerificationPlan

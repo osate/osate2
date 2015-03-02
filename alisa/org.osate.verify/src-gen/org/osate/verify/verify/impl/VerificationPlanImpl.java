@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -43,6 +44,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getClaim <em>Claim</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getVerifiedAssumption <em>Verified Assumption</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationPlanImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,7 +140,17 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * @generated
    * @ordered
    */
-  protected EList<ComponentClassifier> verifiedAssumption;
+  protected EList<VerificationPlan> verifiedAssumption;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -365,13 +377,27 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ComponentClassifier> getVerifiedAssumption()
+  public EList<VerificationPlan> getVerifiedAssumption()
   {
     if (verifiedAssumption == null)
     {
-      verifiedAssumption = new EObjectResolvingEList<ComponentClassifier>(ComponentClassifier.class, this, VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION);
+      verifiedAssumption = new EObjectResolvingEList<VerificationPlan>(VerificationPlan.class, this, VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION);
     }
     return verifiedAssumption;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getIssues()
+  {
+    if (issues == null)
+    {
+      issues = new EDataTypeEList<String>(String.class, this, VerifyPackage.VERIFICATION_PLAN__ISSUES);
+    }
+    return issues;
   }
 
   /**
@@ -419,6 +445,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return getRationale();
       case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
         return getVerifiedAssumption();
+      case VerifyPackage.VERIFICATION_PLAN__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -455,7 +483,11 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return;
       case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
         getVerifiedAssumption().clear();
-        getVerifiedAssumption().addAll((Collection<? extends ComponentClassifier>)newValue);
+        getVerifiedAssumption().addAll((Collection<? extends VerificationPlan>)newValue);
+        return;
+      case VerifyPackage.VERIFICATION_PLAN__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -492,6 +524,9 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
       case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
         getVerifiedAssumption().clear();
         return;
+      case VerifyPackage.VERIFICATION_PLAN__ISSUES:
+        getIssues().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -520,6 +555,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
         return rationale != null;
       case VerifyPackage.VERIFICATION_PLAN__VERIFIED_ASSUMPTION:
         return verifiedAssumption != null && !verifiedAssumption.isEmpty();
+      case VerifyPackage.VERIFICATION_PLAN__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -539,6 +576,8 @@ public class VerificationPlanImpl extends MinimalEObjectImpl.Container implement
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", issues: ");
+    result.append(issues);
     result.append(')');
     return result.toString();
   }

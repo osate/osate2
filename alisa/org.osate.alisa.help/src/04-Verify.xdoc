@@ -28,7 +28,8 @@ code[Verify][
 		( description "Verification plan for a second line" )? 
 		<Claim>*
 		( rationale <String> )?
-		( assume verified <VerificationPlan>+ )?
+		( assume <VerificationPlan>+ )?
+	    ( issues ("explanation")+ )? 
 	\]
 ]
 
@@ -51,6 +52,7 @@ code[Verify][
 		( argument <String> <Uncertainty> )?
 	 	( rationale <String> )?
 		( <Claim> )*  
+	    ( issues ("explanation")+ )? 
 	\]
 ]
 

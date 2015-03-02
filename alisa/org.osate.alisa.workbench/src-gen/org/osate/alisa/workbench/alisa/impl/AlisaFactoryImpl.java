@@ -67,11 +67,8 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
       case AlisaPackage.ALISA_WORK_AREA: return createAlisaWorkArea();
       case AlisaPackage.ASSURANCE_PLAN: return createAssurancePlan();
       case AlisaPackage.ASSURANCE_TASK: return createAssuranceTask();
-      case AlisaPackage.SELECTION_CONDITION_EXPR: return createSelectionConditionExpr();
-      case AlisaPackage.SELECTION_CATEGORY_REFERENCE: return createSelectionCategoryReference();
       case AlisaPackage.DESCRIPTION: return createDescription();
       case AlisaPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
-      case AlisaPackage.AND_SELECTION_CONDITION_EXPR: return createAndSelectionConditionExpr();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -115,28 +112,6 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public SelectionConditionExpr createSelectionConditionExpr()
-  {
-    SelectionConditionExprImpl selectionConditionExpr = new SelectionConditionExprImpl();
-    return selectionConditionExpr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public SelectionCategoryReference createSelectionCategoryReference()
-  {
-    SelectionCategoryReferenceImpl selectionCategoryReference = new SelectionCategoryReferenceImpl();
-    return selectionCategoryReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Description createDescription()
   {
     DescriptionImpl description = new DescriptionImpl();
@@ -152,17 +127,6 @@ public class AlisaFactoryImpl extends EFactoryImpl implements AlisaFactory
   {
     DescriptionElementImpl descriptionElement = new DescriptionElementImpl();
     return descriptionElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AndSelectionConditionExpr createAndSelectionConditionExpr()
-  {
-    AndSelectionConditionExprImpl andSelectionConditionExpr = new AndSelectionConditionExprImpl();
-    return andSelectionConditionExpr;
   }
 
   /**

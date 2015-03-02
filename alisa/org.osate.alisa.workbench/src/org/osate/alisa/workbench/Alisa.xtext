@@ -17,23 +17,37 @@ AssurancePlan:
 	(
 	('description' description=Description)?
 	& ('assert' plans+=[Verify::VerificationPlan|QualifiedName]+)
-	& ('assume' 'verified' verifiedAssumption+=[aadl2::ComponentClassifier|AadlClassifierReference]+)?
+	& ('assume' verifiedAssumption+=[AssurancePlan|QualifiedName]+)?
+		& ('issues' issues+=STRING+ )?
 	)
 	']';
 	
 	AssuranceTask returns AssuranceTask :
 		'assurance' 'task' name=ID (':' title=STRING)? 'of' assurancePlan=[AssurancePlan|ID]
-	'filter' filter=OrSelectionConditionExpr
+	'['
+	(
+	('description' description=Description)?
+	&(('filter' 
+	( 'requirements' requirementFilter+=[categories::RequirementCategory|ID]+ )?
+	&( 'verifications' verificationFilter+=[categories::VerificationCategory|ID]+ )?
+	&( 'selections' selectionFilter+=[categories::SelectionCategory|ID]+ )?
+	)|
+	('claims' claims+=[Verify::Claim|QualifiedName]+)
+	)
+	&('issues' issues+=STRING+ )?
+	
+	)
+	']'
 	;
 	
-OrSelectionConditionExpr returns SelectionConditionExpr:
-	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
-
-AndSelectionConditionExpr returns SelectionConditionExpr:
-	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
-
-SelectionCategoryReference:
-	cat=[categories::Category|ID];
+//OrSelectionConditionExpr returns SelectionConditionExpr:
+//	AndSelectionConditionExpr (=> ({AndSelectionConditionExpr.left=current} 'or') right=OrSelectionConditionExpr)*;
+//
+//AndSelectionConditionExpr returns SelectionConditionExpr:
+//	SelectionCategoryReference (=> ({AndSelectionConditionExpr.left=current} 'and') right=AndSelectionConditionExpr)*;
+//
+//SelectionCategoryReference:
+//	cat=[categories::Category|ID];
 	
 Description : 
 	( description += DescriptionElement  )+

@@ -19,7 +19,8 @@ VerificationPlan:
 		( description=Description)?
 	& claim+=Claim*
 	& (rationale=Rationale)?
-	& ('assume' 'verified' verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+)?
+	& ('assume' verifiedAssumption+=[VerificationPlan|QualifiedName]+)?
+	& ('issues' issues+=STRING+ )?
 	)
 	']';
 
@@ -31,7 +32,9 @@ Claim:
 	(('assert' assert=ArgumentExpr)
 	& ('argument' argument=STRING ( argumentUncertainty=Uncertainty)? )?
 	& (rationale=Rationale)?
-	& (subclaim+=Claim)*)  // if we have a requirement with refined requirements and we verify each
+	& (subclaim+=Claim)*
+	& ('issues' issues+=STRING+ )?
+	)  
 	']';
 
 VerificationLibrary returns VerificationLibrary:
@@ -57,8 +60,7 @@ VerificationActivity:
 	// or should it be the requirement, which provides the predicate
 	'[' (
 	( description=Description)?
-//	&('category' category+=[categories::SelectionCategory|CatRef]+)?
-	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ValidID])?)
+	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
 	&('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model
@@ -72,7 +74,7 @@ VerificationCondition:
 	(':' title=STRING)?
 	'[' (
 	 ( description=Description)?
-	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ValidID])?)
+	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
 	& (rationale=Rationale)?
 	)
 	']';
@@ -96,7 +98,7 @@ AtomicEvidenceExpr returns ArgumentExpr:
 	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr;
 
 ConditionalEvidence returns ArgumentExpr:
-	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ValidID]+)?;
+	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?;
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]
@@ -120,7 +122,7 @@ VerificationMethod:
 	&('path' methodPath=STRING)?
 	& (conditions+=VerificationCondition)*
 	// parameters (in addition to the model element
-	& ('category' category=[categories::VerificationCategory|ValidID])?
+	& ('category' category+=[categories::VerificationCategory|ID]+)?
 	)
 	']';
 

@@ -28,6 +28,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.verify.verify.Claim#getArgumentUncertainty <em>Argument Uncertainty</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getSubclaim <em>Subclaim</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -260,5 +261,21 @@ public interface Claim extends EObject
    * @generated
    */
   EList<Claim> getSubclaim();
+
+  /**
+   * Returns the value of the '<em><b>Issues</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issues</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issues</em>' attribute list.
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Issues()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getIssues();
 
 } // Claim

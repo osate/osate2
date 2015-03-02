@@ -1373,7 +1373,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ValidID])
+	 *     (xpression=XExpression | reference=[EObject|ID])
 	 */
 	protected void sequence_BehaviorEquation(EObject context, BehaviorEquation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1412,12 +1412,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (
-	 *             targetElement=[NamedElement|ValidID] | 
-	 *             targetDescription=STRING | 
-	 *             (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ValidID]?)
-	 *         )? 
-	 *         category+=[RequirementCategory|ValidID]* 
+	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
@@ -1452,7 +1448,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ValidID])
+	 *     (xpression=XExpression | reference=[EObject|ID])
 	 */
 	protected void sequence_InputAssumption(EObject context, InputAssumption semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1461,7 +1457,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (xpression=XExpression | reference=[EObject|ValidID])
+	 *     (xpression=XExpression | reference=[EObject|ID])
 	 */
 	protected void sequence_OutputGuarantee(EObject context, OutputGuarantee semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1518,19 +1514,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (
-	 *             targetElement=[NamedElement|ValidID] | 
-	 *             targetDescription=STRING | 
-	 *             (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ValidID]?)
-	 *         )? 
-	 *         category+=[RequirementCategory|ValidID]* 
+	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
 	 *         predicate=ReqPredicate? 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
-	 *         (exception=[EObject|ValidID] | exceptionText=STRING)? 
+	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
 	 *         refinedReference+=[Requirement|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 

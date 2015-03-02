@@ -268,9 +268,9 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTypeAssignment_2_0_0_0 = (Assignment)cGroup_2_0_0.eContents().get(0);
 		private final RuleCall cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0 = (RuleCall)cTypeAssignment_2_0_0_0.eContents().get(0);
 		private final Assignment cNameAssignment_2_0_0_1 = (Assignment)cGroup_2_0_0.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_2_0_0_1_0 = (RuleCall)cNameAssignment_2_0_0_1.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_2_0_0_1_0 = (RuleCall)cNameAssignment_2_0_0_1.eContents().get(0);
 		private final Assignment cNameAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final RuleCall cNameValidIDParserRuleCall_2_1_0 = (RuleCall)cNameAssignment_2_1.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_2_1_0 = (RuleCall)cNameAssignment_2_1.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cRightAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final Alternatives cRightAlternatives_4_0 = (Alternatives)cRightAssignment_4.eContents().get(0);
@@ -279,12 +279,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// New rule for val only
 		//XValDeclaration returns xbase::XExpression:
-		//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "="
-		//	right=(APropertyReference | XExpression);
+		//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
+		//	XExpression);
 		public ParserRule getRule() { return rule; }
 
-		//{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "="
-		//right=(APropertyReference | XExpression)
+		//{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
+		//XExpression)
 		public Group getGroup() { return cGroup; }
 
 		//{xbase::XVariableDeclaration}
@@ -293,13 +293,13 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"val"
 		public Keyword getValKeyword_1() { return cValKeyword_1; }
 
-		//=> (type=JvmTypeReference name=ValidID) | name=ValidID
+		//=> (type=JvmTypeReference name=ID) | name=ID
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//=> (type=JvmTypeReference name=ValidID)
+		//=> (type=JvmTypeReference name=ID)
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
-		//type=JvmTypeReference name=ValidID
+		//type=JvmTypeReference name=ID
 		public Group getGroup_2_0_0() { return cGroup_2_0_0; }
 
 		//type=JvmTypeReference
@@ -308,17 +308,17 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//JvmTypeReference
 		public RuleCall getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0() { return cTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0; }
 
-		//name=ValidID
+		//name=ID
 		public Assignment getNameAssignment_2_0_0_1() { return cNameAssignment_2_0_0_1; }
 
-		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_2_0_0_1_0() { return cNameValidIDParserRuleCall_2_0_0_1_0; }
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_2_0_0_1_0() { return cNameIDTerminalRuleCall_2_0_0_1_0; }
 
-		//name=ValidID
+		//name=ID
 		public Assignment getNameAssignment_2_1() { return cNameAssignment_2_1; }
 
-		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_2_1_0() { return cNameValidIDParserRuleCall_2_1_0; }
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_2_1_0() { return cNameIDTerminalRuleCall_2_1_0; }
 
 		//"="
 		public Keyword getEqualsSignKeyword_3() { return cEqualsSignKeyword_3; }
@@ -375,16 +375,16 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cWriteableAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final Keyword cWriteableComputeKeyword_1_0 = (Keyword)cWriteableAssignment_1.eContents().get(0);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameValidIDParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		
 		////ComputeDeclaration returns xbase::XVariableDeclaration: 
 		////{ComputeDeclaration} writeable?='compute'  (=> (type=JvmTypeReference name=ValidID) | name=ValidID)   
 		////;
 		//ComputeDeclaration:
-		//	{ComputeDeclaration} writeable?="compute" name=ValidID;
+		//	{ComputeDeclaration} writeable?="compute" name=ID;
 		public ParserRule getRule() { return rule; }
 
-		//{ComputeDeclaration} writeable?="compute" name=ValidID
+		//{ComputeDeclaration} writeable?="compute" name=ID
 		public Group getGroup() { return cGroup; }
 
 		//{ComputeDeclaration}
@@ -396,11 +396,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"compute"
 		public Keyword getWriteableComputeKeyword_1_0() { return cWriteableComputeKeyword_1_0; }
 
-		//name=ValidID
+		//name=ID
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ValidID
-		public RuleCall getNameValidIDParserRuleCall_2_0() { return cNameValidIDParserRuleCall_2_0; }
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 	}
 
 	public class XNumberLiteralElements extends AbstractParserRuleElementFinder {
@@ -514,105 +514,105 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "IMGREF");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final RuleCall cValidIDParserRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
 		private final Keyword cSolidusKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final RuleCall cValidIDParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Keyword cFullStopKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final RuleCall cValidIDParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final RuleCall cIDTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
 		//IMGREF:
-		//	(ValidID "/") ValidID "." ValidID;
+		//	(ID "/")* ID "." ID;
 		public ParserRule getRule() { return rule; }
 
-		//(ValidID "/") ValidID "." ValidID
+		//(ID "/")* ID "." ID
 		public Group getGroup() { return cGroup; }
 
-		//ValidID "/"
+		//(ID "/")*
 		public Group getGroup_0() { return cGroup_0; }
 
-		//ValidID
-		public RuleCall getValidIDParserRuleCall_0_0() { return cValidIDParserRuleCall_0_0; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
 
 		//"/"
 		public Keyword getSolidusKeyword_0_1() { return cSolidusKeyword_0_1; }
 
-		//ValidID
-		public RuleCall getValidIDParserRuleCall_1() { return cValidIDParserRuleCall_1; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
 
 		//"."
 		public Keyword getFullStopKeyword_2() { return cFullStopKeyword_2; }
 
-		//ValidID
-		public RuleCall getValidIDParserRuleCall_3() { return cValidIDParserRuleCall_3; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_3() { return cIDTerminalRuleCall_3; }
 	}
 
 	public class AADLCLASSIFIERREFERENCEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AADLCLASSIFIERREFERENCE");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cValidIDParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cValidIDParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final RuleCall cValidIDParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
 		//// Qualified classifier reference
 		//AADLCLASSIFIERREFERENCE:
-		//	ValidID ("::" ValidID)+ ("." ValidID)?;
+		//	ID ("::" ID)+ ("." ID)?;
 		public ParserRule getRule() { return rule; }
 
-		//ValidID ("::" ValidID)+ ("." ValidID)?
+		//ID ("::" ID)+ ("." ID)?
 		public Group getGroup() { return cGroup; }
 
-		//ValidID
-		public RuleCall getValidIDParserRuleCall_0() { return cValidIDParserRuleCall_0; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
 
-		//("::" ValidID)+
+		//("::" ID)+
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"::"
 		public Keyword getColonColonKeyword_1_0() { return cColonColonKeyword_1_0; }
 
-		//ValidID
-		public RuleCall getValidIDParserRuleCall_1_1() { return cValidIDParserRuleCall_1_1; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 
-		//("." ValidID)?
+		//("." ID)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"."
 		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
 
-		//ValidID
-		public RuleCall getValidIDParserRuleCall_2_1() { return cValidIDParserRuleCall_2_1; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_2_1() { return cIDTerminalRuleCall_2_1; }
 	}
 
 	public class AADLPROPERTYREFERENCEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AADLPROPERTYREFERENCE");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cValidIDParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cValidIDParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		//AADLPROPERTYREFERENCE:
-		//	ValidID ("::" ValidID)?;
+		//	ID ("::" ID)?;
 		public ParserRule getRule() { return rule; }
 
-		//ValidID ("::" ValidID)?
+		//ID ("::" ID)?
 		public Group getGroup() { return cGroup; }
 
-		//ValidID
-		public RuleCall getValidIDParserRuleCall_0() { return cValidIDParserRuleCall_0; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
 
-		//("::" ValidID)?
+		//("::" ID)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"::"
 		public Keyword getColonColonKeyword_1_0() { return cColonColonKeyword_1_0; }
 
-		//ValidID
-		public RuleCall getValidIDParserRuleCall_1_1() { return cValidIDParserRuleCall_1_1; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
 
 	public class URIIDElements extends AbstractParserRuleElementFinder {
@@ -739,8 +739,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XExpression:
-	//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "="
-	//	right=(APropertyReference | XExpression);
+	//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
+	//	XExpression);
 	public XValDeclarationElements getXValDeclarationAccess() {
 		return pXValDeclaration;
 	}
@@ -763,7 +763,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	////{ComputeDeclaration} writeable?='compute'  (=> (type=JvmTypeReference name=ValidID) | name=ValidID)   
 	////;
 	//ComputeDeclaration:
-	//	{ComputeDeclaration} writeable?="compute" name=ValidID;
+	//	{ComputeDeclaration} writeable?="compute" name=ID;
 	public ComputeDeclarationElements getComputeDeclarationAccess() {
 		return pComputeDeclaration;
 	}
@@ -806,7 +806,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IMGREF:
-	//	(ValidID "/") ValidID "." ValidID;
+	//	(ID "/")* ID "." ID;
 	public IMGREFElements getIMGREFAccess() {
 		return pIMGREF;
 	}
@@ -817,7 +817,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Qualified classifier reference
 	//AADLCLASSIFIERREFERENCE:
-	//	ValidID ("::" ValidID)+ ("." ValidID)?;
+	//	ID ("::" ID)+ ("." ID)?;
 	public AADLCLASSIFIERREFERENCEElements getAADLCLASSIFIERREFERENCEAccess() {
 		return pAADLCLASSIFIERREFERENCE;
 	}
@@ -827,7 +827,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AADLPROPERTYREFERENCE:
-	//	ValidID ("::" ValidID)?;
+	//	ID ("::" ID)?;
 	public AADLPROPERTYREFERENCEElements getAADLPROPERTYREFERENCEAccess() {
 		return pAADLPROPERTYREFERENCE;
 	}

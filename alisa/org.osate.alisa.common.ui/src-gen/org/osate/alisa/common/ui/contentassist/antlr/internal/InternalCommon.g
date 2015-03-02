@@ -4108,7 +4108,7 @@ rule__IMGREF__Group__0__Impl
 :
 (
 { before(grammarAccess.getIMGREFAccess().getGroup_0()); }
-(rule__IMGREF__Group_0__0)
+(rule__IMGREF__Group_0__0)*
 { after(grammarAccess.getIMGREFAccess().getGroup_0()); }
 )
 
@@ -4136,9 +4136,9 @@ rule__IMGREF__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_1()); }
-	ruleValidID
-{ after(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_1()); }
+{ before(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_1()); }
+	RULE_ID
+{ after(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_1()); }
 )
 
 ;
@@ -4195,9 +4195,9 @@ rule__IMGREF__Group__3__Impl
     }
 :
 (
-{ before(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_3()); }
-	ruleValidID
-{ after(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_3()); }
+{ before(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_3()); }
+	RULE_ID
+{ after(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_3()); }
 )
 
 ;
@@ -4232,9 +4232,9 @@ rule__IMGREF__Group_0__0__Impl
     }
 :
 (
-{ before(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_0_0()); }
-	ruleValidID
-{ after(grammarAccess.getIMGREFAccess().getValidIDParserRuleCall_0_0()); }
+{ before(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); }
+	RULE_ID
+{ after(grammarAccess.getIMGREFAccess().getIDTerminalRuleCall_0_0()); }
 )
 
 ;
@@ -4298,9 +4298,9 @@ rule__AADLPROPERTYREFERENCE__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_0()); }
-	ruleValidID
-{ after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_0()); }
+{ before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); }
+	RULE_ID
+{ after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); }
 )
 
 ;
@@ -4389,9 +4389,9 @@ rule__AADLPROPERTYREFERENCE__Group_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_1_1()); }
-	ruleValidID
-{ after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getValidIDParserRuleCall_1_1()); }
+{ before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_1_1()); }
+	RULE_ID
+{ after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_1_1()); }
 )
 
 ;

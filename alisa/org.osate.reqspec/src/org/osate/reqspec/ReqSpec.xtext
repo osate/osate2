@@ -72,12 +72,12 @@ GoalFolder returns GoalFolder:
 
 Goal returns Goal:
 	'goal' name=ID (':'  title=STRING )? // short string for title
-	( 'for' (targetElement=[aadl2::NamedElement|ValidID] | targetDescription=STRING|
-		(target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ('item' targetElement=[aadl2::NamedElement|ValidID])?  )
+	( 'for' (targetElement=[aadl2::NamedElement|ID] | targetDescription=STRING|
+		(target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ('item' targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['  (
-	 ('category'  category+=[categories::RequirementCategory|ValidID]+)?
+	 ('category'  category+=[categories::RequirementCategory|ID]+)?
 	 &(  description=Description)? 
 	 &(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
@@ -96,19 +96,19 @@ Goal returns Goal:
 Requirement:
 	'requirement'  name=ID   
 	(':'  title=STRING)? 
-	( 'for' (targetElement=[aadl2::NamedElement|ValidID] | targetDescription=STRING
-		|(target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ('item' targetElement=[aadl2::NamedElement|ValidID])?  )
+	( 'for' (targetElement=[aadl2::NamedElement|ID] | targetDescription=STRING
+		|(target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ('item' targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['	(
- 	('category'  category+=[categories::RequirementCategory|ValidID]+ )?
+ 	('category'  category+=[categories::RequirementCategory|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=XValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
 	&(  predicate=ReqPredicate)?  // predicate expression 
 	&(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
-	&('mitigates'  (exception=[ecore::EObject|ValidID]|exceptionText=STRING))? 
+	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
 	&('refines' refinedReference+=[Requirement|QualifiedName]+)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
@@ -124,9 +124,9 @@ InformalPredicate: 'assert' description=STRING ;
 XPredicate: 'assert' 'predicate' xpression=XExpression ;
 
 ValueAssertion: 'assert' 'value' xpression=XExpression;	
-InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ValidID]);	
-OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ValidID]);	
-BehaviorEquation: 'assert' 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ValidID]);
+InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
+BehaviorEquation: 'assert' 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?
@@ -134,8 +134,8 @@ ExternalDocument :
 
 
 // path to external document and its fragment
-DOCPATH: ( ValidID '/')* ValidID '.' ValidID;
+DOCPATH: ( ID '/')* ID '.' ID;
 
-DOCFRAGMENT: ValidID ('.' ValidID)*;
+DOCFRAGMENT: ID ('.' ID)*;
 
 	

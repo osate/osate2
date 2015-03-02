@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -43,6 +44,7 @@ import org.osate.verify.verify.VerifyPackage;
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getArgumentUncertainty <em>Argument Uncertainty</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getSubclaim <em>Subclaim</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -179,6 +181,16 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * @ordered
    */
   protected EList<Claim> subclaim;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -499,6 +511,20 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<String> getIssues()
+  {
+    if (issues == null)
+    {
+      issues = new EDataTypeEList<String>(String.class, this, VerifyPackage.CLAIM__ISSUES);
+    }
+    return issues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -545,6 +571,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return getRationale();
       case VerifyPackage.CLAIM__SUBCLAIM:
         return getSubclaim();
+      case VerifyPackage.CLAIM__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -588,6 +616,10 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         getSubclaim().clear();
         getSubclaim().addAll((Collection<? extends Claim>)newValue);
         return;
+      case VerifyPackage.CLAIM__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends String>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -629,6 +661,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__SUBCLAIM:
         getSubclaim().clear();
         return;
+      case VerifyPackage.CLAIM__ISSUES:
+        getIssues().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -661,6 +696,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
         return rationale != null;
       case VerifyPackage.CLAIM__SUBCLAIM:
         return subclaim != null && !subclaim.isEmpty();
+      case VerifyPackage.CLAIM__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -684,6 +721,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     result.append(weight);
     result.append(", argument: ");
     result.append(argument);
+    result.append(", issues: ");
+    result.append(issues);
     result.append(')');
     return result.toString();
   }

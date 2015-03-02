@@ -72,10 +72,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRationaleRationaleParserRuleCall_6_2_0 = (RuleCall)cRationaleAssignment_6_2.eContents().get(0);
 		private final Group cGroup_6_3 = (Group)cUnorderedGroup_6.eContents().get(3);
 		private final Keyword cAssumeKeyword_6_3_0 = (Keyword)cGroup_6_3.eContents().get(0);
-		private final Keyword cVerifiedKeyword_6_3_1 = (Keyword)cGroup_6_3.eContents().get(1);
-		private final Assignment cVerifiedAssumptionAssignment_6_3_2 = (Assignment)cGroup_6_3.eContents().get(2);
-		private final CrossReference cVerifiedAssumptionComponentClassifierCrossReference_6_3_2_0 = (CrossReference)cVerifiedAssumptionAssignment_6_3_2.eContents().get(0);
-		private final RuleCall cVerifiedAssumptionComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_6_3_2_0_1 = (RuleCall)cVerifiedAssumptionComponentClassifierCrossReference_6_3_2_0.eContents().get(1);
+		private final Assignment cVerifiedAssumptionAssignment_6_3_1 = (Assignment)cGroup_6_3.eContents().get(1);
+		private final CrossReference cVerifiedAssumptionVerificationPlanCrossReference_6_3_1_0 = (CrossReference)cVerifiedAssumptionAssignment_6_3_1.eContents().get(0);
+		private final RuleCall cVerifiedAssumptionVerificationPlanQualifiedNameParserRuleCall_6_3_1_0_1 = (RuleCall)cVerifiedAssumptionVerificationPlanCrossReference_6_3_1_0.eContents().get(1);
+		private final Group cGroup_6_4 = (Group)cUnorderedGroup_6.eContents().get(4);
+		private final Keyword cIssuesKeyword_6_4_0 = (Keyword)cGroup_6_4.eContents().get(0);
+		private final Assignment cIssuesAssignment_6_4_1 = (Assignment)cGroup_6_4.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_6_4_1_0 = (RuleCall)cIssuesAssignment_6_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//// plan for a classifier. Will add import to allow for non-qualified requirement references 
@@ -83,14 +86,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationPlan:
 		//	"plan" name=ID (":" title=STRING)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 		//	[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] "[" (description=Description? & claim+=Claim* &
-		//	rationale=Rationale? & ("assume" "verified"
-		//	verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+)?) "]";
+		//	rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
+		//	issues+=STRING+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"plan" name=ID (":" title=STRING)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] "[" (description=Description? & claim+=Claim* &
-		//rationale=Rationale? & ("assume" "verified"
-		//verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+)?) "]"
+		//rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
+		//issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"plan"
@@ -131,8 +134,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//description=Description? & claim+=Claim* & rationale=Rationale? & ("assume" "verified"
-		//verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+)?
+		//description=Description? & claim+=Claim* & rationale=Rationale? & ("assume"
+		//verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
 		//description=Description?
@@ -153,23 +156,32 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Rationale
 		public RuleCall getRationaleRationaleParserRuleCall_6_2_0() { return cRationaleRationaleParserRuleCall_6_2_0; }
 
-		//("assume" "verified" verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+)?
+		//("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)?
 		public Group getGroup_6_3() { return cGroup_6_3; }
 
 		//"assume"
 		public Keyword getAssumeKeyword_6_3_0() { return cAssumeKeyword_6_3_0; }
 
-		//"verified"
-		public Keyword getVerifiedKeyword_6_3_1() { return cVerifiedKeyword_6_3_1; }
+		//verifiedAssumption+=[VerificationPlan|QualifiedName]+
+		public Assignment getVerifiedAssumptionAssignment_6_3_1() { return cVerifiedAssumptionAssignment_6_3_1; }
 
-		//verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+
-		public Assignment getVerifiedAssumptionAssignment_6_3_2() { return cVerifiedAssumptionAssignment_6_3_2; }
+		//[VerificationPlan|QualifiedName]
+		public CrossReference getVerifiedAssumptionVerificationPlanCrossReference_6_3_1_0() { return cVerifiedAssumptionVerificationPlanCrossReference_6_3_1_0; }
 
-		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]
-		public CrossReference getVerifiedAssumptionComponentClassifierCrossReference_6_3_2_0() { return cVerifiedAssumptionComponentClassifierCrossReference_6_3_2_0; }
+		//QualifiedName
+		public RuleCall getVerifiedAssumptionVerificationPlanQualifiedNameParserRuleCall_6_3_1_0_1() { return cVerifiedAssumptionVerificationPlanQualifiedNameParserRuleCall_6_3_1_0_1; }
 
-		//AADLCLASSIFIERREFERENCE
-		public RuleCall getVerifiedAssumptionComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_6_3_2_0_1() { return cVerifiedAssumptionComponentClassifierAADLCLASSIFIERREFERENCEParserRuleCall_6_3_2_0_1; }
+		//("issues" issues+=STRING+)?
+		public Group getGroup_6_4() { return cGroup_6_4; }
+
+		//"issues"
+		public Keyword getIssuesKeyword_6_4_0() { return cIssuesKeyword_6_4_0; }
+
+		//issues+=STRING+
+		public Assignment getIssuesAssignment_6_4_1() { return cIssuesAssignment_6_4_1; }
+
+		//STRING
+		public RuleCall getIssuesSTRINGTerminalRuleCall_6_4_1_0() { return cIssuesSTRINGTerminalRuleCall_6_4_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
@@ -210,19 +222,21 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRationaleRationaleParserRuleCall_7_2_0 = (RuleCall)cRationaleAssignment_7_2.eContents().get(0);
 		private final Assignment cSubclaimAssignment_7_3 = (Assignment)cUnorderedGroup_7.eContents().get(3);
 		private final RuleCall cSubclaimClaimParserRuleCall_7_3_0 = (RuleCall)cSubclaimAssignment_7_3.eContents().get(0);
+		private final Group cGroup_7_4 = (Group)cUnorderedGroup_7.eContents().get(4);
+		private final Keyword cIssuesKeyword_7_4_0 = (Keyword)cGroup_7_4.eContents().get(0);
+		private final Assignment cIssuesAssignment_7_4_1 = (Assignment)cGroup_7_4.eContents().get(1);
+		private final RuleCall cIssuesSTRINGTerminalRuleCall_7_4_1_0 = (RuleCall)cIssuesAssignment_7_4_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//Claim:
 		//	"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
 		//	"[" ("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? &
-		//	rationale=Rationale? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
-		//	"]";
+		//	rationale=Rationale? & subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
 		//("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
-		//& subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
-		//"]"
+		//& subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"claim"
@@ -277,7 +291,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
 		//"assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale? &
-		//subclaim+=Claim*
+		//subclaim+=Claim* & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//"assert" assert=ArgumentExpr
@@ -321,6 +335,18 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Claim
 		public RuleCall getSubclaimClaimParserRuleCall_7_3_0() { return cSubclaimClaimParserRuleCall_7_3_0; }
+
+		//("issues" issues+=STRING+)?
+		public Group getGroup_7_4() { return cGroup_7_4; }
+
+		//"issues"
+		public Keyword getIssuesKeyword_7_4_0() { return cIssuesKeyword_7_4_0; }
+
+		//issues+=STRING+
+		public Assignment getIssuesAssignment_7_4_1() { return cIssuesAssignment_7_4_1; }
+
+		//STRING
+		public RuleCall getIssuesSTRINGTerminalRuleCall_7_4_1_0() { return cIssuesSTRINGTerminalRuleCall_7_4_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
@@ -520,7 +546,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAsKeyword_5_1_2_0 = (Keyword)cGroup_5_1_2.eContents().get(0);
 		private final Assignment cComputeVariableAssignment_5_1_2_1 = (Assignment)cGroup_5_1_2.eContents().get(1);
 		private final CrossReference cComputeVariableComputeDeclarationCrossReference_5_1_2_1_0 = (CrossReference)cComputeVariableAssignment_5_1_2_1.eContents().get(0);
-		private final RuleCall cComputeVariableComputeDeclarationValidIDParserRuleCall_5_1_2_1_0_1 = (RuleCall)cComputeVariableComputeDeclarationCrossReference_5_1_2_1_0.eContents().get(1);
+		private final RuleCall cComputeVariableComputeDeclarationIDTerminalRuleCall_5_1_2_1_0_1 = (RuleCall)cComputeVariableComputeDeclarationCrossReference_5_1_2_1_0.eContents().get(1);
 		private final Group cGroup_5_2 = (Group)cUnorderedGroup_5.eContents().get(2);
 		private final Keyword cTimeoutKeyword_5_2_0 = (Keyword)cGroup_5_2.eContents().get(0);
 		private final Assignment cTimeoutAssignment_5_2_1 = (Assignment)cGroup_5_2.eContents().get(1);
@@ -531,21 +557,19 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//VerificationActivity:
 		//	"activity" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
-		//	"[" (description=Description? //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
-		//	//	('parameters'  verificationParameters+=([ElementReference])*)? 
+		//	"[" (description=Description? //	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//	// these are data parameters to the method in addition to what comes with the model
 		//	// and via the requirement (predicate/limit values
-		//	& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration|ValidID])? &
-		//	("timeout" timeout=INT)? & rationale=Rationale?) "]";
+		//	& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
+		//	timeout=INT)? & rationale=Rationale?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"activity" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
-		//"[" (description=Description? //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
-		////	('parameters'  verificationParameters+=([ElementReference])*)? 
+		//"[" (description=Description? //	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//// these are data parameters to the method in addition to what comes with the model
 		//// and via the requirement (predicate/limit values
-		//& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration|ValidID])? &
-		//("timeout" timeout=INT)? & rationale=Rationale?) "]"
+		//& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
+		//timeout=INT)? & rationale=Rationale?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"activity"
@@ -588,12 +612,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//description=Description? //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
-		////	('parameters'  verificationParameters+=([ElementReference])*)? 
+		//description=Description? //	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//// these are data parameters to the method in addition to what comes with the model
 		//// and via the requirement (predicate/limit values
-		//& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration|ValidID])? &
-		//("timeout" timeout=INT)? & rationale=Rationale?
+		//& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
+		//timeout=INT)? & rationale=Rationale?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//description=Description?
@@ -602,7 +625,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_5_0_0() { return cDescriptionDescriptionParserRuleCall_5_0_0; }
 
-		//"method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration|ValidID])?
+		//"method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?
 		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//"method"
@@ -617,20 +640,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_5_1_1_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_5_1_1_0_1; }
 
-		//("as" computeVariable=[common::ComputeDeclaration|ValidID])?
+		//("as" computeVariable=[common::ComputeDeclaration])?
 		public Group getGroup_5_1_2() { return cGroup_5_1_2; }
 
 		//"as"
 		public Keyword getAsKeyword_5_1_2_0() { return cAsKeyword_5_1_2_0; }
 
-		//computeVariable=[common::ComputeDeclaration|ValidID]
+		//computeVariable=[common::ComputeDeclaration]
 		public Assignment getComputeVariableAssignment_5_1_2_1() { return cComputeVariableAssignment_5_1_2_1; }
 
-		//[common::ComputeDeclaration|ValidID]
+		//[common::ComputeDeclaration]
 		public CrossReference getComputeVariableComputeDeclarationCrossReference_5_1_2_1_0() { return cComputeVariableComputeDeclarationCrossReference_5_1_2_1_0; }
 
-		//ValidID
-		public RuleCall getComputeVariableComputeDeclarationValidIDParserRuleCall_5_1_2_1_0_1() { return cComputeVariableComputeDeclarationValidIDParserRuleCall_5_1_2_1_0_1; }
+		//ID
+		public RuleCall getComputeVariableComputeDeclarationIDTerminalRuleCall_5_1_2_1_0_1() { return cComputeVariableComputeDeclarationIDTerminalRuleCall_5_1_2_1_0_1; }
 
 		//("timeout" timeout=INT)?
 		public Group getGroup_5_2() { return cGroup_5_2; }
@@ -683,7 +706,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAsKeyword_4_1_2_0 = (Keyword)cGroup_4_1_2.eContents().get(0);
 		private final Assignment cComputeVariableAssignment_4_1_2_1 = (Assignment)cGroup_4_1_2.eContents().get(1);
 		private final CrossReference cComputeVariableComputeDeclarationCrossReference_4_1_2_1_0 = (CrossReference)cComputeVariableAssignment_4_1_2_1.eContents().get(0);
-		private final RuleCall cComputeVariableComputeDeclarationValidIDParserRuleCall_4_1_2_1_0_1 = (RuleCall)cComputeVariableComputeDeclarationCrossReference_4_1_2_1_0.eContents().get(1);
+		private final RuleCall cComputeVariableComputeDeclarationIDTerminalRuleCall_4_1_2_1_0_1 = (RuleCall)cComputeVariableComputeDeclarationCrossReference_4_1_2_1_0.eContents().get(1);
 		private final Assignment cRationaleAssignment_4_2 = (Assignment)cUnorderedGroup_4.eContents().get(2);
 		private final RuleCall cRationaleRationaleParserRuleCall_4_2_0 = (RuleCall)cRationaleAssignment_4_2.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
@@ -691,12 +714,12 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationCondition:
 		//	("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
 		//	(description=Description? & "method" method=[VerificationMethod|QualifiedName] ("as"
-		//	computeVariable=[common::ComputeDeclaration|ValidID])? & rationale=Rationale?) "]";
+		//	computeVariable=[common::ComputeDeclaration])? & rationale=Rationale?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
 		//(description=Description? & "method" method=[VerificationMethod|QualifiedName] ("as"
-		//computeVariable=[common::ComputeDeclaration|ValidID])? & rationale=Rationale?) "]"
+		//computeVariable=[common::ComputeDeclaration])? & rationale=Rationale?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"validation" {VerificationValidation} | "precondition" {VerificationPrecondition}
@@ -742,7 +765,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
 		//description=Description? & "method" method=[VerificationMethod|QualifiedName] ("as"
-		//computeVariable=[common::ComputeDeclaration|ValidID])? & rationale=Rationale?
+		//computeVariable=[common::ComputeDeclaration])? & rationale=Rationale?
 		public UnorderedGroup getUnorderedGroup_4() { return cUnorderedGroup_4; }
 
 		//description=Description?
@@ -751,7 +774,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_4_0_0() { return cDescriptionDescriptionParserRuleCall_4_0_0; }
 
-		//"method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration|ValidID])?
+		//"method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
 		//"method"
@@ -766,20 +789,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_4_1_1_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_4_1_1_0_1; }
 
-		//("as" computeVariable=[common::ComputeDeclaration|ValidID])?
+		//("as" computeVariable=[common::ComputeDeclaration])?
 		public Group getGroup_4_1_2() { return cGroup_4_1_2; }
 
 		//"as"
 		public Keyword getAsKeyword_4_1_2_0() { return cAsKeyword_4_1_2_0; }
 
-		//computeVariable=[common::ComputeDeclaration|ValidID]
+		//computeVariable=[common::ComputeDeclaration]
 		public Assignment getComputeVariableAssignment_4_1_2_1() { return cComputeVariableAssignment_4_1_2_1; }
 
-		//[common::ComputeDeclaration|ValidID]
+		//[common::ComputeDeclaration]
 		public CrossReference getComputeVariableComputeDeclarationCrossReference_4_1_2_1_0() { return cComputeVariableComputeDeclarationCrossReference_4_1_2_1_0; }
 
-		//ValidID
-		public RuleCall getComputeVariableComputeDeclarationValidIDParserRuleCall_4_1_2_1_0_1() { return cComputeVariableComputeDeclarationValidIDParserRuleCall_4_1_2_1_0_1; }
+		//ID
+		public RuleCall getComputeVariableComputeDeclarationIDTerminalRuleCall_4_1_2_1_0_1() { return cComputeVariableComputeDeclarationIDTerminalRuleCall_4_1_2_1_0_1; }
 
 		//rationale=Rationale?
 		public Assignment getRationaleAssignment_4_2() { return cRationaleAssignment_4_2; }
@@ -1010,19 +1033,19 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cWhenKeyword_1_0_0_1 = (Keyword)cGroup_1_0_0.eContents().get(1);
 		private final Assignment cConditionAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final CrossReference cConditionVerificationCategoryCrossReference_1_1_0 = (CrossReference)cConditionAssignment_1_1.eContents().get(0);
-		private final RuleCall cConditionVerificationCategoryValidIDParserRuleCall_1_1_0_1 = (RuleCall)cConditionVerificationCategoryCrossReference_1_1_0.eContents().get(1);
+		private final RuleCall cConditionVerificationCategoryIDTerminalRuleCall_1_1_0_1 = (RuleCall)cConditionVerificationCategoryCrossReference_1_1_0.eContents().get(1);
 		
 		//ConditionalEvidence returns ArgumentExpr:
-		//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory|ValidID]+)?;
+		//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory]+)?;
 		public ParserRule getRule() { return rule; }
 
-		//VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory|ValidID]+)?
+		//VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory]+)?
 		public Group getGroup() { return cGroup; }
 
 		//VAReference
 		public RuleCall getVAReferenceParserRuleCall_0() { return cVAReferenceParserRuleCall_0; }
 
-		//(=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory|ValidID]+)?
+		//(=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory]+)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//=> ({WhenExpr.verification=current} "when")
@@ -1037,14 +1060,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"when"
 		public Keyword getWhenKeyword_1_0_0_1() { return cWhenKeyword_1_0_0_1; }
 
-		//condition+=[categories::VerificationCategory|ValidID]+
+		//condition+=[categories::VerificationCategory]+
 		public Assignment getConditionAssignment_1_1() { return cConditionAssignment_1_1; }
 
-		//[categories::VerificationCategory|ValidID]
+		//[categories::VerificationCategory]
 		public CrossReference getConditionVerificationCategoryCrossReference_1_1_0() { return cConditionVerificationCategoryCrossReference_1_1_0; }
 
-		//ValidID
-		public RuleCall getConditionVerificationCategoryValidIDParserRuleCall_1_1_0_1() { return cConditionVerificationCategoryValidIDParserRuleCall_1_1_0_1; }
+		//ID
+		public RuleCall getConditionVerificationCategoryIDTerminalRuleCall_1_1_0_1() { return cConditionVerificationCategoryIDTerminalRuleCall_1_1_0_1; }
 	}
 
 	public class VAReferenceElements extends AbstractParserRuleElementFinder {
@@ -1199,20 +1222,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCategoryKeyword_5_4_0 = (Keyword)cGroup_5_4.eContents().get(0);
 		private final Assignment cCategoryAssignment_5_4_1 = (Assignment)cGroup_5_4.eContents().get(1);
 		private final CrossReference cCategoryVerificationCategoryCrossReference_5_4_1_0 = (CrossReference)cCategoryAssignment_5_4_1.eContents().get(0);
-		private final RuleCall cCategoryVerificationCategoryValidIDParserRuleCall_5_4_1_0_1 = (RuleCall)cCategoryVerificationCategoryCrossReference_5_4_1_0.eContents().get(1);
+		private final RuleCall cCategoryVerificationCategoryIDTerminalRuleCall_5_4_1_0_1 = (RuleCall)cCategoryVerificationCategoryCrossReference_5_4_1_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationMethod:
 		//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 		//	(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 		//	& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
-		//	category=[categories::VerificationCategory|ValidID])?) "]";
+		//	category+=[categories::VerificationCategory]+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 		//(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 		//& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
-		//category=[categories::VerificationCategory|ValidID])?) "]"
+		//category+=[categories::VerificationCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"method"
@@ -1256,7 +1279,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 		//& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
-		//category=[categories::VerificationCategory|ValidID])?
+		//category+=[categories::VerificationCategory]+)?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting?
@@ -1304,20 +1327,20 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationCondition
 		public RuleCall getConditionsVerificationConditionParserRuleCall_5_3_0() { return cConditionsVerificationConditionParserRuleCall_5_3_0; }
 
-		//("category" category=[categories::VerificationCategory|ValidID])?
+		//("category" category+=[categories::VerificationCategory]+)?
 		public Group getGroup_5_4() { return cGroup_5_4; }
 
 		//"category"
 		public Keyword getCategoryKeyword_5_4_0() { return cCategoryKeyword_5_4_0; }
 
-		//category=[categories::VerificationCategory|ValidID]
+		//category+=[categories::VerificationCategory]+
 		public Assignment getCategoryAssignment_5_4_1() { return cCategoryAssignment_5_4_1; }
 
-		//[categories::VerificationCategory|ValidID]
+		//[categories::VerificationCategory]
 		public CrossReference getCategoryVerificationCategoryCrossReference_5_4_1_0() { return cCategoryVerificationCategoryCrossReference_5_4_1_0; }
 
-		//ValidID
-		public RuleCall getCategoryVerificationCategoryValidIDParserRuleCall_5_4_1_0_1() { return cCategoryVerificationCategoryValidIDParserRuleCall_5_4_1_0_1; }
+		//ID
+		public RuleCall getCategoryVerificationCategoryIDTerminalRuleCall_5_4_1_0_1() { return cCategoryVerificationCategoryIDTerminalRuleCall_5_4_1_0_1; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
@@ -1560,8 +1583,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//VerificationPlan:
 	//	"plan" name=ID (":" title=STRING)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 	//	[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] "[" (description=Description? & claim+=Claim* &
-	//	rationale=Rationale? & ("assume" "verified"
-	//	verifiedAssumption+=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE]+)?) "]";
+	//	rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
+	//	issues+=STRING+)?) "]";
 	public VerificationPlanElements getVerificationPlanAccess() {
 		return pVerificationPlan;
 	}
@@ -1573,8 +1596,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//Claim:
 	//	"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
 	//	"[" ("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? &
-	//	rationale=Rationale? & subclaim+=Claim*) // if we have a requirement with refined requirements and we verify each
-	//	"]";
+	//	rationale=Rationale? & subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
 	}
@@ -1616,12 +1638,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VerificationActivity:
 	//	"activity" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
-	//	"[" (description=Description? //	&('category' category+=[categories::SelectionCategory|CatRef]+)?
-	//	//	('parameters'  verificationParameters+=([ElementReference])*)? 
+	//	"[" (description=Description? //	('parameters'  verificationParameters+=([ElementReference])*)? 
 	//	// these are data parameters to the method in addition to what comes with the model
 	//	// and via the requirement (predicate/limit values
-	//	& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration|ValidID])? &
-	//	("timeout" timeout=INT)? & rationale=Rationale?) "]";
+	//	& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
+	//	timeout=INT)? & rationale=Rationale?) "]";
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}
@@ -1633,7 +1654,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//VerificationCondition:
 	//	("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
 	//	(description=Description? & "method" method=[VerificationMethod|QualifiedName] ("as"
-	//	computeVariable=[common::ComputeDeclaration|ValidID])? & rationale=Rationale?) "]";
+	//	computeVariable=[common::ComputeDeclaration])? & rationale=Rationale?) "]";
 	public VerificationConditionElements getVerificationConditionAccess() {
 		return pVerificationCondition;
 	}
@@ -1696,7 +1717,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConditionalEvidence returns ArgumentExpr:
-	//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory|ValidID]+)?;
+	//	VAReference (=> ({WhenExpr.verification=current} "when") condition+=[categories::VerificationCategory]+)?;
 	public ConditionalEvidenceElements getConditionalEvidenceAccess() {
 		return pConditionalEvidence;
 	}
@@ -1729,7 +1750,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
 	//	(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 	//	& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
-	//	category=[categories::VerificationCategory|ValidID])?) "]";
+	//	category+=[categories::VerificationCategory]+)?) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {
 		return pVerificationMethod;
 	}
@@ -1813,8 +1834,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// New rule for val only
 	//XValDeclaration returns xbase::XExpression:
-	//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ValidID) | name=ValidID) "="
-	//	right=(APropertyReference | XExpression);
+	//	{xbase::XVariableDeclaration} "val" (=> (type=JvmTypeReference name=ID) | name=ID) "=" right=(APropertyReference |
+	//	XExpression);
 	public CommonGrammarAccess.XValDeclarationElements getXValDeclarationAccess() {
 		return gaCommon.getXValDeclarationAccess();
 	}
@@ -1837,7 +1858,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	////{ComputeDeclaration} writeable?='compute'  (=> (type=JvmTypeReference name=ValidID) | name=ValidID)   
 	////;
 	//ComputeDeclaration:
-	//	{ComputeDeclaration} writeable?="compute" name=ValidID;
+	//	{ComputeDeclaration} writeable?="compute" name=ID;
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}
@@ -1880,7 +1901,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IMGREF:
-	//	(ValidID "/") ValidID "." ValidID;
+	//	(ID "/")* ID "." ID;
 	public CommonGrammarAccess.IMGREFElements getIMGREFAccess() {
 		return gaCommon.getIMGREFAccess();
 	}
@@ -1891,7 +1912,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Qualified classifier reference
 	//AADLCLASSIFIERREFERENCE:
-	//	ValidID ("::" ValidID)+ ("." ValidID)?;
+	//	ID ("::" ID)+ ("." ID)?;
 	public CommonGrammarAccess.AADLCLASSIFIERREFERENCEElements getAADLCLASSIFIERREFERENCEAccess() {
 		return gaCommon.getAADLCLASSIFIERREFERENCEAccess();
 	}
@@ -1901,7 +1922,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AADLPROPERTYREFERENCE:
-	//	ValidID ("::" ValidID)?;
+	//	ID ("::" ID)?;
 	public CommonGrammarAccess.AADLPROPERTYREFERENCEElements getAADLPROPERTYREFERENCEAccess() {
 		return gaCommon.getAADLPROPERTYREFERENCEAccess();
 	}

@@ -1781,12 +1781,18 @@ public class AssureUtilExtension {
     String _plus_1 = (_plus + " F");
     int _failCount = ele.getFailCount();
     String _plus_2 = (_plus_1 + Integer.valueOf(_failCount));
-    String _plus_3 = (_plus_2 + " E");
+    String _plus_3 = (_plus_2 + " U");
     int _unknownCount = ele.getUnknownCount();
     String _plus_4 = (_plus_3 + Integer.valueOf(_unknownCount));
     String _plus_5 = (_plus_4 + " T");
     int _tbdCount = ele.getTbdCount();
     String _plus_6 = (_plus_5 + Integer.valueOf(_tbdCount));
-    return (_plus_6 + ")");
+    String _plus_7 = (_plus_6 + " FU");
+    int _failthenCount = ele.getFailthenCount();
+    String _plus_8 = (_plus_7 + Integer.valueOf(_failthenCount));
+    String _plus_9 = (_plus_8 + " AS");
+    int _andthenCount = ele.getAndthenCount();
+    String _plus_10 = (_plus_9 + Integer.valueOf(_andthenCount));
+    return (_plus_10 + ")");
   }
 }

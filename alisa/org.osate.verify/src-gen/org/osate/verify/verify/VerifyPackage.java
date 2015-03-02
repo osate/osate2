@@ -159,13 +159,22 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_PLAN__VERIFIED_ASSUMPTION = 6;
 
   /**
+   * The feature id for the '<em><b>Issues</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VERIFICATION_PLAN__ISSUES = 7;
+
+  /**
    * The number of structural features of the '<em>Verification Plan</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_PLAN_FEATURE_COUNT = 7;
+  int VERIFICATION_PLAN_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.ClaimImpl <em>Claim</em>}' class.
@@ -259,13 +268,22 @@ public interface VerifyPackage extends EPackage
   int CLAIM__SUBCLAIM = 8;
 
   /**
+   * The feature id for the '<em><b>Issues</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM__ISSUES = 9;
+
+  /**
    * The number of structural features of the '<em>Claim</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_FEATURE_COUNT = 9;
+  int CLAIM_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationContainerImpl <em>Verification Container</em>}' class.
@@ -726,7 +744,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_METHOD__CONDITIONS = 8;
 
   /**
-   * The feature id for the '<em><b>Category</b></em>' reference.
+   * The feature id for the '<em><b>Category</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1223,6 +1241,17 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationPlan_VerifiedAssumption();
 
   /**
+   * Returns the meta object for the attribute list '{@link org.osate.verify.verify.VerificationPlan#getIssues <em>Issues</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Issues</em>'.
+   * @see org.osate.verify.verify.VerificationPlan#getIssues()
+   * @see #getVerificationPlan()
+   * @generated
+   */
+  EAttribute getVerificationPlan_Issues();
+
+  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.Claim <em>Claim</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1330,6 +1359,17 @@ public interface VerifyPackage extends EPackage
    * @generated
    */
   EReference getClaim_Subclaim();
+
+  /**
+   * Returns the meta object for the attribute list '{@link org.osate.verify.verify.Claim#getIssues <em>Issues</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Issues</em>'.
+   * @see org.osate.verify.verify.Claim#getIssues()
+   * @see #getClaim()
+   * @generated
+   */
+  EAttribute getClaim_Issues();
 
   /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationLibrary <em>Verification Library</em>}'.
@@ -1775,10 +1815,10 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationMethod_Conditions();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Category</em>'.
+   * @return the meta object for the reference list '<em>Category</em>'.
    * @see org.osate.verify.verify.VerificationMethod#getCategory()
    * @see #getVerificationMethod()
    * @generated
@@ -2114,6 +2154,14 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_PLAN__VERIFIED_ASSUMPTION = eINSTANCE.getVerificationPlan_VerifiedAssumption();
 
     /**
+     * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VERIFICATION_PLAN__ISSUES = eINSTANCE.getVerificationPlan_Issues();
+
+    /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.ClaimImpl <em>Claim</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2194,6 +2242,14 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EReference CLAIM__SUBCLAIM = eINSTANCE.getClaim_Subclaim();
+
+    /**
+     * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLAIM__ISSUES = eINSTANCE.getClaim_Issues();
 
     /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationLibraryImpl <em>Verification Library</em>}' class.
@@ -2540,7 +2596,7 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_METHOD__CONDITIONS = eINSTANCE.getVerificationMethod_Conditions();
 
     /**
-     * The meta object literal for the '<em><b>Category</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Category</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated

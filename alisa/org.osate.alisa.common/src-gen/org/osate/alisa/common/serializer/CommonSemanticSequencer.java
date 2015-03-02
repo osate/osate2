@@ -1258,7 +1258,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (writeable?='compute' name=ValidID)
+	 *     (writeable?='compute' name=ID)
 	 */
 	protected void sequence_ComputeDeclaration(EObject context, ComputeDeclaration semanticObject) {
 		if(errorAcceptor != null) {
@@ -1270,7 +1270,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getComputeDeclarationAccess().getWriteableComputeKeyword_1_0(), semanticObject.isWriteable());
-		feeder.accept(grammarAccess.getComputeDeclarationAccess().getNameValidIDParserRuleCall_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_2_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
@@ -1362,7 +1362,7 @@ public class CommonSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (((type=JvmTypeReference name=ValidID) | name=ValidID) (right=APropertyReference | right=XExpression))
+	 *     (((type=JvmTypeReference name=ID) | name=ID) (right=APropertyReference | right=XExpression))
 	 */
 	protected void sequence_XValDeclaration(EObject context, XVariableDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

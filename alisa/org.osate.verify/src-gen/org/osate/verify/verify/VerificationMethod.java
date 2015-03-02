@@ -273,29 +273,19 @@ public interface VerificationMethod extends EObject
   EList<VerificationCondition> getConditions();
 
   /**
-   * Returns the value of the '<em><b>Category</b></em>' reference.
+   * Returns the value of the '<em><b>Category</b></em>' reference list.
+   * The list contents are of type {@link org.osate.categories.categories.VerificationCategory}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Category</em>' reference isn't clear,
+   * If the meaning of the '<em>Category</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Category</em>' reference.
-   * @see #setCategory(VerificationCategory)
+   * @return the value of the '<em>Category</em>' reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Category()
    * @model
    * @generated
    */
-  VerificationCategory getCategory();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getCategory <em>Category</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Category</em>' reference.
-   * @see #getCategory()
-   * @generated
-   */
-  void setCategory(VerificationCategory value);
+  EList<VerificationCategory> getCategory();
 
 } // VerificationMethod

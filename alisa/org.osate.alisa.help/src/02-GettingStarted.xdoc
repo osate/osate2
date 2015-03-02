@@ -60,7 +60,7 @@ verification methods or activities.
  This instance is used to drive the execution of the verification activities and to record the resultss as e[assuanrce evidence]. 
  
  
-img[images/assuresnippet.png][Snippet of a Generated Assure file][][] 
+img[images/assureoutline.png][Generated Assure file and Outline View][][] 
  
  Users then initiate the execution of all verification activities for an assurance case by opening the
  e[assure] file and selecting the root element in the e[Outline] view, bring up the cotnext menu by right clicking, and invoking

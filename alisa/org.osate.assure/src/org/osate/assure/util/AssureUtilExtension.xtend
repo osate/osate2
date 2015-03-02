@@ -895,7 +895,8 @@ class AssureUtilExtension {
 	}
 
 	def static String assureResultCounts(AssureResult ele) {
-		"(S" + ele.successCount + " F" + ele.failCount + " E" + ele.unknownCount + " T" + ele.tbdCount + ")"
+		"(S" + ele.successCount + " F" + ele.failCount + " U" + ele.unknownCount + " T" + ele.tbdCount 
+		+ " FU" + ele.failthenCount + " AS" + ele.andthenCount+ ")"
 	}
 
 }

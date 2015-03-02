@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.alisa.common.common.Description;
@@ -206,14 +207,14 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected EList<VerificationCondition> conditions;
 
   /**
-   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference.
+   * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCategory()
    * @generated
    * @ordered
    */
-  protected VerificationCategory category;
+  protected EList<VerificationCategory> category;
 
   /**
    * <!-- begin-user-doc -->
@@ -484,42 +485,13 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public VerificationCategory getCategory()
+  public EList<VerificationCategory> getCategory()
   {
-    if (category != null && category.eIsProxy())
+    if (category == null)
     {
-      InternalEObject oldCategory = (InternalEObject)category;
-      category = (VerificationCategory)eResolveProxy(oldCategory);
-      if (category != oldCategory)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_METHOD__CATEGORY, oldCategory, category));
-      }
+      category = new EObjectResolvingEList<VerificationCategory>(VerificationCategory.class, this, VerifyPackage.VERIFICATION_METHOD__CATEGORY);
     }
     return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationCategory basicGetCategory()
-  {
-    return category;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCategory(VerificationCategory newCategory)
-  {
-    VerificationCategory oldCategory = category;
-    category = newCategory;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__CATEGORY, oldCategory, category));
   }
 
   /**
@@ -570,8 +542,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
         return getConditions();
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        if (resolve) return getCategory();
-        return basicGetCategory();
+        return getCategory();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -616,7 +587,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         getConditions().addAll((Collection<? extends VerificationCondition>)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        setCategory((VerificationCategory)newValue);
+        getCategory().clear();
+        getCategory().addAll((Collection<? extends VerificationCategory>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -660,7 +632,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
         getConditions().clear();
         return;
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        setCategory((VerificationCategory)null);
+        getCategory().clear();
         return;
     }
     super.eUnset(featureID);
@@ -695,7 +667,7 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__CONDITIONS:
         return conditions != null && !conditions.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD__CATEGORY:
-        return category != null;
+        return category != null && !category.isEmpty();
     }
     return super.eIsSet(featureID);
   }

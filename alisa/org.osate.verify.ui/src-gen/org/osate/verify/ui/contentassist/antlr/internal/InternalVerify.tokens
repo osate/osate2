@@ -74,6 +74,7 @@
 'img'=101
 'import'=47
 'instanceof'=103
+'issues'=70
 'library'=76
 'manual'=55
 'marker'=59
@@ -110,7 +111,6 @@
 'val'=44
 'validation'=82
 'var'=131
-'verified'=70
 'volatility'=93
 'when'=86
 'while'=113

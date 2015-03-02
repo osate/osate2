@@ -35,7 +35,9 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilsExtension.*
 import org.osate.assure.assure.AssuranceEvidence
 import org.osate.alisa.workbench.alisa.AssuranceTask
-import org.osate.alisa.workbench.alisa.SelectionConditionExpr
+import org.osate.categories.categories.RequirementCategory
+import org.osate.categories.categories.VerificationCategory
+import org.osate.verify.verify.VerificationActivity
 
 /**
  * Generates code from your model files on save.
@@ -58,14 +60,20 @@ class AlisaGenerator implements IGenerator {
 
 	val factory = AssureFactory.eINSTANCE
 	
-	var SelectionConditionExpr selectionCriteria = null
+	var EList<SelectionCategory> selectionFilter = null
+	var EList<RequirementCategory> requirementFilter = null
+	var EList<VerificationCategory> verificationFilter = null
 	
 	def constructAssuranceTask(AssuranceTask at){
-		selectionCriteria = at.filter
+		selectionFilter = at.selectionFilter
+		requirementFilter = at.requirementFilter
+		verificationFilter = at.verificationFilter
 		at.assurancePlan?.constructCase
 	}
 	def generateAssuranceTask(AssuranceTask at){
-		selectionCriteria = at.filter
+		selectionFilter = at.selectionFilter
+		requirementFilter = at.requirementFilter
+		verificationFilter = at.verificationFilter
 		at.assurancePlan?.generateCase
 	}
 
@@ -89,7 +97,8 @@ class AlisaGenerator implements IGenerator {
 			acase.instance = ci
 			for (myplan : myplans) {
 				for (claim : myplan.claim) {
-					acase.claimResult += claim.construct(ci)
+					if (claim.evaluateRequirementFilter)
+						acase.claimResult += claim.construct(ci)
 				}
 			}
 			for (subci : ci.componentInstances) {
@@ -109,7 +118,9 @@ class AlisaGenerator implements IGenerator {
 					tbdcount 1
 					«FOR myplan : myplans»
 						«FOR claim : myplan.claim»
+						«IF claim.evaluateRequirementFilter»
 							«claim.generate(ci)»
+						«ENDIF»
 						«ENDFOR»
 					«ENDFOR»
 					«FOR subci : ci.componentInstances»
@@ -120,7 +131,7 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 
-	def ClaimResult construct(Claim claim, ComponentInstance ci) {
+	def ClaimResult construct(Claim claim, ComponentInstance ci) { 
 		val claimresult = factory.createClaimResult
 		claimresult.name = claim.name
 		claimresult.target = claim.requirement
@@ -156,7 +167,7 @@ class AlisaGenerator implements IGenerator {
 			AndThenExpr: arl.doConstruct(expr)
 			FailThenExpr: arl.doConstruct(expr)
 			WhenExpr: arl.doConstruct(expr)
-			RefExpr: arl.doConstruct(expr)
+			RefExpr: if(expr.verification.evaluateVerificationFilter) arl.doConstruct(expr)
 		}
 	}
 
@@ -166,7 +177,7 @@ class AlisaGenerator implements IGenerator {
 			AndThenExpr: expr.doGenerate
 			FailThenExpr: expr.doGenerate
 			WhenExpr: expr.doGenerate
-			RefExpr: expr.doGenerate
+			RefExpr: if(expr.verification.evaluateVerificationFilter) expr.doGenerate
 		}
 	}
 
@@ -225,14 +236,14 @@ class AlisaGenerator implements IGenerator {
 	}
 
 	def void doConstruct(List<VerificationExpr> arl, WhenExpr expr) {
-		if (expr.evaluateCondition) {
+		if (expr.evaluateSelectionCondition) {
 			arl.construct(expr.verification)
 		}
 	}
 
 	def doGenerate(WhenExpr expr) {
 		'''
-			«IF expr.evaluateCondition»
+			«IF expr.evaluateSelectionCondition»
 				«expr.verification.generate»
 			«ENDIF»
 		'''
@@ -245,7 +256,7 @@ class AlisaGenerator implements IGenerator {
 		val conds = expr.verification?.method?.conditions
 		if (conds != null) {
 			for (vacond : conds) {
-				// XXX
+				arl.doConstruct(vacond)
 			}
 		}
 	}
@@ -284,12 +295,28 @@ class AlisaGenerator implements IGenerator {
 		'''
 	}
 
-	def evaluateCondition(WhenExpr expr) {
-		// TODO handle selectionCriteria as boolean expression
-//		val intersect = expr.condition.copyAll
-//		intersect.retainAll(selectionCriteria) 
-//		!intersect.isEmpty
-		true
+	def evaluateSelectionCondition(WhenExpr expr) {
+		val selection = expr.condition
+		if (selectionFilter == null || selectionFilter.empty || selection.empty) return true
+		val intersect = selection.copyAll
+		intersect.retainAll(selectionFilter) 
+		!intersect.isEmpty
+	}
+
+	def evaluateRequirementFilter(Claim claim) {
+		val req = claim.requirement.category
+		if (requirementFilter == null || requirementFilter.empty || req.empty) return true
+		val intersect = req.copyAll
+		intersect.retainAll(requirementFilter) 
+		!intersect.isEmpty
+	}
+
+	def evaluateVerificationFilter(VerificationActivity va) {
+		val vcs = va.method.category
+		if (verificationFilter == null || verificationFilter.empty || vcs.empty) return true
+		val intersect = vcs.copyAll
+		intersect.retainAll(requirementFilter) 
+		!intersect.isEmpty
 	}
 
 	def keyword(VerificationCondition vc) {

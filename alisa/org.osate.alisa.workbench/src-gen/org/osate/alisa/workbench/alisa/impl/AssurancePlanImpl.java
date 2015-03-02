@@ -16,9 +16,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 
 import org.osate.alisa.workbench.alisa.AlisaPackage;
@@ -40,6 +40,7 @@ import org.osate.verify.verify.VerificationPlan;
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getPlans <em>Plans</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getVerifiedAssumption <em>Verified Assumption</em>}</li>
+ *   <li>{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
  *
@@ -125,7 +126,17 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * @generated
    * @ordered
    */
-  protected EList<ComponentClassifier> verifiedAssumption;
+  protected EList<AssurancePlan> verifiedAssumption;
+
+  /**
+   * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssues()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> issues;
 
   /**
    * <!-- begin-user-doc -->
@@ -304,13 +315,27 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ComponentClassifier> getVerifiedAssumption()
+  public EList<AssurancePlan> getVerifiedAssumption()
   {
     if (verifiedAssumption == null)
     {
-      verifiedAssumption = new EObjectResolvingEList<ComponentClassifier>(ComponentClassifier.class, this, AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION);
+      verifiedAssumption = new EObjectResolvingEList<AssurancePlan>(AssurancePlan.class, this, AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION);
     }
     return verifiedAssumption;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<String> getIssues()
+  {
+    if (issues == null)
+    {
+      issues = new EDataTypeEList<String>(String.class, this, AlisaPackage.ASSURANCE_PLAN__ISSUES);
+    }
+    return issues;
   }
 
   /**
@@ -352,6 +377,8 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return getPlans();
       case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         return getVerifiedAssumption();
+      case AlisaPackage.ASSURANCE_PLAN__ISSUES:
+        return getIssues();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -385,7 +412,11 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return;
       case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         getVerifiedAssumption().clear();
-        getVerifiedAssumption().addAll((Collection<? extends ComponentClassifier>)newValue);
+        getVerifiedAssumption().addAll((Collection<? extends AssurancePlan>)newValue);
+        return;
+      case AlisaPackage.ASSURANCE_PLAN__ISSUES:
+        getIssues().clear();
+        getIssues().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -419,6 +450,9 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
       case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         getVerifiedAssumption().clear();
         return;
+      case AlisaPackage.ASSURANCE_PLAN__ISSUES:
+        getIssues().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -445,6 +479,8 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
         return plans != null && !plans.isEmpty();
       case AlisaPackage.ASSURANCE_PLAN__VERIFIED_ASSUMPTION:
         return verifiedAssumption != null && !verifiedAssumption.isEmpty();
+      case AlisaPackage.ASSURANCE_PLAN__ISSUES:
+        return issues != null && !issues.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -464,6 +500,8 @@ public class AssurancePlanImpl extends MinimalEObjectImpl.Container implements A
     result.append(name);
     result.append(", title: ");
     result.append(title);
+    result.append(", issues: ");
+    result.append(issues);
     result.append(')');
     return result.toString();
   }
