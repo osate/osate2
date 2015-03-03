@@ -31,14 +31,9 @@
         <version>${tycho-version}</version>
         <executions>
           <execution>
-            <id>materialize-products</id>
+            <id>create-distributions</id>
             <goals>
               <goal>materialize-products</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>archive-products</id>
-            <goals>
               <goal>archive-products</goal>
             </goals>
           </execution>
