@@ -35,54 +35,59 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 	}
 
 	override removeStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
-		updateStorage(toBeBuilt, storage, monitor)
+		if (isAlisaResource(storage)) {
+			toBeBuilt.toBeUpdated.addAll(storage.dependencies)
+			toBeBuilt.toBeDeleted.add(mapper.getUri(storage))
+			true
+		} else {
+			false
+		}
 	}
 
 	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
 	}
 
 	override updateStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
-
 		if (isAlisaResource(storage)) {
-			val dependencies = new HashMap<URI, HashSet<URI>>
+			toBeBuilt.toBeUpdated.addAll(storage.dependencies)
+			toBeBuilt.toBeUpdated.add(mapper.getUri(storage))
+			true
+		} else {
+			false
+		}
+	}
 
+	private def dependencies (IStorage storage) {
+			val direct = new HashMap<URI, HashSet<URI>>
 			// direct dependencies
 			for (rd : builderState.allResourceDescriptions.filter[d|isAlisaResource(d.URI)]) {
 				val sourceURI = rd.URI
 				for (reference : rd.referenceDescriptions) {
 					val targetURI = reference.targetEObjectUri.trimFragment
 					if (isAlisaResource(targetURI)) {
-						val deps = dependencies.get(targetURI) ?: new HashSet<URI>
+						val deps = direct.get(targetURI) ?: new HashSet<URI>
 						deps += sourceURI
-						if (dependencies.get(targetURI) == null) {
-							dependencies.put(targetURI, deps)
+						if (direct.get(targetURI) == null) {
+							direct.put(targetURI, deps)
 						}
 					}
 				}
 			}
-			val storageURI = mapper.getUri(storage)
-			val deps = newHashSet(storageURI)
-			var oldSize = 0
-
+			
+			val deps = new HashSet<URI>
+			var oldSize = -1
 			// transitive
 			while (deps.size > oldSize) {
 				oldSize = deps.size
-				val newDependencies = deps.map([dependencies.get(it) ?: #{}]).flatten.toList
+				val newDependencies = deps.map([direct.get(it) ?: #{}]).flatten.toList
 				deps.addAll(newDependencies)
 			}
-			toBeBuilt.toBeUpdated.addAll(deps)
-
-			System.out.println('\n\n======= ' + storage.name)
-			deps.forEach[uri|System.out.println(uri)]
-			System.out.println('======= ')
-
-			true
-		} else {
-			false
-		}
-
+			//System.out.println('\n\n======= ' + storage.name)
+			//deps.forEach[uri|System.out.println(uri)]
+			//System.out.println('======= ')
+			deps
 	}
-
+	
 	private def boolean isAlisaResource(IStorage storage) {
 		val uri = mapper.getUri(storage)
 		if (uri != null)
