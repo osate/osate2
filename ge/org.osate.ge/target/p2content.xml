@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <units size='2'>
-  <unit id='org.osate.ge' version='1.0.0.201501161818'>
-    <update id='org.osate.ge' range='[0.0.0,1.0.0.201501161818)' severity='0'/>
+  <unit id='org.osate.ge' version='1.0.0.201503031410'>
+    <update id='org.osate.ge' range='[0.0.0,1.0.0.201503031410)' severity='0'/>
     <properties size='4'>
       <property name='org.eclipse.equinox.p2.name' value='AADL Graphical Editor'/>
       <property name='maven-groupId' value='org.osate'/>
@@ -9,11 +9,11 @@
       <property name='maven-version' value='1.0.0-SNAPSHOT'/>
     </properties>
     <provides size='3'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='org.osate.ge' version='1.0.0.201501161818'/>
-      <provided namespace='osgi.bundle' name='org.osate.ge' version='1.0.0.201501161818'/>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.osate.ge' version='1.0.0.201503031410'/>
+      <provided namespace='osgi.bundle' name='org.osate.ge' version='1.0.0.201503031410'/>
       <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
     </provides>
-    <requires size='30'>
+    <requires size='29'>
       <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
       <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
       <required namespace='osgi.bundle' name='org.eclipse.graphiti' range='0.0.0'/>
@@ -31,7 +31,6 @@
       <required namespace='osgi.bundle' name='org.eclipse.e4.core.di' range='0.0.0'/>
       <required namespace='osgi.bundle' name='org.eclipse.e4.core.services' range='0.0.0'/>
       <required namespace='osgi.bundle' name='org.osate.ui' range='0.0.0'/>
-      <required namespace='osgi.bundle' name='org.eclipse.zest.layouts' range='0.0.0'/>
       <required namespace='osgi.bundle' name='org.eclipse.e4.core.contexts' range='0.0.0'/>
       <required namespace='osgi.bundle' name='org.junit' range='0.0.0'/>
       <required namespace='osgi.bundle' name='org.eclipse.ui.navigator' range='0.0.0'/>
@@ -46,19 +45,19 @@
       <required namespace='java.package' name='org.eclipse.ui.views.contentoutline' range='0.0.0'/>
     </requires>
     <artifacts size='1'>
-      <artifact classifier='osgi.bundle' id='org.osate.ge' version='1.0.0.201501161818'/>
+      <artifact classifier='osgi.bundle' id='org.osate.ge' version='1.0.0.201503031410'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>
       <instructions size='1'>
         <instruction key='manifest'>
-          Bundle-SymbolicName: org.osate.ge;singleton:=true&#xA;Bundle-Version: 1.0.0.201501161818&#xA;
+          Bundle-SymbolicName: org.osate.ge;singleton:=true&#xA;Bundle-Version: 1.0.0.201503031410&#xA;
         </instruction>
       </instructions>
     </touchpointData>
   </unit>
-  <unit id='org.osate.ge.source' version='1.0.0.201501161818' singleton='false'>
-    <update id='org.osate.ge.source' range='[0.0.0,1.0.0.201501161818)' severity='0'/>
+  <unit id='org.osate.ge.source' version='1.0.0.201503031410' singleton='false'>
+    <update id='org.osate.ge.source' range='[0.0.0,1.0.0.201503031410)' severity='0'/>
     <properties size='9'>
       <property name='df_LT.bundleVendor' value='unknown'/>
       <property name='df_LT.bundleName' value='AADL Graphical Editor Source'/>
@@ -71,19 +70,19 @@
       <property name='maven-classifier' value='sources'/>
     </properties>
     <provides size='4'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='org.osate.ge.source' version='1.0.0.201501161818'/>
-      <provided namespace='osgi.bundle' name='org.osate.ge.source' version='1.0.0.201501161818'/>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.osate.ge.source' version='1.0.0.201503031410'/>
+      <provided namespace='osgi.bundle' name='org.osate.ge.source' version='1.0.0.201503031410'/>
       <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
       <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
     </provides>
     <artifacts size='1'>
-      <artifact classifier='osgi.bundle' id='org.osate.ge.source' version='1.0.0.201501161818'/>
+      <artifact classifier='osgi.bundle' id='org.osate.ge.source' version='1.0.0.201503031410'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>
       <instructions size='1'>
         <instruction key='manifest'>
-          Bundle-SymbolicName: org.osate.ge.source&#xA;Bundle-Version: 1.0.0.201501161818&#xA;
+          Bundle-SymbolicName: org.osate.ge.source&#xA;Bundle-Version: 1.0.0.201503031410&#xA;
         </instruction>
       </instructions>
     </touchpointData>
