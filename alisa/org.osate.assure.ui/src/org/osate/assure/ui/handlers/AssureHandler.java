@@ -29,6 +29,7 @@ import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
 
@@ -132,7 +133,7 @@ public class AssureHandler extends AbstractHandler {
 		long start = System.currentTimeMillis();
 		resetToTBD(rootCaseResult);
 		recomputeAllCounts(rootCaseResult);
-		AssureUtilExtension.clearAllHasRunRecords();
+		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
 //		AssureProcessing.processCaseResult(rootCaseResult);
 		assureProcessor.process(rootCaseResult);

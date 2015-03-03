@@ -8,7 +8,6 @@ import com.rockwellcollins.atc.resolute.analysis.views.ResoluteResultContentProv
 import com.rockwellcollins.atc.resolute.resolute.FailExpr;
 import com.rockwellcollins.atc.resolute.resolute.FunctionDefinition;
 import com.rockwellcollins.atc.resolute.validation.BaseType;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -707,25 +705,6 @@ public class AssureUtilExtension {
       }
     }
     return null;
-  }
-  
-  private final static Map<Object, Object> hasRunRecord = Collections.<Object, Object>synchronizedMap(CollectionLiterals.<Object, Object>newHashMap());
-  
-  public static boolean getHasRun(final String analysisID, final EObject target) {
-    final Object value = AssureUtilExtension.hasRunRecord.get(analysisID);
-    return Objects.equal(value, target);
-  }
-  
-  public static void setHasRun(final String analysisID, final EObject target) {
-    AssureUtilExtension.hasRunRecord.put(analysisID, target);
-  }
-  
-  public static void unsetHasRun(final String analysisID, final EObject target) {
-    AssureUtilExtension.hasRunRecord.remove(analysisID);
-  }
-  
-  public static void clearAllHasRunRecords() {
-    AssureUtilExtension.hasRunRecord.clear();
   }
   
   /**

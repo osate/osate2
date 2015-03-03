@@ -1,4 +1,4 @@
-package org.osate.assure.evaluator
+package org.osate.verify.analysisplugins
 
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
@@ -9,7 +9,7 @@ import org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency
 import org.osate.analysis.resource.budgets.actions.DoPowerAnalysis
 import org.osate.analysis.architecture.actions.DoPropertyTotals
 import org.osate.analysis.flows.actions.CheckFlowLatency
-import static extension org.osate.assure.util.AssureUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 class AnalysisPluginInterface {
 	

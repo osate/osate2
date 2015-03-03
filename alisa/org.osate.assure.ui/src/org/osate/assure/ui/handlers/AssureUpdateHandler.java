@@ -26,6 +26,7 @@ import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
 
@@ -127,7 +128,7 @@ public class AssureUpdateHandler extends AbstractHandler {
 	protected IStatus runJob(AssuranceEvidence rootCaseResult, IProgressMonitor monitor) {
 
 		long start = System.currentTimeMillis();
-		AssureUtilExtension.clearAllHasRunRecords();
+		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.initializeResoluteContext((SystemInstance) rootCaseResult.getInstance());
 		assureProcessor.process(rootCaseResult);
 

@@ -32,4 +32,9 @@ public class VerifyRuntimeModule extends org.osate.verify.AbstractVerifyRuntimeM
 				.annotatedWith(Names.named(AlisaAbstractDeclarativeScopeProvider.NAMED_DELEGATE))
 				.to(org.eclipse.xtext.xbase.scoping.XImportSectionNamespaceScopeProvider.class);// XbaseImportedNamespaceScopeProvider.class);
 	}
+
+	public Class<? extends org.osate.verify.util.IVerificationMethodDispatcher> bindIVerificationMethodDispatcher() {
+		return org.osate.verify.userextensions.UserExtensionsDispatcher.class;
+	}
+
 }
