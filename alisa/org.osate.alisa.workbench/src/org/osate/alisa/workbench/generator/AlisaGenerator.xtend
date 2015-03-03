@@ -268,7 +268,7 @@ class AlisaGenerator implements IGenerator {
 				executionstate todo
 				resultstate tbd
 				tbdcount 1
-				«FOR vacond : expr.verification?.method?.conditions»
+				«FOR vacond : expr.verification?.method?.conditions ?: #{}»
 					«vacond.generate»
 				«ENDFOR»
 			]
