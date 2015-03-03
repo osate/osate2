@@ -6,7 +6,7 @@ section:AssuranceTasks[Assurance Plans and Tasks]
 An e[assurance plan] the set of veriifcation activities that must be performed in order to make a case of
 assurance for a system. The plan identifies the system and possibly subsystems to be verified by identifying
 a collection of verification plans for each. The assurance plan also identifies systems that are assumed
-to have been vreified separately.
+to have been verified separately.
 
 For each each assurance plan a user can define a set of e[assurance tasks].  Each assurance task identifies
 a subset of the verificaiton activities that are to be performed as part of the specified assurance task.

@@ -24,7 +24,7 @@ img[images/stakeholderorg.png][Stakeholder Descriptions as Members of Organizati
 
 Users can define a collection of stakeholder e[goals] for a system . For each goal one or more stakeholders can be identified.
 In the process the user want to utilize a use case notation such as the URN Use Case Maps (UCM) - see
-http://jucmnav.softwareengineering.ca/ucm/bin/view/ProjetSEG/WebHome .
+link[http://jucmnav.softwareengineering.ca/ucm/bin/view/ProjetSEG/WebHome][jUCMNav].
 
 img[images/goals.png][Stakeholder Goals][][]
 
