@@ -15,8 +15,8 @@ import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.assure.evaluator.IAssureProcessor;
+import org.osate.assure.evaluator.IVerificationMethodDispatcher;
 import org.osate.assure.util.AssureUtilExtension;
-import org.osate.assure.util.IVerificationMethodDispatcher;
 
 /**
  * performs the processing of verification activities

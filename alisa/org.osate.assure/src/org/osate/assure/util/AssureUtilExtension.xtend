@@ -127,7 +127,6 @@ class AssureUtilExtension {
 		String markertype) {
 		val res = instance.eResource
 		val diagnosticErrors = res.errors
-		val mt = "org.osate.analysis.flows.FlowLatencyObjectMarker"
 
 	//		val filtered = diagnosticErrors.map[diag| diag.message]
 	//		val Diagnostic de = diagnosticErrors.head
@@ -358,7 +357,7 @@ class AssureUtilExtension {
 	}
 
 	def static void setHasRun(String analysisID, EObject target) {
-		val x = hasRunRecord.put(analysisID, target)
+		hasRunRecord.put(analysisID, target)
 	}
 
 	def static void unsetHasRun(String analysisID, EObject target) {

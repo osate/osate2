@@ -1,4 +1,4 @@
-package org.osate.assure.util
+package org.osate.assure.evaluator
 
 import com.google.inject.ImplementedBy
 import com.google.inject.Inject
@@ -26,14 +26,13 @@ import org.osate.aadl2.util.Aadl2Util
 import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
 import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.VerificationResult
+import org.osate.results.results.ResultReport
 import org.osate.verify.verify.SupportedTypes
 import org.osate.verify.verify.VerificationMethod
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
 
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.aadl2.instance.ComponentInstance
-import org.osate.aadl2.instance.InstanceObject
-import org.osate.results.results.ResultReport
+import static extension org.osate.assure.evaluator.AnalysisPluginInterface.*
 
 @ImplementedBy(DefaultVerificationMethodDispatcher)
 interface IVerificationMethodDispatcher {
@@ -45,7 +44,33 @@ interface IVerificationMethodDispatcher {
 class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatcher {
 
 	override Object dispatchVerificationMethod(VerificationMethod vm, VerificationResult vr) {
-		println("Dispatching " + vm.name + " on " + vr.claimSubject.getQualifiedName)
+		val target = vr.claimSubject
+			switch (vm.methodPath) {
+//				case "org.osate.assure.analysis.PlatformResourceBudgets.assertSumSubBudgets" : {
+//					if ( target instanceof ComponentInstance) return target.assertSumSubBudgets
+//				}
+//				case "org.osate.assure.analysis.PlatformResourceBudgets.sumSubBudgets": {
+//					if ( target instanceof ComponentInstance) return target.sumSubBudgets
+//				}
+				case "org.osate.assure.analysis.PlatformResourceBudgets.flowLatencyAnalysis": {
+					return target.flowLatencyAnalysis
+				}
+				case "org.osate.assure.analysis.PlatformResourceBudgets.A429Consistency": {
+					return target.A429Consistency
+				}
+				case "org.osate.assure.analysis.PlatformResourceBudgets.ConnectionBindingConsistency": {
+					return target.ConnectionBindingConsistency
+				}
+				case "org.osate.assure.analysis.PlatformResourceBudgets.PowerAnalysis": {
+					return target.PowerAnalysis
+				}
+				case "org.osate.assure.analysis.PlatformResourceBudgets.PortDataConsistency": {
+					return target.PortDataConsistency
+				}
+				case "org.osate.assure.analysis.PlatformResourceBudgets.MassAnalysis": {
+					return target.MassAnalysis
+				}
+			}
 		return null
 	}
 

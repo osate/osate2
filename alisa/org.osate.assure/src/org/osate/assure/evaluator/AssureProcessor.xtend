@@ -1,6 +1,6 @@
 package org.osate.assure.evaluator
 
-import org.osate.assure.util.IVerificationMethodDispatcher
+import org.osate.assure.evaluator.IVerificationMethodDispatcher
 import com.google.inject.Inject
 import org.osate.assure.assure.ClaimResult
 import org.osate.assure.assure.VerificationActivityResult

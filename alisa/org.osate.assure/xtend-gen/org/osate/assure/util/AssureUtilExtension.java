@@ -255,7 +255,6 @@ public class AssureUtilExtension {
   public static void addErrorDiagnostics(final VerificationResult verificationActivityResult, final InstanceObject instance, final String markertype) {
     final Resource res = instance.eResource();
     final EList<Resource.Diagnostic> diagnosticErrors = res.getErrors();
-    final String mt = "org.osate.analysis.flows.FlowLatencyObjectMarker";
   }
   
   public void handleXtextIssues() {
@@ -718,7 +717,7 @@ public class AssureUtilExtension {
   }
   
   public static void setHasRun(final String analysisID, final EObject target) {
-    final Object x = AssureUtilExtension.hasRunRecord.put(analysisID, target);
+    AssureUtilExtension.hasRunRecord.put(analysisID, target);
   }
   
   public static void unsetHasRun(final String analysisID, final EObject target) {
