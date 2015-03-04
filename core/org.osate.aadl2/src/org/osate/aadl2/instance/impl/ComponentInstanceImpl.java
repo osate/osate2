@@ -766,6 +766,10 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			if (propOwner instanceof MetaclassReference) {
 				MetaclassReference metaRef = (MetaclassReference) propOwner;
 
+				if (getCategory().equals(ComponentCategory.ABSTRACT)) {
+					return true;
+				}
+
 				if (metaRef.getMetaclassNames().size() > 0 && metaRef.getMetaclassNames().get(0).equals("all")) {
 					return true;
 				}
