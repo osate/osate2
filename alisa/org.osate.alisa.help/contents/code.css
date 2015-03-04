@@ -6,13 +6,13 @@
 	background-color: #F0F0F0;
 	color: #000000 !important;
 	font-family: "Lucida Console", Monaco, monospace;
-	font-size: 12px;
+	font-size: 24px;
 }
 
 .inlinecode{
 	padding-left: 3pt;
 	padding-right: 3pt;
-	font-size: 9.000000pt;
+	font-size: 24.000000pt;
 	font-family: "Lucida Console", Monaco, monospace;
 	color: #000000 !important;
 }
