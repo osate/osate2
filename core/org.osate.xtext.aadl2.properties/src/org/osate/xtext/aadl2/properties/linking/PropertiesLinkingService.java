@@ -434,16 +434,18 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (pa != null && !pa.getAppliesTos().isEmpty()) {
 					ContainedNamedElement path = pa.getAppliesTos().get(0);
 					EList<ContainmentPathElement> cpelist = path.getContainmentPathElements();
-					Classifier cpecl = null;
+					Subcomponent cpesub = null;
 					for (ContainmentPathElement containmentPathElement : cpelist) {
 						if (containmentPathElement.getNamedElement() instanceof Subcomponent) {
-							cpecl = ((Subcomponent) containmentPathElement.getNamedElement()).getClassifier();
+							cpesub = (Subcomponent)containmentPathElement.getNamedElement();
 						} else {
 							break;
 						}
 					}
-					if (cpecl != null) {
-						res = cpecl.findNamedElement(name);
+					if (cpesub != null) {
+						if (cpesub.getAllClassifier() != null) {
+							res = cpesub.getAllClassifier().findNamedElement(name);
+						}
 					} else {
 						res = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 					}
