@@ -97,7 +97,6 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortCategory;
@@ -590,10 +589,8 @@ public class InstantiateModel {
 					if (o instanceof Subcomponent) {
 						eventName = ((Subcomponent) o).getName() + ".";
 					}
-					eventName = eventName + tp.getName();
-				} else {
-					eventName = ((NamedElement) triggers.get(0)).getName();
 				}
+				eventName += tp.getName();
 			}
 			mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "") + dstmode.getName());
 			ci.getModeTransitionInstances().add(mti);
