@@ -185,7 +185,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 		for (Mode masterMode : masterModes) {
 			if (!modesWithProperty.contains(masterMode)) {
-				warning(pa, "Value not set for  mode " + masterMode.getName() + " for property "
+				warning(pa, "Value not set for mode " + masterMode.getName() + " for property "
 						+ pa.getProperty().getQualifiedName());
 			}
 		}

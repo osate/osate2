@@ -41,6 +41,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
+import org.osate.aadl2.AbstractType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.SubprogramImplementation
 import org.osate.aadl2.UnitsType
@@ -48,6 +49,8 @@ import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
+import org.osate.aadl2.BusType
+import org.osate.aadl2.FeatureGroupType
 
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
@@ -725,4 +728,245 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
 	}
+	
+	//Tests checkArraySizeIsAadlintegerNoUnits
+	@Test
+	def void testArraySizeIsAadlintegerNoUnits() {
+		createFiles("testArraySize.aadl" -> '''
+			package testArraySize
+			public
+			  abstract a
+			  features
+			    p: in data port [Activate_Entrypoint_Source_Text];
+			  end a;
+			end testArraySize;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("testArraySize.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testArraySize".assertEquals(name)
+			publicSection.ownedClassifiers.get(0) as AbstractType => [
+				"a".assertEquals(name)
+				ownedDataPorts.get(0) => [
+					"p".assertEquals(name)
+					arrayDimensions.head.size.assertError(testFileResult.issues, issueCollection, "Array size should only be an Integer type with no units")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
+	//Tests for duplicate elements ignoring case
+	@Test
+	def void testDuplicateElementIgnoreCase() {
+		createFiles("testDuplicateIgnoreCase.aadl" -> '''
+		package duplicateTest
+		public
+			bus b
+			end b;
+			bus B
+			end B;
+		end duplicateTest;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("testDuplicateIgnoreCase.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"duplicateTest".assertEquals(name)
+			publicSection.ownedClassifiers.get(0) as BusType => [
+				"b".assertEquals(name)
+				assertError(testFileResult.issues, issueCollection, "Duplicate Element 'b' in PublicPackageSection 'duplicateTest_public'")
+			]
+			publicSection.ownedClassifiers.get(1) as BusType => [
+				"B".assertEquals(name)
+				assertError(testFileResult.issues, issueCollection, "Duplicate Element 'B' in PublicPackageSection 'duplicateTest_public'")
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests for validating references to internal features and processor features 
+	@Test
+	def void testCheckReferencesToInternalFeatures() {
+		createFiles("testInternalProcessorFeatures.aadl" -> '''
+		package pkgTestInternalProcessorFeatures
+		public
+			abstract a
+			end a;
+			abstract a2
+				features
+					dp2: in data port;
+			end a2;
+			abstract implementation a.i
+				subcomponents
+					asub1: abstract a2;
+				internal features
+					eds1: event data;
+				processor features
+					pp1: port;
+				connections
+				--Correct
+					conn1: port self.eds1 -> asub1.dp2;
+				--Should be marked with an error
+					conn2: port processor.eds1 -> asub1.dp2;
+				--Correct
+					conn3: port processor.pp1 -> asub1.dp2;
+				--Should be marked with an error
+					conn4: port self.pp1 -> asub1.dp2;
+			end a.i;
+		end pkgTestInternalProcessorFeatures;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("testInternalProcessorFeatures.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"pkgTestInternalProcessorFeatures".assertEquals(name)
+			publicSection.ownedClassifiers.get(2) as AbstractImplementation => [
+				"a.i".assertEquals(name)
+				//checkReferencesToInternalFeatures
+				ownedConnections.get(1) =>[
+					"conn2".assertEquals(name)
+					source.assertError(testFileResult.issues, issueCollection, "Only processor features may follow the keyword 'processor'") 
+				]
+				//checkReferencesToInternalFeatures
+				ownedConnections.get(3) =>[
+					"conn4".assertEquals(name)
+					source.assertError(testFileResult.issues, issueCollection, "Only internal features may follow the keyword 'self'") 
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests for validation for ComponentImplementationReference list 
+	@Test
+	def void testCheckSubcomponentImplementationReferenceList() {
+		createFiles("ps2.aadl" -> '''
+		property set ps2 is
+			p1: aadlinteger => 2 applies to (all); 
+		end ps2;
+		''', "testcompimplreflist.aadl" -> '''
+		package testcompimplreflist
+		public
+			with ps2;
+			abstract a
+			end a;
+			abstract implementation a.i1
+				subcomponents
+					bsub0: bus b2[2] (b2.i, b2.i);
+					bsub1: bus b2[2] (b2.i, b2.i, b2.i);
+					bsub2: bus b2.i[2] (b2.i, b2.i);
+					bsub3: bus b2[ps2::p1] (b2.i, b2.i);
+					bsub4: bus b2[2] (b1.i, b2.i);
+			end a.i1;
+			bus b1
+			end b1;
+			bus implementation b1.i
+			end b1.i;
+			bus b2
+			end b2;
+			bus implementation b2.i
+			end b2.i;
+		end TestCompImplRefList;
+		''')
+		suppressSerialization
+		testFile("ps2.aadl")
+		val testFileResult = testFile("testcompimplreflist.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		// checkSubcomponentImplementationReferenceList
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testcompimplreflist".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
+				"a.i1".assertEquals(name)
+				ownedBusSubcomponents.head =>[
+					"bsub0".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+				]
+				ownedBusSubcomponents.get(1) =>[
+					"bsub1".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+					assertError(testFileResult.issues, issueCollection, "Size of component implementation reference list not the same as array size.") 
+				]
+				ownedBusSubcomponents.get(2) =>[
+					"bsub2".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+					assertError(testFileResult.issues, issueCollection, "Implementation reference list not allowed when the subcomponent classifier is not a component type.") 
+				]
+				ownedBusSubcomponents.get(3) =>[
+					"bsub3".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+					arrayDimensions.head.assertError(testFileResult.issues, issueCollection, "Array size cannot be a property if implementation reference list is defined.") 
+				]
+				ownedBusSubcomponents.get(4) =>[
+					"bsub4".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+					implementationReferences.head.assertError(testFileResult.issues, issueCollection, "Implementation reference not of the specified type.") 
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of feature group type declared as inverse
+	@Test
+	def void testCheckFeaturesInInverseFeatureGroupType() {
+		createFiles("testfeaturegroupinverse.aadl" -> '''
+			package testfeaturegroupinverse
+			public
+				feature group fg1
+					features
+						b1: requires bus access mybus;
+						d1: out data port;
+				end fg1;
+				feature group fg2
+					features
+						b2: requires bus access mybus;
+						d2: out data port;
+					inverse of fg1
+				end fg2;
+				feature group fg3
+					features
+						b3: provides bus access mybus;
+						d3: in data port;
+						d4: in data port;
+					inverse of fg1
+				end fg3;
+				feature group fg4
+					inverse of fg1
+				end fg4;
+				bus mybus
+				end mybus;
+			end testfeaturegroupinverse;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("testfeaturegroupinverse.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		// checkSubcomponentImplementationReferenceList
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testfeaturegroupinverse".assertEquals(name)
+			publicSection.ownedElements.get(1) as FeatureGroupType => [
+				"fg2".assertEquals(name)
+				ownedBusAccesses.head =>[
+					"b2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Feature Group feature access kind is same as that of its inverse")
+				]
+				ownedDataPorts.head =>[
+					"d2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Feature Group feature direction not opposite that of its inverse")
+				]
+			]
+			publicSection.ownedElements.get(2) as FeatureGroupType => [
+				"fg3".assertEquals(name)
+				assertError(testFileResult.issues, issueCollection, "Feature Group features list count differs from that of its inverse")
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
 }
