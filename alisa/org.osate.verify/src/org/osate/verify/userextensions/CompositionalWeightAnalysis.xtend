@@ -6,6 +6,7 @@ import static org.junit.Assert.*
 
 import static extension org.osate.xtext.aadl2.properties.util.GetProperties.*
 import java.util.List
+import org.osate.aadl2.ComponentCategory
 
 class CompositionalWeightAnalysis  {
 
@@ -13,7 +14,7 @@ class CompositionalWeightAnalysis  {
 	 * sum up weight limits of direct subcomponents 
 	 */
 	def static double sumSubWeightLimits(ComponentInstance ci) {
-		ci.componentInstances.map[getWeightLimit(0.0)].sum
+		ci.componentInstances.map[a|a.getWeightLimit(0.0)].sum
 	}
 	
 	def static double sum(List<Double> doublecollection){
@@ -45,7 +46,11 @@ class CompositionalWeightAnalysis  {
 	}
 
 	def static double sumAllWeightLimits(ComponentInstance ci) {
-		ci.allComponentInstances.map[getWeightLimit(0.0)].sum
+		if (ci.componentInstances.empty){
+			return ci.getWeightLimit(0.0)
+		} else {
+			return ci.componentInstances.map[sub|sub.sumAllWeightLimits].sum
+		}
 	}
 	
 }
