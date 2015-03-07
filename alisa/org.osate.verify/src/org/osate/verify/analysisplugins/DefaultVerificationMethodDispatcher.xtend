@@ -10,28 +10,28 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 
 	override Object dispatchVerificationMethod(VerificationMethod vm, InstanceObject target) {
 			switch (vm.methodPath) {
-//				case "org.osate.assure.analysis.PlatformResourceBudgets.assertSumSubBudgets" : {
+//				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.assertSumSubBudgets" : {
 //					if ( target instanceof ComponentInstance) return target.assertSumSubBudgets
 //				}
-//				case "org.osate.assure.analysis.PlatformResourceBudgets.sumSubBudgets": {
+//				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.sumSubBudgets": {
 //					if ( target instanceof ComponentInstance) return target.sumSubBudgets
 //				}
-				case "org.osate.assure.analysis.PlatformResourceBudgets.flowLatencyAnalysis": {
+				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.flowLatencyAnalysis": {
 					return target.flowLatencyAnalysis
 				}
-				case "org.osate.assure.analysis.PlatformResourceBudgets.A429Consistency": {
+				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.A429Consistency": {
 					return target.A429Consistency
 				}
-				case "org.osate.assure.analysis.PlatformResourceBudgets.ConnectionBindingConsistency": {
+				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.ConnectionBindingConsistency": {
 					return target.ConnectionBindingConsistency
 				}
-				case "org.osate.assure.analysis.PlatformResourceBudgets.PowerAnalysis": {
+				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.PowerAnalysis": {
 					return target.PowerAnalysis
 				}
-				case "org.osate.assure.analysis.PlatformResourceBudgets.PortDataConsistency": {
+				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.PortDataConsistency": {
 					return target.PortDataConsistency
 				}
-				case "org.osate.assure.analysis.PlatformResourceBudgets.MassAnalysis": {
+				case "org.osate.verify.analysisplugins.AnalysisPluginInterface.MassAnalysis": {
 					return target.MassAnalysis
 				}
 			}
