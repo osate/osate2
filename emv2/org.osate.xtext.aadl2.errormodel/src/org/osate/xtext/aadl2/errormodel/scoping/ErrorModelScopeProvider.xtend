@@ -48,14 +48,6 @@ public class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
 		return getTypesetsFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
 	}
-
-/* 	
- 	def scope_TypeToken_type(ErrorModelLibrary context, EReference reference) {
-		println(getMethodName() + ": " + context);
-		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
-		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
-	} 
-*/
 	
 	def getErrorLibsFromContext(EObject context) {
 		println(getMethodName() + ": " + context);
@@ -73,17 +65,6 @@ public class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return null;
 	}
 
-/*
-	def scope_TypeSet_typeTokens(EObject context, EReference reference) {
-		println(getMethodName() + ": " + context);
-		val parentScope = delegateGetScope(context, reference);
-		val errorLibs = getErrorLibsFromContext(context);
-		val errorTypes = errorLibs.map[it | getErrorTypesFromLib(it)].flatten();
-		println("Error Types: " + errorTypes.toString());
-		return errorTypes.scopeFor(parentScope);
-	}
-*/
-	
 	def scope_TypeToken_type(EObject context, EReference reference) {
 		println(getMethodName() + ": " + context);
 		val parentScope = delegateGetScope(context, reference);
