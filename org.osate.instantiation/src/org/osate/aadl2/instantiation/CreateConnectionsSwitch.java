@@ -320,7 +320,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private void processIncomingFeature(FeatureInstance featurei, SystemInstance si, List<Connection> sysConns) {
 		if (featurei.getDirection().incoming()) {
 			if (featurei.getIndex() <= 1) {
-				List<Connection> inConns = filterIngoingConnections(sysConns, featurei.getFeature());
+				List<Connection> inConns = filterIngoingConnections(sysConns, featurei);
 				for (Connection conn : inConns) {
 					boolean opposite = isOpposite(featurei.getFeature(), conn);
 
@@ -1310,14 +1310,25 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param feature subcomponent feature that is the source of a connection
 	 * @return connections with feature as destination
 	 */
-	public List<Connection> filterIngoingConnections(List<Connection> incomingconnlist, Feature feature) {
+	public List<Connection> filterIngoingConnections(List<Connection> incomingconnlist, FeatureInstance fi) {
+		Feature feature = fi.getFeature();
+		Feature parent = fi.getOwner() instanceof FeatureInstance ? ((FeatureInstance) fi.getOwner()).getFeature()
+				: null;
 		List<Connection> result = new ArrayList<Connection>(incomingconnlist.size());
 		List<Feature> featurel = feature.getAllFeatureRefinements();
 
 		for (Connection conn : incomingconnlist) {
 			if (featurel.contains(conn.getAllSource()) || conn.isBidirectional()
 					&& featurel.contains(conn.getAllDestination())) {
-				result.add(conn);
+				if (parent == null) {
+					result.add(conn);
+				} else {
+					List<Feature> parentl = parent.getAllFeatureRefinements();
+					if (parentl.contains(conn.getAllSourceContext()) || conn.isBidirectional()
+							&& parentl.contains(conn.getAllDestinationContext())) {
+						result.add(conn);
+					}
+				}
 			}
 		}
 		return result;
