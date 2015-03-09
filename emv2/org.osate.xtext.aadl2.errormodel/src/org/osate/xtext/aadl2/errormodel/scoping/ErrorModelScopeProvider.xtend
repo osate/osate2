@@ -10,6 +10,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 
 /**
  * This class contains custom scoping description.
@@ -19,6 +20,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
  *
  */
 public class ErrorModelScopeProvider extends PropertiesScopeProvider {
+	
+	def String getMethodName() { // For debugging
+		val StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+		return ste.get(2).getMethodName();
+	}
+	
 	def Iterable<ErrorType> getErrorTypesFromLib(ErrorModelLibrary lib) {
 		return (#[lib.types] + lib.extends.map[it | getErrorTypesFromLib(it)]).flatten();
 	}
@@ -42,30 +49,49 @@ public class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		return getTypesetsFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
 	}
 
-	def scope_TypeToken_type(ErrorModelLibrary context, EReference reference) {
+/* 	
+ 	def scope_TypeToken_type(ErrorModelLibrary context, EReference reference) {
+		println(getMethodName() + ": " + context);
 		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
 		return getErrorTypesFromLib(errorLib).scopeFor(delegateGetScope(context, reference));
-	}
+	} 
+*/
 	
 	def getErrorLibsFromContext(EObject context) {
-		val errorLib = EcoreUtil2.getContainerOfType(context, ErrorModelLibrary);
-		if (errorLib != null) {
-			return #[errorLib];
-		} else {
-			val subclause = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause);
-			return subclause.useTypes;
-		}		
+		println(getMethodName() + ": " + context);
+		var EObject parCtx;
+		for (parCtx = context; parCtx != null; parCtx = parCtx.eContainer()) {
+			switch (parCtx) {
+				ErrorModelLibrary:
+					return #[parCtx]	
+				ErrorModelSubclause:
+					return parCtx.useTypes	
+				TypeTransformationSet:
+					return parCtx.useTypes					
+			}
+		}
+		return null;
 	}
-	
-	def scope_TypeToken_type(TypeSet context, EReference reference) {
-		println(context);
-		//val subclause = EcoreUtil2.getContainerOfType(context, ErrorModelSubclause);
+
+/*
+	def scope_TypeSet_typeTokens(EObject context, EReference reference) {
+		println(getMethodName() + ": " + context);
 		val parentScope = delegateGetScope(context, reference);
-		//val errorLibs = subclause.useTypes;
-		val errorLibs = getErrorLibsFromContext(context);		
-		return errorLibs.map[it | getErrorTypesFromLib(it)].flatten().scopeFor(parentScope);
-		//return subclause.useTypes.map[types].flatten().scopeFor(parentScope);
-		//val errorTypes = subclause.useTypes.map[types].flatten().map[new EObjectDescription(QualifiedName::create(it.name), it, null) as IEObjectDescription];
-		//return new SimpleScope(parentScope, errorTypes, true)
+		val errorLibs = getErrorLibsFromContext(context);
+		val errorTypes = errorLibs.map[it | getErrorTypesFromLib(it)].flatten();
+		println("Error Types: " + errorTypes.toString());
+		return errorTypes.scopeFor(parentScope);
+	}
+*/
+	
+	def scope_TypeToken_type(EObject context, EReference reference) {
+		println(getMethodName() + ": " + context);
+		val parentScope = delegateGetScope(context, reference);
+		val errorLibs = getErrorLibsFromContext(context);
+		val errorTypes = (
+			errorLibs.map[it | getErrorTypesFromLib(it)] +
+			errorLibs.map[it | getTypesetsFromLib(it)]).flatten();
+		println("Error Types: " + errorTypes.map[it | it.name].toString());
+		return errorTypes.scopeFor(parentScope);
 	}
 }
