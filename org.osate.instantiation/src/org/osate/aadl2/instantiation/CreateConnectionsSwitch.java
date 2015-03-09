@@ -1311,23 +1311,25 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @return connections with feature as destination
 	 */
 	public List<Connection> filterIngoingConnections(List<Connection> incomingconnlist, FeatureInstance fi) {
-		Feature feature = fi.getFeature();
-		Feature parent = fi.getOwner() instanceof FeatureInstance ? ((FeatureInstance) fi.getOwner()).getFeature()
-				: null;
 		List<Connection> result = new ArrayList<Connection>(incomingconnlist.size());
-		List<Feature> featurel = feature.getAllFeatureRefinements();
+		List<Feature> features = fi.getFeature().getAllFeatureRefinements();
+		List<Feature> parents = null;
 
 		for (Connection conn : incomingconnlist) {
-			if (featurel.contains(conn.getAllSource()) || conn.isBidirectional()
-					&& featurel.contains(conn.getAllDestination())) {
-				if (parent == null) {
-					result.add(conn);
-				} else {
-					List<Feature> parentl = parent.getAllFeatureRefinements();
-					if (parentl.contains(conn.getAllSourceContext()) || conn.isBidirectional()
-							&& parentl.contains(conn.getAllDestinationContext())) {
+			if (features.contains(conn.getAllSource()) || conn.isBidirectional()
+					&& features.contains(conn.getAllDestination())) {
+				if (fi.getOwner() instanceof FeatureInstance) {
+					if (parents == null) {
+						Feature parent = ((FeatureInstance) fi.getOwner()).getFeature();
+						parents = parent.getAllFeatureRefinements();
+					}
+
+					if (parents.contains(conn.getAllSourceContext()) || conn.isBidirectional()
+							&& parents.contains(conn.getAllDestinationContext())) {
 						result.add(conn);
 					}
+				} else {
+					result.add(conn);
 				}
 			}
 		}
