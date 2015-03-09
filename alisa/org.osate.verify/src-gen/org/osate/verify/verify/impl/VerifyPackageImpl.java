@@ -1403,6 +1403,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.PREDICATE);
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.COMPUTE);
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.RESOLUTEPROVE);
+    addEEnumLiteral(supportedTypesEEnum, SupportedTypes.RESOLUTECOMPUTE);
     addEEnumLiteral(supportedTypesEEnum, SupportedTypes.MANUAL);
 
     initEEnum(supportedScopesEEnum, SupportedScopes.class, "SupportedScopes");

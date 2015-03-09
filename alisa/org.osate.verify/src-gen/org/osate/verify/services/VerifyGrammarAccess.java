@@ -560,16 +560,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	"[" (description=Description? //	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//	// these are data parameters to the method in addition to what comes with the model
 		//	// and via the requirement (predicate/limit values
-		//	& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
-		//	timeout=INT)? & rationale=Rationale?) "]";
+		//	& ("method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?)? &
+		//	("timeout" timeout=INT)? & rationale=Rationale?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"activity" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? // or should it be the requirement, which provides the predicate
 		//"[" (description=Description? //	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//// these are data parameters to the method in addition to what comes with the model
 		//// and via the requirement (predicate/limit values
-		//& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
-		//timeout=INT)? & rationale=Rationale?) "]"
+		//& ("method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?)? &
+		//("timeout" timeout=INT)? & rationale=Rationale?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"activity"
@@ -615,8 +615,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//description=Description? //	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//// these are data parameters to the method in addition to what comes with the model
 		//// and via the requirement (predicate/limit values
-		//& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
-		//timeout=INT)? & rationale=Rationale?
+		//& ("method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?)? &
+		//("timeout" timeout=INT)? & rationale=Rationale?
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//description=Description?
@@ -625,7 +625,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_5_0_0() { return cDescriptionDescriptionParserRuleCall_5_0_0; }
 
-		//"method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?
+		//("method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?)?
 		public Group getGroup_5_1() { return cGroup_5_1; }
 
 		//"method"
@@ -713,13 +713,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//VerificationCondition:
 		//	("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
-		//	(description=Description? & "method" method=[VerificationMethod|QualifiedName] ("as"
-		//	computeVariable=[common::ComputeDeclaration])? & rationale=Rationale?) "]";
+		//	(description=Description? & ("method" method=[VerificationMethod|QualifiedName] ("as"
+		//	computeVariable=[common::ComputeDeclaration])?)? & rationale=Rationale?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
-		//(description=Description? & "method" method=[VerificationMethod|QualifiedName] ("as"
-		//computeVariable=[common::ComputeDeclaration])? & rationale=Rationale?) "]"
+		//(description=Description? & ("method" method=[VerificationMethod|QualifiedName] ("as"
+		//computeVariable=[common::ComputeDeclaration])?)? & rationale=Rationale?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"validation" {VerificationValidation} | "precondition" {VerificationPrecondition}
@@ -764,8 +764,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
-		//description=Description? & "method" method=[VerificationMethod|QualifiedName] ("as"
-		//computeVariable=[common::ComputeDeclaration])? & rationale=Rationale?
+		//description=Description? & ("method" method=[VerificationMethod|QualifiedName] ("as"
+		//computeVariable=[common::ComputeDeclaration])?)? & rationale=Rationale?
 		public UnorderedGroup getUnorderedGroup_4() { return cUnorderedGroup_4; }
 
 		//description=Description?
@@ -774,7 +774,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_4_0_0() { return cDescriptionDescriptionParserRuleCall_4_0_0; }
 
-		//"method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?
+		//("method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?)?
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
 		//"method"
@@ -1358,14 +1358,18 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCOMPUTEComputeKeyword_2_0 = (Keyword)cCOMPUTEEnumLiteralDeclaration_2.eContents().get(0);
 		private final EnumLiteralDeclaration cRESOLUTEPROVEEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
 		private final Keyword cRESOLUTEPROVEResoluteproveKeyword_3_0 = (Keyword)cRESOLUTEPROVEEnumLiteralDeclaration_3.eContents().get(0);
-		private final EnumLiteralDeclaration cMANUALEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
-		private final Keyword cMANUALManualKeyword_4_0 = (Keyword)cMANUALEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cRESOLUTECOMPUTEEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cRESOLUTECOMPUTEResolutecomputeKeyword_4_0 = (Keyword)cRESOLUTECOMPUTEEnumLiteralDeclaration_4.eContents().get(0);
+		private final EnumLiteralDeclaration cMANUALEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cMANUALManualKeyword_5_0 = (Keyword)cMANUALEnumLiteralDeclaration_5.eContents().get(0);
 		
 		//enum SupportedTypes:
-		//	ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" | MANUAL="manual";
+		//	ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" |
+		//	RESOLUTECOMPUTE="resolutecompute" | MANUAL="manual";
 		public EnumRule getRule() { return rule; }
 
-		//ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" | MANUAL="manual"
+		//ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" |
+		//RESOLUTECOMPUTE="resolutecompute" | MANUAL="manual"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ANALYSIS="analysis"
@@ -1392,11 +1396,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"resoluteprove"
 		public Keyword getRESOLUTEPROVEResoluteproveKeyword_3_0() { return cRESOLUTEPROVEResoluteproveKeyword_3_0; }
 
+		//RESOLUTECOMPUTE="resolutecompute"
+		public EnumLiteralDeclaration getRESOLUTECOMPUTEEnumLiteralDeclaration_4() { return cRESOLUTECOMPUTEEnumLiteralDeclaration_4; }
+
+		//"resolutecompute"
+		public Keyword getRESOLUTECOMPUTEResolutecomputeKeyword_4_0() { return cRESOLUTECOMPUTEResolutecomputeKeyword_4_0; }
+
 		//MANUAL="manual"
-		public EnumLiteralDeclaration getMANUALEnumLiteralDeclaration_4() { return cMANUALEnumLiteralDeclaration_4; }
+		public EnumLiteralDeclaration getMANUALEnumLiteralDeclaration_5() { return cMANUALEnumLiteralDeclaration_5; }
 
 		//"manual"
-		public Keyword getMANUALManualKeyword_4_0() { return cMANUALManualKeyword_4_0; }
+		public Keyword getMANUALManualKeyword_5_0() { return cMANUALManualKeyword_5_0; }
 	}
 
 	public class SupportedScopesElements extends AbstractEnumRuleElementFinder {
@@ -1641,8 +1651,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	"[" (description=Description? //	('parameters'  verificationParameters+=([ElementReference])*)? 
 	//	// these are data parameters to the method in addition to what comes with the model
 	//	// and via the requirement (predicate/limit values
-	//	& "method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])? & ("timeout"
-	//	timeout=INT)? & rationale=Rationale?) "]";
+	//	& ("method" method=[VerificationMethod|QualifiedName] ("as" computeVariable=[common::ComputeDeclaration])?)? &
+	//	("timeout" timeout=INT)? & rationale=Rationale?) "]";
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}
@@ -1653,8 +1663,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//VerificationCondition:
 	//	("validation" {VerificationValidation} | "precondition" {VerificationPrecondition}) name=ID (":" title=STRING)? "["
-	//	(description=Description? & "method" method=[VerificationMethod|QualifiedName] ("as"
-	//	computeVariable=[common::ComputeDeclaration])? & rationale=Rationale?) "]";
+	//	(description=Description? & ("method" method=[VerificationMethod|QualifiedName] ("as"
+	//	computeVariable=[common::ComputeDeclaration])?)? & rationale=Rationale?) "]";
 	public VerificationConditionElements getVerificationConditionAccess() {
 		return pVerificationCondition;
 	}
@@ -1760,7 +1770,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum SupportedTypes:
-	//	ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" | MANUAL="manual";
+	//	ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" |
+	//	RESOLUTECOMPUTE="resolutecompute" | MANUAL="manual";
 	public SupportedTypesElements getSupportedTypesAccess() {
 		return unknownRuleSupportedTypes;
 	}

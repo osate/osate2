@@ -4391,10 +4391,17 @@ rule__SupportedTypes__Alternatives
 )
 
     |(
-{ before(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_4()); }
+{ before(grammarAccess.getSupportedTypesAccess().getRESOLUTECOMPUTEEnumLiteralDeclaration_4()); }
+(	'resolutecompute' 
+)
+{ after(grammarAccess.getSupportedTypesAccess().getRESOLUTECOMPUTEEnumLiteralDeclaration_4()); }
+)
+
+    |(
+{ before(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_5()); }
 (	'manual' 
 )
-{ after(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_4()); }
+{ after(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_5()); }
 )
 
 ;
@@ -24906,8 +24913,7 @@ rule__VerificationActivity__UnorderedGroup_5
     }
 :
 	rule__VerificationActivity__UnorderedGroup_5__0
-	
-	{getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5())}?
+	?
 	
 ;
 finally {
@@ -25067,8 +25073,7 @@ rule__VerificationCondition__UnorderedGroup_4
     }
 :
 	rule__VerificationCondition__UnorderedGroup_4__0
-	
-	{getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationConditionAccess().getUnorderedGroup_4())}?
+	?
 	
 ;
 finally {

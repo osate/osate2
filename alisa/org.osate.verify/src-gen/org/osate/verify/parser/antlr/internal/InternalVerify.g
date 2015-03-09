@@ -1221,8 +1221,7 @@ ruleVerificationActivity returns [EObject current=null]
  				)
 			)  
 
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationActivityAccess().getUnorderedGroup_5())}?	
+		)*	
 	)
 )
 	{ 
@@ -1436,8 +1435,7 @@ ruleVerificationCondition returns [EObject current=null]
  				)
 			)  
 
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getVerificationConditionAccess().getUnorderedGroup_4())}?	
+		)*	
 	)
 )
 	{ 
@@ -9075,10 +9073,16 @@ ruleSupportedTypes returns [Enumerator current=null]
         newLeafNode(enumLiteral_3, grammarAccess.getSupportedTypesAccess().getRESOLUTEPROVEEnumLiteralDeclaration_3()); 
     }
 )
-    |(	enumLiteral_4='manual' 
+    |(	enumLiteral_4='resolutecompute' 
 	{
-        $current = grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_4, grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_4()); 
+        $current = grammarAccess.getSupportedTypesAccess().getRESOLUTECOMPUTEEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_4, grammarAccess.getSupportedTypesAccess().getRESOLUTECOMPUTEEnumLiteralDeclaration_4()); 
+    }
+)
+    |(	enumLiteral_5='manual' 
+	{
+        $current = grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_5()); 
     }
 ));
 

@@ -60,7 +60,7 @@ VerificationActivity:
 	// or should it be the requirement, which provides the predicate
 	'[' (
 	( description=Description)?
-	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
+	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)?
 	&('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model
@@ -74,7 +74,7 @@ VerificationCondition:
 	(':' title=STRING)?
 	'[' (
 	 ( description=Description)?
-	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)
+	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)?
 	& (rationale=Rationale)?
 	)
 	']';
@@ -128,7 +128,7 @@ VerificationMethod:
 
 enum SupportedTypes:
 	ANALYSIS='analysis' | PREDICATE='predicate' | COMPUTE='compute' 
-	| RESOLUTEPROVE='resoluteprove' | MANUAL='manual';
+	| RESOLUTEPROVE='resoluteprove' | RESOLUTECOMPUTE='resolutecompute' | MANUAL='manual';
 	
 enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 

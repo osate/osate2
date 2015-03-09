@@ -1457,8 +1457,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         requirement=[Requirement|QualifiedName]? 
 	 *         description=Description? 
-	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ID]? 
+	 *         (method=[VerificationMethod|QualifiedName] computeVariable=[ComputeDeclaration|ID]?)? 
 	 *         timeout=INT? 
 	 *         rationale=Rationale?
 	 *     )
@@ -1474,8 +1473,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         description=Description? 
-	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ID]? 
+	 *         (method=[VerificationMethod|QualifiedName] computeVariable=[ComputeDeclaration|ID]?)? 
 	 *         rationale=Rationale?
 	 *     )
 	 */
@@ -1490,8 +1488,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         description=Description? 
-	 *         method=[VerificationMethod|QualifiedName] 
-	 *         computeVariable=[ComputeDeclaration|ID]? 
+	 *         (method=[VerificationMethod|QualifiedName] computeVariable=[ComputeDeclaration|ID]?)? 
 	 *         rationale=Rationale?
 	 *     )
 	 */
