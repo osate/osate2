@@ -1,6 +1,7 @@
 package org.osate.assure.evaluator
 
 import com.google.inject.Inject
+
 //import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.PreconditionResult
@@ -40,6 +41,10 @@ import org.osate.results.results.ResultReport
 import org.osate.assure.assure.ClaimResult
 import org.osate.verify.util.IVerificationMethodDispatcher
 import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue
+import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteProver
+import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteEvaluator
+import com.rockwellcollins.atc.resolute.analysis.values.ResoluteValue
+import com.rockwellcollins.atc.resolute.analysis.values.BoolValue
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -100,11 +105,11 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def void doProcess(ValidationResult assumptionResult) {
-			runVerificationMethod(assumptionResult)
+		runVerificationMethod(assumptionResult)
 	}
 
 	def void doProcess(PreconditionResult preconditionResult) {
-			runVerificationMethod(preconditionResult)
+		runVerificationMethod(preconditionResult)
 	}
 
 	override void process(AssureResult assureResult) {
@@ -118,6 +123,7 @@ class AssureProcessor implements IAssureProcessor {
 			PreconditionResult: assureResult.doProcess
 		}
 	}
+
 	/**
  * who needs to understand the method types?
  * the runVerificationMethod dispatcher may do different catch methods
@@ -188,11 +194,12 @@ class AssureProcessor implements IAssureProcessor {
 					val provecall = createWrapperProveCall(verificationResult)
 					if (provecall == null) {
 						setToError(verificationResult,
-							"Could not find Resolute Function " + verificationResult.method.name )
+							"Could not find Resolute Function " + verificationResult.method.name)
 					} else {
 
 						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-						val com.rockwellcollins.atc.resolute.analysis.results.ClaimResult proof = interpreter.evaluateProveStatement(provecall) as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
+						val com.rockwellcollins.atc.resolute.analysis.results.ClaimResult proof = interpreter.
+							evaluateProveStatement(provecall) as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 						if (proof.valid) {
 							setToSuccess(verificationResult)
 						} else {
@@ -202,26 +209,56 @@ class AssureProcessor implements IAssureProcessor {
 						}
 					}
 				}
-				case SupportedTypes.RESOLUTECOMPUTE: {
-
-					// Resolute handling See AssureUtil for setup	
+				case SupportedTypes.RESOLUTEPREDICATE: {
 					val si = verificationResult.caseSubject.systemInstance
 					val EvaluationContext context = new EvaluationContext(si, sets, featToConnsMap);
-					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-					val provecall = createWrapperProveCall(verificationResult)
-					if (provecall == null) {
+					val ResoluteEvaluator evaluator = new ResoluteEvaluator(context, null);
+					val fncall = createWrapperFnCall(verificationResult)
+					if (fncall == null) {
 						setToError(verificationResult,
-							"Could not find Resolute Function " + verificationResult.method.name )
+							"Could not find Resolute Function " + verificationResult.method.name)
 					} else {
-
-						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-						val com.rockwellcollins.atc.resolute.analysis.results.ClaimResult proof = interpreter.evaluateProveStatement(provecall) as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-						if (proof.valid) {
-							setToSuccess(verificationResult)
-						} else {
-							val proveri = AssureFactory.eINSTANCE.createResultIssue
-							proof.doResoluteResults(proveri)
-							setToFail(verificationResult, proveri.issues)
+						try {
+							val ResoluteValue resultvalue = evaluator.caseFnCallExpr(fncall)
+							if (resultvalue instanceof BoolValue) {
+								if (resultvalue.getBool) {
+									setToSuccess(verificationResult)
+								} else {
+									setToFail(verificationResult, "Resolute predicate evaluated to false")
+								}
+							} else {
+								setToError(verificationResult, "Expected boolean result. Found "+resultvalue.type)
+							}
+						} catch (Throwable t) {
+							setToError(verificationResult,
+								"Verification activity did not complete. Exception: " + t.message)
+						}
+					}
+				}
+				case SupportedTypes.RESOLUTECOMPUTE: {
+					val si = verificationResult.caseSubject.systemInstance
+					val EvaluationContext context = new EvaluationContext(si, sets, featToConnsMap);
+					val ResoluteEvaluator evaluator = new ResoluteEvaluator(context, null);
+					val fncall = createWrapperFnCall(verificationResult)
+					if (fncall == null) {
+						setToError(verificationResult,
+							"Could not find Resolute Function " + verificationResult.method.name)
+					} else {
+						try {
+							val ResoluteValue resultvalue = evaluator.caseFnCallExpr(fncall)
+							// TODO evaluate claim predicate
+							if (resultvalue instanceof BoolValue) {
+								if (resultvalue.getBool) {
+									setToSuccess(verificationResult)
+								} else {
+									setToFail(verificationResult, "Resolute function evaluated to false")
+								}
+							} else {
+								setToFail(verificationResult, "Expected boolean result. Found "+resultvalue.type)
+							}
+						} catch (Throwable t) {
+							setToError(verificationResult,
+								"Verification activity did not complete. Exception: " + t.message)
 						}
 					}
 				}
@@ -252,12 +289,17 @@ class AssureProcessor implements IAssureProcessor {
 		prove.expr = call
 		prove
 	}
-	
-	def createWrapperFnCall(VerificationResult vr){
+
+	def createWrapperFnCall(VerificationResult vr) {
 		val resoluteFunction = vr.method.methodPath
 		val factory = ResoluteFactory.eINSTANCE
-		val target = new NamedElementValue(vr.claimSubject)
-		
+		val target = factory.createIdExpr
+		target.id = vr.claimSubject
+		val call = factory.createFnCallExpr
+		val found = resolveResoluteFunction(vr, resoluteFunction)
+		call.fn = found
+		call.args.add(target)
+		call
 	}
 
 	def String toString(Object o) {
