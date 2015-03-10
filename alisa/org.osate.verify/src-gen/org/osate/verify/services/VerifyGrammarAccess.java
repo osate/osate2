@@ -1360,16 +1360,18 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRESOLUTEPROVEResoluteproveKeyword_3_0 = (Keyword)cRESOLUTEPROVEEnumLiteralDeclaration_3.eContents().get(0);
 		private final EnumLiteralDeclaration cRESOLUTECOMPUTEEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
 		private final Keyword cRESOLUTECOMPUTEResolutecomputeKeyword_4_0 = (Keyword)cRESOLUTECOMPUTEEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cMANUALEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cMANUALManualKeyword_5_0 = (Keyword)cMANUALEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cRESOLUTEPREDICATEEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
+		private final Keyword cRESOLUTEPREDICATEResolutepredicateKeyword_5_0 = (Keyword)cRESOLUTEPREDICATEEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cMANUALEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
+		private final Keyword cMANUALManualKeyword_6_0 = (Keyword)cMANUALEnumLiteralDeclaration_6.eContents().get(0);
 		
 		//enum SupportedTypes:
 		//	ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" |
-		//	RESOLUTECOMPUTE="resolutecompute" | MANUAL="manual";
+		//	RESOLUTECOMPUTE="resolutecompute" | RESOLUTEPREDICATE="resolutepredicate" | MANUAL="manual";
 		public EnumRule getRule() { return rule; }
 
 		//ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" |
-		//RESOLUTECOMPUTE="resolutecompute" | MANUAL="manual"
+		//RESOLUTECOMPUTE="resolutecompute" | RESOLUTEPREDICATE="resolutepredicate" | MANUAL="manual"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ANALYSIS="analysis"
@@ -1402,11 +1404,17 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"resolutecompute"
 		public Keyword getRESOLUTECOMPUTEResolutecomputeKeyword_4_0() { return cRESOLUTECOMPUTEResolutecomputeKeyword_4_0; }
 
+		//RESOLUTEPREDICATE="resolutepredicate"
+		public EnumLiteralDeclaration getRESOLUTEPREDICATEEnumLiteralDeclaration_5() { return cRESOLUTEPREDICATEEnumLiteralDeclaration_5; }
+
+		//"resolutepredicate"
+		public Keyword getRESOLUTEPREDICATEResolutepredicateKeyword_5_0() { return cRESOLUTEPREDICATEResolutepredicateKeyword_5_0; }
+
 		//MANUAL="manual"
-		public EnumLiteralDeclaration getMANUALEnumLiteralDeclaration_5() { return cMANUALEnumLiteralDeclaration_5; }
+		public EnumLiteralDeclaration getMANUALEnumLiteralDeclaration_6() { return cMANUALEnumLiteralDeclaration_6; }
 
 		//"manual"
-		public Keyword getMANUALManualKeyword_5_0() { return cMANUALManualKeyword_5_0; }
+		public Keyword getMANUALManualKeyword_6_0() { return cMANUALManualKeyword_6_0; }
 	}
 
 	public class SupportedScopesElements extends AbstractEnumRuleElementFinder {
@@ -1771,7 +1779,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//enum SupportedTypes:
 	//	ANALYSIS="analysis" | PREDICATE="predicate" | COMPUTE="compute" | RESOLUTEPROVE="resoluteprove" |
-	//	RESOLUTECOMPUTE="resolutecompute" | MANUAL="manual";
+	//	RESOLUTECOMPUTE="resolutecompute" | RESOLUTEPREDICATE="resolutepredicate" | MANUAL="manual";
 	public SupportedTypesElements getSupportedTypesAccess() {
 		return unknownRuleSupportedTypes;
 	}

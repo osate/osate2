@@ -70,6 +70,16 @@ public enum SupportedTypes implements Enumerator
   RESOLUTECOMPUTE(4, "RESOLUTECOMPUTE", "resolutecompute"),
 
   /**
+   * The '<em><b>RESOLUTEPREDICATE</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #RESOLUTEPREDICATE_VALUE
+   * @generated
+   * @ordered
+   */
+  RESOLUTEPREDICATE(5, "RESOLUTEPREDICATE", "resolutepredicate"),
+
+  /**
    * The '<em><b>MANUAL</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -77,7 +87,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  MANUAL(5, "MANUAL", "manual");
+  MANUAL(6, "MANUAL", "manual");
 
   /**
    * The '<em><b>ANALYSIS</b></em>' literal value.
@@ -155,6 +165,21 @@ public enum SupportedTypes implements Enumerator
   public static final int RESOLUTECOMPUTE_VALUE = 4;
 
   /**
+   * The '<em><b>RESOLUTEPREDICATE</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>RESOLUTEPREDICATE</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #RESOLUTEPREDICATE
+   * @model literal="resolutepredicate"
+   * @generated
+   * @ordered
+   */
+  public static final int RESOLUTEPREDICATE_VALUE = 5;
+
+  /**
    * The '<em><b>MANUAL</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
@@ -167,7 +192,7 @@ public enum SupportedTypes implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int MANUAL_VALUE = 5;
+  public static final int MANUAL_VALUE = 6;
 
   /**
    * An array of all the '<em><b>Supported Types</b></em>' enumerators.
@@ -183,6 +208,7 @@ public enum SupportedTypes implements Enumerator
       COMPUTE,
       RESOLUTEPROVE,
       RESOLUTECOMPUTE,
+      RESOLUTEPREDICATE,
       MANUAL,
     };
 
@@ -247,6 +273,7 @@ public enum SupportedTypes implements Enumerator
       case COMPUTE_VALUE: return COMPUTE;
       case RESOLUTEPROVE_VALUE: return RESOLUTEPROVE;
       case RESOLUTECOMPUTE_VALUE: return RESOLUTECOMPUTE;
+      case RESOLUTEPREDICATE_VALUE: return RESOLUTEPREDICATE;
       case MANUAL_VALUE: return MANUAL;
     }
     return null;

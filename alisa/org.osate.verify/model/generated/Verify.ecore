@@ -105,7 +105,8 @@
     <eLiterals name="COMPUTE" value="2" literal="compute"/>
     <eLiterals name="RESOLUTEPROVE" value="3" literal="resoluteprove"/>
     <eLiterals name="RESOLUTECOMPUTE" value="4" literal="resolutecompute"/>
-    <eLiterals name="MANUAL" value="5" literal="manual"/>
+    <eLiterals name="RESOLUTEPREDICATE" value="5" literal="resolutepredicate"/>
+    <eLiterals name="MANUAL" value="6" literal="manual"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SupportedScopes">
     <eLiterals name="SELF" literal="self"/>

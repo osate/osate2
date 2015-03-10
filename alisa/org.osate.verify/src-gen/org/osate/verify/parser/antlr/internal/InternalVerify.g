@@ -9079,10 +9079,16 @@ ruleSupportedTypes returns [Enumerator current=null]
         newLeafNode(enumLiteral_4, grammarAccess.getSupportedTypesAccess().getRESOLUTECOMPUTEEnumLiteralDeclaration_4()); 
     }
 )
-    |(	enumLiteral_5='manual' 
+    |(	enumLiteral_5='resolutepredicate' 
 	{
-        $current = grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_5()); 
+        $current = grammarAccess.getSupportedTypesAccess().getRESOLUTEPREDICATEEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getSupportedTypesAccess().getRESOLUTEPREDICATEEnumLiteralDeclaration_5()); 
+    }
+)
+    |(	enumLiteral_6='manual' 
+	{
+        $current = grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_6, grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_6()); 
     }
 ));
 

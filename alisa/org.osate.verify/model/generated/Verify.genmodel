@@ -13,6 +13,7 @@
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/COMPUTE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/RESOLUTEPROVE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/RESOLUTECOMPUTE"/>
+      <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/RESOLUTEPREDICATE"/>
       <genEnumLiterals ecoreEnumLiteral="Verify.ecore#//SupportedTypes/MANUAL"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Verify.ecore#//SupportedScopes">

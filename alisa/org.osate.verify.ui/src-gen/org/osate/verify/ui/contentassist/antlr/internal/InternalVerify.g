@@ -4398,10 +4398,17 @@ rule__SupportedTypes__Alternatives
 )
 
     |(
-{ before(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_5()); }
+{ before(grammarAccess.getSupportedTypesAccess().getRESOLUTEPREDICATEEnumLiteralDeclaration_5()); }
+(	'resolutepredicate' 
+)
+{ after(grammarAccess.getSupportedTypesAccess().getRESOLUTEPREDICATEEnumLiteralDeclaration_5()); }
+)
+
+    |(
+{ before(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_6()); }
 (	'manual' 
 )
-{ after(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_5()); }
+{ after(grammarAccess.getSupportedTypesAccess().getMANUALEnumLiteralDeclaration_6()); }
 )
 
 ;

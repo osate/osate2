@@ -128,7 +128,8 @@ VerificationMethod:
 
 enum SupportedTypes:
 	ANALYSIS='analysis' | PREDICATE='predicate' | COMPUTE='compute' 
-	| RESOLUTEPROVE='resoluteprove' | RESOLUTECOMPUTE='resolutecompute' | MANUAL='manual';
+	| RESOLUTEPROVE='resoluteprove' | RESOLUTECOMPUTE='resolutecompute' 
+	| RESOLUTEPREDICATE='resolutepredicate'| MANUAL='manual';
 	
 enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 
