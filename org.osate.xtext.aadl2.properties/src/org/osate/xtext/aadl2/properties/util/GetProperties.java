@@ -46,6 +46,7 @@ import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
@@ -62,6 +63,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.BooleanLiteralImpl;
@@ -581,7 +583,7 @@ public class GetProperties {
 		double dataTransferTime;
 		double acquisitionTime;
 
-		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		dataSize = computeDataSizeInBytes(dataClassifier);
 		speed = getMaximumTransmissionTimePerByte(bus);
 		dataTransferTime = speed * dataSize;
 
@@ -596,13 +598,24 @@ public class GetProperties {
 		double dataTransferTime;
 		double acquisitionTime;
 
-		dataSize = GetProperties.getSourceDataSizeInBytes(dataClassifier);
+		dataSize = computeDataSizeInBytes(dataClassifier);
 		speed = getMinimumTransmissionTimePerByte(bus);
 		dataTransferTime = speed * dataSize;
 
 		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
 
 		return dataTransferTime + acquisitionTime;
+	}
+
+	public static double computeDataSizeInBytes(Classifier cl) {
+		double dataSize = GetProperties.getSourceDataSizeInBytes(cl);
+		if (dataSize == 0.0 && cl instanceof ComponentImplementation) {
+			EList<Subcomponent> subs = ((ComponentImplementation) cl).getAllSubcomponents();
+			for (Subcomponent subcomponent : subs) {
+				dataSize = dataSize + computeDataSizeInBytes(subcomponent.getAllClassifier());
+			}
+		}
+		return dataSize;
 	}
 
 	public static double fromMStoSec(NamedElement ne, double value) {
