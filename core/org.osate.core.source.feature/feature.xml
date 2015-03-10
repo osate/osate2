@@ -2,7 +2,7 @@
 <feature
       id="org.osate.core.source.feature"
       label="OSATE Core Sources"
-      version="2.0.0.qualifier"
+      version="2.1.0.qualifier"
       provider-name="CMU/SEI">
 
    <description url="http://www.example.com/description">
