@@ -51,6 +51,7 @@ import org.osate.core.test.OsateTest
 import static extension org.junit.Assert.assertEquals
 import org.osate.aadl2.BusType
 import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.SystemImplementation
 
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
@@ -963,6 +964,119 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 			publicSection.ownedElements.get(2) as FeatureGroupType => [
 				"fg3".assertEquals(name)
 				assertError(testFileResult.issues, issueCollection, "Feature Group features list count differs from that of its inverse")
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of ModaleElement missing mode values
+	@Test
+	def void testCheckModalElementMissingModeValues() {
+		createFiles("psmemmv.aadl" ->'''
+						property set psmemmv is
+							def1: aadlstring => 'z' applies to (all);
+						end psmemmv;	
+					''',
+					"testmemissingmodevalues.aadl" -> '''
+						package testmemissingmodevalues
+						public
+							with psmemmv;
+							system s1
+								features
+									af1 : feature;
+									af2 : feature;
+								modes
+									m1: initial mode;
+									m2: mode;
+									m3: mode;
+							end s1;
+							system implementation s1.i
+								connections
+									conn1: feature af1->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
+									conn2: feature af1->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
+									conn3: feature af1->af2 {psmemmv::def1 => "g" in modes(m1); };
+								end s1.i;
+						end testmemissingmodevalues;
+					''')
+		suppressSerialization
+		testFile("psmemmv.aadl")
+		val testFileResult = testFile("testmemissingmodevalues.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testmemissingmodevalues".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+				"s1.i".assertEquals(name)
+				ownedConnections.head => [
+					"conn1".assertEquals(name)
+					ownedPropertyAssociations.head =>[
+						ownedValues.head => [
+						assertError(testFileResult.issues, issueCollection, 
+									"m3 is not a valid mode because it is not in the modes defined for container conn1")
+							
+						] 
+					]
+				]
+				ownedConnections.get(1) => [
+					"conn2".assertEquals(name)
+					ownedPropertyAssociations.head =>[
+						assertWarning(testFileResult.issues, issueCollection, 
+									"Value not set for mode m2 for property psmemmv::def1")
+					]
+				]
+				ownedConnections.get(2) => [
+					"conn3".assertEquals(name)
+					ownedPropertyAssociations.head =>[
+						assertWarning(testFileResult.issues, issueCollection, 
+									"Value not set for mode m2 for property psmemmv::def1","Value not set for mode m3 for property psmemmv::def1")
+					]
+				]
+			]
+		]			
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of flow implementation in and out complies with specification 
+	@Test
+	def void testCheckFlowPathElements() {
+		createFiles("testCheckFlowPathElements.aadl" -> '''
+						package testCheckFlowPathElements
+						public
+							system implementation S.i
+								flows
+									fl1: flow path fg_in.p -> fg_out.p;
+									fl2: flow path fg_in -> fg_out;
+									fl3: flow path fg_in.p -> fg_out.p;
+							end S.i;
+							feature group fg
+								features
+									p: in data port;
+							end fg;
+							system s
+								features
+									fg_in: feature group fg;
+									fg_out: feature group inverse of fg;
+								flows
+									fl1: flow path fg_in -> fg_out;
+									fl2: flow path fg_in -> fg_out ;
+									fl3: flow path fg_in.p -> fg_out.p ;
+								end s;
+						end testCheckFlowPathElements;
+					''')
+		suppressSerialization
+		val testFileResult = testFile("testCheckFlowPathElements.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		// checkFlowPathElements
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testCheckFlowPathElements".assertEquals(name)
+			publicSection.ownedClassifiers.head as SystemImplementation => [
+				"S.i".assertEquals(name)
+				ownedFlowImplementations.head =>[
+					assertError(testFileResult.issues, issueCollection, 
+					"Flow implementation Out type: fg_out.p differs from specification Out type: fg_out",
+					"Flow implementation In type: fg_in.p differs from specification In type: fg_in")
+				]
 			]
 		]
 		issueCollection.sizeIs(issueCollection.issues.size)

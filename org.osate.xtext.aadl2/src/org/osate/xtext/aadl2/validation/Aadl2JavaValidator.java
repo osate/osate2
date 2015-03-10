@@ -54,9 +54,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.CompositeNode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
+import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
@@ -381,6 +384,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionOrder(flow);
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
+		checkFlowPathElements(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -667,7 +671,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						for (Mode modalElementInMode : modalElementInModes) {
 							if (!modesForAllModalPropertyValues.contains(modalElementInMode) && !defaultValue) {
 								warning(ownedPropertyAssociation,
-										"Value not set for  mode " + modalElementInMode.getName() + " for property "
+										"Value not set for mode " + modalElementInMode.getName() + " for property "
 												+ property.getQualifiedName());
 							}
 						}
@@ -675,7 +679,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				} else {
 					for (Mode containerMode : allContainerModes) {
 						if (!modesForAllModalPropertyValues.contains(containerMode) && !defaultValue) {
-							warning(ownedPropertyAssociation, "Value not set for  mode " + containerMode.getName()
+							warning(ownedPropertyAssociation, "Value not set for mode " + containerMode.getName()
 									+ " for property " + property.getQualifiedName());
 						}
 					}
@@ -1150,6 +1154,102 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 			}
+		}
+	}
+
+	private List<String> resolveCompositeNodeToList(ICompositeNode cNode) {
+		List<String> nodes = new ArrayList<String>();
+
+		BidiIterable<INode> iterable = cNode.getChildren();
+		Iterator<INode> iter = iterable.iterator();
+		while (iter.hasNext()) {
+			INode iterNode = iter.next();
+			if (iterNode instanceof HiddenLeafNode) {
+				continue;
+			} else if (iterNode instanceof LeafNode) {
+				nodes.add(iterNode.getText().trim());
+			} else if (iterNode instanceof CompositeNode) {
+				nodes.addAll(resolveCompositeNodeToList((CompositeNode) iterNode));
+			}
+		}
+		return nodes;
+	}
+
+	private void checkFlowPathElements(FlowImplementation flowimplementation) {
+
+		if (!flowimplementation.getKind().equals(FlowKind.PATH)) {
+			return;
+		}
+
+		FlowSpecification spec = flowimplementation.getSpecification();
+		if (Aadl2Util.isNull(spec)) {
+			return;
+		}
+
+		FlowEnd specIn = spec.getAllInEnd();
+		if (Aadl2Util.isNull(specIn)) {
+			return;
+		}
+		FlowEnd specOut = spec.getAllOutEnd();
+		if (Aadl2Util.isNull(specOut)) {
+			return;
+		}
+
+		String specInContext = (specIn.getContext() != null) ? specIn.getContext().getName() + "." : "";
+		String specOutContext = (specOut.getContext() != null) ? specOut.getContext().getName() + "." : "";
+		String specInFeature = specIn.getFeature().getName();
+		String specOutFeature = specOut.getFeature().getName();
+		String specInName = specInContext + specInFeature;
+		String specOutName = specOutContext + specOutFeature;
+
+		ICompositeNode n = NodeModelUtils.getNode(flowimplementation);
+		List<String> resolvedComposite = resolveCompositeNodeToList(n);
+
+		if (null == resolvedComposite || resolvedComposite.isEmpty() || !resolvedComposite.contains("->")) {
+			return;
+		}
+
+		int index = resolvedComposite.size() - 1;
+
+		String outFeature = resolvedComposite.get(index--);
+		String outContext = "";
+
+		if (resolvedComposite.get(index).equals(".")) {
+			index--;
+		}
+		if (resolvedComposite.get(index).equals("->")) {
+			outContext = "";
+		} else {
+			outContext = resolvedComposite.get(index--);
+		}
+		String outImpl = outContext + ((outContext.equals("")) ? "" : ".") + outFeature;
+
+		String inFeature = "";
+		String inContext = "";
+
+		index = 0;
+		for (int i = 0; i < resolvedComposite.size(); i++) {
+			if (resolvedComposite.get(i).equalsIgnoreCase("path")) {
+				index = i + 1;
+				break;
+			}
+		}
+
+		inFeature = resolvedComposite.get(index++);
+		if (resolvedComposite.get(index++).equals(".")) {
+			inContext = inFeature;
+			inFeature = resolvedComposite.get(index);
+		}
+
+		String inImpl = inContext + ((inContext.equals("")) ? "" : ".") + inFeature;
+
+		if (!inImpl.equalsIgnoreCase(specInName)) {
+			error(flowimplementation, "Flow implementation In type: " + inImpl
+					+ " differs from specification In type: " + specInName);
+		}
+		if (!outImpl.equalsIgnoreCase(specOutName)) {
+			error(flowimplementation, "Flow implementation Out type: " + outImpl
+					+ " differs from specification Out type: " + specOutName);
 		}
 	}
 
