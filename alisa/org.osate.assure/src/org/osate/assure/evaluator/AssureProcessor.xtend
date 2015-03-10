@@ -39,6 +39,7 @@ import org.osate.alisa.common.scoping.CommonGlobalScopeProvider
 import org.osate.results.results.ResultReport
 import org.osate.assure.assure.ClaimResult
 import org.osate.verify.util.IVerificationMethodDispatcher
+import com.rockwellcollins.atc.resolute.analysis.values.NamedElementValue
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -201,6 +202,29 @@ class AssureProcessor implements IAssureProcessor {
 						}
 					}
 				}
+				case SupportedTypes.RESOLUTECOMPUTE: {
+
+					// Resolute handling See AssureUtil for setup	
+					val si = verificationResult.caseSubject.systemInstance
+					val EvaluationContext context = new EvaluationContext(si, sets, featToConnsMap);
+					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
+					val provecall = createWrapperProveCall(verificationResult)
+					if (provecall == null) {
+						setToError(verificationResult,
+							"Could not find Resolute Function " + verificationResult.method.name )
+					} else {
+
+						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
+						val com.rockwellcollins.atc.resolute.analysis.results.ClaimResult proof = interpreter.evaluateProveStatement(provecall) as com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
+						if (proof.valid) {
+							setToSuccess(verificationResult)
+						} else {
+							val proveri = AssureFactory.eINSTANCE.createResultIssue
+							proof.doResoluteResults(proveri)
+							setToFail(verificationResult, proveri.issues)
+						}
+					}
+				}
 				case MANUAL: {
 				}
 			} // end switch on method
@@ -227,6 +251,13 @@ class AssureProcessor implements IAssureProcessor {
 		val prove = factory.createProveStatement
 		prove.expr = call
 		prove
+	}
+	
+	def createWrapperFnCall(VerificationResult vr){
+		val resoluteFunction = vr.method.methodPath
+		val factory = ResoluteFactory.eINSTANCE
+		val target = new NamedElementValue(vr.claimSubject)
+		
 	}
 
 	def String toString(Object o) {
