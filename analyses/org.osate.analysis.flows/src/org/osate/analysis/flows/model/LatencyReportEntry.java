@@ -213,7 +213,7 @@ public class LatencyReportEntry {
 						res = res + lc.getSamplingPeriod();
 						lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
 						lc.reportSubtotal(res, doMaximum);
-						lc.reportInfo("Best case 0 ms, worst case " + lc.getSamplingPeriod()
+						lc.reportInfo("Best case 0 ms worst case " + lc.getSamplingPeriod()
 								+ "ms (period) sampling delay");
 					} else {
 //						TODO: may want to enable				lc.reportInfo(doMaximum, "Best case: no sampling delay");
@@ -364,7 +364,7 @@ public class LatencyReportEntry {
 				lc.reportSubtotal(res, doMaximum);
 			} else if (lc instanceof LatencyContributorConnection) {
 				// check recursively for sampling protocol
-				doSampledProtocol(lc, doMaximum);
+				doSampledProtocol(lc, doMaximum, null);
 				res = res + lc.getTotal(doMaximum);
 				lc.reportSubtotal(res, doMaximum);
 			} else {
@@ -376,32 +376,45 @@ public class LatencyReportEntry {
 		return res;
 	}
 
-	public void doSampledProtocol(LatencyContributor lc, boolean doMaximum) {
-		if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED_PROTOCOL)) {
-			if (doSynchronous() && wasSampled()) {
-				// there was a previous sampling component. We can to the roundup game.
-				double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
-				lc.setActualValue(diff, doMaximum);
-				lc.reportInfo(doMaximum, "Round up to sampling period " + lc.getSamplingPeriod() + "ms");
-				if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
-					lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
-				} else if (isPreviousConnectionSynchronous(lc)) {
-					lc.reportInfoOnce(doMaximum, "Synchronous communication on same platform");
+	public void doSampledProtocol(LatencyContributor lc, boolean doMaximum, LatencyContributor last) {
+		double sp = lc.getSamplingPeriod();
+		if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED_PROTOCOL) && sp > 0.0) {
+			double lastsp = last == null ? 0.0 : last.getSamplingPeriod();
+			if (last != null && sp > lastsp) {
+				last.setActualValue(0.0, doMaximum);
+				last.reportInfoOnce(doMaximum, "Sampling period of " + lastsp
+						+ "ms accounted for in suceeding protocol");
+				if (doSynchronous() && wasSampled()) {
+					// there was a previous sampling component. We can to the roundup game.
+					double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), sp);
+					lc.setActualValue(diff, doMaximum);
+					last = lc;
+					lc.reportInfo(doMaximum, "Round up to sampling period " + lc.getSamplingPeriod() + "ms");
+					if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
+						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
+					} else if (isPreviousConnectionSynchronous(lc)) {
+						lc.reportInfoOnce(doMaximum, "Synchronous communication on same platform");
+					} else {
+						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
+					}
 				} else {
-					lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
+					if (doMaximum) {
+						lc.setActualValue(sp, doMaximum);
+						last = lc;
+						lc.reportInfo("Best case 0 ms worst case " + lc.getSamplingPeriod()
+								+ "ms (period) sampling delay");
+					} else {
+//				TODO: may want to enable				lc.reportInfo(doMaximum, "Best case: no sampling delay");
+					}
 				}
 			} else {
-				if (doMaximum) {
-					lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
-					lc.reportInfo("Best case 0 ms, worst case " + lc.getSamplingPeriod() + "ms (period) sampling delay");
-				} else {
-//			TODO: may want to enable				lc.reportInfo(doMaximum, "Best case: no sampling delay");
-				}
+				lc.reportInfoOnce(doMaximum, "Sampling contribution of " + sp
+						+ "ms accounted for in enclosing protocol");
 			}
 		}
 		List<LatencyContributor> sublc = lc.getSubContributors();
 		for (LatencyContributor latencyContributor : sublc) {
-			doSampledProtocol(latencyContributor, doMaximum);
+			doSampledProtocol(latencyContributor, doMaximum, last);
 		}
 		return;
 	}
