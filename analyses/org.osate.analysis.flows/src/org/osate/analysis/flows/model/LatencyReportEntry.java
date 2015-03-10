@@ -362,6 +362,11 @@ public class LatencyReportEntry {
 					lc.reportInfoOnce(doMaximum, "Output at " + lc.getPartitionDuration() + "ms partition end");
 				}
 				lc.reportSubtotal(res, doMaximum);
+			} else if (lc instanceof LatencyContributorConnection) {
+				// check recursively for sampling protocol
+				doSampledProtocol(lc, doMaximum);
+				res = res + lc.getTotal(doMaximum);
+				lc.reportSubtotal(res, doMaximum);
 			} else {
 				res = res + lc.getTotal(doMaximum);
 				lc.reportSubtotal(res, doMaximum);
@@ -369,6 +374,36 @@ public class LatencyReportEntry {
 		}
 
 		return res;
+	}
+
+	public void doSampledProtocol(LatencyContributor lc, boolean doMaximum) {
+		if (lc.getWorstcaseLatencyContributorMethod().equals(LatencyContributorMethod.SAMPLED_PROTOCOL)) {
+			if (doSynchronous() && wasSampled()) {
+				// there was a previous sampling component. We can to the roundup game.
+				double diff = FlowLatencyUtil.roundUpDiff(getCumLatency(lc, doMaximum), lc.getSamplingPeriod());
+				lc.setActualValue(diff, doMaximum);
+				lc.reportInfo(doMaximum, "Round up to sampling period " + lc.getSamplingPeriod() + "ms");
+				if (doSynchronous() && isPreviousConnectionSyncUnknown(lc)) {
+					lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
+				} else if (isPreviousConnectionSynchronous(lc)) {
+					lc.reportInfoOnce(doMaximum, "Synchronous communication on same platform");
+				} else {
+					lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
+				}
+			} else {
+				if (doMaximum) {
+					lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
+					lc.reportInfo("Best case 0 ms, worst case " + lc.getSamplingPeriod() + "ms (period) sampling delay");
+				} else {
+//			TODO: may want to enable				lc.reportInfo(doMaximum, "Best case: no sampling delay");
+				}
+			}
+		}
+		List<LatencyContributor> sublc = lc.getSubContributors();
+		for (LatencyContributor latencyContributor : sublc) {
+			doSampledProtocol(latencyContributor, doMaximum);
+		}
+		return;
 	}
 
 	public double getMaximumSpecifiedLatency() {

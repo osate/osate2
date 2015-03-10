@@ -26,7 +26,7 @@ public class FlowLatencyLogicConnection {
 	 * object. 
 	 * @param etef - the end to end flow being analyzed
 	 * @param flowElementInstance - the flow element that represents the connection to be processed.
-	 * @return - the latency contributor object that maps the connection
+	 * @param entry LatencyReportEntry to be added to
 	 */
 	public static void mapConnectionInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance, LatencyReportEntry entry) {
@@ -62,7 +62,8 @@ public class FlowLatencyLogicConnection {
 		// now we deal with communication latency
 		LatencyContributor latencyContributor = new LatencyContributorConnection(connectionInstance);
 
-		processActualConnectionBindings(connectionInstance, relatedConnectionData, latencyContributor);
+		processActualConnectionBindingsSampling(connectionInstance, relatedConnectionData, latencyContributor);
+		processActualConnectionBindingsTransmission(connectionInstance, relatedConnectionData, latencyContributor);
 		/**
 		 * handle the case when there is no binding to virtual bus or bus.
 		 * In this case we use the latency from the connection itself
@@ -154,11 +155,8 @@ public class FlowLatencyLogicConnection {
 		 * we add the bus/VB transmission time as a subcontributor.
 		 */
 
-		// TODO: dealing with a periodic bus that samples or bus queuing delay
-		// a bus has a period value when operating periodically.
-		// we then add sampling latency for the bus
-		// need to do that before the transmission latency
 		if (boundBus != null) {
+
 			LatencyContributor subContributor = new LatencyContributorComponent(boundBus);
 
 			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
@@ -198,34 +196,122 @@ public class FlowLatencyLogicConnection {
 		}
 	}
 
-	public static void processActualConnectionBindings(NamedElement connorvb, Classifier relatedConnectionData,
-			LatencyContributor latencyContributor) {
-		boolean didVirtualBuses = false;
-
+	public static void processActualConnectionBindingsTransmission(NamedElement connorvb,
+			Classifier relatedConnectionData, LatencyContributor latencyContributor) {
+		boolean willDoVirtualBuses = false;
+		boolean willDoBuses = false;
 		if (connorvb instanceof InstanceObject) {
 			// look for actual binding if we have a connection instance or virtual bus instance
 			List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connorvb);
 			for (ComponentInstance componentInstance : bindings) {
+				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+					willDoVirtualBuses = true;
+				} else {
+					willDoBuses = true;
+				}
+			}
+			/**
+			 * required virtual bus class indicates protocols the connection intends to use.
+			 * We also can have an actual connection binding to a virtual bus
+			 * If we have that we want to use that virtual bus overhead
+			 */
+			if (!willDoVirtualBuses) {
+				List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+				if ((protocols != null) && (protocols.size() > 0)) {
+					if (willDoBuses) {
+						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
+					}
+					for (ComponentClassifier cc : protocols) {
+						processTransmissionTime(cc, relatedConnectionData, latencyContributor);
+						processActualConnectionBindingsTransmission(cc, relatedConnectionData, latencyContributor);
+					}
+				}
+			}
+
+			for (ComponentInstance componentInstance : bindings) {
 				processTransmissionTime(componentInstance, relatedConnectionData, latencyContributor);
 				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
-					didVirtualBuses = true;
-					processActualConnectionBindings(componentInstance, relatedConnectionData, latencyContributor);
+					processActualConnectionBindingsTransmission(componentInstance, relatedConnectionData,
+							latencyContributor);
 				}
 			}
 		}
 
-		/**
-		 * required virtual bus class indicates protocols the connection intends to use.
-		 * We also can have an actual connection binding to a virtual bus
-		 * If we have that we want to use that virtual bus overhead
-		 */
-		if (!didVirtualBuses) {
-			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
-			if ((protocols != null) && (protocols.size() > 0)) {
-				for (ComponentClassifier cc : protocols) {
-					processTransmissionTime(cc, relatedConnectionData, latencyContributor);
-					processActualConnectionBindings(cc, relatedConnectionData, latencyContributor);
+//		/**
+//		 * required virtual bus class indicates protocols the connection intends to use.
+//		 * We also can have an actual connection binding to a virtual bus
+//		 * If we have that we want to use that virtual bus overhead
+//		 */
+//		if (!didVirtualBuses) {
+//			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+//			if ((protocols != null) && (protocols.size() > 0)) {
+//				for (ComponentClassifier cc : protocols) {
+//					processTransmissionTime(cc, relatedConnectionData, latencyContributor);
+//					processActualConnectionBindingsTransmission(cc, relatedConnectionData, latencyContributor);
+//				}
+//			}
+//		}
+	}
+
+	public static void processActualConnectionBindingsSampling(NamedElement connorvb, Classifier relatedConnectionData,
+			LatencyContributor latencyContributor) {
+		boolean willDoVirtualBuses = false;
+		boolean willDoBuses = false;
+		if (connorvb instanceof InstanceObject) {
+			// look for actual binding if we have a connection instance or virtual bus instance
+			List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connorvb);
+			for (ComponentInstance componentInstance : bindings) {
+				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+					willDoVirtualBuses = true;
+				} else {
+					willDoBuses = true;
 				}
+			}
+			/**
+			 * required virtual bus class indicates protocols the connection intends to use.
+			 * We also can have an actual connection binding to a virtual bus
+			 * If we have that we want to use that virtual bus overhead
+			 */
+			if (!willDoVirtualBuses) {
+				List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+				if ((protocols != null) && (protocols.size() > 0)) {
+					if (willDoBuses) {
+						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
+					}
+					for (ComponentClassifier cc : protocols) {
+						processSamplingTime(cc, relatedConnectionData, latencyContributor);
+						processActualConnectionBindingsSampling(cc, relatedConnectionData, latencyContributor);
+					}
+				}
+			}
+
+			for (ComponentInstance componentInstance : bindings) {
+				processSamplingTime(componentInstance, relatedConnectionData, latencyContributor);
+				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+					processActualConnectionBindingsSampling(componentInstance, relatedConnectionData,
+							latencyContributor);
+				}
+			}
+		}
+
+	}
+
+	public static void processSamplingTime(NamedElement boundBus, Classifier relatedConnectionData,
+			LatencyContributor latencyContributor) {
+		/**
+		 * we add the bus/VB sampling time as a subcontributor.
+		 */
+
+		if (boundBus != null) {
+			double period = GetProperties.getPeriodinMS(boundBus);
+			if (period > 0) {
+				// add sampling latency due to the protocol or bus being periodic
+				LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(boundBus);
+				samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
+				samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
+				samplingLatencyContributor.setSamplingPeriod(period);
+
+				latencyContributor.addSubContributor(samplingLatencyContributor);
 			}
 		}
 	}
