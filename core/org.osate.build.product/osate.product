@@ -44,19 +44,19 @@
    </plugins>
 
    <features>
-      <feature id="org.osate.core.feature" version="2.0.0.qualifier"/>
-      <feature id="org.osate.core.source.feature" version="2.0.0.qualifier"/>
-      <feature id="org.osate.plugins.feature" version="2.0.0.qualifier"/>
-      <feature id="org.osate.plugins.source.feature" version="2.0.0.qualifier"/>
-      <feature id="org.osate.xtext.aadl2.errormodel.feature" version="2.0.0.qualifier"/>
-      <feature id="org.osate.ge.feature" version="2.0.0.qualifier"/>
-      <feature id="org.osate.ba.feature" version="1.0.0.qualifier"/>
-      <feature id="org.osate.utils.feature" version="1.0.0.qualifier"/>
-      <feature id="com.rockwellcollins.atc.agree.feature" version="1.0.0.qualifier"/>
-      <feature id="com.rockwellcollins.atc.agree.source.feature" version="1.0.0.qualifier"/>
-      <feature id="com.rockwellcollins.atc.resolute.feature" version="1.0.0.qualifier"/>
-      <feature id="com.rockwellcollins.atc.resolute.source.feature" version="1.0.0.qualifier"/>
-      <feature id="org.osate.ocarina.feature" version="0.0.1.qualifier"/>
+      <feature id="org.osate.core.feature"/>
+      <feature id="org.osate.core.source.feature"/>
+      <feature id="org.osate.plugins.feature"/>
+      <feature id="org.osate.plugins.source.feature"/>
+      <feature id="org.osate.xtext.aadl2.errormodel.feature"/>
+      <feature id="org.osate.ge.feature"/>
+      <feature id="org.osate.ba.feature"/>
+      <feature id="org.osate.utils.feature"/>
+      <feature id="com.rockwellcollins.atc.agree.feature"/>
+      <feature id="com.rockwellcollins.atc.agree.source.feature"/>
+      <feature id="com.rockwellcollins.atc.resolute.feature"/>
+      <feature id="com.rockwellcollins.atc.resolute.source.feature"/>
+      <feature id="org.osate.ocarina.feature"/>
       <feature id="org.eclipse.e4.rcp" version="1.3.101.v20150204-1353"/>
       <feature id="org.eclipse.egit" version="3.4.2.201412180340-r"/>
       <feature id="org.eclipse.emf.sdk" version="2.10.2.v20150123-0452"/>

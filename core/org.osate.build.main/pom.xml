@@ -9,23 +9,11 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.22.0</tycho-version>
-		<xtext-version>2.7.3</xtext-version>
+		<tycho.version>0.22.0</tycho.version>
+		<tycho-extras.version>0.22.0</tycho-extras.version>
+		<xtext.version>2.7.3</xtext.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<repositories>
-		<repository>
-			<id>luna</id>
-			<url>http://download.eclipse.org/releases/luna/201502271000</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>xtext-utils</id>
-			<url>http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x</url>
-			<layout>p2</layout>
-		</repository>
-	</repositories>
-
 	<profiles>
 		<profile>
 			<id>full</id>
@@ -113,7 +101,7 @@
 				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
 
 				<module>../org.osate.resolute.help</module>
-				
+
 				<module>../../osate2-ocarina/org.osate.ocarina</module>
 				<module>../../osate2-ocarina/org.osate.ocarina.aadlcontribution</module>
 				<module>../../osate2-ocarina/org.osate.ocarina.feature</module>
@@ -130,12 +118,12 @@
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>tycho-surefire-plugin</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 					</plugin>
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 						<configuration>
 							<executionEnvironment>JavaSE-1.7</executionEnvironment>
 							<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
@@ -277,7 +265,7 @@
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 						<configuration>
 							<executionEnvironment>JavaSE-1.7</executionEnvironment>
 							<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
@@ -314,12 +302,12 @@
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>tycho-surefire-plugin</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 					</plugin>
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 					</plugin>
 				</plugins>
 			</build>
@@ -331,14 +319,14 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<extensions>true</extensions>
 			</plugin>
 			<!-- enable source bundle generation -->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-source-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<executions>
 					<execution>
 						<id>plugin-source</id>
@@ -366,7 +354,7 @@
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
-				<version>${xtext-version}</version>
+				<version>${xtext.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -382,11 +370,45 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-compiler-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<configuration>
 					<compilerArgument>-err:-forbidden</compilerArgument>
 				</configuration>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
+					<version>${tycho.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.tycho.extras</groupId>
+							<artifactId>tycho-buildtimestamp-jgit</artifactId>
+							<version>${tycho-extras.version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<timestampProvider>jgit</timestampProvider>
+						<format>'v'yyyyMMdd-HHmm</format>
+						<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
+						<jgit.ignore>	pom.xml	</jgit.ignore>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-plugin</artifactId>
+					<version>${tycho.version}</version>
+					<configuration>
+						<baselineRepositories>
+							<repository>
+								<url>http://www.aadl.info/aadl/osate/stable/2.0.9/update-site</url>
+							</repository>
+						</baselineRepositories>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>
