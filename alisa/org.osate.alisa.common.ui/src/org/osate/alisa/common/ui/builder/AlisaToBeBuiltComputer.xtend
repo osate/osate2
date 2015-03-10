@@ -22,7 +22,7 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 
 	@Inject
 	private IStorage2UriMapper mapper
-	
+
 	override isPossiblyHandled(IStorage storage) {
 		isAlisaResource(storage)
 	}
@@ -57,37 +57,42 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 		}
 	}
 
-	private def dependencies (IStorage storage) {
-			val direct = new HashMap<URI, HashSet<URI>>
-			// direct dependencies
-			for (rd : builderState.allResourceDescriptions.filter[d|isAlisaResource(d.URI)]) {
-				val sourceURI = rd.URI
-				for (reference : rd.referenceDescriptions) {
-					val targetURI = reference.targetEObjectUri.trimFragment
-					if (isAlisaResource(targetURI)) {
-						val deps = direct.get(targetURI) ?: new HashSet<URI>
-						deps += sourceURI
-						if (direct.get(targetURI) == null) {
-							direct.put(targetURI, deps)
-						}
+	private def dependencies(IStorage storage) {
+		val direct = new HashMap<URI, HashSet<URI>>
+
+		// direct dependencies
+		for (rd : builderState.allResourceDescriptions.filter[d|isAlisaResource(d.URI)]) {
+			val sourceURI = rd.URI
+			for (reference : rd.referenceDescriptions) {
+				val targetURI = reference.targetEObjectUri.trimFragment
+				if (isAlisaResource(targetURI)) {
+					val deps = direct.get(targetURI) ?: new HashSet<URI>
+					deps += sourceURI
+					if (direct.get(targetURI) == null) {
+						direct.put(targetURI, deps)
 					}
 				}
 			}
-			
-			val deps = new HashSet<URI>
-			var oldSize = -1
-			// transitive
-			while (deps.size > oldSize) {
-				oldSize = deps.size
+		}
+
+		val deps = new HashSet<URI>
+		val uri = mapper.getUri(storage)
+
+		if (uri != null) {
+			deps += direct.get(uri) ?: #{}
+			var changed = !deps.isEmpty
+
+			while (changed) {
 				val newDependencies = deps.map([direct.get(it) ?: #{}]).flatten.toList
-				deps.addAll(newDependencies)
+				changed = deps += newDependencies
 			}
-			//System.out.println('\n\n======= ' + storage.name)
-			//deps.forEach[uri|System.out.println(uri)]
-			//System.out.println('======= ')
-			deps
+		}
+		System.out.println('\n\nDependencies added for ' + storage.name)
+		deps.forEach[System.out.println(it)]
+		System.out.println('======= ')
+		deps
 	}
-	
+
 	private def boolean isAlisaResource(IStorage storage) {
 		val uri = mapper.getUri(storage)
 		if (uri != null)
