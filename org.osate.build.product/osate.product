@@ -48,43 +48,43 @@
       <feature id="org.osate.core.source.feature"/>
       <feature id="org.osate.plugins.feature"/>
       <feature id="org.osate.plugins.source.feature"/>
-      <feature id="org.osate.xtext.aadl2.errormodel.feature"/>
+      <feature id="org.osate.xtext.aadl2.errormodel.feature" installMode="root"/>
       <feature id="org.osate.ge.feature"/>
-      <feature id="org.osate.ba.feature"/>
-      <feature id="org.osate.utils.feature"/>
-      <feature id="com.rockwellcollins.atc.agree.feature"/>
-      <feature id="com.rockwellcollins.atc.agree.source.feature"/>
-      <feature id="com.rockwellcollins.atc.resolute.feature"/>
-      <feature id="com.rockwellcollins.atc.resolute.source.feature"/>
-      <feature id="org.osate.ocarina.feature"/>
-      <feature id="org.eclipse.e4.rcp" version="1.3.101.v20150204-1353"/>
-      <feature id="org.eclipse.egit" version="3.4.2.201412180340-r"/>
-      <feature id="org.eclipse.emf.sdk" version="2.10.2.v20150123-0452"/>
-      <feature id="org.eclipse.emf.transaction" version="1.8.0.201405281451"/>
-      <feature id="org.eclipse.emf.transaction.sdk" version="1.8.0.201405281451"/>
-      <feature id="org.eclipse.equinox.executable" version="3.6.102.v20150204-1316"/>
-      <feature id="org.eclipse.equinox.p2.core.feature" version="1.3.0.v20140523-0116"/>
-      <feature id="org.eclipse.equinox.p2.extras.feature" version="1.2.0.v20150129-0838"/>
-      <feature id="org.eclipse.equinox.p2.rcp.feature" version="1.2.0.v20140523-0116"/>
-      <feature id="org.eclipse.equinox.p2.user.ui" version="2.2.0.v20150129-0838"/>
-      <feature id="org.eclipse.gmf.runtime.sdk" version="1.8.1.201408201453"/>
-      <feature id="org.eclipse.graphiti.feature" version="0.11.2.v20150204-0954"/>
-      <feature id="org.eclipse.graphiti.feature.tools" version="0.11.2.v20150204-0954"/>
-      <feature id="org.eclipse.graphiti.sdk.feature" version="0.11.2.v20150204-0954"/>
-      <feature id="org.eclipse.help" version="2.0.103.v20150204-1700"/>
-      <feature id="org.eclipse.m2e.logback.feature" version="1.5.1.20150109-1820"/>
-      <feature id="org.eclipse.m2m.atl" version="3.5.0.v201405260755"/>
-      <feature id="org.eclipse.m2m.atl.sdk" version="3.5.0.v201405260755"/>
-      <feature id="org.eclipse.ocl.all" version="5.0.2.v20140725-2242"/>
-      <feature id="org.eclipse.ocl.all.sdk" version="5.0.2.v20141027-1335"/>
-      <feature id="org.eclipse.ocl" version="3.4.2.v20140725-2242"/>
-      <feature id="org.eclipse.platform" version="4.4.2.v20150204-1700"/>
-      <feature id="org.eclipse.rcp" version="4.4.2.v20150204-1700"/>
-      <feature id="org.eclipse.sdk" version="4.4.2.v20150204-1700"/>
-      <feature id="org.eclipse.uml2" version="5.0.2.v20150202-0947"/>
-      <feature id="org.eclipse.zest" version="1.5.101.201408150207"/>
-      <feature id="org.eclipse.xtext.redist" version="2.7.3.v201411190455"/>
-      <feature id="net.certware.feature.sacm" version="1.0.0.201408141746"/>
+      <feature id="org.osate.ba.feature" installMode="root"/>
+      <feature id="org.osate.utils.feature" installMode="root"/>
+      <feature id="com.rockwellcollins.atc.agree.feature" installMode="root"/>
+      <feature id="com.rockwellcollins.atc.agree.source.feature" installMode="root"/>
+      <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
+      <feature id="com.rockwellcollins.atc.resolute.source.feature" installMode="root"/>
+      <feature id="net.certware.feature.sacm" installMode="root"/>
+      <feature id="org.osate.ocarina.feature" installMode="root"/>
+      <feature id="org.eclipse.e4.rcp"/>
+      <feature id="org.eclipse.egit"/>
+      <feature id="org.eclipse.emf.sdk"/>
+      <feature id="org.eclipse.emf.transaction"/>
+      <feature id="org.eclipse.emf.transaction.sdk"/>
+      <feature id="org.eclipse.equinox.executable"/>
+      <feature id="org.eclipse.equinox.p2.core.feature"/>
+      <feature id="org.eclipse.equinox.p2.extras.feature"/>
+      <feature id="org.eclipse.equinox.p2.rcp.feature"/>
+      <feature id="org.eclipse.equinox.p2.user.ui"/>
+      <feature id="org.eclipse.gmf.runtime.sdk"/>
+      <feature id="org.eclipse.graphiti.feature"/>
+      <feature id="org.eclipse.graphiti.feature.tools"/>
+      <feature id="org.eclipse.graphiti.sdk.feature"/>
+      <feature id="org.eclipse.help"/>
+      <feature id="org.eclipse.m2e.logback.feature"/>
+      <feature id="org.eclipse.m2m.atl"/>
+      <feature id="org.eclipse.m2m.atl.sdk"/>
+      <feature id="org.eclipse.ocl.all"/>
+      <feature id="org.eclipse.ocl.all.sdk"/>
+      <feature id="org.eclipse.ocl"/>
+      <feature id="org.eclipse.platform"/>
+      <feature id="org.eclipse.rcp"/>
+      <feature id="org.eclipse.sdk"/>
+      <feature id="org.eclipse.uml2"/>
+      <feature id="org.eclipse.zest"/>
+      <feature id="org.eclipse.xtext.redist"/>
    </features>
 
    <configurations>
