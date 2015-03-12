@@ -97,16 +97,9 @@
 		<module>../../osate2-ocarina/org.osate.ocarina.help</module>
 		<module>../../osate2-ocarina/org.osate.ocarina.real.xtext</module>
 		<module>../../osate2-ocarina/org.osate.ocarina.real.xtext.ui</module>
-	</modules>
 
-	<profiles>
-		<profile>
-			<id>test</id>
-			<modules>
-				<module>../org.osate.core.tests</module>
-				<module>../../osate2-plugins/org.osate.analysis.flows.tests</module>
-			</modules>
-		</profile>
-	</profiles>
+		<module>../org.osate.core.tests</module>
+		<module>../../osate2-plugins/org.osate.analysis.flows.tests</module>
+	</modules>
 
 </project>
