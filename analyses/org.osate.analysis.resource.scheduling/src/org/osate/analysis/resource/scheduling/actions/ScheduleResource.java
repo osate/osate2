@@ -217,4 +217,9 @@ public class ScheduleResource extends AbstractInstanceOrDeclarativeModelReadOnly
 		return true;
 	}
 
+	public void invoke(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
+			final SystemInstance root, final SystemOperationMode som) {
+		analyzeInstanceModel(monitor, errManager, root, som);
+	}
+
 }

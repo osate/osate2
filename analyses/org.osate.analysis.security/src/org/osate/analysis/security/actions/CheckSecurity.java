@@ -39,6 +39,10 @@
  */
 package org.osate.analysis.security.actions;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.security.LevelComparator;
 import org.osate.analysis.security.SecurityPlugin;
 import org.osate.contribution.sei.names.SEI;
@@ -68,4 +72,10 @@ public final class CheckSecurity extends AbstractLevelChecker {
 	protected LevelComparator getLevelComparator() {
 		return destMustBeGreater;
 	}
+
+	public void invoke(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
+			final SystemInstance root, final SystemOperationMode som) {
+		analyzeInstanceModel(monitor, errManager, root, som);
+	}
+
 }

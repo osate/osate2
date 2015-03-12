@@ -223,4 +223,8 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 		}
 	}
 
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+	}
+
 }

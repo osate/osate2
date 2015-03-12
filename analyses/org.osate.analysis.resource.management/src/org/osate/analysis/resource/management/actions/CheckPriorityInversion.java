@@ -85,4 +85,9 @@ public final class CheckPriorityInversion extends AbstractInstanceOrDeclarativeM
 		}
 		monitor.done();
 	}
+
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+	}
+
 }

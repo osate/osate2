@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
@@ -92,4 +93,9 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 	protected DoBoundResourceAnalysisLogic getLogicObject() {
 		return new DoBoundResourceAnalysisLogic(getActionName(), this);
 	}
+
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+	}
+
 }

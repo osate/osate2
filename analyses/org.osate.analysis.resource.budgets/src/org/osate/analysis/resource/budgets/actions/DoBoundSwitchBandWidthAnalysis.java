@@ -39,7 +39,9 @@
  */
 package org.osate.analysis.resource.budgets.actions;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
 import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisLogic;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -66,4 +68,9 @@ public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 		InstanceModelUtil.clearCache();
 		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), this);
 	}
+
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+	}
+
 }

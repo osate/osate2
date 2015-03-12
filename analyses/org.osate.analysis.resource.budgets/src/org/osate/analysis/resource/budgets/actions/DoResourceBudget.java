@@ -106,4 +106,9 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 			}
 		}
 	}
+
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+	}
+
 }
