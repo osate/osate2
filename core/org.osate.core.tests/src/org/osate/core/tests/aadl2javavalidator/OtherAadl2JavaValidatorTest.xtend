@@ -1082,5 +1082,77 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
 	}
-	
+
+	//Tests validation of FeatureGroup Connections 
+	//particularly when feature groups are inverted features  
+	@Test
+	def void testCheckFeatureGroupConnectionDirection() {
+		createFiles("testfgconndirection.aadl" -> '''
+						package testfgconndirection
+						public
+							-- Feature group with the data port.
+							feature group fgA
+								features
+									o1: out data port;
+							end fgA;
+							-- Nested feature group.
+							feature group fgB
+								features
+									fg1: feature group fgA;
+							end fgB;
+							-- Sender system.
+							system sys1
+								features
+									o: feature group fgB;
+							end sys1;
+							-- Receiver system.
+							system sys2
+								features
+									i: feature group inverse of fgB;
+							end sys2;
+							-- Inner system in receiver system that receives nested feature group.
+							system inner
+								features
+									fg1: feature group inverse of fgA;
+							end inner;
+							-- Implementation of the receiver system.
+							system implementation sys2.i
+								subcomponents
+									inner: system inner;
+								connections
+									c1: feature group i.fg1 -> inner.fg1; -- works
+									c2: feature group inner.fg1 -> i.fg1; -- should fail.
+									c3: feature group i.fg1 <-> inner.fg1; -- works.
+							end sys2.i;
+							-- Top-level to tie everything together.
+							system top
+							end top;
+							system implementation top.i
+								subcomponents
+									s1: system sys1;
+									s2: system sys2.i;
+								connections
+									tt: feature group s1.o -> s2.i;
+							end top.i;
+						end testfgconndirection;
+						''')
+		suppressSerialization
+		val testFileResult = testFile("testfgconndirection.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		// checkFeatureGroupConnectionDirection
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testfgconndirection".assertEquals(name)
+			publicSection.ownedClassifiers.get(5) as SystemImplementation => [
+				"sys2.i".assertEquals(name)
+				ownedConnections.get(1) => [
+					"c2".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, 
+										"Feature o1 in the referenced feature group fg1 must not be in due to the direction of the connection")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+
+	}
 }
