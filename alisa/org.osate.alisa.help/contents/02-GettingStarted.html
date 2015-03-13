@@ -1,0 +1,154 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" >
+<title>Getting Started</title>
+
+<link href="book.css" rel="stylesheet" type="text/css">
+<link href="code.css" rel="stylesheet" type="text/css">
+<link rel="home" href="00-Main.html" title="">
+</head>
+<body>
+<a name="GettingStarted"></a>
+<h1>Getting Started</h1>
+<p>
+To get started, you should first download and install the Alisa feature with the pulgins that support
+the different notations of Alisa as well as the assurance harness that executes the verificativities specified in verification plans on an instance
+of the AADL model for the system of interest.
+</p>
+<p>
+You then create a project as an AADL project for which the Xtext nature will be enabled when you create
+model files for one of the Alisa notations. You can create separate projects for your architecture models
+in AADL, for your requirement/verification specifications, and for other specifications such as Resolute
+libraries used in the verification - as shown in the example. Make sure you specify <em>Project References</em>
+through the <em>Preferences</em> menu. Select a project, selecte <em>Preferences</em> under the <em>Window</em> menu, (type <em>pref</em> into the search bar of the preferences dialog and then
+specify the projects in which this project will reference file content.
+</p>
+<p>
+<div class="image" >
+<img src="images/Alisaprojects.png" 
+/>
+<div class="caption">
+AADL, Alisa, and Resolute files in Different Projects
+</div>
+</div>
+</p>
+<p>
+You will create stakeholder goals and system requirements. You will do so in the context of an
+AADL model that represents the system of interest in its operational context by explicitly modeling all
+the entities in the operational environment that the system may be exposed to and interact with.
+</p>
+<p>
+Stakeholders are defined as members of an organization. Each organization and its members is defined in a 
+separate <em>.org</em> file.
+</p>
+<p>
+<div class="image" >
+<img src="images/stakeholderorg.png" 
+/>
+<div class="caption">
+Stakeholder Descriptions as Members of Organizations
+</div>
+</div>
+</p>
+<p>
+Users can define a collection of stakeholder <em>goals</em> for a system . For each goal one or more stakeholders can be identified.
+In the process the user want to utilize a use case notation such as the URN Use Case Maps (UCM) - see
+<a href="http://jucmnav.softwareengineering.ca/ucm/bin/view/ProjetSEG/WebHome">jUCMNav</a>.
+</p>
+<p>
+<div class="image" >
+<img src="images/goals.png" 
+/>
+<div class="caption">
+Stakeholder Goals
+</div>
+</div>
+</p>
+<p>
+System <em>requirements</em> are specified in a system <em>requirement specification</em>.  They are traced to stakeholder goals and they identify the component
+ type or implementation in the AADL model the requirement is associated with.
+Users can also specifies values as constants that can be used in descriptions and as operands in assert expressions. Typically,
+those are values that the user may want to change.
+</p>
+<p>
+Requirements can be refined into requirements that are verifable. All <em>leaf</em> requirements are expected
+to be verifiable.
+</p>
+<p>
+<div class="image" >
+<img src="images/requirementexample.png" 
+/>
+<div class="caption">
+System Requirements in Context of an AADL Model
+</div>
+</div>
+</p>
+<p>
+For each system the user specifies a verificaiton plan. The verification plan specifies a claim for each requirement of the system of interest,
+identifying a collection of verification activities and making the argument of sufficient evidence if these verification activities applied to a system implementation pass. 
+Users may impose an order to indicate that some are dependent
+on the successful completion of others, and specify that in case of failure to complete execution, or returning a negative
+result (<em>fail</em>) an alternative verification activity may be performed.
+</p>
+<p>
+<div class="image" >
+<img src="images/claimexample.png" 
+/>
+<div class="caption">
+System Requirements in Context of an AADL Model
+</div>
+</div>
+</p>
+<p>
+Typically the user will work with an existing <em>registry</em> of <em>verification methods</em>. This registry identifies the methods available for use in verification activities. You may add methods to the registry as you may
+develop additional analysis,verification, and test methods. Users can build up libraries of verificaion
+methods that can be used on different projects.
+</p>
+<p>
+Finally, the user will define the an <em>assurance task</em> for a particular system. The assurance task identifies
+the verification plans of those system components that the user wants to verify. The user may specify
+selection criteria for a subset of the verification activities that are to be performed as part of this assurance task.
+The selection criterion is expressed in terms of <em>selection category</em> tags that have been attached to
+verification methods or activities.
+ 
+ From the assurance task specification an assurance task instance is created. 
+ This instance is used to drive the execution of the verification activities and to record the resultss as <em>assuanrce evidence</em>. 
+ 
+ 
+<div class="image" >
+<img src="images/assureoutline.png" 
+/>
+<div class="caption">
+Generated Assure file and Outline View
+</div>
+</div>
+ 
+ 
+ Users then initiate the execution of all verification activities for an assurance case by opening the
+ <em>assure</em> file and selecting the root element in the <em>Outline</em> view, bring up the cotnext menu by right clicking, and invoking
+ the <em>Verify All Evidence</em> command.
+ 
+ Note that multiple assurance cases can be defined for the same system. Each case may focus on assuring
+ different aspects of the system, as identified by the chosen selection categories.  SImilarly users
+ can define assurance tasks to include different combinations of verification plans for different subsets
+ of system components, leading to an incrememental approach of verification.
+ 
+ Users can define the following types of categories:
+ <ul>
+	<li>
+		<em>requirement categories:</em> These categories are used to categorize requirements and goals.
+	</li>
+	<li>
+		<em>verification categories:</em> These categories are used to categorize verification methods.
+	</li>
+	<li>
+		<em>selection categories:</em> These categories are used to categorize additional selection criteria
+		 when assurance evidence instances are created.
+	</li>
+</ul>
+
+ 
+For more on any of the Alisa concepts see the respective section.
+</p>
+</body>
+</html>

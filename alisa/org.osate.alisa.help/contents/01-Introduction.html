@@ -1,0 +1,123 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" >
+<title>Introduction</title>
+
+<link href="book.css" rel="stylesheet" type="text/css">
+<link href="code.css" rel="stylesheet" type="text/css">
+<link rel="home" href="00-Main.html" title="">
+</head>
+<body>
+<a name="Introduction"></a>
+<h1>Introduction</h1>
+<p>
+Architecture-led Incremental System Assurance (ALISA) is an incremental life-cycle assurance workbench
+for high-assurance software-reliant systems. It utlizes architecture abstractions in models to manage
+requirements across multiple layer of a system architecture and the verification of a system implementation
+agains tthese requirements. The workbench complements the capabilities of an architecture-centric virtual
+system integration workbench for the development of such systems.
+</p>
+<p>
+Alisa utilizes SAE AADL as an architecture modeling language. Alisa provides several notations for users
+to specify requirements, verification plans, and execute verification plans incrementally througout
+the life cycle.
+</p>
+<p>
+<div class="image" >
+<img src="images/doublev.png" 
+/>
+<div class="caption">
+Incrementally Evolving and Maintaining the Assurance Evidence
+</div>
+</div>
+</p>
+<p>
+The three notations are:
+<ul>
+	<li>
+		<em>ReqSpec:</em> a notation for specifying stakeholder goals and system requirements.
+	</li>
+	<li>
+		<em>Verify:</em> a notation for registering verification methods, specifying verification activities,
+			and verification plans with claims that requirements are satisfied by the results of verivication
+			activities.
+	</li>
+	<li>
+		<em>Alisa:</em> a notation for defining assurance tasks to produce assurance evidence from execution
+			of verification plans configured to specific perspectives.
+	</li>
+	<li>
+		<em>Assure:</em> a notation that represents the assurance evidence, i.e., the results of executing verification
+			plans on a system instance. Models in this notation are automatically generated from an asurance
+			task specification.
+	</li>
+</ul>
+</p>
+<p>
+These notations are supported by additional notations:
+<ul>
+	<li>
+		<em>Organization:</em> a notation for defining the stakeholders of a system.
+	</li>
+	<li>
+		<em>Categories:</em> a notation for defining  requirement categories, verification categories, and selection
+		categories
+	</li>
+</ul>
+</p>
+<p>
+The notations use a simple syntax. Each construct introduces an instance of a particular Alisa concept,
+which we will refer to as <em>entity</em>, 
+and identifies it with a unique name. The name is a identifier that is qualified with the name of a container
+entity, such as a library. 
+</p>
+<p>
+As the identifier may take the form of a label such as Req1, each entity optionally also has a title
+field that provides a short descriptive label. This label may be used instead of or an additon to the identifier for
+presentation in views.
+</p>
+<p>
+An entity may identify a model element that it is associated with. 
+</p>
+<p>
+An entity may contain a number of attributes, i.e., labelled values or references to other model elements.
+These are enclosed in square brackets.
+</p>
+<p>
+When describing the syntax of Alisa notations we will use BNF-like syntax markers to indicate optional
+constructs, such as <em>( construct )?</em> for an optional construct, <em>( construct )*</em> for a construct repeated
+zero or more times, <em>( construct )+</em> for a construct repeated one or more times, and <em> a | b </em> to represent altenatives. 
+Grammr rules are labeled by <em>&lt;conceptname&gt; ::=</em> and rules may be referred by <em>&lt;conceptname&gt;</em>. The rerefence
+means that the construct is to be inserted in place as nested entity within another construct.
+</p>
+<p>
+We use the following approach for cross references:
+<ul>
+	<li>
+		References to AADL classifiers use the AADL2 syntax to qualify the classifier name with the package name,
+		e.g., my::pack::sys.impl for a system implementation reference.
+	</li>
+	<li>
+		Within requirements the user may reference
+		a feature within a classifier. this is done by the feature name, which is resolved relative to the classifier
+		reference of the enclosing Requirement specifications container.
+	</li>
+	<li>
+		References to objects in the Alisa languages, e.g., requirements and goals, use a "." separator
+		in the qualified name path, e.g., systemreqs.r1. This includes references to verification activities,
+		verification methods, verification plans, and to stakeholders.
+	</li>
+	<li>
+		User defined categories are globally known by their name. Categories of different kinds (requirement,
+		verification, selection) can use the same name as they only have to be unique within their kind.
+	</li>
+</ul>
+</p>
+<p>
+Note that we will be providing a user interface that presents the Alisa information in a grpahical or
+structured navigator view with the details of a selected entity shown in a properties view. The user
+will be able to create entities within the navigator view and edit its atttributes in the properties
+view. In other words, in the future users of Alisa may not have to learn the details of the textual syntax of the Alisa notations.
+</p>
+</body>
+</html>
