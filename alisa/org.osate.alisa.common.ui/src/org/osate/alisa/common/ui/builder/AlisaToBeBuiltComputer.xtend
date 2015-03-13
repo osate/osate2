@@ -1,8 +1,11 @@
 package org.osate.alisa.common.ui.builder
 
 import com.google.inject.Inject
+import com.google.inject.Singleton
 import java.util.HashMap
 import java.util.HashSet
+import java.util.Map
+import java.util.Set
 import org.eclipse.core.resources.IFolder
 import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IStorage
@@ -13,25 +16,27 @@ import org.eclipse.xtext.builder.builderState.IBuilderState
 import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
 import org.eclipse.xtext.builder.impl.ToBeBuilt
 import org.eclipse.xtext.ui.resource.IStorage2UriMapper
-import org.eclipse.xtext.util.IResourceScopeCache
 
 class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 
 	@Inject
-	private IBuilderState builderState
+	protected IBuilderState builderState
 
 	@Inject
-	private IStorage2UriMapper mapper
-
-	override isPossiblyHandled(IStorage storage) {
-		isAlisaResource(storage)
-	}
-
-	override isRejected(IFolder folder) {
-		false
-	}
+	protected IStorage2UriMapper mapper
+	
+//	@Inject
+//	private DependencyCache dependencyCache
+//	
+//	@Singleton
+//	public static class DependencyCache {
+//		protected Map<URI, Set<URI>> storageToDependencies = newHashMap;
+//	}
 
 	override removeProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) {
+	}
+
+	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
 	}
 
 	override removeStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
@@ -44,9 +49,6 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 		}
 	}
 
-	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
-	}
-
 	override updateStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
 		if (isAlisaResource(storage)) {
 			toBeBuilt.toBeUpdated.addAll(storage.dependencies)
@@ -57,8 +59,16 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 		}
 	}
 
+	override isPossiblyHandled(IStorage storage) {
+		isAlisaResource(storage)
+	}
+
+	override isRejected(IFolder folder) {
+		false
+	}
+
 	private def dependencies(IStorage storage) {
-		val direct = new HashMap<URI, HashSet<URI>>
+		val depCache = new HashMap<URI, HashSet<URI>>
 
 		// direct dependencies
 		for (rd : builderState.allResourceDescriptions.filter[d|isAlisaResource(d.URI)]) {
@@ -66,10 +76,10 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 			for (reference : rd.referenceDescriptions) {
 				val targetURI = reference.targetEObjectUri.trimFragment
 				if (isAlisaResource(targetURI)) {
-					val deps = direct.get(targetURI) ?: new HashSet<URI>
+					val deps = depCache.get(targetURI) ?: new HashSet<URI>
 					deps += sourceURI
-					if (direct.get(targetURI) == null) {
-						direct.put(targetURI, deps)
+					if (depCache.get(targetURI) == null) {
+						depCache.put(targetURI, deps)
 					}
 				}
 			}
@@ -79,11 +89,11 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 		val uri = mapper.getUri(storage)
 
 		if (uri != null) {
-			deps += direct.get(uri) ?: #{}
+			deps += depCache.get(uri) ?: #{}
 			var changed = !deps.isEmpty
 
 			while (changed) {
-				val newDependencies = deps.map([direct.get(it) ?: #{}]).flatten.toList
+				val newDependencies = deps.map([depCache.get(it) ?: #{}]).flatten.toList
 				changed = deps += newDependencies
 			}
 		}
