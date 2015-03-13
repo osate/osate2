@@ -91,7 +91,7 @@ In other words, users can specify alternate verification activities if the origi
 e[andthen] lets users specify an ordering of verification activities, i.e., the second verification activity
 is only executed if the first one is successful.
 
-e[Brackets] allow users to specify a change in precedence ordering of argument expression operators.
+e[round brackets] allow users to specify a change in precedence ordering of argument expression operators.
 
 Argument expressions refer to verification activities defined in libraries. 
 
@@ -162,7 +162,7 @@ VerificationValidation ::=
 	( : "title" )?
 	\[ (
 	( description Description)?
-	  method <methodid> ( as <computer variable> )?
+	  method <qualified methodname> ( as <computer variable> )?
 	( rationale "rationale description" )?
 	)
 	\]
@@ -173,12 +173,13 @@ VerificationPrecondition ::=
 	( : "title" )?
 	\[ 
 	( description Description)?
-	  method <methodid> ( as <computer variable> )?
+	  method <qualified methodname> ( as <computer variable> )?
 	( rationale "rationale description" )?
 	\]
 
 
-enum MethodTypes::= analysis | predicate | compute | resoluteprove | manual
+enum MethodTypes::= analysis | predicate | compute | 
+        resoluteprove | resolutecompute | resolutepredicate | manual
 	
 enum MethodScope::= self | parts | all 
 
@@ -187,23 +188,28 @@ enum MethodReporting::= marker| errormarker | diagnostics | assertexception | re
 
 The method types are:
 ul[
-item[e[predicate:] the method evaluates one instance model element and returns true (success) or false (fail) according to a built-in predicate. The predicate may interpret a property in the model as the limit value of the predicate.
-Fail can be reported by an e[AssertionException]. Failure to complete verification method execution,
+item[e[analysis:] the method represents processing by an OSATE analysis plug-in. Typically it processes
+multiple model elements and reports results via markers.]
+item[e[predicate:] the method evaluates a condition on one instance model element and returns true (success) or false (fail). 
+Fail may be reported by a Jave/JUnit e[AssertionException] - see reporting mechanism. 
+Failure to complete verification method execution,
 e.g., timeout or an exception other than e[AssertionException] is mapped into e[unknown].
 ]
-item[e[analysis:] the method represents procesisng by an OSATE analysis plug-in. Typically it processes
-multiple model elements and reports results via markers.]
 item[e[compute:] the method processes one model element and returns a single value as a result. This
 value is then evaluated by the specified predicate of the requirement.]
 item[e[resoluteprove:] the method interpretively evaluates a Resolute claim function as if it where declared
 in a e[prove] statement in a e[resolute subclause]. This allows resolute claim functions to be associated
 with AADL models without embedding them in the model.
 ]
+item[e[resolutepredicate:] the method interpretively evaluates a Resolute computational function with
+a boolean result. The predicate is assumed to represent the condition to be asserted for a requirement.]
+item[e[resolutecompute:] the method interpretively evaluates a Resolute computational function. The result
+value is then evaluated by the specified of the requirement.]
 item[e[manual:] the method represents a manual method, i.e., a method that is performed by a human. The
 person will interactively report the result of the verification, e.g., the result of performing a review.]
 ]
 
-The following are scopes of application that can be defined for verificaiton methods:
+The following are scopes of application that can be defined for verification methods:
 ul[
 item[e[self:] the method applies to the model element identified by the requirement.]
 item[e[parts:] the method applies to all parts of a component that is identified by the requirement.
