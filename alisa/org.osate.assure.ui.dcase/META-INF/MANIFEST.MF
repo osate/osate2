@@ -32,7 +32,9 @@ Import-Package: net.dependableos.dcase,
  org.eclipse.gmf.runtime.diagram.core.preferences,
  org.eclipse.gmf.runtime.diagram.core.services,
  org.eclipse.gmf.runtime.emf.commands.core.command,
- org.eclipse.gmf.runtime.notation
+ org.eclipse.gmf.runtime.notation,
+ org.osate.organization.organization,
+ org.osate.reqspec.reqSpec
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: 
  org.osate.assure.ui.dcase,

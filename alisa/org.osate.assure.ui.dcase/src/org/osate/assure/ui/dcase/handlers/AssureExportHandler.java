@@ -5,14 +5,16 @@ import static org.osate.assure.util.AssureUtilExtension.resetToTBD;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 import net.dependableos.dcase.Argument;
 import net.dependableos.dcase.BasicNode;
 import net.dependableos.dcase.DcaseFactory;
 import net.dependableos.dcase.DcaseLink001;
+import net.dependableos.dcase.DcaseLink003;
 import net.dependableos.dcase.Evidence;
 import net.dependableos.dcase.Goal;
-import net.dependableos.dcase.Justification;
+import net.dependableos.dcase.Strategy;
 import net.dependableos.dcase.diagram.edit.parts.ArgumentEditPart;
 import net.dependableos.dcase.diagram.part.DcaseDiagramEditorPlugin;
 import net.dependableos.dcase.diagram.part.Messages;
@@ -54,6 +56,7 @@ import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.VerificationActivityResult;
@@ -61,6 +64,8 @@ import org.osate.assure.assure.VerificationExpr;
 import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.organization.organization.Stakeholder;
+import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
@@ -176,8 +181,10 @@ public class AssureExportHandler extends AbstractHandler {
 		model = createInitialModel();
 
 		Goal goal = DcaseFactory.eINSTANCE.createGoal();
-		goal.setDesc(rootCaseResult.getName());
+		goal.setDesc("Assurance Plan " + rootCaseResult.getName() + " validated");
 		goal.setMessage(rootCaseResult.getMessage());
+		OsateDebug.osateDebug("Goal name=" + rootCaseResult.getName());
+		OsateDebug.osateDebug("Goal msg=" + rootCaseResult.getMessage());
 		model.getRootBasicNode().add(goal);
 
 		for (ClaimResult cr : rootCaseResult.getClaimResult()) {
@@ -195,45 +202,125 @@ public class AssureExportHandler extends AbstractHandler {
 	}
 
 	public static void export(BasicNode parent, ClaimResult cr) {
+		Requirement requirement = cr.getTarget();
 
-		Evidence evidence = DcaseFactory.eINSTANCE.createEvidence();
-		evidence.setMessage(cr.getMessage());
-		evidence.setDesc(cr.getName());
+		Goal subgoal = DcaseFactory.eINSTANCE.createGoal();
+		subgoal.setMessage(requirement.getTitle());
+		subgoal.setDesc(cr.getName());
 
-		model.getRootBasicNode().add(evidence);
+		model.getRootBasicNode().add(subgoal);
 
 		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
-		link.setTarget(evidence);
+		link.setTarget(subgoal);
 		link.setSource(parent);
 
 		model.getRootBasicLink().add(link);
 
 		for (ClaimResult subCR : cr.getSubClaimResult()) {
-			export(evidence, subCR);
+			export(subgoal, subCR);
 		}
 
 		for (VerificationExpr ve : cr.getVerificationActivityResult()) {
-			export(evidence, ve);
+			export(subgoal, ve);
+		}
+
+		for (org.osate.reqspec.reqSpec.Goal initialGoal : requirement.getGoalReference()) {
+			Goal dcaseInitialGoal = DcaseFactory.eINSTANCE.createGoal();
+			dcaseInitialGoal.setMessage(initialGoal.getTitle());
+			dcaseInitialGoal.setDesc(initialGoal.getName());
+
+			model.getRootBasicNode().add(dcaseInitialGoal);
+
+			DcaseLink001 link2 = DcaseFactory.eINSTANCE.createDcaseLink001();
+			link2.setTarget(subgoal);
+			link2.setSource(dcaseInitialGoal);
+
+			model.getRootBasicLink().add(link2);
+
+			List<Stakeholder> stakeholders = initialGoal.getStakeholderReference();
+			for (Stakeholder stakeholder : stakeholders) {
+				net.dependableos.dcase.Monitor dcaseMonitor = DcaseFactory.eINSTANCE.createMonitor();
+				dcaseMonitor.setMessage(stakeholder.getName());
+				dcaseMonitor.setDesc(stakeholder.getFullname());
+
+				model.getRootBasicNode().add(dcaseMonitor);
+
+				DcaseLink003 link3 = DcaseFactory.eINSTANCE.createDcaseLink003();
+				link3.setTarget(dcaseInitialGoal);
+				link3.setSource(dcaseMonitor);
+
+				model.getRootBasicLink().add(link3);
+
+			}
 		}
 	}
 
 	public static void export(BasicNode parent, VerificationExpr ve) {
+		Evidence evidence;
+		DcaseLink001 link;
 
 		System.out.println("Verification expr = " + ve);
 		VerificationActivityResult result = (VerificationActivityResult) ve;
-		Justification justification = DcaseFactory.eINSTANCE.createJustification();
-		justification.setMessage(result.getTarget().getMethod().getTitle());
-		justification.setDesc(result.getName());
+		Strategy strategy = DcaseFactory.eINSTANCE.createStrategy();
+		strategy.setMessage(result.getTarget().getMethod().getTitle());
+		strategy.setDesc(result.getName());
 //		justification.setMessage(ve.);
 //		justification.setDesc(ve.getName());
 
-		model.getRootBasicNode().add(justification);
+		model.getRootBasicNode().add(strategy);
 
-		DcaseLink001 link = DcaseFactory.eINSTANCE.createDcaseLink001();
-		link.setTarget(justification);
+		link = DcaseFactory.eINSTANCE.createDcaseLink001();
+		link.setTarget(strategy);
 		link.setSource(parent);
-
 		model.getRootBasicLink().add(link);
+
+		if (ve.getTbdCount() > 0) {
+			evidence = DcaseFactory.eINSTANCE.createEvidence();
+			evidence.setName("tbd");
+			evidence.setDesc("TDB " + ve.getTbdCount() + " time(s)");
+
+//			justification.setMessage(ve.);
+//			justification.setDesc(ve.getName());
+
+			model.getRootBasicNode().add(evidence);
+
+			link = DcaseFactory.eINSTANCE.createDcaseLink001();
+			link.setTarget(evidence);
+			link.setSource(strategy);
+			model.getRootBasicLink().add(link);
+		}
+
+		if (ve.getSuccessCount() > 0) {
+			evidence = DcaseFactory.eINSTANCE.createEvidence();
+			evidence.setName("success");
+			evidence.setDesc("Successfully verified " + ve.getTbdCount() + " time(s)");
+
+//			justification.setMessage(ve.);
+//			justification.setDesc(ve.getName());
+
+			model.getRootBasicNode().add(evidence);
+
+			link = DcaseFactory.eINSTANCE.createDcaseLink001();
+			link.setTarget(evidence);
+			link.setSource(strategy);
+			model.getRootBasicLink().add(link);
+		}
+
+		if (ve.getFailCount() > 0) {
+			evidence = DcaseFactory.eINSTANCE.createEvidence();
+			evidence.setName("failure");
+			evidence.setDesc("Failure to be verified " + ve.getFailCount() + " time(s)");
+
+//			justification.setMessage(ve.);
+//			justification.setDesc(ve.getName());
+
+			model.getRootBasicNode().add(evidence);
+
+			link = DcaseFactory.eINSTANCE.createDcaseLink001();
+			link.setTarget(evidence);
+			link.setSource(strategy);
+			model.getRootBasicLink().add(link);
+		}
 
 	}
 
