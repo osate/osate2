@@ -20,7 +20,7 @@
 
 	<profiles>
 		<profile>
-			<id>stable</id>
+			<id>osate2.stable</id>
 			<repositories>
 				<repository>
 					<id>osate-stable</id>
@@ -35,7 +35,7 @@
 			</repositories>
 		</profile>
 		<profile>
-			<id>nightly</id>
+			<id>osaste2.testing</id>
 			<repositories>
 				<repository>
 					<id>osate-testing</id>
