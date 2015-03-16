@@ -229,9 +229,31 @@ ruleResultReport returns [EObject current=null]
 	    }
 
 )
-))?	otherlv_14=']' 
+))?(	otherlv_14='issues' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getResultReportAccess().getRightSquareBracketKeyword_9());
+    	newLeafNode(otherlv_14, grammarAccess.getResultReportAccess().getIssuesKeyword_9_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getResultReportAccess().getIssueReportIssueParserRuleCall_9_1_0()); 
+	    }
+		lv_issue_15_0=ruleReportIssue		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getResultReportRule());
+	        }
+       		add(
+       			$current, 
+       			"issue",
+        		lv_issue_15_0, 
+        		"ReportIssue");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*)?	otherlv_16=']' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getResultReportAccess().getRightSquareBracketKeyword_10());
     }
 )
 ;

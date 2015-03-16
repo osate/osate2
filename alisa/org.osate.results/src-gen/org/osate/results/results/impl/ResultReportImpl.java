@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.results.results.ReportIssue;
 import org.osate.results.results.ResultData;
 import org.osate.results.results.ResultReport;
 import org.osate.results.results.ResultReportEntry;
@@ -38,6 +39,7 @@ import org.osate.results.results.ResultsPackage;
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getHeading <em>Heading</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getResultData <em>Result Data</em>}</li>
+ *   <li>{@link org.osate.results.results.impl.ResultReportImpl#getIssue <em>Issue</em>}</li>
  * </ul>
  * </p>
  *
@@ -154,6 +156,16 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
    * @ordered
    */
   protected ResultData resultData;
+
+  /**
+   * The cached value of the '{@link #getIssue() <em>Issue</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIssue()
+   * @generated
+   * @ordered
+   */
+  protected EList<ReportIssue> issue;
 
   /**
    * <!-- begin-user-doc -->
@@ -378,6 +390,20 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ReportIssue> getIssue()
+  {
+    if (issue == null)
+    {
+      issue = new EObjectContainmentEList<ReportIssue>(ReportIssue.class, this, ResultsPackage.RESULT_REPORT__ISSUE);
+    }
+    return issue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -387,6 +413,8 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
       case ResultsPackage.RESULT_REPORT__RESULT_DATA:
         return basicSetResultData(null, msgs);
+      case ResultsPackage.RESULT_REPORT__ISSUE:
+        return ((InternalEList<?>)getIssue()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -416,6 +444,8 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
         return getContent();
       case ResultsPackage.RESULT_REPORT__RESULT_DATA:
         return getResultData();
+      case ResultsPackage.RESULT_REPORT__ISSUE:
+        return getIssue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -453,6 +483,10 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
       case ResultsPackage.RESULT_REPORT__RESULT_DATA:
         setResultData((ResultData)newValue);
         return;
+      case ResultsPackage.RESULT_REPORT__ISSUE:
+        getIssue().clear();
+        getIssue().addAll((Collection<? extends ReportIssue>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -488,6 +522,9 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
       case ResultsPackage.RESULT_REPORT__RESULT_DATA:
         setResultData((ResultData)null);
         return;
+      case ResultsPackage.RESULT_REPORT__ISSUE:
+        getIssue().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -516,6 +553,8 @@ public class ResultReportImpl extends MinimalEObjectImpl.Container implements Re
         return content != null && !content.isEmpty();
       case ResultsPackage.RESULT_REPORT__RESULT_DATA:
         return resultData != null;
+      case ResultsPackage.RESULT_REPORT__ISSUE:
+        return issue != null && !issue.isEmpty();
     }
     return super.eIsSet(featureID);
   }

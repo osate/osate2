@@ -12,7 +12,7 @@ ResultReport:
 	('heading' heading=STRING
 	content+=ResultReportEntry*)?
 	('data' resultData=ResultData)?
-//	'issues' issue+=ReportIssue*
+	('issues' issue+=ReportIssue*)?
 	']'
 ;
 

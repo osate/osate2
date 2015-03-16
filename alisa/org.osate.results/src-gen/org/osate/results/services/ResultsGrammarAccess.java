@@ -47,20 +47,22 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDataKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
 		private final Assignment cResultDataAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
 		private final RuleCall cResultDataResultDataParserRuleCall_8_1_0 = (RuleCall)cResultDataAssignment_8_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
+		private final Keyword cIssuesKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Assignment cIssueAssignment_9_1 = (Assignment)cGroup_9.eContents().get(1);
+		private final RuleCall cIssueReportIssueParserRuleCall_9_1_0 = (RuleCall)cIssueAssignment_9_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//// Collection of reports for an instance model (root), e.g., for colelction of end to end flows
 		//ResultReport:
 		//	"report" name=ID (":" title=STRING)? "[" "root" root= // system instance or other root object
 		//	[ecore::EObject|URIID] ("description" decription=STRING)? ("heading" heading=STRING content+=ResultReportEntry*)?
-		//	("data" resultData=ResultData)? //	'issues' issue+=ReportIssue*
-		//	"]";
+		//	("data" resultData=ResultData)? ("issues" issue+=ReportIssue*)? "]";
 		public ParserRule getRule() { return rule; }
 
 		//"report" name=ID (":" title=STRING)? "[" "root" root= // system instance or other root object
 		//[ecore::EObject|URIID] ("description" decription=STRING)? ("heading" heading=STRING content+=ResultReportEntry*)?
-		//("data" resultData=ResultData)? //	'issues' issue+=ReportIssue*
-		//"]"
+		//("data" resultData=ResultData)? ("issues" issue+=ReportIssue*)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"report"
@@ -143,9 +145,20 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//ResultData
 		public RuleCall getResultDataResultDataParserRuleCall_8_1_0() { return cResultDataResultDataParserRuleCall_8_1_0; }
 
-		////	'issues' issue+=ReportIssue*
+		//("issues" issue+=ReportIssue*)?
+		public Group getGroup_9() { return cGroup_9; }
+
+		//"issues"
+		public Keyword getIssuesKeyword_9_0() { return cIssuesKeyword_9_0; }
+
+		//issue+=ReportIssue*
+		public Assignment getIssueAssignment_9_1() { return cIssueAssignment_9_1; }
+
+		//ReportIssue
+		public RuleCall getIssueReportIssueParserRuleCall_9_1_0() { return cIssueReportIssueParserRuleCall_9_1_0; }
+
 		//"]"
-		public Keyword getRightSquareBracketKeyword_9() { return cRightSquareBracketKeyword_9; }
+		public Keyword getRightSquareBracketKeyword_10() { return cRightSquareBracketKeyword_10; }
 	}
 
 	public class ResultReportEntryElements extends AbstractParserRuleElementFinder {
@@ -598,8 +611,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//ResultReport:
 	//	"report" name=ID (":" title=STRING)? "[" "root" root= // system instance or other root object
 	//	[ecore::EObject|URIID] ("description" decription=STRING)? ("heading" heading=STRING content+=ResultReportEntry*)?
-	//	("data" resultData=ResultData)? //	'issues' issue+=ReportIssue*
-	//	"]";
+	//	("data" resultData=ResultData)? ("issues" issue+=ReportIssue*)? "]";
 	public ResultReportElements getResultReportAccess() {
 		return pResultReport;
 	}

@@ -155,7 +155,8 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         root=[EObject|URIID] 
 	 *         decription=STRING? 
 	 *         (heading=STRING content+=ResultReportEntry*)? 
-	 *         resultData=ResultData?
+	 *         resultData=ResultData? 
+	 *         issue+=ReportIssue*
 	 *     )
 	 */
 	protected void sequence_ResultReport(EObject context, ResultReport semanticObject) {

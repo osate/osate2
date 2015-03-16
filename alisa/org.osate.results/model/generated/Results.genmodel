@@ -21,6 +21,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/heading"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/content"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/resultData"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/issue"/>
     </genClasses>
     <genClasses ecoreClass="Results.ecore#//ResultReportEntry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReportEntry/name"/>

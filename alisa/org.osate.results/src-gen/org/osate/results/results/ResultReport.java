@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.results.results.ResultReport#getHeading <em>Heading</em>}</li>
  *   <li>{@link org.osate.results.results.ResultReport#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.results.results.ResultReport#getResultData <em>Result Data</em>}</li>
+ *   <li>{@link org.osate.results.results.ResultReport#getIssue <em>Issue</em>}</li>
  * </ul>
  * </p>
  *
@@ -201,5 +202,21 @@ public interface ResultReport extends EObject
    * @generated
    */
   void setResultData(ResultData value);
+
+  /**
+   * Returns the value of the '<em><b>Issue</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.results.results.ReportIssue}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Issue</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Issue</em>' containment reference list.
+   * @see org.osate.results.results.ResultsPackage#getResultReport_Issue()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ReportIssue> getIssue();
 
 } // ResultReport

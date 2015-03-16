@@ -225,6 +225,16 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getResultReport_Issue()
+  {
+    return (EReference)resultReportEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getResultReportEntry()
   {
     return resultReportEntryEClass;
@@ -498,6 +508,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     createEAttribute(resultReportEClass, RESULT_REPORT__HEADING);
     createEReference(resultReportEClass, RESULT_REPORT__CONTENT);
     createEReference(resultReportEClass, RESULT_REPORT__RESULT_DATA);
+    createEReference(resultReportEClass, RESULT_REPORT__ISSUE);
 
     resultReportEntryEClass = createEClass(RESULT_REPORT_ENTRY);
     createEAttribute(resultReportEntryEClass, RESULT_REPORT_ENTRY__NAME);
@@ -570,6 +581,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     initEAttribute(getResultReport_Heading(), ecorePackage.getEString(), "heading", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultReport_Content(), this.getResultReportEntry(), null, "content", null, 0, -1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultReport_ResultData(), this.getResultData(), null, "resultData", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultReport_Issue(), this.getReportIssue(), null, "issue", null, 0, -1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(resultReportEntryEClass, ResultReportEntry.class, "ResultReportEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getResultReportEntry_Name(), ecorePackage.getEString(), "name", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

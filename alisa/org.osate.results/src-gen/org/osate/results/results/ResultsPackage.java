@@ -131,13 +131,22 @@ public interface ResultsPackage extends EPackage
   int RESULT_REPORT__RESULT_DATA = 6;
 
   /**
+   * The feature id for the '<em><b>Issue</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESULT_REPORT__ISSUE = 7;
+
+  /**
    * The number of structural features of the '<em>Result Report</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESULT_REPORT_FEATURE_COUNT = 7;
+  int RESULT_REPORT_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link org.osate.results.results.impl.ResultReportEntryImpl <em>Result Report Entry</em>}' class.
@@ -495,6 +504,17 @@ public interface ResultsPackage extends EPackage
   EReference getResultReport_ResultData();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.results.results.ResultReport#getIssue <em>Issue</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Issue</em>'.
+   * @see org.osate.results.results.ResultReport#getIssue()
+   * @see #getResultReport()
+   * @generated
+   */
+  EReference getResultReport_Issue();
+
+  /**
    * Returns the meta object for class '{@link org.osate.results.results.ResultReportEntry <em>Result Report Entry</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -840,6 +860,14 @@ public interface ResultsPackage extends EPackage
      * @generated
      */
     EReference RESULT_REPORT__RESULT_DATA = eINSTANCE.getResultReport_ResultData();
+
+    /**
+     * The meta object literal for the '<em><b>Issue</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RESULT_REPORT__ISSUE = eINSTANCE.getResultReport_Issue();
 
     /**
      * The meta object literal for the '{@link org.osate.results.results.impl.ResultReportEntryImpl <em>Result Report Entry</em>}' class.

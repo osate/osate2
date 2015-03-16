@@ -21,6 +21,7 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_ResultContributor_IssuesKeyword_4_0_q;
 	protected AbstractElementAlias match_ResultContributor___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
 	protected AbstractElementAlias match_ResultReportEntry_IssuesKeyword_9_0_q;
+	protected AbstractElementAlias match_ResultReport_IssuesKeyword_9_0_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -28,6 +29,7 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_ResultContributor_IssuesKeyword_4_0_q = new TokenAlias(false, true, grammarAccess.getResultContributorAccess().getIssuesKeyword_4_0());
 		match_ResultContributor___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultContributorAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultContributorAccess().getRightSquareBracketKeyword_5_2()));
 		match_ResultReportEntry_IssuesKeyword_9_0_q = new TokenAlias(false, true, grammarAccess.getResultReportEntryAccess().getIssuesKeyword_9_0());
+		match_ResultReport_IssuesKeyword_9_0_q = new TokenAlias(false, true, grammarAccess.getResultReportAccess().getIssuesKeyword_9_0());
 	}
 	
 	@Override
@@ -48,6 +50,8 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_ResultContributor___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ResultReportEntry_IssuesKeyword_9_0_q.equals(syntax))
 				emit_ResultReportEntry_IssuesKeyword_9_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ResultReport_IssuesKeyword_9_0_q.equals(syntax))
+				emit_ResultReport_IssuesKeyword_9_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -73,6 +77,14 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'issues'?
 	 */
 	protected void emit_ResultReportEntry_IssuesKeyword_9_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     'issues'?
+	 */
+	protected void emit_ResultReport_IssuesKeyword_9_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
