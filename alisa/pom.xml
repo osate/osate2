@@ -117,7 +117,6 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<executionEnvironment>JavaSE-1.7</executionEnvironment>
 					<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
 					<resolver>p2</resolver>
 				</configuration>
@@ -145,20 +144,6 @@
 						</jgit.ignore>
 					</configuration>
 				</plugin>
-<!--
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-p2-plugin</artifactId>
-					<version>${tycho.version}</version>
-					<configuration>
-						<baselineRepositories>
-							<repository>
-								<url>http://rolo.ssdlab.sei.cmu.edu/alisa/updates/</url>
-							</repository>
-						</baselineRepositories>
-					</configuration>
-				</plugin>
--->
 			</plugins>
 		</pluginManagement>
 	</build>
