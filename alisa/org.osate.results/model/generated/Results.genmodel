@@ -13,30 +13,27 @@
       <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/SUCCESS"/>
       <genEnumLiterals ecoreEnumLiteral="Results.ecore#//ReportIssueType/INFO"/>
     </genEnums>
+    <genClasses ecoreClass="Results.ecore#//ResultReports">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReports/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReports/title"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReports/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReports/decription"/>
+    </genClasses>
+    <genClasses ecoreClass="Results.ecore#//ResultReportCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReportCollection/content"/>
+    </genClasses>
     <genClasses ecoreClass="Results.ecore#//ResultReport">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/title"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/root"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/decription"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReport/heading"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/content"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/resultData"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReport/issue"/>
     </genClasses>
-    <genClasses ecoreClass="Results.ecore#//ResultReportEntry">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReportEntry/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReportEntry/title"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReportEntry/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReportEntry/decription"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultReportEntry/heading"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReportEntry/resultData"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReportEntry/issue"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultReportEntry/row"/>
+    <genClasses ecoreClass="Results.ecore#//IssuesReport"/>
+    <genClasses ecoreClass="Results.ecore#//ResultIssueHolder">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultIssueHolder/issues"/>
     </genClasses>
     <genClasses ecoreClass="Results.ecore#//ResultContributor">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Results.ecore#//ResultContributor/contributor"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultContributor/cell"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultContributor/issue"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultContributor/subcontributor"/>
     </genClasses>
     <genClasses ecoreClass="Results.ecore#//ReportIssue">
@@ -45,11 +42,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Results.ecore#//ReportIssue/target"/>
     </genClasses>
     <genClasses ecoreClass="Results.ecore#//ResultData">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultData/data"/>
-    </genClasses>
-    <genClasses ecoreClass="Results.ecore#//NameValuePair">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//NameValuePair/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//NameValuePair/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultData/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultData/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

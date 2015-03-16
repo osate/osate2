@@ -65,12 +65,14 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
   {
     switch (eClass.getClassifierID())
     {
+      case ResultsPackage.RESULT_REPORTS: return createResultReports();
+      case ResultsPackage.RESULT_REPORT_COLLECTION: return createResultReportCollection();
       case ResultsPackage.RESULT_REPORT: return createResultReport();
-      case ResultsPackage.RESULT_REPORT_ENTRY: return createResultReportEntry();
+      case ResultsPackage.ISSUES_REPORT: return createIssuesReport();
+      case ResultsPackage.RESULT_ISSUE_HOLDER: return createResultIssueHolder();
       case ResultsPackage.RESULT_CONTRIBUTOR: return createResultContributor();
       case ResultsPackage.REPORT_ISSUE: return createReportIssue();
       case ResultsPackage.RESULT_DATA: return createResultData();
-      case ResultsPackage.NAME_VALUE_PAIR: return createNameValuePair();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -115,6 +117,28 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ResultReports createResultReports()
+  {
+    ResultReportsImpl resultReports = new ResultReportsImpl();
+    return resultReports;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultReportCollection createResultReportCollection()
+  {
+    ResultReportCollectionImpl resultReportCollection = new ResultReportCollectionImpl();
+    return resultReportCollection;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ResultReport createResultReport()
   {
     ResultReportImpl resultReport = new ResultReportImpl();
@@ -126,10 +150,21 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ResultReportEntry createResultReportEntry()
+  public IssuesReport createIssuesReport()
   {
-    ResultReportEntryImpl resultReportEntry = new ResultReportEntryImpl();
-    return resultReportEntry;
+    IssuesReportImpl issuesReport = new IssuesReportImpl();
+    return issuesReport;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ResultIssueHolder createResultIssueHolder()
+  {
+    ResultIssueHolderImpl resultIssueHolder = new ResultIssueHolderImpl();
+    return resultIssueHolder;
   }
 
   /**
@@ -163,17 +198,6 @@ public class ResultsFactoryImpl extends EFactoryImpl implements ResultsFactory
   {
     ResultDataImpl resultData = new ResultDataImpl();
     return resultData;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NameValuePair createNameValuePair()
-  {
-    NameValuePairImpl nameValuePair = new NameValuePairImpl();
-    return nameValuePair;
   }
 
   /**

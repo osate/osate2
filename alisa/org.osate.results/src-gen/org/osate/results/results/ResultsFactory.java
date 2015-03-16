@@ -23,6 +23,24 @@ public interface ResultsFactory extends EFactory
   ResultsFactory eINSTANCE = org.osate.results.results.impl.ResultsFactoryImpl.init();
 
   /**
+   * Returns a new object of class '<em>Result Reports</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result Reports</em>'.
+   * @generated
+   */
+  ResultReports createResultReports();
+
+  /**
+   * Returns a new object of class '<em>Result Report Collection</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result Report Collection</em>'.
+   * @generated
+   */
+  ResultReportCollection createResultReportCollection();
+
+  /**
    * Returns a new object of class '<em>Result Report</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -32,13 +50,22 @@ public interface ResultsFactory extends EFactory
   ResultReport createResultReport();
 
   /**
-   * Returns a new object of class '<em>Result Report Entry</em>'.
+   * Returns a new object of class '<em>Issues Report</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Result Report Entry</em>'.
+   * @return a new object of class '<em>Issues Report</em>'.
    * @generated
    */
-  ResultReportEntry createResultReportEntry();
+  IssuesReport createIssuesReport();
+
+  /**
+   * Returns a new object of class '<em>Result Issue Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Result Issue Holder</em>'.
+   * @generated
+   */
+  ResultIssueHolder createResultIssueHolder();
 
   /**
    * Returns a new object of class '<em>Result Contributor</em>'.
@@ -66,15 +93,6 @@ public interface ResultsFactory extends EFactory
    * @generated
    */
   ResultData createResultData();
-
-  /**
-   * Returns a new object of class '<em>Name Value Pair</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Name Value Pair</em>'.
-   * @generated
-   */
-  NameValuePair createNameValuePair();
 
   /**
    * Returns the package supported by this factory.

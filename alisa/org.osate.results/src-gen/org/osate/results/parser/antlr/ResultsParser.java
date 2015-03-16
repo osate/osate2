@@ -25,7 +25,7 @@ public class ResultsParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrP
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "ResultReport";
+		return "ResultReports";
 	}
 	
 	public ResultsGrammarAccess getGrammarAccess() {

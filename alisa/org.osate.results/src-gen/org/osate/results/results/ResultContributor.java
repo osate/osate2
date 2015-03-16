@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.osate.results.results.ResultContributor#getContributor <em>Contributor</em>}</li>
  *   <li>{@link org.osate.results.results.ResultContributor#getCell <em>Cell</em>}</li>
- *   <li>{@link org.osate.results.results.ResultContributor#getIssue <em>Issue</em>}</li>
  *   <li>{@link org.osate.results.results.ResultContributor#getSubcontributor <em>Subcontributor</em>}</li>
  * </ul>
  * </p>
@@ -25,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ResultContributor extends EObject
+public interface ResultContributor extends ResultIssueHolder
 {
   /**
    * Returns the value of the '<em><b>Contributor</b></em>' reference.
@@ -68,22 +67,6 @@ public interface ResultContributor extends EObject
    * @generated
    */
   EList<String> getCell();
-
-  /**
-   * Returns the value of the '<em><b>Issue</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.results.results.ReportIssue}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Issue</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Issue</em>' containment reference list.
-   * @see org.osate.results.results.ResultsPackage#getResultContributor_Issue()
-   * @model containment="true"
-   * @generated
-   */
-  EList<ReportIssue> getIssue();
 
   /**
    * Returns the value of the '<em><b>Subcontributor</b></em>' containment reference list.

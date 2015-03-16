@@ -10,13 +10,15 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.osate.results.results.NameValuePair;
+import org.osate.results.results.IssuesReport;
 import org.osate.results.results.ReportIssue;
 import org.osate.results.results.ReportIssueType;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
+import org.osate.results.results.ResultIssueHolder;
 import org.osate.results.results.ResultReport;
-import org.osate.results.results.ResultReportEntry;
+import org.osate.results.results.ResultReportCollection;
+import org.osate.results.results.ResultReports;
 import org.osate.results.results.ResultsFactory;
 import org.osate.results.results.ResultsPackage;
 
@@ -33,6 +35,20 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass resultReportsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass resultReportCollectionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass resultReportEClass = null;
 
   /**
@@ -40,7 +56,14 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass resultReportEntryEClass = null;
+  private EClass issuesReportEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass resultIssueHolderEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -62,13 +85,6 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * @generated
    */
   private EClass resultDataEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass nameValuePairEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -145,6 +161,76 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getResultReports()
+  {
+    return resultReportsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getResultReports_Name()
+  {
+    return (EAttribute)resultReportsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getResultReports_Title()
+  {
+    return (EAttribute)resultReportsEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getResultReports_Target()
+  {
+    return (EReference)resultReportsEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getResultReports_Decription()
+  {
+    return (EAttribute)resultReportsEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getResultReportCollection()
+  {
+    return resultReportCollectionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getResultReportCollection_Content()
+  {
+    return (EReference)resultReportCollectionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getResultReport()
   {
     return resultReportEClass;
@@ -155,7 +241,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultReport_Name()
+  public EAttribute getResultReport_Heading()
   {
     return (EAttribute)resultReportEClass.getEStructuralFeatures().get(0);
   }
@@ -165,49 +251,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultReport_Title()
-  {
-    return (EAttribute)resultReportEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getResultReport_Root()
-  {
-    return (EReference)resultReportEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getResultReport_Decription()
-  {
-    return (EAttribute)resultReportEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getResultReport_Heading()
-  {
-    return (EAttribute)resultReportEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getResultReport_Content()
   {
-    return (EReference)resultReportEClass.getEStructuralFeatures().get(5);
+    return (EReference)resultReportEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -217,7 +263,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    */
   public EReference getResultReport_ResultData()
   {
-    return (EReference)resultReportEClass.getEStructuralFeatures().get(6);
+    return (EReference)resultReportEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -225,9 +271,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getResultReport_Issue()
+  public EClass getIssuesReport()
   {
-    return (EReference)resultReportEClass.getEStructuralFeatures().get(7);
+    return issuesReportEClass;
   }
 
   /**
@@ -235,9 +281,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getResultReportEntry()
+  public EClass getResultIssueHolder()
   {
-    return resultReportEntryEClass;
+    return resultIssueHolderEClass;
   }
 
   /**
@@ -245,79 +291,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultReportEntry_Name()
+  public EReference getResultIssueHolder_Issues()
   {
-    return (EAttribute)resultReportEntryEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getResultReportEntry_Title()
-  {
-    return (EAttribute)resultReportEntryEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getResultReportEntry_Target()
-  {
-    return (EReference)resultReportEntryEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getResultReportEntry_Decription()
-  {
-    return (EAttribute)resultReportEntryEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getResultReportEntry_Heading()
-  {
-    return (EAttribute)resultReportEntryEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getResultReportEntry_ResultData()
-  {
-    return (EReference)resultReportEntryEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getResultReportEntry_Issue()
-  {
-    return (EReference)resultReportEntryEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getResultReportEntry_Row()
-  {
-    return (EReference)resultReportEntryEClass.getEStructuralFeatures().get(7);
+    return (EReference)resultIssueHolderEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -355,19 +331,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getResultContributor_Issue()
-  {
-    return (EReference)resultContributorEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getResultContributor_Subcontributor()
   {
-    return (EReference)resultContributorEClass.getEStructuralFeatures().get(3);
+    return (EReference)resultContributorEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -425,9 +391,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getResultData_Data()
+  public EAttribute getResultData_Name()
   {
-    return (EReference)resultDataEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)resultDataEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -435,29 +401,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getNameValuePair()
+  public EAttribute getResultData_Value()
   {
-    return nameValuePairEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getNameValuePair_Name()
-  {
-    return (EAttribute)nameValuePairEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getNameValuePair_Value()
-  {
-    return (EAttribute)nameValuePairEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)resultDataEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -500,30 +446,28 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     isCreated = true;
 
     // Create classes and their features
+    resultReportsEClass = createEClass(RESULT_REPORTS);
+    createEAttribute(resultReportsEClass, RESULT_REPORTS__NAME);
+    createEAttribute(resultReportsEClass, RESULT_REPORTS__TITLE);
+    createEReference(resultReportsEClass, RESULT_REPORTS__TARGET);
+    createEAttribute(resultReportsEClass, RESULT_REPORTS__DECRIPTION);
+
+    resultReportCollectionEClass = createEClass(RESULT_REPORT_COLLECTION);
+    createEReference(resultReportCollectionEClass, RESULT_REPORT_COLLECTION__CONTENT);
+
     resultReportEClass = createEClass(RESULT_REPORT);
-    createEAttribute(resultReportEClass, RESULT_REPORT__NAME);
-    createEAttribute(resultReportEClass, RESULT_REPORT__TITLE);
-    createEReference(resultReportEClass, RESULT_REPORT__ROOT);
-    createEAttribute(resultReportEClass, RESULT_REPORT__DECRIPTION);
     createEAttribute(resultReportEClass, RESULT_REPORT__HEADING);
     createEReference(resultReportEClass, RESULT_REPORT__CONTENT);
     createEReference(resultReportEClass, RESULT_REPORT__RESULT_DATA);
-    createEReference(resultReportEClass, RESULT_REPORT__ISSUE);
 
-    resultReportEntryEClass = createEClass(RESULT_REPORT_ENTRY);
-    createEAttribute(resultReportEntryEClass, RESULT_REPORT_ENTRY__NAME);
-    createEAttribute(resultReportEntryEClass, RESULT_REPORT_ENTRY__TITLE);
-    createEReference(resultReportEntryEClass, RESULT_REPORT_ENTRY__TARGET);
-    createEAttribute(resultReportEntryEClass, RESULT_REPORT_ENTRY__DECRIPTION);
-    createEAttribute(resultReportEntryEClass, RESULT_REPORT_ENTRY__HEADING);
-    createEReference(resultReportEntryEClass, RESULT_REPORT_ENTRY__RESULT_DATA);
-    createEReference(resultReportEntryEClass, RESULT_REPORT_ENTRY__ISSUE);
-    createEReference(resultReportEntryEClass, RESULT_REPORT_ENTRY__ROW);
+    issuesReportEClass = createEClass(ISSUES_REPORT);
+
+    resultIssueHolderEClass = createEClass(RESULT_ISSUE_HOLDER);
+    createEReference(resultIssueHolderEClass, RESULT_ISSUE_HOLDER__ISSUES);
 
     resultContributorEClass = createEClass(RESULT_CONTRIBUTOR);
     createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__CONTRIBUTOR);
     createEAttribute(resultContributorEClass, RESULT_CONTRIBUTOR__CELL);
-    createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__ISSUE);
     createEReference(resultContributorEClass, RESULT_CONTRIBUTOR__SUBCONTRIBUTOR);
 
     reportIssueEClass = createEClass(REPORT_ISSUE);
@@ -532,11 +476,8 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     createEReference(reportIssueEClass, REPORT_ISSUE__TARGET);
 
     resultDataEClass = createEClass(RESULT_DATA);
-    createEReference(resultDataEClass, RESULT_DATA__DATA);
-
-    nameValuePairEClass = createEClass(NAME_VALUE_PAIR);
-    createEAttribute(nameValuePairEClass, NAME_VALUE_PAIR__NAME);
-    createEAttribute(nameValuePairEClass, NAME_VALUE_PAIR__VALUE);
+    createEAttribute(resultDataEClass, RESULT_DATA__NAME);
+    createEAttribute(resultDataEClass, RESULT_DATA__VALUE);
 
     // Create enums
     reportIssueTypeEEnum = createEEnum(REPORT_ISSUE_TYPE);
@@ -571,32 +512,35 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    resultReportsEClass.getESuperTypes().add(this.getResultIssueHolder());
+    resultReportCollectionEClass.getESuperTypes().add(this.getResultReports());
+    resultReportEClass.getESuperTypes().add(this.getResultReports());
+    issuesReportEClass.getESuperTypes().add(this.getResultReports());
+    resultContributorEClass.getESuperTypes().add(this.getResultIssueHolder());
 
     // Initialize classes and features; add operations and parameters
-    initEClass(resultReportEClass, ResultReport.class, "ResultReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getResultReport_Name(), ecorePackage.getEString(), "name", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultReport_Title(), ecorePackage.getEString(), "title", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReport_Root(), ecorePackage.getEObject(), null, "root", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultReport_Decription(), ecorePackage.getEString(), "decription", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultReport_Heading(), ecorePackage.getEString(), "heading", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReport_Content(), this.getResultReportEntry(), null, "content", null, 0, -1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReport_ResultData(), this.getResultData(), null, "resultData", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReport_Issue(), this.getReportIssue(), null, "issue", null, 0, -1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(resultReportsEClass, ResultReports.class, "ResultReports", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getResultReports_Name(), ecorePackage.getEString(), "name", null, 0, 1, ResultReports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultReports_Title(), ecorePackage.getEString(), "title", null, 0, 1, ResultReports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultReports_Target(), ecorePackage.getEObject(), null, "target", null, 0, 1, ResultReports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultReports_Decription(), ecorePackage.getEString(), "decription", null, 0, 1, ResultReports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(resultReportEntryEClass, ResultReportEntry.class, "ResultReportEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getResultReportEntry_Name(), ecorePackage.getEString(), "name", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultReportEntry_Title(), ecorePackage.getEString(), "title", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReportEntry_Target(), ecorePackage.getEObject(), null, "target", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultReportEntry_Decription(), ecorePackage.getEString(), "decription", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultReportEntry_Heading(), ecorePackage.getEString(), "heading", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReportEntry_ResultData(), this.getResultData(), null, "resultData", null, 0, 1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReportEntry_Issue(), this.getReportIssue(), null, "issue", null, 0, -1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultReportEntry_Row(), this.getResultContributor(), null, "row", null, 0, -1, ResultReportEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(resultReportCollectionEClass, ResultReportCollection.class, "ResultReportCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getResultReportCollection_Content(), this.getResultReport(), null, "content", null, 0, -1, ResultReportCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(resultReportEClass, ResultReport.class, "ResultReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getResultReport_Heading(), ecorePackage.getEString(), "heading", null, 0, 1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultReport_Content(), this.getResultContributor(), null, "content", null, 0, -1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultReport_ResultData(), this.getResultData(), null, "resultData", null, 0, -1, ResultReport.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(issuesReportEClass, IssuesReport.class, "IssuesReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(resultIssueHolderEClass, ResultIssueHolder.class, "ResultIssueHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getResultIssueHolder_Issues(), this.getReportIssue(), null, "issues", null, 0, -1, ResultIssueHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(resultContributorEClass, ResultContributor.class, "ResultContributor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getResultContributor_Contributor(), ecorePackage.getEObject(), null, "contributor", null, 0, 1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResultContributor_Cell(), ecorePackage.getEString(), "cell", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResultContributor_Issue(), this.getReportIssue(), null, "issue", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResultContributor_Subcontributor(), this.getResultContributor(), null, "subcontributor", null, 0, -1, ResultContributor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(reportIssueEClass, ReportIssue.class, "ReportIssue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -605,11 +549,8 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     initEReference(getReportIssue_Target(), ecorePackage.getEObject(), null, "target", null, 0, 1, ReportIssue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(resultDataEClass, ResultData.class, "ResultData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getResultData_Data(), this.getNameValuePair(), null, "data", null, 0, -1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(nameValuePairEClass, NameValuePair.class, "NameValuePair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getNameValuePair_Name(), ecorePackage.getEString(), "name", null, 0, 1, NameValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getNameValuePair_Value(), ecorePackage.getEString(), "value", null, 0, 1, NameValuePair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultData_Name(), ecorePackage.getEString(), "name", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResultData_Value(), ecorePackage.getEString(), "value", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(reportIssueTypeEEnum, ReportIssueType.class, "ReportIssueType");

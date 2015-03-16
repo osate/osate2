@@ -13,12 +13,12 @@ import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEOb
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
-import org.osate.results.results.NameValuePair;
+import org.osate.results.results.IssuesReport;
 import org.osate.results.results.ReportIssue;
 import org.osate.results.results.ResultContributor;
 import org.osate.results.results.ResultData;
 import org.osate.results.results.ResultReport;
-import org.osate.results.results.ResultReportEntry;
+import org.osate.results.results.ResultReportCollection;
 import org.osate.results.results.ResultsPackage;
 import org.osate.results.services.ResultsGrammarAccess;
 
@@ -30,9 +30,11 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == ResultsPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case ResultsPackage.NAME_VALUE_PAIR:
-				if(context == grammarAccess.getNameValuePairRule()) {
-					sequence_NameValuePair(context, (NameValuePair) semanticObject); 
+			case ResultsPackage.ISSUES_REPORT:
+				if(context == grammarAccess.getIssuesReportRule() ||
+				   context == grammarAccess.getResultIssueHolderRule() ||
+				   context == grammarAccess.getResultReportsRule()) {
+					sequence_IssuesReport(context, (IssuesReport) semanticObject); 
 					return; 
 				}
 				else break;
@@ -43,7 +45,8 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 				}
 				else break;
 			case ResultsPackage.RESULT_CONTRIBUTOR:
-				if(context == grammarAccess.getResultContributorRule()) {
+				if(context == grammarAccess.getResultContributorRule() ||
+				   context == grammarAccess.getResultIssueHolderRule()) {
 					sequence_ResultContributor(context, (ResultContributor) semanticObject); 
 					return; 
 				}
@@ -55,14 +58,18 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 				}
 				else break;
 			case ResultsPackage.RESULT_REPORT:
-				if(context == grammarAccess.getResultReportRule()) {
+				if(context == grammarAccess.getResultIssueHolderRule() ||
+				   context == grammarAccess.getResultReportRule() ||
+				   context == grammarAccess.getResultReportsRule()) {
 					sequence_ResultReport(context, (ResultReport) semanticObject); 
 					return; 
 				}
 				else break;
-			case ResultsPackage.RESULT_REPORT_ENTRY:
-				if(context == grammarAccess.getResultReportEntryRule()) {
-					sequence_ResultReportEntry(context, (ResultReportEntry) semanticObject); 
+			case ResultsPackage.RESULT_REPORT_COLLECTION:
+				if(context == grammarAccess.getResultIssueHolderRule() ||
+				   context == grammarAccess.getResultReportCollectionRule() ||
+				   context == grammarAccess.getResultReportsRule()) {
+					sequence_ResultReportCollection(context, (ResultReportCollection) semanticObject); 
 					return; 
 				}
 				else break;
@@ -72,20 +79,10 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Constraint:
-	 *     (name=ID value=STRING)
+	 *     (name=ID title=STRING? target=[EObject|URIID] decription=STRING? issues+=ReportIssue*)
 	 */
-	protected void sequence_NameValuePair(EObject context, NameValuePair semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.NAME_VALUE_PAIR__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.NAME_VALUE_PAIR__NAME));
-			if(transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.NAME_VALUE_PAIR__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.NAME_VALUE_PAIR__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getNameValuePairAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getNameValuePairAccess().getValueSTRINGTerminalRuleCall_2_0(), semanticObject.getValue());
-		feeder.finish();
+	protected void sequence_IssuesReport(EObject context, IssuesReport semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -113,7 +110,7 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Constraint:
-	 *     (contributor=[EObject|URIID] cell+=STRING+ issue+=ReportIssue* subcontributor+=ResultContributor*)
+	 *     (contributor=[EObject|URIID] cell+=STRING+ issues+=ReportIssue* subcontributor+=ResultContributor*)
 	 */
 	protected void sequence_ResultContributor(EObject context, ResultContributor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -122,9 +119,35 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Constraint:
-	 *     data+=NameValuePair+
+	 *     (name=ID value=STRING)
 	 */
 	protected void sequence_ResultData(EObject context, ResultData semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.RESULT_DATA__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.RESULT_DATA__NAME));
+			if(transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.RESULT_DATA__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.RESULT_DATA__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getResultDataAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getResultDataAccess().getValueSTRINGTerminalRuleCall_2_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         title=STRING? 
+	 *         target=[EObject|URIID] 
+	 *         decription=STRING? 
+	 *         content+=ResultReport* 
+	 *         issues+=ReportIssue*
+	 *     )
+	 */
+	protected void sequence_ResultReportCollection(EObject context, ResultReportCollection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -136,27 +159,9 @@ public class ResultsSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *         title=STRING? 
 	 *         target=[EObject|URIID] 
 	 *         decription=STRING? 
-	 *         heading=STRING? 
-	 *         resultData=ResultData? 
-	 *         issue+=ReportIssue* 
-	 *         row+=ResultContributor*
-	 *     )
-	 */
-	protected void sequence_ResultReportEntry(EObject context, ResultReportEntry semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         title=STRING? 
-	 *         root=[EObject|URIID] 
-	 *         decription=STRING? 
-	 *         (heading=STRING content+=ResultReportEntry*)? 
-	 *         resultData=ResultData? 
-	 *         issue+=ReportIssue*
+	 *         (heading=STRING content+=ResultContributor*)? 
+	 *         resultData+=ResultData* 
+	 *         issues+=ReportIssue*
 	 *     )
 	 */
 	protected void sequence_ResultReport(EObject context, ResultReport semanticObject) {
