@@ -16,6 +16,7 @@
 		<osate.version>2.0.9</osate.version>
 		<luna-sr1a.url>http://download.eclipse.org/releases/luna/201501121000</luna-sr1a.url>
 		<luna-sr2.url>http://download.eclipse.org/releases/luna/201502271000</luna-sr2.url>
+		<xtext.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/maintenance/R201411190455</xtext.url>
 	</properties>
 
 	<profiles>
@@ -32,6 +33,11 @@
 					<url>${luna-sr1a.url}</url>
 					<layout>p2</layout>
 				</repository>
+				<repository>
+					<id>xtext</id>
+					<url>${xtext.url}</url>
+					<layout>p2</layout>
+				</repository>
 			</repositories>
 		</profile>
 		<profile>
@@ -45,6 +51,11 @@
 				<repository>
 					<id>luna-sr2</id>
 					<url>${luna-sr2.url}</url>
+					<layout>p2</layout>
+				</repository>
+				<repository>
+					<id>xtext</id>
+					<url>${xtext.url}</url>
 					<layout>p2</layout>
 				</repository>
 			</repositories>
