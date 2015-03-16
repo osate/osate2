@@ -186,7 +186,7 @@
 						<jgit.ignore>
 							pom.xml
 							org.osate.branding/plugin.properties
-							org.osate.branding/about.mapping
+							org.osate.branding/about.mappings
 						</jgit.ignore>
 					</configuration>
 				</plugin>
