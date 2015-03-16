@@ -45,7 +45,7 @@
 			<repositories>
 				<repository>
 					<id>osate-testing</id>
-					<url>http://www.aadl.info/aadl/osate/testing/update-site/</url>
+					<url>http://aadl.sei.cmu.edu/aadl/osate/testing/update-site/</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
