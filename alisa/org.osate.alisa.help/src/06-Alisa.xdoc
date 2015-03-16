@@ -57,11 +57,12 @@ it represents the uncertainty in the argument.
 
 code[Alisa][
 uncertainty \[
+volatility <number>
 costImpact <number>
 scheduleImpact <number>
 familiarity <number>
 riskIndex <number>
-propRiskIndex <number>
+proportionalRiskIndex <number>
 maturityIndex <number>
 \]
 ]
@@ -69,7 +70,7 @@ maturityIndex <number>
 e[Number] can be an real or integer.
 
 ul[
-item[e[volatility (mandatory):] A ratio attribute representing the engineer‘s best judgment as to the probability the contractual element will change throughout the course of the project.]
+item[e[volatility (mandatory):] A ratio attribute representing the engineer's best judgment as to the probability the contractual element will change throughout the course of the project.]
 item[e[costImpact (mandatory):] A positive factor attribute representing an impact factor on the development cost if this contractual element changes. The factor multiplied by the original cost shall yield the new cost.]
 item[e[scheduleImpact (mandatory):] A positive factor attribute representing an impact factor on the development schedule if this contractual element changes. The factor multiplied by the original development time duration shall yield the new duration.]
 item[e[familiarity (mandatory):] A ratio attribute representing the experience in providing solution for this contractual element. Experience has shown that a brand new element (familiarity = 0.0) will undergo a lot of evolutions and this must be taken into account.]

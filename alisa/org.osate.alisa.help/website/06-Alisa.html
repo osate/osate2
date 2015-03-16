@@ -94,30 +94,28 @@
 						&lt;AlisaWorkArea&gt;&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">alisa</span>&nbsp;workareaname<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;AssurancePlan&gt;&nbsp;|&nbsp;&lt;AssuranceTask&gt;&nbsp;)*<br/>
-						<br/>
 						&lt;AssurancePlan&gt;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assurance</span>&nbsp;<span class="keyword">plan</span>&nbsp;name=ID&nbsp;(&nbsp;:&nbsp;<span class="string">"short&nbsp;descriptive&nbsp;title"</span>)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;&lt;ComponentImplementationReferene&gt;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;&lt;VerificationPlanReference&gt;+<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assume</span>&nbsp;&lt;AssurancePlanReference&gt;+<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
+						<span class="keyword">assert</span>&nbsp;&lt;VerificationPlanReference&gt;+<br/>
+						<span class="keyword">assume</span>&nbsp;&lt;AssurancePlanReference&gt;+<br/>
+						&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-						<br/>
 						&lt;AssuranceTask&gt;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assurance</span>&nbsp;<span class="keyword">task</span>&nbsp;name=ID&nbsp;(&nbsp;:&nbsp;<span class="string">"short&nbsp;descriptive&nbsp;title"</span>)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">of</span>&nbsp;&lt;AssurancePlanReference&gt;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">filter</span>&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;(&nbsp;<span class="keyword">requirements</span>&nbsp;&lt;RequirementCategory&gt;+&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">verifications</span>&nbsp;&lt;VerificationCategory&gt;+&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">selections</span>&nbsp;&lt;SelectionCategory&gt;+&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">claims</span>&nbsp;&lt;ClaimReference&gt;+&nbsp;)&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
+						(&nbsp;<span class="keyword">filter</span>&nbsp;<br/>
+						(&nbsp;(&nbsp;<span class="keyword">requirements</span>&nbsp;&lt;RequirementCategory&gt;+&nbsp;)?<br/>
+						&nbsp;&nbsp;(&nbsp;<span class="keyword">verifications</span>&nbsp;&lt;VerificationCategory&gt;+&nbsp;)?<br/>
+						&nbsp;&nbsp;(&nbsp;<span class="keyword">selections</span>&nbsp;&lt;SelectionCategory&gt;+&nbsp;)?<br/>
+						)&nbsp;<br/>
+						|&nbsp;<br/>
+						&nbsp;&nbsp;<span class="keyword">claims</span>&nbsp;&lt;ClaimReference&gt;+&nbsp;)&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]
 					</p>
 				</div>
@@ -143,11 +141,12 @@
 				<div class="incode">
 					<p class="code">
 						<span class="keyword">uncertainty</span>&nbsp;[<br/>
+						<span class="keyword">volatility</span>&nbsp;&lt;number&gt;<br/>
 						<span class="keyword">costImpact</span>&nbsp;&lt;number&gt;<br/>
 						<span class="keyword">scheduleImpact</span>&nbsp;&lt;number&gt;<br/>
 						<span class="keyword">familiarity</span>&nbsp;&lt;number&gt;<br/>
 						<span class="keyword">riskIndex</span>&nbsp;&lt;number&gt;<br/>
-						<span class="keyword">propRiskIndex</span>&nbsp;&lt;number&gt;<br/>
+						<span class="keyword">proportionalRiskIndex</span>&nbsp;&lt;number&gt;<br/>
 						<span class="keyword">maturityIndex</span>&nbsp;&lt;number&gt;<br/>
 						]
 					</p>
@@ -159,7 +158,7 @@
 			</p>
 			<p>
 			<ul>
-			  <li><em>volatility (mandatory):</em> A ratio attribute representing the engineer&#65533;s best judgment as to the probability the contractual element will change throughout the course of the project.</li>
+			  <li><em>volatility (mandatory):</em> A ratio attribute representing the engineer's best judgment as to the probability the contractual element will change throughout the course of the project.</li>
 			  <li><em>costImpact (mandatory):</em> A positive factor attribute representing an impact factor on the development cost if this contractual element changes. The factor multiplied by the original cost shall yield the new cost.</li>
 			  <li><em>scheduleImpact (mandatory):</em> A positive factor attribute representing an impact factor on the development schedule if this contractual element changes. The factor multiplied by the original development time duration shall yield the new duration.</li>
 			  <li><em>familiarity (mandatory):</em> A ratio attribute representing the experience in providing solution for this contractual element. Experience has shown that a brand new element (familiarity = 0.0) will undergo a lot of evolutions and this must be taken into account.</li>

@@ -55,7 +55,8 @@ codelanguage-def[Assure]
 codelanguage-def[Alisa]
 [
 	alisa,plan,issues,requirements, verifications, claims,selections,for,description,rationale, filter,constants,  assurance, of, task, assume, assert, verified,
-	scheduleImpact, uncertainty, costImpact, familiarity, maturityIndex, timeCriticality, riskIndex, propRiskIndex
+	scheduleImpact, uncertainty, costImpact, familiarity, maturityIndex, timeCriticality, riskIndex, proportionalRiskIndex,
+	volatility
 ]
 
 
