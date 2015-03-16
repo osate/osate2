@@ -39,7 +39,7 @@
 			<repositories>
 				<repository>
 					<id>osate-testing</id>
-					<url>http://www.aadl.info/aadl/osate/stable/testing/update-site/</url>
+					<url>http://www.aadl.info/aadl/osate/testing/update-site/</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
