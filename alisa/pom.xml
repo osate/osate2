@@ -16,11 +16,12 @@
 		<osate.version>2.0.9</osate.version>
 		<luna-sr1a.url>http://download.eclipse.org/releases/luna/201501121000</luna-sr1a.url>
 		<luna-sr2.url>http://download.eclipse.org/releases/luna/201502271000</luna-sr2.url>
+		<xtext.url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/maintenance/R201411190455</xtext.url>
 	</properties>
 
 	<profiles>
 		<profile>
-			<id>stable</id>
+			<id>osate2.stable</id>
 			<repositories>
 				<repository>
 					<id>osate-stable</id>
@@ -32,10 +33,15 @@
 					<url>${luna-sr1a.url}</url>
 					<layout>p2</layout>
 				</repository>
+				<repository>
+					<id>xtext</id>
+					<url>${xtext.url}</url>
+					<layout>p2</layout>
+				</repository>
 			</repositories>
 		</profile>
 		<profile>
-			<id>nightly</id>
+			<id>osate2.testing</id>
 			<repositories>
 				<repository>
 					<id>osate-testing</id>
@@ -45,6 +51,11 @@
 				<repository>
 					<id>luna-sr2</id>
 					<url>${luna-sr2.url}</url>
+					<layout>p2</layout>
+				</repository>
+				<repository>
+					<id>xtext</id>
+					<url>${xtext.url}</url>
 					<layout>p2</layout>
 				</repository>
 			</repositories>
@@ -117,7 +128,6 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<executionEnvironment>JavaSE-1.7</executionEnvironment>
 					<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
 					<resolver>p2</resolver>
 				</configuration>
@@ -140,19 +150,9 @@
 						<timestampProvider>jgit</timestampProvider>
 						<format>'v'yyyyMMdd-HHmm</format>
 						<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
-						<jgit.ignore>pom.xml</jgit.ignore>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-p2-plugin</artifactId>
-					<version>${tycho.version}</version>
-					<configuration>
-						<baselineRepositories>
-							<repository>
-								<url>http://rolo.ssdlab.sei.cmu.edu/alisa/updates/</url>
-							</repository>
-						</baselineRepositories>
+						<jgit.ignore>
+							pom.xml
+						</jgit.ignore>
 					</configuration>
 				</plugin>
 			</plugins>

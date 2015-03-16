@@ -35,23 +35,16 @@
 		<module>../org.osate.units</module>
 		<module>../org.osate.verify</module>
 		<module>../org.osate.verify.ui</module>
+
+		<module>../org.osate.alisa.common.tests</module>
+		<module>../org.osate.alisa.workbench.tests</module>
+		<module>../org.osate.assure.tests</module>
+		<module>../org.osate.categories.tests</module>
+		<module>../org.osate.organization.tests</module>
+		<module>../org.osate.reqspec.tests</module>
+		<module>../org.osate.results.tests</module>
+		<module>../org.osate.units.test</module>
+		<module>../org.osate.verify.tests</module>
 	</modules>
 
-	<profiles>
-		<profile>
-			<id>test</id>
-			<modules>
-				<module>org.osate.alisa.common.tests</module>
-				<module>org.osate.alisa.workbench.tests</module>
-				<module>org.osate.assure.tests</module>
-				<module>org.osate.categories.tests</module>
-				<module>org.osate.organization.tests</module>
-				<module>org.osate.reqspec.tests</module>
-				<module>org.osate.results.tests</module>
-				<module>org.osate.units.test</module>
-				<module>org.osate.verify.tests</module>
-			</modules>
-		</profile>
-	</profiles>
-	
 </project>
