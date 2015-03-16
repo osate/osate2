@@ -39,7 +39,7 @@
 			<repositories>
 				<repository>
 					<id>osate-testing</id>
-					<url>http://www.aadl.info/aadl/osate/stable/testing/update-site/</url>
+					<url>http://www.aadl.info/aadl/osate/testing/update-site/</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
@@ -140,9 +140,12 @@
 						<timestampProvider>jgit</timestampProvider>
 						<format>'v'yyyyMMdd-HHmm</format>
 						<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
-						<jgit.ignore>pom.xml</jgit.ignore>
+						<jgit.ignore>
+							pom.xml
+						</jgit.ignore>
 					</configuration>
 				</plugin>
+<!--
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>tycho-p2-plugin</artifactId>
@@ -155,6 +158,7 @@
 						</baselineRepositories>
 					</configuration>
 				</plugin>
+-->
 			</plugins>
 		</pluginManagement>
 	</build>
