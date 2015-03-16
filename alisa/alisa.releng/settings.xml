@@ -11,7 +11,7 @@
       <protocol>http</protocol>
       <host>proxy.sei.cmu.edu</host>
       <port>8080</port>
-      <nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
+      <nonProxyHosts>localhost|*.sei.cmu.edu|aadl.info</nonProxyHosts>
     </proxy>
   </proxies>
 
