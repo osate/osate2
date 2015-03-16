@@ -25,7 +25,7 @@
 			<repositories>
 				<repository>
 					<id>osate-stable</id>
-					<url>http://www.aadl.info/aadl/osate/stable/${osate.version}/update-site/</url>
+					<url>http://aadl.sei.cmu.edu/aadl/osate/stable/${osate.version}/update-site/</url>
 					<layout>p2</layout>
 				</repository>
 				<repository>
