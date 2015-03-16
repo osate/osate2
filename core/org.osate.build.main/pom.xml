@@ -183,7 +183,11 @@
 						<timestampProvider>jgit</timestampProvider>
 						<format>'v'yyyyMMdd-HHmm</format>
 						<jgit.dirtyWorkingTree>error</jgit.dirtyWorkingTree>
-						<jgit.ignore>pom.xml</jgit.ignore>
+						<jgit.ignore>
+							pom.xml
+							org.osate.branding/plugin.properties
+							org.osate.branding/about.mapping
+						</jgit.ignore>
 					</configuration>
 				</plugin>
 <!-- 				<plugin>
