@@ -41,7 +41,7 @@
 			</repositories>
 		</profile>
 		<profile>
-			<id>osaste2.testing</id>
+			<id>osate2.testing</id>
 			<repositories>
 				<repository>
 					<id>osate-testing</id>
