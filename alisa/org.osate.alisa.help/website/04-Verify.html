@@ -106,11 +106,11 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">plan</span>&nbsp;myplan&nbsp;(&nbsp;:&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;MyPackage::GPSSystem<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-						(&nbsp;<span class="keyword">description</span>&nbsp;<span class="string">"Verification&nbsp;plan&nbsp;for&nbsp;a&nbsp;second&nbsp;line"</span>&nbsp;)?&nbsp;<br/>
-						&lt;Claim&gt;*<br/>
-						(&nbsp;<span class="keyword">rationale</span>&nbsp;&lt;String&gt;&nbsp;)?<br/>
-						(&nbsp;<span class="keyword">assume</span>&nbsp;&lt;VerificationPlan&gt;+&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;<span class="string">"Verification&nbsp;plan&nbsp;for&nbsp;a&nbsp;second&nbsp;line"</span>&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Claim&gt;*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;&lt;String&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">assume</span>&nbsp;&lt;VerificationPlan&gt;+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]
 					</p>
 				</div>
@@ -138,11 +138,11 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="string">&apos;(&apos;</span>&nbsp;&lt;claimweight&gt;&nbsp;<span class="string">&apos;)&apos;</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;&lt;requirement&nbsp;reference&gt;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-						(&nbsp;<span class="keyword">assert</span>&nbsp;&lt;ArgumentExpression&gt;<br/>
-						(&nbsp;<span class="keyword">argument</span>&nbsp;&lt;String&gt;&nbsp;&lt;Uncertainty&gt;&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;&lt;String&gt;&nbsp;)?<br/>
-						(&nbsp;&lt;Claim&gt;&nbsp;)*&nbsp;&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">assert</span>&nbsp;&lt;ArgumentExpression&gt;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">argument</span>&nbsp;&lt;String&gt;&nbsp;&lt;Uncertainty&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;&lt;String&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;Claim&gt;&nbsp;)*&nbsp;&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]
 					</p>
 				</div>
@@ -163,13 +163,13 @@
 				<div class="incode">
 					<p class="code">
 						&lt;ArgumentExpr&gt;&nbsp;::=<br/>
-						<span class="keyword">all</span>&nbsp;[&nbsp;&lt;ArgumentExpr&gt;+&nbsp;]&nbsp;|<br/>
-						&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">failthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
-						&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">unknownthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
-						&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">andthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
-						&lt;ConditionalEvidence&gt;&nbsp;<br/>
-						(&nbsp;&lt;ArgumentExpr&gt;&nbsp;)<br/>
-						<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">all</span>&nbsp;[&nbsp;&lt;ArgumentExpr&gt;+&nbsp;]&nbsp;|<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">failthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">unknownthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ArgumentExpr&gt;&nbsp;<span class="keyword">andthen</span>&nbsp;&lt;ArgumentExpr&gt;&nbsp;|<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ConditionalEvidence&gt;&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;ArgumentExpr&gt;&nbsp;)<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
 						ConditionalEvidence&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;verificationActivity1&nbsp;(&nbsp;<span class="string">&apos;(&apos;</span>&nbsp;0.8&nbsp;<span class="string">&apos;)&apos;</span>&nbsp;)?&nbsp;(&nbsp;<span class="keyword">when</span>&nbsp;&lt;sectioncategoryreference&gt;+&nbsp;)?
 					</p>
@@ -223,23 +223,25 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">library</span>&nbsp;libraryname&nbsp;(&nbsp;:&nbsp;&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;mypackage::myGPS&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-						(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-						(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+						<br/>
 						&lt;VerificationFolder&gt;&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">folder</span>&nbsp;foldername<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-						(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;VerificationActivity&gt;&nbsp;|&nbsp;&nbsp;&lt;VerificationFolder&gt;&nbsp;)*<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;];<br/>
+						<br/>
 						<br/>
 						&lt;VerificationActivity&gt;&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">activity</span>&nbsp;activityname&nbsp;(&nbsp;:&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;&lt;requirementreference&gt;&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-						(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
-						<span class="keyword">method</span>&nbsp;&lt;VerificationMethodReference&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;ComputeVariable&nbsp;Reference&gt;&nbsp;)?<br/>
-						(&nbsp;<span class="keyword">timeout</span>&nbsp;&nbsp;&lt;integer&gt;&nbsp;)?<br/>
-						(&nbsp;<span class="keyword">rationale</span>&nbsp;<span class="string">"explanation"</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;&lt;VerificationMethodReference&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;ComputeVariable&nbsp;Reference&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">timeout</span>&nbsp;&nbsp;&lt;integer&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;<span class="string">"explanation"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]
 					</p>
 				</div>
@@ -262,42 +264,47 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">registry</span>&nbsp;registryname<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-						(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
-						&lt;VerificationMethod&gt;+<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;VerificationMethod&gt;+<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+						<br/>
 						&lt;VerificationMethod&gt;&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;methodname&nbsp;(&nbsp;:&nbsp;&nbsp;<span class="string">"descriptive&nbsp;title"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;&lt;requirementreference&gt;&nbsp;)?&nbsp;&nbsp;&nbsp;&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-						&lt;MethodType&gt;&nbsp;&nbsp;&lt;MethodScope&gt;&nbsp;(&nbsp;&lt;MethodReporting&gt;&nbsp;)?<br/>
-						<span class="keyword">path</span>&nbsp;<span class="string">"my.pack.myclass.mymethod"</span><br/>
-						(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
-						(&nbsp;<span class="keyword">category</span>&nbsp;&lt;VerificationCategory&gt;&nbsp;)?<br/>
-						(&nbsp;VerificationValidation&nbsp;|&nbsp;VerificationPrecondition)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;MethodType&gt;&nbsp;&nbsp;&lt;MethodScope&gt;&nbsp;(&nbsp;&lt;MethodReporting&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">path</span>&nbsp;<span class="string">"my.pack.myclass.mymethod"</span><br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">category</span>&nbsp;&lt;VerificationCategory&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;VerificationValidation&nbsp;|&nbsp;VerificationPrecondition)*<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+						<br/>
 						VerificationValidation&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">validation</span>&nbsp;myname<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<span class="string">"title"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;(<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-						&nbsp;<span class="keyword">method</span>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;<span class="string">"rationale&nbsp;description"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;)<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+						<br/>
 						<br/>
 						VerificationPrecondition&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">precondition</span>&nbsp;myname<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;<span class="string">"title"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-						&nbsp;<span class="keyword">method</span>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">method</span>&nbsp;&lt;qualified&nbsp;methodname&gt;&nbsp;(&nbsp;<span class="keyword">as</span>&nbsp;&lt;computer&nbsp;variable&gt;&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">rationale</span>&nbsp;<span class="string">"rationale&nbsp;description"</span>&nbsp;)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
 						<br/>
-						<span class="keyword">enum</span>&nbsp;MethodTypes::=&nbsp;analysis&nbsp;|&nbsp;predicate&nbsp;|&nbsp;compute&nbsp;|&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resoluteprove&nbsp;|&nbsp;resolutecompute&nbsp;|&nbsp;resolutepredicate&nbsp;|&nbsp;manual<br/>
 						<br/>
+						<span class="keyword">enum</span>&nbsp;MethodTypes::=&nbsp;analysis&nbsp;|&nbsp;predicate&nbsp;|&nbsp;compute&nbsp;|&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resoluteprove&nbsp;|&nbsp;resolutecompute&nbsp;|&nbsp;resolutepredicate&nbsp;|&nbsp;manual<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<br/>
 						<span class="keyword">enum</span>&nbsp;MethodScope::=&nbsp;self&nbsp;|&nbsp;parts&nbsp;|&nbsp;<span class="keyword">all</span>&nbsp;<br/>
+						<br/>
 						<span class="keyword">enum</span>&nbsp;MethodReporting::=&nbsp;marker|&nbsp;errormarker&nbsp;|&nbsp;diagnostics&nbsp;|&nbsp;assertexception&nbsp;|&nbsp;resultreport
 					</p>
 				</div>
@@ -409,8 +416,9 @@
 						&lt;SelectionCategories&gt;&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">selection</span>&nbsp;<span class="keyword">categories</span>&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
-						&lt;SelectionCategory&gt;+<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SelectionCategory&gt;+<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+						<br/>
 						&lt;SelectionCategory&gt;&nbsp;:<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;phase1&nbsp;(&nbsp;<span class="keyword">extends</span>&nbsp;phase&nbsp;)?
 					</p>
