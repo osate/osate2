@@ -3,11 +3,10 @@
  */
 package org.osate.organization.formatting
 
+import com.google.inject.Inject
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter
 import org.eclipse.xtext.formatting.impl.FormattingConfig
- import com.google.inject.Inject;
- import org.osate.organization.services.OrganizationGrammarAccess
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout
+import org.osate.organization.services.OrganizationGrammarAccess
 
 /**
  * This class contains custom formatting description.

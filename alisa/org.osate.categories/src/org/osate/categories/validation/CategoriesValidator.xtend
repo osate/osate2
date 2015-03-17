@@ -9,13 +9,6 @@ import org.eclipse.xtext.validation.Check
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.Category
 import org.osate.categories.util.CategoriesUtil
-import org.eclipse.xtext.naming.IQualifiedNameProvider
-import java.util.List
-import org.eclipse.xtext.resource.IEObjectDescription
-import java.util.Stack
-import java.util.Collections
-import com.google.common.collect.Lists
-import org.eclipse.emf.ecore.EObject
 
 //import org.eclipse.xtext.validation.Check
 /**

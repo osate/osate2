@@ -27,12 +27,12 @@ class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		var result = IScope.NULLSCOPE
 		val req = context.requirement
 		val ReqSpecs reqspecs = containingReqSpecs(req)
-		if (!reqspecs?.computes?.empty) {
+		if (!reqspecs.computes.isEmpty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(reqspecs.computes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 		}
-		if (!req.computes?.empty) {
+		if (!req.computes.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(req.computes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)

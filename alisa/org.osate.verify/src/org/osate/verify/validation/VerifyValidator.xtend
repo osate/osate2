@@ -3,13 +3,11 @@
  */
 package org.osate.verify.validation
 
-import org.osate.verify.verify.VerificationMethod
-
 import org.eclipse.xtext.validation.Check
-import org.osate.verify.verify.VerifyPackage
-import com.google.common.base.Preconditions
-import org.osate.verify.verify.VerificationCondition
 import org.osate.verify.verify.VerificationActivity
+import org.osate.verify.verify.VerificationCondition
+import org.osate.verify.verify.VerificationMethod
+import org.osate.verify.verify.VerifyPackage
 
 /**
  * Custom validation rules. 

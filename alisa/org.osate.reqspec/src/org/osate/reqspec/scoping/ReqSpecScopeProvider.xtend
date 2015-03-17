@@ -9,14 +9,12 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
-import org.osate.alisa.common.common.ShowValue
+import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.common.scoping.AlisaAbstractDeclarativeScopeProvider
 import org.osate.reqspec.reqSpec.ContractualElement
+import org.osate.reqspec.reqSpec.Requirement
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.reqSpec.Goal
-import org.osate.aadl2.ComponentImplementation
 
 /**
  * This class contains custom scoping description.

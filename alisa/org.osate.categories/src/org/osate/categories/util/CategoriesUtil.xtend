@@ -1,14 +1,13 @@
 package org.osate.categories.util
 
-import org.osate.categories.categories.Category
 import org.osate.categories.categories.Categories
+import org.osate.categories.categories.Category
 import org.osate.categories.categories.RequirementCategories
-import org.osate.categories.categories.VerificationCategories
 import org.osate.categories.categories.RequirementCategory
-import org.osate.categories.categories.VerificationCategory
-import org.eclipse.emf.ecore.EObject
 import org.osate.categories.categories.SelectionCategories
 import org.osate.categories.categories.SelectionCategory
+import org.osate.categories.categories.VerificationCategories
+import org.osate.categories.categories.VerificationCategory
 
 class CategoriesUtil {
 	
