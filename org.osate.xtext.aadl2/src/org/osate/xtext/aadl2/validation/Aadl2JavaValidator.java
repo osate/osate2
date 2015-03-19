@@ -37,6 +37,7 @@ package org.osate.xtext.aadl2.validation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -53,6 +54,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -82,6 +84,7 @@ import com.google.inject.Inject;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS = "org.osate.xtext.aadl2.mismatched_beginning_and_ending_identifiers";
+	public static final String DUPLICATE_COMPONENT_TYPE_NAME = "org.osate.xtext.aadl2.duplicate_component_type_names";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -1175,6 +1178,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return nodes;
 	}
 
+	private INode findFirstNodeWithString(ICompositeNode cNode, String searchFor) {
+		INode result = null;
+		BidiIterable<INode> iterable = cNode.getChildren();
+		Iterator<INode> iter = iterable.iterator();
+		while (iter.hasNext()) {
+			INode iterNode = iter.next();
+			if (iterNode instanceof HiddenLeafNode) {
+				continue;
+			} else if (iterNode instanceof LeafNode) {
+				if (iterNode.getText().indexOf(searchFor) > -1)
+					return iterNode;
+			} else if (iterNode instanceof CompositeNode) {
+				result = findFirstNodeWithString((CompositeNode) iterNode, searchFor);
+				if (null != result)
+					return result;
+			}
+		}
+		return result;
+	}
+
 	private void checkFlowPathElements(FlowImplementation flowimplementation) {
 
 		if (!flowimplementation.getKind().equals(FlowKind.PATH)) {
@@ -1767,11 +1790,116 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		l.addAll(type.getAllModes());
 		l.addAll(type.getAllModeTransitions());
 		l.addAll(type.getAllPrototypes());
+		// l needs sorted by number of extensions
+		Collections.sort(l, new Comparator<NamedElement>() {
+			@Override
+			public int compare(NamedElement a, NamedElement b) {
+				int aExtendCount = -1;
+				Classifier aExtended = a.getContainingClassifier();
+				while (null != aExtended) {
+					aExtendCount++;
+					aExtended = aExtended.getExtended();
+				}
+				int bExtendCount = -1;
+				Classifier bExtended = b.getContainingClassifier();
+				while (null != bExtended) {
+					bExtendCount++;
+					bExtended = bExtended.getExtended();
+				}
+				return aExtendCount - bExtendCount;
+			}
+		});
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
-				error(ne, ne.eClass().getName() + " identifier '" + ne.getName()
-						+ "' previously defined. Maybe you forgot 'refined to'");
+				if (type.getOwnedElements().isEmpty() || !type.getOwnedElements().contains(ne)) {
+					continue;
+				}
+				if (ne instanceof Mode || ne instanceof ModeTransition) {
+					error(ne, ne.eClass().getName() + " identifier '" + ne.getName() + "' previously defined.");
+				} else if (ne instanceof FlowSpecification) {
+					error(ne, ne.eClass().getName() + " identifier '" + ne.getName()
+							+ "' previously defined. Maybe you forgot 'refined to'");
+				} else {
+					NamedElement duplicated = null;
+					Classifier classifier = ne.getContainingClassifier();
+					EList<Element> oe = classifier.getOwnedElements();
+					if (null != oe) {
+						List<NamedElement> dupesInClassifier = new ArrayList<NamedElement>();
+						for (Element ownedElement : oe) {
+							if (ownedElement instanceof NamedElement
+									&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+								dupesInClassifier.add((NamedElement) ownedElement);
+							}
+						}
+						if (dupesInClassifier.size() > 1) {
+							for (NamedElement dupeNe : dupesInClassifier) {
+								error(dupeNe,
+										"Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
+							}
+							continue;
+						}
+					}
+					Classifier extended = classifier.getExtended();
+					List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
+					while (null != extended) {
+						EList<Element> ownedElements = extended.getOwnedElements();
+						if (null != ownedElements) {
+							for (Element ownedElement : ownedElements) {
+								if (ownedElement instanceof NamedElement
+										&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+									extendedClassifiers.add(extended);
+								}
+							}
+						}
+						extended = extended.getExtended();
+					}
+					if (extendedClassifiers.size() < 1) {
+						continue;
+					}
+					duplicated = extendedClassifiers.get(0).findNamedElement(ne.getName());
+					if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature) || (duplicated instanceof AbstractPrototype && ne instanceof Prototype)) && !ne
+							.eClass().equals(duplicated.eClass()))
+							|| ((duplicated instanceof AbstractFeature && ne instanceof Prototype) || (duplicated instanceof Prototype & ne instanceof AbstractFeature))) {
+						error(ne, duplicated.eClass().getName() + " identifier '" + ne.getName()
+								+ "' previously defined in " + duplicated.getContainingClassifier().getName());
+					} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
+							.getRefined() != null))
+							|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
+									.getRefined() != null))) {
+						continue;
+					} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
+							.getRefined() == null))
+							|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
+									.getRefined() == null))) {
+						continue;
+					} else {
+						ICompositeNode n = NodeModelUtils.getNode(ne);
+						INode cn = findFirstNodeWithString(n, ":");
+						INode nextNode = cn.getNextSibling();
+						String leadingSpace = "";
+						String trailingSpace = " ";
+						if (nextNode instanceof LeafNode && nextNode.getText().substring(0, 1).equals(" ")) {
+							leadingSpace = " ";
+							trailingSpace = "";
+						} else {
+							while (nextNode instanceof CompositeNode) {
+								nextNode = ((CompositeNode) nextNode).getFirstChild();
+								if (nextNode instanceof LeafNode
+										&& ((LeafNode) nextNode).getText().substring(0, 1).equals(" ")) {
+									leadingSpace = " ";
+									trailingSpace = "";
+								}
+							}
+						}
+						String cnOffset = "" + cn.getTotalOffset();
+						String replacementVal = ":" + leadingSpace + "refined to" + trailingSpace;
+						error(ne.eClass().getName() + " identifier '" + ne.getName() + "' previously defined in "
+								+ duplicated.getContainingClassifier().getName() + ". Maybe you forgot 'refined to'",
+								ne, Aadl2Package.eINSTANCE.getNamedElement_Name(), DUPLICATE_COMPONENT_TYPE_NAME,
+								ne.getName(), cnOffset, replacementVal);
+					}
+				}
 			}
 		}
 	}
@@ -1808,6 +1936,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(usedNames);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
+
 				error(impl,
 						"Identifier '" + ne.getName() + "' has previously been defined in implementation '"
 								+ impl.getQualifiedName() + "' or in type '" + impl.getTypeName() + "'");
@@ -1823,11 +1952,109 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		EList<NamedElement> l = new BasicEList<NamedElement>();
 		l.addAll(type.getAllFeatures());
 		l.addAll(type.getAllPrototypes());
+		Collections.sort(l, new Comparator<NamedElement>() {
+			@Override
+			public int compare(NamedElement a, NamedElement b) {
+				int aExtendCount = -1;
+				Classifier aExtended = a.getContainingClassifier();
+				while (null != aExtended) {
+					aExtendCount++;
+					aExtended = aExtended.getExtended();
+				}
+				int bExtendCount = -1;
+				Classifier bExtended = b.getContainingClassifier();
+				while (null != bExtended) {
+					bExtendCount++;
+					bExtended = bExtended.getExtended();
+				}
+				return aExtendCount - bExtendCount;
+			}
+		});
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
-				error(ne, ne.eClass().getName() + " identifier '" + ne.getName()
-						+ "' previously defined. Maybe you forgot 'refined to'");
+				if (type.getOwnedElements().isEmpty() || !type.getOwnedElements().contains(ne)) {
+					continue;
+				}
+				NamedElement duplicated = null;
+				Classifier classifier = ne.getContainingClassifier();
+				EList<Element> oe = classifier.getOwnedElements();
+				if (null != oe) {
+					List<NamedElement> dupesInClassifier = new ArrayList<NamedElement>();
+					for (Element ownedElement : oe) {
+						if (ownedElement instanceof NamedElement
+								&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+							dupesInClassifier.add((NamedElement) ownedElement);
+						}
+					}
+					if (dupesInClassifier.size() > 1) {
+						for (NamedElement dupeNe : dupesInClassifier) {
+							error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
+						}
+						continue;
+					}
+				}
+				Classifier extended = classifier.getExtended();
+				List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
+				while (null != extended) {
+					EList<Element> ownedElements = extended.getOwnedElements();
+					if (null != ownedElements) {
+						for (Element ownedElement : ownedElements) {
+							if (ownedElement instanceof NamedElement
+									&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+								extendedClassifiers.add(extended);
+							}
+						}
+					}
+					extended = extended.getExtended();
+				}
+
+				if (extendedClassifiers.size() < 1) {
+					continue;
+				}
+
+				duplicated = extendedClassifiers.get(0).findNamedElement(ne.getName());
+				if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature) || (duplicated instanceof AbstractPrototype && ne instanceof Prototype)) && !ne
+						.eClass().equals(duplicated.eClass()))
+						|| ((duplicated instanceof AbstractFeature && ne instanceof Prototype) || (duplicated instanceof Prototype & ne instanceof AbstractFeature))) {
+					error(ne, duplicated.eClass().getName() + " identifier '" + ne.getName()
+							+ "' previously defined in " + duplicated.getContainingClassifier().getName());
+				} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
+						.getRefined() != null))
+						|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
+								.getRefined() != null))) {
+					continue;
+				} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
+						.getRefined() == null))
+						|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
+								.getRefined() == null))) {
+					continue;
+				} else {
+					ICompositeNode n = NodeModelUtils.getNode(ne);
+					INode cn = findFirstNodeWithString(n, ":");
+					INode nextNode = cn.getNextSibling();
+					String leadingSpace = "";
+					String trailingSpace = " ";
+					if (nextNode instanceof LeafNode && nextNode.getText().substring(0, 1).equals(" ")) {
+						leadingSpace = " ";
+						trailingSpace = "";
+					} else {
+						while (nextNode instanceof CompositeNode) {
+							nextNode = ((CompositeNode) nextNode).getFirstChild();
+							if (nextNode instanceof LeafNode
+									&& ((LeafNode) nextNode).getText().substring(0, 1).equals(" ")) {
+								leadingSpace = " ";
+								trailingSpace = "";
+							}
+						}
+					}
+					String cnOffset = "" + cn.getTotalOffset();
+					String replacementVal = ":" + leadingSpace + "refined to" + trailingSpace;
+					error(ne.eClass().getName() + " identifier '" + ne.getName() + "' previously defined in "
+							+ duplicated.getContainingClassifier().getName() + ". Maybe you forgot 'refined to'", ne,
+							Aadl2Package.eINSTANCE.getNamedElement_Name(), DUPLICATE_COMPONENT_TYPE_NAME, ne.getName(),
+							cnOffset, replacementVal);
+				}
 			}
 		}
 	}
@@ -6697,4 +6924,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		return false;
 	}
+
+	static public void applyTest(EObject element, List<String> data) throws Exception {
+		ResourceSet resourceSet = element.eResource().getResourceSet();
+
+		NamedElement duplicated = (NamedElement) resourceSet.getEObject(URI.createURI(data.get(1)), true);
+
+//		((DataPort) element).setOut(true);
+//		((DataPort) element).setIn(false);
+		((Feature) element).setName(null);
+		((Feature) element).setRefined((Feature) duplicated);
+		java.lang.System.out.println(((Feature) element).getRefined());
+	}
+
 }

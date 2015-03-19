@@ -42,16 +42,18 @@ import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
+import org.osate.aadl2.BusType
+import org.osate.aadl2.ComponentType
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.SubprogramImplementation
+import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.UnitsType
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
-import org.osate.aadl2.BusType
-import org.osate.aadl2.FeatureGroupType
-import org.osate.aadl2.SystemImplementation
 
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
@@ -1153,6 +1155,228 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 		]
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
-
 	}
+	
+	//Tests validation of ComponentType Features and Prototypes including where refinement is used 
+	@Test
+	def void testCheckComponentTypeUniqueNames() {
+		createFiles("testtypeuniquenames.aadl" -> '''
+					package testtypeuniquenames
+					public
+						system s1
+							prototypes
+								dp7: in feature;
+								dp12: in feature;
+							features
+								af1: feature;
+								dp2: in data port;
+								dp3: in data port;
+								dp4: feature;
+								dp5: feature;
+								dp6: in event port;
+								dp10: in data port;
+								dp11: in data port;
+								dp13: in data port;
+							flows
+								fsource1: flow source af1;
+							modes
+								m1 : mode;
+						end s1;
+						system s2 extends s1
+							prototypes
+								dp1: in feature;
+								dp7: in feature;
+								dp11: feature;
+							features
+								dp1: in feature;
+								dp2: in data port;
+								dp3: refined to in data port;
+								dp4: in data port;
+								dp5: refined to in data port;
+								dp6: in data port;
+								dp12: in data port;
+								dp13: refined to in data port;
+							flows
+								fsource1: flow source af1;
+							modes
+								m1 : mode;
+						end s2;
+						system s3 extends s2
+						end s3;
+						system s4 extends s3
+							features
+								dp3: in data port;
+								dp13: refined to in data port;
+								dp10: in data port;
+						end s4;
+					end testtypeuniquenames;
+					''')
+		suppressSerialization
+		val testFileResult = testFile("testtypeuniquenames.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testtypeuniquenames".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as ComponentType => [
+				"s2".assertEquals(name)
+				ownedPrototypes.head => [
+					"dp1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dp1' in s2")
+				]
+				ownedPrototypes.get(1) => [
+					"dp7".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FeaturePrototype identifier 'dp7' previously defined in s1. Maybe you forgot 'refined to'")
+				]
+				ownedPrototypes.get(2) => [
+					"dp11".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp11' previously defined in s1")
+				]
+				ownedModes.head => [
+					"m1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Mode identifier 'm1' previously defined.")
+				]
+				ownedFlowSpecifications.head => [
+					"fsource1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FlowSpecification identifier 'fsource1' previously defined. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.head => [
+					"dp1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dp1' in s2")
+				]
+				ownedFeatures.get(1) => [
+					"dp2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp2' previously defined in s1. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(3) => [
+					"dp4".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp4' previously defined in s1. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(5) => [
+					"dp6".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "EventPort identifier 'dp6' previously defined in s1")
+				]
+				ownedFeatures.get(6) => [
+					"dp12".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FeaturePrototype identifier 'dp12' previously defined in s1")
+				]
+			]
+			
+			publicSection.ownedClassifiers.get(3) as ComponentType => [
+				"s4".assertEquals(name)
+				ownedFeatures.head => [
+					"dp3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp3' previously defined in s2. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(2) => [
+					"dp10".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp10' previously defined in s1. Maybe you forgot 'refined to'")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of ComponentType Features and Prototypes including where refinement is used 
+	@Test
+	def void testCheckFeatureGroupTypeUniqueNames() {
+		createFiles("testfguniquenames.aadl" -> '''
+						package testfguniquenames
+						public
+							feature group fg1
+								prototypes
+									af11: feature;
+									dp12: in feature;
+								features
+									dp2: in data port;
+									dp3: in data port;
+									dp4: feature;
+									dp5: feature;
+									dp6: in event port;
+									dp10: in data port;
+									dp11: feature;
+									dp13: in data port;
+							end fg1;
+							feature group fg2 extends fg1
+								prototypes
+									af11: feature;
+									dp11: feature;
+								features
+									dp1: in data port;
+									dp1: in data port;
+									dp2: in data port ;
+									dp3: refined to in data port;
+									dp4: in data port;
+									dp5: refined to in data port;
+									dp6: in data port;
+									dp12: in data port;
+									dp13: refined to in data port;
+							end fg2;
+							feature group fg3 extends fg2
+							end fg3;
+							feature group fg4 extends fg3
+						 		features
+						 			dp3: in data port;
+						 			dp10: in data port;
+							end fg4;
+						end testfguniquenames;
+					''')
+		suppressSerialization
+		val testFileResult = testFile("testfguniquenames.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testfguniquenames".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as FeatureGroupType => [
+				"fg2".assertEquals(name)
+				ownedPrototypes.head => [
+					"af11".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FeaturePrototype identifier 'af11' previously defined in fg1. Maybe you forgot 'refined to'")
+				]
+				ownedPrototypes.get(1) => [
+					"dp11".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "AbstractFeature identifier 'dp11' previously defined in fg1")
+				]
+				ownedFeatures.head => [
+					"dp1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dp1' in fg2")
+				]
+				ownedFeatures.get(1) => [
+					"dp1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dp1' in fg2")
+				]
+				ownedFeatures.get(2) => [
+					"dp2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp2' previously defined in fg1. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(4) => [
+					"dp4".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp4' previously defined in fg1. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(6) => [
+					"dp6".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "EventPort identifier 'dp6' previously defined in fg1")
+				]
+				ownedFeatures.get(7) => [
+					"dp12".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FeaturePrototype identifier 'dp12' previously defined in fg1")
+				]
+			]
+			
+			publicSection.ownedClassifiers.get(3) as FeatureGroupType => [
+				"fg4".assertEquals(name)
+				ownedFeatures.head => [
+					"dp3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp3' previously defined in fg2. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(1) => [
+					"dp10".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp10' previously defined in fg1. Maybe you forgot 'refined to'")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
 }
