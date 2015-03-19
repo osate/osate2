@@ -33,45 +33,51 @@
  * </copyright>
  */
 
-package org.osate.xtext.aadl2.ui.quickfix;
+package org.osate.xtext.aadl2.properties.ui.quickfix;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.ui.editor.model.edit.IModification;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
+import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
 import org.eclipse.xtext.ui.editor.quickfix.Fix;
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
 import org.eclipse.xtext.validation.Issue;
-import org.osate.aadl2.NamedElement;
-import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider;
-import org.osate.xtext.aadl2.validation.Aadl2JavaValidator;
+import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PropertySet;
+import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator;
 
-public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
+public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
-	 * QuickFix for matching the defining and ending identifiers of classifiers, packages, and property sets.
+	 * QuickFix for adding a required with statement for a referenced package or property set.
 	 * The issue data array is expected to have three elements:
 	 *
-	 * issue.getData()[0]: The defining identifier of the classifier or model unit.
-	 * issue.getData()[1]: The ending identifier of the classifier or model unit.
-	 * issue.getData()[2]: The offset of the ending identifier within the Xtext document.
+	 * issue.getData()[0]: The name of the package or property set
+	 * issue.getData()[1]: The URI String of the referenced AadlPackage or PropertySet.
+	 * issue.getData()[2]: The URI String of the Namespace where the with statement should be inserted.
 	 */
-	@Fix(Aadl2JavaValidator.MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS)
-	public void fixMismatchedBeginningAndEndingIdentifiers(final Issue issue, IssueResolutionAcceptor acceptor) {
-		final String beginningName = issue.getData()[0];
-		final String endingName = issue.getData()[1];
-		final int endingIdentifierOffset = Integer.parseInt(issue.getData()[2]);
-		acceptor.accept(issue, "Change defining identifier to '" + endingName + "'", null, null,
+	@Fix(PropertiesJavaValidator.MISSING_WITH)
+	def public void fixMissingWith(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Add '" + issue.getData.get(0) + "' to the with clauses", null, null,
 				new ISemanticModification() {
-					@Override
-					public void apply(EObject element, IModificationContext context) throws Exception {
-						((NamedElement) element).setName(endingName);
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val ResourceSet resourceSet = element.eResource().getResourceSet();
+						val ModelUnit requiredModelUnit = resourceSet.getEObject(
+								URI.createURI(issue.getData.get(1)), true) as ModelUnit;
+						val Namespace contextNS = resourceSet.getEObject(URI.createURI(issue.getData().get(2)),
+								true) as Namespace;
+						var EList<ModelUnit> imports;
+						if (contextNS instanceof PropertySet) {
+							imports = contextNS.getImportedUnits();
+						} else {
+							imports = (contextNS as PackageSection).getImportedUnits();
+						}
+						imports.add(requiredModelUnit);
 					}
 				});
-		acceptor.accept(issue, "Change ending identifier to '" + beginningName + "'", null, null, new IModification() {
-			@Override
-			public void apply(IModificationContext context) throws Exception {
-				context.getXtextDocument().replace(endingIdentifierOffset, endingName.length(), beginningName);
-			}
-		});
 	}
 }
