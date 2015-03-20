@@ -6,7 +6,6 @@
 'andthen'=45
 'andthencount'=31
 'andthenfailed'=53
-'assumption'=36
 'claim'=35
 'completed'=21
 'didfail'=52
@@ -38,6 +37,7 @@
 'unknown'=17
 'unknowncount'=29
 'unknownthen'=51
+'validation'=36
 'verification'=42
 'warning'=12
 'weight'=33

@@ -2788,11 +2788,11 @@ rule__ValidationResult__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getValidationResultAccess().getAssumptionKeyword_0()); }
+{ before(grammarAccess.getValidationResultAccess().getValidationKeyword_0()); }
 
-	'assumption' 
+	'validation' 
 
-{ after(grammarAccess.getValidationResultAccess().getAssumptionKeyword_0()); }
+{ after(grammarAccess.getValidationResultAccess().getValidationKeyword_0()); }
 )
 
 ;

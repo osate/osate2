@@ -680,9 +680,9 @@ ruleValidationResult returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='assumption' 
+(	otherlv_0='validation' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getValidationResultAccess().getAssumptionKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getValidationResultAccess().getValidationKeyword_0());
     }
 (
     {

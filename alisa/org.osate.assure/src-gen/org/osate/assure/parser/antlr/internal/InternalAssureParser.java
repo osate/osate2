@@ -23,59 +23,59 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalAssureParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'evidence'", "'for'", "'instance'", "'['", "'successcount'", "'failcount'", "'unknowncount'", "'failthencount'", "'andthencount'", "'tbdcount'", "'weight'", "'message'", "']'", "'claim'", "'assumption'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'precondition'", "'verification'", "'failthen'", "'do'", "'unknownthen'", "'didfail'", "'andthen'", "'andthenfailed'", "':'", "'exception'", "'target'", "'::'", "'.'", "'error'", "'warning'", "'success'", "'info'", "'tbd'", "'fail'", "'unknown'", "'todo'", "'running'", "'redo'", "'completed'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'evidence'", "'for'", "'instance'", "'['", "'successcount'", "'failcount'", "'unknowncount'", "'failthencount'", "'andthencount'", "'tbdcount'", "'weight'", "'message'", "']'", "'claim'", "'validation'", "'executionstate'", "'resultstate'", "'issues'", "'report'", "'precondition'", "'verification'", "'failthen'", "'do'", "'unknownthen'", "'didfail'", "'andthen'", "'andthenfailed'", "':'", "'exception'", "'target'", "'::'", "'.'", "'error'", "'warning'", "'success'", "'info'", "'tbd'", "'fail'", "'unknown'", "'todo'", "'running'", "'redo'", "'completed'"
     };
-    public static final int RULE_ID=4;
-    public static final int T__29=29;
-    public static final int T__28=28;
-    public static final int T__27=27;
-    public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__24=24;
-    public static final int T__23=23;
-    public static final int T__22=22;
-    public static final int RULE_ANY_OTHER=10;
-    public static final int T__21=21;
-    public static final int T__20=20;
-    public static final int EOF=-1;
-    public static final int T__19=19;
-    public static final int T__51=51;
-    public static final int T__16=16;
-    public static final int T__52=52;
-    public static final int T__15=15;
-    public static final int T__53=53;
-    public static final int T__18=18;
-    public static final int T__17=17;
-    public static final int T__12=12;
-    public static final int T__11=11;
-    public static final int T__14=14;
-    public static final int T__13=13;
-    public static final int RULE_INT=5;
     public static final int T__50=50;
-    public static final int T__42=42;
-    public static final int T__43=43;
-    public static final int T__40=40;
-    public static final int T__41=41;
-    public static final int T__46=46;
-    public static final int T__47=47;
-    public static final int T__44=44;
-    public static final int T__45=45;
-    public static final int T__48=48;
-    public static final int T__49=49;
-    public static final int RULE_SL_COMMENT=8;
+    public static final int T__19=19;
+    public static final int T__15=15;
+    public static final int T__16=16;
+    public static final int T__17=17;
+    public static final int T__18=18;
+    public static final int T__11=11;
+    public static final int T__12=12;
+    public static final int T__13=13;
+    public static final int T__14=14;
+    public static final int T__51=51;
+    public static final int T__52=52;
+    public static final int T__53=53;
+    public static final int RULE_ID=4;
+    public static final int T__26=26;
+    public static final int T__27=27;
+    public static final int T__28=28;
+    public static final int RULE_INT=5;
+    public static final int T__29=29;
+    public static final int T__22=22;
     public static final int RULE_ML_COMMENT=7;
-    public static final int T__30=30;
-    public static final int T__31=31;
+    public static final int T__23=23;
+    public static final int T__24=24;
+    public static final int T__25=25;
+    public static final int T__20=20;
+    public static final int T__21=21;
     public static final int RULE_STRING=6;
-    public static final int T__32=32;
+    public static final int RULE_SL_COMMENT=8;
+    public static final int T__37=37;
+    public static final int T__38=38;
+    public static final int T__39=39;
     public static final int T__33=33;
     public static final int T__34=34;
     public static final int T__35=35;
     public static final int T__36=36;
-    public static final int T__37=37;
-    public static final int T__38=38;
-    public static final int T__39=39;
+    public static final int EOF=-1;
+    public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
     public static final int RULE_WS=9;
+    public static final int RULE_ANY_OTHER=10;
+    public static final int T__48=48;
+    public static final int T__49=49;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__42=42;
+    public static final int T__43=43;
 
     // delegates
     // delegators
@@ -1695,7 +1695,7 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleValidationResult"
-    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:679:1: ruleValidationResult returns [EObject current=null] : (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) ;
+    // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:679:1: ruleValidationResult returns [EObject current=null] : (otherlv_0= 'validation' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) ;
     public final EObject ruleValidationResult() throws RecognitionException {
         EObject current = null;
 
@@ -1736,16 +1736,16 @@ public class InternalAssureParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:682:28: ( (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:1: (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:682:28: ( (otherlv_0= 'validation' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' ) )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:1: (otherlv_0= 'validation' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
             {
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:1: (otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
-            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:3: otherlv_0= 'assumption' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']'
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:1: (otherlv_0= 'validation' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']' )
+            // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:683:3: otherlv_0= 'validation' () ( (lv_name_2_0= RULE_ID ) ) otherlv_3= 'for' ( ( ruleQualifiedName ) ) otherlv_5= '[' otherlv_6= 'executionstate' ( (lv_executionState_7_0= ruleVerificationExecutionState ) ) otherlv_8= 'resultstate' ( (lv_resultState_9_0= ruleVerificationResultState ) ) (otherlv_10= 'issues' otherlv_11= '[' ( (lv_issues_12_0= ruleResultIssue ) )* otherlv_13= ']' )? (otherlv_14= 'report' ( ( ruleQualifiedName ) ) )? (otherlv_16= 'successcount' ( (lv_successCount_17_0= RULE_INT ) ) )? (otherlv_18= 'failcount' ( (lv_failCount_19_0= RULE_INT ) ) )? (otherlv_20= 'unknowncount' ( (lv_unknownCount_21_0= RULE_INT ) ) )? (otherlv_22= 'failthencount' ( (lv_failthenCount_23_0= RULE_INT ) ) )? (otherlv_24= 'andthencount' ( (lv_andthenCount_25_0= RULE_INT ) ) )? (otherlv_26= 'tbdcount' ( (lv_tbdCount_27_0= RULE_INT ) ) )? (otherlv_28= 'weight' ( (lv_weight_29_0= RULE_INT ) ) )? (otherlv_30= 'message' ( (lv_message_31_0= RULE_STRING ) ) )? otherlv_32= ']'
             {
             otherlv_0=(Token)match(input,25,FOLLOW_25_in_ruleValidationResult1203); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getValidationResultAccess().getAssumptionKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getValidationResultAccess().getValidationKeyword_0());
                   
             }
             // ../org.osate.assure/src-gen/org/osate/assure/parser/antlr/internal/InternalAssure.g:687:1: ()

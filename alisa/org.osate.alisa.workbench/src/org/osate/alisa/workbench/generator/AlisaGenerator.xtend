@@ -290,6 +290,8 @@ class AlisaGenerator implements IGenerator {
 		'''
 			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
 			[
+				executionstate todo
+				resultstate tbd
 				tbdcount 1
 			]
 		'''

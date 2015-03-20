@@ -459,7 +459,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	public class ValidationResultElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ValidationResult");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAssumptionKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cValidationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Action cValidationResultAction_1 = (Action)cGroup.eContents().get(1);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
@@ -520,7 +520,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_20 = (Keyword)cGroup.eContents().get(20);
 		
 		//ValidationResult returns VerificationResult:
-		//	"assumption" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "["
+		//	"validation" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "["
 		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
 		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
@@ -528,7 +528,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	message=STRING)? "]";
 		public ParserRule getRule() { return rule; }
 
-		//"assumption" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "[" "executionstate"
+		//"validation" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "[" "executionstate"
 		//executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues" "["
 		//issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
@@ -536,8 +536,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//message=STRING)? "]"
 		public Group getGroup() { return cGroup; }
 
-		//"assumption"
-		public Keyword getAssumptionKeyword_0() { return cAssumptionKeyword_0; }
+		//"validation"
+		public Keyword getValidationKeyword_0() { return cValidationKeyword_0; }
 
 		//{ValidationResult}
 		public Action getValidationResultAction_1() { return cValidationResultAction_1; }
@@ -2088,7 +2088,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValidationResult returns VerificationResult:
-	//	"assumption" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "["
+	//	"validation" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "["
 	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
 	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"

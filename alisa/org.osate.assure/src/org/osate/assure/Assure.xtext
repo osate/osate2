@@ -49,7 +49,7 @@ ClaimResult:
 
 
 ValidationResult returns VerificationResult:
-	'assumption' {ValidationResult}	name=ID 
+	'validation' {ValidationResult}	name=ID 
 	'for' target= [Verify::VerificationValidation|QualifiedName]
 	'['
 	'executionstate'  executionState=VerificationExecutionState
