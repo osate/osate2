@@ -50,6 +50,8 @@ import org.osate.assure.assure.VerificationResult
 import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.SupportedScopes
 import org.osate.verify.verify.SupportedReporting
+import java.io.StringWriter
+import java.io.PrintWriter
 
 class AssureUtilExtension {
 
@@ -608,7 +610,10 @@ class AssureUtilExtension {
 	}
 
 	def static void setToError(VerificationResult verificationActivityResult, Throwable e) {
-		verificationActivityResult.addErrorIssue(null, e.getMessage(), e.getClass().getName());
+		val StringWriter writer = new StringWriter
+		val PrintWriter pwriter = new PrintWriter(writer)
+		e.printStackTrace(pwriter)
+		verificationActivityResult.addErrorIssue(null, writer.toString, e.getClass().getName());
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.FAIL))
 			verificationActivityResult.propagateCountChangeUp
 	}
