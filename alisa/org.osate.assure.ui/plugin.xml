@@ -156,6 +156,11 @@
             name="Verify All Evidence">
      </command>
      <command categoryId="org.osate.assure.category.commands"
+            id="org.osate.assure.commands.ResetAllEvidence"
+            description="Reset all evidence to TBD"
+            name="Reset All Evidence">
+     </command>
+     <command categoryId="org.osate.assure.category.commands"
             id="org.osate.assure.commands.VerifyEvidenceChanges"
             description="Execute Verification Activities Affected by Changes"
             name="Verify Evidence Changes">
@@ -242,6 +247,21 @@
          </menuContribution>
  
  
+              <menuContribution locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
+			<command commandId="org.osate.assure.commands.ResetAllEvidence" 
+				style="push" tooltip="Reset All Evidence">
+         		<visibleWhen checkEnabled="false">
+	            	<and>
+	            		<reference definitionId="org.osate.assure.Assure.XtextEditor.opened" />
+						<iterate>
+							<adapt type="org.eclipse.xtext.ui.editor.outline.IOutlineNode" />
+						</iterate>
+					</and>
+				</visibleWhen>
+			</command>
+         </menuContribution>
+ 
+ 
 <!--           <menuContribution locationURI="popup:#TextEditorContext?after=copy">
          	<command commandId="org.osate.assure.commands.VerifyEvidenceChanges" 
          		style="push" tooltip="Verify TBD Evidence (affected by change)">
@@ -308,11 +328,14 @@
             <handler
             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureHandler" 
             commandId="org.osate.assure.commands.VerifyAllEvidence">
-   
       </handler>
              <handler
             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureUpdateHandler" 
             commandId="org.osate.assure.commands.VerifyEvidenceChanges">
+      </handler>
+            <handler
+            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.handlers.AssureResetHandler" 
+            commandId="org.osate.assure.commands.ResetAllEvidence">
    
       </handler>
      </extension>  
