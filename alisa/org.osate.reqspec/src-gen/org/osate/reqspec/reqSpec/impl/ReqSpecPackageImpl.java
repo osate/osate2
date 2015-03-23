@@ -1319,6 +1319,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     stakeholderGoalsEClass.getESuperTypes().add(this.getReqRoot());
     reqDocumentEClass.getESuperTypes().add(this.getReqSpecContainer());
     reqDocumentEClass.getESuperTypes().add(this.getReqRoot());
+    documentSectionEClass.getESuperTypes().add(this.getReqSpecContainer());
     reqSpecsEClass.getESuperTypes().add(this.getReqSpecContainer());
     reqSpecsEClass.getESuperTypes().add(this.getReqRoot());
     reqSpecFolderEClass.getESuperTypes().add(this.getReqSpecContainer());

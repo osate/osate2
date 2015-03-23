@@ -6,6 +6,7 @@ import org.osate.reqspec.reqSpec.ReqSpecs
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.Requirement
 import static extension org.eclipse.xtext.EcoreUtil2.*
+import org.osate.reqspec.reqSpec.ReqSpecFolder
 
 class ReqSpecUtilExtension {
 	
@@ -25,7 +26,7 @@ class ReqSpecUtilExtension {
 		return null;
 	}
 	
-	def static requirementTarget(Requirement req){
+	def static targetClassifier(ContractualElement req){
 	req.target?:
 		req.contextClassifier
 	}
@@ -37,5 +38,18 @@ class ReqSpecUtilExtension {
 	def static containingReqSpecs(EObject sh){
 		sh.getContainerOfType(ReqSpecs)
 	}
+	
+//	def static allRequirements(ReqSpecs reqs){
+//		val allreqs = reqs.content.filter[a|a instanceof Requirement] as Iterable<Requirement>
+////		reqs.content.filter[a|a instanceof ReqSpecFolder].forEach[b| allreqs.concat((b as ReqSpecFolder).allRequirements)]
+////		concat(allreqs,allreqs)
+//		return allreqs
+//	}
+//	
+//	def static allRequirements(ReqSpecFolder reqs){
+//		val allreqs = reqs.content.filter[a|a instanceof Requirement] as Iterable<Requirement>
+//		val allFolders = reqs.content.filter[a|a instanceof ReqSpecFolder] as Iterable<ReqSpecFolder>
+//		return allreqs
+//	}
 	
 }

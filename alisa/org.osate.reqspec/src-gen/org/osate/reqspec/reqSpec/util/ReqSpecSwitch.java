@@ -122,6 +122,7 @@ public class ReqSpecSwitch<T> extends Switch<T>
       {
         DocumentSection documentSection = (DocumentSection)theEObject;
         T result = caseDocumentSection(documentSection);
+        if (result == null) result = caseReqSpecContainer(documentSection);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }

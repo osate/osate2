@@ -56,13 +56,14 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cGoalFolderParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cStakeholderGoalsParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cReqDocumentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cDocumentSectionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		////ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
 		//ReqSpecContainer:
-		//	ReqSpecs | ReqSpecFolder | GoalFolder | StakeholderGoals | ReqDocument;
+		//	ReqSpecs | ReqSpecFolder | GoalFolder | StakeholderGoals | ReqDocument | DocumentSection;
 		public ParserRule getRule() { return rule; }
 
-		//ReqSpecs | ReqSpecFolder | GoalFolder | StakeholderGoals | ReqDocument
+		//ReqSpecs | ReqSpecFolder | GoalFolder | StakeholderGoals | ReqDocument | DocumentSection
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ReqSpecs
@@ -79,6 +80,9 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ReqDocument
 		public RuleCall getReqDocumentParserRuleCall_4() { return cReqDocumentParserRuleCall_4; }
+
+		//DocumentSection
+		public RuleCall getDocumentSectionParserRuleCall_5() { return cDocumentSectionParserRuleCall_5; }
 	}
 
 	public class ContractualElementElements extends AbstractParserRuleElementFinder {
@@ -1903,7 +1907,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	////ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
 	//ReqSpecContainer:
-	//	ReqSpecs | ReqSpecFolder | GoalFolder | StakeholderGoals | ReqDocument;
+	//	ReqSpecs | ReqSpecFolder | GoalFolder | StakeholderGoals | ReqDocument | DocumentSection;
 	public ReqSpecContainerElements getReqSpecContainerAccess() {
 		return pReqSpecContainer;
 	}

@@ -188,7 +188,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				}
 				else break;
 			case ReqSpecPackage.DOCUMENT_SECTION:
-				if(context == grammarAccess.getDocumentSectionRule()) {
+				if(context == grammarAccess.getDocumentSectionRule() ||
+				   context == grammarAccess.getReqSpecContainerRule()) {
 					sequence_DocumentSection(context, (DocumentSection) semanticObject); 
 					return; 
 				}

@@ -11,7 +11,7 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 ReqSpec: contents +=(ReqSpecs|StakeholderGoals|ReqDocument)+  ;
 //ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
 
-ReqSpecContainer: ReqSpecs  | ReqSpecFolder  |GoalFolder | StakeholderGoals | ReqDocument;
+ReqSpecContainer: ReqSpecs  | ReqSpecFolder  |GoalFolder | StakeholderGoals | ReqDocument | DocumentSection;
 
 ContractualElement: Goal | Requirement ;
 

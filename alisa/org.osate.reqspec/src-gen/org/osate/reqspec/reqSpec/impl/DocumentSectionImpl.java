@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -40,7 +39,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *
  * @generated
  */
-public class DocumentSectionImpl extends MinimalEObjectImpl.Container implements DocumentSection
+public class DocumentSectionImpl extends ReqSpecContainerImpl implements DocumentSection
 {
   /**
    * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.

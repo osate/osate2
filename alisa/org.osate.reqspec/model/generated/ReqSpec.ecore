@@ -54,7 +54,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
         upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DocumentSection">
+  <eClassifiers xsi:type="ecore:EClass" name="DocumentSection" eSuperTypes="#//ReqSpecContainer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"

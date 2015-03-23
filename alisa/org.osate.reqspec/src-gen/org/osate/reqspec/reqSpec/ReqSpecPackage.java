@@ -421,7 +421,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DOCUMENT_SECTION__LABEL = 0;
+  int DOCUMENT_SECTION__LABEL = REQ_SPEC_CONTAINER_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -430,7 +430,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DOCUMENT_SECTION__TITLE = 1;
+  int DOCUMENT_SECTION__TITLE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -439,7 +439,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DOCUMENT_SECTION__DESCRIPTION = 2;
+  int DOCUMENT_SECTION__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -448,7 +448,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DOCUMENT_SECTION__CONTENT = 3;
+  int DOCUMENT_SECTION__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Document Section</em>' class.
@@ -457,7 +457,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DOCUMENT_SECTION_FEATURE_COUNT = 4;
+  int DOCUMENT_SECTION_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl <em>Req Specs</em>}' class.
