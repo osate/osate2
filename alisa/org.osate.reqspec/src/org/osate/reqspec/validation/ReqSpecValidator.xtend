@@ -90,5 +90,5 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 					ReqSpecPackage.Literals.REQ_SPEC__CONTENTS,
 					FEATURES_WITHOUT_REQUIREMENT)
 		}
-	
+	}
 }
