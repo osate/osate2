@@ -30,7 +30,7 @@ Claim:
 	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
 	(('assert' assert=ArgumentExpr)
-	& ('argument' argument=STRING ( argumentUncertainty=Uncertainty)? )?
+	& ('argument' argument=STRING )?//( argumentUncertainty=Uncertainty)? )?
 	& (rationale=Rationale)?
 	& (subclaim+=Claim)*
 	& ('issues' issues+=STRING+ )?

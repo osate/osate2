@@ -978,13 +978,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
 
   /**
-   * The feature id for the '<em><b>Refined Reference</b></em>' reference list.
+   * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__REFINED_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Goal Reference</b></em>' reference list.
@@ -1980,15 +1980,15 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getRequirement_ExceptionText();
 
   /**
-   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinedReference <em>Refined Reference</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Refined Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getRefinedReference()
+   * @return the meta object for the reference list '<em>Refines Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getRefinesReference()
    * @see #getRequirement()
    * @generated
    */
-  EReference getRequirement_RefinedReference();
+  EReference getRequirement_RefinesReference();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}'.
@@ -2789,12 +2789,12 @@ public interface ReqSpecPackage extends EPackage
     EAttribute REQUIREMENT__EXCEPTION_TEXT = eINSTANCE.getRequirement_ExceptionText();
 
     /**
-     * The meta object literal for the '<em><b>Refined Reference</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Refines Reference</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQUIREMENT__REFINED_REFERENCE = eINSTANCE.getRequirement_RefinedReference();
+    EReference REQUIREMENT__REFINES_REFERENCE = eINSTANCE.getRequirement_RefinesReference();
 
     /**
      * The meta object literal for the '<em><b>Goal Reference</b></em>' reference list feature.

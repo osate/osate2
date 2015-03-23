@@ -109,7 +109,7 @@ Requirement:
 	&(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 
 	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
-	&('refines' refinedReference+=[Requirement|QualifiedName]+)? 
+	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
 	&('see' 'goal'  goalReference+=[Goal|QualifiedName]+)?
 	&('see' 'document' 'goal'  stakeholderRequirementReference+=[Goal|QualifiedName]+)?
 	 &('see' 'document' 'requirement'  documentRequirement+=[ContractualElement|QualifiedName]+)?

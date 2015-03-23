@@ -1523,7 +1523,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
 	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *         refinedReference+=[Requirement|QualifiedName]* 
+	 *         refinesReference+=[Requirement|QualifiedName]* 
 	 *         goalReference+=[Goal|QualifiedName]* 
 	 *         stakeholderRequirementReference+=[Goal|QualifiedName]* 
 	 *         documentRequirement+=[ContractualElement|QualifiedName]* 

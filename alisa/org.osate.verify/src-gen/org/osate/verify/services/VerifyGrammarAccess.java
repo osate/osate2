@@ -216,8 +216,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cArgumentKeyword_7_1_0 = (Keyword)cGroup_7_1.eContents().get(0);
 		private final Assignment cArgumentAssignment_7_1_1 = (Assignment)cGroup_7_1.eContents().get(1);
 		private final RuleCall cArgumentSTRINGTerminalRuleCall_7_1_1_0 = (RuleCall)cArgumentAssignment_7_1_1.eContents().get(0);
-		private final Assignment cArgumentUncertaintyAssignment_7_1_2 = (Assignment)cGroup_7_1.eContents().get(2);
-		private final RuleCall cArgumentUncertaintyUncertaintyParserRuleCall_7_1_2_0 = (RuleCall)cArgumentUncertaintyAssignment_7_1_2.eContents().get(0);
 		private final Assignment cRationaleAssignment_7_2 = (Assignment)cUnorderedGroup_7.eContents().get(2);
 		private final RuleCall cRationaleRationaleParserRuleCall_7_2_0 = (RuleCall)cRationaleAssignment_7_2.eContents().get(0);
 		private final Assignment cSubclaimAssignment_7_3 = (Assignment)cUnorderedGroup_7.eContents().get(3);
@@ -230,13 +228,13 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//Claim:
 		//	"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
-		//	"[" ("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? &
-		//	rationale=Rationale? & subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
+		//	"[" ("assert" assert=ArgumentExpr //( argumentUncertainty=Uncertainty)? )?
+		//	& ("argument" argument=STRING)? & rationale=Rationale? & subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 		public ParserRule getRule() { return rule; }
 
 		//"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName] "["
-		//("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale?
-		//& subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
+		//("assert" assert=ArgumentExpr //( argumentUncertainty=Uncertainty)? )?
+		//& ("argument" argument=STRING)? & rationale=Rationale? & subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"claim"
@@ -290,8 +288,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//"assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? & rationale=Rationale? &
-		//subclaim+=Claim* & ("issues" issues+=STRING+)?
+		//"assert" assert=ArgumentExpr //( argumentUncertainty=Uncertainty)? )?
+		//& ("argument" argument=STRING)? & rationale=Rationale? & subclaim+=Claim* & ("issues" issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//"assert" assert=ArgumentExpr
@@ -306,7 +304,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ArgumentExpr
 		public RuleCall getAssertArgumentExprParserRuleCall_7_0_1_0() { return cAssertArgumentExprParserRuleCall_7_0_1_0; }
 
-		//("argument" argument=STRING argumentUncertainty=Uncertainty?)?
+		//("argument" argument=STRING)?
 		public Group getGroup_7_1() { return cGroup_7_1; }
 
 		//"argument"
@@ -317,12 +315,6 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getArgumentSTRINGTerminalRuleCall_7_1_1_0() { return cArgumentSTRINGTerminalRuleCall_7_1_1_0; }
-
-		//argumentUncertainty=Uncertainty?
-		public Assignment getArgumentUncertaintyAssignment_7_1_2() { return cArgumentUncertaintyAssignment_7_1_2; }
-
-		//Uncertainty
-		public RuleCall getArgumentUncertaintyUncertaintyParserRuleCall_7_1_2_0() { return cArgumentUncertaintyUncertaintyParserRuleCall_7_1_2_0; }
 
 		//rationale=Rationale?
 		public Assignment getRationaleAssignment_7_2() { return cRationaleAssignment_7_2; }
@@ -1613,8 +1605,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Claim:
 	//	"claim" name=ID (":" title=STRING)? ("(" weight=Number ")")? "for" requirement=[ReqSpec::Requirement|QualifiedName]
-	//	"[" ("assert" assert=ArgumentExpr & ("argument" argument=STRING argumentUncertainty=Uncertainty?)? &
-	//	rationale=Rationale? & subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
+	//	"[" ("assert" assert=ArgumentExpr //( argumentUncertainty=Uncertainty)? )?
+	//	& ("argument" argument=STRING)? & rationale=Rationale? & subclaim+=Claim* & ("issues" issues+=STRING+)?) "]";
 	public ClaimElements getClaimAccess() {
 		return pClaim;
 	}

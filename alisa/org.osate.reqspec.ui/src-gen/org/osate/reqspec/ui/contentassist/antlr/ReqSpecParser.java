@@ -425,7 +425,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRequirementAccess().getChangeUncertaintyAssignment_5_6(), "rule__Requirement__ChangeUncertaintyAssignment_5_6");
 					put(grammarAccess.getRequirementAccess().getExceptionAssignment_5_7_1_0(), "rule__Requirement__ExceptionAssignment_5_7_1_0");
 					put(grammarAccess.getRequirementAccess().getExceptionTextAssignment_5_7_1_1(), "rule__Requirement__ExceptionTextAssignment_5_7_1_1");
-					put(grammarAccess.getRequirementAccess().getRefinedReferenceAssignment_5_8_1(), "rule__Requirement__RefinedReferenceAssignment_5_8_1");
+					put(grammarAccess.getRequirementAccess().getRefinesReferenceAssignment_5_8_1(), "rule__Requirement__RefinesReferenceAssignment_5_8_1");
 					put(grammarAccess.getRequirementAccess().getGoalReferenceAssignment_5_9_2(), "rule__Requirement__GoalReferenceAssignment_5_9_2");
 					put(grammarAccess.getRequirementAccess().getStakeholderRequirementReferenceAssignment_5_10_3(), "rule__Requirement__StakeholderRequirementReferenceAssignment_5_10_3");
 					put(grammarAccess.getRequirementAccess().getDocumentRequirementAssignment_5_11_3(), "rule__Requirement__DocumentRequirementAssignment_5_11_3");

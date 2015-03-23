@@ -19,8 +19,6 @@ import org.eclipse.emf.common.util.URI
 class AlisaWorkbenchReferenceFinder {
 	@Inject
 	var IGlobalScopeProvider scopeProvider
-	
-	@Inject IReferenceFinder reffinder
 
 	extension CommonGlobalScopeProvider cgsp = scopeProvider as CommonGlobalScopeProvider
 

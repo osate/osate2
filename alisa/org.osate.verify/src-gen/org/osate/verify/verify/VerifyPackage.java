@@ -241,22 +241,13 @@ public interface VerifyPackage extends EPackage
   int CLAIM__ARGUMENT = 5;
 
   /**
-   * The feature id for the '<em><b>Argument Uncertainty</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CLAIM__ARGUMENT_UNCERTAINTY = 6;
-
-  /**
    * The feature id for the '<em><b>Rationale</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM__RATIONALE = 7;
+  int CLAIM__RATIONALE = 6;
 
   /**
    * The feature id for the '<em><b>Subclaim</b></em>' containment reference list.
@@ -265,7 +256,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM__SUBCLAIM = 8;
+  int CLAIM__SUBCLAIM = 7;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -274,7 +265,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM__ISSUES = 9;
+  int CLAIM__ISSUES = 8;
 
   /**
    * The number of structural features of the '<em>Claim</em>' class.
@@ -283,7 +274,7 @@ public interface VerifyPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_FEATURE_COUNT = 10;
+  int CLAIM_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationContainerImpl <em>Verification Container</em>}' class.
@@ -1328,17 +1319,6 @@ public interface VerifyPackage extends EPackage
   EAttribute getClaim_Argument();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.osate.verify.verify.Claim#getArgumentUncertainty <em>Argument Uncertainty</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Argument Uncertainty</em>'.
-   * @see org.osate.verify.verify.Claim#getArgumentUncertainty()
-   * @see #getClaim()
-   * @generated
-   */
-  EReference getClaim_ArgumentUncertainty();
-
-  /**
    * Returns the meta object for the containment reference '{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2218,14 +2198,6 @@ public interface VerifyPackage extends EPackage
      * @generated
      */
     EAttribute CLAIM__ARGUMENT = eINSTANCE.getClaim_Argument();
-
-    /**
-     * The meta object literal for the '<em><b>Argument Uncertainty</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CLAIM__ARGUMENT_UNCERTAINTY = eINSTANCE.getClaim_ArgumentUncertainty();
 
     /**
      * The meta object literal for the '<em><b>Rationale</b></em>' containment reference feature.

@@ -360,7 +360,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClaimAccess().getRequirementAssignment_5(), "rule__Claim__RequirementAssignment_5");
 					put(grammarAccess.getClaimAccess().getAssertAssignment_7_0_1(), "rule__Claim__AssertAssignment_7_0_1");
 					put(grammarAccess.getClaimAccess().getArgumentAssignment_7_1_1(), "rule__Claim__ArgumentAssignment_7_1_1");
-					put(grammarAccess.getClaimAccess().getArgumentUncertaintyAssignment_7_1_2(), "rule__Claim__ArgumentUncertaintyAssignment_7_1_2");
 					put(grammarAccess.getClaimAccess().getRationaleAssignment_7_2(), "rule__Claim__RationaleAssignment_7_2");
 					put(grammarAccess.getClaimAccess().getSubclaimAssignment_7_3(), "rule__Claim__SubclaimAssignment_7_3");
 					put(grammarAccess.getClaimAccess().getIssuesAssignment_7_4_1(), "rule__Claim__IssuesAssignment_7_4_1");

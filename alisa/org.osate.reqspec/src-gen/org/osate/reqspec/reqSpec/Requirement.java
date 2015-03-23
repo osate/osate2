@@ -23,7 +23,7 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinedReference <em>Refined Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getGoalReference <em>Goal Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getStakeholderRequirementReference <em>Stakeholder Requirement Reference</em>}</li>
  * </ul>
@@ -146,20 +146,20 @@ public interface Requirement extends ContractualElement
   void setExceptionText(String value);
 
   /**
-   * Returns the value of the '<em><b>Refined Reference</b></em>' reference list.
+   * Returns the value of the '<em><b>Refines Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Refined Reference</em>' reference list isn't clear,
+   * If the meaning of the '<em>Refines Reference</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Refined Reference</em>' reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_RefinedReference()
+   * @return the value of the '<em>Refines Reference</em>' reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_RefinesReference()
    * @model
    * @generated
    */
-  EList<Requirement> getRefinedReference();
+  EList<Requirement> getRefinesReference();
 
   /**
    * Returns the value of the '<em><b>Goal Reference</b></em>' reference list.

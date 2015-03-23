@@ -1412,7 +1412,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         weight=Number? 
 	 *         requirement=[Requirement|QualifiedName] 
 	 *         assert=ArgumentExpr 
-	 *         (argument=STRING argumentUncertainty=Uncertainty?)? 
+	 *         argument=STRING? 
 	 *         rationale=Rationale? 
 	 *         subclaim+=Claim* 
 	 *         issues+=STRING*

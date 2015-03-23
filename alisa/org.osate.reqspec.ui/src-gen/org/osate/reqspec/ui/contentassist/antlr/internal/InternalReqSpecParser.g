@@ -8913,14 +8913,14 @@ rule__Requirement__Group_5_8__1__Impl
 :
 (
 (
-{ before(grammarAccess.getRequirementAccess().getRefinedReferenceAssignment_5_8_1()); }
-(rule__Requirement__RefinedReferenceAssignment_5_8_1)
-{ after(grammarAccess.getRequirementAccess().getRefinedReferenceAssignment_5_8_1()); }
+{ before(grammarAccess.getRequirementAccess().getRefinesReferenceAssignment_5_8_1()); }
+(rule__Requirement__RefinesReferenceAssignment_5_8_1)
+{ after(grammarAccess.getRequirementAccess().getRefinesReferenceAssignment_5_8_1()); }
 )
 (
-{ before(grammarAccess.getRequirementAccess().getRefinedReferenceAssignment_5_8_1()); }
-(rule__Requirement__RefinedReferenceAssignment_5_8_1)*
-{ after(grammarAccess.getRequirementAccess().getRefinedReferenceAssignment_5_8_1()); }
+{ before(grammarAccess.getRequirementAccess().getRefinesReferenceAssignment_5_8_1()); }
+(rule__Requirement__RefinesReferenceAssignment_5_8_1)*
+{ after(grammarAccess.getRequirementAccess().getRefinesReferenceAssignment_5_8_1()); }
 )
 )
 
@@ -28489,18 +28489,18 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Requirement__RefinedReferenceAssignment_5_8_1
+rule__Requirement__RefinesReferenceAssignment_5_8_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getRequirementAccess().getRefinedReferenceRequirementCrossReference_5_8_1_0()); }
+{ before(grammarAccess.getRequirementAccess().getRefinesReferenceRequirementCrossReference_5_8_1_0()); }
 (
-{ before(grammarAccess.getRequirementAccess().getRefinedReferenceRequirementQualifiedNameParserRuleCall_5_8_1_0_1()); }
-	ruleQualifiedName{ after(grammarAccess.getRequirementAccess().getRefinedReferenceRequirementQualifiedNameParserRuleCall_5_8_1_0_1()); }
+{ before(grammarAccess.getRequirementAccess().getRefinesReferenceRequirementQualifiedNameParserRuleCall_5_8_1_0_1()); }
+	ruleQualifiedName{ after(grammarAccess.getRequirementAccess().getRefinesReferenceRequirementQualifiedNameParserRuleCall_5_8_1_0_1()); }
 )
-{ after(grammarAccess.getRequirementAccess().getRefinedReferenceRequirementCrossReference_5_8_1_0()); }
+{ after(grammarAccess.getRequirementAccess().getRefinesReferenceRequirementCrossReference_5_8_1_0()); }
 )
 
 ;

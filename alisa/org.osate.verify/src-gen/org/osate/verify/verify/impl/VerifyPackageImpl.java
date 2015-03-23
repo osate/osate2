@@ -449,7 +449,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClaim_ArgumentUncertainty()
+  public EReference getClaim_Rationale()
   {
     return (EReference)claimEClass.getEStructuralFeatures().get(6);
   }
@@ -459,7 +459,7 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClaim_Rationale()
+  public EReference getClaim_Subclaim()
   {
     return (EReference)claimEClass.getEStructuralFeatures().get(7);
   }
@@ -469,19 +469,9 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getClaim_Subclaim()
-  {
-    return (EReference)claimEClass.getEStructuralFeatures().get(8);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getClaim_Issues()
   {
-    return (EAttribute)claimEClass.getEStructuralFeatures().get(9);
+    return (EAttribute)claimEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -1164,7 +1154,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     createEReference(claimEClass, CLAIM__REQUIREMENT);
     createEReference(claimEClass, CLAIM__ASSERT);
     createEAttribute(claimEClass, CLAIM__ARGUMENT);
-    createEReference(claimEClass, CLAIM__ARGUMENT_UNCERTAINTY);
     createEReference(claimEClass, CLAIM__RATIONALE);
     createEReference(claimEClass, CLAIM__SUBCLAIM);
     createEAttribute(claimEClass, CLAIM__ISSUES);
@@ -1317,7 +1306,6 @@ public class VerifyPackageImpl extends EPackageImpl implements VerifyPackage
     initEReference(getClaim_Requirement(), theReqSpecPackage.getRequirement(), null, "requirement", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaim_Assert(), this.getArgumentExpr(), null, "assert", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClaim_Argument(), theEcorePackage.getEString(), "argument", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getClaim_ArgumentUncertainty(), theCommonPackage.getUncertainty(), null, "argumentUncertainty", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaim_Rationale(), theCommonPackage.getRationale(), null, "rationale", null, 0, 1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaim_Subclaim(), this.getClaim(), null, "subclaim", null, 0, -1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClaim_Issues(), theEcorePackage.getEString(), "issues", null, 0, -1, Claim.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
