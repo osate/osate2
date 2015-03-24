@@ -5,7 +5,7 @@ import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
 var grammarURI = "classpath:/org/osate/alisa/common/Common.xtext"
-var fileExtensions = "common"
+var fileExtensions = "___common___"
 var projectName = "org.osate.alisa.common"
 var runtimeProject = "../${projectName}"
 var generateXtendStub = true

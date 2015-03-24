@@ -9,7 +9,7 @@
             class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
-            extensions="common"
+            extensions="___common___"
             id="org.osate.alisa.common.Common"
             name="Common Editor">
         </editor>
@@ -216,13 +216,13 @@
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
 			class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
-			type="common">
+			type="___common___">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
         <resourceServiceProvider
             class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-            uriExtension="common">
+            uriExtension="___common___">
         </resourceServiceProvider>
     </extension>
 
@@ -254,7 +254,7 @@
          point="org.eclipse.xtext.builder.participant">
       <participant
             class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
-            fileExtensions="common"
+            fileExtensions="___common___"
             >
       </participant>
    </extension>
@@ -382,19 +382,19 @@
   <extension point="org.eclipse.compare.contentViewers">
     <viewer id="org.osate.alisa.common.Common.compare.contentViewers"
             class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="common">
+            extensions="___common___">
     </viewer>
   </extension>
   <extension point="org.eclipse.compare.contentMergeViewers">
     <viewer id="org.osate.alisa.common.Common.compare.contentMergeViewers"
             class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-            extensions="common" label="Common Compare">
+            extensions="___common___" label="Common Compare">
      </viewer>
   </extension>
   <extension point="org.eclipse.ui.editors.documentProviders">
     <provider id="org.osate.alisa.common.Common.editors.documentProviders"
             class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
-            extensions="common">
+            extensions="___common___">
     </provider>
   </extension>
 
