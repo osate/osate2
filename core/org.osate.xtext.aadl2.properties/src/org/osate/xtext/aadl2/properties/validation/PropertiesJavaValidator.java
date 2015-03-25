@@ -109,6 +109,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	public static final String INVALID_ASSIGNMENT = "edu.cmu.sei.invalid.assignment";
 	public static final String MISSING_WITH = "org.osate.xtext.aadl2.properties.missing_with";
+	public static final String UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.properties.upper_less_than_lower";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
@@ -116,7 +117,16 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		if (deltaNV != null) {
 			final double delta = deltaNV.getScaledValue();
 			if (delta < 0) {
-				error(rv, "Range value has a negative delta component");
+				error(rv.getDelta(), "Range value has a negative delta component");
+			}
+		}
+		final NumberValue lower = rv.getMinimumValue();
+		final NumberValue upper = rv.getMaximumValue();
+		if (lower != null && upper != null) {
+			final double lowerScaled = lower.getScaledValue();
+			final double upperScaled = upper.getScaledValue();
+			if (upperScaled < lowerScaled) {
+				error("Upper bound of range is less than the lower bound.", rv, null, UPPER_LESS_THAN_LOWER);
 			}
 		}
 	}

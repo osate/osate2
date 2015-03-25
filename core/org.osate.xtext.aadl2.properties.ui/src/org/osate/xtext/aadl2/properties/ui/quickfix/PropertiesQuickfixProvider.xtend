@@ -35,21 +35,23 @@
 
 package org.osate.xtext.aadl2.properties.ui.quickfix;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
-import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
-import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider;
-import org.eclipse.xtext.ui.editor.quickfix.Fix;
-import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor;
-import org.eclipse.xtext.validation.Issue;
-import org.osate.aadl2.ModelUnit;
-import org.osate.aadl2.Namespace;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.PropertySet;
-import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator;
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
+import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
+import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
+import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.eclipse.xtext.validation.Issue
+import org.osate.aadl2.ModelUnit
+import org.osate.aadl2.Namespace
+import org.osate.aadl2.PackageSection
+import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertySet
+import org.osate.aadl2.RangeValue
+import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
@@ -80,4 +82,21 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 					}
 				});
 	}
+
+	/**
+	 * QuickFix for swapping Upper and Lower bounds in a range value when the upper is less than the lower
+	 */
+	@Fix(PropertiesJavaValidator.UPPER_LESS_THAN_LOWER)
+	def public void fixUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Switch upper and lower bounds of the range", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						var oldMin = (element as RangeValue).minimum
+						var oldMax = (element as RangeValue).maximum;
+						(element as RangeValue).minimum = oldMax;
+						(element as RangeValue).maximum = oldMin;
+					}
+				});
+	}
+
 }
