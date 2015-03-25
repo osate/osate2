@@ -1378,5 +1378,344 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
 	}
+
+	//Tests validation of ComponentImplementation elements for unique names
+	@Test
+	def void testCheckComponentImplementationUniqueNames() {
+		createFiles("componentimpluniquenames.aadl" -> '''
+						package componentimpluniquenames
+							public
+								abstract ab1 extends ab0
+									prototypes
+										dp3: data;
+										dp4: data;
+									features
+										dp1: in data port; 
+										dp2: out data port;
+										dp99: out data port;
+										name1: feature;
+								end ab1;
+								abstract ab0
+									features
+										m1: in data port; 
+								end ab0;
+								abstract implementation ab0.i1
+									modes
+										m1: mode;
+								end ab0.i1;
+								abstract implementation ab1.i1 extends ab0.i1
+									prototypes
+										dp3: data;
+										dp4: refined to data;
+										conn3: data;
+									subcomponents
+										m1: abstract ab1;
+										absub1: abstract ab1;
+										absub2: abstract ab1;
+									connections
+										conn1: port dp1 -> dp2;
+										conn2: port dp1 -> dp2;
+										conn4: port dp1 -> dp2;
+									modes
+										m6:	mode;
+										m7:	mode;
+										mt1: m6 -[name1]-> m7;
+								end ab1.i1;	
+								abstract implementation ab1.i2 extends ab1.i1
+									prototypes
+										dup1: data;
+										dup1: data;
+										dp3: data;
+										dp4: refined to data;
+										dp99: data;
+										mt1: data;
+									subcomponents
+										absub1: abstract ab1;
+										absub2: refined to abstract ab1;
+										name1: abstract ab1;
+										name10: abstract ab1;
+									connections
+										conn1: port dp1 -> dp2;
+										conn2: refined to port {Latency => 10ms..100ms;};
+										conn3: port dp1 -> dp2;
+										conn4: refined to port;
+									modes
+										m5:	mode;
+										m10: mode;
+										m11: mode;
+										mt10: m10 -[dp1]-> m11;
+										mt11: m10 -[dp1]-> m11;
+								end ab1.i2;	
+								abstract implementation ab1.i3 extends ab1.i2
+									prototypes
+										dp3: data;
+										dp4: refined to data;
+										mt11: data;
+									subcomponents
+										absub1: abstract ab1;
+										absub2: refined to abstract ab1;
+									connections
+										conn1: port dp1 -> dp2;
+										conn4: port dp1 -> dp2 ;
+										conn2: refined to port {Latency => 10ms..100ms;};
+									modes
+										m5:	mode;
+										mt10: m10 -[dp1]-> m11;
+										mt12: m10 -[dp1]-> m11; 
+								end ab1.i3;	
+								system s1
+								end s1;
+								system implementation s1.i1
+									subcomponents
+										sub50: subprogram;
+								end s1.i1;
+								subprogram subprog1
+								end subprog1;
+								subprogram subprog2
+								end subprog2;
+								subprogram implementation subprog2.spi2
+								end subprog2.spi2;
+								subprogram implementation subprog1.spi1
+									subcomponents
+										dupename7 : data;
+									calls
+										callseq1:{
+											callspi2: subprogram subprog2.spi2;
+											callspi2: subprogram subprog2.spi2;
+											callspi3: subprogram subprog2.spi2;
+										};
+										callseq2:{
+											callspi3: subprogram subprog2.spi2;
+										};
+										callseq3:{
+											callspi4: subprogram subprog2.spi2;
+										};
+										callseq3:{
+											callspi5: subprogram subprog2.spi2;
+										};
+										callseq4:{
+											callspi6: subprogram subprog2.spi2;
+										};
+								end subprog1.spi1;
+								subprogram implementation subprog1.spi3 extends subprog1.spi1
+									calls
+										callseq5: {
+											-- callspi6 previously defined
+											callspi6: subprogram subprog2.spi2;
+											-- dupename7 name was used for subcomponent in subprog1.spi1
+											dupename7: subprogram subprog2.spi2; 
+											-- callspi8 ok
+											callspi8: subprogram subprog2.spi2;
+										};
+								end subprog1.spi3;
+								device dev1
+									features
+										event102: out event data port;
+									flows
+										flow102: flow source event102;
+								end dev1;
+								system sys101
+									features
+										portA: in event data port;
+										portB: out event data port;
+									flows
+										flow101: flow path portA -> portB;
+								end sys101;
+								system sys100
+								end sys100;
+								system implementation sys100.impl1
+									subcomponents
+										dev1: device dev1;
+										sys101: system sys101;
+									connections
+										c1: port dev1.event102 -> sys101.portA;
+									flows
+										ete1 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+										ete2 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+								end sys100.impl1;
+								system implementation sys100.impl2 extends sys100.impl1
+									subcomponents
+									-- ete1 previously used for end to end flow
+									ete1: device dev1;
+								flows
+									-- ete2 already defined
+									ete2 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+									-- ete3 duplicate
+									ete3 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+									ete3 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+									-- ete4 ok
+									ete4 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+							end sys100.impl2;
+						end componentimpluniquenames;
+						''')
+		suppressSerialization
+		val testFileResult = testFile("componentimpluniquenames.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		
+		testFileResult.resource.contents.head as AadlPackage => [
+			"componentimpluniquenames".assertEquals(name)
+			publicSection.ownedClassifiers.get(2) as AbstractImplementation => [
+				"ab0.i1".assertEquals(name)
+				ownedModes.head => [
+					"m1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'm1' has previously been defined in 'componentimpluniquenames::ab0'")
+				]
+			]
+			publicSection.ownedClassifiers.get(3) as AbstractImplementation => [
+				"ab1.i1".assertEquals(name)
+				ownedPrototypes.head => [
+					"dp3".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "DataPrototype identifier 'dp3' previously defined in ab1. Maybe you forgot 'refined to'")
+				]
+				ownedSubcomponents.head => [
+					"m1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'm1' has previously been defined in 'componentimpluniquenames::ab0'")
+				]
+			]
+			publicSection.ownedClassifiers.get(4) as AbstractImplementation => [
+				"ab1.i2".assertEquals(name)
+				ownedPrototypes.head => [
+					"dup1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dup1' in ab1.i2")
+				]
+				ownedPrototypes.get(1) => [
+					"dup1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dup1' in ab1.i2")
+				]
+				ownedPrototypes.get(2) => [
+					"dp3".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "DataPrototype identifier 'dp3' previously defined in ab1. Maybe you forgot 'refined to'")
+				]
+				ownedPrototypes.get(4) => [
+					"dp99".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'dp99' has previously been defined in 'componentimpluniquenames::ab1'")
+				]
+				ownedPrototypes.get(5) => [
+					"mt1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'mt1' has previously been defined in 'componentimpluniquenames::ab1.i1'")
+				]
+				ownedSubcomponents.head => [
+					"absub1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "AbstractSubcomponent identifier 'absub1' previously defined in ab1.i1. Maybe you forgot 'refined to'")
+				]
+				ownedSubcomponents.get(2) => [
+					"name1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'name1' has previously been defined in 'componentimpluniquenames::ab1'")
+				]
+				ownedConnections.head => [
+					"conn1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Connection 'conn1' has previously been defined in 'componentimpluniquenames::ab1.i1'. Maybe you forgot 'refined to'")
+				]
+				ownedConnections.get(2) => [
+					"conn3".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'conn3' has previously been defined in 'componentimpluniquenames::ab1.i1'")
+				]
+			]
+			publicSection.ownedClassifiers.get(5) as AbstractImplementation => [
+				"ab1.i3".assertEquals(name)
+				ownedPrototypes.head => [
+					"dp3".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "DataPrototype identifier 'dp3' previously defined in ab1. Maybe you forgot 'refined to'")
+				]
+				ownedPrototypes.get(2) => [
+					"mt11".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'mt11' has previously been defined in 'componentimpluniquenames::ab1.i2'")
+				]
+				ownedSubcomponents.head => [
+					"absub1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "AbstractSubcomponent identifier 'absub1' previously defined in ab1.i2. Maybe you forgot 'refined to'")
+				]
+				ownedConnections.head => [
+					"conn1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Connection 'conn1' has previously been defined in 'componentimpluniquenames::ab1.i2'. Maybe you forgot 'refined to'")
+				]
+				ownedConnections.get(1) => [
+					"conn4".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Connection 'conn4' has previously been defined in 'componentimpluniquenames::ab1.i2'. Maybe you forgot 'refined to'")
+				]
+				ownedModes.head => [
+					"m5".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Mode 'm5' has previously been defined in 'componentimpluniquenames::ab1.i2'")
+				]
+				ownedModeTransitions.head => [
+					"mt10".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Mode Transition 'mt10' has previously been defined in 'componentimpluniquenames::ab1.i2'")
+				]
+			]
+			
+			publicSection.ownedClassifiers.get(11) as SubprogramImplementation => [
+				"subprog1.spi1".assertEquals(name)
+				ownedSubprogramCallSequences.head => [
+					"callseq1".assertEquals(name);
+					ownedSubprogramCalls.head => [
+						"callspi2".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi2' in subprog1.spi1")
+					]
+					ownedSubprogramCalls.get(1) => [
+						"callspi2".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi2' in subprog1.spi1")
+					]
+					ownedSubprogramCalls.get(2) => [
+						"callspi3".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi3' in subprog1.spi1")
+					]
+				]
+				ownedSubprogramCallSequences.get(1) => [
+					"callseq2".assertEquals(name);
+					ownedSubprogramCalls.head => [
+						"callspi3".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi3' in subprog1.spi1")
+					]
+				]
+				ownedSubprogramCallSequences.get(2) => [
+					"callseq3".assertEquals(name);
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callseq3' in subprog1.spi1")
+				]
+				ownedSubprogramCallSequences.get(3) => [
+					"callseq3".assertEquals(name);
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callseq3' in subprog1.spi1")
+				]
+			]
+
+			publicSection.ownedClassifiers.get(12) as SubprogramImplementation => [
+				"subprog1.spi3".assertEquals(name)
+				ownedSubprogramCallSequences.head => [
+					"callseq5".assertEquals(name);
+					ownedSubprogramCalls.head => [
+						"callspi6".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Identifier 'callspi6' has previously been defined in 'componentimpluniquenames::subprog1.spi1'")
+					]
+					ownedSubprogramCalls.get(1) => [
+						"dupename7".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Identifier 'dupename7' has previously been defined in 'componentimpluniquenames::subprog1.spi1'")
+					]
+				]
+			]
+
+			publicSection.ownedClassifiers.get(17) as SystemImplementation => [
+				"sys100.impl2".assertEquals(name)
+				ownedSubcomponents.head => [
+					"ete1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Identifier 'ete1' has previously been defined in 'componentimpluniquenames::sys100.impl1'")
+				]
+				ownedEndToEndFlows.head => [
+					"ete2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "End to end flow 'ete2' has previously been defined in 'componentimpluniquenames::sys100.impl1'. Maybe you forgot 'refined to'")
+				]
+				ownedEndToEndFlows.get(1) => [
+					"ete3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'ete3' in sys100.impl2")
+				]
+				ownedEndToEndFlows.get(2) => [
+					"ete3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'ete3' in sys100.impl2")
+				]
+			]
+		]
+
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
 	
 }

@@ -371,6 +371,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			}
 			Property property = pa.getProperty();
 			List<ModalPropertyValue> modalPropertyValues = pa.getOwnedValues();
+			if (modalPropertyValues.size() < 1) {
+				continue;
+			}
 			ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
 			List<Mode> propertyModes = new ArrayList<Mode>();
 			if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
