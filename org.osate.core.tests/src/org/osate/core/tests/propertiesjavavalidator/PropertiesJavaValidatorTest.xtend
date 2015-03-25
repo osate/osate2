@@ -40,16 +40,16 @@ import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
+import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordValue
+import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.ThreadType
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
-import org.osate.aadl2.Abstract
-import org.osate.aadl2.AbstractImplementation
-import org.osate.aadl2.SystemImplementation
 
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
@@ -472,17 +472,17 @@ class PropertiesJavaValidatorTest extends OsateTest {
 			range3 : range of aadlinteger applies to (all);
 		end psrange;
 		''',
-		"psscmpv.aadl" ->'''
+		"rangevalueupperlower.aadl" ->'''
 		package rangevalueupperlower
 		public
 			with psrange;
 			abstract ab1
 				properties
 					deactivate_execution_time => 1sec .. 10ms delta 1ps;
-					ps1::range1 => 10 .. 1;
+					psrange::range1 => 10 .. 1;
 					compute_execution_time => 10ms .. 1sec delta 1ps;
-					ps1::range2 => 10 .. 10;
-					ps1::range3 => 1 .. 10;
+					psrange::range2 => 10 .. 10;
+					psrange::range3 => 1 .. 10;
 			end ab1;
 		end rangevalueupperlower;
 		''')
@@ -495,10 +495,14 @@ class PropertiesJavaValidatorTest extends OsateTest {
 			publicSection.ownedClassifiers.head as AbstractType => [
 				"ab1".assertEquals(name)
 				ownedPropertyAssociations.head =>[
-					assertError(testFileResult.issues, issueCollection, "Upper bound of range is less than the lower bound.")
+					ownedValues.head  => [
+						ownedValue.assertError(testFileResult.issues, issueCollection, "Upper bound of range is less than the lower bound.")
+					]
 				]
 				ownedPropertyAssociations.get(1) =>[
-					assertError(testFileResult.issues, issueCollection, "Upper bound of range is less than the lower bound.")
+					ownedValues.head => [
+						ownedValue.assertError(testFileResult.issues, issueCollection, "Upper bound of range is less than the lower bound.")
+					]
 				]
 			]
 		]
