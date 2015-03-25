@@ -1790,25 +1790,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		l.addAll(type.getAllModes());
 		l.addAll(type.getAllModeTransitions());
 		l.addAll(type.getAllPrototypes());
-		// l needs sorted by number of extensions
-		Collections.sort(l, new Comparator<NamedElement>() {
-			@Override
-			public int compare(NamedElement a, NamedElement b) {
-				int aExtendCount = -1;
-				Classifier aExtended = a.getContainingClassifier();
-				while (null != aExtended) {
-					aExtendCount++;
-					aExtended = aExtended.getExtended();
-				}
-				int bExtendCount = -1;
-				Classifier bExtended = b.getContainingClassifier();
-				while (null != bExtended) {
-					bExtendCount++;
-					bExtended = bExtended.getExtended();
-				}
-				return aExtendCount - bExtendCount;
-			}
-		});
+		l = sortNamedElements(l);
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
@@ -1821,42 +1803,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					error(ne, ne.eClass().getName() + " identifier '" + ne.getName()
 							+ "' previously defined. Maybe you forgot 'refined to'");
 				} else {
-					NamedElement duplicated = null;
 					Classifier classifier = ne.getContainingClassifier();
-					EList<Element> oe = classifier.getOwnedElements();
-					if (null != oe) {
-						List<NamedElement> dupesInClassifier = new ArrayList<NamedElement>();
-						for (Element ownedElement : oe) {
-							if (ownedElement instanceof NamedElement
-									&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
-								dupesInClassifier.add((NamedElement) ownedElement);
-							}
+					List<NamedElement> dupesInClassifier = findDupesInSameClassifier(classifier, ne);
+					if (dupesInClassifier.size() > 1) {
+						for (NamedElement dupeNe : dupesInClassifier) {
+							error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
 						}
-						if (dupesInClassifier.size() > 1) {
-							for (NamedElement dupeNe : dupesInClassifier) {
-								error(dupeNe,
-										"Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
-							}
-							continue;
-						}
+						continue;
 					}
-					Classifier extended = classifier.getExtended();
-					List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
-					while (null != extended) {
-						EList<Element> ownedElements = extended.getOwnedElements();
-						if (null != ownedElements) {
-							for (Element ownedElement : ownedElements) {
-								if (ownedElement instanceof NamedElement
-										&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
-									extendedClassifiers.add(extended);
-								}
-							}
-						}
-						extended = extended.getExtended();
-					}
+
+					List<Classifier> extendedClassifiers = getExtendedClassifiersWithElement(classifier, ne);
 					if (extendedClassifiers.size() < 1) {
 						continue;
 					}
+
+					NamedElement duplicated = null;
 					duplicated = extendedClassifiers.get(0).findNamedElement(ne.getName());
 					if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature) || (duplicated instanceof AbstractPrototype && ne instanceof Prototype)) && !ne
 							.eClass().equals(duplicated.eClass()))
@@ -1874,30 +1835,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 									.getRefined() == null))) {
 						continue;
 					} else {
-						ICompositeNode n = NodeModelUtils.getNode(ne);
-						INode cn = findFirstNodeWithString(n, ":");
-						INode nextNode = cn.getNextSibling();
-						String leadingSpace = "";
-						String trailingSpace = " ";
-						if (nextNode instanceof LeafNode && nextNode.getText().substring(0, 1).equals(" ")) {
-							leadingSpace = " ";
-							trailingSpace = "";
-						} else {
-							while (nextNode instanceof CompositeNode) {
-								nextNode = ((CompositeNode) nextNode).getFirstChild();
-								if (nextNode instanceof LeafNode
-										&& ((LeafNode) nextNode).getText().substring(0, 1).equals(" ")) {
-									leadingSpace = " ";
-									trailingSpace = "";
-								}
-							}
-						}
-						String cnOffset = "" + cn.getTotalOffset();
-						String replacementVal = ":" + leadingSpace + "refined to" + trailingSpace;
-						error(ne.eClass().getName() + " identifier '" + ne.getName() + "' previously defined in "
-								+ duplicated.getContainingClassifier().getName() + ". Maybe you forgot 'refined to'",
-								ne, Aadl2Package.eINSTANCE.getNamedElement_Name(), DUPLICATE_COMPONENT_TYPE_NAME,
-								ne.getName(), cnOffset, replacementVal);
+						postRefineableErrorWithFix(ne, duplicated);
 					}
 				}
 			}
@@ -1920,12 +1858,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			usedNames.addAll(impl.getType().getAllFlowSpecifications());
 		}
 		usedNames.addAll(impl.getAllEndToEndFlows());
-		EList<SubprogramCallSequence> csl = null;
-		if (impl instanceof ThreadImplementation) {
-			csl = ((ThreadImplementation) impl).getOwnedSubprogramCallSequences();
-		} else if (impl instanceof SubprogramImplementation) {
-			csl = ((SubprogramImplementation) impl).getOwnedSubprogramCallSequences();
+
+		ArrayList<SubprogramCallSequence> csl = null;
+		if (impl instanceof BehavioredImplementation) {
+			csl = new ArrayList<SubprogramCallSequence>();
+			for (ComponentImplementation currentImpl = impl; currentImpl instanceof BehavioredImplementation; currentImpl = currentImpl
+					.getExtended()) {
+				csl.addAll(((BehavioredImplementation) currentImpl).getOwnedSubprogramCallSequences());
+			}
 		}
+
 		if (csl != null) {
 			usedNames.addAll(csl);
 			for (SubprogramCallSequence subprogramCallSequence : csl) {
@@ -1933,86 +1875,273 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 
+		usedNames = sortNamedElements(usedNames);
+
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(usedNames);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
 
-				error(impl,
-						"Identifier '" + ne.getName() + "' has previously been defined in implementation '"
-								+ impl.getQualifiedName() + "' or in type '" + impl.getTypeName() + "'");
+				if ((!(ne instanceof SubprogramCall)) && !impl.getOwnedElements().contains(ne)) {
+					continue;
+				}
+
+				if (ne instanceof SubprogramCall) {
+					NamedElement foundNe = impl.findNamedElement(ne.getName());
+					if (null == foundNe) {
+						continue;
+					}
+				}
+
+				Classifier classifier = ne.getContainingClassifier();
+				List<NamedElement> dupesInClassifier = findDupesInSameClassifier(classifier, ne);
+				if (dupesInClassifier.size() > 1) {
+					for (NamedElement dupeNe : dupesInClassifier) {
+						error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
+					}
+					continue;
+				}
+
+				List<Classifier> extendedClassifiers = getExtendedClassifiersWithElement(classifier, ne);
+				List<Classifier> implementedTypeClassifiers = new ArrayList<Classifier>();
+				if (classifier instanceof ComponentImplementation) {
+					implementedTypeClassifiers = getImplementedClassifiersWithElement(
+							((ComponentImplementation) classifier), ne);
+				}
+				for (Classifier nextClassifier : extendedClassifiers) {
+					if (!implementedTypeClassifiers.contains(nextClassifier)) {
+						implementedTypeClassifiers.add(nextClassifier);
+					}
+				}
+
+				if (implementedTypeClassifiers.size() < 1) {
+					continue;
+				}
+
+				NamedElement duplicated = null;
+				duplicated = implementedTypeClassifiers.get(0).findNamedElement(ne.getName());
+
+				if (ne instanceof Subcomponent && duplicated instanceof Subcomponent) {
+					postRefineableErrorWithFix(ne, duplicated);
+				} else if (ne instanceof Prototype && duplicated instanceof Prototype) {
+					if (null != ((Prototype) ne).getRefined()) {
+						continue;
+					}
+					postRefineableErrorWithFix(ne, duplicated);
+				} else if (ne instanceof Subcomponent) {
+					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+
+				} else if (ne instanceof Mode && duplicated instanceof Mode) {
+					error(ne, "Mode '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (ne instanceof ModeTransition && duplicated instanceof ModeTransition) {
+					error(ne, "Mode Transition '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (ne instanceof ModeTransition) {
+					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (ne instanceof Connection && duplicated instanceof Connection) {
+					error(ne, "Connection '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'. "
+							+ "Maybe you forgot 'refined to'");
+				} else if (ne instanceof EndToEndFlow && duplicated instanceof EndToEndFlow) {
+					error(ne, "End to end flow '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'. "
+							+ "Maybe you forgot 'refined to'");
+				} else if (ne instanceof SubprogramCallSequence) {
+					error(ne, "Idenitifer '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (ne instanceof SubprogramCall) {
+					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (!ne.eClass().equals(duplicated.eClass())) {
+					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else {
+					// least helpful catch all error in case something was overlooked
+					error(ne,
+							"Identifier '" + ne.getName() + "' has previously been defined in implementation '"
+									+ duplicated.getContainingClassifier().getQualifiedName() + "' or in type '"
+									+ impl.getTypeName() + "'");
+				}
 			}
 		}
 	}
 
-	/**
-	 * check for unique names in component type
-	 */
-	public void checkFeatureGroupTypeUniqueNames(FeatureGroupType type) {
-		// process in core package
-		EList<NamedElement> l = new BasicEList<NamedElement>();
-		l.addAll(type.getAllFeatures());
-		l.addAll(type.getAllPrototypes());
-		Collections.sort(l, new Comparator<NamedElement>() {
+	private void postRefineableErrorWithFix(NamedElement ne, NamedElement duplicated) {
+		ICompositeNode n = NodeModelUtils.getNode(ne);
+		INode cn = findFirstNodeWithString(n, ":");
+		INode nextNode = cn.getNextSibling();
+		String leadingSpace = "";
+		String trailingSpace = " ";
+		if (nextNode instanceof LeafNode && nextNode.getText().substring(0, 1).equals(" ")) {
+			leadingSpace = " ";
+			trailingSpace = "";
+		} else {
+			while (nextNode instanceof CompositeNode) {
+				nextNode = ((CompositeNode) nextNode).getFirstChild();
+				if (nextNode instanceof LeafNode && ((LeafNode) nextNode).getText().substring(0, 1).equals(" ")) {
+					leadingSpace = " ";
+					trailingSpace = "";
+				}
+			}
+		}
+		String cnOffset = "" + cn.getTotalOffset();
+		String replacementVal = ":" + leadingSpace + "refined to" + trailingSpace;
+		String errMsg = ne.eClass().getName() + " identifier '" + ne.getName() + "' previously defined in "
+				+ duplicated.getContainingClassifier().getName() + ". Maybe you forgot 'refined to'";
+
+		error(errMsg, ne, Aadl2Package.eINSTANCE.getNamedElement_Name(), DUPLICATE_COMPONENT_TYPE_NAME, ne.getName(),
+				cnOffset, replacementVal);
+
+	}
+
+	private List<Classifier> getExtendedClassifiersWithElement(Classifier classifier, NamedElement ne) {
+		Classifier extended = classifier.getExtended();
+		if (null == extended && classifier instanceof ComponentImplementation) {
+			extended = ((ComponentImplementation) classifier).getType();
+		}
+		List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
+		while (null != extended) {
+			EList<Element> ownedElements = extended.getOwnedElements();
+			if (null != ownedElements) {
+				for (Element ownedElement : ownedElements) {
+					if (ownedElement instanceof NamedElement
+							&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+						extendedClassifiers.add(extended);
+					}
+					if (ownedElement instanceof SubprogramCallSequence) {
+						EList<SubprogramCall> subProgCalls = ((SubprogramCallSequence) ownedElement)
+								.getOwnedSubprogramCalls();
+						for (SubprogramCall spc : subProgCalls) {
+							if (((NamedElement) spc).getName().equalsIgnoreCase(ne.getName())) {
+								extendedClassifiers.add(extended);
+							}
+						}
+					}
+				}
+			}
+			Classifier tempClassifier = extended;
+			extended = extended.getExtended();
+			if (null == extended && tempClassifier instanceof ComponentImplementation) {
+				extended = ((ComponentImplementation) tempClassifier).getType();
+			}
+		}
+		return extendedClassifiers;
+	}
+
+	private List<Classifier> getImplementedClassifiersWithElement(ComponentImplementation classifier, NamedElement ne) {
+		List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
+		Classifier extended = classifier.getType();
+		EList<Element> ownedElements = extended.getOwnedElements();
+		if (null != ownedElements) {
+			for (Element ownedElement : ownedElements) {
+				if (ownedElement instanceof NamedElement
+						&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+					extendedClassifiers.add(extended);
+				}
+				if (ownedElement instanceof SubprogramCallSequence) {
+					EList<SubprogramCall> subProgCalls = ((SubprogramCallSequence) ownedElement)
+							.getOwnedSubprogramCalls();
+					for (SubprogramCall spc : subProgCalls) {
+						if (((NamedElement) spc).getName().equalsIgnoreCase(ne.getName())) {
+							extendedClassifiers.add(extended);
+						}
+					}
+				}
+			}
+		}
+
+		List<Classifier> extendedFromTypeClassifiers = getExtendedClassifiersWithElement(extended, ne);
+		extendedClassifiers.addAll(extendedFromTypeClassifiers);
+		return extendedClassifiers;
+	}
+
+	private List<NamedElement> findDupesInSameClassifier(Classifier classifier, NamedElement ne) {
+		List<NamedElement> dupesInClassifier = new ArrayList<NamedElement>();
+		EList<Element> oe = classifier.getOwnedElements();
+
+		if (null != oe) {
+			for (Element ownedElement : oe) {
+				if (ownedElement instanceof NamedElement
+						&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+					dupesInClassifier.add((NamedElement) ownedElement);
+				}
+				if (ownedElement instanceof SubprogramCallSequence) {
+					EList<SubprogramCall> spCalls = ((SubprogramCallSequence) ownedElement).getOwnedSubprogramCalls();
+					for (SubprogramCall subCall : spCalls) {
+						if (subCall.getName().equalsIgnoreCase(ne.getName())) {
+							dupesInClassifier.add(subCall);
+						}
+					}
+				}
+			}
+		}
+		return dupesInClassifier;
+	}
+
+	private EList<NamedElement> sortNamedElements(EList<NamedElement> list) {
+		Collections.sort(list, new Comparator<NamedElement>() {
+
 			@Override
 			public int compare(NamedElement a, NamedElement b) {
 				int aExtendCount = -1;
 				Classifier aExtended = a.getContainingClassifier();
 				while (null != aExtended) {
 					aExtendCount++;
-					aExtended = aExtended.getExtended();
+					if (aExtended instanceof ComponentImplementation && null == aExtended.getExtended()) {
+						aExtended = ((ComponentImplementation) aExtended).getType();
+					} else {
+						aExtended = aExtended.getExtended();
+					}
 				}
 				int bExtendCount = -1;
 				Classifier bExtended = b.getContainingClassifier();
 				while (null != bExtended) {
 					bExtendCount++;
-					bExtended = bExtended.getExtended();
+					if (bExtended instanceof ComponentImplementation && null == bExtended.getExtended()) {
+						bExtended = ((ComponentImplementation) bExtended).getType();
+					} else {
+						bExtended = bExtended.getExtended();
+					}
 				}
 				return aExtendCount - bExtendCount;
 			}
 		});
+		return list;
+	}
+
+	/**
+	 * check for unique names in Feature Group type
+	 */
+	public void checkFeatureGroupTypeUniqueNames(FeatureGroupType type) {
+		// process in core package
+		EList<NamedElement> l = new BasicEList<NamedElement>();
+		l.addAll(type.getAllFeatures());
+		l.addAll(type.getAllPrototypes());
+		l = sortNamedElements(l);
+
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
 				if (type.getOwnedElements().isEmpty() || !type.getOwnedElements().contains(ne)) {
 					continue;
 				}
-				NamedElement duplicated = null;
 				Classifier classifier = ne.getContainingClassifier();
-				EList<Element> oe = classifier.getOwnedElements();
-				if (null != oe) {
-					List<NamedElement> dupesInClassifier = new ArrayList<NamedElement>();
-					for (Element ownedElement : oe) {
-						if (ownedElement instanceof NamedElement
-								&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
-							dupesInClassifier.add((NamedElement) ownedElement);
-						}
+				List<NamedElement> dupesInClassifier = findDupesInSameClassifier(classifier, ne);
+				if (dupesInClassifier.size() > 1) {
+					for (NamedElement dupeNe : dupesInClassifier) {
+						error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
 					}
-					if (dupesInClassifier.size() > 1) {
-						for (NamedElement dupeNe : dupesInClassifier) {
-							error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
-						}
-						continue;
-					}
-				}
-				Classifier extended = classifier.getExtended();
-				List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
-				while (null != extended) {
-					EList<Element> ownedElements = extended.getOwnedElements();
-					if (null != ownedElements) {
-						for (Element ownedElement : ownedElements) {
-							if (ownedElement instanceof NamedElement
-									&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
-								extendedClassifiers.add(extended);
-							}
-						}
-					}
-					extended = extended.getExtended();
+					continue;
 				}
 
+				List<Classifier> extendedClassifiers = getExtendedClassifiersWithElement(classifier, ne);
 				if (extendedClassifiers.size() < 1) {
 					continue;
 				}
 
+				NamedElement duplicated = null;
 				duplicated = extendedClassifiers.get(0).findNamedElement(ne.getName());
 				if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature) || (duplicated instanceof AbstractPrototype && ne instanceof Prototype)) && !ne
 						.eClass().equals(duplicated.eClass()))
@@ -2030,30 +2159,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								.getRefined() == null))) {
 					continue;
 				} else {
-					ICompositeNode n = NodeModelUtils.getNode(ne);
-					INode cn = findFirstNodeWithString(n, ":");
-					INode nextNode = cn.getNextSibling();
-					String leadingSpace = "";
-					String trailingSpace = " ";
-					if (nextNode instanceof LeafNode && nextNode.getText().substring(0, 1).equals(" ")) {
-						leadingSpace = " ";
-						trailingSpace = "";
-					} else {
-						while (nextNode instanceof CompositeNode) {
-							nextNode = ((CompositeNode) nextNode).getFirstChild();
-							if (nextNode instanceof LeafNode
-									&& ((LeafNode) nextNode).getText().substring(0, 1).equals(" ")) {
-								leadingSpace = " ";
-								trailingSpace = "";
-							}
-						}
-					}
-					String cnOffset = "" + cn.getTotalOffset();
-					String replacementVal = ":" + leadingSpace + "refined to" + trailingSpace;
-					error(ne.eClass().getName() + " identifier '" + ne.getName() + "' previously defined in "
-							+ duplicated.getContainingClassifier().getName() + ". Maybe you forgot 'refined to'", ne,
-							Aadl2Package.eINSTANCE.getNamedElement_Name(), DUPLICATE_COMPONENT_TYPE_NAME, ne.getName(),
-							cnOffset, replacementVal);
+					postRefineableErrorWithFix(ne, duplicated);
 				}
 			}
 		}
