@@ -509,5 +509,37 @@ class PropertiesJavaValidatorTest extends OsateTest {
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
 	}
+	//checkCaseRangeValueDeltaNotNegative
+	//Test for checking that the delta a RangeValue is not negative
+	@Test
+	def void testRangeValueForNegativeDelta() {
+		createFiles("rangevaluedelta.aadl" ->'''
+		package rangevaluedelta
+		public
+			abstract ab1
+				properties
+					activate_execution_time => 1ms..10ms delta -2ps;
+			end ab1;
+		end rangevaluedelta;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("rangevaluedelta.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"rangevaluedelta".assertEquals(name)
+			publicSection.ownedClassifiers.head as AbstractType => [
+				"ab1".assertEquals(name)
+				ownedPropertyAssociations.head =>[
+					ownedValues.head  => [
+						ownedValue as RangeValue =>[
+						 delta.assertError(testFileResult.issues, issueCollection, "Range value has a negative delta component")	
+						]
+					]
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
 	
 }

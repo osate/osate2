@@ -45,12 +45,14 @@ import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
 import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.validation.Issue
+import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.Namespace
 import org.osate.aadl2.PackageSection
-import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.RangeValue
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.impl.IntegerLiteralImpl
 import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
@@ -98,5 +100,22 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 					}
 				});
 	}
+
+	/**
+	 * QuickFix for making a negative delta positive
+	 */
+	@Fix(PropertiesJavaValidator.DELTA_NEGATIVE)
+	def public void fixNegativeDelta(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Make delta value positive", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						switch element {
+							IntegerLiteral : element.value = -(element.value)
+							RealLiteral : element.value = -(element.value)
+						}
+					}
+				});
+	}
+
 
 }
