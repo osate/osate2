@@ -3,5 +3,8 @@
    <feature url="features/org.osate.alisa.workbench.sdk_1.0.0.qualifier.jar" id="org.osate.alisa.workbench.sdk" version="1.0.0.qualifier">
       <category name="alisa"/>
    </feature>
+   <feature url="features/org.osate.alisa.workbench.sdk.source_1.0.0.qualifier.jar" id="org.osate.alisa.workbench.sdk.source" version="1.0.0.qualifier">
+      <category name="alisa"/>
+   </feature>
    <category-def name="alisa" label="ALISA"/>
 </site>
