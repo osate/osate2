@@ -111,6 +111,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public static final String MISSING_WITH = "org.osate.xtext.aadl2.properties.missing_with";
 	public static final String UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.properties.upper_less_than_lower";
 	public static final String DELTA_NEGATIVE = "org.osate.xtext.aadl2.properties.delta_negative";
+	public static final String MISSING_NUMBERVALUE_UNITS = "org.osate.xtext.aadl2.properties.missing_numbervalue_units";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
@@ -118,9 +119,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		if (deltaNV != null) {
 			final double delta = deltaNV.getScaledValue();
 			if (delta < 0) {
-//				error(rv.getDelta(), "Range value has a negative delta component");
 				error("Range value has a negative delta component", rv.getDelta(), null, DELTA_NEGATIVE);
-
 			}
 		}
 		final NumberValue lower = rv.getMinimumValue();
@@ -760,7 +759,31 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			return;
 		}
 		if (ul == null) {
-			error(holder, "Number value is missing a unit");
+			boolean doQuickFix = false;
+			EObject container = nv;
+			while (null != container) {
+				container = container.eContainer();
+				if (null != container && container.equals(holder)) {
+					doQuickFix = true;
+					break;
+				}
+			}
+
+			if (doQuickFix) {
+				EList<Element> allUTElements = ut.allOwnedElements();
+				String[] unitNamesAndURIs = new String[allUTElements.size() * 2];
+				int i = 0;
+				for (Element elem : allUTElements) {
+					unitNamesAndURIs[i] = ((UnitLiteral) elem).getName();
+					i++;
+					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
+					i++;
+				}
+				error("Number value is missing a unit", nv, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
+
+			} else {
+				error(holder, "Number value is missing a unit");
+			}
 		} else if (!ut.getOwnedLiterals().contains(ul)) {
 			error(holder, "Unit '" + ul.getName() + "'of number value is not of Units type " + ut.getQualifiedName());
 		}

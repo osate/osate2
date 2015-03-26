@@ -52,8 +52,11 @@ import org.osate.aadl2.PackageSection
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.impl.IntegerLiteralImpl
+import org.osate.aadl2.UnitsType
 import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
+import org.osate.aadl2.NumberValue
+import java.util.ArrayList
+import org.osate.aadl2.UnitLiteral
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
@@ -117,5 +120,28 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 				});
 	}
 
+	/**
+	 * QuickFixes for adding unit
+	 * 
+	 * 	 * issue.getData() unitTypeNames
+	 */
+	@Fix(PropertiesJavaValidator.MISSING_NUMBERVALUE_UNITS)
+	def public void fixMissingUnits(Issue issue, IssueResolutionAcceptor acceptor) {
 
+		val iter = issue.data.iterator
+		while(iter.hasNext){
+			val utName = iter.next
+			val nextUri = iter.next
+			acceptor.accept(issue, "Add units '" + utName + "' to number", null, null,
+					new ISemanticModification() {
+						override public void apply(EObject element, IModificationContext context) throws Exception {
+							val ResourceSet resourceSet = element.eResource().getResourceSet();
+							val UnitLiteral unitLiteral = resourceSet.getEObject(URI.createURI(nextUri), true) as UnitLiteral;
+							(element as NumberValue).unit = unitLiteral
+						}
+					}
+			);
+		}
+	}
+	
 }
