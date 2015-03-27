@@ -48,7 +48,7 @@ import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.instance.InstanceReferenceValue
 
-package class ValueColumnLabelProvider extends ColumnLabelProvider {
+class ValueColumnLabelProvider extends ColumnLabelProvider {
 	val AadlPropertyView propertyView
 	
 	package new(AadlPropertyView propertyView) {
@@ -83,7 +83,7 @@ package class ValueColumnLabelProvider extends ColumnLabelProvider {
 		}
 	}
 	
-	def private static getValueAsString(Element expression, ISerializer serializer) {
+	def static getValueAsString(Element expression, ISerializer serializer) {
 		try {
 			switch expression {
 				InstanceReferenceValue: expression.referencedInstanceObject?.instanceObjectPath ?: "null"
