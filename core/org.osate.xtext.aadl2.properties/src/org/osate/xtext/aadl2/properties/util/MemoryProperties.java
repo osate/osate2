@@ -33,7 +33,6 @@
  */
 package org.osate.xtext.aadl2.properties.util;
 
-
 public final class MemoryProperties {
 	private MemoryProperties() {
 	}
@@ -48,6 +47,7 @@ public final class MemoryProperties {
 	public static final String DATA_SIZE = "Data_Size";
 	public static final String CODE_SIZE = "Code_Size";
 	public static final String STACK_SIZE = "Stack_Size";
+	public static final String MEMORY_SIZE = "Memory_Size";
 
 	/**
 	 * Backward compatibility. The Source_* were removed.

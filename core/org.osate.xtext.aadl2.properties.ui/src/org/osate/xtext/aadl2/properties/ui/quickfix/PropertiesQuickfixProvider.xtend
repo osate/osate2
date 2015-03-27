@@ -57,6 +57,13 @@ import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
 import org.osate.aadl2.NumberValue
 import java.util.ArrayList
 import org.osate.aadl2.UnitLiteral
+import org.osate.aadl2.PropertyAssociation
+import org.osate.aadl2.ModalPropertyValue
+import org.osate.aadl2.impl.UnitLiteralImpl
+import org.osate.xtext.aadl2.properties.util.GetProperties
+import org.osate.xtext.aadl2.properties.util.AadlProject
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval
+import org.osate.xtext.aadl2.properties.util.MemoryProperties
 
 public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
@@ -143,5 +150,31 @@ public class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			);
 		}
 	}
+	
+	/**
+	 * QuickFix for changing deprecate Byte_Count to Memory_Size
+	 */
+	@Fix(PropertiesJavaValidator.BYTE_COUNT_DEPRECATED)
+	def public void fixDeprecatedByteCount(Issue issue, IssueResolutionAcceptor acceptor){
+		acceptor.accept(issue, "Replace Byte_Count values with Memory_Size", null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val pa = (element as PropertyAssociation)
+						val ownedValues = pa.ownedValues
+						pa.property =
+						 EMFIndexRetrieval.getPropertyDefinitionInWorkspace(pa, MemoryProperties.MEMORY_SIZE)
+						for (ModalPropertyValue mpv : ownedValues){
+							val ownedVal = mpv.ownedValue
+							switch ownedVal {
+								NumberValue : ownedVal.unit = GetProperties.findUnitLiteral(pa, AadlProject.SIZE_UNITS, AadlProject.B_LITERAL)
+							}
+							
+						}
+				}
+			}
+		)
+		
+	}
+	
 	
 }
