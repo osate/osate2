@@ -112,6 +112,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public static final String UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.properties.upper_less_than_lower";
 	public static final String DELTA_NEGATIVE = "org.osate.xtext.aadl2.properties.delta_negative";
 	public static final String MISSING_NUMBERVALUE_UNITS = "org.osate.xtext.aadl2.properties.missing_numbervalue_units";
+	public static final String BYTE_COUNT_DEPRECATED = "org.osate.xtext.aadl2.properties.byte_count_deprecated";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
@@ -479,7 +480,20 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkAssociationAppliesTo(pa);
 		checkInBinding(pa);
 		if (pa.getProperty() != null && "Byte_Count".equalsIgnoreCase(pa.getProperty().getName())) {
-			warning(pa, "Byte_Count is deprecated. Please use Memory_Size.");
+			boolean offerQuickFix = true;
+			for (ModalPropertyValue modalPropertyValue : pvl) {
+				PropertyExpression pe = modalPropertyValue.getOwnedValue();
+				if (!(pe instanceof NumberValue)) {
+					offerQuickFix = false;
+					break;
+				}
+			}
+
+			if (offerQuickFix) {
+				warning("Byte_Count is deprecated. Please use Memory_Size.", pa, null, BYTE_COUNT_DEPRECATED);
+			} else {
+				warning(pa, "Byte_Count is deprecated. Please use Memory_Size.");
+			}
 		}
 	}
 
