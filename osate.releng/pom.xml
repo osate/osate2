@@ -26,7 +26,6 @@
 		<module>../org.osate.contribution.sei</module>
 		<module>../org.osate.core</module>
 		<module>../org.osate.core.feature</module>
-		<module>../org.osate.core.source.feature</module>
 		<module>../org.osate.instantiation</module>
 		<module>../org.osate.help</module>
 		<module>../org.osate.pluginsupport</module>
