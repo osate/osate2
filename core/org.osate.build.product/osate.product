@@ -45,7 +45,7 @@
 
    <features>
       <feature id="org.osate.core.feature"/>
-      <feature id="org.osate.core.source.feature"/>
+      <feature id="org.osate.core.feature.source"/>
       <feature id="org.osate.plugins.feature"/>
       <feature id="org.osate.plugins.source.feature"/>
       <feature id="org.osate.xtext.aadl2.errormodel.feature" installMode="root"/>
