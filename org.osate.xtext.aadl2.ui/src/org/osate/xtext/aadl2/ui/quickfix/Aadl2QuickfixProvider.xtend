@@ -48,6 +48,10 @@ import org.osate.aadl2.Feature
 import org.osate.aadl2.NamedElement
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
 import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
+import org.osate.aadl2.EnumerationLiteral
+import java.util.Enumeration
+import org.osate.aadl2.EnumerationType
+import org.osate.aadl2.UnitLiteral
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
@@ -95,6 +99,50 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 				context.getXtextDocument().replace(offset, 1, replacementVal);
 			} 
 		});
+	}
+
+	/**
+	 * QuickFix for duplicate literal in an enumeration
+	 * issue.getData()[0]: The name of the EnumerationLiteral.
+	 */
+	@Fix(Aadl2JavaValidator.DUPLICATE_LITERAL_IN_ENUMERATION)
+	def public void fixDuplicateLiteralInEnumeration(Issue issue, IssueResolutionAcceptor acceptor) {
+		val String dupeLiteralName = issue.getData().get(0);
+		acceptor.accept(issue, "Remove duplicate literal '" + dupeLiteralName + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val el = element as EnumerationLiteral
+					val enumContainer = el.eContainer as EnumerationType
+					enumContainer.ownedLiterals.remove(el)
+				}
+		});
+	}
+
+	/**
+	 * QuickFix for unit literal being out of sequence
+	 * issue.getData(0) UnitLiteral.baseUnit.name
+	 * issue.getData(1) ... issue.getData(n): Alternating strings of the UnitLiteral names and URI.
+	 */
+	@Fix(Aadl2JavaValidator.UNIT_LITERAL_OUT_OF_ORDER)
+	def public void fixUnitLiteralOutOfOrder(Issue issue, IssueResolutionAcceptor acceptor) {
+		val baseUnitName = issue.data.head
+		val iter = issue.data.iterator
+		
+		if(iter.hasNext) iter.next
+		
+		while(iter.hasNext){
+			val ulName = iter.next
+			val nextUri = iter.next
+			acceptor.accept(issue, "Change unit base type '" + baseUnitName + "' to '" + ulName + "'", null, null,
+					new ISemanticModification() {
+						override public void apply(EObject element, IModificationContext context) throws Exception {
+							val ResourceSet resourceSet = element.eResource().getResourceSet();
+							val UnitLiteral newBaseUnit = resourceSet.getEObject(URI.createURI(nextUri), true) as UnitLiteral;
+							(element as UnitLiteral).baseUnit = newBaseUnit
+						}
+					}
+			);
+		}
 	}
 
 }

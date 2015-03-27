@@ -56,6 +56,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -85,6 +86,8 @@ import com.google.inject.Inject;
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS = "org.osate.xtext.aadl2.mismatched_beginning_and_ending_identifiers";
 	public static final String DUPLICATE_COMPONENT_TYPE_NAME = "org.osate.xtext.aadl2.duplicate_component_type_names";
+	public static final String DUPLICATE_LITERAL_IN_ENUMERATION = "org.osate.xtext.aadl2.duplicate_literal_in_enumeration";
+	public static final String UNIT_LITERAL_OUT_OF_ORDER = "org.osate.xtext.aadl2.unit_literal_out_of_order";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -544,12 +547,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseUnitLiteral(final UnitLiteral ul) {
 		if (ul.getBaseUnit() != null && !ul.getBaseUnit().eIsProxy()) {
 			EList<EnumerationLiteral> literals = ((UnitsType) ul.getOwner()).getOwnedLiterals();
+			int ulIndex = literals.indexOf(ul);
+			String[] literalNamesAndUri = new String[(ulIndex * 2) + 1];
+			literalNamesAndUri[0] = ul.getBaseUnit().getName();
+			int i = 1;
+			for (EnumerationLiteral nextEL : literals) {
+				if (literals.indexOf(nextEL) < ulIndex) {
+					literalNamesAndUri[i] = nextEL.getName();
+					i++;
+					literalNamesAndUri[i] = EcoreUtil.getURI(nextEL).toString();
+					i++;
+				}
+			}
 			if (ul.equals(ul.getBaseUnit())) {
-				error('\'' + ul.getName() + "' cannot be its own base unit", ul,
-						Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit());
+				error('\'' + ul.getName() + "' cannot be its own base unit", ul, null, UNIT_LITERAL_OUT_OF_ORDER,
+						literalNamesAndUri);
+
 			} else if (literals.indexOf(ul.getBaseUnit()) >= literals.indexOf(ul)) {
-				error('\'' + ul.getBaseUnit().getName() + "' is not declared before '" + ul.getName() + '\'', ul,
-						Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit());
+				error('\'' + ul.getBaseUnit().getName() + "' is not declared before '" + ul.getName() + '\'', ul, null,
+						UNIT_LITERAL_OUT_OF_ORDER, literalNamesAndUri);
 			}
 		}
 	}
@@ -560,7 +576,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
-				error(ne, "Literal '" + ne.getName() + "' previously declared in enumeration");
+				error("Literal '" + ne.getName() + "' previously declared in enumeration", ne, null,
+						DUPLICATE_LITERAL_IN_ENUMERATION, ne.getName());
 			}
 		}
 	}
