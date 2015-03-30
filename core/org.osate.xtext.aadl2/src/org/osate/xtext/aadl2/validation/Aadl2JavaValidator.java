@@ -88,6 +88,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String DUPLICATE_COMPONENT_TYPE_NAME = "org.osate.xtext.aadl2.duplicate_component_type_names";
 	public static final String DUPLICATE_LITERAL_IN_ENUMERATION = "org.osate.xtext.aadl2.duplicate_literal_in_enumeration";
 	public static final String UNIT_LITERAL_OUT_OF_ORDER = "org.osate.xtext.aadl2.unit_literal_out_of_order";
+	public static final String MODE_NOT_DEFINED_IN_CONTAINER = "org.osate.xtext.aadl2.mode_not_defined_in_container";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -677,9 +678,31 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				for (Mode inMode : inModes) {
 					if (null != modalElementInModes && !modalElementInModes.isEmpty()) {
 						if (!modalElementInModes.contains(inMode)) {
-							error(modalPropertyValue, inMode.getName()
+							String inModeURI = EcoreUtil.getURI(inMode).toString();
+							String containerURI = EcoreUtil.getURI(modalElement).toString();
+
+							List<Mode> proposedReplacementModes = new ArrayList<Mode>();
+							for (Mode meInMode : modalElementInModes) {
+								if (!modesForAllModalPropertyValues.contains(meInMode)) {
+									proposedReplacementModes.add(meInMode);
+								}
+							}
+							String[] issueData = new String[(proposedReplacementModes.size() * 2) + 5];
+							issueData[0] = inMode.getName();
+							issueData[1] = inModeURI;
+							issueData[2] = modalElement.getName();
+							issueData[3] = containerURI;
+							issueData[4] = EcoreUtil.getURI(modalPropertyValue).toString();
+							int i = 5;
+							for (Mode propsedReplacementMode : proposedReplacementModes) {
+								issueData[i++] = propsedReplacementMode.getName();
+								issueData[i++] = EcoreUtil.getURI(propsedReplacementMode).toString();
+							}
+
+							error(inMode.getName()
 									+ " is not a valid mode because it is not in the modes defined for container "
-									+ modalElement.getName());
+									+ modalElement.getName(), modalPropertyValue, null, MODE_NOT_DEFINED_IN_CONTAINER,
+									issueData);
 							modeNotDefined = true;
 							continue;
 						}
@@ -754,10 +777,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			if (prefix.equalsIgnoreCase("self")) {
 				if (!(connectionEnd instanceof InternalFeature)) {
+					// TODO: QuickFixes change to processor or just remove
 					error(connectedElement, "Only internal features may follow the keyword 'self'");
 				}
 			} else if (prefix.equalsIgnoreCase("processor")) {
 				if (!(connectionEnd instanceof ProcessorFeature)) {
+					// TODO: QuickFixes change to remove or just processor
 					error(connectedElement, "Only processor features may follow the keyword 'processor'");
 				}
 			}
