@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.osate</groupId>
+		<artifactId>osate2</artifactId>
+		<version>2.1.0-SNAPSHOT</version>
+		<relativePath>../../../org.osate.build.main/pom.xml</relativePath>
+	</parent>
+	<groupId>org.osate</groupId>
+	<artifactId>osate2-core.modules</artifactId>
+	<version>2.1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<core.root>../..</core.root>
+	</properties>
+
+	<modules>
+		<module>${core.root}/org.osate.aadl2</module>
+		<module>${core.root}/org.osate.aadl2.edit</module>
+		<module>${core.root}/org.osate.aadl2.model.editor</module>
+		<module>${core.root}/org.osate.aadl2.modelsupport</module>
+		<module>${core.root}/org.osate.annexsupport</module>
+		<module>${core.root}/org.osate.branding</module>
+		<module>${core.root}/org.osate.build.product</module>
+		<module>${core.root}/org.osate.build.target</module>
+		<module>${core.root}/org.osate.contribution.sei</module>
+		<module>${core.root}/org.osate.core</module>
+		<module>${core.root}/org.osate.core.feature</module>
+		<module>${core.root}/org.osate.instantiation</module>
+		<module>${core.root}/org.osate.help</module>
+		<module>${core.root}/org.osate.pluginsupport</module>
+		<module>${core.root}/org.osate.reporter</module>
+		<module>${core.root}/org.osate.ui</module>
+		<module>${core.root}/org.osate.wizards</module>
+		<module>${core.root}/org.osate.workspace</module>
+		<module>${core.root}/org.osate.xtext.aadl2</module>
+		<module>${core.root}/org.osate.xtext.aadl2.properties</module>
+		<module>${core.root}/org.osate.xtext.aadl2.properties.ui</module>
+		<module>${core.root}/org.osate.xtext.aadl2.ui</module>
+
+		<module>${core.root}/org.osate.core.tests</module>
+	</modules>
+
+</project>
