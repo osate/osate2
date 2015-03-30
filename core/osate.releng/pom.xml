@@ -15,49 +15,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>../org.osate.aadl2</module>
-		<module>../org.osate.aadl2.edit</module>
-		<module>../org.osate.aadl2.model.editor</module>
-		<module>../org.osate.aadl2.modelsupport</module>
-		<module>../org.osate.annexsupport</module>
-		<module>../org.osate.branding</module>
-		<module>../org.osate.build.product</module>
-		<module>../org.osate.build.target</module>
-		<module>../org.osate.contribution.sei</module>
-		<module>../org.osate.core</module>
-		<module>../org.osate.core.feature</module>
-		<module>../org.osate.instantiation</module>
-		<module>../org.osate.help</module>
-		<module>../org.osate.pluginsupport</module>
-		<module>../org.osate.reporter</module>
-		<module>../org.osate.ui</module>
-		<module>../org.osate.wizards</module>
-		<module>../org.osate.workspace</module>
-		<module>../org.osate.xtext.aadl2</module>
-		<module>../org.osate.xtext.aadl2.properties</module>
-		<module>../org.osate.xtext.aadl2.properties.ui</module>
-		<module>../org.osate.xtext.aadl2.ui</module>
-
-		<module>../../osate2-plugins/org.osate.analysis.architecture</module>
-		<module>../../osate2-plugins/org.osate.analysis.flows</module>
-		<module>../../osate2-plugins/org.osate.analysis.resource.budgets</module>
-		<module>../../osate2-plugins/org.osate.analysis.resource.management</module>
-		<module>../../osate2-plugins/org.osate.analysis.security</module>
-		<module>../../osate2-plugins/org.osate.analysis.arinc653</module>
-
-		<module>../../osate2-plugins/org.osate.importer</module>
-		<module>../../osate2-plugins/org.osate.importer.scade</module>
-		<module>../../osate2-plugins/org.osate.importer.simulink</module>
-		<module>../../osate2-plugins/org.osate.importer.lattix</module>
-
-		<module>../../osate2-plugins/org.osate.analysis.lute</module>
-		<module>../../osate2-plugins/org.osate.imv.osate</module>
-		<module>../../osate2-plugins/org.osate.imv.propertydecorations</module>
-		<module>../../osate2-plugins/org.osate.imv.ui</module>
-		<module>../../osate2-plugins/org.osate.imv.aadldiagram</module>
-		<module>../../osate2-plugins/org.osate.analysis.binpacking</module>
-		<module>../../osate2-plugins/org.osate.plugins.feature</module>
-		<module>../../osate2-plugins/org.osate.plugins.source.feature</module>
+		<module>../../osate2-core/osate2-core.releng/modules</module>
+		<module>../../osate2-plugins/osate2-plugins.releng/modules</module>
 
 		<module>../../ErrorModelV2/org.osate.aadl2.errormodel.analysis</module>
 		<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel.feature</module>
@@ -96,9 +55,6 @@
 		<module>../../osate2-ocarina/org.osate.ocarina.help</module>
 		<module>../../osate2-ocarina/org.osate.ocarina.real.xtext</module>
 		<module>../../osate2-ocarina/org.osate.ocarina.real.xtext.ui</module>
-
-		<module>../org.osate.core.tests</module>
-		<module>../../osate2-plugins/org.osate.analysis.flows.tests</module>
 	</modules>
 
 </project>
