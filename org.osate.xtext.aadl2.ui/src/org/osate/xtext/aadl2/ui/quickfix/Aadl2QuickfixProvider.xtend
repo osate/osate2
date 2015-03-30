@@ -52,6 +52,11 @@ import org.osate.aadl2.EnumerationLiteral
 import java.util.Enumeration
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.UnitLiteral
+import org.osate.aadl2.ModalElement
+import org.osate.aadl2.Mode
+import org.eclipse.emf.common.util.EList
+import org.osate.aadl2.ModalPath
+import org.osate.aadl2.ModalPropertyValue
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
@@ -141,6 +146,66 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 							(element as UnitLiteral).baseUnit = newBaseUnit
 						}
 					}
+			);
+		}
+	}
+
+
+	/**
+	 * QuickFix for mode in modal property value not being defined for the container
+	 * issue.getData(0) mode.name
+	 * issue.getData(1) undefinedMode URI 
+	 * issue.getData(2) containerName
+	 * issue.getData(3) containerURI
+	 * issue.getData(4) ModalPropertyValue 
+	 * issue.getData(5) ... issue.getData(n): Alternating strings of proposed replacement mode names and URI.
+	 *  
+	 */
+	@Fix(Aadl2JavaValidator.MODE_NOT_DEFINED_IN_CONTAINER)
+	def public void fixModeNotDefinedInContainer(Issue issue, IssueResolutionAcceptor acceptor) {
+		val modeName = issue.data.head		
+		val undefinedModeURI =  issue.data.get(1)
+		val containerName = issue.data.get(2)	
+		val containerURI = issue.data.get(3)
+		val modalPropertyValueURI = issue.data.get(4)
+
+		acceptor.accept(issue, "Add '" + modeName + "' to in modes of '" + containerName + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val ResourceSet resourceSet = element.eResource().getResourceSet();
+					val ModalElement container = resourceSet.getEObject(URI.createURI(containerURI), true) as ModalElement;
+					val Mode undefinedMode = resourceSet.getEObject(URI.createURI(undefinedModeURI), true) as Mode;
+			
+					switch container {
+						ModalPath : container.inModeOrTransitions.add(undefinedMode)
+						default : container.inModes.add(undefinedMode)
+					}
+				}
+			}
+		);
+
+		val iter = issue.data.iterator
+		for (var i=0;i<5;i++){
+			if(iter.hasNext) iter.next
+		}
+	
+		while(iter.hasNext){
+			val replacementName = iter.next
+			val nextUri = iter.next
+
+			acceptor.accept(issue, "Replace '" + modeName + "' with '" + replacementName + "'", null, null,
+					new ISemanticModification() {
+						override public void apply(EObject element, IModificationContext context) throws Exception {
+							val ResourceSet resourceSet = element.eResource().getResourceSet();
+							val Mode replacementMode = resourceSet.getEObject(URI.createURI(nextUri), true) as Mode;
+							val Mode undefinedMode = resourceSet.getEObject(URI.createURI(undefinedModeURI), true) as Mode;
+							val ModalPropertyValue mpv = resourceSet.getEObject(URI.createURI(modalPropertyValueURI), true) as ModalPropertyValue
+							mpv.inModes.remove(undefinedMode)
+							mpv.inModes.add(replacementMode);
+						}
+						
+					}
+					
 			);
 		}
 	}
