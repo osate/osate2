@@ -18,6 +18,15 @@
    <feature url="features/org.osate.xtext.aadl2.errormodel.feature_2.1.0.qualifier.jar" id="org.osate.xtext.aadl2.errormodel.feature" version="2.1.0.qualifier">
       <category name="osate2"/>
    </feature>
+   <feature url="features/org.osate.xtext.aadl2.errormodel.feature.source_2.1.0.qualifier.jar" id="org.osate.xtext.aadl2.errormodel.feature.source" version="2.1.0.qualifier">
+      <category name="osate2source"/>
+   </feature>
+   <feature url="features/org.osate.ocarina.feature_0.0.1.qualifier.jar" id="org.osate.ocarina.feature" version="0.0.1.qualifier">
+      <category name="osate2"/>
+   </feature>
+   <feature url="features/org.osate.ocarina.feature.source_0.0.1.qualifier.jar" id="org.osate.ocarina.feature.source" version="0.0.1.qualifier">
+      <category name="osate2source"/>
+   </feature>
    <feature url="features/org.osate.ba.feature_1.0.0.qualifier.jar" id="org.osate.ba.feature" version="1.0.0.qualifier">
       <category name="osate2"/>
    </feature>
@@ -35,9 +44,6 @@
    </feature>
    <feature url="features/com.rockwellcollins.atc.resolute.source.feature_1.0.0.qualifier.jar" id="com.rockwellcollins.atc.resolute.source.feature" version="1.0.0.qualifier">
       <category name="osate2source"/>
-   </feature>
-   <feature url="features/org.osate.ocarina.feature_0.0.1.qualifier.jar" id="org.osate.ocarina.feature" version="0.0.1.qualifier">
-      <category name="osate2"/>
    </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
