@@ -703,6 +703,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 									+ " is not a valid mode because it is not in the modes defined for container "
 									+ modalElement.getName(), modalPropertyValue, null, MODE_NOT_DEFINED_IN_CONTAINER,
 									issueData);
+
 							modeNotDefined = true;
 							continue;
 						}
