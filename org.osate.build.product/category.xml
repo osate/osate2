@@ -9,6 +9,9 @@
    <feature url="features/org.osate.ge.feature_2.1.0.qualifier.jar" id="org.osate.ge.feature" version="2.1.0.qualifier">
       <category name="osate2"/>
    </feature>
+   <feature url="features/org.osate.ge.feature.source_2.1.0.qualifier.jar" id="org.osate.ge.feature.source" version="2.1.0.qualifier">
+      <category name="osate2source"/>
+   </feature>
    <feature url="features/org.osate.core.feature.source_2.1.0.qualifier.jar" id="org.osate.core.feature.source" version="2.1.0.qualifier">
       <category name="osate2source"/>
    </feature>
