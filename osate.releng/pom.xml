@@ -18,6 +18,7 @@
 		<module>../../osate2-core/osate2-core.releng/modules</module>
 		<module>../../osate2-plugins/osate2-plugins.releng/modules</module>
 		<module>../../ErrorModelV2/emv2.releng/modules</module>
+		<module>../../osate2-ocarina/osate2-ocarina.releng/modules</module>
 
 		<module>../../osate2-ba/org.osate.ba</module>
 		<module>../../osate2-ba/org.osate.ba.feature</module>
@@ -44,13 +45,6 @@
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
 
 		<module>../org.osate.resolute.help</module>
-
-		<module>../../osate2-ocarina/org.osate.ocarina</module>
-		<module>../../osate2-ocarina/org.osate.ocarina.aadlcontribution</module>
-		<module>../../osate2-ocarina/org.osate.ocarina.feature</module>
-		<module>../../osate2-ocarina/org.osate.ocarina.help</module>
-		<module>../../osate2-ocarina/org.osate.ocarina.real.xtext</module>
-		<module>../../osate2-ocarina/org.osate.ocarina.real.xtext.ui</module>
 	</modules>
 
 </project>
