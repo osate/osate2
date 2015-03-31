@@ -91,6 +91,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String MODE_NOT_DEFINED_IN_CONTAINER = "org.osate.xtext.aadl2.mode_not_defined_in_container";
 	public static final String SELF_NOT_ALLOWED = "org.osate.xtext.aadl2.self_not_alllowed";
 	public static final String PROCESSOR_NOT_ALLOWED = "org.osate.xtext.aadl2.processor_not_allowed";
+	public static final String INCONSISTENT_FLOW_KIND = "org.osate.xtext.aadl2.inconsistent_flow_kind";
+	public static final String OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC = "org.osate.xtext.aadl2.out_flow_feature_identifier_not_spec";
+	public static final String IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC = "org.osate.xtext.aadl2.in_flow_feature_identifier_not_spec";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -856,10 +859,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (Aadl2Util.isNull(flow.getSpecification()) || Aadl2Util.isNull(flow.getSpecification().getAllOutEnd())) {
 			return;
 		}
+
 		ICompositeNode n = NodeModelUtils.getNode(flow);
+
 		INode lln = getLastLeaf(n);
 		String outFeatureName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
 				.replaceAll("\n", "");
+		int featureOffset = lln.getOffset();
+		int contextOffset = -99;
+
 		lln = getPreviousNode(lln);
 		String outContextName = null;
 		if (lln != null
@@ -868,6 +876,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			lln = getPreviousNode(lln);
 			outContextName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
 					.replaceAll("\n", "");
+			contextOffset = lln.getOffset();
 		}
 		FlowSpecification spec = flow.getSpecification();
 		if (Aadl2Util.isNull(spec)) {
@@ -893,11 +902,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						.getName())) ||
 		// if the context names don't match
 		(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName())))) {
-			error(flow,
-					'\'' + (outContextName != null ? outContextName + '.' : "") + outFeatureName
-							+ "' does not match the out flow feature identifier '"
-							+ (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName()
-							+ "' in the flow specification.");
+			String outImplName = (outContextName != null ? outContextName + '.' : "") + outFeatureName;
+			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
+			error('\'' + outImplName + "' does not match the out flow feature identifier '" + specName
+					+ "' in the flow specification.", flow, null, OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, outImplName,
+					specName, "" + featureOffset, "" + contextOffset);
 		}
 	}
 
@@ -915,6 +924,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
 		String inFeatureName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
 				.replaceAll("\n", "");
+		int featureOffset = lln.getOffset();
 		String inContextName = null;
 		int idx = inFeatureName.indexOf(".");
 		if (idx >= 0) {
@@ -945,11 +955,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						.getName())) ||
 		// if the context names don't match
 		(inContextName != null && specContext != null && !inContextName.equalsIgnoreCase(specContext.getName())))) {
-			error(flow,
-					'\'' + (inContextName != null ? inContextName + '.' : "") + inFeatureName
-							+ "' does not match the in flow feature identifier '"
-							+ (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName()
-							+ "' in the flow specification.");
+			String inImplName = (inContextName != null ? inContextName + '.' : "") + inFeatureName;
+			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
+			error('\'' + inImplName + "' does not match the in flow feature identifier '" + specName
+					+ "' in the flow specification.", flow, null, IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, inImplName,
+					specName, "" + featureOffset);// , "" + contextOffset);
 		}
 	}
 
@@ -959,8 +969,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (spec != null && !spec.eIsProxy()) {
 			FlowKind speckind = spec.getKind();
 			if (implkind != speckind) {
-				error(flowimpl, "Flow implementation " + spec.getName() + " must be a flow " + speckind.getName()
-						+ " (same as its flow spec)");
+				ICompositeNode flowImplNNode = NodeModelUtils.getNode(flowimpl);
+				INode kindNode = findFirstNodeWithString(flowImplNNode, implkind.toString());
+				String offSet = "" + kindNode.getOffset();
+				error("Flow implementation " + spec.getName() + " must be a flow " + speckind.getName()
+						+ " (same as its flow spec)", flowimpl, null, INCONSISTENT_FLOW_KIND, implkind.getName(),
+						speckind.getName(), offSet);
+
 			}
 		}
 	}
@@ -1250,6 +1265,27 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					return result;
 			}
 		}
+		return result;
+	}
+
+	private INode findLastNodeWithString(ICompositeNode cNode, String searchFor) {
+		INode result = null;
+		BidiIterable<INode> iterable = cNode.getChildren();
+		Iterator<INode> iter = iterable.iterator();
+		while (iter.hasNext()) {
+			INode iterNode = iter.next();
+			if (iterNode instanceof HiddenLeafNode) {
+				continue;
+			} else if (iterNode instanceof LeafNode) {
+				if (iterNode.getText().indexOf(searchFor) > -1)
+					result = iterNode;
+			} else if (iterNode instanceof CompositeNode) {
+				result = findLastNodeWithString((CompositeNode) iterNode, searchFor);
+				if (null != result)
+					return result;
+			}
+		}
+
 		return result;
 	}
 

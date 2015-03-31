@@ -57,6 +57,9 @@ import org.osate.aadl2.Mode
 import org.eclipse.emf.common.util.EList
 import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
+import org.osate.aadl2.FlowSpecification
+import org.osate.aadl2.FlowImplementation
+import org.osate.aadl2.FlowKind
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
@@ -254,6 +257,78 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 				}
 			});
 		}
+	}
+
+	/**
+	 * QuickFix for flow impl kind not matching flow spec kind
+	 * issue.getData(0) impl kind name
+	 * issue.getData(1) flow spec name
+	 * issue,getData(2) offSet
+	 */
+	@Fix(Aadl2JavaValidator.INCONSISTENT_FLOW_KIND)
+	def public void fixInconsistentFlowKind(Issue issue, IssueResolutionAcceptor acceptor) {
+		val flowImplKindName = issue.data.head
+		val flowSpecKindName = issue.data.get(1)
+		val offSet = Integer.parseInt(issue.getData().get(2))
+
+		acceptor.accept(issue, "Change '" + flowImplKindName + "' to '" + flowSpecKindName + "'", null, null, new IModification() {
+			override public void apply(IModificationContext context) throws Exception {
+				context.getXtextDocument().replace(offSet, flowImplKindName.length, flowSpecKindName)
+			}
+		});
+	}
+
+
+	/**
+	 * QuickFix for out flow feature identifier not matching the flow specification
+	 * issue.getData(0) outImplName
+	 * issue.getData(1) specName
+	 * issue,getData(2) featureOffSet
+	 * issue,getData(3) contextOffset
+	 */
+	@Fix(Aadl2JavaValidator.OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC)
+	def public void fixOutFlowIdentifierNotSpec(Issue issue, IssueResolutionAcceptor acceptor) {
+		val outImplName = issue.data.head
+		val specName = issue.data.get(1)
+		val featureOffSet = Integer.parseInt(issue.data.get(2))
+		val contextOffset = Integer.parseInt(issue.data.get(3))
+
+		acceptor.accept(issue, "Change '" + outImplName + "' to '" + specName + "'", null, null, new IModification() {
+			override public void apply(IModificationContext context) throws Exception {
+				var useOffSet = featureOffSet
+				var replacement = specName;
+				if (0 < contextOffset){
+					useOffSet = contextOffset
+				}
+				context.getXtextDocument().replace(useOffSet, outImplName.length, replacement)
+			}
+		});
+	}
+
+	/**
+	 * QuickFix for in flow feature identifier not matching the flow specification
+	 * issue.getData(0) inImplName
+	 * issue.getData(1) specName
+	 * issue,getData(2) featureOffSet
+	 * issue,getData(3) contextOffset
+	 */
+	@Fix(Aadl2JavaValidator.IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC)
+	def public void fixInFlowIdentifierNotSpec(Issue issue, IssueResolutionAcceptor acceptor) {
+		val inImplName = issue.data.head
+		val specName = issue.data.get(1)
+		val featureOffSet = Integer.parseInt(issue.data.get(2))
+//		val contextOffset = Integer.parseInt(issue.data.get(3))
+		acceptor.accept(issue, "Change '" + inImplName + "' to '" + specName + "'", null, null, new IModification() {
+			override public void apply(IModificationContext context) throws Exception {
+				var useOffSet = featureOffSet
+				var replacement = specName;
+//				if (0 < contextOffset){
+//					useOffSet = contextOffset
+//				}
+				context.getXtextDocument().replace(useOffSet, inImplName.length, replacement)
+			}
+		});
+		
 	}
 
 }
