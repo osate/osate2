@@ -45,17 +45,13 @@
 
    <features>
       <feature id="org.osate.core.feature"/>
-      <feature id="org.osate.core.feature.source"/>
       <feature id="org.osate.plugins.feature"/>
-      <feature id="org.osate.plugins.feature.source"/>
       <feature id="org.osate.xtext.aadl2.errormodel.feature" installMode="root"/>
       <feature id="org.osate.ge.feature"/>
       <feature id="org.osate.ba.feature" installMode="root"/>
       <feature id="org.osate.utils.feature" installMode="root"/>
       <feature id="com.rockwellcollins.atc.agree.feature" installMode="root"/>
-      <feature id="com.rockwellcollins.atc.agree.source.feature" installMode="root"/>
       <feature id="com.rockwellcollins.atc.resolute.feature" installMode="root"/>
-      <feature id="com.rockwellcollins.atc.resolute.source.feature" installMode="root"/>
       <feature id="net.certware.feature.sacm" installMode="root"/>
       <feature id="org.osate.ocarina.feature" installMode="root"/>
       <feature id="org.eclipse.e4.rcp"/>
