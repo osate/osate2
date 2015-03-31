@@ -209,5 +209,51 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 			);
 		}
 	}
+	
+	/**
+	 * QuickFix for using self keyword when not allowed
+	 * issue.getData(0) offSet
+	 * issue.getData(1) connectionEndURI
+	 */
+	@Fix(Aadl2JavaValidator.SELF_NOT_ALLOWED)
+	def public void fixSelfNotAllowed(Issue issue, IssueResolutionAcceptor acceptor) {
+		val offSet = Integer.parseInt(issue.getData().head)
+		val alternateConnectionEndType = issue.data.get(1)
+		acceptor.accept(issue, "Remove 'self'", null, null, new IModification() {
+			override public void apply(IModificationContext context) throws Exception {
+				context.getXtextDocument().replace(offSet, 5, "")
+			}
+		});
+		if (alternateConnectionEndType.equals("processor")){
+			acceptor.accept(issue, "Replace 'self' with 'processor'", null, null, new IModification() {
+				override public void apply(IModificationContext context) throws Exception {
+					context.getXtextDocument().replace(offSet, 4, "processor")
+				}
+			});
+		}
+	}
+	
+	/**
+	 * QuickFix for using processor keyword when not allowed
+	 * issue.getData(0) offSet
+	 * issue.getData(1) connectionEndURI
+	 */
+	@Fix(Aadl2JavaValidator.PROCESSOR_NOT_ALLOWED)
+	def public void fixProcessorNotAllowed(Issue issue, IssueResolutionAcceptor acceptor) {
+		val offSet = Integer.parseInt(issue.getData().head)
+		val alternateConnectionEndType = issue.data.get(1)
+		acceptor.accept(issue, "Remove 'processor'", null, null, new IModification() {
+			override public void apply(IModificationContext context) throws Exception {
+				context.getXtextDocument().replace(offSet, 10, "")
+			}
+		});
+		if (alternateConnectionEndType.equals("self")){
+			acceptor.accept(issue, "Replace 'processor' with 'self'", null, null, new IModification() {
+				override public void apply(IModificationContext context) throws Exception {
+					context.getXtextDocument().replace(offSet, 9, "self")
+				}
+			});
+		}
+	}
 
 }

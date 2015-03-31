@@ -89,6 +89,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String DUPLICATE_LITERAL_IN_ENUMERATION = "org.osate.xtext.aadl2.duplicate_literal_in_enumeration";
 	public static final String UNIT_LITERAL_OUT_OF_ORDER = "org.osate.xtext.aadl2.unit_literal_out_of_order";
 	public static final String MODE_NOT_DEFINED_IN_CONTAINER = "org.osate.xtext.aadl2.mode_not_defined_in_container";
+	public static final String SELF_NOT_ALLOWED = "org.osate.xtext.aadl2.self_not_alllowed";
+	public static final String PROCESSOR_NOT_ALLOWED = "org.osate.xtext.aadl2.processor_not_allowed";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -776,15 +778,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					lln = lln.getPreviousSibling();
 				}
 			}
+			String offSet = "" + (lln.getOffset() + 1);
+			String alternateConnectionEndType = "";
+
 			if (prefix.equalsIgnoreCase("self")) {
 				if (!(connectionEnd instanceof InternalFeature)) {
-					// TODO: QuickFixes change to processor or just remove
-					error(connectedElement, "Only internal features may follow the keyword 'self'");
+					if (connectionEnd instanceof ProcessorFeature) {
+						alternateConnectionEndType = "processor";
+					}
+					error("Only internal features may follow the keyword 'self'", connectedElement, null,
+							SELF_NOT_ALLOWED, offSet, alternateConnectionEndType);
+
 				}
 			} else if (prefix.equalsIgnoreCase("processor")) {
 				if (!(connectionEnd instanceof ProcessorFeature)) {
-					// TODO: QuickFixes change to remove or just processor
-					error(connectedElement, "Only processor features may follow the keyword 'processor'");
+					if (connectionEnd instanceof InternalFeature) {
+						alternateConnectionEndType = "self";
+					}
+					error("Only processor features may follow the keyword 'processor'", connectedElement, null,
+							PROCESSOR_NOT_ALLOWED, offSet, alternateConnectionEndType);
 				}
 			}
 		}
