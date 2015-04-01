@@ -35,33 +35,36 @@
 
 package org.osate.xtext.aadl2.ui.quickfix;
 
-import org.eclipse.emf.common.util.URI;
+import com.google.inject.Inject
+import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.xtext.resource.XtextResource
+import org.eclipse.xtext.ui.editor.IURIEditorOpener
 import org.eclipse.xtext.ui.editor.model.edit.IModification
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.Issue
-import org.osate.aadl2.Feature
-import org.osate.aadl2.NamedElement
-import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
-import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
+import org.osate.aadl2.Connection
 import org.osate.aadl2.EnumerationLiteral
-import java.util.Enumeration
 import org.osate.aadl2.EnumerationType
-import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.ModalElement
-import org.osate.aadl2.Mode
-import org.eclipse.emf.common.util.EList
 import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
-import org.osate.aadl2.FlowSpecification
-import org.osate.aadl2.FlowImplementation
-import org.osate.aadl2.FlowKind
+import org.osate.aadl2.Mode
+import org.osate.aadl2.NamedElement
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.UnitLiteral
+import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
+import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
+	@Inject
+	IURIEditorOpener editorOpener
+	
 	/**
 	 * QuickFix for matching the defining and ending identifiers of classifiers, packages, and property sets.
 	 * The issue data array is expected to have three elements:
@@ -329,6 +332,73 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 			}
 		});
 		
+	}
+	
+	/**
+	 * QuickFix for Subcomponent not in flow modes
+	 * issue.getData(0) flowModeName
+	 * issue.getData(1) flowModeURI
+	 * issue,getData(2) subcomponentName
+	 * issue,getData(3) subcomponentURI
+	 */
+	@Fix(Aadl2JavaValidator.SUBCOMPONENT_NOT_IN_FLOW_MODE)
+	def public void fixSubcomponentNotInFlowMode(Issue issue, IssueResolutionAcceptor acceptor) {
+		val flowModeName = issue.data.head		
+		val flowModeURI =  issue.data.get(1)
+		val subcomponentName = issue.data.get(2)	
+		val subcomponentURI = issue.data.get(3)
+
+		acceptor.accept(issue, "Add mode '" + flowModeName + "' to in modes of '" + subcomponentName + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val suburi = URI.createURI(subcomponentURI);
+					// The following opens up file if subcomponent is defined in a different file
+					val doc = context.getXtextDocument(suburi)
+					doc.modify(new IUnitOfWork.Void<XtextResource>{
+						override process(XtextResource state) throws Exception {
+							val flowMode = state.resourceSet.getEObject(URI.createURI(flowModeURI), true) as Mode;
+							val subcomponent = state.resourceSet.getEObject(suburi, true) as Subcomponent;
+							val modeBinding = subcomponent.createOwnedModeBinding
+							modeBinding.parentMode = flowMode	
+						}
+					})
+					editorOpener.open(suburi, true)
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for Subcomponent not in flow modes
+	 * issue.getData(0) flowModeName
+	 * issue.getData(1) flowModeURI
+	 * issue,getData(2) connectionName
+	 * issue,getData(3) connectionURI
+	 */
+	@Fix(Aadl2JavaValidator.CONNECTION_NOT_IN_FLOW_MODE)
+	def public void fixConnectionNotInFlowMode(Issue issue, IssueResolutionAcceptor acceptor) {
+		val flowModeName = issue.data.head		
+		val flowModeURI =  issue.data.get(1)
+		val connectionName = issue.data.get(2)	
+		val connectionURI = issue.data.get(3)
+
+		acceptor.accept(issue, "Add mode '" + flowModeName + "' to in modes of '" + connectionName + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val connuri = URI.createURI(connectionURI);
+					// The following opens up file if connection is defined in a different file
+					val doc = context.getXtextDocument(connuri)
+					doc.modify(new IUnitOfWork.Void<XtextResource>{
+						override process(XtextResource state) throws Exception {
+							val flowMode = state.resourceSet.getEObject(URI.createURI(flowModeURI), true) as Mode;
+							val connection = state.resourceSet.getEObject(connuri, true) as Connection;
+							connection.inModeOrTransitions.add(flowMode)
+						}
+					})
+					editorOpener.open(connuri, true)
+				}
+			}
+		);
 	}
 
 }
