@@ -396,7 +396,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionOrder(flow);
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
-		checkFlowPathElements(flow);
+		// checkFlowPathElements(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -894,12 +894,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		// if the feature names don't match
-		if (!(outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+		if ((!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 		// if the spec has a context, but the impl doesn't: flow spec picks an element from a FG
 				(outContextName == null && !Aadl2Util.isNull(specContext)) ||
 				// if the impl has a context (FG), but the spec doesn't (feature is FG)
-				(outContextName != null && Aadl2Util.isNull(specContext) && outContextName.equalsIgnoreCase(specFeature
-						.getName())) ||
+				(outContextName != null && Aadl2Util.isNull(specContext)) ||
 		// if the context names don't match
 		(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName())))) {
 			String outImplName = (outContextName != null ? outContextName + '.' : "") + outFeatureName;
@@ -947,12 +946,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		// if the feature names don't match
-		if (!(inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+		if ((!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 		// if the spec has a context, but the impl doesn't
 				(inContextName == null && !Aadl2Util.isNull(specContext)) ||
 				// if the impl has a context, but the spec doesn't
-				(inContextName != null && Aadl2Util.isNull(specContext) && inContextName.equalsIgnoreCase(specFeature
-						.getName())) ||
+				(inContextName != null && Aadl2Util.isNull(specContext)) ||
 		// if the context names don't match
 		(inContextName != null && specContext != null && !inContextName.equalsIgnoreCase(specContext.getName())))) {
 			String inImplName = (inContextName != null ? inContextName + '.' : "") + inFeatureName;
