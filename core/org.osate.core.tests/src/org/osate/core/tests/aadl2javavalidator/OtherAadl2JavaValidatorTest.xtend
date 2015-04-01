@@ -1076,8 +1076,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				"S.i".assertEquals(name)
 				ownedFlowImplementations.head =>[
 					assertError(testFileResult.issues, issueCollection, 
-					"Flow implementation Out type: fg_out.p differs from specification Out type: fg_out",
-					"Flow implementation In type: fg_in.p differs from specification In type: fg_in")
+					"'fg_out.p' does not match the out flow feature identifier 'fg_out' in the flow specification.",
+					"'fg_in.p' does not match the in flow feature identifier 'fg_in' in the flow specification.")
 				]
 			]
 		]
