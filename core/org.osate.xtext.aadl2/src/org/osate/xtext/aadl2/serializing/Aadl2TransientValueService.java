@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.parsetree.reconstr.impl.DefaultTransientValueService;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.Subcomponent;
 
 public class Aadl2TransientValueService extends DefaultTransientValueService {
 
@@ -49,7 +50,8 @@ public class Aadl2TransientValueService extends DefaultTransientValueService {
 				|| feature == Aadl2Package.eINSTANCE.getElement_OwnedComment()
 				|| feature == Aadl2Package.eINSTANCE.getDefaultAnnexLibrary_ParsedAnnexLibrary()
 				|| feature == Aadl2Package.eINSTANCE.getDefaultAnnexSubclause_ParsedAnnexSubclause()
-				|| (owner instanceof ModalPath && feature == Aadl2Package.eINSTANCE.getModalElement_InMode())) {
+				|| (owner instanceof ModalPath && feature == Aadl2Package.eINSTANCE.getModalElement_InMode())
+				|| (owner instanceof Subcomponent && feature == Aadl2Package.eINSTANCE.getModalElement_InMode())) {
 			return true;
 		}
 //			else if (owner instanceof PackageSection && feature == Aadl2Package.eINSTANCE.getNamedElement_Name()){

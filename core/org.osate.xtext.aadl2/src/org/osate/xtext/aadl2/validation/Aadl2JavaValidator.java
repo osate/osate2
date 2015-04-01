@@ -94,6 +94,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String INCONSISTENT_FLOW_KIND = "org.osate.xtext.aadl2.inconsistent_flow_kind";
 	public static final String OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC = "org.osate.xtext.aadl2.out_flow_feature_identifier_not_spec";
 	public static final String IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC = "org.osate.xtext.aadl2.in_flow_feature_identifier_not_spec";
+	public static final String SUBCOMPONENT_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.subcomponent_not_in_flow_mode";
+	public static final String CONNECTION_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.connection_not_in_flow_mode";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -1208,8 +1210,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				for (Mode flowMode : flowModes) {
 					if (!subcomponentModes.contains(flowMode)) {
-						error(flowSegment, "Subcomponent '" + subcomponent.getName() + "' does not exist in mode '"
-								+ flowMode.getName() + '\'');
+						String flowModeName = flowMode.getName();
+						String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+						String subcomponentName = subcomponent.getName();
+						String subcomponentURI = EcoreUtil.getURI(subcomponent).toString();
+						error("Subcomponent '" + subcomponentName + "' does not exist in mode '" + flowModeName + "'",
+								flowSegment, null, SUBCOMPONENT_NOT_IN_FLOW_MODE, flowModeName, flowModeURI,
+								subcomponentName, subcomponentURI);
 					}
 				}
 
@@ -1221,8 +1228,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				for (Mode flowMode : flowModes) {
 					if (!subcomponentModes.contains(flowMode)) {
-						error(flowSegment, "Subcomponent '" + subcomponent.getName() + "' does not exist in mode '"
-								+ flowMode.getName() + '\'');
+						String flowModeName = flowMode.getName();
+						String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+						String subcomponentName = subcomponent.getName();
+						String subcomponentURI = EcoreUtil.getURI(subcomponent).toString();
+						error("Subcomponent '" + subcomponentName + "' does not exist in mode '" + flowModeName + "'",
+								flowSegment, null, SUBCOMPONENT_NOT_IN_FLOW_MODE, flowModeName, flowModeURI,
+								subcomponentName, subcomponentURI);
 					}
 				}
 			} else if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Connection) {
@@ -1233,8 +1245,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				for (Mode flowMode : flowModes) {
 					if (!connectionModes.contains(flowMode)) {
-						error(flowSegment, "Connection '" + connection.getName() + "' does not exist in mode '"
-								+ flowMode.getName() + '\'');
+						String flowModeName = flowMode.getName();
+						String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+						String connectionName = connection.getName();
+						String connectiontURI = EcoreUtil.getURI(connection).toString();
+						error("Connection '" + connectionName + "' does not exist in mode '" + flowModeName + "'",
+								flowSegment, null, CONNECTION_NOT_IN_FLOW_MODE, flowModeName, flowModeURI,
+								connectionName, connectiontURI);
 					}
 				}
 			}
@@ -1300,83 +1317,83 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return result;
 	}
 
-	private void checkFlowPathElements(FlowImplementation flowimplementation) {
-
-		if (!flowimplementation.getKind().equals(FlowKind.PATH)) {
-			return;
-		}
-
-		FlowSpecification spec = flowimplementation.getSpecification();
-		if (Aadl2Util.isNull(spec)) {
-			return;
-		}
-
-		FlowEnd specIn = spec.getAllInEnd();
-		if (Aadl2Util.isNull(specIn)) {
-			return;
-		}
-		FlowEnd specOut = spec.getAllOutEnd();
-		if (Aadl2Util.isNull(specOut)) {
-			return;
-		}
-
-		String specInContext = (specIn.getContext() != null) ? specIn.getContext().getName() + "." : "";
-		String specOutContext = (specOut.getContext() != null) ? specOut.getContext().getName() + "." : "";
-		String specInFeature = specIn.getFeature().getName();
-		String specOutFeature = specOut.getFeature().getName();
-		String specInName = specInContext + specInFeature;
-		String specOutName = specOutContext + specOutFeature;
-
-		ICompositeNode n = NodeModelUtils.getNode(flowimplementation);
-		List<String> resolvedComposite = resolveCompositeNodeToList(n);
-
-		if (null == resolvedComposite || resolvedComposite.isEmpty() || !resolvedComposite.contains("->")) {
-			return;
-		}
-
-		int index = resolvedComposite.size() - 1;
-
-		String outFeature = resolvedComposite.get(index--);
-		String outContext = "";
-
-		if (resolvedComposite.get(index).equals(".")) {
-			index--;
-		}
-		if (resolvedComposite.get(index).equals("->")) {
-			outContext = "";
-		} else {
-			outContext = resolvedComposite.get(index--);
-		}
-		String outImpl = outContext + ((outContext.equals("")) ? "" : ".") + outFeature;
-
-		String inFeature = "";
-		String inContext = "";
-
-		index = 0;
-		for (int i = 0; i < resolvedComposite.size(); i++) {
-			if (resolvedComposite.get(i).equalsIgnoreCase("path")) {
-				index = i + 1;
-				break;
-			}
-		}
-
-		inFeature = resolvedComposite.get(index++);
-		if (resolvedComposite.get(index++).equals(".")) {
-			inContext = inFeature;
-			inFeature = resolvedComposite.get(index);
-		}
-
-		String inImpl = inContext + ((inContext.equals("")) ? "" : ".") + inFeature;
-
-		if (!inImpl.equalsIgnoreCase(specInName)) {
-			error(flowimplementation, "Flow implementation In type: " + inImpl
-					+ " differs from specification In type: " + specInName);
-		}
-		if (!outImpl.equalsIgnoreCase(specOutName)) {
-			error(flowimplementation, "Flow implementation Out type: " + outImpl
-					+ " differs from specification Out type: " + specOutName);
-		}
-	}
+//	private void checkFlowPathElements(FlowImplementation flowimplementation) {
+//
+//		if (!flowimplementation.getKind().equals(FlowKind.PATH)) {
+//			return;
+//		}
+//
+//		FlowSpecification spec = flowimplementation.getSpecification();
+//		if (Aadl2Util.isNull(spec)) {
+//			return;
+//		}
+//
+//		FlowEnd specIn = spec.getAllInEnd();
+//		if (Aadl2Util.isNull(specIn)) {
+//			return;
+//		}
+//		FlowEnd specOut = spec.getAllOutEnd();
+//		if (Aadl2Util.isNull(specOut)) {
+//			return;
+//		}
+//
+//		String specInContext = (specIn.getContext() != null) ? specIn.getContext().getName() + "." : "";
+//		String specOutContext = (specOut.getContext() != null) ? specOut.getContext().getName() + "." : "";
+//		String specInFeature = specIn.getFeature().getName();
+//		String specOutFeature = specOut.getFeature().getName();
+//		String specInName = specInContext + specInFeature;
+//		String specOutName = specOutContext + specOutFeature;
+//
+//		ICompositeNode n = NodeModelUtils.getNode(flowimplementation);
+//		List<String> resolvedComposite = resolveCompositeNodeToList(n);
+//
+//		if (null == resolvedComposite || resolvedComposite.isEmpty() || !resolvedComposite.contains("->")) {
+//			return;
+//		}
+//
+//		int index = resolvedComposite.size() - 1;
+//
+//		String outFeature = resolvedComposite.get(index--);
+//		String outContext = "";
+//
+//		if (resolvedComposite.get(index).equals(".")) {
+//			index--;
+//		}
+//		if (resolvedComposite.get(index).equals("->")) {
+//			outContext = "";
+//		} else {
+//			outContext = resolvedComposite.get(index--);
+//		}
+//		String outImpl = outContext + ((outContext.equals("")) ? "" : ".") + outFeature;
+//
+//		String inFeature = "";
+//		String inContext = "";
+//
+//		index = 0;
+//		for (int i = 0; i < resolvedComposite.size(); i++) {
+//			if (resolvedComposite.get(i).equalsIgnoreCase("path")) {
+//				index = i + 1;
+//				break;
+//			}
+//		}
+//
+//		inFeature = resolvedComposite.get(index++);
+//		if (resolvedComposite.get(index++).equals(".")) {
+//			inContext = inFeature;
+//			inFeature = resolvedComposite.get(index);
+//		}
+//
+//		String inImpl = inContext + ((inContext.equals("")) ? "" : ".") + inFeature;
+//
+//		if (!inImpl.equalsIgnoreCase(specInName)) {
+//			error(flowimplementation, "Flow implementation In type: " + inImpl
+//					+ " differs from specification In type: " + specInName);
+//		}
+//		if (!outImpl.equalsIgnoreCase(specOutName)) {
+//			error(flowimplementation, "Flow implementation Out type: " + outImpl
+//					+ " differs from specification Out type: " + specOutName);
+//		}
+//	}
 
 	/**
 	 * Partially checks legality rule 7 in section 10.2 (Flow Implementations) on page 189.
