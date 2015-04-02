@@ -1452,10 +1452,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						for (Mode flowMode : flowModes) {
 							if (!subcomponentModes.contains(flowMode)) {
-								error(subcomponentRefinement, "Inherited flow implementation '"
-										+ flow.getSpecification().getName() + "' refers to subcomponent refinement '"
-										+ subcomponentRefinement.getName() + "' which does not exist in mode '"
-										+ flowMode.getName() + '\'');
+								String flowModeName = flowMode.getName();
+								String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+								String subcomponentName = subcomponentRefinement.getName();
+								String subcomponentURI = EcoreUtil.getURI(subcomponentRefinement).toString();
+								error("Inherited flow implementation '" + flow.getSpecification().getName()
+										+ "' refers to subcomponent refinement '" + subcomponentRefinement.getName()
+										+ "' which does not exist in mode '" + flowMode.getName() + "'",
+										subcomponentRefinement, null, SUBCOMPONENT_NOT_IN_FLOW_MODE, flowModeName,
+										flowModeURI, subcomponentName, subcomponentURI);
 							}
 						}
 					}
@@ -1469,10 +1474,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						for (Mode flowMode : flowModes) {
 							if (!subcomponentModes.contains(flowMode)) {
-								error(subcomponentRefinement, "Inherited flow implementation '"
-										+ flow.getSpecification().getName() + "' refers to subcomponent refinement '"
-										+ subcomponentRefinement.getName() + "' which does not exist in mode '"
-										+ flowMode.getName() + '\'');
+								String flowModeName = flowMode.getName();
+								String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+								String subcomponentName = subcomponentRefinement.getName();
+								String subcomponentURI = EcoreUtil.getURI(subcomponentRefinement).toString();
+								error("Inherited flow implementation '" + flow.getSpecification().getName()
+										+ "' refers to subcomponent refinement '" + subcomponentRefinement.getName()
+										+ "' which does not exist in mode '" + flowMode.getName() + "'",
+										subcomponentRefinement, null, SUBCOMPONENT_NOT_IN_FLOW_MODE, flowModeName,
+										flowModeURI, subcomponentName, subcomponentURI);
 							}
 						}
 					}
@@ -1486,10 +1496,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						for (Mode flowMode : flowModes) {
 							if (!connectionModes.contains(flowMode)) {
-								error(connectionRefinement, "Inherited flow implementation '"
-										+ flow.getSpecification().getName() + "' refers to connection refinement '"
-										+ connectionRefinement.getName() + "' which does not exist in mode '"
-										+ flowMode.getName() + '\'');
+								String flowModeName = flowMode.getName();
+								String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+								String connectionName = connectionRefinement.getName();
+								String connectiontURI = EcoreUtil.getURI(connectionRefinement).toString();
+								error("Connection '" + connectionName + "' does not exist in mode '" + flowModeName
+										+ "'", connectionRefinement, null, CONNECTION_NOT_IN_FLOW_MODE, flowModeName,
+										flowModeURI, connectionName, connectiontURI);
 							}
 						}
 					}
