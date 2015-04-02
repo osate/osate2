@@ -49,6 +49,7 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.Issue
 import org.osate.aadl2.Connection
+import org.osate.aadl2.Context
 import org.osate.aadl2.EnumerationLiteral
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.ModalElement
@@ -60,6 +61,7 @@ import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
 import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
+import org.osate.aadl2.FlowSpecification
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	@Inject
@@ -400,5 +402,46 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 			}
 		);
 	}
+
+	/**
+	 * QuickFix for Subcomponent not in flow modes
+	 * issue.getData(0) targetName
+	 * issue.getData(1) targetURI
+	 * issue,getData(2) neededModeName
+	 * issue,getData(3) neededModeURI
+	 */
+	@Fix(Aadl2JavaValidator.END_TO_END_FLOW_SEGMENT_NOT_IN_MODE)
+	def public void fixEndToEndFlowSegmentNotInMode(Issue issue, IssueResolutionAcceptor acceptor) {
+		val targetName = issue.data.head		
+		val targetURI =  issue.data.get(1)
+		val neededModeName = issue.data.get(2)	
+		val neededModeURI = issue.data.get(3)
+
+		acceptor.accept(issue, "Add mode '" + neededModeName + "' to in modes of '" + targetName + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val targeturi = URI.createURI(targetURI);
+					// The following opens up file if connection is defined in a different file
+					val doc = context.getXtextDocument(targeturi)
+					doc.modify(new IUnitOfWork.Void<XtextResource>{
+						override process(XtextResource state) throws Exception {
+							val neededMode = state.resourceSet.getEObject(URI.createURI(neededModeURI), true) as Mode;
+							val targetObject = state.resourceSet.getEObject(targeturi, true);
+							switch targetObject {
+								Subcomponent : {
+									val modeBinding = targetObject.createOwnedModeBinding
+									modeBinding.parentMode = neededMode	
+								}
+								ModalPath : targetObject.inModeOrTransitions.add(neededMode)
+							}
+						}
+					})
+					editorOpener.open(targeturi, true)
+				}
+			}
+		);
+	}
+
+
 
 }
