@@ -96,6 +96,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC = "org.osate.xtext.aadl2.in_flow_feature_identifier_not_spec";
 	public static final String SUBCOMPONENT_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.subcomponent_not_in_flow_mode";
 	public static final String CONNECTION_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.connection_not_in_flow_mode";
+	public static final String END_TO_END_FLOW_SEGMENT_NOT_IN_MODE = "org.osate.xtext.aadl2.end_to_end_flow_segment_not_in_mode";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -1870,18 +1871,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		for (EndToEndFlowSegment segment : flow.getAllFlowSegments()) {
 			EList<Mode> segmentModes = null;
+			String targetURI = "";
+			String targetName = "";
 			if (segment.getContext() != null && segment.getContext() instanceof ModalElement) {
 				segmentModes = ((ModalElement) segment.getContext()).getAllInModes();
+				targetName = segment.getContext().getName();
+				targetURI = EcoreUtil.getURI(segment.getContext()).toString();
 			} else if (segment.getContext() == null && segment.getFlowElement() instanceof ModalElement) {
 				segmentModes = ((ModalElement) segment.getFlowElement()).getAllInModes();
+				targetName = segment.getFlowElement().getName();
+				targetURI = EcoreUtil.getURI(segment.getFlowElement()).toString();
 			}
 			if (segmentModes != null && !segmentModes.isEmpty()) {
 				for (Mode neededMode : neededModes) {
 					if (!segmentModes.contains(neededMode)) {
-						error(segment,
-								"'" + (segment.getContext() == null ? "" : segment.getContext().getName() + '.')
-										+ segment.getFlowElement().getName() + "' does not exist in mode '"
-										+ neededMode.getName() + "'.");
+						String neededModeName = neededMode.getName();
+						String neededModeURI = EcoreUtil.getURI(neededMode).toString();
+						error("'" + targetName + "' does not exist in mode '" + neededModeName + "'.", segment, null,
+								END_TO_END_FLOW_SEGMENT_NOT_IN_MODE, targetName, targetURI, neededModeName,
+								neededModeURI);
 					}
 				}
 			}
@@ -1891,16 +1899,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void checkExtendCycles(Classifier cl) {
 		if (hasExtendCycles(cl)) {
 			error(cl, "The extends hierarchy of " + cl.getName() + " has a cycle.");
-		}
-	}
-
-	public void checkPackageReference(AadlPackage pack, Element context) {
-		if (Aadl2Util.isNull(pack)) {
-			return;
-		}
-		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
-		if (!AadlUtil.isImportedPackage(pack, contextNS)) {
-			error(context, "The referenced package '" + pack.getName() + "' is not listed in a with clause.");
 		}
 	}
 
