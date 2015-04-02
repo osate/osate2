@@ -1439,10 +1439,27 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (FlowImplementation flow : inheritedFlows) {
 			EList<Mode> flowModes = flow.getAllInModes();
 			if (flowModes.isEmpty()) {
-				componentImplementation.getAllModes();
+				flowModes = componentImplementation.getAllModes();
 			}
 			for (FlowSegment flowSegment : flow.getOwnedFlowSegments()) {
-				if (flowSegment.getContext() instanceof Subcomponent) {
+				if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Subcomponent) {
+					Subcomponent subcomponentRefinement = findSubcomponentRefinement(
+							(Subcomponent) flowSegment.getFlowElement(), subcomponentRefinements);
+					if (subcomponentRefinement != null) {
+						EList<Mode> subcomponentModes = subcomponentRefinement.getAllInModes();
+						if (subcomponentModes.isEmpty()) {
+							subcomponentModes = componentImplementation.getAllModes();
+						}
+						for (Mode flowMode : flowModes) {
+							if (!subcomponentModes.contains(flowMode)) {
+								error(subcomponentRefinement, "Inherited flow implementation '"
+										+ flow.getSpecification().getName() + "' refers to subcomponent refinement '"
+										+ subcomponentRefinement.getName() + "' which does not exist in mode '"
+										+ flowMode.getName() + '\'');
+							}
+						}
+					}
+				} else if (flowSegment.getContext() instanceof Subcomponent) {
 					Subcomponent subcomponentRefinement = findSubcomponentRefinement(
 							(Subcomponent) flowSegment.getContext(), subcomponentRefinements);
 					if (subcomponentRefinement != null) {
@@ -1452,7 +1469,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						for (Mode flowMode : flowModes) {
 							if (!subcomponentModes.contains(flowMode)) {
-								error(componentImplementation, "Inherited flow implementation '"
+								error(subcomponentRefinement, "Inherited flow implementation '"
 										+ flow.getSpecification().getName() + "' refers to subcomponent refinement '"
 										+ subcomponentRefinement.getName() + "' which does not exist in mode '"
 										+ flowMode.getName() + '\'');
@@ -1469,7 +1486,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						for (Mode flowMode : flowModes) {
 							if (!connectionModes.contains(flowMode)) {
-								error(componentImplementation, "Inherited flow implementation '"
+								error(connectionRefinement, "Inherited flow implementation '"
 										+ flow.getSpecification().getName() + "' refers to connection refinement '"
 										+ connectionRefinement.getName() + "' which does not exist in mode '"
 										+ flowMode.getName() + '\'');
