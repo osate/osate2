@@ -76,20 +76,24 @@ public class SetBindingAction extends SelectionAction {
 	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	private SetBindingWindow currentWindow = null;	
-	
+
 	// Used to listen to when the window has been closed
 	private SetBindingWindow.CloseListener windowCloseListener = new SetBindingWindow.CloseListener() {			
 		@Override
 		public void onClosed() {
 			editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);
 			editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);
-			
+			final PictogramElement pe = getSelectedPictogramElement();
 			if(currentWindow.getReturnCode() == Dialog.OK) {
-				createPropertyAssociation();
-			}
-			
+				createPropertyAssociation();				
+			}		
 			currentWindow = null;
 			update();
+
+			if (getSelectedPictogramElement() == null) {
+				editor.setPictogramElementForSelection(pe);
+				editor.getDiagramBehavior().refresh();
+			}
 		}
 	};
 	
@@ -98,7 +102,9 @@ public class SetBindingAction extends SelectionAction {
 		@Override
 		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
 			if(part == editor) {
-				currentWindow.setTargetPictogramElements(editor.getSelectedPictogramElements());
+				if ((editor.getSelectedPictogramElements()) != null && (currentWindow != null)) {
+					currentWindow.setTargetPictogramElements(editor.getSelectedPictogramElements());
+				}
 			}			
 		}		
 	};
@@ -156,7 +162,7 @@ public class SetBindingAction extends SelectionAction {
 			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(partListener);
 		}		
 	}
-	
+
 	private static class SetBindingWindow extends TitleAreaDialog {
 		private static interface CloseListener {
 			void onClosed();
@@ -173,7 +179,7 @@ public class SetBindingAction extends SelectionAction {
 	    	@Override
 	    	public String getText(final Object element) {
 	    		final Property p = (Property)element;
-	    		if(p== null) {
+	    		if(p == null) {
 	    			return "";
 	    		}
 	    		
@@ -183,6 +189,7 @@ public class SetBindingAction extends SelectionAction {
 	    
 		public SetBindingWindow(final Shell parentShell, final BusinessObjectResolutionService bor, final PictogramElement pictogramToBind, final CloseListener closeListener) {
 			super(parentShell);
+
 			this.bor = bor;
 			this.pictogramToBind = pictogramToBind;
 			this.elementToBind = (NamedElement)bor.getBusinessObjectForPictogramElement(pictogramToBind);
@@ -347,7 +354,7 @@ public class SetBindingAction extends SelectionAction {
 	};
 
 	@Override
-	protected boolean calculateEnabled() {
+	public boolean calculateEnabled() {
 		return getSelectedPictogramElement() != null && 
 				currentWindow == null && 
 				bor.getBusinessObjectForPictogramElement(editor.getDiagramTypeProvider().getDiagram()) instanceof ComponentImplementation;		

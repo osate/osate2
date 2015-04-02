@@ -13,8 +13,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.AadlModificationService.AbstractModifier;
@@ -60,10 +58,13 @@ public class SwitchDirectionOfConnectionFeature extends AbstractCustomFeature {
 		final Connection connection = (Connection)pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 		final ComponentImplementation ci = getComponentImplementation(connection);
-		
+		if (((org.osate.aadl2.Connection)bo).getRefined() == null) {
 		return bo instanceof org.osate.aadl2.Connection && 
 				ci != null && 
 				((org.osate.aadl2.Connection)bo).getContainingClassifier() == ci;
+		} else {
+			return false;
+		}
 	}
 	
 	/**

@@ -41,11 +41,15 @@ public class RenameConnectionFeature extends AbstractDirectEditingFeature {
 
 	@Override
     public boolean canDirectEdit(final IDirectEditingContext context) {
-		if(!(context.getPictogramElement() instanceof ConnectionDecorator)) {
+		final Connection connection;
+		if(context.getPictogramElement() instanceof Connection) {
+			connection = (Connection)context.getPictogramElement();
+		} else if(context.getPictogramElement() instanceof ConnectionDecorator) {
+			connection = ((ConnectionDecorator)context.getPictogramElement()).getConnection();	
+		} else {
 			return false;
 		}
 		
-		final Connection connection = ((ConnectionDecorator)context.getPictogramElement()).getConnection();		
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 		final ComponentImplementation ci = getComponentImplementation(connection);
 
@@ -92,6 +96,6 @@ public class RenameConnectionFeature extends AbstractDirectEditingFeature {
 	
 	public void setValue(final String value, final IDirectEditingContext context) {
     	final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-    	refactoringService.renameElement(aadlConnection, value);
+    	refactoringService.renameElement(aadlConnection, value); 	
     }
 }

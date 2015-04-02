@@ -34,18 +34,18 @@ import org.osate.ge.ui.editor.AgeDiagramEditor;
 public class BindingsSection extends GFPropertySection implements ITabbedPropertyConstants {
 	private Tree tree; 
 	private CheckboxTreeViewer treeViewer;
-	
+
     @Override
     public void createControls(Composite parent,
         TabbedPropertySheetPage tabbedPropertySheetPage) {
         super.createControls(parent, tabbedPropertySheetPage);
  
         final TabbedPropertySheetWidgetFactory factory = getWidgetFactory();
+        factory.setBorderStyle(SWT.NO_SCROLL);
         final Composite composite = factory.createFlatFormComposite(parent);
-  
+        
         FormData data;
- 
-        tree = factory.createTree(composite, SWT.BORDER | SWT.MULTI | SWT.CHECK);
+        tree = factory.createTree(composite, SWT.MULTI | SWT.CHECK);
         treeViewer = new CheckboxTreeViewer(tree);
         treeViewer.setContentProvider(new TreeNodeContentProvider());
         

@@ -242,7 +242,7 @@
     </key>
  </extension>
  
-  <extension
+<extension
     point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
     <propertyContributor contributorId="org.osate.ge.editor.AgeDiagramEditor"> 
         <propertyCategory category="org.osate.ge"> 
@@ -252,8 +252,10 @@
        
  <extension
       point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-    <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
+    <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">       
 		<propertyTab category="org.osate.ge" id="org.osate.ge.bindings" label="Bindings">
+    </propertyTab>
+    	<propertyTab category="org.osate.ge" id="org.osate.ge.connections" label="Connections">
     </propertyTab>
    </propertyTabs>
 </extension>
@@ -268,7 +270,14 @@
               id="graphiti.main.tab.emfclass"
               tab="org.osate.ge.bindings">
         </propertySection>
+        <propertySection
+              class="org.osate.ge.properties.ConnectionsSection"
+              filter="org.osate.ge.properties.ConnectionsFilter"
+              id="graphiti.main.tab.emfclass"
+              tab="org.osate.ge.connections">
+        </propertySection>
     </propertySections>
  </extension>
+
  
 </plugin>
