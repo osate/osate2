@@ -125,13 +125,13 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		nameComposite.setLayoutData(formData);
 
 		unidirectionalRadioButton = factory.createButton(directionComposite, "Unidirectional", SWT.RADIO);		
-		bidirectionalRadioButton = factory.createButton(directionComposite, "Bidirectional", SWT.RADIO);	
+		bidirectionalRadioButton = factory.createButton(directionComposite, "Bidirectional", SWT.RADIO);
 		final ArrayList<Button> directionButtons = new ArrayList<Button>();
 		directionButtons.add(unidirectionalRadioButton);
 		directionButtons.add(bidirectionalRadioButton);
 
 		refinePushButton = factory.createButton(optionComposite, "Refine...", SWT.PUSH);       	
-		bindPushButton = factory.createButton(optionComposite, "Bind...", SWT.PUSH);       	
+		bindPushButton = factory.createButton(optionComposite, "Bind...", SWT.PUSH);      
 		configureInModesPushButton = factory.createButton(optionComposite, "Configure In Modes...", SWT.PUSH);       	
 		switchDirectionPushButton = factory.createButton(optionComposite, "Switch Direction", SWT.PUSH);
 		final ArrayList<Button> optionButtons = new ArrayList<Button>();
@@ -148,10 +148,10 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		for (int i = 1; i < subComposites.size(); i++) {
 			subComposites.get(i).setLayout(new GridLayout(subComposites.get(i).getChildren().length, true));
 			for (final Control control : subComposites.get(i).getChildren()) {
-				gridData = new GridData();							
-				gridData.widthHint = 125;			
-				gridData.horizontalAlignment = SWT.FILL;
+				gridData = new GridData();		
+				gridData.widthHint = 125;
 				gridData.grabExcessHorizontalSpace = true;
+				gridData.horizontalAlignment = SWT.FILL;
 				control.setLayoutData(gridData);
 			}
 		}
@@ -286,12 +286,13 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		if(!composite.isDisposed()) {
 			setAllFalse();
 			pe = getSelectedPictogramElement();
+			
 			if ((pe != null) && (pe instanceof FreeFormConnection)) {
 				final Object bo = AadlElementWrapper.unwrap(getFeatureProvider().getBusinessObjectForPictogramElement(pe));
 				if(bo != null) {
 					final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection) bo;
 					nameConnectionText.setText(aadlConnection.getName());
-					directEditingCxt = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());		
+					directEditingCxt = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());
 
 					renameConnectionFeature = (RenameConnectionFeature) getFeatureProvider().getDirectEditingFeature(directEditingCxt);
 					nameConnectionText.setEnabled(renameConnectionFeature.canDirectEdit(directEditingCxt));
@@ -320,10 +321,10 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 									optionsLabel.setVisible(true);
 								}
 								if ((customFeature instanceof ConfigureInModesFeature) && (customFeature.isAvailable(customCtx)) && (customFeature.canExecute(customCtx))) {
-									configureInModesFeature = (ConfigureInModesFeature) customFeature;
-									optionComposite.setVisible(true);
+									configureInModesFeature = (ConfigureInModesFeature) customFeature;		
 									configureInModesPushButton.setVisible(true);
 									optionsLabel.setVisible(true);
+									optionComposite.setVisible(true);
 								}
 								if (customFeature instanceof SwitchDirectionOfConnectionFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
 									switchDirectionOfConnectionFeature = (SwitchDirectionOfConnectionFeature) customFeature;
@@ -354,17 +355,22 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 									formData = new FormData();
 									formData.top = new FormAttachment(subComposites.get(lastVisible), VSPACE);
 									subComposites.get(i).setLayoutData(formData);
-									lastVisible = subComposites.indexOf(subComposites.get(i));						
+									lastVisible = subComposites.indexOf(subComposites.get(i));	
 								}
 							}
 			
 							//Exclude invisible Controls from the layout
-							for (final Composite subComposite : subComposites) {
-								for (Control c : subComposite.getChildren()) {
+							for (int i = 1; i < subComposites.size(); i++) {
+								for (Control c : subComposites.get(i).getChildren()) {
+									//Fixes bug where controls were not visible, but still showing up when switching diagrams
+									if (!c.isVisible()) {
+										c.setVisible(false);
+									}	
 									gridData = (GridData) c.getLayoutData();
 									gridData.exclude = !c.isVisible();
-									subComposite.layout(false);
+									c.setLayoutData(gridData);
 								}
+								subComposites.get(i).layout();
 							}
 						}
 					}
