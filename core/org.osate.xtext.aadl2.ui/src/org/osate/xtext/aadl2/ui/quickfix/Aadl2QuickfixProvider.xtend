@@ -322,14 +322,10 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 		val inImplName = issue.data.head
 		val specName = issue.data.get(1)
 		val featureOffSet = Integer.parseInt(issue.data.get(2))
-//		val contextOffset = Integer.parseInt(issue.data.get(3))
 		acceptor.accept(issue, "Change '" + inImplName + "' to '" + specName + "'", null, null, new IModification() {
 			override public void apply(IModificationContext context) throws Exception {
 				var useOffSet = featureOffSet
 				var replacement = specName;
-//				if (0 < contextOffset){
-//					useOffSet = contextOffset
-//				}
 				context.getXtextDocument().replace(useOffSet, inImplName.length, replacement)
 			}
 		});
@@ -442,6 +438,24 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 		);
 	}
 
+	/**
+	 * QuickFix for generic text replacement
+	 * issue.getData(0) changeFrom
+	 * issue.getData(1) changeTo
+	 * issue,getData(2) offSet
+	 */
+	@Fix(Aadl2JavaValidator.GENERIC_TEXT_REPLACEMENT)
+	def public void fixByGenericTextReplacement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+		val offSet = Integer.parseInt(issue.getData().get(2))
+
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null, new IModification() {
+			override public void apply(IModificationContext context) throws Exception {
+				context.getXtextDocument().replace(offSet, changeFrom.length, changeTo)
+			}
+		});
+	}
 
 
 }
