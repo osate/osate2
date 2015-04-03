@@ -363,10 +363,6 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 							//Exclude invisible Controls from the layout
 							for (int i = 1; i < subComposites.size(); i++) {
 								for (Control c : subComposites.get(i).getChildren()) {
-									//Fixes bug where controls were not visible, but still showing up when switching diagrams
-									if (!c.isVisible()) {
-										c.setVisible(false);
-									}
 									gridData = (GridData) c.getLayoutData();
 									gridData.exclude = !c.isVisible();
 									c.setLayoutData(gridData);
