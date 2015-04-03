@@ -286,8 +286,9 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		if(!composite.isDisposed()) {
 			setAllFalse();
 			pe = getSelectedPictogramElement();
+			final AgeDiagramEditor editor = (AgeDiagramEditor)getPart();
 			
-			if ((pe != null) && (pe instanceof FreeFormConnection)) {
+			if ((pe != null) && (pe instanceof FreeFormConnection) && (editor != null)) {
 				final Object bo = AadlElementWrapper.unwrap(getFeatureProvider().getBusinessObjectForPictogramElement(pe));
 				if(bo != null) {
 					final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection) bo;
@@ -335,20 +336,17 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 								}
 							}
 							
-							final AgeDiagramEditor editor = (AgeDiagramEditor)getPart();
-							if (editor != null) {
-								final Iterator<?> it = editor.getActionRegistry().getActions();
-								while (it.hasNext()) {
-									final Object o = it.next();
-									if((o instanceof SetBindingAction) && (((SetBindingAction) o).isEnabled()) && ((SetBindingAction) o).isEnabled()) {
-										setBindingAction = (SetBindingAction) o;
-										optionComposite.setVisible(true);
-										bindPushButton.setVisible(true);
-										optionsLabel.setVisible(true);
-									}
+							final Iterator<?> it = editor.getActionRegistry().getActions();
+							while (it.hasNext()) {
+								final Object o = it.next();
+								if((o instanceof SetBindingAction) && (((SetBindingAction) o).isEnabled())) {
+									setBindingAction = (SetBindingAction) o;
+									optionComposite.setVisible(true);
+									bindPushButton.setVisible(true);
+									optionsLabel.setVisible(true);
 								}
 							}
-							
+											
 							//Layout the composites so invisible composites do not take up space
 							int lastVisible = 0;
 							for (int i = 1; i < subComposites.size(); i++) {
