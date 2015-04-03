@@ -97,6 +97,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String SUBCOMPONENT_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.subcomponent_not_in_flow_mode";
 	public static final String CONNECTION_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.connection_not_in_flow_mode";
 	public static final String END_TO_END_FLOW_SEGMENT_NOT_IN_MODE = "org.osate.xtext.aadl2.end_to_end_flow_segment_not_in_mode";
+	public static final String GENERIC_TEXT_REPLACEMENT = "org.osate.xtext.aadl2.generic_text_replacement";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -1279,6 +1280,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private INode findFirstNodeWithString(ICompositeNode cNode, String searchFor) {
 		INode result = null;
+		searchFor = searchFor.toLowerCase();
+
 		BidiIterable<INode> iterable = cNode.getChildren();
 		Iterator<INode> iter = iterable.iterator();
 		while (iter.hasNext()) {
@@ -1286,7 +1289,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (iterNode instanceof HiddenLeafNode) {
 				continue;
 			} else if (iterNode instanceof LeafNode) {
-				if (iterNode.getText().indexOf(searchFor) > -1)
+//				if (iterNode.getText().toLowerCase().indexOf(searchFor) > -1)
+				if (iterNode.getText().toLowerCase().equalsIgnoreCase(searchFor))
 					return iterNode;
 			} else if (iterNode instanceof CompositeNode) {
 				result = findFirstNodeWithString((CompositeNode) iterNode, searchFor);
@@ -2358,13 +2362,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkComponentTypeRenameCategory(ComponentTypeRename componentTypeRename) {
 		if (Aadl2Util.isNull(componentTypeRename.getRenamedComponentType())) {
-//			error(componentTypeRename,"Component type rename reference could not be resolved.");
 			return;
 		}
 		if (!componentTypeRename.getCategory().equals(componentTypeRename.getRenamedComponentType().getCategory())) {
+			String wrongCategoryName = componentTypeRename.getCategory().getName();
+			String rightCategoryName = componentTypeRename.getRenamedComponentType().getCategory().getName();
+
+			ICompositeNode n = NodeModelUtils.getNode(componentTypeRename);
+			INode lln = findFirstNodeWithString(n, "renames");
+			lln = lln.getNextSibling();
+			if (lln instanceof CompositeNode) {
+				lln = findFirstNodeWithString((CompositeNode) lln, wrongCategoryName);
+			}
+
+			String offset = "" + lln.getOffset();
 			error("The category of '" + componentTypeRename.getRenamedComponentType().getQualifiedName() + "' is not "
-					+ componentTypeRename.getCategory().getName(), componentTypeRename,
-					Aadl2Package.eINSTANCE.getComponentTypeRename_RenamedComponentType());
+					+ componentTypeRename.getCategory().getName(), componentTypeRename, null, GENERIC_TEXT_REPLACEMENT,
+					wrongCategoryName, rightCategoryName, offset);
 		}
 	}
 
@@ -2378,8 +2392,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentType parent = typeExtension.getExtended();
 		ComponentType child = (ComponentType) typeExtension.getSpecific();
 		if (!canExtend(parent, child)) {
-			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child,
-					Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
+			String changeFrom = child.getCategory().getName();
+			String changeTo = parent.getCategory().getName();
+
+			ICompositeNode n = NodeModelUtils.getNode(child);
+			INode lln = findFirstNodeWithString(n, changeFrom);
+
+			String offset = "" + lln.getOffset();
+			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child, null,
+					GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 		}
 	}
 
@@ -2461,8 +2482,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		ComponentImplementation implementation = (ComponentImplementation) realization.getSpecific();
 		if (!type.getCategory().equals(implementation.getCategory())) {
-			error(realization,
-					"The category of '" + type.getQualifiedName() + "' is not " + implementation.getCategory() + '.');
+			String changeFrom = implementation.getCategory().getName();
+			String changeTo = type.getCategory().getName();
+
+			ICompositeNode n = NodeModelUtils.getNode(implementation);
+			INode lln = findFirstNodeWithString(n, changeFrom);
+
+			String offset = "" + lln.getOffset();
+			error("The category of '" + type.getQualifiedName() + "' is not " + implementation.getCategory() + ".",
+					realization, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 		}
 	}
 
@@ -2476,8 +2504,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentImplementation parent = implementationExtension.getExtended();
 		ComponentImplementation child = (ComponentImplementation) implementationExtension.getSpecific();
 		if (!canExtend(parent, child)) {
-			error(implementationExtension, "Cannot extend '" + parent.getQualifiedName()
-					+ "'.  Incompatible categories.");
+			String changeFrom = child.getCategory().getName();
+			String changeTo = parent.getCategory().getName();
+
+			ICompositeNode n = NodeModelUtils.getNode(child);
+			INode lln = findFirstNodeWithString(n, changeFrom);
+
+			String offset = "" + lln.getOffset();
+
+			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child, null,
+					GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 		}
 	}
 
@@ -2526,7 +2562,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (subcomponent.getRefined() != null) {
 			ComponentCategory refinedCategory = subcomponent.getRefined().getCategory();
 			if (!subcomponentCategory.equals(refinedCategory) && !refinedCategory.equals(ComponentCategory.ABSTRACT)) {
-				error(subcomponent, "Cannot refine subcomponent.  Incompatible categories.");
+
+				String changeFrom = subcomponentCategory.getName();
+				String changeTo = refinedCategory.getName();
+
+				ICompositeNode n = NodeModelUtils.getNode(subcomponent);
+				INode lln = findFirstNodeWithString(n, changeFrom);
+				String offset = "" + lln.getOffset();
+
+				error("Cannot refine subcomponent.  Incompatible categories.", subcomponent, null,
+						GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 			}
 		}
 	}
@@ -2819,8 +2864,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (prototype.getConstrainingClassifier() != null
 				&& !getComponentPrototypeCategory(prototype)
 						.equals(prototype.getConstrainingClassifier().getCategory())) {
-			error(prototype, "The category of '" + prototype.getConstrainingClassifier().getQualifiedName()
-					+ "' is not " + getComponentPrototypeCategory(prototype).getName());
+
+			String changeFrom = getComponentPrototypeCategory(prototype).getName();
+			String changeTo = prototype.getConstrainingClassifier().getCategory().getName();
+
+			ICompositeNode n = NodeModelUtils.getNode(prototype);
+			INode lln = findFirstNodeWithString(n, changeFrom);
+
+			String offset = "" + lln.getOffset();
+
+			error("The category of '" + prototype.getConstrainingClassifier().getQualifiedName() + "' is not "
+					+ getComponentPrototypeCategory(prototype).getName(), prototype, null, GENERIC_TEXT_REPLACEMENT,
+					changeFrom, changeTo, offset);
 		}
 	}
 
@@ -2836,9 +2891,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (!formalCategory.equals(ComponentCategory.ABSTRACT)) {
 				for (ComponentPrototypeActual actual : binding.getActuals()) {
 					if (!formalCategory.equals(actual.getCategory())) {
-						error(actual,
-								"The category of the formal prototype is not compatible with the category specified in the"
-										+ " prototype binding.");
+						String changeFrom = actual.getCategory().getName();
+						String changeTo = formalCategory.getName();
+
+						ICompositeNode n = NodeModelUtils.getNode(binding);
+						INode lln = findFirstNodeWithString(n, changeFrom);
+
+						String offset = "" + lln.getOffset();
+
+						error("The category of the formal prototype is not compatible with the category specified in the"
+								+ " prototype binding.", actual, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo,
+								offset);
 					}
 				}
 			}
@@ -2860,8 +2923,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					&& !actual.getCategory().equals(
 							st instanceof ComponentClassifier ? ((ComponentClassifier) st).getCategory()
 									: getComponentPrototypeCategory((ComponentPrototype) st))) {
-				error(actual,
-						"The category of the referenced classifier is not compatible the category specified in the prototype binding.");
+				ComponentCategory componentCategory = st instanceof ComponentClassifier ? ((ComponentClassifier) st)
+						.getCategory() : getComponentPrototypeCategory((ComponentPrototype) st);
+				String changeFrom = actual.getCategory().getName();
+				String changeTo = componentCategory.getName();
+
+				ICompositeNode n = NodeModelUtils.getNode(actual);
+				INode lln = findFirstNodeWithString(n, changeFrom);
+
+				String offset = "" + lln.getOffset();
+
+				error("The category of the referenced classifier is not compatible the category specified in the prototype binding.",
+						actual, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 			}
 		}
 	}
@@ -2976,7 +3049,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					.getRefined());
 			if (!refinedPrototypeCategory.equals(ComponentCategory.ABSTRACT)
 					&& !refinedPrototypeCategory.equals(getComponentPrototypeCategory(prototype))) {
-				error(prototype, "Incompatible category for prototype refinement.");
+
+				ComponentCategory prototypeCategory = getComponentPrototypeCategory(prototype);
+				String changeFrom = prototypeCategory.getName();
+				String changeTo = refinedPrototypeCategory.getName();
+
+				ICompositeNode n = NodeModelUtils.getNode(prototype);
+				INode lln = findFirstNodeWithString(n, changeFrom);
+				String offset = "" + lln.getOffset();
+
+				error("Incompatible category for prototype refinement.", prototype, null, GENERIC_TEXT_REPLACEMENT,
+						changeFrom, changeTo, offset);
 			}
 		}
 	}
