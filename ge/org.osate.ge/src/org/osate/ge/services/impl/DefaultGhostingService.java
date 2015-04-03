@@ -111,7 +111,7 @@ public class DefaultGhostingService implements GhostingService {
 	}
 	
 	@Override
-	public void ghostInvalidConnections(final ContainerShape shape) {
+	public void ghostConnections(final ContainerShape shape) {
 		// Populate the list with connections that are owned by the specified shape
 		final List<Connection> connectionsToDelete = new ArrayList<Connection>();
 		for(final Connection c : getDiagram().getConnections()) {
@@ -122,7 +122,7 @@ public class DefaultGhostingService implements GhostingService {
 				if(propertyService.isTransient(c)) {
 					connectionsToDelete.add(c);
 				} else {
-					 ghostIfInvalid(c);
+					setIsGhost(c, true);
 				}
 			}
 		}
@@ -130,27 +130,6 @@ public class DefaultGhostingService implements GhostingService {
 		// Delete all connections that were marked for deletion
 		for(final Connection c : connectionsToDelete) {
 			EcoreUtil.delete(c, true);
-		}
-	}
-
-	private void ghostIfInvalid(final Connection connection) {
-		boolean ghost = false;
-		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
-
-		// If the business object is not valid, ghost the connection
-		if(bo == null) {
-			ghost = true;
-		} else {
-			// If there is not a pattern to update the connection, ghost it
-			final UpdateContext updateContext = new UpdateContext(connection);
-			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-			if(updateFeature == null || !updateFeature.canUpdate(updateContext)) {
-				ghost = true;
-			}
-		}
-		
-		if(ghost) {
-			setIsGhost(connection, true);
 		}
 	}
 	

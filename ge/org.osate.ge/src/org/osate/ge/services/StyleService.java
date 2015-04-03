@@ -77,6 +77,8 @@ public interface StyleService {
 	Style getSubprogramAccessStyle();
 
 	Style getSubprogramGroupAccessStyle();
+	
+	Style getSubprogramCallOrderStyle();
 
 	Style getBackgroundStyle();
 

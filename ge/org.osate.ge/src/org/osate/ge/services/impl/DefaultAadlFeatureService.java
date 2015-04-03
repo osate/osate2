@@ -90,27 +90,15 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 	}
 	*/
 	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.ClassifierService#getAllOwnedFeatures(org.osate.aadl2.Classifier)
-	 */
 	@Override
-	public EList<Feature> getAllOwnedFeatures(final Classifier classifier) {
+	public EList<Feature> getAllDeclaredFeatures(final Classifier classifier) {
 		if(classifier instanceof FeatureGroupType) {
 			return getAllOwnedFeatures((FeatureGroupType)classifier);
-		} /*
-		else if(classifier instanceof ComponentType) { 
-			return getAllOwnedFeatures((ComponentType)classifier);
-		} else if(classifier instanceof ComponentImplementation) {
-			return getAllOwnedFeatures(((ComponentImplementation) classifier).getType());
-		} else {
-			throw new RuntimeException("Unhandled case for classifier:" + classifier);
-		}*/
+		} 
+		
 		return classifier.getAllFeatures();
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.ClassifierService#getAllFeatures(org.osate.aadl2.FeatureGroupType)
-	 */
 	@Override
 	public EList<Feature> getAllFeatures(final FeatureGroupType fgt) {
 		final EList<Feature> owned = getAllOwnedFeatures(fgt);

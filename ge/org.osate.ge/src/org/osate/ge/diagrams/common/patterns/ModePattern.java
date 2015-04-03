@@ -136,6 +136,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	 * @param context
 	 * @return
 	 */
+	// This could be removed or simplified if the mode's labels were not sized the same as the mode shape.
 	private IMoveShapeContext transformMoveShapeContext(final IMoveShapeContext context) {
 		final Shape shape = context.getShape();
 		final Shape newShape;
@@ -208,7 +209,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
         // Remove connections related to the initial shape
-		getVisibilityService().ghostInvalidConnections(shape);
+		getVisibilityService().ghostConnections(shape);
 		
 		// Remove child shapes
 		// Clear all shapes except for the inner mode shape
@@ -232,7 +233,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 			propertyService.setName(innerModeShape, innerModeShapeName);
 		}
 		
-		// Ensure the inner mode shope has a chopbox anchor
+		// Ensure the inner mode shape has a chopbox anchor
 		anchorService.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
 		
 		// Clear the inner mode shape's children

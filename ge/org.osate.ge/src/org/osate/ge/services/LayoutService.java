@@ -39,4 +39,11 @@ public interface LayoutService {
 	 * @param fp
 	 */
 	int[] adjustChildShapePositions(ContainerShape shape);
+	
+	/**
+	 * Returns the minimum width and height for a shape layed out in accordance to adjustChildShapePosition
+	 * @return
+	 */
+	int getMinimumWidth();
+	int getMinimumHeight();
 }

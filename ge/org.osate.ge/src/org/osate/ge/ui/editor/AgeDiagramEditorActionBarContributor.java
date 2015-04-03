@@ -19,7 +19,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.SubContributionItem;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchActionConstants;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -93,7 +92,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 						menuManager.add(new Separator());
 						menuManager.add(getAction(IncreaseNestingDepthAction.ID));
 						menuManager.add(getAction(DecreaseNestingDepthAction.ID));
-						menubar.insertAfter(IWorkbenchActionConstants.M_EDIT, menuManager);
 					}
 				}
 			}

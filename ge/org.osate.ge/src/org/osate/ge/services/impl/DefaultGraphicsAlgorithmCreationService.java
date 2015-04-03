@@ -95,6 +95,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		background.setStyle(styleService.getTextBackgroundStyle());		
 		return background;
 	}
+	
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.GraphicsAlgorithmCreationService#createClassifierGraphicsAlgorithm(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Diagram, org.osate.aadl2.Element, int, int)
 	 */
@@ -471,7 +472,8 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		final GraphicsAlgorithm ellipseGa = gaService.createPlainEllipse(ga);
 		gaService.setSize(ellipseGa, width, height);
 		ellipseGa.setStyle(style);
-         
+		ellipseGa.setFilled(false);
+		
     	return ga;
 	}
 	

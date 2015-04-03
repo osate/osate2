@@ -22,7 +22,7 @@ public class AgeImageProvider extends AbstractImageProvider implements
 	//Using EClass IC to hold name for the correct icon to be registered to EClass c
 	private void addImageFilePath(final EClass c, final EClass ic) {
 		//Using URI plugInImage to access images registered in plug-in dependency
-		URI plugInImage = URI.createPlatformPluginURI("org.osate.xtext.aadl2.ui/icons/"+ ic.getName() + ".gif", true);
+		final URI plugInImage = URI.createPlatformPluginURI("org.osate.aadl2.edit/icons/full/obj16/"+ ic.getName() + ".gif", true);
 		addImageFilePath(PREFIX + c.getName(), plugInImage.toString());
 	}
 	
@@ -95,5 +95,7 @@ public class AgeImageProvider extends AbstractImageProvider implements
 		addImageFilePath(p.getSubprogramProxy(), p.getSubprogramAccess());
 		addImageFilePath(p.getFlowSpecification(), p.getModeTransition());
 		addImageFilePath(p.getGeneralization(), p.getModeTransition());
+		addImageFilePath(p.getSubprogramCall(), p.getSubprogramSubcomponent());
+		addImageFilePath(p.getSubprogramCallSequence());
 	}
 }

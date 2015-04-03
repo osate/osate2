@@ -85,11 +85,17 @@ import org.osate.ge.diagrams.common.patterns.ModePattern;
 import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
 import org.osate.ge.diagrams.componentImplementation.features.ChangeSubcomponentTypeFeature;
 import org.osate.ge.diagrams.componentImplementation.features.EditFlowsFeature;
+import org.osate.ge.diagrams.componentImplementation.features.MoveSubprogramCallDownFeature;
+import org.osate.ge.diagrams.componentImplementation.features.MoveSubprogramCallUpFeature;
 import org.osate.ge.diagrams.componentImplementation.features.RefineConnectionFeature;
 import org.osate.ge.diagrams.componentImplementation.features.RefineSubcomponentFeature;
 import org.osate.ge.diagrams.componentImplementation.features.RenameConnectionFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.diagrams.componentImplementation.features.SetSubcomponentClassifierFeature;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrderPattern;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallPattern;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallSequencePattern;
 import org.osate.ge.diagrams.componentImplementation.patterns.ConnectionPattern;
 import org.osate.ge.diagrams.pkg.features.PackageSetExtendedClassifierFeature;
 import org.osate.ge.diagrams.pkg.features.PackageUpdateDiagramFeature;
@@ -143,6 +149,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Classifiers
 		addPattern(createClassifierPattern(null));
 		addSubcomponentPatterns();		
+		
+		// Subprogram Calls
+		addPattern(make(SubprogramCallSequencePattern.class));
+		addPattern(make(SubprogramCallPattern.class));
+		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 	}
 	
 	private IEclipseContext getContext() {
@@ -273,6 +284,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(createSetFeatureKindFeature(AccessType.REQUIRES));		
 		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE));
 		features.add(createCreateSimpleFlowSpecificationFeature(FlowKind.SINK));
+		
+		// Subprogram Call
+		features.add(make(MoveSubprogramCallUpFeature.class));
+		features.add(make(MoveSubprogramCallDownFeature.class));
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
@@ -475,7 +490,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
 		final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
-		return bor.getBusinessObjectForPictogramElement(pe) instanceof org.osate.aadl2.Connection;
+		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+		return bo instanceof org.osate.aadl2.Connection || bo instanceof SubprogramCallOrder;
 	}
 	
 	// ComponentImplementation

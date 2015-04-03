@@ -17,4 +17,6 @@ public interface BusinessObjectResolutionService {
 	 * @return
 	 */
 	Object getBusinessObjectForPictogramElement(final PictogramElement pe);
+	
+	boolean areBusinessObjectsEqual(final Object o1, final Object o2);
 }

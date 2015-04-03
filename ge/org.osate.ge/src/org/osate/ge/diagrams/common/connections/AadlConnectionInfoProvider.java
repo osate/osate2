@@ -25,8 +25,11 @@ import org.eclipse.graphiti.services.IPeService;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.diagrams.common.patterns.FeaturePattern;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -68,7 +71,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 				while(temp2 != null) {
 					if(temp1 == temp2) {
 						final Object temp1Bo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(temp1);
-						if(temp1Bo != null) {
+						if(temp1Bo != null && !(temp1Bo instanceof SubprogramCallSequence)) { // Subprogram call sequences do not own connections
 							return temp1;
 						}						
 					}
@@ -89,14 +92,14 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		Anchor a2 = null;
 
 		// Get the pictogram elements for the source and destination of the connection
-		final PictogramElement sourcePe = getPictogramElement(ownerShape, connection.getAllSource(), connection.getAllSourceContext(), connection.getAllSrcContextComponent());
-		final PictogramElement destPe = getPictogramElement(ownerShape, connection.getAllDestination(), connection.getAllDestinationContext(), connection.getAllDstContextComponent());
+		final PictogramElement sourcePe = getPictogramElement(ownerShape, connection.getAllSource(), connection.getAllSourceContext());
+		final PictogramElement destPe = getPictogramElement(ownerShape, connection.getAllDestination(), connection.getAllDestinationContext());
 
 		// Check if the sourcePe and destPe are valid
 		if(sourcePe == null || !(sourcePe instanceof Shape) || destPe == null || !(destPe instanceof Shape)) {
 			return null;
 		}
-
+		
 		final Shape sourceShape = (Shape)sourcePe;
 		final Shape destShape = (Shape)destPe;
 		final IPeService peService = Graphiti.getPeService();
@@ -121,28 +124,37 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		return new Anchor[] {a1, a2};
 	}
 	
-	private PictogramElement getPictogramElement(final ContainerShape ownerShape, final ConnectionEnd ce, final Context context, final NamedElement contextComponent) {
+	private PictogramElement getPictogramElement(final ContainerShape ownerShape, final ConnectionEnd ce, final Context context) {
 		if(ce == null) {
 			return null;
 		}
 		
-		// Get the PE for the context component
+		// The context for the actual context. If the context and secondary context are the same then only one is used.
+		NamedElement secondaryContext = context;
+		if(secondaryContext instanceof FeatureGroup) {
+			secondaryContext = secondaryContext.getContainingComponentImpl();
+		} else if(secondaryContext instanceof SubprogramCall) {
+			secondaryContext = (NamedElement)secondaryContext.eContainer();
+		}
+		
+		// Get the PE for the secondary context
 		PictogramElement pe = null;
-		if(contextComponent != null) {
+		if(secondaryContext != null) {
 			// Check if the context matches the BO of the owner shape
 			final Object ownerShapeBo = getBusinessObjectResolver().getBusinessObjectForPictogramElement(ownerShape);
-			if(contextComponent == ownerShapeBo){
+			if(secondaryContext == ownerShapeBo){
 				pe = ownerShape;
 			} else {
 				if(ownerShapeBo instanceof ComponentImplementation) {
 					final ComponentImplementation ci = (ComponentImplementation)ownerShapeBo;
-					if(getAllExtended(ci).contains(contextComponent)) {
+					if(getAllExtended(ci).contains(secondaryContext)) {
 						pe = ownerShape;
 					}
 				}
 				
 				if(pe == null) {
-					pe = shapeService.getChildShapeByElementName(ownerShape, contextComponent);
+					pe = shapeService.getChildShapeByElementName(ownerShape, secondaryContext);
+
 					if(pe == null || !(pe instanceof ContainerShape)) {
 						return null;
 					}
@@ -150,9 +162,9 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 			}
 		} 
 		
-		if(context != null && contextComponent != context) {
+		if(context != null && secondaryContext != context) {
 			if(pe == null) {			
-				// TODO: Throw exception? Unhandled case. Context without context component
+				// Unhandled case. Context without secondary context
 				return null;
 			} else {
 				// Get the shape for the context
@@ -173,16 +185,6 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 		
 		// Get Descendant PE
 		pe = shapeService.getDescendantShapeByElementName((ContainerShape)pe, ce);		
-		
-		// CLEAN-UP: Clarify or remove comments
-		// Case: Just CE is valid. (Probably a feature? could be a component)
-		// Return it's PE
-		
-		// Case: CE is valid. Context and context component is the same.
-		// Get the PE of Context. Retrieve PE of the child of the context PE for CE.
-		
-		// Case: CE is valid. Context is a subcomponent. Context is a feature group
-		// 
 
 		return pe;
 	}

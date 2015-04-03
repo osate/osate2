@@ -27,9 +27,7 @@ public interface GhostingService {
 	void ghostInvalidChildShapes(ContainerShape shape);
 	
 	/**
-	 * Turns connections owned by the specified shape that are invalid and of a specified type into ghosts. 
-	 * Such as ones that do not have a valid business object associated with them or cannot be updated.
-	 * Also ghosts connections for which the owner cannot be determined.
+	 * Turns connections owned by the specified shape and any for which an owner cannot be determined into ghosts. Deletes transient connections.
 	 */
-	void ghostInvalidConnections(ContainerShape shape);
+	void ghostConnections(ContainerShape shape);
 }

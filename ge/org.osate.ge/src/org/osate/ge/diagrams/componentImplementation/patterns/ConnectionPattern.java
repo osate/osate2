@@ -60,6 +60,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
@@ -474,7 +475,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 			return false;
 		}
 		
-		final Subcomponent srcScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), Subcomponent.class);
+		final Context srcScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), Subcomponent.class, SubprogramCall.class);
 		final ConnectionEnd srcConnectionEnd = srcConnectedElement.getConnectionEnd();
 		if(srcConnectionEnd instanceof DirectedFeature) {
 			final DirectionType direction = featureService.getFeatureDirection((Shape)context.getSourcePictogramElement(), (DirectedFeature)srcConnectionEnd);
@@ -534,7 +535,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 			return false;
 		}
 		
-		final Subcomponent dstScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getTargetPictogramElement(), Subcomponent.class);
+		final Context dstScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getTargetPictogramElement(), Subcomponent.class, SubprogramCall.class);
 		final ConnectionEnd dstConnectionEnd = dstConnectedElement.getConnectionEnd();
 		if(dstConnectionEnd instanceof DirectedFeature) {
 			final DirectionType direction = featureService.getFeatureDirection((Shape)context.getTargetPictogramElement(), (DirectedFeature)dstConnectionEnd);

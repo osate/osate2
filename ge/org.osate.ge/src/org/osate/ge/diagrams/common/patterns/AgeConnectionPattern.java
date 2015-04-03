@@ -116,13 +116,13 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	@Override
 	public final PictogramElement add(final IAddContext context) {
 		final IAddConnectionContext addConContext = (IAddConnectionContext)context;
-        final Element element = (Element)AadlElementWrapper.unwrap(context.getNewObject());
+        final Object bo = AadlElementWrapper.unwrap(context.getNewObject());
         Graphiti.getPeCreateService();
         final Diagram diagram = getDiagram();
         
         // Create the connection
         final Connection connection = createConnection(diagram);
-        link(connection, new AadlElementWrapper(element));
+        link(connection, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
 
         connection.setStart(addConContext.getSourceAnchor());
         connection.setEnd(addConContext.getTargetAnchor());

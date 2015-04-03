@@ -29,7 +29,7 @@ public class ClassifierStyleFactory implements StyleFactory {
         style.setLineVisible(true);
         style.setLineWidth(1);
         style.setTransparency(0.0);
-
+        
         return style;
 	}
 }

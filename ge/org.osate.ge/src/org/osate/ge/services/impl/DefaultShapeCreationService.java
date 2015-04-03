@@ -109,7 +109,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 							
 							intersects = false;
 							for(final Shape child : shape.getChildren()) {
-								if(child != pictogramElement) {
+								if(child != pictogramElement && !propertyService.isBackground(child)) {
 									final GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
 									final int minX2 = childGa.getX();
 									final int minY2 = childGa.getY();

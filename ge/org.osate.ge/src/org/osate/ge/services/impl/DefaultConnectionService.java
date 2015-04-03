@@ -26,6 +26,7 @@ import org.osate.ge.diagrams.common.connections.GeneralizationInfoProvider;
 import org.osate.ge.diagrams.common.connections.InitialModeConnectionInfoProvider;
 import org.osate.ge.diagrams.common.connections.ModeTransitionInfoProvider;
 import org.osate.ge.diagrams.common.connections.ModeTransitionTriggerInfoProvider;
+import org.osate.ge.diagrams.common.connections.SubprogramCallOrderInfoProvider;
 import org.osate.ge.diagrams.common.patterns.ModeTransitionPattern;
 import org.osate.ge.services.AnchorService;
 import org.osate.ge.services.BusinessObjectResolutionService;
@@ -57,7 +58,8 @@ public class DefaultConnectionService implements ConnectionService {
 				new ModeTransitionInfoProvider(bor, diagram, anchorUtil, shapeHelper),
 				new InitialModeConnectionInfoProvider(bor, diagram, propertyService),
 				new ModeTransitionTriggerInfoProvider(bor, diagram, propertyService),
-				new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper)
+				new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper),
+				new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper)
 		};
 	}
 	
@@ -69,7 +71,7 @@ public class DefaultConnectionService implements ConnectionService {
 		// Find all connections that match the anchors
 		final Diagram diagram = getDiagram();
 		for(final Connection c : diagram.getConnections()) {
-			if(getOwnerShape(c) == ownerShape && bor.getBusinessObjectForPictogramElement(c) == bo) {
+			if(getOwnerShape(c) == ownerShape && bor.areBusinessObjectsEqual(bor.getBusinessObjectForPictogramElement(c), bo)) {
 				return c;
 			}
 		}

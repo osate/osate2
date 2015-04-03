@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -29,7 +30,10 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
+import org.osate.ge.diagrams.componentImplementation.patterns.SubprogramCallOrder;
 import org.osate.ge.services.SerializableReferenceService;
 import org.osate.ge.util.Log;
 import org.osate.ge.util.StringUtil;
@@ -65,6 +69,13 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 			return "mode " + ((Mode)bo).getQualifiedName();
 		} else if(bo instanceof ModeTransition) {
 			return buildModeTransitionKey((ModeTransition)bo);
+		} else if(bo instanceof SubprogramCallSequence) {
+			return "subprogram_call_sequence " + ((SubprogramCallSequence)bo).getQualifiedName();
+		} else if(bo instanceof SubprogramCall) {
+			return "subprogram_call " + ((SubprogramCall)bo).getQualifiedName();
+		} else if(bo instanceof SubprogramCallOrder) {
+			final SubprogramCallOrder sco = (SubprogramCallOrder)bo;
+			return "subprogram_call_order " + sco.previousSubprogramCall.getQualifiedName() + " " + sco.subprogramCall.getQualifiedName();
 		} else {
 			return null;
 		}
@@ -85,52 +96,63 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 			return null;
 		}		
 		
-		Element aadlElement = null; // The AADL Element that is returned
+		Object referencedObject = null; // The object that will be returned
 		final String type = segs[0];
-		final String qualifiedName = segs[1];
-		final Element relevantElement = getNamedElementByQualifiedName(resourceSet, qualifiedName);
 		
-		if(type.equals("package") ||
-			type.equals("classifier") ||
-			type.equals("subcomponent") ||
-			type.equals("feature") ||
-			type.equals("internal_feature") ||
-			type.equals("processor_feature") ||
-			type.equals("flow_specification") ||
-			type.equals("connection") ||
-			type.equals("mode")) {
-				aadlElement = relevantElement;
-		} else if(type.equals("mode_transition")) {
-			if(relevantElement instanceof ComponentClassifier) {
-				for(final ModeTransition mt : ((ComponentClassifier) relevantElement).getOwnedModeTransitions()) {
-					if(reference.equalsIgnoreCase(buildModeTransitionKey(mt))) {
-						aadlElement = mt;
-					}
+		if(type.equals("subprogram_call_order")) {
+			if(segs.length == 3) {
+				final Element previousSubprogramCall = getNamedElementByQualifiedName(resourceSet, segs[1]);
+				final Element subprogramCall = getNamedElementByQualifiedName(resourceSet, segs[2]);
+				if(previousSubprogramCall instanceof SubprogramCall && subprogramCall instanceof SubprogramCall) {
+					referencedObject = new SubprogramCallOrder((SubprogramCall)previousSubprogramCall, (SubprogramCall)subprogramCall);
 				}
+			}			
+		} else { 
+			final String qualifiedName = segs[1];
+			final Element relevantElement = getNamedElementByQualifiedName(resourceSet, qualifiedName);
+					
+			if(type.equals("package") ||
+				type.equals("classifier") ||
+				type.equals("subcomponent") ||
+				type.equals("feature") ||
+				type.equals("internal_feature") ||
+				type.equals("processor_feature") ||
+				type.equals("flow_specification") ||
+				type.equals("connection") ||
+				type.equals("mode") ||
+				type.equals("subprogram_call_sequence") ||
+				type.equals("subprogram_call")) {
+					referencedObject = relevantElement;
+			} else if(type.equals("mode_transition")) {
+				if(relevantElement instanceof ComponentClassifier) {
+					for(final ModeTransition mt : ((ComponentClassifier) relevantElement).getOwnedModeTransitions()) {
+						if(reference.equalsIgnoreCase(buildModeTransitionKey(mt))) {
+							referencedObject = mt;
+						}
+					}
+				}			
+			} else if(type.equals("realization")) {
+				if(relevantElement instanceof ComponentImplementation) {
+					referencedObject = ((ComponentImplementation)relevantElement).getOwnedRealization();
+				}
+			} else if(type.equals("type_extension")) {
+				if(relevantElement instanceof ComponentType) {
+					referencedObject = ((ComponentType)relevantElement).getOwnedExtension();
+				}
+			} else if(type.equals("implementation_extension")) {
+				if(relevantElement instanceof ComponentImplementation) {
+					referencedObject = ((ComponentImplementation)relevantElement).getOwnedExtension();
+				}
+			} else if(type.equals("group_extension")) {
+				if(relevantElement instanceof FeatureGroupType) {
+					referencedObject = ((FeatureGroupType)relevantElement).getOwnedExtension();
+				}
+			} else {
+				Log.error("Unhandled case: " + type);
 			}
-			
-		} else if(type.equals("realization")) {
-			if(relevantElement instanceof ComponentImplementation) {
-				aadlElement = ((ComponentImplementation)relevantElement).getOwnedRealization();
-			}
-		} else if(type.equals("type_extension")) {
-			if(relevantElement instanceof ComponentType) {
-				aadlElement = ((ComponentType)relevantElement).getOwnedExtension();
-			}
-		} else if(type.equals("implementation_extension")) {
-			if(relevantElement instanceof ComponentImplementation) {
-				aadlElement = ((ComponentImplementation)relevantElement).getOwnedExtension();
-			}
-		} else if(type.equals("group_extension")) {
-			if(relevantElement instanceof FeatureGroupType) {
-				aadlElement = ((FeatureGroupType)relevantElement).getOwnedExtension();
-			}
-		} else {
-			Log.error("Unhandled case: " + type);
 		}
 
-		// TODO: aadlElement should be a generatic object
-		return aadlElement;
+		return referencedObject;
 	}
 	
 	private String getNameForSerialization(final NamedElement ne) {
@@ -237,6 +259,24 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 							return result;
 						}
 					} 
+				}
+			}
+			
+			// Special handling for subprogram calls. They are not owned by the classifier but rather the subprogram call sequence.
+			if(c instanceof BehavioredImplementation) {
+				final BehavioredImplementation bi = (BehavioredImplementation)c;
+				for(final SubprogramCallSequence callSequence : bi.getOwnedSubprogramCallSequences()) {
+					for(final SubprogramCall member : callSequence.getOwnedSubprogramCalls()) {
+						final String name = member.getName();
+						if(name != null) {
+							if(name.equalsIgnoreCase(seg)) {
+								final NamedElement result = findNamedElement(member, pathSegs, i+1);
+								if(result != null) {
+									return result;
+								}
+							} 
+						}
+					}
 				}
 			}
 			

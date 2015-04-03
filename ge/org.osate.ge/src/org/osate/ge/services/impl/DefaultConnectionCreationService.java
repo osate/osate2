@@ -33,20 +33,20 @@ public class DefaultConnectionCreationService implements ConnectionCreationServi
 	}
 
 	@Override
-	public void createUpdateConnections(final ContainerShape ownerShape, final List<? extends Element> elements) {
-		for(final Element el : elements) {
-			createUpdateConnection(ownerShape, el);
+	public void createUpdateConnections(final ContainerShape ownerShape, final List<?> businessObjects) {
+		for(final Object bo : businessObjects) {
+			createUpdateConnection(ownerShape, bo);
 		}
 	}
 	
 	@Override
-	public Connection createUpdateConnection(final ContainerShape ownerShape, final Element el) {
-		Connection connection = connectionService.getConnection(ownerShape, el);
+	public Connection createUpdateConnection(final ContainerShape ownerShape, final Object bo) {
+		Connection connection = connectionService.getConnection(ownerShape, bo);
 		if(connection == null) {
-			final Anchor[] anchors = connectionService.getAnchors(ownerShape, el);
+			final Anchor[] anchors = connectionService.getAnchors(ownerShape, bo);
 			if(anchors != null) {
 				final AddConnectionContext addContext = new AddConnectionContext(anchors[0], anchors[1]);
-				addContext.setNewObject(new AadlElementWrapper(el));
+				addContext.setNewObject(bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);	
 				addContext.setTargetContainer(ownerShape);
 				
 				final IAddFeature addFeature = fp.getAddFeature(addContext);
