@@ -368,7 +368,7 @@ public class SetBindingAction extends SelectionAction {
 	};
 
 	@Override
-	public boolean calculateEnabled() {
+	protected boolean calculateEnabled() {
 		return getSelectedPictogramElement() != null && 
 				currentWindow == null && 
 				bor.getBusinessObjectForPictogramElement(editor.getDiagramTypeProvider().getDiagram()) instanceof ComponentImplementation;

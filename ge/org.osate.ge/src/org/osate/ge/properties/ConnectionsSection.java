@@ -188,7 +188,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		bindPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {					
-				if (setBindingAction.calculateEnabled()) {	
+				if (setBindingAction.isEnabled()) {	
 					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
 					getDiagramTypeProvider().getDiagramBehavior().refresh();
 					setBindingAction.run();
@@ -310,36 +310,37 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 									directionComposite.setVisible(true);
 									for (final Control control : directionComposite.getChildren()) {
 										control.setVisible(true);
-									}								
+									}
 									currentDirectionSelection = unidirectionalRadioButton.getSelection();
 									setDirectionalRadioButtons(aadlConnection);
 								}
 								if (customFeature instanceof RefineConnectionFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
 									refineConnectionFeature = (RefineConnectionFeature) customFeature;
-									optionComposite.setVisible(true);
-									refinePushButton.setVisible(true);	
-									optionsLabel.setVisible(true);
+									refinePushButton.setVisible(true);
 								}
 								if ((customFeature instanceof ConfigureInModesFeature) && (customFeature.isAvailable(customCtx)) && (customFeature.canExecute(customCtx))) {
 									configureInModesFeature = (ConfigureInModesFeature) customFeature;		
 									configureInModesPushButton.setVisible(true);
-									optionsLabel.setVisible(true);
-									optionComposite.setVisible(true);
 								}
 								if (customFeature instanceof SwitchDirectionOfConnectionFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
 									switchDirectionOfConnectionFeature = (SwitchDirectionOfConnectionFeature) customFeature;
-									optionComposite.setVisible(true);
 									switchDirectionPushButton.setVisible(true);
-									optionsLabel.setVisible(true);
 								}
 							}
-
+							
+							for (Control c : optionComposite.getChildren()) {
+								if (c.isVisible()) {
+									optionsLabel.setVisible(true);
+									optionComposite.setVisible(true);
+								}
+							}
+							
 							final AgeDiagramEditor editor = (AgeDiagramEditor)getPart();
 							if (editor != null) {
 								final Iterator<?> it = editor.getActionRegistry().getActions();
 								while (it.hasNext()) {
 									final Object o = it.next();
-									if((o instanceof SetBindingAction) && (((SetBindingAction) o).calculateEnabled()) && ((SetBindingAction) o).isEnabled()) {
+									if((o instanceof SetBindingAction) && (((SetBindingAction) o).isEnabled()) && ((SetBindingAction) o).isEnabled()) {
 										setBindingAction = (SetBindingAction) o;
 										optionComposite.setVisible(true);
 										bindPushButton.setVisible(true);
@@ -365,7 +366,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 									//Fixes bug where controls were not visible, but still showing up when switching diagrams
 									if (!c.isVisible()) {
 										c.setVisible(false);
-									}	
+									}
 									gridData = (GridData) c.getLayoutData();
 									gridData.exclude = !c.isVisible();
 									c.setLayoutData(gridData);
