@@ -457,5 +457,25 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 		});
 	}
 
+	/**
+	 * QuickFix for Array size not same as reference list size
+	 * issue.getData(0) arraySize
+	 * issue.getData(1) referenceListSize
+	 */
+	@Fix(Aadl2JavaValidator.ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE)
+	def public void fixArraySizeNotEqualRefernceListSize(Issue issue, IssueResolutionAcceptor acceptor) {
+		val arraySize = Integer.parseInt(issue.data.head)		
+		val referenceListSize =  Integer.parseInt(issue.data.get(1))
+
+		acceptor.accept(issue, "Change Array size from '" + arraySize + "' to '" + referenceListSize + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val subcomponent = element as Subcomponent
+					subcomponent.arrayDimensions.head.size.size = referenceListSize;
+				}
+			}
+		);
+	}
+
 
 }

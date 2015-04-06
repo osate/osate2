@@ -62,6 +62,7 @@ import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.CompositeNode;
+import org.eclipse.xtext.nodemodel.impl.CompositeNodeWithSemanticElement;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -99,6 +100,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String CONNECTION_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.connection_not_in_flow_mode";
 	public static final String END_TO_END_FLOW_SEGMENT_NOT_IN_MODE = "org.osate.xtext.aadl2.end_to_end_flow_segment_not_in_mode";
 	public static final String GENERIC_TEXT_REPLACEMENT = "org.osate.xtext.aadl2.generic_text_replacement";
+	public static final String ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE = "org.osate.xtext.aadl2.array_size_not_equal_reference_list_size";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -1299,6 +1301,32 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			} else if (iterNode instanceof CompositeNode) {
 				result = findFirstKeywordNodeEqualToString((CompositeNode) iterNode, searchFor);
+				if (null != result)
+					return result;
+			}
+		}
+		return result;
+	}
+
+	private INode findFirstArraySizeNodeEqualToSize(ICompositeNode cNode, long searchForValue) {
+		INode result = null;
+		BidiIterable<INode> iterable = cNode.getChildren();
+		Iterator<INode> iter = iterable.iterator();
+		while (iter.hasNext()) {
+			INode iterNode = iter.next();
+			if (iterNode instanceof HiddenLeafNode) {
+				continue;
+			} else if (iterNode instanceof LeafNode) {
+				continue;
+			} else if (iterNode instanceof CompositeNodeWithSemanticElement) {
+				if (iterNode.getSemanticElement() instanceof ArrayDimension) {
+					ArrayDimension arrayDimension = (ArrayDimension) iterNode.getSemanticElement();
+					if (searchForValue == arrayDimension.getSize().getSize()) {
+						return iterNode;
+					}
+				}
+			} else if (iterNode instanceof CompositeNode) {
+				result = findFirstArraySizeNodeEqualToSize((CompositeNode) iterNode, searchForValue);
 				if (null != result)
 					return result;
 			}
@@ -2746,7 +2774,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 			if (impReferences.size() != arrayProduct) {
-				error(subcomponent, "Size of component implementation reference list not the same as array size.");
+				if (arrayDimensions.size() == 1) {
+					String changeFrom = "" + arrayDimensions.get(0).getSize().getSize();
+					String changeTo = "" + impReferences.size();
+
+					error("Size of component implementation reference list not the same as array size.", subcomponent,
+							null, ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE, changeFrom, changeTo);
+				} else {
+					error(subcomponent, "Size of component implementation reference list not the same as array size.");
+				}
 			}
 		}
 	}
@@ -3695,7 +3731,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					&& ((feature.getRefined() instanceof Port || feature.getRefined() instanceof Parameter || !originalDirection
 							.equals(DirectionType.IN_OUT)))) {
 				error(feature,
-						"The direction in feature refinement must be the same or in casse of abstract features or feature groups the original direction must be 'in out'.  The direction of the refined feature is '"
+						"The direction in feature refinement must be the same or in case of abstract features or feature groups the original direction must be 'in out'.  The direction of the refined feature is '"
 								+ direction.getName()
 								+ "' while original direction is '"
 								+ originalDirection.getName()
