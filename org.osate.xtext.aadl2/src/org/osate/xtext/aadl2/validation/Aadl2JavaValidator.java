@@ -57,6 +57,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -1292,8 +1293,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (iterNode instanceof HiddenLeafNode) {
 				continue;
 			} else if (iterNode instanceof LeafNode) {
-				if (iterNode.getText().toLowerCase().equalsIgnoreCase(searchFor))
-					return iterNode;
+				if (iterNode.getGrammarElement() instanceof Keyword) {
+					if (iterNode.getText().toLowerCase().equalsIgnoreCase(searchFor))
+						return iterNode;
+				}
 			} else if (iterNode instanceof CompositeNode) {
 				result = findFirstKeywordNodeEqualToString((CompositeNode) iterNode, searchFor);
 				if (null != result)
