@@ -160,7 +160,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkClassifierReferenceInWith(subcomponent.getClassifier(), subcomponent);
 		checkSubcomponentImplementationReferenceList(subcomponent);
 		checkSubcomponentMissingModeValues(subcomponent);
-//		checkPropertyAssocs(subcomponent);
 	}
 
 	@Check(CheckType.FAST)
@@ -971,9 +970,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (spec != null && !spec.eIsProxy()) {
 			FlowKind speckind = spec.getKind();
 			if (implkind != speckind) {
-				ICompositeNode flowImplNNode = NodeModelUtils.getNode(flowimpl);
-				INode kindNode = findFirstNodeWithString(flowImplNNode, implkind.toString());
-				String offSet = "" + kindNode.getOffset();
+				String offSet = "" + findKeywordOffset(flowimpl, implkind.toString());
 				error("Flow implementation " + spec.getName() + " must be a flow " + speckind.getName()
 						+ " (same as its flow spec)", flowimpl, null, INCONSISTENT_FLOW_KIND, implkind.getName(),
 						speckind.getName(), offSet);
@@ -1278,7 +1275,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return nodes;
 	}
 
-	private INode findFirstNodeWithString(ICompositeNode cNode, String searchFor) {
+	private int findKeywordOffset(EObject object, String searchword) {
+		ICompositeNode n = NodeModelUtils.getNode(object);
+		INode lln = findFirstKeywordNodeEqualToString(n, nodeSearchString(searchword));
+		return lln.getOffset();
+	}
+
+	private INode findFirstKeywordNodeEqualToString(ICompositeNode cNode, String searchFor) {
 		INode result = null;
 		searchFor = searchFor.toLowerCase();
 
@@ -1289,36 +1292,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (iterNode instanceof HiddenLeafNode) {
 				continue;
 			} else if (iterNode instanceof LeafNode) {
-//				if (iterNode.getText().toLowerCase().indexOf(searchFor) > -1)
 				if (iterNode.getText().toLowerCase().equalsIgnoreCase(searchFor))
 					return iterNode;
 			} else if (iterNode instanceof CompositeNode) {
-				result = findFirstNodeWithString((CompositeNode) iterNode, searchFor);
+				result = findFirstKeywordNodeEqualToString((CompositeNode) iterNode, searchFor);
 				if (null != result)
 					return result;
 			}
 		}
-		return result;
-	}
-
-	private INode findLastNodeWithString(ICompositeNode cNode, String searchFor) {
-		INode result = null;
-		BidiIterable<INode> iterable = cNode.getChildren();
-		Iterator<INode> iter = iterable.iterator();
-		while (iter.hasNext()) {
-			INode iterNode = iter.next();
-			if (iterNode instanceof HiddenLeafNode) {
-				continue;
-			} else if (iterNode instanceof LeafNode) {
-				if (iterNode.getText().indexOf(searchFor) > -1)
-					result = iterNode;
-			} else if (iterNode instanceof CompositeNode) {
-				result = findLastNodeWithString((CompositeNode) iterNode, searchFor);
-				if (null != result)
-					return result;
-			}
-		}
-
 		return result;
 	}
 
@@ -2121,7 +2102,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void postRefineableErrorWithFix(NamedElement ne, NamedElement duplicated) {
 		ICompositeNode n = NodeModelUtils.getNode(ne);
-		INode cn = findFirstNodeWithString(n, ":");
+		INode cn = findFirstKeywordNodeEqualToString(n, ":");
 		INode nextNode = cn.getNextSibling();
 		String leadingSpace = "";
 		String trailingSpace = " ";
@@ -2367,15 +2348,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (!componentTypeRename.getCategory().equals(componentTypeRename.getRenamedComponentType().getCategory())) {
 			String wrongCategoryName = componentTypeRename.getCategory().getName();
 			String rightCategoryName = componentTypeRename.getRenamedComponentType().getCategory().getName();
-
-			ICompositeNode n = NodeModelUtils.getNode(componentTypeRename);
-			INode lln = findFirstNodeWithString(n, "renames");
-			lln = lln.getNextSibling();
-			if (lln instanceof CompositeNode) {
-				lln = findFirstNodeWithString((CompositeNode) lln, wrongCategoryName);
-			}
-
-			String offset = "" + lln.getOffset();
+			String offset = "" + findKeywordOffset(componentTypeRename, wrongCategoryName);
 			error("The category of '" + componentTypeRename.getRenamedComponentType().getQualifiedName() + "' is not "
 					+ componentTypeRename.getCategory().getName(), componentTypeRename, null, GENERIC_TEXT_REPLACEMENT,
 					wrongCategoryName, rightCategoryName, offset);
@@ -2394,13 +2367,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (!canExtend(parent, child)) {
 			String changeFrom = child.getCategory().getName();
 			String changeTo = parent.getCategory().getName();
-
-			ICompositeNode n = NodeModelUtils.getNode(child);
-			INode lln = findFirstNodeWithString(n, changeFrom);
-
-			String offset = "" + lln.getOffset();
+			String offset = "" + findKeywordOffset(child, changeFrom);
 			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child, null,
 					GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
+		}
+	}
+
+	private String nodeSearchString(String changeFrom) {
+		int spaceIndex = changeFrom.indexOf(" ");
+		if (spaceIndex < 0) {
+			return changeFrom;
+		} else {
+			return changeFrom.substring(0, spaceIndex);
 		}
 	}
 
@@ -2484,11 +2462,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (!type.getCategory().equals(implementation.getCategory())) {
 			String changeFrom = implementation.getCategory().getName();
 			String changeTo = type.getCategory().getName();
-
-			ICompositeNode n = NodeModelUtils.getNode(implementation);
-			INode lln = findFirstNodeWithString(n, changeFrom);
-
-			String offset = "" + lln.getOffset();
+			String offset = "" + findKeywordOffset(implementation, changeFrom);
 			error("The category of '" + type.getQualifiedName() + "' is not " + implementation.getCategory() + ".",
 					realization, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 		}
@@ -2506,11 +2480,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (!canExtend(parent, child)) {
 			String changeFrom = child.getCategory().getName();
 			String changeTo = parent.getCategory().getName();
-
-			ICompositeNode n = NodeModelUtils.getNode(child);
-			INode lln = findFirstNodeWithString(n, changeFrom);
-
-			String offset = "" + lln.getOffset();
+			String offset = "" + findKeywordOffset(child, changeFrom);
 
 			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child, null,
 					GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
@@ -2565,11 +2535,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 				String changeFrom = subcomponentCategory.getName();
 				String changeTo = refinedCategory.getName();
-
-				ICompositeNode n = NodeModelUtils.getNode(subcomponent);
-				INode lln = findFirstNodeWithString(n, changeFrom);
-				String offset = "" + lln.getOffset();
-
+				String offset = "" + findKeywordOffset(subcomponent, changeFrom);
 				error("Cannot refine subcomponent.  Incompatible categories.", subcomponent, null,
 						GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 			}
@@ -2651,9 +2617,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		for (FeatureType featureType : typesOfInheritedFeatures) {
 			if (!acceptableFeatureTypes.contains(featureType)) {
-				error(componentType.getOwnedExtension(),
-						"A " + typeCategory.getName() + " type cannot extend an abstract type that contains "
-								+ featureType.getNameWithIndefiniteArticle() + '.');
+
+				String changeFrom = typeCategory.getName();
+				String offset = "" + findKeywordOffset(componentType, changeFrom);
+				error("A " + changeFrom + " type cannot extend an abstract type that contains "
+						+ featureType.getNameWithIndefiniteArticle() + '.', componentType.getOwnedExtension(), null,
+						GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
+
 			}
 		}
 	}
@@ -2814,9 +2784,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			for (ComponentCategory nestedSubcomponentCategory : categoriesOfNestedSubcomponents) {
 				if (!acceptableSubcomponentCategories.contains(nestedSubcomponentCategory)) {
-					error(subcomponent, "A " + subcomponent.getCategory().getName()
+					String changeFrom = subcomponent.getCategory().getName();
+					String offset = "" + findKeywordOffset(subcomponent, changeFrom);
+					error("A " + subcomponent.getCategory().getName()
 							+ " subcomponent cannot refer to an abstract implementation that contains a "
-							+ nestedSubcomponentCategory.getName() + " subcomponent.");
+							+ nestedSubcomponentCategory.getName() + " subcomponent.", subcomponent, null,
+							GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
 				}
 			}
 		}
@@ -2844,10 +2817,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			for (FeatureType nestedFeatureType : typesOfNestedFeatures) {
 				if (!acceptableFeatureTypes.contains(nestedFeatureType)) {
-					error(subcomponent,
-							"A " + subcomponent.getCategory().getName()
-									+ " subcomponent cannot refer to an abstract type that contains "
-									+ nestedFeatureType.getNameWithIndefiniteArticle() + '.');
+					String changeFrom = subcomponent.getCategory().getName();
+					String offset = "" + findKeywordOffset(subcomponent, changeFrom);
+					error("A " + subcomponent.getCategory().getName()
+							+ " subcomponent cannot refer to an abstract type that contains "
+							+ nestedFeatureType.getNameWithIndefiniteArticle() + '.', subcomponent, null,
+							GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
 				}
 			}
 		}
@@ -2867,11 +2842,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 			String changeFrom = getComponentPrototypeCategory(prototype).getName();
 			String changeTo = prototype.getConstrainingClassifier().getCategory().getName();
-
-			ICompositeNode n = NodeModelUtils.getNode(prototype);
-			INode lln = findFirstNodeWithString(n, changeFrom);
-
-			String offset = "" + lln.getOffset();
+			String offset = "" + findKeywordOffset(prototype, changeFrom);
 
 			error("The category of '" + prototype.getConstrainingClassifier().getQualifiedName() + "' is not "
 					+ getComponentPrototypeCategory(prototype).getName(), prototype, null, GENERIC_TEXT_REPLACEMENT,
@@ -2893,11 +2864,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (!formalCategory.equals(actual.getCategory())) {
 						String changeFrom = actual.getCategory().getName();
 						String changeTo = formalCategory.getName();
-
-						ICompositeNode n = NodeModelUtils.getNode(binding);
-						INode lln = findFirstNodeWithString(n, changeFrom);
-
-						String offset = "" + lln.getOffset();
+						String offset = "" + findKeywordOffset(binding, changeFrom);
 
 						error("The category of the formal prototype is not compatible with the category specified in the"
 								+ " prototype binding.", actual, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo,
@@ -2927,11 +2894,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						.getCategory() : getComponentPrototypeCategory((ComponentPrototype) st);
 				String changeFrom = actual.getCategory().getName();
 				String changeTo = componentCategory.getName();
-
-				ICompositeNode n = NodeModelUtils.getNode(actual);
-				INode lln = findFirstNodeWithString(n, changeFrom);
-
-				String offset = "" + lln.getOffset();
+				String offset = "" + findKeywordOffset(actual, changeFrom);
 
 				error("The category of the referenced classifier is not compatible the category specified in the prototype binding.",
 						actual, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
@@ -3053,11 +3016,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				ComponentCategory prototypeCategory = getComponentPrototypeCategory(prototype);
 				String changeFrom = prototypeCategory.getName();
 				String changeTo = refinedPrototypeCategory.getName();
-
-				ICompositeNode n = NodeModelUtils.getNode(prototype);
-				INode lln = findFirstNodeWithString(n, changeFrom);
-				String offset = "" + lln.getOffset();
-
+				String offset = "" + findKeywordOffset(prototype, changeFrom);
 				error("Incompatible category for prototype refinement.", prototype, null, GENERIC_TEXT_REPLACEMENT,
 						changeFrom, changeTo, offset);
 			}
@@ -3122,16 +3081,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				parentHasModeTransitions = true;
 			}
 		}
+
+		String changeFrom = dataType.getCategory().getName();
+		String offset = "" + findKeywordOffset(dataType, changeFrom);
+
 		if (parentHasFlowSpecs) {
-			error(dataType.getOwnedExtension(),
-					"A data type cannot extend an abstract type that contains a flow specification.");
+			error("A data type cannot extend an abstract type that contains a flow specification.",
+					dataType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 		if (parentHasModes) {
-			error(dataType.getOwnedExtension(), "A data type cannot extend an abstract type that contains modes.");
+			error("A data type cannot extend an abstract type that contains modes.", dataType.getOwnedExtension(),
+					null, GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
 		}
 		if (parentHasModeTransitions) {
-			error(dataType.getOwnedExtension(),
-					"A data type cannot extend an abstract type that contains a mode transition.");
+			error("A data type cannot extend an abstract type that contains a mode transition.",
+					dataType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 	}
 
@@ -3273,9 +3239,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		if (parentHasFlowSpec) {
-			error(memoryType.getOwnedExtension(),
-					"A memory type cannot extend an abstract type that contains a flow specification.");
+			String changeFrom = memoryType.getCategory().getName();
+			String offset = "" + findKeywordOffset(memoryType, changeFrom);
+			error("A memory type cannot extend an abstract type that contains a flow specification.",
+					memoryType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
+
 	}
 
 	/**
@@ -3336,8 +3306,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		if (parentHasFlowSpec) {
-			error(busType.getOwnedExtension(),
-					"A bus type cannot extend an abstract type that contains a flow specification.");
+			String changeFrom = busType.getCategory().getName();
+			String offset = "" + findKeywordOffset(busType, changeFrom);
+			error("A bus type cannot extend an abstract type that contains a flow specification.",
+					busType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 	}
 
@@ -3407,8 +3380,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		if (parentHasFlowSpec) {
-			error(virtualBusType.getOwnedExtension(),
-					"A virtual bus type cannot extend an abstract type that contains a flow specification.");
+			String changeFrom = virtualBusType.getCategory().getName();
+			String offset = "" + findKeywordOffset(virtualBusType, changeFrom);
+			error("A virtual bus type cannot extend an abstract type that contains a flow specification.",
+					virtualBusType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 	}
 
@@ -3637,8 +3613,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 			if (parentHasFeatureArray) {
-				error(componentType.getOwnedExtension(), "A " + componentType.getCategory()
-						+ " type cannot extend an abstract type that contains feature arrays.");
+				String changeFrom = componentType.getCategory().getName();
+				String offset = "" + findKeywordOffset(componentType, changeFrom);
+				error("A " + changeFrom + " type cannot extend an abstract type that contains feature arrays.",
+						componentType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+						ComponentCategory.ABSTRACT.toString(), offset);
 			}
 		}
 	}
