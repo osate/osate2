@@ -101,6 +101,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String END_TO_END_FLOW_SEGMENT_NOT_IN_MODE = "org.osate.xtext.aadl2.end_to_end_flow_segment_not_in_mode";
 	public static final String GENERIC_TEXT_REPLACEMENT = "org.osate.xtext.aadl2.generic_text_replacement";
 	public static final String ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE = "org.osate.xtext.aadl2.array_size_not_equal_reference_list_size";
+	public static final String PROTOTYPE_NOT_ARRAY = "org.osate.xtext.aadl2.prototype_not_array";
+	public static final String PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL = "org.osate.xtext.aadl2.prototype_binding_direction_not_consistent_with_formal";
+	public static final String INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT = "org.osate.xtext.aadl2.incompatible_direction_for_prototype_refinement";
+	public static final String INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT = "org.osate.xtext.aadl2.incompatible_feature_direction_in_refinement";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -2970,9 +2974,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (!formalDirection.equals(DirectionType.IN_OUT) && !formalDirection.equals(actualDirection)) {
 					String changeFrom = actualDirection.toString();
 					String changeTo = formalDirection.toString();
-					String offSet = "" + findKeywordOffset(binding, changeFrom);
 					error("The direction specified in the binding is inconsistent with the direction of the formal prototype.",
-							binding, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offSet);
+							binding, null, PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL, changeFrom, changeTo);
 				}
 			}
 		}
@@ -3076,11 +3079,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (prototype.getRefined() != null && prototype.getRefined() instanceof ComponentPrototype) {
 			ComponentPrototype refinedPrototype = (ComponentPrototype) prototype.getRefined();
 			if (refinedPrototype.isArray() && !prototype.isArray()) {
-				String changeFrom = prototype.getCategory().toString();
-				String changeTo = changeFrom + "[]";
-				String offSet = "" + findKeywordOffset(prototype, changeFrom);
 				error("Prototype must be an array because the refined prototype is an array.", prototype, null,
-						GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offSet);
+						PROTOTYPE_NOT_ARRAY);
 			}
 		}
 	}
@@ -3107,9 +3107,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					changeFrom = prototype.getDirection().toString();
 					changeTo = refinedPrototypeDirection.toString();
 				}
-				String offSet = "" + findKeywordOffset(prototype, changeFrom);
-				error("Incompatible direction for prototype refinement.", prototype, null, GENERIC_TEXT_REPLACEMENT,
-						changeFrom, changeTo, offSet);
+				error("Incompatible direction for prototype refinement.", prototype, null,
+						INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT, changeFrom, changeTo);
 			}
 		}
 	}
@@ -3756,7 +3755,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				error("The direction in feature refinement must be the same or in case of abstract features or feature groups"
 						+ " the original direction must be 'in out'.  The direction of the refined feature is '"
 						+ changeFrom + "' while original direction is '" + changeTo + "'.", feature, null,
-						GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
+						INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT, changeFrom, changeTo, offset);
 			}
 		}
 	}
@@ -3768,9 +3767,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * direction."
 	 */
 	private void checkAbstractFeatureAndPrototypeDirectionConsistency(AbstractFeature feature) {
-		if (feature.getPrototype() instanceof FeaturePrototype) {
+		if (feature.getFeaturePrototype() != null) {
 			DirectionType featureDirection = feature.getDirection();
-			DirectionType prototypeDirection = ((FeaturePrototype) feature.getPrototype()).getDirection();
+			DirectionType prototypeDirection = feature.getFeaturePrototype().getDirection();
 			if (!featureDirection.equals(prototypeDirection)) {
 				if (prototypeDirection.equals(DirectionType.IN_OUT)) {
 					error(feature,
@@ -3789,12 +3788,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * prototype reference must only add property associations."
 	 */
 	private void checkForAddedDirectionInAbstractFeatureRefinement(AbstractFeature feature) {
-		AbstractFeature refinedFeature = (AbstractFeature) feature.getRefined();
-		while (refinedFeature != null && !(refinedFeature.getPrototype() instanceof FeaturePrototype)) {
-			refinedFeature = (AbstractFeature) refinedFeature.getRefined();
+		Feature refinedFeature = feature.getRefined();
+		while (refinedFeature instanceof AbstractFeature
+				&& ((AbstractFeature) refinedFeature).getFeaturePrototype() == null) {
+			refinedFeature = refinedFeature.getRefined();
 		}
-		if (refinedFeature != null) {
-			if (refinedFeature.getDirection().equals(DirectionType.IN_OUT)
+		if (refinedFeature instanceof AbstractFeature) {
+			if (((AbstractFeature) refinedFeature).getDirection().equals(DirectionType.IN_OUT)
 					&& !feature.getDirection().equals(DirectionType.IN_OUT)) {
 				error(feature,
 						"The refined feature refers to a feature prototype.  Therefore, a direction cannot be added in the"
@@ -3810,17 +3810,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForAddedPrototypeOrClassifierInAbstractFeatureRefinement(AbstractFeature feature) {
 		AbstractFeature refinedFeature = (AbstractFeature) feature.getRefined();
-		while (refinedFeature != null && !(refinedFeature.getPrototype() instanceof FeaturePrototype)) {
+		while (refinedFeature != null && refinedFeature.getFeaturePrototype() == null) {
 			refinedFeature = (AbstractFeature) refinedFeature.getRefined();
 		}
-		if (refinedFeature != null) {
-			if (feature.getClassifier() != null) {
-				error(feature,
-						"Cannot refer to a classifier because the refined feature refers to a feature prototype.");
-			} else if (feature.getPrototype() != null && !feature.getPrototype().equals(refinedFeature.getPrototype())) {
-				error(feature,
-						"The refiend feature already refers to a prototype.  The prototype cannot be changed in the refinement.");
-			}
+		if (refinedFeature != null && feature.getFeaturePrototype() != null
+				&& !feature.getFeaturePrototype().equals(refinedFeature.getFeaturePrototype())) {
+			error(feature, "The refined feature already refers to a prototype.  "
+					+ "The prototype cannot be changed in the refinement.");
+
 		}
 	}
 
