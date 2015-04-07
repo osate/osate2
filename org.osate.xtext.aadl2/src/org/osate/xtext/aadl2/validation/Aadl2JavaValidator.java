@@ -105,6 +105,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL = "org.osate.xtext.aadl2.prototype_binding_direction_not_consistent_with_formal";
 	public static final String INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT = "org.osate.xtext.aadl2.incompatible_direction_for_prototype_refinement";
 	public static final String INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT = "org.osate.xtext.aadl2.incompatible_feature_direction_in_refinement";
+	public static final String ABSTRACT_FEATURE_DIRECTION_NOT_IN_PROTOTYPE = "org.osate.xtext.aadl2.abstract_feature_direction_not_in_prototype";
+	public static final String ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE = "org.osate.xtext.aadl2.abstract_feature_direction_does_not_match_prototype";
+	public static final String ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT = "org.osate.xtext.aadl2.added_direction_in_abstract_feature_refinement";
+	public static final String ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT = "org.osate.xtext.aadl2.added_prototype_or_classifier_in_abstract_feature_refinement";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -3751,11 +3755,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 				String changeFrom = direction.getName();
 				String changeTo = originalDirection.getName();
-				String offset = "" + findKeywordOffset(feature, changeFrom);
 				error("The direction in feature refinement must be the same or in case of abstract features or feature groups"
 						+ " the original direction must be 'in out'.  The direction of the refined feature is '"
 						+ changeFrom + "' while original direction is '" + changeTo + "'.", feature, null,
-						INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT, changeFrom, changeTo, offset);
+						INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT, changeFrom, changeTo);
 			}
 		}
 	}
@@ -3770,13 +3773,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (feature.getFeaturePrototype() != null) {
 			DirectionType featureDirection = feature.getDirection();
 			DirectionType prototypeDirection = feature.getFeaturePrototype().getDirection();
+			String changeFrom = featureDirection.getName();
+			String changeTo = prototypeDirection.getName();
 			if (!featureDirection.equals(prototypeDirection)) {
 				if (prototypeDirection.equals(DirectionType.IN_OUT)) {
-					error(feature,
-							"A direction cannot be specified on the abstract feature because its prototype does not specify a direction.");
+					error("A direction cannot be specified on the abstract feature because its prototype does not specify a direction.",
+							feature, null, ABSTRACT_FEATURE_DIRECTION_NOT_IN_PROTOTYPE, changeFrom);
 				} else {
-					error(feature, "The direction of the abstract feature must match the direction of its prototype."
-							+ "  The prototype's direction is '" + prototypeDirection.getName() + "'.");
+					error("The direction of the abstract feature must match the direction of its prototype."
+							+ "  The prototype's direction is '" + prototypeDirection.getName() + "'.", feature, null,
+							ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE, changeFrom, changeTo);
 				}
 			}
 		}
@@ -3796,9 +3802,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (refinedFeature instanceof AbstractFeature) {
 			if (((AbstractFeature) refinedFeature).getDirection().equals(DirectionType.IN_OUT)
 					&& !feature.getDirection().equals(DirectionType.IN_OUT)) {
-				error(feature,
-						"The refined feature refers to a feature prototype.  Therefore, a direction cannot be added in the"
-								+ " refinement because the direction will be specified in the prototype binding.");
+				String changeFrom = feature.getDirection().getName();
+				error("The refined feature refers to a feature prototype.  Therefore, a direction cannot be added in the"
+						+ " refinement because the direction will be specified in the prototype binding.", feature,
+						null, ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT, changeFrom);
 			}
 		}
 	}
@@ -3815,9 +3822,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (refinedFeature != null && feature.getFeaturePrototype() != null
 				&& !feature.getFeaturePrototype().equals(refinedFeature.getFeaturePrototype())) {
-			error(feature, "The refined feature already refers to a prototype.  "
-					+ "The prototype cannot be changed in the refinement.");
 
+			String changeFrom = feature.getFeaturePrototype().getName();
+			error("The refined feature already refers to a prototype.  "
+					+ "The prototype cannot be changed in the refinement.", feature, null,
+					ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT, changeFrom);
 		}
 	}
 

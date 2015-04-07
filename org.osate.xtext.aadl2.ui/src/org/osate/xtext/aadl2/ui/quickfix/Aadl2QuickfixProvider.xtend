@@ -48,6 +48,7 @@ import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.Issue
+import org.osate.aadl2.AbstractFeature
 import org.osate.aadl2.ComponentPrototype
 import org.osate.aadl2.Connection
 import org.osate.aadl2.DirectedFeature
@@ -569,4 +570,79 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 			}
 		);
 	}
+
+	/**
+	 * QuickFix for incompatible  feature direction in refinement
+	 * issue.getData(0) = changeFrom
+	 * issue.getData(1) = changeTo;
+	 */
+	@Fix(Aadl2JavaValidator.ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE)
+	def public void fixAbstractFeatureDirectionDoesNotMatchPrototype(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+	
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as AbstractFeature
+					val prototype = feature.featurePrototype
+					feature.in = prototype.in		
+					feature.out = prototype.out			
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for incompatible feature direction in refinement
+	 * issue.getData(0) = changeFrom
+	 */
+	@Fix(Aadl2JavaValidator.ABSTRACT_FEATURE_DIRECTION_NOT_IN_PROTOTYPE)
+	def public void fixAbstractFeatureDirectionNotInPrototype(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+	
+		acceptor.accept(issue, "Remove '" + changeFrom + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as AbstractFeature
+					feature.in = false		
+					feature.out = false			
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for added direction in abstract feature refinement
+	 * issue.getData(0) = changeFrom
+	 */
+	@Fix(Aadl2JavaValidator.ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT)
+	def public void fixAddedDirectionInAbstractFeatureRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+	
+		acceptor.accept(issue, "Remove '" + changeFrom + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as AbstractFeature
+					feature.in = false		
+					feature.out = false			
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for added prototype or classifier in abstract feature refinement
+	 * issue.getData(0) = changeFrom
+	 */
+	@Fix(Aadl2JavaValidator.ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT)
+	def public void fixAddedPrototypeOrClassifierInAbstractFeatureRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		acceptor.accept(issue, "Remove '" + changeFrom + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as AbstractFeature
+					feature.featurePrototype = null		
+				}
+			}
+		);
+	}
+
 }
