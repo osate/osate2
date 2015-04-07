@@ -48,20 +48,24 @@ import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.Issue
+import org.osate.aadl2.ComponentPrototype
 import org.osate.aadl2.Connection
-import org.osate.aadl2.Context
+import org.osate.aadl2.DirectedFeature
 import org.osate.aadl2.EnumerationLiteral
 import org.osate.aadl2.EnumerationType
+import org.osate.aadl2.FeaturePrototype
+import org.osate.aadl2.FeaturePrototypeBinding
+import org.osate.aadl2.FeaturePrototypeReference
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.Mode
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.PortSpecification
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
 import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
-import org.osate.aadl2.FlowSpecification
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	@Inject
@@ -477,5 +481,92 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 		);
 	}
 
+	/**
+	 * QuickFix for Prototype must be an array because the refined prototype is an array
+	 */
+	@Fix(Aadl2JavaValidator.PROTOTYPE_NOT_ARRAY)
+	def public void fixPrototypeMusBeAnArray(Issue issue, IssueResolutionAcceptor acceptor) {
 
+		acceptor.accept(issue, "Change prototype to an array", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val prototype = element as ComponentPrototype
+					prototype.array = true;
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for Prototype binding direction not consistent with formal
+	 * issue.getData(0) = actualDirection.toString();
+	 * issue.getData(1) = formalDirection.toString();
+	 */
+	@Fix(Aadl2JavaValidator.PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL)
+	def public void fixPrototypeBindingDirection(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+	
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val binding = element as FeaturePrototypeBinding
+					val formal =  binding.formal as FeaturePrototype
+					val actual = binding.actual
+					switch actual {
+						FeaturePrototypeReference: {
+							actual.in = formal.in
+							actual.out = formal.out
+						}
+						PortSpecification : {
+							actual.in = formal.in
+							actual.out = formal.out
+						} 
+					}
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for incompatible direction for prototype refinement
+	 * issue.getData(0) = changeFrom
+	 * issue.getData(1) = changeTo;
+	 */
+	@Fix(Aadl2JavaValidator.INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT)
+	def public void fixIncompatibleDirectionForPrototypeRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+	
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val prototype = element as FeaturePrototype
+					val refined = prototype.refined as FeaturePrototype
+					prototype.in = refined.in			
+					prototype.out = refined.out			
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for incompatible  feature direction in refinement
+	 * issue.getData(0) = changeFrom
+	 * issue.getData(1) = changeTo;
+	 */
+	@Fix(Aadl2JavaValidator.INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT)
+	def public void fixIncompatibleFeatureDirectionInRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+	
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as DirectedFeature
+					val refined = feature.refined as DirectedFeature
+					feature.in = refined.in			
+					feature.out = refined.out			
+				}
+			}
+		);
+	}
 }
