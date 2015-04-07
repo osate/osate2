@@ -2968,8 +2968,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					actualDirection = ((PortSpecification) binding.getActual()).getDirection();
 				}
 				if (!formalDirection.equals(DirectionType.IN_OUT) && !formalDirection.equals(actualDirection)) {
-					error(binding.getActual(),
-							"The direction specified in the binding is inconsistent with the direction of the formal prototype.");
+					String changeFrom = actualDirection.toString();
+					String changeTo = formalDirection.toString();
+					String offSet = "" + findKeywordOffset(binding, changeFrom);
+					error("The direction specified in the binding is inconsistent with the direction of the formal prototype.",
+							binding, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offSet);
 				}
 			}
 		}
@@ -3073,7 +3076,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (prototype.getRefined() != null && prototype.getRefined() instanceof ComponentPrototype) {
 			ComponentPrototype refinedPrototype = (ComponentPrototype) prototype.getRefined();
 			if (refinedPrototype.isArray() && !prototype.isArray()) {
-				error(prototype, "Prototype must be an array because the refined prototype is an array.");
+				String changeFrom = prototype.getCategory().toString();
+				String changeTo = changeFrom + "[]";
+				String offSet = "" + findKeywordOffset(prototype, changeFrom);
+				error("Prototype must be an array because the refined prototype is an array.", prototype, null,
+						GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offSet);
 			}
 		}
 	}
@@ -3090,7 +3097,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			DirectionType refinedPrototypeDirection = ((FeaturePrototype) prototype.getRefined()).getDirection();
 			if (refinedPrototypeDirection != null && !refinedPrototypeDirection.equals(DirectionType.IN_OUT)
 					&& !refinedPrototypeDirection.equals(prototype.getDirection())) {
-				error(prototype, "Incompatible direction for prototype refinement.");
+
+				String changeFrom = "";
+				String changeTo = "";
+				if (prototype.getDirection().equals(DirectionType.IN_OUT)) {
+					changeFrom = "feature";
+					changeTo = refinedPrototypeDirection.toString() + " feature";
+				} else {
+					changeFrom = prototype.getDirection().toString();
+					changeTo = refinedPrototypeDirection.toString();
+				}
+				String offSet = "" + findKeywordOffset(prototype, changeFrom);
+				error("Incompatible direction for prototype refinement.", prototype, null, GENERIC_TEXT_REPLACEMENT,
+						changeFrom, changeTo, offSet);
 			}
 		}
 	}
@@ -3730,12 +3749,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (!direction.equals(originalDirection)
 					&& ((feature.getRefined() instanceof Port || feature.getRefined() instanceof Parameter || !originalDirection
 							.equals(DirectionType.IN_OUT)))) {
-				error(feature,
-						"The direction in feature refinement must be the same or in case of abstract features or feature groups the original direction must be 'in out'.  The direction of the refined feature is '"
-								+ direction.getName()
-								+ "' while original direction is '"
-								+ originalDirection.getName()
-								+ "'.");
+
+				String changeFrom = direction.getName();
+				String changeTo = originalDirection.getName();
+				String offset = "" + findKeywordOffset(feature, changeFrom);
+				error("The direction in feature refinement must be the same or in case of abstract features or feature groups"
+						+ " the original direction must be 'in out'.  The direction of the refined feature is '"
+						+ changeFrom + "' while original direction is '" + changeTo + "'.", feature, null,
+						GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 			}
 		}
 	}
