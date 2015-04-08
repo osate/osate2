@@ -70,6 +70,9 @@ import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.GroupExtension
 import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.Access
+import org.osate.aadl2.AccessKind
+import org.osate.aadl2.AccessType
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	@Inject
@@ -762,6 +765,24 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 				}
 			);
 		}
+	}
+	/**
+	 * QuickFix for reverse access kind
+	 * issue.getData.get(0) changeFrom
+	 * issue.getData.get(1) changeTo
+	 */
+	@Fix(Aadl2JavaValidator.REVERSE_ACCESS_KIND)
+	def public void fixReverseAccessKind(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+		acceptor.accept(issue, "Change access from '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val access = element as Access
+					access.kind = AccessType.getByName(changeTo)	
+				}
+			}
+		);
 	}
 
 }
