@@ -114,6 +114,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION = "org.osate.xtext.aadl2.inverse_in_feature_group_type_extension";
 	public static final String INVERSE_IN_FEATURE_GROUP = "org.osate.xtext.aadl2.inverse_in_feature_group";
 	public static final String DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS = "org.osate.xtext.aadl2.direction_not_same_as_feature_group_members";
+	public static final String REVERSE_ACCESS_KIND = "org.osate.xtext.aadl2.reverse_access_kind";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -4080,12 +4081,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForAccessTypeInAccessRefinement(Access access) {
 		if (access.getRefined() instanceof Access && !access.getKind().equals(((Access) access.getRefined()).getKind())) {
+
+			String changeFrom = access.getKind().getName();
+			String changeTo = ((Access) access.getRefined()).getKind().getName();
 			StringBuilder errorMessage = new StringBuilder("A ");
-			errorMessage.append(getKeywordForAccessType(((Access) access.getRefined()).getKind()));
+			errorMessage.append(changeTo);
 			errorMessage.append(" access cannot be refined into a ");
-			errorMessage.append(getKeywordForAccessType(access.getKind()));
+			errorMessage.append(changeFrom);
 			errorMessage.append(" access.");
-			error(access, errorMessage.toString());
+
+			error(errorMessage.toString(), access, null, REVERSE_ACCESS_KIND, changeFrom, changeTo);
+
 		}
 	}
 
@@ -4108,7 +4114,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) dataAccess).getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (dataAccess.getKind().equals(AccessType.PROVIDES)) {
-				error(dataAccess, "Subprograms cannot have provides data access.");
+				error("Subprograms cannot have provides data access.", dataAccess, null, REVERSE_ACCESS_KIND,
+						AccessType.PROVIDES.getName(), AccessType.REQUIRES.getName());
 			}
 		}
 	}
@@ -4124,7 +4131,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) spAccess).getContainingClassifier();
 		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)) {
-				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram access.");
+				error("Processor, VirtualProcessor, Device cannot have requires subprogram access.", spAccess, null,
+						REVERSE_ACCESS_KIND, AccessType.REQUIRES.getName(), AccessType.PROVIDES.getName());
 			}
 		}
 	}
@@ -4133,7 +4141,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) spAccess).getContainingClassifier();
 		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)) {
-				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram group access.");
+				error("Processor, VirtualProcessor, Device cannot have requires subprogram group access.", spAccess,
+						null, REVERSE_ACCESS_KIND, AccessType.REQUIRES.getName(), AccessType.PROVIDES.getName());
 			}
 		}
 	}
@@ -4142,7 +4151,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) spAccess).getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)) {
-				error(spAccess, "Subprograms cannot have provides subprogram access.");
+				error("Subprograms cannot have provides subprogram access.", spAccess, null, REVERSE_ACCESS_KIND,
+						AccessType.PROVIDES.getName(), AccessType.REQUIRES.getName());
 			}
 		}
 	}
@@ -4151,7 +4161,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) spAccess).getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)) {
-				error(spAccess, "Subprograms cannot have provides subprogram group access.");
+				error("Subprograms cannot have provides subprogram group access.", spAccess, null, REVERSE_ACCESS_KIND,
+						AccessType.PROVIDES.getName(), AccessType.REQUIRES.getName());
 			}
 		}
 	}
@@ -6001,17 +6012,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return FeatureType.PARAMETER;
 		}
 		return null;
-	}
-
-	private static String getKeywordForAccessType(AccessType accessType) {
-		switch (accessType) {
-		case PROVIDES:
-			return "provides";
-		case REQUIRES:
-			return "requires";
-		default:
-			throw new AssertionError("Unhandled enum literal: " + accessType);
-		}
 	}
 
 	static {
