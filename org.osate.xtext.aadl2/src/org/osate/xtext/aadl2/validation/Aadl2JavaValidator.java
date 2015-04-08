@@ -109,6 +109,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE = "org.osate.xtext.aadl2.abstract_feature_direction_does_not_match_prototype";
 	public static final String ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT = "org.osate.xtext.aadl2.added_direction_in_abstract_feature_refinement";
 	public static final String ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT = "org.osate.xtext.aadl2.added_prototype_or_classifier_in_abstract_feature_refinement";
+	public static final String CHAINED_INVERSE_FEATURE_GROUP_TYPES = "org.osate.xtext.aadl2.chained_inverse_feature_group_types";
+	public static final String EXTENDED_INVERSE_FEATURE_GROUP_TYPE = "org.osate.xtext.aadl2.extended_inverse_feature_group_type";
+	public static final String INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION = "org.osate.xtext.aadl2.inverse_in_feature_group_type_extension";
+	public static final String INVERSE_IN_FEATURE_GROUP = "org.osate.xtext.aadl2.inverse_in_feature_group";
+	public static final String DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS = "org.osate.xtext.aadl2.direction_not_same_as_feature_group_members";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -3843,9 +3848,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForChainedInverseFeatureGroupTypes(FeatureGroupType featureGroupType) {
 		if (featureGroupType.getInverse() != null && featureGroupType.getInverse().getInverse() != null) {
-			error(featureGroupType,
-					"A feature group type cannot be an inverse of another feature group type that already contains an"
-							+ " 'inverse of' declaration.");
+			error("A feature group type cannot be an inverse of another feature group type that already "
+					+ "contains an 'inverse of' declaration.", featureGroupType, null,
+					CHAINED_INVERSE_FEATURE_GROUP_TYPES);
 		}
 	}
 
@@ -3904,9 +3909,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForExtendingAnInverseFeatureGroupType(GroupExtension extension) {
 		FeatureGroupType extended = extension.getExtended();
+
 		if (extended.getInverse() != null && extended.getOwnedFeatures().isEmpty()) {
-			error(extension, "Cannot extend a feature group type that contains an 'inverse of' declaration,"
-					+ " but does not contain any locally defined features.");
+			error("Cannot extend a feature group type that contains an 'inverse of' declaration,"
+					+ " but does not contain any locally defined features.", extension, null,
+					EXTENDED_INVERSE_FEATURE_GROUP_TYPE);
 		}
 	}
 
@@ -3920,9 +3927,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		FeatureGroupType extended = extension.getExtended();
 		FeatureGroupType extending = (FeatureGroupType) extension.getSpecific();
 		if (extending.getInverse() != null && extended.getInverse() == null) {
-			error(extension,
-					"A feature group type with an 'inverse of' declaration cannot extend a feature group type without an"
-							+ " 'inverse of' declaration.");
+			error("A feature group type with an 'inverse of' declaration cannot extend a feature group type "
+					+ "without an 'inverse of' declaration.", extension, null, INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION);
 		}
 	}
 
@@ -3954,9 +3960,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInverseInFeatureGroup(FeatureGroup featureGroup) {
 		if (featureGroup.isInverse() && featureGroup.getFeatureGroupType() != null
 				&& featureGroup.getFeatureGroupType().getInverse() != null) {
-			error(featureGroup,
-					"Cannot specify 'inverse of' in the feature group because the referenced feature group type already"
-							+ " contains an 'inverse of' declaration.");
+			error("A feature group type with an 'inverse of' declaration cannot extend a feature group type "
+					+ "without an 'inverse of' declaration.", featureGroup, null, INVERSE_IN_FEATURE_GROUP);
 		}
 	}
 
@@ -3968,17 +3973,39 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup) {
 		DirectionType fgDirection = featureGroup.getDirection();
+		String currentDirection = fgDirection.getName();
 		if (!fgDirection.equals(DirectionType.IN_OUT) && featureGroup.getFeatureGroupType() != null) {
 			if (featureGroup.isInverse()) {
 				fgDirection = fgDirection.getInverseDirection();
 			}
+			int errorCount = 0;
+			List<String> directions = new ArrayList<String>();
+
 			for (Feature feature : featureGroup.getFeatureGroupType().getAllFeatures()) {
-				if (feature instanceof DirectedFeature
-						&& !((DirectedFeature) feature).getDirection().equals(fgDirection)) {
-					error(featureGroup,
-							"All ports, parameters, feature groups, and abstract features in the referenced feature group"
-									+ " type must satisfy the direction specified in the feature group.");
+				if (feature instanceof DirectedFeature) {
+					DirectionType direction = ((DirectedFeature) feature).getDirection();
+					if (!direction.equals(fgDirection)) {
+						errorCount++;
+					}
+					directions.add(direction.getName());
 				}
+			}
+			Set<String> uniqueDirectionSet = new HashSet<String>(directions);
+			String validDirection = "";
+			if (uniqueDirectionSet.size() == 1) {
+				List<String> uniqueDirections = new ArrayList<String>(uniqueDirectionSet);
+				validDirection = uniqueDirections.get(0);
+			}
+
+			if (featureGroup.isInverse() && validDirection.equals("in")) {
+				validDirection = "out";
+			} else if (featureGroup.isInverse() && validDirection.equals("out")) {
+				validDirection = "in";
+			}
+			if (errorCount > 0) {
+				error("All ports, parameters, feature groups, and abstract features in the referenced feature group"
+						+ " type must satisfy the direction specified in the feature group.", featureGroup, null,
+						DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS, validDirection, currentDirection);
 			}
 		}
 	}
