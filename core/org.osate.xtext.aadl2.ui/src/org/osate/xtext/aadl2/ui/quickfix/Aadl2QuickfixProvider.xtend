@@ -67,6 +67,9 @@ import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
 import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
+import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.GroupExtension
+import org.osate.aadl2.FeatureGroup
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	@Inject
@@ -628,6 +631,7 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 			}
 		);
 	}
+
 	/**
 	 * QuickFix for added prototype or classifier in abstract feature refinement
 	 * issue.getData(0) = changeFrom
@@ -643,6 +647,121 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 				}
 			}
 		);
+	}
+
+	/**
+	 * QuickFix for chained inverse feature group types
+	 */
+	@Fix(Aadl2JavaValidator.CHAINED_INVERSE_FEATURE_GROUP_TYPES)
+	def public void fixChainedInverseFeatureGroupTypes(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove inverse", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val featureGroupType = element as FeatureGroupType
+					featureGroupType.inverse = null		
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for extending inverse feature group types
+	 */
+	@Fix(Aadl2JavaValidator.EXTENDED_INVERSE_FEATURE_GROUP_TYPE)
+	def public void fixExtendedInverseFeatureGroupTypes(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove extends", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val groupExtension = element as GroupExtension
+					val featureGroup = groupExtension.eContainer as FeatureGroupType
+					featureGroup.ownedExtension = null		
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for extending inverse feature group types
+	 */
+	@Fix(Aadl2JavaValidator.INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION)
+	def public void fixInverseInFeatureGroupTypeExtension(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove extends", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val groupExtension = element as GroupExtension
+					val featureGroup = groupExtension.eContainer as FeatureGroupType
+					featureGroup.ownedExtension = null		
+				}
+			}
+		);
+		acceptor.accept(issue, "Remove inverse", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val groupExtension = element as GroupExtension
+					val featureGroup = groupExtension.eContainer as FeatureGroupType
+					featureGroup.inverse = null		
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for inverse in feature group
+	 */
+	@Fix(Aadl2JavaValidator.INVERSE_IN_FEATURE_GROUP)
+	def public void fixInverseInFeatureGroup(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove inverse", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val featureGroup = element as FeatureGroup
+					featureGroup.inverse = false	
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for extending inverse feature group types
+	 * issue.getData(0) = valid direction if any or empty String
+	 * issue.getData(1) = current direction
+	 */
+	@Fix(Aadl2JavaValidator.DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS)
+	def public void fixDirectionNotTheSameAsFeatureGroupMembers(Issue issue, IssueResolutionAcceptor acceptor) {
+		val validDirection = issue.data.head
+		val currentDirection = issue.data.get(1)
+		
+		acceptor.accept(issue, "Remove '" + currentDirection + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val featureGroup = element as FeatureGroup
+					featureGroup.in = false
+					featureGroup.out = false
+				}
+			}
+		);
+		if (!validDirection.equals("")){
+			acceptor.accept(issue, "Change direction from '" +  currentDirection +"' to '" + validDirection + "'" , null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val featureGroup = element as FeatureGroup
+						switch validDirection {
+							case  "in" : {
+								featureGroup.in = true
+								featureGroup.out = false
+							}
+							case "out" : {
+								featureGroup.in = false
+								featureGroup.out = true
+							}
+							default : {
+								featureGroup.in = false
+								featureGroup.out = false
+							}
+						}
+					}
+				}
+			);
+		}
 	}
 
 }
