@@ -49,30 +49,31 @@ import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.Issue
 import org.osate.aadl2.AbstractFeature
+import org.osate.aadl2.Access
+import org.osate.aadl2.AccessType
 import org.osate.aadl2.ComponentPrototype
 import org.osate.aadl2.Connection
 import org.osate.aadl2.DirectedFeature
 import org.osate.aadl2.EnumerationLiteral
 import org.osate.aadl2.EnumerationType
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.FeaturePrototype
 import org.osate.aadl2.FeaturePrototypeBinding
 import org.osate.aadl2.FeaturePrototypeReference
+import org.osate.aadl2.GroupExtension
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.Mode
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.NumericRange
 import org.osate.aadl2.PortSpecification
+import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
 import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
-import org.osate.aadl2.FeatureGroupType
-import org.osate.aadl2.GroupExtension
-import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.Access
-import org.osate.aadl2.AccessKind
-import org.osate.aadl2.AccessType
 
 public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	@Inject
@@ -784,5 +785,40 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 			}
 		);
 	}
-
+	/**
+	 * QuickFix for swapping Upper and Lower bounds in a range value when the upper is less than the lower
+	 * issue.getData.get(0) lowerURI
+	 * issue.getData.get(1) upperURI
+	 * issue.getData.get(2) keyword before the range
+	 * issue.getData.get(3) offSet of keyword before the range
+	 */
+	@Fix(Aadl2JavaValidator.NUMERIC_RANGE_UPPER_LESS_THAN_LOWER)
+	def public void fixNumericRangeUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
+		val lowerURI = issue.data.head
+		val upperURI = issue.data.get(1)
+		val changeFrom = issue.data.get(2)
+		val offSet = Integer.parseInt(issue.data.get(3))
+		val changeTo = changeFrom + " "
+		/* Doing just a semantic modification here caused the new lowerbound of the range to butt up against the
+		 * type keyword without any white space causing "aadlinteger 12 .. 5" to become "aadlinteger5 .. 12" after
+		 * the change. The solution here was to make the semantic change and then a text change replacing 
+		 * "aadlinteger" with "aadlinteger " 
+		 */
+		acceptor.accept(issue, "Switch upper and lower bounds of the range", null, null, new IModification(){
+			override apply(IModificationContext context) throws Exception {
+				context.xtextDocument.modify(new IUnitOfWork.Void<XtextResource>{
+					override process(XtextResource state) throws Exception {
+						val ResourceSet resourceSet = state.getResourceSet();
+						val element = resourceSet.getEObject(issue.uriToProblem, true)
+						val oldLower = resourceSet.getEObject(URI.createURI(lowerURI), true) as PropertyExpression
+						val oldUpper = resourceSet.getEObject(URI.createURI(upperURI), true) as PropertyExpression
+						(element as NumericRange).upperBound = oldLower;
+						(element as NumericRange).lowerBound = oldUpper;
+					}
+					
+				})
+				context.xtextDocument.replace(offSet, changeFrom.length, changeTo)
+			}
+		})
+	}
 }

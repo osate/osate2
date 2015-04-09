@@ -115,6 +115,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String INVERSE_IN_FEATURE_GROUP = "org.osate.xtext.aadl2.inverse_in_feature_group";
 	public static final String DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS = "org.osate.xtext.aadl2.direction_not_same_as_feature_group_members";
 	public static final String REVERSE_ACCESS_KIND = "org.osate.xtext.aadl2.reverse_access_kind";
+	public static final String NUMERIC_RANGE_UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.numeric_range_upper_less_than_lower";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -6421,26 +6422,48 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		NumberValue lowerNV = lowerPE instanceof NumberValue ? (NumberValue) lowerPE : null;
 		NumberValue upperNV = upperPE instanceof NumberValue ? (NumberValue) upperPE : null;
+		boolean doLowerIsGreaterThanUpperCheck = true;
 		if (lowerNV != null && upperNV != null) {
 			/*
 			 * Check: (1) the bounds have units if the type has units; (2) the
 			 * lower bounds is <= the upper bound.
 			 */
-			if (lowerNV instanceof NumberValue) {
-
-			}
 			if (nt.getUnitsType() != null) {
+				EList<Element> allUTElements = nt.getUnitsType().allOwnedElements();
+				String[] unitNamesAndURIs = new String[allUTElements.size() * 2];
+				int i = 0;
+				for (Element elem : allUTElements) {
+					unitNamesAndURIs[i] = ((UnitLiteral) elem).getName();
+					i++;
+					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
+					i++;
+				}
 				if (lowerNV.getUnit() == null) {
-					error(nt, "lower bound is missing a unit");
+					doLowerIsGreaterThanUpperCheck = false;
+					error("lower bound is missing a unit", lowerNV, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
 				}
 				if (upperNV.getUnit() == null) {
-					error(nt, "upper bound is missing a unit");
+					doLowerIsGreaterThanUpperCheck = false;
+					error("upper bound is missing a unit", upperNV, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
 				}
 			}
-			final double lower = lowerNV.getScaledValue();
-			final double upper = upperNV.getScaledValue();
-			if (lower > upper) {
-				error(nt, "Range lower bound is greater than range upper bound");
+			if (doLowerIsGreaterThanUpperCheck) {
+				final double lower = lowerNV.getScaledValue();
+				final double upper = upperNV.getScaledValue();
+				if (lower > upper) {
+					String lowerURI = EcoreUtil.getURI(range.getLowerBound()).toString();
+					String upperURI = EcoreUtil.getURI(range.getUpperBound()).toString();
+					String changeFrom = "";
+					if (nt instanceof AadlInteger) {
+						changeFrom = "aadlinteger";
+					} else {
+						changeFrom = "aadlreal";
+					}
+					String offSet = "" + findKeywordOffset(nt, changeFrom);
+
+					error("Range lower bound is greater than range upper bound", range, null,
+							NUMERIC_RANGE_UPPER_LESS_THAN_LOWER, lowerURI, upperURI, changeFrom, offSet);
+				}
 			}
 		}
 	}
