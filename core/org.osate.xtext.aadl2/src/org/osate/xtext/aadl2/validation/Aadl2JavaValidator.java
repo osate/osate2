@@ -116,6 +116,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS = "org.osate.xtext.aadl2.direction_not_same_as_feature_group_members";
 	public static final String REVERSE_ACCESS_KIND = "org.osate.xtext.aadl2.reverse_access_kind";
 	public static final String NUMERIC_RANGE_UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.numeric_range_upper_less_than_lower";
+	public static final String MAKE_CONNECTION_BIDIRECTIONAL = "org.osate.xtext.aadl2.make_connection_bidirectional";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -6640,7 +6641,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.IN)) {
 					error("The direction of the source " + source.getName()
 							+ " of a directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Source(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) source).getDirection().equals(DirectionType.IN_OUT)) {
 					inverseContext = srccxt instanceof FeatureGroup && ((FeatureGroup) srccxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) source, DirectionType.IN, connection,
@@ -6649,7 +6650,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (((FeatureGroup) destination).getDirection().equals(DirectionType.OUT)) {
 					error("The direction of the destination " + destination.getName()
 							+ " of a directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN_OUT)) {
 					inverseContext = dstcxt instanceof FeatureGroup && ((FeatureGroup) dstcxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.OUT, connection,
@@ -6660,7 +6661,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.OUT)) {
 					error("The direction of the source " + source.getName()
 							+ " of this incoming directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Source(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) source).getDirection().equals(DirectionType.IN_OUT)) {
 					inverseContext = srccxt instanceof FeatureGroup && ((FeatureGroup) srccxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) source, DirectionType.OUT, connection,
@@ -6670,7 +6671,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (((FeatureGroup) destination).getDirection().equals(DirectionType.OUT)) {
 					error("The direction of the destination " + destination.getName()
 							+ " of this incoming directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN_OUT)) {
 					inverseContext = dstcxt instanceof FeatureGroup && ((FeatureGroup) dstcxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.OUT, connection,
@@ -6681,7 +6682,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.IN)) {
 					error("The direction of the source " + source.getName()
 							+ " of this outgoing directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) source).getDirection().equals(DirectionType.IN_OUT)) {
 					inverseContext = srccxt instanceof FeatureGroup && ((FeatureGroup) srccxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) source, DirectionType.IN, connection,
@@ -6690,7 +6691,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN)) {
 					error("The direction of the destination " + destination.getName()
 							+ " of this outgoing directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN_OUT)) {
 					inverseContext = dstcxt instanceof FeatureGroup && ((FeatureGroup) dstcxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.IN, connection,
@@ -6726,9 +6727,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				boolean dirEquals = featureDirection.equals(notDir);
 
 				if ((!inverse && dirEquals) || (inverse && !dirEquals)) {
+//					error("Feature " + feature.getName() + " in the referenced feature group " + featureGroup.getName()
+//							+ " must not be " + notDir.getName() + " due to the direction of the connection", conn,
+//							structuralFeature);
 					error("Feature " + feature.getName() + " in the referenced feature group " + featureGroup.getName()
 							+ " must not be " + notDir.getName() + " due to the direction of the connection", conn,
-							structuralFeature);
+							structuralFeature, MAKE_CONNECTION_BIDIRECTIONAL);
+
 				}
 			}
 		}

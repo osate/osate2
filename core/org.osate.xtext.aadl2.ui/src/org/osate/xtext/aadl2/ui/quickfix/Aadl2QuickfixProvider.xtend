@@ -821,4 +821,20 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 			}
 		})
 	}
+
+	/**
+	 * QuickFix by making a connection bidirectional
+	 */
+	@Fix(Aadl2JavaValidator.MAKE_CONNECTION_BIDIRECTIONAL)
+	def public void fixMakeConnectionBiderctional(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Make connection bidirectional", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val connection = element as Connection
+					connection.bidirectional = true;	
+				}
+			}
+		);
+	}
+
 }
