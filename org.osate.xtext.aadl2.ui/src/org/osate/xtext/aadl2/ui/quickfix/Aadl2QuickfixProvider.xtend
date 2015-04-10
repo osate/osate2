@@ -48,14 +48,28 @@ import org.eclipse.xtext.ui.editor.quickfix.Fix
 import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
 import org.eclipse.xtext.util.concurrent.IUnitOfWork
 import org.eclipse.xtext.validation.Issue
+import org.osate.aadl2.AbstractFeature
+import org.osate.aadl2.Access
+import org.osate.aadl2.AccessType
+import org.osate.aadl2.ComponentPrototype
 import org.osate.aadl2.Connection
+import org.osate.aadl2.DirectedFeature
 import org.osate.aadl2.EnumerationLiteral
 import org.osate.aadl2.EnumerationType
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.FeaturePrototype
+import org.osate.aadl2.FeaturePrototypeBinding
+import org.osate.aadl2.FeaturePrototypeReference
+import org.osate.aadl2.GroupExtension
 import org.osate.aadl2.ModalElement
 import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.Mode
 import org.osate.aadl2.NamedElement
+import org.osate.aadl2.NumericRange
+import org.osate.aadl2.PortSpecification
+import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
@@ -320,14 +334,10 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 		val inImplName = issue.data.head
 		val specName = issue.data.get(1)
 		val featureOffSet = Integer.parseInt(issue.data.get(2))
-//		val contextOffset = Integer.parseInt(issue.data.get(3))
 		acceptor.accept(issue, "Change '" + inImplName + "' to '" + specName + "'", null, null, new IModification() {
 			override public void apply(IModificationContext context) throws Exception {
 				var useOffSet = featureOffSet
 				var replacement = specName;
-//				if (0 < contextOffset){
-//					useOffSet = contextOffset
-//				}
 				context.getXtextDocument().replace(useOffSet, inImplName.length, replacement)
 			}
 		});
@@ -396,6 +406,432 @@ public class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 						}
 					})
 					editorOpener.open(connuri, true)
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for Subcomponent not in flow modes
+	 * issue.getData(0) targetName
+	 * issue.getData(1) targetURI
+	 * issue,getData(2) neededModeName
+	 * issue,getData(3) neededModeURI
+	 */
+	@Fix(Aadl2JavaValidator.END_TO_END_FLOW_SEGMENT_NOT_IN_MODE)
+	def public void fixEndToEndFlowSegmentNotInMode(Issue issue, IssueResolutionAcceptor acceptor) {
+		val targetName = issue.data.head		
+		val targetURI =  issue.data.get(1)
+		val neededModeName = issue.data.get(2)	
+		val neededModeURI = issue.data.get(3)
+
+		acceptor.accept(issue, "Add mode '" + neededModeName + "' to in modes of '" + targetName + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val targeturi = URI.createURI(targetURI);
+					// The following opens up file if connection is defined in a different file
+					val doc = context.getXtextDocument(targeturi)
+					doc.modify(new IUnitOfWork.Void<XtextResource>{
+						override process(XtextResource state) throws Exception {
+							val neededMode = state.resourceSet.getEObject(URI.createURI(neededModeURI), true) as Mode;
+							val targetObject = state.resourceSet.getEObject(targeturi, true);
+							switch targetObject {
+								Subcomponent : {
+									val modeBinding = targetObject.createOwnedModeBinding
+									modeBinding.parentMode = neededMode	
+								}
+								ModalPath : targetObject.inModeOrTransitions.add(neededMode)
+							}
+						}
+					})
+					editorOpener.open(targeturi, true)
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for generic text replacement
+	 * issue.getData(0) changeFrom
+	 * issue.getData(1) changeTo
+	 * issue,getData(2) offSet
+	 */
+	@Fix(Aadl2JavaValidator.GENERIC_TEXT_REPLACEMENT)
+	def public void fixByGenericTextReplacement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+		val offSet = Integer.parseInt(issue.getData().get(2))
+
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null, new IModification() {
+			override public void apply(IModificationContext context) throws Exception {
+				context.getXtextDocument().replace(offSet, changeFrom.length, changeTo)
+			}
+		});
+	}
+
+	/**
+	 * QuickFix for Array size not same as reference list size
+	 * issue.getData(0) arraySize
+	 * issue.getData(1) referenceListSize
+	 */
+	@Fix(Aadl2JavaValidator.ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE)
+	def public void fixArraySizeNotEqualRefernceListSize(Issue issue, IssueResolutionAcceptor acceptor) {
+		val arraySize = Integer.parseInt(issue.data.head)		
+		val referenceListSize =  Integer.parseInt(issue.data.get(1))
+
+		acceptor.accept(issue, "Change Array size from '" + arraySize + "' to '" + referenceListSize + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val subcomponent = element as Subcomponent
+					subcomponent.arrayDimensions.head.size.size = referenceListSize;
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for Prototype must be an array because the refined prototype is an array
+	 */
+	@Fix(Aadl2JavaValidator.PROTOTYPE_NOT_ARRAY)
+	def public void fixPrototypeMusBeAnArray(Issue issue, IssueResolutionAcceptor acceptor) {
+
+		acceptor.accept(issue, "Change prototype to an array", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val prototype = element as ComponentPrototype
+					prototype.array = true;
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for Prototype binding direction not consistent with formal
+	 * issue.getData(0) = actualDirection.toString();
+	 * issue.getData(1) = formalDirection.toString();
+	 */
+	@Fix(Aadl2JavaValidator.PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL)
+	def public void fixPrototypeBindingDirection(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+	
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val binding = element as FeaturePrototypeBinding
+					val formal =  binding.formal as FeaturePrototype
+					val actual = binding.actual
+					switch actual {
+						FeaturePrototypeReference: {
+							actual.in = formal.in
+							actual.out = formal.out
+						}
+						PortSpecification : {
+							actual.in = formal.in
+							actual.out = formal.out
+						} 
+					}
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for incompatible direction for prototype refinement
+	 * issue.getData(0) = changeFrom
+	 * issue.getData(1) = changeTo;
+	 */
+	@Fix(Aadl2JavaValidator.INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT)
+	def public void fixIncompatibleDirectionForPrototypeRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+	
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val prototype = element as FeaturePrototype
+					val refined = prototype.refined as FeaturePrototype
+					prototype.in = refined.in			
+					prototype.out = refined.out			
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for incompatible  feature direction in refinement
+	 * issue.getData(0) = changeFrom
+	 * issue.getData(1) = changeTo;
+	 */
+	@Fix(Aadl2JavaValidator.INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT)
+	def public void fixIncompatibleFeatureDirectionInRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+	
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as DirectedFeature
+					val refined = feature.refined as DirectedFeature
+					feature.in = refined.in			
+					feature.out = refined.out			
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for incompatible  feature direction in refinement
+	 * issue.getData(0) = changeFrom
+	 * issue.getData(1) = changeTo;
+	 */
+	@Fix(Aadl2JavaValidator.ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE)
+	def public void fixAbstractFeatureDirectionDoesNotMatchPrototype(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+	
+		acceptor.accept(issue, "Change '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as AbstractFeature
+					val prototype = feature.featurePrototype
+					feature.in = prototype.in		
+					feature.out = prototype.out			
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for incompatible feature direction in refinement
+	 * issue.getData(0) = changeFrom
+	 */
+	@Fix(Aadl2JavaValidator.ABSTRACT_FEATURE_DIRECTION_NOT_IN_PROTOTYPE)
+	def public void fixAbstractFeatureDirectionNotInPrototype(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+	
+		acceptor.accept(issue, "Remove '" + changeFrom + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as AbstractFeature
+					feature.in = false		
+					feature.out = false			
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for added direction in abstract feature refinement
+	 * issue.getData(0) = changeFrom
+	 */
+	@Fix(Aadl2JavaValidator.ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT)
+	def public void fixAddedDirectionInAbstractFeatureRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+	
+		acceptor.accept(issue, "Remove '" + changeFrom + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as AbstractFeature
+					feature.in = false		
+					feature.out = false			
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for added prototype or classifier in abstract feature refinement
+	 * issue.getData(0) = changeFrom
+	 */
+	@Fix(Aadl2JavaValidator.ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT)
+	def public void fixAddedPrototypeOrClassifierInAbstractFeatureRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		acceptor.accept(issue, "Remove '" + changeFrom + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val feature = element as AbstractFeature
+					feature.featurePrototype = null		
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for chained inverse feature group types
+	 */
+	@Fix(Aadl2JavaValidator.CHAINED_INVERSE_FEATURE_GROUP_TYPES)
+	def public void fixChainedInverseFeatureGroupTypes(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove inverse", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val featureGroupType = element as FeatureGroupType
+					featureGroupType.inverse = null		
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for extending inverse feature group types
+	 */
+	@Fix(Aadl2JavaValidator.EXTENDED_INVERSE_FEATURE_GROUP_TYPE)
+	def public void fixExtendedInverseFeatureGroupTypes(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove extends", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val groupExtension = element as GroupExtension
+					val featureGroup = groupExtension.eContainer as FeatureGroupType
+					featureGroup.ownedExtension = null		
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for extending inverse feature group types
+	 */
+	@Fix(Aadl2JavaValidator.INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION)
+	def public void fixInverseInFeatureGroupTypeExtension(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove extends", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val groupExtension = element as GroupExtension
+					val featureGroup = groupExtension.eContainer as FeatureGroupType
+					featureGroup.ownedExtension = null		
+				}
+			}
+		);
+		acceptor.accept(issue, "Remove inverse", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val groupExtension = element as GroupExtension
+					val featureGroup = groupExtension.eContainer as FeatureGroupType
+					featureGroup.inverse = null		
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for inverse in feature group
+	 */
+	@Fix(Aadl2JavaValidator.INVERSE_IN_FEATURE_GROUP)
+	def public void fixInverseInFeatureGroup(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Remove inverse", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val featureGroup = element as FeatureGroup
+					featureGroup.inverse = false	
+				}
+			}
+		);
+	}
+
+	/**
+	 * QuickFix for extending inverse feature group types
+	 * issue.getData(0) = valid direction if any or empty String
+	 * issue.getData(1) = current direction
+	 */
+	@Fix(Aadl2JavaValidator.DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS)
+	def public void fixDirectionNotTheSameAsFeatureGroupMembers(Issue issue, IssueResolutionAcceptor acceptor) {
+		val validDirection = issue.data.head
+		val currentDirection = issue.data.get(1)
+		
+		acceptor.accept(issue, "Remove '" + currentDirection + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val featureGroup = element as FeatureGroup
+					featureGroup.in = false
+					featureGroup.out = false
+				}
+			}
+		);
+		if (!validDirection.equals("")){
+			acceptor.accept(issue, "Change direction from '" +  currentDirection +"' to '" + validDirection + "'" , null, null,
+				new ISemanticModification() {
+					override public void apply(EObject element, IModificationContext context) throws Exception {
+						val featureGroup = element as FeatureGroup
+						switch validDirection {
+							case  "in" : {
+								featureGroup.in = true
+								featureGroup.out = false
+							}
+							case "out" : {
+								featureGroup.in = false
+								featureGroup.out = true
+							}
+							default : {
+								featureGroup.in = false
+								featureGroup.out = false
+							}
+						}
+					}
+				}
+			);
+		}
+	}
+	/**
+	 * QuickFix for reverse access kind
+	 * issue.getData.get(0) changeFrom
+	 * issue.getData.get(1) changeTo
+	 */
+	@Fix(Aadl2JavaValidator.REVERSE_ACCESS_KIND)
+	def public void fixReverseAccessKind(Issue issue, IssueResolutionAcceptor acceptor) {
+		val changeFrom = issue.data.head
+		val changeTo = issue.data.get(1)
+		acceptor.accept(issue, "Change access from '" + changeFrom + "' to '" + changeTo + "'", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val access = element as Access
+					access.kind = AccessType.getByName(changeTo)	
+				}
+			}
+		);
+	}
+	/**
+	 * QuickFix for swapping Upper and Lower bounds in a range value when the upper is less than the lower
+	 * issue.getData.get(0) lowerURI
+	 * issue.getData.get(1) upperURI
+	 * issue.getData.get(2) keyword before the range
+	 * issue.getData.get(3) offSet of keyword before the range
+	 */
+	@Fix(Aadl2JavaValidator.NUMERIC_RANGE_UPPER_LESS_THAN_LOWER)
+	def public void fixNumericRangeUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
+		val lowerURI = issue.data.head
+		val upperURI = issue.data.get(1)
+		val changeFrom = issue.data.get(2)
+		val offSet = Integer.parseInt(issue.data.get(3))
+		val changeTo = changeFrom + " "
+		/* Doing just a semantic modification here caused the new lowerbound of the range to butt up against the
+		 * type keyword without any white space causing "aadlinteger 12 .. 5" to become "aadlinteger5 .. 12" after
+		 * the change. The solution here was to make the semantic change and then a text change replacing 
+		 * "aadlinteger" with "aadlinteger " 
+		 */
+		acceptor.accept(issue, "Switch upper and lower bounds of the range", null, null, new IModification(){
+			override apply(IModificationContext context) throws Exception {
+				context.xtextDocument.modify(new IUnitOfWork.Void<XtextResource>{
+					override process(XtextResource state) throws Exception {
+						val ResourceSet resourceSet = state.getResourceSet();
+						val element = resourceSet.getEObject(issue.uriToProblem, true)
+						val oldLower = resourceSet.getEObject(URI.createURI(lowerURI), true) as PropertyExpression
+						val oldUpper = resourceSet.getEObject(URI.createURI(upperURI), true) as PropertyExpression
+						(element as NumericRange).upperBound = oldLower;
+						(element as NumericRange).lowerBound = oldUpper;
+					}
+					
+				})
+				context.xtextDocument.replace(offSet, changeFrom.length, changeTo)
+			}
+		})
+	}
+
+	/**
+	 * QuickFix by making a connection bidirectional
+	 */
+	@Fix(Aadl2JavaValidator.MAKE_CONNECTION_BIDIRECTIONAL)
+	def public void fixMakeConnectionBiderctional(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Make connection bidirectional", null, null,
+			new ISemanticModification() {
+				override public void apply(EObject element, IModificationContext context) throws Exception {
+					val connection = element as Connection
+					connection.bidirectional = true;	
 				}
 			}
 		);

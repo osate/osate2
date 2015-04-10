@@ -25,7 +25,6 @@
 		<module>${core.root}/org.osate.aadl2.modelsupport</module>
 		<module>${core.root}/org.osate.annexsupport</module>
 		<module>${core.root}/org.osate.branding</module>
-		<module>${core.root}/org.osate.build.product</module>
 		<module>${core.root}/org.osate.build.target</module>
 		<module>${core.root}/org.osate.contribution.sei</module>
 		<module>${core.root}/org.osate.core</module>
