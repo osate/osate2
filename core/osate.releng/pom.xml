@@ -42,6 +42,8 @@
 		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
 
 		<module>../org.osate.resolute.help</module>
+
+		<module>../org.osate.build.product</module>
 	</modules>
 
 </project>

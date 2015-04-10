@@ -13,6 +13,7 @@
 		<tycho-extras.version>0.22.0</tycho-extras.version>
 		<xtext.version>2.7.3</xtext.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jgit.dirtyWorkingTree>error</jgit.dirtyWorkingTree>
 	</properties>
 
 	<profiles>
@@ -173,7 +174,7 @@
 					<configuration>
 						<timestampProvider>jgit</timestampProvider>
 						<format>'v'yyyyMMdd-HHmm</format>
-						<jgit.dirtyWorkingTree>error</jgit.dirtyWorkingTree>
+						<jgit.dirtyWorkingTree>${jgit.dirtyWorkingTree}</jgit.dirtyWorkingTree>
 						<jgit.ignore>
 							pom.xml
 							org.osate.branding/plugin.properties
