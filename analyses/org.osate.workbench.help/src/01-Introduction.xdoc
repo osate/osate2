@@ -1,0 +1,63 @@
+chapter:Introduction[Introduction]
+
+This is text for the introduction. You can e[emphasize] elements and create multiple
+paragraphs by adding a newline, like this. As you can see we also have splel checking
+with corrections. 
+
+In the following the different syntactical elements are explained by example.
+
+section:Links[References]
+
+The following is an link[http://www.google.com][external link] 
+and if you want to refer internally you can ref:Introduction[do so as well].You can even
+refer to Java code like this : codeRef[java.lang.String].
+
+section:CodeSections[Code Sections]
+
+A code section looks like this:
+
+code[Java][
+	class HelloWorld {
+		public void sayHello(String name) {
+			System.out.println("Hello "+name);
+		}
+	}
+]
+
+Note how the code is highlighted according to the language you choose.
+It is even possible to have different language configurations to get different coloring.
+
+section:Lists[Lists and Tables]
+
+Lists are very similar to HTML.
+We've got ordered lists:
+
+ol[
+	item[First]
+	item[Second]
+	item[Third]
+]
+
+and unordered lists:
+
+ul[
+	item[Foo]
+	item[Bar]
+	item[Baz]
+]
+
+section:Tables[Tables]
+
+table[
+tr[ td[This is a table cell] td[and another one]]
+tr[ td[table rows can contain many cells] td[but each row has to contain the same number of cells]]
+]
+
+section:TODO[TODO]
+
+todo[document todo elements]
+
+section:Images[Images]
+
+Images are not fully supported by the new Xtend generator,
+but will of course be readded soon :-)
