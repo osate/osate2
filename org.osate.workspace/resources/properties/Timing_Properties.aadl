@@ -103,6 +103,8 @@ property set Timing_Properties is
 	
 	Scheduler_Quantum: inherit Time
 		applies to (processor);
+
+	Tick : Time applies to (processor);
 	
 	Thread_Swap_Execution_Time: Time_Range
 		applies to (processor, system);
