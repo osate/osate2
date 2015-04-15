@@ -2,8 +2,8 @@ chapter:GettingStarted[Getting Started]
 
 To get started, you should first download and install the Alisa feature with the plugins that support
 the different notations of Alisa as well as the assurance harness that executes the verification activities specified in verification plans on an instance
-of the AADL model for the system of interest.
-
+of the AADL model for the system of interest. 
+ 
 You then create a project as an AADL project for which the Xtext nature will be enabled when you create
 model files for one of the Alisa notations. You can create separate projects for your architecture models
 in AADL, for your requirement/verification specifications, and for other specifications such as Resolute

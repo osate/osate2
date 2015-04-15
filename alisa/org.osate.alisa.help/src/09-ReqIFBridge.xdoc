@@ -1,0 +1,49 @@
+chapter:ReqIFBridge[ReqIF bridge]
+
+
+Alisa tools provide a bridge to import/export requirements designed with the link[http://www.omg.org/spec/ReqIF/][ReqIF]
+format. link[http://www.omg.org/spec/ReqIF/][ReqIF] is a standardized notation to capture
+requirements. It is supported by many tools, either commercial or open-source. 
+A ReqIF bridge provides the ability to connect ALISA requirements with other
+tools.
+
+This document details the mapping rules and how to import or export requirements
+from/to ALISA/ReqSpec to/from ReqIF. 
+
+section:ImplementationConsiderations[Implementation Considerations and Requirements]
+
+The bridge is built on top of ReqSpec and 
+the Eclipse link[https://eclipse.org/rmf/][Requirements Modeling Framework] (RMF). 
+link[https://eclipse.org/rmf/][RMF] is an Eclipse-based implementation
+of ReqIF and specifies an EMF meta-model for the ReqIF interchange format.
+
+ 
+As both have their meta-models define with EMF, it facilitates to translation
+from one notation to the other. To be able to use the ALISA/ReqIF bridge, you
+need to have the link[https://eclipse.org/rmf/][RMF] plugins installed 
+in your Eclipse environment.
+
+section:MappingRules[Mapping Rules]
+
+
+table[
+tr[td[ReqSpec Concept]td[ReqIF Concept]]
+tr[td[ReqSpec Document]td[ReqIF model with Specifications]]
+tr[td[Requirement]td[SpecHierarchy with one single SpecObject]]
+tr[td[Requirement Document]td[SpecHierarchy with multiples children SpecObjects]]
+tr[td[Requirement Folder]td[SpecHierarchy with multiples children SpecObjects]]
+]
+
+
+section:Import[Importing ReqIF requirements to ReqSpec]
+
+To import a ReqIF document, you have to open it using
+within Eclipse using the link[https://eclipse.org/rmf/][RMF]
+tool. 
+
+section2:Preferences[Tailoring the Import Process]
+
+section:Export[Exporting ReqSpec requirements to ReqIF]
+
+
+ 
