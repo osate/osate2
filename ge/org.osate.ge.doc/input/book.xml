@@ -17,7 +17,7 @@
 					<para>Open the new file dialog by selecting <emphasis>File->New->Other...</emphasis></para>
 				</listitem>
 				<listitem>
-					<para>Select <emphasis>Aadl Package (Graphical)</emphasis> and click <emphasis>Next.</emphasis></para>
+					<para>Select <emphasis>Aadl Package (Graphical)</emphasis> and select <emphasis>Next.</emphasis></para>
 					<imageobject>
     				<imagedata fileref="images/AadlPackage(Graphical).png" format="PNG"/>
   				</imageobject>
@@ -45,7 +45,7 @@
 					<para>Open an existing AADL source file.</para>
 				</listitem>
 				<listitem>
-					<para>Right click the AADL package or component in the <emphasis>Outline</emphasis> view.</para>
+					<para>Right-click the AADL package or component in the <emphasis>Outline</emphasis> view.</para>
 				</listitem>
 				<listitem>
 					<para>Select <emphasis>Open Diagram</emphasis> to open the diagram for the selected classifier.  If a classifier is not selected, <emphasis>Open Diagram</emphasis> opens the package diagram for the selected package.  The diagram will be created if one does not already exist. The appropriate diagram will appear in the graphical editor.</para>
@@ -153,10 +153,59 @@
 			</section>
 			<section>
 				<title>Performing Diagram Layout</title>
-				<para>When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right clicking inside the diagram and select <emphasis>Layout Diagram</emphasis>. Doing so will adjust the positions of all the shapes in the diagram.</para>
+				<para>When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right-clicking inside the diagram and select <emphasis>Layout Diagram</emphasis>. Doing so will adjust the positions of all the shapes in the diagram.</para>
 				<imageobject>
     				<imagedata fileref="images/LayoutDiagram.png" format="PNG"/>
   				</imageobject>
+			</section>
+		</section>
+		<section>
+			<title>Connections</title>
+			<para>The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.</para>
+			<section>
+				<title>Creating Connections</title>
+				<para>When viewing an implementation diagram, connections can be created by using the palette.</para>
+				<orderedlist>
+					<listitem>
+						<para>Select the appropriate connection type from the palette.</para>
+					</listitem>
+					<listitem>
+						<para>Select an appropriate feature as the start of the connection.</para>
+					</listitem>
+					<listitem>
+						<para>Select an appropriate feature as the end of the connection.  The new connection will appear.</para>
+					</listitem>
+				</orderedlist>
+			</section>
+			<section>
+				<title>Editing Connections</title>
+				<para>The graphical editor supports refining, binding, configuring in modes, switching direction, and changing between unidirectional and bidirectional for appropriate AADL connections.</para>
+					<section>
+						<title>Using the Context Menu to Edit Connections</title>
+						<para>Right click on a connection and all appropriate editing options will appear on the context menu.</para>
+					</section>
+					<section>
+						<title>Using the Properties Diagram View to Edit Connections</title>
+						<para>The <emphasis>Properties</emphasis> view allows an additional editing option for renaming appropriate AADL connections.</para>
+						<orderedlist>
+							<listitem>
+								<para>Select the desired connection to edit in the diagram.</para>
+							</listitem>
+							<listitem>
+								<para>In the <emphasis>Properties</emphasis> view, select the <emphasis>Connections</emphasis> tab.</para>
+								<imageobject>
+    								<imagedata fileref="images/ConnectionProperties.png" format="PNG"/>
+  								</imageobject>
+							</listitem>
+						</orderedlist>
+					</section>
+			</section>
+			<section>
+				<title>Connection_Pattern Property Visualization</title>
+				<para>The graphical editor supports connection_pattern visual representation of connections between arrays of features or subcomponents. See <xref linkend="arrays"/>.</para>
+				<imageobject>
+					<imagedata fileref="images/ConnectionPattern.png" format="PNG"/>
+				</imageobject>
 			</section>
 		</section>
 		<section>
@@ -190,10 +239,10 @@
 							<para>While editing a package diagram, select <emphasis>Extension</emphasis> from the Palette.</para>
 						</listitem>
 						<listitem>
-							<para>Click on the classifier which will be the extension.</para>
+							<para>Select on the classifier which will be the extension.</para>
 						</listitem>
 						<listitem>
-							<para>Click the classifier that is being extended. An arrow will now appear. The type of arrow is determined whether the extension is an implementation or type extension.</para>
+							<para>Select the classifier that is being extended. An arrow will now appear. The type of arrow is determined whether the extension is an implementation or type extension.</para>
 						</listitem>
 					</orderedlist>
 				</section>
@@ -218,7 +267,7 @@
 			</section>
 			<section>
 				<title>Performing Update Layout from Classifier Diagram</title>
-				<para>When extending a classifier, the editor lays out the extending classifier diagram automatically.  The layout of the extending classifier diagram can be redone to match the extended classifier diagram by right clicking the extending claissifier diagram and selecting <emphasis>Perform Update Layout from Classifier Diagram</emphasis> from the context menu.  Doing so will change the height, width, and layout of elements of the extending classifier to match the extended classifier.</para>
+				<para>When extending a classifier, the editor lays out the extending classifier diagram automatically.  The layout of the extending classifier diagram can be redone to match the extended classifier diagram by right-clicking the extending claissifier diagram and selecting <emphasis>Perform Update Layout from Classifier Diagram</emphasis> from the context menu.  Doing so will change the height, width, and layout of elements of the extending classifier to match the extended classifier.</para>
 			</section>
 		</section>
 		<section>
@@ -230,7 +279,7 @@
 			</section>
 			<section>
 				<title>Setting the Feature Classifier</title>
-				<para>The classifier can be set on features such as feature groups, data ports, and access features. Set the classifier by right clicking on the feature and selecting <emphasis>Set Classifier...</emphasis> from the context menu.</para>
+				<para>The classifier can be set on features such as feature groups, data ports, and access features. Set the classifier by right-clicking on the feature and selecting <emphasis>Set Classifier...</emphasis> from the context menu.</para>
 				<imageobject>
     				<imagedata fileref="images/SetClassifier.png" format="PNG"/>
   				</imageobject>
@@ -291,7 +340,7 @@
 		</section>
 		<section>
 			<title>Flows</title>
-			<para>The graphical editor support creating and editing flow specifications, flow implementations, and end-to-end flows.</para>
+			<para>The graphical editor supports creating and editing flow specifications, flow implementations, and end-to-end flows.</para>
 			<section>
 				<title>Creating Flow Sources</title>
 				<para>Flow sources can be created when editing a component type. Create the flow source by right-clicking on an appropriate feature and selecting <emphasis>Create Source</emphasis> from the context menu. The new flow source will appear.</para>
@@ -311,10 +360,10 @@
 						<para>Select <emphasis>Flow Path</emphasis> from the palette.</para>
 					</listitem>
 					<listitem>
-						<para>Click the feature to use as the start of the flow path.</para>
+						<para>Select the feature to use as the start of the flow path.</para>
 					</listitem>
 					<listitem>
-						<para>Click the feature to use as the end of the path. The new flow path will appear.</para>
+						<para>Select the feature to use as the end of the path. The new flow path will appear.</para>
 					</listitem>
 				</orderedlist>
 			</section>
@@ -349,10 +398,10 @@
 						<para>Select <emphasis>Mode Transition</emphasis> from the palette.</para>
 					</listitem>
 					<listitem>
-						<para>Click the starting mode.</para>
+						<para>Select the starting mode.</para>
 					</listitem>
 					<listitem>
-						<para>Click the destination mode. The <emphasis>Select Trigger Ports</emphasis> dialog will appear.</para>
+						<para>Select the destination mode. The <emphasis>Select Trigger Ports</emphasis> dialog will appear.</para>
 						<imageobject>
     						<imagedata fileref="images/PortTriggerDialog.png" format="PNG"/>
   						</imageobject>
@@ -395,7 +444,7 @@
 					<title>Using the Context Menu to Set Bindings</title>
 					<orderedlist>
 						<listitem>
-							<para>Right click on the diagram element for which to set the binding.</para>
+							<para>Right-click on the diagram element for which to set the binding.</para>
 						</listitem>
 						<listitem>
 							<para>Select <emphasis>Bind...</emphasis> from the context menu.</para>
@@ -456,7 +505,109 @@
 					</listitem>
 				</orderedlist>
 			</section>
-		</section>	
+		</section>
+		<section id = "arrays">
+			<title>Arrays</title>
+			<para>The graphical editor supports creating arrays for appropriate features and subcomponents.</para>
+			<section>
+				<title>Creating Arrays</title>
+				<para>When viewing a component type diagram or component implementation diagram, a feature or subcomponent array can be created, respectively.</para>
+				<orderedlist>
+					<listitem>
+						<para>Right-click on the appropriate element.</para>
+					</listitem>
+					<listitem>
+						<para>Select <emphasis>Modify Dimensions...</emphasis> from the context menu.</para>
+					</listitem>
+					<listitem>
+						<para>From the Modify Dimensions dialog, select <emphasis>Add</emphasis>, then <emphasis>Modify</emphasis>.</para>
+						<imageobject>
+    							<imagedata fileref="images/ModifyDimensions.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+						<para>From the Modify Dimension dialog, select desired type and value.</para>
+						<imageobject>
+    							<imagedata fileref="images/ModifyDimension.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select <emphasis>OK</emphasis>.  The array dimensions will appear on the element.</para>
+					</listitem>
+				</orderedlist>
+			</section>
+			<section>
+				<title>Editing Arrays</title>
+				<para>To edit an array, right-click on a feature or subcomponent array and select <emphasis>Modify Dimensions...</emphasis> from the context menu.</para>
+				<section>
+					<title>Add Dimension</title>
+					<orderedlist>
+						<listitem>
+							<para>From the <emphasis>Modify Dimensions</emphasis> dialog, select <emphasis>Add</emphasis>, then <emphasis>Modify</emphasis>.</para>
+						</listitem>
+						<listitem>
+							<para>From the <emphasis>Modify Dimension</emphasis> dialog, select desired type and value.</para>
+						</listitem>
+						<listitem>
+							<para>Select <emphasis>OK</emphasis>.  The new array dimension will appear.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Change Dimension Order</title>
+					<para>From the <emphasis>Modify Dimensions</emphasis> dialog, select the desired dimension and select <emphasis>Up</emphasis> or <emphasis>Down</emphasis>.</para>
+				</section>
+				<section>
+					<title>Delete Dimension</title>
+					<para>From the <emphasis>Modify Dimensions</emphasis> dialog, select the desired dimension and select <emphasis>Delete</emphasis>.</para>
+				</section>
+			</section>
+		</section>
+		<section>
+			<title>Subprogram Call Sequences</title>
+			<para>The graphical editor supports creating and editing subprogram call sequences.</para>
+			<section>
+				<title>Creating Subprogram Call Sequences</title>
+				<para>When viewing a thread implementation diagram, subprogram call sequences can be created.</para>
+				<orderedlist>
+					<listitem>
+						<para>Select <emphasis>Subprogram Call Sequence</emphasis> from the palette and select inside the thread implementation diagram.</para>
+					</listitem>
+					<listitem>
+						<para>In the <emphasis>Select Subprogram</emphasis> dialog, select desired type and subprogram component.</para>
+						<imageobject>
+    							<imagedata fileref="images/SubprogramCallSequence.png" format="PNG"/>
+  						</imageobject>
+					</listitem>
+					<listitem>
+						<para>Select <emphasis>OK</emphasis>.  The new call sequence will appear.</para>
+					</listitem>
+				</orderedlist>
+				<section>
+					<title>Adding Subprogram Calls</title>
+					<para>When viewing a thread implementation diagram that contains a subprogram call sequence, a subprogram call can be added to the sequence.</para>
+					<orderedlist>
+						<listitem>
+							<para>Select <emphasis>Subprogram Call</emphasis> from the palette and select inside the subprogram call sequence diagram.</para>
+						</listitem>
+						<listitem>
+							<para>In the <emphasis>Select Subprogram</emphasis> dialog, select desired type and subprogram component.</para>
+						</listitem>
+						<listitem>
+							<para>Select <emphasis>OK</emphasis>.  The new subprogram call will appear.</para>
+							<imageobject>
+    							<imagedata fileref="images/SubprogramCallSequenceDiagram.png" format="PNG"/>
+  							</imageobject>
+						</listitem>
+					</orderedlist>
+				</section>
+			</section>
+			
+			<section>
+				<title>Editing Subprogram Call Sequences</title>
+				<para>To change a subprogram call's place in the order of a subprogram call sequence, right-click on the desired subprogram call and select <emphasis>Move Up</emphasis> or <emphasis>Move Down</emphasis>.</para>
+			</section>
+		</section>
 	</chapter>
 	<chapter>
 		<title>Troubleshooting</title>

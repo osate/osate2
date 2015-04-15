@@ -91,7 +91,6 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	public void createControls(final Composite parent, final TabbedPropertySheetPage tabbedPropertySheetPage) {
 		super.createControls(parent, tabbedPropertySheetPage);
 		final TabbedPropertySheetWidgetFactory factory = getWidgetFactory();
-
 		composite = factory.createFlatFormComposite(parent);
 		nameComposite = factory.createFlatFormComposite(composite);
 		
@@ -140,21 +139,21 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		optionButtons.add(configureInModesPushButton);
 		optionButtons.add(switchDirectionPushButton);
 
-		subComposites.add(nameComposite);
 		subComposites.add(directionComposite);
 		subComposites.add(optionComposite);
 
-		//Set the layout for each composite
-		for (int i = 1; i < subComposites.size(); i++) {
-			subComposites.get(i).setLayout(new GridLayout(subComposites.get(i).getChildren().length, true));
-			for (final Control control : subComposites.get(i).getChildren()) {
-				gridData = new GridData();		
+		//Set the layout for each composite		
+		for (Composite composite : subComposites) {
+			composite.setLayout(new GridLayout(composite.getChildren().length, true));
+			for (final Control control : composite.getChildren()) {
+				gridData = new GridData();
 				gridData.widthHint = 125;
 				gridData.grabExcessHorizontalSpace = true;
 				gridData.horizontalAlignment = SWT.FILL;
 				control.setLayoutData(gridData);
 			}
 		}
+		
 		
 		//Switch direction button
 		switchDirectionPushButton.addSelectionListener(new SelectionAdapter() {
@@ -294,7 +293,6 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 					final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection) bo;
 					nameConnectionText.setText(aadlConnection.getName());
 					directEditingCxt = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());
-
 					renameConnectionFeature = (RenameConnectionFeature) getFeatureProvider().getDirectEditingFeature(directEditingCxt);
 					nameConnectionText.setEnabled(renameConnectionFeature.canDirectEdit(directEditingCxt));
 					nameConnectionText.setEditable(renameConnectionFeature.canDirectEdit(directEditingCxt));
@@ -307,20 +305,20 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 						if (customFeatures != null && customCtx != null) {
 							for (final ICustomFeature customFeature : customFeatures) {
 								if (customFeature instanceof SetConnectionBidirectionalityFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
-									setConnectionBidirectionalityFeature = (SetConnectionBidirectionalityFeature) customFeature;
-									directionComposite.setVisible(true);
-									for (final Control control : directionComposite.getChildren()) {
-										control.setVisible(true);
-									}
-									currentDirectionSelection = unidirectionalRadioButton.getSelection();
-									setDirectionalRadioButtons(aadlConnection);
+										setConnectionBidirectionalityFeature = (SetConnectionBidirectionalityFeature) customFeature;
+										for (final Control control : directionComposite.getChildren()) {
+											control.setVisible(true);
+										}
+										currentDirectionSelection = unidirectionalRadioButton.getSelection();
+										setDirectionalRadioButtons(aadlConnection);
 								}
 								if (customFeature instanceof RefineConnectionFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
 									refineConnectionFeature = (RefineConnectionFeature) customFeature;
 									refinePushButton.setVisible(true);
 								}
 								if ((customFeature instanceof ConfigureInModesFeature) && (customFeature.isAvailable(customCtx)) && (customFeature.canExecute(customCtx))) {
-									configureInModesFeature = (ConfigureInModesFeature) customFeature;		
+									configureInModesFeature = (ConfigureInModesFeature) customFeature;	
+									optionComposite.setVisible(true);
 									configureInModesPushButton.setVisible(true);
 								}
 								if (customFeature instanceof SwitchDirectionOfConnectionFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
@@ -330,9 +328,8 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 							}
 							
 							for (Control c : optionComposite.getChildren()) {
-								if (c.isVisible()) {
-									optionsLabel.setVisible(true);
-									optionComposite.setVisible(true);
+								if (c.getVisible()) {
+									optionsLabel.setVisible(true);		
 								}
 							}
 							
@@ -341,32 +338,27 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 								final Object o = it.next();
 								if((o instanceof SetBindingAction) && (((SetBindingAction) o).isEnabled())) {
 									setBindingAction = (SetBindingAction) o;
-									optionComposite.setVisible(true);
 									bindPushButton.setVisible(true);
-									optionsLabel.setVisible(true);
 								}
-							}
-											
-							//Layout the composites so invisible composites do not take up space
-							int lastVisible = 0;
-							for (int i = 1; i < subComposites.size(); i++) {
-								if (subComposites.get(i).isVisible()) {
+							}							
+							
+							//Layout the composites so invisible composites do not take up space and exclude appropriate controls
+							Composite visibleComposite  = nameComposite;
+							for (final Composite composite : subComposites) {
+								if (composite.getVisible()) {
 									formData = new FormData();
-									formData.top = new FormAttachment(subComposites.get(lastVisible), VSPACE);
-									subComposites.get(i).setLayoutData(formData);
-									lastVisible = subComposites.indexOf(subComposites.get(i));	
+									formData.top = new FormAttachment(visibleComposite, VSPACE);
+									composite.setLayoutData(formData);
+									for (final Control c : composite.getChildren()) {
+										gridData = (GridData) c.getLayoutData();
+										gridData.exclude = !c.getVisible();									
+										c.setLayoutData(gridData);
+									}
+									composite.update();
+									composite.layout();
+									visibleComposite = composite;
 								}
-							}
-			
-							//Exclude invisible Controls from the layout
-							for (int i = 1; i < subComposites.size(); i++) {
-								for (Control c : subComposites.get(i).getChildren()) {
-									gridData = (GridData) c.getLayoutData();
-									gridData.exclude = !c.isVisible();
-									c.setLayoutData(gridData);
-								}
-								subComposites.get(i).layout();
-							}
+							}						
 						}
 					}
 				}			
@@ -375,14 +367,13 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	}
 
 	/**
-	 * Set directional and option controls to false; rename label and text box are always visible, just not always editable
+	 * Set directional and option controls to false
 	 */
 	final private void setAllFalse() {
 		nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));	
-		for (int i = 1; i < subComposites.size(); i++) {
-			subComposites.get(i).setVisible(false);
-			for (Control c : subComposites.get(i).getChildren()) {
-				c.setVisible(false);
+		for (final Composite composite : subComposites) {
+			for (final Control control : composite.getChildren()) {
+				control.setVisible(false);
 			}
 		}
 	}
