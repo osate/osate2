@@ -40,6 +40,18 @@
 	</topic>
 	<topic href="contents/08-Working%20with%20Xtend.html#WWXtend" label="Working with Extend" >
 	</topic>
+	<topic href="contents/09-ReqIFBridge.html#ReqIFBridge" label="ReqIF bridge" >
+		<topic href="contents/09-ReqIFBridge.html#ImplementationConsiderations" label="Implementation Considerations and Requirements" >
+		</topic>
+		<topic href="contents/09-ReqIFBridge.html#MappingRules" label="Mapping Rules" >
+		</topic>
+		<topic href="contents/09-ReqIFBridge.html#Import" label="Importing ReqIF requirements to ReqSpec" >
+			<topic href="contents/09-ReqIFBridge.html#Preferences" label="Tailoring the Import Process" >
+			</topic>
+		</topic>
+		<topic href="contents/09-ReqIFBridge.html#Export" label="Exporting ReqSpec requirements to ReqIF" >
+		</topic>
+	</topic>
 	<topic href="contents/07-FAQ.html#FAQ" label="Frequently Asked Questions" >
 	</topic>
 </toc>

@@ -41,9 +41,61 @@ To import a ReqIF document, you have to open it using
 within Eclipse using the link[https://eclipse.org/rmf/][RMF]
 tool. 
 
+The first step is to select the ReqIF specification hierarchy
+to export in the outline view, as shown below. The bridge can
+import only one specification at a time. 
+
+img[images/reqif-import1.png][Selecting the ReqIF Specification to import in the Outline view][][]
+
+Once you selected the specification to import, select the e[ReqIF import]
+menu in the ALISA menu as shown below. Note that two import
+options are available:
+ol[
+item[e[System Requirements]: imports ReqIF requirements as system requirements]
+item[e[System Requirements]: imports ReqIF requirements as stakeholders requiremetns]
+]
+
+img[images/reqif-import2.png][Invoking the tool][][]
+
+Once the import is completed, the tool created
+a new ReqSpec file, called either e[doors-import-systems.reqspec]
+or e[doors-import-stakeholders.reqspec], depending on the type
+of import you are using.
+
+
 section2:Preferences[Tailoring the Import Process]
+
+When importing a ReqIF document, the bridge will then use the attributes
+values from the SpecObjects from ReqIF to fill the ReqSpec model.
+ReqIF lets you defines your own specification model so that each ReqIF model
+can have a different way to capture ReqSpec model.
+
+In order to adapt the bridge to each ReqIF specification model, 
+the bridge has a preference mechanism for the user to specify
+how to associate an an ReqIF attribute with a ReqSpec attribute.
+
+This preference mechanism is available within the Eclipse preferences, as shown
+below. For each property on ReqSpec object, the user can specify
+the corresponding ReqIF attribute. The attribute
+is designated by its long name.
+
+img[images/bridge-preferences.png][Bridge Preferences][][]
+
 
 section:Export[Exporting ReqSpec requirements to ReqIF]
 
+To export the ReqSpec requirement into ReqIF, you first need to select
+the ReqSpec document in the outline view as shown below.
 
+img[images/reqspec-export1.png][Selecting the ReqSpec document to export in the Outline view][][]
+
+Once the main ReqSpec object has been selected, you invoke
+the tool by selecting e[ReqIF Export] in the ALISA tool menu
+as shown below.
+
+img[images/reqspec-export2.png][Invoking the Export tool][][]
+
+
+Once the export is completed, a new file called e[reqspec-export.reqif]
+appears in the project that contains the imported ReqSpec file.
  

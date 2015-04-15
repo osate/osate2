@@ -1,0 +1,196 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" >
+<title>ReqIF bridge</title>
+
+<link href="book.css" rel="stylesheet" type="text/css">
+<link href="code.css" rel="stylesheet" type="text/css">
+<link rel="home" href="00-Main.html" title="">
+</head>
+<body>
+<a name="ReqIFBridge"></a>
+<h1>ReqIF bridge</h1>
+<p>
+Alisa tools provide a bridge to import/export requirements designed with the <a href="http://www.omg.org/spec/ReqIF/">ReqIF</a>
+format. <a href="http://www.omg.org/spec/ReqIF/">ReqIF</a> is a standardized notation to capture
+requirements. It is supported by many tools, either commercial or open-source. 
+A ReqIF bridge provides the ability to connect ALISA requirements with other
+tools.
+</p>
+<p>
+This document details the mapping rules and how to import or export requirements
+from/to ALISA/ReqSpec to/from ReqIF. 
+</p>
+<a name="ImplementationConsiderations"></a>
+<h2>Implementation Considerations and Requirements</h2>
+<p>
+The bridge is built on top of ReqSpec and 
+the Eclipse <a href="https://eclipse.org/rmf/">Requirements Modeling Framework</a> (RMF). 
+<a href="https://eclipse.org/rmf/">RMF</a> is an Eclipse-based implementation
+of ReqIF and specifies an EMF meta-model for the ReqIF interchange format.
+</p>
+<p>
+ 
+As both have their meta-models define with EMF, it facilitates to translation
+from one notation to the other. To be able to use the ALISA/ReqIF bridge, you
+need to have the <a href="https://eclipse.org/rmf/">RMF</a> plugins installed 
+in your Eclipse environment.
+</p>
+<a name="MappingRules"></a>
+<h2>Mapping Rules</h2>
+<p>
+<table>
+<tr>
+<td>
+ReqSpec Concept
+</td>
+<td>
+ReqIF Concept
+</td>
+</tr>
+<tr>
+<td>
+ReqSpec Document
+</td>
+<td>
+ReqIF model with Specifications
+</td>
+</tr>
+<tr>
+<td>
+Requirement
+</td>
+<td>
+SpecHierarchy with one single SpecObject
+</td>
+</tr>
+<tr>
+<td>
+Requirement Document
+</td>
+<td>
+SpecHierarchy with multiples children SpecObjects
+</td>
+</tr>
+<tr>
+<td>
+Requirement Folder
+</td>
+<td>
+SpecHierarchy with multiples children SpecObjects
+</td>
+</tr>
+</table>
+</p>
+<a name="Import"></a>
+<h2>Importing ReqIF requirements to ReqSpec</h2>
+<p>
+To import a ReqIF document, you have to open it using
+within Eclipse using the <a href="https://eclipse.org/rmf/">RMF</a>
+tool. 
+</p>
+<p>
+The first step is to select the ReqIF specification hierarchy
+to export in the outline view, as shown below. The bridge can
+import only one specification at a time. 
+</p>
+<p>
+<div class="image" >
+<img src="images/reqif-import1.png" 
+/>
+<div class="caption">
+Selecting the ReqIF Specification to import in the Outline view
+</div>
+</div>
+</p>
+<p>
+Once you selected the specification to import, select the <em>ReqIF import</em>
+menu in the ALISA menu as shown below. Note that two import
+options are available:
+<ol>
+	<li>
+		<em>System Requirements</em>: imports ReqIF requirements as system requirements
+	</li>
+	<li>
+		<em>System Requirements</em>: imports ReqIF requirements as stakeholders requiremetns
+	</li>
+</ol>
+</p>
+<p>
+<div class="image" >
+<img src="images/reqif-import2.png" 
+/>
+<div class="caption">
+Invoking the tool
+</div>
+</div>
+</p>
+<p>
+Once the import is completed, the tool created
+a new ReqSpec file, called either <em>doors-import-systems.reqspec</em>
+or <em>doors-import-stakeholders.reqspec</em>, depending on the type
+of import you are using.
+</p>
+<a name="Preferences"></a>
+<h3>Tailoring the Import Process</h3>
+<p>
+When importing a ReqIF document, the bridge will then use the attributes
+values from the SpecObjects from ReqIF to fill the ReqSpec model.
+ReqIF lets you defines your own specification model so that each ReqIF model
+can have a different way to capture ReqSpec model.
+</p>
+<p>
+In order to adapt the bridge to each ReqIF specification model, 
+the bridge has a preference mechanism for the user to specify
+how to associate an an ReqIF attribute with a ReqSpec attribute.
+</p>
+<p>
+This preference mechanism is available within the Eclipse preferences, as shown
+below. For each property on ReqSpec object, the user can specify
+the corresponding ReqIF attribute. The attribute
+is designated by its long name.
+</p>
+<p>
+<div class="image" >
+<img src="images/bridge-preferences.png" 
+/>
+<div class="caption">
+Bridge Preferences
+</div>
+</div>
+</p>
+<a name="Export"></a>
+<h2>Exporting ReqSpec requirements to ReqIF</h2>
+<p>
+To export the ReqSpec requirement into ReqIF, you first need to select
+the ReqSpec document in the outline view as shown below.
+</p>
+<p>
+<div class="image" >
+<img src="images/reqspec-export1.png" 
+/>
+<div class="caption">
+Selecting the ReqSpec document to export in the Outline view
+</div>
+</div>
+</p>
+<p>
+Once the main ReqSpec object has been selected, you invoke
+the tool by selecting <em>ReqIF Export</em> in the ALISA tool menu
+as shown below.
+</p>
+<p>
+<div class="image" >
+<img src="images/reqspec-export2.png" 
+/>
+<div class="caption">
+Invoking the Export tool
+</div>
+</div>
+</p>
+<p>
+Once the export is completed, a new file called <em>reqspec-export.reqif</em>
+appears in the project that contains the imported ReqSpec file.
+</p>
+</body>
+</html>
