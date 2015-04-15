@@ -42,12 +42,13 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.navigator.CommonNavigator;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
 
 public class AadlNavigator extends CommonNavigator implements IResourceChangeListener {
 	private String lastResourceName = "";
 	private ModificationFlag lastDecorator = null;
-	
+
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
@@ -59,7 +60,7 @@ public class AadlNavigator extends CommonNavigator implements IResourceChangeLis
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
 		super.dispose();
 	}
-	
+
 	private boolean hasChangedDelta(IResourceDelta delta) {
 		IResourceDelta[] children = delta.getAffectedChildren();
 
@@ -98,9 +99,11 @@ public class AadlNavigator extends CommonNavigator implements IResourceChangeLis
 
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
-		final Control ctrl = getCommonViewer().getControl();		
+		final Control ctrl = getCommonViewer().getControl();
 		if (ctrl != null && !ctrl.isDisposed()) {
 			IResourceDelta delta = event.getDelta();
+//			OsateResourceUtil.setResourceSet(null);
+
 			if (delta != null) {
 				if (!hasChangedDelta(event.getDelta())) {
 					return;
@@ -121,6 +124,7 @@ public class AadlNavigator extends CommonNavigator implements IResourceChangeLis
 				@Override
 				public void run() {
 					if (!ctrl.isDisposed()) {
+						OsateResourceUtil.setResourceSet(null);
 						getCommonViewer().refresh();
 					}
 				}
