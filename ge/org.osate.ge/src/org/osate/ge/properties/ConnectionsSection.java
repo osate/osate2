@@ -143,7 +143,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		subComposites.add(optionComposite);
 
 		//Set the layout for each composite		
-		for (Composite composite : subComposites) {
+		for (final Composite composite : subComposites) {
 			composite.setLayout(new GridLayout(composite.getChildren().length, true));
 			for (final Control control : composite.getChildren()) {
 				gridData = new GridData();
@@ -327,12 +327,6 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 								}
 							}
 							
-							for (Control c : optionComposite.getChildren()) {
-								if (c.getVisible()) {
-									optionsLabel.setVisible(true);		
-								}
-							}
-							
 							final Iterator<?> it = editor.getActionRegistry().getActions();
 							while (it.hasNext()) {
 								final Object o = it.next();
@@ -342,7 +336,13 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 								}
 							}							
 							
-							//Layout the composites so invisible composites do not take up space and exclude appropriate controls
+							for (final Control c : optionComposite.getChildren()) {
+								if (c.getVisible()) {
+									optionsLabel.setVisible(true);		
+								}
+							}
+							
+							//Layout the composites so invisible composites do not take up space and exclude appropriate controls from layout
 							Composite visibleComposite  = nameComposite;
 							for (final Composite composite : subComposites) {
 								if (composite.getVisible()) {
