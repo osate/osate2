@@ -159,13 +159,10 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		switchDirectionPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {	
-				getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
-				getDiagramTypeProvider().getDiagramBehavior().refresh();
-
 				if ((switchDirectionOfConnectionFeature.isAvailable(customCtx)) && (switchDirectionOfConnectionFeature.canExecute(customCtx))) {
-					getDiagramTypeProvider().getDiagramBehavior().executeFeature(switchDirectionOfConnectionFeature, customCtx);
 					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
-					getDiagramTypeProvider().getDiagramBehavior().refresh();
+					getDiagramTypeProvider().getDiagramBehavior().executeFeature(switchDirectionOfConnectionFeature, customCtx);
+					refresh();
 				} 
 			}
 		});
@@ -177,7 +174,6 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 				if ((refineConnectionFeature.isAvailable(customCtx)) && (refineConnectionFeature.canExecute(customCtx))) {
 					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(refineConnectionFeature, customCtx);
-					//Manual refresh to update options after refinement.
 					refresh();
 				}
 			}       	
@@ -216,7 +212,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(setConnectionBidirectionalityFeature, customCtx);
 					setConnectionBidirectionalityFeature = new SetConnectionBidirectionalityFeature(getAadlModificationService(), getShapeService(), getBusinessObjectResolutionService(), getFeatureProvider(), getDirectionalValue());
-					currentDirectionSelection = getDirectionalValue();
+					refresh();
 				}			
 			}
 		});
@@ -227,7 +223,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 			public void focusLost(final FocusEvent e) {		
 
 				if((newConnectionName != null) && (pe != null) && (renameConnectionFeature.checkValueValid(newConnectionName, directEditingCxt) == null) && !(oldConnectionName.equals(newConnectionName))) {
-					PictogramElement originalElement = getSelectedPictogramElement();
+					final PictogramElement originalElement = getSelectedPictogramElement();
 					renameConnectionFeature.setValue(newConnectionName, directEditingCxt);
 					if (!composite.isDisposed()) {
 						getDiagramContainer().setPictogramElementForSelection(originalElement);
@@ -309,8 +305,8 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 										for (final Control control : directionComposite.getChildren()) {
 											control.setVisible(true);
 										}
-										currentDirectionSelection = unidirectionalRadioButton.getSelection();
 										setDirectionalRadioButtons(aadlConnection);
+										currentDirectionSelection = unidirectionalRadioButton.getSelection();									
 								}
 								if (customFeature instanceof RefineConnectionFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
 									refineConnectionFeature = (RefineConnectionFeature) customFeature;
