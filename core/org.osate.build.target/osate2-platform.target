@@ -12,6 +12,7 @@
 <unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.2.0.v20150129-0838"/>
 <unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.0.v20140523-0116"/>
 <unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.0.v20150129-0838"/>
+<unit id="org.eclipse.gmf.sdk.feature.group" version="3.2.1.201502182128"/>
 <unit id="org.eclipse.gmf.runtime.sdk.feature.group" version="1.8.1.201408201453"/>
 <unit id="org.eclipse.graphiti.feature.feature.group" version="0.11.2.v20150204-0954"/>
 <unit id="org.eclipse.graphiti.feature.tools.feature.group" version="0.11.2.v20150204-0954"/>
