@@ -1211,13 +1211,10 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 							(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
 
 					contentOutlineViewer.addFilter(new ViewerFilter() {
-
 						@Override
 						public boolean select(Viewer viewer, Object parentElement, Object element) {
-							// TODO Auto-generated method stub
 							return !(element instanceof PropertyAssociation);
 						}
-
 					});
 					// .CUSTOM: I edit only a single resource, not a resource set
 					contentOutlineViewer.setInput(getResource());
