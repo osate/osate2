@@ -236,7 +236,7 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 			name = cat.getLiteral();
 			int idx = name.indexOf(" ");
 			if (idx < 0) {
-				name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + ".gif";
+				name = name.substring(0, 1).toUpperCase() + name.substring(1) + ".gif";
 			} else {
 				name = name.substring(0, 1).toUpperCase() + name.substring(1, idx).toLowerCase()
 						+ name.substring(idx + 1, idx + 2).toUpperCase() + name.substring(idx + 2).toLowerCase()

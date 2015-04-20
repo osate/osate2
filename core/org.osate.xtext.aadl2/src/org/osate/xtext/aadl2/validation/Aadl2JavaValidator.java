@@ -4572,13 +4572,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 			} else {
-
 				// we have a connection a component implementation going directly from its incoming feature to an outgoing feature
-				if (!(srcDirection.incoming() && dstDirection.outgoing())) {
-					error(connection, "Source feature '" + source.getName()
-							+ "' must be incoming and destination feature '" + destination.getName()
-							+ "' must be outgoing.");
-				}
+				error(connection,
+						"Illegal connection: Cannot directly connect two features of the containing component.");
 			}
 		}
 	}
