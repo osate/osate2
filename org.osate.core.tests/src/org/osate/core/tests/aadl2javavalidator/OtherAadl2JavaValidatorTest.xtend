@@ -110,7 +110,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 					call1: subprogram subp1.i;
 				};
 				connections
-					fconn1: feature af1 -> af1;
+«««					fconn1: feature af1 -> af1;
+					fconn1: feature asub1.af2 -> af1;
 					fconn2: feature asub1.af2 -> af1;
 				flows
 					--Connection (at ConnectionFlow)
@@ -181,9 +182,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				
 				abstract implementation a2.i
 				subcomponents
-					asub2: abstract;
+«««					asub2: abstract;
+					asub2: abstract a2;
 				connections
-					fconn3: feature af2 -> af2;
+«««					fconn3: feature af2 -> af2;
+					fconn3: feature asub2.af2 -> af2;
 				end a2.i;
 				
 				subprogram subp1
@@ -994,11 +997,20 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 									m3: mode;
 							end s1;
 							system implementation s1.i
+								subcomponents
+									asub1: abstract a1;
 								connections
-									conn1: feature af1->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
-									conn2: feature af1->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
-									conn3: feature af1->af2 {psmemmv::def1 => "g" in modes(m1); };
+«««									conn1: feature af1->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
+									conn1: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
+«««									conn2: feature af1->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
+									conn2: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
+«««									conn3: feature af1->af2 {psmemmv::def1 => "g" in modes(m1); };
+									conn3: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m1); };
 								end s1.i;
+							abstract a1
+								features
+									af3: feature;
+							end a1;
 						end testmemissingmodevalues;
 					''')
 		suppressSerialization
@@ -1412,10 +1424,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 										m1: abstract ab1;
 										absub1: abstract ab1;
 										absub2: abstract ab1;
+										absub99: abstract ab99;
 									connections
-										conn1: port dp1 -> dp2;
-										conn2: port dp1 -> dp2;
-										conn4: port dp1 -> dp2;
+										conn1: port absub99.dp101 -> dp2;
+										conn2: port absub99.dp101 -> dp2;
+										conn4: port absub99.dp101 -> dp2;
 									modes
 										m6:	mode;
 										m7:	mode;
@@ -1435,9 +1448,9 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 										name1: abstract ab1;
 										name10: abstract ab1;
 									connections
-										conn1: port dp1 -> dp2;
+										conn1: port absub99.dp101 -> dp2;
 										conn2: refined to port {Latency => 10ms..100ms;};
-										conn3: port dp1 -> dp2;
+										conn3: port absub99.dp101 -> dp2;
 										conn4: refined to port;
 									modes
 										m5:	mode;
@@ -1455,8 +1468,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 										absub1: abstract ab1;
 										absub2: refined to abstract ab1;
 									connections
-										conn1: port dp1 -> dp2;
-										conn4: port dp1 -> dp2 ;
+										conn1: port absub99.dp101 -> dp2;
+										conn4: port absub99.dp101 -> dp2 ;
 										conn2: refined to port {Latency => 10ms..100ms;};
 									modes
 										m5:	mode;
@@ -1546,6 +1559,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 									-- ete4 ok
 									ete4 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
 							end sys100.impl2;
+							abstract ab99
+								features
+									dp101: out data port;
+									dp102: out data port;
+							end ab99;
 						end componentimpluniquenames;
 						''')
 		suppressSerialization
