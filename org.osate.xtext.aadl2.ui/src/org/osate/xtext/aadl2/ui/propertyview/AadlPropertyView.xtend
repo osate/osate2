@@ -135,6 +135,7 @@ import static extension com.google.common.io.CharStreams.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
+import org.eclipse.jface.viewers.ITreeContentProvider
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -302,6 +303,21 @@ class AadlPropertyView extends ViewPart {
 					val labelText = labelProvider.getText(element)
 					return wordMatches(labelText)
 						&& (currentPropertyGroup.size == 0 || currentPropertyGroup.contains(labelText))
+				}
+				override protected isParentMatch(Viewer viewer, Object element){
+					val contentProvider = treeViewer.getContentProvider() as ITreeContentProvider
+					val children = contentProvider.getChildren(element)
+					var match = false
+					
+					if ((children != null) && (children.length > 0)) {
+						
+						for (var i=0; i < children.length && !match; i++){
+							if (isLeafMatch(treeViewer, children.get(i))){
+								match = true	
+							}				
+						}	
+					}	
+					return match
 				}
 			}
 			// Hack to kill optimization that disables filter when text is empty
