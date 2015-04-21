@@ -37,6 +37,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.resources.IFile;
@@ -50,6 +51,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -77,6 +79,15 @@ import org.eclipse.ui.dialogs.ContainerGenerator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.xtext.nodemodel.BidiIterable;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.CompositeNode;
+import org.eclipse.xtext.nodemodel.impl.LeafNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -142,7 +153,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 				}
 			}
 		}
-		setWindowTitle("New Aadl Object");
+		setWindowTitle("New Aadl Package or Property Set");
 		setDefaultPageImageDescriptor(OsateUiPlugin.getImageDescriptor("icons/NewAadl2.gif"));
 	}
 
@@ -222,11 +233,15 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		try {
 			getContainer().run(true, true, operation);
 			try {
-				workbench
+				XtextEditor editor = (XtextEditor) workbench
 						.getActiveWorkbenchWindow()
 						.getActivePage()
 						.openEditor(new FileEditorInput(newFile),
 								workbench.getEditorRegistry().getDefaultEditor(sourcePath.toString()).getId());
+				int offset = firstTabOffset(editor);
+				if (offset > -1) {
+					editor.selectAndReveal(offset, 0);
+				}
 			} catch (PartInitException e) {
 				MessageDialog.openError(null, "Open Editor", e.getMessage());
 			}
@@ -246,14 +261,57 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		}
 	}
 
+	private int firstTabOffset(XtextEditor editor) {
+		int offset = -1;
+
+		offset = editor.getDocument().readOnly(new IUnitOfWork<Integer, XtextResource>() {
+			@Override
+			public Integer exec(XtextResource state) {
+				int tabOffset = -1;
+				EObject rootObject = state.getContents().get(0);
+				ICompositeNode cNode = NodeModelUtils.findActualNodeFor(rootObject);
+				INode tabNode = findTabNode(cNode);
+				if (null != tabNode) {
+					tabOffset = tabNode.getOffset() + 1;
+					String tabNodeText = tabNode.getText();
+					tabOffset = tabOffset + tabNodeText.indexOf('\t');
+				}
+				return tabOffset;
+			}
+		});
+
+		return offset;
+	}
+
+	private INode findTabNode(ICompositeNode cNode) {
+		INode result = null;
+		BidiIterable<INode> iterable = cNode.getChildren();
+		Iterator<INode> iter = iterable.iterator();
+		while (iter.hasNext()) {
+			INode iterNode = iter.next();
+			if (iterNode instanceof LeafNode) {
+				if (iterNode.getText().contains("\t")) {
+					return iterNode;
+				}
+			} else if (iterNode instanceof CompositeNode) {
+				result = findTabNode((CompositeNode) iterNode);
+				if (null != result)
+					return result;
+			}
+		}
+		return result;
+	}
+
 	private InputStream getInitialSourceContents() {
 		String contents = null;
+		String newLine = System.lineSeparator();
+
 		if (newObjectCreationPage.getObjectType().equals(ObjectType.AADL_PACKAGE)) {
-			contents = "package " + newObjectCreationPage.getNewObjectName() + "\n" + "public\n" + "end "
-					+ newObjectCreationPage.getNewObjectName() + ";";
+			contents = "package " + newObjectCreationPage.getNewObjectName() + newLine + "public" + newLine + "\t"
+					+ newLine + "end " + newObjectCreationPage.getNewObjectName() + ";";
 		} else {
-			contents = "property set " + newObjectCreationPage.getNewObjectName() + " is\n" + "end "
-					+ newObjectCreationPage.getNewObjectName() + ";";
+			contents = "property set " + newObjectCreationPage.getNewObjectName() + " is" + newLine + "\t" + newLine
+					+ "end " + newObjectCreationPage.getNewObjectName() + ";";
 		}
 		return new ByteArrayInputStream(contents.getBytes());
 	}
@@ -279,8 +337,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		 * initialObjectType specifies which radio button will be selected when the page is shown.
 		 */
 		public NewModelWizardNewObjectCreationPage(String pageName, ObjectType initialObjectType) {
-			super(pageName, "New Aadl Object", null);
-			setDescription("Create a new Aadl package or property set.");
+			super(pageName, "New Aadl Package or Property Set", null);
+			setDescription("Create a new Aadl Package or Property set.");
 			this.initialObjectType = initialObjectType;
 		}
 
@@ -301,7 +359,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 
 			Group objectTypeGroup = new Group(composite, SWT.NONE);
 			objectTypeGroup.setLayout(new GridLayout());
-			objectTypeGroup.setText("Aadl Object Type");
+			objectTypeGroup.setText("Aadl File Type");
 			objectTypeGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 			aadlPackageButton = new Button(objectTypeGroup, SWT.RADIO);
@@ -312,15 +370,10 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			aadlPropertySetButton.setText("Aadl Property Set");
 			aadlPropertySetButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
-			Group fileTypeGroup = new Group(composite, SWT.NONE);
-			fileTypeGroup.setLayout(new GridLayout());
-			fileTypeGroup.setText("File Type");
 			GridData layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false);
-			layoutData.verticalIndent = 15;
-			fileTypeGroup.setLayoutData(layoutData);
 
 			Label nameFieldLabel = new Label(composite, SWT.NONE);
-			nameFieldLabel.setText("Enter the new object's name:");
+			nameFieldLabel.setText("Enter the new Aadl Package or Property Set name:");
 			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 			layoutData.verticalIndent = 15;
 			nameFieldLabel.setLayoutData(layoutData);
@@ -334,6 +387,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 
 			projectViewer = new TableViewer(composite, SWT.BORDER);
+
 			projectViewer.setLabelProvider(WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider());
 			projectViewer.setContentProvider(new WorkbenchContentProvider() {
 				@Override
