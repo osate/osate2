@@ -165,11 +165,14 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 					if (!value.isEmpty()) {
 						// OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io + ";property=" + property + ";value=" + value);
-						PropertyAssociation pa = io.createOwnedPropertyAssociation();
+						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
 						io.removePropertyAssociations(property);
-						pa.setProperty(property);
-						fillPropertyValue(io, pa, value);
+						newPA.setProperty(property);
+						fillPropertyValue(io, newPA, value);
+						if (!newPA.getOwnedValues().isEmpty()) {
+							io.getOwnedPropertyAssociations().add(newPA);
+						}
 					}
 				}
 				checkIfCancelled();
@@ -233,105 +236,107 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 							newPA.setProperty(prop);
 							fillPropertyValue(connRef, newPA, propertyValue);
-
-							/*
-							 * FIXME JD
-							 * 
-							 * Try to look if the property references a component or not.
-							 * This was done to fix the issue related to the Bound Bus analysis plugin
-							 */
-							for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-									.hasNext();) {
-								Element elem = content.next();
-								if (elem instanceof ModalPropertyValue) {
-									ModalPropertyValue mpv = (ModalPropertyValue) elem;
-									if (mpv.getOwnedValue() instanceof ListValue) {
-										ListValue lv = (ListValue) mpv.getOwnedValue();
-										for (Element e : lv.getOwnedListElements()) {
-											if (e instanceof ReferenceValue) {
-												PropertyExpression irv = ((ReferenceValue) e).instantiate(conni
-														.getContainingComponentInstance());
-												if (irv != null) {
-													lv.getOwnedListElements().remove(e);
-													lv.getOwnedListElements().add(irv);
+							if (!newPA.getOwnedValues().isEmpty()) {
+								/*
+								 * FIXME JD
+								 * 
+								 * Try to look if the property references a component or not.
+								 * This was done to fix the issue related to the Bound Bus analysis plugin
+								 */
+								for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
+										.hasNext();) {
+									Element elem = content.next();
+									if (elem instanceof ModalPropertyValue) {
+										ModalPropertyValue mpv = (ModalPropertyValue) elem;
+										if (mpv.getOwnedValue() instanceof ListValue) {
+											ListValue lv = (ListValue) mpv.getOwnedValue();
+											for (Element e : lv.getOwnedListElements()) {
+												if (e instanceof ReferenceValue) {
+													PropertyExpression irv = ((ReferenceValue) e).instantiate(conni
+															.getContainingComponentInstance());
+													if (irv != null) {
+														lv.getOwnedListElements().remove(e);
+														lv.getOwnedListElements().add(irv);
+													}
 												}
 											}
 										}
 									}
-								}
-								if (elem instanceof ReferenceValue) {
-									PropertyExpression irv = ((ReferenceValue) elem).instantiate(conni
-											.getContainingComponentInstance());
-									if (irv != null) {
-										EcoreUtil.replace(elem, irv);
+									if (elem instanceof ReferenceValue) {
+										PropertyExpression irv = ((ReferenceValue) elem).instantiate(conni
+												.getContainingComponentInstance());
+										if (irv != null) {
+											EcoreUtil.replace(elem, irv);
+										}
 									}
 								}
-							}
 
-							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
-
-							/*
-							 * JD bug 174
-							 * Also add the property to the connection reference
-							 * instance.
-							 */
-							connRef.getOwnedPropertyAssociations().add(newPA);
-
-							if (setPA == null) {
-								setPA = newPA;
-
-								/*
-								 * This code seems to be useless
-								 * newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-								 * newPA.setProperty(prop);
-								 * fillPropertyValue(connRef, newPA, propertyValue);
-								 */
+								scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
 
 								/*
 								 * JD bug 174
 								 * Also add the property to the connection reference
 								 * instance.
 								 */
-								conni.getOwnedPropertyAssociations().add(newPA);
-							} else {
-								// check consistency
-								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
+								connRef.getOwnedPropertyAssociations().add(newPA);
 
-									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
-										// this comparison return inequality even if the two property values are the same. They are
-										// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to the
-										// same literal
-										// The second issue is that evaluate may return the default value for the property, which may be different from the
-										// assigned value.
+								if (setPA == null) {
+									setPA = newPA;
 
-										/*
-										 * JD
-										 * Used to fix bug #158
-										 */
-										if ((newPA.valueInMode(m) instanceof NamedValueImpl)
-												&& (setPA.valueInMode(m) instanceof NamedValueImpl)) {
+									/*
+									 * This code seems to be useless
+									 * newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+									 * newPA.setProperty(prop);
+									 * fillPropertyValue(connRef, newPA, propertyValue);
+									 */
 
-											NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m);
-											NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m);
+									/*
+									 * JD bug 174
+									 * Also add the property to the connection reference
+									 * instance.
+									 */
+									conni.getOwnedPropertyAssociations().add(newPA);
+								} else {
+									// check consistency
+									for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
 
-											if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl)
-													&& (nvi2.getNamedValue() instanceof EnumerationLiteralImpl)) {
-												EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1
-														.getNamedValue();
-												EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2
-														.getNamedValue();
-												if (ei1.getName() == ei2.getName()) {
-													continue;
+										if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
+											// this comparison return inequality even if the two property values are the same. They are
+											// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to
+											// the same literal
+											// The second issue is that evaluate may return the default value for the property, which may be different from the
+											// assigned value.
+
+											/*
+											 * JD
+											 * Used to fix bug #158
+											 */
+											if ((newPA.valueInMode(m) instanceof NamedValueImpl)
+													&& (setPA.valueInMode(m) instanceof NamedValueImpl)) {
+
+												NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m);
+												NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m);
+
+												if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl)
+														&& (nvi2.getNamedValue() instanceof EnumerationLiteralImpl)) {
+													EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1
+															.getNamedValue();
+													EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2
+															.getNamedValue();
+													if (ei1.getName() == ei2.getName()) {
+														continue;
+													}
 												}
 											}
-										}
 
-										if (!newPA.valueInMode(m).equals(defaultvalue)
-												&& !setPA.valueInMode(m).equals(defaultvalue)) {
+											if (!newPA.valueInMode(m).equals(defaultvalue)
+													&& !setPA.valueInMode(m).equals(defaultvalue)) {
 
-											error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
-													+ " not consistent along connection");
-											break;
+												error(conni, "Value for property "
+														+ setPA.getProperty().getQualifiedName()
+														+ " not consistent along connection");
+												break;
+											}
 										}
 									}
 								}
