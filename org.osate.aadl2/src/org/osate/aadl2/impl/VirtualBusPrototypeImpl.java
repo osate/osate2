@@ -67,7 +67,7 @@ public class VirtualBusPrototypeImpl extends ComponentPrototypeImpl implements V
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualBusPrototype();
 	}
-	
+
 	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.VIRTUAL_BUS;

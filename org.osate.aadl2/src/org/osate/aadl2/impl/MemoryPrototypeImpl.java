@@ -67,7 +67,7 @@ public class MemoryPrototypeImpl extends ComponentPrototypeImpl implements Memor
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getMemoryPrototype();
 	}
-	
+
 	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.MEMORY;

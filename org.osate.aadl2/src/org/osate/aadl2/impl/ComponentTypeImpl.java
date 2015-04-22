@@ -849,15 +849,15 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
 	@Override
-//	public EList<Mode> getAllModes() {
-//		EList<Classifier> ancestors = getSelfPlusAllExtended();
-//		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
-//		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
-//			final ComponentType current = (ComponentType) it.next();
-//			returnlist.addAll(current.getOwnedModes());
-//		}
-//		return returnlist;
-//	}
+	// public EList<Mode> getAllModes() {
+	// EList<Classifier> ancestors = getSelfPlusAllExtended();
+	// final BasicEList<Mode> returnlist = new BasicEList<Mode>();
+	// for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+	// final ComponentType current = (ComponentType) it.next();
+	// returnlist.addAll(current.getOwnedModes());
+	// }
+	// return returnlist;
+	// }
 	public EList<Mode> getAllModes() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
 		final BasicEList<Mode> returnlist = new BasicEList<Mode>();

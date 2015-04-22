@@ -67,7 +67,7 @@ public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements Pr
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorPrototype();
 	}
-	
+
 	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.PROCESSOR;
