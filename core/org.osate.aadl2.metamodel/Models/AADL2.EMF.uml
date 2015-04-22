@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/4" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/4 pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA http://www.eclipse.org/uml2/schemas/Standard/1 pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w">
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/4" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/4 pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA">
   <uml:Model xmi:id="_0" name="AADL2">
     <packageMerge xmi:id="_packageMerge.0">
       <mergedPackage xmi:type="uml:Model" href="AADL2.uml#_0"/>
@@ -220,7 +220,7 @@
       <ownedAttribute xmi:id="_VuxBQD9DEeSMi-ARKmUa4A" name="unitsType" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_09YWEEM4EeSo7dNc7Eb1Kg" name="DirectedFeature" isAbstract="true">
-      <ownedAttribute xmi:id="_-27OEEM4EeSo7dNc7Eb1Kg" name="direction" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:id="_-27OEEM4EeSo7dNc7Eb1Kg" name="direction" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_E6UT4EM5EeSo7dNc7Eb1Kg" name="FeaturePrototype">
       <ownedAttribute xmi:id="_E6U68EM5EeSo7dNc7Eb1Kg" name="direction" isReadOnly="true" isDerived="true"/>
