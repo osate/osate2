@@ -118,6 +118,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.dnd.DND;
@@ -146,6 +147,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
 
@@ -1208,6 +1210,12 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 					contentOutlineViewer.setLabelProvider(new TransactionalAdapterFactoryLabelProvider(
 							(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
 
+					contentOutlineViewer.addFilter(new ViewerFilter() {
+						@Override
+						public boolean select(Viewer viewer, Object parentElement, Object element) {
+							return !(element instanceof PropertyAssociation);
+						}
+					});
 					// .CUSTOM: I edit only a single resource, not a resource set
 					contentOutlineViewer.setInput(getResource());
 

@@ -186,7 +186,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch#initSwitches
 	 * ()
@@ -961,10 +961,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		ConnectionInstanceEnd oldSrc = connInfo.src;
 
 		/*
-		 * One of three possible situations - both ends are feature groups
-		 * without or with an empty type - one end is empty and the other is not
-		 * - both ends are not empty, in this case they have the same internal
-		 * structure TODO-lw: what about feature group subset/equivalence?
+		 * One of three possible situations
+		 * - both ends are feature groups without or with an empty type
+		 * - one end is empty and the other is not
+		 * - both ends are not empty, in this case they have the same internal structure
+		 * TODO-lw: what about feature group subset/equivalence?
 		 */
 
 		if (srcEnd instanceof FeatureInstance && dstEnd instanceof FeatureInstance) {
@@ -976,11 +977,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (srcFi.getDirection() != DirectionType.IN && dstFi.getDirection() != DirectionType.OUT) {
 					connInfo.src = srcFi;
 					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
-				}
-				if (connInfo.isBidirectional() && dstFi.getDirection() != DirectionType.IN
-						&& srcFi.getDirection() != DirectionType.OUT) {
-					connInfo.src = dstFi;
-					addConnectionInstance(parentci.getSystemInstance(), connInfo, srcFi);
 				}
 			} else if (isLeafFeature(srcFi)) {
 				for (FeatureInstance dst : dstFi.getFeatureInstances()) {
@@ -1239,17 +1235,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	/*
-	 *
+	 * 
 	 * @param conni Connection Instance
-	 *
+	 * 
 	 * @param mis the set of mode instances of modal connection declarations in
 	 * the connection instance that make up a mode configuration; the complete
 	 * set must be contained in the SOMs to be added to the connection instance
-	 *
+	 * 
 	 * @param cmodes the set of modes in the inmodes declaration of the
 	 * conenction declaration with index idx in the list of connection
 	 * declarations that make up the connection instance
-	 *
+	 * 
 	 * @param idx the index of the connection declaration in the connection
 	 * instance whose mode set is being processed
 	 */
