@@ -46,8 +46,10 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.SystemInstance;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.instance.FeatureInstance} object.
@@ -223,11 +225,28 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 * This returns FeatureInstance.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureInstance")); //$NON-NLS-1$
+
+		FeatureCategory cat = ((FeatureInstance) object).getCategory();
+		String name = "FeatureInstance";
+		if (cat != null) {
+			name = cat.getLiteral();
+			int idx = name.indexOf(" ");
+			if (idx < 0) {
+				name = name.substring(0, 1).toUpperCase() + name.substring(1) + ".gif";
+			} else {
+				name = name.substring(0, 1).toUpperCase() + name.substring(1, idx).toLowerCase()
+						+ name.substring(idx + 1, idx + 2).toUpperCase() + name.substring(idx + 2).toLowerCase()
+						+ ".gif";
+			}
+		}
+		if (object instanceof SystemInstance) {
+			name = "System";
+		}
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/" + name)); //$NON-NLS-1$
 	}
 
 	/**
@@ -238,9 +257,11 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FeatureInstance) object).getFullName();
-		return label == null || label.length() == 0 ? getString("_UI_FeatureInstance_type") : //$NON-NLS-1$
-				getString("_UI_FeatureInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		FeatureInstance fi = (FeatureInstance) object;
+		String label = fi.getFullName();
+		String ftype = fi.getCategory().getName();
+		return (ftype == null || ftype.length() == 0 ? getString("_UI_FeatureInstance_type") : ftype + " instance") + (label == null || label.length() == 0 ? "" : //$NON-NLS-1$
+						" " + label); //$NON-NLS-1$
 	}
 
 	/**

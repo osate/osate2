@@ -55,6 +55,7 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.RecordValue;
@@ -108,10 +109,15 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 				continue;
 			}
 
+			if (childElement instanceof PropertyAssociation) {
+				continue;
+			}
+
 			createNode(parentNode, childElement);
 		}
 	}
 
+	@Override
 	protected Object _text(Object modelElement) {
 		String initialText;
 

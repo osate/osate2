@@ -70,6 +70,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -953,7 +954,37 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				ci = ci.getContainingComponentInstance();
 			}
 		}
+		if (match) {
+			// test if the connection instance is connected to the end of the ete instance
+			// relevant if the flow goes through a port of a feature group and the connection
+			// instance comes from an expanded fg connection
+			ConnectionInstanceEnd src = conni.getSource();
+
+			if (src instanceof FeatureInstance) {
+				FeatureInstance firstFeature = (FeatureInstance) src;
+				FeatureInstance lastFeature = getLastFeature(etei);
+				if (lastFeature != null) {
+					match = lastFeature == firstFeature;
+				}
+			}
+		}
 		return match;
+	}
+
+	private FeatureInstance getLastFeature(EndToEndFlowInstance etei) {
+		EList<FlowElementInstance> feis = etei.getFlowElements();
+		FeatureInstance lastFeature = null;
+
+		if (!feis.isEmpty()) {
+			FlowElementInstance lastElement = feis.get(feis.size() - 1);
+
+			if (lastElement instanceof EndToEndFlowInstance) {
+				lastFeature = getLastFeature((EndToEndFlowInstance) lastElement);
+			} else if (lastElement instanceof FlowSpecificationInstance) {
+				lastFeature = ((FlowSpecificationInstance) lastElement).getDestination();
+			}
+		}
+		return lastFeature;
 	}
 
 	// -------------------------------------------------------------------------

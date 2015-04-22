@@ -176,7 +176,7 @@ class FlowSegmentsTest extends OsateTest {
 				subcomponents
 					asub3: abstract a2;
 				connections
-					fconn3: feature af2 -> af2;
+					fconn3: feature af2 -> asub3.af2;
 					fconn4: feature asub3.af2 -> asub3.af2;
 				flows
 					etef18: end to end flow asub3.fsource20 -> fconn4 -> asub3.fsink1;
