@@ -386,7 +386,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.BasicProperty#isList()
 	 */
 	@Override

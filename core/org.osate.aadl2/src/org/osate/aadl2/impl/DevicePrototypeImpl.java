@@ -67,7 +67,7 @@ public class DevicePrototypeImpl extends ComponentPrototypeImpl implements Devic
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDevicePrototype();
 	}
-	
+
 	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DEVICE;

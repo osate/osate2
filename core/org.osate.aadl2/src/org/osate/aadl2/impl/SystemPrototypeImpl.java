@@ -67,7 +67,7 @@ public class SystemPrototypeImpl extends ComponentPrototypeImpl implements Syste
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSystemPrototype();
 	}
-	
+
 	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SYSTEM;

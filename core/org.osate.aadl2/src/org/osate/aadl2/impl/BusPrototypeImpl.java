@@ -67,7 +67,7 @@ public class BusPrototypeImpl extends ComponentPrototypeImpl implements BusProto
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBusPrototype();
 	}
-	
+
 	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.BUS;

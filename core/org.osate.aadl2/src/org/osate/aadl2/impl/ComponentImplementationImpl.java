@@ -2053,7 +2053,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.ComponentClassifier#lookupPrototypeBinding(edu
 	 * .cmu.sei.aadl.aadl2.Prototype)
