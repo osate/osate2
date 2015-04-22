@@ -299,27 +299,35 @@ class AadlPropertyView extends ViewPart {
 			// so all our filtering has to be done here
 			val patternFilter = new PatternFilter {
 				override protected isLeafMatch(Viewer viewer, Object element) {
-					val labelProvider = treeViewer.getLabelProvider(0) as ColumnLabelProvider
+					var thisTree = viewer as TreeViewer
+					val labelProvider = thisTree.getLabelProvider(0) as ColumnLabelProvider
 					val labelText = labelProvider.getText(element)
 					return wordMatches(labelText)
 						&& (currentPropertyGroup.size == 0 || currentPropertyGroup.contains(labelText))
 				}
+				// Check all children to see if there is a match before hiding this parent
 				override protected isParentMatch(Viewer viewer, Object element){
-					val contentProvider = treeViewer.getContentProvider() as ITreeContentProvider
+					return anyChildrenMatch(viewer as TreeViewer, element)
+				}
+				// Recursive function for isParentMatch
+				def boolean anyChildrenMatch(TreeViewer thisTree, Object element) {
+					val contentProvider = thisTree.getContentProvider() as ITreeContentProvider
 					val children = contentProvider.getChildren(element)
 					var match = false
 					
 					if ((children != null) && (children.length > 0)) {
 						
 						for (var i=0; i < children.length && !match; i++){
-							if (isLeafMatch(treeViewer, children.get(i))){
-								match = true	
-							}				
+							match = anyChildrenMatch(thisTree, children.get(i))		
 						}	
-					}	
-					return match
+					} else {
+						match = isLeafMatch(thisTree, element)
+					}
+					 
+					return match	
 				}
 			}
+			
 			// Hack to kill optimization that disables filter when text is empty
 			patternFilter.setPattern("org.eclipse.ui.keys.optimization.false")
 			
