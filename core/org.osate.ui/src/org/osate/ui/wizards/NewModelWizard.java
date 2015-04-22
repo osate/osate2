@@ -40,7 +40,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -56,7 +58,7 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -71,6 +73,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
@@ -106,6 +109,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		AADL_PACKAGE, AADL_PROPERTY_SET
 	}
 
+	private static final String[] HIDE_FOLDERS = { "instances", "diagrams", "imv" };
 	/**
 	 * This caches an instance of the model package.
 	 */
@@ -178,13 +182,13 @@ public class NewModelWizard extends Wizard implements INewWizard {
 	 * newObjectCreationPage and dependent on the workspace.  An example: "/MyProject/aadl/NewSourceFile.aadl".
 	 */
 	private IPath newObjectRelativePath() {
-		IProject selectedProject = newObjectCreationPage.getSelectedProject();
-		IPath filePath = new Path("/" + selectedProject.getName());
+		IContainer selectedProjectOrFolder = newObjectCreationPage.getSelectedProjectOrFolder();
 		String fileExtension = "." + WorkspacePlugin.SOURCE_FILE_EXT;
-		if (newObjectCreationPage.getObjectType().equals(ObjectType.AADL_PACKAGE)) {
-			filePath = new Path(filePath.addTrailingSeparator() + WorkspacePlugin.AADL_PACKAGES_DIR);
-		} else {
-			filePath = new Path(filePath.addTrailingSeparator() + WorkspacePlugin.PROPERTY_SETS_DIR);
+		IPath filePath = null;
+		if (selectedProjectOrFolder instanceof IProject) {
+			filePath = new Path("/" + ((IProject) selectedProjectOrFolder).getName());
+		} else if (selectedProjectOrFolder instanceof IFolder) {
+			filePath = ((IFolder) selectedProjectOrFolder).getFullPath();
 		}
 		return new Path(filePath.addTrailingSeparator()
 				+ newObjectCreationPage.getNewObjectName().replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR,
@@ -197,14 +201,9 @@ public class NewModelWizard extends Wizard implements INewWizard {
 	 * "C:\projects\aadlProjects\MyProject\aadl\NewSourceFile.aadl".
 	 */
 	private IPath newObjectAbsolutePath() {
-		IProject selectedProject = newObjectCreationPage.getSelectedProject();
-		IPath filePath = selectedProject.getLocation();
+		IContainer selectedProjectOrFolder = newObjectCreationPage.getSelectedProjectOrFolder();
+		IPath filePath = selectedProjectOrFolder.getLocation();
 		String fileExtension = "." + WorkspacePlugin.SOURCE_FILE_EXT;
-		if (newObjectCreationPage.getObjectType().equals(ObjectType.AADL_PACKAGE)) {
-			filePath = new Path(filePath.addTrailingSeparator() + WorkspacePlugin.AADL_PACKAGES_DIR);
-		} else {
-			filePath = new Path(filePath.addTrailingSeparator() + WorkspacePlugin.PROPERTY_SETS_DIR);
-		}
 		return new Path(filePath.addTrailingSeparator()
 				+ newObjectCreationPage.getNewObjectName().replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR,
 						WorkspacePlugin.FILE_PACKAGE_SEPARATOR) + fileExtension);
@@ -331,7 +330,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		private Button aadlPackageButton = null;
 		private Button aadlPropertySetButton = null;
 		private Text nameTextField = null;
-		private TableViewer projectViewer = null;
+		private TreeViewer folderViewer = null;
 
 		/**
 		 * initialObjectType specifies which radio button will be selected when the page is shown.
@@ -372,6 +371,54 @@ public class NewModelWizard extends Wizard implements INewWizard {
 
 			GridData layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false);
 
+			Label folderViewerLabel = new Label(composite, SWT.NONE);
+			folderViewerLabel.setText("Create in project/folder:");
+			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+			folderViewer = new TreeViewer(composite, SWT.BORDER);
+			folderViewer.setLabelProvider(WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider());
+			folderViewer.setContentProvider(new WorkbenchContentProvider() {
+				@Override
+				public Object[] getChildren(Object element) {
+					if (element instanceof IWorkspace) {
+						IProject[] projects = ((IWorkspace) element).getRoot().getProjects();
+						ArrayList<IProject> openProjects = new ArrayList<IProject>();
+						for (IProject project : projects) {
+							if (project.isOpen()
+									&& !project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+								openProjects.add(project);
+							}
+						}
+						return openProjects.size() == 0 ? new Object[0] : openProjects.toArray();
+					} else if (element instanceof IProject || element instanceof IFolder) {
+						IResource[] resources = null;
+						try {
+							resources = ((IContainer) element).members();
+						} catch (CoreException e) {
+							e.printStackTrace();
+							return new Object[0];
+						}
+						ArrayList<IFolder> folders = new ArrayList<IFolder>();
+						for (IResource resource : resources) {
+							if (resource instanceof IFolder) {
+								if (((IFolder) resource).exists()) {
+									boolean add = true;
+									for (String hideFolder : HIDE_FOLDERS) {
+										if (resource.getName().equalsIgnoreCase(hideFolder)) {
+											add = false;
+										}
+									}
+									if (add) {
+										folders.add((IFolder) resource);
+									}
+								}
+							}
+						}
+						return folders.size() == 0 ? new Object[0] : folders.toArray();
+					}
+					return new Object[0];
+				}
+			});
+			folderViewer.setInput(ResourcesPlugin.getWorkspace());
 			Label nameFieldLabel = new Label(composite, SWT.NONE);
 			nameFieldLabel.setText("Enter the new Aadl Package or Property Set name:");
 			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
@@ -382,45 +429,20 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			nameTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 			nameTextField.setFocus();
 
-			Label projectViewerLabel = new Label(composite, SWT.NONE);
-			projectViewerLabel.setText("Create in project:");
-			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
-
-			projectViewer = new TableViewer(composite, SWT.BORDER);
-
-			projectViewer.setLabelProvider(WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider());
-			projectViewer.setContentProvider(new WorkbenchContentProvider() {
-				@Override
-				public Object[] getChildren(Object element) {
-					if (!(element instanceof IWorkspace)) {
-						return new Object[0];
-					}
-					IProject[] projects = ((IWorkspace) element).getRoot().getProjects();
-					ArrayList<IProject> openProjects = new ArrayList<IProject>();
-					for (IProject project : projects) {
-						if (project.isOpen()
-								&& !project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
-							openProjects.add(project);
-						}
-					}
-					return openProjects.size() == 0 ? new Object[0] : openProjects.toArray();
-				}
-			});
-			projectViewer.setInput(ResourcesPlugin.getWorkspace());
 			boolean selectedProjectInList = false;
-			for (int i = 0; i < projectViewer.getTable().getItemCount(); i++) {
-				if (projectViewer.getElementAt(i).equals(project)) {
+			TreeItem[] treeItems = folderViewer.getTree().getItems();
+			for (int i = 0; i < treeItems.length; i++) {
+				if (treeItems[i].equals(project)) {
 					selectedProjectInList = true;
 					break;
 				}
 			}
 			if ((project != null) && selectedProjectInList) {
-				projectViewer.setSelection(new StructuredSelection(project), true);
+				folderViewer.setSelection(new StructuredSelection(project), true);
 			} else {
-				projectViewer.getTable().setSelection(0);
+				folderViewer.getTree().select(folderViewer.getTree().getTopItem());
 			}
-			projectViewer.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-
+			folderViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 			switch (initialObjectType) {
 			case AADL_PACKAGE:
 				aadlPackageButton.setSelection(true);
@@ -445,8 +467,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			}
 		}
 
-		public IProject getSelectedProject() {
-			return (IProject) ((IStructuredSelection) projectViewer.getSelection()).getFirstElement();
+		public IContainer getSelectedProjectOrFolder() {
+			return (IContainer) ((IStructuredSelection) folderViewer.getSelection()).getFirstElement();
 		}
 
 		public String getNewObjectName() {
