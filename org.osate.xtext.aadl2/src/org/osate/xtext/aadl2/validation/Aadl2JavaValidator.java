@@ -446,9 +446,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupType(FeatureGroupType featureGroupType) {
+		checkEndId(featureGroupType);
+		if (hasExtendCycles(featureGroupType))
+			return;
 		checkForChainedInverseFeatureGroupTypes(featureGroupType);
 		checkFeatureGroupTypeUniqueNames(featureGroupType);
-		checkEndId(featureGroupType);
 		checkClassifierReferenceInWith(featureGroupType.getInverse(), featureGroupType);
 		checkFeaturesInInverseFeatureGroupType(featureGroupType);
 	}
@@ -1930,7 +1932,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	public void checkExtendCycles(Classifier cl) {
 		if (hasExtendCycles(cl)) {
-			error(cl, "The extends hierarchy of " + cl.getName() + " has a cycle.");
+			Generalization extension;
+			if (cl instanceof ComponentType) {
+				extension = ((ComponentType) cl).getOwnedExtension();
+			} else if (cl instanceof ComponentImplementation) {
+				extension = ((ComponentImplementation) cl).getOwnedExtension();
+			} else {
+				extension = ((FeatureGroupType) cl).getOwnedExtension();
+			}
+			error(extension, "The extends hierarchy of " + cl.getName() + " has a cycle.");
 		}
 	}
 
@@ -3855,6 +3865,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					+ "contains an 'inverse of' declaration.", featureGroupType, null,
 					CHAINED_INVERSE_FEATURE_GROUP_TYPES);
 		}
+	}
+
+	private boolean isCircularExtension(FeatureGroupType featureGroupType) {
+		if (null != featureGroupType.getExtended()) {
+			FeatureGroupType extended = featureGroupType.getExtended();
+			List<FeatureGroupType> featureGroupTypes = new ArrayList<FeatureGroupType>();
+			while (extended != null) {
+				if (extended.equals(featureGroupType) || featureGroupTypes.contains(extended)) {
+					error(featureGroupType.getOwnedExtension(), "Feature Group extension has circular dependency.");
+					extended = null;
+					return true;
+				}
+				featureGroupTypes.add(extended);
+				extended = extended.getExtended();
+			}
+		}
+		return false;
 	}
 
 	private List<Feature> sortFeaturesByOffset(List<Feature> features) {
