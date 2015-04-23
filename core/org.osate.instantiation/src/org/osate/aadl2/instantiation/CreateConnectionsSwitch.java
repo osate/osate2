@@ -74,6 +74,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
@@ -82,6 +83,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.Subcomponent;
@@ -484,6 +486,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			connInfo.complete = true;
 			finalizeConnectionInstance(ci.getSystemInstance(), connInfo,
 					ci.findSubcomponentInstance((Subcomponent) toEnd));
+		} else if (toEnd instanceof InternalFeature || toEnd instanceof ProcessorFeature) {
+			// can't handle these
+			// FIXME: What if a connection from outside goes to one of these?
+			warning(ci, "Connection to " + toEnd.getQualifiedName() + " could not be instantiated.");
 		} else {
 			Feature toFeature = (Feature) toEnd;
 
