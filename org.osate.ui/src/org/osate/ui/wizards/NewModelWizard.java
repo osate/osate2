@@ -373,8 +373,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 
 			Label folderViewerLabel = new Label(composite, SWT.NONE);
 			folderViewerLabel.setText("Create in project/folder:");
-			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 			folderViewer = new TreeViewer(composite, SWT.BORDER);
+			folderViewer.getTree().setLayoutData(layoutData);
 			folderViewer.setLabelProvider(WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider());
 			folderViewer.setContentProvider(new WorkbenchContentProvider() {
 				@Override
@@ -432,7 +432,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			boolean selectedProjectInList = false;
 			TreeItem[] treeItems = folderViewer.getTree().getItems();
 			for (int i = 0; i < treeItems.length; i++) {
-				if (treeItems[i].equals(project)) {
+				if (treeItems[i].getData().equals(project)) {
 					selectedProjectInList = true;
 					break;
 				}
@@ -440,7 +440,7 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			if ((project != null) && selectedProjectInList) {
 				folderViewer.setSelection(new StructuredSelection(project), true);
 			} else {
-				folderViewer.getTree().select(folderViewer.getTree().getTopItem());
+				folderViewer.getTree().select(treeItems[0]);
 			}
 			folderViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 			switch (initialObjectType) {
