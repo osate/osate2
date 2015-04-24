@@ -659,6 +659,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Check(CheckType.FAST)
+	public void caseNamedElement(NamedElement ne) {
+		checkForDuplicatePropertyAssociations(ne);
+	}
+
+	@Check(CheckType.FAST)
 	public void caseAadlinteger(final AadlInteger ai) {
 		checkAadlinteger(ai);
 	}
@@ -666,6 +671,75 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseModeTransitionTrigger(ModeTransitionTrigger trigger) {
 		typeCheckModeTransitionTrigger(trigger);
+	}
+
+	public void checkForDuplicatePropertyAssociations(NamedElement ne) {
+		class Holder {
+			String appliesTo;
+			Property property;
+			PropertyAssociation propertyAssociation;
+
+			Holder(String appliesTo, Property property, PropertyAssociation propertyAssociation) {
+				this.appliesTo = appliesTo;
+				this.property = property;
+				this.propertyAssociation = propertyAssociation;
+			}
+
+			@Override
+			public boolean equals(Object arg0) {
+				return (null != arg0 && arg0 instanceof Holder && appliesTo.equals(((Holder) arg0).appliesTo) && property
+						.equals(((Holder) arg0).property));
+			}
+		}
+
+		List<PropertyAssociation> propertyAssociations = ne.getOwnedPropertyAssociations();
+		List<Holder> holderList = new ArrayList<Holder>();
+		for (PropertyAssociation propertyAssoc : propertyAssociations) {
+			Property property = propertyAssoc.getProperty();
+			List<ContainedNamedElement> appliesTos = propertyAssoc.getAppliesTos();
+			if (null == appliesTos || appliesTos.isEmpty()) {
+				String appliesToString = ne.getName();
+				holderList.add(new Holder(appliesToString, property, propertyAssoc));
+			} else {
+				for (ContainedNamedElement appliesTo : appliesTos) {
+					String appliesToString = buildAppliesToString(appliesTo);
+					holderList.add(new Holder(appliesToString, property, propertyAssoc));
+				}
+			}
+		}
+
+		Holder[] holders = new Holder[holderList.size()];
+		holderList.toArray(holders);
+		List<Integer> arrayNumbers = new ArrayList<Integer>();
+
+		for (int i = 0; i < holders.length; i++) {
+			for (int j = 0; j < holders.length; j++) {
+				if (i != j && holders[i].equals(holders[j]) && !arrayNumbers.contains(i)) {
+					arrayNumbers.add(i);
+				}
+			}
+		}
+
+		for (Integer arrayNumber : arrayNumbers) {
+			StringBuilder errorMessage = new StringBuilder();
+			errorMessage.append("Duplicate value assignments to property ");
+			errorMessage.append(holders[arrayNumber].property.getName());
+			error(holders[arrayNumber].propertyAssociation, errorMessage.toString());
+		}
+	}
+
+	private String buildAppliesToString(ContainedNamedElement cne) {
+		List<ContainmentPathElement> cpes = cne.getContainmentPathElements();
+		StringBuilder result = new StringBuilder();
+		int i = 0;
+		for (ContainmentPathElement cpe : cpes) {
+			if (i > 0) {
+				result.append(".");
+			}
+			result.append(cpe.getNamedElement().getName());
+			i++;
+		}
+		return result.toString();
 	}
 
 	public void checkModalElementMissingModeValues(ModalElement modalElement) {
@@ -7395,5 +7469,4 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		((Feature) element).setRefined((Feature) duplicated);
 		java.lang.System.out.println(((Feature) element).getRefined());
 	}
-
 }
