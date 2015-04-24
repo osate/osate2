@@ -172,6 +172,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseSubcomponent(Subcomponent subcomponent) {
+		checkForCyclicDeclarations(subcomponent);
 		checkSubcomponentCategory(subcomponent);
 		checkSubcomponentRefinementCategory(subcomponent);
 		checkSubcomponentRefinementClassifierSubstitution(subcomponent);
@@ -270,7 +271,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseDataImplementation(DataImplementation dataImplementation) {
 		checkForInheritedFlowsAndModesFromAbstractImplementation(dataImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
@@ -671,6 +671,50 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseModeTransitionTrigger(ModeTransitionTrigger trigger) {
 		typeCheckModeTransitionTrigger(trigger);
+	}
+
+	public void checkForCyclicDeclarations(Subcomponent subcomponent) {
+		SubcomponentType subcomponentType = subcomponent.getSubcomponentType();
+		Classifier containingClassifier = subcomponent.getContainingClassifier();
+
+		if (subcomponentType.equals(containingClassifier)) {
+			error(subcomponent, "The type of subcomponent '" + subcomponent.getName()
+					+ "' cannot be the object that contains it");
+		} else {
+			Classifier typeClassifier = subcomponentType.getContainingClassifier();
+			if (isSubcomponentCircularDependency(subcomponentType, containingClassifier, new ArrayList<Classifier>())) {
+				error(subcomponent, "Invalid circular dependency. Subcomponent '" + subcomponent.getName()
+						+ "' directly or indirectly contains '" + containingClassifier.getName() + "'.");
+			}
+		}
+	}
+
+	private boolean isSubcomponentCircularDependency(SubcomponentType subcomponentType,
+			Classifier startContainingClassifier, List<Classifier> previouslyVisitedClassifiers) {
+		Classifier typeClassifier = subcomponentType.getContainingClassifier();
+		if (typeClassifier == null)
+			return false;
+		if (previouslyVisitedClassifiers.contains(typeClassifier)) {
+			return true;
+		} else {
+			previouslyVisitedClassifiers.add(typeClassifier);
+		}
+		if (typeClassifier instanceof ComponentImplementation) {
+			List<Subcomponent> otherSubComponents = ((ComponentImplementation) typeClassifier).getAllSubcomponents();
+			if (otherSubComponents.isEmpty())
+				return false;
+			for (Subcomponent otherSubc : otherSubComponents) {
+				if (otherSubc.getSubcomponentType().equals(startContainingClassifier)) {
+					return true;
+				} else {
+					if (isSubcomponentCircularDependency(otherSubc.getSubcomponentType(), startContainingClassifier,
+							previouslyVisitedClassifiers)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	public void checkForDuplicatePropertyAssociations(NamedElement ne) {
