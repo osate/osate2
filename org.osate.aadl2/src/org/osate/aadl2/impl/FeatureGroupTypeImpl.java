@@ -75,7 +75,6 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.Activator;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
@@ -1188,34 +1187,45 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	@Override
 	public EList<Feature> getAllFeatures() {
-		EList<Feature> local = getOwnedFeatures();
-		FeatureGroupType curPGT = this;
-		FeatureGroupType inversepgt = getInverse();
-		if (local.isEmpty() && !Aadl2Util.isNull(inversepgt)) {
-			local = inversepgt.getOwnedFeatures();
-			curPGT = inversepgt;
-		}
-		EList<Feature> result;
-		FeatureGroupType parentPGT = curPGT.getExtended();
-		// feature group types cannot be extensions of inverse feature group
-		// types
-		if (parentPGT != null) {
-			result = parentPGT.getAllFeatures();
-
-			for (Iterator<Feature> i = local.iterator(); i.hasNext();) {
-				Feature fe = i.next();
-				Feature rfe = fe.getRefined();
-				if (rfe != null) {
-					if (!result.remove(rfe)) {
-						Activator.internalError("Inconsistent refines reference " + rfe.getName());
+		final EList<Classifier> ancestors = getSelfPlusAllExtendedInverse();
+		final BasicEList<Feature> returnlist = new BasicEList<Feature>();
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final FeatureGroupType current = (FeatureGroupType) li.previous();
+			final EList<Feature> currentFeatures = current.getOwnedFeatures();
+			if (currentFeatures != null) {
+				for (Iterator<Feature> i = currentFeatures.iterator(); i.hasNext();) {
+					final Feature fe = i.next();
+					final Feature rfe = fe.getRefined();
+					if (rfe != null) {
+						returnlist.remove(rfe);
 					}
+					returnlist.add(fe);
 				}
-				result.add(fe);
 			}
-		} else {
-			result = new BasicEList<Feature>();
-			result.addAll(local);
 		}
+		return returnlist;
+	}
+
+	public EList<Classifier> getSelfPlusAllExtendedInverse() {
+		final EList<Classifier> result = new BasicEList<Classifier>();
+
+		FeatureGroupType current = this;
+		FeatureGroupType inverseFGT = current.getInverse();
+		if (current.getOwnedFeatures().isEmpty() && !Aadl2Util.isNull(inverseFGT)) {
+			current = inverseFGT;
+		}
+
+		do {
+			result.add(current);
+			current = current.getExtended();
+			if (current != null) {
+				inverseFGT = current.getInverse();
+				if (current.getOwnedFeatures().isEmpty() && !Aadl2Util.isNull(inverseFGT)) {
+					current = inverseFGT;
+				}
+			}
+		} while (current != null && !result.contains(current));
 		return result;
 	}
 
