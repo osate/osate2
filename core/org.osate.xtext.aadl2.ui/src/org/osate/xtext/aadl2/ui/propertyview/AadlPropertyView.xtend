@@ -332,7 +332,7 @@ class AadlPropertyView extends ViewPart {
 			patternFilter.setPattern("org.eclipse.ui.keys.optimization.false")
 			
 			val treeColumnLayout = new TreeColumnLayout
-			val filteredTree = new FilteredTree(it, SWT.BORDER, patternFilter, true) {
+			val filteredTree = new FilteredTree(it, SWT.BORDER.bitwiseOr(SWT.FULL_SELECTION), patternFilter, true) {
 				override doCreateTreeViewer(Composite parent, int style) {
 					val c = super.doCreateTreeViewer(parent, style)
 					c.getControl().setLayoutData(null)
