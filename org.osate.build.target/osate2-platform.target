@@ -37,7 +37,7 @@
 </location>
 <!-- certware and dependencies -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="net.certware.feature.sacm.feature.group" version="1.0.0.201408141746"/>
+<unit id="net.certware.feature.sacm.feature.group" version="1.1.0.201504241042"/>
 <repository location="http://updatesite.certware.net"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
