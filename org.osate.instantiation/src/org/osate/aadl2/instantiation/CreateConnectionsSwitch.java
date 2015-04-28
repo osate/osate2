@@ -564,7 +564,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						// if we do toFeature may point to the feature group
 						// rather than the feature of the feature group
 						// How does finalize handle such a feature group?
-						finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+						if (ci instanceof SystemInstance) {
+							finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+						} else {
+							error(toFi, "Could not continue connection from " + connInfo.src.getInstanceObjectPath()
+									+ "  through " + toFi.getInstanceObjectPath()
+									+ ". No connection instance created.");
+						}
 					} else {
 						if (!conns.isEmpty()) {
 							for (Connection nextConn : conns) {
