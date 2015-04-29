@@ -151,7 +151,7 @@ public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 		Menu contextMenu = menuManager.createContextMenu(control);
 		control.setMenu(contextMenu);
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		IWorkbenchPartSite site = window.getActivePage().getActiveEditor().getSite();
+		IWorkbenchPartSite site = window.getActivePage().getActivePart().getSite();
 		site.registerContextMenu(CONTEXTMENUID, menuManager, site.getSelectionProvider());
 	}
 
