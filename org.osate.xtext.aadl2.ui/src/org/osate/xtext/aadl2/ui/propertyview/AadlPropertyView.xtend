@@ -70,6 +70,7 @@ import org.eclipse.jface.viewers.IPostSelectionProvider
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.ISelectionChangedListener
 import org.eclipse.jface.viewers.IStructuredSelection
+import org.eclipse.jface.viewers.ITreeContentProvider
 import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
@@ -135,7 +136,6 @@ import static extension com.google.common.io.CharStreams.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
-import org.eclipse.jface.viewers.ITreeContentProvider
 
 /**
  * View that displays the AADL property value associations within a given AADL
