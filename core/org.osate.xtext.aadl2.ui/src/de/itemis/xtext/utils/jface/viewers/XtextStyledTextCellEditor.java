@@ -11,6 +11,7 @@
  */
 package de.itemis.xtext.utils.jface.viewers;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.text.ITextListener;
@@ -62,23 +63,26 @@ public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 	private StyledTextXtextAdapter xtextAdapter;
 	private IXtextFakeContextResourcesProvider contextFakeResourceProvider;
 	private IContextElementProvider provider;
+	private final IProject project;
 	private final static String CONTEXTMENUID = "de.itemis.xtext.utils.jface.viewers.StyledTextXtextAdapterContextMenu";
 
 	public XtextStyledTextCellEditor(int style, Injector injector,
-			IXtextFakeContextResourcesProvider contextFakeResourceProvider) {
-		this(style, injector);
+			IXtextFakeContextResourcesProvider contextFakeResourceProvider, IProject project) {
+		this(style, injector, project);
 		this.contextFakeResourceProvider = contextFakeResourceProvider;
 	}
 
-	public XtextStyledTextCellEditor(int style, Injector injector) {
+	public XtextStyledTextCellEditor(int style, Injector injector, IProject project) {
 		setStyle(style);
 		this.injector = injector;
+		this.project = project;
 	}
 
-	public XtextStyledTextCellEditor(int style, Injector injector, IContextElementProvider provider) {
+	public XtextStyledTextCellEditor(int style, Injector injector, IContextElementProvider provider, IProject project) {
 		setStyle(style);
 		this.provider = provider;
 		this.injector = injector;
+		this.project = project;
 	}
 
 	/**
@@ -98,7 +102,7 @@ public class XtextStyledTextCellEditor extends StyledTextCellEditor {
 		// adapt to xtext
 		xtextAdapter = new StyledTextXtextAdapter(injector,
 				contextFakeResourceProvider == null ? IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER
-						: contextFakeResourceProvider);
+						: contextFakeResourceProvider, project);
 		xtextAdapter.adapt(styledText);
 		if (provider != null) {
 			xtextAdapter.getFakeResourceContext().getFakeResource().eAdapters()
