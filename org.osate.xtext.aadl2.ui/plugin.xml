@@ -77,6 +77,12 @@
             name="Templates">
             <keywordReference id="org.osate.xtext.aadl2.ui.keyword_Aadl2"/>
         </page>
+        <page
+              category="org.osate.xtext.aadl2.Aadl2"
+              class="org.osate.xtext.aadl2.ui.preferences.Aadl2AutoIndentPreferencePage"
+              id="org.osate.xtext.aadl2.ui.preferences.Aadl2AutoIndentPreferencePage"
+              name="Autoindent">
+        </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">
@@ -541,5 +547,11 @@
              Shows all the AADL property associations for the selected AADL element.
           </description>
        </view>
+    </extension>
+    <extension
+          point="org.eclipse.core.runtime.preferences">
+       <initializer
+             class="org.osate.xtext.aadl2.ui.preferences.PreferenceInitializer">
+       </initializer>
     </extension>
 </plugin>
