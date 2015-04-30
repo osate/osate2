@@ -678,14 +678,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	public void checkForCyclicDeclarations(Subcomponent subcomponent) {
-		SubcomponentType subcomponentType = subcomponent.getSubcomponentType();
+		ComponentClassifier subcomponentType = subcomponent.getClassifier();
 		Classifier containingClassifier = subcomponent.getContainingClassifier();
-
+		if (subcomponentType == null)
+			return;
 		if (subcomponentType.equals(containingClassifier)) {
 			error(subcomponent, "The type of subcomponent '" + subcomponent.getName()
 					+ "' cannot be the object that contains it");
 		} else {
-			Classifier typeClassifier = subcomponentType.getContainingClassifier();
 			if (isSubcomponentCircularDependency(subcomponentType, containingClassifier, new ArrayList<Classifier>())) {
 				error(subcomponent, "Invalid circular dependency. Subcomponent '" + subcomponent.getName()
 						+ "' directly or indirectly contains '" + containingClassifier.getName() + "'.");
@@ -693,27 +693,28 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	private boolean isSubcomponentCircularDependency(SubcomponentType subcomponentType,
+	private boolean isSubcomponentCircularDependency(ComponentClassifier subcomponentType,
 			Classifier startContainingClassifier, List<Classifier> previouslyVisitedClassifiers) {
-		Classifier typeClassifier = subcomponentType.getContainingClassifier();
-		if (typeClassifier == null)
+		if (subcomponentType == null)
 			return false;
-		if (previouslyVisitedClassifiers.contains(typeClassifier)) {
+		if (previouslyVisitedClassifiers.contains(subcomponentType)) {
 			return true;
 		} else {
-			previouslyVisitedClassifiers.add(typeClassifier);
+			previouslyVisitedClassifiers.add(subcomponentType);
 		}
-		if (typeClassifier instanceof ComponentImplementation) {
-			List<Subcomponent> otherSubComponents = ((ComponentImplementation) typeClassifier).getAllSubcomponents();
+		if (subcomponentType instanceof ComponentImplementation) {
+			List<Subcomponent> otherSubComponents = ((ComponentImplementation) subcomponentType).getAllSubcomponents();
 			if (otherSubComponents.isEmpty())
 				return false;
 			for (Subcomponent otherSubc : otherSubComponents) {
-				if (otherSubc.getSubcomponentType().equals(startContainingClassifier)) {
-					return true;
-				} else {
-					if (isSubcomponentCircularDependency(otherSubc.getSubcomponentType(), startContainingClassifier,
-							previouslyVisitedClassifiers)) {
+				if (otherSubc.getClassifier() != null) {
+					if (otherSubc.getClassifier().equals(startContainingClassifier)) {
 						return true;
+					} else {
+						if (isSubcomponentCircularDependency(otherSubc.getClassifier(), startContainingClassifier,
+								previouslyVisitedClassifiers)) {
+							return true;
+						}
 					}
 				}
 			}
@@ -762,8 +763,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		for (int i = 0; i < holders.length; i++) {
 			for (int j = 0; j < holders.length; j++) {
-				if (i != j && holders[i].equals(holders[j]) && !arrayNumbers.contains(i)) {
-					arrayNumbers.add(i);
+				if (holders[i].appliesTo != null && holders[i].appliesTo.length() > 0) {
+					if (i != j && holders[i].equals(holders[j]) && !arrayNumbers.contains(i)) {
+						arrayNumbers.add(i);
+					}
 				}
 			}
 		}
@@ -781,6 +784,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		StringBuilder result = new StringBuilder();
 		int i = 0;
 		for (ContainmentPathElement cpe : cpes) {
+			if (!cpe.getArrayRanges().isEmpty()) {
+				return "";
+			}
 			if (i > 0) {
 				result.append(".");
 			}
