@@ -273,18 +273,16 @@ public enum DirectionType implements Enumerator {
 	 * DirectionType is OUT or IN_OUT
 	 * @return boolean true if OUT or IN_OUT
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public boolean outgoing() {
-		return this == OUT || this == IN_OUT;
+		return this != IN;
 	}
 
 	/**
 	 * DirectionType is IN or IN_OUT
 	 * @return boolean true if IN or IN_OUT
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public boolean incoming() {
-		return this == IN || this == IN_OUT;
+		return this != OUT;
 	}
 
 	/**
