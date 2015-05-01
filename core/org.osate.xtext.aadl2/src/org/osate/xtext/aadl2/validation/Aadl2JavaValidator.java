@@ -704,8 +704,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (subcomponentType instanceof ComponentImplementation) {
 			List<Subcomponent> otherSubComponents = ((ComponentImplementation) subcomponentType).getAllSubcomponents();
-			if (otherSubComponents.isEmpty())
-				return false;
 			for (Subcomponent otherSubc : otherSubComponents) {
 				if (otherSubc.getClassifier() != null) {
 					if (otherSubc.getClassifier().equals(startContainingClassifier)) {
@@ -718,6 +716,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 			}
+			previouslyVisitedClassifiers.remove(subcomponentType);
 		}
 		return false;
 	}
