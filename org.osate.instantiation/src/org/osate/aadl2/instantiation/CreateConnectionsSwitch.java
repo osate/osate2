@@ -503,9 +503,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, dstFi);
 				}
-			} else
-
-			if (finalComponent && toEnd instanceof FeatureGroup) {
+			} else 	if (finalComponent && toEnd instanceof FeatureGroup) {
 				// connection ends at a feature that is contained in a feature
 				// group
 				// of a thread, device, or (virtual) processor
@@ -516,9 +514,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, dstFi);
 				}
-			} else
-
-			if (dstEmpty) {
+			} else 	if (dstEmpty) {
 				// connection ends because the destination component does not
 				// contain any subcomponents
 				FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
@@ -528,11 +524,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					connInfo.complete = true;
 					finalizeConnectionInstance(ci, connInfo, dstFi);
 				}
-			} else
-
-			// the connection may have more segments
-
-			if (!(toCtx instanceof Subcomponent)) {
+			} else 	if (!(toCtx instanceof Subcomponent)) {
+				// the connection may have more segments
 				// going up hierarchy, connection goes to a feature in the
 				// component
 				// implementation
@@ -557,52 +550,46 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							.getAllConnections();
 					List<Connection> conns = filterOutgoingConnections(parentConns, toFeature, ci.getSubcomponent());
 
-					if (conns.isEmpty() && !didModeTransitionConnection) {
-
-						// TODO phf: we should not create the instance while we
-						// are only outgoing
-						// if we do toFeature may point to the feature group
-						// rather than the feature of the feature group
-						// How does finalize handle such a feature group?
-						if (ci instanceof SystemInstance) {
-							finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
-						} else {
-							error(toFi, "Could not continue connection from " + connInfo.src.getInstanceObjectPath()
-									+ "  through " + toFi.getInstanceObjectPath()
-									+ ". No connection instance created.");
+					if (conns.isEmpty()) {
+						if (!didModeTransitionConnection) {
+							if (ci instanceof SystemInstance) {
+								finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+							} else {
+								error(toFi,
+										"Could not continue connection from " + connInfo.src.getInstanceObjectPath()
+												+ "  through " + toFi.getInstanceObjectPath()
+												+ ". No connection instance created.");
+							}
 						}
 					} else {
-						if (!conns.isEmpty()) {
-							for (Connection nextConn : conns) {
-								// note: nextConn goes either up or across
-								final ConnectionInfo clone = connInfo.cloneInfo();
-								boolean opposite = false;
+						for (Connection nextConn : conns) {
+							// note: nextConn goes either up or across
+							final ConnectionInfo clone = connInfo.cloneInfo();
+							boolean opposite = false;
 
-								if (nextConn.isBidirectional()) {
-									ConnectionEnd nextDst = nextConn.getAllDestination();
+							if (nextConn.isBidirectional()) {
+								ConnectionEnd nextDst = nextConn.getAllDestination();
 
-									if (nextDst instanceof Feature) {
-										Feature nextDstFeature = (Feature) nextDst;
-										FeatureInstance nextDstFi = nextCi.findFeatureInstance(nextDstFeature);
+								if (nextDst instanceof Feature) {
+									Feature nextDstFeature = (Feature) nextDst;
+									FeatureInstance nextDstFi = nextCi.findFeatureInstance(nextDstFeature);
 
-										if (nextDstFi == null) {
-											// next goes across
-											Context nextDstCtx = nextConn.getAllDestinationContext();
+									if (nextDstFi == null) {
+										// next goes across
+										Context nextDstCtx = nextConn.getAllDestinationContext();
 
-											if (nextDstCtx instanceof Subcomponent) {
-												ComponentInstance nextDstSubi = nextCi
-														.findSubcomponentInstance((Subcomponent) nextDstCtx);
-												nextDstFi = nextDstSubi.findFeatureInstance(nextDstFeature);
-											}
-										}
-										if (nextDstFi != null) {
-											opposite = ci.findFeatureInstance(toFeature) == nextDstFi;
+										if (nextDstCtx instanceof Subcomponent) {
+											ComponentInstance nextDstSubi = nextCi
+													.findSubcomponentInstance((Subcomponent) nextDstCtx);
+											nextDstFi = nextDstSubi.findFeatureInstance(nextDstFeature);
 										}
 									}
+									if (nextDstFi != null) {
+										opposite = ci.findFeatureInstance(toFeature) == nextDstFi;
+									}
 								}
-
-								appendSegment(clone, nextConn, nextCi, opposite);
 							}
+							appendSegment(clone, nextConn, nextCi, opposite);
 						}
 					}
 				}
