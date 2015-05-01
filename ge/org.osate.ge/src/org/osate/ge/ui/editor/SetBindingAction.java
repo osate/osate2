@@ -436,7 +436,7 @@ public class SetBindingAction extends SelectionAction {
 					cc.setNoProperties(false);
 					cc.getOwnedPropertyAssociations().add(newPa);
 
-					diagramMod.markRelatedDiagramsAsDirty(cc);
+					diagramMod.markOpenRelatedDiagramsAsDirty(cc);
 
 					return null;
 				}

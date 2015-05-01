@@ -8,9 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
-import java.util.List;
-
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 
@@ -21,29 +18,24 @@ import org.osate.aadl2.NamedElement;
  */
 public interface DiagramModificationService {
 	public interface Modification
-	{
+	{				
 		/**
-		 * Returns the list of all diagrams of which the modification service/modification is aware.
-		 * @return
-		 */
-		List<Diagram> getDiagrams();
-		
-		/**
-		 * Mark diagram as dirty.
-		 */
-		void markDiagramAsDirty(Diagram diagram);
-		
-		/**
-		 * Marks all diagrams that could be effected by a change to the specified classifier as dirty.
+		 * Marks all open diagrams that could be effected by a change to the specified classifier as dirty.
 		 * @param c
 		 */
-		void markRelatedDiagramsAsDirty(Classifier c);
+		void markOpenRelatedDiagramsAsDirty(Classifier c);
 		
 		/**
 		 * Marks linkages in all diagrams to the specified element as dirty.
 		 * @param el
 		 */
 		void markLinkagesAsDirty(NamedElement el);		
+		
+		/**
+		 * The same as markLinkagesAsDirty but only affects open diagrams.
+		 * @param c
+		 */
+		void markOpenLinkagesAsDirty(NamedElement el);
 		
 		/**
     	 * Makes the actual changes to the diagrams.

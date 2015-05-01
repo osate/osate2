@@ -411,7 +411,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 				
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			diagramMod.markRelatedDiagramsAsDirty(bi);
+	 			diagramMod.markOpenRelatedDiagramsAsDirty(bi);
 	 			
 	 			// Create an initial call. Needed because call sequences must have at least one call
 	 			final SubprogramCall newSubprogramCall = cs.createOwnedSubprogramCall();
@@ -517,7 +517,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
    	 			diagramMod = diagramModService.startModification();
    	 			final SubprogramCallSequence cs = (SubprogramCallSequence)sc.eContainer();
    	 			final Classifier classifier = cs.getContainingClassifier();
-   	 			diagramMod.markRelatedDiagramsAsDirty(classifier);	 			
+   	 			diagramMod.markOpenRelatedDiagramsAsDirty(classifier);	 			
    	 			
    				// Just remove the subprogram call. In the future it would be helpful to offer options for refactoring the model so that it does not
    				// cause errors.

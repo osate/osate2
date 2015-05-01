@@ -124,7 +124,7 @@ public class SetModeTransitionTriggersFeature extends AbstractCustomFeature {
 		 			diagramMod = diagramModService.startModification();	 			
 		 			
 		 			// Mark other diagrams for updating
-		 			diagramMod.markRelatedDiagramsAsDirty(mt.getContainingClassifier());
+		 			diagramMod.markOpenRelatedDiagramsAsDirty(mt.getContainingClassifier());
 
 		 			// Remove all trigger port triggers from the mode transition
 					mt.getOwnedTriggers().clear();

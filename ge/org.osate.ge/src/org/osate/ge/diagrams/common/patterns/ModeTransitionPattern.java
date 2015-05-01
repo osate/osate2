@@ -515,7 +515,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 					
 					// Handle diagram updates
 		 			diagramMod = diagramModService.startModification();
-		 			diagramMod.markRelatedDiagramsAsDirty(cc);
+		 			diagramMod.markOpenRelatedDiagramsAsDirty(cc);
 				
 					// Set the name
 		 			newModeTransition.setName(newElementName);
@@ -583,7 +583,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	 			diagramMod = diagramModService.startModification();	 			
 	 			
 	 			// Mark other diagrams for updating
- 				diagramMod.markRelatedDiagramsAsDirty(mt.getContainingClassifier());
+ 				diagramMod.markOpenRelatedDiagramsAsDirty(mt.getContainingClassifier());
 
 	 			EcoreUtil.remove(mt);
 				

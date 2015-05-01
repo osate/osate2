@@ -918,7 +918,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			public Subcomponent modify(final Resource resource, final ComponentImplementation ci) {
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			diagramMod.markRelatedDiagramsAsDirty(ci);
+	 			diagramMod.markOpenRelatedDiagramsAsDirty(ci);
 
 				final String name = namingService.buildUniqueIdentifier(ci, "new_subcomponent");
 				final Subcomponent sc = createSubcomponent(ci, subcomponentType);
@@ -1005,7 +1005,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			public Object modify(final Resource resource, final Subcomponent sc) {
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			diagramMod.markRelatedDiagramsAsDirty(getComponentImplementation((Shape)context.getPictogramElement()));
+	 			diagramMod.markOpenRelatedDiagramsAsDirty(getComponentImplementation((Shape)context.getPictogramElement()));
 	 			
 				// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.

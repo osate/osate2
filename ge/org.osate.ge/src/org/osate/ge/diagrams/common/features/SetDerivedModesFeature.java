@@ -101,7 +101,7 @@ public class SetDerivedModesFeature extends AbstractCustomFeature {
      			diagramMod = diagramModService.startModification();
      			
 				cc.setDerivedModes(derivedModes);
-				diagramMod.markRelatedDiagramsAsDirty(cc);
+				diagramMod.markOpenRelatedDiagramsAsDirty(cc);
 
 				return null;
 			}

@@ -351,7 +351,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 				public Mode modify(final Resource resource, final ComponentClassifier classifier) {
 					// Handle diagram updates
 		 			diagramMod = diagramModService.startModification();
-		 			diagramMod.markRelatedDiagramsAsDirty(classifier);
+		 			diagramMod.markOpenRelatedDiagramsAsDirty(classifier);
 		 			
 					final Mode newMode = classifier.createOwnedMode();
 					newMode.setInitial(false);
@@ -396,7 +396,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
 	 			final Classifier classifier = mode.getContainingClassifier();
-	 			diagramMod.markRelatedDiagramsAsDirty(classifier);	 			
+	 			diagramMod.markOpenRelatedDiagramsAsDirty(classifier);	 			
 	 			
 				// Just remove the mode. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.

@@ -172,7 +172,7 @@ public class SetDimensionsFeature extends AbstractCustomFeature {
 					}
 				}
 				
-				diagramMod.markRelatedDiagramsAsDirty(ae.getContainingClassifier());
+				diagramMod.markOpenRelatedDiagramsAsDirty(ae.getContainingClassifier());
 				
 				return null;
 			}

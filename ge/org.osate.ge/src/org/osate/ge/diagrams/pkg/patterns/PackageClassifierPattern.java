@@ -503,7 +503,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 			public Object modify(final Resource resource, final Classifier classifier) {
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			diagramMod.markRelatedDiagramsAsDirty(classifier);
+	 			diagramMod.markOpenRelatedDiagramsAsDirty(classifier);
 
 	 			// Just remove the classifier. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.

@@ -237,7 +237,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	 			diagramMod = diagramModService.startModification();	 			
 	 			
 	 			// Mark other diagrams for updating
- 				diagramMod.markRelatedDiagramsAsDirty(fs.getContainingClassifier());
+ 				diagramMod.markOpenRelatedDiagramsAsDirty(fs.getContainingClassifier());
 
 	 			EcoreUtil.remove(fs);
 				
@@ -344,7 +344,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
      			
      			ct.setNoFlows(false);
      			
-     			diagramMod.markRelatedDiagramsAsDirty(ct);
+     			diagramMod.markOpenRelatedDiagramsAsDirty(ct);
 
 				return fs;
 			}

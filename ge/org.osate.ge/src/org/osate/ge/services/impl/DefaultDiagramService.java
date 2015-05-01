@@ -54,44 +54,143 @@ import org.osate.ge.ui.util.SelectionHelper;
 import org.osate.ge.util.Log;
 
 public class DefaultDiagramService implements DiagramService {
+	private static class ClosedDiagramReference implements DiagramReference {
+		private final ResourceSet rs;
+		private final URI uri;
+		private Diagram diagram = null;
+		
+		public ClosedDiagramReference(final ResourceSet rs, final URI uri) {
+			this.rs = rs;
+			this.uri = uri;
+		}
+		
+		@Override
+		public boolean isOpen() {
+			return false;
+		}
+
+		@Override
+		public Diagram getDiagram() {
+			if(diagram == null) {
+				final Resource resource = rs.getResource(uri, true);
+				if(resource != null) {
+					for(final EObject obj : resource.getContents()) {
+						if(obj instanceof Diagram) {
+							diagram = (Diagram)obj;
+							break;		
+						}											
+					}
+				}
+			}
+			
+			return diagram;
+		}
+
+		@Override
+		public AgeDiagramEditor getEditor() {
+			return null;
+		}
+		
+	}
+	
+	
+	private static class OpenDiagramReference implements DiagramReference {
+		private final AgeDiagramEditor editor;
+		
+		public OpenDiagramReference(final AgeDiagramEditor editor) {
+			this.editor = editor;
+		}
+		
+		@Override
+		public boolean isOpen() {
+			return true;
+		}
+
+		@Override
+		public Diagram getDiagram() {
+			return editor.getDiagramBehavior().getDiagramTypeProvider().getDiagram();
+		}
+
+		@Override
+		public AgeDiagramEditor getEditor() {
+			return editor;
+		}
+	}
+		
 	@Override
-	public List<Diagram> findDiagramsByRootBusinessObject(final NamedElement ne) {
-		final List<Diagram> matchingDiagrams = new ArrayList<Diagram>();
+	public DiagramReference findFirstDiagramByRootBusinessObject(final NamedElement ne) {
 		final String aadlElementName = ne.getQualifiedName();
-		for(final Diagram diagram : findDiagrams()) {
-			// Create a feature provider and check if it is linked to the aadl element
-			final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-			if(featureProvider != null) {
-				final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
-				if(bo != null && bo instanceof NamedElement) {
-					if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
-						matchingDiagrams.add(diagram);
+		final List<DiagramReference> diagramRefs = findDiagrams();
+		
+		// Check open diagrams first
+		for(final DiagramReference diagramRef : diagramRefs) {
+			if(diagramRef.isOpen()) {
+				final IFeatureProvider featureProvider = diagramRef.getEditor().getDiagramTypeProvider().getFeatureProvider();
+				if(featureProvider != null) {
+					final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
+					if(bo != null && bo instanceof NamedElement) {
+						if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
+							return diagramRef;
+						}
 					}
 				}
 			}
 		}
 		
-		return matchingDiagrams;
+		// Check closed diagrams
+		for(final DiagramReference diagramRef : diagramRefs) {
+			if(!diagramRef.isOpen()) {
+				// Create a feature provider and check if it is linked to the aadl element
+				final Diagram diagram = diagramRef.getDiagram();
+				if(diagram != null) {
+					final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
+					if(featureProvider != null) {
+						final Object bo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagram));
+						if(bo != null && bo instanceof NamedElement) {
+							if(((NamedElement)bo).getQualifiedName().equalsIgnoreCase(aadlElementName)) {
+								return diagramRef;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return null;
 	}
 
 	@Override
 	public void openOrCreateDiagramForRootBusinessObject(final NamedElement element) {
-		// Look for an existing diagram
-		final List<Diagram> diagrams = findDiagramsByRootBusinessObject(element);
-		if(diagrams.size() == 0) {
+		if(!openExistingDiagramForRootBusinessObject(element)) {
 			// If a diagram can not be found, create a new diagram
 			Log.info("Existing diagram not found.");
-			
+				
 			// Create and open the new resource
 			final Resource diagramResource = createNewDiagram(element);
 			openEditor((Diagram)diagramResource.getContents().get(0));
-		} else {
-			// Open the first resource.
-			Log.info("Existing diagram found. Opening...");
-			openEditor((Diagram)diagrams.get(0));
 		}
 	}
 	
+	private boolean openExistingDiagramForRootBusinessObject(final NamedElement element) {
+		// Look for an existing diagram
+		final DiagramReference diagramRef = findFirstDiagramByRootBusinessObject(element);
+		if(diagramRef != null) {
+			if(diagramRef.isOpen()) {
+				Log.info("Existing diagram found. Activating existing editor...");
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(diagramRef.getEditor());
+				return true;
+			} else {
+				final Diagram diagram = diagramRef.getDiagram();
+				if(diagram != null) {
+					Log.info("Existing diagram found. Opening new editor...");
+					openEditor(diagram);
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 	/**
 	 * Opens a diagram editor for the specified resource.
 	 * @param resource the resource to edit. Must contain a diagram object.
@@ -224,8 +323,8 @@ public class DefaultDiagramService implements DiagramService {
 	 * @return
 	 */
 	@Override
-	public List<Diagram> findDiagrams() {
-		final List<Diagram> diagrams = new ArrayList<Diagram>();
+	public List<DiagramReference> findDiagrams() {
+		final List<DiagramReference> diagramRefs = new ArrayList<DiagramReference>();
 		final Map<URI, Diagram> openDiagrams = new HashMap<URI, Diagram>();		
 
 		for(final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences()) {
@@ -238,7 +337,7 @@ public class DefaultDiagramService implements DiagramService {
 					final Diagram diagram = behavior.getDiagramTypeProvider().getDiagram();
 					if(diagram != null) {
 						openDiagrams.put(diagram.eResource().getURI(), diagram);
-						diagrams.add(diagram);
+						diagramRefs.add(new OpenDiagramReference(diagramEditor));
 					}
 				}
 			}
@@ -252,21 +351,11 @@ public class DefaultDiagramService implements DiagramService {
 			
 			// Check if the diagram is already open
 			if(!openDiagrams.containsKey(uri)) {
-				// Open the diagram
-				final Resource resource = resourceSet.getResource(uri, true);
-				if(resource != null) {
-					for(final EObject obj : resource.getContents()) {
-						if(obj instanceof Diagram) {
-							// Add it to the list
-							final Diagram diagram = (Diagram)obj;
-							diagrams.add(diagram);			
-						}											
-					}
-				}				
+				diagramRefs.add(new ClosedDiagramReference(resourceSet, uri));		
 			}
 		}
 		
-		return diagrams;
+		return diagramRefs;
 	}
 	
 	/**

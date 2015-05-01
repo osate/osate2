@@ -114,7 +114,7 @@ public class SetInitialModeFeature extends AbstractCustomFeature {
 				}
 				
 				mode.setInitial(isInitial);			
-				diagramMod.markRelatedDiagramsAsDirty(mode.getContainingClassifier());
+				diagramMod.markOpenRelatedDiagramsAsDirty(mode.getContainingClassifier());
 
 				return null;
 			}

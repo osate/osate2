@@ -15,6 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.services.impl.DefaultDiagramService;
 import org.osate.ge.services.impl.SimpleServiceFactory;
+import org.osate.ge.ui.editor.AgeDiagramEditor;
 
 /**
  * Service for finding, opening, and creating diagrams. Registered as an Eclipse service.
@@ -26,11 +27,22 @@ public interface DiagramService {
 		public Factory() {
 			super(DiagramService.class, DefaultDiagramService.class);
 		}
-	}	
-
-	public List<Diagram> findDiagramsByRootBusinessObject(final NamedElement ne);
+	}
 	
-	public List<Diagram> findDiagrams();
+	public static interface DiagramReference {
+		boolean isOpen();
+		Diagram getDiagram();
+		
+		/**
+		 * Returns the currently open editor for the diagram.
+		 * @return the editor. Will be non-null if and only if isOpen() is true.
+		 */
+		AgeDiagramEditor getEditor();
+	}
+	
+	public DiagramReference findFirstDiagramByRootBusinessObject(final NamedElement ne);
+	
+	public List<DiagramReference> findDiagrams();
 	
 	/**
 	 * Opens the first found existing diagram for an element. If a diagram is not found, a diagram of the appropriate type is created.

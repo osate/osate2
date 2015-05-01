@@ -84,7 +84,7 @@ public class DefaultRefactoringService implements RefactoringService {
 	     			updateReferences(ne, resource.getResourceSet(), diagramMod);
 	     			
 	     			// Mark linkages to the element as dirty 			
-	     			diagramMod.markLinkagesAsDirty(ne);
+	     			diagramMod.markOpenLinkagesAsDirty(ne);
 	     			
 	     			// Set the element's name
 	    			ne.setName(newName); 			
@@ -245,7 +245,7 @@ public class DefaultRefactoringService implements RefactoringService {
 		// Mark linkages to refinements as dirty
 		if(feature instanceof Feature && obj instanceof Feature && ((Feature)obj).getRefined() == feature) {
 			final Feature refinee = (Feature)obj;			
-			diagramMod.markLinkagesAsDirty(refinee);
+			diagramMod.markOpenLinkagesAsDirty(refinee);
 			
 			// Set the refined element to null and then set it again to trigger the change 
 			refinee.setRefined(null);
@@ -300,7 +300,7 @@ public class DefaultRefactoringService implements RefactoringService {
 		if(obj instanceof org.osate.aadl2.Connection && ((org.osate.aadl2.Connection)obj).getRefined() == element) {
 			final org.osate.aadl2.Connection refinee = (org.osate.aadl2.Connection)obj;
 			
-			diagramMod.markLinkagesAsDirty(refinee);
+			diagramMod.markOpenLinkagesAsDirty(refinee);
 			
 			// Set the refined element to null and then set it again to trigger the change 
 			refinee.setRefined(null);
@@ -348,7 +348,7 @@ public class DefaultRefactoringService implements RefactoringService {
 		if(obj instanceof Subcomponent && ((Subcomponent)obj).getRefined() == element) {
 			final Subcomponent refinee = (Subcomponent)obj;
 			
-			diagramMod.markLinkagesAsDirty(refinee);
+			diagramMod.markOpenLinkagesAsDirty(refinee);
 			
 			// Set the refined element to null and then set it again to trigger the change 
 			refinee.setRefined(null);
@@ -425,8 +425,8 @@ public class DefaultRefactoringService implements RefactoringService {
 			if(ci.getName() != null) {
 				final String[] segs = ci.getName().split("\\.");
 				if(segs.length == 2) {
-					diagramMod.markLinkagesAsDirty(ci);
-					markLinkagesToOwnedMembersAsDirty(ci, diagramMod);
+					diagramMod.markOpenLinkagesAsDirty(ci);
+					markOpenLinkagesToOwnedMembersAsDirty(ci, diagramMod);
 					
 					// Set the name
 					ci.setName(classifier.getName() + "." + segs[1]);
@@ -456,6 +456,12 @@ public class DefaultRefactoringService implements RefactoringService {
 	private void markLinkagesToOwnedMembersAsDirty(final Namespace ns, final DiagramModificationService.Modification diagramMod) {
 		for(final NamedElement member : ns.getOwnedMembers()) {
 			diagramMod.markLinkagesAsDirty(member);
+		}				
+	}
+	
+	private void markOpenLinkagesToOwnedMembersAsDirty(final Namespace ns, final DiagramModificationService.Modification diagramMod) {
+		for(final NamedElement member : ns.getOwnedMembers()) {
+			diagramMod.markOpenLinkagesAsDirty(member);
 		}				
 	}
 }

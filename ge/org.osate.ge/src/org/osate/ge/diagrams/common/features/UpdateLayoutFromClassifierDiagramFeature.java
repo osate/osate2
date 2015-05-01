@@ -38,6 +38,7 @@ import org.osate.ge.services.DiagramService;
 import org.osate.ge.services.PropertyService;
 import org.osate.ge.services.ShapeService;
 import org.osate.ge.services.SubcomponentService;
+import org.osate.ge.services.DiagramService.DiagramReference;
 
 /**
  * Updates a subcomponent shape to duplicate the layout of the classifier diagram associated with the subcomponent's classifier.
@@ -256,13 +257,13 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
 
 	private Diagram findSourceDiagram(final ComponentClassifier classifier) {
 		// Find all diagrams related to the subcomponent's classifier
-		final List<Diagram> diagrams = diagramService.findDiagramsByRootBusinessObject(classifier);
-		if(diagrams.size() == 0) {
+		final DiagramReference diagramRef = diagramService.findFirstDiagramByRootBusinessObject(classifier);
+		if(diagramRef == null) {
 			return null;
 		}
 
-		// Use the first diagram
-		return diagrams.get(0);
+		// Return the diagram from the diagram reference
+		return diagramRef.getDiagram();
 	}
 	
 	private Shape findRootShape(final Diagram diagram, final ComponentClassifier classifier) {	

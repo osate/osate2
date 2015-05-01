@@ -186,7 +186,7 @@ public class CreateSimpleFlowSpecificationFeature extends AbstractCustomFeature 
      			// Clear the no flows flag
      			ct.setNoFlows(false);
      			
-				diagramMod.markRelatedDiagramsAsDirty(ct);
+				diagramMod.markOpenRelatedDiagramsAsDirty(ct);
 
 				return null;
 			}

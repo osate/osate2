@@ -167,6 +167,10 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}	
 	};
 
+	public void updateDiagramWhenVisible() {
+		update();
+	}
+	
 	private void update() {
 		final Runnable updateDiagramRunnable = new Runnable() {
 			private boolean updateQueued = false;

@@ -250,7 +250,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 						if(result != null) {
 							// Handle diagram updates
 				 			diagramMod = diagramModService.startModification();
-				 			diagramMod.markLinkagesAsDirty(srcEl);
+				 			diagramMod.markOpenLinkagesAsDirty(srcEl);
 						}
 						return result;
 					}
@@ -305,7 +305,7 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	 			diagramMod = diagramModService.startModification();
 	 			final Classifier classifier = generalization.getContainingClassifier();
 	 			if(classifier != null) {
-	 				diagramMod.markLinkagesAsDirty(classifier);
+	 				diagramMod.markOpenLinkagesAsDirty(classifier);
 	 			}
 	 			
 				EcoreUtil.delete(generalization);

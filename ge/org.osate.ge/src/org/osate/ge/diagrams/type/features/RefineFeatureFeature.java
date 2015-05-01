@@ -107,7 +107,7 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
 						((Access)newFeature).setKind(((Access)feature).getKind());
 					}
 					
-					diagramMod.markRelatedDiagramsAsDirty(featureOwner);	
+					diagramMod.markOpenRelatedDiagramsAsDirty(featureOwner);	
 					
 					return newFeature;
 				}

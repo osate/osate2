@@ -38,6 +38,7 @@ import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.DiagramService;
+import org.osate.ge.services.DiagramService.DiagramReference;
 import org.osate.ge.ui.util.GhostPurger;
 import org.osate.ge.util.Log;
 
@@ -63,12 +64,18 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 
 	class DefaultModification implements Modification {
 		private final Map<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<Diagram, Map<NamedElement, PictogramElement[]>>();
-		private final Set<Diagram> dirtyDiagrams = new HashSet<Diagram>();
-		private final List<Diagram> diagrams;
+		private final Set<DiagramReference> dirtyDiagramReferences = new HashSet<DiagramReference>();
+		private List<DiagramReference> diagramReferences = null;
 		
-		@Override
-		public List<Diagram> getDiagrams() {
-			return diagrams;
+		/**
+		 * Lazy initialize diagram list
+		 * @return
+		 */
+		private List<DiagramReference> getDiagramReferences() {
+			if(diagramReferences == null) {
+				diagramReferences = diagramService.findDiagrams();
+			}
+			return diagramReferences;
 		}
 		
 		private Map<NamedElement, PictogramElement[]> getDirtyLinkages(final Diagram diagram) {
@@ -83,16 +90,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	private void setDirtyLinkages(final Diagram diagram, final NamedElement el, PictogramElement[] pes) {
     		getDirtyLinkages(diagram).put(el, pes);
     	}
-    	
-    	public DefaultModification() {
-    		diagrams = diagramService.findDiagrams();
-    	}
-    	
-    	@Override
-    	public void markDiagramAsDirty(final Diagram diagram) {
-    		dirtyDiagrams.add(diagram);
-    	}
-    	    	
+    	    	    	
     	private List<Classifier> getSelfAndSpecificClassifiers(final Classifier c) {
     		final List<Classifier> results = new ArrayList<Classifier>();
 			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(c, c.eResource().getResourceSet())) {
@@ -122,26 +120,8 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     		return results;
     	}
     	
-    	/*
-    	private List<AadlElementWrapper> getRelevantElements(final List<Classifier> classifiers) {
-    		final List<AadlElementWrapper> results = new ArrayList<AadlElementWrapper>();
-    		for(final Classifier c : classifiers) {
-    			for(final Setting s : EcoreUtil.UsageCrossReferencer.find(c, c.eResource().getResourceSet())) {
-    				final EStructuralFeature sf = s.getEStructuralFeature();
-    				if(!sf.isDerived()) {
-    					final EObject obj = s.getEObject();
-    					if(obj instanceof FeatureGroup || obj instanceof Subcomponent) {
-    						results.add(new AadlElementWrapper((Element)obj));
-    					}
-    				}
-    			}
-    		}
-    		return results;
-    	}
-    	 */
-    	
     	@Override
-    	public void markRelatedDiagramsAsDirty(final Classifier c) {
+    	public void markOpenRelatedDiagramsAsDirty(final Classifier c) {
     		if(c != null) {
     			// Create a list of relevant classifiers by build a list that contains the specified classifiers and all classifiers "derived"(that extend or implement it).    			
     			// Make a relevant element list that contains all the AADL elements that reference classifiers in the relevant classifier list
@@ -152,29 +132,34 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     			final Set<AadlPackage> relevantPackages = getPackages(relevantClassifiers);
     			//final List<AadlElementWrapper> relevantElements = getRelevantElements(relevantClassifiers);
     			
-    			for(final Diagram tmpDiagram : getDiagrams()) {
-	    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
-	    			
-	    			boolean markDiagram = false;
-	    			
-	    			if(relevantClassifiers.contains(tmpDiagramBo) || relevantPackages.contains(tmpDiagramBo)) {
-	    				markDiagram = true;
-	    			} else {
-	    				// Only check if the diagram is linked to one of the relevant classifiers.
-	    				// Creating a feature provider for every diagram is expensive.
-	    				/*
-		    			final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(tmpDiagram);
-		    			for(final AadlElementWrapper relAadlElementWrapper : relevantElements) {
-		    				if(featureProvider.getPictogramElementForBusinessObject(relAadlElementWrapper) != null) {
-		    					markDiagram = true;
-		    				}
-		    			}
-		    			*/
-	    			}
-	    			
-	    			if(markDiagram) {
-	    				markDiagramAsDirty(tmpDiagram);
-	    			}
+    			for(final DiagramReference tmpDiagramReference : getDiagramReferences()) {
+    				if(tmpDiagramReference.isOpen()) {
+	    				final Diagram tmpDiagram = tmpDiagramReference.getDiagram();
+	    				if(tmpDiagram != null) {
+			    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
+			    			
+			    			boolean markDiagram = false;
+			    			
+			    			if(relevantClassifiers.contains(tmpDiagramBo) || relevantPackages.contains(tmpDiagramBo)) {
+			    				markDiagram = true;
+			    			} else {
+			    				// Only check if the diagram is linked to one of the relevant classifiers.
+			    				// Creating a feature provider for every diagram is expensive.
+			    				/*
+				    			final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(tmpDiagram);
+				    			for(final AadlElementWrapper relAadlElementWrapper : relevantElements) {
+				    				if(featureProvider.getPictogramElementForBusinessObject(relAadlElementWrapper) != null) {
+				    					markDiagram = true;
+				    				}
+				    			}
+				    			*/
+			    			}
+			    			
+			    			if(markDiagram) {
+			    				dirtyDiagramReferences.add(tmpDiagramReference);
+			    			}
+	    				}
+    				}
     			}
     		}
     	}
@@ -184,12 +169,38 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     		final AadlElementWrapper elWrapper = new AadlElementWrapper(el);
     		
     		// For each diagram
-    		for(final Diagram diagram : diagrams) {
-    			// Create a feature provider and check if it is linked to the aadl element
+    		for(final DiagramReference diagramRef : getDiagramReferences()) {
+    			markLinkagesAsDirty(elWrapper, diagramRef);
+    		}
+    	}
+    	
+    	@Override
+		public void markOpenLinkagesAsDirty(final NamedElement el) {
+    		final AadlElementWrapper elWrapper = new AadlElementWrapper(el);
+    		
+    		// For each diagram
+    		for(final DiagramReference diagramRef : getDiagramReferences()) {
+    			if(diagramRef.isOpen()) {
+	    			markLinkagesAsDirty(elWrapper, diagramRef);
+    			}
+    		}
+    	}
+    	
+    	/**
+    	 * Helper function for implementing public methods for marking linakges as dirty
+    	 * @param elWrapper
+    	 * @param diagram
+    	 */
+    	private void markLinkagesAsDirty(final AadlElementWrapper elWrapper, final DiagramReference diagramReference) {
+    		final Diagram diagram = diagramReference.getDiagram();
+    		if(diagram != null) {
+	    		final NamedElement el = (NamedElement)elWrapper.getElement();
+	    		
+	    		// Create a feature provider and check if it is linked to the aadl element
 				final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
 				if(featureProvider != null) {
 					final Object diagramBo = bor.getBusinessObjectForPictogramElement(diagram);
-
+	
 					// Find Linkages
 					final List<PictogramElement> linkages = new ArrayList<PictogramElement>();
 					
@@ -207,7 +218,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					// Add to dirty linkages
 					if(linkages.size() > 0) {
 						setDirtyLinkages(diagram, el, linkages.toArray(new PictogramElement[0]));
-						dirtyDiagrams.add(diagram);
+						dirtyDiagramReferences.add(diagramReference);
 					}
 				}
     		}
@@ -216,8 +227,8 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 		@Override
 		public void commit() {
 			// Update dirty linkages and update each diagram
-			for(final Diagram dirtyDiagram : dirtyDiagrams) {
-				updateDiagram(dirtyDiagram, new DiagramCallback() {
+			for(final DiagramReference dirtyDiagramReference : dirtyDiagramReferences) {
+				updateDiagram(dirtyDiagramReference, new DiagramCallback() {
 					@Override
 					public void onDiagram(final Diagram diagram) {						
 						// Update any dirty linkages stored for the diagram
@@ -238,10 +249,11 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 			}
 			
 			diagramToDirtyLinkages.clear();
-			dirtyDiagrams.clear();
+			dirtyDiagramReferences.clear();
 		}
 
-		private void updateDiagram(final Diagram diagram, final DiagramCallback cb) {
+		private void updateDiagram(final DiagramReference diagramReference, final DiagramCallback cb) {
+			final Diagram diagram = diagramReference.getDiagram();
     		final Resource resource = diagram.eResource();
     		final ResourceSet resourceSet = resource.getResourceSet();
 			TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resource);
@@ -258,27 +270,28 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 				protected void doExecute() {
 					cb.onDiagram(diagram);
 					
-					// Update the entire diagram
-					final IFeatureProvider fp = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-					if(fp != null) {
-						fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { diagram });
+					if(diagramReference.isOpen()) {
+						diagramReference.getEditor().updateDiagramWhenVisible();
 					}
 				}			
 			});						
 			
-			// Save the resource
-			try {
-				// Delete all ghosts
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-					@Override
-					protected void doExecute() {
-						ghostPurger.purgeGhosts(diagram);
-					}				
-				});	
-
-				resource.save(null);
-			} catch (IOException e) {
-				throw new RuntimeException("Error saving new diagram", e);
+			// Only save the diagram is it is not open. Otherwise, the user can save the diagram using the editor
+			if(!diagramReference.isOpen()) {
+				// Save the resource
+				try {
+					// Delete all ghosts
+					editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
+						@Override
+						protected void doExecute() {
+							ghostPurger.purgeGhosts(diagram);
+						}				
+					});	
+	
+					resource.save(null);
+				} catch (IOException e) {
+					throw new RuntimeException("Error saving new diagram", e);
+				}
 			}
 			
 			// Dispose of the editing domain if we created it

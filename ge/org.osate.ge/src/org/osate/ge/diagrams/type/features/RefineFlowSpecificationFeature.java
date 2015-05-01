@@ -112,7 +112,7 @@ public class RefineFlowSpecificationFeature extends AbstractCustomFeature {
 				newFs.setKind(fs.getKind());
 				newFs.setRefined(fs);
 				
-				diagramMod.markRelatedDiagramsAsDirty(ct);
+				diagramMod.markOpenRelatedDiagramsAsDirty(ct);
 				
 				return newFs;
 			}			

@@ -426,7 +426,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	 			
 	 			final AnchorContainer startContainer = connection.getStart().getParent();
 	 			if(startContainer instanceof Shape) {
-	 				diagramMod.markRelatedDiagramsAsDirty(getComponentImplementation((Shape)startContainer));
+	 				diagramMod.markOpenRelatedDiagramsAsDirty(getComponentImplementation((Shape)startContainer));
 	 			}	 			
 	 			
 	 			// Remove instead of delete. If there are any refinees then there will be an error in the resulting AADL model. Refactoring would be ideal but may 
@@ -572,7 +572,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			diagramMod.markRelatedDiagramsAsDirty(ci);
+	 			diagramMod.markOpenRelatedDiagramsAsDirty(ci);
 	 			
 				// Set the name
 				newAadlConnection.setName(newConnectionName);

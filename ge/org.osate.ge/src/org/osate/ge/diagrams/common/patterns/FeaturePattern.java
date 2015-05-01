@@ -779,7 +779,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 				public NamedElement modify(final Resource resource, final Classifier classifier) {
 					// Handle diagram updates
 		 			diagramMod = diagramModService.startModification();
-		 			diagramMod.markRelatedDiagramsAsDirty(classifier);
+		 			diagramMod.markOpenRelatedDiagramsAsDirty(classifier);
 		 			
 					final NamedElement newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);

@@ -29,4 +29,11 @@ public class AgeDiagramEditor extends DiagramEditor {
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
 		return new AgeDiagramBehavior(this, new DefaultGhostPurger(propertyService), diagramService, propertyService);
 	}
+	
+	/*
+	 * Calls the Update feature to update the diagram from the model if the editor is visible. If it is not, it will do so the next time the editor is made visible.
+	 */
+	public void updateDiagramWhenVisible() {
+		((AgeDiagramBehavior)getDiagramBehavior()).updateDiagramWhenVisible();
+	}
 }

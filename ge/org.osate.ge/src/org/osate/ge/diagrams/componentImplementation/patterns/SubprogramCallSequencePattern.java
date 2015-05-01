@@ -352,7 +352,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 				
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
-	 			diagramMod.markRelatedDiagramsAsDirty(bi);
+	 			diagramMod.markOpenRelatedDiagramsAsDirty(bi);
 	 			
 	 			final SubprogramCallSequence newScs = bi.createOwnedSubprogramCallSequence();
 	 			newScs.setName(newScsName);
@@ -453,7 +453,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 				// Handle diagram updates
 	 			diagramMod = diagramModService.startModification();
 	 			final Classifier classifier = cs.getContainingClassifier();
-	 			diagramMod.markRelatedDiagramsAsDirty(classifier);	 			
+	 			diagramMod.markOpenRelatedDiagramsAsDirty(classifier);	 			
 	 			
 				// Just remove the call sequence. In the future it would be helpful to offer options for refactoring the model so that it does not
 				// cause errors.
