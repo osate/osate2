@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
+import org.osate.aadl2.Connection;
 import org.osate.ge.diagrams.common.AadlElementWrapper;
 import org.osate.ge.diagrams.common.features.ConfigureInModesFeature;
 import org.osate.ge.diagrams.common.features.SwitchDirectionOfConnectionFeature;
@@ -84,13 +85,14 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 
 	private String oldConnectionName;
 	private String newConnectionName;
-
-	private boolean currentDirectionSelection;
+	
+	private AgeDiagramEditor editor;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage tabbedPropertySheetPage) {
 		super.createControls(parent, tabbedPropertySheetPage);
 		final TabbedPropertySheetWidgetFactory factory = getWidgetFactory();
+
 		composite = factory.createFlatFormComposite(parent);
 		nameComposite = factory.createFlatFormComposite(composite);
 		
@@ -142,14 +144,21 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		subComposites.add(directionComposite);
 		subComposites.add(optionComposite);
 
+		Composite lastComposite = nameComposite;
+		
 		//Set the layout for each composite		
 		for (final Composite composite : subComposites) {
 			composite.setLayout(new GridLayout(composite.getChildren().length, true));
+			formData = new FormData();
+			formData.top = new FormAttachment(lastComposite, VSPACE);
+			composite.setLayoutData(formData);
 			for (final Control control : composite.getChildren()) {
 				gridData = new GridData();
 				gridData.widthHint = 125;
 				gridData.grabExcessHorizontalSpace = true;
+				gridData.grabExcessVerticalSpace = true;
 				gridData.horizontalAlignment = SWT.FILL;
+				gridData.verticalAlignment = SWT.FILL;
 				control.setLayoutData(gridData);
 			}
 		}
@@ -158,12 +167,15 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		//Switch direction button
 		switchDirectionPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(final SelectionEvent e) {	
-				if ((switchDirectionOfConnectionFeature.isAvailable(customCtx)) && (switchDirectionOfConnectionFeature.canExecute(customCtx))) {
-					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
+			public void widgetSelected(final SelectionEvent e) {
+				editor = (AgeDiagramEditor)getPart();
+				if (featureValidation(switchDirectionOfConnectionFeature)) {
+					PictogramElement originalElement = customCtx.getPictogramElements()[0];
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(switchDirectionOfConnectionFeature, customCtx);
-					refresh();
-				} 
+					determineFocus(originalElement, editor);
+				} else {
+					editor.setFocus();
+				}
 			}
 		});
 
@@ -171,10 +183,13 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		refinePushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				if ((refineConnectionFeature.isAvailable(customCtx)) && (refineConnectionFeature.canExecute(customCtx))) {
-					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
+				editor = (AgeDiagramEditor)getPart();
+				if (featureValidation(refineConnectionFeature)) {
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(refineConnectionFeature, customCtx);
+					determineFocus(customCtx.getPictogramElements()[0], editor);
 					refresh();
+				} else {
+					editor.setFocus();
 				}
 			}       	
 		});
@@ -182,24 +197,29 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		//Bind button
 		bindPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(final SelectionEvent e) {					
-				if (setBindingAction.isEnabled()) {	
-					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
-					getDiagramTypeProvider().getDiagramBehavior().refresh();
+			public void widgetSelected(final SelectionEvent e) {
+				if ((customCtx.getPictogramElements()[0].isVisible()) && (setBindingAction.isEnabled())) {
 					setBindingAction.run();
-					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
-					getDiagramTypeProvider().getDiagramBehavior().refresh();
-				}
-			}
+					determineFocus(customCtx.getPictogramElements()[0], editor);
+				} else {
+					editor.setFocus();
+				} 
+			} 
 		});
 
 		//Configure in modes.. button
 		configureInModesPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				if ((configureInModesFeature.isAvailable(customCtx)) && (configureInModesFeature.canExecute(customCtx))) {	
-					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
+				if (featureValidation(configureInModesFeature)) {
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(configureInModesFeature, customCtx);
+					if (customCtx.getPictogramElements()[0].isVisible()) {
+						getDiagramContainer().selectPictogramElements(customCtx.getPictogramElements());
+					} else {
+						editor.setFocus();
+					}
+				} else {
+					editor.setFocus();
 				}
 			}
 		});
@@ -207,28 +227,33 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		//Directional controller
 		unidirectionalRadioButton.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				if ((currentDirectionSelection != getDirectionalValue()) && (setConnectionBidirectionalityFeature.isAvailable(customCtx)) && (setConnectionBidirectionalityFeature.canExecute(customCtx))) {
-					getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(getSelectedPictogramElement());
+			public void widgetSelected(final SelectionEvent e) {					
+				if (featureValidation(setConnectionBidirectionalityFeature)) {	
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(setConnectionBidirectionalityFeature, customCtx);
-					setConnectionBidirectionalityFeature = new SetConnectionBidirectionalityFeature(getAadlModificationService(), getShapeService(), getBusinessObjectResolutionService(), getFeatureProvider(), getDirectionalValue());
-					refresh();
-				}			
+					setConnectionBidirectionalityFeature = new SetConnectionBidirectionalityFeature(getAadlModificationService(), getShapeService(),
+							getBusinessObjectResolutionService(), getFeatureProvider(), getDirectionalValue());
+					determineFocus(customCtx.getPictogramElements()[0], editor);
+				} else {
+					editor.setFocus();
+				}
 			}
 		});
 
 		//Rename Connection on loss of focus
 		nameConnectionText.addFocusListener(new FocusListener() {
 			@Override
-			public void focusLost(final FocusEvent e) {		
-
-				if((newConnectionName != null) && (pe != null) && (renameConnectionFeature.checkValueValid(newConnectionName, directEditingCxt) == null) && !(oldConnectionName.equals(newConnectionName))) {
-					final PictogramElement originalElement = getSelectedPictogramElement();
+			public void focusLost(final FocusEvent e) {
+				if((customCtx.getPictogramElements()[0].isVisible()) && (newConnectionName != null) && (pe != null) 
+						&& (renameConnectionFeature.checkValueValid(newConnectionName, directEditingCxt) == null) && !(oldConnectionName.equals(newConnectionName))) {	
 					renameConnectionFeature.setValue(newConnectionName, directEditingCxt);
 					if (!composite.isDisposed()) {
-						getDiagramContainer().setPictogramElementForSelection(originalElement);
+						determineFocus(customCtx.getPictogramElements()[0], editor);
+					} else {
+						getDiagramContainer().setPictogramElementForSelection(customCtx.getPictogramElements()[0]);
 						getDiagramContainer().getDiagramBehavior().refresh();
-					}				
+					}
+				} else {
+					editor.setFocus();
 				}
 			}
 
@@ -239,35 +264,39 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		});
 
 		//Rename connection when enter is pressed.  Set color of textBox to white or red based on valid String.
-		nameConnectionText.addKeyListener(new KeyListener() {		
+		nameConnectionText.addKeyListener(new KeyListener() {
 			@Override
-			public void keyPressed(final KeyEvent e) {				
-				if((pe != null) && (renameConnectionFeature.checkValueValid(nameConnectionText.getText(), directEditingCxt) == null)) {	
-					newConnectionName = nameConnectionText.getText();
-					nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));									
-				} else { 
-					nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));				
-				}								
+			public void keyPressed(final KeyEvent e) {
+				if (customCtx.getPictogramElements()[0].isVisible()) {
+					if((pe != null) && (renameConnectionFeature.checkValueValid(nameConnectionText.getText(), directEditingCxt) == null)) {	
+						newConnectionName = nameConnectionText.getText();
+						nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));									
+					} else {
+						nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));	
+					}
+				} else {
+					editor.setFocus();
+				}
 			}
 
 			@Override
 			public void keyReleased(final KeyEvent e) {
 				switch(e.keyCode) {			
 				case (SWT.CR):
-				case (SWT.KEYPAD_CR):	
-					if((nameConnectionText.getText() != null) && (pe != null) && (renameConnectionFeature.checkValueValid(newConnectionName, directEditingCxt) == null) && !(oldConnectionName.equals(nameConnectionText.getText()))) {
-						PictogramElement originalPictogram = getSelectedPictogramElement();
-						renameConnectionFeature.setValue(newConnectionName, directEditingCxt);					
-						getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer().setPictogramElementForSelection(originalPictogram);
-						getDiagramTypeProvider().getDiagramBehavior().refresh();
+				case (SWT.KEYPAD_CR):					
+					if((nameConnectionText.getText() != null) && (pe != null) && (renameConnectionFeature.checkValueValid(newConnectionName, directEditingCxt) == null) && 
+							!(oldConnectionName.equals(nameConnectionText.getText()))) {
+						renameConnectionFeature.setValue(newConnectionName, directEditingCxt);
+						editor = (AgeDiagramEditor) getPart();
+						determineFocus(customCtx.getPictogramElements()[0], editor);
 					} break;
 				default:
 					newConnectionName = nameConnectionText.getText();
 					if((pe != null) && (renameConnectionFeature.checkValueValid(nameConnectionText.getText(), directEditingCxt) == null)) {							
 						nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));						
 					} else { 
-						nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));						
-					} break;						
+						nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
+					} break;
 				}
 			}   
 		});      
@@ -280,14 +309,12 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	public void refresh() {
 		if(!composite.isDisposed()) {
 			setAllFalse();
-			pe = getSelectedPictogramElement();
-			final AgeDiagramEditor editor = (AgeDiagramEditor)getPart();
 			
+			pe  = getDiagramContainer().getSelectedPictogramElements()[0];
+			editor = (AgeDiagramEditor)getPart();
 			if ((pe != null) && (pe instanceof FreeFormConnection) && (editor != null)) {
-				final Object bo = AadlElementWrapper.unwrap(getFeatureProvider().getBusinessObjectForPictogramElement(pe));
-				if(bo != null) {
-					final org.osate.aadl2.Connection aadlConnection = (org.osate.aadl2.Connection) bo;
-					nameConnectionText.setText(aadlConnection.getName());
+				final org.osate.aadl2.Connection aadlConnection = ((Connection)((Object) AadlElementWrapper.unwrap(getFeatureProvider().getBusinessObjectForPictogramElement(pe))));
+				nameConnectionText.setText(aadlConnection.getName());
 					directEditingCxt = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());
 					renameConnectionFeature = (RenameConnectionFeature) getFeatureProvider().getDirectEditingFeature(directEditingCxt);
 					nameConnectionText.setEnabled(renameConnectionFeature.canDirectEdit(directEditingCxt));
@@ -300,25 +327,25 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 						final ICustomFeature[] customFeatures = getFeatureProvider().getCustomFeatures(customCtx);
 						if (customFeatures != null && customCtx != null) {
 							for (final ICustomFeature customFeature : customFeatures) {
-								if (customFeature instanceof SetConnectionBidirectionalityFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
-										setConnectionBidirectionalityFeature = (SetConnectionBidirectionalityFeature) customFeature;
+								if (customFeature instanceof SetConnectionBidirectionalityFeature && featureValidation((SetConnectionBidirectionalityFeature)customFeature)) {	
+									setConnectionBidirectionalityFeature = (SetConnectionBidirectionalityFeature)customFeature;
 										for (final Control control : directionComposite.getChildren()) {
 											control.setVisible(true);
 										}
 										setDirectionalRadioButtons(aadlConnection);
-										currentDirectionSelection = unidirectionalRadioButton.getSelection();									
+										directionComposite.setVisible(true);
 								}
-								if (customFeature instanceof RefineConnectionFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
-									refineConnectionFeature = (RefineConnectionFeature) customFeature;
+								if (customFeature instanceof RefineConnectionFeature && featureValidation((RefineConnectionFeature)customFeature)) {
+									refineConnectionFeature = (RefineConnectionFeature)customFeature;
 									refinePushButton.setVisible(true);
 								}
-								if ((customFeature instanceof ConfigureInModesFeature) && (customFeature.isAvailable(customCtx)) && (customFeature.canExecute(customCtx))) {
-									configureInModesFeature = (ConfigureInModesFeature) customFeature;	
+								if (customFeature instanceof ConfigureInModesFeature && featureValidation((ConfigureInModesFeature)customFeature)) {
+									configureInModesFeature = (ConfigureInModesFeature)customFeature;	
 									optionComposite.setVisible(true);
 									configureInModesPushButton.setVisible(true);
 								}
-								if (customFeature instanceof SwitchDirectionOfConnectionFeature && customFeature.isAvailable(customCtx) && customFeature.canExecute(customCtx)) {
-									switchDirectionOfConnectionFeature = (SwitchDirectionOfConnectionFeature) customFeature;
+								if (customFeature instanceof SwitchDirectionOfConnectionFeature && featureValidation((SwitchDirectionOfConnectionFeature)customFeature)) {
+									switchDirectionOfConnectionFeature = (SwitchDirectionOfConnectionFeature)customFeature;
 									switchDirectionPushButton.setVisible(true);
 								}
 							}
@@ -334,32 +361,47 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 							
 							for (final Control c : optionComposite.getChildren()) {
 								if (c.getVisible()) {
+									optionComposite.setVisible(true);
 									optionsLabel.setVisible(true);		
 								}
 							}
-							
+						
 							//Layout the composites so invisible composites do not take up space and exclude appropriate controls from layout
-							Composite visibleComposite  = nameComposite;
-							for (final Composite composite : subComposites) {
-								if (composite.getVisible()) {
-									formData = new FormData();
+							Composite visibleComposite = nameComposite;
+							final ArrayList<Composite> notVisibleComposites = new ArrayList<Composite>();
+							for (final Composite subComposite : subComposites) {					
+								if (subComposite.getVisible()) {
+									formData = (FormData) subComposite.getLayoutData();
 									formData.top = new FormAttachment(visibleComposite, VSPACE);
-									composite.setLayoutData(formData);
-									for (final Control c : composite.getChildren()) {
+									subComposite.setLayoutData(formData);
+									for (final Control c : subComposite.getChildren()) {
 										gridData = (GridData) c.getLayoutData();
 										gridData.exclude = !c.getVisible();									
 										c.setLayoutData(gridData);
 									}
-									composite.update();
-									composite.layout();
-									visibleComposite = composite;
+									visibleComposite = subComposite;
+								} else {
+									notVisibleComposites.add(subComposite);
 								}
-							}						
+								subComposite.layout(true);
+							}
+							
+							/**
+							 *  Add space for other composites possible, so composite keeps the same size
+							 *	fixes bug where subcomposites gets cut out of parent composite on refresh
+							 */
+							for (final Composite composite : notVisibleComposites) {
+								formData = (FormData) composite.getLayoutData();
+								formData.top = new FormAttachment(visibleComposite, VSPACE);
+								visibleComposite = composite;
+								composite.setLayoutData(formData);
+							}
+							composite.layout(true);
 						}
 					}
-				}			
+				}	
 			}
-		}
+		//}	
 	}
 
 	/**
@@ -368,9 +410,19 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	final private void setAllFalse() {
 		nameConnectionText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));	
 		for (final Composite composite : subComposites) {
+			composite.setVisible(false);
 			for (final Control control : composite.getChildren()) {
 				control.setVisible(false);
 			}
+		}
+	}
+	
+	final private void determineFocus(PictogramElement originalElement, AgeDiagramEditor editor) {
+		if (originalElement.isVisible()) {
+			getDiagramContainer().setPictogramElementForSelection(customCtx.getPictogramElements()[0]);
+			getDiagramContainer().getDiagramBehavior().refresh();
+		} else {
+			editor.setFocus();
 		}
 	}
 
@@ -390,17 +442,21 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	final private BusinessObjectResolutionService getBusinessObjectResolutionService() {
 		return (BusinessObjectResolutionService)getPart().getAdapter(BusinessObjectResolutionService.class);
 	}
-
+	
 	final private AadlModificationService getAadlModificationService() {
 		return (AadlModificationService) getPart().getAdapter(AadlModificationService.class);
 	}
-
+	
 	final private IFeatureProvider getFeatureProvider() {
 		return getDiagramTypeProvider().getFeatureProvider();
 	}
 
 	final private boolean getDirectionalValue() {
 		return unidirectionalRadioButton.getSelection() ? true : false;
+	}
+	
+	final private boolean featureValidation(ICustomFeature customFeature) {
+		return (customCtx.getPictogramElements()[0].isVisible()) && (customFeature.canExecute(customCtx)) && (customFeature.isAvailable(customCtx));
 	}
 }
 

@@ -75,7 +75,7 @@ public class SetBindingAction extends SelectionAction {
 	private final DiagramModificationService diagramModService;
 	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
-	private SetBindingWindow currentWindow = null;	
+	private SetBindingWindow currentWindow = null;
 
 	// Used to listen to when the window has been closed
 	private SetBindingWindow.CloseListener windowCloseListener = new SetBindingWindow.CloseListener() {
@@ -91,10 +91,11 @@ public class SetBindingAction extends SelectionAction {
 
 			currentWindow = null;
 			update();
-
-			if (getSelectedPictogramElement() == null) {
+			if (getSelectedPictogramElement() == null && pe.isVisible()) {
 				editor.setPictogramElementForSelection(pe);
 				editor.getDiagramBehavior().refresh();
+			} else {
+				editor.setFocus();
 			}
 		}
 	};

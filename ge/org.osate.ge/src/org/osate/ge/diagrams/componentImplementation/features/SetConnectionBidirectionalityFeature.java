@@ -21,6 +21,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ParameterConnection;
 import org.osate.ge.services.AadlModificationService;
 import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ShapeService;
@@ -87,7 +88,14 @@ public class SetConnectionBidirectionalityFeature extends AbstractCustomFeature 
     
     @Override
     public boolean canExecute(final ICustomContext context) {
-    	return true;
+		final PictogramElement[] pes = context.getPictogramElements();
+		final Connection connection = (Connection)pes[0];		
+		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
+		if(bo instanceof ParameterConnection) {
+			return false;
+		}
+		
+		return true;
     }
     
 	@Override

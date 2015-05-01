@@ -23,7 +23,6 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.dialogs.Dialog;
@@ -180,10 +179,6 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 		// Show the dialog
 		final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(Display.getCurrent().getActiveShell(), localModeFeatureNames, localModeTransitionFeatureNames, childModeNames, localToChildModeMap);
 		if(dlg.open() == Dialog.CANCEL) {
-			if (!(getDiagramBehavior().getDiagramContainer().getSelectedPictogramElements()[0] instanceof FreeFormConnection)) {
-				getDiagramBehavior().getDiagramContainer().setPictogramElementsForSelection(context.getPictogramElements());
-				getDiagramBehavior().refresh();
-			}
 			return;
 		}
 	
