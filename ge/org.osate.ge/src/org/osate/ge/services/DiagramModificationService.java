@@ -26,7 +26,8 @@ public interface DiagramModificationService {
 		void markOpenRelatedDiagramsAsDirty(Classifier c);
 		
 		/**
-		 * Marks linkages in all diagrams to the specified element as dirty.
+		 * Marks linkages in all diagrams to the specified element as dirty. This method is likely to have a significant performance impact because it marks linkages as dirty
+		 * in both open and closed diagrams.
 		 * @param el
 		 */
 		void markLinkagesAsDirty(NamedElement el);		
