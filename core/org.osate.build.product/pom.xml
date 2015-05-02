@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
 
-  <artifactId>org.osate.build.product</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
-  <packaging>eclipse-repository</packaging>
-  <name>OSATE2 RCP Product</name>
+	<artifactId>org.osate.build.product</artifactId>
+	<version>2.1.0-SNAPSHOT</version>
+	<packaging>eclipse-repository</packaging>
+	<name>OSATE2 RCP Product</name>
 
-  <parent>
-    <artifactId>osate2</artifactId>
-    <groupId>org.osate</groupId>
-    <version>2.0.0-SNAPSHOT</version>
-    <relativePath>../org.osate.build.main/pom.xml</relativePath>
-  </parent>
+	<parent>
+		<artifactId>osate2</artifactId>
+		<groupId>org.osate</groupId>
+		<version>2.1.0-SNAPSHOT</version>
+		<relativePath>../org.osate.build.main/pom.xml</relativePath>
+	</parent>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-p2-publisher-plugin</artifactId>
-        <version>${tycho-version}</version>
-        <configuration>
-          <publishArtifacts>true</publishArtifacts>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-p2-director-plugin</artifactId>
-        <version>${tycho-version}</version>
-        <executions>
-          <execution>
-            <id>materialize-products</id>
-            <goals>
-              <goal>materialize-products</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>archive-products</id>
-            <goals>
-              <goal>archive-products</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <products>
-            <product>
-              <id>osate2</id>
-              <archiveFileName>osate2-${unqualifiedVersion}-${buildQualifier}</archiveFileName>
-              <rootFolder>osate2</rootFolder>
-            </product>
-          </products>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+	<properties>
+		<product.id>osate2</product.id>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-publisher-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<publishArtifacts>true</publishArtifacts>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-director-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>create-distributions</id>
+						<goals>
+							<goal>materialize-products</goal>
+							<goal>archive-products</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<products>
+						<product>
+							<id>osate2</id>
+							<archiveFileName>${product.id}-${unqualifiedVersion}-${buildQualifier}</archiveFileName>
+							<rootFolder>${product.id}</rootFolder>
+						</product>
+					</products>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

@@ -56,84 +56,84 @@ public enum FeatureCategory implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #DATA_PORT_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	DATA_PORT(0, "dataPort", "dataPort"), /**
+	DATA_PORT(0, "Data Port", "dataPort"), /**
 											* The '<em><b>Event Port</b></em>' literal object.
 											* <!-- begin-user-doc -->
 											 * <!-- end-user-doc -->
 											* @see #EVENT_PORT_VALUE
-											* @generated
+											* @generated NOT
 											* @ordered
 											*/
-	EVENT_PORT(1, "eventPort", "eventPort"), /**
+	EVENT_PORT(1, "Event Port", "eventPort"), /**
 												* The '<em><b>Event Data Port</b></em>' literal object.
 												* <!-- begin-user-doc -->
 												 * <!-- end-user-doc -->
 												* @see #EVENT_DATA_PORT_VALUE
-												* @generated
+												* @generated NOT
 												* @ordered
 												*/
-	EVENT_DATA_PORT(2, "eventDataPort", "eventDataPort"), /**
+	EVENT_DATA_PORT(2, "Event Data Port", "eventDataPort"), /**
 															* The '<em><b>Parameter</b></em>' literal object.
 															* <!-- begin-user-doc -->
 															 * <!-- end-user-doc -->
 															* @see #PARAMETER_VALUE
-															* @generated
+															* @generated NOT
 															* @ordered
 															*/
-	PARAMETER(3, "parameter", "parameter"),
+	PARAMETER(3, "Parameter", "parameter"),
 
 	/**
 	 * The '<em><b>Bus Access</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #BUS_ACCESS_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	BUS_ACCESS(4, "busAccess", "busAccess"), /**
+	BUS_ACCESS(4, "Bus Access", "busAccess"), /**
 												* The '<em><b>Data Access</b></em>' literal object.
 												* <!-- begin-user-doc -->
 												 * <!-- end-user-doc -->
 												* @see #DATA_ACCESS_VALUE
-												* @generated
+												* @generated NOT
 												* @ordered
 												*/
-	DATA_ACCESS(5, "dataAccess", "dataAccess"), /**
-												* The '<em><b>Subprogram Access</b></em>' literal object.
-												* <!-- begin-user-doc -->
-												 * <!-- end-user-doc -->
-												* @see #SUBPROGRAM_ACCESS_VALUE
-												* @generated
-												* @ordered
-												*/
-	SUBPROGRAM_ACCESS(6, "subprogramAccess", "subprogramAccess"), /**
+	DATA_ACCESS(5, "Data Access", "dataAccess"), /**
+													* The '<em><b>Subprogram Access</b></em>' literal object.
+													* <!-- begin-user-doc -->
+													* <!-- end-user-doc -->
+													* @see #SUBPROGRAM_ACCESS_VALUE
+													* @generated NOT
+													* @ordered
+													*/
+	SUBPROGRAM_ACCESS(6, "Subprogram Access", "subprogramAccess"), /**
 																	* The '<em><b>Subprogram Group Access</b></em>' literal object.
 																	* <!-- begin-user-doc -->
 																	 * <!-- end-user-doc -->
 																	* @see #SUBPROGRAM_GROUP_ACCESS_VALUE
-																	* @generated
+																	* @generated NOT
 																	* @ordered
 																	*/
-	SUBPROGRAM_GROUP_ACCESS(7, "subprogramGroupAccess", "subprogramGroupAccess"), /**
+	SUBPROGRAM_GROUP_ACCESS(7, "Subprogram Group Access", "subprogramGroupAccess"), /**
 																					* The '<em><b>Feature Group</b></em>' literal object.
 																					* <!-- begin-user-doc -->
 																					 * <!-- end-user-doc -->
 																					* @see #FEATURE_GROUP_VALUE
-																					* @generated
+																					* @generated NOT
 																					* @ordered
 																					*/
-	FEATURE_GROUP(8, "featureGroup", "featureGroup"), /**
+	FEATURE_GROUP(8, "Feature Group", "featureGroup"), /**
 														* The '<em><b>Abstract Feature</b></em>' literal object.
 														* <!-- begin-user-doc -->
 														 * <!-- end-user-doc -->
 														* @see #ABSTRACT_FEATURE_VALUE
-														* @generated
+														* @generated NOT
 														* @ordered
 														*/
-	ABSTRACT_FEATURE(9, "abstractFeature", "abstractFeature");
+	ABSTRACT_FEATURE(9, "Abstract Feature", "abstractFeature");
 
 	/**
 	 * The '<em><b>Data Port</b></em>' literal value.

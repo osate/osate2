@@ -294,7 +294,7 @@
 				<contentExtension pattern="org.eclipse.ui.navigator.resourceContent" />     	      
 				<contentExtension pattern="org.eclipse.ui.navigator.resources.filters.*"/>
 				<contentExtension pattern="org.osate.ui.navigator.content"/>
-				<contentExtension pattern="org.eclipse.ui.navigator.resources.linkHelper"/>
+				<contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
 			</includes>
 		</viewerContentBinding>
   		<viewerActionBinding
@@ -304,7 +304,7 @@
      		</includes>
 	  </viewerActionBinding>
    </extension>
-   
+
 	<extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent 
@@ -314,8 +314,21 @@
             labelProvider="org.osate.ui.navigator.AadlNavigatorLabelProvider" 
             activeByDefault="true"
             priority="normal" >
-		<triggerPoints>
-		</triggerPoints>
+        <triggerPoints>
+            <and>
+               <instanceof value="org.eclipse.core.resources.IResource"/>
+               <test
+                     forcePluginActivation="true"
+                     property="org.eclipse.core.resources.extension"
+                     value="properties"/>
+            </and>
+         </triggerPoints>
+         <possibleChildren>
+         	<or>
+         		<instanceof value= "org.osate.aadl2.instance.InstanceObject" />
+         		<instanceof value= "org.osate.aadl2.NamedElement" />
+         	</or>
+         </possibleChildren>
 		<actionProvider
 			class="org.osate.ui.navigator.AadlNavigatorActionGroup">
 		</actionProvider>
@@ -326,10 +339,13 @@
               class="org.osate.ui.navigator.AadlNavigatorSorter"
               id="org.osate.ui.navigator.sorter">
            <parentExpression>
-              <or>
+               <or>
                  <instanceof
                        value="org.eclipse.core.resources.IResource">
-                 </instanceof></or>
+                 </instanceof>
+                 <instanceof value="org.osate.aadl2.instance.InstanceObject" />
+                 <instanceof value="org.osate.aadl2.NamedElement" />
+                </or>
            </parentExpression>
         </commonSorter>
       </navigatorContent>
@@ -410,6 +426,28 @@
       </page>
    </extension>
    -->
+    <extension
+          point="org.eclipse.ui.navigator.linkHelper">
+       <linkHelper
+             class="org.osate.ui.navigator.AadlNavigatorLinkHelper"
+             id="org.osate.ui.navigator.AadlNavigatorLinkHelper">
+          <selectionEnablement>
+          <or>
+             <instanceof value="org.eclipse.core.resources.IFile"/>
+             <instanceof value="org.osate.aadl2.Classifier"/>
+             <instanceof value="org.osate.aadl2.Property"/>
+             <instanceof value="org.osate.aadl2.PropertyConstant"/>
+             <instanceof value="org.osate.aadl2.PropertyType"/>
+           </or>
+          </selectionEnablement>
+          <editorInputEnablement>
+          <or>
+             <instanceof value="org.eclipse.ui.IFileEditorInput"/>
+           </or>
+          </editorInputEnablement>
+       </linkHelper>
+    </extension>
+
      <extension
         point="org.eclipse.ui.newWizards">
      <wizard

@@ -33,7 +33,9 @@ Require-Bundle: org.eclipse.ui.editors;bundle-version="3.7.0",
  org.eclipse.ui.navigator,
  org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.osate.xtext.aadl2.ui,
+Export-Package: de.itemis.utils.jface.viewers,
+ de.itemis.xtext.utils.jface.viewers,
+ org.osate.xtext.aadl2.ui,
  org.osate.xtext.aadl2.ui.contentassist,
  org.osate.xtext.aadl2.ui.internal,
  org.osate.xtext.aadl2.ui.outline,

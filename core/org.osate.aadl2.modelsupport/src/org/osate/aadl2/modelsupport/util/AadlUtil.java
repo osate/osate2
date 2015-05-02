@@ -79,6 +79,7 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -1776,7 +1777,7 @@ public final class AadlUtil {
 	 */
 	public static boolean isOutgoingFeature(Feature f) {
 		return (f instanceof Port && ((Port) f).getDirection().outgoing()) || (f instanceof Access)// && ((Access) f).getKind() == AccessType.REQUIRED)
-				|| (f instanceof FeatureGroup);
+				|| (f instanceof FeatureGroup) || (f instanceof AbstractFeature && ((AbstractFeature) f).getDirection().outgoing());
 	}
 
 	/**
@@ -1787,7 +1788,7 @@ public final class AadlUtil {
 	 */
 	public static boolean isIncomingFeature(Feature f) {
 		return (f instanceof Port && ((Port) f).getDirection().incoming()) || (f instanceof Access)// && ((Access) f).getKind() == AccessType.REQUIRED)
-				|| (f instanceof FeatureGroup);
+				|| (f instanceof FeatureGroup) || (f instanceof AbstractFeature && ((AbstractFeature) f).getDirection().incoming());
 	}
 
 	/**

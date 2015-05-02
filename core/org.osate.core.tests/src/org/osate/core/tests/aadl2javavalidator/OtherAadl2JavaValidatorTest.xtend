@@ -41,8 +41,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
+import org.osate.aadl2.AbstractType
+import org.osate.aadl2.BusType
+import org.osate.aadl2.ComponentType
+import org.osate.aadl2.FeatureGroup
+import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.SubprogramImplementation
+import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.UnitsType
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
@@ -104,7 +110,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 					call1: subprogram subp1.i;
 				};
 				connections
-					fconn1: feature af1 -> af1;
+«««					fconn1: feature af1 -> af1;
+					fconn1: feature asub1.af2 -> af1;
 					fconn2: feature asub1.af2 -> af1;
 				flows
 					--Connection (at ConnectionFlow)
@@ -175,9 +182,11 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				
 				abstract implementation a2.i
 				subcomponents
-					asub2: abstract;
+«««					asub2: abstract;
+					asub2: abstract a2;
 				connections
-					fconn3: feature af2 -> af2;
+«««					fconn3: feature af2 -> af2;
+					fconn3: feature asub2.af2 -> af2;
 				end a2.i;
 				
 				subprogram subp1
@@ -725,4 +734,1006 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
 	}
+	
+	//Tests checkArraySizeIsAadlintegerNoUnits
+	@Test
+	def void testArraySizeIsAadlintegerNoUnits() {
+		createFiles("testArraySize.aadl" -> '''
+			package testArraySize
+			public
+			  abstract a
+			  features
+			    p: in data port [Activate_Entrypoint_Source_Text];
+			  end a;
+			end testArraySize;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("testArraySize.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testArraySize".assertEquals(name)
+			publicSection.ownedClassifiers.get(0) as AbstractType => [
+				"a".assertEquals(name)
+				ownedDataPorts.get(0) => [
+					"p".assertEquals(name)
+					arrayDimensions.head.size.assertError(testFileResult.issues, issueCollection, "Array size should only be an Integer type with no units")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
+	//Tests for duplicate elements ignoring case
+	@Test
+	def void testDuplicateElementIgnoreCase() {
+		createFiles("testDuplicateIgnoreCase.aadl" -> '''
+		package duplicateTest
+		public
+			bus b
+			end b;
+			bus B
+			end B;
+		end duplicateTest;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("testDuplicateIgnoreCase.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"duplicateTest".assertEquals(name)
+			publicSection.ownedClassifiers.get(0) as BusType => [
+				"b".assertEquals(name)
+				assertError(testFileResult.issues, issueCollection, "Duplicate Element 'b' in PublicPackageSection 'duplicateTest_public'")
+			]
+			publicSection.ownedClassifiers.get(1) as BusType => [
+				"B".assertEquals(name)
+				assertError(testFileResult.issues, issueCollection, "Duplicate Element 'B' in PublicPackageSection 'duplicateTest_public'")
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests for validating references to internal features and processor features 
+	@Test
+	def void testCheckReferencesToInternalFeatures() {
+		createFiles("testInternalProcessorFeatures.aadl" -> '''
+		package pkgTestInternalProcessorFeatures
+		public
+			abstract a
+			end a;
+			abstract a2
+				features
+					dp2: in data port;
+			end a2;
+			abstract implementation a.i
+				subcomponents
+					asub1: abstract a2;
+				internal features
+					eds1: event data;
+				processor features
+					pp1: port;
+				connections
+				--Correct
+					conn1: port self.eds1 -> asub1.dp2;
+				--Should be marked with an error
+					conn2: port processor.eds1 -> asub1.dp2;
+				--Correct
+					conn3: port processor.pp1 -> asub1.dp2;
+				--Should be marked with an error
+					conn4: port self.pp1 -> asub1.dp2;
+			end a.i;
+		end pkgTestInternalProcessorFeatures;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("testInternalProcessorFeatures.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"pkgTestInternalProcessorFeatures".assertEquals(name)
+			publicSection.ownedClassifiers.get(2) as AbstractImplementation => [
+				"a.i".assertEquals(name)
+				//checkReferencesToInternalFeatures
+				ownedConnections.get(1) =>[
+					"conn2".assertEquals(name)
+					source.assertError(testFileResult.issues, issueCollection, "Only processor features may follow the keyword 'processor'") 
+				]
+				//checkReferencesToInternalFeatures
+				ownedConnections.get(3) =>[
+					"conn4".assertEquals(name)
+					source.assertError(testFileResult.issues, issueCollection, "Only internal features may follow the keyword 'self'") 
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests for validation for ComponentImplementationReference list 
+	@Test
+	def void testCheckSubcomponentImplementationReferenceList() {
+		createFiles("ps2.aadl" -> '''
+		property set ps2 is
+			p1: aadlinteger => 2 applies to (all); 
+		end ps2;
+		''', "testcompimplreflist.aadl" -> '''
+		package testcompimplreflist
+		public
+			with ps2;
+			abstract a
+			end a;
+			abstract implementation a.i1
+				subcomponents
+					bsub0: bus b2[2] (b2.i, b2.i);
+					bsub1: bus b2[2] (b2.i, b2.i, b2.i);
+					bsub2: bus b2.i[2] (b2.i, b2.i);
+					bsub3: bus b2[ps2::p1] (b2.i, b2.i);
+					bsub4: bus b2[2] (b1.i, b2.i);
+			end a.i1;
+			bus b1
+			end b1;
+			bus implementation b1.i
+			end b1.i;
+			bus b2
+			end b2;
+			bus implementation b2.i
+			end b2.i;
+		end TestCompImplRefList;
+		''')
+		suppressSerialization
+		testFile("ps2.aadl")
+		val testFileResult = testFile("testcompimplreflist.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		// checkSubcomponentImplementationReferenceList
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testcompimplreflist".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
+				"a.i1".assertEquals(name)
+				ownedBusSubcomponents.head =>[
+					"bsub0".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+				]
+				ownedBusSubcomponents.get(1) =>[
+					"bsub1".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+					assertError(testFileResult.issues, issueCollection, "Size of component implementation reference list not the same as array size.") 
+				]
+				ownedBusSubcomponents.get(2) =>[
+					"bsub2".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+					assertError(testFileResult.issues, issueCollection, "Implementation reference list not allowed when the subcomponent classifier is not a component type.") 
+				]
+				ownedBusSubcomponents.get(3) =>[
+					"bsub3".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+					arrayDimensions.head.assertError(testFileResult.issues, issueCollection, "Array size cannot be a property if implementation reference list is defined.") 
+				]
+				ownedBusSubcomponents.get(4) =>[
+					"bsub4".assertEquals(name)
+					assertWarning(testFileResult.issues, issueCollection, "List of implementation reference not fully implemented in instantiator.") 
+					implementationReferences.head.assertError(testFileResult.issues, issueCollection, "Implementation reference not of the specified type.") 
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of feature group type declared as inverse
+	@Test
+	def void testCheckFeaturesInInverseFeatureGroupType() {
+		createFiles("testfeaturegroupinverse.aadl" -> '''
+			package testfeaturegroupinverse
+			public
+				feature group fg1
+					features
+						b1: requires bus access mybus;
+						d1: out data port;
+				end fg1;
+				feature group fg2
+					features
+						b2: requires bus access mybus;
+						d2: out data port;
+					inverse of fg1
+				end fg2;
+				feature group fg3
+					features
+						b3: provides bus access mybus;
+						d3: in data port;
+						d4: in data port;
+					inverse of fg1
+				end fg3;
+				feature group fg4
+					inverse of fg1
+				end fg4;
+				bus mybus
+				end mybus;
+			end testfeaturegroupinverse;
+		''')
+		suppressSerialization
+		val testFileResult = testFile("testfeaturegroupinverse.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		// checkSubcomponentImplementationReferenceList
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testfeaturegroupinverse".assertEquals(name)
+			publicSection.ownedElements.get(1) as FeatureGroupType => [
+				"fg2".assertEquals(name)
+				ownedBusAccesses.head =>[
+					"b2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Feature Group feature access kind is same as that of its inverse")
+				]
+				ownedDataPorts.head =>[
+					"d2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Feature Group feature direction not opposite that of its inverse")
+				]
+			]
+			publicSection.ownedElements.get(2) as FeatureGroupType => [
+				"fg3".assertEquals(name)
+				assertError(testFileResult.issues, issueCollection, "Feature Group features list count differs from that of its inverse")
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of ModaleElement missing mode values
+	@Test
+	def void testCheckModalElementMissingModeValues() {
+		createFiles("psmemmv.aadl" ->'''
+						property set psmemmv is
+							def1: aadlstring => 'z' applies to (all);
+						end psmemmv;	
+					''',
+					"testmemissingmodevalues.aadl" -> '''
+						package testmemissingmodevalues
+						public
+							with psmemmv;
+							system s1
+								features
+									af1 : feature;
+									af2 : feature;
+								modes
+									m1: initial mode;
+									m2: mode;
+									m3: mode;
+							end s1;
+							system implementation s1.i
+								subcomponents
+									asub1: abstract a1;
+								connections
+«««									conn1: feature af1->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
+									conn1: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m3);} in modes(m1, m2);
+«««									conn2: feature af1->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
+									conn2: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m1);} in modes(m1, m2);
+«««									conn3: feature af1->af2 {psmemmv::def1 => "g" in modes(m1); };
+									conn3: feature asub1.af3->af2 {psmemmv::def1 => "g" in modes(m1); };
+								end s1.i;
+							abstract a1
+								features
+									af3: feature;
+							end a1;
+						end testmemissingmodevalues;
+					''')
+		suppressSerialization
+		testFile("psmemmv.aadl")
+		val testFileResult = testFile("testmemissingmodevalues.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testmemissingmodevalues".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+				"s1.i".assertEquals(name)
+				ownedConnections.head => [
+					"conn1".assertEquals(name)
+					ownedPropertyAssociations.head =>[
+						ownedValues.head => [
+						assertError(testFileResult.issues, issueCollection, 
+									"m3 is not a valid mode because it is not in the modes defined for container conn1")
+							
+						] 
+					]
+				]
+				ownedConnections.get(1) => [
+					"conn2".assertEquals(name)
+					ownedPropertyAssociations.head =>[
+						assertWarning(testFileResult.issues, issueCollection, 
+									"Value not set for mode m2 for property psmemmv::def1")
+					]
+				]
+				ownedConnections.get(2) => [
+					"conn3".assertEquals(name)
+					ownedPropertyAssociations.head =>[
+						assertWarning(testFileResult.issues, issueCollection, 
+									"Value not set for mode m2 for property psmemmv::def1","Value not set for mode m3 for property psmemmv::def1")
+					]
+				]
+			]
+		]			
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of flow implementation in and out complies with specification 
+	@Test
+	def void testCheckFlowPathElements() {
+		createFiles("testCheckFlowPathElements.aadl" -> '''
+						package testCheckFlowPathElements
+						public
+							system implementation S.i
+								flows
+									fl1: flow path fg_in.p -> fg_out.p;
+									fl2: flow path fg_in -> fg_out;
+									fl3: flow path fg_in.p -> fg_out.p;
+							end S.i;
+							feature group fg
+								features
+									p: in data port;
+							end fg;
+							system s
+								features
+									fg_in: feature group fg;
+									fg_out: feature group inverse of fg;
+								flows
+									fl1: flow path fg_in -> fg_out;
+									fl2: flow path fg_in -> fg_out ;
+									fl3: flow path fg_in.p -> fg_out.p ;
+								end s;
+						end testCheckFlowPathElements;
+					''')
+		suppressSerialization
+		val testFileResult = testFile("testCheckFlowPathElements.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		// checkFlowPathElements
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testCheckFlowPathElements".assertEquals(name)
+			publicSection.ownedClassifiers.head as SystemImplementation => [
+				"S.i".assertEquals(name)
+				ownedFlowImplementations.head =>[
+					assertError(testFileResult.issues, issueCollection, 
+					"'fg_out.p' does not match the out flow feature identifier 'fg_out' in the flow specification.",
+					"'fg_in.p' does not match the in flow feature identifier 'fg_in' in the flow specification.")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of FeatureGroup Connections 
+	//particularly when feature groups are inverted features  
+	@Test
+	def void testCheckFeatureGroupConnectionDirection() {
+		createFiles("testfgconndirection.aadl" -> '''
+						package testfgconndirection
+						public
+							-- Feature group with the data port.
+							feature group fgA
+								features
+									o1: out data port;
+							end fgA;
+							-- Nested feature group.
+							feature group fgB
+								features
+									fg1: feature group fgA;
+							end fgB;
+							-- Sender system.
+							system sys1
+								features
+									o: feature group fgB;
+							end sys1;
+							-- Receiver system.
+							system sys2
+								features
+									i: feature group inverse of fgB;
+							end sys2;
+							-- Inner system in receiver system that receives nested feature group.
+							system inner
+								features
+									fg1: feature group inverse of fgA;
+							end inner;
+							-- Implementation of the receiver system.
+							system implementation sys2.i
+								subcomponents
+									inner: system inner;
+								connections
+									c1: feature group i.fg1 -> inner.fg1; -- works
+									c2: feature group inner.fg1 -> i.fg1; -- should fail.
+									c3: feature group i.fg1 <-> inner.fg1; -- works.
+							end sys2.i;
+							-- Top-level to tie everything together.
+							system top
+							end top;
+							system implementation top.i
+								subcomponents
+									s1: system sys1;
+									s2: system sys2.i;
+								connections
+									tt: feature group s1.o -> s2.i;
+							end top.i;
+						end testfgconndirection;
+						''')
+		suppressSerialization
+		val testFileResult = testFile("testfgconndirection.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		// checkFeatureGroupConnectionDirection
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testfgconndirection".assertEquals(name)
+			publicSection.ownedClassifiers.get(5) as SystemImplementation => [
+				"sys2.i".assertEquals(name)
+				ownedConnections.get(1) => [
+					"c2".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, 
+										"Feature o1 in the referenced feature group fg1 must not be in due to the direction of the connection")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
+	//Tests validation of ComponentType Features and Prototypes including where refinement is used 
+	@Test
+	def void testCheckComponentTypeUniqueNames() {
+		createFiles("testtypeuniquenames.aadl" -> '''
+					package testtypeuniquenames
+					public
+						system s1
+							prototypes
+								dp7: in feature;
+								dp12: in feature;
+							features
+								af1: feature;
+								dp2: in data port;
+								dp3: in data port;
+								dp4: feature;
+								dp5: feature;
+								dp6: in event port;
+								dp10: in data port;
+								dp11: in data port;
+								dp13: in data port;
+							flows
+								fsource1: flow source af1;
+							modes
+								m1 : mode;
+						end s1;
+						system s2 extends s1
+							prototypes
+								dp1: in feature;
+								dp7: in feature;
+								dp11: feature;
+							features
+								dp1: in feature;
+								dp2: in data port;
+								dp3: refined to in data port;
+								dp4: in data port;
+								dp5: refined to in data port;
+								dp6: in data port;
+								dp12: in data port;
+								dp13: refined to in data port;
+							flows
+								fsource1: flow source af1;
+							modes
+								m1 : mode;
+						end s2;
+						system s3 extends s2
+						end s3;
+						system s4 extends s3
+							features
+								dp3: in data port;
+								dp13: refined to in data port;
+								dp10: in data port;
+						end s4;
+					end testtypeuniquenames;
+					''')
+		suppressSerialization
+		val testFileResult = testFile("testtypeuniquenames.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testtypeuniquenames".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as ComponentType => [
+				"s2".assertEquals(name)
+				ownedPrototypes.head => [
+					"dp1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dp1' in s2")
+				]
+				ownedPrototypes.get(1) => [
+					"dp7".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FeaturePrototype identifier 'dp7' previously defined in s1. Maybe you forgot 'refined to'")
+				]
+				ownedPrototypes.get(2) => [
+					"dp11".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp11' previously defined in s1")
+				]
+				ownedModes.head => [
+					"m1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Mode identifier 'm1' previously defined.")
+				]
+				ownedFlowSpecifications.head => [
+					"fsource1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FlowSpecification identifier 'fsource1' previously defined. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.head => [
+					"dp1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dp1' in s2")
+				]
+				ownedFeatures.get(1) => [
+					"dp2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp2' previously defined in s1. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(3) => [
+					"dp4".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp4' previously defined in s1. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(5) => [
+					"dp6".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "EventPort identifier 'dp6' previously defined in s1")
+				]
+				ownedFeatures.get(6) => [
+					"dp12".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FeaturePrototype identifier 'dp12' previously defined in s1")
+				]
+			]
+			
+			publicSection.ownedClassifiers.get(3) as ComponentType => [
+				"s4".assertEquals(name)
+				ownedFeatures.head => [
+					"dp3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp3' previously defined in s2. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(2) => [
+					"dp10".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp10' previously defined in s1. Maybe you forgot 'refined to'")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of ComponentType Features and Prototypes including where refinement is used 
+	@Test
+	def void testCheckFeatureGroupTypeUniqueNames() {
+		createFiles("testfguniquenames.aadl" -> '''
+						package testfguniquenames
+						public
+							feature group fg1
+								prototypes
+									af11: feature;
+									dp12: in feature;
+								features
+									dp2: in data port;
+									dp3: in data port;
+									dp4: feature;
+									dp5: feature;
+									dp6: in event port;
+									dp10: in data port;
+									dp11: feature;
+									dp13: in data port;
+							end fg1;
+							feature group fg2 extends fg1
+								prototypes
+									af11: feature;
+									dp11: feature;
+								features
+									dp1: in data port;
+									dp1: in data port;
+									dp2: in data port ;
+									dp3: refined to in data port;
+									dp4: in data port;
+									dp5: refined to in data port;
+									dp6: in data port;
+									dp12: in data port;
+									dp13: refined to in data port;
+							end fg2;
+							feature group fg3 extends fg2
+							end fg3;
+							feature group fg4 extends fg3
+						 		features
+						 			dp3: in data port;
+						 			dp10: in data port;
+							end fg4;
+						end testfguniquenames;
+					''')
+		suppressSerialization
+		val testFileResult = testFile("testfguniquenames.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		
+		testFileResult.resource.contents.head as AadlPackage => [
+			"testfguniquenames".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as FeatureGroupType => [
+				"fg2".assertEquals(name)
+				ownedPrototypes.head => [
+					"af11".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FeaturePrototype identifier 'af11' previously defined in fg1. Maybe you forgot 'refined to'")
+				]
+				ownedPrototypes.get(1) => [
+					"dp11".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "AbstractFeature identifier 'dp11' previously defined in fg1")
+				]
+				ownedFeatures.head => [
+					"dp1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dp1' in fg2")
+				]
+				ownedFeatures.get(1) => [
+					"dp1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dp1' in fg2")
+				]
+				ownedFeatures.get(2) => [
+					"dp2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp2' previously defined in fg1. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(4) => [
+					"dp4".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp4' previously defined in fg1. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(6) => [
+					"dp6".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "EventPort identifier 'dp6' previously defined in fg1")
+				]
+				ownedFeatures.get(7) => [
+					"dp12".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "FeaturePrototype identifier 'dp12' previously defined in fg1")
+				]
+			]
+			
+			publicSection.ownedClassifiers.get(3) as FeatureGroupType => [
+				"fg4".assertEquals(name)
+				ownedFeatures.head => [
+					"dp3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp3' previously defined in fg2. Maybe you forgot 'refined to'")
+				]
+				ownedFeatures.get(1) => [
+					"dp10".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "DataPort identifier 'dp10' previously defined in fg1. Maybe you forgot 'refined to'")
+				]
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	//Tests validation of ComponentImplementation elements for unique names
+	@Test
+	def void testCheckComponentImplementationUniqueNames() {
+		createFiles("componentimpluniquenames.aadl" -> '''
+						package componentimpluniquenames
+							public
+								abstract ab1 extends ab0
+									prototypes
+										dp3: data;
+										dp4: data;
+									features
+										dp1: in data port; 
+										dp2: out data port;
+										dp99: out data port;
+										name1: feature;
+								end ab1;
+								abstract ab0
+									features
+										m1: in data port; 
+								end ab0;
+								abstract implementation ab0.i1
+									modes
+										m1: mode;
+								end ab0.i1;
+								abstract implementation ab1.i1 extends ab0.i1
+									prototypes
+										dp3: data;
+										dp4: refined to data;
+										conn3: data;
+									subcomponents
+										m1: abstract ab1;
+										absub1: abstract ab1;
+										absub2: abstract ab1;
+										absub99: abstract ab99;
+									connections
+										conn1: port absub99.dp101 -> dp2;
+										conn2: port absub99.dp101 -> dp2;
+										conn4: port absub99.dp101 -> dp2;
+									modes
+										m6:	mode;
+										m7:	mode;
+										mt1: m6 -[name1]-> m7;
+								end ab1.i1;	
+								abstract implementation ab1.i2 extends ab1.i1
+									prototypes
+										dup1: data;
+										dup1: data;
+										dp3: data;
+										dp4: refined to data;
+										dp99: data;
+										mt1: data;
+									subcomponents
+										absub1: abstract ab1;
+										absub2: refined to abstract ab1;
+										name1: abstract ab1;
+										name10: abstract ab1;
+									connections
+										conn1: port absub99.dp101 -> dp2;
+										conn2: refined to port {Latency => 10ms..100ms;};
+										conn3: port absub99.dp101 -> dp2;
+										conn4: refined to port;
+									modes
+										m5:	mode;
+										m10: mode;
+										m11: mode;
+										mt10: m10 -[dp1]-> m11;
+										mt11: m10 -[dp1]-> m11;
+								end ab1.i2;	
+								abstract implementation ab1.i3 extends ab1.i2
+									prototypes
+										dp3: data;
+										dp4: refined to data;
+										mt11: data;
+									subcomponents
+										absub1: abstract ab1;
+										absub2: refined to abstract ab1;
+									connections
+										conn1: port absub99.dp101 -> dp2;
+										conn4: port absub99.dp101 -> dp2 ;
+										conn2: refined to port {Latency => 10ms..100ms;};
+									modes
+										m5:	mode;
+										mt10: m10 -[dp1]-> m11;
+										mt12: m10 -[dp1]-> m11; 
+								end ab1.i3;	
+								system s1
+								end s1;
+								system implementation s1.i1
+									subcomponents
+										sub50: subprogram;
+								end s1.i1;
+								subprogram subprog1
+								end subprog1;
+								subprogram subprog2
+								end subprog2;
+								subprogram implementation subprog2.spi2
+								end subprog2.spi2;
+								subprogram implementation subprog1.spi1
+									subcomponents
+										dupename7 : data;
+									calls
+										callseq1:{
+											callspi2: subprogram subprog2.spi2;
+											callspi2: subprogram subprog2.spi2;
+											callspi3: subprogram subprog2.spi2;
+										};
+										callseq2:{
+											callspi3: subprogram subprog2.spi2;
+										};
+										callseq3:{
+											callspi4: subprogram subprog2.spi2;
+										};
+										callseq3:{
+											callspi5: subprogram subprog2.spi2;
+										};
+										callseq4:{
+											callspi6: subprogram subprog2.spi2;
+										};
+								end subprog1.spi1;
+								subprogram implementation subprog1.spi3 extends subprog1.spi1
+									calls
+										callseq5: {
+											-- callspi6 previously defined
+											callspi6: subprogram subprog2.spi2;
+											-- dupename7 name was used for subcomponent in subprog1.spi1
+											dupename7: subprogram subprog2.spi2; 
+											-- callspi8 ok
+											callspi8: subprogram subprog2.spi2;
+										};
+								end subprog1.spi3;
+								device dev1
+									features
+										event102: out event data port;
+									flows
+										flow102: flow source event102;
+								end dev1;
+								system sys101
+									features
+										portA: in event data port;
+										portB: out event data port;
+									flows
+										flow101: flow path portA -> portB;
+								end sys101;
+								system sys100
+								end sys100;
+								system implementation sys100.impl1
+									subcomponents
+										dev1: device dev1;
+										sys101: system sys101;
+									connections
+										c1: port dev1.event102 -> sys101.portA;
+									flows
+										ete1 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+										ete2 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+								end sys100.impl1;
+								system implementation sys100.impl2 extends sys100.impl1
+									subcomponents
+									-- ete1 previously used for end to end flow
+									ete1: device dev1;
+								flows
+									-- ete2 already defined
+									ete2 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+									-- ete3 duplicate
+									ete3 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+									ete3 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+									-- ete4 ok
+									ete4 : end to end flow dev1.flow102 -> C1 -> sys101.flow101;
+							end sys100.impl2;
+							abstract ab99
+								features
+									dp101: out data port;
+									dp102: out data port;
+							end ab99;
+						end componentimpluniquenames;
+						''')
+		suppressSerialization
+		val testFileResult = testFile("componentimpluniquenames.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		
+		testFileResult.resource.contents.head as AadlPackage => [
+			"componentimpluniquenames".assertEquals(name)
+			publicSection.ownedClassifiers.get(2) as AbstractImplementation => [
+				"ab0.i1".assertEquals(name)
+				ownedModes.head => [
+					"m1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'm1' has previously been defined in 'componentimpluniquenames::ab0'")
+				]
+			]
+			publicSection.ownedClassifiers.get(3) as AbstractImplementation => [
+				"ab1.i1".assertEquals(name)
+				ownedPrototypes.head => [
+					"dp3".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "DataPrototype identifier 'dp3' previously defined in ab1. Maybe you forgot 'refined to'")
+				]
+				ownedSubcomponents.head => [
+					"m1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'm1' has previously been defined in 'componentimpluniquenames::ab0'")
+				]
+			]
+			publicSection.ownedClassifiers.get(4) as AbstractImplementation => [
+				"ab1.i2".assertEquals(name)
+				ownedPrototypes.head => [
+					"dup1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dup1' in ab1.i2")
+				]
+				ownedPrototypes.get(1) => [
+					"dup1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'dup1' in ab1.i2")
+				]
+				ownedPrototypes.get(2) => [
+					"dp3".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "DataPrototype identifier 'dp3' previously defined in ab1. Maybe you forgot 'refined to'")
+				]
+				ownedPrototypes.get(4) => [
+					"dp99".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'dp99' has previously been defined in 'componentimpluniquenames::ab1'")
+				]
+				ownedPrototypes.get(5) => [
+					"mt1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'mt1' has previously been defined in 'componentimpluniquenames::ab1.i1'")
+				]
+				ownedSubcomponents.head => [
+					"absub1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "AbstractSubcomponent identifier 'absub1' previously defined in ab1.i1. Maybe you forgot 'refined to'")
+				]
+				ownedSubcomponents.get(2) => [
+					"name1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'name1' has previously been defined in 'componentimpluniquenames::ab1'")
+				]
+				ownedConnections.head => [
+					"conn1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Connection 'conn1' has previously been defined in 'componentimpluniquenames::ab1.i1'. Maybe you forgot 'refined to'")
+				]
+				ownedConnections.get(2) => [
+					"conn3".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'conn3' has previously been defined in 'componentimpluniquenames::ab1.i1'")
+				]
+			]
+			publicSection.ownedClassifiers.get(5) as AbstractImplementation => [
+				"ab1.i3".assertEquals(name)
+				ownedPrototypes.head => [
+					"dp3".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "DataPrototype identifier 'dp3' previously defined in ab1. Maybe you forgot 'refined to'")
+				]
+				ownedPrototypes.get(2) => [
+					"mt11".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Identifier 'mt11' has previously been defined in 'componentimpluniquenames::ab1.i2'")
+				]
+				ownedSubcomponents.head => [
+					"absub1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "AbstractSubcomponent identifier 'absub1' previously defined in ab1.i2. Maybe you forgot 'refined to'")
+				]
+				ownedConnections.head => [
+					"conn1".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Connection 'conn1' has previously been defined in 'componentimpluniquenames::ab1.i2'. Maybe you forgot 'refined to'")
+				]
+				ownedConnections.get(1) => [
+					"conn4".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Connection 'conn4' has previously been defined in 'componentimpluniquenames::ab1.i2'. Maybe you forgot 'refined to'")
+				]
+				ownedModes.head => [
+					"m5".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Mode 'm5' has previously been defined in 'componentimpluniquenames::ab1.i2'")
+				]
+				ownedModeTransitions.head => [
+					"mt10".assertEquals(name);
+					assertError(testFileResult.issues, issueCollection, "Mode Transition 'mt10' has previously been defined in 'componentimpluniquenames::ab1.i2'")
+				]
+			]
+			
+			publicSection.ownedClassifiers.get(11) as SubprogramImplementation => [
+				"subprog1.spi1".assertEquals(name)
+				ownedSubprogramCallSequences.head => [
+					"callseq1".assertEquals(name);
+					ownedSubprogramCalls.head => [
+						"callspi2".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi2' in subprog1.spi1")
+					]
+					ownedSubprogramCalls.get(1) => [
+						"callspi2".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi2' in subprog1.spi1")
+					]
+					ownedSubprogramCalls.get(2) => [
+						"callspi3".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi3' in subprog1.spi1")
+					]
+				]
+				ownedSubprogramCallSequences.get(1) => [
+					"callseq2".assertEquals(name);
+					ownedSubprogramCalls.head => [
+						"callspi3".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callspi3' in subprog1.spi1")
+					]
+				]
+				ownedSubprogramCallSequences.get(2) => [
+					"callseq3".assertEquals(name);
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callseq3' in subprog1.spi1")
+				]
+				ownedSubprogramCallSequences.get(3) => [
+					"callseq3".assertEquals(name);
+						assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'callseq3' in subprog1.spi1")
+				]
+			]
+
+			publicSection.ownedClassifiers.get(12) as SubprogramImplementation => [
+				"subprog1.spi3".assertEquals(name)
+				ownedSubprogramCallSequences.head => [
+					"callseq5".assertEquals(name);
+					ownedSubprogramCalls.head => [
+						"callspi6".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Identifier 'callspi6' has previously been defined in 'componentimpluniquenames::subprog1.spi1'")
+					]
+					ownedSubprogramCalls.get(1) => [
+						"dupename7".assertEquals(name)
+						assertError(testFileResult.issues, issueCollection, "Identifier 'dupename7' has previously been defined in 'componentimpluniquenames::subprog1.spi1'")
+					]
+				]
+			]
+
+			publicSection.ownedClassifiers.get(17) as SystemImplementation => [
+				"sys100.impl2".assertEquals(name)
+				ownedSubcomponents.head => [
+					"ete1".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Identifier 'ete1' has previously been defined in 'componentimpluniquenames::sys100.impl1'")
+				]
+				ownedEndToEndFlows.head => [
+					"ete2".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "End to end flow 'ete2' has previously been defined in 'componentimpluniquenames::sys100.impl1'. Maybe you forgot 'refined to'")
+				]
+				ownedEndToEndFlows.get(1) => [
+					"ete3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'ete3' in sys100.impl2")
+				]
+				ownedEndToEndFlows.get(2) => [
+					"ete3".assertEquals(name)
+					assertError(testFileResult.issues, issueCollection, "Duplicate identifiers 'ete3' in sys100.impl2")
+				]
+			]
+		]
+
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+
+	
 }

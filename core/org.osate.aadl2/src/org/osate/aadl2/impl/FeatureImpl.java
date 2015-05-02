@@ -473,7 +473,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 
 	/*
 	 * Return the feature and any of the features it refines
-	 *
+	 * 
 	 * @return EList of feature
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
@@ -492,7 +492,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	/*
 	 * Get the classifier of given feature or its refinement ancestor, if it has
 	 * one, otherwise null.
-	 *
+	 * 
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.

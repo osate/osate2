@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.osate</groupId>
+		<artifactId>osate2</artifactId>
+		<version>2.1.0-SNAPSHOT</version>
+		<relativePath>../org.osate.build.main/pom.xml</relativePath>
+	</parent>
+	<groupId>org.osate</groupId>
+	<artifactId>osate2-modules</artifactId>
+	<version>2.1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>../../osate2-core/osate2-core.releng/modules</module>
+		<module>../../osate2-plugins/osate2-plugins.releng/modules</module>
+		<module>../../ErrorModelV2/emv2.releng/modules</module>
+		<module>../../osate2-ocarina/osate2-ocarina.releng/modules</module>
+		<module>../../osate-ge/osate-ge.releng/modules</module>
+
+		<module>../../osate2-ba/org.osate.ba</module>
+		<module>../../osate2-ba/org.osate.ba.feature</module>
+		<module>../../osate2-ba/org.osate.ba.edit</module>
+		<module>../../osate2-ba/org.osate.utils</module>
+		<module>../../osate2-ba/org.osate.utils.feature</module>
+
+		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree</module>
+		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
+		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
+		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.feature</module>
+		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.source.feature</module>
+
+		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute</module>
+		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.analysis</module>
+		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ngrep</module>
+		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.schedule.analysis</module>
+		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ui</module>
+		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
+		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
+
+		<module>../org.osate.resolute.help</module>
+
+		<module>../org.osate.build.product</module>
+	</modules>
+
+</project>

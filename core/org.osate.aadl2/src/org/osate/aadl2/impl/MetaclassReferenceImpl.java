@@ -250,8 +250,9 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 
 	protected void resolveMetaclass() {
 
-		if (resolved)
+		if (resolved) {
 			return;
+		}
 
 		StringBuilder metaclassName = new StringBuilder();
 

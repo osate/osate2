@@ -37,6 +37,7 @@ package org.osate.xtext.aadl2.validation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -53,10 +54,17 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.CompositeNode;
+import org.eclipse.xtext.nodemodel.impl.CompositeNodeWithSemanticElement;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
+import org.eclipse.xtext.nodemodel.impl.LeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
@@ -79,14 +87,47 @@ import com.google.inject.Inject;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public static final String MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS = "org.osate.xtext.aadl2.mismatched_beginning_and_ending_identifiers";
+	public static final String DUPLICATE_COMPONENT_TYPE_NAME = "org.osate.xtext.aadl2.duplicate_component_type_names";
+	public static final String DUPLICATE_LITERAL_IN_ENUMERATION = "org.osate.xtext.aadl2.duplicate_literal_in_enumeration";
+	public static final String UNIT_LITERAL_OUT_OF_ORDER = "org.osate.xtext.aadl2.unit_literal_out_of_order";
+	public static final String MODE_NOT_DEFINED_IN_CONTAINER = "org.osate.xtext.aadl2.mode_not_defined_in_container";
+	public static final String SELF_NOT_ALLOWED = "org.osate.xtext.aadl2.self_not_alllowed";
+	public static final String PROCESSOR_NOT_ALLOWED = "org.osate.xtext.aadl2.processor_not_allowed";
+	public static final String INCONSISTENT_FLOW_KIND = "org.osate.xtext.aadl2.inconsistent_flow_kind";
+	public static final String OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC = "org.osate.xtext.aadl2.out_flow_feature_identifier_not_spec";
+	public static final String IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC = "org.osate.xtext.aadl2.in_flow_feature_identifier_not_spec";
+	public static final String SUBCOMPONENT_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.subcomponent_not_in_flow_mode";
+	public static final String CONNECTION_NOT_IN_FLOW_MODE = "org.osate.xtext.aadl2.connection_not_in_flow_mode";
+	public static final String END_TO_END_FLOW_SEGMENT_NOT_IN_MODE = "org.osate.xtext.aadl2.end_to_end_flow_segment_not_in_mode";
+	public static final String GENERIC_TEXT_REPLACEMENT = "org.osate.xtext.aadl2.generic_text_replacement";
+	public static final String ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE = "org.osate.xtext.aadl2.array_size_not_equal_reference_list_size";
+	public static final String PROTOTYPE_NOT_ARRAY = "org.osate.xtext.aadl2.prototype_not_array";
+	public static final String PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL = "org.osate.xtext.aadl2.prototype_binding_direction_not_consistent_with_formal";
+	public static final String INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT = "org.osate.xtext.aadl2.incompatible_direction_for_prototype_refinement";
+	public static final String INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT = "org.osate.xtext.aadl2.incompatible_feature_direction_in_refinement";
+	public static final String ABSTRACT_FEATURE_DIRECTION_NOT_IN_PROTOTYPE = "org.osate.xtext.aadl2.abstract_feature_direction_not_in_prototype";
+	public static final String ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE = "org.osate.xtext.aadl2.abstract_feature_direction_does_not_match_prototype";
+	public static final String ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT = "org.osate.xtext.aadl2.added_direction_in_abstract_feature_refinement";
+	public static final String ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT = "org.osate.xtext.aadl2.added_prototype_or_classifier_in_abstract_feature_refinement";
+	public static final String CHAINED_INVERSE_FEATURE_GROUP_TYPES = "org.osate.xtext.aadl2.chained_inverse_feature_group_types";
+	public static final String EXTENDED_INVERSE_FEATURE_GROUP_TYPE = "org.osate.xtext.aadl2.extended_inverse_feature_group_type";
+	public static final String INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION = "org.osate.xtext.aadl2.inverse_in_feature_group_type_extension";
+	public static final String INVERSE_IN_FEATURE_GROUP = "org.osate.xtext.aadl2.inverse_in_feature_group";
+	public static final String DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS = "org.osate.xtext.aadl2.direction_not_same_as_feature_group_members";
+	public static final String REVERSE_ACCESS_KIND = "org.osate.xtext.aadl2.reverse_access_kind";
+	public static final String NUMERIC_RANGE_UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.numeric_range_upper_less_than_lower";
+	public static final String MAKE_CONNECTION_BIDIRECTIONAL = "org.osate.xtext.aadl2.make_connection_bidirectional";
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
+		if (hasExtendCycles(componentImplementation))
+			return;
 		checkComponentImplementationUniqueNames(componentImplementation);
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);
 		checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(componentImplementation);
 		checkModeSpecificFlowImplementations(componentImplementation);
+		checkInheritedMissingModes(componentImplementation);
 		checkEndId(componentImplementation);
 	}
 
@@ -99,10 +140,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseComponentType(ComponentType componentType) {
+		if (hasExtendCycles(componentType))
+			return;
 		checkComponentTypeUniqueNames(componentType);
 		checkComponentTypeModes(componentType);
 		checkForInheritedFeatureArrays(componentType);
 		checkEndId(componentType);
+		checkInheritedMissingModes(componentType);
 	}
 
 	@Check(CheckType.FAST)
@@ -132,13 +176,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseSubcomponent(Subcomponent subcomponent) {
+		checkForCyclicDeclarations(subcomponent);
 		checkSubcomponentCategory(subcomponent);
 		checkSubcomponentRefinementCategory(subcomponent);
 		checkSubcomponentRefinementClassifierSubstitution(subcomponent);
 		checkSubcomponentsHierarchy(subcomponent);
 		checkClassifierReferenceInWith(subcomponent.getClassifier(), subcomponent);
 		checkSubcomponentImplementationReferenceList(subcomponent);
-//		checkPropertyAssocs(subcomponent);
+		checkSubcomponentMissingModeValues(subcomponent);
+	}
+
+	@Check(CheckType.FAST)
+	public void caseModalElement(ModalElement modalElement) {
+		checkModalElementMissingModeValues(modalElement);
 	}
 
 	@Check(CheckType.FAST)
@@ -225,7 +275,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseDataImplementation(DataImplementation dataImplementation) {
 		checkForInheritedFlowsAndModesFromAbstractImplementation(dataImplementation);
-
 	}
 
 	@Check(CheckType.FAST)
@@ -306,6 +355,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseConnection(Connection connection) {
 		checkDefiningID(connection);
+		checkReferencesToInternalFeatures(connection);
 
 	}
 
@@ -372,6 +422,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionOrder(flow);
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
+		// checkFlowPathElements(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -399,9 +450,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupType(FeatureGroupType featureGroupType) {
+		checkEndId(featureGroupType);
+		if (hasExtendCycles(featureGroupType))
+			return;
 		checkForChainedInverseFeatureGroupTypes(featureGroupType);
 		checkFeatureGroupTypeUniqueNames(featureGroupType);
-		checkEndId(featureGroupType);
 		checkClassifierReferenceInWith(featureGroupType.getInverse(), featureGroupType);
 		checkFeaturesInInverseFeatureGroupType(featureGroupType);
 	}
@@ -528,12 +581,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseUnitLiteral(final UnitLiteral ul) {
 		if (ul.getBaseUnit() != null && !ul.getBaseUnit().eIsProxy()) {
 			EList<EnumerationLiteral> literals = ((UnitsType) ul.getOwner()).getOwnedLiterals();
+			int ulIndex = literals.indexOf(ul);
+			String[] literalNamesAndUri = new String[(ulIndex * 2) + 1];
+			literalNamesAndUri[0] = ul.getBaseUnit().getName();
+			int i = 1;
+			for (EnumerationLiteral nextEL : literals) {
+				if (literals.indexOf(nextEL) < ulIndex) {
+					literalNamesAndUri[i] = nextEL.getName();
+					i++;
+					literalNamesAndUri[i] = EcoreUtil.getURI(nextEL).toString();
+					i++;
+				}
+			}
 			if (ul.equals(ul.getBaseUnit())) {
-				error('\'' + ul.getName() + "' cannot be its own base unit", ul,
-						Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit());
+				error('\'' + ul.getName() + "' cannot be its own base unit", ul, null, UNIT_LITERAL_OUT_OF_ORDER,
+						literalNamesAndUri);
+
 			} else if (literals.indexOf(ul.getBaseUnit()) >= literals.indexOf(ul)) {
-				error('\'' + ul.getBaseUnit().getName() + "' is not declared before '" + ul.getName() + '\'', ul,
-						Aadl2Package.eINSTANCE.getUnitLiteral_BaseUnit());
+				error('\'' + ul.getBaseUnit().getName() + "' is not declared before '" + ul.getName() + '\'', ul, null,
+						UNIT_LITERAL_OUT_OF_ORDER, literalNamesAndUri);
 			}
 		}
 	}
@@ -544,7 +610,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
-				error(ne, "Literal '" + ne.getName() + "' previously declared in enumeration");
+				error("Literal '" + ne.getName() + "' previously declared in enumeration", ne, null,
+						DUPLICATE_LITERAL_IN_ENUMERATION, ne.getName());
 			}
 		}
 	}
@@ -596,6 +663,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Check(CheckType.FAST)
+	public void caseNamedElement(NamedElement ne) {
+		checkForDuplicatePropertyAssociations(ne);
+	}
+
+	@Check(CheckType.FAST)
 	public void caseAadlinteger(final AadlInteger ai) {
 		checkAadlinteger(ai);
 	}
@@ -605,23 +677,284 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckModeTransitionTrigger(trigger);
 	}
 
-//	public void checkInheritedMissingModes(ComponentType componentType) {
-//
-//		ComponentType extendedComponent = componentType.getExtended();
-//		if (null == extendedComponent)
-//			return;
-//		List<Mode> allModes = componentType.getAllModes();
-//		List<PropertyAssociation> propertyAssociations = componentType.getAllPropertyAssociations();
-//
-//		for (Mode mode : allModes) {
-////			java.lang.System.out.println("mode = " + mode);
-//		}
-//		for (PropertyAssociation propertyAssociation : propertyAssociations) {
-//			java.lang.System.out.println("propertyAssociation = " + propertyAssociation);
-//			// TODO: Loop through the porpertyAssociations
-//		}
-//
-//	}
+	public void checkForCyclicDeclarations(Subcomponent subcomponent) {
+		ComponentClassifier subcomponentType = subcomponent.getClassifier();
+		Classifier containingClassifier = subcomponent.getContainingClassifier();
+		if (subcomponentType == null)
+			return;
+		if (subcomponentType.equals(containingClassifier)) {
+			error(subcomponent, "The type of subcomponent '" + subcomponent.getName()
+					+ "' cannot be the object that contains it");
+		} else {
+			if (isSubcomponentCircularDependency(subcomponentType, containingClassifier, new ArrayList<Classifier>())) {
+				error(subcomponent, "Invalid circular dependency. Subcomponent '" + subcomponent.getName()
+						+ "' directly or indirectly contains '" + containingClassifier.getName() + "'.");
+			}
+		}
+	}
+
+	private boolean isSubcomponentCircularDependency(ComponentClassifier subcomponentType,
+			Classifier startContainingClassifier, List<Classifier> previouslyVisitedClassifiers) {
+		if (subcomponentType == null)
+			return false;
+		if (previouslyVisitedClassifiers.contains(subcomponentType)) {
+			return true;
+		} else {
+			previouslyVisitedClassifiers.add(subcomponentType);
+		}
+		if (subcomponentType instanceof ComponentImplementation) {
+			List<Subcomponent> otherSubComponents = ((ComponentImplementation) subcomponentType).getAllSubcomponents();
+			for (Subcomponent otherSubc : otherSubComponents) {
+				if (otherSubc.getClassifier() != null) {
+					if (otherSubc.getClassifier().equals(startContainingClassifier)) {
+						return true;
+					} else {
+						if (isSubcomponentCircularDependency(otherSubc.getClassifier(), startContainingClassifier,
+								previouslyVisitedClassifiers)) {
+							return true;
+						}
+					}
+				}
+			}
+			previouslyVisitedClassifiers.remove(subcomponentType);
+		}
+		return false;
+	}
+
+	public void checkForDuplicatePropertyAssociations(NamedElement ne) {
+		class Holder {
+			String appliesTo;
+			Property property;
+			PropertyAssociation propertyAssociation;
+
+			Holder(String appliesTo, Property property, PropertyAssociation propertyAssociation) {
+				this.appliesTo = appliesTo;
+				this.property = property;
+				this.propertyAssociation = propertyAssociation;
+			}
+
+			@Override
+			public boolean equals(Object arg0) {
+				return (null != arg0 && arg0 instanceof Holder && appliesTo.equals(((Holder) arg0).appliesTo) && property
+						.equals(((Holder) arg0).property));
+			}
+		}
+
+		List<PropertyAssociation> propertyAssociations = ne.getOwnedPropertyAssociations();
+		List<Holder> holderList = new ArrayList<Holder>();
+		for (PropertyAssociation propertyAssoc : propertyAssociations) {
+			Property property = propertyAssoc.getProperty();
+			List<ContainedNamedElement> appliesTos = propertyAssoc.getAppliesTos();
+			if (null == appliesTos || appliesTos.isEmpty()) {
+				String appliesToString = ne.getName();
+				holderList.add(new Holder(appliesToString, property, propertyAssoc));
+			} else {
+				for (ContainedNamedElement appliesTo : appliesTos) {
+					String appliesToString = buildAppliesToString(appliesTo);
+					holderList.add(new Holder(appliesToString, property, propertyAssoc));
+				}
+			}
+		}
+
+		Holder[] holders = new Holder[holderList.size()];
+		holderList.toArray(holders);
+		List<Integer> arrayNumbers = new ArrayList<Integer>();
+
+		for (int i = 0; i < holders.length; i++) {
+			for (int j = 0; j < holders.length; j++) {
+				if (holders[i].appliesTo != null && holders[i].appliesTo.length() > 0) {
+					if (i != j && holders[i].equals(holders[j]) && !arrayNumbers.contains(i)) {
+						arrayNumbers.add(i);
+					}
+				}
+			}
+		}
+
+		for (Integer arrayNumber : arrayNumbers) {
+			StringBuilder errorMessage = new StringBuilder();
+			errorMessage.append("Duplicate value assignments to property ");
+			errorMessage.append(holders[arrayNumber].property.getName());
+			error(holders[arrayNumber].propertyAssociation, errorMessage.toString());
+		}
+	}
+
+	private String buildAppliesToString(ContainedNamedElement cne) {
+		List<ContainmentPathElement> cpes = cne.getContainmentPathElements();
+		StringBuilder result = new StringBuilder();
+		int i = 0;
+		for (ContainmentPathElement cpe : cpes) {
+			if (!cpe.getArrayRanges().isEmpty()) {
+				return "";
+			}
+			if (i > 0) {
+				result.append(".");
+			}
+			result.append(cpe.getNamedElement().getName());
+			i++;
+		}
+		return result.toString();
+	}
+
+	public void checkModalElementMissingModeValues(ModalElement modalElement) {
+		if (modalElement instanceof Subcomponent) {
+			return;
+		}
+		List<Mode> modalElementInModes = modalElement.getInModes();
+		List<Mode> elementAllInModes = modalElement.getAllInModes();
+		List<Mode> allContainerModes = new ArrayList<Mode>();
+
+		if (null == elementAllInModes || elementAllInModes.isEmpty()) {
+			Classifier containingClassifier = modalElement.getContainingClassifier();
+			if (containingClassifier instanceof ComponentImplementation) {
+				ComponentImplementation componentImpl = (ComponentImplementation) containingClassifier;
+				allContainerModes = componentImpl.getAllModes();
+			} else if (containingClassifier instanceof ComponentType) {
+				ComponentType componentType = (ComponentType) containingClassifier;
+				allContainerModes = componentType.getAllModes();
+			}
+		}
+
+		List<PropertyAssociation> ownedPropertyAssociations = modalElement.getOwnedPropertyAssociations();
+		for (PropertyAssociation ownedPropertyAssociation : ownedPropertyAssociations) {
+			Property property = ownedPropertyAssociation.getProperty();
+			boolean defaultValue = false;
+			List<ModalPropertyValue> modalPropertyValues = ownedPropertyAssociation.getOwnedValues();
+			List<Mode> modesForAllModalPropertyValues = buildModeListForAllModalPropertyValues(modalPropertyValues,
+					modalElementInModes);
+			if (null != modalPropertyValues && !modalPropertyValues.isEmpty()) {
+				ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
+				if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
+					defaultValue = true;
+				}
+			}
+
+			for (ModalPropertyValue modalPropertyValue : modalPropertyValues) {
+				List<Mode> inModes = modalPropertyValue.getInModes();
+				boolean modeNotDefined = false;
+				for (Mode inMode : inModes) {
+					if (null != modalElementInModes && !modalElementInModes.isEmpty()) {
+						if (!modalElementInModes.contains(inMode)) {
+							String inModeURI = EcoreUtil.getURI(inMode).toString();
+							String containerURI = EcoreUtil.getURI(modalElement).toString();
+
+							List<Mode> proposedReplacementModes = new ArrayList<Mode>();
+							for (Mode meInMode : modalElementInModes) {
+								if (!modesForAllModalPropertyValues.contains(meInMode)) {
+									proposedReplacementModes.add(meInMode);
+								}
+							}
+							String[] issueData = new String[(proposedReplacementModes.size() * 2) + 5];
+							issueData[0] = inMode.getName();
+							issueData[1] = inModeURI;
+							issueData[2] = modalElement.getName();
+							issueData[3] = containerURI;
+							issueData[4] = EcoreUtil.getURI(modalPropertyValue).toString();
+							int i = 5;
+							for (Mode propsedReplacementMode : proposedReplacementModes) {
+								issueData[i++] = propsedReplacementMode.getName();
+								issueData[i++] = EcoreUtil.getURI(propsedReplacementMode).toString();
+							}
+
+							error(inMode.getName()
+									+ " is not a valid mode because it is not in the modes defined for container "
+									+ modalElement.getName(), modalPropertyValue, null, MODE_NOT_DEFINED_IN_CONTAINER,
+									issueData);
+
+							modeNotDefined = true;
+							continue;
+						}
+					}
+				}
+
+				if (null == allContainerModes || allContainerModes.isEmpty()) {
+					if (!modeNotDefined) {
+						for (Mode modalElementInMode : modalElementInModes) {
+							if (!modesForAllModalPropertyValues.contains(modalElementInMode) && !defaultValue) {
+								warning(ownedPropertyAssociation,
+										"Value not set for mode " + modalElementInMode.getName() + " for property "
+												+ property.getQualifiedName());
+							}
+						}
+					}
+				} else {
+					for (Mode containerMode : allContainerModes) {
+						if (!modesForAllModalPropertyValues.contains(containerMode) && !defaultValue) {
+							warning(ownedPropertyAssociation, "Value not set for mode " + containerMode.getName()
+									+ " for property " + property.getQualifiedName());
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public List<Mode> buildModeListForAllModalPropertyValues(List<ModalPropertyValue> modalPropertyValues,
+			List<Mode> modalElementInModes) {
+		List<Mode> resultModes = new ArrayList<Mode>();
+
+		if (null != modalPropertyValues && !modalPropertyValues.isEmpty()) {
+			ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
+			if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
+				resultModes.addAll(modalElementInModes);
+			} else {
+				for (ModalPropertyValue modalPropertyValue : modalPropertyValues) {
+					List<Mode> inModes = modalPropertyValue.getInModes();
+					for (Mode inMode : inModes) {
+						if (!resultModes.contains(inMode)) {
+							resultModes.add(inMode);
+						}
+					}
+				}
+			}
+		}
+		return resultModes;
+	}
+
+	public void checkReferencesToInternalFeatures(Connection connection) {
+		List<ConnectedElement> connectedElements = new ArrayList<ConnectedElement>();
+		connectedElements.add(connection.getSource());
+		connectedElements.add(connection.getDestination());
+
+		for (ConnectedElement connectedElement : connectedElements) {
+			ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+			ICompositeNode conElemNNode = NodeModelUtils.getNode(connectedElement);
+			INode lln = getLastLeaf(conElemNNode).getPreviousSibling();
+
+			String prefix = "";
+			while (!prefix.equalsIgnoreCase("self") && !prefix.equalsIgnoreCase("processor")) {
+				while (lln instanceof HiddenLeafNode) {
+					lln = lln.getPreviousSibling();
+				}
+				if (lln == null) {
+					return;
+				} else {
+					prefix = (null == lln.getText() ? "" : lln.getText());
+					lln = lln.getPreviousSibling();
+				}
+			}
+			String offSet = "" + (lln.getOffset() + 1);
+			String alternateConnectionEndType = "";
+
+			if (prefix.equalsIgnoreCase("self")) {
+				if (!(connectionEnd instanceof InternalFeature)) {
+					if (connectionEnd instanceof ProcessorFeature) {
+						alternateConnectionEndType = "processor";
+					}
+					error("Only internal features may follow the keyword 'self'", connectedElement, null,
+							SELF_NOT_ALLOWED, offSet, alternateConnectionEndType);
+
+				}
+			} else if (prefix.equalsIgnoreCase("processor")) {
+				if (!(connectionEnd instanceof ProcessorFeature)) {
+					if (connectionEnd instanceof InternalFeature) {
+						alternateConnectionEndType = "self";
+					}
+					error("Only processor features may follow the keyword 'processor'", connectedElement, null,
+							PROCESSOR_NOT_ALLOWED, offSet, alternateConnectionEndType);
+				}
+			}
+		}
+	}
 
 	/**
 	 * check ID at after 'end'
@@ -677,10 +1010,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (Aadl2Util.isNull(flow.getSpecification()) || Aadl2Util.isNull(flow.getSpecification().getAllOutEnd())) {
 			return;
 		}
+
 		ICompositeNode n = NodeModelUtils.getNode(flow);
+
 		INode lln = getLastLeaf(n);
 		String outFeatureName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
 				.replaceAll("\n", "");
+		int featureOffset = lln.getOffset();
+		int contextOffset = -99;
+
 		lln = getPreviousNode(lln);
 		String outContextName = null;
 		if (lln != null
@@ -689,6 +1027,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			lln = getPreviousNode(lln);
 			outContextName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
 					.replaceAll("\n", "");
+			contextOffset = lln.getOffset();
 		}
 		FlowSpecification spec = flow.getSpecification();
 		if (Aadl2Util.isNull(spec)) {
@@ -706,19 +1045,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		// if the feature names don't match
-		if (!(outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+		if ((!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 		// if the spec has a context, but the impl doesn't: flow spec picks an element from a FG
 				(outContextName == null && !Aadl2Util.isNull(specContext)) ||
 				// if the impl has a context (FG), but the spec doesn't (feature is FG)
-				(outContextName != null && Aadl2Util.isNull(specContext) && outContextName.equalsIgnoreCase(specFeature
-						.getName())) ||
+				(outContextName != null && Aadl2Util.isNull(specContext)) ||
 		// if the context names don't match
 		(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName())))) {
-			error(flow,
-					'\'' + (outContextName != null ? outContextName + '.' : "") + outFeatureName
-							+ "' does not match the out flow feature identifier '"
-							+ (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName()
-							+ "' in the flow specification.");
+			String outImplName = (outContextName != null ? outContextName + '.' : "") + outFeatureName;
+			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
+			error('\'' + outImplName + "' does not match the out flow feature identifier '" + specName
+					+ "' in the flow specification.", flow, null, OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, outImplName,
+					specName, "" + featureOffset, "" + contextOffset);
 		}
 	}
 
@@ -736,6 +1074,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
 		String inFeatureName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
 				.replaceAll("\n", "");
+		int featureOffset = lln.getOffset();
 		String inContextName = null;
 		int idx = inFeatureName.indexOf(".");
 		if (idx >= 0) {
@@ -758,19 +1097,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		// if the feature names don't match
-		if (!(inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+		if ((!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 		// if the spec has a context, but the impl doesn't
 				(inContextName == null && !Aadl2Util.isNull(specContext)) ||
 				// if the impl has a context, but the spec doesn't
-				(inContextName != null && Aadl2Util.isNull(specContext) && inContextName.equalsIgnoreCase(specFeature
-						.getName())) ||
+				(inContextName != null && Aadl2Util.isNull(specContext)) ||
 		// if the context names don't match
 		(inContextName != null && specContext != null && !inContextName.equalsIgnoreCase(specContext.getName())))) {
-			error(flow,
-					'\'' + (inContextName != null ? inContextName + '.' : "") + inFeatureName
-							+ "' does not match the in flow feature identifier '"
-							+ (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName()
-							+ "' in the flow specification.");
+			String inImplName = (inContextName != null ? inContextName + '.' : "") + inFeatureName;
+			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
+			error('\'' + inImplName + "' does not match the in flow feature identifier '" + specName
+					+ "' in the flow specification.", flow, null, IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, inImplName,
+					specName, "" + featureOffset);// , "" + contextOffset);
 		}
 	}
 
@@ -780,8 +1118,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (spec != null && !spec.eIsProxy()) {
 			FlowKind speckind = spec.getKind();
 			if (implkind != speckind) {
-				error(flowimpl, "Flow implementation " + spec.getName() + " must be a flow " + speckind.getName()
-						+ " (same as its flow spec)");
+				String offSet = "" + findKeywordOffset(flowimpl, implkind.toString());
+				error("Flow implementation " + spec.getName() + " must be a flow " + speckind.getName()
+						+ " (same as its flow spec)", flowimpl, null, INCONSISTENT_FLOW_KIND, implkind.getName(),
+						speckind.getName(), offSet);
+
 			}
 		}
 	}
@@ -1008,7 +1349,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			flowModes = flow.getContainingComponentImpl().getAllModes();
 		}
 		for (FlowSegment flowSegment : flow.getOwnedFlowSegments()) {
-			if (flowSegment.getContext() instanceof Subcomponent) {
+			if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Subcomponent) {
+				Subcomponent subcomponent = (Subcomponent) flowSegment.getFlowElement();
+				EList<Mode> subcomponentModes = subcomponent.getAllInModes();
+				if (subcomponentModes.isEmpty()) {
+					subcomponentModes = subcomponent.getContainingComponentImpl().getAllModes();
+				}
+				for (Mode flowMode : flowModes) {
+					if (!subcomponentModes.contains(flowMode)) {
+						String flowModeName = flowMode.getName();
+						String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+						String subcomponentName = subcomponent.getName();
+						String subcomponentURI = EcoreUtil.getURI(subcomponent).toString();
+						error("Subcomponent '" + subcomponentName + "' does not exist in mode '" + flowModeName + "'",
+								flowSegment, null, SUBCOMPONENT_NOT_IN_FLOW_MODE, flowModeName, flowModeURI,
+								subcomponentName, subcomponentURI);
+					}
+				}
+
+			} else if (flowSegment.getContext() instanceof Subcomponent) {
 				Subcomponent subcomponent = (Subcomponent) flowSegment.getContext();
 				EList<Mode> subcomponentModes = subcomponent.getAllInModes();
 				if (subcomponentModes.isEmpty()) {
@@ -1016,8 +1375,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				for (Mode flowMode : flowModes) {
 					if (!subcomponentModes.contains(flowMode)) {
-						error(flowSegment, "Subcomponent '" + subcomponent.getName() + "' does not exist in mode '"
-								+ flowMode.getName() + '\'');
+						String flowModeName = flowMode.getName();
+						String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+						String subcomponentName = subcomponent.getName();
+						String subcomponentURI = EcoreUtil.getURI(subcomponent).toString();
+						error("Subcomponent '" + subcomponentName + "' does not exist in mode '" + flowModeName + "'",
+								flowSegment, null, SUBCOMPONENT_NOT_IN_FLOW_MODE, flowModeName, flowModeURI,
+								subcomponentName, subcomponentURI);
 					}
 				}
 			} else if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Connection) {
@@ -1028,13 +1392,170 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				for (Mode flowMode : flowModes) {
 					if (!connectionModes.contains(flowMode)) {
-						error(flowSegment, "Connection '" + connection.getName() + "' does not exist in mode '"
-								+ flowMode.getName() + '\'');
+						String flowModeName = flowMode.getName();
+						String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+						String connectionName = connection.getName();
+						String connectiontURI = EcoreUtil.getURI(connection).toString();
+						error("Connection '" + connectionName + "' does not exist in mode '" + flowModeName + "'",
+								flowSegment, null, CONNECTION_NOT_IN_FLOW_MODE, flowModeName, flowModeURI,
+								connectionName, connectiontURI);
 					}
 				}
 			}
 		}
 	}
+
+	private List<String> resolveCompositeNodeToList(ICompositeNode cNode) {
+		List<String> nodes = new ArrayList<String>();
+
+		BidiIterable<INode> iterable = cNode.getChildren();
+		Iterator<INode> iter = iterable.iterator();
+		while (iter.hasNext()) {
+			INode iterNode = iter.next();
+			if (iterNode instanceof HiddenLeafNode) {
+				continue;
+			} else if (iterNode instanceof LeafNode) {
+				nodes.add(iterNode.getText().trim());
+			} else if (iterNode instanceof CompositeNode) {
+				nodes.addAll(resolveCompositeNodeToList((CompositeNode) iterNode));
+			}
+		}
+		return nodes;
+	}
+
+	private int findKeywordOffset(EObject object, String searchword) {
+		ICompositeNode n = NodeModelUtils.getNode(object);
+		INode lln = findFirstKeywordNodeEqualToString(n, nodeSearchString(searchword));
+		return lln.getOffset();
+	}
+
+	private INode findFirstKeywordNodeEqualToString(ICompositeNode cNode, String searchFor) {
+		INode result = null;
+		searchFor = searchFor.toLowerCase();
+
+		BidiIterable<INode> iterable = cNode.getChildren();
+		Iterator<INode> iter = iterable.iterator();
+		while (iter.hasNext()) {
+			INode iterNode = iter.next();
+			if (iterNode instanceof HiddenLeafNode) {
+				continue;
+			} else if (iterNode instanceof LeafNode) {
+				if (iterNode.getGrammarElement() instanceof Keyword) {
+					if (iterNode.getText().toLowerCase().equalsIgnoreCase(searchFor))
+						return iterNode;
+				}
+			} else if (iterNode instanceof CompositeNode) {
+				result = findFirstKeywordNodeEqualToString((CompositeNode) iterNode, searchFor);
+				if (null != result)
+					return result;
+			}
+		}
+		return result;
+	}
+
+	private INode findFirstArraySizeNodeEqualToSize(ICompositeNode cNode, long searchForValue) {
+		INode result = null;
+		BidiIterable<INode> iterable = cNode.getChildren();
+		Iterator<INode> iter = iterable.iterator();
+		while (iter.hasNext()) {
+			INode iterNode = iter.next();
+			if (iterNode instanceof HiddenLeafNode) {
+				continue;
+			} else if (iterNode instanceof LeafNode) {
+				continue;
+			} else if (iterNode instanceof CompositeNodeWithSemanticElement) {
+				if (iterNode.getSemanticElement() instanceof ArrayDimension) {
+					ArrayDimension arrayDimension = (ArrayDimension) iterNode.getSemanticElement();
+					if (searchForValue == arrayDimension.getSize().getSize()) {
+						return iterNode;
+					}
+				}
+			} else if (iterNode instanceof CompositeNode) {
+				result = findFirstArraySizeNodeEqualToSize((CompositeNode) iterNode, searchForValue);
+				if (null != result)
+					return result;
+			}
+		}
+		return result;
+	}
+
+//	private void checkFlowPathElements(FlowImplementation flowimplementation) {
+//
+//		if (!flowimplementation.getKind().equals(FlowKind.PATH)) {
+//			return;
+//		}
+//
+//		FlowSpecification spec = flowimplementation.getSpecification();
+//		if (Aadl2Util.isNull(spec)) {
+//			return;
+//		}
+//
+//		FlowEnd specIn = spec.getAllInEnd();
+//		if (Aadl2Util.isNull(specIn)) {
+//			return;
+//		}
+//		FlowEnd specOut = spec.getAllOutEnd();
+//		if (Aadl2Util.isNull(specOut)) {
+//			return;
+//		}
+//
+//		String specInContext = (specIn.getContext() != null) ? specIn.getContext().getName() + "." : "";
+//		String specOutContext = (specOut.getContext() != null) ? specOut.getContext().getName() + "." : "";
+//		String specInFeature = specIn.getFeature().getName();
+//		String specOutFeature = specOut.getFeature().getName();
+//		String specInName = specInContext + specInFeature;
+//		String specOutName = specOutContext + specOutFeature;
+//
+//		ICompositeNode n = NodeModelUtils.getNode(flowimplementation);
+//		List<String> resolvedComposite = resolveCompositeNodeToList(n);
+//
+//		if (null == resolvedComposite || resolvedComposite.isEmpty() || !resolvedComposite.contains("->")) {
+//			return;
+//		}
+//
+//		int index = resolvedComposite.size() - 1;
+//
+//		String outFeature = resolvedComposite.get(index--);
+//		String outContext = "";
+//
+//		if (resolvedComposite.get(index).equals(".")) {
+//			index--;
+//		}
+//		if (resolvedComposite.get(index).equals("->")) {
+//			outContext = "";
+//		} else {
+//			outContext = resolvedComposite.get(index--);
+//		}
+//		String outImpl = outContext + ((outContext.equals("")) ? "" : ".") + outFeature;
+//
+//		String inFeature = "";
+//		String inContext = "";
+//
+//		index = 0;
+//		for (int i = 0; i < resolvedComposite.size(); i++) {
+//			if (resolvedComposite.get(i).equalsIgnoreCase("path")) {
+//				index = i + 1;
+//				break;
+//			}
+//		}
+//
+//		inFeature = resolvedComposite.get(index++);
+//		if (resolvedComposite.get(index++).equals(".")) {
+//			inContext = inFeature;
+//			inFeature = resolvedComposite.get(index);
+//		}
+//
+//		String inImpl = inContext + ((inContext.equals("")) ? "" : ".") + inFeature;
+//
+//		if (!inImpl.equalsIgnoreCase(specInName)) {
+//			error(flowimplementation, "Flow implementation In type: " + inImpl
+//					+ " differs from specification In type: " + specInName);
+//		}
+//		if (!outImpl.equalsIgnoreCase(specOutName)) {
+//			error(flowimplementation, "Flow implementation Out type: " + outImpl
+//					+ " differs from specification Out type: " + specOutName);
+//		}
+//	}
 
 	/**
 	 * Partially checks legality rule 7 in section 10.2 (Flow Implementations) on page 189.
@@ -1080,10 +1601,32 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (FlowImplementation flow : inheritedFlows) {
 			EList<Mode> flowModes = flow.getAllInModes();
 			if (flowModes.isEmpty()) {
-				componentImplementation.getAllModes();
+				flowModes = componentImplementation.getAllModes();
 			}
 			for (FlowSegment flowSegment : flow.getOwnedFlowSegments()) {
-				if (flowSegment.getContext() instanceof Subcomponent) {
+				if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Subcomponent) {
+					Subcomponent subcomponentRefinement = findSubcomponentRefinement(
+							(Subcomponent) flowSegment.getFlowElement(), subcomponentRefinements);
+					if (subcomponentRefinement != null) {
+						EList<Mode> subcomponentModes = subcomponentRefinement.getAllInModes();
+						if (subcomponentModes.isEmpty()) {
+							subcomponentModes = componentImplementation.getAllModes();
+						}
+						for (Mode flowMode : flowModes) {
+							if (!subcomponentModes.contains(flowMode)) {
+								String flowModeName = flowMode.getName();
+								String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+								String subcomponentName = subcomponentRefinement.getName();
+								String subcomponentURI = EcoreUtil.getURI(subcomponentRefinement).toString();
+								error("Inherited flow implementation '" + flow.getSpecification().getName()
+										+ "' refers to subcomponent refinement '" + subcomponentRefinement.getName()
+										+ "' which does not exist in mode '" + flowMode.getName() + "'",
+										subcomponentRefinement, null, SUBCOMPONENT_NOT_IN_FLOW_MODE, flowModeName,
+										flowModeURI, subcomponentName, subcomponentURI);
+							}
+						}
+					}
+				} else if (flowSegment.getContext() instanceof Subcomponent) {
 					Subcomponent subcomponentRefinement = findSubcomponentRefinement(
 							(Subcomponent) flowSegment.getContext(), subcomponentRefinements);
 					if (subcomponentRefinement != null) {
@@ -1093,10 +1636,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						for (Mode flowMode : flowModes) {
 							if (!subcomponentModes.contains(flowMode)) {
-								error(componentImplementation, "Inherited flow implementation '"
-										+ flow.getSpecification().getName() + "' refers to subcomponent refinement '"
-										+ subcomponentRefinement.getName() + "' which does not exist in mode '"
-										+ flowMode.getName() + '\'');
+								String flowModeName = flowMode.getName();
+								String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+								String subcomponentName = subcomponentRefinement.getName();
+								String subcomponentURI = EcoreUtil.getURI(subcomponentRefinement).toString();
+								error("Inherited flow implementation '" + flow.getSpecification().getName()
+										+ "' refers to subcomponent refinement '" + subcomponentRefinement.getName()
+										+ "' which does not exist in mode '" + flowMode.getName() + "'",
+										subcomponentRefinement, null, SUBCOMPONENT_NOT_IN_FLOW_MODE, flowModeName,
+										flowModeURI, subcomponentName, subcomponentURI);
 							}
 						}
 					}
@@ -1110,10 +1658,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 						for (Mode flowMode : flowModes) {
 							if (!connectionModes.contains(flowMode)) {
-								error(componentImplementation, "Inherited flow implementation '"
-										+ flow.getSpecification().getName() + "' refers to connection refinement '"
-										+ connectionRefinement.getName() + "' which does not exist in mode '"
-										+ flowMode.getName() + '\'');
+								String flowModeName = flowMode.getName();
+								String flowModeURI = EcoreUtil.getURI(flowMode).toString();
+								String connectionName = connectionRefinement.getName();
+								String connectiontURI = EcoreUtil.getURI(connectionRefinement).toString();
+								error("Connection '" + connectionName + "' does not exist in mode '" + flowModeName
+										+ "'", connectionRefinement, null, CONNECTION_NOT_IN_FLOW_MODE, flowModeName,
+										flowModeURI, connectionName, connectiontURI);
 							}
 						}
 					}
@@ -1481,18 +2032,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		for (EndToEndFlowSegment segment : flow.getAllFlowSegments()) {
 			EList<Mode> segmentModes = null;
+			String targetURI = "";
+			String targetName = "";
 			if (segment.getContext() != null && segment.getContext() instanceof ModalElement) {
 				segmentModes = ((ModalElement) segment.getContext()).getAllInModes();
+				targetName = segment.getContext().getName();
+				targetURI = EcoreUtil.getURI(segment.getContext()).toString();
 			} else if (segment.getContext() == null && segment.getFlowElement() instanceof ModalElement) {
 				segmentModes = ((ModalElement) segment.getFlowElement()).getAllInModes();
+				targetName = segment.getFlowElement().getName();
+				targetURI = EcoreUtil.getURI(segment.getFlowElement()).toString();
 			}
 			if (segmentModes != null && !segmentModes.isEmpty()) {
 				for (Mode neededMode : neededModes) {
 					if (!segmentModes.contains(neededMode)) {
-						error(segment,
-								"'" + (segment.getContext() == null ? "" : segment.getContext().getName() + '.')
-										+ segment.getFlowElement().getName() + "' does not exist in mode '"
-										+ neededMode.getName() + "'.");
+						String neededModeName = neededMode.getName();
+						String neededModeURI = EcoreUtil.getURI(neededMode).toString();
+						error("'" + targetName + "' does not exist in mode '" + neededModeName + "'.", segment, null,
+								END_TO_END_FLOW_SEGMENT_NOT_IN_MODE, targetName, targetURI, neededModeName,
+								neededModeURI);
 					}
 				}
 			}
@@ -1501,17 +2059,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	public void checkExtendCycles(Classifier cl) {
 		if (hasExtendCycles(cl)) {
-			error(cl, "The extends hierarchy of " + cl.getName() + " has a cycle.");
-		}
-	}
-
-	public void checkPackageReference(AadlPackage pack, Element context) {
-		if (Aadl2Util.isNull(pack)) {
-			return;
-		}
-		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
-		if (!AadlUtil.isImportedPackage(pack, contextNS)) {
-			error(context, "The referenced package '" + pack.getName() + "' is not listed in a with clause.");
+			Generalization extension;
+			if (cl instanceof ComponentType) {
+				extension = ((ComponentType) cl).getOwnedExtension();
+			} else if (cl instanceof ComponentImplementation) {
+				extension = ((ComponentImplementation) cl).getOwnedExtension();
+			} else {
+				extension = ((FeatureGroupType) cl).getOwnedExtension();
+			}
+			error(extension, "The extends hierarchy of " + cl.getName() + " has a cycle.");
 		}
 	}
 
@@ -1550,11 +2106,54 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		l.addAll(type.getAllModes());
 		l.addAll(type.getAllModeTransitions());
 		l.addAll(type.getAllPrototypes());
+		l = sortNamedElements(l);
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
-				error(ne, ne.eClass().getName() + " identifier '" + ne.getName()
-						+ "' previously defined. Maybe you forgot 'refined to'");
+				if (type.getOwnedElements().isEmpty() || !type.getOwnedElements().contains(ne)) {
+					continue;
+				}
+				if (ne instanceof Mode || ne instanceof ModeTransition) {
+					error(ne, ne.eClass().getName() + " identifier '" + ne.getName() + "' previously defined.");
+				} else if (ne instanceof FlowSpecification) {
+					error(ne, ne.eClass().getName() + " identifier '" + ne.getName()
+							+ "' previously defined. Maybe you forgot 'refined to'");
+				} else {
+					Classifier classifier = ne.getContainingClassifier();
+					List<NamedElement> dupesInClassifier = findDupesInSameClassifier(classifier, ne);
+					if (dupesInClassifier.size() > 1) {
+						for (NamedElement dupeNe : dupesInClassifier) {
+							error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
+						}
+						continue;
+					}
+
+					List<Classifier> extendedClassifiers = getExtendedClassifiersWithElement(classifier, ne);
+					if (extendedClassifiers.size() < 1) {
+						continue;
+					}
+
+					NamedElement duplicated = null;
+					duplicated = extendedClassifiers.get(0).findNamedElement(ne.getName());
+					if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature) || (duplicated instanceof AbstractPrototype && ne instanceof Prototype)) && !ne
+							.eClass().equals(duplicated.eClass()))
+							|| ((duplicated instanceof AbstractFeature && ne instanceof Prototype) || (duplicated instanceof Prototype & ne instanceof AbstractFeature))) {
+						error(ne, duplicated.eClass().getName() + " identifier '" + ne.getName()
+								+ "' previously defined in " + duplicated.getContainingClassifier().getName());
+					} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
+							.getRefined() != null))
+							|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
+									.getRefined() != null))) {
+						continue;
+					} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
+							.getRefined() == null))
+							|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
+									.getRefined() == null))) {
+						continue;
+					} else {
+						postRefineableErrorWithFix(ne, duplicated);
+					}
+				}
 			}
 		}
 	}
@@ -1575,12 +2174,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			usedNames.addAll(impl.getType().getAllFlowSpecifications());
 		}
 		usedNames.addAll(impl.getAllEndToEndFlows());
-		EList<SubprogramCallSequence> csl = null;
-		if (impl instanceof ThreadImplementation) {
-			csl = ((ThreadImplementation) impl).getOwnedSubprogramCallSequences();
-		} else if (impl instanceof SubprogramImplementation) {
-			csl = ((SubprogramImplementation) impl).getOwnedSubprogramCallSequences();
+
+		ArrayList<SubprogramCallSequence> csl = null;
+		if (impl instanceof BehavioredImplementation) {
+			csl = new ArrayList<SubprogramCallSequence>();
+			for (ComponentImplementation currentImpl = impl; currentImpl instanceof BehavioredImplementation; currentImpl = currentImpl
+					.getExtended()) {
+				csl.addAll(((BehavioredImplementation) currentImpl).getOwnedSubprogramCallSequences());
+			}
 		}
+
 		if (csl != null) {
 			usedNames.addAll(csl);
 			for (SubprogramCallSequence subprogramCallSequence : csl) {
@@ -1588,29 +2191,292 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 
+		usedNames = sortNamedElements(usedNames);
+
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(usedNames);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
-				error(impl,
-						"Identifier '" + ne.getName() + "' has previously been defined in implementation '"
-								+ impl.getQualifiedName() + "' or in type '" + impl.getTypeName() + "'");
+
+				if ((!(ne instanceof SubprogramCall)) && !impl.getOwnedElements().contains(ne)) {
+					continue;
+				}
+
+				if (ne instanceof SubprogramCall) {
+					NamedElement foundNe = impl.findNamedElement(ne.getName());
+					if (null == foundNe) {
+						continue;
+					}
+				}
+
+				Classifier classifier = ne.getContainingClassifier();
+				List<NamedElement> dupesInClassifier = findDupesInSameClassifier(classifier, ne);
+				if (dupesInClassifier.size() > 1) {
+					for (NamedElement dupeNe : dupesInClassifier) {
+						error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
+					}
+					continue;
+				}
+
+				List<Classifier> extendedClassifiers = getExtendedClassifiersWithElement(classifier, ne);
+				List<Classifier> implementedTypeClassifiers = new ArrayList<Classifier>();
+				if (classifier instanceof ComponentImplementation) {
+					implementedTypeClassifiers = getImplementedClassifiersWithElement(
+							((ComponentImplementation) classifier), ne);
+				}
+				for (Classifier nextClassifier : extendedClassifiers) {
+					if (!implementedTypeClassifiers.contains(nextClassifier)) {
+						implementedTypeClassifiers.add(nextClassifier);
+					}
+				}
+
+				if (implementedTypeClassifiers.size() < 1) {
+					continue;
+				}
+
+				NamedElement duplicated = null;
+				duplicated = implementedTypeClassifiers.get(0).findNamedElement(ne.getName());
+
+				if (ne instanceof Subcomponent && duplicated instanceof Subcomponent) {
+					postRefineableErrorWithFix(ne, duplicated);
+				} else if (ne instanceof Prototype && duplicated instanceof Prototype) {
+					if (null != ((Prototype) ne).getRefined()) {
+						continue;
+					}
+					postRefineableErrorWithFix(ne, duplicated);
+				} else if (ne instanceof Subcomponent) {
+					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+
+				} else if (ne instanceof Mode && duplicated instanceof Mode) {
+					error(ne, "Mode '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (ne instanceof ModeTransition && duplicated instanceof ModeTransition) {
+					error(ne, "Mode Transition '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (ne instanceof ModeTransition) {
+					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (ne instanceof Connection && duplicated instanceof Connection) {
+					error(ne, "Connection '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'. "
+							+ "Maybe you forgot 'refined to'");
+				} else if (ne instanceof EndToEndFlow && duplicated instanceof EndToEndFlow) {
+					error(ne, "End to end flow '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'. "
+							+ "Maybe you forgot 'refined to'");
+				} else if (ne instanceof SubprogramCallSequence) {
+					error(ne, "Idenitifer '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (ne instanceof SubprogramCall) {
+					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else if (!ne.eClass().equals(duplicated.eClass())) {
+					error(ne, "Identifier '" + ne.getName() + "' has previously been defined in '"
+							+ duplicated.getContainingClassifier().getQualifiedName() + "'");
+				} else {
+					// least helpful catch all error in case something was overlooked
+					error(ne,
+							"Identifier '" + ne.getName() + "' has previously been defined in implementation '"
+									+ duplicated.getContainingClassifier().getQualifiedName() + "' or in type '"
+									+ impl.getTypeName() + "'");
+				}
 			}
 		}
 	}
 
+	private void postRefineableErrorWithFix(NamedElement ne, NamedElement duplicated) {
+		ICompositeNode n = NodeModelUtils.getNode(ne);
+		INode cn = findFirstKeywordNodeEqualToString(n, ":");
+		INode nextNode = cn.getNextSibling();
+		String leadingSpace = "";
+		String trailingSpace = " ";
+		if (nextNode instanceof LeafNode && nextNode.getText().substring(0, 1).equals(" ")) {
+			leadingSpace = " ";
+			trailingSpace = "";
+		} else {
+			while (nextNode instanceof CompositeNode) {
+				nextNode = ((CompositeNode) nextNode).getFirstChild();
+				if (nextNode instanceof LeafNode && ((LeafNode) nextNode).getText().substring(0, 1).equals(" ")) {
+					leadingSpace = " ";
+					trailingSpace = "";
+				}
+			}
+		}
+		String cnOffset = "" + cn.getTotalOffset();
+		String replacementVal = ":" + leadingSpace + "refined to" + trailingSpace;
+		String errMsg = ne.eClass().getName() + " identifier '" + ne.getName() + "' previously defined in "
+				+ duplicated.getContainingClassifier().getName() + ". Maybe you forgot 'refined to'";
+
+		error(errMsg, ne, Aadl2Package.eINSTANCE.getNamedElement_Name(), DUPLICATE_COMPONENT_TYPE_NAME, ne.getName(),
+				cnOffset, replacementVal);
+
+	}
+
+	private List<Classifier> getExtendedClassifiersWithElement(Classifier classifier, NamedElement ne) {
+		Classifier extended = classifier.getExtended();
+		if (null == extended && classifier instanceof ComponentImplementation) {
+			extended = ((ComponentImplementation) classifier).getType();
+		}
+		List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
+		while (null != extended) {
+			EList<Element> ownedElements = extended.getOwnedElements();
+			if (null != ownedElements) {
+				for (Element ownedElement : ownedElements) {
+					if (ownedElement instanceof NamedElement
+							&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+						extendedClassifiers.add(extended);
+					}
+					if (ownedElement instanceof SubprogramCallSequence) {
+						EList<SubprogramCall> subProgCalls = ((SubprogramCallSequence) ownedElement)
+								.getOwnedSubprogramCalls();
+						for (SubprogramCall spc : subProgCalls) {
+							if (((NamedElement) spc).getName().equalsIgnoreCase(ne.getName())) {
+								extendedClassifiers.add(extended);
+							}
+						}
+					}
+				}
+			}
+			Classifier tempClassifier = extended;
+			extended = extended.getExtended();
+			if (null == extended && tempClassifier instanceof ComponentImplementation) {
+				extended = ((ComponentImplementation) tempClassifier).getType();
+			}
+		}
+		return extendedClassifiers;
+	}
+
+	private List<Classifier> getImplementedClassifiersWithElement(ComponentImplementation classifier, NamedElement ne) {
+		List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
+		Classifier extended = classifier.getType();
+		EList<Element> ownedElements = extended.getOwnedElements();
+		if (null != ownedElements) {
+			for (Element ownedElement : ownedElements) {
+				if (ownedElement instanceof NamedElement
+						&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+					extendedClassifiers.add(extended);
+				}
+				if (ownedElement instanceof SubprogramCallSequence) {
+					EList<SubprogramCall> subProgCalls = ((SubprogramCallSequence) ownedElement)
+							.getOwnedSubprogramCalls();
+					for (SubprogramCall spc : subProgCalls) {
+						if (((NamedElement) spc).getName().equalsIgnoreCase(ne.getName())) {
+							extendedClassifiers.add(extended);
+						}
+					}
+				}
+			}
+		}
+
+		List<Classifier> extendedFromTypeClassifiers = getExtendedClassifiersWithElement(extended, ne);
+		extendedClassifiers.addAll(extendedFromTypeClassifiers);
+		return extendedClassifiers;
+	}
+
+	private List<NamedElement> findDupesInSameClassifier(Classifier classifier, NamedElement ne) {
+		List<NamedElement> dupesInClassifier = new ArrayList<NamedElement>();
+		EList<Element> oe = classifier.getOwnedElements();
+
+		if (null != oe) {
+			for (Element ownedElement : oe) {
+				if (ownedElement instanceof NamedElement
+						&& ((NamedElement) ownedElement).getName().equalsIgnoreCase(ne.getName())) {
+					dupesInClassifier.add((NamedElement) ownedElement);
+				}
+				if (ownedElement instanceof SubprogramCallSequence) {
+					EList<SubprogramCall> spCalls = ((SubprogramCallSequence) ownedElement).getOwnedSubprogramCalls();
+					for (SubprogramCall subCall : spCalls) {
+						if (subCall.getName().equalsIgnoreCase(ne.getName())) {
+							dupesInClassifier.add(subCall);
+						}
+					}
+				}
+			}
+		}
+		return dupesInClassifier;
+	}
+
+	private EList<NamedElement> sortNamedElements(EList<NamedElement> list) {
+		Collections.sort(list, new Comparator<NamedElement>() {
+
+			@Override
+			public int compare(NamedElement a, NamedElement b) {
+				int aExtendCount = -1;
+				Classifier aExtended = a.getContainingClassifier();
+				while (null != aExtended) {
+					aExtendCount++;
+					if (aExtended instanceof ComponentImplementation && null == aExtended.getExtended()) {
+						aExtended = ((ComponentImplementation) aExtended).getType();
+					} else {
+						aExtended = aExtended.getExtended();
+					}
+				}
+				int bExtendCount = -1;
+				Classifier bExtended = b.getContainingClassifier();
+				while (null != bExtended) {
+					bExtendCount++;
+					if (bExtended instanceof ComponentImplementation && null == bExtended.getExtended()) {
+						bExtended = ((ComponentImplementation) bExtended).getType();
+					} else {
+						bExtended = bExtended.getExtended();
+					}
+				}
+				return aExtendCount - bExtendCount;
+			}
+		});
+		return list;
+	}
+
 	/**
-	 * check for unique names in component type
+	 * check for unique names in Feature Group type
 	 */
 	public void checkFeatureGroupTypeUniqueNames(FeatureGroupType type) {
 		// process in core package
 		EList<NamedElement> l = new BasicEList<NamedElement>();
 		l.addAll(type.getAllFeatures());
 		l.addAll(type.getAllPrototypes());
+		l = sortNamedElements(l);
+
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
-				error(ne, ne.eClass().getName() + " identifier '" + ne.getName()
-						+ "' previously defined. Maybe you forgot 'refined to'");
+				if (type.getOwnedElements().isEmpty() || !type.getOwnedElements().contains(ne)) {
+					continue;
+				}
+				Classifier classifier = ne.getContainingClassifier();
+				List<NamedElement> dupesInClassifier = findDupesInSameClassifier(classifier, ne);
+				if (dupesInClassifier.size() > 1) {
+					for (NamedElement dupeNe : dupesInClassifier) {
+						error(dupeNe, "Duplicate identifiers '" + dupeNe.getName() + "' in " + classifier.getName());
+					}
+					continue;
+				}
+
+				List<Classifier> extendedClassifiers = getExtendedClassifiersWithElement(classifier, ne);
+				if (extendedClassifiers.size() < 1) {
+					continue;
+				}
+
+				NamedElement duplicated = null;
+				duplicated = extendedClassifiers.get(0).findNamedElement(ne.getName());
+				if ((!((duplicated instanceof AbstractFeature && ne instanceof Feature) || (duplicated instanceof AbstractPrototype && ne instanceof Prototype)) && !ne
+						.eClass().equals(duplicated.eClass()))
+						|| ((duplicated instanceof AbstractFeature && ne instanceof Prototype) || (duplicated instanceof Prototype & ne instanceof AbstractFeature))) {
+					error(ne, duplicated.eClass().getName() + " identifier '" + ne.getName()
+							+ "' previously defined in " + duplicated.getContainingClassifier().getName());
+				} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
+						.getRefined() != null))
+						|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
+								.getRefined() != null))) {
+					continue;
+				} else if (((ne instanceof Feature && ((Feature) ne).getRefined() != null) && (duplicated instanceof Feature && ((Feature) duplicated)
+						.getRefined() == null))
+						|| ((ne instanceof Prototype && ((Prototype) ne).getRefined() != null) && (duplicated instanceof Prototype && ((Prototype) duplicated)
+								.getRefined() == null))) {
+					continue;
+				} else {
+					postRefineableErrorWithFix(ne, duplicated);
+				}
 			}
 		}
 	}
@@ -1661,13 +2527,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkComponentTypeRenameCategory(ComponentTypeRename componentTypeRename) {
 		if (Aadl2Util.isNull(componentTypeRename.getRenamedComponentType())) {
-//			error(componentTypeRename,"Component type rename reference could not be resolved.");
 			return;
 		}
 		if (!componentTypeRename.getCategory().equals(componentTypeRename.getRenamedComponentType().getCategory())) {
+			String wrongCategoryName = componentTypeRename.getCategory().getName();
+			String rightCategoryName = componentTypeRename.getRenamedComponentType().getCategory().getName();
+			String offset = "" + findKeywordOffset(componentTypeRename, wrongCategoryName);
 			error("The category of '" + componentTypeRename.getRenamedComponentType().getQualifiedName() + "' is not "
-					+ componentTypeRename.getCategory().getName(), componentTypeRename,
-					Aadl2Package.eINSTANCE.getComponentTypeRename_RenamedComponentType());
+					+ componentTypeRename.getCategory().getName(), componentTypeRename, null, GENERIC_TEXT_REPLACEMENT,
+					wrongCategoryName, rightCategoryName, offset);
 		}
 	}
 
@@ -1681,8 +2549,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentType parent = typeExtension.getExtended();
 		ComponentType child = (ComponentType) typeExtension.getSpecific();
 		if (!canExtend(parent, child)) {
-			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child,
-					Aadl2Package.eINSTANCE.getComponentType_OwnedExtension());
+			String changeFrom = child.getCategory().getName();
+			String changeTo = parent.getCategory().getName();
+			String offset = "" + findKeywordOffset(child, changeFrom);
+			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child, null,
+					GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
+		}
+	}
+
+	private String nodeSearchString(String changeFrom) {
+		int spaceIndex = changeFrom.indexOf(" ");
+		if (spaceIndex < 0) {
+			return changeFrom;
+		} else {
+			return changeFrom.substring(0, spaceIndex);
 		}
 	}
 
@@ -1764,8 +2644,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		ComponentImplementation implementation = (ComponentImplementation) realization.getSpecific();
 		if (!type.getCategory().equals(implementation.getCategory())) {
-			error(realization,
-					"The category of '" + type.getQualifiedName() + "' is not " + implementation.getCategory() + '.');
+			String changeFrom = implementation.getCategory().getName();
+			String changeTo = type.getCategory().getName();
+			String offset = "" + findKeywordOffset(implementation, changeFrom);
+			error("The category of '" + type.getQualifiedName() + "' is not " + implementation.getCategory() + ".",
+					realization, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 		}
 	}
 
@@ -1779,8 +2662,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentImplementation parent = implementationExtension.getExtended();
 		ComponentImplementation child = (ComponentImplementation) implementationExtension.getSpecific();
 		if (!canExtend(parent, child)) {
-			error(implementationExtension, "Cannot extend '" + parent.getQualifiedName()
-					+ "'.  Incompatible categories.");
+			String changeFrom = child.getCategory().getName();
+			String changeTo = parent.getCategory().getName();
+			String offset = "" + findKeywordOffset(child, changeFrom);
+
+			error("Cannot extend '" + parent.getQualifiedName() + "'.  Incompatible categories.", child, null,
+					GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 		}
 	}
 
@@ -1829,7 +2716,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (subcomponent.getRefined() != null) {
 			ComponentCategory refinedCategory = subcomponent.getRefined().getCategory();
 			if (!subcomponentCategory.equals(refinedCategory) && !refinedCategory.equals(ComponentCategory.ABSTRACT)) {
-				error(subcomponent, "Cannot refine subcomponent.  Incompatible categories.");
+
+				String changeFrom = subcomponentCategory.getName();
+				String changeTo = refinedCategory.getName();
+				String offset = "" + findKeywordOffset(subcomponent, changeFrom);
+				error("Cannot refine subcomponent.  Incompatible categories.", subcomponent, null,
+						GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 			}
 		}
 	}
@@ -1909,9 +2801,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		for (FeatureType featureType : typesOfInheritedFeatures) {
 			if (!acceptableFeatureTypes.contains(featureType)) {
-				error(componentType.getOwnedExtension(),
-						"A " + typeCategory.getName() + " type cannot extend an abstract type that contains "
-								+ featureType.getNameWithIndefiniteArticle() + '.');
+
+				String changeFrom = typeCategory.getName();
+				String offset = "" + findKeywordOffset(componentType, changeFrom);
+				error("A " + changeFrom + " type cannot extend an abstract type that contains "
+						+ featureType.getNameWithIndefiniteArticle() + '.', componentType.getOwnedExtension(), null,
+						GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
+
 			}
 		}
 	}
@@ -2031,7 +2927,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 			if (impReferences.size() != arrayProduct) {
-				error(subcomponent, "Size of component implementation reference list not the same as array size.");
+				if (arrayDimensions.size() == 1) {
+					String changeFrom = "" + arrayDimensions.get(0).getSize().getSize();
+					String changeTo = "" + impReferences.size();
+
+					error("Size of component implementation reference list not the same as array size.", subcomponent,
+							null, ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE, changeFrom, changeTo);
+				} else {
+					error(subcomponent, "Size of component implementation reference list not the same as array size.");
+				}
 			}
 		}
 	}
@@ -2072,9 +2976,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			for (ComponentCategory nestedSubcomponentCategory : categoriesOfNestedSubcomponents) {
 				if (!acceptableSubcomponentCategories.contains(nestedSubcomponentCategory)) {
-					error(subcomponent, "A " + subcomponent.getCategory().getName()
+					String changeFrom = subcomponent.getCategory().getName();
+					String offset = "" + findKeywordOffset(subcomponent, changeFrom);
+					error("A " + subcomponent.getCategory().getName()
 							+ " subcomponent cannot refer to an abstract implementation that contains a "
-							+ nestedSubcomponentCategory.getName() + " subcomponent.");
+							+ nestedSubcomponentCategory.getName() + " subcomponent.", subcomponent, null,
+							GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
 				}
 			}
 		}
@@ -2102,10 +3009,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			for (FeatureType nestedFeatureType : typesOfNestedFeatures) {
 				if (!acceptableFeatureTypes.contains(nestedFeatureType)) {
-					error(subcomponent,
-							"A " + subcomponent.getCategory().getName()
-									+ " subcomponent cannot refer to an abstract type that contains "
-									+ nestedFeatureType.getNameWithIndefiniteArticle() + '.');
+					String changeFrom = subcomponent.getCategory().getName();
+					String offset = "" + findKeywordOffset(subcomponent, changeFrom);
+					error("A " + subcomponent.getCategory().getName()
+							+ " subcomponent cannot refer to an abstract type that contains "
+							+ nestedFeatureType.getNameWithIndefiniteArticle() + '.', subcomponent, null,
+							GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
 				}
 			}
 		}
@@ -2122,8 +3031,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (prototype.getConstrainingClassifier() != null
 				&& !getComponentPrototypeCategory(prototype)
 						.equals(prototype.getConstrainingClassifier().getCategory())) {
-			error(prototype, "The category of '" + prototype.getConstrainingClassifier().getQualifiedName()
-					+ "' is not " + getComponentPrototypeCategory(prototype).getName());
+
+			String changeFrom = getComponentPrototypeCategory(prototype).getName();
+			String changeTo = prototype.getConstrainingClassifier().getCategory().getName();
+			String offset = "" + findKeywordOffset(prototype, changeFrom);
+
+			error("The category of '" + prototype.getConstrainingClassifier().getQualifiedName() + "' is not "
+					+ getComponentPrototypeCategory(prototype).getName(), prototype, null, GENERIC_TEXT_REPLACEMENT,
+					changeFrom, changeTo, offset);
 		}
 	}
 
@@ -2139,9 +3054,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (!formalCategory.equals(ComponentCategory.ABSTRACT)) {
 				for (ComponentPrototypeActual actual : binding.getActuals()) {
 					if (!formalCategory.equals(actual.getCategory())) {
-						error(actual,
-								"The category of the formal prototype is not compatible with the category specified in the"
-										+ " prototype binding.");
+						String changeFrom = actual.getCategory().getName();
+						String changeTo = formalCategory.getName();
+						String offset = "" + findKeywordOffset(binding, changeFrom);
+
+						error("The category of the formal prototype is not compatible with the category specified in the"
+								+ " prototype binding.", actual, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo,
+								offset);
 					}
 				}
 			}
@@ -2163,8 +3082,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					&& !actual.getCategory().equals(
 							st instanceof ComponentClassifier ? ((ComponentClassifier) st).getCategory()
 									: getComponentPrototypeCategory((ComponentPrototype) st))) {
-				error(actual,
-						"The category of the referenced classifier is not compatible the category specified in the prototype binding.");
+				ComponentCategory componentCategory = st instanceof ComponentClassifier ? ((ComponentClassifier) st)
+						.getCategory() : getComponentPrototypeCategory((ComponentPrototype) st);
+				String changeFrom = actual.getCategory().getName();
+				String changeTo = componentCategory.getName();
+				String offset = "" + findKeywordOffset(actual, changeFrom);
+
+				error("The category of the referenced classifier is not compatible the category specified in the prototype binding.",
+						actual, null, GENERIC_TEXT_REPLACEMENT, changeFrom, changeTo, offset);
 			}
 		}
 	}
@@ -2196,8 +3121,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					actualDirection = ((PortSpecification) binding.getActual()).getDirection();
 				}
 				if (!formalDirection.equals(DirectionType.IN_OUT) && !formalDirection.equals(actualDirection)) {
-					error(binding.getActual(),
-							"The direction specified in the binding is inconsistent with the direction of the formal prototype.");
+					String changeFrom = actualDirection.toString();
+					String changeTo = formalDirection.toString();
+					error("The direction specified in the binding is inconsistent with the direction of the formal prototype.",
+							binding, null, PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL, changeFrom, changeTo);
 				}
 			}
 		}
@@ -2279,7 +3206,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					.getRefined());
 			if (!refinedPrototypeCategory.equals(ComponentCategory.ABSTRACT)
 					&& !refinedPrototypeCategory.equals(getComponentPrototypeCategory(prototype))) {
-				error(prototype, "Incompatible category for prototype refinement.");
+
+				ComponentCategory prototypeCategory = getComponentPrototypeCategory(prototype);
+				String changeFrom = prototypeCategory.getName();
+				String changeTo = refinedPrototypeCategory.getName();
+				String offset = "" + findKeywordOffset(prototype, changeFrom);
+				error("Incompatible category for prototype refinement.", prototype, null, GENERIC_TEXT_REPLACEMENT,
+						changeFrom, changeTo, offset);
 			}
 		}
 	}
@@ -2295,7 +3228,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (prototype.getRefined() != null && prototype.getRefined() instanceof ComponentPrototype) {
 			ComponentPrototype refinedPrototype = (ComponentPrototype) prototype.getRefined();
 			if (refinedPrototype.isArray() && !prototype.isArray()) {
-				error(prototype, "Prototype must be an array because the refined prototype is an array.");
+				error("Prototype must be an array because the refined prototype is an array.", prototype, null,
+						PROTOTYPE_NOT_ARRAY);
 			}
 		}
 	}
@@ -2312,7 +3246,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			DirectionType refinedPrototypeDirection = ((FeaturePrototype) prototype.getRefined()).getDirection();
 			if (refinedPrototypeDirection != null && !refinedPrototypeDirection.equals(DirectionType.IN_OUT)
 					&& !refinedPrototypeDirection.equals(prototype.getDirection())) {
-				error(prototype, "Incompatible direction for prototype refinement.");
+
+				String changeFrom = "";
+				String changeTo = "";
+				if (prototype.getDirection().equals(DirectionType.IN_OUT)) {
+					changeFrom = "feature";
+					changeTo = refinedPrototypeDirection.toString() + " feature";
+				} else {
+					changeFrom = prototype.getDirection().toString();
+					changeTo = refinedPrototypeDirection.toString();
+				}
+				error("Incompatible direction for prototype refinement.", prototype, null,
+						INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT, changeFrom, changeTo);
 			}
 		}
 	}
@@ -2342,16 +3287,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				parentHasModeTransitions = true;
 			}
 		}
+
+		String changeFrom = dataType.getCategory().getName();
+		String offset = "" + findKeywordOffset(dataType, changeFrom);
+
 		if (parentHasFlowSpecs) {
-			error(dataType.getOwnedExtension(),
-					"A data type cannot extend an abstract type that contains a flow specification.");
+			error("A data type cannot extend an abstract type that contains a flow specification.",
+					dataType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 		if (parentHasModes) {
-			error(dataType.getOwnedExtension(), "A data type cannot extend an abstract type that contains modes.");
+			error("A data type cannot extend an abstract type that contains modes.", dataType.getOwnedExtension(),
+					null, GENERIC_TEXT_REPLACEMENT, changeFrom, ComponentCategory.ABSTRACT.toString(), offset);
 		}
 		if (parentHasModeTransitions) {
-			error(dataType.getOwnedExtension(),
-					"A data type cannot extend an abstract type that contains a mode transition.");
+			error("A data type cannot extend an abstract type that contains a mode transition.",
+					dataType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 	}
 
@@ -2493,9 +3445,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		if (parentHasFlowSpec) {
-			error(memoryType.getOwnedExtension(),
-					"A memory type cannot extend an abstract type that contains a flow specification.");
+			String changeFrom = memoryType.getCategory().getName();
+			String offset = "" + findKeywordOffset(memoryType, changeFrom);
+			error("A memory type cannot extend an abstract type that contains a flow specification.",
+					memoryType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
+
 	}
 
 	/**
@@ -2556,8 +3512,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		if (parentHasFlowSpec) {
-			error(busType.getOwnedExtension(),
-					"A bus type cannot extend an abstract type that contains a flow specification.");
+			String changeFrom = busType.getCategory().getName();
+			String offset = "" + findKeywordOffset(busType, changeFrom);
+			error("A bus type cannot extend an abstract type that contains a flow specification.",
+					busType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 	}
 
@@ -2627,8 +3586,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		if (parentHasFlowSpec) {
-			error(virtualBusType.getOwnedExtension(),
-					"A virtual bus type cannot extend an abstract type that contains a flow specification.");
+			String changeFrom = virtualBusType.getCategory().getName();
+			String offset = "" + findKeywordOffset(virtualBusType, changeFrom);
+			error("A virtual bus type cannot extend an abstract type that contains a flow specification.",
+					virtualBusType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+					ComponentCategory.ABSTRACT.toString(), offset);
 		}
 	}
 
@@ -2857,8 +3819,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 			if (parentHasFeatureArray) {
-				error(componentType.getOwnedExtension(), "A " + componentType.getCategory()
-						+ " type cannot extend an abstract type that contains feature arrays.");
+				String changeFrom = componentType.getCategory().getName();
+				String offset = "" + findKeywordOffset(componentType, changeFrom);
+				error("A " + changeFrom + " type cannot extend an abstract type that contains feature arrays.",
+						componentType.getOwnedExtension(), null, GENERIC_TEXT_REPLACEMENT, changeFrom,
+						ComponentCategory.ABSTRACT.toString(), offset);
 			}
 		}
 	}
@@ -2932,12 +3897,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (!direction.equals(originalDirection)
 					&& ((feature.getRefined() instanceof Port || feature.getRefined() instanceof Parameter || !originalDirection
 							.equals(DirectionType.IN_OUT)))) {
-				error(feature,
-						"The direction in feature refinement must be the same or in casse of abstract features or feature groups the original direction must be 'in out'.  The direction of the refined feature is '"
-								+ direction.getName()
-								+ "' while original direction is '"
-								+ originalDirection.getName()
-								+ "'.");
+
+				String changeFrom = direction.getName();
+				String changeTo = originalDirection.getName();
+				error("The direction in feature refinement must be the same or in case of abstract features or feature groups"
+						+ " the original direction must be 'in out'.  The direction of the refined feature is '"
+						+ changeFrom + "' while original direction is '" + changeTo + "'.", feature, null,
+						INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT, changeFrom, changeTo);
 			}
 		}
 	}
@@ -2949,16 +3915,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * direction."
 	 */
 	private void checkAbstractFeatureAndPrototypeDirectionConsistency(AbstractFeature feature) {
-		if (feature.getPrototype() instanceof FeaturePrototype) {
+		if (feature.getFeaturePrototype() != null) {
 			DirectionType featureDirection = feature.getDirection();
-			DirectionType prototypeDirection = ((FeaturePrototype) feature.getPrototype()).getDirection();
+			DirectionType prototypeDirection = feature.getFeaturePrototype().getDirection();
+			String changeFrom = featureDirection.getName();
+			String changeTo = prototypeDirection.getName();
 			if (!featureDirection.equals(prototypeDirection)) {
 				if (prototypeDirection.equals(DirectionType.IN_OUT)) {
-					error(feature,
-							"A direction cannot be specified on the abstract feature because its prototype does not specify a direction.");
+					error("A direction cannot be specified on the abstract feature because its prototype does not specify a direction.",
+							feature, null, ABSTRACT_FEATURE_DIRECTION_NOT_IN_PROTOTYPE, changeFrom);
 				} else {
-					error(feature, "The direction of the abstract feature must match the direction of its prototype."
-							+ "  The prototype's direction is '" + prototypeDirection.getName() + "'.");
+					error("The direction of the abstract feature must match the direction of its prototype."
+							+ "  The prototype's direction is '" + prototypeDirection.getName() + "'.", feature, null,
+							ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE, changeFrom, changeTo);
 				}
 			}
 		}
@@ -2970,16 +3939,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * prototype reference must only add property associations."
 	 */
 	private void checkForAddedDirectionInAbstractFeatureRefinement(AbstractFeature feature) {
-		AbstractFeature refinedFeature = (AbstractFeature) feature.getRefined();
-		while (refinedFeature != null && !(refinedFeature.getPrototype() instanceof FeaturePrototype)) {
-			refinedFeature = (AbstractFeature) refinedFeature.getRefined();
+		Feature refinedFeature = feature.getRefined();
+		while (refinedFeature instanceof AbstractFeature
+				&& ((AbstractFeature) refinedFeature).getFeaturePrototype() == null) {
+			refinedFeature = refinedFeature.getRefined();
 		}
-		if (refinedFeature != null) {
-			if (refinedFeature.getDirection().equals(DirectionType.IN_OUT)
+		if (refinedFeature instanceof AbstractFeature) {
+			if (((AbstractFeature) refinedFeature).getDirection().equals(DirectionType.IN_OUT)
 					&& !feature.getDirection().equals(DirectionType.IN_OUT)) {
-				error(feature,
-						"The refined feature refers to a feature prototype.  Therefore, a direction cannot be added in the"
-								+ " refinement because the direction will be specified in the prototype binding.");
+				String changeFrom = feature.getDirection().getName();
+				error("The refined feature refers to a feature prototype.  Therefore, a direction cannot be added in the"
+						+ " refinement because the direction will be specified in the prototype binding.", feature,
+						null, ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT, changeFrom);
 			}
 		}
 	}
@@ -2991,17 +3962,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForAddedPrototypeOrClassifierInAbstractFeatureRefinement(AbstractFeature feature) {
 		AbstractFeature refinedFeature = (AbstractFeature) feature.getRefined();
-		while (refinedFeature != null && !(refinedFeature.getPrototype() instanceof FeaturePrototype)) {
+		while (refinedFeature != null && refinedFeature.getFeaturePrototype() == null) {
 			refinedFeature = (AbstractFeature) refinedFeature.getRefined();
 		}
-		if (refinedFeature != null) {
-			if (feature.getClassifier() != null) {
-				error(feature,
-						"Cannot refer to a classifier because the refined feature refers to a feature prototype.");
-			} else if (feature.getPrototype() != null && !feature.getPrototype().equals(refinedFeature.getPrototype())) {
-				error(feature,
-						"The refiend feature already refers to a prototype.  The prototype cannot be changed in the refinement.");
-			}
+		if (refinedFeature != null && feature.getFeaturePrototype() != null
+				&& !feature.getFeaturePrototype().equals(refinedFeature.getFeaturePrototype())) {
+
+			String changeFrom = feature.getFeaturePrototype().getName();
+			error("The refined feature already refers to a prototype.  "
+					+ "The prototype cannot be changed in the refinement.", feature, null,
+					ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT, changeFrom);
 		}
 	}
 
@@ -3018,10 +3988,27 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForChainedInverseFeatureGroupTypes(FeatureGroupType featureGroupType) {
 		if (featureGroupType.getInverse() != null && featureGroupType.getInverse().getInverse() != null) {
-			error(featureGroupType,
-					"A feature group type cannot be an inverse of another feature group type that already contains an"
-							+ " 'inverse of' declaration.");
+			error("A feature group type cannot be an inverse of another feature group type that already "
+					+ "contains an 'inverse of' declaration.", featureGroupType, null,
+					CHAINED_INVERSE_FEATURE_GROUP_TYPES);
 		}
+	}
+
+	private boolean isCircularExtension(FeatureGroupType featureGroupType) {
+		if (null != featureGroupType.getExtended()) {
+			FeatureGroupType extended = featureGroupType.getExtended();
+			List<FeatureGroupType> featureGroupTypes = new ArrayList<FeatureGroupType>();
+			while (extended != null) {
+				if (extended.equals(featureGroupType) || featureGroupTypes.contains(extended)) {
+					error(featureGroupType.getOwnedExtension(), "Feature Group extension has circular dependency.");
+					extended = null;
+					return true;
+				}
+				featureGroupTypes.add(extended);
+				extended = extended.getExtended();
+			}
+		}
+		return false;
 	}
 
 	private List<Feature> sortFeaturesByOffset(List<Feature> features) {
@@ -3079,9 +4066,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForExtendingAnInverseFeatureGroupType(GroupExtension extension) {
 		FeatureGroupType extended = extension.getExtended();
+
 		if (extended.getInverse() != null && extended.getOwnedFeatures().isEmpty()) {
-			error(extension, "Cannot extend a feature group type that contains an 'inverse of' declaration,"
-					+ " but does not contain any locally defined features.");
+			error("Cannot extend a feature group type that contains an 'inverse of' declaration,"
+					+ " but does not contain any locally defined features.", extension, null,
+					EXTENDED_INVERSE_FEATURE_GROUP_TYPE);
 		}
 	}
 
@@ -3095,9 +4084,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		FeatureGroupType extended = extension.getExtended();
 		FeatureGroupType extending = (FeatureGroupType) extension.getSpecific();
 		if (extending.getInverse() != null && extended.getInverse() == null) {
-			error(extension,
-					"A feature group type with an 'inverse of' declaration cannot extend a feature group type without an"
-							+ " 'inverse of' declaration.");
+			error("A feature group type with an 'inverse of' declaration cannot extend a feature group type "
+					+ "without an 'inverse of' declaration.", extension, null, INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION);
 		}
 	}
 
@@ -3129,9 +4117,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInverseInFeatureGroup(FeatureGroup featureGroup) {
 		if (featureGroup.isInverse() && featureGroup.getFeatureGroupType() != null
 				&& featureGroup.getFeatureGroupType().getInverse() != null) {
-			error(featureGroup,
-					"Cannot specify 'inverse of' in the feature group because the referenced feature group type already"
-							+ " contains an 'inverse of' declaration.");
+			error("A feature group type with an 'inverse of' declaration cannot extend a feature group type "
+					+ "without an 'inverse of' declaration.", featureGroup, null, INVERSE_IN_FEATURE_GROUP);
 		}
 	}
 
@@ -3143,17 +4130,39 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup) {
 		DirectionType fgDirection = featureGroup.getDirection();
+		String currentDirection = fgDirection.getName();
 		if (!fgDirection.equals(DirectionType.IN_OUT) && featureGroup.getFeatureGroupType() != null) {
 			if (featureGroup.isInverse()) {
 				fgDirection = fgDirection.getInverseDirection();
 			}
+			int errorCount = 0;
+			List<String> directions = new ArrayList<String>();
+
 			for (Feature feature : featureGroup.getFeatureGroupType().getAllFeatures()) {
-				if (feature instanceof DirectedFeature
-						&& !((DirectedFeature) feature).getDirection().equals(fgDirection)) {
-					error(featureGroup,
-							"All ports, parameters, feature groups, and abstract features in the referenced feature group"
-									+ " type must satisfy the direction specified in the feature group.");
+				if (feature instanceof DirectedFeature) {
+					DirectionType direction = ((DirectedFeature) feature).getDirection();
+					if (!direction.equals(fgDirection)) {
+						errorCount++;
+					}
+					directions.add(direction.getName());
 				}
+			}
+			Set<String> uniqueDirectionSet = new HashSet<String>(directions);
+			String validDirection = "";
+			if (uniqueDirectionSet.size() == 1) {
+				List<String> uniqueDirections = new ArrayList<String>(uniqueDirectionSet);
+				validDirection = uniqueDirections.get(0);
+			}
+
+			if (featureGroup.isInverse() && validDirection.equals("in")) {
+				validDirection = "out";
+			} else if (featureGroup.isInverse() && validDirection.equals("out")) {
+				validDirection = "in";
+			}
+			if (errorCount > 0) {
+				error("All ports, parameters, feature groups, and abstract features in the referenced feature group"
+						+ " type must satisfy the direction specified in the feature group.", featureGroup, null,
+						DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS, validDirection, currentDirection);
 			}
 		}
 	}
@@ -3228,12 +4237,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForAccessTypeInAccessRefinement(Access access) {
 		if (access.getRefined() instanceof Access && !access.getKind().equals(((Access) access.getRefined()).getKind())) {
+
+			String changeFrom = access.getKind().getName();
+			String changeTo = ((Access) access.getRefined()).getKind().getName();
 			StringBuilder errorMessage = new StringBuilder("A ");
-			errorMessage.append(getKeywordForAccessType(((Access) access.getRefined()).getKind()));
+			errorMessage.append(changeTo);
 			errorMessage.append(" access cannot be refined into a ");
-			errorMessage.append(getKeywordForAccessType(access.getKind()));
+			errorMessage.append(changeFrom);
 			errorMessage.append(" access.");
-			error(access, errorMessage.toString());
+
+			error(errorMessage.toString(), access, null, REVERSE_ACCESS_KIND, changeFrom, changeTo);
+
 		}
 	}
 
@@ -3256,7 +4270,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) dataAccess).getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (dataAccess.getKind().equals(AccessType.PROVIDES)) {
-				error(dataAccess, "Subprograms cannot have provides data access.");
+				error("Subprograms cannot have provides data access.", dataAccess, null, REVERSE_ACCESS_KIND,
+						AccessType.PROVIDES.getName(), AccessType.REQUIRES.getName());
 			}
 		}
 	}
@@ -3272,7 +4287,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) spAccess).getContainingClassifier();
 		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)) {
-				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram access.");
+				error("Processor, VirtualProcessor, Device cannot have requires subprogram access.", spAccess, null,
+						REVERSE_ACCESS_KIND, AccessType.REQUIRES.getName(), AccessType.PROVIDES.getName());
 			}
 		}
 	}
@@ -3281,7 +4297,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) spAccess).getContainingClassifier();
 		if ((cl instanceof ProcessorType || cl instanceof VirtualProcessorType || cl instanceof DeviceType)) {
 			if (spAccess.getKind().equals(AccessType.REQUIRES)) {
-				error(spAccess, "Processor, VirtualProcessor, Device cannot have requires subprogram group access.");
+				error("Processor, VirtualProcessor, Device cannot have requires subprogram group access.", spAccess,
+						null, REVERSE_ACCESS_KIND, AccessType.REQUIRES.getName(), AccessType.PROVIDES.getName());
 			}
 		}
 	}
@@ -3290,7 +4307,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) spAccess).getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)) {
-				error(spAccess, "Subprograms cannot have provides subprogram access.");
+				error("Subprograms cannot have provides subprogram access.", spAccess, null, REVERSE_ACCESS_KIND,
+						AccessType.PROVIDES.getName(), AccessType.REQUIRES.getName());
 			}
 		}
 	}
@@ -3299,7 +4317,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Classifier cl = ((Feature) spAccess).getContainingClassifier();
 		if ((cl instanceof SubprogramType)) {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)) {
-				error(spAccess, "Subprograms cannot have provides subprogram group access.");
+				error("Subprograms cannot have provides subprogram group access.", spAccess, null, REVERSE_ACCESS_KIND,
+						AccessType.PROVIDES.getName(), AccessType.REQUIRES.getName());
 			}
 		}
 	}
@@ -3707,13 +4726,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 			} else {
-
 				// we have a connection a component implementation going directly from its incoming feature to an outgoing feature
-				if (!(srcDirection.incoming() && dstDirection.outgoing())) {
-					error(connection, "Source feature '" + source.getName()
-							+ "' must be incoming and destination feature '" + destination.getName()
-							+ "' must be outgoing.");
-				}
+				error(connection,
+						"Illegal connection: Cannot directly connect two features of the containing component.");
 			}
 		}
 	}
@@ -5151,17 +6166,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return null;
 	}
 
-	private static String getKeywordForAccessType(AccessType accessType) {
-		switch (accessType) {
-		case PROVIDES:
-			return "provides";
-		case REQUIRES:
-			return "requires";
-		default:
-			throw new AssertionError("Unhandled enum literal: " + accessType);
-		}
-	}
-
 	static {
 		HashMap<ComponentCategory, Set<FeatureType>> featuresForTypes = new HashMap<ComponentCategory, Set<FeatureType>>();
 
@@ -5569,26 +6573,48 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		NumberValue lowerNV = lowerPE instanceof NumberValue ? (NumberValue) lowerPE : null;
 		NumberValue upperNV = upperPE instanceof NumberValue ? (NumberValue) upperPE : null;
+		boolean doLowerIsGreaterThanUpperCheck = true;
 		if (lowerNV != null && upperNV != null) {
 			/*
 			 * Check: (1) the bounds have units if the type has units; (2) the
 			 * lower bounds is <= the upper bound.
 			 */
-			if (lowerNV instanceof NumberValue) {
-
-			}
 			if (nt.getUnitsType() != null) {
+				EList<Element> allUTElements = nt.getUnitsType().allOwnedElements();
+				String[] unitNamesAndURIs = new String[allUTElements.size() * 2];
+				int i = 0;
+				for (Element elem : allUTElements) {
+					unitNamesAndURIs[i] = ((UnitLiteral) elem).getName();
+					i++;
+					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
+					i++;
+				}
 				if (lowerNV.getUnit() == null) {
-					error(nt, "lower bound is missing a unit");
+					doLowerIsGreaterThanUpperCheck = false;
+					error("lower bound is missing a unit", lowerNV, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
 				}
 				if (upperNV.getUnit() == null) {
-					error(nt, "upper bound is missing a unit");
+					doLowerIsGreaterThanUpperCheck = false;
+					error("upper bound is missing a unit", upperNV, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
 				}
 			}
-			final double lower = lowerNV.getScaledValue();
-			final double upper = upperNV.getScaledValue();
-			if (lower > upper) {
-				error(nt, "Range lower bound is greater than range upper bound");
+			if (doLowerIsGreaterThanUpperCheck) {
+				final double lower = lowerNV.getScaledValue();
+				final double upper = upperNV.getScaledValue();
+				if (lower > upper) {
+					String lowerURI = EcoreUtil.getURI(range.getLowerBound()).toString();
+					String upperURI = EcoreUtil.getURI(range.getUpperBound()).toString();
+					String changeFrom = "";
+					if (nt instanceof AadlInteger) {
+						changeFrom = "aadlinteger";
+					} else {
+						changeFrom = "aadlreal";
+					}
+					String offSet = "" + findKeywordOffset(nt, changeFrom);
+
+					error("Range lower bound is greater than range upper bound", range, null,
+							NUMERIC_RANGE_UPPER_LESS_THAN_LOWER, lowerURI, upperURI, changeFrom, offSet);
+				}
 			}
 		}
 	}
@@ -5759,59 +6785,67 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (source instanceof FeatureGroupConnectionEnd && destination instanceof FeatureGroupConnectionEnd) {
 			Context srccxt = connection.getAllSourceContext();
 			Context dstcxt = connection.getAllDestinationContext();
+			boolean inverseContext = false;
 			if (srccxt instanceof Subcomponent && dstcxt instanceof Subcomponent) {
 				// sibling to sibling
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.IN)) {
 					error("The direction of the source " + source.getName()
 							+ " of a directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Source(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) source).getDirection().equals(DirectionType.IN_OUT)) {
+					inverseContext = srccxt instanceof FeatureGroup && ((FeatureGroup) srccxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) source, DirectionType.IN, connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Source(), inverseContext);
 				}
 				if (((FeatureGroup) destination).getDirection().equals(DirectionType.OUT)) {
 					error("The direction of the destination " + destination.getName()
 							+ " of a directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN_OUT)) {
+					inverseContext = dstcxt instanceof FeatureGroup && ((FeatureGroup) dstcxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.OUT, connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), inverseContext);
 				}
 			} else if (!(srccxt instanceof Subcomponent)) {
 				// going down
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.OUT)) {
 					error("The direction of the source " + source.getName()
 							+ " of this incoming directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Source(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) source).getDirection().equals(DirectionType.IN_OUT)) {
+					inverseContext = srccxt instanceof FeatureGroup && ((FeatureGroup) srccxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) source, DirectionType.OUT, connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Source(), inverseContext);
 				}
+
 				if (((FeatureGroup) destination).getDirection().equals(DirectionType.OUT)) {
 					error("The direction of the destination " + destination.getName()
 							+ " of this incoming directional feature group connection must not be out", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN_OUT)) {
+					inverseContext = dstcxt instanceof FeatureGroup && ((FeatureGroup) dstcxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.OUT, connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), inverseContext);
 				}
 			} else if (!(dstcxt instanceof Subcomponent)) {
 				// going up
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.IN)) {
 					error("The direction of the source " + source.getName()
 							+ " of this outgoing directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) source).getDirection().equals(DirectionType.IN_OUT)) {
+					inverseContext = srccxt instanceof FeatureGroup && ((FeatureGroup) srccxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) source, DirectionType.IN, connection,
-							Aadl2Package.eINSTANCE.getConnection_Source());
+							Aadl2Package.eINSTANCE.getConnection_Source(), inverseContext);
 				}
 				if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN)) {
 					error("The direction of the destination " + destination.getName()
 							+ " of this outgoing directional feature group connection must not be in", connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), MAKE_CONNECTION_BIDIRECTIONAL);
 				} else if (((FeatureGroup) destination).getDirection().equals(DirectionType.IN_OUT)) {
+					inverseContext = dstcxt instanceof FeatureGroup && ((FeatureGroup) dstcxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.IN, connection,
-							Aadl2Package.eINSTANCE.getConnection_Destination());
+							Aadl2Package.eINSTANCE.getConnection_Destination(), inverseContext);
 				}
 			}
 		}
@@ -5821,25 +6855,35 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Checks legality rule 8 in section 9.5 the endpoints of a directional feature group must be consistent with the direction.
 	 */
 	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup, DirectionType notDir, Connection conn,
-			EStructuralFeature structuralFeature) {
+			EStructuralFeature structuralFeature, boolean inverseContext) {
 		FeatureGroupType fgt = featureGroup.getFeatureGroupType();
 		if (fgt == null) {
 			return;
 		}
 		for (Feature feature : fgt.getAllFeatures()) {
-			boolean invfg = featureGroup.isInverse();
+			boolean invfg = featureGroup.isInverse() || inverseContext;
+
 			boolean invfgt = fgt.getInverse() != null && fgt.getOwnedFeatures().isEmpty()
 					&& Aadl2Util.isNull(fgt.getExtended());
+
 			boolean inverse = (invfg && !invfgt) || (!invfg && invfgt);
+
 			if (feature instanceof DirectedFeature) {
-				if (((DirectedFeature) feature).getDirection() == DirectionType.IN_OUT) {
+				DirectionType featureDirection = ((DirectedFeature) feature).getDirection();
+
+				if (featureDirection == DirectionType.IN_OUT) {
 					break;
 				}
-				boolean dirEquals = ((DirectedFeature) feature).getDirection().equals(notDir);
+				boolean dirEquals = featureDirection.equals(notDir);
+
 				if ((!inverse && dirEquals) || (inverse && !dirEquals)) {
+//					error("Feature " + feature.getName() + " in the referenced feature group " + featureGroup.getName()
+//							+ " must not be " + notDir.getName() + " due to the direction of the connection", conn,
+//							structuralFeature);
 					error("Feature " + feature.getName() + " in the referenced feature group " + featureGroup.getName()
 							+ " must not be " + notDir.getName() + " due to the direction of the connection", conn,
-							structuralFeature);
+							structuralFeature, MAKE_CONNECTION_BIDIRECTIONAL);
+
 				}
 			}
 		}
@@ -6465,5 +7509,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		return false;
+	}
+
+	static public void applyTest(EObject element, List<String> data) throws Exception {
+		ResourceSet resourceSet = element.eResource().getResourceSet();
+
+		NamedElement duplicated = (NamedElement) resourceSet.getEObject(URI.createURI(data.get(1)), true);
+
+//		((DataPort) element).setOut(true);
+//		((DataPort) element).setIn(false);
+		((Feature) element).setName(null);
+		((Feature) element).setRefined((Feature) duplicated);
+		java.lang.System.out.println(((Feature) element).getRefined());
 	}
 }

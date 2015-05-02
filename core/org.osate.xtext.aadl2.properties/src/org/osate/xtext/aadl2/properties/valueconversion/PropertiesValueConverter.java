@@ -112,6 +112,9 @@ public class PropertiesValueConverter extends DefaultTerminalConverters {
 		return new IValueConverter<Long>() {
 			@Override
 			public Long toValue(String string, INode node) {
+				if (string == null) {
+					return 0L;
+				}
 				if (string.indexOf('_') != -1) {
 					string = string.replaceAll("_", "");
 				}

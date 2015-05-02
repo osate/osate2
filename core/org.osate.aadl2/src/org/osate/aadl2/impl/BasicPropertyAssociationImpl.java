@@ -300,7 +300,7 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.BasicPropertyAssociation#getValue()
 	 */
 	@Override

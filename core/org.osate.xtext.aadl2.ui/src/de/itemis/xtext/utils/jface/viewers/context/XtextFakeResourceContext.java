@@ -28,6 +28,7 @@ import de.itemis.xtext.utils.jface.viewers.util.ActiveEditorTracker;
  * 
  */
 public class XtextFakeResourceContext {
+	private final IProject project;
 
 	@Inject
 	private IResourceSetProvider resourceSetProvider;
@@ -38,7 +39,8 @@ public class XtextFakeResourceContext {
 	private @Named(Constants.FILE_EXTENSIONS)
 	String fakeResourceFileExtension;
 
-	public XtextFakeResourceContext(Injector injector) {
+	public XtextFakeResourceContext(Injector injector, IProject project) {
+		this.project = project;
 		injector.injectMembers(this);
 
 		// create resource set
@@ -98,7 +100,11 @@ public class XtextFakeResourceContext {
 	}
 
 	protected IProject getActiveProject() {
-		return ActiveEditorTracker.getLastActiveEditorProject();
+		if (project != null) {
+			return project;
+		} else {
+			return ActiveEditorTracker.getLastActiveEditorProject();
+		}
 	}
 
 	public void updateFakeResourceContext(

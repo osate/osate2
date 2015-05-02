@@ -11187,7 +11187,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(directedFeatureEClass, DirectedFeature.class, "DirectedFeature", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDirectedFeature_Direction(), getDirectionType(), "direction", null, 1, 1,
-				DirectedFeature.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				DirectedFeature.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getDirectedFeature_In(), getBoolean(), "in", null, 1, 1, DirectedFeature.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

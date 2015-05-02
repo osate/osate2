@@ -53,8 +53,14 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
+import org.osate.ui.UiUtil;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
 
 public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
@@ -71,6 +77,16 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 					&& !file.getResourceAttributes().isReadOnly()) {
 				text.append(" (Modified)");
 			}
+		} else if (element instanceof PublicPackageSection) {
+			text.append("Public Package Section");
+		} else if (element instanceof PrivatePackageSection) {
+			text.append("Private Package Section");
+		} else if (element instanceof PropertyType) {
+			text.append(UiUtil.getModelElementLabelProvider().getText(element));
+		} else if (element instanceof InstanceObject) {
+			text.append(UiUtil.getModelElementLabelProvider().getText(element));
+		} else if (element instanceof NamedElement) {
+			text.append(UiUtil.getModelElementLabelProvider().getText(element));
 		}
 		return text.toString();
 	}
@@ -81,6 +97,12 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 		if (element instanceof IProject
 				&& ((IProject) element).getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
 			image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
+		} else if (element instanceof PropertyType) {
+			image = UiUtil.getModelElementLabelProvider().getImage(element);
+		} else if (element instanceof InstanceObject) {
+			image = UiUtil.getModelElementLabelProvider().getImage(element);
+		} else if (element instanceof NamedElement) {
+			image = UiUtil.getModelElementLabelProvider().getImage(element);
 		} else {
 			image = super.getImage(element);
 		}

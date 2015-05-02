@@ -73,11 +73,23 @@ public interface DirectedFeature extends Feature {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Direction</em>' attribute.
 	 * @see org.osate.aadl2.DirectionType
+	 * @see #setDirection(DirectionType)
 	 * @see org.osate.aadl2.Aadl2Package#getDirectedFeature_Direction()
-	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	DirectionType getDirection();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.DirectedFeature#getDirection <em>Direction</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Direction</em>' attribute.
+	 * @see org.osate.aadl2.DirectionType
+	 * @see #getDirection()
+	 * @generated
+	 */
+	void setDirection(DirectionType value);
 
 	/**
 	 * Returns the value of the '<em><b>In</b></em>' attribute.

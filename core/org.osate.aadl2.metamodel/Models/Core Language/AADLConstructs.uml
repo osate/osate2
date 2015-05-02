@@ -1321,7 +1321,7 @@ For access features, the classifier specifies the type of the shared component.<
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_r3p5SJyLEd64G8zRE2nwuA" name="DirectedFeature" isAbstract="true">
         <generalization xmi:id="_FVflk5yMEd64G8zRE2nwuA" general="Features-Feature"/>
-        <ownedAttribute xmi:id="Features-PortFeature-direction" name="direction" type="Features-DirectionType" isReadOnly="true" isDerived="true">
+        <ownedAttribute xmi:id="Features-PortFeature-direction" name="direction" type="Features-DirectionType" isDerived="true">
           <ownedComment xmi:id="Features-PortFeature-direction-_ownedComment.0">
             <body>Specifies the direction of the port.</body>
           </ownedComment>
