@@ -29,6 +29,10 @@ DistributionSpecification : type record (
 --	Binominal represents represents a discrete distribution with a SuccessCount, a SampleCount, and a Probability parameter.
 	
 DistributionFunction : type enumeration (Fixed, Poisson, Exponential, Normal, Gauss, Weibull, Binominal);
+
+ExposurePeriod : aadlreal 
+applies to ({emv2}**error propagation, {emv2}**error flow, {emv2}**error behavior event
+	  ,{emv2}**error behavior state,{emv2}**error type,{emv2}**type set);
   
 DurationDistributionSpecification : type record (
 	Duration : Time_Range;
