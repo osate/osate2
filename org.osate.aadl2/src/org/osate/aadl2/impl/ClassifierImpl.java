@@ -953,7 +953,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		do {
 			result.add(current);
 			current = current.getExtended();
-		} while (current != null && current != this);
+		} while (current != null && current != this && !result.contains(current));
 		return result;
 	}
 
@@ -1001,7 +1001,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.ComponentClassifier#lookupPrototypeBinding(org.osate.aadl2.Prototype)
 	 */
 	@Override

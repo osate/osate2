@@ -35,8 +35,10 @@
 package org.osate.xtext.aadl2.properties.validation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -60,6 +62,9 @@ import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierType;
 import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
@@ -94,6 +99,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -103,6 +109,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	public static final String INVALID_ASSIGNMENT = "edu.cmu.sei.invalid.assignment";
 	public static final String MISSING_WITH = "org.osate.xtext.aadl2.properties.missing_with";
+	public static final String UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.properties.upper_less_than_lower";
+	public static final String DELTA_NEGATIVE = "org.osate.xtext.aadl2.properties.delta_negative";
+	public static final String MISSING_NUMBERVALUE_UNITS = "org.osate.xtext.aadl2.properties.missing_numbervalue_units";
+	public static final String BYTE_COUNT_DEPRECATED = "org.osate.xtext.aadl2.properties.byte_count_deprecated";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
@@ -110,7 +120,16 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		if (deltaNV != null) {
 			final double delta = deltaNV.getScaledValue();
 			if (delta < 0) {
-				error(rv, "Range value has a negative delta component");
+				error("Range value has a negative delta component", rv.getDelta(), null, DELTA_NEGATIVE);
+			}
+		}
+		final NumberValue lower = rv.getMinimumValue();
+		final NumberValue upper = rv.getMaximumValue();
+		if (lower != null && upper != null) {
+			final double lowerScaled = lower.getScaledValue();
+			final double upperScaled = upper.getScaledValue();
+			if (upperScaled < lowerScaled) {
+				error("Upper bound of range is less than the lower bound.", rv, null, UPPER_LESS_THAN_LOWER);
 			}
 		}
 	}
@@ -119,6 +138,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public void casePropertyAssociation(PropertyAssociation pa) {
 		checkPropertyAssociation(pa);
 		checkPropertyAssociationModalBindings(pa);
+		checkPropertyMissingModes(pa);
+		checkModalAppliesTo(pa);
+		checkContainedProperties(pa);
 	}
 
 	/**
@@ -142,25 +164,252 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	// checking methods
 
-	protected boolean isPropertySetForMode(Mode mode, Property property, List<PropertyAssociation> propertyAssociations) {
+	public void checkContainedProperties(PropertyAssociation pa) {
 
-		for (PropertyAssociation pa : propertyAssociations) {
-			if (pa.getProperty().equals(property)) {
-				List<ModalPropertyValue> modalPropertyValues = pa.getOwnedValues();
-				ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
-				if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
-					return true;
-				} else {
-					for (ModalPropertyValue mpv : modalPropertyValues) {
-						List<Mode> inModes = mpv.getInModes();
-						if (inModes.contains(mode)) {
-							return true;
+		List<ModalPropertyValue> mpvs = pa.getOwnedValues();
+		if (null == mpvs || mpvs.isEmpty()) {
+			return;
+		}
+
+		List<ContainedNamedElement> appliesTo = pa.getAppliesTos();
+		if (null == appliesTo || appliesTo.size() != 1) {
+			return;
+		}
+		List<Mode> masterModes = getMasterModes(appliesTo.get(0));
+		if (null == masterModes || masterModes.isEmpty()) {
+			return;
+		}
+
+		List<Mode> modesWithProperty = new ArrayList<Mode>();
+
+		ModalPropertyValue lastModalPropertyValue = mpvs.get(mpvs.size() - 1);
+		List<Mode> lastInModes = lastModalPropertyValue.getInModes();
+		if (null == lastInModes || lastInModes.isEmpty()) {
+			modesWithProperty.addAll(masterModes);
+		} else {
+			for (ModalPropertyValue mpv : mpvs) {
+				List<Mode> inModes = mpv.getInModes();
+				if (null != inModes && !inModes.isEmpty()) {
+					modesWithProperty.removeAll(inModes);
+					modesWithProperty.addAll(inModes);
+				}
+			}
+		}
+
+		for (Mode masterMode : masterModes) {
+			if (!modesWithProperty.contains(masterMode)) {
+				warning(pa, "Value not set for mode " + masterMode.getName() + " for property "
+						+ pa.getProperty().getQualifiedName());
+			}
+		}
+	}
+
+	public List<Mode> getMasterModes(ContainedNamedElement cne) {
+		List<Mode> masterModes = new ArrayList<Mode>();
+		ComponentClassifier componentClassifier = null;
+		Subcomponent lastSubcomponent = getLastSubcomponent(cne);
+
+		if (null == lastSubcomponent) {
+			Classifier classifier = cne.getContainingClassifier();
+			if (classifier instanceof ComponentClassifier) {
+				componentClassifier = (ComponentClassifier) classifier;
+			}
+		} else {
+			componentClassifier = lastSubcomponent.getAllClassifier();
+			if (null != componentClassifier) {
+				masterModes = componentClassifier.getAllModes();
+			}
+		}
+
+		if (null != componentClassifier) {
+			masterModes = componentClassifier.getAllModes();
+		}
+
+		return masterModes;
+	}
+
+	public Subcomponent getLastSubcomponent(ContainedNamedElement cne) {
+		Subcomponent subComponent = null;
+		List<ContainmentPathElement> cpes = cne.getContainmentPathElements();
+		for (int i = cpes.size() - 1; i > -1; i--) {
+			ContainmentPathElement cpe = cpes.get(i);
+			if (cpe.getNamedElement() instanceof Subcomponent) {
+				subComponent = (Subcomponent) cpe.getNamedElement();
+				return subComponent;
+			}
+		}
+		return subComponent;
+	}
+
+	public void checkModalAppliesTo(PropertyAssociation pa) {
+		boolean error = false;
+		List<ContainedNamedElement> appliesTo = pa.getAppliesTos();
+		if (null != appliesTo && appliesTo.size() > 1) {
+			List<ModalPropertyValue> mpvs = pa.getOwnedValues();
+			if (null != mpvs && mpvs.size() > 0) {
+				for (ModalPropertyValue mpv : mpvs) {
+					List<Mode> inModes = mpv.getInModes();
+					if (null != inModes && inModes.size() > 0) {
+						error = true;
+						break;
+					}
+				}
+			}
+		}
+		if (error) {
+			error(pa,
+					"If property value is assigned to a mode there can only be one element in the applies to statement.");
+		}
+
+	}
+
+	protected void checkPropertyMissingModes(PropertyAssociation pa) {
+
+		if (null != pa.getAppliesTos() && !pa.getAppliesTos().isEmpty()) {
+			return;
+		}
+		Classifier classifier = pa.getContainingClassifier();
+		List<Mode> ownedModes = null;
+		if (classifier instanceof ComponentClassifier) {
+			ComponentClassifier componentClassifier = (ComponentClassifier) classifier;
+			ownedModes = componentClassifier.getOwnedModes();
+		}
+		if (null == ownedModes) {
+			return;
+		}
+		List<ModalPropertyValue> modalPropertyValues = pa.getOwnedValues();
+		if (modalPropertyValues == null || modalPropertyValues.isEmpty()) {
+			return;
+		}
+		ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
+		if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
+			return;
+		}
+		List<Mode> allInModes = new ArrayList<Mode>();
+		for (ModalPropertyValue mpv : modalPropertyValues) {
+			allInModes.addAll(mpv.getInModes());
+		}
+		for (Mode ownedMode : ownedModes) {
+			if (!allInModes.contains(ownedMode)) {
+				warning(pa, "Missing value assigned for Mode " + ownedMode.getName());
+			}
+		}
+	}
+
+	public void checkSubcomponentMissingModeValues(Subcomponent subcomponent) {
+
+		ComponentClassifier subcompClassifier = subcomponent.getAllClassifier();
+		List<Mode> allModes = new ArrayList<Mode>();
+		List<PropertyAssociation> ownedPropertyAssociations = new ArrayList<PropertyAssociation>();
+		List<Property> ownedProperties = new ArrayList<Property>();
+
+		if (subcompClassifier != null) {
+			allModes = subcompClassifier.getAllModes();
+			ownedPropertyAssociations = subcomponent.getOwnedPropertyAssociations();
+			ownedProperties = new ArrayList<Property>();
+		}
+		for (PropertyAssociation ownedPropertyAssociation : ownedPropertyAssociations) {
+			ownedProperties.add(ownedPropertyAssociation.getProperty());
+		}
+
+		Map<Property, List<Mode>> propModesMap = buildPropertySetForModeMap(allModes, ownedPropertyAssociations);
+
+		for (PropertyAssociation ownedPropertyAssociation : ownedPropertyAssociations) {
+			for (Property keyProperty : propModesMap.keySet()) {
+				if (keyProperty.equals(ownedPropertyAssociation.getProperty())) {
+					List<Mode> mappedModes = propModesMap.get(keyProperty);
+					for (Mode nextMode : allModes) {
+						if (!mappedModes.contains(nextMode)) {
+							warning(ownedPropertyAssociation, "Value not set for mode " + nextMode.getName()
+									+ " for property " + keyProperty.getQualifiedName());
 						}
 					}
 				}
 			}
 		}
-		return false;
+	}
+
+	public void checkInheritedMissingModes(Classifier classifier) {
+		List<Mode> allModes = new ArrayList<Mode>();
+		List<PropertyAssociation> propertyAssociations = new ArrayList<PropertyAssociation>();
+		List<PropertyAssociation> ownedPropertyAssociations = new ArrayList<PropertyAssociation>();
+		List<Property> ownedProperties = new ArrayList<Property>();
+		Element warningTarget = null;
+		if (classifier instanceof ComponentImplementation) {
+			ComponentImplementation componentImpl = (ComponentImplementation) classifier;
+			if (null == componentImpl.getExtended()) {
+				return;
+			}
+			allModes = componentImpl.getAllModes();
+			propertyAssociations = componentImpl.getAllPropertyAssociations();
+			ownedPropertyAssociations = componentImpl.getOwnedPropertyAssociations();
+			ownedProperties = new ArrayList<Property>();
+			warningTarget = componentImpl.getOwnedExtension();
+		} else if (classifier instanceof ComponentType) {
+			ComponentType componentType = (ComponentType) classifier;
+			if (null == componentType.getExtended()) {
+				return;
+			}
+			allModes = componentType.getAllModes();
+			propertyAssociations = componentType.getAllPropertyAssociations();
+			ownedPropertyAssociations = componentType.getOwnedPropertyAssociations();
+			ownedProperties = new ArrayList<Property>();
+			warningTarget = componentType.getOwnedExtension();
+		}
+		for (PropertyAssociation ownedPropertyAssociation : ownedPropertyAssociations) {
+			ownedProperties.add(ownedPropertyAssociation.getProperty());
+		}
+		Map<Property, List<Mode>> propModesMap = buildPropertySetForModeMap(allModes, propertyAssociations);
+		for (Property keyProperty : propModesMap.keySet()) {
+			if (ownedProperties.contains(keyProperty)) {
+				continue;
+			}
+
+			List<Mode> mappedModes = propModesMap.get(keyProperty);
+			for (Mode nextMode : allModes) {
+				if (!mappedModes.contains(nextMode)) {
+					warning(warningTarget, "Value not set for mode " + nextMode.getName() + " for property "
+							+ keyProperty.getQualifiedName());
+				}
+			}
+		}
+	}
+
+	protected Map<Property, List<Mode>> buildPropertySetForModeMap(List<Mode> modes,
+			List<PropertyAssociation> propertyAssociations) {
+		Map<Property, List<Mode>> propertyModeMap = new HashMap<Property, List<Mode>>();
+		for (PropertyAssociation pa : propertyAssociations) {
+			if (null != pa.getAppliesTos() && !pa.getAppliesTos().isEmpty()) {
+				continue;
+			}
+			Property property = pa.getProperty();
+			List<ModalPropertyValue> modalPropertyValues = pa.getOwnedValues();
+			if (modalPropertyValues.size() < 1) {
+				continue;
+			}
+			ModalPropertyValue lastMpv = modalPropertyValues.get(modalPropertyValues.size() - 1);
+			List<Mode> propertyModes = new ArrayList<Mode>();
+			if (lastMpv.getInModes() == null || lastMpv.getInModes().isEmpty()) {
+				propertyModes.addAll(modes);
+				propertyModeMap.put(property, propertyModes);
+			} else {
+				for (ModalPropertyValue mpv : modalPropertyValues) {
+					List<Mode> inModes = mpv.getInModes();
+					for (Mode mode : modes) {
+						if (inModes.contains(mode)) {
+							propertyModes.add(mode);
+						}
+					}
+				}
+				if (propertyModeMap.containsKey(property)) {
+					List<Mode> existingList = propertyModeMap.get(property);
+					existingList.removeAll(propertyModes);
+					propertyModes.addAll(existingList);
+				}
+				propertyModeMap.put(property, propertyModes);
+			}
+		}
+		return propertyModeMap;
 	}
 
 	protected void checkPropertyAssociationModalBindings(PropertyAssociation pa) {
@@ -231,7 +480,20 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkAssociationAppliesTo(pa);
 		checkInBinding(pa);
 		if (pa.getProperty() != null && "Byte_Count".equalsIgnoreCase(pa.getProperty().getName())) {
-			warning(pa, "Byte_Count is deprecated. Please use Memory_Size.");
+			boolean offerQuickFix = true;
+			for (ModalPropertyValue modalPropertyValue : pvl) {
+				PropertyExpression pe = modalPropertyValue.getOwnedValue();
+				if (!(pe instanceof NumberValue)) {
+					offerQuickFix = false;
+					break;
+				}
+			}
+
+			if (offerQuickFix) {
+				warning("Byte_Count is deprecated. Please use Memory_Size.", pa, null, BYTE_COUNT_DEPRECATED);
+			} else {
+				warning(pa, "Byte_Count is deprecated. Please use Memory_Size.");
+			}
 		}
 	}
 
@@ -511,7 +773,31 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			return;
 		}
 		if (ul == null) {
-			error(holder, "Number value is missing a unit");
+			boolean doQuickFix = false;
+			EObject container = nv;
+			while (null != container) {
+				container = container.eContainer();
+				if (null != container && container.equals(holder)) {
+					doQuickFix = true;
+					break;
+				}
+			}
+
+			if (doQuickFix) {
+				EList<Element> allUTElements = ut.allOwnedElements();
+				String[] unitNamesAndURIs = new String[allUTElements.size() * 2];
+				int i = 0;
+				for (Element elem : allUTElements) {
+					unitNamesAndURIs[i] = ((UnitLiteral) elem).getName();
+					i++;
+					unitNamesAndURIs[i] = EcoreUtil.getURI(elem).toString();
+					i++;
+				}
+				error("Number value is missing a unit", nv, null, MISSING_NUMBERVALUE_UNITS, unitNamesAndURIs);
+
+			} else {
+				error(holder, "Number value is missing a unit");
+			}
 		} else if (!ut.getOwnedLiterals().contains(ul)) {
 			error(holder, "Unit '" + ul.getName() + "'of number value is not of Units type " + ut.getQualifiedName());
 		}

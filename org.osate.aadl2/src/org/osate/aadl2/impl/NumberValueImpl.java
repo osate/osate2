@@ -245,7 +245,7 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	/*
 	 * DB Added for OCL
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#getScaledValue(java.lang.String)
 	 */
 	@Override

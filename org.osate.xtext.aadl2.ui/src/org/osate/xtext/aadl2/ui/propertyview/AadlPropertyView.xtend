@@ -70,6 +70,7 @@ import org.eclipse.jface.viewers.IPostSelectionProvider
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.ISelectionChangedListener
 import org.eclipse.jface.viewers.IStructuredSelection
+import org.eclipse.jface.viewers.ITreeContentProvider
 import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
@@ -298,17 +299,40 @@ class AadlPropertyView extends ViewPart {
 			// so all our filtering has to be done here
 			val patternFilter = new PatternFilter {
 				override protected isLeafMatch(Viewer viewer, Object element) {
-					val labelProvider = treeViewer.getLabelProvider(0) as ColumnLabelProvider
+					var thisTree = viewer as TreeViewer
+					val labelProvider = thisTree.getLabelProvider(0) as ColumnLabelProvider
 					val labelText = labelProvider.getText(element)
 					return wordMatches(labelText)
 						&& (currentPropertyGroup.size == 0 || currentPropertyGroup.contains(labelText))
 				}
+				// Check all children to see if there is a match before hiding this parent
+				override protected isParentMatch(Viewer viewer, Object element){
+					return anyChildrenMatch(viewer as TreeViewer, element)
+				}
+				// Recursive function for isParentMatch
+				def boolean anyChildrenMatch(TreeViewer thisTree, Object element) {
+					val contentProvider = thisTree.getContentProvider() as ITreeContentProvider
+					val children = contentProvider.getChildren(element)
+					var match = false
+					
+					if ((children != null) && (children.length > 0)) {
+						
+						for (var i=0; i < children.length && !match; i++){
+							match = anyChildrenMatch(thisTree, children.get(i))		
+						}	
+					} else {
+						match = isLeafMatch(thisTree, element)
+					}
+					 
+					return match	
+				}
 			}
+			
 			// Hack to kill optimization that disables filter when text is empty
 			patternFilter.setPattern("org.eclipse.ui.keys.optimization.false")
 			
 			val treeColumnLayout = new TreeColumnLayout
-			val filteredTree = new FilteredTree(it, SWT.BORDER, patternFilter, true) {
+			val filteredTree = new FilteredTree(it, SWT.BORDER.bitwiseOr(SWT.FULL_SELECTION), patternFilter, true) {
 				override doCreateTreeViewer(Composite parent, int style) {
 					val c = super.doCreateTreeViewer(parent, style)
 					c.getControl().setLayoutData(null)

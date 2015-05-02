@@ -154,6 +154,30 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public void setDirection(DirectionType newDirection) {
+		// DONE: implement this method to set the 'Direction' attribute
+		switch (newDirection) {
+		case IN:
+			setIn(true);
+			setOut(false);
+			break;
+		case IN_OUT:
+			setIn(true);
+			setOut(true);
+			break;
+		case OUT:
+			setIn(false);
+			setOut(true);
+			break;
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -225,6 +249,9 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
+			setDirection((DirectionType) newValue);
+			return;
 		case Aadl2Package.DIRECTED_FEATURE__IN:
 			setIn((Boolean) newValue);
 			return;
@@ -243,6 +270,9 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements Directe
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
+			setDirection(DIRECTION_EDEFAULT);
+			return;
 		case Aadl2Package.DIRECTED_FEATURE__IN:
 			setIn(IN_EDEFAULT);
 			return;

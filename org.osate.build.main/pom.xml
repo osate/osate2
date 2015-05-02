@@ -5,149 +5,27 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.osate</groupId>
 	<artifactId>osate2</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>2.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.22.0</tycho-version>
-		<xtext-version>2.7.3</xtext-version>
+		<tycho.version>0.22.0</tycho.version>
+		<tycho-extras.version>0.22.0</tycho-extras.version>
+		<xtext.version>2.7.3</xtext.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jgit.dirtyWorkingTree>error</jgit.dirtyWorkingTree>
 	</properties>
-	<repositories>
-		<repository>
-			<id>luna</id>
-			<url>http://download.eclipse.org/releases/luna/201501121000</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>xtext-utils</id>
-			<url>http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x</url>
-			<layout>p2</layout>
-		</repository>
-	</repositories>
 
 	<profiles>
 		<profile>
 			<id>full</id>
-			<modules>
-				<module>../org.osate.aadl2</module>
-				<module>../org.osate.aadl2.edit</module>
-				<module>../org.osate.aadl2.model.editor</module>
-				<module>../org.osate.aadl2.modelsupport</module>
-				<module>../org.osate.annexsupport</module>
-				<module>../org.osate.branding</module>
-				<module>../org.osate.build.product</module>
-				<module>../org.osate.build.target</module>
-				<module>../org.osate.contribution.sei</module>
-				<module>../org.osate.core</module>
-				<module>../org.osate.core.feature</module>
-				<module>../org.osate.core.source.feature</module>
-				<module>../org.osate.instantiation</module>
-				<module>../org.osate.help</module>
-				<module>../org.osate.pluginsupport</module>
-				<module>../org.osate.reporter</module>
-				<module>../org.osate.ui</module>
-				<module>../org.osate.wizards</module>
-				<module>../org.osate.workspace</module>
-				<module>../org.osate.xtext.aadl2</module>
-				<module>../org.osate.xtext.aadl2.properties</module>
-				<module>../org.osate.xtext.aadl2.properties.ui</module>
-				<module>../org.osate.xtext.aadl2.ui</module>
-
-				<module>../../osate2-plugins/org.osate.analysis.architecture</module>
-				<module>../../osate2-plugins/org.osate.analysis.flows</module>
-				<module>../../osate2-plugins/org.osate.analysis.resource.budgets</module>
-				<module>../../osate2-plugins/org.osate.analysis.resource.management</module>
-				<module>../../osate2-plugins/org.osate.analysis.security</module>
-				<module>../../osate2-plugins/org.osate.analysis.arinc653</module>
-
-				<module>../../osate2-plugins/org.osate.importer</module>
-				<module>../../osate2-plugins/org.osate.importer.scade</module>
-				<module>../../osate2-plugins/org.osate.importer.simulink</module>
-				<module>../../osate2-plugins/org.osate.importer.lattix</module>
-
-				<module>../../osate2-plugins/org.osate.analysis.lute</module>
-				<module>../../osate2-plugins/org.osate.imv.osate</module>
-				<module>../../osate2-plugins/org.osate.imv.propertydecorations</module>
-				<module>../../osate2-plugins/org.osate.imv.ui</module>
-				<module>../../osate2-plugins/org.osate.imv.aadldiagram</module>
-				<module>../../osate2-plugins/org.osate.analysis.binpacking</module>
-				<module>../../osate2-plugins/org.osate.plugins.feature</module>
-				<module>../../osate2-plugins/org.osate.plugins.source.feature</module>
-
-				<module>../../ErrorModelV2/org.osate.aadl2.errormodel.analysis</module>
-				<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel.feature</module>
-				<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel.ui</module>
-				<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel</module>
-
-				<module>../../ErrorModelV1/edu.cmu.sei.aadl.errorannex</module>
-				<module>../../ErrorModelV1/edu.cmu.sei.aadl.errorannex.edit</module>
-				<module>../../ErrorModelV1/edu.cmu.sei.aadl.errorannex.feature</module>
-				<module>../../ErrorModelV1/edu.cmu.sei.aadl.errorannex.parser</module>
-				<module>../../ErrorModelV1/edu.laas.aadl.aadl2gspn</module>
-				<module>../../ErrorModelV1/edu.laas.aadl.dependency</module>
-				<module>../../ErrorModelV1/edu.laas.aadl.gspn.model</module>
-
-				<module>../../osate2-ba/org.osate.ba</module>
-				<module>../../osate2-ba/org.osate.ba.feature</module>
-				<module>../../osate2-ba/org.osate.ba.edit</module>
-				<module>../../osate2-ba/org.osate.utils</module>
-				<module>../../osate2-ba/org.osate.utils.feature</module>
-
-				<module>../../osate-ge/org.osate.ge</module>
-				<module>../../osate-ge/org.osate.ge.doc</module>
-				<module>../../osate-ge/org.osate.ge.feature</module>
-
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree</module>
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.feature</module>
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.source.feature</module>
-
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.analysis</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ngrep</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.schedule.analysis</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ui</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
-
-				<module>../org.osate.resolute.help</module>
-				
-				<module>../../osate2-ocarina/org.osate.ocarina</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.aadlcontribution</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.feature</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.help</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.real.xtext</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.real.xtext.ui</module>
-
-				<module>../org.osate.core.tests</module>
-				<module>../../osate2-plugins/org.osate.analysis.flows.tests</module>
-			</modules>
 			<build>
 				<plugins>
-					<!-- run unit tests -->
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>tycho-surefire-plugin</artifactId>
-						<version>${tycho-version}</version>
-					</plugin>
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 						<configuration>
-							<executionEnvironment>JavaSE-1.7</executionEnvironment>
-							<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
-							<resolver>p2</resolver>
-							<target>
-								<artifact>
-									<groupId>org.osate</groupId>
-									<artifactId>osate2-platform</artifactId>
-									<version>2.0.0-SNAPSHOT</version>
-								</artifact>
-							</target>
-							<ignoreTychoRepositories>true</ignoreTychoRepositories>
 							<environments>
 								<environment>
 									<os>linux</os>
@@ -188,138 +66,12 @@
 
 		<profile>
 			<id>local</id>
-			<modules>
-				<module>../../osate2-ocarina/org.osate.ocarina</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.aadlcontribution</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.feature</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.help</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.real.xtext</module>
-				<module>../../osate2-ocarina/org.osate.ocarina.real.xtext.ui</module>
-
-				<module>../org.osate.aadl2</module>
-				<module>../org.osate.aadl2.edit</module>
-				<module>../org.osate.aadl2.model.editor</module>
-				<module>../org.osate.aadl2.modelsupport</module>
-				<module>../org.osate.annexsupport</module>
-				<module>../org.osate.branding</module>
-				<module>../org.osate.build.product</module>
-				<module>../org.osate.build.target</module>
-				<module>../org.osate.contribution.sei</module>
-				<module>../org.osate.core</module>
-				<module>../org.osate.core.feature</module>
-				<module>../org.osate.core.source.feature</module>
-				<module>../org.osate.instantiation</module>
-				<module>../org.osate.help</module>
-				<module>../org.osate.pluginsupport</module>
-				<module>../org.osate.reporter</module>
-				<module>../org.osate.resolute.help</module>
-				<module>../org.osate.ui</module>
-				<module>../org.osate.wizards</module>
-				<module>../org.osate.workspace</module>
-				<module>../org.osate.xtext.aadl2</module>
-				<module>../org.osate.xtext.aadl2.properties</module>
-				<module>../org.osate.xtext.aadl2.properties.ui</module>
-				<module>../org.osate.xtext.aadl2.ui</module>
-
-				<module>../../osate2-plugins/org.osate.analysis.architecture</module>
-				<module>../../osate2-plugins/org.osate.analysis.flows</module>
-				<module>../../osate2-plugins/org.osate.analysis.resource.budgets</module>
-				<module>../../osate2-plugins/org.osate.analysis.resource.management</module>
-				<module>../../osate2-plugins/org.osate.analysis.security</module>
-				<module>../../osate2-plugins/org.osate.analysis.arinc653</module>
-
-				<module>../../osate2-plugins/org.osate.importer</module>
-				<module>../../osate2-plugins/org.osate.importer.scade</module>
-				<module>../../osate2-plugins/org.osate.importer.simulink</module>
-				<module>../../osate2-plugins/org.osate.importer.lattix</module>
-
-				<module>../../osate2-plugins/org.osate.analysis.lute</module>
-				<module>../../osate2-plugins/org.osate.imv.osate</module>
-				<module>../../osate2-plugins/org.osate.imv.propertydecorations</module>
-				<module>../../osate2-plugins/org.osate.imv.ui</module>
-				<module>../../osate2-plugins/org.osate.imv.aadldiagram</module>
-				<module>../../osate2-plugins/org.osate.analysis.binpacking</module>
-				<module>../../osate2-plugins/org.osate.plugins.feature</module>
-				<module>../../osate2-plugins/org.osate.plugins.source.feature</module>
-
-				<module>../../ErrorModelV2/org.osate.aadl2.errormodel.analysis</module>
-				<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel.feature</module>
-				<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel.ui</module>
-				<module>../../ErrorModelV2/org.osate.xtext.aadl2.errormodel</module>
-
-				<module>../../osate2-ba/org.osate.ba</module>
-				<module>../../osate2-ba/org.osate.ba.feature</module>
-				<module>../../osate2-ba/org.osate.ba.edit</module>
-				<module>../../osate2-ba/org.osate.utils</module>
-				<module>../../osate2-ba/org.osate.utils.feature</module>
-
-				<module>../../osate-ge/org.osate.ge</module>
-				<module>../../osate-ge/org.osate.ge.doc</module>
-				<module>../../osate-ge/org.osate.ge.feature</module>
-
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree</module>
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.feature</module>
-				<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.source.feature</module>
-
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.analysis</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ngrep</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.schedule.analysis</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ui</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
-				<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.source.feature</module>
-
-			</modules>
 			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.eclipse.tycho</groupId>
 						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
-						<configuration>
-							<executionEnvironment>JavaSE-1.7</executionEnvironment>
-							<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
-							<resolver>p2</resolver>
-							<target>
-								<artifact>
-									<groupId>org.osate</groupId>
-									<artifactId>osate2-platform</artifactId>
-									<version>2.0.0-SNAPSHOT</version>
-								</artifact>
-							</target>
-							<ignoreTychoRepositories>true</ignoreTychoRepositories>
-							<environments>
-								<environment>
-									<os>linux</os>
-									<ws>gtk</ws>
-									<arch>x86_64</arch>
-								</environment>
-							</environments>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>test</id>
-			<modules>
-				<module>../org.osate.core.tests</module>
-				<module>../../osate2-plugins/org.osate.analysis.flows.tests</module>
-			</modules>
-			<build>
-				<plugins>
-					<!-- run unit tests -->
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>tycho-surefire-plugin</artifactId>
-						<version>${tycho-version}</version>
-					</plugin>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
+						<version>${tycho.version}</version>
 					</plugin>
 				</plugins>
 			</build>
@@ -331,14 +83,14 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<extensions>true</extensions>
 			</plugin>
 			<!-- enable source bundle generation -->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-source-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<executions>
 					<execution>
 						<id>plugin-source</id>
@@ -366,7 +118,7 @@
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
-				<version>${xtext-version}</version>
+				<version>${xtext.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -382,11 +134,69 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-compiler-plugin</artifactId>
-				<version>${tycho-version}</version>
+				<version>${tycho.version}</version>
 				<configuration>
 					<compilerArgument>-err:-forbidden</compilerArgument>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<resolveWithExecutionEnvironmentConstraints>false</resolveWithExecutionEnvironmentConstraints>
+					<resolver>p2</resolver>
+					<target>
+						<artifact>
+							<groupId>org.osate</groupId>
+							<artifactId>osate2-platform</artifactId>
+							<version>2.1.0-SNAPSHOT</version>
+						</artifact>
+					</target>
+					<ignoreTychoRepositories>true</ignoreTychoRepositories>
+				</configuration>
+			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-packaging-plugin</artifactId>
+					<version>${tycho.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.tycho.extras</groupId>
+							<artifactId>tycho-buildtimestamp-jgit</artifactId>
+							<version>${tycho-extras.version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<timestampProvider>jgit</timestampProvider>
+						<format>'v'yyyyMMdd-HHmm</format>
+						<jgit.dirtyWorkingTree>${jgit.dirtyWorkingTree}</jgit.dirtyWorkingTree>
+						<jgit.ignore>
+							pom.xml
+							org.osate.branding/plugin.properties
+							org.osate.branding/about.mappings
+						</jgit.ignore>
+					</configuration>
+				</plugin>
+<!-- 				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-plugin</artifactId>
+					<version>${tycho.version}</version>
+					<configuration>
+						<baselineRepositories>
+							<repository>
+								<url>http://www.aadl.info/aadl/osate/stable/2.0.9/update-site</url>
+							</repository>
+						</baselineRepositories>
+					</configuration>
+				</plugin>
+ -->			</plugins>
+		</pluginManagement>
+
 	</build>
+
 </project>

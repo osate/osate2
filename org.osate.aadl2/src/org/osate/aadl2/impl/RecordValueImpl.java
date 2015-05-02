@@ -212,15 +212,15 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 		// TODO: implement comparicon for record values
 		return false;
 
-//		RecordValueImpl other = (RecordValueImpl) pv;
-//		if (ownedFieldValues == null) {
-//			if (other.ownedFieldValues != null) {
-//				return false;
-//			}
-//		} else if (!ownedFieldValues.equals(other.ownedFieldValues)) {
-//			return false;
-//		}
-//		return true;
+		// RecordValueImpl other = (RecordValueImpl) pv;
+		// if (ownedFieldValues == null) {
+		// if (other.ownedFieldValues != null) {
+		// return false;
+		// }
+		// } else if (!ownedFieldValues.equals(other.ownedFieldValues)) {
+		// return false;
+		// }
+		// return true;
 	}
 
 } // RecordValueImpl

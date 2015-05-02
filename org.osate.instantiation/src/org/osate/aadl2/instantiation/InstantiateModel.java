@@ -82,8 +82,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
@@ -97,7 +95,6 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortCategory;
@@ -590,10 +587,8 @@ public class InstantiateModel {
 					if (o instanceof Subcomponent) {
 						eventName = ((Subcomponent) o).getName() + ".";
 					}
-					eventName = eventName + tp.getName();
-				} else {
-					eventName = ((NamedElement) triggers.get(0)).getName();
 				}
+				eventName += tp.getName();
 			}
 			mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "") + dstmode.getName());
 			ci.getModeTransitionInstances().add(mti);
@@ -923,26 +918,19 @@ public class InstantiateModel {
 
 			inverse ^= fg.isInverse();
 
-			while (ft instanceof FeatureGroupPrototype) {
-				FeatureGroupPrototype fgp = (FeatureGroupPrototype) ft;
-				FeatureGroupPrototypeActual fgr = InstanceUtil.resolveFeatureGroupPrototype(fgp, fi, classifierCache);
-				if (fgr != null) {
-					ft = fgr.getFeatureType();
-					if (ft == null) {
-						errManager.error(
-								fi,
+			InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier(fi, 0, classifierCache);
+			if (ic.classifier == null) {
+				errManager
+						.error(fi,
 								"Could not resolve feature group type of feature group prototype "
 										+ fi.getInstanceObjectPath());
-						return;
-					}
-				} else {
-					// prototype has not been bound yet
-					errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
-							+ " is not bound yet to feature group type");
-					return;
-				}
+				return;
+			} else if (ic.bindings == InstanceUtil.noBindings) {
+				// prototype has not been bound yet
+				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
+						+ " is not bound yet to feature group type");
 			}
-			FeatureGroupType fgt = (FeatureGroupType) ft;
+			FeatureGroupType fgt = (FeatureGroupType) ic.classifier;
 
 			List<Feature> localFeatures = fgt.getOwnedFeatures();
 			final FeatureGroupType inverseFgt = fgt.getInverse();

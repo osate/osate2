@@ -924,7 +924,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.Subcomponent#getPrototypeActual(org.osate.aadl2.Prototype
 	 * )
