@@ -96,7 +96,7 @@
    </configurations>
 
    <repositories>
-      <repository location="http://aadl.info/aadl/osate/stable/2.0.9/update-site/" enabled="true" />
+      <repository location="http://aadl.info/aadl/osate/stable/2.1.0/update-site/" enabled="true" />
       <repository location="http://download.eclipse.org/releases/luna/" enabled="true" />
       <repository location="http://download.eclipse.org/eclipse/updates/4.4" enabled="true" />
       <repository location="http://subclipse.tigris.org/update_1.8.x" enabled="true" />
