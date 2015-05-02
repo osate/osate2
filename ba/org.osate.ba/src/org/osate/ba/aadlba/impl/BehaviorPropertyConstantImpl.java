@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorPropertyConstant ;
 
@@ -40,12 +41,13 @@ import org.osate.ba.aadlba.BehaviorPropertyConstant ;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorPropertyConstantImpl#getProperty <em>Property</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.BehaviorPropertyConstantImpl#getPropertySet <em>Property Set</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class BehaviorPropertyConstantImpl extends BehaviorPropertyImpl implements BehaviorPropertyConstant
+public class BehaviorPropertyConstantImpl extends BehaviorElementImpl implements BehaviorPropertyConstant
 {
   /**
    * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
@@ -56,6 +58,16 @@ public class BehaviorPropertyConstantImpl extends BehaviorPropertyImpl implement
    * @ordered
    */
   protected PropertyConstant property;
+
+  /**
+   * The cached value of the '{@link #getPropertySet() <em>Property Set</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPropertySet()
+   * @generated
+   * @ordered
+   */
+  protected PropertySet propertySet;
 
   /**
    * <!-- begin-user-doc -->
@@ -126,6 +138,49 @@ public class BehaviorPropertyConstantImpl extends BehaviorPropertyImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  public PropertySet getPropertySet()
+  {
+    if (propertySet != null && ((EObject)propertySet).eIsProxy())
+    {
+      InternalEObject oldPropertySet = (InternalEObject)propertySet;
+      propertySet = (PropertySet)eResolveProxy(oldPropertySet);
+      if (propertySet != oldPropertySet)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY_SET, oldPropertySet, propertySet));
+      }
+    }
+    return propertySet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertySet basicGetPropertySet()
+  {
+    return propertySet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPropertySet(PropertySet newPropertySet)
+  {
+    PropertySet oldPropertySet = propertySet;
+    propertySet = newPropertySet;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY_SET, oldPropertySet, propertySet));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -134,6 +189,9 @@ public class BehaviorPropertyConstantImpl extends BehaviorPropertyImpl implement
       case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
         if (resolve) return getProperty();
         return basicGetProperty();
+      case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY_SET:
+        if (resolve) return getPropertySet();
+        return basicGetPropertySet();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -150,6 +208,9 @@ public class BehaviorPropertyConstantImpl extends BehaviorPropertyImpl implement
     {
       case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
         setProperty((PropertyConstant)newValue);
+        return;
+      case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY_SET:
+        setPropertySet((PropertySet)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -168,6 +229,9 @@ public class BehaviorPropertyConstantImpl extends BehaviorPropertyImpl implement
       case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
         setProperty((PropertyConstant)null);
         return;
+      case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY_SET:
+        setPropertySet((PropertySet)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -184,6 +248,8 @@ public class BehaviorPropertyConstantImpl extends BehaviorPropertyImpl implement
     {
       case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
         return property != null;
+      case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY_SET:
+        return propertySet != null;
     }
     return super.eIsSet(featureID);
   }

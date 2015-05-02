@@ -21,8 +21,6 @@
 
 package org.osate.ba.declarative.impl ;
 
-
-
 import org.eclipse.emf.ecore.EAttribute ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.EPackage ;
@@ -39,8 +37,9 @@ import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.DeclarativeFactory ;
 import org.osate.ba.declarative.DeclarativePackage ;
+import org.osate.ba.declarative.DeclarativePropertyName ;
+import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.DeclarativeTime ;
-import org.osate.ba.declarative.Enumeration ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.NamedValue ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
@@ -95,14 +94,21 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass declarativeTimeEClass = null ;
+  private EClass declarativePropertyNameEClass = null ;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass enumerationEClass = null ;
+  private EClass declarativePropertyReferenceEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass declarativeTimeEClass = null ;
 
   /**
    * <!-- begin-user-doc -->
@@ -405,6 +411,103 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDeclarativePropertyName()
+  {
+    return declarativePropertyNameEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDeclarativePropertyName_PropertyName()
+  {
+    return (EReference) declarativePropertyNameEClass.getEStructuralFeatures()
+          .get(0) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDeclarativePropertyName_Field()
+  {
+    return (EReference) declarativePropertyNameEClass.getEStructuralFeatures()
+          .get(1) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDeclarativePropertyName_Indexes()
+  {
+    return (EReference) declarativePropertyNameEClass.getEStructuralFeatures()
+          .get(2) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDeclarativePropertyReference()
+  {
+    return declarativePropertyReferenceEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDeclarativePropertyReference_QualifiedName()
+  {
+    return (EReference) declarativePropertyReferenceEClass
+          .getEStructuralFeatures().get(0) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDeclarativePropertyReference_Reference()
+  {
+    return (EReference) declarativePropertyReferenceEClass
+          .getEStructuralFeatures().get(1) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDeclarativePropertyReference_PropertyNames()
+  {
+    return (EReference) declarativePropertyReferenceEClass
+          .getEStructuralFeatures().get(2) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDeclarativePropertyReference_PropertySet()
+  {
+    return (EAttribute) declarativePropertyReferenceEClass
+          .getEStructuralFeatures().get(3) ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getDeclarativeTime()
   {
     return declarativeTimeEClass ;
@@ -418,26 +521,6 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   public EReference getDeclarativeTime_UnitId()
   {
     return (EReference) declarativeTimeEClass.getEStructuralFeatures().get(0) ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEnumeration()
-  {
-    return enumerationEClass ;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEnumeration_Literal()
-  {
-    return (EReference) enumerationEClass.getEStructuralFeatures().get(0) ;
   }
 
   /**
@@ -625,11 +708,27 @@ public class DeclarativePackageImpl extends EPackageImpl implements
     createEReference(declarativeBehaviorTransitionEClass,
                      DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE) ;
 
+    declarativePropertyNameEClass = createEClass(DECLARATIVE_PROPERTY_NAME) ;
+    createEReference(declarativePropertyNameEClass,
+                     DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME) ;
+    createEReference(declarativePropertyNameEClass,
+                     DECLARATIVE_PROPERTY_NAME__FIELD) ;
+    createEReference(declarativePropertyNameEClass,
+                     DECLARATIVE_PROPERTY_NAME__INDEXES) ;
+
+    declarativePropertyReferenceEClass =
+          createEClass(DECLARATIVE_PROPERTY_REFERENCE) ;
+    createEReference(declarativePropertyReferenceEClass,
+                     DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME) ;
+    createEReference(declarativePropertyReferenceEClass,
+                     DECLARATIVE_PROPERTY_REFERENCE__REFERENCE) ;
+    createEReference(declarativePropertyReferenceEClass,
+                     DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES) ;
+    createEAttribute(declarativePropertyReferenceEClass,
+                     DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET) ;
+
     declarativeTimeEClass = createEClass(DECLARATIVE_TIME) ;
     createEReference(declarativeTimeEClass, DECLARATIVE_TIME__UNIT_ID) ;
-
-    enumerationEClass = createEClass(ENUMERATION) ;
-    createEReference(enumerationEClass, ENUMERATION__LITERAL) ;
 
     identifierEClass = createEClass(IDENTIFIER) ;
     createEAttribute(identifierEClass, IDENTIFIER__ID) ;
@@ -702,13 +801,20 @@ public class DeclarativePackageImpl extends EPackageImpl implements
           .add(theAadlBaPackage.getBehaviorTransition()) ;
     declarativeBehaviorTransitionEClass.getESuperTypes()
           .add(this.getDeclarativeBehaviorElement()) ;
+    declarativePropertyNameEClass.getESuperTypes()
+          .add(this.getDeclarativeBehaviorElement()) ;
+    declarativePropertyReferenceEClass.getESuperTypes()
+          .add(this.getDeclarativeBehaviorElement()) ;
+    declarativePropertyReferenceEClass.getESuperTypes()
+          .add(theAadlBaPackage.getIntegerValueConstant()) ;
+    declarativePropertyReferenceEClass.getESuperTypes()
+          .add(theAadlBaPackage.getValueConstant()) ;
     declarativeTimeEClass.getESuperTypes().add(theAadlBaPackage
                                                      .getBehaviorTime()) ;
     declarativeTimeEClass.getESuperTypes()
           .add(theAadlBaPackage.getCompletionRelativeTimeout()) ;
     declarativeTimeEClass.getESuperTypes()
           .add(this.getDeclarativeBehaviorElement()) ;
-    enumerationEClass.getESuperTypes().add(this.getQualifiedNamedElement()) ;
     identifierEClass.getESuperTypes().add(theAadlBaPackage.getBehaviorState()) ;
     identifierEClass.getESuperTypes().add(this.getDeclarativeBehaviorElement()) ;
     namedValueEClass.getESuperTypes().add(theAadlBaPackage
@@ -723,6 +829,8 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                            .getValueConstant()) ;
     qualifiedNamedElementEClass.getESuperTypes()
           .add(theAadlBaPackage.getIntegerValueConstant()) ;
+    qualifiedNamedElementEClass.getESuperTypes()
+          .add(theAadl2Package.getProcessorClassifier()) ;
     referenceEClass.getESuperTypes()
           .add(theAadlBaPackage.getActualPortHolder()) ;
     referenceEClass.getESuperTypes().add(this.getDeclarativeBehaviorElement()) ;
@@ -827,18 +935,57 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                    !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
                    IS_ORDERED) ;
 
+    initEClass(declarativePropertyNameEClass, DeclarativePropertyName.class,
+               "DeclarativePropertyName", !IS_ABSTRACT, !IS_INTERFACE,
+               IS_GENERATED_INSTANCE_CLASS) ;
+    initEReference(getDeclarativePropertyName_PropertyName(), this
+                         .getIdentifier(), null, "propertyName", null, 1, 1,
+                   DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
+                   IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                   !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
+    initEReference(getDeclarativePropertyName_Field(), theAadlBaPackage
+                         .getPropertyNameField(), null, "field", null, 0, 1,
+                   DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
+                   IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                   !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
+    initEReference(getDeclarativePropertyName_Indexes(), theAadlBaPackage
+                         .getIntegerValue(), null, "indexes", null, 0, -1,
+                   DeclarativePropertyName.class, !IS_TRANSIENT, !IS_VOLATILE,
+                   IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                   IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
+
+    initEClass(declarativePropertyReferenceEClass,
+               DeclarativePropertyReference.class,
+               "DeclarativePropertyReference", !IS_ABSTRACT, !IS_INTERFACE,
+               IS_GENERATED_INSTANCE_CLASS) ;
+    initEReference(getDeclarativePropertyReference_QualifiedName(), this
+                         .getQualifiedNamedElement(), null, "qualifiedName",
+                   null, 0, 1, DeclarativePropertyReference.class,
+                   !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                   !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                   IS_ORDERED) ;
+    initEReference(getDeclarativePropertyReference_Reference(), this
+                         .getReference(), null, "reference", null, 0, 1,
+                   DeclarativePropertyReference.class, !IS_TRANSIENT,
+                   !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                   !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                   IS_ORDERED) ;
+    initEReference(getDeclarativePropertyReference_PropertyNames(), this
+                         .getDeclarativePropertyName(), null, "propertyNames",
+                   null, 1, -1, DeclarativePropertyReference.class,
+                   !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+                   !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                   IS_ORDERED) ;
+    initEAttribute(getDeclarativePropertyReference_PropertySet(),
+                   theAadlBaPackage.getBoolean(), "propertySet", "false", 0, 1,
+                   DeclarativePropertyReference.class, !IS_TRANSIENT,
+                   !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                   IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
+
     initEClass(declarativeTimeEClass, DeclarativeTime.class, "DeclarativeTime",
                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS) ;
     initEReference(getDeclarativeTime_UnitId(), this.getIdentifier(), null,
                    "unitId", null, 1, 1, DeclarativeTime.class, !IS_TRANSIENT,
-                   !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-                   !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-                   IS_ORDERED) ;
-
-    initEClass(enumerationEClass, Enumeration.class, "Enumeration",
-               !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS) ;
-    initEReference(getEnumeration_Literal(), this.getIdentifier(), null,
-                   "literal", null, 1, 1, Enumeration.class, !IS_TRANSIENT,
                    !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
                    !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
                    IS_ORDERED) ;

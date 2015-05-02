@@ -96,4 +96,18 @@ http://www.eclipse.org/org/documents/epl-v10.php
      </wizard>
   </extension>
    
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated declarative -->
+      <package
+            uri="https://github.com/osate/osate2-ba.git/declarative"
+            class="org.osate.ba.declarative.DeclarativePackage"
+            genModel="model/declarative.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated declarative -->
+      <parser
+            type="declarative"
+            class="org.osate.ba.declarative.util.DeclarativeResourceFactoryImpl"/>
+   </extension>
 </plugin>

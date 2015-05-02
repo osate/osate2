@@ -29,14 +29,14 @@ import java.util.ListIterator ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.common.util.Enumerator ;
 import org.eclipse.emf.ecore.InternalEObject ;
-
 import org.osate.aadl2.Aadl2Factory ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.ArraySize ;
+import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.CalledSubprogram ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ClassifierValue ;
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.ComponentPrototype ;
 import org.osate.aadl2.ComponentPrototypeActual ;
 import org.osate.aadl2.ComponentPrototypeBinding ;
@@ -45,32 +45,45 @@ import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.DataPort ;
 import org.osate.aadl2.DataSubcomponent ;
 import org.osate.aadl2.DirectionType ;
-import org.osate.aadl2.Element;
+import org.osate.aadl2.Element ;
+import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.EventDataPort ;
 import org.osate.aadl2.EventPort ;
 import org.osate.aadl2.Feature ;
-import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeBinding ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Parameter ;
 import org.osate.aadl2.Port ;
-import org.osate.aadl2.Property ;
+import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyConstant ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertySet ;
+import org.osate.aadl2.PropertyType ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
-import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subprogram ;
 import org.osate.aadl2.SubprogramAccess ;
 import org.osate.aadl2.SubprogramImplementation ;
-import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramPrototype ;
 import org.osate.aadl2.SubprogramSubcomponent ;
 import org.osate.aadl2.SubprogramType ;
 import org.osate.aadl2.UnitLiteral ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.aadl2.parsesupport.LocationReference ;
 import org.osate.ba.aadlba.* ;
-import org.osate.ba.declarative.* ;
+import org.osate.ba.declarative.ArrayableIdentifier ;
+import org.osate.ba.declarative.CommAction ;
+import org.osate.ba.declarative.DeclarativeArrayDimension ;
+import org.osate.ba.declarative.DeclarativeBehaviorElement ;
+import org.osate.ba.declarative.DeclarativePropertyName ;
+import org.osate.ba.declarative.DeclarativePropertyReference ;
+import org.osate.ba.declarative.DeclarativeTime ;
+import org.osate.ba.declarative.Identifier ;
+import org.osate.ba.declarative.NamedValue ;
+import org.osate.ba.declarative.QualifiedNamedElement ;
+import org.osate.ba.declarative.Reference ;
 import org.osate.ba.texteditor.AadlBaHyperlink ;
 import org.osate.ba.texteditor.DefaultAadlBaHyperlink ;
 import org.osate.ba.unparser.AadlBaUnparser ;
@@ -238,20 +251,11 @@ public class AadlBaTypeChecker
     {
       size.setSize(((BehaviorIntegerLiteral)ivc).getValue()) ;
     }
-    else if(ivc instanceof BehaviorProperty)
+    else if(ivc instanceof BehaviorPropertyConstant)
     {
       PropertyExpression pe = null ;
-      
-      if(ivc instanceof BehaviorPropertyConstant)
-      {
-        PropertyConstant pc = ((BehaviorPropertyConstant) ivc).getProperty() ;
-        pe = pc.getConstantValue() ;
-      }
-      else if(ivc instanceof BehaviorPropertyValue)
-      {
-        Property p = ((BehaviorPropertyValue)ivc).getProperty() ;
-        pe = p.getDefaultValue() ;
-      }
+      PropertyConstant pc = ((BehaviorPropertyConstant) ivc).getProperty() ;
+      pe = pc.getConstantValue() ;
       
       if(pe instanceof NumberValue)
       {
@@ -260,11 +264,26 @@ public class AadlBaTypeChecker
       }
       else
       {
-        String errorMsg = "integerValueConstantToArrayDimension : " +
-              pe.getClass().getSimpleName()+
-              " is not supported yet." ;
-          System.err.println(errorMsg) ;
-          throw new UnsupportedOperationException(errorMsg) ;
+        String msg = "cannot evaluate the property constant";
+        _errManager.warning(ivc, msg);
+      }
+    }
+    else if(ivc instanceof PropertyReference)
+    {
+      PropertyReference pr = (PropertyReference) ivc ;
+      PropertyNameHolder last = pr.getProperties().
+                                              get(pr.getProperties().size()-1) ;
+      Element el = last.getProperty().getElement() ;
+      
+      if(el instanceof NumberValue)
+      {
+        double value = ((NumberValue)el).getScaledValue() ;
+        size.setSize((long) value);
+      }
+      else
+      {
+        String msg = "cannot evaluate the property value";
+        _errManager.warning(ivc, msg);
       }
     }
     else
@@ -944,8 +963,6 @@ public class AadlBaTypeChecker
   // reports error and returns null.
   private ValueAndTypeHolder valueCheck(Value v)
   {
-    // Ambiguity between property constant and name without array index
-    // has already been resolved in the name resolution phase.
     if(v instanceof ValueConstant)
     {
       return valueConstantCheck((ValueConstant) v) ;
@@ -1453,6 +1470,7 @@ public class AadlBaTypeChecker
         }
         
         case FEATURE_GROUP_PROTOTYPE:
+        case FEATURE_GROUP_PROTOTYPE_BINDING:  
         case SUBPROGRAM_GROUP_PROTOTYPE:
         case THREAD_GROUP_PROTOTYPE:
         case REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:
@@ -1561,61 +1579,6 @@ public class AadlBaTypeChecker
     _errManager.error(de._element, msg.toString()) ;
   }
 
- private ValueConstant behaviorPropertyResolver(QualifiedNamedElement qne)
- {
-   // Resolves semantic ambiguity between behavior propertyset constant and 
-   // behavior propertyset value.
-   
-   ValueConstant result = null ;
-   
-   // Namespace doesn't need to be checked as namespace has no type.
-   Enum<?> e = typeCheck(qne, qne.getBaName().getId(),TypeCheckRule.PROPERTY,
-                         true);
-   
-   if (e != null)
-   {
-     // BehaviorPropertyValue case.
-     if (e == FeatureType.PROPERTY_VALUE)
-     {
-       // Builds a PropertyValue object and returns it.
-       BehaviorPropertyValue pv = _fact.createBehaviorPropertyValue();
-       
-       pv.setProperty((Property) qne.getOsateRef()) ;
-       
-       if(qne.getBaNamespace() != null)
-       {
-         pv.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
-       }
-       
-       pv.setLocationReference(qne.getLocationReference());
-       
-       result = pv ;
-     }
-     else // // BehaviorPropertyConstant case. 
-     {
-       // Builds a PropertyValue object and returns it.
-       BehaviorPropertyConstant pc = _fact.createBehaviorPropertyConstant();
-       
-       pc.setProperty((PropertyConstant) qne.getOsateRef()) ;
-       
-       if(qne.getBaNamespace() != null)
-       {
-         pc.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
-       }
-             
-       pc.setLocationReference(qne.getLocationReference());
-       
-       result = pc ;
-     }
-   }
-   else // Checking has failed.
-   {
-     result = null ;
-   }
-   
-   return result ;
- }
-  
  // This method checks the given object and returns a value constant
  // resolved from semantic ambiguities and its data representation. On error,
  // reports error and returns null.
@@ -1624,13 +1587,9 @@ public class AadlBaTypeChecker
    ValueAndTypeHolder result = null ;
    ValueConstant tmpResult = null ;
    
-   if(v instanceof Enumeration)
+   if(v instanceof DeclarativePropertyReference)
    {
-     tmpResult = behaviorEnumLiteralResolver((Enumeration)v) ;
-   }
-   else if(v instanceof QualifiedNamedElement)
-   {
-     tmpResult = behaviorPropertyResolver((QualifiedNamedElement) v) ;
+     tmpResult = propertyReferenceResolver((DeclarativePropertyReference) v) ;
    }
    else // Literal cases. Nothing to do.
    {
@@ -1645,20 +1604,173 @@ public class AadlBaTypeChecker
    return result ;
  }
   
-  private ValueConstant behaviorEnumLiteralResolver(Enumeration enu)
+  private ValueConstant propertyReferenceResolver(DeclarativePropertyReference
+                                                  ref)
   {
-    // Checking has already been made in AadlBaNameResolver.
-    // So just set an BehaviorEnumLiteral instance.
+    ValueConstant result = null ;
     
-    BehaviorEnumerationLiteral result = _fact.createBehaviorEnumerationLiteral();
-    result.setLocationReference(enu.getLocationReference()) ;
-    
-    result.setComponent((ComponentClassifier) enu.getBaName().getOsateRef()) ;
-    result.setEnumLiteral((StringLiteral) enu.getLiteral().getOsateRef()) ;
+    if(ref.isPropertySet())
+    {
+      DeclarativePropertyName firstName = ref.getPropertyNames().get(0) ;
+      
+      // Property constant from a property set.
+      if(firstName.getOsateRef() instanceof PropertyConstant)
+      {
+        BehaviorPropertyConstant tmp = _fact.createBehaviorPropertyConstant() ;
+        tmp.setProperty((PropertyConstant) firstName.getOsateRef());
+        if(ref.getQualifiedName() != null)
+        {
+          tmp.setPropertySet((PropertySet) ref.getQualifiedName().
+                                                                 getOsateRef());
+        }
+        result = tmp ;
+      }
+      else // Property value case.
+      {
+        PropertySetPropertyReference tmp = _fact.
+                                          createPropertySetPropertyReference() ;
+        propertyNameListResolver(ref.getPropertyNames(), tmp.getProperties()) ;
         
+        if(ref.getQualifiedName() != null)
+        {
+          tmp.setPropertySet((PropertySet) ref.getQualifiedName().
+                                                                 getOsateRef());
+        }
+        result = tmp ;
+      }
+    }
+    else if(ref.getQualifiedName() != null) // [qualified] classifier case. 
+    {
+      ClassifierPropertyReference tmp = _fact.createClassifierPropertyReference();
+      tmp.setClassifier((Classifier) ref.getQualifiedName().getOsateRef());
+      propertyNameListResolver(ref.getPropertyNames(), tmp.getProperties()) ;
+      result = tmp ;
+    }
+    else // Classifier feature case.
+    {
+      ClassifierFeaturePropertyReference tmp = _fact.
+                                    createClassifierFeaturePropertyReference() ;
+      
+      classifierFeatureResolver(tmp, ref.getReference()) ;
+      propertyNameListResolver(ref.getPropertyNames(), tmp.getProperties()) ;
+      result = tmp ;
+    }
+    
+    result.setLocationReference(ref.getLocationReference());
     return result ;
   }
 
+  private void propertyNameListResolver(EList<DeclarativePropertyName> dpns,
+                                           EList<PropertyNameHolder> result)
+  {
+    PropertyNameHolder pnh = null ;
+    PropertyElementHolder peh = null ;
+    EList<IntegerValue> indexes = null ;
+    LocationReference loc = null ;
+    Element global, primary ;
+    
+    for(DeclarativePropertyName dpn : dpns)
+    {
+      pnh = _fact.createPropertyNameHolder() ;
+      pnh.setLocationReference(dpn.getLocationReference());
+      
+      global = dpn.getOsateRef() ;
+      primary = dpn.getPropertyName().getOsateRef() ;
+      
+      if(primary != global) // Item list case.
+      {
+        loc = dpn.getPropertyName().getLocationReference() ;
+        peh = propertyElementHolderResolver(primary, loc);
+      }
+      else
+      {
+        loc = dpn.getLocationReference() ;
+        peh = propertyElementHolderResolver(global, loc);
+        
+      }
+      
+      indexes = peh.getArrayIndexes() ;
+      
+      if(dpn.getField() != null)
+      {
+        pnh.setField(dpn.getField());
+      }
+      else
+      {
+        for(IntegerValue iv : dpn.getIndexes())
+        {
+          IntegerValue tmp = integerValueCheck(iv) ; // Report any error.
+          if(tmp != null)
+          {
+            indexes.add(tmp) ;
+          }
+        }
+      }
+      
+      pnh.setProperty(peh);
+      result.add(pnh) ;
+    }
+  }
+  
+  private PropertyElementHolder propertyElementHolderResolver(Element el,
+                                                              LocationReference loc)
+  {
+    PropertyElementHolder result = null ;
+    
+    if(el instanceof BasicProperty)
+    {
+      BasicProperty bp = (BasicProperty) el ;
+      BasicPropertyHolder tmp = _fact.createBasicPropertyHolder() ;
+      tmp.setBasicProperty(bp) ;
+      result = tmp ; 
+    }
+    else if(el  instanceof PropertyAssociation)
+    {
+      PropertyAssociation pa = (PropertyAssociation) el ;
+      PropertyAssociationHolder tmp = _fact.createPropertyAssociationHolder();
+      tmp.setPropertyAssociation(pa);
+      result = tmp ;
+    }
+    else if(el instanceof PropertyExpression)
+    {
+      PropertyExpression pe = (PropertyExpression) el ;
+      PropertyExpressionHolder tmp = _fact.createPropertyExpressionHolder();
+      tmp.setPropertyExpression(pe);
+      result = tmp ;
+    }
+    else if(el instanceof PropertyType)
+    {
+      PropertyType pt = (PropertyType) el ;
+      PropertyTypeHolder tmp = _fact.createPropertyTypeHolder();
+      tmp.setPropertyType(pt);
+      result = tmp ;
+    }
+    else if(el instanceof EnumerationLiteral)
+    {
+      EnumerationLiteral enumLit = (EnumerationLiteral) el ;
+      EnumLiteralHolder tmp = _fact.createEnumLiteralHolder();
+      tmp.setEnumLiteral(enumLit);
+      result = tmp ;
+    }
+    else
+    {
+      String errorMsg = "type: " + el.getClass().getSimpleName() + 
+            " is not supported yet." ;
+        System.err.println(errorMsg) ;
+        throw new UnsupportedOperationException(errorMsg) ;
+    }
+    
+    result.setLocationReference(loc);
+    return result ;
+  }
+  
+  private void classifierFeatureResolver(ClassifierFeaturePropertyReference result,
+                                         Reference ref)
+  {
+    List<ElementHolder> holders = refResolver(ref, null, TypeCheckRule.NOTHING,
+                                                         TypeCheckRule.ALL) ;
+    result.setComponent((ClassifierFeatureHolder) holders.get(0));
+  }
 
   private boolean behaviorActionBlockCheck(BehaviorActionBlock bab)
   {
@@ -2093,7 +2205,41 @@ public class AadlBaTypeChecker
                                   resolvedTime);
       ta.setUpperTime(resolvedTime) ;
     }
-
+    
+    if(ta.isSetProcessorClassifier())
+    {
+      List<ProcessorClassifier> qnes = new ArrayList<ProcessorClassifier>
+                                          (ta.getProcessorClassifier().size()) ; 
+      qnes.addAll(ta.getProcessorClassifier())       ;
+      ta.unsetProcessorClassifier();
+      
+      QualifiedNamedElement qne ;
+      Classifier tmp ;
+      
+      for(int i = 0 ; i < qnes.size() ; i++)
+      {
+        qne = (QualifiedNamedElement) qnes.get(i) ;
+        tmp = uniqueComponentClassifierReferenceResolver(qne,
+                                                 TypeCheckRule.PROCESSOR_RULE) ;
+        if(tmp != null)
+        {
+          try
+          { 
+            ta.getProcessorClassifier().add((ProcessorClassifier) tmp) ;
+          }
+          catch(IllegalArgumentException e)
+          {
+            // if the user set the same more than once.
+            System.out.println("catch IllegalArgumentException AadlTypeChecker") ;
+          }
+        }
+        else
+        {
+          result = false ;
+        }
+      }
+    }
+    
     return result ;
   }
 
@@ -2180,7 +2326,7 @@ public class AadlBaTypeChecker
     if(sub != null)
     {
       // Gets subprogram type.
-      SubprogramType subprogType = subprogramTypeCheck(comAct) ;
+      Classifier subprogType = subprogramTypeCheck(comAct) ;
       
       // Checks and resolves parameter labels.
       // Event if the subprogram call action doesn't have any parameter labels,
@@ -2297,7 +2443,7 @@ public class AadlBaTypeChecker
                                                 CommAction comAct)
   {
     // Gets subprogram type.
-    SubprogramType subprogType = subprogramTypeCheck(comAct) ;
+    Classifier subprogType = subprogramTypeCheck(comAct) ;
     
     // Checks and resolves parameter labels.
     // Event if the subprogram call action doesn't have any parameter labels,
@@ -2320,7 +2466,7 @@ public class AadlBaTypeChecker
           secondHolder = resolvedRef.get(1) ;
         }
         
-        if(firstHolder instanceof DataAccessHolder) 
+        if(firstHolder instanceof SubprogramHolderProxy) 
         {
           // RefResolver can't detect that error. So do it.
           if(resolvedRef.size() != 2)
@@ -2334,7 +2480,7 @@ public class AadlBaTypeChecker
           }
           else
           {
-            result.setDataAccess((DataAccessHolder) firstHolder) ;
+            result.setProxy((SubprogramHolderProxy) firstHolder) ;
             result.setSubprogram((CalledSubprogramHolder) secondHolder) ;
           }
         }
@@ -2479,10 +2625,10 @@ public class AadlBaTypeChecker
   }
 
   // Recursive method.
-  private SubprogramType getSubprogramType(CalledSubprogram sc)
+  private Classifier getSubprogramType(CalledSubprogram sc)
   {
-    SubprogramType result = null ;
-
+    Classifier result = null ;
+    
     if(sc instanceof SubprogramImplementation)
     {
       result = ((SubprogramImplementation) sc).getType() ;
@@ -2494,13 +2640,12 @@ public class AadlBaTypeChecker
     else if(sc instanceof SubprogramAccess)
     {
       SubprogramAccess sa = (SubprogramAccess) sc ;
-      result = getSubprogramType(sa.getSubprogramFeatureClassifier()) ;
+      result = sa.getClassifier() ;
     }
     else if(sc instanceof SubprogramSubcomponent)
     {
       SubprogramSubcomponent ss = (SubprogramSubcomponent) sc ;
-
-      result = getSubprogramType(ss.getSubprogramSubcomponentType()) ;
+      result = ss.getClassifier() ;
     }
 
     return result ;
@@ -2508,7 +2653,7 @@ public class AadlBaTypeChecker
 
   // Gets subprogram type binded to the given subprogram call action.
   // On error, reports error and returns null.
-  private SubprogramType subprogramTypeCheck(CommAction comAct)
+  private Classifier subprogramTypeCheck(CommAction comAct)
   {
     Element el = null ; 
     
@@ -2521,7 +2666,7 @@ public class AadlBaTypeChecker
       el = comAct.getQualifiedName().getOsateRef() ;
     }
     
-    SubprogramType result = null ;
+    Classifier result = null ;
     String errorMsg = null ;
     
     if(el instanceof ComponentPrototype)
@@ -2582,7 +2727,7 @@ public class AadlBaTypeChecker
       String subprogramName = unparseReference(comAct.getReference()) ;
       reportError(comAct, '\'' + subprogramName + '\'' + errorMsg) ;
     }
-
+    
     return result ;
   }
 
@@ -2602,7 +2747,7 @@ public class AadlBaTypeChecker
    */
   private boolean subprogramParameterListCheck(CommAction comAct,
                                                EList<ParameterLabel> callParams,
-                                               SubprogramType subprogType)
+                                               Classifier subprogType)
   {
     // Fetches sorted subprogram feature list.
     
@@ -3119,7 +3264,25 @@ public class AadlBaTypeChecker
   // Based on a design pattern command.
   private enum TypeCheckRule implements Enumerator
   {
-
+    ALL ("any type", new Enum[] {})
+    {
+      @Override
+      public Enum<?> testTypeCheckRule(Enum<?> other)
+      {
+        return other ;
+      }
+    },
+    
+    NOTHING ("no type", new Enum[] {})
+    {
+      @Override
+      public Enum<?> test(DeclarativeBehaviorElement dbe,
+                          ComponentClassifier baParentContainer)
+      {
+        return null ;  
+      }
+    },
+    
     IN_EVENT_PORT("in event port", new Enum[]
           {FeatureType.IN_EVENT_PORT,
            FeatureType.IN_OUT_EVENT_PORT}),
@@ -3289,6 +3452,8 @@ public class AadlBaTypeChecker
            FeatureType.SUBPROGRAM_CLASSIFIER,
            FeatureType.REQUIRES_SUBPROGRAM_ACCESS,
            FeatureType.REQUIRES_DATA_ACCESS,
+           FeatureType.DATA_SUBCOMPONENT,
+           BehaviorFeatureType.BEHAVIOR_VARIABLE,
            TypeCheckRule.OUT_PORT}),
 
     SUBPROGRAM_CALL_ACTION_SD_NAME("subprogram call action", new Enum[]
@@ -3309,6 +3474,7 @@ public class AadlBaTypeChecker
            FeatureType.THREAD_GROUP_PROTOTYPE,
            FeatureType.SUBPROGRAM_GROUP_PROTOTYPE,
            FeatureType.FEATURE_GROUP_PROTOTYPE,
+           FeatureType.FEATURE_GROUP_PROTOTYPE_BINDING,
            FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE,
            FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE}),
     
@@ -3320,7 +3486,11 @@ public class AadlBaTypeChecker
     VV_STOP_RULE ("value variable stop rule", new Enum[]
           {TypeCheckRule.IN_PORT,
            TypeCheckRule.IN_PORT_PROTOTYPE
-          }) ;
+          }),
+          
+          
+    PROCESSOR_RULE("processor unique component classifier reference", new Enum[]
+          {FeatureType.PROCESSOR_CLASSIFIER}) ;
           
     String _literal ;
     Enum<?>[] _acceptableTypes ;
@@ -3371,8 +3541,6 @@ public class AadlBaTypeChecker
     {
       Enum<?> testedEnum = AadlBaTypeChecker.getType(dbe) ;
 
-
-
       // Resolves feature prototype binding in order to compare the rule
       // to the resolved feature prototype.
       if(testedEnum.equals(FeatureType.FEATURE_PROTOTYPE_BINDING))
@@ -3420,7 +3588,7 @@ public class AadlBaTypeChecker
         {
           if (e.equals(other))
           {
-            return e ;
+            return other ;
           }
           else
           {

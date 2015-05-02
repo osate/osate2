@@ -29,18 +29,93 @@ import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.common.util.Enumerator ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.util.FeatureMap ;
-
+import org.osate.aadl2.Aadl2Package ;
+import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.ArrayDimension ;
+import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.Element ;
-import org.osate.aadl2.PropertySet ;
-import org.osate.aadl2.parsesupport.AObject ;
+import org.osate.aadl2.EnumerationLiteral ;
+import org.osate.aadl2.NamedElement ;
+import org.osate.aadl2.NamedValue ;
+import org.osate.aadl2.PropertyAssociation ;
+import org.osate.aadl2.PropertyExpression ;
+import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.modelsupport.AadlConstants ;
 import org.osate.aadl2.modelsupport.UnparseText ;
-import org.osate.ba.aadlba.* ;
+import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.Any ;
+import org.osate.ba.aadlba.AssignmentAction ;
+import org.osate.ba.aadlba.BehaviorActionBlock ;
+import org.osate.ba.aadlba.BehaviorActionSequence ;
+import org.osate.ba.aadlba.BehaviorActionSet ;
+import org.osate.ba.aadlba.BehaviorAnnex ;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral ;
+import org.osate.ba.aadlba.BehaviorElement ;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
+import org.osate.ba.aadlba.BehaviorPropertyConstant ;
+import org.osate.ba.aadlba.BehaviorRealLiteral ;
+import org.osate.ba.aadlba.BehaviorState ;
+import org.osate.ba.aadlba.BehaviorStringLiteral ;
+import org.osate.ba.aadlba.BehaviorTime ;
+import org.osate.ba.aadlba.BehaviorTransition ;
+import org.osate.ba.aadlba.BehaviorVariable ;
+import org.osate.ba.aadlba.BinaryAddingOperator ;
+import org.osate.ba.aadlba.BinaryNumericOperator ;
+import org.osate.ba.aadlba.ClassifierFeaturePropertyReference ;
+import org.osate.ba.aadlba.ClassifierPropertyReference ;
+import org.osate.ba.aadlba.CompletionRelativeTimeout ;
+import org.osate.ba.aadlba.DataComponentReference ;
+import org.osate.ba.aadlba.DataSubcomponentHolder ;
+import org.osate.ba.aadlba.DispatchCondition ;
+import org.osate.ba.aadlba.DispatchConjunction ;
+import org.osate.ba.aadlba.DispatchRelativeTimeout ;
+import org.osate.ba.aadlba.DispatchTriggerConditionStop ;
+import org.osate.ba.aadlba.DispatchTriggerLogicalExpression ;
+import org.osate.ba.aadlba.ElementHolder ;
+import org.osate.ba.aadlba.ElseStatement ;
+import org.osate.ba.aadlba.ExecutionTimeoutCatch ;
+import org.osate.ba.aadlba.Factor ;
+import org.osate.ba.aadlba.ForOrForAllStatement ;
+import org.osate.ba.aadlba.GroupableElement ;
+import org.osate.ba.aadlba.IfStatement ;
+import org.osate.ba.aadlba.IndexableElement ;
+import org.osate.ba.aadlba.IntegerRange ;
+import org.osate.ba.aadlba.IntegerValue ;
+import org.osate.ba.aadlba.IterativeVariable ;
+import org.osate.ba.aadlba.LockAction ;
+import org.osate.ba.aadlba.LogicalOperator ;
+import org.osate.ba.aadlba.LowerBound ;
+import org.osate.ba.aadlba.MultiplyingOperator ;
+import org.osate.ba.aadlba.Otherwise ;
+import org.osate.ba.aadlba.PortCountValue ;
+import org.osate.ba.aadlba.PortDequeueAction ;
+import org.osate.ba.aadlba.PortDequeueValue ;
+import org.osate.ba.aadlba.PortFreezeAction ;
+import org.osate.ba.aadlba.PortFreshValue ;
+import org.osate.ba.aadlba.PortHolder ;
+import org.osate.ba.aadlba.PortSendAction ;
+import org.osate.ba.aadlba.PropertyElementHolder ;
+import org.osate.ba.aadlba.PropertyNameHolder ;
+import org.osate.ba.aadlba.PropertySetPropertyReference ;
+import org.osate.ba.aadlba.Relation ;
+import org.osate.ba.aadlba.RelationalOperator ;
+import org.osate.ba.aadlba.SharedDataAction ;
+import org.osate.ba.aadlba.SimpleExpression ;
+import org.osate.ba.aadlba.SubprogramCallAction ;
+import org.osate.ba.aadlba.Term ;
+import org.osate.ba.aadlba.TimedAction ;
+import org.osate.ba.aadlba.UnaryAddingOperator ;
+import org.osate.ba.aadlba.UnaryBooleanOperator ;
+import org.osate.ba.aadlba.UnaryNumericOperator ;
+import org.osate.ba.aadlba.UnlockAction ;
+import org.osate.ba.aadlba.UpperBound ;
+import org.osate.ba.aadlba.ValueExpression ;
+import org.osate.ba.aadlba.WhileOrDoUntilStatement ;
 import org.osate.ba.aadlba.util.AadlBaSwitch ;
 import org.osate.ba.utils.AadlBaVisitors ;
 import org.osate.utils.Aadl2Visitors ;
+import org.osate.utils.PropertyUtils ;
 
 
 
@@ -126,7 +201,29 @@ public class AadlBaUnparser
 
     return this.getOutput() ;
   }
-
+  
+  public final String process(NamedElement el, BehaviorElement ref)
+  {
+    String toAdd = null ;
+    
+    String refPackageName = ref.getElementRoot().getName() ;
+    
+    String elPackageName = el.getElementRoot().getName() ;
+    
+    if(false == refPackageName.equalsIgnoreCase(elPackageName))
+    {
+      toAdd = el.getQualifiedName() ;
+    }
+    else
+    {
+      toAdd = el.getName() ;
+    }
+    
+    aadlbaText.addOutput(toAdd) ;
+    
+    return null ;
+  }
+  
   /** 
    * This method checks notCancelled() after each element in the
    * list, and terminates the processing if the traversal has been cancelled.
@@ -149,7 +246,8 @@ public class AadlBaUnparser
    */
   @SuppressWarnings("rawtypes")
   public void processEList(EList list,
-                           String separator)
+                           String separator,
+                           BehaviorElement ref)
   {
     boolean first = true ;
     for(Iterator it = list.iterator() ; it.hasNext() ;)
@@ -171,13 +269,32 @@ public class AadlBaUnparser
       {
         o = ((FeatureMap.Entry) o).getValue() ;
       }
-      if(o instanceof AObject)
+      if(o instanceof BehaviorElement)
+      {
         this.process((BehaviorElement) o) ;
+      }
+      else if(o instanceof NamedElement)
+      {
+        this.process((NamedElement) o, ref) ;
+      }
       else if(o instanceof AbstractEnumerator)
         aadlbaText.addOutput(((AbstractEnumerator) o).getName().toLowerCase()) ;
       else
         aadlbaText.addOutput("processEList: oh my, oh my!!") ;
     }
+  }
+  
+  /**
+   * Does processing of list with separators
+   * 
+   * @param list
+   * @param separator
+   */
+  @SuppressWarnings("rawtypes")
+  public void processEList(EList list,
+                           String separator)
+  {
+    processEList(list, separator, null) ;
   }
 
   /**
@@ -186,20 +303,20 @@ public class AadlBaUnparser
    * @param obj
    */
   /*private void processComments(final Element obj) {
-  	if (obj != null) {
-  		EList el = obj.getOwnedComments();
-  		for (Iterator it = el.iterator(); it.hasNext();) {
-  			String comment = ((Comment) it.next()).getBody();
-  			if (!comment.startsWith("--") && !comment.startsWith("/*")) {
-  				comment = "--" + (comment.charAt(0) == ' ' ? "" : " ") + comment;
-  			} else if (comment.startsWith("/*")) {
-  				comment = comment.substring(2, comment.length() - 2);
-  				comment = "--" + (comment.charAt(0) == ' ' ? "" : " ") + comment;
-  				comment = comment.replaceAll("\n", "\n--");
-  			}
-  			aadlbaText.addOutputNewline(comment);
-  		}
-  	}
+    if (obj != null) {
+      EList el = obj.getOwnedComments();
+      for (Iterator it = el.iterator(); it.hasNext();) {
+        String comment = ((Comment) it.next()).getBody();
+        if (!comment.startsWith("--") && !comment.startsWith("/*")) {
+          comment = "--" + (comment.charAt(0) == ' ' ? "" : " ") + comment;
+        } else if (comment.startsWith("/*")) {
+          comment = comment.substring(2, comment.length() - 2);
+          comment = "--" + (comment.charAt(0) == ' ' ? "" : " ") + comment;
+          comment = comment.replaceAll("\n", "\n--");
+        }
+        aadlbaText.addOutputNewline(comment);
+      }
+    }
   }*/
 
   /**
@@ -281,23 +398,6 @@ public class AadlBaUnparser
         aadlbaText.addOutput(" : ") ;
         aadlbaText.addOutput(object.getDataClassifier().getQualifiedName()) ;
         aadlbaText.addOutputNewline(" ;") ;
-        return DONE ;
-      }
-
-      public String caseBehaviorEnumerationLiteral(BehaviorEnumerationLiteral object)
-      {
-        Element refContainer = Aadl2Visitors.getContainingPackageSection(object.getComponent());
-        Element holderPackageOrPropertySet = Aadl2Visitors.getContainingPackageSection(object);
-        if(refContainer!=null && holderPackageOrPropertySet!=null &&
-              false==holderPackageOrPropertySet.equals(refContainer))
-        {
-          StringBuilder sb = new StringBuilder(object.getComponent().getQualifiedName());
-          String prefix=sb.substring(0, sb.lastIndexOf("::")+2);
-          aadlbaText.addOutput(prefix);
-        }
-        aadlbaText.addOutput(object.getComponent().getName()) ;
-        aadlbaText.addOutput("#") ;
-        aadlbaText.addOutput(object.getEnumLiteral().getValue()) ;
         return DONE ;
       }
 
@@ -423,12 +523,12 @@ public class AadlBaUnparser
       {
         aadlbaText.addOutput("{") ;
         process(object.getContent()) ;
+        aadlbaText.addOutput("}") ;
         if(object.getTimeout() != null)
         {
           aadlbaText.addOutput(" timeout ") ;
           process(object.getTimeout()) ;
         }
-        aadlbaText.addOutput("}") ;
         return DONE ;
       }
 
@@ -593,6 +693,16 @@ public class AadlBaUnparser
           process(object.getUpperTime()) ;
         }
         aadlbaText.addOutput(")") ;
+        
+        if(object.isSetProcessorClassifier())
+        {
+          aadlbaText.addOutput(" in binding (");
+          
+          processEList(object.getProcessorClassifier(), ", ", object) ;
+          
+          aadlbaText.addOutput(")");
+        }
+        
         return DONE ;
       }
 
@@ -679,9 +789,9 @@ public class AadlBaUnparser
 
       public String caseSubprogramCallAction(SubprogramCallAction object)
       {
-        if(object.getDataAccess() != null)
+        if(object.getProxy() != null)
         {
-          process(object.getDataAccess()) ;
+          process(object.getProxy()) ;
           aadlbaText.addOutput(".") ;
         }
         
@@ -976,32 +1086,161 @@ public class AadlBaUnparser
         return DONE ;
       }
       
-      public String caseBehaviorProperty(BehaviorProperty object)
+      public String caseBehaviorPropertyConstant(BehaviorPropertyConstant object)
       {
-        PropertySet ps = object.getPropertySet() ;
-        String propertyName = "" ;
+        aadlbaText.addOutput("#");
         
-        if (ps != null)
+        if(object.getPropertySet() != null)
         {
-          aadlbaText.addOutput(ps.getQualifiedName()) ;
-          aadlbaText.addOutput(":") ;
+          aadlbaText.addOutput(object.getPropertySet().getQualifiedName());
+          aadlbaText.addOutput("::");
         }
         
-        if(object instanceof BehaviorPropertyValue)
-        {
-          BehaviorPropertyValue tmp = (BehaviorPropertyValue) object ;
-          propertyName = tmp.getProperty().getName() ;
-        }
-        else
-        {
-          BehaviorPropertyConstant tmp = (BehaviorPropertyConstant) object ;
-          propertyName = tmp.getProperty().getName() ;
-        }
-        
-        aadlbaText.addOutput(propertyName) ;
+        aadlbaText.addOutput(object.getProperty().getName());
         
         return DONE ;
       }
+      
+      public String casePropertySetPropertyReference(PropertySetPropertyReference object)
+      {
+        aadlbaText.addOutput("#");
+        
+        if(object.getPropertySet() != null)
+        {
+          aadlbaText.addOutput(object.getPropertySet().getQualifiedName());
+          aadlbaText.addOutput("::");
+        }
+        
+        processEList(object.getProperties(), ".") ;
+        
+        return DONE ;
+      }
+
+      public String caseClassifierPropertyReference(ClassifierPropertyReference object)
+      {
+        org.osate.aadl2.Classifier c = object.getClassifier() ;
+        
+        process(c, object) ;
+        
+        aadlbaText.addOutput("#");
+        processEList(object.getProperties(), ".") ;
+        return DONE ;
+      }
+      
+      public String caseClassifierFeaturePropertyReference(ClassifierFeaturePropertyReference object)
+      {
+        process(object.getComponent()) ;
+        aadlbaText.addOutput("#");
+        processEList(object.getProperties(), ".");
+        return DONE ;
+      }
+      
+      public String casePropertyNameHolder(PropertyNameHolder pnh)
+      {
+        PropertyElementHolder peh = pnh.getProperty() ;
+        Element el = peh.getElement() ;
+        
+        if(el instanceof NamedElement)
+        {
+          aadlbaText.addOutput(((NamedElement)el).getName());
+        }
+        else if(el instanceof PropertyAssociation)
+        {
+          aadlbaText.addOutput(((PropertyAssociation)el).getProperty().getName()) ;
+        }
+        else
+        {
+          String tmp = unparse((PropertyExpression) el) ;
+          aadlbaText.addOutput(tmp);
+        }
+        
+        if(pnh.getField()!=null)
+        {
+          aadlbaText.addOutput(".") ;
+          process(pnh.getField()) ;
+        }
+        else 
+        if(peh.isSetArrayIndexes())
+        {
+          caseArrayIndex(peh.getArrayIndexes()) ;
+        }
+          
+        return DONE ;
+      }
+      
+      public String caseUpperBound(UpperBound object)
+      {
+        aadlbaText.addOutput("upper_bound");
+        return DONE ;
+      }
+      
+      public String caseLowerBound(LowerBound object)
+      {
+        aadlbaText.addOutput("lower_bound");
+        return DONE ;
+      }
     } ;
+  }
+  
+  // This is very specific to AADL BA. It cannot be used elsewhere.
+  private static String unparse(PropertyExpression pe)
+  {
+    int type = pe.eClass().getClassifierID() ;
+    String result = "" ;
+    
+    switch(type)
+    {
+      case Aadl2Package.STRING_LITERAL:
+      {
+        result = ((StringLiteral)pe).getValue() ; break;
+      }
+      
+      case Aadl2Package.LIST_VALUE:
+      case Aadl2Package.REAL_LITERAL:
+      case Aadl2Package.BOOLEAN_LITERAL:
+      case Aadl2Package.NUMBER_VALUE:
+      case Aadl2Package.INTEGER_LITERAL:
+      case Aadl2Package.RECORD_VALUE:
+      case Aadl2Package.RANGE_VALUE:
+      {
+        BasicProperty container = PropertyUtils.getContainingProperty(pe) ;
+        result = container.getName() ;
+        break ;
+      }
+      
+      case Aadl2Package.NAMED_VALUE:
+      {
+        NamedValue nv = (NamedValue) pe ;
+        AbstractNamedValue anv = nv.getNamedValue() ;
+        if(anv instanceof PropertyExpression)
+        {
+          result = unparse((PropertyExpression) anv) ;
+        }
+        else if(anv instanceof EnumerationLiteral)
+        {
+          BasicProperty container = PropertyUtils.getContainingProperty(pe) ;
+          result = container.getName() ;
+          break ;
+        }
+        else
+        {
+          String msg = anv.getClass().getSimpleName() + " is not supported (in NamedValue)" ;
+          System.err.println(msg) ;
+          throw new UnsupportedOperationException(msg) ;
+        }
+        
+        break ;
+      }
+      
+      default:
+      {
+        String msg = "unparsing " + pe.getClass().getSimpleName() +
+                     " is not supported yet" ;
+        System.err.println(msg);
+        throw new UnsupportedOperationException(msg) ;
+      }
+    }
+    
+    return result ;
   }
 }

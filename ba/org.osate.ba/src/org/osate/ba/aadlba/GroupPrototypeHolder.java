@@ -19,17 +19,70 @@
  */
 package org.osate.ba.aadlba;
 
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
+
 
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Group Prototype Holder</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.osate.ba.aadlba.GroupPrototypeHolder#getPrototypeBinding <em>Prototype Binding</em>}</li>
+ * </ul>
+ * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getGroupPrototypeHolder()
  * @model
  * @generated
  */
-public interface GroupPrototypeHolder extends GroupHolder, PrototypeHolder
+public interface GroupPrototypeHolder extends GroupHolder
 {
+
+  /**
+   * Returns the value of the '<em><b>Prototype Binding</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Prototype Binding</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Prototype Binding</em>' reference.
+   * @see #setPrototypeBinding(PrototypeBinding)
+   * @see org.osate.ba.aadlba.AadlBaPackage#getGroupPrototypeHolder_PrototypeBinding()
+   * @model
+   * @generated
+   */
+  PrototypeBinding getPrototypeBinding();
+
+  /**
+   * Sets the value of the '{@link org.osate.ba.aadlba.GroupPrototypeHolder#getPrototypeBinding <em>Prototype Binding</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Prototype Binding</em>' reference.
+   * @see #getPrototypeBinding()
+   * @generated
+   */
+  void setPrototypeBinding(PrototypeBinding value);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model prototypeRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = prototype ;'"
+   * @generated
+   */
+  void setPrototype(Prototype prototype);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model kind="operation" required="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Prototype) element;'"
+   * @generated
+   */
+  Prototype getPrototype();
 } // GroupPrototypeHolder

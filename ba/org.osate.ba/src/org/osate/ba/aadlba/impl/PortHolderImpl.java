@@ -36,16 +36,19 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.AadlBaPackage ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.ElementHolder ;
+import org.osate.ba.aadlba.FeatureHolder;
 import org.osate.ba.aadlba.GroupHolder ;
 import org.osate.ba.aadlba.GroupableElement ;
+import org.osate.ba.aadlba.IndexableElement;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.PortHolder ;
-import org.osate.ba.aadlba.Value ;
-import org.osate.ba.aadlba.ValueVariable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,8 +57,8 @@ import org.osate.ba.aadlba.ValueVariable ;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.ba.aadlba.impl.PortHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.PortHolderImpl#getElement <em>Element</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.PortHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.PortHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
  * </p>
@@ -65,16 +68,6 @@ import org.osate.ba.aadlba.ValueVariable ;
 public abstract class PortHolderImpl extends BehaviorElementImpl implements PortHolder
 {
   /**
-   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getArrayIndexes()
-   * @generated
-   * @ordered
-   */
-  protected EList<IntegerValue> arrayIndexes;
-
-  /**
    * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -83,6 +76,16 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * @ordered
    */
   protected NamedElement element;
+
+  /**
+   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getArrayIndexes()
+   * @generated
+   * @ordered
+   */
+  protected EList<IntegerValue> arrayIndexes;
 
   /**
    * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
@@ -231,6 +234,46 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  public void setFeature(final Feature feature)
+  {
+    element = feature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Feature getFeature()
+  {
+    return (Feature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -254,11 +297,11 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
   {
     switch (featureID)
     {
-      case AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES:
-        return getArrayIndexes();
       case AadlBaPackage.PORT_HOLDER__ELEMENT:
         if (resolve) return getElement();
         return basicGetElement();
+      case AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES:
+        return getArrayIndexes();
       case AadlBaPackage.PORT_HOLDER__GROUP_HOLDERS:
         return getGroupHolders();
     }
@@ -276,12 +319,12 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
   {
     switch (featureID)
     {
+      case AadlBaPackage.PORT_HOLDER__ELEMENT:
+        setElement((NamedElement)newValue);
+        return;
       case AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES:
         getArrayIndexes().clear();
         getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
-        return;
-      case AadlBaPackage.PORT_HOLDER__ELEMENT:
-        setElement((NamedElement)newValue);
         return;
       case AadlBaPackage.PORT_HOLDER__GROUP_HOLDERS:
         getGroupHolders().clear();
@@ -301,11 +344,11 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
   {
     switch (featureID)
     {
-      case AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES:
-        unsetArrayIndexes();
-        return;
       case AadlBaPackage.PORT_HOLDER__ELEMENT:
         setElement((NamedElement)null);
+        return;
+      case AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES:
+        unsetArrayIndexes();
         return;
       case AadlBaPackage.PORT_HOLDER__GROUP_HOLDERS:
         unsetGroupHolders();
@@ -324,10 +367,10 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
   {
     switch (featureID)
     {
-      case AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES:
-        return isSetArrayIndexes();
       case AadlBaPackage.PORT_HOLDER__ELEMENT:
         return element != null;
+      case AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES:
+        return isSetArrayIndexes();
       case AadlBaPackage.PORT_HOLDER__GROUP_HOLDERS:
         return isSetGroupHolders();
     }
@@ -342,11 +385,40 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
+    if (baseClass == IntegerValue.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == IntegerValueVariable.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
     if (baseClass == ElementHolder.class)
     {
       switch (derivedFeatureID)
       {
         case AadlBaPackage.PORT_HOLDER__ELEMENT: return AadlBaPackage.ELEMENT_HOLDER__ELEMENT;
+        default: return -1;
+      }
+    }
+    if (baseClass == ClassifierFeatureHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == IndexableElement.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
         default: return -1;
       }
     }
@@ -358,28 +430,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
         default: return -1;
       }
     }
-    if (baseClass == Value.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ValueVariable.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == IntegerValue.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == IntegerValueVariable.class)
+    if (baseClass == FeatureHolder.class)
     {
       switch (derivedFeatureID)
       {
@@ -397,11 +448,40 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
+    if (baseClass == IntegerValue.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == IntegerValueVariable.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
     if (baseClass == ElementHolder.class)
     {
       switch (baseFeatureID)
       {
         case AadlBaPackage.ELEMENT_HOLDER__ELEMENT: return AadlBaPackage.PORT_HOLDER__ELEMENT;
+        default: return -1;
+      }
+    }
+    if (baseClass == ClassifierFeatureHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == IndexableElement.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.PORT_HOLDER__ARRAY_INDEXES;
         default: return -1;
       }
     }
@@ -413,28 +493,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
         default: return -1;
       }
     }
-    if (baseClass == Value.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ValueVariable.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == IntegerValue.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == IntegerValueVariable.class)
+    if (baseClass == FeatureHolder.class)
     {
       switch (baseFeatureID)
       {

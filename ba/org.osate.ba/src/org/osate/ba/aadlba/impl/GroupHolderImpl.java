@@ -181,7 +181,7 @@ public class GroupHolderImpl extends BehaviorElementImpl implements GroupHolder
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setGroup(NamedElement group)
+  public void setGroup(final NamedElement group )
   {
     element = group ;
   }

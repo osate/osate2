@@ -21,7 +21,6 @@
 
 package org.osate.ba.declarative ;
 
-
 import org.eclipse.emf.common.util.EList ;
 import org.osate.ba.aadlba.BehaviorTransition ;
 

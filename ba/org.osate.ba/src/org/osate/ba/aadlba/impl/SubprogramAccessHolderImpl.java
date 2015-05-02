@@ -36,11 +36,15 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.CalledSubprogramHolder ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder;
 import org.osate.ba.aadlba.ElementHolder ;
+import org.osate.ba.aadlba.FeatureHolder;
 import org.osate.ba.aadlba.GroupHolder ;
 import org.osate.ba.aadlba.GroupableElement ;
 import org.osate.ba.aadlba.IndexableElement ;
@@ -231,7 +235,7 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setSubprogramAccess(SubprogramAccess subprogramAccess)
+  public void setSubprogramAccess(final SubprogramAccess subprogramAccess )
   {
     element = subprogramAccess ;
   }
@@ -244,6 +248,46 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
   public SubprogramAccess getSubprogramAccess()
   {
     return (SubprogramAccess) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFeature(final Feature feature)
+  {
+    element = feature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Feature getFeature()
+  {
+    return (Feature) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setClassifierFeature(final ClassifierFeature classifierFeature)
+  {
+    element = classifierFeature ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ClassifierFeature getClassifierFeature()
+  {
+    return (ClassifierFeature) element;
   }
 
   /**
@@ -393,6 +437,20 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
         default: return -1;
       }
     }
+    if (baseClass == ClassifierFeatureHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == FeatureHolder.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
   }
 
@@ -429,6 +487,20 @@ public class SubprogramAccessHolderImpl extends BehaviorElementImpl implements S
       }
     }
     if (baseClass == CalledSubprogramHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == ClassifierFeatureHolder.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == FeatureHolder.class)
     {
       switch (baseFeatureID)
       {

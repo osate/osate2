@@ -58,6 +58,15 @@ public interface AadlBaFactory extends EFactory
   Any createAny();
 
   /**
+   * Returns a new object of class '<em>Basic Property Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Basic Property Holder</em>'.
+   * @generated
+   */
+  BasicPropertyHolder createBasicPropertyHolder();
+
+  /**
    * Returns a new object of class '<em>Behavior Action Block</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -103,15 +112,6 @@ public interface AadlBaFactory extends EFactory
   BehaviorBooleanLiteral createBehaviorBooleanLiteral();
 
   /**
-   * Returns a new object of class '<em>Behavior Enumeration Literal</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Behavior Enumeration Literal</em>'.
-   * @generated
-   */
-  BehaviorEnumerationLiteral createBehaviorEnumerationLiteral();
-
-  /**
    * Returns a new object of class '<em>Behavior Integer Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -128,15 +128,6 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   BehaviorPropertyConstant createBehaviorPropertyConstant();
-
-  /**
-   * Returns a new object of class '<em>Behavior Property Value</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Behavior Property Value</em>'.
-   * @generated
-   */
-  BehaviorPropertyValue createBehaviorPropertyValue();
 
   /**
    * Returns a new object of class '<em>Behavior Real Literal</em>'.
@@ -218,6 +209,15 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   CompletionRelativeTimeout createCompletionRelativeTimeout();
+
+  /**
+   * Returns a new object of class '<em>Classifier Feature Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Classifier Feature Property Reference</em>'.
+   * @generated
+   */
+  ClassifierFeaturePropertyReference createClassifierFeaturePropertyReference();
 
   /**
    * Returns a new object of class '<em>Data Access Holder</em>'.
@@ -317,6 +317,15 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   ElseStatement createElseStatement();
+
+  /**
+   * Returns a new object of class '<em>Enum Literal Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum Literal Holder</em>'.
+   * @generated
+   */
+  EnumLiteralHolder createEnumLiteralHolder();
 
   /**
    * Returns a new object of class '<em>Event Data Port Holder</em>'.
@@ -517,6 +526,42 @@ public interface AadlBaFactory extends EFactory
   PortSendAction createPortSendAction();
 
   /**
+   * Returns a new object of class '<em>Property Name Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Name Holder</em>'.
+   * @generated
+   */
+  PropertyNameHolder createPropertyNameHolder();
+
+  /**
+   * Returns a new object of class '<em>Property Association Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Association Holder</em>'.
+   * @generated
+   */
+  PropertyAssociationHolder createPropertyAssociationHolder();
+
+  /**
+   * Returns a new object of class '<em>Property Expression Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Expression Holder</em>'.
+   * @generated
+   */
+  PropertyExpressionHolder createPropertyExpressionHolder();
+
+  /**
+   * Returns a new object of class '<em>Property Type Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Type Holder</em>'.
+   * @generated
+   */
+  PropertyTypeHolder createPropertyTypeHolder();
+
+  /**
    * Returns a new object of class '<em>Relation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -580,6 +625,15 @@ public interface AadlBaFactory extends EFactory
   SubprogramHolder createSubprogramHolder();
 
   /**
+   * Returns a new object of class '<em>Subprogram Holder Proxy</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subprogram Holder Proxy</em>'.
+   * @generated
+   */
+  SubprogramHolderProxy createSubprogramHolderProxy();
+
+  /**
    * Returns a new object of class '<em>Subprogram Prototype Holder</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -641,6 +695,69 @@ public interface AadlBaFactory extends EFactory
    * @generated
    */
   WhileOrDoUntilStatement createWhileOrDoUntilStatement();
+
+  /**
+   * Returns a new object of class '<em>Property Set Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Set Property Reference</em>'.
+   * @generated
+   */
+  PropertySetPropertyReference createPropertySetPropertyReference();
+
+  /**
+   * Returns a new object of class '<em>Subcomponent Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subcomponent Holder</em>'.
+   * @generated
+   */
+  SubcomponentHolder createSubcomponentHolder();
+
+  /**
+   * Returns a new object of class '<em>Subprogram Subcomponent Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Subprogram Subcomponent Holder</em>'.
+   * @generated
+   */
+  SubprogramSubcomponentHolder createSubprogramSubcomponentHolder();
+
+  /**
+   * Returns a new object of class '<em>Feature Holder</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Feature Holder</em>'.
+   * @generated
+   */
+  FeatureHolder createFeatureHolder();
+
+  /**
+   * Returns a new object of class '<em>Classifier Property Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Classifier Property Reference</em>'.
+   * @generated
+   */
+  ClassifierPropertyReference createClassifierPropertyReference();
+
+  /**
+   * Returns a new object of class '<em>Upper Bound</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Upper Bound</em>'.
+   * @generated
+   */
+  UpperBound createUpperBound();
+
+  /**
+   * Returns a new object of class '<em>Lower Bound</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Lower Bound</em>'.
+   * @generated
+   */
+  LowerBound createLowerBound();
 
   /**
    * Returns the package supported by this factory.

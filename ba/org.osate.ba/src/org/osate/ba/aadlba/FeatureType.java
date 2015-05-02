@@ -662,7 +662,23 @@ public enum FeatureType implements Enumerator
    * @generated
    * @ordered
    */
-  SYSTEM_SUBCOMPONENT(62, "SYSTEM_SUBCOMPONENT", "system subcomponent");
+  SYSTEM_SUBCOMPONENT(62, "SYSTEM_SUBCOMPONENT", "system subcomponent"), /**
+   * The '<em><b>PROCESSOR CLASSIFIER</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #PROCESSOR_CLASSIFIER_VALUE
+   * @generated
+   * @ordered
+   */
+  PROCESSOR_CLASSIFIER(63, "PROCESSOR_CLASSIFIER", "processor classifier"), /**
+   * The '<em><b>PROCESS CLASSIFIER</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #PROCESS_CLASSIFIER_VALUE
+   * @generated
+   * @ordered
+   */
+  PROCESS_CLASSIFIER(64, "PROCESS_CLASSIFIER", "process classifier");
 
   /**
    * The '<em><b>NONE</b></em>' literal value.
@@ -1610,6 +1626,36 @@ public enum FeatureType implements Enumerator
   public static final int SYSTEM_SUBCOMPONENT_VALUE = 62;
 
   /**
+   * The '<em><b>PROCESSOR CLASSIFIER</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>PROCESSOR CLASSIFIER</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #PROCESSOR_CLASSIFIER
+   * @model literal="processor classifier"
+   * @generated
+   * @ordered
+   */
+  public static final int PROCESSOR_CLASSIFIER_VALUE = 63;
+
+  /**
+   * The '<em><b>PROCESS CLASSIFIER</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>PROCESS CLASSIFIER</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #PROCESS_CLASSIFIER
+   * @model literal="process classifier"
+   * @generated
+   * @ordered
+   */
+  public static final int PROCESS_CLASSIFIER_VALUE = 64;
+
+  /**
    * An array of all the '<em><b>Feature Type</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1681,6 +1727,8 @@ public enum FeatureType implements Enumerator
       PROVIDES_BUS_ACCESS_PROTOTYPE,
       REQUIRES_BUS_ACCESS_PROTOTYPE,
       SYSTEM_SUBCOMPONENT,
+      PROCESSOR_CLASSIFIER,
+      PROCESS_CLASSIFIER,
     };
 
   /**
@@ -1802,6 +1850,8 @@ public enum FeatureType implements Enumerator
       case PROVIDES_BUS_ACCESS_PROTOTYPE_VALUE: return PROVIDES_BUS_ACCESS_PROTOTYPE;
       case REQUIRES_BUS_ACCESS_PROTOTYPE_VALUE: return REQUIRES_BUS_ACCESS_PROTOTYPE;
       case SYSTEM_SUBCOMPONENT_VALUE: return SYSTEM_SUBCOMPONENT;
+      case PROCESSOR_CLASSIFIER_VALUE: return PROCESSOR_CLASSIFIER;
+      case PROCESS_CLASSIFIER_VALUE: return PROCESS_CLASSIFIER;
     }
     return null;
   }

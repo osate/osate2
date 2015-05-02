@@ -24,6 +24,15 @@ package NamesResolutionTest
 public
    with AADL_Project, Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
+abstract MyAbstractComponent
+end MyAbstractComponent ;
+
+Processor untel
+end untel ;
+
+Processor park
+end park ;
+
 subprogram procedure
 end procedure ;
 
@@ -95,6 +104,9 @@ prototypes
   proto : subprogram multiplication ;
 
 features
+  
+  abstractPort : in event data port MyAbstractComponent ;
+  
   mul : requires subprogram access multiplication;
   mulProvided : provides subprogram access multiplication ;
   inPortA : in event data port Base_Types::Integer ;
@@ -136,7 +148,7 @@ variables
  tmp, tmp0 : MyInteger ;
  tab[10] : MyInteger ;
  squareTab[10][10] : MyInteger ;
- tab2[AadlBaTestPropertySet::aConstant] : MyInteger ;
+ tab2[# AadlBaTestPropertySet::aConstant] : MyInteger ;
  tmp1 : Base_Types::Integer ;
  tmp2 : AadlBaTest::Types::Opaque ;
  tmp3 : AadlBaTest::Types::Opaque.v1 ;
@@ -161,7 +173,7 @@ transitions
  a -[]-> a ;
  a -[]-> a {tmp := 1} timeout 20 ms ;
  a -[]-> a {tmp := 1} timeout x ms ;
- a -[]-> a {tmp := 1} timeout AadlBaTestPropertySet::aConstant ms ;
+ a -[]-> a {tmp := 1} timeout #AadlBaTestPropertySet::aConstant ms ;
  regular1: a -[]-> a ;
  regular2 [1] : a -[]-> a ;
  regular3 [1_2] : a -[]-> a ;
@@ -177,6 +189,7 @@ transitions
  a2 -[on dispatch inPortA]-> a ;
  a2 -[on dispatch inPortA frozen inPortB]-> a ;
  a2 -[on dispatch mulProvided]-> a ;
+ a2 -[on dispatch abstractPort]-> a ;
 
  a2 -[on dispatch inPortA or inPortB]-> a ;
  a2 -[on dispatch inPortA and inPortB]-> a ;
@@ -185,7 +198,7 @@ transitions
  a2 -[on dispatch timeout]-> a ;
  a2 -[on dispatch timeout 10 min]-> a ;
  a2 -[on dispatch timeout tab[x] min]-> a ;
- a2 -[on dispatch timeout AadlBaTestPropertySet::aConstant min]-> a ;
+ a2 -[on dispatch timeout #AadlBaTestPropertySet::aConstant min]-> a ;
 
  -- Execute condition tests --
  
@@ -208,8 +221,8 @@ transitions
  a -[1+x > 0]-> a ;
  a -[+x * 0 = 0]-> a ;
  a -[1 /x > 0]-> a ;
- a -[AadlBaTestPropertySet::aConstant mod x > 0 or true]-> a ;
- a -[AadlBaTestPropertySet::aValue > 0 or bool1]-> a ;
+ a -[#AadlBaTestPropertySet::aConstant mod x > 0 or true]-> a ;
+ a -[#AadlBaTestPropertySet::aValue > 0 or bool1]-> a ;
  a -[+y rem x > 0]-> a ;
  a -[x < -y + 3 and bool1 or bool2]-> a ;
  a -[abs x > 2]-> a ;-- Remember a numeric_literal can't be negative. So "abs -1" and "abs +1" are aadl behavior annex syntax errors.
@@ -228,7 +241,7 @@ transitions
  a -[]-> a {tmp := 1 & x := 1 & y := 1} ;
  a -[]-> a {tmp := 1 ; x := 1 ; y := 1} timeout 100 ms;
  a -[]-> a {tmp := 1 & x := 1 & y := 1} timeout x ms; 
- a -[]-> c {tmp := 1} timeout AadlBaTestPropertySet::aValue ms; 
+ a -[]-> c {tmp := 1} timeout #AadlBaTestPropertySet::aValue ms; 
    
    -- Basic action variations tests --
    
@@ -242,6 +255,9 @@ transitions
  a -[]-> a {spg2 ! (0, 1, tmp)} ; 
  a -[]-> a {procedure !} ;
  a -[]-> a {multiplication ! (0, 0, tmp)} ;
+ a -[]-> a {multiplication ! (#AadlBaTestPropertySet::aValue, tmp, tmp)} ;
+ a -[]-> a {multiplication ! (AadlBaTest::Types::Integer.v1#aSimpleValue, tmp, tmp)} ;
+ a -[]-> a {multiplication ! (1, thread1.impl#Period, tmp)} ;
  a -[]-> a {multiplication.impl ! (0, 0, tmp)} ;
  a -[]-> a {NamesResolutionTest::procedure !} ;
  a -[]-> a {NamesResolutionTest::multiplication ! (0, 0, tmp)} ;
@@ -271,6 +287,7 @@ transitions
 
  a -[]-> a {computation (2hr)} ;
  a -[]-> a {computation (1min .. 300 sec)} ;
+ a -[]-> a {computation (100 ms) in binding (untel, park)} ;
 
       -- Assignement actions tests --
 

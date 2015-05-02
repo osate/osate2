@@ -21,8 +21,6 @@
 
 package org.osate.ba.declarative.util ;
 
-
-
 import org.eclipse.emf.common.notify.Adapter ;
 import org.eclipse.emf.common.notify.Notifier ;
 
@@ -40,6 +38,9 @@ import org.osate.aadl2.Element ;
 import org.osate.aadl2.FeatureClassifier ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.Processor ;
+import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.ProcessorSubcomponentType ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
 import org.osate.ba.aadlba.ActualPortHolder ;
@@ -51,6 +52,7 @@ import org.osate.ba.aadlba.BehaviorNamedElement ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorTime ;
 import org.osate.ba.aadlba.BehaviorTransition ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder ;
 import org.osate.ba.aadlba.CommunicationAction ;
 import org.osate.ba.aadlba.CompletionRelativeTimeout ;
 import org.osate.ba.aadlba.DispatchRelativeTimeout ;
@@ -58,6 +60,7 @@ import org.osate.ba.aadlba.DispatchTrigger ;
 import org.osate.ba.aadlba.DispatchTriggerCondition ;
 import org.osate.ba.aadlba.ElementHolder ;
 import org.osate.ba.aadlba.ElementValues ;
+import org.osate.ba.aadlba.FeatureHolder ;
 import org.osate.ba.aadlba.GroupableElement ;
 import org.osate.ba.aadlba.IndexableElement ;
 import org.osate.ba.aadlba.IntegerValue ;
@@ -165,15 +168,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           }
 
           @Override
-          public Adapter caseDeclarativeTime(DeclarativeTime object)
+          public Adapter caseDeclarativePropertyName(DeclarativePropertyName object)
           {
-            return createDeclarativeTimeAdapter() ;
+            return createDeclarativePropertyNameAdapter() ;
           }
 
           @Override
-          public Adapter caseEnumeration(Enumeration object)
+          public Adapter caseDeclarativePropertyReference(DeclarativePropertyReference object)
           {
-            return createEnumerationAdapter() ;
+            return createDeclarativePropertyReferenceAdapter() ;
+          }
+
+          @Override
+          public Adapter caseDeclarativeTime(DeclarativeTime object)
+          {
+            return createDeclarativeTimeAdapter() ;
           }
 
           @Override
@@ -267,6 +276,30 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           }
 
           @Override
+          public Adapter caseIntegerValue(IntegerValue object)
+          {
+            return createIntegerValueAdapter() ;
+          }
+
+          @Override
+          public Adapter caseValue(Value object)
+          {
+            return createValueAdapter() ;
+          }
+
+          @Override
+          public Adapter caseValueConstant(ValueConstant object)
+          {
+            return createValueConstantAdapter() ;
+          }
+
+          @Override
+          public Adapter caseIntegerValueConstant(IntegerValueConstant object)
+          {
+            return createIntegerValueConstantAdapter() ;
+          }
+
+          @Override
           public Adapter caseBehaviorTime(BehaviorTime object)
           {
             return createBehaviorTimeAdapter() ;
@@ -288,6 +321,18 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           public Adapter caseCompletionRelativeTimeout(CompletionRelativeTimeout object)
           {
             return createCompletionRelativeTimeoutAdapter() ;
+          }
+
+          @Override
+          public Adapter caseValueVariable(ValueVariable object)
+          {
+            return createValueVariableAdapter() ;
+          }
+
+          @Override
+          public Adapter caseIntegerValueVariable(IntegerValueVariable object)
+          {
+            return createIntegerValueVariableAdapter() ;
           }
 
           @Override
@@ -345,45 +390,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           }
 
           @Override
-          public Adapter caseValue(Value object)
+          public Adapter caseProcessor(Processor object)
           {
-            return createValueAdapter() ;
+            return createProcessorAdapter() ;
           }
 
           @Override
-          public Adapter caseValueConstant(ValueConstant object)
+          public Adapter caseProcessorSubcomponentType(ProcessorSubcomponentType object)
           {
-            return createValueConstantAdapter() ;
+            return createProcessorSubcomponentTypeAdapter() ;
           }
 
           @Override
-          public Adapter caseIntegerValue(IntegerValue object)
+          public Adapter caseProcessorClassifier(ProcessorClassifier object)
           {
-            return createIntegerValueAdapter() ;
-          }
-
-          @Override
-          public Adapter caseIntegerValueConstant(IntegerValueConstant object)
-          {
-            return createIntegerValueConstantAdapter() ;
-          }
-
-          @Override
-          public Adapter caseValueVariable(ValueVariable object)
-          {
-            return createValueVariableAdapter() ;
-          }
-
-          @Override
-          public Adapter caseIntegerValueVariable(IntegerValueVariable object)
-          {
-            return createIntegerValueVariableAdapter() ;
-          }
-
-          @Override
-          public Adapter caseIndexableElement(IndexableElement object)
-          {
-            return createIndexableElementAdapter() ;
+            return createProcessorClassifierAdapter() ;
           }
 
           @Override
@@ -393,9 +414,27 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
           }
 
           @Override
+          public Adapter caseClassifierFeatureHolder(ClassifierFeatureHolder object)
+          {
+            return createClassifierFeatureHolderAdapter() ;
+          }
+
+          @Override
+          public Adapter caseIndexableElement(IndexableElement object)
+          {
+            return createIndexableElementAdapter() ;
+          }
+
+          @Override
           public Adapter caseGroupableElement(GroupableElement object)
           {
             return createGroupableElementAdapter() ;
+          }
+
+          @Override
+          public Adapter caseFeatureHolder(FeatureHolder object)
+          {
+            return createFeatureHolderAdapter() ;
           }
 
           @Override
@@ -531,6 +570,36 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativePropertyName <em>Property Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativePropertyName
+   * @generated
+   */
+  public Adapter createDeclarativePropertyNameAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativePropertyReference <em>Property Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativePropertyReference
+   * @generated
+   */
+  public Adapter createDeclarativePropertyReferenceAdapter()
+  {
+    return null ;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeTime <em>Time</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -541,21 +610,6 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDeclarativeTimeAdapter()
-  {
-    return null ;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.Enumeration <em>Enumeration</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.declarative.Enumeration
-   * @generated
-   */
-  public Adapter createEnumerationAdapter()
   {
     return null ;
   }
@@ -1041,6 +1095,51 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Processor <em>Processor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.Processor
+   * @generated
+   */
+  public Adapter createProcessorAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ProcessorSubcomponentType <em>Processor Subcomponent Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.ProcessorSubcomponentType
+   * @generated
+   */
+  public Adapter createProcessorSubcomponentTypeAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ProcessorClassifier <em>Processor Classifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.ProcessorClassifier
+   * @generated
+   */
+  public Adapter createProcessorClassifierAdapter()
+  {
+    return null ;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ValueVariable <em>Value Variable</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1101,6 +1200,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ClassifierFeatureHolder <em>Classifier Feature Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ClassifierFeatureHolder
+   * @generated
+   */
+  public Adapter createClassifierFeatureHolderAdapter()
+  {
+    return null ;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.GroupableElement <em>Groupable Element</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1111,6 +1225,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createGroupableElementAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.FeatureHolder <em>Feature Holder</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.FeatureHolder
+   * @generated
+   */
+  public Adapter createFeatureHolderAdapter()
   {
     return null ;
   }

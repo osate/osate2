@@ -21,8 +21,8 @@
 
 package org.osate.ba.declarative ;
 
-
 import org.osate.aadl2.DataClassifier ;
+import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.ValueConstant ;
 
@@ -45,7 +45,8 @@ import org.osate.ba.aadlba.ValueConstant ;
  */
 public interface QualifiedNamedElement extends DataClassifier,
                                       DeclarativeBehaviorElement,
-                                      ValueConstant, IntegerValueConstant
+                                      ValueConstant, IntegerValueConstant,
+                                      ProcessorClassifier
 {
   /**
    * Returns the value of the '<em><b>Ba Namespace</b></em>' containment reference.

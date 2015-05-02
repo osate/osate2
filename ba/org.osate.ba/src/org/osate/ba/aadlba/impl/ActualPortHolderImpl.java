@@ -63,7 +63,7 @@ public abstract class ActualPortHolderImpl extends PortHolderImpl implements Act
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPort(Port port)
+  public void setPort(final Port port )
   {
     element = port ;
   }

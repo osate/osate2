@@ -31,7 +31,7 @@ import org.osate.aadl2.SubprogramAccess;
  * @model
  * @generated
  */
-public interface SubprogramAccessHolder extends DispatchTriggerCondition, CalledSubprogramHolder
+public interface SubprogramAccessHolder extends DispatchTriggerCondition, CalledSubprogramHolder, FeatureHolder
 {
   /**
    * <!-- begin-user-doc -->

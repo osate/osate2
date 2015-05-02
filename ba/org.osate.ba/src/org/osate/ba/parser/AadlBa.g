@@ -19,7 +19,7 @@
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
  
-grammar AadlBa;
+grammar AadlBa; /* COMPLIANCE : ANTLR 4.4 */
 
 options
 {
@@ -176,6 +176,7 @@ options
   import org.osate.ba.utils.AadlBaLocationReference ;
   
   import org.osate.aadl2.Element ;
+  import org.osate.aadl2.ProcessorClassifier ;
   import org.osate.aadl2.Aadl2Package ;
   import org.osate.aadl2.parsesupport.ParseUtil ;
 }
@@ -312,7 +313,7 @@ behavior_variable returns [BehaviorVariable result]
     IDENT ( LBRACK integer_value_constant RBRACK )*
 ;
 
-// qualified_named_element ::= 
+// qualifiable_named_element ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
 qualifiable_named_element [QualifiedNamedElement result] locals[String id1, String id2]
@@ -530,7 +531,7 @@ integer_value_constant returns [IntegerValueConstant result]
      integer_literal
    |
      // Ambiguous case.
-     property  
+     property_reference  
 ;
 
 //---------------------------------------------------------
@@ -941,6 +942,9 @@ target returns [Target result]
   : reference 
 ;
 
+// qualified_named_element ::= 
+//   { package_identifier :: }+ component_type_identifier
+//   [ . component_implementation_identifier ]
 qualified_named_element returns [QualifiedNamedElement result]
                         locals [String namespaceId, String nameId]
 @init
@@ -970,12 +974,14 @@ qualified_named_element returns [QualifiedNamedElement result]
 //   subprogram_prototype_name ! [ ( subprogram_parameter_list ) ]
 // | required_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
 // | subprogram_classifier_name ! [ ( subprogram_parameter_list ) ]
-// | required_data_access_name.provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
 // | output_port_name ! [ ( value_expression ) ]
 // | input_port_name >>
 // | input_port_name ? [ ( target ) ]
 // | required_data_access_name !<
 // | required_data_access_name !>
+// | required_data_access_name . provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
+// | data_subcomponent_name . provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
+// | local_variable_name . provided_subprogram_access_name ! [ ( subprogram_parameter_list ) ]
 // | *!<
 // | *!>
 communication_action returns [CommAction result]
@@ -1033,15 +1039,62 @@ communication_action returns [CommAction result]
 ;
 
 // timed_action ::= 
-//   computation ( behavior_time [ .. behavior_time ] )
+//   computation ( behavior_time [ .. behavior_time ] ) [ in_binding ]
 timed_action returns [TimedAction result]
   :
      COMPUTATION LPAREN behavior_time (DOTDOT behavior_time)? RPAREN
+       (in_binding [$result])?
    |
-     COMPUTATION (LPAREN)+ behavior_time (DOTDOT behavior_time)? (RPAREN)+
+     COMPUTATION (LPAREN)+ behavior_time (DOTDOT behavior_time)? (RPAREN)+ (in_binding [$result])?
      {
        notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
      }
+;
+
+// in_binding ::=
+//    in binding ( processor_parameter_list )
+in_binding [TimedAction ta]
+  :
+      IN BINDING LPAREN processor_parameter_list RPAREN
+    |
+      IN BINDING (LPAREN)+ processor_parameter_list (RPAREN)+
+      {
+        notifyDuplicateSymbol($LPAREN(), $RPAREN(), "()") ;
+      }
+;
+
+// processor_parameter_list ::=
+//   processor_unique_component_classifier_reference
+//                      { , processor_unique_component_classifier_reference }*
+processor_parameter_list returns [EList<ProcessorClassifier> result] locals[int count]
+  :
+    unique_component_classifier_reference
+    {
+      $count = 0 ;
+    }
+    (
+      (separator=COMMA)? unique_component_classifier_reference
+      {
+        $count++ ;
+        
+        if($separator == null) 
+        {
+          try
+          {
+            notifyErrorListeners($ctx.unique_component_classifier_reference($count -1).getStop(),
+                                 "missing processor parameter separator \',\'", null);
+          }
+          catch(Exception e)
+          {
+            notifyErrorListeners("missing processor parameter separator \',\'") ;
+          }
+        }
+        else
+        {
+          $ctx.separator = null ;
+        }
+      }
+    )*  
 ;
 
 // subprogram_parameter_list ::=
@@ -1102,15 +1155,15 @@ parameter_label returns [ParameterLabel result]
 //   [ integer_value ]
 
 // data_component_reference ::=
-//   data_subcomponent_name { . data_element }*
-// | data_access_feature_name { . data_element }*
-// | local_variable_identifier { . data_element }* 
-// | data_access_feature_prototype_name { . data_element }*
+//   data_subcomponent_name { . data_field }*
+// | data_access_feature_name { . data_field }*
+// | local_variable_identifier { . data_field }* 
+// | data_access_feature_prototype_name { . data_field }*
 
 // subprogram_parameter ::=
-//   subprogram_parameter_name {. data_element }*
+//   subprogram_parameter_name {. data_field }*
 
-// data_element ::=
+// data_field ::=
 //   data_subcomponent_name
 // | data_access_name
 // | data_access_prototype_name
@@ -1137,52 +1190,25 @@ array_identifier returns [ArrayableIdentifier result]
 // BEGIN : ANNEX D.7 Behavior Expression Language
 //---------------------------------------------------------
 
-// fact_value ::=
-//   value_constant
-// | value_variable
-
 // value_constant ::= 
 //   boolean_literal
 // | numeric_literal 
 // | string_literal
-// | enumeration_literal 
 // | property_constant
-// | property_value
-
-// value_variable ::=
-//   incoming_port_name
-// | incoming_port_name ?
-// | incoming_subprogram_parameter
-// | incoming_port_prototype_name
-// | data_component_reference
-// | port_name ’ count
-// | port_name ’ fresh
-
-fact_value returns [Value result]
-  : // Ambiguity between value variable (name without array index) and
-    // unqualified propertyset constant or unqualified propertyset value.
-    // unqualified propertyset constants and unqualified propertyset values are
-    // parsed as reference (see value variable). 
+// | property_reference
+value_constant returns [ValueConstant result]
+  : // Ambiguity between qualified or unqualified  property constant and
+    // qualified or unqualified property reference with only one property name and
+    // no property field. so property constants are parsed as property references
+    // (see property reference). 
    
-       // Case of qualified property constant or value.
-       IDENT DOUBLECOLON IDENT
-     | 
-     
-       // Value variables and unqualified propertyset constants and unqualified
-       // propertyset values cases.
-       value_variable
-
-     | 
-     
-     // Cases from value constant category.
-        
-       boolean_literal
-     |
        numeric_literal
      |
-       string_literal
+       property_reference
      |
-       behavior_enumeration_literal    
+       boolean_literal
+     |
+       string_literal
 ;
 
 /** 
@@ -1199,7 +1225,9 @@ fact_value returns [Value result]
 // | ( value_expression )
 value returns [Value result]
   :
-     fact_value
+     value_constant
+   |  
+     value_variable
    |
      LPAREN value_expression RPAREN
    |
@@ -1360,9 +1388,10 @@ integer_range returns [IntegerRange result]
 //   integer_value_variable 
 // | integer_value_constant
 integer_value returns [IntegerValue result]
-  : // Ambiguity between integer value variable with one name and unqualified
-    // propertyset constant or value from value constant. See fact_value. 
-   fact_value              
+  : 
+     integer_value_constant
+   |
+     value_variable              
 ;
 
 // behavior_time ::= integer_value unit_identifier
@@ -1372,30 +1401,68 @@ behavior_time returns [DeclarativeTime result]
 ;
 
 // property_constant ::=
-//   [ property_set_identifier :: ] property_constant_identifier
+//   # [ property_set_identifier :: ] property_constant_identifier
 
-// property_value ::=
-//   [ property_set_identifier :: ] property_value_identifier
+// property_reference ::=
+//   # [ property_set_identifier :: ] property_value_name { . field_record_property_name }*
+// | own_component_element_reference # property_name { . field_record_property_name }*
+// | unique_component_classifier_reference # property_name { . field_record_property_name }*
 
-// property constants and property values ambiguity : they are parsed as 
-// a generic property.
+// component_element_reference ::=
+//   subcomponent_name
+// | local_variable_name
+// | binded_prototype_name
+// | feature_name
 
-// property ::=
-//   property_constant
-// | property_value
+// Ambiguity between qualified or unqualified  property constant and
+// qualified or unqualified property reference with only one property name and
+// no property field. so property constants are parsed as property references
+// (see property reference).
 
-property returns [QualifiedNamedElement result]
+// Ambiguity between a unique component classifier reference without namespace
+// and a component element reference.
+// Ambiguity between a property literal and a property name without field.
+
+property_reference returns [DeclarativePropertyReference result]
   :
-    (id1=IDENT DOUBLECOLON)? id2=IDENT
-;
+    (   
+        ( h1=HASH (IDENT DOUBLECOLON)? )
+      | 
+        ( 
+          (   qualified_named_element
+            | 
+              reference
+          )
+          h2=HASH
+        )
+    )
+    
+    property_name (DOT property_name)*
+;  
+    
+// property_name ::=
+//   property_identifier [ property_field ]
 
-// enumeration_literal ::= 
-//   { package_identifier :: }* component_type_identifier
-//   [ . component_implementation_identifier ]
-//   # enumeration_literal_identifier
-behavior_enumeration_literal returns [Enumeration result]
+// property_field ::=
+//   [ integer_value ]* (enumeration and list properties supported only)
+// | . item_list_identifier (enumeration and list properties supported only)
+// | . upper_bound (range properties supported only)
+// | . lower_bound (range properties supported only)
+// Ambiguity between a property literal and a property name without field.
+property_name returns [DeclarativePropertyName result]
   :
-    qualifiable_named_element[$result] HASH IDENT
+IDENT  (   
+           ( LBRACK integer_value RBRACK )+
+         |
+           ( 
+             DOT
+             (
+                 UPPER_BOUND
+               |
+                 LOWER_BOUND
+             )
+           )
+       )?  
 ;
 
 // numeric_literal ::= <refer to [AS5506A 15.4]>
@@ -1447,6 +1514,7 @@ numeral returns [Integer result]
 ABS            : 'abs'; 
 AND            : 'and';
 ANY            : 'any';
+BINDING        : 'binding';
 COMPLETE       : 'complete';
 COMPUTATION    : 'computation';
 COUNT          : 'count';
@@ -1464,6 +1532,7 @@ FROZEN         : 'frozen';
 IF             : 'if';
 IN             : 'in';
 INITIAL        : 'initial';
+LOWER_BOUND    : 'lower_bound' ;
 MOD            : 'mod';
 NOT            : 'not';
 ON             : 'on';
@@ -1478,6 +1547,7 @@ TIMEOUT        : 'timeout';
 TRANSITIONS    : 'transitions';
 TRUE           : 'true';
 UNTIL          : 'until';
+UPPER_BOUND    : 'upper_bound' ;
 WHILE          : 'while';
 XOR            : 'xor';
 

@@ -21,7 +21,6 @@
 
 package org.osate.ba.declarative ;
 
-
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.ba.aadlba.IntegerValueConstant ;
 

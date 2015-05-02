@@ -20,6 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +31,7 @@ import org.osate.aadl2.PropertyConstant;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getProperty <em>Property</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getPropertySet <em>Property Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,7 +39,7 @@ import org.osate.aadl2.PropertyConstant;
  * @model
  * @generated
  */
-public interface BehaviorPropertyConstant extends BehaviorProperty
+public interface BehaviorPropertyConstant extends ValueConstant, IntegerValueConstant
 {
   /**
    * Returns the value of the '<em><b>Property</b></em>' reference.
@@ -64,5 +66,31 @@ public interface BehaviorPropertyConstant extends BehaviorProperty
    * @generated
    */
   void setProperty(PropertyConstant value);
+
+  /**
+   * Returns the value of the '<em><b>Property Set</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Property Set</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Property Set</em>' reference.
+   * @see #setPropertySet(PropertySet)
+   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorPropertyConstant_PropertySet()
+   * @model
+   * @generated
+   */
+  PropertySet getPropertySet();
+
+  /**
+   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getPropertySet <em>Property Set</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Property Set</em>' reference.
+   * @see #getPropertySet()
+   * @generated
+   */
+  void setPropertySet(PropertySet value);
 
 } // BehaviorPropertyConstant

@@ -26,12 +26,18 @@ import java.util.List ;
 
 import org.eclipse.emf.ecore.InternalEObject ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.ModalPropertyValue ;
+import org.osate.aadl2.PropertyAssociation ;
 import org.osate.ba.aadlba.AadlBaFactory ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
 import org.osate.ba.aadlba.BehaviorState ;
 import org.osate.ba.aadlba.BehaviorTransition ;
+import org.osate.ba.aadlba.IntegerValue ;
+import org.osate.ba.aadlba.PropertyNameField ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
+import org.osate.ba.declarative.DeclarativePropertyName ;
+import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.texteditor.AadlBaHyperlink ;
 import org.osate.ba.utils.AadlBaVisitors ;
@@ -104,5 +110,92 @@ public class DeclarativeUtils
     InternalEObject iChild = (InternalEObject) child ;
     InternalEObject iBa = (InternalEObject) ba ;
     iChild.eBasicSetContainer(iBa, AadlBaPackage.BEHAVIOR_ANNEX, null) ;
+  }
+  
+  /**
+   * Print on the standard output, the data of the given DeclarativePropertyReference
+   * object.
+   * 
+   * @param dpr the given DeclarativePropertyReference object
+   */
+  public static void printDeclarativePropertyReference(
+                                               DeclarativePropertyReference dpr)
+  {
+    System.out.println("*****") ;
+    
+    if(dpr.isPropertySet())
+    {
+      System.out.println("dpr comes from a property set") ;
+    }
+    
+    if(dpr.getQualifiedName() != null)
+    {
+      System.out.println("qualified name : " + unparseElement(dpr.getQualifiedName().getOsateRef())) ;
+    }
+    
+    if(dpr.getReference() != null)
+    {
+      if(dpr.getReference().getOsateRef() != null)
+      {
+        System.out.println("reference osate : " + unparseElement(dpr.getReference().getOsateRef())) ;
+      } 
+      else
+      {
+        System.out.println("reference ba : " + unparseElement(dpr.getReference().getBaRef())) ;
+      }
+    }
+    
+    if(dpr.getPropertyNames().isEmpty() == false)
+    {
+      for(DeclarativePropertyName dpn : dpr.getPropertyNames())
+      {
+        System.out.println("  property name : " + unparseElement(dpn.getOsateRef())) ;
+        
+        System.out.println("  property name id \'" + dpn.getPropertyName().getId() +
+                           "\' : " + unparseElement(dpn.getPropertyName().getOsateRef())) ;
+        if(null != dpn.getField())
+        {
+          System.out.println("  field : " + unparsePropertyNameField(dpn.getField())) ;
+        }
+        
+        if(dpn.isSetIndexes())
+        {
+          for(IntegerValue iv : dpn.getIndexes())
+          {
+            System.out.println("  index : " + unparseElement(iv)) ;
+          }
+        }
+      }
+    }
+    
+    System.out.println("*****") ;
+  }
+  
+  public static String unparseElement(Element el)
+  {
+    String result ;
+    
+    if(el instanceof PropertyAssociation)
+    {
+      PropertyAssociation pa = (PropertyAssociation) el ;
+      
+      result = "" ;
+      
+      for(ModalPropertyValue mpv : pa.getOwnedValues())
+      {
+        result += mpv.getOwnedValue().toString() + " ; " ; 
+      }
+    }
+    else
+    {
+      result = el.toString() ;
+    }
+    
+    return result ;
+  }
+  
+  public static String unparsePropertyNameField(PropertyNameField field)
+  {
+    return field.toString() ;
   }
 }

@@ -237,7 +237,7 @@ variables
  localOtherMyIntegerArray_B[10][10][10] : MyIntegerArray_A ;
  localMyEnum : MyEnum ;
  localDay : AadlBaTest::Types::Days.v1 ;
- squareTab[130][AadlBaTestPropertySet::aConstant] : MyInteger ; 
+ squareTab[130][#AadlBaTestPropertySet::aConstant] : MyInteger ; 
  
 states
  
@@ -371,7 +371,7 @@ transitions
    -- enumeration tests --
    
  a -[]-> a {subMyEnum_A := subMyEnum_B} ;                                 
- a -[]-> a {subMyEnum_A := MyEnum#monday} ;
+ a -[]-> a {subMyEnum_A := MyEnum#Enumerators.monday} ;
  
  
    -- Iterative variable tests --
@@ -399,8 +399,8 @@ transitions
 
 -- Enumeration literal  
  a -[]-> a {
-             localMyEnum := AadlBaTest::Types::Days.v1#monday ;
-             localDay := MyEnum#monday ;
+             localMyEnum := AadlBaTest::Types::Days.v1#Enumerators.monday ;
+             localDay := MyEnum#Enumerators.monday ;
              localMyEnum := localDay
            } ;
 

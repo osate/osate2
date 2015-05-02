@@ -21,7 +21,6 @@
 
 package org.osate.ba.declarative.util ;
 
-
 import java.util.Map ;
 
 import org.eclipse.emf.ecore.EPackage ;

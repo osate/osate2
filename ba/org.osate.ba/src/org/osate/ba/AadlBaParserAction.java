@@ -125,12 +125,15 @@ public class AadlBaParserAction implements AnnexParser
           ba = AadlBaFactory.eINSTANCE.createBehaviorAnnex();
         }
         
-        AadlBaLocationReference location =
+        if(ba != null)
+        {
+          AadlBaLocationReference location =
               new AadlBaLocationReference(annexOffset, filename, line) ;
         
-        location.setOffset(0) ;
-        ba.setLocationReference(location) ;
-        ba.getHighlighters().put(ba, highlighter) ;
+          location.setOffset(0) ;
+          ba.setLocationReference(location) ;
+          ba.getHighlighters().put(ba, highlighter) ;
+        }
         
         return ba ;
       }

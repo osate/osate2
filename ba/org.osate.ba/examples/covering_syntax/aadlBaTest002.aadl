@@ -24,6 +24,12 @@ package DataTypeCheckerTest
 public
    with Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
+processor proc
+end proc ;
+
+process p
+end p ;
+
 subprogram mystruct_addition
 
  features
@@ -199,7 +205,9 @@ variables
  opaque1, opaque2 : AadlBaTest::Types::Opaque ;
  
  fixed1, fixed2, fixed3 : MyFixedPoint ;
- anOtherFixed : AnOtherFixedPoint ; 
+ anOtherFixed : AnOtherFixedPoint ;
+ 
+ baMyStruct1 : MyStructure.impl ; 
   
 --  *** STATES ***
  
@@ -233,35 +241,40 @@ transitions
     -- integer value constant
 
  a -[]-> a {tab[0] := 1};
- a -[]-> a {tab[AadlBaTestPropertySet::aIntegerConstant] := 1};
- a -[]-> a {tab[AadlBaTestPropertySet::aValue] := 1};
+ a -[]-> a {tab[# AadlBaTestPropertySet::aIntegerConstant] := 1};
+ a -[]-> a {tab[# AadlBaTestPropertySet::aValue] := 1};
     
    -- Assignement action tests --
  a -[]-> a {opaque1 := any} ;
  a -[]-> a {opaque1 := opaque2} ;
  a -[]-> a {int1 := int2};
  a -[]-> a {int1 := 0};
- a -[]-> a {int1 := AadlBaTestPropertySet::aIntegerConstant} ;
- a -[]-> a {float1 := AadlBaTestPropertySet::aFloatConstant} ;
- a -[]-> a {bool1 := AadlBaTestPropertySet::aBooleanConstant} ;
- a -[]-> a {string1 := AadlBaTestPropertySet::aStringConstant} ;
- a -[]-> a {int1 := AadlBaTestPropertySet::aValue} ;
+ a -[]-> a {int1 := #AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {float1 := #AadlBaTestPropertySet::aFloatConstant} ;
+ a -[]-> a {bool1 := #AadlBaTestPropertySet::aBooleanConstant} ;
+ a -[]-> a {string1 := #AadlBaTestPropertySet::aStringConstant} ;
+ a -[]-> a {int1 := #AadlBaTestPropertySet::aValue} ;
  a -[]-> a {subMyStruct1.int1 := int1} ;
  a -[]-> a {subMyStruct1.float1 := 1.0E-6} ;
  a -[]-> a {fixed1 := fixed2} ;
  a -[]-> a {fixed1 := 1.1} ;
  a -[]-> a {fixed1 := 1234.0} ;
   
-      
+    -- Timed action tests --
+    
+ a -[]-> a {computation (100 ms) in binding (proc)} ;   
+        
     -- Subprogram call action tests --
    
  a -[]-> a {proto1 ! (int1, float1)} ;
- a -[]-> a {proto1 ! (AadlBaTestPropertySet::aIntegerConstant, float1)} ;
+ a -[]-> a {proto1 ! (#AadlBaTestPropertySet::aIntegerConstant, float1)} ;
  a -[]-> a {proto1 ! (subMyStruct1.int1, subMyStruct1.float1)} ;
  a -[]-> a {proto1 ! (1, float1)} ;
  a -[]-> a {proto2 ! } ; 
  a -[]-> a {definedProto ! (int1, float1)} ;
  a -[]-> a {myStructAccess.addition ! (subMyStruct1, subMyStruct2)} ;
+ a -[]-> a {subMyStruct1.addition ! (subMyStruct1, subMyStruct2)} ;
+ a -[]-> a {baMyStruct1.addition ! (baMyStruct1, subMyStruct2)} ;
  a -[]-> a {requiredSpg1 ! (int1, float1)} ;
  a -[]-> a {subSpg1 ! (int1, float1)} ;
   
@@ -274,8 +287,8 @@ transitions
  a -[]-> a {if (int1 <= int2) 
                 for(i : Base_Types::Integer in int1 .. int2) {int3 := 1}
              end if} ;
- a -[]-> a {if (AadlBaTestPropertySet::aIntegerConstant <= subMyStruct1.int1) 
-                for(i : Base_Types::Integer in AadlBaTestPropertySet::aIntegerConstant .. subMyStruct1.int1) {int1 := 1}
+ a -[]-> a {if (#AadlBaTestPropertySet::aIntegerConstant <= subMyStruct1.int1) 
+                for(i : Base_Types::Integer in #AadlBaTestPropertySet::aIntegerConstant .. subMyStruct1.int1) {int1 := 1}
              end if} ;             
 
    -- Port send
@@ -295,9 +308,9 @@ transitions
  a -[]-> a {bool3 := bool1 or bool2 or bool3} ;
  a -[]-> a {bool3 := bool1 and bool2 and bool3} ;
  a -[]-> a {bool3 := bool1 xor bool2 xor bool3} ;
- a -[]-> a {bool3 := bool1 or AadlBaTestPropertySet::aBooleanConstant or int1 > 2} ;
+ a -[]-> a {bool3 := bool1 or #AadlBaTestPropertySet::aBooleanConstant or int1 > 2} ;
  a -[]-> a {bool3 := bool1 and true and bool3} ;
- a -[]-> a {bool3 := AadlBaTestPropertySet::aBooleanConstant or true xor bool3} ;
+ a -[]-> a {bool3 := #AadlBaTestPropertySet::aBooleanConstant or true xor bool3} ;
   
  a -[]-> a {myBool3 := myBool1 or myBool2 or myBool3} ;
  a -[]-> a {myBool3 := myBool1 and myBool2 and myBool3} ;
@@ -309,30 +322,30 @@ transitions
  a -[]-> a {int3 := int1 ** myNat1} ;
  a -[]-> a {int3 := 1 ** 2} ;
  a -[]-> a {int3 := int1 ** 1} ;
- a -[]-> a {int3 := AadlBaTestPropertySet::aIntegerConstant ** AadlBaTestPropertySet::aIntegerConstant} ;
- a -[]-> a {int3 := int1 ** AadlBaTestPropertySet::aIntegerConstant} ;
- a -[]-> a {int3 := 1 ** AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {int3 := #AadlBaTestPropertySet::aIntegerConstant ** #AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {int3 := int1 ** #AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {int3 := 1 ** #AadlBaTestPropertySet::aIntegerConstant} ;
  a -[]-> a {int3_8 := int1_8 ** nat1} ;
  a -[]-> a {myInt3 := myInt1 ** nat1} ;
  
  a -[]-> a {float3 := float1 ** nat1} ;
  a -[]-> a {float3 := 1.0 ** 2} ;
  a -[]-> a {float3 := float1 ** 1} ;
- a -[]-> a {float3 := AadlBaTestPropertySet::aFloatConstant ** AadlBaTestPropertySet::aIntegerConstant} ;
- a -[]-> a {float3 := float1 ** AadlBaTestPropertySet::aIntegerConstant} ;
- a -[]-> a {float3 := 1.0 ** AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {float3 := #AadlBaTestPropertySet::aFloatConstant ** #AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {float3 := float1 ** #AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {float3 := 1.0 ** #AadlBaTestPropertySet::aIntegerConstant} ;
  a -[]-> a {float3_32 := float1_32 ** nat1} ;
  a -[]-> a {myfloat3 := myfloat1 ** nat1} ;
  
  a -[]-> a {int3 := abs int1} ;
  a -[]-> a {int3 := abs 1} ;
- a -[]-> a {int3 := abs AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {int3 := abs #AadlBaTestPropertySet::aIntegerConstant} ;
  a -[]-> a {int3_16 := abs int1_16} ;
  a -[]-> a {myInt3 := abs myInt1} ;
   
  a -[]-> a {float3 := abs float1} ;
  a -[]-> a {float3 := abs 1.0} ;
- a -[]-> a {float3 := abs AadlBaTestPropertySet::aFloatConstant} ;
+ a -[]-> a {float3 := abs #AadlBaTestPropertySet::aFloatConstant} ;
  a -[]-> a {float3_32 := abs float1_32} ;
  a -[]-> a {myFloat3 := abs myFloat1} ;
  a -[]-> a {fixed1 := abs fixed2} ; 
@@ -345,26 +358,26 @@ transitions
       -- term tests --
 
  a -[]-> a {int3 := 1 * 2 * 3} ;  
- a -[]-> a {int3 := 1 * AadlBaTestPropertySet::aIntegerConstant * 3} ;
- a -[]-> a {int3 := 1 * AadlBaTestPropertySet::aIntegerConstant * int1} ;
+ a -[]-> a {int3 := 1 * #AadlBaTestPropertySet::aIntegerConstant * 3} ;
+ a -[]-> a {int3 := 1 * #AadlBaTestPropertySet::aIntegerConstant * int1} ;
  a -[]-> a {int3 := int1 * int2 * int3} ;  
 
  a -[]-> a {int3 := 1 / 2 / 3} ;  
- a -[]-> a {int3 := 1 / AadlBaTestPropertySet::aIntegerConstant / 3} ;
- a -[]-> a {int3 := 1 / AadlBaTestPropertySet::aIntegerConstant / int1} ; 
+ a -[]-> a {int3 := 1 / #AadlBaTestPropertySet::aIntegerConstant / 3} ;
+ a -[]-> a {int3 := 1 / #AadlBaTestPropertySet::aIntegerConstant / int1} ; 
  a -[]-> a {int3 := int1 / int2 / int3} ;
 
  a -[]-> a {int3 := 1 mod 2 mod 3} ;  
- a -[]-> a {int3 := 1 mod AadlBaTestPropertySet::aIntegerConstant mod 3} ;
- a -[]-> a {int3 := 1 mod AadlBaTestPropertySet::aIntegerConstant mod int1} ; 
+ a -[]-> a {int3 := 1 mod #AadlBaTestPropertySet::aIntegerConstant mod 3} ;
+ a -[]-> a {int3 := 1 mod #AadlBaTestPropertySet::aIntegerConstant mod int1} ; 
  a -[]-> a {int3 := int1 mod int2 mod int3} ;
 
  a -[]-> a {int3 := 1 rem 2 rem 3} ;  
- a -[]-> a {int3 := 1 rem AadlBaTestPropertySet::aIntegerConstant rem 3} ;
- a -[]-> a {int3 := 1 rem AadlBaTestPropertySet::aIntegerConstant rem int1} ;  
+ a -[]-> a {int3 := 1 rem #AadlBaTestPropertySet::aIntegerConstant rem 3} ;
+ a -[]-> a {int3 := 1 rem #AadlBaTestPropertySet::aIntegerConstant rem int1} ;  
  a -[]-> a {int3 := int1 rem int3 rem int3} ;
  
- a -[]-> a {int3 := int1 * AadlBaTestPropertySet::aIntegerConstant / 1 mod int2 rem int3} ;
+ a -[]-> a {int3 := int1 * #AadlBaTestPropertySet::aIntegerConstant / 1 mod int2 rem int3} ;
  
  a -[]-> a {int3_8 := int1_8 * int2_8 * int3_8} ;  
  a -[]-> a {int3_8 := int1_8 / int2_8 / int3_8} ;
@@ -379,13 +392,13 @@ transitions
  a -[]-> a {myInt3 := myInt1 * myInt2 / myInt3 mod myInt1 rem myInt2} ;
  
  a -[]-> a {float3 := 1.0 * 2.0 * 3.0} ;  
- a -[]-> a {float3 := 1.0 * AadlBaTestPropertySet::aFloatConstant * 3.0} ;
- a -[]-> a {float3 := 1.0 * AadlBaTestPropertySet::aFloatConstant * float1} ;
+ a -[]-> a {float3 := 1.0 * #AadlBaTestPropertySet::aFloatConstant * 3.0} ;
+ a -[]-> a {float3 := 1.0 * #AadlBaTestPropertySet::aFloatConstant * float1} ;
  a -[]-> a {float3 := float1 * float2 * float3} ;  
 
  a -[]-> a {float3 := 1.0 / 2.0 / 3.0} ;  
- a -[]-> a {float3 := 1.0 / AadlBaTestPropertySet::aFloatConstant / 3.0} ;
- a -[]-> a {float3 := 1.0 / AadlBaTestPropertySet::aFloatConstant / float1} ; 
+ a -[]-> a {float3 := 1.0 / #AadlBaTestPropertySet::aFloatConstant / 3.0} ;
+ a -[]-> a {float3 := 1.0 / #AadlBaTestPropertySet::aFloatConstant / float1} ; 
  a -[]-> a {float3 := float1 / float2 / float3} ;
  
  a -[]-> a {float3_32 := float1_32 * float2_32 * float3_32} ;  
@@ -414,7 +427,7 @@ transitions
  a -[]-> a {int1 := -int1 - int1 - int1} ;
  a -[]-> a {int1 := +int1 - int1 + int1} ;
  a -[]-> a {int1 := -1 - 2 + 3} ;
- a -[]-> a {int1 := -1 - AadlBaTestPropertySet::aIntegerConstant + int2} ;
+ a -[]-> a {int1 := -1 - #AadlBaTestPropertySet::aIntegerConstant + int2} ;
 
  a -[]-> a {int1_8 := +int1_8 + int1_8 + int1_8} ;
  a -[]-> a {int1_8 := -int1_8 - int1_8 - int1_8} ;
@@ -428,7 +441,7 @@ transitions
  a -[]-> a {float3 := -float1 - float2 - float3} ;
  a -[]-> a {float3 := +float1 - float2 + float3} ;
  a -[]-> a {float3 := -1.0 - 2.0 + 3.0} ;
- a -[]-> a {float3 := -1.0 - AadlBaTestPropertySet::aFloatConstant + float2} ; 
+ a -[]-> a {float3 := -1.0 - #AadlBaTestPropertySet::aFloatConstant + float2} ; 
    
  a -[]-> a {float3_32 := +float1_32 + float2_32 + float3_32} ;
  a -[]-> a {float3_32 := -float1_32 - float2_32 - float3_32} ;
@@ -471,12 +484,12 @@ transitions
  a -[]-> a {bool3 := int1 >= 1 } ;
  a -[]-> a {bool3 := int1 <= 1 } ;
 
- a -[]-> a {bool3 := int1 =  AadlBaTestPropertySet::aIntegerConstant } ;
- a -[]-> a {bool3 := int1 !=  AadlBaTestPropertySet::aIntegerConstant } ;
- a -[]-> a {bool3 := int1 >  AadlBaTestPropertySet::aIntegerConstant } ;
- a -[]-> a {bool3 := int1 <  AadlBaTestPropertySet::aIntegerConstant } ;
- a -[]-> a {bool3 := int1 >=  AadlBaTestPropertySet::aIntegerConstant } ;
- a -[]-> a {bool3 := int1 <=  AadlBaTestPropertySet::aIntegerConstant } ; 
+ a -[]-> a {bool3 := int1 =  #AadlBaTestPropertySet::aIntegerConstant } ;
+ a -[]-> a {bool3 := int1 != #AadlBaTestPropertySet::aIntegerConstant } ;
+ a -[]-> a {bool3 := int1 >  #AadlBaTestPropertySet::aIntegerConstant } ;
+ a -[]-> a {bool3 := int1 <  #AadlBaTestPropertySet::aIntegerConstant } ;
+ a -[]-> a {bool3 := int1 >= #AadlBaTestPropertySet::aIntegerConstant } ;
+ a -[]-> a {bool3 := int1 <= #AadlBaTestPropertySet::aIntegerConstant } ; 
 
  a -[]-> a {myBool3 := int1_8 = int2_8 } ;
  a -[]-> a {myBool3 := int1_8 != int2_8 } ;
@@ -506,12 +519,12 @@ transitions
  a -[]-> a {bool3 := float1 >= 1.0 } ;
  a -[]-> a {bool3 := float1 <= 1.0 } ;
 
- a -[]-> a {bool3 := float1 =  AadlBaTestPropertySet::aFloatConstant } ;
- a -[]-> a {bool3 := float1 !=  AadlBaTestPropertySet::aFloatConstant } ;
- a -[]-> a {bool3 := float1 >  AadlBaTestPropertySet::aFloatConstant } ;
- a -[]-> a {bool3 := float1 <  AadlBaTestPropertySet::aFloatConstant } ;
- a -[]-> a {bool3 := float1 >=  AadlBaTestPropertySet::aFloatConstant } ;
- a -[]-> a {bool3 := float1 <=  AadlBaTestPropertySet::aFloatConstant } ;  
+ a -[]-> a {bool3 := float1 =  #AadlBaTestPropertySet::aFloatConstant } ;
+ a -[]-> a {bool3 := float1 != #AadlBaTestPropertySet::aFloatConstant } ;
+ a -[]-> a {bool3 := float1 >  #AadlBaTestPropertySet::aFloatConstant } ;
+ a -[]-> a {bool3 := float1 <  #AadlBaTestPropertySet::aFloatConstant } ;
+ a -[]-> a {bool3 := float1 >= #AadlBaTestPropertySet::aFloatConstant } ;
+ a -[]-> a {bool3 := float1 <= #AadlBaTestPropertySet::aFloatConstant } ;  
 
  a -[]-> a {myBool3 := float1_32 = float2_32 } ;
  a -[]-> a {myBool3 := float1_32 != float2_32 } ;
@@ -555,12 +568,12 @@ transitions
  a -[]-> a {bool3 := string1 >= "a" } ;
  a -[]-> a {bool3 := string1 <= "a" } ; 
  
- a -[]-> a {bool3 := string1 = AadlBaTestPropertySet::aStringConstant } ;
- a -[]-> a {bool3 := string1 != AadlBaTestPropertySet::aStringConstant } ;
- a -[]-> a {bool3 := string1 > AadlBaTestPropertySet::aStringConstant } ;
- a -[]-> a {bool3 := string1 < AadlBaTestPropertySet::aStringConstant } ;
- a -[]-> a {bool3 := string1 >= AadlBaTestPropertySet::aStringConstant } ;
- a -[]-> a {bool3 := string1 <= AadlBaTestPropertySet::aStringConstant } ;
+ a -[]-> a {bool3 := string1 =  #AadlBaTestPropertySet::aStringConstant } ;
+ a -[]-> a {bool3 := string1 != #AadlBaTestPropertySet::aStringConstant } ;
+ a -[]-> a {bool3 := string1 >  #AadlBaTestPropertySet::aStringConstant } ;
+ a -[]-> a {bool3 := string1 <  #AadlBaTestPropertySet::aStringConstant } ;
+ a -[]-> a {bool3 := string1 >= #AadlBaTestPropertySet::aStringConstant } ;
+ a -[]-> a {bool3 := string1 <= #AadlBaTestPropertySet::aStringConstant } ;
  
  a -[]-> a {bool3 := string1 = string2 } ;
  a -[]-> a {bool3 := string1 != string2 } ;
@@ -577,8 +590,8 @@ transitions
  a -[]-> a {myInt1 := int1} ;
  a -[]-> a {int3 := 1.0} ;
  a -[]-> a {float3 := 1} ;
- a -[]-> a {int3 := AadlBaTestPropertySet::aFloatConstant} ;
- a -[]-> a {float3 := AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {int3 := #AadlBaTestPropertySet::aFloatConstant} ;
+ a -[]-> a {float3 := #AadlBaTestPropertySet::aIntegerConstant} ;
  a -[]-> a {subMyStruct1.int1 := 1.0} ;
  a -[]-> a {subMyStruct1.float1 := 1E+6} ;
  a -[]-> a {fixed1 := float1} ;
@@ -586,6 +599,10 @@ transitions
  a -[]-> a {fixed1 := anOtherFixed} ; 
 -- a -[]-> a {fixed1 := 123456.0} ; [TODO] not implemented yet
 -- a -[]-> a {fixed1 := 0.123} ; [TODO] not implemented yet
+
+    -- Timed action tests --
+    
+ a -[]-> a {computation (100 ms) in binding (p)} ; 
    
     -- Subprogram call action tests --
    
@@ -602,7 +619,6 @@ transitions
 
    -- For/ForAll structure tests
 
- a -[]-> a {for(i : Base_Types::Integer in 0 .. 9.0) {int1 := 1}} ;
  a -[]-> a {for(i : Base_Types::Integer in 0 .. subMyStruct1.float1) {int1 := 1}} ;
  a -[]-> a {for(i : MyNatural in 0 .. int1) {int1 := 1}} ;
  a -[]-> a {for(i : Base_Types::Integer in int1 .. float1) {int3 := 1}} ;
@@ -657,14 +673,14 @@ transitions
  a -[]-> a {float3 := not 1} ;
 
  a -[]-> a {float3 := 1 ** 2} ;
- a -[]-> a {float3 := AadlBaTestPropertySet::aIntegerConstant ** AadlBaTestPropertySet::aIntegerConstant} ;
- a -[]-> a {float3 := 1 ** AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {float3 := #AadlBaTestPropertySet::aIntegerConstant ** #AadlBaTestPropertySet::aIntegerConstant} ;
+ a -[]-> a {float3 := 1 ** #AadlBaTestPropertySet::aIntegerConstant} ;
 
- a -[]-> a {int3 := int1 ** AadlBaTestPropertySet::aNegativeIntegerConstant} ;
+ a -[]-> a {int3 := int1 ** #AadlBaTestPropertySet::aNegativeIntegerConstant} ;
  a -[]-> a {int3 := int1 ** negInt1} ;
  a -[]-> a {int3 := int1 ** float1} ;
  a -[]-> a {int3 := int1 ** int1} ;
- a -[]-> a {int3 := int1 ** AadlBaTestPropertySet::aValue} ; -- Warning : can't check if a property value is natural (>=0).
+ a -[]-> a {int3 := int1 ** #AadlBaTestPropertySet::aValue} ; -- Warning : can't check if a property value is natural (>=0).
  a -[]-> a {fixed2 := fixed1 ** nat1} ;
  
 **};  

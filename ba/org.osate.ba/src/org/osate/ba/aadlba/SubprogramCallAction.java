@@ -31,7 +31,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.SubprogramCallAction#getSubprogram <em>Subprogram</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}</li>
- *   <li>{@link org.osate.ba.aadlba.SubprogramCallAction#getDataAccess <em>Data Access</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.SubprogramCallAction#getProxy <em>Proxy</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,29 +107,29 @@ public interface SubprogramCallAction extends CommunicationAction
   boolean isSetParameterLabels();
 
   /**
-   * Returns the value of the '<em><b>Data Access</b></em>' containment reference.
+   * Returns the value of the '<em><b>Proxy</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Data Access</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Proxy</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Data Access</em>' containment reference.
-   * @see #setDataAccess(DataAccessHolder)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getSubprogramCallAction_DataAccess()
+   * @return the value of the '<em>Proxy</em>' containment reference.
+   * @see #setProxy(SubprogramHolderProxy)
+   * @see org.osate.ba.aadlba.AadlBaPackage#getSubprogramCallAction_Proxy()
    * @model containment="true"
    * @generated
    */
-  DataAccessHolder getDataAccess();
+  SubprogramHolderProxy getProxy();
 
   /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.SubprogramCallAction#getDataAccess <em>Data Access</em>}' containment reference.
+   * Sets the value of the '{@link org.osate.ba.aadlba.SubprogramCallAction#getProxy <em>Proxy</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Data Access</em>' containment reference.
-   * @see #getDataAccess()
+   * @param value the new value of the '<em>Proxy</em>' containment reference.
+   * @see #getProxy()
    * @generated
    */
-  void setDataAccess(DataAccessHolder value);
+  void setProxy(SubprogramHolderProxy value);
 
 } // SubprogramCallAction
