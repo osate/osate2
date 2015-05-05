@@ -732,8 +732,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 			}
-			previouslyVisitedClassifiers.remove(subcomponentType);
 		}
+		previouslyVisitedClassifiers.remove(subcomponentType);
 		return false;
 	}
 
