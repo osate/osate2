@@ -135,8 +135,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 	 * Selected project in the package explorer.  This will become the selected project
 	 * in the wizard's page.
 	 */
-	private IProject project = null;
-
+//	private IProject project = null;
+	private IContainer projectFolder = null;
 	private ObjectType initialObjectType = ObjectType.AADL_PACKAGE;
 
 	/**
@@ -149,11 +149,28 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		if (selection != null) {
 			Object selectedElement = selection.getFirstElement();
 			if (selectedElement instanceof IResource) {
-				IProject project = ((IResource) selectedElement).getProject();
-				if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
-					this.project = project;
-				} else {
-					this.project = null;
+
+				if (selectedElement instanceof IProject) {
+					IContainer project = ((IProject) selectedElement).getProject();
+					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+						projectFolder = project;
+					} else {
+						projectFolder = null;
+					}
+				} else if (selectedElement instanceof IFolder) {
+					IProject project = ((IFolder) selectedElement).getProject();
+					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+						projectFolder = (IContainer) selectedElement;
+					} else {
+						projectFolder = null;
+					}
+				} else if (selectedElement instanceof IFile) {
+					IProject project = ((IFile) selectedElement).getProject();
+					if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
+						projectFolder = ((IFile) selectedElement).getParent();
+					} else {
+						projectFolder = null;
+					}
 				}
 			}
 		}
@@ -373,8 +390,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 
 			Label folderViewerLabel = new Label(composite, SWT.NONE);
 			folderViewerLabel.setText("Create in project/folder:");
-			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
 			folderViewer = new TreeViewer(composite, SWT.BORDER);
+			folderViewer.getTree().setLayoutData(layoutData);
 			folderViewer.setLabelProvider(WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider());
 			folderViewer.setContentProvider(new WorkbenchContentProvider() {
 				@Override
@@ -429,18 +446,14 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			nameTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 			nameTextField.setFocus();
 
-			boolean selectedProjectInList = false;
 			TreeItem[] treeItems = folderViewer.getTree().getItems();
-			for (int i = 0; i < treeItems.length; i++) {
-				if (treeItems[i].equals(project)) {
-					selectedProjectInList = true;
-					break;
+			if (projectFolder != null) {
+				folderViewer.setSelection(new StructuredSelection(projectFolder), true);
+				if (folderViewer.getSelection().isEmpty()) {
+					folderViewer.getTree().select(treeItems[0]);
 				}
-			}
-			if ((project != null) && selectedProjectInList) {
-				folderViewer.setSelection(new StructuredSelection(project), true);
 			} else {
-				folderViewer.getTree().select(folderViewer.getTree().getTopItem());
+				folderViewer.getTree().select(treeItems[0]);
 			}
 			folderViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 			switch (initialObjectType) {

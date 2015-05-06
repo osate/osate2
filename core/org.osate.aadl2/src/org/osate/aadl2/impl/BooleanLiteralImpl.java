@@ -200,6 +200,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 		return result.toString();
 	}
 
+	@Override
 	public boolean sameAs(PropertyValue pv) {
 		if (this == pv) {
 			return true;

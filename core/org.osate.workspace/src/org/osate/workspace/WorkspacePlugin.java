@@ -128,6 +128,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	public static final String EXPAND_DEFAULT_FLAG = "expandXMLDefaults";
 
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
+	public static final String AUTO_INDENT = "AUTO_INDENT";
 
 	// The shared instance.
 	private static WorkspacePlugin plugin;

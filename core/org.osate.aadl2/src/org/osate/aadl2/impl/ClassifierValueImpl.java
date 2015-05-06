@@ -221,8 +221,9 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 		ClassifierValueImpl other = (ClassifierValueImpl) pv;
 		if (classifier == null) {
 			return other.classifier == null;
-		} else
+		} else {
 			return classifier.equals(other.classifier);
+		}
 	}
 
 } // ClassifierValueImpl

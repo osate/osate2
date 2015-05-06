@@ -67,7 +67,7 @@ public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl implem
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualProcessorPrototype();
 	}
-	
+
 	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.VIRTUAL_PROCESSOR;

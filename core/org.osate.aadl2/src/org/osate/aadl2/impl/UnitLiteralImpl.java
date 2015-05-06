@@ -285,7 +285,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor()
 	 */
 	@Override
@@ -295,8 +295,9 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 		while (current.getBaseUnit() != null) {
 			double val = (current.getFactor() instanceof IntegerLiteral ? (double) ((IntegerLiteral) current
 					.getFactor()).getValue() : ((RealLiteral) current.getFactor()).getValue());
-			if (val != 0)
+			if (val != 0) {
 				factor *= val;
+			}
 			current = current.getBaseUnit();
 		}
 		return factor;
@@ -304,7 +305,7 @@ public class UnitLiteralImpl extends EnumerationLiteralImpl implements UnitLiter
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.UnitLiteral#getAbsoluteFactor(org.osate.aadl2.UnitLiteral)
 	 */
 	@Override
