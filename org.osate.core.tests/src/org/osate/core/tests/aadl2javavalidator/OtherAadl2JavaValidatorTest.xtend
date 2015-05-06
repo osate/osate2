@@ -44,7 +44,6 @@ import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.BusType
 import org.osate.aadl2.ComponentType
-import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.SubprogramImplementation
@@ -1735,5 +1734,64 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 		assertConstraints(issueCollection)
 	}
 
-	
+
+
+	//Tests validation of appends operator in contained propertyassociation
+	@Test
+	def void testCheckForAppendsInContainedPropertyAssociation() {
+		createFiles("appendsoperaterincontainedprop.aadl" -> '''
+					package appendsoperaterincontainedprop
+						public
+							system S
+							end S;
+							system implementation S.i
+								subcomponents
+									p: abstract A;
+									q: abstract B;
+									h: system H.i;
+								connections
+									c: feature p.dpa -> q.dpb;
+								properties
+									actual_connection_binding => (
+										reference(h.p), reference(h.b)
+									);
+									 -- the following should be an error because it's a contained PA
+									actual_connection_binding +=> (
+										reference(h.r)
+									) applies to c;
+							end S.i;
+							abstract A
+								features
+									dpa: feature;
+							end A;
+							abstract B
+								features
+									dpb: feature;
+							end B;
+							system H
+							end H;
+							system implementation H.i
+								subcomponents									p: processor;
+									b: bus;
+									r: device;
+							end H.i;
+					end appendsoperaterincontainedprop;	
+					''')
+		suppressSerialization
+		val testFileResult = testFile("appendsoperaterincontainedprop.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"appendsoperaterincontainedprop".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+				"S.i".assertEquals(name)
+				ownedPropertyAssociations.get(1) => [
+					"actual_connection_binding".assertEquals(property.name.toLowerCase)
+					assertError(testFileResult.issues, issueCollection, "Append operator '+=>' cannot be used in contained property associations")
+				]
+			]
+			
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
 }

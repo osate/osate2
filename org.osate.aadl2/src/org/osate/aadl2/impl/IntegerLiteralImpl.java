@@ -306,7 +306,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#setValue(java.lang.String)
 	 */
 	@Override
@@ -319,7 +319,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneAndInvert()
 	 */
 	@Override
@@ -337,7 +337,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.NumberValue#cloneNumber()
 	 */
 	@Override

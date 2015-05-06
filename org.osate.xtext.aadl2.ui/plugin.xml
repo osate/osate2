@@ -58,9 +58,9 @@
             point="org.eclipse.ui.preferencePages">
         <page
         	category="org.osate.internal.ui.preferences.OsatePreferencePage"
-            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.editor.preferences.Aadl2TextEditorPage"
             id="org.osate.xtext.aadl2.Aadl2"
-            name="Aadl2 Textual Editor">
+            name="Aadl2 Text Editor">
             <keywordReference id="org.osate.xtext.aadl2.ui.keyword_Aadl2"/>
         </page>
         <page
@@ -542,4 +542,12 @@
           </description>
        </view>
     </extension>
+    <extension 
+         point="org.eclipse.core.runtime.preferences">
+       <scope name="Aadl2TextEditorPage" class="org.osate.xtext.aadl2.ui.editor.preferences.Aadl2TextEditorPage"/>
+      <initializer
+            class="org.osate.xtext.aadl2.ui.editor.preferences.Aadl2TextEditorPreferenceInitializer">
+      </initializer>
+    </extension>
+    
 </plugin>

@@ -62,6 +62,7 @@ import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.findNodesForFeature
 import static extension org.eclipse.xtext.nodemodel.util.NodeModelUtils.getNode
+import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.convertToIResource
 
 package class ValueColumnEditingSupport extends EditingSupport {
 	val static EMBEDDED_RESOURCE_NAME_SUFFIX = "_embedded_for_property_view_cell_editor"
@@ -92,7 +93,7 @@ package class ValueColumnEditingSupport extends EditingSupport {
 	}
 	
 	override protected getCellEditor(Object element) {
-		new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2)) => [
+		new XtextStyledTextCellEditor(SWT.SINGLE, MyAadl2Activator.getInstance.getInjector(MyAadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2), propertyView.xtextDocument.readOnly[convertToIResource.project]) => [
 			create(propertyView.treeViewer.tree)
 		]
 	}

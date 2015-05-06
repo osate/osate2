@@ -70,6 +70,7 @@ import org.eclipse.jface.viewers.IPostSelectionProvider
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.viewers.ISelectionChangedListener
 import org.eclipse.jface.viewers.IStructuredSelection
+import org.eclipse.jface.viewers.ITreeContentProvider
 import org.eclipse.jface.viewers.StructuredSelection
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
@@ -130,14 +131,13 @@ import org.osate.aadl2.Subcomponent
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
-
 import static extension com.google.common.io.CharStreams.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
-import org.eclipse.jface.viewers.ITreeContentProvider
 import org.osate.aadl2.ModelUnit
 import java.util.ArrayList
+
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -359,7 +359,7 @@ class AadlPropertyView extends ViewPart {
 			// Hack to kill optimization that disables filter when text is empty
 			patternFilter.setPattern("org.eclipse.ui.keys.optimization.false")
 			val treeColumnLayout = new TreeColumnLayout
-			val filteredTree = new FilteredTree(it, SWT.BORDER, patternFilter, true) {
+			val filteredTree = new FilteredTree(it, SWT.BORDER.bitwiseOr(SWT.FULL_SELECTION), patternFilter, true) {
 				override doCreateTreeViewer(Composite parent, int style) {
 					val c = super.doCreateTreeViewer(parent, style)
 					c.getControl().setLayoutData(null)

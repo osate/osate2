@@ -67,7 +67,7 @@ public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements S
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramPrototype();
 	}
-	
+
 	@Override
 	public ComponentCategory getCategory() {
 		return ComponentCategory.SUBPROGRAM;

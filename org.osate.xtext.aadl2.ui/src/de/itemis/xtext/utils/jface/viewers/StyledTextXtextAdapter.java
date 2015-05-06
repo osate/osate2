@@ -2,6 +2,7 @@ package de.itemis.xtext.utils.jface.viewers;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.bindings.keys.KeyStroke;
@@ -104,16 +105,16 @@ public class StyledTextXtextAdapter {
 
 	private ControlDecoration decoration;
 
-	public StyledTextXtextAdapter(Injector injector, IXtextFakeContextResourcesProvider contextFakeResourceProvider) {
+	public StyledTextXtextAdapter(Injector injector, IXtextFakeContextResourcesProvider contextFakeResourceProvider, IProject project) {
 		this.contextFakeResourceProvider = contextFakeResourceProvider;
 		injector.injectMembers(this);
 
 		// create fake resource and containing resource set
-		createFakeResourceContext(injector);
+		createFakeResourceContext(injector, project);
 	}
 
-	public StyledTextXtextAdapter(Injector injector) {
-		this(injector, IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER);
+	public StyledTextXtextAdapter(Injector injector, IProject project) {
+		this(injector, IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER, project);
 	}
 
 	public void adapt(StyledText styledText) {
@@ -219,8 +220,8 @@ public class StyledTextXtextAdapter {
 				sourceviewer.getAnnotationModel(), resolutionProvider), CheckMode.ALL);
 	}
 
-	protected void createFakeResourceContext(Injector injector) {
-		this.fakeResourceContext = new XtextFakeResourceContext(injector);
+	protected void createFakeResourceContext(Injector injector, IProject project) {
+		this.fakeResourceContext = new XtextFakeResourceContext(injector, project);
 	}
 
 	protected void createXtextSourceViewer() {

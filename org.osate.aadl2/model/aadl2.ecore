@@ -1555,8 +1555,7 @@
       <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType" changeable="false" volatile="true"
-        transient="true" derived="true">
+        lowerBound="1" eType="#//DirectionType" volatile="true" transient="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
       </eAnnotations>
