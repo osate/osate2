@@ -136,6 +136,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
 import org.eclipse.jface.viewers.ITreeContentProvider
+import org.osate.aadl2.ModelUnit
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -147,11 +148,13 @@ class AadlPropertyView extends ViewPart {
 	val static HIDE_UNDEFINED_TOOL_TIP = "Click to hide undefined properties"
 	val static SHOW_UNDEFINED_TOOL_TIP = "Click to show undefined properties"
 	val static COLLAPSE_ALL_TOOL_TIP = "Collapse All"
-
+	val static SHOW_ONLY_IMPORTED_PROPERTIES = "Show imported properties only"
+	val static SHOW_ALL_AVAILABLE_PROPERTIES = "Show all available properties"
+	
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
 	val static DEFAULT_PROPERTY_GROUP = "All"
-	 
+
 	/**
 	 * Page book for switching between the tree viewer and the "no properties"
 	 * message.
@@ -194,7 +197,7 @@ class AadlPropertyView extends ViewPart {
 	 */
 	var Action collapseAllAction;
 
-
+	var Action showOnlyImportedPropertiesAction;
 	/**
 	 * The editing domain for the viewer's input
 	 */
@@ -224,6 +227,8 @@ class AadlPropertyView extends ViewPart {
 	//If the URIs were resolved to EObjects, then this would be a Map<PropertySet, Map<Property, PropertyAssociation>>
 	val package Map<URI, Map<URI, URI>> cachedPropertyAssociations = Collections.synchronizedMap(newLinkedHashMap)
 
+	var Set<String> importedPropertyGroups = new TreeSet
+	
 	val ISelectionListener selectionListener = [ part, selection |
 		/*
 		 * Change the view when the selection changes.
@@ -302,35 +307,35 @@ class AadlPropertyView extends ViewPart {
 					var thisTree = viewer as TreeViewer
 					val labelProvider = thisTree.getLabelProvider(0) as ColumnLabelProvider
 					val labelText = labelProvider.getText(element)
-					return wordMatches(labelText)
-						&& (currentPropertyGroup.size == 0 || currentPropertyGroup.contains(labelText))
+					return wordMatches(labelText) &&
+						(currentPropertyGroup.size == 0 || currentPropertyGroup.contains(labelText))
 				}
+
 				// Check all children to see if there is a match before hiding this parent
-				override protected isParentMatch(Viewer viewer, Object element){
+				override protected isParentMatch(Viewer viewer, Object element) {
 					return anyChildrenMatch(viewer as TreeViewer, element)
 				}
+
 				// Recursive function for isParentMatch
 				def boolean anyChildrenMatch(TreeViewer thisTree, Object element) {
 					val contentProvider = thisTree.getContentProvider() as ITreeContentProvider
 					val children = contentProvider.getChildren(element)
 					var match = false
-					
+
 					if ((children != null) && (children.length > 0)) {
-						
-						for (var i=0; i < children.length && !match; i++){
-							match = anyChildrenMatch(thisTree, children.get(i))		
-						}	
+
+						for (var i = 0; i < children.length && !match; i++) {
+							match = anyChildrenMatch(thisTree, children.get(i))
+						}
 					} else {
 						match = isLeafMatch(thisTree, element)
 					}
-					 
-					return match	
+
+					return match
 				}
 			}
-			
 			// Hack to kill optimization that disables filter when text is empty
 			patternFilter.setPattern("org.eclipse.ui.keys.optimization.false")
-			
 			val treeColumnLayout = new TreeColumnLayout
 			val filteredTree = new FilteredTree(it, SWT.BORDER, patternFilter, true) {
 				override doCreateTreeViewer(Composite parent, int style) {
@@ -341,38 +346,40 @@ class AadlPropertyView extends ViewPart {
 				}
 
 				override createFilterControls(Composite parent) {
-					val result = super.createFilterControls( parent)
+					val result = super.createFilterControls(parent)
 
-					val Map< String, Set<String>> propertyGroups
-						 = newLinkedHashMap(DEFAULT_PROPERTY_GROUP -> new TreeSet())
+					val Map<String, Set<String>> propertyGroups = newLinkedHashMap(
+						DEFAULT_PROPERTY_GROUP -> new TreeSet())
 					val propertyGroupCombo = new Combo(parent, SWT.READ_ONLY) => [
-						add( DEFAULT_PROPERTY_GROUP)
+						add(DEFAULT_PROPERTY_GROUP)
 						text = DEFAULT_PROPERTY_GROUP
 					]
-					propertyGroupCombo.addModifyListener(new ModifyListener {
+					propertyGroupCombo.addModifyListener(
+						new ModifyListener {
 							override modifyText(ModifyEvent e) {
-								currentPropertyGroup = propertyGroups.get( propertyGroupCombo.text)
+								currentPropertyGroup = propertyGroups.get(propertyGroupCombo.text)
 								treeViewer.refresh()
 							}
-					})
-					
-			        val fullPathURI = FileLocator.find(Platform.getBundle("org.osate.xtext.aadl2.ui"),
-							        					new Path("resources/AadlPropertyGroups.properties"), null)
-			        val reader = new InputStreamReader( fullPathURI.openStream())
+						})
+
+					val fullPathURI = FileLocator.find(Platform.getBundle("org.osate.xtext.aadl2.ui"),
+						new Path("resources/AadlPropertyGroups.properties"), null)
+					val reader = new InputStreamReader(fullPathURI.openStream())
 					for (line : reader.readLines) {
 						if (!line.startsWith("#") && line.length > 0) {
-	    					val String[] segments = line.split(':')
-	    					if (segments.length == 2) {
-								propertyGroupCombo.add( segments.get(0))
-	    						propertyGroups.put( segments.get(0), segments.get(1).split(",").toSet)
+							val String[] segments = line.split(':')
+							if (segments.length == 2) {
+								propertyGroupCombo.add(segments.get(0))
+								propertyGroups.put(segments.get(0), segments.get(1).split(",").toSet)
 							}
-    					}
+						}
 					}
 					reader.close()
- 
+
 					if (parent.getLayout() instanceof GridLayout) {
+
 						// previous gridLayout was 2 columns, can't change after initialization
-						val newGridLayout = new GridLayout( 3, false) 
+						val newGridLayout = new GridLayout(3, false)
 						newGridLayout.marginHeight = 0
 						newGridLayout.marginWidth = 0
 						parent.setLayout(newGridLayout)
@@ -380,7 +387,6 @@ class AadlPropertyView extends ViewPart {
 					result
 				}
 			}
-
 			layout = new GridLayout
 			val gd = new GridData(SWT.FILL, SWT.FILL, true, true);
 			filteredTree.setLayoutData(gd);
@@ -502,6 +508,32 @@ class AadlPropertyView extends ViewPart {
 			viewSite.actionBars.toolBarManager.add(it)
 			toolTipText = COLLAPSE_ALL_TOOL_TIP
 		]
+		
+		// Show only property groups defined with the with clause
+		showOnlyImportedPropertiesAction = new Action("Show Only Imported Property Groups", IAction.AS_CHECK_BOX) {
+			override run() {
+				showOnlyImportedPropertiesAction.toolTipText = if(showOnlyImportedPropertiesAction.checked) {
+					SHOW_ONLY_IMPORTED_PROPERTIES					
+				} else {
+					SHOW_ALL_AVAILABLE_PROPERTIES
+				}
+				
+				if(showOnlyImportedPropertiesAction.checked) {
+					currentPropertyGroup = new TreeSet<String>(importedPropertyGroups)
+				} else {
+					currentPropertyGroup.clear()
+				}
+				 
+				treeViewer.refresh()
+			}		
+		} => [
+				//TODO change this icon
+				imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/mode.gif")
+				toolTipText = SHOW_ONLY_IMPORTED_PROPERTIES
+				viewSite.actionBars.toolBarManager.add(it)
+				
+				
+		]
 
 		showUndefinedAction = new Action(null, IAction.AS_CHECK_BOX) {
 			override run() {
@@ -510,6 +542,7 @@ class AadlPropertyView extends ViewPart {
 				} else {
 					SHOW_UNDEFINED_TOOL_TIP
 				}
+				
 				treeViewer.refresh
 			}
 		} => [
@@ -728,7 +761,7 @@ class AadlPropertyView extends ViewPart {
 			site.registerContextMenu(it, treeViewer)
 		]
 	}
-	
+
 	def private updateSelection(IWorkbenchPart part, ISelection selection) {
 		xtextDocument?.removeModelListener(xtextModelListener)
 		val currentSelection = switch selection {
@@ -763,7 +796,12 @@ class AadlPropertyView extends ViewPart {
 		var Object treeElementToSelect
 		val currentSelectionURI = try {
 			switch currentSelection {
-				PropertySet, Property, PropertyType, PropertyConstant, PackageSection: null
+				PropertySet,
+				Property,
+				PropertyType,
+				PropertyConstant,
+				PackageSection:
+					null
 				NamedElement:
 					currentSelection.URI
 				PropertyAssociation case currentSelection.appliesTos.empty: {
@@ -869,8 +907,43 @@ class AadlPropertyView extends ViewPart {
 			resourceSetFromSelection = null
 			previousSelectionURI = null
 		}
+		
+		// Build list of imported properties for "Show only imported properties" filter button to use
+		var package = getPackageSection(currentSelection)
+		
+		if (package != null) {
+			val units = (package as PackageSection).getImportedUnits()
+			
+			for (ModelUnit unit: units) {
+				if (unit instanceof PropertySet) {
+					importedPropertyGroups.add((unit as PropertySet).getName())	
+					
+					for ( prop: (unit as PropertySet).getOwnedProperties) {
+						importedPropertyGroups.add((prop as NamedElement).getName())
+					}
+				}
+			}
+		}
 	}
 
+	// Recursive function to get the package section related to a node if it exists
+	def private EObject getPackageSection(EObject selection) {
+		
+		if (selection == null ) {
+			return null
+		}
+		
+		if (selection instanceof PackageSection) {
+			return selection as PackageSection
+		} 
+		else {
+			var owner = (selection as Element).getOwner()
+			if (owner != null) {
+				getPackageSection(owner)
+			}
+		}
+	}
+	
 	def package <T> safeRead((ResourceSet)=>T operation) {
 		if (xtextDocument != null) {
 			xtextDocument.readOnly[operation.apply(resourceSet)]
