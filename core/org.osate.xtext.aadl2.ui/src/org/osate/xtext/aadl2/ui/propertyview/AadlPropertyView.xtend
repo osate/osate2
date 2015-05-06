@@ -137,6 +137,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
 import org.eclipse.jface.viewers.ITreeContentProvider
 import org.osate.aadl2.ModelUnit
+import java.util.ArrayList
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -208,7 +209,7 @@ class AadlPropertyView extends ViewPart {
 	var ResourceSet resourceSetFromSelection = null
 
 	/* Only show properties from this group (or all properties if empty) */
-	var Set<String> currentPropertyGroup = new TreeSet
+	var ArrayList<FilterCriterion> currentPropertyGroup = new ArrayList<FilterCriterion>
 
 	@Inject
 	var package ISerializer serializer
@@ -227,7 +228,7 @@ class AadlPropertyView extends ViewPart {
 	//If the URIs were resolved to EObjects, then this would be a Map<PropertySet, Map<Property, PropertyAssociation>>
 	val package Map<URI, Map<URI, URI>> cachedPropertyAssociations = Collections.synchronizedMap(newLinkedHashMap)
 
-	var Set<String> importedPropertyGroups = new TreeSet
+	var ArrayList<FilterCriterion> importedPropertyGroups = new ArrayList<FilterCriterion>
 	
 	val ISelectionListener selectionListener = [ part, selection |
 		/*
@@ -307,8 +308,16 @@ class AadlPropertyView extends ViewPart {
 					var thisTree = viewer as TreeViewer
 					val labelProvider = thisTree.getLabelProvider(0) as ColumnLabelProvider
 					val labelText = labelProvider.getText(element)
+				    val contentProvider = thisTree.getContentProvider() as ITreeContentProvider
+				    val parent = contentProvider.getParent(element)
+				    var parentText = ""
+				    
+				    if (parent instanceof TreeEntry) {
+				    	parentText = labelProvider.getText(parent)	
+				    }
+				    
 					return wordMatches(labelText) &&
-						(currentPropertyGroup.size == 0 || currentPropertyGroup.contains(labelText))
+						(currentPropertyGroup.size == 0 || isMatch(labelText, parentText))
 				}
 
 				// Check all children to see if there is a match before hiding this parent
@@ -333,6 +342,19 @@ class AadlPropertyView extends ViewPart {
 
 					return match
 				}
+				
+				def isMatch(String elementName, String parentName) {
+					for (e: currentPropertyGroup) {
+						if (e.parent == null && elementName == (e.element as String)) {
+							return true
+						}
+						else if (parentName == (e.parent as String) && elementName == (e.element as String)) {
+							return true
+						}
+					}
+					
+					return false
+				}	
 			}
 			// Hack to kill optimization that disables filter when text is empty
 			patternFilter.setPattern("org.eclipse.ui.keys.optimization.false")
@@ -357,7 +379,11 @@ class AadlPropertyView extends ViewPart {
 					propertyGroupCombo.addModifyListener(
 						new ModifyListener {
 							override modifyText(ModifyEvent e) {
-								currentPropertyGroup = propertyGroups.get(propertyGroupCombo.text)
+								currentPropertyGroup.clear()
+								for (s: propertyGroups.get(propertyGroupCombo.text)){
+									currentPropertyGroup.add(new FilterCriterion(null,s))
+								}
+								showOnlyImportedPropertiesAction.checked = false
 								treeViewer.refresh()
 							}
 						})
@@ -519,11 +545,11 @@ class AadlPropertyView extends ViewPart {
 				}
 				
 				if(showOnlyImportedPropertiesAction.checked) {
-					currentPropertyGroup = new TreeSet<String>(importedPropertyGroups)
+					currentPropertyGroup = new ArrayList<FilterCriterion>(importedPropertyGroups)
 				} else {
 					currentPropertyGroup.clear()
 				}
-				 
+				
 				treeViewer.refresh()
 			}		
 		} => [
@@ -531,8 +557,6 @@ class AadlPropertyView extends ViewPart {
 				imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/mode.gif")
 				toolTipText = SHOW_ONLY_IMPORTED_PROPERTIES
 				viewSite.actionBars.toolBarManager.add(it)
-				
-				
 		]
 
 		showUndefinedAction = new Action(null, IAction.AS_CHECK_BOX) {
@@ -910,16 +934,14 @@ class AadlPropertyView extends ViewPart {
 		
 		// Build list of imported properties for "Show only imported properties" filter button to use
 		var package = getPackageSection(currentSelection)
-		
+		importedPropertyGroups.clear
 		if (package != null) {
 			val units = (package as PackageSection).getImportedUnits()
 			
 			for (ModelUnit unit: units) {
 				if (unit instanceof PropertySet) {
-					importedPropertyGroups.add((unit as PropertySet).getName())	
-					
 					for ( prop: (unit as PropertySet).getOwnedProperties) {
-						importedPropertyGroups.add((prop as NamedElement).getName())
+						importedPropertyGroups.add(new FilterCriterion((unit as PropertySet).getName, (prop as NamedElement).getName))
 					}
 				}
 			}
