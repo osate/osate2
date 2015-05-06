@@ -141,6 +141,17 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkPropertyMissingModes(pa);
 		checkModalAppliesTo(pa);
 		checkContainedProperties(pa);
+		checkForAppendsInContainedPropertyAssociation(pa);
+	}
+	
+	public void checkForAppendsInContainedPropertyAssociation(PropertyAssociation propertyAssoc) {
+		List<ContainedNamedElement> appliesTos = propertyAssoc.getAppliesTos();
+		if (null != appliesTos && !appliesTos.isEmpty()) {
+			if (propertyAssoc.isAppend()) {
+				error("Append operator '+=>' cannot be used in contained property associations", propertyAssoc,
+						Aadl2Package.eINSTANCE.getPropertyAssociation_Append());
+			}
+		}
 	}
 
 	/**
