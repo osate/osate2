@@ -137,7 +137,7 @@ import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
 import org.osate.aadl2.ModelUnit
 import java.util.ArrayList
-
+import org.eclipse.ui.internal.views.ViewsPlugin
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -553,8 +553,8 @@ class AadlPropertyView extends ViewPart {
 				treeViewer.refresh()
 			}		
 		} => [
-				//TODO change this icon
-				imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/mode.gif")
+				
+				imageDescriptor = ViewsPlugin.getViewImageDescriptor("elcl16/filter_ps.png")
 				toolTipText = SHOW_ONLY_IMPORTED_PROPERTIES
 				viewSite.actionBars.toolBarManager.add(it)
 		]
