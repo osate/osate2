@@ -4,8 +4,13 @@
    <extension-point id="org.osate.ge.styles" name="AGE Styles" schema="schema/org.osate.ge.styles.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.ui.handlers.OpenDiagramHandler"></command>
+	   <command 
+	   		id="org.osate.ge.commands.open.diagram.from.navigator"
+			name="Open Diagram" 
+			description="Open Diagram">
+		</command>
    </extension>
-      
+       
    <extension point="org.eclipse.ui.menus">
 		<menuContribution allPopups="false" locationURI="popup:#TextEditorContext?after=additions">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
@@ -13,6 +18,37 @@
 		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 		</menuContribution>
+       <menuContribution
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+         <command
+             commandId="org.osate.ge.commands.open.diagram.from.navigator"
+             label="Open Diagram"
+             tooltip="Open Diagram" 
+             style="push"
+             mnemonic="O">
+          <visibleWhen>
+			<and>
+	            <reference
+	                  definitionId="oneElementSelected">
+	            </reference>
+		        <with variable="selection">
+		           <iterate ifEmpty="false" operator="and">
+		              <or>
+		                <adapt type="org.eclipse.core.resources.IFile">
+                           <test
+                             property="org.osate.ge.isAadlPackage">
+                          </test>
+		                </adapt>
+		                <adapt type="org.osate.aadl2.Classifier"/>
+		                <adapt type="org.osate.aadl2.PackageSection"/>
+		                <adapt type="org.osate.aadl2.AadlPackage"/>
+		              </or>
+		           </iterate>
+		        </with>
+	        </and>    
+         </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
 	   
    <extension point="org.eclipse.graphiti.ui.diagramTypes">      
@@ -211,7 +247,7 @@
            class="org.osate.ge.ui.navigator.PropertyTester"
            id="org.osate.ge.navigator.propertyTester"
            namespace="org.osate.ge"
-           properties="name"
+           properties="name,isAadlPackage"
            type="org.eclipse.core.resources.IResource">
      </propertyTester>
   </extension>
@@ -242,8 +278,18 @@
           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
           sequence="M1+M2+V">
     </key>
- </extension>
- 
+     <key
+          commandId="org.osate.ge.commands.open.diagram.from.navigator"
+          schemeId="org.osate.ge.key.bindings"
+          sequence="M1+Enter">
+     </key>
+     <scheme
+           id="org.osate.ge.key.bindings"
+           parentId="org.eclipse.ui.defaultAcceleratorConfiguration"
+           description="Osate Key Bindings"
+           name="OsateKeyBindings">
+     </scheme>
+  </extension>
   <extension
     point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
     <propertyContributor contributorId="org.osate.ge.editor.AgeDiagramEditor"> 
@@ -272,5 +318,46 @@
         </propertySection>
     </propertySections>
  </extension>
+ <extension
+       point="org.eclipse.core.expressions.definitions">
+    <definition
+          id="oneElementSelected">
+       <with
+             variable="selection">
+            <count
+                  value="1">
+            </count>
+             
+       </with>
+    </definition>
+ </extension>
+    <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.ge.ui.handlers.OpenDiagramFromNavigatorHandler"
+            commandId="org.osate.ge.commands.open.diagram.from.navigator">
+         <enabledWhen>
+			<and>
+	            <reference
+	                  definitionId="oneElementSelected">
+	            </reference>
+		        <with variable="selection">
+		           <iterate ifEmpty="false" operator="and">
+		              <or>
+		                <adapt type="org.eclipse.core.resources.IFile">
+                           <test
+                             property="org.osate.ge.isAadlPackage">
+                          </test>
+		                </adapt>
+		                <adapt type="org.osate.aadl2.Classifier"/>
+		                <adapt type="org.osate.aadl2.PackageSection"/>
+		                <adapt type="org.osate.aadl2.AadlPackage"/>
+		              </or>
+		           </iterate>
+		        </with>
+	        </and>    
+         </enabledWhen>
+      </handler>
+   </extension>
  
 </plugin>
