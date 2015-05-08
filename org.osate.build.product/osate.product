@@ -81,6 +81,7 @@
       <feature id="org.eclipse.uml2"/>
       <feature id="org.eclipse.zest"/>
       <feature id="org.eclipse.xtext.redist"/>
+      <feature id="org.eclipse.xtext.ui"/>
    </features>
 
    <configurations>
