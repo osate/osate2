@@ -8,7 +8,7 @@
  * NO WARRANTY
  *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -31,52 +31,50 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  *
- * $Id: EventDataPortImpl.java,v 1.15 2009-06-04 14:59:50 lwrage Exp $
  */
-package org.osate.aadl2.impl;
+package org.osate.aadl2.instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.DataSubcomponentType;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.FeatureClassifier;
-import org.osate.aadl2.PortCategory;
+import org.eclipse.ocl.ecore.OCL;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.impl.PropertyAssociationImpl;
+import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Event Data Port</b></em>'.
+ * An implementation of the model object '<em><b>Property Association Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.EventDataPortImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.EventDataPortImpl#getDataFeatureClassifier <em>Data Feature Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.PropertyAssociationInstanceImpl#getPropertyAssociation <em>Property Association</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EventDataPortImpl extends PortImpl implements EventDataPort {
+public class PropertyAssociationInstanceImpl extends PropertyAssociationImpl implements PropertyAssociationInstance {
 	/**
-	 * The cached value of the '{@link #getDataFeatureClassifier() <em>Data Feature Classifier</em>}' reference.
+	 * The cached value of the '{@link #getPropertyAssociation() <em>Property Association</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDataFeatureClassifier()
+	 * @see #getPropertyAssociation()
 	 * @generated
 	 * @ordered
 	 */
-	protected DataSubcomponentType dataFeatureClassifier;
+	protected PropertyAssociation propertyAssociation;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EventDataPortImpl() {
+	protected PropertyAssociationInstanceImpl() {
 		super();
 	}
 
@@ -87,7 +85,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return Aadl2Package.eINSTANCE.getEventDataPort();
+		return InstancePackage.Literals.PROPERTY_ASSOCIATION_INSTANCE;
 	}
 
 	/**
@@ -96,44 +94,19 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * @generated
 	 */
 	@Override
-	public FeatureClassifier getFeatureClassifier() {
-		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
-				: featureClassifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public FeatureClassifier basicGetFeatureClassifier() {
-		if (eIsSet(Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER)) {
-			return basicGetDataFeatureClassifier();
-		}
-		return super.basicGetFeatureClassifier();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public DataSubcomponentType getDataFeatureClassifier() {
-		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
-			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
-			dataFeatureClassifier = (DataSubcomponentType) eResolveProxy(oldDataFeatureClassifier);
-			if (dataFeatureClassifier != oldDataFeatureClassifier) {
+	public PropertyAssociation getPropertyAssociation() {
+		if (propertyAssociation != null && ((EObject) propertyAssociation).eIsProxy()) {
+			InternalEObject oldPropertyAssociation = (InternalEObject) propertyAssociation;
+			propertyAssociation = (PropertyAssociation) eResolveProxy(oldPropertyAssociation);
+			if (propertyAssociation != oldPropertyAssociation) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER, oldDataFeatureClassifier,
-							dataFeatureClassifier));
+							InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION,
+							oldPropertyAssociation, propertyAssociation));
 				}
 			}
 		}
-		return dataFeatureClassifier;
+		return propertyAssociation;
 	}
 
 	/**
@@ -141,8 +114,8 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataSubcomponentType basicGetDataFeatureClassifier() {
-		return dataFeatureClassifier;
+	public PropertyAssociation basicGetPropertyAssociation() {
+		return propertyAssociation;
 	}
 
 	/**
@@ -151,13 +124,13 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * @generated
 	 */
 	@Override
-	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
-		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
-		dataFeatureClassifier = newDataFeatureClassifier;
+	public void setPropertyAssociation(PropertyAssociation newPropertyAssociation) {
+		PropertyAssociation oldPropertyAssociation = propertyAssociation;
+		propertyAssociation = newPropertyAssociation;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER, oldDataFeatureClassifier,
-					dataFeatureClassifier));
+					InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION, oldPropertyAssociation,
+					propertyAssociation));
 		}
 	}
 
@@ -169,11 +142,11 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER:
+		case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION:
 			if (resolve) {
-				return getDataFeatureClassifier();
+				return getPropertyAssociation();
 			}
-			return basicGetDataFeatureClassifier();
+			return basicGetPropertyAssociation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -186,8 +159,8 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER:
-			setDataFeatureClassifier((DataSubcomponentType) newValue);
+		case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION:
+			setPropertyAssociation((PropertyAssociation) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -201,8 +174,8 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER:
-			setDataFeatureClassifier((DataSubcomponentType) null);
+		case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION:
+			setPropertyAssociation((PropertyAssociation) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -216,32 +189,19 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.EVENT_DATA_PORT__FEATURE_CLASSIFIER:
-			return isSetFeatureClassifier();
-		case Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER:
-			return dataFeatureClassifier != null;
+		case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION:
+			return propertyAssociation != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
+	 * The cached environment for evaluating OCL expressions.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
+	 * @ordered
 	 */
-	@Override
-	public boolean isSetFeatureClassifier() {
-		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER);
-	}
+	protected static final OCL EOCL_ENV = OCL.newInstance();
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.osate.aadl2.impl.PortImpl#getCategory()
-	 */
-	@Override
-	public PortCategory getCategory() {
-		return PortCategory.EVENT_DATA;
-	}
-
-} // EventDataPortImpl
+} // PropertyAssociationInstanceImpl

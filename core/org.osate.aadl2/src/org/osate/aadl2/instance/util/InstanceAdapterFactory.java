@@ -15,6 +15,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.AnnexInstance;
@@ -31,6 +32,7 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 
@@ -105,6 +107,11 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter casePropertyAssociationInstance(PropertyAssociationInstance object) {
+			return createPropertyAssociationInstanceAdapter();
+		}
+
+		@Override
 		public Adapter caseConnectionInstanceEnd(ConnectionInstanceEnd object) {
 			return createConnectionInstanceEndAdapter();
 		}
@@ -172,6 +179,11 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseNamedElement(NamedElement object) {
 			return createNamedElementAdapter();
+		}
+
+		@Override
+		public Adapter casePropertyAssociation(PropertyAssociation object) {
+			return createPropertyAssociationAdapter();
 		}
 
 		@Override
@@ -257,6 +269,20 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAnnexInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.instance.PropertyAssociationInstance <em>Property Association Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.instance.PropertyAssociationInstance
+	 * @generated
+	 */
+	public Adapter createPropertyAssociationInstanceAdapter() {
 		return null;
 	}
 
@@ -453,6 +479,20 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNamedElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyAssociation <em>Property Association</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.PropertyAssociation
+	 * @generated
+	 */
+	public Adapter createPropertyAssociationAdapter() {
 		return null;
 	}
 

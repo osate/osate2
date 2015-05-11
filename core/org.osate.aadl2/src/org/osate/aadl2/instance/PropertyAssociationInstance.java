@@ -8,7 +8,7 @@
  * NO WARRANTY
  *
  * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
  * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
  * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
  * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
@@ -31,121 +31,53 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  *
- * $Id: PrivatePackageSectionImpl.java,v 1.24 2010-04-13 17:52:31 lwrage Exp $
  */
-package org.osate.aadl2.impl;
+package org.osate.aadl2.instance;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Namespace;
-import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.PropertyAssociation;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Private Package Section</b></em>'.
+ * A representation of the model object '<em><b>Property Association Instance</b></em>'.
  * <!-- end-user-doc -->
+ *
  * <p>
- * The following features are implemented:
+ * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.PrivatePackageSectionImpl#getPublicSection <em>Public Section</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.PropertyAssociationInstance#getPropertyAssociation <em>Property Association</em>}</li>
  * </ul>
  * </p>
  *
+ * @see org.osate.aadl2.instance.InstancePackage#getPropertyAssociationInstance()
+ * @model
  * @generated
  */
-public class PrivatePackageSectionImpl extends PackageSectionImpl implements PrivatePackageSection {
+public interface PropertyAssociationInstance extends EObject, PropertyAssociation {
+
 	/**
+	 * Returns the value of the '<em><b>Property Association</b></em>' reference.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Property Association</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Property Association</em>' reference.
+	 * @see #setPropertyAssociation(PropertyAssociation)
+	 * @see org.osate.aadl2.instance.InstancePackage#getPropertyAssociationInstance_PropertyAssociation()
+	 * @model ordered="false"
 	 * @generated
 	 */
-	protected PrivatePackageSectionImpl() {
-		super();
-	}
+	PropertyAssociation getPropertyAssociation();
 
 	/**
+	 * Sets the value of the '{@link org.osate.aadl2.instance.PropertyAssociationInstance#getPropertyAssociation <em>Property Association</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Property Association</em>' reference.
+	 * @see #getPropertyAssociation()
 	 * @generated
 	 */
-	@Override
-	protected EClass eStaticClass() {
-		return Aadl2Package.eINSTANCE.getPrivatePackageSection();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public PublicPackageSection getPublicSection() {
-		PublicPackageSection publicSection = basicGetPublicSection();
-		return publicSection != null && ((EObject) publicSection).eIsProxy() ? (PublicPackageSection) eResolveProxy((InternalEObject) publicSection)
-				: publicSection;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public PublicPackageSection basicGetPublicSection() {
-		// DONE: Implemented
-		return ((AadlPackage) getOwner()).getPublicSection();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
-	 */
-	@Override
-	public Namespace getNamespace() {
-		return null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case Aadl2Package.PRIVATE_PACKAGE_SECTION__PUBLIC_SECTION:
-			if (resolve) {
-				return getPublicSection();
-			}
-			return basicGetPublicSection();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.PRIVATE_PACKAGE_SECTION__PUBLIC_SECTION:
-			return basicGetPublicSection() != null;
-		}
-		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * Returns the name of the package.
-	 */
-	@Override
-	public String getName() {
-		return super.getName() + "_private";
-	}
-
-} // PrivatePackageSectionImpl
+	void setPropertyAssociation(PropertyAssociation value);
+} // PropertyAssociationInstance

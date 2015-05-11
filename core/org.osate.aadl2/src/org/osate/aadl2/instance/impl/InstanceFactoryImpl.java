@@ -54,6 +54,7 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 
@@ -103,6 +104,8 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 		switch (eClass.getClassifierID()) {
 		case InstancePackage.FEATURE_INSTANCE:
 			return createFeatureInstance();
+		case InstancePackage.PROPERTY_ASSOCIATION_INSTANCE:
+			return createPropertyAssociationInstance();
 		case InstancePackage.CONNECTION_INSTANCE:
 			return createConnectionInstance();
 		case InstancePackage.SYSTEM_OPERATION_MODE:
@@ -171,6 +174,17 @@ public class InstanceFactoryImpl extends EFactoryImpl implements InstanceFactory
 	public FeatureInstance createFeatureInstance() {
 		FeatureInstanceImpl featureInstance = new FeatureInstanceImpl();
 		return featureInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropertyAssociationInstance createPropertyAssociationInstance() {
+		PropertyAssociationInstanceImpl propertyAssociationInstance = new PropertyAssociationInstanceImpl();
+		return propertyAssociationInstance;
 	}
 
 	/**
