@@ -1894,16 +1894,25 @@ public class InstantiateModel {
 
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation impl = (ComponentImplementation) cc;
-
+			List<ComponentImplementation> extendedComponentImpls = new ArrayList<ComponentImplementation>();
 			while (impl != null) {
+				extendedComponentImpls.add(impl);
 				addUsedPropertyDefinitions(impl, result);
 				impl = impl.getExtended();
+				if (extendedComponentImpls.contains(impl)) {
+					break;
+				}
 			}
 			cc = ((ComponentImplementation) cc).getType();
 		}
+		List<Classifier> extendedClassifiers = new ArrayList<Classifier>();
 		while (cc != null) {
+			extendedClassifiers.add(cc);
 			addUsedPropertyDefinitions(cc, result);
 			cc = cc.getExtended();
+			if (extendedClassifiers.contains(cc)) {
+				break;
+			}
 		}
 
 	}
