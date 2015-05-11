@@ -55,6 +55,7 @@ import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -62,6 +63,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeTransitionInstance;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -74,6 +76,7 @@ import org.osate.aadl2.properties.PropertyAcc;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.InstanceObjectImpl#getAnnexInstances <em>Annex Instance</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.InstanceObjectImpl#getOwnedPropertyAssociations <em>Owned Property Association</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,7 +95,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	protected InstanceObjectImpl() {
@@ -101,7 +104,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -129,10 +132,48 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * @generated
 	 */
 	@Override
+	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
+		if (ownedPropertyAssociations == null) {
+			ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(
+					PropertyAssociationInstance.class, this,
+					InstancePackage.INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION);
+		}
+		return ownedPropertyAssociations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropertyAssociation createOwnedPropertyAssociation() {
+		PropertyAssociationInstance newOwnedPropertyAssociation = (PropertyAssociationInstance) create(InstancePackage.Literals.PROPERTY_ASSOCIATION_INSTANCE);
+		getOwnedPropertyAssociations().add(newOwnedPropertyAssociation);
+		return newOwnedPropertyAssociation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetOwnedPropertyAssociations() {
+		return ownedPropertyAssociations != null && !ownedPropertyAssociations.isEmpty();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
 			return ((InternalEList<?>) getAnnexInstances()).basicRemove(otherEnd, msgs);
+		case InstancePackage.INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION:
+			return ((InternalEList<?>) getOwnedPropertyAssociations()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -193,6 +234,8 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
 			return annexInstances != null && !annexInstances.isEmpty();
+		case InstancePackage.INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION:
+			return isSetOwnedPropertyAssociations();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -239,7 +282,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * construct a string path from the systeminstance as root
-	 *
+	 * 
 	 * @return path as string
 	 */
 	@Override
@@ -255,7 +298,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstancePath()
 	 */
 	@Override
@@ -349,7 +392,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstance()
 	 */
 	@Override
@@ -377,7 +420,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.impl.NamedElementImpl#acceptsProperty(edu.cmu.
 	 * sei.aadl.aadl2.Property)
@@ -465,7 +508,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
 	@Override
@@ -507,7 +550,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
 	@Override

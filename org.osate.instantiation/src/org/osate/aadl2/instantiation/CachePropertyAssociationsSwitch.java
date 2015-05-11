@@ -58,8 +58,10 @@ import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -165,10 +167,12 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 					if (!value.isEmpty()) {
 						// OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io + ";property=" + property + ";value=" + value);
-						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+						PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
+								.createPropertyAssociationInstance();
 
 						io.removePropertyAssociations(property);
 						newPA.setProperty(property);
+						newPA.setPropertyAssociation(getPA(value));
 						fillPropertyValue(io, newPA, value);
 						if (!newPA.getOwnedValues().isEmpty()) {
 							io.getOwnedPropertyAssociations().add(newPA);
@@ -191,6 +195,22 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			error(e.getElement(), e.getMessage());
 			return;
 		}
+	}
+
+	private PropertyAssociation getPA(List<EvaluatedProperty> values) {
+		// get first PA in list
+		PropertyExpression pv = values.get(0).getProxies().get(0).getValue();
+		Element e = pv.getOwner();
+		while (e != null) {
+			if (e instanceof PropertyAssociationInstance) {
+				e = ((PropertyAssociationInstance) e).getPropertyAssociation();
+			} else if (e instanceof PropertyAssociation) {
+				break;
+			} else {
+				e = e.getOwner();
+			}
+		}
+		return (PropertyAssociation) e;
 	}
 
 	protected void cacheConnectionPropertyAssociations(final ConnectionInstance conni) {
@@ -232,9 +252,11 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 						propertyValue = prop.evaluate(ctx);
 
 						if (!propertyValue.isEmpty()) {
-							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+							PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
+									.createPropertyAssociationInstance();
 
 							newPA.setProperty(prop);
+							newPA.setPropertyAssociation(propAssociation);
 							fillPropertyValue(connRef, newPA, propertyValue);
 							if (!newPA.getOwnedValues().isEmpty()) {
 								/*

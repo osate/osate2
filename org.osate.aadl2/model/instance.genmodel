@@ -81,6 +81,10 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//AnnexInstance/annexSubclause"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="instance.ecore#//PropertyAssociationInstance">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//PropertyAssociationInstance/propertyAssociation"/>
+    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="instance.ecore#//ConnectionInstanceEnd">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionInstanceEnd/srcConnectionInstance"/>

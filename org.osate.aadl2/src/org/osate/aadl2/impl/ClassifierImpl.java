@@ -1001,7 +1001,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.ComponentClassifier#lookupPrototypeBinding(org.osate.aadl2.Prototype)
 	 */
 	@Override

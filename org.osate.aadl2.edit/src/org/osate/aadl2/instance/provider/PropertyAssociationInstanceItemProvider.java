@@ -31,181 +31,118 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  *
- *
- * $Id: ComputedValueImpl.java,v 1.7 2010-05-04 18:13:31 lwrage Exp $
  */
-package org.osate.aadl2.impl;
+package org.osate.aadl2.instance.provider;
 
+import java.util.List;
+
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ComputedValue;
-import org.osate.aadl2.PropertyValue;
+import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
+import org.osate.aadl2.provider.Aadl2EditPlugin;
+import org.osate.aadl2.provider.PropertyAssociationItemProvider;
 
 /**
+ * This is the item provider adapter for a {@link org.osate.aadl2.instance.PropertyAssociationInstance} object.
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Computed Value</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
- * <ul>
- *   <li>{@link org.osate.aadl2.impl.ComputedValueImpl#getFunction <em>Function</em>}</li>
- * </ul>
- * </p>
- *
  * @generated
  */
-public class ComputedValueImpl extends PropertyValueImpl implements ComputedValue {
+public class PropertyAssociationInstanceItemProvider extends PropertyAssociationItemProvider {
 	/**
-	 * The default value of the '{@link #getFunction() <em>Function</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFunction()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String FUNCTION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getFunction() <em>Function</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFunction()
-	 * @generated
-	 * @ordered
-	 */
-	protected String function = FUNCTION_EDEFAULT;
-
-	/**
+	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ComputedValueImpl() {
-		super();
+	public PropertyAssociationInstanceItemProvider(AdapterFactory adapterFactory) {
+		super(adapterFactory);
 	}
 
 	/**
+	 * This returns the property descriptors for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	protected EClass eStaticClass() {
-		return Aadl2Package.eINSTANCE.getComputedValue();
-	}
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
+		if (itemPropertyDescriptors == null) {
+			super.getPropertyDescriptors(object);
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getFunction() {
-		return function;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setFunction(String newFunction) {
-		String oldFunction = function;
-		function = newFunction;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPUTED_VALUE__FUNCTION, oldFunction,
-					function));
+			addPropertyAssociationPropertyDescriptor(object);
 		}
+		return itemPropertyDescriptors;
 	}
 
 	/**
+	 * This adds a property descriptor for the Property Association feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPropertyAssociationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_PropertyAssociationInstance_propertyAssociation_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_PropertyAssociationInstance_propertyAssociation_feature", "_UI_PropertyAssociationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.PROPERTY_ASSOCIATION_INSTANCE__PROPERTY_ASSOCIATION, true, false,
+						true, null, null, null));
+	}
+
+	/**
+	 * This returns PropertyAssociationInstance.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
-			return getFunction();
-		}
-		return super.eGet(featureID, resolve, coreType);
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PropertyAssociationInstance")); //$NON-NLS-1$
 	}
 
 	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public String getText(Object object) {
+		PropertyAssociationInstance propertyAssociationInstance = (PropertyAssociationInstance) object;
+		return getString("_UI_PropertyAssociationInstance_type") + " "
+				+ propertyAssociationInstance.getProperty().getName();
+	}
+
+	/**
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
-			setFunction((String) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
+	public void notifyChanged(Notification notification) {
+		updateChildren(notification);
+		super.notifyChanged(notification);
 	}
 
 	/**
+	 * Return the resource locator for this item provider's resources.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
-			setFunction(FUNCTION_EDEFAULT);
-			return;
-		}
-		super.eUnset(featureID);
+	public ResourceLocator getResourceLocator() {
+		return Aadl2EditPlugin.INSTANCE;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
-			return FUNCTION_EDEFAULT == null ? function != null : !FUNCTION_EDEFAULT.equals(function);
-		}
-		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) {
-			return super.toString();
-		}
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (function: ");
-		result.append(function);
-		result.append(')');
-		return result.toString();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.osate.aadl2.PropertyValue#sameAs(org.osate.aadl2.PropertyValue)
-	 */
-	@Override
-	public boolean sameAs(PropertyValue other) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-} // ComputedValueImpl
+}

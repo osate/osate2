@@ -370,7 +370,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.osate.aadl2.instance.SystemInstance#findConnectionInstance
 	 * (org.osate.aadl2.Connection, org.osate.aadl2.Connection)

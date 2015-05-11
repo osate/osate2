@@ -78,6 +78,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.ui.UiUtil;
 
 /**
@@ -150,14 +151,19 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	protected IAction gotoSrcTextAction = new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
 		@Override
 		public void run() {
-			if (currentSelection instanceof InstanceObject) {
-				if (activeEditorPart instanceof Aadl2ModelEditor) {
+			if (activeEditorPart instanceof Aadl2ModelEditor) {
+				if (currentSelection instanceof InstanceObject) {
 					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
 						((Aadl2ModelEditor) activeEditorPart).doSave(null);
 					}
-					if (currentSelection instanceof InstanceObject) {
-						UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(), currentSelection);
+					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
+							(InstanceObject) currentSelection);
+				} else if (currentSelection instanceof PropertyAssociationInstance) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
 					}
+					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
+							(PropertyAssociationInstance) currentSelection);
 				}
 			}
 		}
@@ -213,7 +219,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 */
 	protected IMenuManager createSiblingMenuManager;
 
-	protected InstanceObject currentSelection = null;
+	protected Object currentSelection = null;
 
 	/**
 	 * This creates an instance of the contributor.
@@ -360,8 +366,10 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		ISelection selection = event.getSelection();
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
 			Object object = ((IStructuredSelection) selection).getFirstElement();
-			if (object instanceof InstanceObject) {
-				currentSelection = (InstanceObject) object;
+			if (object instanceof InstanceObject || object instanceof PropertyAssociationInstance) {
+				currentSelection = object;
+			} else {
+				currentSelection = null;
 			}
 			EditingDomain domain = ((IEditingDomainProvider) activeEditorPart).getEditingDomain();
 

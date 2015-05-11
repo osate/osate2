@@ -64,6 +64,15 @@ public interface InstanceFactory extends EFactory {
 	FeatureInstance createFeatureInstance();
 
 	/**
+	 * Returns a new object of class '<em>Property Association Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Property Association Instance</em>'.
+	 * @generated
+	 */
+	PropertyAssociationInstance createPropertyAssociationInstance();
+
+	/**
 	 * Returns a new object of class '<em>Connection Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
