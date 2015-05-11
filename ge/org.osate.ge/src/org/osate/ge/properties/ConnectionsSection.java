@@ -144,21 +144,14 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		subComposites.add(directionComposite);
 		subComposites.add(optionComposite);
 
-		Composite lastComposite = nameComposite;
-		
 		//Set the layout for each composite		
 		for (final Composite composite : subComposites) {
 			composite.setLayout(new GridLayout(composite.getChildren().length, true));
 			formData = new FormData();
-			formData.top = new FormAttachment(lastComposite, VSPACE);
 			composite.setLayoutData(formData);
 			for (final Control control : composite.getChildren()) {
 				gridData = new GridData();
 				gridData.widthHint = 125;
-				gridData.grabExcessHorizontalSpace = true;
-				gridData.grabExcessVerticalSpace = true;
-				gridData.horizontalAlignment = SWT.FILL;
-				gridData.verticalAlignment = SWT.FILL;
 				control.setLayoutData(gridData);
 			}
 		}
@@ -168,11 +161,9 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		switchDirectionPushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				editor = (AgeDiagramEditor)getPart();
 				if (featureValidation(switchDirectionOfConnectionFeature)) {
-					PictogramElement originalElement = customCtx.getPictogramElements()[0];
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(switchDirectionOfConnectionFeature, customCtx);
-					determineFocus(originalElement, editor);
+					determineFocus(customCtx.getPictogramElements()[0], editor);
 				} else {
 					editor.setFocus();
 				}
@@ -183,7 +174,6 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		refinePushButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				editor = (AgeDiagramEditor)getPart();
 				if (featureValidation(refineConnectionFeature)) {
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(refineConnectionFeature, customCtx);
 					determineFocus(customCtx.getPictogramElements()[0], editor);
@@ -200,10 +190,8 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 			public void widgetSelected(final SelectionEvent e) {
 				if ((customCtx.getPictogramElements()[0].isVisible()) && (setBindingAction.isEnabled())) {
 					setBindingAction.run();
-					determineFocus(customCtx.getPictogramElements()[0], editor);
-				} else {
 					editor.setFocus();
-				} 
+				}
 			} 
 		});
 
@@ -213,11 +201,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 			public void widgetSelected(final SelectionEvent e) {
 				if (featureValidation(configureInModesFeature)) {
 					getDiagramTypeProvider().getDiagramBehavior().executeFeature(configureInModesFeature, customCtx);
-					if (customCtx.getPictogramElements()[0].isVisible()) {
-						getDiagramContainer().selectPictogramElements(customCtx.getPictogramElements());
-					} else {
-						editor.setFocus();
-					}
+					determineFocus(customCtx.getPictogramElements()[0], editor);
 				} else {
 					editor.setFocus();
 				}
@@ -287,7 +271,6 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 					if((nameConnectionText.getText() != null) && (pe != null) && (renameConnectionFeature.checkValueValid(newConnectionName, directEditingCxt) == null) && 
 							!(oldConnectionName.equals(nameConnectionText.getText()))) {
 						renameConnectionFeature.setValue(newConnectionName, directEditingCxt);
-						editor = (AgeDiagramEditor) getPart();
 						determineFocus(customCtx.getPictogramElements()[0], editor);
 					} break;
 				default:
@@ -401,7 +384,6 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 					}
 				}	
 			}
-		//}	
 	}
 
 	/**
@@ -417,6 +399,11 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 		}
 	}
 	
+	/**
+	 * Determine if focus can be kept on the connection modified or set focus to editor
+	 * @param originalElement
+	 * @param editor
+	 */
 	final private void determineFocus(PictogramElement originalElement, AgeDiagramEditor editor) {
 		if (originalElement.isVisible()) {
 			getDiagramContainer().setPictogramElementForSelection(customCtx.getPictogramElements()[0]);

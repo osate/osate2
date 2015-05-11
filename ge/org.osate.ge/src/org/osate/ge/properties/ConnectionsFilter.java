@@ -18,7 +18,6 @@ import org.osate.ge.ui.editor.AgeDiagramEditor;
  */
 
 public class ConnectionsFilter extends AbstractPropertySectionFilter {
-	
 	@Override
 	protected boolean accept(final PictogramElement pictogramElement) {
 		if(pictogramElement instanceof FreeFormConnection) {		
@@ -28,7 +27,7 @@ public class ConnectionsFilter extends AbstractPropertySectionFilter {
 				final IEditorPart editorPart = editorRef.getEditor(false);
 				if(editorPart instanceof AgeDiagramEditor) {
 					final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editorPart;
-					if(diagramEditor.getDiagramTypeProvider().getDiagram() == diagram) {
+					if((diagramEditor.getDiagramTypeProvider().getDiagram()) == diagram && (diagramEditor.getSelectedPictogramElements().length == 1)) {
 						final BusinessObjectResolutionService bor = Objects.requireNonNull((BusinessObjectResolutionService)diagramEditor.getAdapter(BusinessObjectResolutionService.class), "unable to get business object resolution service");
 						final Object bo = bor.getBusinessObjectForPictogramElement(pictogramElement);
 						return bo instanceof org.osate.aadl2.Connection;

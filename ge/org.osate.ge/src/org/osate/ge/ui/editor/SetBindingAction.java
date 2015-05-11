@@ -81,22 +81,17 @@ public class SetBindingAction extends SelectionAction {
 	private SetBindingWindow.CloseListener windowCloseListener = new SetBindingWindow.CloseListener() {
 		@Override
 		public void onClosed() {
+			final PictogramElement[] pes = new PictogramElement[1];
+			pes[0] = (PictogramElement)((Diagram)editor.getDiagramTypeProvider().getDiagram());
+			editor.selectPictogramElements(pes);
 			editor.getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(selectionListener);
 			editor.getSite().getWorkbenchWindow().getPartService().removePartListener(partListener);
-			
-			final PictogramElement pe = getSelectedPictogramElement();
-			if(currentWindow.getReturnCode() == Dialog.OK) {
-				createPropertyAssociation();				
-			}		
 
+			if(currentWindow.getReturnCode() == Dialog.OK) {
+				createPropertyAssociation();			
+			}
 			currentWindow = null;
 			update();
-			if (getSelectedPictogramElement() == null && pe.isVisible()) {
-				editor.setPictogramElementForSelection(pe);
-				editor.getDiagramBehavior().refresh();
-			} else {
-				editor.setFocus();
-			}
 		}
 	};
 
@@ -105,10 +100,10 @@ public class SetBindingAction extends SelectionAction {
 		@Override
 		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
 			if(part == editor) {
-				if ((editor.getSelectedPictogramElements()) != null && (currentWindow != null)) {
+				if ((editor.getSelectedPictogramElements()) != null) {
 					currentWindow.setTargetPictogramElements(editor.getSelectedPictogramElements());
 				}
-			}			
+			}
 		}		
 	};
 
@@ -283,12 +278,10 @@ public class SetBindingAction extends SelectionAction {
 		@SuppressWarnings("unchecked")
 		private void validate() {
 			boolean validationSuccessful = false;
-
 			if (((List<Property>) bindingPropertyCombo.getInput()).size() == 0) {
 				selectionStatusLabel.setText("No applicable binding properties.");
 			} else {
 				selectionStatusLabel.setText("Elements selected: " + targetPictogramElements.length);
-
 				final Property selectedProperty = getSelectedProperty();
 				if (selectedProperty == null) {
 					selectionStatusLabel.setText("Select a binding property.");
@@ -299,8 +292,10 @@ public class SetBindingAction extends SelectionAction {
 					// Check target pictogram elements...
 					validationSuccessful = true;
 					for (final PictogramElement targetPe : targetPictogramElements) {
+					
 						boolean boIsValid = false;
 						final Element bo = (Element) bor.getBusinessObjectForPictogramElement(targetPe);
+						
 						if (bo != null) {
 							// The root element can not be a target element
 							if (!(bo instanceof Classifier)) {
@@ -312,13 +307,14 @@ public class SetBindingAction extends SelectionAction {
 								}
 							}
 						}
-
+						
 						// Show an error message if the BO is not valid
 						if (!boIsValid) {
 							validationSuccessful = false;
 							selectionStatusLabel.setText("One or more of the selected target elements are not valid.");
 							break;
 						}
+						
 					}
 				}
 			}

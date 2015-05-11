@@ -441,29 +441,6 @@
 			<section>
 				<title>Setting Bindings</title>
 				<section>
-					<title>Using the Context Menu to Set Bindings</title>
-					<orderedlist>
-						<listitem>
-							<para>Right-click on the diagram element for which to set the binding.</para>
-						</listitem>
-						<listitem>
-							<para>Select <emphasis>Bind...</emphasis> from the context menu.</para>
-						</listitem>
-						<listitem>
-							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
-							<imageobject>
-    						<imagedata fileref="images/Bindings.png" format="PNG"/>
-  							</imageobject>
-						</listitem>
-						<listitem>
-							<para>Select one or more elements from the diagram to bind to the initially selected element.</para>
-						</listitem>
-						<listitem>
-							<para>Select <emphasis>OK</emphasis>.</para>
-						</listitem>
-					</orderedlist>
-				</section>
-				<section>
 					<title>Using the Toolbar to Set Bindings</title>
 					<orderedlist>
 						<listitem>
@@ -477,6 +454,29 @@
 							<imageobject>
     							<imagedata fileref="images/Bindings.png" format="PNG"/>
   							</imageobject>
+						</listitem>
+						<listitem>
+							<para>Select one or more elements from the diagram to bind to the initially selected element.</para>
+						</listitem>
+						<listitem>
+							<para>Select <emphasis>OK</emphasis>.</para>
+						</listitem>
+					</orderedlist>
+				</section>
+				<section>
+					<title>Using the Context Menu to Set Bindings</title>
+					<orderedlist>
+						<listitem>
+							<para>Right-click on the diagram element for which to set the binding.</para>
+						</listitem>
+						<listitem>
+							<para>Select <emphasis>Bind...</emphasis> from the context menu.</para>
+							<imageobject>
+    							<imagedata fileref="images/BindContextMenu.png" format="PNG"/>
+  							</imageobject>
+						</listitem>
+						<listitem>
+							<para>From the Bind dialog, select a binding property from the drop-down menu.</para>
 						</listitem>
 						<listitem>
 							<para>Select one or more elements from the diagram to bind to the initially selected element.</para>
