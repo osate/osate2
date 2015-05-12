@@ -56,11 +56,12 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.insertAfter(GEFActionConstants.ALIGN_BOTTOM, new Separator());
 		tbm.insertBefore(GEFActionConstants.MATCH_WIDTH, getAction(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY));
 		tbm.insertAfter(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY, getAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
+		
 		tbm.add(selectedModeItem);
 		tbm.add(new Separator());
 		tbm.add(selectedFlowItem);
 		tbm.add(new Separator());
-
+		
 		// Add nesting depth control actions
 		final String nestingControlInsertionPoint = MatchSizeAction.MATCH_SIZE;
 		tbm.insertAfter(nestingControlInsertionPoint, nestingDepthSelectorItem);
@@ -98,6 +99,8 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		}
 	}
 	
+	
+	
 	@Override
 	public final void setActiveEditor(final IEditorPart editor) {
 		super.setActiveEditor(editor);
@@ -117,7 +120,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 			updateItemVisibility(getActionBars().getMenuManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
 		}
 	}
-	
 	private void updateItemVisibility(final IContributionManager mgr, final boolean isComponentClassifierDiagram, final boolean isComponentImplementationDiagram) {
 		for(final IContributionItem item : mgr.getItems()) {
 			boolean show = true;
@@ -128,7 +130,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 				show = isComponentImplementationDiagram; 
 			}
 			item.setVisible(show);
-			mgr.update(true);
 		}
+		mgr.update(true);
 	}
 }

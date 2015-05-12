@@ -179,6 +179,8 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 		// Show the dialog
 		final SetInModeFeaturesDialog dlg = new SetInModeFeaturesDialog(Display.getCurrent().getActiveShell(), localModeFeatureNames, localModeTransitionFeatureNames, childModeNames, localToChildModeMap);
 		if(dlg.open() == Dialog.CANCEL) {
+			PictogramElement[] pes = new PictogramElement[0];
+			getDiagramBehavior().getDiagramContainer().selectPictogramElements(pes);
 			return;
 		}
 	

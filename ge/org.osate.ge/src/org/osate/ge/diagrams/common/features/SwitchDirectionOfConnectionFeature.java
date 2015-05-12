@@ -58,10 +58,13 @@ public class SwitchDirectionOfConnectionFeature extends AbstractCustomFeature {
 		final Connection connection = (Connection)pes[0];		
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 		final ComponentImplementation ci = getComponentImplementation(connection);
-		
+		if (((org.osate.aadl2.Connection)bo).getRefined() == null) {
 		return bo instanceof org.osate.aadl2.Connection && 
 				ci != null && 
 				((org.osate.aadl2.Connection)bo).getContainingClassifier() == ci;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
