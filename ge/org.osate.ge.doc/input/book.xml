@@ -202,7 +202,7 @@
 			</section>
 			<section>
 				<title>Connection_Pattern Property Visualization</title>
-				<para>The graphical editor supports connection_pattern visual representation of connections between arrays of features or subcomponents. See <xref linkend="arrays"/>.</para>
+				<para>When working with arrays, the graphical editor supports visualization of the connection_pattern property. See <xref linkend="arrays"/>.</para>
 				<imageobject>
 					<imagedata fileref="images/ConnectionPattern.png" format="PNG"/>
 				</imageobject>
