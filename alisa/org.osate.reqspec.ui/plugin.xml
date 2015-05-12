@@ -80,9 +80,10 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.osate.reqspec.ReqSpec"
-            name="ReqSpec">
+              category="org.osate.alisa.common.Common"
+              class="org.osate.reqspec.ui.ReqSpecExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+              id="org.osate.reqspec.ReqSpec"
+              name="ReqSpec">
             <keywordReference id="org.osate.reqspec.ui.keyword_ReqSpec"/>
         </page>
         <page

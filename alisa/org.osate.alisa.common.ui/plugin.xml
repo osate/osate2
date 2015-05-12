@@ -84,7 +84,7 @@
         <page
             class="org.osate.alisa.common.ui.CommonExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
             id="org.osate.alisa.common.Common"
-            name="Common">
+            name="ALISA">
             <keywordReference id="org.osate.alisa.common.ui.keyword_Common"/>
         </page>
         <page
