@@ -80,9 +80,10 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.osate.assure.Assure"
-            name="Assure">
+              category="org.osate.alisa.common.Common"
+              class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+              id="org.osate.assure.Assure"
+              name="Assure">
             <keywordReference id="org.osate.assure.ui.keyword_Assure"/>
         </page>
         <page
