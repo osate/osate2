@@ -38,14 +38,36 @@ class ReqSpecTests {
 	      //goals
 	      val model = '''
 	          stakeholder goals SCSgoals for "some ref" [
-	          goal g1 : "Safety" [
-	          description "The system shall be safe."
-	          rationale "This is a control system, whose failure affects lives. "
-	          stakeholder sei.phf sei.dpg
-	          ]
+		          goal g1 : "Safety" [
+			          description "The system shall be safe."
+			          rationale "This is a control system, whose failure affects lives. "
+			          stakeholder sei.phf sei.dpg
+		          ]
 	          ]
 	      '''.parse
 	      val entity = model.contents.get(0);
 	      //println(entity)
+      }
+      
+      @Test
+      def void testDupeGoals() {
+      		val model = '''
+      		stakeholder goals braking_goals 
+			[
+				goal reliability_1 : "The braking system should work without issue"
+				[
+					description "We should be able to power the bulb"
+					rationale "Braking is critical"
+				]
+				
+				goal reliability_1 : "The braking system should work without issue"
+				[
+					description "We should be able to power the bulb"
+					rationale "Braking is critical"
+				]
+			]'''.parse
+			//must generate an error
+			Assert::fail("Duplicate identifiers")
+			// TODO: insert validation code here to handle gracefully.
       }
 }
