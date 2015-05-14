@@ -72,10 +72,16 @@ public final class CheckSecurity extends AbstractLevelChecker {
 	protected LevelComparator getLevelComparator() {
 		return destMustBeGreater;
 	}
+	
+	public void invoke(IProgressMonitor monitor, SystemInstance root, SystemOperationMode som) {
+		invoke(monitor, null, root, som);
+	}
 
 	public void invoke(final IProgressMonitor monitor, final AnalysisErrorReporterManager errManager,
 			final SystemInstance root, final SystemOperationMode som) {
-		analyzeInstanceModel(monitor, errManager, root, som);
+		this.errManager = errManager != null ? errManager : new AnalysisErrorReporterManager(
+				getAnalysisErrorReporterFactory());
+		analyzeInstanceModel(monitor, this.errManager, root, som);
 	}
 
 }
