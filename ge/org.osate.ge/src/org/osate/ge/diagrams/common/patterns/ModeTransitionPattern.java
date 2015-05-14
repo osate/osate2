@@ -427,8 +427,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	 * @param fp
 	 * @return
 	 */
-	private Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {
-		
+	private Anchor getAnchorForModeTransitionTrigger(final ModeTransitionTrigger trigger, final ContainerShape ownerShape, final ContainerShape modeShape, final IFeatureProvider fp) {		
 		// Get the shapes for the trigger port. 
 		final ContainerShape portShapeOwner = trigger.getContext() == null ? ownerShape : (ContainerShape)shapeService.getChildShapeByElementName(ownerShape, trigger.getContext());
 		final Shape portShape = (portShapeOwner == null || trigger.getTriggerPort() == null) ? null : shapeService.getDescendantShapeByElementName(portShapeOwner, trigger.getTriggerPort());
@@ -461,7 +460,6 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 		if(getMode(shape) == null) {
 			return false;
 		}
-		
 		final ComponentClassifier cc = getComponentClassifier(shape);
 		if(cc == null) {
 			return false;
@@ -475,16 +473,23 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	}
 
 	private Mode getMode(final PictogramElement pe) {
-		if(pe == null) {
+		if(!(pe instanceof Shape)) {
 			return null;
 		}
 		
-		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		if(bo instanceof Mode) {
-			return (Mode)bo;
+		Shape shape = (Shape)pe;
+		Object bo = null;
+		while(shape != null && bo == null) {
+			bo = bor.getBusinessObjectForPictogramElement(shape);
+			
+			if(bo == null) {
+				if(propertyService.isInnerShape(shape)) {
+					shape = shape.getContainer();
+				}
+			}
 		}
-		
-		return null;
+			
+		return bo instanceof Mode ? (Mode)bo : null;
 	}
 	
 	@Override

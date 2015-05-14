@@ -14,7 +14,6 @@ import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -22,7 +21,6 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
-import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
@@ -38,7 +36,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
@@ -55,6 +52,7 @@ import org.osate.ge.services.BusinessObjectResolutionService;
 import org.osate.ge.services.ConnectionService;
 import org.osate.ge.services.DiagramModificationService;
 import org.osate.ge.services.GraphicsAlgorithmCreationService;
+import org.osate.ge.services.LabelService;
 import org.osate.ge.services.LayoutService;
 import org.osate.ge.services.NamingService;
 import org.osate.ge.services.PropertyService;
@@ -70,6 +68,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	public static String INITIAL_MODE_CONNECTION_TYPE = "initial_mode";
 	public static String innerModeShapeName = "inner_mode";
 	public static String initialModeShapeName = "initial_mode";
+	private static final String nameShapeName = "label";
 	private final AnchorService anchorService;
 	private final ConnectionService connectionService;
 	private final LayoutService resizeHelper;
@@ -84,13 +83,14 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	private final NamingService namingService;
 	private final BusinessObjectResolutionService bor;
 	private final RefactoringService refactoringService;
+	private final LabelService labelService;
 	
 	@Inject
 	public ModePattern(final AnchorService anchorUtil, final GhostingService ghostingService, final ConnectionService connectionService, final LayoutService resizeHelper, final ShapeService shapeHelper, 
 			final PropertyService propertyUtil, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final StyleService styleUtil, 
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
 			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService,
-			final BusinessObjectResolutionService bor) {
+			final BusinessObjectResolutionService bor, final LabelService labelService) {
 		super(anchorUtil, ghostingService);
 		this.anchorService = anchorUtil;
 		this.connectionService = connectionService;
@@ -106,6 +106,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 		this.namingService = namingService;
 		this.refactoringService = refactoringService;
 		this.bor = bor;
+		this.labelService = labelService;
 	}
 
 	@Override
@@ -129,55 +130,15 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	public boolean canResizeShape(final IResizeShapeContext ctx) {
 		return false;
 	}
-	
-	/** Method to transform a move shape context into one that can be used. Typically the "root" shapes are moved. However, due to an issue that prevents direct editing
-	 * when the label is not an active shape, the label is active and is used in the call to the move shape methods. This method transforms the move shape context
-	 * to point to the root shape instead of the label shape.
-	 * @param context
-	 * @return
-	 */
-	// This could be removed or simplified if the mode's labels were not sized the same as the mode shape.
-	private IMoveShapeContext transformMoveShapeContext(final IMoveShapeContext context) {
-		final Shape shape = context.getShape();
-		final Shape newShape;
-		final ContainerShape sourceContainer;
-		if(shape.getGraphicsAlgorithm() instanceof Text) {
-			newShape = shapeHelper.getClosestAncestorWithBusinessObjectType(shape.getContainer(), Mode.class);
-			sourceContainer = newShape.getContainer();
-		} else {
-			newShape = shape;
-			sourceContainer = context.getSourceContainer();
-		}
-		final MoveShapeContext newCtx = new MoveShapeContext(newShape);
-		newCtx.setSourceContainer(sourceContainer);
-		newCtx.setTargetContainer(context.getTargetContainer());
-		newCtx.setDeltaX(context.getDeltaX());
-		newCtx.setDeltaY(context.getDeltaY());
-		newCtx.setX(context.getX());
-		newCtx.setY(context.getY());
-		return newCtx;
-	}
-	
-	@Override
-	public boolean canMoveShape(final IMoveShapeContext context) {
-		return super.canMoveShape(transformMoveShapeContext(context));
-	}
 
-	@Override
-	public void moveShape(final IMoveShapeContext context) {
-		super.moveShape(transformMoveShapeContext(context));
-	}
-	
 	@Override 
-	protected void postMoveShape(final IMoveShapeContext untransformedContext) {
-		final IMoveShapeContext newContext = transformMoveShapeContext(untransformedContext);
-
+	protected void postMoveShape(final IMoveShapeContext context) {
 		boolean refresh = false;
-		if(resizeHelper.checkContainerSize((ContainerShape)newContext.getPictogramElement())) {
+		if(resizeHelper.checkContainerSize((ContainerShape)context.getPictogramElement())) {
 			refresh = true;			
 		}
 		
-		layout((ContainerShape)newContext.getPictogramElement());
+		layout((ContainerShape)context.getPictogramElement());
 		
 		if(refresh) {
 			getFeatureProvider().getDiagramTypeProvider().getDiagramBehavior().refresh();
@@ -200,6 +161,22 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 	 */
 	private void layout(final ContainerShape shape) {
 		connectionService.updateConnectionAnchors(getInnerModeShape(shape));
+		
+		// Layout name label
+		final Shape nameShape = shapeHelper.getChildShapeByName(shape, nameShapeName);
+		final Shape innerModeShape = getInnerModeShape(shape);
+		
+		if(innerModeShape != null && nameShape != null) {
+			final GraphicsAlgorithm innerModeGa = innerModeShape.getGraphicsAlgorithm();
+			final int shapeWidth = innerModeGa.getWidth();
+			final int shapeHeight = innerModeGa.getHeight();
+			final IGaService gaService = Graphiti.getGaService();
+			
+			gaService.setLocation(nameShape.getGraphicsAlgorithm(), 
+					innerModeGa.getX() + (shapeWidth - nameShape.getGraphicsAlgorithm().getWidth()) / 2, 
+					innerModeGa.getY() + (shapeHeight - nameShape.getGraphicsAlgorithm().getHeight()) / 2);
+	
+		}
 	}
 	
 	@Override
@@ -232,6 +209,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 			innerModeShape = peCreateService.createContainerShape(shape, true);
 			propertyService.setName(innerModeShape, innerModeShapeName);
 		}
+		propertyService.setIsInnerShape(innerModeShape, true);
 		
 		// Ensure the inner mode shape has a chopbox anchor
 		anchorService.createOrUpdateChopboxAnchor(innerModeShape, chopboxAnchorName);
@@ -243,20 +221,11 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
         final String labelTxt = mode.getName();
         
 		// Create label
-        final Shape labelShape = peCreateService.createShape(innerModeShape, true);
-        propertyService.setIsManuallyPositioned(labelShape, true);
-        link(labelShape, new AadlElementWrapper(mode));
-        final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
-        
-        // Create an anchor for the label otherwise there are issues creating mode transitions
-        anchorService.createOrUpdateChopboxAnchor(labelShape, chopboxAnchorName);
-        
-        // Set the size        
-        final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
-		final int width = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
-		gaService.setLocationAndSize(text, 0, 0, width, innerModeHeight);
-				
-		// Create the graphics algorithm
+        final Shape labelShape = labelService.createLabelShape(shape, nameShapeName, mode, labelTxt);
+        anchorService.createOrUpdateChopboxAnchor(labelShape, chopboxAnchorName);        
+        final int width = Math.max(100, labelShape.getGraphicsAlgorithm().getWidth() + 30); 
+
+		// Create the graphics algorithm for the inner mode shape
         final GraphicsAlgorithm modeGa = graphicsAlgorithmCreator.createModeGraphicsAlgorithm(innerModeShape, width, innerModeHeight);        
         gaService.setLocation(modeGa, 0, totalHeight - innerModeHeight);
         gaService.setLocationAndSize(ga, x, y, width, totalHeight);
