@@ -31,17 +31,36 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.ConnectionBindingConsistency": {
 				target.ConnectionBindingConsistency
 			}
-			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.PowerAnalysis": {
-				target.PowerAnalysis
-			}
 			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.PortDataConsistency": {
 				target.PortDataConsistency
 			}
 			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.MassAnalysis": {
 				target.MassAnalysis
 			}
+			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.BoundResourceAnalysis": {
+				target.BoundResourceAnalysis
+			}
+			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.PowerAnalysis": {
+				target.PowerAnalysis
+			}
+			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.ResourceBudget": {
+				target.ResourceBudget
+			}
+			
+			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.Binpack": {
+				target.Binpack
+			}
+			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.CheckSafety": {
+				target.CheckSafety
+			}
+			case "org.osate.verify.analysisplugins.AnalysisPluginInterface.CheckSecurity": {
+				target.CheckSecurity
+			}
+			//priority inversion
+			default: workspaceInvoke(vm, target)
+			
 		}
-		workspaceInvoke(vm, target)
+		
 	}
 
 	// invoke method in workspace project

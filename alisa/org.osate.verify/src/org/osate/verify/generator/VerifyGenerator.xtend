@@ -71,6 +71,7 @@ class «vl.name» {
 			org.junit.Assert.assertTrue(«va.method.methodPath»(ci));
 		}
 		'''
+		//mnam need more code
 	}
 	
 	
@@ -79,7 +80,7 @@ class «vl.name» {
 		for (el : vf.content) result.append(el.generate)
 		result.toString
 	}
-	
+	 
 	def dispatch String generateImports(VerificationActivity va){
 		val themethod = va.method?.methodPath
 		if (themethod != null && addedImports.add(themethod)) {
