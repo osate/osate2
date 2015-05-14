@@ -4,7 +4,7 @@ e[ReqSpec] is a notation for specifying e[stakeholder goals] and e[system requir
 created in files with the extension e[reqspec].
 
 Stakeholder goals represent the interests of stakeholders, also known as stakeholder requirements.
-They may be specified ambiguously, may ot be verifiable, and
+They may be specified ambiguously, may not be verifiable, and
 may be in conflict with each other. We use the term e[goal] to refer to the concept of stakeholder requirements. 
 
 System requirements represent a system specification that becomes a contract that system implementation
@@ -30,20 +30,20 @@ A e[goal] construct has the following syntax:
 code[ReqSpec][
 <Goal>::=
 goal goalname
-	( :  "short descriptive title" )?
-	( for ( ComponentElement | "Target description" | Classifier item ComponentElement ) )?
-	\[  
-	 (category ( safety )+ )?
-	 (description  "one or more lines of descriptoive text" )? 
-	 (rationale "explanation" )? 
-	 (refines ( goalsx.goal1 )+ )? 
-	 (conflicts with goalsx.goal15 )+)? 
-	 (stakeholder  ( SEI.Feiler )+ )?
-	 (see document requirement ( ReqDoc.Req14 )+)?
-	 (see document ( filepath/file.doc#path.within.doc )+)? 
-	 ( <change Uncertainty> )?  
-	 (issues ("explanation")+ )? 
-	\]
+    ( :  "short descriptive title" )?
+    ( for ( ComponentElement | "Target description" | Classifier item ComponentElement ) )?
+    \[  
+     (category ( safety )+ )?
+     (description  "one or more lines of descriptoive text" )? 
+     (rationale "explanation" )? 
+     (refines ( goalsx.goal1 )+ )? 
+     (conflicts with goalsx.goal15 )+)? 
+     (stakeholder  ( SEI.Feiler )+ )?
+     (see document requirement ( ReqDoc.Req14 )+)?
+     (see document ( filepath/file.doc#path.within.doc )+)? 
+     ( <change Uncertainty> )?  
+     (issues ("explanation")+ )? 
+    \]
 ]
 
 e[Note:] The items declared between the square brackets can be specified in any order.
@@ -52,7 +52,7 @@ ul[
 item[The e[for] attribute either points to an element in an AADL component classifier (the classifier
 itself is identified in the enclosing container), to a component classifier and an element, or it provides a string description of the target of
 the goal. If absent the goal applies to any system component.]
-item[The e[category] attribute identifies one or more requirment categories. Requirement categories are user-definable
+item[The e[category] attribute identifies one or more requirement categories. Requirement categories are user-definable
 and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
 ]
 item[The e[description] attribute allows user to provide a description that spans multiple lines. The description consists of a sequence of strings,
@@ -64,7 +64,7 @@ is being refined by the given goal. The referenced goal
 is identified by its qualified name.]
 item[The e[conflicts with] attribute identifies goals this goal conflicts with. The references uses a
 qualified name.]
-item[The e[stakeholder] attribute refers to a steakholder. Stakeholders are defined in a separate files
+item[The e[stakeholder] attribute refers to a stakeholder. Stakeholders are defined in a separate files
 using the e[organization] notation. The stakeholder is qualified by the organization name.]
 item[The e[see document requirement] attribute identifies a stakeholder requirement in an imported stakeholder
 requirement document.]
@@ -86,25 +86,25 @@ A e[requirement] construct has the following syntax:
 code[ReqSpec][
 <Requirement> ::=
 requirement reqname
-	( :  "short descriptive title" )?
-	( for ( ComponentElement | "Target description" | Classifier item ComponentElement ) )?
-	\[  
-	 (category ( safety )+ )?
-	 (description  this " shall not exceed " limit%sec " latency")? 
-	 (val limit = 200 ms )* 
-	 (val latencyLimit as Timning_Properties::MaxLatency )* 
-	 (compute actualbudget )*
-	 ( <Requirement Predicate> )*
-	 (rationale "explanation")? 
-	 (mitigates ( model.hazard3 )+ )? 
-	 (refines ( reqsx.req1 )+ )? 
-	 (see goal (goalsx.goal2 )+ )?
-	 (see document goal ( GoalsDoc.goal12 )+)?
-	 (see document requirement ( ReqDoc.Req14 )+)?
-	 (see document ( filepath/file.doc#path.within.doc )+)? 
-	 ( <change Uncertainty> )?  
-	 (issues ("explanation")+ )? 
-	\]
+    ( :  "short descriptive title" )?
+    ( for ( ComponentElement | "Target description" | Classifier item ComponentElement ) )?
+    \[  
+     (category ( safety )+ )?
+     (description  this " shall not exceed " limit%sec " latency")? 
+     (val limit = 200 ms )* 
+     (val latencyLimit as Timning_Properties::MaxLatency )* 
+     (compute actualbudget )*
+     ( <Requirement Predicate> )*
+     (rationale "explanation")? 
+     (mitigates ( model.hazard3 )+ )? 
+     (refines ( reqsx.req1 )+ )? 
+     (see goal (goalsx.goal2 )+ )?
+     (see document goal ( GoalsDoc.goal12 )+)?
+     (see document requirement ( ReqDoc.Req14 )+)?
+     (see document ( filepath/file.doc#path.within.doc )+)? 
+     ( <change Uncertainty> )?  
+     (issues ("explanation")+ )? 
+    \]
 ]
 
 e[Note:] The items declared between the square brackets can be specified in any order.
@@ -113,7 +113,7 @@ ul[
 item[The e[for] attribute either points to an element in an AADL component classifier (the classifier
 itself is identified in the enclosing container), to a component classifier and an element, or it provides a string description of the target of
 the goal. If absent the goal applies to any system component.]
-item[The e[category] attribute identifies one or more requirment category. Requirement categories are user-definable
+item[The e[category] attribute identifies one or more requirement category. Requirement categories are user-definable
 and existing category definitions are extensible (see ref:ReqCategory[User-definable Requirement Categories]).
 ]
 item[The e[description] attribute allows user to provide a description that spans multiple lines. The description consists of a sequence of strings,
@@ -126,11 +126,11 @@ optionally with measurement unit, ranges, a string, or a references to an AADL p
 in the predicate of the e[assertions] or in the e[description].
 ]
 item[The e[compute] field allows users to introduce variables whose value will be computed by a verification
-method that is identified in a verificaiton activity declaration. This variable can then be referenced in assertion expressions.]
+method that is identified in a verification activity declaration. This variable can then be referenced in assertion expressions.]
 item[The e[rationale] attributes is a multi line text field]
 item[The e[mitigates] attributes specifies a reference to a hazard expressed in EMV2 that is being mitigated
 by the requirement.]
-item[The e[refines] attribute is a list of one or more references to other requirements of the same component that this requirement refines. The prupose of requirement refinement is to achieve a verifable requirement specification.
+item[The e[refines] attribute is a list of one or more references to other requirements of the same component that this requirement refines. The purpose of requirement refinement is to achieve a verifiable requirement specification.
 The referenced requirement is identified by its qualified name.]
 item[The e[see goal] attributes provides traceability to stakeholder goals expressed in ALRS form that relate to the requirement.]
 item[The e[see document goal] attribute refers to a stakeholder goal documented in a stakeholder requirement
@@ -145,12 +145,12 @@ item[The e[issues] attribute allows users to record issues as a sequence of stri
 
 code[ReqSpec][
 <Requirement Predicate> ::=
-	assert "informal specification"
-	| assert value  <expression involving constant e[val] and e[compute] variables>
-	| input assumption <agree styl Xbase expression or e[as] reference into Agree subclause>
-	| output guarantee <agree styl Xbase expression or e[as] reference into Agree subclause>
-	| assert invariant <agree style Xbase expression or e[as] reference into Agree subclause>
-	| assert predicate <general XBase expression>
+    assert "informal specification"
+    | assert value  <expression involving constant e[val] and e[compute] variables>
+    | input assumption <agree styl Xbase expression or e[as] reference into Agree subclause>
+    | output guarantee <agree styl Xbase expression or e[as] reference into Agree subclause>
+    | assert invariant <agree style Xbase expression or e[as] reference into Agree subclause>
+    | assert predicate <general XBase expression>
 ]
 
 We distinguish between different types of assertions.
@@ -162,13 +162,13 @@ item[The e[assert value] assertion specifies a condition that a computed value m
 this is used to specify that some computed numeric value, e.g., end to end latency, stays within limits.
 Users can refer to the e[val] constants and e[compute] variables of the requirement or its enclosing
 requirement specification container. If the computed value is to be within a range users can specify
-the range condition as follows: e[ minval..maxval.contains(actual)]. Otherwise esxpressions with comparison
+the range condition as follows: e[ minval..maxval.contains(actual)]. Otherwise expressions with comparison
 operators can be used. The syntax currently allows the user to specify any e[XBase] expression. ]
 
 item[The e[assert value] expression may optionally include a mapping of e[val] constants to AADL properties
 to reflect the fact that this constant is expected to be represent in the model by this property. This
 is useful if an analysis (verification) method expects to find the data reflected as property. e[note:]
-this may move to the verificication activity as an assumption. ]
+this may move to the verification activity as an assumption. ]
 
 item[The e[input assumption] assertion represents assumptions made about incoming information. Users
 can express these assumptions as an e[XBase]
@@ -192,7 +192,7 @@ the architecture model using the architecture-led requirement specification proc
 
 section:RequirementDocuments[Requirement Documents]
 
-Users can import existing stakeholder requirment and system requirement documents. Users can also create
+Users can import existing stakeholder requirement and system requirement documents. Users can also create
 goals and requirements following the structure of a requirement document.
 
 The following constructs are available to represent such requirement documents. e[ReqDocument] represents
@@ -204,8 +204,8 @@ code[ReqSpec][
 document docname ( : "myTitle")?
  (description MultiLineString)? 
 \[ 
-	<DocumentSection>
-	 (issues ("explanation")+ )? 
+    <DocumentSection>
+     (issues ("explanation")+ )? 
 \]
 
 
@@ -213,7 +213,7 @@ document docname ( : "myTitle")?
 section section1 ( : "my title")?
  (description Description)? 
 \[  
-	( <Goal> | <Requirement> |  <DocumentSection> )+ )*
+    ( <Goal> | <Requirement> |  <DocumentSection> )+ )*
 \]
 ]
 
@@ -238,14 +238,14 @@ stakeholder goals SysGoals (':' "short title" )?
 ( for ( mypack::GPSDevice | "Target description" | all ) )?
  (description Description)? 
 \[ 
-	( <GoalFolder> | <Goal> )*
-	 (issues ("explanation")+ )? 
+    ( <GoalFolder> | <Goal> )*
+     (issues ("explanation")+ )? 
 \]
 
 <Goalfolder> ::=
 folder name (':' "my title text")?
 \[ 
-	( <Goal>< |  GoalFolder> )*
+    ( <Goal>< |  GoalFolder> )*
 \]
 ]
 
@@ -259,22 +259,22 @@ requirement specification Sysspec (':' "short title" )?
 ( include ( Sysspec1 )+ )?
 (description Description)? 
 \[ 
-	(val ( limit = 200 ms )+ )?
-	(compute actualbudget )*
-	( <ReqFolder> | <Requirement> )*
-	 (issues ("explanation")+ )? 
+    (val ( limit = 200 ms )+ )?
+    (compute actualbudget )*
+    ( <ReqFolder> | <Requirement> )*
+     (issues ("explanation")+ )? 
 \]
 
 <Reqfolder> ::=
 folder name (':' "my title text")?
 \[ 
-	( <ReqFolder> |  <Requirement> )*
+    ( <ReqFolder> |  <Requirement> )*
 \]
 ]
 
 ul[
 item[e[include] identifies other requirement specifications for the target component. It allows users
-to identify requirements that are kept in separate ReqSpecs declaraiton to be part of a set of system
+to identify requirements that are kept in separate ReqSpecs declaration to be part of a set of system
 requirements.]
 item[e[val] and e[compute] variables can be defined to be applicable to all requirement declarations
 in a given system requirement specification.]]
@@ -285,36 +285,36 @@ code[ReqSpec][
 requirement specification scsreqs 
 for resourcebudgets::SCS 
 \[ 
-	val MaxBudget = 400 kg
-	val MaxLatency = 50ms
-	compute ActualBudget
-	compute ActualLatency
-	requirement R1 \[
-		description this " shall have a budget within " Maxbudget
-		assert value ActualBudget <= MaxBudget
-	\]
-	requirement R2 \[
-		description "Response time shall be within " MaxLatency
-		assert value ActualLatency <= MaxLatency
-	\]
+    val MaxBudget = 400 kg
+    val MaxLatency = 50ms
+    compute ActualBudget
+    compute ActualLatency
+    requirement R1 \[
+        description this " shall have a budget within " Maxbudget
+        assert value ActualBudget <= MaxBudget
+    \]
+    requirement R2 \[
+        description "Response time shall be within " MaxLatency
+        assert value ActualLatency <= MaxLatency
+    \]
 \]
 ]
 
 section:ReqCategory[User Definable Requirement Categories]
 
-Requirement categories are defined through the CateGory specificaiton notation. These specifications are
+Requirement categories are defined through the CateGory specification notation. These specifications are
 created in files with the extension @e[cat].
 
 code[Categories][
 <RequirementCategories> ::=
-	requirement categories 
-	\[ 
-		<RequirementCategory>+
-	\]
+    requirement categories 
+    \[ 
+        <RequirementCategory>+
+    \]
 
 <RequirementCategory> :
-	dependeability
-	safety ( extends dependability )? 
+    dependability
+    safety ( extends dependability )? 
 ]
 
 Requirement categories must have globally unique names. References to a category do not have to be qualified.
@@ -326,23 +326,23 @@ section:Stakeholders[Stakeholders and Their Organization]
 
 The e[organization] notations allows user to define organizations and stakeholders that belong to organizations.
 Stakeholder names must be unique within an organization. Stakeholders are referenced by qualifying them
-with the orgnaization name.
+with the organization name.
 
 code[Organization][
 <Organization>::=
-	organization SEI
-	<Stakeholder>+
+    organization SEI
+    <Stakeholder>+
 
 <Stakeholder> ::=
-	stakeholder phf
-	\[
-		( full name  "Peter Feiler" )?
-		( title  "Chief Engineer" )?
-		( description  "my job is ..." )?
-		( role "reviewer" )?
-		( email "phf@sei.cmu.edu" )?
-		( phone  "412-268-7790" )?
-	\] 
+    stakeholder phf
+    \[
+        ( full name  "Peter Feiler" )?
+        ( title  "Chief Engineer" )?
+        ( description  "my job is ..." )?
+        ( role "reviewer" )?
+        ( email "phf@sei.cmu.edu" )?
+        ( phone  "412-268-7790" )?
+    \] 
 ]
 
 Organizations must have globally unique names. At this time only single identifiers without spaces are
@@ -351,3 +351,20 @@ supported.
 At this time the name used after the stakeholder keyword must be unique within an organization. This
 is the name to be referenced. 
  
+
+section:Validity[Validation approaches]
+
+We validate ReqSpec in three ways (supported by XText):
+ul[
+item[FAST: is executed after a delay of 500ms after ANY editing action (type, enter, delete)]
+item[NORMAL: is executed after a build (Project -> Build project), typically on an explicit save.]
+item[EXPENSIVE: is executed by right clicking ANYWHERE in the editor window and choosing "Validate"]
+]
+
+section2:Checks[Types of Checks]
+
+ul[
+	item[code[Java][checkMissingGoal] and checkMissingStakeholder: ensure these elements are present, WARN if not. ]
+	item[checkMultipleSystems: check if a spec refers to multiple AADL classifiers, warn if true. ]
+	item[Unique Names: make sure ids are not duplicated.]
+]

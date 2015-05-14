@@ -45,7 +45,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	def void checkMissingGoal(Requirement req) {
 		if (req.goalReference.empty  && req.stakeholderRequirementReference.empty) {
 			if (req.refinesReference.empty){ 
-			warning('System requirement should have stakeholder goal', 
+			warning('System requirement should have stakeholder goal or requirement reference', 
 					ReqSpecPackage.Literals.REQUIREMENT__GOAL_REFERENCE,
 					MISSING_STAKEHOLDER_GOAL)
 			} else {
@@ -53,8 +53,9 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 			}		
 		}
 	}
+
 	
-		@Check//(CheckType.EXPENSIVE)
+	@Check//(CheckType.EXPENSIVE)
 	def void checkMultipleSystems(ReqDocument reqdoc) {
 		val syslist = new BasicEList<Classifier>
 		reqdoc.content.forEach[e | if (e instanceof ContractualElement) syslist += e.targetClassifier]
