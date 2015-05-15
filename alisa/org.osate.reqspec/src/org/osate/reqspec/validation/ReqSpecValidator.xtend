@@ -88,7 +88,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		if (fealist.size < cl.getAllFeatures.size){
 			val cls = fealist.map[name].reduce[p1, p2| p1 + ' ' + p2]
 			warning('Requirements cover multiple classifiers: '+cls, 
-					ReqSpecPackage.Literals.REQ_SPEC__CONTENTS,
+					ReqSpecPackage.Literals.REQ_SPEC__PARTS,
 					FEATURES_WITHOUT_REQUIREMENT)
 		}
 	}

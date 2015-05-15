@@ -3,12 +3,12 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.reqspec/src-gen" editDirectory="/org.osate.reqspec.edit/src"
     editorDirectory="/org.osate.reqspec.editor/src" modelPluginID="org.osate.reqspec"
     forceOverwrite="true" modelName="ReqSpec" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.reqspec.edit"
-    editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.reqspec.edit"
+    editorPluginID="org.osate.reqspec.editor" runtimeVersion="2.10" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.organization/model/generated/Organization.genmodel#//organization">
   <genPackages prefix="ReqSpec" basePackage="org.osate.reqspec" disposableProviderFactory="true"
       fileExtensions="reqspec" ecorePackage="ReqSpec.ecore#/">
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpec">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpec/contents"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpec/parts"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqSpecContainer"/>
     <genClasses ecoreClass="ReqSpec.ecore#//ContractualElement">

@@ -45,7 +45,7 @@ class ReqSpecTests {
 		          ]
 	          ]
 	      '''.parse
-	      val entity = model.contents.get(0);
+	      val entity = model.parts.get(0);
 	      //println(entity)
       }
       

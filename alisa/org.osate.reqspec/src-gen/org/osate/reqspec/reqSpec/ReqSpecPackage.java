@@ -67,13 +67,13 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPEC = 0;
 
   /**
-   * The feature id for the '<em><b>Contents</b></em>' containment reference list.
+   * The feature id for the '<em><b>Parts</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPEC__CONTENTS = 0;
+  int REQ_SPEC__PARTS = 0;
 
   /**
    * The number of structural features of the '<em>Req Spec</em>' class.
@@ -1276,15 +1276,15 @@ public interface ReqSpecPackage extends EPackage
   EClass getReqSpec();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpec#getContents <em>Contents</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpec#getParts <em>Parts</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Contents</em>'.
-   * @see org.osate.reqspec.reqSpec.ReqSpec#getContents()
+   * @return the meta object for the containment reference list '<em>Parts</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqSpec#getParts()
    * @see #getReqSpec()
    * @generated
    */
-  EReference getReqSpec_Contents();
+  EReference getReqSpec_Parts();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqSpecContainer <em>Container</em>}'.
@@ -2247,12 +2247,12 @@ public interface ReqSpecPackage extends EPackage
     EClass REQ_SPEC = eINSTANCE.getReqSpec();
 
     /**
-     * The meta object literal for the '<em><b>Contents</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REQ_SPEC__CONTENTS = eINSTANCE.getReqSpec_Contents();
+    EReference REQ_SPEC__PARTS = eINSTANCE.getReqSpec_Parts();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqSpecContainerImpl <em>Container</em>}' class.

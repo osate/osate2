@@ -27,7 +27,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecImpl#getContents <em>Contents</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecImpl#getParts <em>Parts</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,14 +36,14 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
 public class ReqSpecImpl extends MinimalEObjectImpl.Container implements ReqSpec
 {
   /**
-   * The cached value of the '{@link #getContents() <em>Contents</em>}' containment reference list.
+   * The cached value of the '{@link #getParts() <em>Parts</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getContents()
+   * @see #getParts()
    * @generated
    * @ordered
    */
-  protected EList<EObject> contents;
+  protected EList<EObject> parts;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,13 +71,13 @@ public class ReqSpecImpl extends MinimalEObjectImpl.Container implements ReqSpec
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getContents()
+  public EList<EObject> getParts()
   {
-    if (contents == null)
+    if (parts == null)
     {
-      contents = new EObjectContainmentEList<EObject>(EObject.class, this, ReqSpecPackage.REQ_SPEC__CONTENTS);
+      parts = new EObjectContainmentEList<EObject>(EObject.class, this, ReqSpecPackage.REQ_SPEC__PARTS);
     }
-    return contents;
+    return parts;
   }
 
   /**
@@ -90,8 +90,8 @@ public class ReqSpecImpl extends MinimalEObjectImpl.Container implements ReqSpec
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQ_SPEC__CONTENTS:
-        return ((InternalEList<?>)getContents()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQ_SPEC__PARTS:
+        return ((InternalEList<?>)getParts()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -106,8 +106,8 @@ public class ReqSpecImpl extends MinimalEObjectImpl.Container implements ReqSpec
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQ_SPEC__CONTENTS:
-        return getContents();
+      case ReqSpecPackage.REQ_SPEC__PARTS:
+        return getParts();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -123,9 +123,9 @@ public class ReqSpecImpl extends MinimalEObjectImpl.Container implements ReqSpec
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQ_SPEC__CONTENTS:
-        getContents().clear();
-        getContents().addAll((Collection<? extends EObject>)newValue);
+      case ReqSpecPackage.REQ_SPEC__PARTS:
+        getParts().clear();
+        getParts().addAll((Collection<? extends EObject>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -141,8 +141,8 @@ public class ReqSpecImpl extends MinimalEObjectImpl.Container implements ReqSpec
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQ_SPEC__CONTENTS:
-        getContents().clear();
+      case ReqSpecPackage.REQ_SPEC__PARTS:
+        getParts().clear();
         return;
     }
     super.eUnset(featureID);
@@ -158,8 +158,8 @@ public class ReqSpecImpl extends MinimalEObjectImpl.Container implements ReqSpec
   {
     switch (featureID)
     {
-      case ReqSpecPackage.REQ_SPEC__CONTENTS:
-        return contents != null && !contents.isEmpty();
+      case ReqSpecPackage.REQ_SPEC__PARTS:
+        return parts != null && !parts.isEmpty();
     }
     return super.eIsSet(featureID);
   }
