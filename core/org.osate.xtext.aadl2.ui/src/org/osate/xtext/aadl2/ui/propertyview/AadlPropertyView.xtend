@@ -958,7 +958,7 @@ class AadlPropertyView extends ViewPart {
 		if (selection instanceof PackageSection) {
 			return selection as PackageSection
 		} 
-		else {
+		else if (selection instanceof Element){
 			var owner = (selection as Element).getOwner()
 			if (owner != null) {
 				getPackageSection(owner)
