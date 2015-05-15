@@ -46,7 +46,7 @@ public class DistributeHorizontallyAction extends SelectionAction {
 					PictogramElement[] pes = new PictogramElement[0];
 					editor.selectPictogramElements(pes);
 				}
-			});
+			});	
 	}
 
 	//Updates action being available based on how many pictograms are selected

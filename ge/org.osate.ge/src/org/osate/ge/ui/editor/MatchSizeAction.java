@@ -13,7 +13,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 
-public class MatchSizeAction extends SelectionAction {
+public class MatchSizeAction extends SelectionAction {	
 	final private AgeDiagramEditor editor;
 	private ResizeShapeContext resizeContext;
 	private ArrayList<ResizeShapeContext> resizeContextList;

@@ -18,7 +18,7 @@ import org.osate.ge.Activator;
 public class DistributeVerticallyAction extends SelectionAction {
 	private AgeDiagramEditor editor;
 	private PictogramElement[] pes;
-	private MoveShapeContext moveContext;
+	private MoveShapeContext moveContext;	
 	private IMoveShapeFeature moveFeature;
 	private ArrayList<MoveShapeContext> moveContextList;
 	private IFeatureProvider fp;
