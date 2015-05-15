@@ -95,7 +95,7 @@
         </page>
         <page
               category="org.osate.alisa.common.Common"
-              class="org.osate.alisa.workbench.ui.WorkbenchPreferencePage1"
+              class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
               id="org.osate.alisa.workbench.ui.Workbench"
               name="Workbench">
         </page>
