@@ -1,8 +1,10 @@
 package org.osate.xtext.aadl2.errormodel.naming;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
@@ -20,7 +22,12 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 		if (obj instanceof ErrorBehaviorStateMachine || obj instanceof TypeMappingSet
 				|| obj instanceof ErrorModelLibrary || obj instanceof ErrorType || obj instanceof TypeSet
 				|| obj instanceof TypeTransformationSet) {
-			if (((NamedElement) obj).getName() == null) {
+			/*
+			 * It is important that we return null if obj is not in an AadlPackage.  This happens when serializing an aadl file
+			 * with an error model annex.  See EMV2AnnexUnparser.  If this check is not here, then a ClassCastException occurs
+			 * during serialization.
+			 */
+			if (((NamedElement) obj).getName() == null || EcoreUtil2.getContainerOfType(obj, AadlPackage.class) == null) {
 				return null;
 			}
 			return getConverter().toQualifiedName(getTheName((NamedElement) obj));
@@ -31,9 +38,8 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 	protected String getTheName(NamedElement namedElement) {
 		NamedElement root = namedElement.getElementRoot();
 		if (namedElement instanceof ErrorModelLibrary) {
-			return root.getName() + "::" + "emv2";
+			return "emv2$" + root.getName();
 		}
-		return root.getName() + "::emv2::" + namedElement.getName();
+		return "emv2$" + root.getName() + "::" + namedElement.getName();
 	}
-
 }
