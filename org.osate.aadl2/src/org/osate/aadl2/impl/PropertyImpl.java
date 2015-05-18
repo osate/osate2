@@ -68,6 +68,7 @@ import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.properties.PropertyEvaluationResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -512,7 +513,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	}
 
 	@Override
-	public List<EvaluatedProperty> evaluate(EvaluationContext ctx) {
+	public PropertyEvaluationResult evaluate(EvaluationContext ctx) {
 		List<PropertyAssociation> pas = getPropertyValue(ctx).getAssociations();
 		List<EvaluatedProperty> vals = new LinkedList<EvaluatedProperty>();
 
@@ -524,7 +525,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 				break;
 			}
 		}
-		return vals;
+		return new PropertyEvaluationResult(pas.isEmpty() ? null : pas.get(0), vals);
 	}
 
 	private PropertyAcc getPropertyValue(EvaluationContext ctx) throws IllegalStateException, InvalidModelException,
