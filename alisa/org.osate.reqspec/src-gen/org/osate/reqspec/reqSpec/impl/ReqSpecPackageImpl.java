@@ -274,7 +274,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getReqSpec_Contents()
+  public EReference getReqSpec_Parts()
   {
     return (EReference)reqSpecEClass.getEStructuralFeatures().get(0);
   }
@@ -1170,7 +1170,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     // Create classes and their features
     reqSpecEClass = createEClass(REQ_SPEC);
-    createEReference(reqSpecEClass, REQ_SPEC__CONTENTS);
+    createEReference(reqSpecEClass, REQ_SPEC__PARTS);
 
     reqSpecContainerEClass = createEClass(REQ_SPEC_CONTAINER);
 
@@ -1335,7 +1335,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
 
     // Initialize classes and features; add operations and parameters
     initEClass(reqSpecEClass, ReqSpec.class, "ReqSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getReqSpec_Contents(), theEcorePackage.getEObject(), null, "contents", null, 0, -1, ReqSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReqSpec_Parts(), theEcorePackage.getEObject(), null, "parts", null, 0, -1, ReqSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(reqSpecContainerEClass, ReqSpecContainer.class, "ReqSpecContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

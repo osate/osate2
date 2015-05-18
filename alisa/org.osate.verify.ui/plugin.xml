@@ -80,9 +80,10 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.osate.verify.ui.VerifyExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.osate.verify.Verify"
-            name="Verify">
+              category="org.osate.alisa.common.Common"
+              class="org.osate.verify.ui.VerifyExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+              id="org.osate.verify.Verify"
+              name="Verify">
             <keywordReference id="org.osate.verify.ui.keyword_Verify"/>
         </page>
         <page

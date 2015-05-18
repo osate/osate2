@@ -22,33 +22,32 @@ import com.google.inject.Module;
  * introduced subclass. 
  */
 public class ReqSpecActivator extends AbstractUIPlugin {
-
+	
 	public static final String ORG_OSATE_REQSPEC_REQSPEC = "org.osate.reqspec.ReqSpec";
-
+	
 	private static final Logger logger = Logger.getLogger(ReqSpecActivator.class);
-
+	
 	private static ReqSpecActivator INSTANCE;
-
-	private Map<String, Injector> injectors = Collections.synchronizedMap(Maps
-			.<String, Injector> newHashMapWithExpectedSize(1));
-
+	
+	private Map<String, Injector> injectors = Collections.synchronizedMap(Maps.<String, Injector> newHashMapWithExpectedSize(1));
+	
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		INSTANCE = this;
 	}
-
+	
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		injectors.clear();
 		INSTANCE = null;
 		super.stop(context);
 	}
-
+	
 	public static ReqSpecActivator getInstance() {
 		return INSTANCE;
 	}
-
+	
 	public Injector getInjector(String language) {
 		synchronized (injectors) {
 			Injector injector = injectors.get(language);
@@ -58,7 +57,7 @@ public class ReqSpecActivator extends AbstractUIPlugin {
 			return injector;
 		}
 	}
-
+	
 	protected Injector createInjector(String language) {
 		try {
 			Module runtimeModule = getRuntimeModule(language);
@@ -77,20 +76,20 @@ public class ReqSpecActivator extends AbstractUIPlugin {
 		if (ORG_OSATE_REQSPEC_REQSPEC.equals(grammar)) {
 			return new org.osate.reqspec.ReqSpecRuntimeModule();
 		}
-
+		
 		throw new IllegalArgumentException(grammar);
 	}
-
+	
 	protected Module getUiModule(String grammar) {
 		if (ORG_OSATE_REQSPEC_REQSPEC.equals(grammar)) {
 			return new org.osate.reqspec.ui.ReqSpecUiModule(this);
 		}
-
+		
 		throw new IllegalArgumentException(grammar);
 	}
-
+	
 	protected Module getSharedStateModule() {
 		return new SharedStateModule();
 	}
-
+	
 }

@@ -80,24 +80,24 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.osate.alisa.workbench.Alisa"
-            name="Alisa">
-            <keywordReference id="org.osate.alisa.workbench.ui.keyword_Alisa"/>
-        </page>
-        <page
-            category="org.osate.alisa.workbench.Alisa"
+            category="org.osate.alisa.workbench.ui.Workbench"
             class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
             id="org.osate.alisa.workbench.Alisa.coloring"
             name="Syntax Coloring">
             <keywordReference id="org.osate.alisa.workbench.ui.keyword_Alisa"/>
         </page>
         <page
-            category="org.osate.alisa.workbench.Alisa"
+            category="org.osate.alisa.workbench.ui.Workbench"
             class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
             id="org.osate.alisa.workbench.Alisa.templates"
             name="Templates">
             <keywordReference id="org.osate.alisa.workbench.ui.keyword_Alisa"/>
+        </page>
+        <page
+              category="org.osate.alisa.common.Common"
+              class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+              id="org.osate.alisa.workbench.ui.Workbench"
+              name="Workbench">
         </page>
     </extension>
     <extension
@@ -328,7 +328,7 @@
    <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            category="org.osate.alisa.workbench.Alisa"
+            category="org.osate.alisa.workbench.ui.Workbench"
             class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.eclipse.xtext.builder.preferences.BuilderPreferencePage"
             id="org.osate.alisa.workbench.Alisa.compiler.preferencePage"
             name="Compiler">
@@ -438,7 +438,7 @@
    </extension>
    <extension point="org.eclipse.ui.preferencePages">
 	    <page
-	        category="org.osate.alisa.workbench.Alisa"
+	        category="org.osate.alisa.workbench.ui.Workbench"
 	        class="org.osate.alisa.workbench.ui.AlisaExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
 	        id="org.osate.alisa.workbench.Alisa.refactoring"
 	        name="Refactoring">

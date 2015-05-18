@@ -229,24 +229,24 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleReqSpec"
-    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:70:1: ruleReqSpec returns [EObject current=null] : ( ( (lv_contents_0_1= ruleReqSpecs | lv_contents_0_2= ruleStakeholderGoals | lv_contents_0_3= ruleReqDocument ) ) )+ ;
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:70:1: ruleReqSpec returns [EObject current=null] : ( ( (lv_parts_0_1= ruleReqSpecs | lv_parts_0_2= ruleStakeholderGoals | lv_parts_0_3= ruleReqDocument ) ) )+ ;
     public final EObject ruleReqSpec() throws RecognitionException {
         EObject current = null;
 
-        EObject lv_contents_0_1 = null;
+        EObject lv_parts_0_1 = null;
 
-        EObject lv_contents_0_2 = null;
+        EObject lv_parts_0_2 = null;
 
-        EObject lv_contents_0_3 = null;
+        EObject lv_parts_0_3 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:73:28: ( ( ( (lv_contents_0_1= ruleReqSpecs | lv_contents_0_2= ruleStakeholderGoals | lv_contents_0_3= ruleReqDocument ) ) )+ )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:74:1: ( ( (lv_contents_0_1= ruleReqSpecs | lv_contents_0_2= ruleStakeholderGoals | lv_contents_0_3= ruleReqDocument ) ) )+
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:73:28: ( ( ( (lv_parts_0_1= ruleReqSpecs | lv_parts_0_2= ruleStakeholderGoals | lv_parts_0_3= ruleReqDocument ) ) )+ )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:74:1: ( ( (lv_parts_0_1= ruleReqSpecs | lv_parts_0_2= ruleStakeholderGoals | lv_parts_0_3= ruleReqDocument ) ) )+
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:74:1: ( ( (lv_contents_0_1= ruleReqSpecs | lv_contents_0_2= ruleStakeholderGoals | lv_contents_0_3= ruleReqDocument ) ) )+
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:74:1: ( ( (lv_parts_0_1= ruleReqSpecs | lv_parts_0_2= ruleStakeholderGoals | lv_parts_0_3= ruleReqDocument ) ) )+
             int cnt2=0;
             loop2:
             do {
@@ -260,12 +260,12 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:75:1: ( (lv_contents_0_1= ruleReqSpecs | lv_contents_0_2= ruleStakeholderGoals | lv_contents_0_3= ruleReqDocument ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:75:1: ( (lv_parts_0_1= ruleReqSpecs | lv_parts_0_2= ruleStakeholderGoals | lv_parts_0_3= ruleReqDocument ) )
             	    {
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:75:1: ( (lv_contents_0_1= ruleReqSpecs | lv_contents_0_2= ruleStakeholderGoals | lv_contents_0_3= ruleReqDocument ) )
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:76:1: (lv_contents_0_1= ruleReqSpecs | lv_contents_0_2= ruleStakeholderGoals | lv_contents_0_3= ruleReqDocument )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:75:1: ( (lv_parts_0_1= ruleReqSpecs | lv_parts_0_2= ruleStakeholderGoals | lv_parts_0_3= ruleReqDocument ) )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:76:1: (lv_parts_0_1= ruleReqSpecs | lv_parts_0_2= ruleStakeholderGoals | lv_parts_0_3= ruleReqDocument )
             	    {
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:76:1: (lv_contents_0_1= ruleReqSpecs | lv_contents_0_2= ruleStakeholderGoals | lv_contents_0_3= ruleReqDocument )
+            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:76:1: (lv_parts_0_1= ruleReqSpecs | lv_parts_0_2= ruleStakeholderGoals | lv_parts_0_3= ruleReqDocument )
             	    int alt1=3;
             	    switch ( input.LA(1) ) {
             	    case Requirement:
@@ -293,15 +293,15 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             	    switch (alt1) {
             	        case 1 :
-            	            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:77:3: lv_contents_0_1= ruleReqSpecs
+            	            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:77:3: lv_parts_0_1= ruleReqSpecs
             	            {
             	            if ( state.backtracking==0 ) {
             	               
-            	              	        newCompositeNode(grammarAccess.getReqSpecAccess().getContentsReqSpecsParserRuleCall_0_0()); 
+            	              	        newCompositeNode(grammarAccess.getReqSpecAccess().getPartsReqSpecsParserRuleCall_0_0()); 
             	              	    
             	            }
             	            pushFollow(FollowSets000.FOLLOW_ruleReqSpecs_in_ruleReqSpec124);
-            	            lv_contents_0_1=ruleReqSpecs();
+            	            lv_parts_0_1=ruleReqSpecs();
 
             	            state._fsp--;
             	            if (state.failed) return current;
@@ -312,8 +312,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	              	        }
             	                     		add(
             	                     			current, 
-            	                     			"contents",
-            	                      		lv_contents_0_1, 
+            	                     			"parts",
+            	                      		lv_parts_0_1, 
             	                      		"ReqSpecs");
             	              	        afterParserOrEnumRuleCall();
             	              	    
@@ -322,15 +322,15 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 2 :
-            	            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:92:8: lv_contents_0_2= ruleStakeholderGoals
+            	            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:92:8: lv_parts_0_2= ruleStakeholderGoals
             	            {
             	            if ( state.backtracking==0 ) {
             	               
-            	              	        newCompositeNode(grammarAccess.getReqSpecAccess().getContentsStakeholderGoalsParserRuleCall_0_1()); 
+            	              	        newCompositeNode(grammarAccess.getReqSpecAccess().getPartsStakeholderGoalsParserRuleCall_0_1()); 
             	              	    
             	            }
             	            pushFollow(FollowSets000.FOLLOW_ruleStakeholderGoals_in_ruleReqSpec143);
-            	            lv_contents_0_2=ruleStakeholderGoals();
+            	            lv_parts_0_2=ruleStakeholderGoals();
 
             	            state._fsp--;
             	            if (state.failed) return current;
@@ -341,8 +341,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	              	        }
             	                     		add(
             	                     			current, 
-            	                     			"contents",
-            	                      		lv_contents_0_2, 
+            	                     			"parts",
+            	                      		lv_parts_0_2, 
             	                      		"StakeholderGoals");
             	              	        afterParserOrEnumRuleCall();
             	              	    
@@ -351,15 +351,15 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 3 :
-            	            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:107:8: lv_contents_0_3= ruleReqDocument
+            	            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:107:8: lv_parts_0_3= ruleReqDocument
             	            {
             	            if ( state.backtracking==0 ) {
             	               
-            	              	        newCompositeNode(grammarAccess.getReqSpecAccess().getContentsReqDocumentParserRuleCall_0_2()); 
+            	              	        newCompositeNode(grammarAccess.getReqSpecAccess().getPartsReqDocumentParserRuleCall_0_2()); 
             	              	    
             	            }
             	            pushFollow(FollowSets000.FOLLOW_ruleReqDocument_in_ruleReqSpec162);
-            	            lv_contents_0_3=ruleReqDocument();
+            	            lv_parts_0_3=ruleReqDocument();
 
             	            state._fsp--;
             	            if (state.failed) return current;
@@ -370,8 +370,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	              	        }
             	                     		add(
             	                     			current, 
-            	                     			"contents",
-            	                      		lv_contents_0_3, 
+            	                     			"parts",
+            	                      		lv_parts_0_3, 
             	                      		"ReqDocument");
             	              	        afterParserOrEnumRuleCall();
             	              	    

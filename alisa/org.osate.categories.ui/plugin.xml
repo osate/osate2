@@ -80,9 +80,10 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-            class="org.osate.categories.ui.CategoriesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
-            id="org.osate.categories.Categories"
-            name="Categories">
+              category="org.osate.alisa.common.Common"
+              class="org.osate.categories.ui.CategoriesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+              id="org.osate.categories.Categories"
+              name="Categories">
             <keywordReference id="org.osate.categories.ui.keyword_Categories"/>
         </page>
         <page
