@@ -35,6 +35,8 @@
 package org.osate.xtext.aadl2.serializer
 
 import com.google.inject.Inject
+import org.eclipse.core.runtime.IStatus
+import org.eclipse.core.runtime.Status
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
@@ -43,6 +45,7 @@ import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.annexsupport.AnnexRegistry
 import org.osate.annexsupport.AnnexUnparserRegistry
+import org.osate.xtext.aadl2.Activator
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
 class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
@@ -64,13 +67,17 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				// serialize if there is an unparser and the annex has been parsed
 				// otherwise use the original annex text
 				if (parsedLibrary != null && annexUnparser != null) {
-					val text = '''{**«annexUnparser.unparseAnnexLibrary(parsedLibrary, "  ")»**}'''
-					val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
-					domain.commandStack.execute(new RecordingCommand(domain) {
-						override protected doExecute() {
-							(semanticObject as DefaultAnnexLibrary).sourceText = text
-						}
-					})
+					try {
+						val text = '''{**«annexUnparser.unparseAnnexLibrary(parsedLibrary, "  ")»**}'''
+						val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
+						domain.commandStack.execute(new RecordingCommand(domain) {
+							override protected doExecute() {
+								(semanticObject as DefaultAnnexLibrary).sourceText = text
+							}
+						})
+					} catch (Exception e) {
+						Activator.^default.log.log(new Status(IStatus.ERROR, Activator.^default.bundle.symbolicName, '''Error while serializing «semanticObject.name» annex library''', e))
+					}
 				}
 				sequence_DefaultAnnexLibrary(context, semanticObject)
 			}
