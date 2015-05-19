@@ -485,39 +485,44 @@ class AadlPropertyView extends ViewPart {
 	}
 
 	def package boolean canEdit(Object element) {
-		safeRead[extension it|
-			switch treeElement : (element as TreeEntry).treeElement {
-				URI:
-					switch treeElementEObject : treeElement.getEObject(true) {
-						Property: {
-							val associationURI = cachedPropertyAssociations.get(
-								((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
-							getPropertyStatusNeverUndefined(associationURI) == PropertyStatus.LOCAL &&
-								!(associationURI.getEObject(true) as PropertyAssociation).modal
+		if (xtextDocument == null) {
+			false
+		} else {
+			safeRead[ extension it |
+				switch treeElement : (element as TreeEntry).treeElement {
+					URI:
+						switch treeElementEObject : treeElement.getEObject(true) {
+							Property: {
+								val associationURI = cachedPropertyAssociations.get(
+									((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
+								getPropertyStatusNeverUndefined(associationURI) == PropertyStatus.LOCAL &&
+									!(associationURI.getEObject(true) as PropertyAssociation).modal
+							}
+							BasicPropertyAssociation: {
+								val containingAssociation = treeElementEObject.getContainerOfType(PropertyAssociation)
+								getPropertyStatusNeverUndefined(containingAssociation) == PropertyStatus.LOCAL &&
+									!containingAssociation.modal
+							}
+							default:
+								false
 						}
-						BasicPropertyAssociation: {
-							val containingAssociation = treeElementEObject.getContainerOfType(PropertyAssociation)
-							getPropertyStatusNeverUndefined(containingAssociation) == PropertyStatus.LOCAL &&
-								!containingAssociation.modal
-						}
-						default:
-							false
+					RangeElement: {
+						val containingAssociation = (treeElement.expressionURI.getEObject(true) as PropertyExpression).
+							getContainerOfType(PropertyAssociation)
+						getPropertyStatusNeverUndefined(containingAssociation) == PropertyStatus.LOCAL &&
+							!containingAssociation.modal
 					}
-				RangeElement: {
-					val containingAssociation = (treeElement.expressionURI.getEObject(true) as PropertyExpression).
-						getContainerOfType(PropertyAssociation)
-					getPropertyStatusNeverUndefined(containingAssociation) == PropertyStatus.LOCAL &&
-						!containingAssociation.modal
+					ListElement: {
+						val containingAssociation = (treeElement.expressionURI.getEObject(true) as PropertyExpression).
+							getContainerOfType(PropertyAssociation)
+						getPropertyStatusNeverUndefined(containingAssociation) == PropertyStatus.LOCAL &&
+							!containingAssociation.modal
+					}
+					default:
+						false
 				}
-				ListElement: {
-					val containingAssociation = (treeElement.expressionURI.getEObject(true) as PropertyExpression).
-						getContainerOfType(PropertyAssociation)
-					getPropertyStatusNeverUndefined(containingAssociation) == PropertyStatus.LOCAL &&
-						!containingAssociation.modal
-				}
-				default:
-					false
-			}]
+			]
+		}
 	}
 
 	def package getInput() {
