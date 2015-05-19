@@ -7,24 +7,23 @@
         <ownedSubLines name="ReqSpecFolderLine" domainClass="reqSpec.ReqSpecFolder">
           <ownedSubLines name="FolderRequirement" domainClass="reqSpec.Requirement"/>
         </ownedSubLines>
+        <create name="CreateRequirement" label="Create Requirement" mapping="//@ownedViewpoints[name='ReqSpecViewPoint']/@ownedRepresentations[name='ReqSpecTable']/@ownedLineMappings[name='Requirements']/@ownedSubLines[name='RequirementLine']">
+          <variables name="root" documentation="The semantic element of the table."/>
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="container" documentation="The semantic element corresponding to the view container."/>
+          <firstModelOperation xsi:type="tool:ChangeContext" browseExpression="[element/]">
+            <subModelOperations xsi:type="tool:CreateInstance" typeName="reqSpec.Requirement" referenceName="content">
+              <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="newreq"/>
+              <subModelOperations xsi:type="tool:SetValue" featureName="title" valueExpression="requirement title"/>
+            </subModelOperations>
+          </firstModelOperation>
+        </create>
       </ownedLineMappings>
-      <ownedCreateLine>
-        <variables name="root" documentation="The semantic element of the table."/>
-        <variables name="element" documentation="The semantic currently edited element."/>
-        <variables name="container" documentation="The semantic element corresponding to the view container."/>
-      </ownedCreateLine>
-      <ownedCreateLine name="CreateLine" forceRefresh="true" mapping="//@ownedViewpoints[name='ReqSpecViewPoint']/@ownedRepresentations[name='ReqSpecTable']/@ownedLineMappings[name='Requirements']/@ownedSubLines[name='RequirementLine']">
-        <variables name="root" documentation="The semantic element of the table."/>
-        <variables name="element" documentation="The semantic currently edited element."/>
-        <variables name="container" documentation="The semantic element corresponding to the view container."/>
-        <firstModelOperation xsi:type="tool:ChangeContext" browseExpression="var:element">
-          <subModelOperations xsi:type="tool:CreateInstance" typeName="reqSpec.Requirement" referenceName="content">
-            <subModelOperations xsi:type="tool:SetValue" featureName="title" valueExpression="mytitle"/>
-          </subModelOperations>
-        </firstModelOperation>
-      </ownedCreateLine>
-      <ownedColumnMappings name="TitleColumn" featureName="title"/>
-      <ownedColumnMappings name="GoalColumn" featureName="goalReference"/>
+      <ownedColumnMappings name="NameColumn" headerLabelExpression="Name" featureName="name"/>
+      <ownedColumnMappings name="TitleColumn" label="Title" headerLabelExpression="Title" featureName="title"/>
+      <ownedColumnMappings name="DescriptionColumn" label="Description" headerLabelExpression="Description" featureName="description" labelExpression="[self.description.description->first().text/]"/>
+      <ownedColumnMappings name="GoalColumn" label="Goal" headerLabelExpression="Goal" featureName="goalReference" labelExpression="[self.goalReference.name/]"/>
+      <ownedColumnMappings name="RefineColumn" label="Refine" headerLabelExpression="Refines" featureName="refinesReference" labelExpression="[self.refinesReference.name/]"/>
     </ownedRepresentations>
   </ownedViewpoints>
 </description:Group>
