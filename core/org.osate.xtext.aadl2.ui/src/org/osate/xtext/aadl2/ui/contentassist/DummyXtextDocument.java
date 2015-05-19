@@ -19,6 +19,11 @@ public class DummyXtextDocument extends DummyDocument implements IXtextDocument 
 	}
 
 	@Override
+	public boolean containsPositionCategory(String category) {
+		return true;
+	}
+
+	@Override
 	public String[] getPartitionings() {
 		throw new UnsupportedOperationException();
 	}
