@@ -25,10 +25,6 @@ Use of the Open Source AADL Tool Environment (OSATE) is subject
 to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
    </license>
 
-   <url>
-      <discovery label="OSATE Updates" url="http://la.sei.cmu.edu/aadlinfosite/OSATEUpdateSite/"/>
-   </url>
-
    <requires>
       <import plugin="org.osate.aadl2"/>
       <import plugin="org.osate.ui"/>
@@ -107,7 +103,7 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
    <plugin
          id="org.osate.analysis.lute"
          download-size="0"
@@ -156,13 +152,14 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.osate.importer.scade"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-                  
+
    <plugin
          id="org.osate.importer.simulink"
          download-size="0"
@@ -176,4 +173,5 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
 </feature>
