@@ -76,6 +76,68 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<id>update-branding-plugins-about.mappings</id>
+			<activation>
+				<file>
+					<exists>${basedir}/about.mappings</exists>
+				</file>
+			</activation>
+			<properties>
+			<build.version>${project.parent.version}</build.version>
+			<build.date>${maven.build.timestamp}</build.date>
+			<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>2.4.3</version>
+						<executions>
+							<execution>
+								<id>process-about.mappings</id>
+								<phase>prepare-package</phase>
+								<configuration>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+									<overwrite>true</overwrite>
+									<resources>
+										<resource>
+											<directory>${basedir}</directory>
+											<includes>
+												<include>about.mappings</include>
+												<include>plugin.properties</include>
+											</includes>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-packaging-plugin</artifactId>
+						<version>${tycho.version}</version>
+						<configuration>
+							<additionalFileSets>
+								<fileSet>
+									<directory>${project.build.directory}</directory>
+									<includes>
+										<include>about.mappings</include>
+										<include>plugin.properties</include>
+									</includes>
+								</fileSet>
+							</additionalFileSets>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 	<build>
@@ -177,24 +239,10 @@
 						<jgit.dirtyWorkingTree>${jgit.dirtyWorkingTree}</jgit.dirtyWorkingTree>
 						<jgit.ignore>
 							pom.xml
-							org.osate.branding/plugin.properties
-							org.osate.branding/about.mappings
 						</jgit.ignore>
 					</configuration>
 				</plugin>
-<!-- 				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-p2-plugin</artifactId>
-					<version>${tycho.version}</version>
-					<configuration>
-						<baselineRepositories>
-							<repository>
-								<url>http://www.aadl.info/aadl/osate/stable/2.0.9/update-site</url>
-							</repository>
-						</baselineRepositories>
-					</configuration>
-				</plugin>
- -->			</plugins>
+			</plugins>
 		</pluginManagement>
 
 	</build>
