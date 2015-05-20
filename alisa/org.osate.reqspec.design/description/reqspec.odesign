@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="reqspec" version="10.0.0.201504091800">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="reqspec" version="10.0.0.201505181740">
   <ownedViewpoints name="ReqSpecViewPoint">
     <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="ReqSpecTable" label="Requirements Table" domainClass="reqSpec.ReqSpec">
-      <ownedLineMappings name="Requirements" domainClass="reqSpec.ReqSpecs">
-        <ownedSubLines name="RequirementLine" domainClass="reqSpec.Requirement"/>
-        <ownedSubLines name="ReqSpecFolderLine" domainClass="reqSpec.ReqSpecFolder">
-          <ownedSubLines name="FolderRequirement" domainClass="reqSpec.Requirement"/>
-        </ownedSubLines>
-        <create name="CreateRequirement" label="Create Requirement" mapping="//@ownedViewpoints[name='ReqSpecViewPoint']/@ownedRepresentations[name='ReqSpecTable']/@ownedLineMappings[name='Requirements']/@ownedSubLines[name='RequirementLine']">
-          <variables name="root" documentation="The semantic element of the table."/>
-          <variables name="element" documentation="The semantic currently edited element."/>
-          <variables name="container" documentation="The semantic element corresponding to the view container."/>
-          <firstModelOperation xsi:type="tool:ChangeContext" browseExpression="[element/]">
-            <subModelOperations xsi:type="tool:CreateInstance" typeName="reqSpec.Requirement" referenceName="content">
-              <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="newreq"/>
-              <subModelOperations xsi:type="tool:SetValue" featureName="title" valueExpression="requirement title"/>
-            </subModelOperations>
-          </firstModelOperation>
-        </create>
+      <ownedLineMappings name="Requirements" reusedSubLines="//@ownedViewpoints[name='ReqSpecViewPoint']/@ownedRepresentations[name='ReqSpecTable']/@ownedLineMappings[name='ReqSpecFolderLine']" domainClass="reqSpec.ReqSpecs" headerLabelExpression="Requirements">
+        <ownedSubLines name="RequirementLine" domainClass="reqSpec.Requirement" semanticCandidatesExpression="[content/]"/>
       </ownedLineMappings>
+      <ownedLineMappings name="ReqSpecFolderLine" reusedInMappings="//@ownedViewpoints[name='ReqSpecViewPoint']/@ownedRepresentations[name='ReqSpecTable']/@ownedLineMappings[name='Requirements']" domainClass="reqSpec.ReqSpecFolder" semanticCandidatesExpression="[content/]"/>
+      <ownedCreateLine name="CreateFolder" label="Create Requirements Folder" mapping="//@ownedViewpoints[name='ReqSpecViewPoint']/@ownedRepresentations[name='ReqSpecTable']/@ownedLineMappings[name='ReqSpecFolderLine']">
+        <variables name="root" documentation="The semantic element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ChangeContext" browseExpression="[self.eContents()->first() /]">
+          <subModelOperations xsi:type="tool:CreateInstance" typeName="reqSpec.ReqSpecFolder" referenceName="content">
+            <subModelOperations xsi:type="tool:CreateInstance" typeName="reqSpec.ReqSpecFolder" referenceName="reqspecfolder">
+              <subModelOperations xsi:type="tool:SetValue" featureName="label" valueExpression="newfolder"/>
+              <subModelOperations xsi:type="tool:SetValue" featureName="title" valueExpression="newtitle"/>
+            </subModelOperations>
+          </subModelOperations>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedCreateLine name="CreateRequirement" label="Create Requirement" mapping="//@ownedViewpoints[name='ReqSpecViewPoint']/@ownedRepresentations[name='ReqSpecTable']/@ownedLineMappings[name='Requirements']/@ownedSubLines[name='RequirementLine']">
+        <variables name="root" documentation="The semantic element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ChangeContext" browseExpression="var:container">
+          <subModelOperations xsi:type="tool:CreateInstance" typeName="reqSpec.Requirement" referenceName="content">
+            <subModelOperations xsi:type="tool:SetValue" featureName="name" valueExpression="newreq"/>
+            <subModelOperations xsi:type="tool:SetValue" featureName="title" valueExpression="requirement title"/>
+          </subModelOperations>
+        </firstModelOperation>
+      </ownedCreateLine>
       <ownedColumnMappings name="NameColumn" headerLabelExpression="Name" featureName="name"/>
       <ownedColumnMappings name="TitleColumn" label="Title" headerLabelExpression="Title" featureName="title"/>
       <ownedColumnMappings name="DescriptionColumn" label="Description" headerLabelExpression="Description" featureName="description" labelExpression="[self.description.description->first().text/]"/>
