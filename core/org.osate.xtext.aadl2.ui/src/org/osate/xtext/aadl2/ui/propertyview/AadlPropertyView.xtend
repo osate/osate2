@@ -37,6 +37,7 @@ package org.osate.xtext.aadl2.ui.propertyview
 import com.google.inject.Inject
 import java.io.InputStreamReader
 import java.util.ArrayDeque
+import java.util.ArrayList
 import java.util.Collections
 import java.util.List
 import java.util.Map
@@ -90,6 +91,7 @@ import org.eclipse.ui.IWorkbenchActionConstants
 import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.dialogs.FilteredTree
 import org.eclipse.ui.dialogs.PatternFilter
+import org.eclipse.ui.internal.views.ViewsPlugin
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
@@ -115,6 +117,7 @@ import org.osate.aadl2.ListValue
 import org.osate.aadl2.ModalPath
 import org.osate.aadl2.ModalPropertyValue
 import org.osate.aadl2.ModeFeature
+import org.osate.aadl2.ModelUnit
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Property
@@ -128,16 +131,15 @@ import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.instance.PropertyAssociationInstance
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
 
 import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
+
 import static extension com.google.common.io.CharStreams.*
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isSameOrRefines
-import org.osate.aadl2.ModelUnit
-import java.util.ArrayList
-import org.eclipse.ui.internal.views.ViewsPlugin
 
 /**
  * View that displays the AADL property value associations within a given AADL
@@ -656,8 +658,19 @@ class AadlPropertyView extends ViewPart {
 			override run() {
 				val selectedElement = (treeViewer.selection as IStructuredSelection).firstElement as TreeEntry
 				val uriToOpen = safeRead[ extension it |
-					val association = cachedPropertyAssociations.get((selectedElement.parent as TreeEntry).treeElement).
-						get(selectedElement.treeElement).getEObject(true) as PropertyAssociation
+
+					val associationTemp = cachedPropertyAssociations.get((selectedElement.parent as TreeEntry).treeElement).
+						get(selectedElement.treeElement).getEObject(true) 
+					
+					val association = 
+						switch associationTemp {
+							PropertyAssociationInstance : { 
+								associationTemp.getPropertyAssociation();
+							}
+							PropertyAssociation : associationTemp
+							default : null
+						}
+								
 					val inputElement = input.getEObject(true)
 					(if (inputElement instanceof RefinableElement) {
 						association.appliesTos.map[containmentPathElements.last].filter [
@@ -736,7 +749,9 @@ class AadlPropertyView extends ViewPart {
 							val propertyStatus = getPropertyStatus(
 								(firstSelectedElement.parent as TreeEntry).treeElement as URI,
 								firstSelectedElement.treeElement as URI)
-							openPropertyAssociationAction.enabled = propertyStatus == PropertyStatus.INHERITED
+							openPropertyAssociationAction.enabled = (propertyStatus == PropertyStatus.INHERITED || 
+																			propertyStatus == PropertyStatus.LOCAL || 
+																			propertyStatus == PropertyStatus.LOCAL_CONTAINED)
 							createNewAssociationAction.enabled = xtextDocument != null && (propertyStatus ==
 								PropertyStatus.INHERITED || propertyStatus == PropertyStatus.DEFAULT ||
 								propertyStatus == PropertyStatus.UNDEFINED) && safeRead[ extension it |
