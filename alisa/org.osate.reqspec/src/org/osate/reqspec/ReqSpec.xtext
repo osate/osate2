@@ -11,7 +11,7 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 ReqSpec: parts +=(ReqSpecs|StakeholderGoals|ReqDocument)+  ;
 //ReqSpec: ReqSpecs|StakeholderGoals|ReqDocument  ;
 
-ReqSpecContainer: ReqSpecs  | ReqSpecFolder  |GoalFolder | StakeholderGoals | ReqDocument | DocumentSection;
+ReqSpecContainer: ReqSpecs | GoalFolder | StakeholderGoals | ReqDocument | DocumentSection;
 
 ContractualElement: Goal | Requirement ;
 
@@ -48,18 +48,13 @@ ReqSpecs returns ReqSpecs:
 	(
 		( constants+=XValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
-	& (content+= (Requirement |  ReqSpecFolder))*
+	& (content+= (Requirement))*
 	)
 		('issues' issues+=STRING+ )?
 	']'
 	;
 
-// does not add to a qualified name
-ReqSpecFolder returns ReqSpecFolder:
-	'folder' label =ID (':' title=STRING)?
-	'[' (content+= (Goal | Requirement |  ReqSpecFolder))*
-	']'
-	;
+
 
 // does not add to a qualified name
 GoalFolder returns GoalFolder:

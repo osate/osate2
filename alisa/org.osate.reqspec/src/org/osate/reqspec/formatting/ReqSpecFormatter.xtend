@@ -37,7 +37,7 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1,2,2).after(goalFolderRule);
 		c.setLinewrap(1,2,2).after(reqDocumentRule);
 		c.setLinewrap(1,2,2).after(reqSpecsRule);
-		c.setLinewrap().before(reqSpecFolderRule);
+//		c.setLinewrap().before(reqSpecFolderRule);
 		for (kw : findKeywords("goal","requirement","requirements","folder","section",'constants')) {
 			c.setLinewrap().before(kw);
 		}

@@ -6,7 +6,6 @@ import org.osate.reqspec.reqSpec.ReqSpecs
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.Requirement
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.osate.reqspec.reqSpec.ReqSpecFolder
 
 class ReqSpecUtilExtension {
 	
