@@ -153,6 +153,8 @@ class AadlPropertyView extends ViewPart {
 	val static COLLAPSE_ALL_TOOL_TIP = "Collapse All"
 	val static SHOW_ONLY_IMPORTED_PROPERTIES = "Show imported properties only"
 	val static SHOW_ALL_AVAILABLE_PROPERTIES = "Show all available properties"
+	val static HIDE_DEFAULT_TOOL_TIP = "Click to hide default properties"
+	val static SHOW_DEFAULT_TOOL_TIP = "Click to show default properties"
 	
 	val static NO_PROPERTIES_TO_SHOW = "No properties to show: Please select a single object that is an AADL Property Holder."
 	val static POPULATING_VIEW = "Populating AADL Property Values view."
@@ -183,6 +185,8 @@ class AadlPropertyView extends ViewPart {
 	 * Action for toggling the display of nonexistent properties
 	 */
 	var package Action showUndefinedAction = null
+
+	var package Action showDefaultAction = null
 
 	var Action removeElementAction = null
 
@@ -581,6 +585,24 @@ class AadlPropertyView extends ViewPart {
 			viewSite.actionBars.toolBarManager.add(it)
 			toolTipText = SHOW_UNDEFINED_TOOL_TIP
 		]
+
+		showDefaultAction = new Action(null, IAction.AS_CHECK_BOX) {
+			override run() {
+				showDefaultAction.toolTipText = if (showDefaultAction.checked) {
+					HIDE_DEFAULT_TOOL_TIP
+				} else {
+					SHOW_DEFAULT_TOOL_TIP
+				}
+				
+				treeViewer.refresh
+			}
+		} => [
+			imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/filter_properties.gif")
+			viewSite.actionBars.toolBarManager.add(it)
+			toolTipText = SHOW_DEFAULT_TOOL_TIP
+		]
+
+
 
 		removeElementAction = new Action("Remove") {
 			override run() {
