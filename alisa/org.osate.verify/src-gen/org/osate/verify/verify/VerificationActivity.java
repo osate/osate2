@@ -2,13 +2,11 @@
  */
 package org.osate.verify.verify;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.alisa.common.common.ComputeDeclaration;
-import org.osate.alisa.common.common.Description;
-import org.osate.alisa.common.common.Rationale;
-
-import org.osate.reqspec.reqSpec.Requirement;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,13 +17,10 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getRequirement <em>Requirement</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getResultVal <em>Result Val</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getComputeVariable <em>Compute Variable</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,82 +57,20 @@ public interface VerificationActivity extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Title</b></em>' attribute.
+   * Returns the value of the '<em><b>Result Val</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XVariableDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Title</em>' attribute isn't clear,
+   * If the meaning of the '<em>Result Val</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Title</em>' attribute.
-   * @see #setTitle(String)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Title()
+   * @return the value of the '<em>Result Val</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_ResultVal()
    * @model
    * @generated
    */
-  String getTitle();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Title</em>' attribute.
-   * @see #getTitle()
-   * @generated
-   */
-  void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>Requirement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirement</em>' reference.
-   * @see #setRequirement(Requirement)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Requirement()
-   * @model
-   * @generated
-   */
-  Requirement getRequirement();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRequirement <em>Requirement</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirement</em>' reference.
-   * @see #getRequirement()
-   * @generated
-   */
-  void setRequirement(Requirement value);
-
-  /**
-   * Returns the value of the '<em><b>Description</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' containment reference.
-   * @see #setDescription(Description)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Description()
-   * @model containment="true"
-   * @generated
-   */
-  Description getDescription();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getDescription <em>Description</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' containment reference.
-   * @see #getDescription()
-   * @generated
-   */
-  void setDescription(Description value);
+  EList<XVariableDeclaration> getResultVal();
 
   /**
    * Returns the value of the '<em><b>Method</b></em>' reference.
@@ -166,30 +99,20 @@ public interface VerificationActivity extends EObject
   void setMethod(VerificationMethod value);
 
   /**
-   * Returns the value of the '<em><b>Compute Variable</b></em>' reference.
+   * Returns the value of the '<em><b>Parameters</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XVariableDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Compute Variable</em>' reference isn't clear,
+   * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Compute Variable</em>' reference.
-   * @see #setComputeVariable(ComputeDeclaration)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_ComputeVariable()
+   * @return the value of the '<em>Parameters</em>' reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Parameters()
    * @model
    * @generated
    */
-  ComputeDeclaration getComputeVariable();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getComputeVariable <em>Compute Variable</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Compute Variable</em>' reference.
-   * @see #getComputeVariable()
-   * @generated
-   */
-  void setComputeVariable(ComputeDeclaration value);
+  EList<XVariableDeclaration> getParameters();
 
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' attribute.
@@ -216,31 +139,5 @@ public interface VerificationActivity extends EObject
    * @generated
    */
   void setTimeout(int value);
-
-  /**
-   * Returns the value of the '<em><b>Rationale</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Rationale</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Rationale</em>' containment reference.
-   * @see #setRationale(Rationale)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Rationale()
-   * @model containment="true"
-   * @generated
-   */
-  Rationale getRationale();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationActivity#getRationale <em>Rationale</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rationale</em>' containment reference.
-   * @see #getRationale()
-   * @generated
-   */
-  void setRationale(Rationale value);
 
 } // VerificationActivity

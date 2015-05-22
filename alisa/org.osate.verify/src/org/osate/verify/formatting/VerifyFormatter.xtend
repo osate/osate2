@@ -33,8 +33,6 @@ class VerifyFormatter extends AbstractDeclarativeFormatter {
 			c.setLinewrap().before(pair.second);
 		}
 		c.setLinewrap().after(verificationMethodRule);
-		c.setLinewrap().before(verificationFolderRule);
-		c.setLinewrap().after(verificationLibraryRule);
 		c.setLinewrap().after(verificationPlanRule);
 		c.setLinewrap().after(verificationMethodRegistryRule);
 		for (kw : findKeywords("folder")) {

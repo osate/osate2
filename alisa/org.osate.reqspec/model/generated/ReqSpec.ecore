@@ -17,6 +17,9 @@
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.categories/model/generated/Categories.ecore#//RequirementCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rationale" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Rationale"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="changeUncertainty" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Uncertainty"
@@ -38,8 +41,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="description" eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//Description"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="content" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
-        containment="true"/>
+        eType="#//Goal" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
         upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
@@ -74,28 +76,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="computes" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ComputeDeclaration"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="content" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
-        containment="true"/>
+        eType="#//Requirement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="docReference" upperBound="-1"
+        eType="#//ExternalDocument" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="issues" unique="false"
         upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReqSpecFolder" eSuperTypes="#//ReqSpecContainer">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="content" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GoalFolder" eSuperTypes="#//ReqSpecContainer">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="content" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"
-        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Goal" eSuperTypes="#//ContractualElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinesReference" unique="false"
@@ -106,12 +92,6 @@
         upperBound="-1" eType="ecore:EClass platform:/resource/org.osate.organization/model/generated/Organization.ecore#//Stakeholder"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Requirement" eSuperTypes="#//ContractualElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="computes" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ComputeDeclaration"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="predicate" eType="#//ReqPredicate"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exception" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
@@ -149,6 +129,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="xpression" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValDeclaration">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExternalDocument">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="docReference" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

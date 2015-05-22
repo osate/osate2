@@ -2,8 +2,11 @@
  */
 package org.osate.verify.verify.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -11,11 +14,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.osate.alisa.common.common.ComputeDeclaration;
-import org.osate.alisa.common.common.Description;
-import org.osate.alisa.common.common.Rationale;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
-import org.osate.reqspec.reqSpec.Requirement;
+import org.eclipse.xtext.xbase.XVariableDeclaration;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -29,13 +30,10 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getRequirement <em>Requirement</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResultVal <em>Result Val</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getComputeVariable <em>Compute Variable</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getRationale <em>Rationale</em>}</li>
  * </ul>
  * </p>
  *
@@ -64,44 +62,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
+   * The cached value of the '{@link #getResultVal() <em>Result Val</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTitle()
+   * @see #getResultVal()
    * @generated
    * @ordered
    */
-  protected static final String TITLE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getTitle() <em>Title</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTitle()
-   * @generated
-   * @ordered
-   */
-  protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRequirement()
-   * @generated
-   * @ordered
-   */
-  protected Requirement requirement;
-
-  /**
-   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDescription()
-   * @generated
-   * @ordered
-   */
-  protected Description description;
+  protected EList<XVariableDeclaration> resultVal;
 
   /**
    * The cached value of the '{@link #getMethod() <em>Method</em>}' reference.
@@ -114,14 +82,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected VerificationMethod method;
 
   /**
-   * The cached value of the '{@link #getComputeVariable() <em>Compute Variable</em>}' reference.
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getComputeVariable()
+   * @see #getParameters()
    * @generated
    * @ordered
    */
-  protected ComputeDeclaration computeVariable;
+  protected EList<XVariableDeclaration> parameters;
 
   /**
    * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
@@ -142,16 +110,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * @ordered
    */
   protected int timeout = TIMEOUT_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRationale()
-   * @generated
-   * @ordered
-   */
-  protected Rationale rationale;
 
   /**
    * <!-- begin-user-doc -->
@@ -202,113 +160,13 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getTitle()
+  public EList<XVariableDeclaration> getResultVal()
   {
-    return title;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTitle(String newTitle)
-  {
-    String oldTitle = title;
-    title = newTitle;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__TITLE, oldTitle, title));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Requirement getRequirement()
-  {
-    if (requirement != null && requirement.eIsProxy())
+    if (resultVal == null)
     {
-      InternalEObject oldRequirement = (InternalEObject)requirement;
-      requirement = (Requirement)eResolveProxy(oldRequirement);
-      if (requirement != oldRequirement)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT, oldRequirement, requirement));
-      }
+      resultVal = new EObjectResolvingEList<XVariableDeclaration>(XVariableDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL);
     }
-    return requirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Requirement basicGetRequirement()
-  {
-    return requirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRequirement(Requirement newRequirement)
-  {
-    Requirement oldRequirement = requirement;
-    requirement = newRequirement;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT, oldRequirement, requirement));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Description getDescription()
-  {
-    return description;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
-  {
-    Description oldDescription = description;
-    description = newDescription;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION, oldDescription, newDescription);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDescription(Description newDescription)
-  {
-    if (newDescription != description)
-    {
-      NotificationChain msgs = null;
-      if (description != null)
-        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION, null, msgs);
-      if (newDescription != null)
-        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION, null, msgs);
-      msgs = basicSetDescription(newDescription, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION, newDescription, newDescription));
+    return resultVal;
   }
 
   /**
@@ -359,42 +217,13 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComputeDeclaration getComputeVariable()
+  public EList<XVariableDeclaration> getParameters()
   {
-    if (computeVariable != null && computeVariable.eIsProxy())
+    if (parameters == null)
     {
-      InternalEObject oldComputeVariable = (InternalEObject)computeVariable;
-      computeVariable = (ComputeDeclaration)eResolveProxy(oldComputeVariable);
-      if (computeVariable != oldComputeVariable)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE, oldComputeVariable, computeVariable));
-      }
+      parameters = new EObjectResolvingEList<XVariableDeclaration>(XVariableDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
     }
-    return computeVariable;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ComputeDeclaration basicGetComputeVariable()
-  {
-    return computeVariable;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setComputeVariable(ComputeDeclaration newComputeVariable)
-  {
-    ComputeDeclaration oldComputeVariable = computeVariable;
-    computeVariable = newComputeVariable;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE, oldComputeVariable, computeVariable));
+    return parameters;
   }
 
   /**
@@ -425,72 +254,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public Rationale getRationale()
-  {
-    return rationale;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetRationale(Rationale newRationale, NotificationChain msgs)
-  {
-    Rationale oldRationale = rationale;
-    rationale = newRationale;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, oldRationale, newRationale);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRationale(Rationale newRationale)
-  {
-    if (newRationale != rationale)
-    {
-      NotificationChain msgs = null;
-      if (rationale != null)
-        msgs = ((InternalEObject)rationale).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, null, msgs);
-      if (newRationale != null)
-        msgs = ((InternalEObject)newRationale).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, null, msgs);
-      msgs = basicSetRationale(newRationale, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE, newRationale, newRationale));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
-        return basicSetDescription(null, msgs);
-      case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        return basicSetRationale(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -498,23 +261,15 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         return getName();
-      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
-        return getTitle();
-      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
-        if (resolve) return getRequirement();
-        return basicGetRequirement();
-      case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
-        return getDescription();
+      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL:
+        return getResultVal();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         if (resolve) return getMethod();
         return basicGetMethod();
-      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE:
-        if (resolve) return getComputeVariable();
-        return basicGetComputeVariable();
+      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
+        return getParameters();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return getTimeout();
-      case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        return getRationale();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -524,6 +279,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -532,26 +288,19 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         setName((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
-        setTitle((String)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
-        setRequirement((Requirement)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
-        setDescription((Description)newValue);
+      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL:
+        getResultVal().clear();
+        getResultVal().addAll((Collection<? extends XVariableDeclaration>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)newValue);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE:
-        setComputeVariable((ComputeDeclaration)newValue);
+      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
+        getParameters().clear();
+        getParameters().addAll((Collection<? extends XVariableDeclaration>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((Integer)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        setRationale((Rationale)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -570,26 +319,17 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
-        setTitle(TITLE_EDEFAULT);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
-        setRequirement((Requirement)null);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
-        setDescription((Description)null);
+      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL:
+        getResultVal().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)null);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE:
-        setComputeVariable((ComputeDeclaration)null);
+      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
+        getParameters().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout(TIMEOUT_EDEFAULT);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        setRationale((Rationale)null);
         return;
     }
     super.eUnset(featureID);
@@ -607,20 +347,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
-        return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_ACTIVITY__REQUIREMENT:
-        return requirement != null;
-      case VerifyPackage.VERIFICATION_ACTIVITY__DESCRIPTION:
-        return description != null;
+      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL:
+        return resultVal != null && !resultVal.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         return method != null;
-      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTE_VARIABLE:
-        return computeVariable != null;
+      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
+        return parameters != null && !parameters.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return timeout != TIMEOUT_EDEFAULT;
-      case VerifyPackage.VERIFICATION_ACTIVITY__RATIONALE:
-        return rationale != null;
     }
     return super.eIsSet(featureID);
   }
@@ -638,8 +372,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", title: ");
-    result.append(title);
     result.append(", timeout: ");
     result.append(timeout);
     result.append(')');

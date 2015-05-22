@@ -135,22 +135,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.REQ_SPEC_FOLDER:
-      {
-        ReqSpecFolder reqSpecFolder = (ReqSpecFolder)theEObject;
-        T result = caseReqSpecFolder(reqSpecFolder);
-        if (result == null) result = caseReqSpecContainer(reqSpecFolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case ReqSpecPackage.GOAL_FOLDER:
-      {
-        GoalFolder goalFolder = (GoalFolder)theEObject;
-        T result = caseGoalFolder(goalFolder);
-        if (result == null) result = caseReqSpecContainer(goalFolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ReqSpecPackage.GOAL:
       {
         Goal goal = (Goal)theEObject;
@@ -219,6 +203,13 @@ public class ReqSpecSwitch<T> extends Switch<T>
         BehaviorEquation behaviorEquation = (BehaviorEquation)theEObject;
         T result = caseBehaviorEquation(behaviorEquation);
         if (result == null) result = caseReqPredicate(behaviorEquation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.VAL_DECLARATION:
+      {
+        ValDeclaration valDeclaration = (ValDeclaration)theEObject;
+        T result = caseValDeclaration(valDeclaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -357,38 +348,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseReqSpecs(ReqSpecs object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Folder</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Folder</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseReqSpecFolder(ReqSpecFolder object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Goal Folder</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Goal Folder</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseGoalFolder(GoalFolder object)
   {
     return null;
   }
@@ -533,6 +492,22 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBehaviorEquation(BehaviorEquation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Val Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Val Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseValDeclaration(ValDeclaration object)
   {
     return null;
   }

@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 
@@ -48,6 +50,7 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getChangeUncertainty <em>Change Uncertainty</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDocumentRequirement <em>Document Requirement</em>}</li>
@@ -159,6 +162,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected Description description;
+
+  /**
+   * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConstants()
+   * @generated
+   * @ordered
+   */
+  protected EList<XExpression> constants;
 
   /**
    * The cached value of the '{@link #getRationale() <em>Rationale</em>}' containment reference.
@@ -453,6 +466,20 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<XExpression> getConstants()
+  {
+    if (constants == null)
+    {
+      constants = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS);
+    }
+    return constants;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Rationale getRationale()
   {
     return rationale;
@@ -598,6 +625,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     {
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return basicSetDescription(null, msgs);
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
+        return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return basicSetRationale(null, msgs);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
@@ -634,6 +663,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return getCategory();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return getDescription();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
+        return getConstants();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return getRationale();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:
@@ -680,6 +711,10 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         setDescription((Description)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
+        getConstants().clear();
+        getConstants().addAll((Collection<? extends XExpression>)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale((Rationale)newValue);
@@ -734,6 +769,9 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         setDescription((Description)null);
         return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
+        getConstants().clear();
+        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         setRationale((Rationale)null);
         return;
@@ -777,6 +815,8 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return category != null && !category.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
         return description != null;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__CONSTANTS:
+        return constants != null && !constants.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__RATIONALE:
         return rationale != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CHANGE_UNCERTAINTY:

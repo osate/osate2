@@ -6,6 +6,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 
@@ -30,6 +32,7 @@ import org.osate.categories.categories.RequirementCategory;
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getRationale <em>Rationale</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getChangeUncertainty <em>Change Uncertainty</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDocumentRequirement <em>Document Requirement</em>}</li>
@@ -215,6 +218,22 @@ public interface ContractualElement extends EObject
    * @generated
    */
   void setDescription(Description value);
+
+  /**
+   * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Constants</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_Constants()
+   * @model containment="true"
+   * @generated
+   */
+  EList<XExpression> getConstants();
 
   /**
    * Returns the value of the '<em><b>Rationale</b></em>' containment reference.

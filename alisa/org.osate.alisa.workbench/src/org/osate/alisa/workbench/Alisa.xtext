@@ -7,7 +7,6 @@ import "http://www.osate.org/verify/Verify" as Verify
 import "http://www.osate.org/categories/Categories" as categories
 
 AlisaWorkArea:
-	'alisa' name=ID
 	cases+=(AssurancePlan|AssuranceTask)*;
  
 AssurancePlan:

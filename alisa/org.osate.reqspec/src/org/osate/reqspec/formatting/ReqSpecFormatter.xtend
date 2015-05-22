@@ -34,7 +34,6 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		    }
 		    // top-level objects get newline at end
 		c.setLinewrap(1,2,2).after(stakeholderGoalsRule);
-		c.setLinewrap(1,2,2).after(goalFolderRule);
 		c.setLinewrap(1,2,2).after(reqDocumentRule);
 		c.setLinewrap(1,2,2).after(reqSpecsRule);
 //		c.setLinewrap().before(reqSpecFolderRule);

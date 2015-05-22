@@ -23,21 +23,21 @@ import static org.osate.reqspec.util.ReqSpecUtilExtension.*
  */
 class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 
-	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
-		var result = IScope.NULLSCOPE
-		val req = context.requirement
-		val ReqSpecs reqspecs = containingReqSpecs(req)
-		if (!reqspecs.computes.isEmpty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(reqspecs.computes,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		if (!req.computes.empty) {
-			result = new SimpleScope(result,
-				Scopes::scopedElementsFor(req.computes,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-		}
-		result
-	}
+//	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
+//		var result = IScope.NULLSCOPE
+//		val req = context.requirement
+//		val ReqSpecs reqspecs = containingReqSpecs(req)
+//		if (!reqspecs.computes.isEmpty) {
+//			result = new SimpleScope(result,
+//				Scopes::scopedElementsFor(reqspecs.computes,
+//					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+//		}
+//		if (!req.computes.empty) {
+//			result = new SimpleScope(result,
+//				Scopes::scopedElementsFor(req.computes,
+//					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+//		}
+//		result
+//	}
 
 }

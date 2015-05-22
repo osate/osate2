@@ -133,7 +133,7 @@ class AlisaGenerator implements IGenerator {
 
 	def ClaimResult construct(Claim claim, ComponentInstance ci) { 
 		val claimresult = factory.createClaimResult
-		claimresult.name = claim.name
+		claimresult.name = claim.requirement.name
 		claimresult.target = claim.requirement
 		if (claim.requirement.target != null) {
 			claimresult.instance = claim.requirement.getRequirementTarget(ci)
@@ -147,7 +147,7 @@ class AlisaGenerator implements IGenerator {
 
 	def CharSequence generate(Claim claim, ComponentInstance ci) {
 		'''
-			claim «claim.name» for «claim.requirement.fullyQualifiedName»
+			claim «claim.requirement.name» for «claim.requirement.fullyQualifiedName» // TODO remove for, but also remove it in assure
 			«IF claim.requirement.target != null»
 				instance "«claim.requirement.getRequirementTarget(ci)»"
 			«ENDIF»

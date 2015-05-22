@@ -95,24 +95,6 @@ public interface ReqSpecFactory extends EFactory
   ReqSpecs createReqSpecs();
 
   /**
-   * Returns a new object of class '<em>Folder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Folder</em>'.
-   * @generated
-   */
-  ReqSpecFolder createReqSpecFolder();
-
-  /**
-   * Returns a new object of class '<em>Goal Folder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Goal Folder</em>'.
-   * @generated
-   */
-  GoalFolder createGoalFolder();
-
-  /**
    * Returns a new object of class '<em>Goal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -192,6 +174,15 @@ public interface ReqSpecFactory extends EFactory
    * @generated
    */
   BehaviorEquation createBehaviorEquation();
+
+  /**
+   * Returns a new object of class '<em>Val Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Val Declaration</em>'.
+   * @generated
+   */
+  ValDeclaration createValDeclaration();
 
   /**
    * Returns a new object of class '<em>External Document</em>'.

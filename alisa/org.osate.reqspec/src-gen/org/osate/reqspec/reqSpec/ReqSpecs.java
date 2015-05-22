@@ -4,13 +4,9 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.aadl2.Classifier;
-
-import org.osate.alisa.common.common.ComputeDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,8 +23,8 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -202,24 +198,8 @@ public interface ReqSpecs extends ReqSpecContainer, ReqRoot
   EList<XExpression> getConstants();
 
   /**
-   * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.ComputeDeclaration}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Computes</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_Computes()
-   * @model containment="true"
-   * @generated
-   */
-  EList<ComputeDeclaration> getComputes();
-
-  /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Content</em>' containment reference list isn't clear,
@@ -231,7 +211,23 @@ public interface ReqSpecs extends ReqSpecContainer, ReqRoot
    * @model containment="true"
    * @generated
    */
-  EList<EObject> getContent();
+  EList<Requirement> getContent();
+
+  /**
+   * Returns the value of the '<em><b>Doc Reference</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.ExternalDocument}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Doc Reference</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Doc Reference</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_DocReference()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ExternalDocument> getDocReference();
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.

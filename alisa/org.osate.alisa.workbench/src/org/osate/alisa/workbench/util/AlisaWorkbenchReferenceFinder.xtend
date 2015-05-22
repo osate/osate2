@@ -9,12 +9,12 @@ import org.osate.aadl2.ComponentClassifier
 import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.verify.verify.VerifyPackage
 import org.eclipse.xtext.ui.editor.findrefs.IReferenceFinder
-import org.osate.verify.verify.VerificationLibrary
 import org.eclipse.xtext.resource.IReferenceDescription
 import java.util.List
 import org.eclipse.xtext.util.IAcceptor
 import com.google.inject.Singleton
 import org.eclipse.emf.common.util.URI
+import org.osate.verify.verify.VerificationPlan
 
 class AlisaWorkbenchReferenceFinder {
 	@Inject
@@ -48,9 +48,10 @@ class AlisaWorkbenchReferenceFinder {
 		def getVerificationActivities(Requirement reqspec){
 	//		reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationContainer,null).
 	//		map[EObjectOrProxy as VerificationContainer].filter[va | va.target == reqspec] 
-			reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationLibrary)
-			[ed | (ed.EObjectOrProxy as VerificationLibrary)?.target == reqspec] 
-			.map[ed|ed.EObjectOrProxy as VerificationLibrary]
+//			reqspec.getGlobalEObjectDescriptions(VerifyPackage.eINSTANCE.verificationPlan)
+//			[ed | (ed.EObjectOrProxy as VerificationPlan)?.claim ] 
+//			.map[ed|ed.EObjectOrProxy as verificationPlan]
+// XXX TODO collect all VAs in all claims of a verification plan.
 		}
 		
 	@Inject

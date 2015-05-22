@@ -5,14 +5,15 @@ import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.osate.org/reqspec/ReqSpec" as ReqSpec
 import "http://www.osate.org/categories/Categories" as categories
 import "http://www.osate.org/alisa/common/Common" as common
+import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
  
 Verification:
-	contents+=(VerificationLibrary | VerificationPlan | VerificationMethodRegistry);
+	contents+=( VerificationPlan | VerificationMethodRegistry);
 
 // plan for a classifier. Will add import to allow for non-qualified requirement references 
 // Also allows for cross checking that we have covered requirements with claims
 VerificationPlan:
-	'plan' name=ID (':' title=STRING)? 
+	'verification' 'plan' name=ID (':' title=STRING)? 
 	'for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] //      [ReqSpec::SystemSpec|QualifiedName]
 	'['
 	(
@@ -25,49 +26,43 @@ VerificationPlan:
 	']';
 
 Claim:
-	'claim' name=ID (':' title=STRING)?
+	'claim' requirement=[ReqSpec::Requirement|QualifiedName]  (':' title=STRING)?
 	( '(' weight=Number ')' )?
-	'for' requirement=[ReqSpec::Requirement|QualifiedName]
 	'['
-	(('assert' assert=ArgumentExpr)
+	(
+		('activities' activities += VerificationActivity)
+		&('assert' assert=ArgumentExpr)
 	& ('argument' argument=STRING )?//( argumentUncertainty=Uncertainty)? )?
 	& (rationale=Rationale)?
 	& (subclaim+=Claim)*
 	& ('issues' issues+=STRING+ )?
 	)  
 	']';
+//
+//VerificationLibrary returns VerificationLibrary:
+//	'library' name=ID (':' title=STRING)?
+//	('for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE])?
+//	'['
+//	( ( description=Description)?
+//	&(content+=(VerificationActivity |  VerificationFolder))*
+//	)
+//	']';
 
-VerificationLibrary returns VerificationLibrary:
-	'library' name=ID (':' title=STRING)?
-	('for' target=[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE])?
-	'['
-	( ( description=Description)?
-	&(content+=(VerificationActivity |  VerificationFolder))*
-	)
-	']';
-
-VerificationFolder returns VerificationFolder:
-	'folder' label=ID
-	'[' (content+=(VerificationActivity | VerificationFolder))*
-	']';
-
-VerificationContainer:
-	VerificationLibrary | VerificationFolder;
 
 VerificationActivity:
-	'activity' name=ID (':' title=STRING)?
-	('for' requirement=[ReqSpec::Requirement|QualifiedName] )?
-	// or should it be the requirement, which provides the predicate
-	'[' (
-	( description=Description)?
-	&('method' method=[VerificationMethod|QualifiedName]('as' computeVariable=[common::ComputeDeclaration|ID])?)?
-	&('timeout' timeout=INT)?
+	name=ID ':'
+	(
+		'(' resultVal+=[xbase::XVariableDeclaration|ID] (',' resultVal+=[xbase::XVariableDeclaration|ID] )*')'
+		'=' method=[VerificationMethod|QualifiedName] '(' parameters+=[xbase::XVariableDeclaration|ID] (',' parameters+=[xbase::XVariableDeclaration|ID])*')'
+	('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model
-	// and via the requirement (predicate/limit values
-	&(rationale=Rationale)?
 )
-	']';
+	;
+	
+//	VMParameter:
+//		{VMParameter} value = [xbase::XVariableDeclaration|ID]
+//	;
 
 VerificationCondition:
 	('validation' {VerificationValidation} | 'precondition' {VerificationPrecondition}) name=ID
@@ -98,7 +93,7 @@ AtomicEvidenceExpr returns ArgumentExpr:
 	| '(' AndThenEvidenceExpr ')' | AllEvidenceExpr;
 
 ConditionalEvidence returns ArgumentExpr:
-	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?;
+	VAReference (=> ({WhenExpr.verification=current} 'when') condition+=[categories::VerificationCategory|ID]+)?; // should it be a selection category as well
 
 VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|QualifiedName]

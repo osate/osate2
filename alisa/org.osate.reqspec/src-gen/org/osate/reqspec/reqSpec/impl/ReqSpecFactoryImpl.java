@@ -72,8 +72,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.REQ_DOCUMENT: return createReqDocument();
       case ReqSpecPackage.DOCUMENT_SECTION: return createDocumentSection();
       case ReqSpecPackage.REQ_SPECS: return createReqSpecs();
-      case ReqSpecPackage.REQ_SPEC_FOLDER: return createReqSpecFolder();
-      case ReqSpecPackage.GOAL_FOLDER: return createGoalFolder();
       case ReqSpecPackage.GOAL: return createGoal();
       case ReqSpecPackage.REQUIREMENT: return createRequirement();
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
@@ -83,6 +81,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.INPUT_ASSUMPTION: return createInputAssumption();
       case ReqSpecPackage.OUTPUT_GUARANTEE: return createOutputGuarantee();
       case ReqSpecPackage.BEHAVIOR_EQUATION: return createBehaviorEquation();
+      case ReqSpecPackage.VAL_DECLARATION: return createValDeclaration();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -182,28 +181,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ReqSpecFolder createReqSpecFolder()
-  {
-    ReqSpecFolderImpl reqSpecFolder = new ReqSpecFolderImpl();
-    return reqSpecFolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public GoalFolder createGoalFolder()
-  {
-    GoalFolderImpl goalFolder = new GoalFolderImpl();
-    return goalFolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public Goal createGoal()
   {
     GoalImpl goal = new GoalImpl();
@@ -296,6 +273,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     BehaviorEquationImpl behaviorEquation = new BehaviorEquationImpl();
     return behaviorEquation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ValDeclaration createValDeclaration()
+  {
+    ValDeclarationImpl valDeclaration = new ValDeclarationImpl();
+    return valDeclaration;
   }
 
   /**

@@ -74,17 +74,16 @@ import org.osate.reqspec.reqSpec.BehaviorEquation;
 import org.osate.reqspec.reqSpec.DocumentSection;
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.Goal;
-import org.osate.reqspec.reqSpec.GoalFolder;
 import org.osate.reqspec.reqSpec.InformalPredicate;
 import org.osate.reqspec.reqSpec.InputAssumption;
 import org.osate.reqspec.reqSpec.OutputGuarantee;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
-import org.osate.reqspec.reqSpec.ReqSpecFolder;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
+import org.osate.reqspec.reqSpec.ValDeclaration;
 import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.reqSpec.XPredicate;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
@@ -139,9 +138,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.GOAL:
 				sequence_Goal(context, (Goal) semanticObject); 
 				return; 
-			case ReqSpecPackage.GOAL_FOLDER:
-				sequence_GoalFolder(context, (GoalFolder) semanticObject); 
-				return; 
 			case ReqSpecPackage.INFORMAL_PREDICATE:
 				sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
 				return; 
@@ -157,9 +153,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.REQ_SPEC:
 				sequence_ReqSpec(context, (ReqSpec) semanticObject); 
 				return; 
-			case ReqSpecPackage.REQ_SPEC_FOLDER:
-				sequence_ReqSpecFolder(context, (ReqSpecFolder) semanticObject); 
-				return; 
 			case ReqSpecPackage.REQ_SPECS:
 				sequence_ReqSpecs(context, (ReqSpecs) semanticObject); 
 				return; 
@@ -168,6 +161,9 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case ReqSpecPackage.STAKEHOLDER_GOALS:
 				sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
+				return; 
+			case ReqSpecPackage.VAL_DECLARATION:
+				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
 				return; 
 			case ReqSpecPackage.VALUE_ASSERTION:
 				sequence_ValueAssertion(context, (ValueAssertion) semanticObject); 
@@ -439,21 +435,13 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID title=STRING? (content+=Goal | content+=GoalFolder)*)
-	 */
-	protected void sequence_GoalFolder(EObject context, GoalFolder semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
+	 *         constants+=XValDeclaration* 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
 	 *         refinesReference+=[Goal|QualifiedName]* 
@@ -514,15 +502,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID title=STRING? (content+=Goal | content+=Requirement | content+=ReqSpecFolder)*)
-	 */
-	protected void sequence_ReqSpecFolder(EObject context, ReqSpecFolder semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (parts+=ReqSpecs | parts+=StakeholderGoals | parts+=ReqDocument)+
 	 */
 	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
@@ -538,8 +517,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
 	 *         constants+=XValDeclaration* 
-	 *         computes+=ComputeDeclaration* 
-	 *         (content+=Requirement | content+=ReqSpecFolder)* 
+	 *         content+=Requirement* 
+	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
 	 */
@@ -553,11 +532,10 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE]? targetElement=[NamedElement|ID]?))? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
-	 *         computes+=ComputeDeclaration* 
 	 *         predicate=ReqPredicate? 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 
@@ -582,12 +560,28 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         description=Description? 
-	 *         (content+=Goal | content+=GoalFolder)* 
+	 *         content+=Goal* 
 	 *         issues+=STRING*
 	 *     )
 	 */
 	protected void sequence_StakeholderGoals(EObject context, StakeholderGoals semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_ValDeclaration(EObject context, ValDeclaration semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.VAL_DECLARATION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.VAL_DECLARATION__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getValDeclarationAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	

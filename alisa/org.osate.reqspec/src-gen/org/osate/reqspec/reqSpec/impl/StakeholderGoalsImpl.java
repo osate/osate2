@@ -23,6 +23,7 @@ import org.osate.aadl2.Classifier;
 
 import org.osate.alisa.common.common.Description;
 
+import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 
@@ -156,7 +157,7 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * @generated
    * @ordered
    */
-  protected EList<EObject> content;
+  protected EList<Goal> content;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -377,11 +378,11 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getContent()
+  public EList<Goal> getContent()
   {
     if (content == null)
     {
-      content = new EObjectContainmentEList<EObject>(EObject.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT);
+      content = new EObjectContainmentEList<Goal>(Goal.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT);
     }
     return content;
   }
@@ -480,7 +481,7 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();
-        getContent().addAll((Collection<? extends EObject>)newValue);
+        getContent().addAll((Collection<? extends Goal>)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
         getIssues().clear();

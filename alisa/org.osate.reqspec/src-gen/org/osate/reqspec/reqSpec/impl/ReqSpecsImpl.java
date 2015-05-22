@@ -24,10 +24,10 @@ import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.aadl2.Classifier;
 
-import org.osate.alisa.common.common.ComputeDeclaration;
-
+import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
+import org.osate.reqspec.reqSpec.Requirement;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,8 +43,8 @@ import org.osate.reqspec.reqSpec.ReqSpecs;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -164,16 +164,6 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
   protected EList<XExpression> constants;
 
   /**
-   * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getComputes()
-   * @generated
-   * @ordered
-   */
-  protected EList<ComputeDeclaration> computes;
-
-  /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -181,7 +171,17 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * @generated
    * @ordered
    */
-  protected EList<EObject> content;
+  protected EList<Requirement> content;
+
+  /**
+   * The cached value of the '{@link #getDocReference() <em>Doc Reference</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDocReference()
+   * @generated
+   * @ordered
+   */
+  protected EList<ExternalDocument> docReference;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -382,13 +382,13 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ComputeDeclaration> getComputes()
+  public EList<Requirement> getContent()
   {
-    if (computes == null)
+    if (content == null)
     {
-      computes = new EObjectContainmentEList<ComputeDeclaration>(ComputeDeclaration.class, this, ReqSpecPackage.REQ_SPECS__COMPUTES);
+      content = new EObjectContainmentEList<Requirement>(Requirement.class, this, ReqSpecPackage.REQ_SPECS__CONTENT);
     }
-    return computes;
+    return content;
   }
 
   /**
@@ -396,13 +396,13 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EObject> getContent()
+  public EList<ExternalDocument> getDocReference()
   {
-    if (content == null)
+    if (docReference == null)
     {
-      content = new EObjectContainmentEList<EObject>(EObject.class, this, ReqSpecPackage.REQ_SPECS__CONTENT);
+      docReference = new EObjectContainmentEList<ExternalDocument>(ExternalDocument.class, this, ReqSpecPackage.REQ_SPECS__DOC_REFERENCE);
     }
-    return content;
+    return docReference;
   }
 
   /**
@@ -431,10 +431,10 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
     {
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
-      case ReqSpecPackage.REQ_SPECS__COMPUTES:
-        return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQ_SPECS__DOC_REFERENCE:
+        return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -464,10 +464,10 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return getOtherreqspecs();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return getConstants();
-      case ReqSpecPackage.REQ_SPECS__COMPUTES:
-        return getComputes();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return getContent();
+      case ReqSpecPackage.REQ_SPECS__DOC_REFERENCE:
+        return getDocReference();
       case ReqSpecPackage.REQ_SPECS__ISSUES:
         return getIssues();
     }
@@ -508,13 +508,13 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         getConstants().clear();
         getConstants().addAll((Collection<? extends XExpression>)newValue);
         return;
-      case ReqSpecPackage.REQ_SPECS__COMPUTES:
-        getComputes().clear();
-        getComputes().addAll((Collection<? extends ComputeDeclaration>)newValue);
-        return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
-        getContent().addAll((Collection<? extends EObject>)newValue);
+        getContent().addAll((Collection<? extends Requirement>)newValue);
+        return;
+      case ReqSpecPackage.REQ_SPECS__DOC_REFERENCE:
+        getDocReference().clear();
+        getDocReference().addAll((Collection<? extends ExternalDocument>)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__ISSUES:
         getIssues().clear();
@@ -555,11 +555,11 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
         return;
-      case ReqSpecPackage.REQ_SPECS__COMPUTES:
-        getComputes().clear();
-        return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
+        return;
+      case ReqSpecPackage.REQ_SPECS__DOC_REFERENCE:
+        getDocReference().clear();
         return;
       case ReqSpecPackage.REQ_SPECS__ISSUES:
         getIssues().clear();
@@ -592,10 +592,10 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return otherreqspecs != null && !otherreqspecs.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return constants != null && !constants.isEmpty();
-      case ReqSpecPackage.REQ_SPECS__COMPUTES:
-        return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return content != null && !content.isEmpty();
+      case ReqSpecPackage.REQ_SPECS__DOC_REFERENCE:
+        return docReference != null && !docReference.isEmpty();
       case ReqSpecPackage.REQ_SPECS__ISSUES:
         return issues != null && !issues.isEmpty();
     }

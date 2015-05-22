@@ -25,6 +25,7 @@ import org.osate.reqspec.reqSpec.Requirement;
 
 import org.osate.verify.verify.ArgumentExpr;
 import org.osate.verify.verify.Claim;
+import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerifyPackage;
 
 /**
@@ -34,10 +35,10 @@ import org.osate.verify.verify.VerifyPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getWeight <em>Weight</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRequirement <em>Requirement</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getActivities <em>Activities</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getArgument <em>Argument</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.ClaimImpl#getRationale <em>Rationale</em>}</li>
@@ -51,24 +52,14 @@ import org.osate.verify.verify.VerifyPackage;
 public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getRequirement()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected Requirement requirement;
 
   /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
@@ -111,14 +102,14 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   protected String weight = WEIGHT_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
+   * The cached value of the '{@link #getActivities() <em>Activities</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRequirement()
+   * @see #getActivities()
    * @generated
    * @ordered
    */
-  protected Requirement requirement;
+  protected EList<VerificationActivity> activities;
 
   /**
    * The cached value of the '{@link #getAssert() <em>Assert</em>}' containment reference.
@@ -206,9 +197,19 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public Requirement getRequirement()
   {
-    return name;
+    if (requirement != null && requirement.eIsProxy())
+    {
+      InternalEObject oldRequirement = (InternalEObject)requirement;
+      requirement = (Requirement)eResolveProxy(oldRequirement);
+      if (requirement != oldRequirement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.CLAIM__REQUIREMENT, oldRequirement, requirement));
+      }
+    }
+    return requirement;
   }
 
   /**
@@ -216,12 +217,22 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public Requirement basicGetRequirement()
   {
-    String oldName = name;
-    name = newName;
+    return requirement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRequirement(Requirement newRequirement)
+  {
+    Requirement oldRequirement = requirement;
+    requirement = newRequirement;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__REQUIREMENT, oldRequirement, requirement));
   }
 
   /**
@@ -275,42 +286,13 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
    * <!-- end-user-doc -->
    * @generated
    */
-  public Requirement getRequirement()
+  public EList<VerificationActivity> getActivities()
   {
-    if (requirement != null && requirement.eIsProxy())
+    if (activities == null)
     {
-      InternalEObject oldRequirement = (InternalEObject)requirement;
-      requirement = (Requirement)eResolveProxy(oldRequirement);
-      if (requirement != oldRequirement)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.CLAIM__REQUIREMENT, oldRequirement, requirement));
-      }
+      activities = new EObjectContainmentEList<VerificationActivity>(VerificationActivity.class, this, VerifyPackage.CLAIM__ACTIVITIES);
     }
-    return requirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Requirement basicGetRequirement()
-  {
-    return requirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRequirement(Requirement newRequirement)
-  {
-    Requirement oldRequirement = requirement;
-    requirement = newRequirement;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.CLAIM__REQUIREMENT, oldRequirement, requirement));
+    return activities;
   }
 
   /**
@@ -470,6 +452,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   {
     switch (featureID)
     {
+      case VerifyPackage.CLAIM__ACTIVITIES:
+        return ((InternalEList<?>)getActivities()).basicRemove(otherEnd, msgs);
       case VerifyPackage.CLAIM__ASSERT:
         return basicSetAssert(null, msgs);
       case VerifyPackage.CLAIM__RATIONALE:
@@ -490,15 +474,15 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   {
     switch (featureID)
     {
-      case VerifyPackage.CLAIM__NAME:
-        return getName();
+      case VerifyPackage.CLAIM__REQUIREMENT:
+        if (resolve) return getRequirement();
+        return basicGetRequirement();
       case VerifyPackage.CLAIM__TITLE:
         return getTitle();
       case VerifyPackage.CLAIM__WEIGHT:
         return getWeight();
-      case VerifyPackage.CLAIM__REQUIREMENT:
-        if (resolve) return getRequirement();
-        return basicGetRequirement();
+      case VerifyPackage.CLAIM__ACTIVITIES:
+        return getActivities();
       case VerifyPackage.CLAIM__ASSERT:
         return getAssert();
       case VerifyPackage.CLAIM__ARGUMENT:
@@ -524,8 +508,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   {
     switch (featureID)
     {
-      case VerifyPackage.CLAIM__NAME:
-        setName((String)newValue);
+      case VerifyPackage.CLAIM__REQUIREMENT:
+        setRequirement((Requirement)newValue);
         return;
       case VerifyPackage.CLAIM__TITLE:
         setTitle((String)newValue);
@@ -533,8 +517,9 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__WEIGHT:
         setWeight((String)newValue);
         return;
-      case VerifyPackage.CLAIM__REQUIREMENT:
-        setRequirement((Requirement)newValue);
+      case VerifyPackage.CLAIM__ACTIVITIES:
+        getActivities().clear();
+        getActivities().addAll((Collection<? extends VerificationActivity>)newValue);
         return;
       case VerifyPackage.CLAIM__ASSERT:
         setAssert((ArgumentExpr)newValue);
@@ -567,8 +552,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   {
     switch (featureID)
     {
-      case VerifyPackage.CLAIM__NAME:
-        setName(NAME_EDEFAULT);
+      case VerifyPackage.CLAIM__REQUIREMENT:
+        setRequirement((Requirement)null);
         return;
       case VerifyPackage.CLAIM__TITLE:
         setTitle(TITLE_EDEFAULT);
@@ -576,8 +561,8 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
       case VerifyPackage.CLAIM__WEIGHT:
         setWeight(WEIGHT_EDEFAULT);
         return;
-      case VerifyPackage.CLAIM__REQUIREMENT:
-        setRequirement((Requirement)null);
+      case VerifyPackage.CLAIM__ACTIVITIES:
+        getActivities().clear();
         return;
       case VerifyPackage.CLAIM__ASSERT:
         setAssert((ArgumentExpr)null);
@@ -608,14 +593,14 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
   {
     switch (featureID)
     {
-      case VerifyPackage.CLAIM__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.CLAIM__REQUIREMENT:
+        return requirement != null;
       case VerifyPackage.CLAIM__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
       case VerifyPackage.CLAIM__WEIGHT:
         return WEIGHT_EDEFAULT == null ? weight != null : !WEIGHT_EDEFAULT.equals(weight);
-      case VerifyPackage.CLAIM__REQUIREMENT:
-        return requirement != null;
+      case VerifyPackage.CLAIM__ACTIVITIES:
+        return activities != null && !activities.isEmpty();
       case VerifyPackage.CLAIM__ASSERT:
         return assert_ != null;
       case VerifyPackage.CLAIM__ARGUMENT:
@@ -641,9 +626,7 @@ public class ClaimImpl extends MinimalEObjectImpl.Container implements Claim
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", title: ");
+    result.append(" (title: ");
     result.append(title);
     result.append(", weight: ");
     result.append(weight);

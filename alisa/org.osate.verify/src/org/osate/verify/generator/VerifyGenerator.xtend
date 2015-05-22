@@ -9,8 +9,6 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationActivity
-import org.osate.verify.verify.VerificationFolder
-import org.osate.verify.verify.VerificationLibrary
 import org.osate.verify.verify.VerificationMethodRegistry
 
 /**
@@ -21,11 +19,11 @@ import org.osate.verify.verify.VerificationMethodRegistry
 class VerifyGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		val content = (resource.contents.get(0) as Verification).contents
-		val vll = content.filter[el | el instanceof VerificationLibrary].map[vl| vl as VerificationLibrary]
-		vll.forEach[mylib| addedImports.clear
-			fsa.generateFile('''«mylib.name»/«mylib.name».java''', mylib.generate)
-		]
+//		val content = (resource.contents.get(0) as Verification).contents
+//		val vll = content.filter[el | el instanceof VerificationLibrary].map[vl| vl as VerificationLibrary]
+//		vll.forEach[mylib| addedImports.clear
+//			fsa.generateFile('''«mylib.name»/«mylib.name».java''', mylib.generate)
+//		]
 	}
 	
 	def dispatch String generate(VerificationMethodRegistry vmr){
@@ -34,35 +32,24 @@ class VerifyGenerator implements IGenerator {
 	val addedImports = new HashSet<String>
 	
 	
-	def dispatch String generate(VerificationLibrary vl){
-'''
-package «vl.name»;
-import org.osate.aadl2.instance.ComponentInstance;
-import org.junit.Test;
-««««FOR el : vl.content»
-««««el.generateImports»
-««««ENDFOR»
-
-class «vl.name» {
-	«FOR el : vl.content»
-	«el.generate»
-	«ENDFOR»
-}
-'''
-	}
-	
-//	def String generateVLC(EObject eo){
-//		switch eo {
-//			VerificationFolder: eo.generate
-//			VerificationActivity: eo.generate
-//			}
+//	def dispatch String generate(VerificationLibrary vl){
+//'''
+//package «vl.name»;
+//import org.osate.aadl2.instance.ComponentInstance;
+//import org.junit.Test;
+//««««FOR el : vl.content»
+//««««el.generateImports»
+//««««ENDFOR»
+//
+//class «vl.name» {
+//	«FOR el : vl.content»
+//	«el.generate»
+//	«ENDFOR»
+//}
+//'''
 //	}
 	
-	def dispatch String generate(VerificationFolder vf){
-		var result = ""
-		for (el : vf.content) result = result + el.generate
-		result
-	}
+	
 	// should it be impl
 	def dispatch String generate(VerificationActivity va){
 		'''
@@ -74,12 +61,6 @@ class «vl.name» {
 		//mnam need more code
 	}
 	
-	
-	def dispatch String generateImports(VerificationFolder vf){
-		var StringBuffer result = new StringBuffer
-		for (el : vf.content) result.append(el.generate)
-		result.toString
-	}
 	 
 	def dispatch String generateImports(VerificationActivity va){
 		val themethod = va.method?.methodPath

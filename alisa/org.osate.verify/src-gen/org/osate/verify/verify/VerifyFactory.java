@@ -50,33 +50,6 @@ public interface VerifyFactory extends EFactory
   Claim createClaim();
 
   /**
-   * Returns a new object of class '<em>Verification Library</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Library</em>'.
-   * @generated
-   */
-  VerificationLibrary createVerificationLibrary();
-
-  /**
-   * Returns a new object of class '<em>Verification Folder</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Folder</em>'.
-   * @generated
-   */
-  VerificationFolder createVerificationFolder();
-
-  /**
-   * Returns a new object of class '<em>Verification Container</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Verification Container</em>'.
-   * @generated
-   */
-  VerificationContainer createVerificationContainer();
-
-  /**
    * Returns a new object of class '<em>Verification Activity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

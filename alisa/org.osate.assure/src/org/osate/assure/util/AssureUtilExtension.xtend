@@ -833,8 +833,7 @@ class AssureUtilExtension {
 			PreconditionResult:
 				return ar.target?.title ?: ar.name
 			VerificationActivityResult: {
-				val vatitle = ar.target?.title
-				return ar.name + ":" + (vatitle ?: "")
+				return ar.name 
 			}
 		}
 		""
@@ -843,7 +842,6 @@ class AssureUtilExtension {
 	def static String constructMessage(VerificationActivityResult vr) {
 		if(vr.message != null) return vr.message
 		val va = vr.target
-		if(va.description != null) return va.description.toText(vr.claimSubject)
 		""
 	}
 

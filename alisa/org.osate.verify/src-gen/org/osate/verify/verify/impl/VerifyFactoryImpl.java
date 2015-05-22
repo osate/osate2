@@ -68,9 +68,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION: return createVerification();
       case VerifyPackage.VERIFICATION_PLAN: return createVerificationPlan();
       case VerifyPackage.CLAIM: return createClaim();
-      case VerifyPackage.VERIFICATION_LIBRARY: return createVerificationLibrary();
-      case VerifyPackage.VERIFICATION_FOLDER: return createVerificationFolder();
-      case VerifyPackage.VERIFICATION_CONTAINER: return createVerificationContainer();
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
@@ -161,39 +158,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     ClaimImpl claim = new ClaimImpl();
     return claim;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationLibrary createVerificationLibrary()
-  {
-    VerificationLibraryImpl verificationLibrary = new VerificationLibraryImpl();
-    return verificationLibrary;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationFolder createVerificationFolder()
-  {
-    VerificationFolderImpl verificationFolder = new VerificationFolderImpl();
-    return verificationFolder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationContainer createVerificationContainer()
-  {
-    VerificationContainerImpl verificationContainer = new VerificationContainerImpl();
-    return verificationContainer;
   }
 
   /**

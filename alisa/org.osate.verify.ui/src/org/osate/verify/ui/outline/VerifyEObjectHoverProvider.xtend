@@ -10,15 +10,16 @@ import org.osate.reqspec.reqSpec.Requirement
 
 class VerifyEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		override getHoverInfoAsHtml(EObject o){
-		switch (o){
-			VerificationActivity: {
-				val Requirement req = o.requirement
-		val z =  (req.title?:"") 
-		val zz = req.description?.toText(req.targetClassifier)
-				val res =  z + ": " + zz
-				return res
-				}
-		}
+//		switch (o){
+//			VerificationActivity: {
+//				val Requirement req = o.requirement
+//		val z =  (req.title?:"") 
+//		val zz = req.description?.toText(req.targetClassifier)
+//				val res =  z + ": " + zz
+//				return res
+//				}
+//		}
+// TODO from VA to enclosing claim object and return req reference 
 		return "No message!!"
 	}
 	

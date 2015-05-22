@@ -4,8 +4,6 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.Classifier;
 
 import org.osate.alisa.common.common.Description;
@@ -193,7 +191,7 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
 
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
+   * The list contents are of type {@link org.osate.reqspec.reqSpec.Goal}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Content</em>' containment reference list isn't clear,
@@ -205,7 +203,7 @@ public interface StakeholderGoals extends ReqSpecContainer, ReqRoot
    * @model containment="true"
    * @generated
    */
-  EList<EObject> getContent();
+  EList<Goal> getContent();
 
   /**
    * Returns the value of the '<em><b>Issues</b></em>' attribute list.

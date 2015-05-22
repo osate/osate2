@@ -93,29 +93,6 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case VerifyPackage.VERIFICATION_LIBRARY:
-      {
-        VerificationLibrary verificationLibrary = (VerificationLibrary)theEObject;
-        T result = caseVerificationLibrary(verificationLibrary);
-        if (result == null) result = caseVerificationContainer(verificationLibrary);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.VERIFICATION_FOLDER:
-      {
-        VerificationFolder verificationFolder = (VerificationFolder)theEObject;
-        T result = caseVerificationFolder(verificationFolder);
-        if (result == null) result = caseVerificationContainer(verificationFolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case VerifyPackage.VERIFICATION_CONTAINER:
-      {
-        VerificationContainer verificationContainer = (VerificationContainer)theEObject;
-        T result = caseVerificationContainer(verificationContainer);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case VerifyPackage.VERIFICATION_ACTIVITY:
       {
         VerificationActivity verificationActivity = (VerificationActivity)theEObject;
@@ -255,54 +232,6 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseClaim(Claim object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Library</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Library</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVerificationLibrary(VerificationLibrary object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Folder</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Folder</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVerificationFolder(VerificationFolder object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Verification Container</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Verification Container</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVerificationContainer(VerificationContainer object)
   {
     return null;
   }

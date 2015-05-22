@@ -18,10 +18,10 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.verify.verify.Claim#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getTitle <em>Title</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getWeight <em>Weight</em>}</li>
- *   <li>{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}</li>
+ *   <li>{@link org.osate.verify.verify.Claim#getActivities <em>Activities</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getAssert <em>Assert</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getArgument <em>Argument</em>}</li>
  *   <li>{@link org.osate.verify.verify.Claim#getRationale <em>Rationale</em>}</li>
@@ -37,30 +37,30 @@ import org.osate.reqspec.reqSpec.Requirement;
 public interface Claim extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Requirement</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.osate.verify.verify.VerifyPackage#getClaim_Name()
+   * @return the value of the '<em>Requirement</em>' reference.
+   * @see #setRequirement(Requirement)
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Requirement()
    * @model
    * @generated
    */
-  String getName();
+  Requirement getRequirement();
 
   /**
-   * Sets the value of the '{@link org.osate.verify.verify.Claim#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Requirement</em>' reference.
+   * @see #getRequirement()
    * @generated
    */
-  void setName(String value);
+  void setRequirement(Requirement value);
 
   /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
@@ -115,30 +115,20 @@ public interface Claim extends EObject
   void setWeight(String value);
 
   /**
-   * Returns the value of the '<em><b>Requirement</b></em>' reference.
+   * Returns the value of the '<em><b>Activities</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.verify.verify.VerificationActivity}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
+   * If the meaning of the '<em>Activities</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirement</em>' reference.
-   * @see #setRequirement(Requirement)
-   * @see org.osate.verify.verify.VerifyPackage#getClaim_Requirement()
-   * @model
+   * @return the value of the '<em>Activities</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getClaim_Activities()
+   * @model containment="true"
    * @generated
    */
-  Requirement getRequirement();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.Claim#getRequirement <em>Requirement</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirement</em>' reference.
-   * @see #getRequirement()
-   * @generated
-   */
-  void setRequirement(Requirement value);
+  EList<VerificationActivity> getActivities();
 
   /**
    * Returns the value of the '<em><b>Assert</b></em>' containment reference.
