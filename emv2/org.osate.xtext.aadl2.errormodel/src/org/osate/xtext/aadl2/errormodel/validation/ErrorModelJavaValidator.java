@@ -537,8 +537,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary etl, Hashtable<String, EObject> types) {
 		for (ErrorTypes et : etl.getTypes()) {
 			if (types.containsKey(et.getName())) {
+				EObject source = types.get(et.getName());
 				ErrorModelLibrary eml = EMV2Util.getContainingErrorModelLibrary(et);
-				error(et,
+				error(source,
 						"Error type or type set (alias) " + et.getName() + " inherited from "
 								+ EMV2Util.getPrintName(eml)
 								+ " conflicts with another defining identifier in error type library");
