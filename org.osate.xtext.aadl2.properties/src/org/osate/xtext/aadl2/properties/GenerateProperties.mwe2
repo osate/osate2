@@ -157,10 +157,12 @@ Workflow {
 			fragment = outline.QuickOutlineFragment {}
 
 			// quickfix API 
-			fragment = quickfix.QuickfixProviderFragment auto-inject {}
+			fragment = quickfix.QuickfixProviderFragment auto-inject {
+				generateXtendStub = true
+			}
 
 			// content assist API  
-			fragment = contentAssist.JavaBasedContentAssistFragment {}
+			fragment = contentAssist.ContentAssistFragment {}
 			
 			// rename refactoring  
 			fragment = refactoring.RefactorElementNameFragment {}

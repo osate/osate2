@@ -12,115 +12,115 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalAadl2Lexer extends Lexer {
-    public static final int RULE_ID=110;
-    public static final int RULE_REAL_LIT=105;
-    public static final int RightParenthesis=88;
-    public static final int Property=23;
-    public static final int Group=54;
+    public static final int Connections=8;
+    public static final int EqualsSignGreaterThanSign=82;
+    public static final int Memory=42;
+    public static final int KW_System=46;
+    public static final int Internal=22;
+    public static final int LessThanSignHyphenMinusGreaterThanSign=71;
+    public static final int Access=40;
+    public static final int False=52;
     public static final int Feature=30;
-    public static final int Path=63;
-    public static final int Data=58;
+    public static final int PlusSignEqualsSignGreaterThanSign=70;
     public static final int LeftParenthesis=87;
-    public static final int RightSquareBracket=97;
+    public static final int Aadlboolean=6;
+    public static final int Inverse=33;
+    public static final int Private=35;
     public static final int Extends=29;
-    public static final int EOF=-1;
+    public static final int Aadlinteger=7;
+    public static final int RULE_ID=110;
+    public static final int RULE_DIGIT=102;
+    public static final int Out=76;
+    public static final int ColonColon=81;
+    public static final int PlusSign=90;
+    public static final int LeftSquareBracket=96;
+    public static final int Package=34;
+    public static final int Group=54;
+    public static final int Processor=16;
+    public static final int Set=77;
+    public static final int In=83;
+    public static final int RULE_REAL_LIT=105;
+    public static final int Is=84;
+    public static final int Classifier=11;
+    public static final int Self=65;
+    public static final int Implementation=4;
+    public static final int Comma=91;
+    public static final int Aadlreal=18;
+    public static final int HyphenMinus=92;
+    public static final int RightCurlyBracket=99;
+    public static final int Property=23;
+    public static final int Path=63;
     public static final int Modes=55;
     public static final int Bus=74;
     public static final int FullStop=93;
-    public static final int Binding=27;
-    public static final int Thread=47;
-    public static final int RULE_ANNEXTEXT=100;
-    public static final int Out=76;
-    public static final int To=86;
-    public static final int Inverse=33;
-    public static final int Calls=49;
-    public static final int Mode=61;
-    public static final int Features=21;
-    public static final int Subprogram=14;
-    public static final int Port=64;
-    public static final int FullStopFullStop=80;
-    public static final int Access=40;
-    public static final int Aadlboolean=6;
-    public static final int Provides=24;
-    public static final int RULE_EXTENDED_DIGIT=108;
-    public static final int Connections=8;
-    public static final int Inherit=31;
-    public static final int Requires=25;
-    public static final int Prototypes=13;
-    public static final int Refined=37;
-    public static final int Properties=12;
-    public static final int LeftCurlyBracket=98;
-    public static final int Colon=94;
-    public static final int None=62;
-    public static final int With=69;
-    public static final int Aadlinteger=7;
-    public static final int Range=56;
-    public static final int RULE_STRING=109;
-    public static final int Sink=66;
-    public static final int RULE_EXPONENT=103;
-    public static final int RULE_DIGIT=102;
-    public static final int Of=85;
-    public static final int PlusSignEqualsSignGreaterThanSign=70;
-    public static final int HyphenMinusGreaterThanSign=78;
-    public static final int RightCurlyBracket=99;
-    public static final int Private=35;
-    public static final int Abstract=19;
-    public static final int End=75;
-    public static final int RULE_INTEGER_LIT=107;
-    public static final int HyphenMinus=92;
-    public static final int LessThanSignHyphenMinusGreaterThanSign=71;
-    public static final int Self=65;
-    public static final int All=73;
-    public static final int False=52;
-    public static final int Constant=20;
-    public static final int Aadlreal=18;
-    public static final int Memory=42;
-    public static final int Virtual=39;
-    public static final int Process=36;
-    public static final int Internal=22;
-    public static final int Set=77;
-    public static final int Initial=32;
-    public static final int Renames=38;
-    public static final int Event=51;
-    public static final int Classifier=11;
-    public static final int Annex=48;
-    public static final int EqualsSignGreaterThanSign=82;
-    public static final int Implementation=4;
-    public static final int Source=45;
-    public static final int LeftSquareBracket=96;
-    public static final int True=67;
-    public static final int Reference=17;
-    public static final int Flow=59;
-    public static final int Asterisk=89;
-    public static final int In=83;
-    public static final int Device=41;
-    public static final int Type=68;
-    public static final int Delta=50;
-    public static final int Is=84;
-    public static final int Units=57;
-    public static final int RULE_BASED_INTEGER=106;
-    public static final int Semicolon=95;
-    public static final int RULE_SL_COMMENT=101;
-    public static final int Flows=53;
-    public static final int Package=34;
-    public static final int Aadlstring=10;
-    public static final int Parameter=15;
-    public static final int List=60;
-    public static final int System=46;
-    public static final int Processor=16;
-    public static final int Public=43;
-    public static final int ColonColon=81;
-    public static final int Subcomponents=5;
-    public static final int RightSquareBracketHyphenMinusGreaterThanSign=72;
-    public static final int PlusSign=90;
     public static final int Enumeration=9;
+    public static final int Reference=17;
+    public static final int Abstract=19;
+    public static final int Calls=49;
+    public static final int Thread=47;
+    public static final int Flow=59;
+    public static final int Semicolon=95;
+    public static final int Type=68;
+    public static final int RULE_EXPONENT=103;
+    public static final int Delta=50;
+    public static final int RULE_EXTENDED_DIGIT=108;
+    public static final int Parameter=15;
+    public static final int Event=51;
+    public static final int HyphenMinusGreaterThanSign=78;
+    public static final int Initial=32;
+    public static final int None=62;
+    public static final int All=73;
+    public static final int Renames=38;
+    public static final int Port=64;
+    public static final int True=67;
+    public static final int Process=36;
     public static final int RULE_INT_EXPONENT=104;
+    public static final int Refined=37;
+    public static final int Sink=66;
+    public static final int FullStopFullStop=80;
+    public static final int List=60;
+    public static final int To=86;
     public static final int Applies=26;
-    public static final int HyphenMinusLeftSquareBracket=79;
+    public static final int RULE_BASED_INTEGER=106;
+    public static final int Inherit=31;
+    public static final int RightSquareBracket=97;
+    public static final int Binding=27;
+    public static final int Requires=25;
+    public static final int Aadlstring=10;
+    public static final int Device=41;
+    public static final int RightParenthesis=88;
+    public static final int Public=43;
+    public static final int Range=56;
+    public static final int Units=57;
+    public static final int Subcomponents=5;
+    public static final int End=75;
+    public static final int Subprogram=14;
+    public static final int RULE_INTEGER_LIT=107;
+    public static final int Constant=20;
+    public static final int RULE_STRING=109;
+    public static final int Properties=12;
+    public static final int Source=45;
+    public static final int With=69;
+    public static final int RULE_SL_COMMENT=101;
+    public static final int RULE_ANNEXTEXT=100;
+    public static final int Prototypes=13;
+    public static final int Features=21;
     public static final int Record=44;
+    public static final int Colon=94;
+    public static final int EOF=-1;
+    public static final int Asterisk=89;
     public static final int RULE_WS=111;
-    public static final int Comma=91;
+    public static final int Mode=61;
+    public static final int HyphenMinusLeftSquareBracket=79;
+    public static final int Flows=53;
+    public static final int LeftCurlyBracket=98;
+    public static final int Virtual=39;
+    public static final int Data=58;
+    public static final int Provides=24;
+    public static final int RightSquareBracketHyphenMinusGreaterThanSign=72;
+    public static final int Annex=48;
     public static final int Compute=28;
+    public static final int Of=85;
 
     // delegates
     // delegators
@@ -4047,13 +4047,13 @@ public class InternalAadl2Lexer extends Lexer {
     }
     // $ANTLR end "Source"
 
-    // $ANTLR start "System"
-    public final void mSystem() throws RecognitionException {
+    // $ANTLR start "KW_System"
+    public final void mKW_System() throws RecognitionException {
         try {
-            int _type = System;
+            int _type = KW_System;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:103:8: ( ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' ) )
-            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:103:10: ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:103:11: ( ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' ) )
+            // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:103:13: ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' )
             {
             if ( input.LA(1)=='S'||input.LA(1)=='s' ) {
                 input.consume();
@@ -4118,7 +4118,7 @@ public class InternalAadl2Lexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "System"
+    // $ANTLR end "KW_System"
 
     // $ANTLR start "Thread"
     public final void mThread() throws RecognitionException {
@@ -7384,7 +7384,7 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR end "RULE_WS"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:8: ( Implementation | Subcomponents | Aadlboolean | Aadlinteger | Connections | Enumeration | Aadlstring | Classifier | Properties | Prototypes | Subprogram | Parameter | Processor | Reference | Aadlreal | Abstract | Constant | Features | Internal | Property | Provides | Requires | Applies | Binding | Compute | Extends | Feature | Inherit | Initial | Inverse | Package | Private | Process | Refined | Renames | Virtual | Access | Device | Memory | Public | Record | Source | System | Thread | Annex | Calls | Delta | Event | False | Flows | Group | Modes | Range | Units | Data | Flow | List | Mode | None | Path | Port | Self | Sink | True | Type | With | PlusSignEqualsSignGreaterThanSign | LessThanSignHyphenMinusGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | Bus | End | Out | Set | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | In | Is | Of | To | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_ANNEXTEXT | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS )
+        // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:8: ( Implementation | Subcomponents | Aadlboolean | Aadlinteger | Connections | Enumeration | Aadlstring | Classifier | Properties | Prototypes | Subprogram | Parameter | Processor | Reference | Aadlreal | Abstract | Constant | Features | Internal | Property | Provides | Requires | Applies | Binding | Compute | Extends | Feature | Inherit | Initial | Inverse | Package | Private | Process | Refined | Renames | Virtual | Access | Device | Memory | Public | Record | Source | KW_System | Thread | Annex | Calls | Delta | Event | False | Flows | Group | Modes | Range | Units | Data | Flow | List | Mode | None | Path | Port | Self | Sink | True | Type | With | PlusSignEqualsSignGreaterThanSign | LessThanSignHyphenMinusGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | Bus | End | Out | Set | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | In | Is | Of | To | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_ANNEXTEXT | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS )
         int alt30=103;
         alt30 = dfa30.predict(input);
         switch (alt30) {
@@ -7683,427 +7683,427 @@ public class InternalAadl2Lexer extends Lexer {
                 }
                 break;
             case 43 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:398: System
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:398: KW_System
                 {
-                mSystem(); 
+                mKW_System(); 
 
                 }
                 break;
             case 44 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:405: Thread
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:408: Thread
                 {
                 mThread(); 
 
                 }
                 break;
             case 45 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:412: Annex
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:415: Annex
                 {
                 mAnnex(); 
 
                 }
                 break;
             case 46 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:418: Calls
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:421: Calls
                 {
                 mCalls(); 
 
                 }
                 break;
             case 47 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:424: Delta
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:427: Delta
                 {
                 mDelta(); 
 
                 }
                 break;
             case 48 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:430: Event
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:433: Event
                 {
                 mEvent(); 
 
                 }
                 break;
             case 49 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:436: False
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:439: False
                 {
                 mFalse(); 
 
                 }
                 break;
             case 50 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:442: Flows
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:445: Flows
                 {
                 mFlows(); 
 
                 }
                 break;
             case 51 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:448: Group
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:451: Group
                 {
                 mGroup(); 
 
                 }
                 break;
             case 52 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:454: Modes
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:457: Modes
                 {
                 mModes(); 
 
                 }
                 break;
             case 53 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:460: Range
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:463: Range
                 {
                 mRange(); 
 
                 }
                 break;
             case 54 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:466: Units
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:469: Units
                 {
                 mUnits(); 
 
                 }
                 break;
             case 55 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:472: Data
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:475: Data
                 {
                 mData(); 
 
                 }
                 break;
             case 56 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:477: Flow
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:480: Flow
                 {
                 mFlow(); 
 
                 }
                 break;
             case 57 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:482: List
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:485: List
                 {
                 mList(); 
 
                 }
                 break;
             case 58 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:487: Mode
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:490: Mode
                 {
                 mMode(); 
 
                 }
                 break;
             case 59 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:492: None
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:495: None
                 {
                 mNone(); 
 
                 }
                 break;
             case 60 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:497: Path
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:500: Path
                 {
                 mPath(); 
 
                 }
                 break;
             case 61 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:502: Port
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:505: Port
                 {
                 mPort(); 
 
                 }
                 break;
             case 62 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:507: Self
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:510: Self
                 {
                 mSelf(); 
 
                 }
                 break;
             case 63 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:512: Sink
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:515: Sink
                 {
                 mSink(); 
 
                 }
                 break;
             case 64 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:517: True
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:520: True
                 {
                 mTrue(); 
 
                 }
                 break;
             case 65 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:522: Type
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:525: Type
                 {
                 mType(); 
 
                 }
                 break;
             case 66 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:527: With
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:530: With
                 {
                 mWith(); 
 
                 }
                 break;
             case 67 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:532: PlusSignEqualsSignGreaterThanSign
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:535: PlusSignEqualsSignGreaterThanSign
                 {
                 mPlusSignEqualsSignGreaterThanSign(); 
 
                 }
                 break;
             case 68 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:566: LessThanSignHyphenMinusGreaterThanSign
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:569: LessThanSignHyphenMinusGreaterThanSign
                 {
                 mLessThanSignHyphenMinusGreaterThanSign(); 
 
                 }
                 break;
             case 69 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:605: RightSquareBracketHyphenMinusGreaterThanSign
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:608: RightSquareBracketHyphenMinusGreaterThanSign
                 {
                 mRightSquareBracketHyphenMinusGreaterThanSign(); 
 
                 }
                 break;
             case 70 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:650: All
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:653: All
                 {
                 mAll(); 
 
                 }
                 break;
             case 71 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:654: Bus
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:657: Bus
                 {
                 mBus(); 
 
                 }
                 break;
             case 72 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:658: End
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:661: End
                 {
                 mEnd(); 
 
                 }
                 break;
             case 73 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:662: Out
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:665: Out
                 {
                 mOut(); 
 
                 }
                 break;
             case 74 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:666: Set
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:669: Set
                 {
                 mSet(); 
 
                 }
                 break;
             case 75 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:670: HyphenMinusGreaterThanSign
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:673: HyphenMinusGreaterThanSign
                 {
                 mHyphenMinusGreaterThanSign(); 
 
                 }
                 break;
             case 76 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:697: HyphenMinusLeftSquareBracket
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:700: HyphenMinusLeftSquareBracket
                 {
                 mHyphenMinusLeftSquareBracket(); 
 
                 }
                 break;
             case 77 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:726: FullStopFullStop
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:729: FullStopFullStop
                 {
                 mFullStopFullStop(); 
 
                 }
                 break;
             case 78 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:743: ColonColon
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:746: ColonColon
                 {
                 mColonColon(); 
 
                 }
                 break;
             case 79 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:754: EqualsSignGreaterThanSign
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:757: EqualsSignGreaterThanSign
                 {
                 mEqualsSignGreaterThanSign(); 
 
                 }
                 break;
             case 80 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:780: In
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:783: In
                 {
                 mIn(); 
 
                 }
                 break;
             case 81 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:783: Is
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:786: Is
                 {
                 mIs(); 
 
                 }
                 break;
             case 82 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:786: Of
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:789: Of
                 {
                 mOf(); 
 
                 }
                 break;
             case 83 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:789: To
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:792: To
                 {
                 mTo(); 
 
                 }
                 break;
             case 84 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:792: LeftParenthesis
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:795: LeftParenthesis
                 {
                 mLeftParenthesis(); 
 
                 }
                 break;
             case 85 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:808: RightParenthesis
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:811: RightParenthesis
                 {
                 mRightParenthesis(); 
 
                 }
                 break;
             case 86 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:825: Asterisk
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:828: Asterisk
                 {
                 mAsterisk(); 
 
                 }
                 break;
             case 87 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:834: PlusSign
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:837: PlusSign
                 {
                 mPlusSign(); 
 
                 }
                 break;
             case 88 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:843: Comma
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:846: Comma
                 {
                 mComma(); 
 
                 }
                 break;
             case 89 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:849: HyphenMinus
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:852: HyphenMinus
                 {
                 mHyphenMinus(); 
 
                 }
                 break;
             case 90 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:861: FullStop
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:864: FullStop
                 {
                 mFullStop(); 
 
                 }
                 break;
             case 91 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:870: Colon
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:873: Colon
                 {
                 mColon(); 
 
                 }
                 break;
             case 92 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:876: Semicolon
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:879: Semicolon
                 {
                 mSemicolon(); 
 
                 }
                 break;
             case 93 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:886: LeftSquareBracket
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:889: LeftSquareBracket
                 {
                 mLeftSquareBracket(); 
 
                 }
                 break;
             case 94 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:904: RightSquareBracket
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:907: RightSquareBracket
                 {
                 mRightSquareBracket(); 
 
                 }
                 break;
             case 95 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:923: LeftCurlyBracket
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:926: LeftCurlyBracket
                 {
                 mLeftCurlyBracket(); 
 
                 }
                 break;
             case 96 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:940: RightCurlyBracket
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:943: RightCurlyBracket
                 {
                 mRightCurlyBracket(); 
 
                 }
                 break;
             case 97 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:958: RULE_ANNEXTEXT
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:961: RULE_ANNEXTEXT
                 {
                 mRULE_ANNEXTEXT(); 
 
                 }
                 break;
             case 98 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:973: RULE_SL_COMMENT
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:976: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
             case 99 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:989: RULE_REAL_LIT
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:992: RULE_REAL_LIT
                 {
                 mRULE_REAL_LIT(); 
 
                 }
                 break;
             case 100 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:1003: RULE_INTEGER_LIT
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:1006: RULE_INTEGER_LIT
                 {
                 mRULE_INTEGER_LIT(); 
 
                 }
                 break;
             case 101 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:1020: RULE_STRING
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:1023: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
             case 102 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:1032: RULE_ID
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:1035: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
             case 103 :
-                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:1040: RULE_WS
+                // ../org.osate.xtext.aadl2.ui/src-gen/org/osate/xtext/aadl2/ui/contentassist/antlr/lexer/InternalAadl2Lexer.g:1:1043: RULE_WS
                 {
                 mRULE_WS(); 
 
@@ -8638,7 +8638,7 @@ public class InternalAadl2Lexer extends Lexer {
             this.transition = DFA30_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( Implementation | Subcomponents | Aadlboolean | Aadlinteger | Connections | Enumeration | Aadlstring | Classifier | Properties | Prototypes | Subprogram | Parameter | Processor | Reference | Aadlreal | Abstract | Constant | Features | Internal | Property | Provides | Requires | Applies | Binding | Compute | Extends | Feature | Inherit | Initial | Inverse | Package | Private | Process | Refined | Renames | Virtual | Access | Device | Memory | Public | Record | Source | System | Thread | Annex | Calls | Delta | Event | False | Flows | Group | Modes | Range | Units | Data | Flow | List | Mode | None | Path | Port | Self | Sink | True | Type | With | PlusSignEqualsSignGreaterThanSign | LessThanSignHyphenMinusGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | Bus | End | Out | Set | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | In | Is | Of | To | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_ANNEXTEXT | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS );";
+            return "1:1: Tokens : ( Implementation | Subcomponents | Aadlboolean | Aadlinteger | Connections | Enumeration | Aadlstring | Classifier | Properties | Prototypes | Subprogram | Parameter | Processor | Reference | Aadlreal | Abstract | Constant | Features | Internal | Property | Provides | Requires | Applies | Binding | Compute | Extends | Feature | Inherit | Initial | Inverse | Package | Private | Process | Refined | Renames | Virtual | Access | Device | Memory | Public | Record | Source | KW_System | Thread | Annex | Calls | Delta | Event | False | Flows | Group | Modes | Range | Units | Data | Flow | List | Mode | None | Path | Port | Self | Sink | True | Type | With | PlusSignEqualsSignGreaterThanSign | LessThanSignHyphenMinusGreaterThanSign | RightSquareBracketHyphenMinusGreaterThanSign | All | Bus | End | Out | Set | HyphenMinusGreaterThanSign | HyphenMinusLeftSquareBracket | FullStopFullStop | ColonColon | EqualsSignGreaterThanSign | In | Is | Of | To | LeftParenthesis | RightParenthesis | Asterisk | PlusSign | Comma | HyphenMinus | FullStop | Colon | Semicolon | LeftSquareBracket | RightSquareBracket | LeftCurlyBracket | RightCurlyBracket | RULE_ANNEXTEXT | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS );";
         }
     }
  
