@@ -27,7 +27,8 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.1.0";resolution:=o
  org.eclipse.emf.mwe.utils;resolution:=optional,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
  org.eclipse.uml2.codegen.ecore;bundle-version="1.9.100";resolution:=optional,
- org.eclipse.emf.transaction
+ org.eclipse.emf.transaction,
+ org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.formatting,
@@ -48,4 +49,3 @@ Export-Package: org.osate.xtext.aadl2,
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
 Bundle-Activator: org.osate.xtext.aadl2.Activator
-

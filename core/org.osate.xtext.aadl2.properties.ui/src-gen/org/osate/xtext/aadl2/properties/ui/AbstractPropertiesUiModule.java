@@ -4,14 +4,13 @@
  */
 package org.osate.xtext.aadl2.properties.ui;
 
-import org.eclipse.xtext.ui.DefaultUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Manual modifications go to {org.osate.xtext.aadl2.properties.ui.PropertiesUiModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractPropertiesUiModule extends DefaultUiModule {
+public abstract class AbstractPropertiesUiModule extends org.eclipse.xtext.ui.DefaultUiModule {
 	
 	public AbstractPropertiesUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
@@ -93,7 +92,7 @@ public abstract class AbstractPropertiesUiModule extends DefaultUiModule {
 		return org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider.class;
 	}
 
-	// contributed by org.eclipse.xtext.ui.generator.contentAssist.JavaBasedContentAssistFragment
+	// contributed by org.eclipse.xtext.ui.generator.contentAssist.ContentAssistFragment
 	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IContentProposalProvider> bindIContentProposalProvider() {
 		return org.osate.xtext.aadl2.properties.ui.contentassist.PropertiesProposalProvider.class;
 	}

@@ -650,6 +650,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							// TODO-LW: check if this logic is correct
 							EList<Feature> toflist = toFeature.getAllFeatureRefinements();
 							final boolean opposite = toflist.contains(nextConn.getAllDestination())
+									&& toCtx == nextConn.getAllDestinationContext()
 									|| toflist.contains(nextConn.getAllDestinationContext());
 							appendSegment(clone, nextConn, toCi, opposite);
 						}

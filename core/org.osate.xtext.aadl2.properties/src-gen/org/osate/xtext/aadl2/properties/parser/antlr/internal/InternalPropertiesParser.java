@@ -23,46 +23,46 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Classifier", "Reference", "Constant", "Applies", "Binding", "Compute", "Delta", "False", "Modes", "True", "PlusSignEqualsSignGreaterThanSign", "FullStopFullStop", "ColonColon", "EqualsSignGreaterThanSign", "In", "To", "LeftParenthesis", "RightParenthesis", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Semicolon", "LeftSquareBracket", "RightSquareBracket", "LeftCurlyBracket", "RightCurlyBracket", "RULE_SL_COMMENT", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_REAL_LIT", "RULE_BASED_INTEGER", "RULE_INTEGER_LIT", "RULE_EXTENDED_DIGIT", "RULE_STRING", "RULE_ID", "RULE_WS"
     };
-    public static final int Asterisk=22;
-    public static final int RULE_ID=41;
+    public static final int EqualsSignGreaterThanSign=17;
     public static final int In=18;
-    public static final int RULE_INTEGER_LIT=38;
-    public static final int RULE_REAL_LIT=36;
-    public static final int HyphenMinus=25;
-    public static final int Delta=10;
-    public static final int RightParenthesis=21;
-    public static final int False=11;
     public static final int Constant=6;
-    public static final int LeftParenthesis=20;
-    public static final int RightSquareBracket=29;
-    public static final int LeftCurlyBracket=30;
-    public static final int RULE_BASED_INTEGER=37;
-    public static final int Semicolon=27;
+    public static final int RULE_REAL_LIT=36;
+    public static final int True=13;
+    public static final int RULE_STRING=40;
+    public static final int Classifier=4;
+    public static final int False=11;
     public static final int RULE_SL_COMMENT=32;
+    public static final int RULE_INT_EXPONENT=35;
+    public static final int Comma=24;
+    public static final int HyphenMinus=25;
+    public static final int PlusSignEqualsSignGreaterThanSign=14;
+    public static final int LeftParenthesis=20;
+    public static final int FullStopFullStop=15;
+    public static final int To=19;
+    public static final int RightCurlyBracket=31;
+    public static final int Applies=7;
     public static final int EOF=-1;
+    public static final int Asterisk=22;
+    public static final int RULE_BASED_INTEGER=37;
+    public static final int RightSquareBracket=29;
+    public static final int Binding=8;
     public static final int Modes=12;
     public static final int FullStop=26;
-    public static final int Binding=8;
-    public static final int ColonColon=16;
-    public static final int RULE_STRING=40;
-    public static final int PlusSign=23;
-    public static final int Classifier=4;
-    public static final int To=19;
-    public static final int RULE_EXPONENT=34;
-    public static final int EqualsSignGreaterThanSign=17;
-    public static final int RULE_INT_EXPONENT=35;
-    public static final int Applies=7;
-    public static final int LeftSquareBracket=28;
-    public static final int FullStopFullStop=15;
-    public static final int True=13;
+    public static final int RULE_ID=41;
     public static final int RULE_WS=42;
-    public static final int RULE_DIGIT=33;
     public static final int Reference=5;
-    public static final int Comma=24;
-    public static final int PlusSignEqualsSignGreaterThanSign=14;
+    public static final int RightParenthesis=21;
+    public static final int LeftCurlyBracket=30;
+    public static final int RULE_DIGIT=33;
+    public static final int ColonColon=16;
+    public static final int Semicolon=27;
+    public static final int RULE_EXPONENT=34;
+    public static final int Delta=10;
+    public static final int PlusSign=23;
     public static final int Compute=9;
-    public static final int RightCurlyBracket=31;
     public static final int RULE_EXTENDED_DIGIT=39;
+    public static final int LeftSquareBracket=28;
+    public static final int RULE_INTEGER_LIT=38;
 
     // delegates
     // delegators
@@ -4086,9 +4086,9 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
             case PlusSign:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_ID:
+                case RULE_REAL_LIT:
                     {
-                    alt23=3;
+                    alt23=1;
                     }
                     break;
                 case RULE_INTEGER_LIT:
@@ -4096,9 +4096,9 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                     alt23=2;
                     }
                     break;
-                case RULE_REAL_LIT:
+                case RULE_ID:
                     {
-                    alt23=1;
+                    alt23=3;
                     }
                     break;
                 default:
@@ -4113,11 +4113,6 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
             case HyphenMinus:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_ID:
-                    {
-                    alt23=3;
-                    }
-                    break;
                 case RULE_REAL_LIT:
                     {
                     alt23=1;
@@ -4126,6 +4121,11 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                 case RULE_INTEGER_LIT:
                     {
                     alt23=2;
+                    }
+                    break;
+                case RULE_ID:
+                    {
+                    alt23=3;
                     }
                     break;
                 default:
