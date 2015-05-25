@@ -3,12 +3,11 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.alisa.workbench/src-gen" editDirectory="/org.osate.alisa.workbench.edit/src"
     editorDirectory="/org.osate.alisa.workbench.editor/src" modelPluginID="org.osate.alisa.workbench"
     forceOverwrite="true" modelName="Alisa" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.alisa.workbench.edit"
-    editorPluginID="org.osate.alisa.workbench.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.verify/model/generated/Verify.genmodel#//verify">
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.alisa.workbench.edit"
+    editorPluginID="org.osate.alisa.workbench.editor" runtimeVersion="2.10" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.categories/model/generated/Categories.genmodel#//categories platform:/resource/org.osate.verify/model/generated/Verify.genmodel#//verify">
   <genPackages prefix="Alisa" basePackage="org.osate.alisa.workbench" disposableProviderFactory="true"
       fileExtensions="alisa" ecorePackage="Alisa.ecore#/">
     <genClasses ecoreClass="Alisa.ecore#//AlisaWorkArea">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Alisa.ecore#//AlisaWorkArea/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Alisa.ecore#//AlisaWorkArea/cases"/>
     </genClasses>
     <genClasses ecoreClass="Alisa.ecore#//AssurancePlan">

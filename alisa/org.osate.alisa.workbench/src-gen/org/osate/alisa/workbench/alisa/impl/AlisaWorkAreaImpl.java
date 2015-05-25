@@ -4,7 +4,6 @@ package org.osate.alisa.workbench.alisa.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -13,7 +12,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -29,7 +27,6 @@ import org.osate.alisa.workbench.alisa.AlisaWorkArea;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.alisa.workbench.alisa.impl.AlisaWorkAreaImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.alisa.workbench.alisa.impl.AlisaWorkAreaImpl#getCases <em>Cases</em>}</li>
  * </ul>
  * </p>
@@ -38,26 +35,6 @@ import org.osate.alisa.workbench.alisa.AlisaWorkArea;
  */
 public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements AlisaWorkArea
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getCases() <em>Cases</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -87,29 +64,6 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
   protected EClass eStaticClass()
   {
     return AlisaPackage.Literals.ALISA_WORK_AREA;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlisaPackage.ALISA_WORK_AREA__NAME, oldName, name));
   }
 
   /**
@@ -152,8 +106,6 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
   {
     switch (featureID)
     {
-      case AlisaPackage.ALISA_WORK_AREA__NAME:
-        return getName();
       case AlisaPackage.ALISA_WORK_AREA__CASES:
         return getCases();
     }
@@ -171,9 +123,6 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
   {
     switch (featureID)
     {
-      case AlisaPackage.ALISA_WORK_AREA__NAME:
-        setName((String)newValue);
-        return;
       case AlisaPackage.ALISA_WORK_AREA__CASES:
         getCases().clear();
         getCases().addAll((Collection<? extends EObject>)newValue);
@@ -192,9 +141,6 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
   {
     switch (featureID)
     {
-      case AlisaPackage.ALISA_WORK_AREA__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case AlisaPackage.ALISA_WORK_AREA__CASES:
         getCases().clear();
         return;
@@ -212,29 +158,10 @@ public class AlisaWorkAreaImpl extends MinimalEObjectImpl.Container implements A
   {
     switch (featureID)
     {
-      case AlisaPackage.ALISA_WORK_AREA__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AlisaPackage.ALISA_WORK_AREA__CASES:
         return cases != null && !cases.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //AlisaWorkAreaImpl

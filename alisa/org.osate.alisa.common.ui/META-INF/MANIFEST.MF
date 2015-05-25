@@ -30,5 +30,6 @@ Export-Package: org.osate.alisa.common.ui.contentassist,
  org.osate.alisa.common.ui.contentassist.antlr,
  org.osate.alisa.common.ui.internal,
  org.osate.alisa.common.ui.quickfix,
- org.osate.alisa.common.ui.util
+ org.osate.alisa.common.ui.util,
+ org.osate.alisa.common.ui.contentassist.antlr.internal
 Bundle-Activator: org.osate.alisa.common.ui.internal.CommonActivator

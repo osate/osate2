@@ -17,6 +17,10 @@
 		</topic>
 		<topic href="contents/03-ReqSpec.html#Stakeholders" label="Stakeholders and Their Organization" >
 		</topic>
+		<topic href="contents/03-ReqSpec.html#Validity" label="Validation approaches" >
+			<topic href="contents/03-ReqSpec.html#Checks" label="Types of Checks" >
+			</topic>
+		</topic>
 	</topic>
 	<topic href="contents/04-Verify.html#Verify" label="Verification Plans for a System" >
 		<topic href="contents/04-Verify.html#VerificationPlans" label="Verification Plans" >

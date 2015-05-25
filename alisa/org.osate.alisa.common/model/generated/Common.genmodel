@@ -3,10 +3,10 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.alisa.common/src-gen" editDirectory="/org.osate.alisa.common.edit/src"
     editorDirectory="/org.osate.alisa.common.editor/src" modelPluginID="org.osate.alisa.common"
     forceOverwrite="true" modelName="Common" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.alisa.common.edit"
-    editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.10" usedGenPackages="platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.alisa.common.edit"
+    editorPluginID="org.osate.alisa.common.editor" runtimeVersion="2.10" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="Common" basePackage="org.osate.alisa.common" disposableProviderFactory="true"
-      fileExtensions="common" ecorePackage="Common.ecore#/">
+      fileExtensions="___common___" ecorePackage="Common.ecore#/">
     <genClasses ecoreClass="Common.ecore#//Description">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//Description/description"/>
     </genClasses>

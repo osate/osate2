@@ -16,7 +16,7 @@ created in files with the extension <em>reqspec</em>.
 </p>
 <p>
 Stakeholder goals represent the interests of stakeholders, also known as stakeholder requirements.
-They may be specified ambiguously, may ot be verifiable, and
+They may be specified ambiguously, may not be verifiable, and
 may be in conflict with each other. We use the term <em>goal</em> to refer to the concept of stakeholder requirements. 
 </p>
 <p>
@@ -82,7 +82,7 @@ A <em>goal</em> construct has the following syntax:
 		the goal. If absent the goal applies to any system component.
 	</li>
 	<li>
-		The <em>category</em> attribute identifies one or more requirment categories. Requirement categories are user-definable
+		The <em>category</em> attribute identifies one or more requirement categories. Requirement categories are user-definable
 		and existing category definitions are extensible (see <a href="03-ReqSpec.html#ReqCategory" title="Go to &quot;User Definable Requirement Categories&quot;">User-definable Requirement Categories</a>).
 	</li>
 	<li>
@@ -103,7 +103,7 @@ A <em>goal</em> construct has the following syntax:
 		qualified name.
 	</li>
 	<li>
-		The <em>stakeholder</em> attribute refers to a steakholder. Stakeholders are defined in a separate files
+		The <em>stakeholder</em> attribute refers to a stakeholder. Stakeholders are defined in a separate files
 		using the <em>organization</em> notation. The stakeholder is qualified by the organization name.
 	</li>
 	<li>
@@ -174,7 +174,7 @@ A <em>requirement</em> construct has the following syntax:
 		the goal. If absent the goal applies to any system component.
 	</li>
 	<li>
-		The <em>category</em> attribute identifies one or more requirment category. Requirement categories are user-definable
+		The <em>category</em> attribute identifies one or more requirement category. Requirement categories are user-definable
 		and existing category definitions are extensible (see <a href="03-ReqSpec.html#ReqCategory" title="Go to &quot;User Definable Requirement Categories&quot;">User-definable Requirement Categories</a>).
 	</li>
 	<li>
@@ -190,7 +190,7 @@ A <em>requirement</em> construct has the following syntax:
 	</li>
 	<li>
 		The <em>compute</em> field allows users to introduce variables whose value will be computed by a verification
-		method that is identified in a verificaiton activity declaration. This variable can then be referenced in assertion expressions.
+		method that is identified in a verification activity declaration. This variable can then be referenced in assertion expressions.
 	</li>
 	<li>
 		The <em>rationale</em> attributes is a multi line text field
@@ -200,7 +200,7 @@ A <em>requirement</em> construct has the following syntax:
 		by the requirement.
 	</li>
 	<li>
-		The <em>refines</em> attribute is a list of one or more references to other requirements of the same component that this requirement refines. The prupose of requirement refinement is to achieve a verifable requirement specification.
+		The <em>refines</em> attribute is a list of one or more references to other requirements of the same component that this requirement refines. The purpose of requirement refinement is to achieve a verifiable requirement specification.
 		The referenced requirement is identified by its qualified name.
 	</li>
 	<li>
@@ -263,14 +263,14 @@ We distinguish between different types of assertions.
 		this is used to specify that some computed numeric value, e.g., end to end latency, stays within limits.
 		Users can refer to the <em>val</em> constants and <em>compute</em> variables of the requirement or its enclosing
 		requirement specification container. If the computed value is to be within a range users can specify
-		the range condition as follows: <em> minval..maxval.contains(actual)</em>. Otherwise esxpressions with comparison
+		the range condition as follows: <em> minval..maxval.contains(actual)</em>. Otherwise expressions with comparison
 		operators can be used. The syntax currently allows the user to specify any <em>XBase</em> expression. 
 	</li>
 	<li>
 		The <em>assert value</em> expression may optionally include a mapping of <em>val</em> constants to AADL properties
 		to reflect the fact that this constant is expected to be represent in the model by this property. This
 		is useful if an analysis (verification) method expects to find the data reflected as property. <em>note:</em>
-		this may move to the verificication activity as an assumption. 
+		this may move to the verification activity as an assumption. 
 	</li>
 	<li>
 		The <em>input assumption</em> assertion represents assumptions made about incoming information. Users
@@ -300,7 +300,7 @@ the architecture model using the architecture-led requirement specification proc
 <a name="RequirementDocuments"></a>
 <h2>Requirement Documents</h2>
 <p>
-Users can import existing stakeholder requirment and system requirement documents. Users can also create
+Users can import existing stakeholder requirement and system requirement documents. Users can also create
 goals and requirements following the structure of a requirement document.
 </p>
 <p>
@@ -411,7 +411,7 @@ a requirement specification for a system.
 <ul>
 	<li>
 		<em>include</em> identifies other requirement specifications for the target component. It allows users
-		to identify requirements that are kept in separate ReqSpecs declaraiton to be part of a set of system
+		to identify requirements that are kept in separate ReqSpecs declaration to be part of a set of system
 		requirements.
 	</li>
 	<li>
@@ -450,7 +450,7 @@ Here is an example of a set of system requirement specifications.
 <a name="ReqCategory"></a>
 <h2>User Definable Requirement Categories</h2>
 <p>
-Requirement categories are defined through the CateGory specificaiton notation. These specifications are
+Requirement categories are defined through the CateGory specification notation. These specifications are
 created in files with the extension @<em>cat</em>.
 </p>
 <p>
@@ -464,7 +464,7 @@ created in files with the extension @<em>cat</em>.
 &nbsp;&nbsp;&nbsp;&nbsp;]<br/>
 <br/>
 &lt;RequirementCategory&gt;&nbsp;:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;dependeability<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;dependability<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;safety&nbsp;(&nbsp;<span class="keyword">extends</span>&nbsp;dependability&nbsp;)?&nbsp;<br/>
 </p>
 </div>
@@ -481,7 +481,7 @@ Requirement categories can be placed into an extends hierarchy.
 <p>
 The <em>organization</em> notations allows user to define organizations and stakeholders that belong to organizations.
 Stakeholder names must be unique within an organization. Stakeholders are referenced by qualifying them
-with the orgnaization name.
+with the organization name.
 </p>
 <p>
 <div class="literallayout">
@@ -512,7 +512,38 @@ supported.
 <p>
 At this time the name used after the stakeholder keyword must be unique within an organization. This
 is the name to be referenced. 
- 
+</p>
+<a name="Validity"></a>
+<h2>Validation approaches</h2>
+<p>
+We validate ReqSpec in three ways (supported by XText):
+<ul>
+	<li>
+		FAST: is executed after a delay of 500ms after ANY editing action (type, enter, delete)
+	</li>
+	<li>
+		NORMAL: is executed after a build (Project -&gt; Build project), typically on an explicit save.
+	</li>
+	<li>
+		EXPENSIVE: is executed by right clicking ANYWHERE in the editor window and choosing "Validate"
+	</li>
+</ul>
+</p>
+<a name="Checks"></a>
+<h3>Types of Checks</h3>
+<p>
+<ul>
+	<li>
+		<span class="inlinecode">checkMissingGoal</span> and checkMissingStakeholder: ensure these elements are present, WARN if not. 
+	</li>
+	<li>
+		checkMultipleSystems: check if a spec refers to multiple AADL classifiers, warn if true. 
+	</li>
+	<li>
+		Unique Names: make sure ids are not duplicated.
+	</li>
+</ul>
+
 </p>
 </body>
 </html>

@@ -4,14 +4,13 @@
  */
 package org.osate.alisa.workbench.ui;
 
-import org.eclipse.xtext.ui.DefaultUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Manual modifications go to {org.osate.alisa.workbench.ui.AlisaUiModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractAlisaUiModule extends DefaultUiModule {
+public abstract class AbstractAlisaUiModule extends org.eclipse.xtext.ui.DefaultUiModule {
 	
 	public AbstractAlisaUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
@@ -56,6 +55,11 @@ public abstract class AbstractAlisaUiModule extends DefaultUiModule {
 	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
 	public Class<? extends org.eclipse.xtext.ui.editor.IXtextEditorCallback> bindIXtextEditorCallback() {
 		return org.eclipse.xtext.builder.nature.NatureAddingEditorCallback.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
+	public Class<? extends org.eclipse.xtext.generator.IContextualOutputConfigurationProvider> bindIContextualOutputConfigurationProvider() {
+		return org.eclipse.xtext.builder.EclipseOutputConfigurationProvider.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
