@@ -127,7 +127,21 @@ ErrorTypes returns ErrorTypes:
 
 TypeDefinition returns ErrorType: 
     name=ID (
-    	(':' 'type' ( 'extends' superType=[ErrorType|QEMREF] )? )
+		/*
+		 * The first two options used to be combined into the following option
+		 * 		(':' 'type' ( 'extends' superType=[ErrorType|QEMREF] )? )
+		 * 
+		 * This was causing problems with serialization of simple types where both the
+		 * superType and the aliasedType are null.  The serializer was throwing an
+		 * IConcreteSyntaxValidator.InvalidConcreteSyntaxException complaining that
+		 * aliasedType must be set.  The exception specifies the constraint being violated:
+		 * 		(superType?|aliasedType)
+		 * 
+		 * It seems like the combined version should work and I don't know why it doesn't
+		 * work.  For some reason, it works if the options are separated out.
+		 */
+		(':' 'type')
+		|(':' 'type' 'extends' superType=[ErrorType|QEMREF])
     	|('renames' 'type' aliasedType=[ErrorType|QEMREF])
     	)
     ';';

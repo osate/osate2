@@ -379,7 +379,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 	 * @return
 	 */
 	public ErrorModelLibrary findErrorModelLibrary(EObject context, String name) {
-		ErrorModelLibrary eml = (ErrorModelLibrary) getActualAnnexLibrary(context, name + "::" + "emv2");
+		ErrorModelLibrary eml = (ErrorModelLibrary) getActualAnnexLibrary(context, "emv2$" + name);
 		if (eml != null) {
 			return eml;
 		}

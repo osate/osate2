@@ -4,14 +4,13 @@
  */
 package org.osate.xtext.aadl2.errormodel.ui;
 
-import org.eclipse.xtext.ui.DefaultUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Manual modifications go to {org.osate.xtext.aadl2.errormodel.ui.ErrorModelUiModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractErrorModelUiModule extends DefaultUiModule {
+public abstract class AbstractErrorModelUiModule extends org.eclipse.xtext.ui.DefaultUiModule {
 	
 	public AbstractErrorModelUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
