@@ -59,8 +59,9 @@ DescriptionElement :
 
  
 // Qualified classifier reference
+
 AadlClassifierReference:
-	ID '::' ID ('.' ID)?;
+	ID ('::' ID)+ ('.' ID)?;
 
 QualifiedName:
 	ID ('.' ID)?;
