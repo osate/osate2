@@ -67,22 +67,13 @@ public interface AlisaPackage extends EPackage
   int ALISA_WORK_AREA = 0;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ALISA_WORK_AREA__NAME = 0;
-
-  /**
    * The feature id for the '<em><b>Cases</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ALISA_WORK_AREA__CASES = 1;
+  int ALISA_WORK_AREA__CASES = 0;
 
   /**
    * The number of structural features of the '<em>Work Area</em>' class.
@@ -91,7 +82,7 @@ public interface AlisaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ALISA_WORK_AREA_FEATURE_COUNT = 2;
+  int ALISA_WORK_AREA_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.workbench.alisa.impl.AssurancePlanImpl <em>Assurance Plan</em>}' class.
@@ -350,17 +341,6 @@ public interface AlisaPackage extends EPackage
    * @generated
    */
   EClass getAlisaWorkArea();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.workbench.alisa.AlisaWorkArea#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.workbench.alisa.AlisaWorkArea#getName()
-   * @see #getAlisaWorkArea()
-   * @generated
-   */
-  EAttribute getAlisaWorkArea_Name();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.alisa.workbench.alisa.AlisaWorkArea#getCases <em>Cases</em>}'.
@@ -654,14 +634,6 @@ public interface AlisaPackage extends EPackage
      * @generated
      */
     EClass ALISA_WORK_AREA = eINSTANCE.getAlisaWorkArea();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ALISA_WORK_AREA__NAME = eINSTANCE.getAlisaWorkArea_Name();
 
     /**
      * The meta object literal for the '<em><b>Cases</b></em>' containment reference list feature.

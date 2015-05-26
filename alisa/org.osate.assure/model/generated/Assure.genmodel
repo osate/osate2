@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.assure/src-gen" editDirectory="/org.osate.assure.edit/src"
     editorDirectory="/org.osate.assure.editor/src" modelPluginID="org.osate.assure"
     forceOverwrite="true" modelName="Assure" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.assure.edit"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.assure.edit"
     editorPluginID="org.osate.assure.editor" runtimeVersion="2.10" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.aadl2/model/instance.genmodel#//instance platform:/resource/org.osate.reqspec/model/generated/ReqSpec.genmodel#//reqSpec platform:/resource/org.osate.results/model/generated/Results.genmodel#//results platform:/resource/org.osate.verify/model/generated/Verify.genmodel#//verify">
   <genPackages prefix="Assure" basePackage="org.osate.assure" disposableProviderFactory="true"
       fileExtensions="assure" ecorePackage="Assure.ecore#/">

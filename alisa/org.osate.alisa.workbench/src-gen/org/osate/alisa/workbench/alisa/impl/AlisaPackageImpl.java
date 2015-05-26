@@ -148,19 +148,9 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAlisaWorkArea_Name()
-  {
-    return (EAttribute)alisaWorkAreaEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getAlisaWorkArea_Cases()
   {
-    return (EReference)alisaWorkAreaEClass.getEStructuralFeatures().get(1);
+    return (EReference)alisaWorkAreaEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -424,7 +414,6 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
 
     // Create classes and their features
     alisaWorkAreaEClass = createEClass(ALISA_WORK_AREA);
-    createEAttribute(alisaWorkAreaEClass, ALISA_WORK_AREA__NAME);
     createEReference(alisaWorkAreaEClass, ALISA_WORK_AREA__CASES);
 
     assurancePlanEClass = createEClass(ASSURANCE_PLAN);
@@ -493,7 +482,6 @@ public class AlisaPackageImpl extends EPackageImpl implements AlisaPackage
 
     // Initialize classes and features; add operations and parameters
     initEClass(alisaWorkAreaEClass, AlisaWorkArea.class, "AlisaWorkArea", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAlisaWorkArea_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AlisaWorkArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAlisaWorkArea_Cases(), theEcorePackage.getEObject(), null, "cases", null, 0, -1, AlisaWorkArea.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assurancePlanEClass, AssurancePlan.class, "AssurancePlan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

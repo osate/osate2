@@ -4,14 +4,13 @@
  */
 package org.osate.organization.ui;
 
-import org.eclipse.xtext.ui.DefaultUiModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * Manual modifications go to {org.osate.organization.ui.OrganizationUiModule}
  */
 @SuppressWarnings("all")
-public abstract class AbstractOrganizationUiModule extends DefaultUiModule {
+public abstract class AbstractOrganizationUiModule extends org.eclipse.xtext.ui.DefaultUiModule {
 	
 	public AbstractOrganizationUiModule(AbstractUIPlugin plugin) {
 		super(plugin);

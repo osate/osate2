@@ -13,7 +13,8 @@ Require-Bundle: org.osate.categories,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
- com.google.guava
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j,
  org.junit;version="4.5.0",
  org.junit.runner;version="4.5.0",
