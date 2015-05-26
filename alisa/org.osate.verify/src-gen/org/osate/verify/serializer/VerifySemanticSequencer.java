@@ -78,7 +78,9 @@ import org.osate.verify.verify.FailThenExpr;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
+import org.osate.verify.verify.VerificationActivityParameter;
 import org.osate.verify.verify.VerificationMethod;
+import org.osate.verify.verify.VerificationMethodParameter;
 import org.osate.verify.verify.VerificationMethodRegistry;
 import org.osate.verify.verify.VerificationPlan;
 import org.osate.verify.verify.VerificationPrecondition;
@@ -192,8 +194,14 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.VERIFICATION_ACTIVITY:
 				sequence_VerificationActivity(context, (VerificationActivity) semanticObject); 
 				return; 
+			case VerifyPackage.VERIFICATION_ACTIVITY_PARAMETER:
+				sequence_VerificationActivityParameter(context, (VerificationActivityParameter) semanticObject); 
+				return; 
 			case VerifyPackage.VERIFICATION_METHOD:
 				sequence_VerificationMethod(context, (VerificationMethod) semanticObject); 
+				return; 
+			case VerifyPackage.VERIFICATION_METHOD_PARAMETER:
+				sequence_VerificationMethodParameter(context, (VerificationMethodParameter) semanticObject); 
 				return; 
 			case VerifyPackage.VERIFICATION_METHOD_REGISTRY:
 				sequence_VerificationMethodRegistry(context, (VerificationMethodRegistry) semanticObject); 
@@ -474,15 +482,23 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         resultVal+=[XVariableDeclaration|ID] 
-	 *         resultVal+=[XVariableDeclaration|ID]* 
-	 *         method=[VerificationMethod|QualifiedName] 
-	 *         parameters+=[XVariableDeclaration|ID] 
-	 *         parameters+=[XVariableDeclaration|ID]* 
-	 *         timeout=INT?
-	 *     )
+	 *     compute=[ComputeDeclaration|ID]
+	 */
+	protected void sequence_VerificationActivityParameter(EObject context, VerificationActivityParameter semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.VERIFICATION_ACTIVITY_PARAMETER__COMPUTE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.VERIFICATION_ACTIVITY_PARAMETER__COMPUTE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVerificationActivityParameterAccess().getComputeComputeDeclarationIDTerminalRuleCall_0_1(), semanticObject.getCompute());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID method=[VerificationMethod|QualifiedName] (parameters+=ID parameters+=ID*)? timeout=INT?)
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -521,6 +537,22 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_VerificationMethodParameter(EObject context, VerificationMethodParameter semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.VERIFICATION_METHOD_PARAMETER__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.VERIFICATION_METHOD_PARAMETER__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVerificationMethodParameterAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=ID title=STRING? description=Description? methods+=VerificationMethod*)
 	 */
 	protected void sequence_VerificationMethodRegistry(EObject context, VerificationMethodRegistry semanticObject) {
@@ -532,8 +564,8 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         name=ID 
+	 *         (params+=ID params+=ID*)? 
 	 *         title=STRING? 
-	 *         requirement=[Requirement|QualifiedName]? 
 	 *         methodType=SupportedTypes 
 	 *         scope=SupportedScopes 
 	 *         reporting=SupportedReporting? 

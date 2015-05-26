@@ -25,6 +25,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p;
 	protected AbstractElementAlias match_Claim_IssuesKeyword_5_5_0_q;
 	protected AbstractElementAlias match_VerificationMethod_CategoryKeyword_5_4_0_q;
+	protected AbstractElementAlias match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_VerificationPlan_AssumeKeyword_7_3_0_q;
 	protected AbstractElementAlias match_VerificationPlan_IssuesKeyword_7_4_0_q;
 	protected AbstractElementAlias match_XBlockExpression_SemicolonKeyword_2_1_q;
@@ -41,6 +42,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AtomicEvidenceExpr_LeftParenthesisKeyword_1_0_p = new TokenAlias(true, false, grammarAccess.getAtomicEvidenceExprAccess().getLeftParenthesisKeyword_1_0());
 		match_Claim_IssuesKeyword_5_5_0_q = new TokenAlias(false, true, grammarAccess.getClaimAccess().getIssuesKeyword_5_5_0());
 		match_VerificationMethod_CategoryKeyword_5_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationMethodAccess().getCategoryKeyword_5_4_0());
+		match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getVerificationMethodAccess().getRightParenthesisKeyword_2_2()));
 		match_VerificationPlan_AssumeKeyword_7_3_0_q = new TokenAlias(false, true, grammarAccess.getVerificationPlanAccess().getAssumeKeyword_7_3_0());
 		match_VerificationPlan_IssuesKeyword_7_4_0_q = new TokenAlias(false, true, grammarAccess.getVerificationPlanAccess().getIssuesKeyword_7_4_0());
 		match_XBlockExpression_SemicolonKeyword_2_1_q = new TokenAlias(false, true, grammarAccess.getXBlockExpressionAccess().getSemicolonKeyword_2_1());
@@ -96,6 +98,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Claim_IssuesKeyword_5_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationMethod_CategoryKeyword_5_4_0_q.equals(syntax))
 				emit_VerificationMethod_CategoryKeyword_5_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
+				emit_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationPlan_AssumeKeyword_7_3_0_q.equals(syntax))
 				emit_VerificationPlan_AssumeKeyword_7_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_VerificationPlan_IssuesKeyword_7_4_0_q.equals(syntax))
@@ -162,6 +166,23 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     category+=[VerificationCategory|ID] (ambiguity) category+=[VerificationCategory|ID]
 	 */
 	protected void emit_VerificationMethod_CategoryKeyword_5_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('(' ')')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID (ambiguity) ':' title=STRING
+	 *     name=ID (ambiguity) '[' ']' (rule end)
+	 *     name=ID (ambiguity) '[' 'category' category+=[VerificationCategory|ID]
+	 *     name=ID (ambiguity) '[' 'path' methodPath=STRING
+	 *     name=ID (ambiguity) '[' conditions+=VerificationCondition
+	 *     name=ID (ambiguity) '[' description=Description
+	 *     name=ID (ambiguity) '[' methodType=SupportedTypes
+	 */
+	protected void emit_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -10,8 +10,6 @@ import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.VerificationCategory;
 
-import org.osate.reqspec.reqSpec.Requirement;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Method</b></em>'.
@@ -21,8 +19,8 @@ import org.osate.reqspec.reqSpec.Requirement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationMethod#getParams <em>Params</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationMethod#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getScope <em>Scope</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationMethod#getReporting <em>Reporting</em>}</li>
@@ -66,6 +64,22 @@ public interface VerificationMethod extends EObject
   void setName(String value);
 
   /**
+   * Returns the value of the '<em><b>Params</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Params</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Params</em>' attribute list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Params()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getParams();
+
+  /**
    * Returns the value of the '<em><b>Title</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -90,32 +104,6 @@ public interface VerificationMethod extends EObject
    * @generated
    */
   void setTitle(String value);
-
-  /**
-   * Returns the value of the '<em><b>Requirement</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Requirement</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirement</em>' reference.
-   * @see #setRequirement(Requirement)
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationMethod_Requirement()
-   * @model
-   * @generated
-   */
-  Requirement getRequirement();
-
-  /**
-   * Sets the value of the '{@link org.osate.verify.verify.VerificationMethod#getRequirement <em>Requirement</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirement</em>' reference.
-   * @see #getRequirement()
-   * @generated
-   */
-  void setRequirement(Requirement value);
 
   /**
    * Returns the value of the '<em><b>Method Type</b></em>' attribute.

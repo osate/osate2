@@ -93,6 +93,13 @@ public class VerifySwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case VerifyPackage.VERIFICATION_ACTIVITY_PARAMETER:
+      {
+        VerificationActivityParameter verificationActivityParameter = (VerificationActivityParameter)theEObject;
+        T result = caseVerificationActivityParameter(verificationActivityParameter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case VerifyPackage.VERIFICATION_ACTIVITY:
       {
         VerificationActivity verificationActivity = (VerificationActivity)theEObject;
@@ -118,6 +125,13 @@ public class VerifySwitch<T> extends Switch<T>
       {
         VerificationMethodRegistry verificationMethodRegistry = (VerificationMethodRegistry)theEObject;
         T result = caseVerificationMethodRegistry(verificationMethodRegistry);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case VerifyPackage.VERIFICATION_METHOD_PARAMETER:
+      {
+        VerificationMethodParameter verificationMethodParameter = (VerificationMethodParameter)theEObject;
+        T result = caseVerificationMethodParameter(verificationMethodParameter);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -237,6 +251,22 @@ public class VerifySwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Verification Activity Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Verification Activity Parameter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVerificationActivityParameter(VerificationActivityParameter object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Verification Activity</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -296,6 +326,22 @@ public class VerifySwitch<T> extends Switch<T>
    * @generated
    */
   public T caseVerificationMethodRegistry(VerificationMethodRegistry object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Verification Method Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Verification Method Parameter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVerificationMethodParameter(VerificationMethodParameter object)
   {
     return null;
   }

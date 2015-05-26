@@ -126,20 +126,20 @@
 					<p class="code">
 						&lt;Goal&gt;::=<br/>
 						<span class="keyword">goal</span>&nbsp;goalname<br/>
-						&nbsp;&nbsp;(&nbsp;:&nbsp;&nbsp;<span class="string">"short&nbsp;descriptive&nbsp;title"</span>&nbsp;)?<br/>
-						&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;(&nbsp;ComponentElement&nbsp;|&nbsp;<span class="string">"Target&nbsp;description"</span>&nbsp;|&nbsp;Classifier&nbsp;<span class="keyword">item</span>&nbsp;ComponentElement&nbsp;)&nbsp;)?<br/>
-						&nbsp;&nbsp;[&nbsp;&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">category</span>&nbsp;(&nbsp;safety&nbsp;)+&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">description</span>&nbsp;&nbsp;<span class="string">"one&nbsp;or&nbsp;more&nbsp;lines&nbsp;of&nbsp;descriptoive&nbsp;text"</span>&nbsp;)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">rationale</span>&nbsp;<span class="string">"explanation"</span>&nbsp;)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">refines</span>&nbsp;(&nbsp;goalsx.goal1&nbsp;)+&nbsp;)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">conflicts</span>&nbsp;<span class="keyword">with</span>&nbsp;goalsx.goal15&nbsp;)+)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">stakeholder</span>&nbsp;&nbsp;(&nbsp;SEI.Feiler&nbsp;)+&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;<span class="keyword">requirement</span>&nbsp;(&nbsp;ReqDoc.Req14&nbsp;)+)?<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;(&nbsp;filepath/file.doc#path.within.doc&nbsp;)+)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(&nbsp;&lt;change&nbsp;Uncertainty&gt;&nbsp;)?&nbsp;&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
-						&nbsp;&nbsp;]
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;&nbsp;<span class="string">"short&nbsp;descriptive&nbsp;title"</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;(&nbsp;ComponentElement&nbsp;|&nbsp;<span class="string">"Target&nbsp;description"</span>&nbsp;|&nbsp;Classifier&nbsp;<span class="keyword">item</span>&nbsp;ComponentElement&nbsp;)&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">category</span>&nbsp;(&nbsp;safety&nbsp;)+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">description</span>&nbsp;&nbsp;<span class="string">"one&nbsp;or&nbsp;more&nbsp;lines&nbsp;of&nbsp;descriptoive&nbsp;text"</span>&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">rationale</span>&nbsp;<span class="string">"explanation"</span>&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">refines</span>&nbsp;(&nbsp;goalsx.goal1&nbsp;)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">conflicts</span>&nbsp;<span class="keyword">with</span>&nbsp;goalsx.goal15&nbsp;)+)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">stakeholder</span>&nbsp;&nbsp;(&nbsp;SEI.Feiler&nbsp;)+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;<span class="keyword">requirement</span>&nbsp;(&nbsp;ReqDoc.Req14&nbsp;)+)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;(&nbsp;filepath/file.doc#path.within.doc&nbsp;)+)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;change&nbsp;Uncertainty&gt;&nbsp;)?&nbsp;&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;]
 					</p>
 				</div>
 			</div>
@@ -196,25 +196,25 @@
 					<p class="code">
 						&lt;Requirement&gt;&nbsp;::=<br/>
 						<span class="keyword">requirement</span>&nbsp;reqname<br/>
-						&nbsp;&nbsp;(&nbsp;:&nbsp;&nbsp;<span class="string">"short&nbsp;descriptive&nbsp;title"</span>&nbsp;)?<br/>
-						&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;(&nbsp;ComponentElement&nbsp;|&nbsp;<span class="string">"Target&nbsp;description"</span>&nbsp;|&nbsp;Classifier&nbsp;<span class="keyword">item</span>&nbsp;ComponentElement&nbsp;)&nbsp;)?<br/>
-						&nbsp;&nbsp;[&nbsp;&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">category</span>&nbsp;(&nbsp;safety&nbsp;)+&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">description</span>&nbsp;&nbsp;<span class="keyword">this</span>&nbsp;<span class="string">"&nbsp;shall&nbsp;not&nbsp;exceed&nbsp;"</span>&nbsp;limit%sec&nbsp;<span class="string">"&nbsp;latency"</span>)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">val</span>&nbsp;limit&nbsp;=&nbsp;200&nbsp;ms&nbsp;)*&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">val</span>&nbsp;latencyLimit&nbsp;<span class="keyword">as</span>&nbsp;Timning_Properties::MaxLatency&nbsp;)*&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">compute</span>&nbsp;actualbudget&nbsp;)*<br/>
-						&nbsp;&nbsp;&nbsp;(&nbsp;&lt;Requirement&nbsp;Predicate&gt;&nbsp;)*<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">rationale</span>&nbsp;<span class="string">"explanation"</span>)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">mitigates</span>&nbsp;(&nbsp;model.hazard3&nbsp;)+&nbsp;)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">refines</span>&nbsp;(&nbsp;reqsx.req1&nbsp;)+&nbsp;)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">goal</span>&nbsp;(goalsx.goal2&nbsp;)+&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;<span class="keyword">goal</span>&nbsp;(&nbsp;GoalsDoc.goal12&nbsp;)+)?<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;<span class="keyword">requirement</span>&nbsp;(&nbsp;ReqDoc.Req14&nbsp;)+)?<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;(&nbsp;filepath/file.doc#path.within.doc&nbsp;)+)?&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(&nbsp;&lt;change&nbsp;Uncertainty&gt;&nbsp;)?&nbsp;&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
-						&nbsp;&nbsp;]
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;:&nbsp;&nbsp;<span class="string">"short&nbsp;descriptive&nbsp;title"</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">for</span>&nbsp;(&nbsp;ComponentElement&nbsp;|&nbsp;<span class="string">"Target&nbsp;description"</span>&nbsp;|&nbsp;Classifier&nbsp;<span class="keyword">item</span>&nbsp;ComponentElement&nbsp;)&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">category</span>&nbsp;(&nbsp;safety&nbsp;)+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">description</span>&nbsp;&nbsp;<span class="keyword">this</span>&nbsp;<span class="string">"&nbsp;shall&nbsp;not&nbsp;exceed&nbsp;"</span>&nbsp;limit%sec&nbsp;<span class="string">"&nbsp;latency"</span>)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">val</span>&nbsp;limit&nbsp;=&nbsp;200&nbsp;ms&nbsp;)*&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">val</span>&nbsp;latencyLimit&nbsp;<span class="keyword">as</span>&nbsp;Timning_Properties::MaxLatency&nbsp;)*&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">compute</span>&nbsp;actualbudget&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;Requirement&nbsp;Predicate&gt;&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">rationale</span>&nbsp;<span class="string">"explanation"</span>)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">mitigates</span>&nbsp;(&nbsp;model.hazard3&nbsp;)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">refines</span>&nbsp;(&nbsp;reqsx.req1&nbsp;)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">goal</span>&nbsp;(goalsx.goal2&nbsp;)+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;<span class="keyword">goal</span>&nbsp;(&nbsp;GoalsDoc.goal12&nbsp;)+)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;<span class="keyword">requirement</span>&nbsp;(&nbsp;ReqDoc.Req14&nbsp;)+)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">see</span>&nbsp;<span class="keyword">document</span>&nbsp;(&nbsp;filepath/file.doc#path.within.doc&nbsp;)+)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;change&nbsp;Uncertainty&gt;&nbsp;)?&nbsp;&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;]
 					</p>
 				</div>
 			</div>
@@ -261,22 +261,22 @@
 				<div class="incode">
 					<p class="code">
 						&lt;Requirement&nbsp;Predicate&gt;&nbsp;::=<br/>
-						&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;<span class="string">"informal&nbsp;specification"</span><br/>
-						&nbsp;&nbsp;|&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">value</span>&nbsp;&nbsp;&lt;expression&nbsp;involving&nbsp;constant&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;<span class="string">"informal&nbsp;specification"</span><br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">value</span>&nbsp;&nbsp;&lt;expression&nbsp;involving&nbsp;constant&nbsp;
 						<em>val</em>
 						&nbsp;and&nbsp;
 						<em>compute</em>
 						&nbsp;variables&gt;<br/>
-						&nbsp;&nbsp;|&nbsp;<span class="keyword">input</span>&nbsp;<span class="keyword">assumption</span>&nbsp;&lt;agree&nbsp;styl&nbsp;Xbase&nbsp;expression&nbsp;or&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<span class="keyword">input</span>&nbsp;<span class="keyword">assumption</span>&nbsp;&lt;agree&nbsp;styl&nbsp;Xbase&nbsp;expression&nbsp;or&nbsp;
 						<em>as</em>
 						&nbsp;reference&nbsp;into&nbsp;Agree&nbsp;subclause&gt;<br/>
-						&nbsp;&nbsp;|&nbsp;<span class="keyword">output</span>&nbsp;<span class="keyword">guarantee</span>&nbsp;&lt;agree&nbsp;styl&nbsp;Xbase&nbsp;expression&nbsp;or&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<span class="keyword">output</span>&nbsp;<span class="keyword">guarantee</span>&nbsp;&lt;agree&nbsp;styl&nbsp;Xbase&nbsp;expression&nbsp;or&nbsp;
 						<em>as</em>
 						&nbsp;reference&nbsp;into&nbsp;Agree&nbsp;subclause&gt;<br/>
-						&nbsp;&nbsp;|&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">invariant</span>&nbsp;&lt;agree&nbsp;style&nbsp;Xbase&nbsp;expression&nbsp;or&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">invariant</span>&nbsp;&lt;agree&nbsp;style&nbsp;Xbase&nbsp;expression&nbsp;or&nbsp;
 						<em>as</em>
 						&nbsp;reference&nbsp;into&nbsp;Agree&nbsp;subclause&gt;<br/>
-						&nbsp;&nbsp;|&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">predicate</span>&nbsp;&lt;general&nbsp;XBase&nbsp;expression&gt;
+						&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">predicate</span>&nbsp;&lt;general&nbsp;XBase&nbsp;expression&gt;
 					</p>
 				</div>
 			</div>
@@ -336,15 +336,16 @@
 						<span class="keyword">document</span>&nbsp;docname&nbsp;(&nbsp;:&nbsp;<span class="string">"myTitle"</span>)?<br/>
 						&nbsp;(<span class="keyword">description</span>&nbsp;MultiLineString)?&nbsp;<br/>
 						[&nbsp;<br/>
-						&nbsp;&nbsp;&lt;DocumentSection&gt;<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;DocumentSection&gt;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						]<br/>
+						<br/>
 						<br/>
 						&lt;DocumentSection&gt;&nbsp;::=<br/>
 						<span class="keyword">section</span>&nbsp;section1&nbsp;(&nbsp;:&nbsp;<span class="string">"my&nbsp;title"</span>)?<br/>
 						&nbsp;(<span class="keyword">description</span>&nbsp;Description)?&nbsp;<br/>
 						[&nbsp;&nbsp;<br/>
-						&nbsp;&nbsp;(&nbsp;&lt;Goal&gt;&nbsp;|&nbsp;&lt;Requirement&gt;&nbsp;|&nbsp;&nbsp;&lt;DocumentSection&gt;&nbsp;)+&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;Goal&gt;&nbsp;|&nbsp;&lt;Requirement&gt;&nbsp;|&nbsp;&nbsp;&lt;DocumentSection&gt;&nbsp;)+&nbsp;)*<br/>
 						]
 					</p>
 				</div>
@@ -391,13 +392,14 @@
 						(&nbsp;<span class="keyword">for</span>&nbsp;(&nbsp;mypack::GPSDevice&nbsp;|&nbsp;<span class="string">"Target&nbsp;description"</span>&nbsp;|&nbsp;<span class="keyword">all</span>&nbsp;)&nbsp;)?<br/>
 						&nbsp;(<span class="keyword">description</span>&nbsp;Description)?&nbsp;<br/>
 						[&nbsp;<br/>
-						&nbsp;&nbsp;(&nbsp;&lt;GoalFolder&gt;&nbsp;|&nbsp;&lt;Goal&gt;&nbsp;)*<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;GoalFolder&gt;&nbsp;|&nbsp;&lt;Goal&gt;&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						]<br/>
+						<br/>
 						&lt;Goalfolder&gt;&nbsp;::=<br/>
 						<span class="keyword">folder</span>&nbsp;name&nbsp;(<span class="string">&apos;:&apos;</span>&nbsp;<span class="string">"my&nbsp;title&nbsp;text"</span>)?<br/>
 						[&nbsp;<br/>
-						&nbsp;&nbsp;(&nbsp;&lt;Goal&gt;&lt;&nbsp;|&nbsp;&nbsp;GoalFolder&gt;&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;Goal&gt;&lt;&nbsp;|&nbsp;&nbsp;GoalFolder&gt;&nbsp;)*<br/>
 						]
 					</p>
 				</div>
@@ -417,15 +419,16 @@
 						(&nbsp;<span class="keyword">include</span>&nbsp;(&nbsp;Sysspec1&nbsp;)+&nbsp;)?<br/>
 						(<span class="keyword">description</span>&nbsp;Description)?&nbsp;<br/>
 						[&nbsp;<br/>
-						&nbsp;&nbsp;(<span class="keyword">val</span>&nbsp;(&nbsp;limit&nbsp;=&nbsp;200&nbsp;ms&nbsp;)+&nbsp;)?<br/>
-						&nbsp;&nbsp;(<span class="keyword">compute</span>&nbsp;actualbudget&nbsp;)*<br/>
-						&nbsp;&nbsp;(&nbsp;&lt;ReqFolder&gt;&nbsp;|&nbsp;&lt;Requirement&gt;&nbsp;)*<br/>
-						&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">val</span>&nbsp;(&nbsp;limit&nbsp;=&nbsp;200&nbsp;ms&nbsp;)+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">compute</span>&nbsp;actualbudget&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;ReqFolder&gt;&nbsp;|&nbsp;&lt;Requirement&gt;&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						]<br/>
+						<br/>
 						&lt;Reqfolder&gt;&nbsp;::=<br/>
 						<span class="keyword">folder</span>&nbsp;name&nbsp;(<span class="string">&apos;:&apos;</span>&nbsp;<span class="string">"my&nbsp;title&nbsp;text"</span>)?<br/>
 						[&nbsp;<br/>
-						&nbsp;&nbsp;(&nbsp;&lt;ReqFolder&gt;&nbsp;|&nbsp;&nbsp;&lt;Requirement&gt;&nbsp;)*<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;ReqFolder&gt;&nbsp;|&nbsp;&nbsp;&lt;Requirement&gt;&nbsp;)*<br/>
 						]
 					</p>
 				</div>
@@ -450,18 +453,18 @@
 						<span class="keyword">requirement</span>&nbsp;<span class="keyword">specification</span>&nbsp;scsreqs&nbsp;<br/>
 						<span class="keyword">for</span>&nbsp;resourcebudgets::SCS&nbsp;<br/>
 						[&nbsp;<br/>
-						&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;MaxBudget&nbsp;=&nbsp;400&nbsp;kg<br/>
-						&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;MaxLatency&nbsp;=&nbsp;50ms<br/>
-						&nbsp;&nbsp;<span class="keyword">compute</span>&nbsp;ActualBudget<br/>
-						&nbsp;&nbsp;<span class="keyword">compute</span>&nbsp;ActualLatency<br/>
-						&nbsp;&nbsp;<span class="keyword">requirement</span>&nbsp;R1&nbsp;[<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">description</span>&nbsp;<span class="keyword">this</span>&nbsp;<span class="string">"&nbsp;shall&nbsp;have&nbsp;a&nbsp;budget&nbsp;within&nbsp;"</span>&nbsp;Maxbudget<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">value</span>&nbsp;ActualBudget&nbsp;&lt;=&nbsp;MaxBudget<br/>
-						&nbsp;&nbsp;]<br/>
-						&nbsp;&nbsp;<span class="keyword">requirement</span>&nbsp;R2&nbsp;[<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">description</span>&nbsp;<span class="string">"Response&nbsp;time&nbsp;shall&nbsp;be&nbsp;within&nbsp;"</span>&nbsp;MaxLatency<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">value</span>&nbsp;ActualLatency&nbsp;&lt;=&nbsp;MaxLatency<br/>
-						&nbsp;&nbsp;]<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;MaxBudget&nbsp;=&nbsp;400&nbsp;kg<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;MaxLatency&nbsp;=&nbsp;50ms<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">compute</span>&nbsp;ActualBudget<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">compute</span>&nbsp;ActualLatency<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">requirement</span>&nbsp;R1&nbsp;[<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">description</span>&nbsp;<span class="keyword">this</span>&nbsp;<span class="string">"&nbsp;shall&nbsp;have&nbsp;a&nbsp;budget&nbsp;within&nbsp;"</span>&nbsp;Maxbudget<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">value</span>&nbsp;ActualBudget&nbsp;&lt;=&nbsp;MaxBudget<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">requirement</span>&nbsp;R2&nbsp;[<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">description</span>&nbsp;<span class="string">"Response&nbsp;time&nbsp;shall&nbsp;be&nbsp;within&nbsp;"</span>&nbsp;MaxLatency<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">value</span>&nbsp;ActualLatency&nbsp;&lt;=&nbsp;MaxLatency<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
 						]
 					</p>
 				</div>
@@ -482,13 +485,14 @@
 				<div class="incode">
 					<p class="code">
 						&lt;RequirementCategories&gt;&nbsp;::=<br/>
-						&nbsp;&nbsp;<span class="keyword">requirement</span>&nbsp;<span class="keyword">categories</span>&nbsp;<br/>
-						&nbsp;&nbsp;[&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;RequirementCategory&gt;+<br/>
-						&nbsp;&nbsp;]<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">requirement</span>&nbsp;<span class="keyword">categories</span>&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;RequirementCategory&gt;+<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+						<br/>
 						&lt;RequirementCategory&gt;&nbsp;:<br/>
-						&nbsp;&nbsp;dependability<br/>
-						&nbsp;&nbsp;safety&nbsp;(&nbsp;<span class="keyword">extends</span>&nbsp;dependability&nbsp;)?
+						&nbsp;&nbsp;&nbsp;&nbsp;dependability<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;safety&nbsp;(&nbsp;<span class="keyword">extends</span>&nbsp;dependability&nbsp;)?
 					</p>
 				</div>
 			</div>
@@ -515,18 +519,19 @@
 				<div class="incode">
 					<p class="code">
 						&lt;Organization&gt;::=<br/>
-						&nbsp;&nbsp;<span class="keyword">organization</span>&nbsp;SEI<br/>
-						&nbsp;&nbsp;&lt;Stakeholder&gt;+<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">organization</span>&nbsp;SEI<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&lt;Stakeholder&gt;+<br/>
+						<br/>
 						&lt;Stakeholder&gt;&nbsp;::=<br/>
-						&nbsp;&nbsp;<span class="keyword">stakeholder</span>&nbsp;phf<br/>
-						&nbsp;&nbsp;[<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">full</span>&nbsp;<span class="keyword">name</span>&nbsp;&nbsp;<span class="string">"Peter&nbsp;Feiler"</span>&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">title</span>&nbsp;&nbsp;<span class="string">"Chief&nbsp;Engineer"</span>&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;&nbsp;<span class="string">"my&nbsp;job&nbsp;is&nbsp;..."</span>&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">role</span>&nbsp;<span class="string">"reviewer"</span>&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">email</span>&nbsp;<span class="string">"phf@sei.cmu.edu"</span>&nbsp;)?<br/>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">phone</span>&nbsp;&nbsp;<span class="string">"412-268-7790"</span>&nbsp;)?<br/>
-						&nbsp;&nbsp;]
+						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">stakeholder</span>&nbsp;phf<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">full</span>&nbsp;<span class="keyword">name</span>&nbsp;&nbsp;<span class="string">"Peter&nbsp;Feiler"</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">title</span>&nbsp;&nbsp;<span class="string">"Chief&nbsp;Engineer"</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;&nbsp;<span class="string">"my&nbsp;job&nbsp;is&nbsp;..."</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">role</span>&nbsp;<span class="string">"reviewer"</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">email</span>&nbsp;<span class="string">"phf@sei.cmu.edu"</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">phone</span>&nbsp;&nbsp;<span class="string">"412-268-7790"</span>&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;]
 					</p>
 				</div>
 			</div>

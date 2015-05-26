@@ -15,7 +15,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.alisa.common.common.ComputeDeclaration;
 
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.ReqPredicate;
@@ -29,6 +33,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.RequirementImpl#getExceptionText <em>Exception Text</em>}</li>
@@ -42,6 +47,16 @@ import org.osate.reqspec.reqSpec.Requirement;
  */
 public class RequirementImpl extends ContractualElementImpl implements Requirement
 {
+  /**
+   * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComputes()
+   * @generated
+   * @ordered
+   */
+  protected EList<ComputeDeclaration> computes;
+
   /**
    * The cached value of the '{@link #getPredicate() <em>Predicate</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -131,6 +146,20 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   protected EClass eStaticClass()
   {
     return ReqSpecPackage.Literals.REQUIREMENT;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ComputeDeclaration> getComputes()
+  {
+    if (computes == null)
+    {
+      computes = new EObjectContainmentEList<ComputeDeclaration>(ComputeDeclaration.class, this, ReqSpecPackage.REQUIREMENT__COMPUTES);
+    }
+    return computes;
   }
 
   /**
@@ -299,6 +328,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return basicSetPredicate(null, msgs);
     }
@@ -315,6 +346,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return getComputes();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return getPredicate();
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:
@@ -343,6 +376,10 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        getComputes().clear();
+        getComputes().addAll((Collection<? extends ComputeDeclaration>)newValue);
+        return;
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)newValue);
         return;
@@ -378,6 +415,9 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        getComputes().clear();
+        return;
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         setPredicate((ReqPredicate)null);
         return;
@@ -410,6 +450,8 @@ public class RequirementImpl extends ContractualElementImpl implements Requireme
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQUIREMENT__COMPUTES:
+        return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQUIREMENT__PREDICATE:
         return predicate != null;
       case ReqSpecPackage.REQUIREMENT__EXCEPTION:

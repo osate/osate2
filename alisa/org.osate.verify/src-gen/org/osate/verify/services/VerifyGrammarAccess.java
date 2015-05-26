@@ -89,8 +89,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"verification" "plan" name=ID (":" title=STRING)? "for" target= //      [ReqSpec::SystemSpec|QualifiedName]
 		//[aadl2::ComponentClassifier|AADLCLASSIFIERREFERENCE] "[" (description=Description? & claim+=Claim* &
-		//rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues"
-		//issues+=STRING+)?) "]"
+		//rationale=Rationale? & ("assume" verifiedAssumption+=[VerificationPlan|QualifiedName]+)? & ("issues" issues+=STRING+)?)
+		//"]"
 		public Group getGroup() { return cGroup; }
 
 		//"verification"
@@ -351,41 +351,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_6() { return cRightSquareBracketKeyword_6; }
 	}
 
-	public class VerificationActivityElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationActivity");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cResultValAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final CrossReference cResultValXVariableDeclarationCrossReference_2_1_0 = (CrossReference)cResultValAssignment_2_1.eContents().get(0);
-		private final RuleCall cResultValXVariableDeclarationIDTerminalRuleCall_2_1_0_1 = (RuleCall)cResultValXVariableDeclarationCrossReference_2_1_0.eContents().get(1);
-		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
-		private final Keyword cCommaKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
-		private final Assignment cResultValAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
-		private final CrossReference cResultValXVariableDeclarationCrossReference_2_2_1_0 = (CrossReference)cResultValAssignment_2_2_1.eContents().get(0);
-		private final RuleCall cResultValXVariableDeclarationIDTerminalRuleCall_2_2_1_0_1 = (RuleCall)cResultValXVariableDeclarationCrossReference_2_2_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
-		private final Keyword cEqualsSignKeyword_2_4 = (Keyword)cGroup_2.eContents().get(4);
-		private final Assignment cMethodAssignment_2_5 = (Assignment)cGroup_2.eContents().get(5);
-		private final CrossReference cMethodVerificationMethodCrossReference_2_5_0 = (CrossReference)cMethodAssignment_2_5.eContents().get(0);
-		private final RuleCall cMethodVerificationMethodQualifiedNameParserRuleCall_2_5_0_1 = (RuleCall)cMethodVerificationMethodCrossReference_2_5_0.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_2_6 = (Keyword)cGroup_2.eContents().get(6);
-		private final Assignment cParametersAssignment_2_7 = (Assignment)cGroup_2.eContents().get(7);
-		private final CrossReference cParametersXVariableDeclarationCrossReference_2_7_0 = (CrossReference)cParametersAssignment_2_7.eContents().get(0);
-		private final RuleCall cParametersXVariableDeclarationIDTerminalRuleCall_2_7_0_1 = (RuleCall)cParametersXVariableDeclarationCrossReference_2_7_0.eContents().get(1);
-		private final Group cGroup_2_8 = (Group)cGroup_2.eContents().get(8);
-		private final Keyword cCommaKeyword_2_8_0 = (Keyword)cGroup_2_8.eContents().get(0);
-		private final Assignment cParametersAssignment_2_8_1 = (Assignment)cGroup_2_8.eContents().get(1);
-		private final CrossReference cParametersXVariableDeclarationCrossReference_2_8_1_0 = (CrossReference)cParametersAssignment_2_8_1.eContents().get(0);
-		private final RuleCall cParametersXVariableDeclarationIDTerminalRuleCall_2_8_1_0_1 = (RuleCall)cParametersXVariableDeclarationCrossReference_2_8_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_2_9 = (Keyword)cGroup_2.eContents().get(9);
-		private final Group cGroup_2_10 = (Group)cGroup_2.eContents().get(10);
-		private final Keyword cTimeoutKeyword_2_10_0 = (Keyword)cGroup_2_10.eContents().get(0);
-		private final Assignment cTimeoutAssignment_2_10_1 = (Assignment)cGroup_2_10.eContents().get(1);
-		private final RuleCall cTimeoutINTTerminalRuleCall_2_10_1_0 = (RuleCall)cTimeoutAssignment_2_10_1.eContents().get(0);
+	public class VerificationActivityParameterElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationActivityParameter");
+		private final Assignment cComputeAssignment = (Assignment)rule.eContents().get(1);
+		private final CrossReference cComputeComputeDeclarationCrossReference_0 = (CrossReference)cComputeAssignment.eContents().get(0);
+		private final RuleCall cComputeComputeDeclarationIDTerminalRuleCall_0_1 = (RuleCall)cComputeComputeDeclarationCrossReference_0.eContents().get(1);
 		
 		////
 		////VerificationLibrary returns VerificationLibrary:
@@ -396,17 +366,53 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		////	&(content+=(VerificationActivity |  VerificationFolder))*
 		////	)
 		////	']';
+		//VerificationActivityParameter:
+		//	compute=[common::ComputeDeclaration];
+		@Override public ParserRule getRule() { return rule; }
+
+		//compute=[common::ComputeDeclaration]
+		public Assignment getComputeAssignment() { return cComputeAssignment; }
+
+		//[common::ComputeDeclaration]
+		public CrossReference getComputeComputeDeclarationCrossReference_0() { return cComputeComputeDeclarationCrossReference_0; }
+
+		//ID
+		public RuleCall getComputeComputeDeclarationIDTerminalRuleCall_0_1() { return cComputeComputeDeclarationIDTerminalRuleCall_0_1; }
+	}
+
+	public class VerificationActivityElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationActivity");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cMethodAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final CrossReference cMethodVerificationMethodCrossReference_2_0_0 = (CrossReference)cMethodAssignment_2_0.eContents().get(0);
+		private final RuleCall cMethodVerificationMethodQualifiedNameParserRuleCall_2_0_0_1 = (RuleCall)cMethodVerificationMethodCrossReference_2_0_0.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
+		private final Assignment cParametersAssignment_2_2_0 = (Assignment)cGroup_2_2.eContents().get(0);
+		private final RuleCall cParametersIDTerminalRuleCall_2_2_0_0 = (RuleCall)cParametersAssignment_2_2_0.eContents().get(0);
+		private final Group cGroup_2_2_1 = (Group)cGroup_2_2.eContents().get(1);
+		private final Keyword cCommaKeyword_2_2_1_0 = (Keyword)cGroup_2_2_1.eContents().get(0);
+		private final Assignment cParametersAssignment_2_2_1_1 = (Assignment)cGroup_2_2_1.eContents().get(1);
+		private final RuleCall cParametersIDTerminalRuleCall_2_2_1_1_0 = (RuleCall)cParametersAssignment_2_2_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
+		private final Group cGroup_2_4 = (Group)cGroup_2.eContents().get(4);
+		private final Keyword cTimeoutKeyword_2_4_0 = (Keyword)cGroup_2_4.eContents().get(0);
+		private final Assignment cTimeoutAssignment_2_4_1 = (Assignment)cGroup_2_4.eContents().get(1);
+		private final RuleCall cTimeoutINTTerminalRuleCall_2_4_1_0 = (RuleCall)cTimeoutAssignment_2_4_1.eContents().get(0);
+		
 		//VerificationActivity:
-		//	name=ID ":" ("(" resultVal+=[xbase::XVariableDeclaration] ("," resultVal+=[xbase::XVariableDeclaration])* ")" "="
-		//	method=[VerificationMethod|QualifiedName] "(" parameters+=[xbase::XVariableDeclaration] (","
-		//	parameters+=[xbase::XVariableDeclaration])* ")" ("timeout" timeout=INT)?) //	('parameters'  verificationParameters+=([ElementReference])*)? 
+		//	name=ID ":" (method=[VerificationMethod|QualifiedName] "(" (parameters+=ID ("," parameters+=ID)*)? ")" ("timeout"
+		//	timeout=INT)?) //	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//	// these are data parameters to the method in addition to what comes with the model
 		//;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID ":" ("(" resultVal+=[xbase::XVariableDeclaration] ("," resultVal+=[xbase::XVariableDeclaration])* ")" "="
-		//method=[VerificationMethod|QualifiedName] "(" parameters+=[xbase::XVariableDeclaration] (","
-		//parameters+=[xbase::XVariableDeclaration])* ")" ("timeout" timeout=INT)?) //	('parameters'  verificationParameters+=([ElementReference])*)? 
+		//name=ID ":" (method=[VerificationMethod|QualifiedName] "(" (parameters+=ID ("," parameters+=ID)*)? ")" ("timeout"
+		//timeout=INT)?) //	('parameters'  verificationParameters+=([ElementReference])*)? 
 		//// these are data parameters to the method in addition to what comes with the model
 		public Group getGroup() { return cGroup; }
 
@@ -419,94 +425,56 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//":"
 		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
 
-		//"(" resultVal+=[xbase::XVariableDeclaration] ("," resultVal+=[xbase::XVariableDeclaration])* ")" "="
-		//method=[VerificationMethod|QualifiedName] "(" parameters+=[xbase::XVariableDeclaration] (","
-		//parameters+=[xbase::XVariableDeclaration])* ")" ("timeout" timeout=INT)?
+		//method=[VerificationMethod|QualifiedName] "(" (parameters+=ID ("," parameters+=ID)*)? ")" ("timeout" timeout=INT)?
 		public Group getGroup_2() { return cGroup_2; }
 
+		//method=[VerificationMethod|QualifiedName]
+		public Assignment getMethodAssignment_2_0() { return cMethodAssignment_2_0; }
+
+		//[VerificationMethod|QualifiedName]
+		public CrossReference getMethodVerificationMethodCrossReference_2_0_0() { return cMethodVerificationMethodCrossReference_2_0_0; }
+
+		//QualifiedName
+		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_2_0_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_2_0_0_1; }
+
 		//"("
-		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
+		public Keyword getLeftParenthesisKeyword_2_1() { return cLeftParenthesisKeyword_2_1; }
 
-		//resultVal+=[xbase::XVariableDeclaration]
-		public Assignment getResultValAssignment_2_1() { return cResultValAssignment_2_1; }
-
-		//[xbase::XVariableDeclaration]
-		public CrossReference getResultValXVariableDeclarationCrossReference_2_1_0() { return cResultValXVariableDeclarationCrossReference_2_1_0; }
-
-		//ID
-		public RuleCall getResultValXVariableDeclarationIDTerminalRuleCall_2_1_0_1() { return cResultValXVariableDeclarationIDTerminalRuleCall_2_1_0_1; }
-
-		//("," resultVal+=[xbase::XVariableDeclaration])*
+		//(parameters+=ID ("," parameters+=ID)*)?
 		public Group getGroup_2_2() { return cGroup_2_2; }
 
-		//","
-		public Keyword getCommaKeyword_2_2_0() { return cCommaKeyword_2_2_0; }
-
-		//resultVal+=[xbase::XVariableDeclaration]
-		public Assignment getResultValAssignment_2_2_1() { return cResultValAssignment_2_2_1; }
-
-		//[xbase::XVariableDeclaration]
-		public CrossReference getResultValXVariableDeclarationCrossReference_2_2_1_0() { return cResultValXVariableDeclarationCrossReference_2_2_1_0; }
+		//parameters+=ID
+		public Assignment getParametersAssignment_2_2_0() { return cParametersAssignment_2_2_0; }
 
 		//ID
-		public RuleCall getResultValXVariableDeclarationIDTerminalRuleCall_2_2_1_0_1() { return cResultValXVariableDeclarationIDTerminalRuleCall_2_2_1_0_1; }
+		public RuleCall getParametersIDTerminalRuleCall_2_2_0_0() { return cParametersIDTerminalRuleCall_2_2_0_0; }
+
+		//("," parameters+=ID)*
+		public Group getGroup_2_2_1() { return cGroup_2_2_1; }
+
+		//","
+		public Keyword getCommaKeyword_2_2_1_0() { return cCommaKeyword_2_2_1_0; }
+
+		//parameters+=ID
+		public Assignment getParametersAssignment_2_2_1_1() { return cParametersAssignment_2_2_1_1; }
+
+		//ID
+		public RuleCall getParametersIDTerminalRuleCall_2_2_1_1_0() { return cParametersIDTerminalRuleCall_2_2_1_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_2_3() { return cRightParenthesisKeyword_2_3; }
 
-		//"="
-		public Keyword getEqualsSignKeyword_2_4() { return cEqualsSignKeyword_2_4; }
-
-		//method=[VerificationMethod|QualifiedName]
-		public Assignment getMethodAssignment_2_5() { return cMethodAssignment_2_5; }
-
-		//[VerificationMethod|QualifiedName]
-		public CrossReference getMethodVerificationMethodCrossReference_2_5_0() { return cMethodVerificationMethodCrossReference_2_5_0; }
-
-		//QualifiedName
-		public RuleCall getMethodVerificationMethodQualifiedNameParserRuleCall_2_5_0_1() { return cMethodVerificationMethodQualifiedNameParserRuleCall_2_5_0_1; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_2_6() { return cLeftParenthesisKeyword_2_6; }
-
-		//parameters+=[xbase::XVariableDeclaration]
-		public Assignment getParametersAssignment_2_7() { return cParametersAssignment_2_7; }
-
-		//[xbase::XVariableDeclaration]
-		public CrossReference getParametersXVariableDeclarationCrossReference_2_7_0() { return cParametersXVariableDeclarationCrossReference_2_7_0; }
-
-		//ID
-		public RuleCall getParametersXVariableDeclarationIDTerminalRuleCall_2_7_0_1() { return cParametersXVariableDeclarationIDTerminalRuleCall_2_7_0_1; }
-
-		//("," parameters+=[xbase::XVariableDeclaration])*
-		public Group getGroup_2_8() { return cGroup_2_8; }
-
-		//","
-		public Keyword getCommaKeyword_2_8_0() { return cCommaKeyword_2_8_0; }
-
-		//parameters+=[xbase::XVariableDeclaration]
-		public Assignment getParametersAssignment_2_8_1() { return cParametersAssignment_2_8_1; }
-
-		//[xbase::XVariableDeclaration]
-		public CrossReference getParametersXVariableDeclarationCrossReference_2_8_1_0() { return cParametersXVariableDeclarationCrossReference_2_8_1_0; }
-
-		//ID
-		public RuleCall getParametersXVariableDeclarationIDTerminalRuleCall_2_8_1_0_1() { return cParametersXVariableDeclarationIDTerminalRuleCall_2_8_1_0_1; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_2_9() { return cRightParenthesisKeyword_2_9; }
-
 		//("timeout" timeout=INT)?
-		public Group getGroup_2_10() { return cGroup_2_10; }
+		public Group getGroup_2_4() { return cGroup_2_4; }
 
 		//"timeout"
-		public Keyword getTimeoutKeyword_2_10_0() { return cTimeoutKeyword_2_10_0; }
+		public Keyword getTimeoutKeyword_2_4_0() { return cTimeoutKeyword_2_4_0; }
 
 		//timeout=INT
-		public Assignment getTimeoutAssignment_2_10_1() { return cTimeoutAssignment_2_10_1; }
+		public Assignment getTimeoutAssignment_2_4_1() { return cTimeoutAssignment_2_4_1; }
 
 		//INT
-		public RuleCall getTimeoutINTTerminalRuleCall_2_10_1_0() { return cTimeoutINTTerminalRuleCall_2_10_1_0; }
+		public RuleCall getTimeoutINTTerminalRuleCall_2_4_1_0() { return cTimeoutINTTerminalRuleCall_2_4_1_0; }
 	}
 
 	public class VerificationConditionElements extends AbstractParserRuleElementFinder {
@@ -1022,6 +990,22 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
+	public class VerificationMethodParameterElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationMethodParameter");
+		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
+		
+		//VerificationMethodParameter:
+		//	name=ID;
+		@Override public ParserRule getRule() { return rule; }
+
+		//name=ID
+		public Assignment getNameAssignment() { return cNameAssignment; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
+	}
+
 	public class VerificationMethodElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VerificationMethod");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -1029,14 +1013,19 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cColonKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cTitleAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTitleSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cTitleAssignment_2_1.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Assignment cParamsAssignment_2_1_0 = (Assignment)cGroup_2_1.eContents().get(0);
+		private final RuleCall cParamsIDTerminalRuleCall_2_1_0_0 = (RuleCall)cParamsAssignment_2_1_0.eContents().get(0);
+		private final Group cGroup_2_1_1 = (Group)cGroup_2_1.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_1_0 = (Keyword)cGroup_2_1_1.eContents().get(0);
+		private final Assignment cParamsAssignment_2_1_1_1 = (Assignment)cGroup_2_1_1.eContents().get(1);
+		private final RuleCall cParamsIDTerminalRuleCall_2_1_1_1_0 = (RuleCall)cParamsAssignment_2_1_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cForKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cRequirementAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final CrossReference cRequirementRequirementCrossReference_3_1_0 = (CrossReference)cRequirementAssignment_3_1.eContents().get(0);
-		private final RuleCall cRequirementRequirementQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cRequirementRequirementCrossReference_3_1_0.eContents().get(1);
+		private final Keyword cColonKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cTitleAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cTitleSTRINGTerminalRuleCall_3_1_0 = (RuleCall)cTitleAssignment_3_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final UnorderedGroup cUnorderedGroup_5 = (UnorderedGroup)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cUnorderedGroup_5.eContents().get(0);
@@ -1062,14 +1051,14 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VerificationMethod:
-		//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
-		//	(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
+		//	"method" name=ID ("(" (params+=ID ("," params+=ID)*)? ")")? (":" title=STRING)? "[" (methodType=SupportedTypes
+		//	scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 		//	& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 		//	category+=[categories::VerificationCategory]+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
-		//(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
+		//"method" name=ID ("(" (params+=ID ("," params+=ID)*)? ")")? (":" title=STRING)? "[" (methodType=SupportedTypes
+		//scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 		//& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 		//category+=[categories::VerificationCategory]+)?) "]"
 		public Group getGroup() { return cGroup; }
@@ -1083,32 +1072,47 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//(":" title=STRING)?
+		//("(" (params+=ID ("," params+=ID)*)? ")")?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//":"
-		public Keyword getColonKeyword_2_0() { return cColonKeyword_2_0; }
+		//"("
+		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
 
-		//title=STRING
-		public Assignment getTitleAssignment_2_1() { return cTitleAssignment_2_1; }
+		//(params+=ID ("," params+=ID)*)?
+		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//STRING
-		public RuleCall getTitleSTRINGTerminalRuleCall_2_1_0() { return cTitleSTRINGTerminalRuleCall_2_1_0; }
+		//params+=ID
+		public Assignment getParamsAssignment_2_1_0() { return cParamsAssignment_2_1_0; }
 
-		//("for" requirement=[ReqSpec::Requirement|QualifiedName])?
+		//ID
+		public RuleCall getParamsIDTerminalRuleCall_2_1_0_0() { return cParamsIDTerminalRuleCall_2_1_0_0; }
+
+		//("," params+=ID)*
+		public Group getGroup_2_1_1() { return cGroup_2_1_1; }
+
+		//","
+		public Keyword getCommaKeyword_2_1_1_0() { return cCommaKeyword_2_1_1_0; }
+
+		//params+=ID
+		public Assignment getParamsAssignment_2_1_1_1() { return cParamsAssignment_2_1_1_1; }
+
+		//ID
+		public RuleCall getParamsIDTerminalRuleCall_2_1_1_1_0() { return cParamsIDTerminalRuleCall_2_1_1_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
+
+		//(":" title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"for"
-		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
+		//":"
+		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 
-		//requirement=[ReqSpec::Requirement|QualifiedName]
-		public Assignment getRequirementAssignment_3_1() { return cRequirementAssignment_3_1; }
+		//title=STRING
+		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
 
-		//[ReqSpec::Requirement|QualifiedName]
-		public CrossReference getRequirementRequirementCrossReference_3_1_0() { return cRequirementRequirementCrossReference_3_1_0; }
-
-		//QualifiedName
-		public RuleCall getRequirementRequirementQualifiedNameParserRuleCall_3_1_0_1() { return cRequirementRequirementQualifiedNameParserRuleCall_3_1_0_1; }
+		//STRING
+		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
@@ -1346,6 +1350,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final VerificationElements pVerification;
 	private final VerificationPlanElements pVerificationPlan;
 	private final ClaimElements pClaim;
+	private final VerificationActivityParameterElements pVerificationActivityParameter;
 	private final VerificationActivityElements pVerificationActivity;
 	private final VerificationConditionElements pVerificationCondition;
 	private final ArgumentExprElements pArgumentExpr;
@@ -1356,6 +1361,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	private final ConditionalEvidenceElements pConditionalEvidence;
 	private final VAReferenceElements pVAReference;
 	private final VerificationMethodRegistryElements pVerificationMethodRegistry;
+	private final VerificationMethodParameterElements pVerificationMethodParameter;
 	private final VerificationMethodElements pVerificationMethod;
 	private final SupportedTypesElements unknownRuleSupportedTypes;
 	private final SupportedScopesElements unknownRuleSupportedScopes;
@@ -1373,6 +1379,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pVerification = new VerificationElements();
 		this.pVerificationPlan = new VerificationPlanElements();
 		this.pClaim = new ClaimElements();
+		this.pVerificationActivityParameter = new VerificationActivityParameterElements();
 		this.pVerificationActivity = new VerificationActivityElements();
 		this.pVerificationCondition = new VerificationConditionElements();
 		this.pArgumentExpr = new ArgumentExprElements();
@@ -1383,6 +1390,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		this.pConditionalEvidence = new ConditionalEvidenceElements();
 		this.pVAReference = new VAReferenceElements();
 		this.pVerificationMethodRegistry = new VerificationMethodRegistryElements();
+		this.pVerificationMethodParameter = new VerificationMethodParameterElements();
 		this.pVerificationMethod = new VerificationMethodElements();
 		this.unknownRuleSupportedTypes = new SupportedTypesElements();
 		this.unknownRuleSupportedScopes = new SupportedScopesElements();
@@ -1463,10 +1471,19 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	////	&(content+=(VerificationActivity |  VerificationFolder))*
 	////	)
 	////	']';
+	//VerificationActivityParameter:
+	//	compute=[common::ComputeDeclaration];
+	public VerificationActivityParameterElements getVerificationActivityParameterAccess() {
+		return pVerificationActivityParameter;
+	}
+	
+	public ParserRule getVerificationActivityParameterRule() {
+		return getVerificationActivityParameterAccess().getRule();
+	}
+
 	//VerificationActivity:
-	//	name=ID ":" ("(" resultVal+=[xbase::XVariableDeclaration] ("," resultVal+=[xbase::XVariableDeclaration])* ")" "="
-	//	method=[VerificationMethod|QualifiedName] "(" parameters+=[xbase::XVariableDeclaration] (","
-	//	parameters+=[xbase::XVariableDeclaration])* ")" ("timeout" timeout=INT)?) //	('parameters'  verificationParameters+=([ElementReference])*)? 
+	//	name=ID ":" (method=[VerificationMethod|QualifiedName] "(" (parameters+=ID ("," parameters+=ID)*)? ")" ("timeout"
+	//	timeout=INT)?) //	('parameters'  verificationParameters+=([ElementReference])*)? 
 	//	// these are data parameters to the method in addition to what comes with the model
 	//;
 	public VerificationActivityElements getVerificationActivityAccess() {
@@ -1576,9 +1593,19 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationMethodRegistryAccess().getRule();
 	}
 
+	//VerificationMethodParameter:
+	//	name=ID;
+	public VerificationMethodParameterElements getVerificationMethodParameterAccess() {
+		return pVerificationMethodParameter;
+	}
+	
+	public ParserRule getVerificationMethodParameterRule() {
+		return getVerificationMethodParameterAccess().getRule();
+	}
+
 	//VerificationMethod:
-	//	"method" name=ID (":" title=STRING)? ("for" requirement=[ReqSpec::Requirement|QualifiedName])? "["
-	//	(methodType=SupportedTypes scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
+	//	"method" name=ID ("(" (params+=ID ("," params+=ID)*)? ")")? (":" title=STRING)? "[" (methodType=SupportedTypes
+	//	scope=SupportedScopes reporting=SupportedReporting? // parameters (in addition to the model element
 	//	& description=Description? & ("path" methodPath=STRING)? & conditions+=VerificationCondition* & ("category"
 	//	category+=[categories::VerificationCategory]+)?) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {
@@ -2017,8 +2044,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	feature=[types::JvmIdentifiableElement|FeatureCallID] OpSingleAssign) value=XAssignment | =>
 	//	({XMemberFeatureCall.memberCallTarget=current} ("." | nullSafe?="?." | explicitStatic?="::")) ("<"
 	//	typeArguments+=JvmArgumentTypeReference ("," typeArguments+=JvmArgumentTypeReference)* ">")?
-	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure
-	//	| memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
+	//	feature=[types::JvmIdentifiableElement|IdOrSuper] (=> explicitOperationCall?="(" (memberCallArguments+=XShortClosure |
+	//	memberCallArguments+=XExpression ("," memberCallArguments+=XExpression)*)? ")")? memberCallArguments+=XClosure?)*;
 	public XbaseGrammarAccess.XMemberFeatureCallElements getXMemberFeatureCallAccess() {
 		return gaCommon.getXMemberFeatureCallAccess();
 	}
@@ -2133,8 +2160,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//XSwitchExpression returns XExpression:
 	//	{XSwitchExpression} "switch" (=> ("(" declaredParam=JvmFormalParameter ":") switch=XExpression ")" | =>
-	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":"
-	//	default=XExpression)? "}";
+	//	(declaredParam=JvmFormalParameter ":")? switch=XExpression) "{" cases+=XCasePart* ("default" ":" default=XExpression)?
+	//	"}";
 	public XbaseGrammarAccess.XSwitchExpressionElements getXSwitchExpressionAccess() {
 		return gaCommon.getXSwitchExpressionAccess();
 	}
@@ -2406,8 +2433,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	/// **
 	// * Dummy rule, for "better" downwards compatibility, since GrammarAccess generates non-static inner classes, 
 	// * which makes downstream grammars break on classloading, when a rule is removed.
-	// * /
-	//StaticQualifier:
+	// * / StaticQualifier:
 	//	(ValidID "::")+;
 	public XbaseGrammarAccess.StaticQualifierElements getStaticQualifierAccess() {
 		return gaCommon.getStaticQualifierAccess();

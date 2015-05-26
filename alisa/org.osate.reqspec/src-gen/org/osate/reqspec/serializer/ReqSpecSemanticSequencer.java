@@ -536,6 +536,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
 	 *         predicate=ReqPredicate? 
 	 *         rationale=Rationale? 
 	 *         changeUncertainty=Uncertainty? 

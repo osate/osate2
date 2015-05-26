@@ -68,10 +68,12 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION: return createVerification();
       case VerifyPackage.VERIFICATION_PLAN: return createVerificationPlan();
       case VerifyPackage.CLAIM: return createClaim();
+      case VerifyPackage.VERIFICATION_ACTIVITY_PARAMETER: return createVerificationActivityParameter();
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
       case VerifyPackage.VERIFICATION_METHOD_REGISTRY: return createVerificationMethodRegistry();
+      case VerifyPackage.VERIFICATION_METHOD_PARAMETER: return createVerificationMethodParameter();
       case VerifyPackage.VERIFICATION_METHOD: return createVerificationMethod();
       case VerifyPackage.VERIFICATION_VALIDATION: return createVerificationValidation();
       case VerifyPackage.VERIFICATION_PRECONDITION: return createVerificationPrecondition();
@@ -165,6 +167,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public VerificationActivityParameter createVerificationActivityParameter()
+  {
+    VerificationActivityParameterImpl verificationActivityParameter = new VerificationActivityParameterImpl();
+    return verificationActivityParameter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public VerificationActivity createVerificationActivity()
   {
     VerificationActivityImpl verificationActivity = new VerificationActivityImpl();
@@ -202,6 +215,17 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     VerificationMethodRegistryImpl verificationMethodRegistry = new VerificationMethodRegistryImpl();
     return verificationMethodRegistry;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerificationMethodParameter createVerificationMethodParameter()
+  {
+    VerificationMethodParameterImpl verificationMethodParameter = new VerificationMethodParameterImpl();
+    return verificationMethodParameter;
   }
 
   /**

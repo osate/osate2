@@ -50,6 +50,15 @@ public interface VerifyFactory extends EFactory
   Claim createClaim();
 
   /**
+   * Returns a new object of class '<em>Verification Activity Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Activity Parameter</em>'.
+   * @generated
+   */
+  VerificationActivityParameter createVerificationActivityParameter();
+
+  /**
    * Returns a new object of class '<em>Verification Activity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -84,6 +93,15 @@ public interface VerifyFactory extends EFactory
    * @generated
    */
   VerificationMethodRegistry createVerificationMethodRegistry();
+
+  /**
+   * Returns a new object of class '<em>Verification Method Parameter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Verification Method Parameter</em>'.
+   * @generated
+   */
+  VerificationMethodParameter createVerificationMethodParameter();
 
   /**
    * Returns a new object of class '<em>Verification Method</em>'.

@@ -46,7 +46,7 @@ ReqSpecs returns ReqSpecs:
 	('include' otherreqspecs += [ReqSpecs|QualifiedName]+)?
 	'[' 
 	(
-		( constants+=XValDeclaration* )
+	( constants+=XValDeclaration* )
 	& (content+= (Requirement))*
 	 &('see' 'document'  docReference+=ExternalDocument+)? 
 	&('issues' issues+=STRING+ )?
@@ -91,6 +91,7 @@ Requirement:
  	('category'  category+=[categories::RequirementCategory|ID]+ )?
 	&(  description=Description)? 
 	& (  constants+=XValDeclaration* )
+	& (  computes+=ComputeDeclaration* )
 	&(  predicate=ReqPredicate)?  // predicate expression 
 	&(rationale=Rationale)? 
 	 &(changeUncertainty=Uncertainty)? 

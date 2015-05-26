@@ -7,7 +7,8 @@ import "http://www.osate.org/categories/Categories" as categories
 import "http://www.osate.org/alisa/common/Common" as common
 import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 import "http://www.eclipse.org/xtext/xbase/Xtype" as xtype
- 
+import "http://www.eclipse.org/xtext/common/JavaVMTypes" as jvmTypes
+
 Verification:
 	contents+=( VerificationPlan | VerificationMethodRegistry);
 
@@ -50,11 +51,14 @@ Claim:
 //	']';
 
 
+VerificationActivityParameter: 
+		compute=[common::ComputeDeclaration|ID]
+;
+
 VerificationActivity:
 	name=ID ':'
 	(
-		('(' resultVal+=[xbase::XVariableDeclaration|ID] (',' resultVal+=[xbase::XVariableDeclaration|ID] )*')' '=' )?
-		 method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XVariableDeclaration|ID] (',' parameters+=[xbase::XVariableDeclaration|ID])*)?')'
+	   method=[VerificationMethod|QualifiedName] '(' (parameters+=ID (',' parameters+=ID)*)?')'
 	('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model
@@ -108,14 +112,15 @@ VerificationMethodRegistry returns VerificationMethodRegistry:
 	methods+=VerificationMethod*)
 	']';
 
+VerificationMethodParameter:
+	name=ID
+;
+
 VerificationMethod:
-	'method' name=ID ('(' (params+=FullJvmFormalParameter (',' params+=FullJvmFormalParameter)*)? ')' )? 
-	                 ('returns' '(' resultVal+=JvmArgumentTypeReference (',' resultVal+=JvmArgumentTypeReference )*')' )?
-	
+	'method' name=ID ('(' (params+=ID (',' params+=ID)*)? ')' )? (':' title=STRING)?
 	'['
 	(
 	(methodType=SupportedTypes scope=SupportedScopes (reporting=SupportedReporting)?)
-	& ('title' title=STRING)?
 	&( description=Description)?
 	&('path' methodPath=STRING)?
 	& (conditions+=VerificationCondition)*

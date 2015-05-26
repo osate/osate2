@@ -105,28 +105,30 @@
 						&lt;AlisaWorkArea&gt;&nbsp;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">alisa</span>&nbsp;workareaname<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&lt;AssurancePlan&gt;&nbsp;|&nbsp;&lt;AssuranceTask&gt;&nbsp;)*<br/>
+						<br/>
 						&lt;AssurancePlan&gt;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assurance</span>&nbsp;<span class="keyword">plan</span>&nbsp;name=ID&nbsp;(&nbsp;:&nbsp;<span class="string">"short&nbsp;descriptive&nbsp;title"</span>)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;&lt;ComponentImplementationReferene&gt;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-						(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-						<span class="keyword">assert</span>&nbsp;&lt;VerificationPlanReference&gt;+<br/>
-						<span class="keyword">assume</span>&nbsp;&lt;AssurancePlanReference&gt;+<br/>
-						&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;&lt;VerificationPlanReference&gt;+<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assume</span>&nbsp;&lt;AssurancePlanReference&gt;+<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+						<br/>
 						&lt;AssuranceTask&gt;::=<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assurance</span>&nbsp;<span class="keyword">task</span>&nbsp;name=ID&nbsp;(&nbsp;:&nbsp;<span class="string">"short&nbsp;descriptive&nbsp;title"</span>)?<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">of</span>&nbsp;&lt;AssurancePlanReference&gt;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;[<br/>
-						(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
-						(&nbsp;<span class="keyword">filter</span>&nbsp;<br/>
-						(&nbsp;(&nbsp;<span class="keyword">requirements</span>&nbsp;&lt;RequirementCategory&gt;+&nbsp;)?<br/>
-						&nbsp;&nbsp;(&nbsp;<span class="keyword">verifications</span>&nbsp;&lt;VerificationCategory&gt;+&nbsp;)?<br/>
-						&nbsp;&nbsp;(&nbsp;<span class="keyword">selections</span>&nbsp;&lt;SelectionCategory&gt;+&nbsp;)?<br/>
-						)&nbsp;<br/>
-						|&nbsp;<br/>
-						&nbsp;&nbsp;<span class="keyword">claims</span>&nbsp;&lt;ClaimReference&gt;+&nbsp;)&nbsp;<br/>
-						&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">description</span>&nbsp;Description)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">filter</span>&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;(&nbsp;<span class="keyword">requirements</span>&nbsp;&lt;RequirementCategory&gt;+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">verifications</span>&nbsp;&lt;VerificationCategory&gt;+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">selections</span>&nbsp;&lt;SelectionCategory&gt;+&nbsp;)?<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">claims</span>&nbsp;&lt;ClaimReference&gt;+&nbsp;)&nbsp;<br/>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;<span class="keyword">issues</span>&nbsp;(<span class="string">"explanation"</span>)+&nbsp;)?&nbsp;<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;]
 					</p>
 				</div>

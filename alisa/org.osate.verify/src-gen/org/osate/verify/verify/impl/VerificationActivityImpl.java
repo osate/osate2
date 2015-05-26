@@ -14,9 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
-import org.eclipse.xtext.xbase.XVariableDeclaration;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -30,7 +28,6 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResultVal <em>Result Val</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
@@ -62,16 +59,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getResultVal() <em>Result Val</em>}' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getResultVal()
-   * @generated
-   * @ordered
-   */
-  protected EList<XVariableDeclaration> resultVal;
-
-  /**
    * The cached value of the '{@link #getMethod() <em>Method</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -82,14 +69,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected VerificationMethod method;
 
   /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getParameters()
    * @generated
    * @ordered
    */
-  protected EList<XVariableDeclaration> parameters;
+  protected EList<String> parameters;
 
   /**
    * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
@@ -160,20 +147,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XVariableDeclaration> getResultVal()
-  {
-    if (resultVal == null)
-    {
-      resultVal = new EObjectResolvingEList<XVariableDeclaration>(XVariableDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL);
-    }
-    return resultVal;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public VerificationMethod getMethod()
   {
     if (method != null && method.eIsProxy())
@@ -217,11 +190,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<XVariableDeclaration> getParameters()
+  public EList<String> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EObjectResolvingEList<XVariableDeclaration>(XVariableDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
+      parameters = new EDataTypeEList<String>(String.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
     }
     return parameters;
   }
@@ -261,8 +234,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         return getName();
-      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL:
-        return getResultVal();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         if (resolve) return getMethod();
         return basicGetMethod();
@@ -288,16 +259,12 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         setName((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL:
-        getResultVal().clear();
-        getResultVal().addAll((Collection<? extends XVariableDeclaration>)newValue);
-        return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends XVariableDeclaration>)newValue);
+        getParameters().addAll((Collection<? extends String>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((Integer)newValue);
@@ -318,9 +285,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         setName(NAME_EDEFAULT);
-        return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL:
-        getResultVal().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)null);
@@ -347,8 +311,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     {
       case VerifyPackage.VERIFICATION_ACTIVITY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT_VAL:
-        return resultVal != null && !resultVal.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         return method != null;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
@@ -372,6 +334,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", parameters: ");
+    result.append(parameters);
     result.append(", timeout: ");
     result.append(timeout);
     result.append(')');

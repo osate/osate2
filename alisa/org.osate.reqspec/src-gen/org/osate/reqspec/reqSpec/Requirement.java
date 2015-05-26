@@ -6,6 +6,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.alisa.common.common.ComputeDeclaration;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Requirement</b></em>'.
@@ -14,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}</li>
@@ -29,6 +32,22 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Requirement extends ContractualElement
 {
+  /**
+   * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.alisa.common.common.ComputeDeclaration}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Computes</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Computes()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ComputeDeclaration> getComputes();
+
   /**
    * Returns the value of the '<em><b>Predicate</b></em>' containment reference.
    * <!-- begin-user-doc -->

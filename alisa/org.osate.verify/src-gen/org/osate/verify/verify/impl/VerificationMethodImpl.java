@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -22,8 +23,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.alisa.common.common.Description;
 
 import org.osate.categories.categories.VerificationCategory;
-
-import org.osate.reqspec.reqSpec.Requirement;
 
 import org.osate.verify.verify.SupportedReporting;
 import org.osate.verify.verify.SupportedScopes;
@@ -40,8 +39,8 @@ import org.osate.verify.verify.VerifyPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getParams <em>Params</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getRequirement <em>Requirement</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getMethodType <em>Method Type</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getScope <em>Scope</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationMethodImpl#getReporting <em>Reporting</em>}</li>
@@ -77,6 +76,16 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
   protected String name = NAME_EDEFAULT;
 
   /**
+   * The cached value of the '{@link #getParams() <em>Params</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getParams()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> params;
+
+  /**
    * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -95,16 +104,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected String title = TITLE_EDEFAULT;
-
-  /**
-   * The cached value of the '{@link #getRequirement() <em>Requirement</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRequirement()
-   * @generated
-   * @ordered
-   */
-  protected Requirement requirement;
 
   /**
    * The default value of the '{@link #getMethodType() <em>Method Type</em>}' attribute.
@@ -265,6 +264,20 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<String> getParams()
+  {
+    if (params == null)
+    {
+      params = new EDataTypeEList<String>(String.class, this, VerifyPackage.VERIFICATION_METHOD__PARAMS);
+    }
+    return params;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getTitle()
   {
     return title;
@@ -281,49 +294,6 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     title = newTitle;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__TITLE, oldTitle, title));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Requirement getRequirement()
-  {
-    if (requirement != null && requirement.eIsProxy())
-    {
-      InternalEObject oldRequirement = (InternalEObject)requirement;
-      requirement = (Requirement)eResolveProxy(oldRequirement);
-      if (requirement != oldRequirement)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, VerifyPackage.VERIFICATION_METHOD__REQUIREMENT, oldRequirement, requirement));
-      }
-    }
-    return requirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Requirement basicGetRequirement()
-  {
-    return requirement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRequirement(Requirement newRequirement)
-  {
-    Requirement oldRequirement = requirement;
-    requirement = newRequirement;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, VerifyPackage.VERIFICATION_METHOD__REQUIREMENT, oldRequirement, requirement));
   }
 
   /**
@@ -524,11 +494,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         return getName();
+      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
+        return getParams();
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
-        if (resolve) return getRequirement();
-        return basicGetRequirement();
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         return getMethodType();
       case VerifyPackage.VERIFICATION_METHOD__SCOPE:
@@ -561,11 +530,12 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         setName((String)newValue);
         return;
+      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
+        getParams().clear();
+        getParams().addAll((Collection<? extends String>)newValue);
+        return;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle((String)newValue);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
-        setRequirement((Requirement)newValue);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         setMethodType((SupportedTypes)newValue);
@@ -607,11 +577,11 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
+        getParams().clear();
+        return;
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         setTitle(TITLE_EDEFAULT);
-        return;
-      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
-        setRequirement((Requirement)null);
         return;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         setMethodType(METHOD_TYPE_EDEFAULT);
@@ -650,10 +620,10 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     {
       case VerifyPackage.VERIFICATION_METHOD__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case VerifyPackage.VERIFICATION_METHOD__PARAMS:
+        return params != null && !params.isEmpty();
       case VerifyPackage.VERIFICATION_METHOD__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_METHOD__REQUIREMENT:
-        return requirement != null;
       case VerifyPackage.VERIFICATION_METHOD__METHOD_TYPE:
         return methodType != METHOD_TYPE_EDEFAULT;
       case VerifyPackage.VERIFICATION_METHOD__SCOPE:
@@ -685,6 +655,8 @@ public class VerificationMethodImpl extends MinimalEObjectImpl.Container impleme
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", params: ");
+    result.append(params);
     result.append(", title: ");
     result.append(title);
     result.append(", methodType: ");

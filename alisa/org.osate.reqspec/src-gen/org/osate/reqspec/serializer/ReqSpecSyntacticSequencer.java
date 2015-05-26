@@ -32,12 +32,12 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_ReqSpecs___SeeKeyword_7_2_0_DocumentKeyword_7_2_1__q;
 	protected AbstractElementAlias match_Requirement_CategoryKeyword_5_0_0_q;
 	protected AbstractElementAlias match_Requirement_ForKeyword_3_0_q;
-	protected AbstractElementAlias match_Requirement_IssuesKeyword_5_12_0_q;
-	protected AbstractElementAlias match_Requirement_RefinesKeyword_5_7_0_q;
-	protected AbstractElementAlias match_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_RequirementKeyword_5_10_2__q;
-	protected AbstractElementAlias match_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1__q;
-	protected AbstractElementAlias match_Requirement___SeeKeyword_5_8_0_GoalKeyword_5_8_1__q;
-	protected AbstractElementAlias match_Requirement___SeeKeyword_5_9_0_DocumentKeyword_5_9_1_GoalKeyword_5_9_2__q;
+	protected AbstractElementAlias match_Requirement_IssuesKeyword_5_13_0_q;
+	protected AbstractElementAlias match_Requirement_RefinesKeyword_5_8_0_q;
+	protected AbstractElementAlias match_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_GoalKeyword_5_10_2__q;
+	protected AbstractElementAlias match_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1_RequirementKeyword_5_11_2__q;
+	protected AbstractElementAlias match_Requirement___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q;
+	protected AbstractElementAlias match_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q;
 	protected AbstractElementAlias match_XBlockExpression_SemicolonKeyword_2_1_q;
 	protected AbstractElementAlias match_XExpressionInClosure_SemicolonKeyword_1_1_q;
 	protected AbstractElementAlias match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q;
@@ -59,12 +59,12 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_ReqSpecs___SeeKeyword_7_2_0_DocumentKeyword_7_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getReqSpecsAccess().getSeeKeyword_7_2_0()), new TokenAlias(false, false, grammarAccess.getReqSpecsAccess().getDocumentKeyword_7_2_1()));
 		match_Requirement_CategoryKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getCategoryKeyword_5_0_0());
 		match_Requirement_ForKeyword_3_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getForKeyword_3_0());
-		match_Requirement_IssuesKeyword_5_12_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getIssuesKeyword_5_12_0());
-		match_Requirement_RefinesKeyword_5_7_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getRefinesKeyword_5_7_0());
-		match_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_RequirementKeyword_5_10_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_10_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_10_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getRequirementKeyword_5_10_2()));
-		match_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_11_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_11_1()));
-		match_Requirement___SeeKeyword_5_8_0_GoalKeyword_5_8_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_8_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_8_1()));
-		match_Requirement___SeeKeyword_5_9_0_DocumentKeyword_5_9_1_GoalKeyword_5_9_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_9_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_9_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_9_2()));
+		match_Requirement_IssuesKeyword_5_13_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getIssuesKeyword_5_13_0());
+		match_Requirement_RefinesKeyword_5_8_0_q = new TokenAlias(false, true, grammarAccess.getRequirementAccess().getRefinesKeyword_5_8_0());
+		match_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_GoalKeyword_5_10_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_10_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_10_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_10_2()));
+		match_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1_RequirementKeyword_5_11_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_11_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_11_1()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getRequirementKeyword_5_11_2()));
+		match_Requirement___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_12_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getDocumentKeyword_5_12_1()));
+		match_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRequirementAccess().getSeeKeyword_5_9_0()), new TokenAlias(false, false, grammarAccess.getRequirementAccess().getGoalKeyword_5_9_1()));
 		match_XBlockExpression_SemicolonKeyword_2_1_q = new TokenAlias(false, true, grammarAccess.getXBlockExpressionAccess().getSemicolonKeyword_2_1());
 		match_XExpressionInClosure_SemicolonKeyword_1_1_q = new TokenAlias(false, true, grammarAccess.getXExpressionInClosureAccess().getSemicolonKeyword_1_1());
 		match_XFunctionTypeRef___LeftParenthesisKeyword_0_0_RightParenthesisKeyword_0_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getLeftParenthesisKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getXFunctionTypeRefAccess().getRightParenthesisKeyword_0_2()));
@@ -132,18 +132,18 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Requirement_CategoryKeyword_5_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Requirement_ForKeyword_3_0_q.equals(syntax))
 				emit_Requirement_ForKeyword_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement_IssuesKeyword_5_12_0_q.equals(syntax))
-				emit_Requirement_IssuesKeyword_5_12_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement_RefinesKeyword_5_7_0_q.equals(syntax))
-				emit_Requirement_RefinesKeyword_5_7_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_RequirementKeyword_5_10_2__q.equals(syntax))
-				emit_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_RequirementKeyword_5_10_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1__q.equals(syntax))
-				emit_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement___SeeKeyword_5_8_0_GoalKeyword_5_8_1__q.equals(syntax))
-				emit_Requirement___SeeKeyword_5_8_0_GoalKeyword_5_8_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Requirement___SeeKeyword_5_9_0_DocumentKeyword_5_9_1_GoalKeyword_5_9_2__q.equals(syntax))
-				emit_Requirement___SeeKeyword_5_9_0_DocumentKeyword_5_9_1_GoalKeyword_5_9_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement_IssuesKeyword_5_13_0_q.equals(syntax))
+				emit_Requirement_IssuesKeyword_5_13_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement_RefinesKeyword_5_8_0_q.equals(syntax))
+				emit_Requirement_RefinesKeyword_5_8_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_GoalKeyword_5_10_2__q.equals(syntax))
+				emit_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_GoalKeyword_5_10_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1_RequirementKeyword_5_11_2__q.equals(syntax))
+				emit_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1_RequirementKeyword_5_11_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q.equals(syntax))
+				emit_Requirement___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q.equals(syntax))
+				emit_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_XBlockExpression_SemicolonKeyword_2_1_q.equals(syntax))
 				emit_XBlockExpression_SemicolonKeyword_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_XExpressionInClosure_SemicolonKeyword_1_1_q.equals(syntax))
@@ -286,6 +286,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     name=ID (ambiguity) '[' 'see' 'document' docReference+=ExternalDocument
 	 *     name=ID (ambiguity) '[' 'see' 'goal' goalReference+=[Goal|QualifiedName]
 	 *     name=ID (ambiguity) '[' changeUncertainty=Uncertainty
+	 *     name=ID (ambiguity) '[' computes+=ComputeDeclaration
 	 *     name=ID (ambiguity) '[' constants+=XValDeclaration
 	 *     name=ID (ambiguity) '[' description=Description
 	 *     name=ID (ambiguity) '[' predicate=ReqPredicate
@@ -301,6 +302,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     title=STRING (ambiguity) '[' 'see' 'document' docReference+=ExternalDocument
 	 *     title=STRING (ambiguity) '[' 'see' 'goal' goalReference+=[Goal|QualifiedName]
 	 *     title=STRING (ambiguity) '[' changeUncertainty=Uncertainty
+	 *     title=STRING (ambiguity) '[' computes+=ComputeDeclaration
 	 *     title=STRING (ambiguity) '[' constants+=XValDeclaration
 	 *     title=STRING (ambiguity) '[' description=Description
 	 *     title=STRING (ambiguity) '[' predicate=ReqPredicate
@@ -317,7 +319,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     issues+=STRING (ambiguity) issues+=STRING
 	 */
-	protected void emit_Requirement_IssuesKeyword_5_12_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Requirement_IssuesKeyword_5_13_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -328,40 +330,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     refinesReference+=[Requirement|QualifiedName] (ambiguity) refinesReference+=[Requirement|QualifiedName]
 	 */
-	protected void emit_Requirement_RefinesKeyword_5_7_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ('see' 'document' 'requirement')?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     documentRequirement+=[ContractualElement|QualifiedName] (ambiguity) documentRequirement+=[ContractualElement|QualifiedName]
-	 */
-	protected void emit_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_RequirementKeyword_5_10_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ('see' 'document')?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     docReference+=ExternalDocument (ambiguity) docReference+=ExternalDocument
-	 */
-	protected void emit_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     ('see' 'goal')?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     goalReference+=[Goal|QualifiedName] (ambiguity) goalReference+=[Goal|QualifiedName]
-	 */
-	protected void emit_Requirement___SeeKeyword_5_8_0_GoalKeyword_5_8_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Requirement_RefinesKeyword_5_8_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -372,7 +341,40 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     stakeholderRequirementReference+=[Goal|QualifiedName] (ambiguity) stakeholderRequirementReference+=[Goal|QualifiedName]
 	 */
-	protected void emit_Requirement___SeeKeyword_5_9_0_DocumentKeyword_5_9_1_GoalKeyword_5_9_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Requirement___SeeKeyword_5_10_0_DocumentKeyword_5_10_1_GoalKeyword_5_10_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('see' 'document' 'requirement')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     documentRequirement+=[ContractualElement|QualifiedName] (ambiguity) documentRequirement+=[ContractualElement|QualifiedName]
+	 */
+	protected void emit_Requirement___SeeKeyword_5_11_0_DocumentKeyword_5_11_1_RequirementKeyword_5_11_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('see' 'document')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     docReference+=ExternalDocument (ambiguity) docReference+=ExternalDocument
+	 */
+	protected void emit_Requirement___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('see' 'goal')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     goalReference+=[Goal|QualifiedName] (ambiguity) goalReference+=[Goal|QualifiedName]
+	 */
+	protected void emit_Requirement___SeeKeyword_5_9_0_GoalKeyword_5_9_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
