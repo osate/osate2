@@ -105,7 +105,7 @@ VAReference returns ArgumentExpr:
 	('(' weight=INT ')')?;
 
 VerificationMethodRegistry returns VerificationMethodRegistry:
-	'registry' name=ID
+	'verification' 'methods' name=ID
 	(':' title=STRING)?
 	'[' (
 	( description=Description)?

@@ -75,6 +75,7 @@
 'manual'=118
 'marker'=121
 'method'=31
+'methods'=38
 'new'=99
 'null'=102
 'parts'=120
@@ -83,7 +84,6 @@
 'precondition'=30
 'predicate'=113
 'rationale'=43
-'registry'=38
 'resolutecompute'=116
 'resolutepredicate'=117
 'resoluteprove'=115
