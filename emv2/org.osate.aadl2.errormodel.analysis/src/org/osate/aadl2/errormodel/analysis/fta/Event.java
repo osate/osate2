@@ -3,6 +3,9 @@ package org.osate.aadl2.errormodel.analysis.fta;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.cmu.emfta.EmftaFactory;
+import edu.cmu.emfta.GateType;
+
 public class Event {
 	private String name;
 	private String description;
@@ -106,6 +109,68 @@ public class Event {
 	public void addSubEvent(Event e) {
 		e.setParent(this);
 		subEvents.add(e);
+	}
+
+	public String toEMFTA() {
+		StringBuffer sb;
+
+		sb = new StringBuffer();
+
+		return sb.toString();
+	}
+
+	public edu.cmu.emfta.Event toEmftaEvent() {
+		edu.cmu.emfta.Event emftaEvent;
+		emftaEvent = EmftaFactory.eINSTANCE.createEvent();
+		emftaEvent.setName(this.name);
+		emftaEvent.setDescription(this.description);
+		emftaEvent.setProbability(this.probability);
+
+		return emftaEvent;
+	}
+
+	public edu.cmu.emfta.Gate toEmftaGate() {
+		edu.cmu.emfta.Gate emftaGate;
+		emftaGate = EmftaFactory.eINSTANCE.createGate();
+
+		if (this.type == EventType.AND) {
+			emftaGate.setType(GateType.AND);
+		}
+
+		if (this.type == EventType.OR) {
+			emftaGate.setType(GateType.OR);
+		}
+
+		for (Event e : this.getSubEvents()) {
+			if ((e.getEventType() == EventType.EVENT) || (e.getEventType() == EventType.NORMAL)) {
+				emftaGate.getEvents().add(e.toEmftaEvent());
+			}
+
+			if ((e.getEventType() == EventType.AND) || (e.getEventType() == EventType.OR)) {
+				emftaGate.getGates().add(e.toEmftaGate());
+			}
+		}
+		return emftaGate;
+	}
+
+	public edu.cmu.emfta.Tree toEmftaTree() {
+		edu.cmu.emfta.Tree emftaTree;
+		emftaTree = EmftaFactory.eINSTANCE.createTree();
+		emftaTree.setName(this.name);
+		emftaTree.setDescription(this.description);
+
+		emftaTree.setGate(this.subEvents.get(0).toEmftaGate());
+		return emftaTree;
+	}
+
+	public edu.cmu.emfta.FTAModel toEmftaModel() {
+		edu.cmu.emfta.FTAModel emftaModel;
+		emftaModel = EmftaFactory.eINSTANCE.createFTAModel();
+		emftaModel.setName(this.name);
+		emftaModel.setDescription(this.description);
+		emftaModel.setRoot(this.toEmftaTree());
+
+		return emftaModel;
 	}
 
 	public String toXML() {
