@@ -85,7 +85,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[Classifier|AadlClassifierReference] 
+	 *         target=[ComponentImplementation|AadlClassifierReference] 
 	 *         instance=[InstanceObject|URIID] 
 	 *         successCount=INT? 
 	 *         failCount=INT? 

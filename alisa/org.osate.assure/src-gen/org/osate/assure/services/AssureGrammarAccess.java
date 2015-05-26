@@ -26,8 +26,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cForKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cTargetAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cTargetClassifierCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
-		private final RuleCall cTargetClassifierAadlClassifierReferenceParserRuleCall_3_0_1 = (RuleCall)cTargetClassifierCrossReference_3_0.eContents().get(1);
+		private final CrossReference cTargetComponentImplementationCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
+		private final RuleCall cTargetComponentImplementationAadlClassifierReferenceParserRuleCall_3_0_1 = (RuleCall)cTargetComponentImplementationCrossReference_3_0.eContents().get(1);
 		private final Keyword cInstanceKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cInstanceAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final CrossReference cInstanceInstanceObjectCrossReference_5_0 = (CrossReference)cInstanceAssignment_5.eContents().get(0);
@@ -73,14 +73,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// result for a system in the architecture hierarchy
 		//AssuranceEvidence:
-		//	"evidence" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
+		//	"evidence" name=ID "for" target=[aadl2::ComponentImplementation|AadlClassifierReference] "instance"
 		//	instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-		//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)?
-		//	("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
-		//	subAssuranceEvidence+=AssuranceEvidence* claimResult+=ClaimResult* "]";
+		//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
+		//	tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence*
+		//	claimResult+=ClaimResult* "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"evidence" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
+		//"evidence" name=ID "for" target=[aadl2::ComponentImplementation|AadlClassifierReference] "instance"
 		//instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
 		//("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
 		//tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence*
@@ -99,14 +99,14 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//"for"
 		public Keyword getForKeyword_2() { return cForKeyword_2; }
 
-		//target=[aadl2::Classifier|AadlClassifierReference]
+		//target=[aadl2::ComponentImplementation|AadlClassifierReference]
 		public Assignment getTargetAssignment_3() { return cTargetAssignment_3; }
 
-		//[aadl2::Classifier|AadlClassifierReference]
-		public CrossReference getTargetClassifierCrossReference_3_0() { return cTargetClassifierCrossReference_3_0; }
+		//[aadl2::ComponentImplementation|AadlClassifierReference]
+		public CrossReference getTargetComponentImplementationCrossReference_3_0() { return cTargetComponentImplementationCrossReference_3_0; }
 
 		//AadlClassifierReference
-		public RuleCall getTargetClassifierAadlClassifierReferenceParserRuleCall_3_0_1() { return cTargetClassifierAadlClassifierReferenceParserRuleCall_3_0_1; }
+		public RuleCall getTargetComponentImplementationAadlClassifierReferenceParserRuleCall_3_0_1() { return cTargetComponentImplementationAadlClassifierReferenceParserRuleCall_3_0_1; }
 
 		//"instance"
 		public Keyword getInstanceKeyword_4() { return cInstanceKeyword_4; }
@@ -521,8 +521,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ValidationResult returns VerificationResult:
 		//	"validation" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "["
-		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
+		//	"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//	message=STRING)? "]";
@@ -779,8 +779,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//PreconditionResult returns VerificationResult:
 		//	"precondition" {PreconditionResult} name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "["
-		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
+		//	"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//	message=STRING)? "]";
@@ -1042,8 +1042,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//// result of executing a verification activity
 		//VerificationActivityResult returns VerificationResult:
 		//	"verification" {VerificationActivityResult} name=ID "for" target=[Verify::VerificationActivity|QualifiedName] "["
-		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-		//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+		//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
+		//	"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 		//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 		//	message=STRING)? validationResult+=ValidationResult* preconditionResult+=PreconditionResult* "]";
@@ -1350,10 +1350,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_15 = (Keyword)cGroup.eContents().get(15);
 		
 		//FailThenResult:
-		//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"?
-		//	unknownThen?="unknownthen"? didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-		//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)?
-		//	("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
+		//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? unknownThen?="unknownthen"?
+		//	didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)?
+		//	("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight"
+		//	weight=INT)? "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? unknownThen?="unknownthen"?
@@ -1538,8 +1538,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//"andthen" first+=VerificationExpr "do" second+=VerificationExpr "[" didAndThenFail?="andthenfailed"? ("successcount"
-		//successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
-		//failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]"
+		//successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)?
+		//("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]"
 		public Group getGroup() { return cGroup; }
 
 		//"andthen"
@@ -1760,43 +1760,6 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightSquareBracketKeyword_5_2() { return cRightSquareBracketKeyword_5_2; }
 	}
 
-	public class AadlClassifierReferenceElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AadlClassifierReference");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cFullStopKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		
-		//// Qualified classifier reference
-		//AadlClassifierReference:
-		//	ID "::" ID ("." ID)?;
-		@Override public ParserRule getRule() { return rule; }
-
-		//ID "::" ID ("." ID)?
-		public Group getGroup() { return cGroup; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
-
-		//"::"
-		public Keyword getColonColonKeyword_1() { return cColonColonKeyword_1; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
-
-		//("." ID)?
-		public Group getGroup_3() { return cGroup_3; }
-
-		//"."
-		public Keyword getFullStopKeyword_3_0() { return cFullStopKeyword_3_0; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_3_1() { return cIDTerminalRuleCall_3_1; }
-	}
-
 	public class URIIDElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "URIID");
 		private final RuleCall cSTRINGTerminalRuleCall = (RuleCall)rule.eContents().get(1);
@@ -1807,6 +1770,46 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getSTRINGTerminalRuleCall() { return cSTRINGTerminalRuleCall; }
+	}
+
+	public class AadlClassifierReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AadlClassifierReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		
+		//AadlClassifierReference:
+		//	ID ("::" ID)+ ("." ID)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//ID ("::" ID)+ ("." ID)?
+		public Group getGroup() { return cGroup; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+
+		//("::" ID)+
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"::"
+		public Keyword getColonColonKeyword_1_0() { return cColonColonKeyword_1_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
+
+		//("." ID)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"."
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_2_1() { return cIDTerminalRuleCall_2_1; }
 	}
 
 	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
@@ -1999,8 +2002,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	private final ResultIssueTypeElements unknownRuleResultIssueType;
 	private final VerificationResultStateElements unknownRuleVerificationResultState;
 	private final VerificationExecutionStateElements unknownRuleVerificationExecutionState;
-	private final AadlClassifierReferenceElements pAadlClassifierReference;
 	private final URIIDElements pURIID;
+	private final AadlClassifierReferenceElements pAadlClassifierReference;
 	private final QualifiedNameElements pQualifiedName;
 	
 	private final Grammar grammar;
@@ -2025,8 +2028,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		this.unknownRuleResultIssueType = new ResultIssueTypeElements();
 		this.unknownRuleVerificationResultState = new VerificationResultStateElements();
 		this.unknownRuleVerificationExecutionState = new VerificationExecutionStateElements();
-		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
 		this.pURIID = new URIIDElements();
+		this.pAadlClassifierReference = new AadlClassifierReferenceElements();
 		this.pQualifiedName = new QualifiedNameElements();
 	}
 	
@@ -2059,11 +2062,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//// result for a system in the architecture hierarchy
 	//AssuranceEvidence:
-	//	"evidence" name=ID "for" target=[aadl2::Classifier|AadlClassifierReference] "instance"
+	//	"evidence" name=ID "for" target=[aadl2::ComponentImplementation|AadlClassifierReference] "instance"
 	//	instance=[instance::InstanceObject|URIID] "[" ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-	//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)?
-	//	("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)?
-	//	subAssuranceEvidence+=AssuranceEvidence* claimResult+=ClaimResult* "]";
+	//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount"
+	//	tbdCount=INT)? ("weight" weight=INT)? ("message" message=STRING)? subAssuranceEvidence+=AssuranceEvidence*
+	//	claimResult+=ClaimResult* "]";
 	public AssuranceEvidenceElements getAssuranceEvidenceAccess() {
 		return pAssuranceEvidence;
 	}
@@ -2089,8 +2092,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ValidationResult returns VerificationResult:
 	//	"validation" {ValidationResult} name=ID "for" target=[Verify::VerificationValidation|QualifiedName] "["
-	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
+	//	"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 	//	message=STRING)? "]";
@@ -2104,8 +2107,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PreconditionResult returns VerificationResult:
 	//	"precondition" {PreconditionResult} name=ID "for" target=[Verify::VerificationPrecondition|QualifiedName] "["
-	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
+	//	"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 	//	message=STRING)? "]";
@@ -2120,8 +2123,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//// result of executing a verification activity
 	//VerificationActivityResult returns VerificationResult:
 	//	"verification" {VerificationActivityResult} name=ID "for" target=[Verify::VerificationActivity|QualifiedName] "["
-	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState
-	//	("issues" "[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
+	//	"executionstate" executionState=VerificationExecutionState "resultstate" resultState=VerificationResultState ("issues"
+	//	"[" issues+=ResultIssue* "]")? ("report" resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)? ("failthencount"
 	//	failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight" weight=INT)? ("message"
 	//	message=STRING)? validationResult+=ValidationResult* preconditionResult+=PreconditionResult* "]";
@@ -2154,10 +2157,10 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FailThenResult:
-	//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"?
-	//	unknownThen?="unknownthen"? didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)?
-	//	("unknowncount" unknownCount=INT)? ("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)?
-	//	("tbdcount" tbdCount=INT)? ("weight" weight=INT)? "]";
+	//	"failthen" first+=VerificationExpr "do" second+=VerificationExpr "[" failThen?="failthen"? unknownThen?="unknownthen"?
+	//	didFail?="didfail"? ("successcount" successCount=INT)? ("failcount" failCount=INT)? ("unknowncount" unknownCount=INT)?
+	//	("failthencount" failthenCount=INT)? ("andthencount" andthenCount=INT)? ("tbdcount" tbdCount=INT)? ("weight"
+	//	weight=INT)? "]";
 	public FailThenResultElements getFailThenResultAccess() {
 		return pFailThenResult;
 	}
@@ -2224,17 +2227,6 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getVerificationExecutionStateAccess().getRule();
 	}
 
-	//// Qualified classifier reference
-	//AadlClassifierReference:
-	//	ID "::" ID ("." ID)?;
-	public AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
-		return pAadlClassifierReference;
-	}
-	
-	public ParserRule getAadlClassifierReferenceRule() {
-		return getAadlClassifierReferenceAccess().getRule();
-	}
-
 	//URIID:
 	//	STRING;
 	public URIIDElements getURIIDAccess() {
@@ -2243,6 +2235,16 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getURIIDRule() {
 		return getURIIDAccess().getRule();
+	}
+
+	//AadlClassifierReference:
+	//	ID ("::" ID)+ ("." ID)?;
+	public AadlClassifierReferenceElements getAadlClassifierReferenceAccess() {
+		return pAadlClassifierReference;
+	}
+	
+	public ParserRule getAadlClassifierReferenceRule() {
+		return getAadlClassifierReferenceAccess().getRule();
 	}
 
 	//QualifiedName:

@@ -73,6 +73,7 @@ class AlisaToBeBuiltComputer implements IToBeBuiltComputerContribution {
 		// direct dependencies
 		for (rd : builderState.allResourceDescriptions.filter[d|isAlisaResource(d.URI)]) {
 			val sourceURI = rd.URI
+			
 			for (reference : rd.referenceDescriptions) {
 				val targetURI = reference.targetEObjectUri.trimFragment
 				if (isAlisaResource(targetURI)) {
