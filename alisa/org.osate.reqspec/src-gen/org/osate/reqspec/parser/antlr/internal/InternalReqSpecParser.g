@@ -150,20 +150,34 @@ ruleStakeholderGoals returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=Stakeholder
+
+(
+	{ 
+	  getUnorderedGroupHelper().enter(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup());
+	}
+	(
+		(
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup(), 0)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup(), 0);
+	 				}
+					({true}?=>(
+	otherlv_1=Stakeholder
     {
-    	newLeafNode(otherlv_0, grammarAccess.getStakeholderGoalsAccess().getStakeholderKeyword_0());
+    	newLeafNode(otherlv_1, grammarAccess.getStakeholderGoalsAccess().getStakeholderKeyword_0_0());
     }
 
-	otherlv_1=Goals
+	otherlv_2=Goals
     {
-    	newLeafNode(otherlv_1, grammarAccess.getStakeholderGoalsAccess().getGoalsKeyword_1());
+    	newLeafNode(otherlv_2, grammarAccess.getStakeholderGoalsAccess().getGoalsKeyword_0_1());
     }
 (
 (
-		lv_name_2_0=RULE_ID
+		lv_name_3_0=RULE_ID
 		{
-			newLeafNode(lv_name_2_0, grammarAccess.getStakeholderGoalsAccess().getNameIDTerminalRuleCall_2_0()); 
+			newLeafNode(lv_name_3_0, grammarAccess.getStakeholderGoalsAccess().getNameIDTerminalRuleCall_0_2_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -172,21 +186,21 @@ ruleStakeholderGoals returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_3_0, 
         		"ID");
 	    }
 
 )
 )(
-	otherlv_3=Colon
+	otherlv_4=Colon
     {
-    	newLeafNode(otherlv_3, grammarAccess.getStakeholderGoalsAccess().getColonKeyword_3_0());
+    	newLeafNode(otherlv_4, grammarAccess.getStakeholderGoalsAccess().getColonKeyword_0_3_0());
     }
 (
 (
-		lv_title_4_0=RULE_STRING
+		lv_title_5_0=RULE_STRING
 		{
-			newLeafNode(lv_title_4_0, grammarAccess.getStakeholderGoalsAccess().getTitleSTRINGTerminalRuleCall_3_1_0()); 
+			newLeafNode(lv_title_5_0, grammarAccess.getStakeholderGoalsAccess().getTitleSTRINGTerminalRuleCall_0_3_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -195,15 +209,15 @@ ruleStakeholderGoals returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"title",
-        		lv_title_4_0, 
+        		lv_title_5_0, 
         		"STRING");
 	    }
 
 )
 ))?(
-	otherlv_5=For
+	otherlv_6=For
     {
-    	newLeafNode(otherlv_5, grammarAccess.getStakeholderGoalsAccess().getForKeyword_4_0());
+    	newLeafNode(otherlv_6, grammarAccess.getStakeholderGoalsAccess().getForKeyword_0_4_0());
     }
 ((
 (
@@ -213,7 +227,7 @@ ruleStakeholderGoals returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getTargetClassifierCrossReference_4_1_0_0()); 
+	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getTargetClassifierCrossReference_0_4_1_0_0()); 
 	    }
 		ruleAADLCLASSIFIERREFERENCE		{ 
 	        afterParserOrEnumRuleCall();
@@ -223,9 +237,9 @@ ruleStakeholderGoals returns [EObject current=null]
 )
     |(
 (
-		lv_targetDescription_7_0=RULE_STRING
+		lv_targetDescription_8_0=RULE_STRING
 		{
-			newLeafNode(lv_targetDescription_7_0, grammarAccess.getStakeholderGoalsAccess().getTargetDescriptionSTRINGTerminalRuleCall_4_1_1_0()); 
+			newLeafNode(lv_targetDescription_8_0, grammarAccess.getStakeholderGoalsAccess().getTargetDescriptionSTRINGTerminalRuleCall_0_4_1_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -234,7 +248,7 @@ ruleStakeholderGoals returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"targetDescription",
-        		lv_targetDescription_7_0, 
+        		lv_targetDescription_8_0, 
         		"STRING");
 	    }
 
@@ -242,10 +256,10 @@ ruleStakeholderGoals returns [EObject current=null]
 )
     |(
 (
-		lv_global_8_0=
+		lv_global_9_0=
 	All
     {
-        newLeafNode(lv_global_8_0, grammarAccess.getStakeholderGoalsAccess().getGlobalAllKeyword_4_1_2_0());
+        newLeafNode(lv_global_9_0, grammarAccess.getStakeholderGoalsAccess().getGlobalAllKeyword_0_4_1_2_0());
     }
 
 	    {
@@ -259,54 +273,94 @@ ruleStakeholderGoals returns [EObject current=null]
 )))?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getDescriptionDescriptionParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getDescriptionDescriptionParserRuleCall_0_5_0()); 
 	    }
-		lv_description_9_0=ruleDescription		{
+		lv_description_10_0=ruleDescription		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStakeholderGoalsRule());
 	        }
        		set(
        			$current, 
        			"description",
-        		lv_description_9_0, 
+        		lv_description_10_0, 
         		"Description");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)?
-	otherlv_10=LeftSquareBracket
+)?))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup(), 1)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup(), 1);
+	 				}
+					({true}?=>((
+	otherlv_11=See
     {
-    	newLeafNode(otherlv_10, grammarAccess.getStakeholderGoalsAccess().getLeftSquareBracketKeyword_6());
+    	newLeafNode(otherlv_11, grammarAccess.getStakeholderGoalsAccess().getSeeKeyword_1_0_0());
+    }
+
+	otherlv_12=Document
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getStakeholderGoalsAccess().getDocumentKeyword_1_0_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getContentGoalParserRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getDocReferenceExternalDocumentParserRuleCall_1_0_2_0()); 
 	    }
-		lv_content_11_0=ruleGoal		{
+		lv_docReference_13_0=ruleExternalDocument		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStakeholderGoalsRule());
+	        }
+       		add(
+       			$current, 
+       			"docReference",
+        		lv_docReference_13_0, 
+        		"ExternalDocument");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+)?
+	otherlv_14=LeftSquareBracket
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getStakeholderGoalsAccess().getLeftSquareBracketKeyword_1_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getStakeholderGoalsAccess().getContentGoalParserRuleCall_1_2_0()); 
+	    }
+		lv_content_15_0=ruleGoal		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStakeholderGoalsRule());
 	        }
        		add(
        			$current, 
        			"content",
-        		lv_content_11_0, 
+        		lv_content_15_0, 
         		"Goal");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )*(
-	otherlv_12=Issues
+	otherlv_16=Issues
     {
-    	newLeafNode(otherlv_12, grammarAccess.getStakeholderGoalsAccess().getIssuesKeyword_8_0());
+    	newLeafNode(otherlv_16, grammarAccess.getStakeholderGoalsAccess().getIssuesKeyword_1_3_0());
     }
 (
 (
-		lv_issues_13_0=RULE_STRING
+		lv_issues_17_0=RULE_STRING
 		{
-			newLeafNode(lv_issues_13_0, grammarAccess.getStakeholderGoalsAccess().getIssuesSTRINGTerminalRuleCall_8_1_0()); 
+			newLeafNode(lv_issues_17_0, grammarAccess.getStakeholderGoalsAccess().getIssuesSTRINGTerminalRuleCall_1_3_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -315,16 +369,31 @@ ruleStakeholderGoals returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"issues",
-        		lv_issues_13_0, 
+        		lv_issues_17_0, 
         		"STRING");
 	    }
 
 )
 )+)?
-	otherlv_14=RightSquareBracket
+	otherlv_18=RightSquareBracket
     {
-    	newLeafNode(otherlv_14, grammarAccess.getStakeholderGoalsAccess().getRightSquareBracketKeyword_9());
+    	newLeafNode(otherlv_18, grammarAccess.getStakeholderGoalsAccess().getRightSquareBracketKeyword_1_4());
     }
+))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup());
+	 				}
+ 				)
+			)  
+
+		)+
+	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup())}?	
+	)
+)
+	{ 
+	  getUnorderedGroupHelper().leave(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup());
+	}
+
 )
 ;
 
