@@ -33,22 +33,13 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
-import java.io.FileOutputStream;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.errormodel.analysis.fta.Event;
 import org.osate.aadl2.errormodel.analysis.fta.FTAUtils;
@@ -177,9 +168,6 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob {
 			}
 
 			if (ftaEvent != null) {
-
-				serializeEmftaModel(ftaEvent.toEmftaModel(), ResourceUtil.getFile(si.eResource()).getProject(),
-						"newfta.emfta");
 				xmlFile = new WriteToFile("FTA", si);
 				xmlFile.setFileExtension("xml");
 				xmlFile.addOutput(ftaEvent.toXML());
@@ -202,42 +190,5 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob {
 		}
 
 		monitor.done();
-	}
-
-	public static void serializeEmftaModel(edu.cmu.emfta.FTAModel emftaModel, IProject activeProject, String filename) {
-
-		OsateDebug.osateDebug("[Utils]", "serializeReqSpecModel activeProject=" + activeProject);
-
-		IFile newFile = activeProject.getFile(filename);
-
-		try {
-
-			ResourceSet set = new ResourceSetImpl();
-//			Resource res = set.createResource(URI.createURI("bla.emfta"));
-			Resource res = set.createResource(URI.createURI(activeProject.getFile("newfta.emfta").toString()));
-
-			res.getContents().add(emftaModel);
-
-			FileOutputStream fos = new FileOutputStream(newFile.getRawLocation().toFile());
-			res.save(fos, null);
-//
-//			IResourceServiceProvider rsp = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(URI
-//					.createURI("fake.emfta"));
-//
-//			ISerializer serializer = rsp.get(ISerializer.class);
-//
-//			String s = serializer.serialize(emftaTree);
-//
-//			if (newFile.exists()) {
-//				newFile.delete(true, new NullProgressMonitor());
-//			}
-//
-//			InputStream stream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
-//			newFile.create(stream, true, new NullProgressMonitor());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 }
