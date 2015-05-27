@@ -4,7 +4,7 @@ package org.osate.assure.assure;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.aadl2.instance.InstanceObject;
 
@@ -66,12 +66,12 @@ public interface AssuranceEvidence extends AssureResult
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Target</em>' reference.
-   * @see #setTarget(ComponentImplementation)
+   * @see #setTarget(ComponentClassifier)
    * @see org.osate.assure.assure.AssurePackage#getAssuranceEvidence_Target()
    * @model
    * @generated
    */
-  ComponentImplementation getTarget();
+  ComponentClassifier getTarget();
 
   /**
    * Sets the value of the '{@link org.osate.assure.assure.AssuranceEvidence#getTarget <em>Target</em>}' reference.
@@ -81,7 +81,7 @@ public interface AssuranceEvidence extends AssureResult
    * @see #getTarget()
    * @generated
    */
-  void setTarget(ComponentImplementation value);
+  void setTarget(ComponentClassifier value);
 
   /**
    * Returns the value of the '<em><b>Instance</b></em>' reference.

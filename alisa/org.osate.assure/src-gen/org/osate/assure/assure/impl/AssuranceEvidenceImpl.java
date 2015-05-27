@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentClassifier;
 
 import org.osate.aadl2.instance.InstanceObject;
 
@@ -74,7 +74,7 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * @generated
    * @ordered
    */
-  protected ComponentImplementation target;
+  protected ComponentClassifier target;
 
   /**
    * The cached value of the '{@link #getInstance() <em>Instance</em>}' reference.
@@ -175,12 +175,12 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentImplementation getTarget()
+  public ComponentClassifier getTarget()
   {
     if (target != null && ((EObject)target).eIsProxy())
     {
       InternalEObject oldTarget = (InternalEObject)target;
-      target = (ComponentImplementation)eResolveProxy(oldTarget);
+      target = (ComponentClassifier)eResolveProxy(oldTarget);
       if (target != oldTarget)
       {
         if (eNotificationRequired())
@@ -195,7 +195,7 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComponentImplementation basicGetTarget()
+  public ComponentClassifier basicGetTarget()
   {
     return target;
   }
@@ -205,9 +205,9 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTarget(ComponentImplementation newTarget)
+  public void setTarget(ComponentClassifier newTarget)
   {
-    ComponentImplementation oldTarget = target;
+    ComponentClassifier oldTarget = target;
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.ASSURANCE_EVIDENCE__TARGET, oldTarget, target));
@@ -368,7 +368,7 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
         setName((String)newValue);
         return;
       case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
-        setTarget((ComponentImplementation)newValue);
+        setTarget((ComponentClassifier)newValue);
         return;
       case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
         setInstance((InstanceObject)newValue);
@@ -402,7 +402,7 @@ public class AssuranceEvidenceImpl extends AssureResultImpl implements Assurance
         setName(NAME_EDEFAULT);
         return;
       case AssurePackage.ASSURANCE_EVIDENCE__TARGET:
-        setTarget((ComponentImplementation)null);
+        setTarget((ComponentClassifier)null);
         return;
       case AssurePackage.ASSURANCE_EVIDENCE__INSTANCE:
         setInstance((InstanceObject)null);

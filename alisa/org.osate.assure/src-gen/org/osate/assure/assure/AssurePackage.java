@@ -349,22 +349,13 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__WEIGHT = ASSURE_RESULT__WEIGHT;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CLAIM_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
-
-  /**
    * The feature id for the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 1;
+  int CLAIM_RESULT__TARGET = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Instance</b></em>' reference.
@@ -373,7 +364,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__INSTANCE = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int CLAIM_RESULT__INSTANCE = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -382,7 +373,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int CLAIM_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Sub Claim Result</b></em>' containment reference list.
@@ -391,7 +382,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__SUB_CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
+  int CLAIM_RESULT__SUB_CLAIM_RESULT = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Verification Activity Result</b></em>' containment reference list.
@@ -400,7 +391,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Claim Result</em>' class.
@@ -409,7 +400,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
+  int CLAIM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
@@ -485,22 +476,13 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_RESULT__WEIGHT = ASSURE_RESULT__WEIGHT;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_RESULT__NAME = ASSURE_RESULT_FEATURE_COUNT + 0;
-
-  /**
    * The feature id for the '<em><b>Execution State</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__EXECUTION_STATE = ASSURE_RESULT_FEATURE_COUNT + 1;
+  int VERIFICATION_RESULT__EXECUTION_STATE = ASSURE_RESULT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Result State</b></em>' attribute.
@@ -509,7 +491,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__RESULT_STATE = ASSURE_RESULT_FEATURE_COUNT + 2;
+  int VERIFICATION_RESULT__RESULT_STATE = ASSURE_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' containment reference list.
@@ -518,7 +500,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__ISSUES = ASSURE_RESULT_FEATURE_COUNT + 3;
+  int VERIFICATION_RESULT__ISSUES = ASSURE_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Result Report</b></em>' reference.
@@ -527,7 +509,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__RESULT_REPORT = ASSURE_RESULT_FEATURE_COUNT + 4;
+  int VERIFICATION_RESULT__RESULT_REPORT = ASSURE_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -536,7 +518,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int VERIFICATION_RESULT__MESSAGE = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Verification Result</em>' class.
@@ -545,7 +527,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int VERIFICATION_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
+  int VERIFICATION_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.VerificationExprImpl <em>Verification Expr</em>}' class.
@@ -1012,15 +994,6 @@ public interface AssurePackage extends EPackage
   int VALIDATION_RESULT__WEIGHT = VERIFICATION_RESULT__WEIGHT;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VALIDATION_RESULT__NAME = VERIFICATION_RESULT__NAME;
-
-  /**
    * The feature id for the '<em><b>Execution State</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1157,15 +1130,6 @@ public interface AssurePackage extends EPackage
   int PRECONDITION_RESULT__WEIGHT = VERIFICATION_RESULT__WEIGHT;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRECONDITION_RESULT__NAME = VERIFICATION_RESULT__NAME;
-
-  /**
    * The feature id for the '<em><b>Execution State</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1211,13 +1175,22 @@ public interface AssurePackage extends EPackage
   int PRECONDITION_RESULT__MESSAGE = VERIFICATION_RESULT__MESSAGE;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PRECONDITION_RESULT__NAME = VERIFICATION_RESULT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Target</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PRECONDITION_RESULT__TARGET = VERIFICATION_RESULT_FEATURE_COUNT + 0;
+  int PRECONDITION_RESULT__TARGET = VERIFICATION_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Precondition Result</em>' class.
@@ -1226,7 +1199,7 @@ public interface AssurePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRECONDITION_RESULT_FEATURE_COUNT = VERIFICATION_RESULT_FEATURE_COUNT + 1;
+  int PRECONDITION_RESULT_FEATURE_COUNT = VERIFICATION_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.VerificationActivityResultImpl <em>Verification Activity Result</em>}' class.
@@ -1300,15 +1273,6 @@ public interface AssurePackage extends EPackage
    * @ordered
    */
   int VERIFICATION_ACTIVITY_RESULT__WEIGHT = VERIFICATION_RESULT__WEIGHT;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_ACTIVITY_RESULT__NAME = VERIFICATION_RESULT__NAME;
 
   /**
    * The feature id for the '<em><b>Execution State</b></em>' attribute.
@@ -1509,17 +1473,6 @@ public interface AssurePackage extends EPackage
   EClass getClaimResult();
 
   /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.ClaimResult#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.assure.assure.ClaimResult#getName()
-   * @see #getClaimResult()
-   * @generated
-   */
-  EAttribute getClaimResult_Name();
-
-  /**
    * Returns the meta object for the reference '{@link org.osate.assure.assure.ClaimResult#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1583,17 +1536,6 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EClass getVerificationResult();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.assure.assure.VerificationResult#getName()
-   * @see #getVerificationResult()
-   * @generated
-   */
-  EAttribute getVerificationResult_Name();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.assure.assure.VerificationResult#getExecutionState <em>Execution State</em>}'.
@@ -1963,6 +1905,17 @@ public interface AssurePackage extends EPackage
   EClass getPreconditionResult();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.assure.assure.PreconditionResult#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.assure.assure.PreconditionResult#getName()
+   * @see #getPreconditionResult()
+   * @generated
+   */
+  EAttribute getPreconditionResult_Name();
+
+  /**
    * Returns the meta object for the reference '{@link org.osate.assure.assure.PreconditionResult#getTarget <em>Target</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2138,14 +2091,6 @@ public interface AssurePackage extends EPackage
     EClass CLAIM_RESULT = eINSTANCE.getClaimResult();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute CLAIM_RESULT__NAME = eINSTANCE.getClaimResult_Name();
-
-    /**
      * The meta object literal for the '<em><b>Target</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2194,14 +2139,6 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EClass VERIFICATION_RESULT = eINSTANCE.getVerificationResult();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VERIFICATION_RESULT__NAME = eINSTANCE.getVerificationResult_Name();
 
     /**
      * The meta object literal for the '<em><b>Execution State</b></em>' attribute feature.
@@ -2488,6 +2425,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EClass PRECONDITION_RESULT = eINSTANCE.getPreconditionResult();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute PRECONDITION_RESULT__NAME = eINSTANCE.getPreconditionResult_Name();
 
     /**
      * The meta object literal for the '<em><b>Target</b></em>' reference feature.

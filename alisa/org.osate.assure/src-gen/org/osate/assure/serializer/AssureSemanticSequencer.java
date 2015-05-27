@@ -85,7 +85,7 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 * Constraint:
 	 *     (
 	 *         name=ID 
-	 *         target=[ComponentImplementation|AadlClassifierReference] 
+	 *         target=[ComponentClassifier|AadlClassifierReference] 
 	 *         instance=[InstanceObject|URIID] 
 	 *         successCount=INT? 
 	 *         failCount=INT? 
@@ -107,7 +107,6 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
 	 *         target=[Requirement|QualifiedName] 
 	 *         instance=[InstanceObject|URIID]? 
 	 *         successCount=INT? 
@@ -192,7 +191,6 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
 	 *         target=[VerificationValidation|QualifiedName] 
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 
@@ -216,7 +214,6 @@ public class AssureSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	/**
 	 * Constraint:
 	 *     (
-	 *         name=ID 
 	 *         target=[VerificationActivity|QualifiedName] 
 	 *         executionState=VerificationExecutionState 
 	 *         resultState=VerificationResultState 

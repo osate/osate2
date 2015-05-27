@@ -14,7 +14,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 // result for a system in the architecture hierarchy
 AssuranceEvidence:
 	'evidence' name=ID 
-	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
+	'for' target=[aadl2::ComponentClassifier|AadlClassifierReference]
 	'instance' instance= [instance::InstanceObject|URIID]
 	'['
 	('successcount'  successCount=INT)?
@@ -32,7 +32,7 @@ AssuranceEvidence:
 
 // Result of meeting a requirement
 ClaimResult:
-	'claim' name=ID 'for' target=[ReqSpec::Requirement|QualifiedName]
+	'claim' target=[ReqSpec::Requirement|QualifiedName]
 	('instance' instance= [instance::InstanceObject|URIID])? // if the requirement is for an element of the component instance
 	'['
 	('successcount'  successCount=INT)?
@@ -50,8 +50,7 @@ ClaimResult:
 
 
 ValidationResult returns VerificationResult:
-	'validation' {ValidationResult}	name=ID 
-	'for' target= [Verify::VerificationValidation|QualifiedName]
+	'validation' {ValidationResult}	target=[Verify::VerificationValidation|QualifiedName]
 	'['
 	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState
@@ -96,8 +95,7 @@ PreconditionResult returns VerificationResult:
 
 // result of executing a verification activity
 VerificationActivityResult returns VerificationResult:
-	'verification' 	{VerificationActivityResult} name=ID 
-	'for' target=[Verify::VerificationActivity|QualifiedName]
+	'verification' {VerificationActivityResult}	target=[Verify::VerificationActivity|QualifiedName]
 	'['
 	'executionstate'  executionState=VerificationExecutionState
 	'resultstate' resultState=VerificationResultState

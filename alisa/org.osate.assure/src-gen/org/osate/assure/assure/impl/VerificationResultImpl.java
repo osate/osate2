@@ -32,7 +32,6 @@ import org.osate.results.results.ResultReport;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getExecutionState <em>Execution State</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getResultState <em>Result State</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.VerificationResultImpl#getIssues <em>Issues</em>}</li>
@@ -45,26 +44,6 @@ import org.osate.results.results.ResultReport;
  */
 public class VerificationResultImpl extends AssureResultImpl implements VerificationResult
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The default value of the '{@link #getExecutionState() <em>Execution State</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -164,29 +143,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
   protected EClass eStaticClass()
   {
     return AssurePackage.Literals.VERIFICATION_RESULT;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.VERIFICATION_RESULT__NAME, oldName, name));
   }
 
   /**
@@ -341,8 +297,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_RESULT__NAME:
-        return getName();
       case AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE:
         return getExecutionState();
       case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
@@ -369,9 +323,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_RESULT__NAME:
-        setName((String)newValue);
-        return;
       case AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE:
         setExecutionState((VerificationExecutionState)newValue);
         return;
@@ -402,9 +353,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_RESULT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE:
         setExecutionState(EXECUTION_STATE_EDEFAULT);
         return;
@@ -434,8 +382,6 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
   {
     switch (featureID)
     {
-      case AssurePackage.VERIFICATION_RESULT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.VERIFICATION_RESULT__EXECUTION_STATE:
         return executionState != EXECUTION_STATE_EDEFAULT;
       case AssurePackage.VERIFICATION_RESULT__RESULT_STATE:
@@ -461,9 +407,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", executionState: ");
+    result.append(" (executionState: ");
     result.append(executionState);
     result.append(", resultState: ");
     result.append(resultState);

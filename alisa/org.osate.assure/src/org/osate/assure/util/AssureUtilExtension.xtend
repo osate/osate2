@@ -84,7 +84,7 @@ class AssureUtilExtension {
 	def static VerificationMethod getMethod(VerificationResult vr){
 		switch(vr){
 			VerificationActivityResult: return vr.target.method
-			PreconditionResult: return vr.target.method
+			PreconditionResult: return vr.target.method 
 			ValidationResult: return vr.target.method
 		}
 	}
@@ -344,11 +344,12 @@ class AssureUtilExtension {
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
 			AssuranceEvidence: return ar.name
-			ClaimResult: return ar.name
-			VerificationResult: return ar.name
+			ClaimResult: return (ar as ClaimResult).target.name
+			ValidationResult: return (ar as ValidationResult).target.name
 			FailThenResult: return "FailThen"
 			AndThenResult: return "AndThen"
 		}
+		return "unknown assurance result type"
 	}
 
 	/**
@@ -827,16 +828,16 @@ class AssureUtilExtension {
 			AssuranceEvidence:
 				return ar.name
 			ClaimResult:
-				return ar.target?.title ?: ar.name
+				return ar.target?.title ?: ar.target.name
 			ValidationResult:
-				return ar.target?.title ?: ar.name
+				return ar.target?.title ?: ar.target.name
 			PreconditionResult:
 				return ar.target?.title ?: ar.name
 			VerificationActivityResult: {
-				return ar.name 
+				return ar.target.name
 			}
 		}
-		""
+		return "unknown assure result type"
 	}
 
 	def static String constructMessage(VerificationActivityResult vr) {

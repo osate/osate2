@@ -297,19 +297,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getClaimResult_Name()
-  {
-    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getClaimResult_Target()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(1);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -319,7 +309,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_Instance()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(2);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -329,7 +319,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EAttribute getClaimResult_Message()
   {
-    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)claimResultEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -339,7 +329,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_SubClaimResult()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(4);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -349,7 +339,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getClaimResult_VerificationActivityResult()
   {
-    return (EReference)claimResultEClass.getEStructuralFeatures().get(5);
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -367,7 +357,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVerificationResult_Name()
+  public EAttribute getVerificationResult_ExecutionState()
   {
     return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(0);
   }
@@ -377,7 +367,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVerificationResult_ExecutionState()
+  public EAttribute getVerificationResult_ResultState()
   {
     return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(1);
   }
@@ -387,19 +377,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getVerificationResult_ResultState()
-  {
-    return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getVerificationResult_Issues()
   {
-    return (EReference)verificationResultEClass.getEStructuralFeatures().get(3);
+    return (EReference)verificationResultEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -409,7 +389,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EReference getVerificationResult_ResultReport()
   {
-    return (EReference)verificationResultEClass.getEStructuralFeatures().get(4);
+    return (EReference)verificationResultEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -419,7 +399,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    */
   public EAttribute getVerificationResult_Message()
   {
-    return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(5);
+    return (EAttribute)verificationResultEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -717,9 +697,19 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPreconditionResult_Name()
+  {
+    return (EAttribute)preconditionResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getPreconditionResult_Target()
   {
-    return (EReference)preconditionResultEClass.getEStructuralFeatures().get(0);
+    return (EReference)preconditionResultEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -831,7 +821,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEReference(assuranceEvidenceEClass, ASSURANCE_EVIDENCE__CLAIM_RESULT);
 
     claimResultEClass = createEClass(CLAIM_RESULT);
-    createEAttribute(claimResultEClass, CLAIM_RESULT__NAME);
     createEReference(claimResultEClass, CLAIM_RESULT__TARGET);
     createEReference(claimResultEClass, CLAIM_RESULT__INSTANCE);
     createEAttribute(claimResultEClass, CLAIM_RESULT__MESSAGE);
@@ -839,7 +828,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEReference(claimResultEClass, CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT);
 
     verificationResultEClass = createEClass(VERIFICATION_RESULT);
-    createEAttribute(verificationResultEClass, VERIFICATION_RESULT__NAME);
     createEAttribute(verificationResultEClass, VERIFICATION_RESULT__EXECUTION_STATE);
     createEAttribute(verificationResultEClass, VERIFICATION_RESULT__RESULT_STATE);
     createEReference(verificationResultEClass, VERIFICATION_RESULT__ISSUES);
@@ -881,6 +869,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEReference(validationResultEClass, VALIDATION_RESULT__TARGET);
 
     preconditionResultEClass = createEClass(PRECONDITION_RESULT);
+    createEAttribute(preconditionResultEClass, PRECONDITION_RESULT__NAME);
     createEReference(preconditionResultEClass, PRECONDITION_RESULT__TARGET);
 
     verificationActivityResultEClass = createEClass(VERIFICATION_ACTIVITY_RESULT);
@@ -945,14 +934,13 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     // Initialize classes and features; add operations and parameters
     initEClass(assuranceEvidenceEClass, AssuranceEvidence.class, "AssuranceEvidence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAssuranceEvidence_Name(), theEcorePackage.getEString(), "name", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAssuranceEvidence_Target(), theAadl2Package.getComponentImplementation(), null, "target", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAssuranceEvidence_Target(), theAadl2Package.getComponentClassifier(), null, "target", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceEvidence_Instance(), theInstancePackage.getInstanceObject(), null, "instance", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAssuranceEvidence_Message(), theEcorePackage.getEString(), "message", null, 0, 1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceEvidence_SubAssuranceEvidence(), this.getAssuranceEvidence(), null, "subAssuranceEvidence", null, 0, -1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAssuranceEvidence_ClaimResult(), this.getClaimResult(), null, "claimResult", null, 0, -1, AssuranceEvidence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(claimResultEClass, ClaimResult.class, "ClaimResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getClaimResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_Target(), theReqSpecPackage.getRequirement(), null, "target", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_Instance(), theInstancePackage.getInstanceObject(), null, "instance", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getClaimResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -960,7 +948,6 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEReference(getClaimResult_VerificationActivityResult(), this.getVerificationExpr(), null, "verificationActivityResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationResultEClass, VerificationResult.class, "VerificationResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getVerificationResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationResult_ExecutionState(), this.getVerificationExecutionState(), "executionState", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVerificationResult_ResultState(), this.getVerificationResultState(), "resultState", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationResult_Issues(), this.getResultIssue(), null, "issues", null, 0, -1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1002,6 +989,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEReference(getValidationResult_Target(), theVerifyPackage.getVerificationValidation(), null, "target", null, 0, 1, ValidationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(preconditionResultEClass, PreconditionResult.class, "PreconditionResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPreconditionResult_Name(), theEcorePackage.getEString(), "name", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPreconditionResult_Target(), theVerifyPackage.getVerificationPrecondition(), null, "target", null, 0, 1, PreconditionResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationActivityResultEClass, VerificationActivityResult.class, "VerificationActivityResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

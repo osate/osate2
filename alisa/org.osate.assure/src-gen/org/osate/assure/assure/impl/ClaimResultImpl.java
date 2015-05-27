@@ -32,7 +32,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getInstance <em>Instance</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getMessage <em>Message</em>}</li>
@@ -45,26 +44,6 @@ import org.osate.reqspec.reqSpec.Requirement;
  */
 public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
 {
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
    * <!-- begin-user-doc -->
@@ -144,29 +123,6 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   protected EClass eStaticClass()
   {
     return AssurePackage.Literals.CLAIM_RESULT;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__NAME, oldName, name));
   }
 
   /**
@@ -334,8 +290,6 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
-      case AssurePackage.CLAIM_RESULT__NAME:
-        return getName();
       case AssurePackage.CLAIM_RESULT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
@@ -363,9 +317,6 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
-      case AssurePackage.CLAIM_RESULT__NAME:
-        setName((String)newValue);
-        return;
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)newValue);
         return;
@@ -397,9 +348,6 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
-      case AssurePackage.CLAIM_RESULT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case AssurePackage.CLAIM_RESULT__TARGET:
         setTarget((Requirement)null);
         return;
@@ -429,8 +377,6 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
   {
     switch (featureID)
     {
-      case AssurePackage.CLAIM_RESULT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AssurePackage.CLAIM_RESULT__TARGET:
         return target != null;
       case AssurePackage.CLAIM_RESULT__INSTANCE:
@@ -456,9 +402,7 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", message: ");
+    result.append(" (message: ");
     result.append(message);
     result.append(')');
     return result.toString();

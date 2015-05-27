@@ -34,7 +34,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//AssuranceEvidence/claimResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//ClaimResult">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/target"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/instance"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/message"/>
@@ -42,7 +41,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/verificationActivityResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//VerificationResult">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/executionState"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/resultState"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationResult/issues"/>
@@ -83,6 +81,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//ValidationResult/target"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//PreconditionResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//PreconditionResult/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Assure.ecore#//PreconditionResult/target"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//VerificationActivityResult">
