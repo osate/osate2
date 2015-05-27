@@ -5283,9 +5283,16 @@ rule__Claim__Group_5_0__1__Impl
     }
 :
 (
+(
 { before(grammarAccess.getClaimAccess().getActivitiesAssignment_5_0_1()); }
 (rule__Claim__ActivitiesAssignment_5_0_1)
 { after(grammarAccess.getClaimAccess().getActivitiesAssignment_5_0_1()); }
+)
+(
+{ before(grammarAccess.getClaimAccess().getActivitiesAssignment_5_0_1()); }
+(rule__Claim__ActivitiesAssignment_5_0_1)*
+{ after(grammarAccess.getClaimAccess().getActivitiesAssignment_5_0_1()); }
+)
 )
 
 ;

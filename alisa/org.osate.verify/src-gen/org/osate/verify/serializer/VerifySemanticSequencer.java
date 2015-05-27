@@ -440,7 +440,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         requirement=[Requirement|QualifiedName] 
 	 *         title=STRING? 
 	 *         weight=Number? 
-	 *         activities+=VerificationActivity 
+	 *         activities+=VerificationActivity+ 
 	 *         assert=ArgumentExpr 
 	 *         argument=STRING? 
 	 *         rationale=Rationale? 

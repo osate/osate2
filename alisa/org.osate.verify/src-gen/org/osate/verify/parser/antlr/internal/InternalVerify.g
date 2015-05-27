@@ -509,7 +509,7 @@ ruleClaim returns [EObject current=null]
 	    }
 
 )
-)))
+)+))
 					{ 
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getClaimAccess().getUnorderedGroup_5());
 	 				}

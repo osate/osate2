@@ -32,7 +32,7 @@ Claim:
 	( '(' weight=Number ')' )?
 	'['
 	(
-		('activities' activities += VerificationActivity)
+		('activities' activities += VerificationActivity+)
 		&('assert' assert=ArgumentExpr)
 	& ('argument' argument=STRING )?//( argumentUncertainty=Uncertainty)? )?
 	& (rationale=Rationale)?
