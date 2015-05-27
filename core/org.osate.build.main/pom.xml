@@ -13,12 +13,14 @@
 		<tycho-extras.version>0.22.0</tycho-extras.version>
 		<xtext.version>2.8.2</xtext.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jgit.dirtyWorkingTree>error</jgit.dirtyWorkingTree>
 	</properties>
 
 	<profiles>
 		<profile>
 			<id>full</id>
+			<properties>
+				<jgit.dirtyWorkingTree>error</jgit.dirtyWorkingTree>
+			</properties>
 			<build>
 				<plugins>
 					<plugin>
@@ -30,11 +32,6 @@
 								<environment>
 									<os>linux</os>
 									<ws>gtk</ws>
-									<arch>x86</arch>
-								</environment>
-								<environment>
-									<os>linux</os>
-									<ws>gtk</ws>
 									<arch>x86_64</arch>
 								</environment>
 								<environment>
@@ -46,11 +43,6 @@
 									<os>win32</os>
 									<ws>win32</ws>
 									<arch>x86_64</arch>
-								</environment>
-								<environment>
-									<os>macosx</os>
-									<ws>cocoa</ws>
-									<arch>x86</arch>
 								</environment>
 								<environment>
 									<os>macosx</os>
@@ -66,6 +58,9 @@
 
 		<profile>
 			<id>local</id>
+			<properties>
+				<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
+			</properties>
 			<build>
 				<plugins>
 					<plugin>
@@ -85,9 +80,9 @@
 				</file>
 			</activation>
 			<properties>
-			<build.version>${project.parent.version}</build.version>
-			<build.date>${maven.build.timestamp}</build.date>
-			<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+				<build.version>${project.parent.version}</build.version>
+				<build.date>${maven.build.timestamp}</build.date>
+				<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 			</properties>
 			<build>
 				<plugins>
