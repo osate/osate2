@@ -290,7 +290,8 @@ class AlisaGenerator implements IGenerator {
 
 	def generate(VerificationCondition vc) {
 		'''
-			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
+«««			«vc.keyword» «vc.name» for «vc.fullyQualifiedName»
+			«vc.keyword» «vc.fullyQualifiedName»
 			[
 				executionstate todo
 				resultstate tbd
