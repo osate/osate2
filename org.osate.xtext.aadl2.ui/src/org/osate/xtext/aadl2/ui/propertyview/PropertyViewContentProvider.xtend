@@ -290,7 +290,6 @@ package class PropertyViewContentProvider implements ITreeContentProvider {
 		}
 	}
 	def private getElement(PropertyExpression expression, int index, PropertyType propertyType, PropertyExpression defaultValue) {
-		println("getElement")
 		switch expression {
 			RangeValue: switch index {
 				case 0: new RangeElement(RangeElement.MINIMUM_LABEL, expression.minimum.URI)
