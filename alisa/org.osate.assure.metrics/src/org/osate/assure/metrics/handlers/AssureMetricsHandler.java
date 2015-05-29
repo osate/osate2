@@ -27,6 +27,8 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
+import org.osate.assure.metrics.utils.AssureHelper;
+import org.osate.reqspec.reqSpec.Requirement;
 
 import com.google.inject.Inject;
 
@@ -136,7 +138,11 @@ public class AssureMetricsHandler extends AbstractHandler {
 //		assureProcessor.process(rootCaseResult);
 		rootCaseResult.getTarget();
 		System.out.println("Hello from Metrics");
+
+		for (Requirement req : AssureHelper.getRequirements(rootCaseResult)) {
+			System.out.println("Requirement: " + req.getName());
+		}
+
 		return Status.OK_STATUS;
 	}
-
 }
