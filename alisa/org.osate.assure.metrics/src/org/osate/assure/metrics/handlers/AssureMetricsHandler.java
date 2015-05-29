@@ -24,10 +24,12 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.assure.assure.AssuranceEvidence;
 import org.osate.assure.assure.impl.AssuranceEvidenceImpl;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.metrics.utils.AssureHelper;
+import org.osate.assure.metrics.utils.ReqSpecHelper;
 import org.osate.reqspec.reqSpec.Requirement;
 
 import com.google.inject.Inject;
@@ -139,8 +141,16 @@ public class AssureMetricsHandler extends AbstractHandler {
 		rootCaseResult.getTarget();
 		System.out.println("Hello from Metrics");
 
-		for (Requirement req : AssureHelper.getRequirements(rootCaseResult)) {
-			System.out.println("Requirement: " + req.getName());
+//		for (Requirement req : AssureHelper.getRequirements(rootCaseResult)) {
+//			System.out.println("Requirement: " + req.getName());
+//		}
+
+		for (ComponentInstance ci : AssureHelper.getComponentsInstance(rootCaseResult)) {
+			for (Requirement req : AssureHelper.getRequirements(rootCaseResult)) {
+				System.out.println("Requirement: " + req.getName() + " cover component "
+						+ ci.getComponentClassifier().getName() + " at level "
+						+ ReqSpecHelper.getCoverageLevel(req, ci.getComponentClassifier()));
+			}
 		}
 
 		return Status.OK_STATUS;

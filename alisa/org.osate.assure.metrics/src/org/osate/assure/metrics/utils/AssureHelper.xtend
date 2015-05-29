@@ -4,6 +4,7 @@ import java.util.List
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.assure.assure.AssuranceEvidence
 import java.util.ArrayList
+import org.osate.aadl2.instance.ComponentInstance
 
 public class AssureHelper
 {
@@ -17,6 +18,11 @@ public class AssureHelper
 		]
 		
 		res
+	}
+	
+	def static List<ComponentInstance> getComponentsInstance (AssuranceEvidence evidence)
+	{
+		evidence.instance.systemInstance.allComponentInstances
 	}
 }
 
