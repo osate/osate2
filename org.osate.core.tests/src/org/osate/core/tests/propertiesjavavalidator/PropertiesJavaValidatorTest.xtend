@@ -541,5 +541,205 @@ class PropertiesJavaValidatorTest extends OsateTest {
 		issueCollection.sizeIs(issueCollection.issues.size)
 		assertConstraints(issueCollection)
 	}
+	//Tests validation of appends operator in contained propertyassociation
+	@Test
+	def void testCheckForAppendsInContainedPropertyAssociation() {
+		createFiles("appendsoperaterincontainedprop.aadl" -> '''
+					package appendsoperaterincontainedprop
+						public
+							system S
+							end S;
+							system implementation S.i
+								subcomponents
+									p: abstract A;
+									q: abstract B;
+									h: system H.i;
+								connections
+									c: feature p.dpa -> q.dpb;
+								properties
+									actual_connection_binding => (
+										reference(h.p), reference(h.b)
+									);
+									 -- the following should be an error because it's a contained PA
+									actual_connection_binding +=> (
+										reference(h.r)
+									) applies to c;
+							end S.i;
+							abstract A
+								features
+									dpa: feature;
+							end A;
+							abstract B
+								features
+									dpb: feature;
+							end B;
+							system H
+							end H;
+							system implementation H.i
+								subcomponents
+									p: processor;
+									b: bus;
+									r: device;
+							end H.i;
+					end appendsoperaterincontainedprop;	
+					''')
+		suppressSerialization
+		val testFileResult = testFile("appendsoperaterincontainedprop.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"appendsoperaterincontainedprop".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+				"S.i".assertEquals(name)
+				ownedPropertyAssociations.get(1) => [
+					"actual_connection_binding".assertEquals(property.name.toLowerCase)
+					assertError(testFileResult.issues, issueCollection, "Append operator '+=>' cannot be used in contained property associations")
+				]
+			]
+			
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
+	//Tests validation of property association applies to  array indices
+	@Test
+	def void testCheckPropertyAssociationAppliesToArrayIndex() {
+		createFiles("propertyAssocAppliestoArrayIndices.aadl" -> '''
+					package propertyAssocAppliestoArrayIndices
+					public
+						system implementation S.i
+							subcomponents
+								nodes1: process proc1.imp1[4];
+								nodes2: process[2];
+								nodes3: process;
+								nodes4: process[];
+								nodes5: process[Max_Urgency];
+							properties
+								-- array has more dimensions than defined
+								deadline => 9 ms applies to nodes3[1];
+								-- lowerbound > upperbound
+								deadline => 8 ms applies to nodes2[2 .. 1];
+								-- array out of bounds (array is 1 based not 0)
+								deadline => 6 ms applies to nodes2[0];
+								-- array out of bounds
+								deadline => 7 ms applies to nodes1[6].t1[2] ;
+								deadline => 7 ms applies to nodes1[3].t1[4] ;
+								deadline => 7 ms applies to nodes1[6].t1[4] ;
+								deadline => 7 ms applies to nodes5[15];
+								deadline => 7 ms applies to nodes1[2].t1[1], nodes1[5].t1[2] ;
+								-- array out of bounds (upperbound)
+								deadline => 6 ms applies to nodes2[1 .. 8];
+								-- the following is fine because its not defined yet
+								deadline => 7 ms applies to nodes4[2];
+						end S.i;
+						system S
+						end S;
+					    process proc1
+					    end proc1;
+					    process implementation proc1.imp1
+					    	subcomponents
+					    		t1: thread[3];
+					    end proc1.imp1;
+					end propertyAssocAppliestoArrayIndices;
+					''')
+		suppressSerialization
+		val testFileResult = testFile("propertyAssocAppliestoArrayIndices.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"propertyAssocAppliestoArrayIndices".assertEquals(name)
+			publicSection.ownedClassifiers.head as SystemImplementation => [
+				"S.i".assertEquals(name)
+				ownedPropertyAssociations.head => [
+					"deadline".assertEquals(property.name.toLowerCase)
+					appliesTos.head =>[
+						containmentPathElements.head => [
+							assertError(testFileResult.issues, issueCollection, "Applies to property array has more dimensions than defined type.")
+						]	
+					]
+				]
+				ownedPropertyAssociations.get(1) =>[
+					appliesTos.head =>[
+						containmentPathElements.head => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "Range lower bound is greater than upper bound.")
+							]
+						]	
+					]
+				]
+				ownedPropertyAssociations.get(2) =>[
+					appliesTos.head =>[
+						containmentPathElements.head => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "0 is out of bounds. Array indices start with 1.")
+							]
+						]	
+					]
+				]
+				ownedPropertyAssociations.get(3) =>[
+					appliesTos.head =>[
+						containmentPathElements.head => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "Array index is greater than allowed in type definition.")
+							]
+						]	
+					]
+				]
+				ownedPropertyAssociations.get(4) =>[
+					appliesTos.head =>[
+						containmentPathElements.get(1) => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "Array index is greater than allowed in type definition.")
+							]
+						]	
+					]
+				]
+				ownedPropertyAssociations.get(5) =>[
+					appliesTos.head =>[
+						containmentPathElements.head => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "Array index is greater than allowed in type definition.")
+							]
+						]	
+						containmentPathElements.get(1) => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "Array index is greater than allowed in type definition.")
+							]
+						]	
+					]
+				]
+				ownedPropertyAssociations.get(6) =>[
+					appliesTos.head =>[
+						containmentPathElements.head => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "Array index is greater than allowed in type definition.")
+							]
+						]	
+					]
+				]
+				ownedPropertyAssociations.get(7) =>[
+					appliesTos.get(1) =>[
+						containmentPathElements.head => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "Array index is greater than allowed in type definition.")
+							]
+						]	
+					]
+				]
+				ownedPropertyAssociations.get(8) =>[
+					appliesTos.head =>[
+						containmentPathElements.head => [
+							arrayRanges.head => [
+								assertError(testFileResult.issues, issueCollection, "Array range is greater than allowed in type definition.")
+							]
+						]	
+					]
+				]
+
+
+			]
+		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
+	}
 	
 }

@@ -57,6 +57,9 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
@@ -113,6 +116,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public static final String DELTA_NEGATIVE = "org.osate.xtext.aadl2.properties.delta_negative";
 	public static final String MISSING_NUMBERVALUE_UNITS = "org.osate.xtext.aadl2.properties.missing_numbervalue_units";
 	public static final String BYTE_COUNT_DEPRECATED = "org.osate.xtext.aadl2.properties.byte_count_deprecated";
+	public static final String ARRAY_RANGE_UPPER_LESS_THAN_LOWER = "org.osate.xtext.aadl2.properties.array_range_upper_less_than_lower";
+	public static final String ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM = "org.osate.xtext.aadl2.properties.array_range_upper_greater_than_maximum";
+	public static final String ARRAY_INDEX_GREATER_THAN_MAXIMUM = "org.osate.xtext.aadl2.properties.array_rindex_greater_than_maximum";
+	public static final String ARRAY_LOWER_BOUND_IS_ZERO = "org.osate.xtext.aadl2.properties.array_lower_bound_is_zero";
 
 	@Check(CheckType.FAST)
 	public void caseRangeValue(final RangeValue rv) {
@@ -142,8 +149,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkModalAppliesTo(pa);
 		checkContainedProperties(pa);
 		checkForAppendsInContainedPropertyAssociation(pa);
+		checkPropertyAssociationAppliesToArrayIndex(pa);
 	}
-	
+
 	public void checkForAppendsInContainedPropertyAssociation(PropertyAssociation propertyAssoc) {
 		List<ContainedNamedElement> appliesTos = propertyAssoc.getAppliesTos();
 		if (null != appliesTos && !appliesTos.isEmpty()) {
@@ -174,6 +182,63 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 	// checking methods
+	public void checkPropertyAssociationAppliesToArrayIndex(PropertyAssociation propertyAssociation) {
+		List<ContainedNamedElement> appliesTos = propertyAssociation.getAppliesTos();
+		if (null == appliesTos || appliesTos.isEmpty())
+			return;
+		for (ContainedNamedElement appliesTo : appliesTos) {
+			List<ContainmentPathElement> cpes = appliesTo.getContainmentPathElements();
+			for (ContainmentPathElement cpe : cpes) {
+
+				NamedElement ne = cpe.getNamedElement();
+				if (!(ne instanceof ArrayableElement)) {
+					continue;
+				}
+
+				List<ArrayDimension> dimensions = ((ArrayableElement) ne).getArrayDimensions();
+				List<ArrayRange> ranges = cpe.getArrayRanges();
+				if (ranges.size() > dimensions.size()) {
+					error(cpe, "Applies to property array has more dimensions than defined type.");
+					continue;
+				}
+
+				for (int i = 0; i < ranges.size(); i++) {
+					ArrayRange range = ranges.get(i);
+					long rangeUpperbound = range.getUpperBound();
+					long rangeLowerbound = range.getLowerBound();
+					ArrayDimension dimension = dimensions.get(i);
+					long dimensionSize = -1;
+					if (dimension != null && dimension.getSize() != null) {
+						if (dimension.getSize().getSizeProperty() != null
+								&& dimension.getSize().getSizeProperty() instanceof PropertyConstant) {
+							PropertyConstant propertyConstant = (PropertyConstant) dimension.getSize()
+									.getSizeProperty();
+							if (propertyConstant.getConstantValue() instanceof IntegerLiteral) {
+								dimensionSize = ((IntegerLiteral) propertyConstant.getConstantValue()).getValue();
+							}
+						} else {
+							dimensionSize = dimension.getSize().getSize();
+						}
+					}
+
+					if (rangeUpperbound != 0 && rangeUpperbound < rangeLowerbound) {
+						error("Range lower bound is greater than upper bound.", range, null,
+								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+					}
+					if (rangeLowerbound == 0) {
+						error("0 is out of bounds. Array indices start with 1.", range, null, ARRAY_LOWER_BOUND_IS_ZERO);
+					} else if (rangeUpperbound == 0 && dimensionSize > 0 && rangeLowerbound > dimensionSize) {
+						error(range, "Array index is greater than allowed in type definition.");
+						error("Array index is greater than allowed in type definition.", range, null,
+								ARRAY_INDEX_GREATER_THAN_MAXIMUM, String.valueOf(dimensionSize));
+					} else if (dimensionSize > 0 && rangeUpperbound > dimensionSize) {
+						error("Array range is greater than allowed in type definition.", range, null,
+								ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM, String.valueOf(dimensionSize));
+					}
+				}
+			}
+		}
+	}
 
 	public void checkContainedProperties(PropertyAssociation pa) {
 
