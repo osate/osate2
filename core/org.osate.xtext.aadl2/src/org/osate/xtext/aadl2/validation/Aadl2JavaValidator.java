@@ -677,6 +677,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckModeTransitionTrigger(trigger);
 	}
 
+	@Override
+	public void checkForAppendsInContainedPropertyAssociation(PropertyAssociation propertyAssoc) {
+		List<ContainedNamedElement> appliesTos = propertyAssoc.getAppliesTos();
+		if (null != appliesTos && !appliesTos.isEmpty()) {
+			if (propertyAssoc.isAppend()) {
+				error("Append operator '+=>' cannot be used in contained property associations", propertyAssoc,
+						Aadl2Package.eINSTANCE.getPropertyAssociation_Append());
+			}
+		}
+	}
+
 	public void checkForCyclicDeclarations(Subcomponent subcomponent) {
 		ComponentClassifier subcomponentType = subcomponent.getClassifier();
 		Classifier containingClassifier = subcomponent.getContainingClassifier();
