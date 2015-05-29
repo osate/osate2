@@ -40,7 +40,6 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
-import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.annexsupport.AnnexRegistry
@@ -82,24 +81,24 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				sequence_DefaultAnnexLibrary(context, semanticObject)
 			}
 			DefaultAnnexSubclause case context == grammarAccess.annexSubclauseRule || context == grammarAccess.defaultAnnexSubclauseRule: {
-				val pasc = semanticObject.parsedAnnexSubclause
-				val annexName = semanticObject.name
-				val atpr = annexUnparserRegistry.getAnnexUnparser(annexName)
-				var text = semanticObject.sourceText
+				val parsedSubclause = semanticObject.parsedAnnexSubclause
+				val annexUnparser = annexUnparserRegistry.getAnnexUnparser(semanticObject.name)
 				// serialize if there is an unparser and the annex has been parsed
 				// otherwise use the original annex text
-				if (pasc != null && atpr != null) {
+				if (parsedSubclause != null && annexUnparser != null) {
 					try {
-						text = atpr.unparseAnnexSubclause(pasc, "  ")
-						val tdasc = Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause
-						tdasc.sourceText = text
-						sequence_DefaultAnnexSubclause(context, tdasc)
+						val text = '''{**«annexUnparser.unparseAnnexSubclause(parsedSubclause, "  ")»**}'''
+						val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
+						domain.commandStack.execute(new RecordingCommand(domain) {
+							override protected doExecute() {
+								(semanticObject as DefaultAnnexSubclause).sourceText = text
+							}
+						})
 					} catch (Exception e) {
-						sequence_DefaultAnnexSubclause(context, semanticObject)
+						Activator.^default.log.log(new Status(IStatus.ERROR, Activator.^default.bundle.symbolicName, '''Error while serializing «semanticObject.name» annex subclause''', e))
 					}
-				} else {
-					sequence_DefaultAnnexSubclause(context, semanticObject)
 				}
+				sequence_DefaultAnnexSubclause(context, semanticObject)
 			}
 			default: super.createSequence(context, semanticObject)
 		}
