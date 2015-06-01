@@ -757,9 +757,6 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 
 		// Get the registered workbench editing domain.
 		//
-		// XXX separate vs. shared resource set
-//		editingDomain =
-//				(AdapterFactoryEditingDomain) new ModelEditingDomainFactory().createEditingDomain();
 		editingDomain = (AdapterFactoryEditingDomain) TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain"); //$NON-NLS-1$
 		undoContext = new ObjectUndoContext(this, Aadl2EditorPlugin.getPlugin().getString("_UI_InstanceEditor_label")); //$NON-NLS-1$
@@ -1722,9 +1719,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 		// So, we must unload it explicitly. Also remove our problem
 		// indication adapter
 
-		// XXX XXX should not remove the resource possibly not even unload it
-//		getResource().unload();
-//		editingDomain.getResourceSet().getResources().remove(getResource());
+		getResource().unload();
+		editingDomain.getResourceSet().getResources().remove(getResource());
 		editingDomain.getResourceSet().eAdapters().remove(problemIndicationAdapter);
 
 		getSite().getPage().removePartListener(partListener);
