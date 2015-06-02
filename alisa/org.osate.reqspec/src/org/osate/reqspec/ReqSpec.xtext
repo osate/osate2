@@ -60,8 +60,7 @@ ReqSpecs returns ReqSpecs:
 
 Goal returns Goal:
 	'goal' name=ID (':'  title=STRING )? // short string for title
-	( 'for' (targetElement=[aadl2::NamedElement|ID] | targetDescription=STRING|
-		(target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE] ('item' targetElement=[aadl2::NamedElement|ID])?  )
+	(( 'for' ( targetDescription=STRING | (target=[aadl2::Classifier|AADLCLASSIFIERREFERENCE])? ('item' targetElement=[aadl2::NamedElement|ID])?  )
 		)
 	)?
 '['  (

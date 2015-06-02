@@ -114,8 +114,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getGoalAccess().getGroup(), "rule__Goal__Group__0");
 					put(grammarAccess.getGoalAccess().getGroup_2(), "rule__Goal__Group_2__0");
 					put(grammarAccess.getGoalAccess().getGroup_3(), "rule__Goal__Group_3__0");
-					put(grammarAccess.getGoalAccess().getGroup_3_1_2(), "rule__Goal__Group_3_1_2__0");
-					put(grammarAccess.getGoalAccess().getGroup_3_1_2_1(), "rule__Goal__Group_3_1_2_1__0");
+					put(grammarAccess.getGoalAccess().getGroup_3_1_1(), "rule__Goal__Group_3_1_1__0");
+					put(grammarAccess.getGoalAccess().getGroup_3_1_1_1(), "rule__Goal__Group_3_1_1_1__0");
 					put(grammarAccess.getGoalAccess().getGroup_5_0(), "rule__Goal__Group_5_0__0");
 					put(grammarAccess.getGoalAccess().getGroup_5_5(), "rule__Goal__Group_5_5__0");
 					put(grammarAccess.getGoalAccess().getGroup_5_6(), "rule__Goal__Group_5_6__0");
@@ -387,10 +387,9 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReqSpecsAccess().getIssuesAssignment_7_3_1(), "rule__ReqSpecs__IssuesAssignment_7_3_1");
 					put(grammarAccess.getGoalAccess().getNameAssignment_1(), "rule__Goal__NameAssignment_1");
 					put(grammarAccess.getGoalAccess().getTitleAssignment_2_1(), "rule__Goal__TitleAssignment_2_1");
-					put(grammarAccess.getGoalAccess().getTargetElementAssignment_3_1_0(), "rule__Goal__TargetElementAssignment_3_1_0");
-					put(grammarAccess.getGoalAccess().getTargetDescriptionAssignment_3_1_1(), "rule__Goal__TargetDescriptionAssignment_3_1_1");
-					put(grammarAccess.getGoalAccess().getTargetAssignment_3_1_2_0(), "rule__Goal__TargetAssignment_3_1_2_0");
-					put(grammarAccess.getGoalAccess().getTargetElementAssignment_3_1_2_1_1(), "rule__Goal__TargetElementAssignment_3_1_2_1_1");
+					put(grammarAccess.getGoalAccess().getTargetDescriptionAssignment_3_1_0(), "rule__Goal__TargetDescriptionAssignment_3_1_0");
+					put(grammarAccess.getGoalAccess().getTargetAssignment_3_1_1_0(), "rule__Goal__TargetAssignment_3_1_1_0");
+					put(grammarAccess.getGoalAccess().getTargetElementAssignment_3_1_1_1_1(), "rule__Goal__TargetElementAssignment_3_1_1_1_1");
 					put(grammarAccess.getGoalAccess().getCategoryAssignment_5_0_1(), "rule__Goal__CategoryAssignment_5_0_1");
 					put(grammarAccess.getGoalAccess().getDescriptionAssignment_5_1(), "rule__Goal__DescriptionAssignment_5_1");
 					put(grammarAccess.getGoalAccess().getConstantsAssignment_5_2(), "rule__Goal__ConstantsAssignment_5_2");

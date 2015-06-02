@@ -132,22 +132,13 @@ public interface ReqSpecPackage extends EPackage
   int CONTRACTUAL_ELEMENT__TITLE = 1;
 
   /**
-   * The feature id for the '<em><b>Target Element</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONTRACTUAL_ELEMENT__TARGET_ELEMENT = 2;
-
-  /**
    * The feature id for the '<em><b>Target Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION = 3;
+  int CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION = 2;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' reference.
@@ -156,7 +147,16 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONTRACTUAL_ELEMENT__TARGET = 4;
+  int CONTRACTUAL_ELEMENT__TARGET = 3;
+
+  /**
+   * The feature id for the '<em><b>Target Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONTRACTUAL_ELEMENT__TARGET_ELEMENT = 4;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
@@ -615,15 +615,6 @@ public interface ReqSpecPackage extends EPackage
   int GOAL__TITLE = CONTRACTUAL_ELEMENT__TITLE;
 
   /**
-   * The feature id for the '<em><b>Target Element</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GOAL__TARGET_ELEMENT = CONTRACTUAL_ELEMENT__TARGET_ELEMENT;
-
-  /**
    * The feature id for the '<em><b>Target Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -640,6 +631,15 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int GOAL__TARGET = CONTRACTUAL_ELEMENT__TARGET;
+
+  /**
+   * The feature id for the '<em><b>Target Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GOAL__TARGET_ELEMENT = CONTRACTUAL_ELEMENT__TARGET_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
@@ -778,15 +778,6 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__TITLE = CONTRACTUAL_ELEMENT__TITLE;
 
   /**
-   * The feature id for the '<em><b>Target Element</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__TARGET_ELEMENT = CONTRACTUAL_ELEMENT__TARGET_ELEMENT;
-
-  /**
    * The feature id for the '<em><b>Target Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -803,6 +794,15 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int REQUIREMENT__TARGET = CONTRACTUAL_ELEMENT__TARGET;
+
+  /**
+   * The feature id for the '<em><b>Target Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__TARGET_ELEMENT = CONTRACTUAL_ELEMENT__TARGET_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Category</b></em>' reference list.
@@ -1292,17 +1292,6 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getContractualElement_Title();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Target Element</em>'.
-   * @see org.osate.reqspec.reqSpec.ContractualElement#getTargetElement()
-   * @see #getContractualElement()
-   * @generated
-   */
-  EReference getContractualElement_TargetElement();
-
-  /**
    * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetDescription <em>Target Description</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1323,6 +1312,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getContractualElement_Target();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Target Element</em>'.
+   * @see org.osate.reqspec.reqSpec.ContractualElement#getTargetElement()
+   * @see #getContractualElement()
+   * @generated
+   */
+  EReference getContractualElement_TargetElement();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}'.
@@ -2200,14 +2200,6 @@ public interface ReqSpecPackage extends EPackage
     EAttribute CONTRACTUAL_ELEMENT__TITLE = eINSTANCE.getContractualElement_Title();
 
     /**
-     * The meta object literal for the '<em><b>Target Element</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference CONTRACTUAL_ELEMENT__TARGET_ELEMENT = eINSTANCE.getContractualElement_TargetElement();
-
-    /**
      * The meta object literal for the '<em><b>Target Description</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2222,6 +2214,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference CONTRACTUAL_ELEMENT__TARGET = eINSTANCE.getContractualElement_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Target Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONTRACTUAL_ELEMENT__TARGET_ELEMENT = eINSTANCE.getContractualElement_TargetElement();
 
     /**
      * The meta object literal for the '<em><b>Category</b></em>' reference list feature.

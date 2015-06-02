@@ -22,6 +22,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ReqSpecGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_Goal_CategoryKeyword_5_0_0_q;
+	protected AbstractElementAlias match_Goal_ForKeyword_3_0_q;
 	protected AbstractElementAlias match_Goal_IssuesKeyword_5_10_0_q;
 	protected AbstractElementAlias match_Goal_RefinesKeyword_5_5_0_q;
 	protected AbstractElementAlias match_Goal_StakeholderKeyword_5_7_0_q;
@@ -55,6 +56,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ReqSpecGrammarAccess) access;
 		match_Goal_CategoryKeyword_5_0_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getCategoryKeyword_5_0_0());
+		match_Goal_ForKeyword_3_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getForKeyword_3_0());
 		match_Goal_IssuesKeyword_5_10_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getIssuesKeyword_5_10_0());
 		match_Goal_RefinesKeyword_5_5_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getRefinesKeyword_5_5_0());
 		match_Goal_StakeholderKeyword_5_7_0_q = new TokenAlias(false, true, grammarAccess.getGoalAccess().getStakeholderKeyword_5_7_0());
@@ -124,6 +126,8 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if(match_Goal_CategoryKeyword_5_0_0_q.equals(syntax))
 				emit_Goal_CategoryKeyword_5_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Goal_ForKeyword_3_0_q.equals(syntax))
+				emit_Goal_ForKeyword_3_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Goal_IssuesKeyword_5_10_0_q.equals(syntax))
 				emit_Goal_IssuesKeyword_5_10_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Goal_RefinesKeyword_5_5_0_q.equals(syntax))
@@ -192,6 +196,40 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     category+=[RequirementCategory|ID] (ambiguity) category+=[RequirementCategory|ID]
 	 */
 	protected void emit_Goal_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     'for'?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=ID (ambiguity) '[' ']' (rule end)
+	 *     name=ID (ambiguity) '[' 'category' category+=[RequirementCategory|ID]
+	 *     name=ID (ambiguity) '[' 'conflicts' 'with' conflictsReference+=[Goal|QualifiedName]
+	 *     name=ID (ambiguity) '[' 'issues' issues+=STRING
+	 *     name=ID (ambiguity) '[' 'refines' refinesReference+=[Goal|QualifiedName]
+	 *     name=ID (ambiguity) '[' 'see' 'document' 'requirement' documentRequirement+=[ContractualElement|QualifiedName]
+	 *     name=ID (ambiguity) '[' 'see' 'document' docReference+=ExternalDocument
+	 *     name=ID (ambiguity) '[' 'stakeholder' stakeholderReference+=[Stakeholder|QualifiedName]
+	 *     name=ID (ambiguity) '[' changeUncertainty=Uncertainty
+	 *     name=ID (ambiguity) '[' constants+=XValDeclaration
+	 *     name=ID (ambiguity) '[' description=Description
+	 *     name=ID (ambiguity) '[' rationale=Rationale
+	 *     title=STRING (ambiguity) '[' ']' (rule end)
+	 *     title=STRING (ambiguity) '[' 'category' category+=[RequirementCategory|ID]
+	 *     title=STRING (ambiguity) '[' 'conflicts' 'with' conflictsReference+=[Goal|QualifiedName]
+	 *     title=STRING (ambiguity) '[' 'issues' issues+=STRING
+	 *     title=STRING (ambiguity) '[' 'refines' refinesReference+=[Goal|QualifiedName]
+	 *     title=STRING (ambiguity) '[' 'see' 'document' 'requirement' documentRequirement+=[ContractualElement|QualifiedName]
+	 *     title=STRING (ambiguity) '[' 'see' 'document' docReference+=ExternalDocument
+	 *     title=STRING (ambiguity) '[' 'stakeholder' stakeholderReference+=[Stakeholder|QualifiedName]
+	 *     title=STRING (ambiguity) '[' changeUncertainty=Uncertainty
+	 *     title=STRING (ambiguity) '[' constants+=XValDeclaration
+	 *     title=STRING (ambiguity) '[' description=Description
+	 *     title=STRING (ambiguity) '[' rationale=Rationale
+	 */
+	protected void emit_Goal_ForKeyword_3_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

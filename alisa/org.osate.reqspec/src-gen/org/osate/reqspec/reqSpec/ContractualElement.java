@@ -27,9 +27,9 @@ import org.osate.categories.categories.RequirementCategory;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ContractualElement#getConstants <em>Constants</em>}</li>
@@ -100,32 +100,6 @@ public interface ContractualElement extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Target Element</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Target Element</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Target Element</em>' reference.
-   * @see #setTargetElement(NamedElement)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_TargetElement()
-   * @model
-   * @generated
-   */
-  NamedElement getTargetElement();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Target Element</em>' reference.
-   * @see #getTargetElement()
-   * @generated
-   */
-  void setTargetElement(NamedElement value);
-
-  /**
    * Returns the value of the '<em><b>Target Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
@@ -176,6 +150,32 @@ public interface ContractualElement extends EObject
    * @generated
    */
   void setTarget(Classifier value);
+
+  /**
+   * Returns the value of the '<em><b>Target Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target Element</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target Element</em>' reference.
+   * @see #setTargetElement(NamedElement)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getContractualElement_TargetElement()
+   * @model
+   * @generated
+   */
+  NamedElement getTargetElement();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ContractualElement#getTargetElement <em>Target Element</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target Element</em>' reference.
+   * @see #getTargetElement()
+   * @generated
+   */
+  void setTargetElement(NamedElement value);
 
   /**
    * Returns the value of the '<em><b>Category</b></em>' reference list.

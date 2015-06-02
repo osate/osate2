@@ -438,7 +438,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (targetElement=[NamedElement|ID] | targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE] targetElement=[NamedElement|ID]?))? 
+	 *         (targetDescription=STRING | (target=[Classifier|AADLCLASSIFIERREFERENCE]? targetElement=[NamedElement|ID]?))? 
 	 *         category+=[RequirementCategory|ID]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 

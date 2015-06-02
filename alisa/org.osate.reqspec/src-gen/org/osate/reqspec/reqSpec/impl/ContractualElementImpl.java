@@ -45,9 +45,9 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetElement <em>Target Element</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getTargetElement <em>Target Element</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ContractualElementImpl#getConstants <em>Constants</em>}</li>
@@ -104,16 +104,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getTargetElement() <em>Target Element</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTargetElement()
-   * @generated
-   * @ordered
-   */
-  protected NamedElement targetElement;
-
-  /**
    * The default value of the '{@link #getTargetDescription() <em>Target Description</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -142,6 +132,16 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * @ordered
    */
   protected Classifier target;
+
+  /**
+   * The cached value of the '{@link #getTargetElement() <em>Target Element</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTargetElement()
+   * @generated
+   * @ordered
+   */
+  protected NamedElement targetElement;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
@@ -295,49 +295,6 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement getTargetElement()
-  {
-    if (targetElement != null && ((EObject)targetElement).eIsProxy())
-    {
-      InternalEObject oldTargetElement = (InternalEObject)targetElement;
-      targetElement = (NamedElement)eResolveProxy(oldTargetElement);
-      if (targetElement != oldTargetElement)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT, oldTargetElement, targetElement));
-      }
-    }
-    return targetElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NamedElement basicGetTargetElement()
-  {
-    return targetElement;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setTargetElement(NamedElement newTargetElement)
-  {
-    NamedElement oldTargetElement = targetElement;
-    targetElement = newTargetElement;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT, oldTargetElement, targetElement));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public String getTargetDescription()
   {
     return targetDescription;
@@ -397,6 +354,49 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
     target = newTarget;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET, oldTarget, target));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement getTargetElement()
+  {
+    if (targetElement != null && ((EObject)targetElement).eIsProxy())
+    {
+      InternalEObject oldTargetElement = (InternalEObject)targetElement;
+      targetElement = (NamedElement)eResolveProxy(oldTargetElement);
+      if (targetElement != oldTargetElement)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT, oldTargetElement, targetElement));
+      }
+    }
+    return targetElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NamedElement basicGetTargetElement()
+  {
+    return targetElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTargetElement(NamedElement newTargetElement)
+  {
+    NamedElement oldTargetElement = targetElement;
+    targetElement = newTargetElement;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT, oldTargetElement, targetElement));
   }
 
   /**
@@ -651,14 +651,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return getName();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         return getTitle();
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
-        if (resolve) return getTargetElement();
-        return basicGetTargetElement();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         return getTargetDescription();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         if (resolve) return getTarget();
         return basicGetTarget();
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
+        if (resolve) return getTargetElement();
+        return basicGetTargetElement();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         return getCategory();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
@@ -696,14 +696,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         setTitle((String)newValue);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
-        setTargetElement((NamedElement)newValue);
-        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         setTargetDescription((String)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         setTarget((Classifier)newValue);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
+        setTargetElement((NamedElement)newValue);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         getCategory().clear();
@@ -754,14 +754,14 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
-        setTargetElement((NamedElement)null);
-        return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         setTargetDescription(TARGET_DESCRIPTION_EDEFAULT);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         setTarget((Classifier)null);
+        return;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
+        setTargetElement((NamedElement)null);
         return;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         getCategory().clear();
@@ -805,12 +805,12 @@ public class ContractualElementImpl extends MinimalEObjectImpl.Container impleme
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
-        return targetElement != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_DESCRIPTION:
         return TARGET_DESCRIPTION_EDEFAULT == null ? targetDescription != null : !TARGET_DESCRIPTION_EDEFAULT.equals(targetDescription);
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET:
         return target != null;
+      case ReqSpecPackage.CONTRACTUAL_ELEMENT__TARGET_ELEMENT:
+        return targetElement != null;
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__CATEGORY:
         return category != null && !category.isEmpty();
       case ReqSpecPackage.CONTRACTUAL_ELEMENT__DESCRIPTION:
