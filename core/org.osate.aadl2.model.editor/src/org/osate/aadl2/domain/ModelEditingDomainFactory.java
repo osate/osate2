@@ -52,8 +52,6 @@ import org.eclipse.emf.workspace.util.WorkspaceValidateEditSupport;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
 
 /**
  */
@@ -61,15 +59,8 @@ public class ModelEditingDomainFactory implements TransactionalEditingDomain.Fac
 
 	@Override
 	public TransactionalEditingDomain createEditingDomain() {
-		// create an editing domain with an Osate resource set
-		// and delegating command execution to the default (workbench)
-		// operation history
-		PropertiesActivator.getInstance();
-		ResourceSet rset = OsateResourceUtil.createResourceSet();
-		if (rset == null) {
-			return null;
-		}
-		TransactionalEditingDomain result = WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain(rset);
+//		PropertiesActivator.getInstance();
+		TransactionalEditingDomain result = WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain();
 
 		// add an exception handler to the editing domain's command stack
 		((TransactionalCommandStack) result.getCommandStack()).setExceptionHandler(new CommandStackExceptionHandler());

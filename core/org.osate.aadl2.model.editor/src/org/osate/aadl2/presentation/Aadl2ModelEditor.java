@@ -67,6 +67,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.ui.MarkerHelper;
 import org.eclipse.emf.common.ui.ViewerPane;
 import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
+import org.eclipse.emf.common.ui.viewer.ColumnViewerInformationControlToolTipSupport;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -90,6 +91,8 @@ import org.eclipse.emf.edit.ui.celleditor.AdapterFactoryTreeEditor;
 import org.eclipse.emf.edit.ui.dnd.EditingDomainViewerDropAdapter;
 import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
+import org.eclipse.emf.edit.ui.provider.DecoratingColumLabelProvider;
+import org.eclipse.emf.edit.ui.provider.DiagnosticDecorator;
 import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
@@ -100,7 +103,6 @@ import org.eclipse.emf.transaction.ui.provider.TransactionalAdapterFactoryLabelP
 import org.eclipse.emf.workspace.EMFCommandOperation;
 import org.eclipse.emf.workspace.IWorkspaceCommandStack;
 import org.eclipse.emf.workspace.ResourceUndoContext;
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -150,6 +152,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
+import org.osate.emf.workspace.util.WorkspaceSynchronizer;
 
 /**
  * This is an example of a Instance model editor.
@@ -592,6 +595,14 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 			@Override
 			public boolean handleResourceMoved(Resource resource, URI newURI) {
 				movedResources.put(resource, newURI);
+
+				return true;
+			}
+
+			@Override
+			public boolean handleResourceMarkersChanged(Resource resource, IFile file) {
+				DiagnosticDecorator.DiagnosticAdapter.update(resource,
+						markerHelper.getMarkerDiagnostics(resource, file));
 
 				return true;
 			}
@@ -1081,8 +1092,10 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 						(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
 
 				// .CUSTOM: Use a transactional label provider
-				selectionViewer.setLabelProvider(new TransactionalAdapterFactoryLabelProvider(
-						(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
+				selectionViewer.setLabelProvider(new DecoratingColumLabelProvider(
+						new TransactionalAdapterFactoryLabelProvider((TransactionalEditingDomain) getEditingDomain(),
+								adapterFactory), new DiagnosticDecorator(editingDomain, selectionViewer,
+								Aadl2EditorPlugin.getPlugin().getDialogSettings())));
 
 				// .CUSTOM: I edit only a single resource
 				selectionViewer.setInput(getResource());
@@ -1090,6 +1103,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 				viewerPane.setTitle(getResource());
 
 				new AdapterFactoryTreeEditor(selectionViewer.getTree(), adapterFactory);
+				new ColumnViewerInformationControlToolTipSupport(selectionViewer,
+						new DiagnosticDecorator.EditingDomainLocationListener(editingDomain, selectionViewer));
 
 				createContextMenuFor(selectionViewer);
 				int pageIndex = addPage(viewerPane.getControl());
@@ -1163,9 +1178,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public Object getAdapter(Class key) {
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
 			return showOutlineView() ? getContentOutlinePage() : null;
 		} else if (key.equals(IPropertySheetPage.class)) {
@@ -1204,8 +1218,11 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 							(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
 
 					// .CUSTOM: Use transactional label provider
-					contentOutlineViewer.setLabelProvider(new TransactionalAdapterFactoryLabelProvider(
-							(TransactionalEditingDomain) getEditingDomain(), adapterFactory));
+					contentOutlineViewer.setLabelProvider(new DecoratingColumLabelProvider(
+							new TransactionalAdapterFactoryLabelProvider(
+									(TransactionalEditingDomain) getEditingDomain(), adapterFactory),
+							new DiagnosticDecorator(editingDomain, contentOutlineViewer, Aadl2EditorPlugin.getPlugin()
+									.getDialogSettings())));
 
 					contentOutlineViewer.addFilter(new ViewerFilter() {
 						@Override
@@ -1215,6 +1232,9 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 					});
 					// .CUSTOM: I edit only a single resource, not a resource set
 					contentOutlineViewer.setInput(getResource());
+
+					new ColumnViewerInformationControlToolTipSupport(contentOutlineViewer,
+							new DiagnosticDecorator.EditingDomainLocationListener(editingDomain, contentOutlineViewer));
 
 					// Make sure our popups work.
 					//
@@ -1269,7 +1289,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 	 */
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
-			propertySheetPage = new ExtendedPropertySheetPage(editingDomain) {
+			propertySheetPage = new ExtendedPropertySheetPage(editingDomain, ExtendedPropertySheetPage.Decoration.LIVE,
+					Aadl2EditorPlugin.getPlugin().getDialogSettings()) {
 				@Override
 				public void setSelectionToViewer(List<?> selection) {
 					Aadl2ModelEditor.this.setSelectionToViewer(selection);
