@@ -11,8 +11,6 @@
  *   IBM - Initial API and implementation
  *
  * </copyright>
- *
- * $Id: ResourceLoadedListener.java,v 1.1 2009-12-01 15:31:10 lwrage Exp $
  */
 
 package org.osate.aadl2.presentation;
