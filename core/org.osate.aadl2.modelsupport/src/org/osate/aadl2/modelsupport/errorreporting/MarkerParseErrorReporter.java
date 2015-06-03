@@ -36,6 +36,10 @@ package org.osate.aadl2.modelsupport.errorreporting;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.modelsupport.Activator;
 
@@ -113,11 +117,18 @@ public final class MarkerParseErrorReporter extends AbstractParseErrorReporter {
 	@Override
 	protected void deleteMessagesImpl() {
 		if (resource.exists()) {
-			try {
-				resource.deleteMarkers(markerType, false, IResource.DEPTH_INFINITE);
-			} catch (final CoreException e1) {
-				Activator.logThrowable(e1);
-			}
+			Job deleteMarkerJob = new Job("DeleteMarkersJob") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					try {
+						resource.deleteMarkers(markerType, false, IResource.DEPTH_INFINITE);
+					} catch (final CoreException e1) {
+						Activator.logThrowable(e1);
+					}
+					return Status.OK_STATUS;
+				}
+			};
+			deleteMarkerJob.schedule();
 		}
 	}
 
