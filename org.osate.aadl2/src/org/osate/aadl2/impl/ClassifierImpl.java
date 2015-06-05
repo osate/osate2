@@ -57,6 +57,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.NamedElement;
@@ -520,11 +521,11 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
-	public AnnexSubclause createOwnedAnnexSubclause() {
-		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
+	public DefaultAnnexSubclause createOwnedAnnexSubclause() {
+		return (DefaultAnnexSubclause)createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getDefaultAnnexSubclause());
 	}
 
 	/**
