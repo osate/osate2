@@ -274,9 +274,9 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * @return The new {@link org.osate.aadl2.DefaultAnnexSubclause}.
 	 * @see #getOwnedAnnexSubclauses()
-	 * @generated
+	 * @generated NOT
 	 */
-	AnnexSubclause createOwnedAnnexSubclause();
+	DefaultAnnexSubclause createOwnedAnnexSubclause();
 
 	/**
 	 * Returns the value of the '<em><b>No Properties</b></em>' attribute.
