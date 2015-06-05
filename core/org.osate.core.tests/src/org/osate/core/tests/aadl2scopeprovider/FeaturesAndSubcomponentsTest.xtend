@@ -74,8 +74,6 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 			"pack1.aadl" -> '''
 				package pack1
 				public
-				  with pack3;
-				  with pack4;
 				  with pack5;
 				  
 				  renames pack3::all;
