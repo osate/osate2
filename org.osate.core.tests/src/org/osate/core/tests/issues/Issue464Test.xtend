@@ -50,7 +50,6 @@ class Issue464Test extends OsateTest {
 	val aadlText = '''
 package issue464
 public
-	with Data_Model;
 
 	system SensorProcessing
 	end SensorProcessing;
