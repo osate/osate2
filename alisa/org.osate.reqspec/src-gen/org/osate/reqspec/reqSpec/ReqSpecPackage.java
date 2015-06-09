@@ -323,22 +323,22 @@ public interface ReqSpecPackage extends EPackage
   int STAKEHOLDER_GOALS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
-   * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STAKEHOLDER_GOALS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
-
-  /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STAKEHOLDER_GOALS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+  int STAKEHOLDER_GOALS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+
+  /**
+   * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STAKEHOLDER_GOALS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -542,13 +542,22 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPECS__OTHERREQSPECS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 5;
 
   /**
+   * The feature id for the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_SPECS__DESCRIPTION = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+
+  /**
    * The feature id for the '<em><b>Constants</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 6;
+  int REQ_SPECS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
@@ -557,7 +566,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
+  int REQ_SPECS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -566,7 +575,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+  int REQ_SPECS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -575,7 +584,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+  int REQ_SPECS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
    * The number of structural features of the '<em>Req Specs</em>' class.
@@ -584,7 +593,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
+  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -1499,17 +1508,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getStakeholderGoals_Description();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDocReference <em>Doc Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Doc Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.StakeholderGoals#getDocReference()
-   * @see #getStakeholderGoals()
-   * @generated
-   */
-  EReference getStakeholderGoals_DocReference();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getContent <em>Content</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1519,6 +1517,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getStakeholderGoals_Content();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getDocReference <em>Doc Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Doc Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.StakeholderGoals#getDocReference()
+   * @see #getStakeholderGoals()
+   * @generated
+   */
+  EReference getStakeholderGoals_DocReference();
 
   /**
    * Returns the meta object for the attribute list '{@link org.osate.reqspec.reqSpec.StakeholderGoals#getIssues <em>Issues</em>}'.
@@ -1725,6 +1734,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getReqSpecs_Otherreqspecs();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ReqSpecs#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Description</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqSpecs#getDescription()
+   * @see #getReqSpecs()
+   * @generated
+   */
+  EReference getReqSpecs_Description();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}'.
@@ -2356,20 +2376,20 @@ public interface ReqSpecPackage extends EPackage
     EReference STAKEHOLDER_GOALS__DESCRIPTION = eINSTANCE.getStakeholderGoals_Description();
 
     /**
-     * The meta object literal for the '<em><b>Doc Reference</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STAKEHOLDER_GOALS__DOC_REFERENCE = eINSTANCE.getStakeholderGoals_DocReference();
-
-    /**
      * The meta object literal for the '<em><b>Content</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference STAKEHOLDER_GOALS__CONTENT = eINSTANCE.getStakeholderGoals_Content();
+
+    /**
+     * The meta object literal for the '<em><b>Doc Reference</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STAKEHOLDER_GOALS__DOC_REFERENCE = eINSTANCE.getStakeholderGoals_DocReference();
 
     /**
      * The meta object literal for the '<em><b>Issues</b></em>' attribute list feature.
@@ -2528,6 +2548,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQ_SPECS__OTHERREQSPECS = eINSTANCE.getReqSpecs_Otherreqspecs();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQ_SPECS__DESCRIPTION = eINSTANCE.getReqSpecs_Description();
 
     /**
      * The meta object literal for the '<em><b>Constants</b></em>' containment reference list feature.

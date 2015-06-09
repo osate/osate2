@@ -41,8 +41,8 @@ import org.osate.reqspec.reqSpec.StakeholderGoals;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.StakeholderGoalsImpl#getIssues <em>Issues</em>}</li>
  * </ul>
  * </p>
@@ -152,16 +152,6 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
   protected Description description;
 
   /**
-   * The cached value of the '{@link #getDocReference() <em>Doc Reference</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDocReference()
-   * @generated
-   * @ordered
-   */
-  protected EList<ExternalDocument> docReference;
-
-  /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -170,6 +160,16 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * @ordered
    */
   protected EList<Goal> content;
+
+  /**
+   * The cached value of the '{@link #getDocReference() <em>Doc Reference</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDocReference()
+   * @generated
+   * @ordered
+   */
+  protected EList<ExternalDocument> docReference;
 
   /**
    * The cached value of the '{@link #getIssues() <em>Issues</em>}' attribute list.
@@ -390,20 +390,6 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ExternalDocument> getDocReference()
-  {
-    if (docReference == null)
-    {
-      docReference = new EObjectContainmentEList<ExternalDocument>(ExternalDocument.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE);
-    }
-    return docReference;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Goal> getContent()
   {
     if (content == null)
@@ -411,6 +397,20 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
       content = new EObjectContainmentEList<Goal>(Goal.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT);
     }
     return content;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<ExternalDocument> getDocReference()
+  {
+    if (docReference == null)
+    {
+      docReference = new EObjectContainmentEList<ExternalDocument>(ExternalDocument.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE);
+    }
+    return docReference;
   }
 
   /**
@@ -439,10 +439,10 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
     {
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return basicSetDescription(null, msgs);
-      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
-        return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
+        return ((InternalEList<?>)getDocReference()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -470,10 +470,10 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return isGlobal();
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return getDescription();
-      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
-        return getDocReference();
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         return getContent();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
+        return getDocReference();
       case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
         return getIssues();
     }
@@ -509,13 +509,13 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         setDescription((Description)newValue);
         return;
-      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
-        getDocReference().clear();
-        getDocReference().addAll((Collection<? extends ExternalDocument>)newValue);
-        return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();
         getContent().addAll((Collection<? extends Goal>)newValue);
+        return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
+        getDocReference().clear();
+        getDocReference().addAll((Collection<? extends ExternalDocument>)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
         getIssues().clear();
@@ -553,11 +553,11 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         setDescription((Description)null);
         return;
-      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
-        getDocReference().clear();
-        return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         getContent().clear();
+        return;
+      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
+        getDocReference().clear();
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
         getIssues().clear();
@@ -588,10 +588,10 @@ public class StakeholderGoalsImpl extends ReqSpecContainerImpl implements Stakeh
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.STAKEHOLDER_GOALS__DESCRIPTION:
         return description != null;
-      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
-        return docReference != null && !docReference.isEmpty();
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONTENT:
         return content != null && !content.isEmpty();
+      case ReqSpecPackage.STAKEHOLDER_GOALS__DOC_REFERENCE:
+        return docReference != null && !docReference.isEmpty();
       case ReqSpecPackage.STAKEHOLDER_GOALS__ISSUES:
         return issues != null && !issues.isEmpty();
     }

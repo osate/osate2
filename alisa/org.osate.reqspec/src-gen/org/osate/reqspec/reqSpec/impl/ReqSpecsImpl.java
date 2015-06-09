@@ -24,6 +24,8 @@ import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.aadl2.Classifier;
 
+import org.osate.alisa.common.common.Description;
+
 import org.osate.reqspec.reqSpec.ExternalDocument;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
@@ -42,6 +44,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getOtherreqspecs <em>Otherreqspecs</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getDocReference <em>Doc Reference</em>}</li>
@@ -152,6 +155,16 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * @ordered
    */
   protected EList<ReqSpecs> otherreqspecs;
+
+  /**
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
+  protected Description description;
 
   /**
    * The cached value of the '{@link #getConstants() <em>Constants</em>}' containment reference list.
@@ -368,6 +381,54 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
+  public Description getDescription()
+  {
+    return description;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDescription(Description newDescription, NotificationChain msgs)
+  {
+    Description oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQ_SPECS__DESCRIPTION, oldDescription, newDescription);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescription(Description newDescription)
+  {
+    if (newDescription != description)
+    {
+      NotificationChain msgs = null;
+      if (description != null)
+        msgs = ((InternalEObject)description).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQ_SPECS__DESCRIPTION, null, msgs);
+      if (newDescription != null)
+        msgs = ((InternalEObject)newDescription).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ReqSpecPackage.REQ_SPECS__DESCRIPTION, null, msgs);
+      msgs = basicSetDescription(newDescription, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ReqSpecPackage.REQ_SPECS__DESCRIPTION, newDescription, newDescription));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<XExpression> getConstants()
   {
     if (constants == null)
@@ -429,6 +490,8 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
   {
     switch (featureID)
     {
+      case ReqSpecPackage.REQ_SPECS__DESCRIPTION:
+        return basicSetDescription(null, msgs);
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQ_SPECS__CONTENT:
@@ -462,6 +525,8 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return isGlobal();
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         return getOtherreqspecs();
+      case ReqSpecPackage.REQ_SPECS__DESCRIPTION:
+        return getDescription();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return getConstants();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
@@ -503,6 +568,9 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         getOtherreqspecs().clear();
         getOtherreqspecs().addAll((Collection<? extends ReqSpecs>)newValue);
+        return;
+      case ReqSpecPackage.REQ_SPECS__DESCRIPTION:
+        setDescription((Description)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
@@ -552,6 +620,9 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         getOtherreqspecs().clear();
         return;
+      case ReqSpecPackage.REQ_SPECS__DESCRIPTION:
+        setDescription((Description)null);
+        return;
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
         return;
@@ -590,6 +661,8 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return global != GLOBAL_EDEFAULT;
       case ReqSpecPackage.REQ_SPECS__OTHERREQSPECS:
         return otherreqspecs != null && !otherreqspecs.isEmpty();
+      case ReqSpecPackage.REQ_SPECS__DESCRIPTION:
+        return description != null;
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return constants != null && !constants.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONTENT:

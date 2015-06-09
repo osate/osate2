@@ -34,8 +34,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/targetDescription"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/global"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/docReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/content"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//StakeholderGoals/docReference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//StakeholderGoals/issues"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ReqDocument">
@@ -58,6 +58,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecs/targetDescription"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//ReqSpecs/global"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/otherreqspecs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/constants"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/content"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqSpecs/docReference"/>
