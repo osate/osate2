@@ -2,6 +2,7 @@ package org.osate.xtext.aadl2.ui.contentassist;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.BadPartitioningException;
+import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.Position;
@@ -26,6 +27,11 @@ public class DummyXtextDocument extends DummyDocument implements IXtextDocument 
 
 	@Override
 	public void addPosition(Position position) throws BadLocationException {
+	}
+
+	@Override
+	public void addPosition(String category, Position position) throws BadLocationException,
+			BadPositionCategoryException {
 	}
 
 	@Override
