@@ -82,6 +82,7 @@ import org.eclipse.ui.dialogs.ContainerGenerator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.part.PageBook;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -365,11 +366,15 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			ButtonAndTextListener listener = new ButtonAndTextListener(this);
 			aadlPackageButton.addSelectionListener(listener);
 			aadlPropertySetButton.addSelectionListener(listener);
-			nameTextField.addModifyListener(listener);
+			if (nameTextField != null) {
+				nameTextField.addModifyListener(listener);
+			}
 		}
 
 		private void createAndLayoutWidgets(Composite parent) {
-			Composite composite = new Composite(parent, SWT.NONE);
+			PageBook pageBook = new PageBook(parent, SWT.NONE);
+
+			Composite composite = new Composite(pageBook, SWT.NONE);
 			composite.setSize(parent.getSize());
 			composite.setLayout(new GridLayout());
 
@@ -435,7 +440,10 @@ public class NewModelWizard extends Wizard implements INewWizard {
 					return new Object[0];
 				}
 			});
+
 			folderViewer.setInput(ResourcesPlugin.getWorkspace());
+			TreeItem[] treeItems = folderViewer.getTree().getItems();
+			int treeItemsLength = treeItems.length;
 			Label nameFieldLabel = new Label(composite, SWT.NONE);
 			nameFieldLabel.setText("Enter the new Aadl Package or Property Set name:");
 			layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
@@ -446,14 +454,15 @@ public class NewModelWizard extends Wizard implements INewWizard {
 			nameTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 			nameTextField.setFocus();
 
-			TreeItem[] treeItems = folderViewer.getTree().getItems();
 			if (projectFolder != null) {
 				folderViewer.setSelection(new StructuredSelection(projectFolder), true);
 				if (folderViewer.getSelection().isEmpty()) {
 					folderViewer.getTree().select(treeItems[0]);
 				}
 			} else {
-				folderViewer.getTree().select(treeItems[0]);
+				if (treeItemsLength > 0) {
+					folderViewer.getTree().select(treeItems[0]);
+				}
 			}
 			folderViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 			switch (initialObjectType) {
@@ -467,7 +476,18 @@ public class NewModelWizard extends Wizard implements INewWizard {
 				throw new AssertionError(initialObjectType.name() + " is not a recognized enum literal.");
 			}
 
-			setControl(composite);
+			Composite noProjectComposite = new Composite(pageBook, SWT.NONE);
+			noProjectComposite.setSize(parent.getSize());
+			noProjectComposite.setLayout(new GridLayout());
+			Label noProjectLabel = new Label(noProjectComposite, SWT.NONE);
+			noProjectLabel
+					.setText("The workspace contains no projects. Before an Aadl Package or Property Set can be created you must first create a project.");
+			if (treeItemsLength < 1) {
+				pageBook.showPage(noProjectComposite);
+			} else {
+				pageBook.showPage(composite);
+			}
+			setControl(pageBook);
 		}
 
 		@Override
@@ -500,6 +520,8 @@ public class NewModelWizard extends Wizard implements INewWizard {
 		 * Generates an error message if the name is invalid.
 		 */
 		private boolean validateEnteredName() {
+			if (nameTextField == null)
+				return false;
 			if (nameTextField.getText().length() == 0) {
 				// No error message is specified. We assume that the user knows that
 				// a new Aadl file must have a name.
