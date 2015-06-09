@@ -618,12 +618,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (kind=PropagationKind | (featureorPPRefs+=FeatureorPPReference featureorPPRefs+=FeatureorPPReference*)) 
-	 *         not?='not'? 
-	 *         direction=PropagationDirection 
-	 *         typeSet=TypeSetReference
-	 *     )
+	 *     ((kind=PropagationKind | featureorPPRef=FeatureorPPReference) not?='not'? direction=PropagationDirection typeSet=TypeSetReference)
 	 */
 	protected void sequence_ErrorPropagation(EObject context, ErrorPropagation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -669,7 +664,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     featureorPP=[NamedElement|ID]
+	 *     (featureorPP=[NamedElement|ID] next=FeatureorPPReference?)
 	 */
 	protected void sequence_FeatureorPPReference(EObject context, FeatureorPPReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

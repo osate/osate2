@@ -2,8 +2,6 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.NamedElement;
 
@@ -16,7 +14,7 @@ import org.osate.aadl2.NamedElement;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getKind <em>Kind</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRefs <em>Featureor PP Refs</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRef <em>Featureor PP Ref</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#isNot <em>Not</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getTypeSet <em>Type Set</em>}</li>
@@ -56,20 +54,30 @@ public interface ErrorPropagation extends NamedElement, EventOrPropagation
   void setKind(String value);
 
   /**
-   * Returns the value of the '<em><b>Featureor PP Refs</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference}.
+   * Returns the value of the '<em><b>Featureor PP Ref</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Featureor PP Refs</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Featureor PP Ref</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Featureor PP Refs</em>' containment reference list.
-   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagation_FeatureorPPRefs()
+   * @return the value of the '<em>Featureor PP Ref</em>' containment reference.
+   * @see #setFeatureorPPRef(FeatureorPPReference)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagation_FeatureorPPRef()
    * @model containment="true"
    * @generated
    */
-  EList<FeatureorPPReference> getFeatureorPPRefs();
+  FeatureorPPReference getFeatureorPPRef();
+
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation#getFeatureorPPRef <em>Featureor PP Ref</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Featureor PP Ref</em>' containment reference.
+   * @see #getFeatureorPPRef()
+   * @generated
+   */
+  void setFeatureorPPRef(FeatureorPPReference value);
 
   /**
    * Returns the value of the '<em><b>Not</b></em>' attribute.

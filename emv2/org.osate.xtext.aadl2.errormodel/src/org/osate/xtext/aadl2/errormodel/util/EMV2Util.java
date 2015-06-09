@@ -277,7 +277,7 @@ public class EMV2Util {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
 			for (ErrorPropagation ep : eflist) {
 				if (ep.isNot() && ep.getDirection().equals(dir)) {
-					EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+					EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
 					if (!refs.isEmpty()) {
 						String refname = "";
 						for (FeatureorPPReference FeatureorPPReference : refs) {
@@ -331,7 +331,7 @@ public class EMV2Util {
 			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
 			for (ErrorPropagation ep : eflist) {
 				if (!ep.isNot() && ep.getDirection().equals(dir)) {
-					EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+					EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
 					if (!refs.isEmpty()) {
 						String refname = "";
 						for (FeatureorPPReference FeatureorPPReference : refs) {
@@ -581,9 +581,9 @@ public class EMV2Util {
 	public static boolean areEquivalent(ErrorPropagation ep1, ErrorPropagation ep2) {
 		boolean result = true;
 
-		for (FeatureorPPReference fr1 : ep1.getFeatureorPPRefs()) {
+		for (FeatureorPPReference fr1 : getFeatureorPPRefs(ep1)) {
 			boolean found = false;
-			for (FeatureorPPReference fr2 : ep2.getFeatureorPPRefs()) {
+			for (FeatureorPPReference fr2 : getFeatureorPPRefs(ep2)) {
 				if (fr1.getFeatureorPP() == fr2.getFeatureorPP()) {
 					if (EM2TypeSetUtil.contains(ep1.getTypeSet(), ep2.getTypeSet())
 							&& EM2TypeSetUtil.contains(ep2.getTypeSet(), ep1.getTypeSet())) {
@@ -1833,7 +1833,7 @@ public class EMV2Util {
 	 * @return Feature
 	 */
 	public static Feature getFeature(ErrorPropagation ep) {
-		EList<FeatureorPPReference> freflist = ep.getFeatureorPPRefs();
+		EList<FeatureorPPReference> freflist = getFeatureorPPRefs(ep);
 		if (!freflist.isEmpty()) {
 			FeatureorPPReference fref = freflist.get(freflist.size() - 1);
 			NamedElement f = fref.getFeatureorPP();
@@ -1884,7 +1884,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static String getPrintName(ErrorPropagation ep) {
-		EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+		EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
 		String refname = "";
 		if (refs.isEmpty()) {
 			if (ep.getKind() != null) {
@@ -2332,7 +2332,7 @@ public class EMV2Util {
 			return null;
 		}
 
-		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
+		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
 		if (frefs.isEmpty()) {
 			return null;
 		}
@@ -2362,7 +2362,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static NamedElement getErrorPropagationFeature(ErrorPropagation ep, ComponentInstance ci) {
-		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
+		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
 		if (frefs.isEmpty()) {
 			return ci;
 		}
@@ -2376,7 +2376,7 @@ public class EMV2Util {
 	 * @return
 	 */
 	public static DirectionType getErrorPropagationFeatureDirection(ErrorPropagation ep) {
-		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
+		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
 		boolean inverse = false;
 		NamedElement f = null;
 		for (int i = 0; i < frefs.size() - 1; i++) {
@@ -2414,7 +2414,7 @@ public class EMV2Util {
 		if (Aadl2Util.isNull(fi.getFeature())) {
 			return false; // not to a feature
 		}
-		EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
+		EList<FeatureorPPReference> frefs = getFeatureorPPRefs(ep);
 		if (frefs.isEmpty()) {
 			return false;
 		}
@@ -2428,7 +2428,7 @@ public class EMV2Util {
 	}
 
 	public static PropagationPoint getPropagationPoint(ErrorPropagation ep) {
-		EList<FeatureorPPReference> refs = ep.getFeatureorPPRefs();
+		EList<FeatureorPPReference> refs = getFeatureorPPRefs(ep);
 		if (!refs.isEmpty()) {
 			FeatureorPPReference ref = refs.get(0);
 			if (ref instanceof PropagationPoint) {
@@ -2437,5 +2437,12 @@ public class EMV2Util {
 		}
 		return null;
 	}
-
+	
+	public static EList<FeatureorPPReference> getFeatureorPPRefs(ErrorPropagation errorPropagation) {
+		final EList<FeatureorPPReference> list = new BasicEList<>();
+		for (FeatureorPPReference current = errorPropagation.getFeatureorPPRef(); current != null; current = current.getNext()) {
+			list.add(current);
+		}
+		return list;
+	}
 }

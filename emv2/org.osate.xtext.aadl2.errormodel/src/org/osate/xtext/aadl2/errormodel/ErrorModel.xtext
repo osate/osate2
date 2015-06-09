@@ -229,14 +229,14 @@ TypeMapping returns TypeMapping:
    
 ErrorPropagation returns ErrorPropagation:
 	{ErrorPropagation}
-   (  kind=PropagationKind | (featureorPPRefs+=FeatureorPPReference)("." (featureorPPRefs+=FeatureorPPReference))* )
+   (  kind=PropagationKind | featureorPPRef=FeatureorPPReference)
    ':' (not?='not')? (direction=PropagationDirection)  
    'propagation' 
     typeSet=TypeSetReference
    ';';
 
 FeatureorPPReference returns FeatureorPPReference:
-	featureorPP=[aadl2::NamedElement|ID]
+	featureorPP=[aadl2::NamedElement|ID] ("." next=FeatureorPPReference)?
 ;
    
 PropagationDirection returns aadl2::DirectionType: 'in' | 'out' ;

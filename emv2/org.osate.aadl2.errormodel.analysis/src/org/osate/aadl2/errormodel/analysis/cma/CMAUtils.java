@@ -212,8 +212,8 @@ public class CMAUtils {
 					for (int esInd2 = 0; esInd2 < errorSources.get(secondComponent).size(); esInd2++) {
 						ppe2 = errorSources.get(secondComponent).get(esInd2);
 
-						if (ppe1.getErrorPropagation().getFeatureorPPRefs() == ppe2.getErrorPropagation()
-								.getFeatureorPPRefs()) {
+						if (EMV2Util.getFeatureorPPRefs(ppe1.getErrorPropagation()) == 
+								EMV2Util.getFeatureorPPRefs(ppe2.getErrorPropagation())) {
 							foundInOther = true;
 							errorSourcesduplicates.add(ppe1);
 							errorSourcesduplicates.add(ppe2);

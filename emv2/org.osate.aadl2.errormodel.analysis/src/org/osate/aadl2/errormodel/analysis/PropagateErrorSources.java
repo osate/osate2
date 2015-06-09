@@ -790,7 +790,7 @@ public class PropagateErrorSources {
 			 */
 			boolean toAnalyze = true;
 
-			for (FeatureorPPReference freftmp : ep.getFeatureorPPRefs()) {
+			for (FeatureorPPReference freftmp : EMV2Util.getFeatureorPPRefs(ep)) {
 				if (freftmp.getFeatureorPP() instanceof Feature) {
 					if (freftmp == fi.getFeature()) {
 						toAnalyze = false;

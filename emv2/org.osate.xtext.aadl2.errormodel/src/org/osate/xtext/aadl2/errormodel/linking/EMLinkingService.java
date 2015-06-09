@@ -121,7 +121,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 					} else if (ne instanceof ErrorPropagation) {
 						// we resolved previous entry to an error propagation
 						// It may represent the context of the feature, e.g., when both the fg and the feature have an error propagation
-						EList<FeatureorPPReference> flist = ((ErrorPropagation) ne).getFeatureorPPRefs();
+						EList<FeatureorPPReference> flist = EMV2Util.getFeatureorPPRefs((ErrorPropagation)ne);
 						if (!flist.isEmpty()) {
 							FeatureorPPReference fop = flist.get(flist.size() - 1);
 							if (fop instanceof FeatureGroup) {
@@ -217,18 +217,14 @@ public class EMLinkingService extends PropertiesLinkingService {
 //					searchResult = ne;
 //				}
 			} else if (context instanceof FeatureorPPReference) {
-				ErrorPropagation ep = (ErrorPropagation) context.eContainer();
-				EList<FeatureorPPReference> frefs = ep.getFeatureorPPRefs();
-				int idx = frefs.indexOf(context);
 				Classifier cl = null;
-				if (idx > 0) {
-					FeatureorPPReference enclosingfg = frefs.get(idx - 1);
-					NamedElement fg = enclosingfg.getFeatureorPP();
-					if (fg instanceof FeatureGroup) {
-						cl = ((FeatureGroup) fg).getFeatureGroupType();
-					}
-				} else {
+				if (context.eContainer() instanceof ErrorPropagation) {
 					cl = AadlUtil.getContainingClassifier(context);
+				} else if (context.eContainer() instanceof FeatureorPPReference) {
+					NamedElement fg = ((FeatureorPPReference)context.eContainer()).getFeatureorPP();
+					if (fg instanceof FeatureGroup) {
+						cl = ((FeatureGroup)fg).getFeatureGroupType();
+					}
 				}
 				if (cl != null) {
 					NamedElement ne = cl.findNamedElement(name);

@@ -844,8 +844,8 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 //							OsateDebug.osateDebug("ep=" + ep);
 //							OsateDebug.osateDebug("ep in  getref=" + ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP());
 //							OsateDebug.osateDebug("ep out getref=" + ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP());
-							if ((ep.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP() == srcFeature)
-									&& (ep.getOutgoing().getFeatureorPPRefs().get(0).getFeatureorPP() == dstFeature)) {
+							if ((EMV2Util.getFeatureorPPRefs(ep.getIncoming()).get(0).getFeatureorPP() == srcFeature)
+									&& (EMV2Util.getFeatureorPPRefs(ep.getOutgoing()).get(0).getFeatureorPP() == dstFeature)) {
 								found = true;
 							}
 						}
@@ -899,7 +899,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 				if ((componentInstance.getComponentClassifier() instanceof ComponentImplementation)
 						&& (ef instanceof ErrorSink)) {
 					ErrorSink es = (ErrorSink) ef;
-					Feature src = (Feature) es.getIncoming().getFeatureorPPRefs().get(0).getFeatureorPP();
+					Feature src = (Feature) EMV2Util.getFeatureorPPRefs(es.getIncoming()).get(0).getFeatureorPP();
 					ComponentImplementation impl = (ComponentImplementation) componentInstance.getComponentClassifier();
 					// OsateDebug.osateDebug("src="+src);
 
@@ -946,7 +946,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 										// OsateDebug.osateDebug("ef2 error sink="+ef2);
 
 										ErrorSink es2 = (ErrorSink) ef2;
-										Feature dst = (Feature) es2.getIncoming().getFeatureorPPRefs().get(0)
+										Feature dst = (Feature) EMV2Util.getFeatureorPPRefs(es2.getIncoming()).get(0)
 												.getFeatureorPP();
 										// OsateDebug.osateDebug("src="+src);
 

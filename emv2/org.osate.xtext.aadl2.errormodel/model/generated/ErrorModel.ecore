@@ -103,8 +103,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagation" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement #//EventOrPropagation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureorPPRefs" upperBound="-1"
-        eType="#//FeatureorPPReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureorPPRef" eType="#//FeatureorPPReference"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="not" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="ecore:EEnum platform:/resource/org.osate.aadl2/model/aadl2.ecore#//DirectionType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//TypeSet"
@@ -112,6 +112,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureorPPReference" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureorPP" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="next" eType="#//FeatureorPPReference"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorFlow" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeTokenConstraint" eType="#//TypeSet"

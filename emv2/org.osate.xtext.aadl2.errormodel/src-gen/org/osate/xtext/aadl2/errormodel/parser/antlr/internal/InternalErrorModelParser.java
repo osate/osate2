@@ -5508,34 +5508,31 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleErrorPropagation"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2160:1: ruleErrorPropagation returns [EObject current=null] : ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= Colon ( (lv_not_6_0= Not ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= Propagation ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= Semicolon ) ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2160:1: ruleErrorPropagation returns [EObject current=null] : ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon ) ;
     public final EObject ruleErrorPropagation() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_3=null;
-        Token otherlv_5=null;
-        Token lv_not_6_0=null;
+        Token lv_not_4_0=null;
+        Token otherlv_6=null;
         Token otherlv_8=null;
-        Token otherlv_10=null;
         AntlrDatatypeRuleToken lv_kind_1_0 = null;
 
-        EObject lv_featureorPPRefs_2_0 = null;
+        EObject lv_featureorPPRef_2_0 = null;
 
-        EObject lv_featureorPPRefs_4_0 = null;
+        AntlrDatatypeRuleToken lv_direction_5_0 = null;
 
-        AntlrDatatypeRuleToken lv_direction_7_0 = null;
-
-        EObject lv_typeSet_9_0 = null;
+        EObject lv_typeSet_7_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2163:28: ( ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= Colon ( (lv_not_6_0= Not ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= Propagation ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= Semicolon ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2164:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= Colon ( (lv_not_6_0= Not ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= Propagation ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= Semicolon )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2163:28: ( ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2164:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2164:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= Colon ( (lv_not_6_0= Not ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= Propagation ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= Semicolon )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2164:2: () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) ) otherlv_5= Colon ( (lv_not_6_0= Not ) )? ( (lv_direction_7_0= rulePropagationDirection ) ) otherlv_8= Propagation ( (lv_typeSet_9_0= ruleTypeSetReference ) ) otherlv_10= Semicolon
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2164:1: ( () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2164:2: () ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) ) otherlv_3= Colon ( (lv_not_4_0= Not ) )? ( (lv_direction_5_0= rulePropagationDirection ) ) otherlv_6= Propagation ( (lv_typeSet_7_0= ruleTypeSetReference ) ) otherlv_8= Semicolon
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2164:2: ()
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2165:5: 
@@ -5548,23 +5545,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2170:2: ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* ) )
-            int alt61=2;
-            int LA61_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2170:2: ( ( (lv_kind_1_0= rulePropagationKind ) ) | ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) ) )
+            int alt60=2;
+            int LA60_0 = input.LA(1);
 
-            if ( (LA61_0==Connection||LA61_0==Processor||LA61_0==Bindings||LA61_0==Binding||LA61_0==Access||LA61_0==Memory) ) {
-                alt61=1;
+            if ( (LA60_0==Connection||LA60_0==Processor||LA60_0==Bindings||LA60_0==Binding||LA60_0==Access||LA60_0==Memory) ) {
+                alt60=1;
             }
-            else if ( (LA61_0==RULE_ID) ) {
-                alt61=2;
+            else if ( (LA60_0==RULE_ID) ) {
+                alt60=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 61, 0, input);
+                    new NoViableAltException("", 60, 0, input);
 
                 throw nvae;
             }
-            switch (alt61) {
+            switch (alt60) {
                 case 1 :
                     // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2170:3: ( (lv_kind_1_0= rulePropagationKind ) )
                     {
@@ -5603,22 +5600,19 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2189:6: ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2189:6: ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) )
                     {
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2189:6: ( ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )* )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2189:7: ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) ) (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )*
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2189:6: ( (lv_featureorPPRef_2_0= ruleFeatureorPPReference ) )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2190:1: (lv_featureorPPRef_2_0= ruleFeatureorPPReference )
                     {
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2189:7: ( (lv_featureorPPRefs_2_0= ruleFeatureorPPReference ) )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2190:1: (lv_featureorPPRefs_2_0= ruleFeatureorPPReference )
-                    {
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2190:1: (lv_featureorPPRefs_2_0= ruleFeatureorPPReference )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2191:3: lv_featureorPPRefs_2_0= ruleFeatureorPPReference
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2190:1: (lv_featureorPPRef_2_0= ruleFeatureorPPReference )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2191:3: lv_featureorPPRef_2_0= ruleFeatureorPPReference
                     {
                      
-                    	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getFeatureorPPRefsFeatureorPPReferenceParserRuleCall_1_1_0_0()); 
+                    	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getFeatureorPPRefFeatureorPPReferenceParserRuleCall_1_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_ruleFeatureorPPReference_in_ruleErrorPropagation4600);
-                    lv_featureorPPRefs_2_0=ruleFeatureorPPReference();
+                    pushFollow(FollowSets000.FOLLOW_ruleFeatureorPPReference_in_ruleErrorPropagation4599);
+                    lv_featureorPPRef_2_0=ruleFeatureorPPReference();
 
                     state._fsp--;
 
@@ -5626,77 +5620,15 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     	        if (current==null) {
                     	            current = createModelElementForParent(grammarAccess.getErrorPropagationRule());
                     	        }
-                           		add(
+                           		set(
                            			current, 
-                           			"featureorPPRefs",
-                            		lv_featureorPPRefs_2_0, 
+                           			"featureorPPRef",
+                            		lv_featureorPPRef_2_0, 
                             		"FeatureorPPReference");
                     	        afterParserOrEnumRuleCall();
                     	    
 
                     }
-
-
-                    }
-
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2207:2: (otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) ) )*
-                    loop60:
-                    do {
-                        int alt60=2;
-                        int LA60_0 = input.LA(1);
-
-                        if ( (LA60_0==FullStop) ) {
-                            alt60=1;
-                        }
-
-
-                        switch (alt60) {
-                    	case 1 :
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2208:2: otherlv_3= FullStop ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) )
-                    	    {
-                    	    otherlv_3=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleErrorPropagation4614); 
-
-                    	        	newLeafNode(otherlv_3, grammarAccess.getErrorPropagationAccess().getFullStopKeyword_1_1_1_0());
-                    	        
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2212:1: ( (lv_featureorPPRefs_4_0= ruleFeatureorPPReference ) )
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2213:1: (lv_featureorPPRefs_4_0= ruleFeatureorPPReference )
-                    	    {
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2213:1: (lv_featureorPPRefs_4_0= ruleFeatureorPPReference )
-                    	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2214:3: lv_featureorPPRefs_4_0= ruleFeatureorPPReference
-                    	    {
-                    	     
-                    	    	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getFeatureorPPRefsFeatureorPPReferenceParserRuleCall_1_1_1_1_0()); 
-                    	    	    
-                    	    pushFollow(FollowSets000.FOLLOW_ruleFeatureorPPReference_in_ruleErrorPropagation4634);
-                    	    lv_featureorPPRefs_4_0=ruleFeatureorPPReference();
-
-                    	    state._fsp--;
-
-
-                    	    	        if (current==null) {
-                    	    	            current = createModelElementForParent(grammarAccess.getErrorPropagationRule());
-                    	    	        }
-                    	           		add(
-                    	           			current, 
-                    	           			"featureorPPRefs",
-                    	            		lv_featureorPPRefs_4_0, 
-                    	            		"FeatureorPPReference");
-                    	    	        afterParserOrEnumRuleCall();
-                    	    	    
-
-                    	    }
-
-
-                    	    }
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    break loop60;
-                        }
-                    } while (true);
 
 
                     }
@@ -5707,27 +5639,27 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,Colon,FollowSets000.FOLLOW_Colon_in_ruleErrorPropagation4651); 
+            otherlv_3=(Token)match(input,Colon,FollowSets000.FOLLOW_Colon_in_ruleErrorPropagation4613); 
 
-                	newLeafNode(otherlv_5, grammarAccess.getErrorPropagationAccess().getColonKeyword_2());
+                	newLeafNode(otherlv_3, grammarAccess.getErrorPropagationAccess().getColonKeyword_2());
                 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2235:1: ( (lv_not_6_0= Not ) )?
-            int alt62=2;
-            int LA62_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2212:1: ( (lv_not_4_0= Not ) )?
+            int alt61=2;
+            int LA61_0 = input.LA(1);
 
-            if ( (LA62_0==Not) ) {
-                alt62=1;
+            if ( (LA61_0==Not) ) {
+                alt61=1;
             }
-            switch (alt62) {
+            switch (alt61) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2236:1: (lv_not_6_0= Not )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2213:1: (lv_not_4_0= Not )
                     {
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2236:1: (lv_not_6_0= Not )
-                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2237:3: lv_not_6_0= Not
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2213:1: (lv_not_4_0= Not )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2214:3: lv_not_4_0= Not
                     {
-                    lv_not_6_0=(Token)match(input,Not,FollowSets000.FOLLOW_Not_in_ruleErrorPropagation4669); 
+                    lv_not_4_0=(Token)match(input,Not,FollowSets000.FOLLOW_Not_in_ruleErrorPropagation4631); 
 
-                            newLeafNode(lv_not_6_0, grammarAccess.getErrorPropagationAccess().getNotNotKeyword_3_0());
+                            newLeafNode(lv_not_4_0, grammarAccess.getErrorPropagationAccess().getNotNotKeyword_3_0());
                         
 
                     	        if (current==null) {
@@ -5744,17 +5676,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2251:3: ( (lv_direction_7_0= rulePropagationDirection ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2252:1: (lv_direction_7_0= rulePropagationDirection )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2228:3: ( (lv_direction_5_0= rulePropagationDirection ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2229:1: (lv_direction_5_0= rulePropagationDirection )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2252:1: (lv_direction_7_0= rulePropagationDirection )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2253:3: lv_direction_7_0= rulePropagationDirection
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2229:1: (lv_direction_5_0= rulePropagationDirection )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2230:3: lv_direction_5_0= rulePropagationDirection
             {
              
             	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getDirectionPropagationDirectionParserRuleCall_4_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_rulePropagationDirection_in_ruleErrorPropagation4702);
-            lv_direction_7_0=rulePropagationDirection();
+            pushFollow(FollowSets000.FOLLOW_rulePropagationDirection_in_ruleErrorPropagation4664);
+            lv_direction_5_0=rulePropagationDirection();
 
             state._fsp--;
 
@@ -5765,7 +5697,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                    		set(
                    			current, 
                    			"direction",
-                    		lv_direction_7_0, 
+                    		lv_direction_5_0, 
                     		"PropagationDirection");
             	        afterParserOrEnumRuleCall();
             	    
@@ -5775,21 +5707,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_8=(Token)match(input,Propagation,FollowSets000.FOLLOW_Propagation_in_ruleErrorPropagation4715); 
+            otherlv_6=(Token)match(input,Propagation,FollowSets000.FOLLOW_Propagation_in_ruleErrorPropagation4677); 
 
-                	newLeafNode(otherlv_8, grammarAccess.getErrorPropagationAccess().getPropagationKeyword_5());
+                	newLeafNode(otherlv_6, grammarAccess.getErrorPropagationAccess().getPropagationKeyword_5());
                 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2274:1: ( (lv_typeSet_9_0= ruleTypeSetReference ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2275:1: (lv_typeSet_9_0= ruleTypeSetReference )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2251:1: ( (lv_typeSet_7_0= ruleTypeSetReference ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2252:1: (lv_typeSet_7_0= ruleTypeSetReference )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2275:1: (lv_typeSet_9_0= ruleTypeSetReference )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2276:3: lv_typeSet_9_0= ruleTypeSetReference
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2252:1: (lv_typeSet_7_0= ruleTypeSetReference )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2253:3: lv_typeSet_7_0= ruleTypeSetReference
             {
              
             	        newCompositeNode(grammarAccess.getErrorPropagationAccess().getTypeSetTypeSetReferenceParserRuleCall_6_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_ruleTypeSetReference_in_ruleErrorPropagation4735);
-            lv_typeSet_9_0=ruleTypeSetReference();
+            pushFollow(FollowSets000.FOLLOW_ruleTypeSetReference_in_ruleErrorPropagation4697);
+            lv_typeSet_7_0=ruleTypeSetReference();
 
             state._fsp--;
 
@@ -5800,7 +5732,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                    		set(
                    			current, 
                    			"typeSet",
-                    		lv_typeSet_9_0, 
+                    		lv_typeSet_7_0, 
                     		"TypeSetReference");
             	        afterParserOrEnumRuleCall();
             	    
@@ -5810,9 +5742,9 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_10=(Token)match(input,Semicolon,FollowSets000.FOLLOW_Semicolon_in_ruleErrorPropagation4748); 
+            otherlv_8=(Token)match(input,Semicolon,FollowSets000.FOLLOW_Semicolon_in_ruleErrorPropagation4710); 
 
-                	newLeafNode(otherlv_10, grammarAccess.getErrorPropagationAccess().getSemicolonKeyword_7());
+                	newLeafNode(otherlv_8, grammarAccess.getErrorPropagationAccess().getSemicolonKeyword_7());
                 
 
             }
@@ -5835,7 +5767,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFeatureorPPReference"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2305:1: entryRuleFeatureorPPReference returns [EObject current=null] : iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2282:1: entryRuleFeatureorPPReference returns [EObject current=null] : iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF ;
     public final EObject entryRuleFeatureorPPReference() throws RecognitionException {
         EObject current = null;
 
@@ -5843,17 +5775,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2306:2: (iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2307:2: iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2283:2: (iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2284:2: iv_ruleFeatureorPPReference= ruleFeatureorPPReference EOF
             {
              newCompositeNode(grammarAccess.getFeatureorPPReferenceRule()); 
-            pushFollow(FollowSets000.FOLLOW_ruleFeatureorPPReference_in_entryRuleFeatureorPPReference4782);
+            pushFollow(FollowSets000.FOLLOW_ruleFeatureorPPReference_in_entryRuleFeatureorPPReference4744);
             iv_ruleFeatureorPPReference=ruleFeatureorPPReference();
 
             state._fsp--;
 
              current =iv_ruleFeatureorPPReference; 
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleFeatureorPPReference4792); 
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleFeatureorPPReference4754); 
 
             }
 
@@ -5871,33 +5803,94 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFeatureorPPReference"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2314:1: ruleFeatureorPPReference returns [EObject current=null] : ( (otherlv_0= RULE_ID ) ) ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2291:1: ruleFeatureorPPReference returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? ) ;
     public final EObject ruleFeatureorPPReference() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
+        Token otherlv_1=null;
+        EObject lv_next_2_0 = null;
+
 
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2317:28: ( ( (otherlv_0= RULE_ID ) ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2318:1: ( (otherlv_0= RULE_ID ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2294:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2295:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2318:1: ( (otherlv_0= RULE_ID ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2319:1: (otherlv_0= RULE_ID )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2295:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )? )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2295:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )?
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2319:1: (otherlv_0= RULE_ID )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2320:3: otherlv_0= RULE_ID
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2295:2: ( (otherlv_0= RULE_ID ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2296:1: (otherlv_0= RULE_ID )
+            {
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2296:1: (otherlv_0= RULE_ID )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2297:3: otherlv_0= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getFeatureorPPReferenceRule());
             	        }
                     
-            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleFeatureorPPReference4836); 
+            otherlv_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleFeatureorPPReference4799); 
 
-            		newLeafNode(otherlv_0, grammarAccess.getFeatureorPPReferenceAccess().getFeatureorPPNamedElementCrossReference_0()); 
+            		newLeafNode(otherlv_0, grammarAccess.getFeatureorPPReferenceAccess().getFeatureorPPNamedElementCrossReference_0_0()); 
             	
+
+            }
+
+
+            }
+
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2308:2: (otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) ) )?
+            int alt62=2;
+            int LA62_0 = input.LA(1);
+
+            if ( (LA62_0==FullStop) ) {
+                alt62=1;
+            }
+            switch (alt62) {
+                case 1 :
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2309:2: otherlv_1= FullStop ( (lv_next_2_0= ruleFeatureorPPReference ) )
+                    {
+                    otherlv_1=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleFeatureorPPReference4813); 
+
+                        	newLeafNode(otherlv_1, grammarAccess.getFeatureorPPReferenceAccess().getFullStopKeyword_1_0());
+                        
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2313:1: ( (lv_next_2_0= ruleFeatureorPPReference ) )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2314:1: (lv_next_2_0= ruleFeatureorPPReference )
+                    {
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2314:1: (lv_next_2_0= ruleFeatureorPPReference )
+                    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:2315:3: lv_next_2_0= ruleFeatureorPPReference
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getFeatureorPPReferenceAccess().getNextFeatureorPPReferenceParserRuleCall_1_1_0()); 
+                    	    
+                    pushFollow(FollowSets000.FOLLOW_ruleFeatureorPPReference_in_ruleFeatureorPPReference4833);
+                    lv_next_2_0=ruleFeatureorPPReference();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getFeatureorPPReferenceRule());
+                    	        }
+                           		set(
+                           			current, 
+                           			"next",
+                            		lv_next_2_0, 
+                            		"FeatureorPPReference");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
 
             }
 
@@ -8902,11 +8895,6 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 if ( (LA93_1==Colon) ) {
                     switch ( input.LA(3) ) {
-                    case Repair:
-                        {
-                        alt93=2;
-                        }
-                        break;
                     case Error:
                         {
                         alt93=1;
@@ -8915,6 +8903,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                     case Recover:
                         {
                         alt93=3;
+                        }
+                        break;
+                    case Repair:
+                        {
+                        alt93=2;
                         }
                         break;
                     default:
@@ -11413,11 +11406,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 {
                 int LA117_2 = input.LA(2);
 
-                if ( (LA117_2==Behavior) ) {
-                    alt117=3;
-                }
-                else if ( (LA117_2==Propagations) ) {
+                if ( (LA117_2==Propagations) ) {
                     alt117=4;
+                }
+                else if ( (LA117_2==Behavior) ) {
+                    alt117=3;
                 }
                 else {
                     NoViableAltException nvae =
@@ -12696,11 +12689,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 if ( (LA124_1==Colon) ) {
                     int LA124_3 = input.LA(3);
 
-                    if ( ((LA124_3>=Not && LA124_3<=Out)||LA124_3==In) ) {
-                        alt124=2;
-                    }
-                    else if ( (LA124_3==Recover||LA124_3==Repair||LA124_3==Error) ) {
+                    if ( (LA124_3==Recover||LA124_3==Repair||LA124_3==Error) ) {
                         alt124=1;
+                    }
+                    else if ( ((LA124_3>=Not && LA124_3<=Out)||LA124_3==In) ) {
+                        alt124=2;
                     }
                     else {
                         NoViableAltException nvae =
@@ -20846,18 +20839,18 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleErrorPropagation_in_entryRuleErrorPropagation4506 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleErrorPropagation4516 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rulePropagationKind_in_ruleErrorPropagation4572 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-        public static final BitSet FOLLOW_ruleFeatureorPPReference_in_ruleErrorPropagation4600 = new BitSet(new long[]{0x0000000000000000L,0x0000000000180000L});
-        public static final BitSet FOLLOW_FullStop_in_ruleErrorPropagation4614 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
-        public static final BitSet FOLLOW_ruleFeatureorPPReference_in_ruleErrorPropagation4634 = new BitSet(new long[]{0x0000000000000000L,0x0000000000180000L});
-        public static final BitSet FOLLOW_Colon_in_ruleErrorPropagation4651 = new BitSet(new long[]{0x8000000000000000L,0x0000000000000201L});
-        public static final BitSet FOLLOW_Not_in_ruleErrorPropagation4669 = new BitSet(new long[]{0x8000000000000000L,0x0000000000000201L});
-        public static final BitSet FOLLOW_rulePropagationDirection_in_ruleErrorPropagation4702 = new BitSet(new long[]{0x0000000000000080L});
-        public static final BitSet FOLLOW_Propagation_in_ruleErrorPropagation4715 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
-        public static final BitSet FOLLOW_ruleTypeSetReference_in_ruleErrorPropagation4735 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-        public static final BitSet FOLLOW_Semicolon_in_ruleErrorPropagation4748 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleFeatureorPPReference_in_entryRuleFeatureorPPReference4782 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleFeatureorPPReference4792 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleFeatureorPPReference4836 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleFeatureorPPReference_in_ruleErrorPropagation4599 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+        public static final BitSet FOLLOW_Colon_in_ruleErrorPropagation4613 = new BitSet(new long[]{0x8000000000000000L,0x0000000000000201L});
+        public static final BitSet FOLLOW_Not_in_ruleErrorPropagation4631 = new BitSet(new long[]{0x8000000000000000L,0x0000000000000201L});
+        public static final BitSet FOLLOW_rulePropagationDirection_in_ruleErrorPropagation4664 = new BitSet(new long[]{0x0000000000000080L});
+        public static final BitSet FOLLOW_Propagation_in_ruleErrorPropagation4677 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
+        public static final BitSet FOLLOW_ruleTypeSetReference_in_ruleErrorPropagation4697 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+        public static final BitSet FOLLOW_Semicolon_in_ruleErrorPropagation4710 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleFeatureorPPReference_in_entryRuleFeatureorPPReference4744 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleFeatureorPPReference4754 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleFeatureorPPReference4799 = new BitSet(new long[]{0x0000000000000002L,0x0000000000080000L});
+        public static final BitSet FOLLOW_FullStop_in_ruleFeatureorPPReference4813 = new BitSet(new long[]{0x0000000140448400L,0x0000000800000000L});
+        public static final BitSet FOLLOW_ruleFeatureorPPReference_in_ruleFeatureorPPReference4833 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rulePropagationDirection_in_entryRulePropagationDirection4871 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRulePropagationDirection4882 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_In_in_rulePropagationDirection4920 = new BitSet(new long[]{0x0000000000000002L});
