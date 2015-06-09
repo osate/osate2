@@ -4,6 +4,7 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.BadPartitioningException;
 import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.ITypedRegion;
+import org.eclipse.jface.text.Position;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.codetemplates.ui.contentassist.DummyDocument;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
@@ -21,6 +22,10 @@ public class DummyXtextDocument extends DummyDocument implements IXtextDocument 
 	@Override
 	public boolean containsPositionCategory(String category) {
 		return true;
+	}
+
+	@Override
+	public void addPosition(Position position) throws BadLocationException {
 	}
 
 	@Override
