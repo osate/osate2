@@ -206,7 +206,7 @@ public class AssureExportHandler extends AbstractHandler {
 
 		Goal subgoal = DcaseFactory.eINSTANCE.createGoal();
 		subgoal.setMessage(requirement.getTitle());
-		subgoal.setDesc(cr.getName());
+		subgoal.setDesc(cr.getTarget().getName());
 
 		model.getRootBasicNode().add(subgoal);
 
@@ -263,7 +263,7 @@ public class AssureExportHandler extends AbstractHandler {
 		VerificationActivityResult result = (VerificationActivityResult) ve;
 		Strategy strategy = DcaseFactory.eINSTANCE.createStrategy();
 		strategy.setMessage(result.getTarget().getMethod().getTitle());
-		strategy.setDesc(result.getName());
+		strategy.setDesc(result.getTarget().getName());
 //		justification.setMessage(ve.);
 //		justification.setDesc(ve.getName());
 
