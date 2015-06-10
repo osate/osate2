@@ -252,43 +252,6 @@ public interface CommonPackage extends EPackage
   int UNCERTAINTY_FEATURE_COUNT = 7;
 
   /**
-   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.alisa.common.common.impl.ComputeDeclarationImpl
-   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
-   * @generated
-   */
-  int COMPUTE_DECLARATION = 4;
-
-  /**
-   * The feature id for the '<em><b>Writeable</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPUTE_DECLARATION__WRITEABLE = 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPUTE_DECLARATION__NAME = 1;
-
-  /**
-   * The number of structural features of the '<em>Compute Declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPUTE_DECLARATION_FEATURE_COUNT = 2;
-
-  /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -296,7 +259,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getShowValue()
    * @generated
    */
-  int SHOW_VALUE = 5;
+  int SHOW_VALUE = 4;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' reference.
@@ -333,7 +296,7 @@ public interface CommonPackage extends EPackage
    * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getImageReference()
    * @generated
    */
-  int IMAGE_REFERENCE = 6;
+  int IMAGE_REFERENCE = 5;
 
   /**
    * The feature id for the '<em><b>Imgfile</b></em>' attribute.
@@ -352,6 +315,43 @@ public interface CommonPackage extends EPackage
    * @ordered
    */
   int IMAGE_REFERENCE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.alisa.common.common.impl.ComputeDeclarationImpl
+   * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
+   * @generated
+   */
+  int COMPUTE_DECLARATION = 6;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__TYPE = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION__NAME = XbasePackage.XEXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Compute Declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPUTE_DECLARATION_FEATURE_COUNT = XbasePackage.XEXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.
@@ -603,38 +603,6 @@ public interface CommonPackage extends EPackage
   EAttribute getUncertainty_Maturityindex();
 
   /**
-   * Returns the meta object for class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Compute Declaration</em>'.
-   * @see org.osate.alisa.common.common.ComputeDeclaration
-   * @generated
-   */
-  EClass getComputeDeclaration();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ComputeDeclaration#isWriteable <em>Writeable</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Writeable</em>'.
-   * @see org.osate.alisa.common.common.ComputeDeclaration#isWriteable()
-   * @see #getComputeDeclaration()
-   * @generated
-   */
-  EAttribute getComputeDeclaration_Writeable();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ComputeDeclaration#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.alisa.common.common.ComputeDeclaration#getName()
-   * @see #getComputeDeclaration()
-   * @generated
-   */
-  EAttribute getComputeDeclaration_Name();
-
-  /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -686,6 +654,38 @@ public interface CommonPackage extends EPackage
    * @generated
    */
   EAttribute getImageReference_Imgfile();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Compute Declaration</em>'.
+   * @see org.osate.alisa.common.common.ComputeDeclaration
+   * @generated
+   */
+  EClass getComputeDeclaration();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.alisa.common.common.ComputeDeclaration#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.osate.alisa.common.common.ComputeDeclaration#getType()
+   * @see #getComputeDeclaration()
+   * @generated
+   */
+  EReference getComputeDeclaration_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.ComputeDeclaration#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.osate.alisa.common.common.ComputeDeclaration#getName()
+   * @see #getComputeDeclaration()
+   * @generated
+   */
+  EAttribute getComputeDeclaration_Name();
 
   /**
    * Returns the meta object for class '{@link org.osate.alisa.common.common.APropertyReference <em>AProperty Reference</em>}'.
@@ -897,32 +897,6 @@ public interface CommonPackage extends EPackage
     EAttribute UNCERTAINTY__MATURITYINDEX = eINSTANCE.getUncertainty_Maturityindex();
 
     /**
-     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.alisa.common.common.impl.ComputeDeclarationImpl
-     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
-     * @generated
-     */
-    EClass COMPUTE_DECLARATION = eINSTANCE.getComputeDeclaration();
-
-    /**
-     * The meta object literal for the '<em><b>Writeable</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute COMPUTE_DECLARATION__WRITEABLE = eINSTANCE.getComputeDeclaration_Writeable();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute COMPUTE_DECLARATION__NAME = eINSTANCE.getComputeDeclaration_Name();
-
-    /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ShowValueImpl <em>Show Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -965,6 +939,32 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute IMAGE_REFERENCE__IMGFILE = eINSTANCE.getImageReference_Imgfile();
+
+    /**
+     * The meta object literal for the '{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl <em>Compute Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.alisa.common.common.impl.ComputeDeclarationImpl
+     * @see org.osate.alisa.common.common.impl.CommonPackageImpl#getComputeDeclaration()
+     * @generated
+     */
+    EClass COMPUTE_DECLARATION = eINSTANCE.getComputeDeclaration();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COMPUTE_DECLARATION__TYPE = eINSTANCE.getComputeDeclaration_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPUTE_DECLARATION__NAME = eINSTANCE.getComputeDeclaration_Name();
 
     /**
      * The meta object literal for the '{@link org.osate.alisa.common.common.impl.APropertyReferenceImpl <em>AProperty Reference</em>}' class.

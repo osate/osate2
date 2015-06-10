@@ -205,6 +205,8 @@ ruleDescriptionElement returns [EObject current=null]
 
 
 
+
+
 // Entry rule entryRuleAPropertyReference
 entryRuleAPropertyReference returns [EObject current=null] 
 	:
@@ -246,8 +248,6 @@ ruleAPropertyReference returns [EObject current=null]
 )
 ))
 ;
-
-
 
 
 

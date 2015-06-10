@@ -103,13 +103,6 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.COMPUTE_DECLARATION:
-      {
-        ComputeDeclaration computeDeclaration = (ComputeDeclaration)theEObject;
-        T result = caseComputeDeclaration(computeDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case CommonPackage.SHOW_VALUE:
       {
         ShowValue showValue = (ShowValue)theEObject;
@@ -121,6 +114,14 @@ public class CommonSwitch<T> extends Switch<T>
       {
         ImageReference imageReference = (ImageReference)theEObject;
         T result = caseImageReference(imageReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CommonPackage.COMPUTE_DECLARATION:
+      {
+        ComputeDeclaration computeDeclaration = (ComputeDeclaration)theEObject;
+        T result = caseComputeDeclaration(computeDeclaration);
+        if (result == null) result = caseXExpression(computeDeclaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -210,22 +211,6 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseComputeDeclaration(ComputeDeclaration object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -253,6 +238,22 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseImageReference(ImageReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Compute Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComputeDeclaration(ComputeDeclaration object)
   {
     return null;
   }

@@ -3,11 +3,16 @@
 package org.osate.alisa.common.common.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.xtext.common.types.JvmTypeReference;
+
+import org.eclipse.xtext.xbase.impl.XExpressionImpl;
 
 import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.common.ComputeDeclaration;
@@ -19,34 +24,24 @@ import org.osate.alisa.common.common.ComputeDeclaration;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl#isWriteable <em>Writeable</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.ComputeDeclarationImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ComputeDeclarationImpl extends MinimalEObjectImpl.Container implements ComputeDeclaration
+public class ComputeDeclarationImpl extends XExpressionImpl implements ComputeDeclaration
 {
   /**
-   * The default value of the '{@link #isWriteable() <em>Writeable</em>}' attribute.
+   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isWriteable()
+   * @see #getType()
    * @generated
    * @ordered
    */
-  protected static final boolean WRITEABLE_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isWriteable() <em>Writeable</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isWriteable()
-   * @generated
-   * @ordered
-   */
-  protected boolean writeable = WRITEABLE_EDEFAULT;
+  protected JvmTypeReference type;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -94,9 +89,9 @@ public class ComputeDeclarationImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isWriteable()
+  public JvmTypeReference getType()
   {
-    return writeable;
+    return type;
   }
 
   /**
@@ -104,12 +99,37 @@ public class ComputeDeclarationImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setWriteable(boolean newWriteable)
+  public NotificationChain basicSetType(JvmTypeReference newType, NotificationChain msgs)
   {
-    boolean oldWriteable = writeable;
-    writeable = newWriteable;
+    JvmTypeReference oldType = type;
+    type = newType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.COMPUTE_DECLARATION__WRITEABLE, oldWriteable, writeable));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CommonPackage.COMPUTE_DECLARATION__TYPE, oldType, newType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(JvmTypeReference newType)
+  {
+    if (newType != type)
+    {
+      NotificationChain msgs = null;
+      if (type != null)
+        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CommonPackage.COMPUTE_DECLARATION__TYPE, null, msgs);
+      if (newType != null)
+        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CommonPackage.COMPUTE_DECLARATION__TYPE, null, msgs);
+      msgs = basicSetType(newType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.COMPUTE_DECLARATION__TYPE, newType, newType));
   }
 
   /**
@@ -141,12 +161,28 @@ public class ComputeDeclarationImpl extends MinimalEObjectImpl.Container impleme
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case CommonPackage.COMPUTE_DECLARATION__TYPE:
+        return basicSetType(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
-      case CommonPackage.COMPUTE_DECLARATION__WRITEABLE:
-        return isWriteable();
+      case CommonPackage.COMPUTE_DECLARATION__TYPE:
+        return getType();
       case CommonPackage.COMPUTE_DECLARATION__NAME:
         return getName();
     }
@@ -163,8 +199,8 @@ public class ComputeDeclarationImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case CommonPackage.COMPUTE_DECLARATION__WRITEABLE:
-        setWriteable((Boolean)newValue);
+      case CommonPackage.COMPUTE_DECLARATION__TYPE:
+        setType((JvmTypeReference)newValue);
         return;
       case CommonPackage.COMPUTE_DECLARATION__NAME:
         setName((String)newValue);
@@ -183,8 +219,8 @@ public class ComputeDeclarationImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case CommonPackage.COMPUTE_DECLARATION__WRITEABLE:
-        setWriteable(WRITEABLE_EDEFAULT);
+      case CommonPackage.COMPUTE_DECLARATION__TYPE:
+        setType((JvmTypeReference)null);
         return;
       case CommonPackage.COMPUTE_DECLARATION__NAME:
         setName(NAME_EDEFAULT);
@@ -203,8 +239,8 @@ public class ComputeDeclarationImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case CommonPackage.COMPUTE_DECLARATION__WRITEABLE:
-        return writeable != WRITEABLE_EDEFAULT;
+      case CommonPackage.COMPUTE_DECLARATION__TYPE:
+        return type != null;
       case CommonPackage.COMPUTE_DECLARATION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
@@ -222,9 +258,7 @@ public class ComputeDeclarationImpl extends MinimalEObjectImpl.Container impleme
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (writeable: ");
-    result.append(writeable);
-    result.append(", name: ");
+    result.append(" (name: ");
     result.append(name);
     result.append(')');
     return result.toString();

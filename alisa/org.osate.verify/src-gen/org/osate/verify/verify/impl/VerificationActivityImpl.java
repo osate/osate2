@@ -14,7 +14,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
@@ -69,14 +71,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected VerificationMethod method;
 
   /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute list.
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getParameters()
    * @generated
    * @ordered
    */
-  protected EList<String> parameters;
+  protected EList<XExpression> parameters;
 
   /**
    * The default value of the '{@link #getTimeout() <em>Timeout</em>}' attribute.
@@ -190,11 +192,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getParameters()
+  public EList<XExpression> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EDataTypeEList<String>(String.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
+      parameters = new EObjectResolvingEList<XExpression>(XExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
     }
     return parameters;
   }
@@ -264,7 +266,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends String>)newValue);
+        getParameters().addAll((Collection<? extends XExpression>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         setTimeout((Integer)newValue);
@@ -334,8 +336,6 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", parameters: ");
-    result.append(parameters);
     result.append(", timeout: ");
     result.append(timeout);
     result.append(')');

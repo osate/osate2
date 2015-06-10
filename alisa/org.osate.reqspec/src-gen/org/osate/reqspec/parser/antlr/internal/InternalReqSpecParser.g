@@ -3412,10 +3412,10 @@ ruleXValDeclaration returns [EObject current=null]
             grammarAccess.getXValDeclarationAccess().getXVariableDeclarationAction_0(),
             $current);
     }
-)
+)(
 	otherlv_1=Val
     {
-    	newLeafNode(otherlv_1, grammarAccess.getXValDeclarationAccess().getValKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getXValDeclarationAccess().getValKeyword_1_0());
     }
 (((((
 (
@@ -3429,7 +3429,7 @@ RULE_ID
 )))=>((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_2_0_0_0_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0()); 
 	    }
 		lv_type_2_0=ruleJvmTypeReference		{
 	        if ($current==null) {
@@ -3448,7 +3448,7 @@ RULE_ID
 (
 		lv_name_3_0=RULE_ID
 		{
-			newLeafNode(lv_name_3_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_2_0_0_1_0()); 
+			newLeafNode(lv_name_3_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_1_1_0_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3467,7 +3467,7 @@ RULE_ID
 (
 		lv_name_4_0=RULE_ID
 		{
-			newLeafNode(lv_name_4_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_2_1_0()); 
+			newLeafNode(lv_name_4_0, grammarAccess.getXValDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3484,13 +3484,13 @@ RULE_ID
 ))
 	otherlv_5=EqualsSign
     {
-    	newLeafNode(otherlv_5, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_3());
+    	newLeafNode(otherlv_5, grammarAccess.getXValDeclarationAccess().getEqualsSignKeyword_1_2());
     }
 (
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightAPropertyReferenceParserRuleCall_4_0_0()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightAPropertyReferenceParserRuleCall_1_3_0_0()); 
 	    }
 		lv_right_6_1=ruleAPropertyReference		{
 	        if ($current==null) {
@@ -3505,7 +3505,7 @@ RULE_ID
 	    }
 
     |		{ 
-	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightXExpressionParserRuleCall_4_0_1()); 
+	        newCompositeNode(grammarAccess.getXValDeclarationAccess().getRightXExpressionParserRuleCall_1_3_0_1()); 
 	    }
 		lv_right_6_2=ruleXExpression		{
 	        if ($current==null) {
@@ -3522,7 +3522,103 @@ RULE_ID
 )
 
 )
-))
+)))
+;
+
+
+
+
+
+// Entry rule entryRuleComputeDeclaration
+entryRuleComputeDeclaration returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getComputeDeclarationRule()); }
+	 iv_ruleComputeDeclaration=ruleComputeDeclaration 
+	 { $current=$iv_ruleComputeDeclaration.current; } 
+	 EOF 
+;
+
+// Rule ComputeDeclaration
+ruleComputeDeclaration returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getComputeDeclarationAccess().getComputeDeclarationAction_0(),
+            $current);
+    }
+)(
+	otherlv_1=Compute
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getComputeDeclarationAccess().getComputeKeyword_1_0());
+    }
+(((((
+(
+ruleJvmTypeReference
+)
+)(
+(
+RULE_ID
+
+)
+)))=>((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getComputeDeclarationAccess().getTypeJvmTypeReferenceParserRuleCall_1_1_0_0_0_0()); 
+	    }
+		lv_type_2_0=ruleJvmTypeReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getComputeDeclarationRule());
+	        }
+       		set(
+       			$current, 
+       			"type",
+        		lv_type_2_0, 
+        		"JvmTypeReference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		lv_name_3_0=RULE_ID
+		{
+			newLeafNode(lv_name_3_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_1_1_0_0_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getComputeDeclarationRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_3_0, 
+        		"ID");
+	    }
+
+)
+)))
+    |(
+(
+		lv_name_4_0=RULE_ID
+		{
+			newLeafNode(lv_name_4_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_1_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getComputeDeclarationRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_4_0, 
+        		"ID");
+	    }
+
+)
+))))
 ;
 
 
@@ -3566,67 +3662,6 @@ ruleAPropertyReference returns [EObject current=null]
 	    }
 		ruleAADLPROPERTYREFERENCE		{ 
 	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))
-;
-
-
-
-
-
-// Entry rule entryRuleComputeDeclaration
-entryRuleComputeDeclaration returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getComputeDeclarationRule()); }
-	 iv_ruleComputeDeclaration=ruleComputeDeclaration 
-	 { $current=$iv_ruleComputeDeclaration.current; } 
-	 EOF 
-;
-
-// Rule ComputeDeclaration
-ruleComputeDeclaration returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-    {
-        $current = forceCreateModelElement(
-            grammarAccess.getComputeDeclarationAccess().getComputeDeclarationAction_0(),
-            $current);
-    }
-)(
-(
-		lv_writeable_1_0=
-	Compute
-    {
-        newLeafNode(lv_writeable_1_0, grammarAccess.getComputeDeclarationAccess().getWriteableComputeKeyword_1_0());
-    }
-
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getComputeDeclarationRule());
-	        }
-       		setWithLastConsumed($current, "writeable", true, "compute");
-	    }
-
-)
-)(
-(
-		lv_name_2_0=RULE_ID
-		{
-			newLeafNode(lv_name_2_0, grammarAccess.getComputeDeclarationAccess().getNameIDTerminalRuleCall_2_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getComputeDeclarationRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_2_0, 
-        		"ID");
 	    }
 
 )

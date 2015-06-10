@@ -68,9 +68,9 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.DESCRIPTION_ELEMENT: return createDescriptionElement();
       case CommonPackage.RATIONALE: return createRationale();
       case CommonPackage.UNCERTAINTY: return createUncertainty();
-      case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.SHOW_VALUE: return createShowValue();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
+      case CommonPackage.COMPUTE_DECLARATION: return createComputeDeclaration();
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
       case CommonPackage.XNUMBER_LITERAL_UNIT: return createXNumberLiteralUnit();
       default:
@@ -127,17 +127,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ComputeDeclaration createComputeDeclaration()
-  {
-    ComputeDeclarationImpl computeDeclaration = new ComputeDeclarationImpl();
-    return computeDeclaration;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ShowValue createShowValue()
   {
     ShowValueImpl showValue = new ShowValueImpl();
@@ -153,6 +142,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     ImageReferenceImpl imageReference = new ImageReferenceImpl();
     return imageReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComputeDeclaration createComputeDeclaration()
+  {
+    ComputeDeclarationImpl computeDeclaration = new ComputeDeclarationImpl();
+    return computeDeclaration;
   }
 
   /**

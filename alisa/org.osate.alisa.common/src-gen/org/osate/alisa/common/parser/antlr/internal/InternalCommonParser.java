@@ -559,7 +559,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAPropertyReference"
-    // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:209:1: entryRuleAPropertyReference returns [EObject current=null] : iv_ruleAPropertyReference= ruleAPropertyReference EOF ;
+    // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:211:1: entryRuleAPropertyReference returns [EObject current=null] : iv_ruleAPropertyReference= ruleAPropertyReference EOF ;
     public final EObject entryRuleAPropertyReference() throws RecognitionException {
         EObject current = null;
 
@@ -567,13 +567,13 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:210:2: (iv_ruleAPropertyReference= ruleAPropertyReference EOF )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:211:2: iv_ruleAPropertyReference= ruleAPropertyReference EOF
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:212:2: (iv_ruleAPropertyReference= ruleAPropertyReference EOF )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:213:2: iv_ruleAPropertyReference= ruleAPropertyReference EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAPropertyReferenceRule()); 
             }
-            pushFollow(FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference370);
+            pushFollow(FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference372);
             iv_ruleAPropertyReference=ruleAPropertyReference();
 
             state._fsp--;
@@ -581,7 +581,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAPropertyReference; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAPropertyReference380); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAPropertyReference382); if (state.failed) return current;
 
             }
 
@@ -599,7 +599,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAPropertyReference"
-    // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:218:1: ruleAPropertyReference returns [EObject current=null] : ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) ;
+    // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:220:1: ruleAPropertyReference returns [EObject current=null] : ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) ;
     public final EObject ruleAPropertyReference() throws RecognitionException {
         EObject current = null;
 
@@ -608,14 +608,14 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:221:28: ( ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:222:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:223:28: ( ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:224:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
             {
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:222:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:222:2: () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:224:1: ( () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:224:2: () otherlv_1= '@' ( ( ruleAADLPROPERTYREFERENCE ) )
             {
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:222:2: ()
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:223:5: 
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:224:2: ()
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:225:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -627,17 +627,17 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,15,FOLLOW_15_in_ruleAPropertyReference426); if (state.failed) return current;
+            otherlv_1=(Token)match(input,15,FOLLOW_15_in_ruleAPropertyReference428); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getAPropertyReferenceAccess().getCommercialAtKeyword_1());
                   
             }
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:232:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:233:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:234:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:235:1: ( ruleAADLPROPERTYREFERENCE )
             {
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:233:1: ( ruleAADLPROPERTYREFERENCE )
-            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:234:3: ruleAADLPROPERTYREFERENCE
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:235:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.alisa.common/src-gen/org/osate/alisa/common/parser/antlr/internal/InternalCommon.g:236:3: ruleAADLPROPERTYREFERENCE
             {
             if ( state.backtracking==0 ) {
 
@@ -651,7 +651,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getAPropertyReferenceAccess().getPropertyPropertyCrossReference_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference449);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference451);
             ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -20672,8 +20672,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA7_specialS =
         "\1\uffff\1\2\1\3\1\4\1\5\1\6\1\1\1\0\2\uffff}>";
     static final String[] DFA7_transitionS = {
-            "\5\10\7\uffff\1\10\1\uffff\3\10\1\uffff\1\1\1\2\1\3\1\4\1\5"+
-            "\1\6\1\7\37\10\1\uffff\34\10",
+            "\5\10\7\uffff\1\10\1\uffff\3\10\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\37\10\1\uffff\34\10",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -20847,8 +20846,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA17_specialS =
         "\2\uffff\1\3\1\5\1\6\1\7\1\0\1\4\1\1\1\2\1\uffff}>";
     static final String[] DFA17_transitionS = {
-            "\5\1\7\uffff\1\1\1\uffff\3\1\1\uffff\5\1\1\2\1\3\10\1\1\4\1"+
-            "\5\1\6\1\7\1\10\1\11\21\1\1\uffff\34\1",
+            "\5\1\7\uffff\1\1\1\uffff\3\1\1\uffff\5\1\1\2\1\3\10\1\1\4\1\5\1\6\1\7\1\10\1\11\21\1\1\uffff\34\1",
             "",
             "\1\uffff",
             "\1\uffff",
@@ -21097,8 +21095,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA36_specialS =
         "\1\uffff\1\0\114\uffff}>";
     static final String[] DFA36_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\37\2\1\1\6\2\1\uffff\34"+
-            "\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\37\2\1\1\6\2\1\uffff\34\2",
             "\1\uffff",
             "",
             "",
@@ -21250,9 +21247,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA35_specialS =
         "\1\0\1\1\1\2\41\uffff}>";
     static final String[] DFA35_transitionS = {
-            "\1\5\1\1\3\5\22\uffff\1\5\14\uffff\1\3\2\uffff\2\5\2\uffff"+
-            "\1\5\5\uffff\1\2\1\43\2\5\1\uffff\1\5\1\uffff\1\4\1\uffff\1"+
-            "\5\1\uffff\1\5\3\uffff\3\5\2\uffff\15\5\1\uffff\1\5",
+            "\1\5\1\1\3\5\22\uffff\1\5\14\uffff\1\3\2\uffff\2\5\2\uffff\1\5\5\uffff\1\2\1\43\2\5\1\uffff\1\5\1\uffff\1\4\1\uffff\1\5\1\uffff\1\5\3\uffff\3\5\2\uffff\15\5\1\uffff\1\5",
             "\1\uffff",
             "\1\uffff",
             "",
@@ -21400,8 +21395,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA37_specialS =
         "\1\uffff\1\0\114\uffff}>";
     static final String[] DFA37_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\44\2\1\1\1\2\1\uffff\34"+
-            "\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\44\2\1\1\1\2\1\uffff\34\2",
             "\1\uffff",
             "",
             "",
@@ -21549,14 +21543,11 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA39_maxS =
         "\1\127\26\uffff\1\0\10\uffff";
     static final String DFA39_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\6\uffff\1\6\11\uffff\1\7\1\uffff\1"+
-        "\12\1\13\1\14\1\15\1\16\1\17\1\10\1\11";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\6\uffff\1\6\11\uffff\1\7\1\uffff\1\12\1\13\1\14\1\15\1\16\1\17\1\10\1\11";
     static final String DFA39_specialS =
         "\1\0\26\uffff\1\1\10\uffff}>";
     static final String[] DFA39_transitionS = {
-            "\1\14\1\5\3\14\22\uffff\1\5\31\uffff\1\35\1\uffff\1\14\1\2"+
-            "\1\uffff\1\14\3\uffff\1\26\1\uffff\1\3\3\uffff\1\27\1\30\1\31"+
-            "\2\uffff\5\5\1\1\4\14\1\32\1\33\1\34\1\uffff\1\4",
+            "\1\14\1\5\3\14\22\uffff\1\5\31\uffff\1\35\1\uffff\1\14\1\2\1\uffff\1\14\3\uffff\1\26\1\uffff\1\3\3\uffff\1\27\1\30\1\31\2\uffff\5\5\1\1\4\14\1\32\1\33\1\34\1\uffff\1\4",
             "",
             "",
             "",
@@ -21701,9 +21692,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA48_specialS =
         "\1\0\1\1\1\2\43\uffff}>";
     static final String[] DFA48_transitionS = {
-            "\1\5\1\1\3\5\22\uffff\1\5\14\uffff\1\3\2\uffff\2\5\2\uffff"+
-            "\1\5\5\uffff\1\2\1\uffff\2\5\1\uffff\2\5\1\4\1\uffff\1\5\1\uffff"+
-            "\1\5\3\uffff\22\5\1\uffff\1\5",
+            "\1\5\1\1\3\5\22\uffff\1\5\14\uffff\1\3\2\uffff\2\5\2\uffff\1\5\5\uffff\1\2\1\uffff\2\5\1\uffff\2\5\1\4\1\uffff\1\5\1\uffff\1\5\3\uffff\22\5\1\uffff\1\5",
             "\1\uffff",
             "\1\uffff",
             "",
@@ -21851,9 +21840,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA55_specialS =
         "\1\uffff\1\0\41\uffff}>";
     static final String[] DFA55_transitionS = {
-            "\5\2\22\uffff\1\2\14\uffff\1\2\2\uffff\2\2\2\uffff\1\2\5\uffff"+
-            "\1\1\1\uffff\2\2\1\uffff\1\2\3\uffff\1\2\1\uffff\1\2\3\uffff"+
-            "\3\2\2\uffff\15\2\1\uffff\1\2",
+            "\5\2\22\uffff\1\2\14\uffff\1\2\2\uffff\2\2\2\uffff\1\2\5\uffff\1\1\1\uffff\2\2\1\uffff\1\2\3\uffff\1\2\1\uffff\1\2\3\uffff\3\2\2\uffff\15\2\1\uffff\1\2",
             "\1\uffff",
             "",
             "",
@@ -21962,9 +21949,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA54_specialS =
         "\1\0\1\1\1\2\37\uffff}>";
     static final String[] DFA54_transitionS = {
-            "\1\4\1\1\3\4\22\uffff\1\4\14\uffff\1\3\2\uffff\2\4\2\uffff"+
-            "\1\4\5\uffff\1\2\1\uffff\2\4\1\uffff\1\4\3\uffff\1\4\1\uffff"+
-            "\1\4\3\uffff\3\4\2\uffff\15\4\1\uffff\1\4",
+            "\1\4\1\1\3\4\22\uffff\1\4\14\uffff\1\3\2\uffff\2\4\2\uffff\1\4\5\uffff\1\2\1\uffff\2\4\1\uffff\1\4\3\uffff\1\4\1\uffff\1\4\3\uffff\3\4\2\uffff\15\4\1\uffff\1\4",
             "\1\uffff",
             "\1\uffff",
             "",
@@ -22106,8 +22091,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA77_specialS =
         "\1\uffff\1\0\114\uffff}>";
     static final String[] DFA77_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\37\2\1\1\6\2\1\uffff\34"+
-            "\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\37\2\1\1\6\2\1\uffff\34\2",
             "\1\uffff",
             "",
             "",
@@ -22259,9 +22243,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA76_specialS =
         "\1\0\1\1\1\2\41\uffff}>";
     static final String[] DFA76_transitionS = {
-            "\1\5\1\1\3\5\22\uffff\1\5\14\uffff\1\3\2\uffff\2\5\2\uffff"+
-            "\1\5\5\uffff\1\2\1\43\2\5\1\uffff\1\5\1\uffff\1\4\1\uffff\1"+
-            "\5\1\uffff\1\5\3\uffff\3\5\2\uffff\15\5\1\uffff\1\5",
+            "\1\5\1\1\3\5\22\uffff\1\5\14\uffff\1\3\2\uffff\2\5\2\uffff\1\5\5\uffff\1\2\1\43\2\5\1\uffff\1\5\1\uffff\1\4\1\uffff\1\5\1\uffff\1\5\3\uffff\3\5\2\uffff\15\5\1\uffff\1\5",
             "\1\uffff",
             "\1\uffff",
             "",
@@ -22409,8 +22391,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA78_specialS =
         "\1\uffff\1\0\114\uffff}>";
     static final String[] DFA78_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\44\2\1\1\1\2\1\uffff\34"+
-            "\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\44\2\1\1\1\2\1\uffff\34\2",
             "\1\uffff",
             "",
             "",
@@ -22562,8 +22543,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA82_specialS =
         "\1\uffff\1\0\114\uffff}>";
     static final String[] DFA82_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\5\2\1\1\40\2\1\uffff\34"+
-            "\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\5\2\1\1\40\2\1\uffff\34\2",
             "\1\uffff",
             "",
             "",
@@ -22715,8 +22695,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA85_specialS =
         "\1\uffff\1\0\114\uffff}>";
     static final String[] DFA85_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\37\2\1\1\6\2\1\uffff\34"+
-            "\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\37\2\1\1\6\2\1\uffff\34\2",
             "\1\uffff",
             "",
             "",
@@ -22868,9 +22847,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA84_specialS =
         "\1\0\1\1\1\2\41\uffff}>";
     static final String[] DFA84_transitionS = {
-            "\1\5\1\1\3\5\22\uffff\1\5\14\uffff\1\3\2\uffff\2\5\2\uffff"+
-            "\1\5\5\uffff\1\2\1\43\2\5\1\uffff\1\5\1\uffff\1\4\1\uffff\1"+
-            "\5\1\uffff\1\5\3\uffff\3\5\2\uffff\15\5\1\uffff\1\5",
+            "\1\5\1\1\3\5\22\uffff\1\5\14\uffff\1\3\2\uffff\2\5\2\uffff\1\5\5\uffff\1\2\1\43\2\5\1\uffff\1\5\1\uffff\1\4\1\uffff\1\5\1\uffff\1\5\3\uffff\3\5\2\uffff\15\5\1\uffff\1\5",
             "\1\uffff",
             "\1\uffff",
             "",
@@ -23018,8 +22995,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA86_specialS =
         "\1\uffff\1\0\114\uffff}>";
     static final String[] DFA86_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\44\2\1\1\1\2\1\uffff\34"+
-            "\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\44\2\1\1\1\2\1\uffff\34\2",
             "\1\uffff",
             "",
             "",
@@ -23169,15 +23145,9 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA89_acceptS =
         "\41\uffff\1\2\53\uffff\1\1";
     static final String DFA89_specialS =
-        "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
-        "\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\30"+
-        "\1\31\1\32\1\33\1\34\1\35\1\36\1\37\55\uffff}>";
+        "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\26\1\27\1\30\1\31\1\32\1\33\1\34\1\35\1\36\1\37\55\uffff}>";
     static final String[] DFA89_transitionS = {
-            "\1\27\1\1\1\23\1\24\1\25\7\uffff\1\41\1\uffff\3\41\1\uffff"+
-            "\5\41\1\15\17\41\1\10\1\7\2\41\1\6\5\41\1\40\1\41\1\17\1\12"+
-            "\1\41\1\20\1\41\1\uffff\1\41\1\31\1\41\1\13\3\41\1\32\1\33\1"+
-            "\34\2\41\1\2\1\3\1\4\1\5\1\16\1\11\1\21\1\22\1\26\1\30\1\35"+
-            "\1\36\1\37\1\41\1\14\1\41",
+            "\1\27\1\1\1\23\1\24\1\25\7\uffff\1\41\1\uffff\3\41\1\uffff\5\41\1\15\17\41\1\10\1\7\2\41\1\6\5\41\1\40\1\41\1\17\1\12\1\41\1\20\1\41\1\uffff\1\41\1\31\1\41\1\13\3\41\1\32\1\33\1\34\2\41\1\2\1\3\1\4\1\5\1\16\1\11\1\21\1\22\1\26\1\30\1\35\1\36\1\37\1\41\1\14\1\41",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -23794,8 +23764,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA107_specialS =
         "\1\uffff\1\0\115\uffff}>";
     static final String[] DFA107_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\5\2\1\1\40\2\1\uffff\34"+
-            "\2\1\uffff\1\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\5\2\1\1\40\2\1\uffff\34\2\1\uffff\1\2",
             "\1\uffff",
             "",
             "",
@@ -23948,8 +23917,7 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     static final String DFA105_specialS =
         "\1\uffff\1\0\115\uffff}>";
     static final String[] DFA105_transitionS = {
-            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\5\2\1\1\40\2\1\uffff\34"+
-            "\2\1\uffff\1\2",
+            "\5\2\7\uffff\1\2\1\uffff\3\2\1\uffff\5\2\1\1\40\2\1\uffff\34\2\1\uffff\1\2",
             "\1\uffff",
             "",
             "",
@@ -24156,10 +24124,10 @@ public class InternalCommonParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleShowValue_in_ruleDescriptionElement264 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_14_in_ruleDescriptionElement288 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleImageReference_in_ruleDescriptionElement328 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference370 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAPropertyReference380 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_ruleAPropertyReference426 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference449 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAPropertyReference_in_entryRuleAPropertyReference372 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAPropertyReference382 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_ruleAPropertyReference428 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleAPropertyReference451 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleXNumberLiteral_in_entryRuleXNumberLiteral487 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleXNumberLiteral497 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNumber_in_ruleXNumberLiteral552 = new BitSet(new long[]{0x0000000000000022L});

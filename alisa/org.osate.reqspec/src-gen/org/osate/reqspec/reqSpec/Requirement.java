@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.alisa.common.common.ComputeDeclaration;
+import org.eclipse.xtext.xbase.XExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,7 +34,7 @@ public interface Requirement extends ContractualElement
 {
   /**
    * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.ComputeDeclaration}.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
@@ -46,7 +46,7 @@ public interface Requirement extends ContractualElement
    * @model containment="true"
    * @generated
    */
-  EList<ComputeDeclaration> getComputes();
+  EList<XExpression> getComputes();
 
   /**
    * Returns the value of the '<em><b>Predicate</b></em>' containment reference.

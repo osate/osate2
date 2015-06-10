@@ -59,15 +59,6 @@ public interface CommonFactory extends EFactory
   Uncertainty createUncertainty();
 
   /**
-   * Returns a new object of class '<em>Compute Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Compute Declaration</em>'.
-   * @generated
-   */
-  ComputeDeclaration createComputeDeclaration();
-
-  /**
    * Returns a new object of class '<em>Show Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -84,6 +75,15 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   ImageReference createImageReference();
+
+  /**
+   * Returns a new object of class '<em>Compute Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Compute Declaration</em>'.
+   * @generated
+   */
+  ComputeDeclaration createComputeDeclaration();
 
   /**
    * Returns a new object of class '<em>AProperty Reference</em>'.

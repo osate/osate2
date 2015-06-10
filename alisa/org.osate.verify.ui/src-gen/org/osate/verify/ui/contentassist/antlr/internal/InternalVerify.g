@@ -141,8 +141,6 @@ finally {
 
 
 
-
-
 // Entry rule entryRuleVerificationActivity
 entryRuleVerificationActivity 
 :
@@ -541,6 +539,8 @@ finally {
 
 
 
+
+
 // Entry rule entryRuleAPropertyReference
 entryRuleAPropertyReference 
 :
@@ -566,8 +566,6 @@ ruleAPropertyReference
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -3025,6 +3023,7 @@ rule__DescriptionElement__Alternatives
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 
 
@@ -8899,6 +8898,11 @@ finally {
 
 
 
+
+
+
+
+
 rule__APropertyReference__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -8987,7 +8991,6 @@ rule__APropertyReference__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 
 
@@ -24322,7 +24325,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-
 rule__VerificationActivity__NameAssignment_0
     @init {
 		int stackSize = keepStackSize();
@@ -24363,8 +24365,12 @@ rule__VerificationActivity__ParametersAssignment_2_2_0
     }
 :
 (
-{ before(grammarAccess.getVerificationActivityAccess().getParametersIDTerminalRuleCall_2_2_0_0()); }
-	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getParametersIDTerminalRuleCall_2_2_0_0()); }
+{ before(grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_2_0_0()); }
+(
+{ before(grammarAccess.getVerificationActivityAccess().getParametersXExpressionIDTerminalRuleCall_2_2_0_0_1()); }
+	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getParametersXExpressionIDTerminalRuleCall_2_2_0_0_1()); }
+)
+{ after(grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_2_0_0()); }
 )
 
 ;
@@ -24378,8 +24384,12 @@ rule__VerificationActivity__ParametersAssignment_2_2_1_1
     }
 :
 (
-{ before(grammarAccess.getVerificationActivityAccess().getParametersIDTerminalRuleCall_2_2_1_1_0()); }
-	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getParametersIDTerminalRuleCall_2_2_1_1_0()); }
+{ before(grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_2_1_1_0()); }
+(
+{ before(grammarAccess.getVerificationActivityAccess().getParametersXExpressionIDTerminalRuleCall_2_2_1_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getVerificationActivityAccess().getParametersXExpressionIDTerminalRuleCall_2_2_1_1_0_1()); }
+)
+{ after(grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_2_1_1_0()); }
 )
 
 ;
@@ -24998,6 +25008,9 @@ finally {
 
 
 
+
+
+
 rule__APropertyReference__PropertyAssignment_2
     @init {
 		int stackSize = keepStackSize();
@@ -25016,8 +25029,6 @@ rule__APropertyReference__PropertyAssignment_2
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 rule__XNumberLiteral__ValueAssignment_1
     @init {

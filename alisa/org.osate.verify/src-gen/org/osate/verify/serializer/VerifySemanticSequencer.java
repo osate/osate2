@@ -78,7 +78,6 @@ import org.osate.verify.verify.FailThenExpr;
 import org.osate.verify.verify.RefExpr;
 import org.osate.verify.verify.Verification;
 import org.osate.verify.verify.VerificationActivity;
-import org.osate.verify.verify.VerificationActivityParameter;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerificationMethodParameter;
 import org.osate.verify.verify.VerificationMethodRegistry;
@@ -193,9 +192,6 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case VerifyPackage.VERIFICATION_ACTIVITY:
 				sequence_VerificationActivity(context, (VerificationActivity) semanticObject); 
-				return; 
-			case VerifyPackage.VERIFICATION_ACTIVITY_PARAMETER:
-				sequence_VerificationActivityParameter(context, (VerificationActivityParameter) semanticObject); 
 				return; 
 			case VerifyPackage.VERIFICATION_METHOD:
 				sequence_VerificationMethod(context, (VerificationMethod) semanticObject); 
@@ -482,23 +478,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     compute=[ComputeDeclaration|ID]
-	 */
-	protected void sequence_VerificationActivityParameter(EObject context, VerificationActivityParameter semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.VERIFICATION_ACTIVITY_PARAMETER__COMPUTE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.VERIFICATION_ACTIVITY_PARAMETER__COMPUTE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getVerificationActivityParameterAccess().getComputeComputeDeclarationIDTerminalRuleCall_0_1(), semanticObject.getCompute());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID method=[VerificationMethod|QualifiedName] (parameters+=ID parameters+=ID*)? timeout=INT?)
+	 *     (name=ID method=[VerificationMethod|QualifiedName] (parameters+=[XExpression|ID] parameters+=[XExpression|ID]*)? timeout=INT?)
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

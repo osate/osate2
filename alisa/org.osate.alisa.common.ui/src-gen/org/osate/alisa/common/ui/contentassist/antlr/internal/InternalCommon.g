@@ -119,6 +119,8 @@ finally {
 
 
 
+
+
 // Entry rule entryRuleAPropertyReference
 entryRuleAPropertyReference 
 :
@@ -144,8 +146,6 @@ ruleAPropertyReference
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -2429,6 +2429,7 @@ finally {
 
 
 
+
 rule__XAssignment__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -3711,6 +3712,11 @@ finally {
 
 
 
+
+
+
+
+
 rule__APropertyReference__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -3799,7 +3805,6 @@ rule__APropertyReference__Group__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 
 
@@ -17971,6 +17976,9 @@ finally {
 
 
 
+
+
+
 rule__APropertyReference__PropertyAssignment_2
     @init {
 		int stackSize = keepStackSize();
@@ -17989,8 +17997,6 @@ rule__APropertyReference__PropertyAssignment_2
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 rule__XNumberLiteral__ValueAssignment_1
     @init {

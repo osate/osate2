@@ -277,34 +277,6 @@ public interface VerifyPackage extends EPackage
   int CLAIM_FEATURE_COUNT = 9;
 
   /**
-   * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationActivityParameterImpl <em>Verification Activity Parameter</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.verify.verify.impl.VerificationActivityParameterImpl
-   * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationActivityParameter()
-   * @generated
-   */
-  int VERIFICATION_ACTIVITY_PARAMETER = 3;
-
-  /**
-   * The feature id for the '<em><b>Compute</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_ACTIVITY_PARAMETER__COMPUTE = 0;
-
-  /**
-   * The number of structural features of the '<em>Verification Activity Parameter</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VERIFICATION_ACTIVITY_PARAMETER_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.osate.verify.verify.impl.VerificationActivityImpl <em>Verification Activity</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -312,7 +284,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationActivity()
    * @generated
    */
-  int VERIFICATION_ACTIVITY = 4;
+  int VERIFICATION_ACTIVITY = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -333,7 +305,7 @@ public interface VerifyPackage extends EPackage
   int VERIFICATION_ACTIVITY__METHOD = 1;
 
   /**
-   * The feature id for the '<em><b>Parameters</b></em>' attribute list.
+   * The feature id for the '<em><b>Parameters</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -367,7 +339,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationCondition()
    * @generated
    */
-  int VERIFICATION_CONDITION = 5;
+  int VERIFICATION_CONDITION = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -440,7 +412,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getArgumentExpr()
    * @generated
    */
-  int ARGUMENT_EXPR = 6;
+  int ARGUMENT_EXPR = 5;
 
   /**
    * The number of structural features of the '<em>Argument Expr</em>' class.
@@ -459,7 +431,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodRegistry()
    * @generated
    */
-  int VERIFICATION_METHOD_REGISTRY = 7;
+  int VERIFICATION_METHOD_REGISTRY = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -514,7 +486,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethodParameter()
    * @generated
    */
-  int VERIFICATION_METHOD_PARAMETER = 8;
+  int VERIFICATION_METHOD_PARAMETER = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -542,7 +514,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationMethod()
    * @generated
    */
-  int VERIFICATION_METHOD = 9;
+  int VERIFICATION_METHOD = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -651,7 +623,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationValidation()
    * @generated
    */
-  int VERIFICATION_VALIDATION = 10;
+  int VERIFICATION_VALIDATION = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -724,7 +696,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationPrecondition()
    * @generated
    */
-  int VERIFICATION_PRECONDITION = 11;
+  int VERIFICATION_PRECONDITION = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -797,7 +769,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAllExpr()
    * @generated
    */
-  int ALL_EXPR = 12;
+  int ALL_EXPR = 11;
 
   /**
    * The feature id for the '<em><b>All</b></em>' containment reference list.
@@ -825,7 +797,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getAndThenExpr()
    * @generated
    */
-  int AND_THEN_EXPR = 13;
+  int AND_THEN_EXPR = 12;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -862,7 +834,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getFailThenExpr()
    * @generated
    */
-  int FAIL_THEN_EXPR = 14;
+  int FAIL_THEN_EXPR = 13;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -917,7 +889,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getWhenExpr()
    * @generated
    */
-  int WHEN_EXPR = 15;
+  int WHEN_EXPR = 14;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' containment reference.
@@ -954,7 +926,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getRefExpr()
    * @generated
    */
-  int REF_EXPR = 16;
+  int REF_EXPR = 15;
 
   /**
    * The feature id for the '<em><b>Verification</b></em>' reference.
@@ -991,7 +963,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedTypes()
    * @generated
    */
-  int SUPPORTED_TYPES = 17;
+  int SUPPORTED_TYPES = 16;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.SupportedScopes <em>Supported Scopes</em>}' enum.
@@ -1001,7 +973,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedScopes()
    * @generated
    */
-  int SUPPORTED_SCOPES = 18;
+  int SUPPORTED_SCOPES = 17;
 
   /**
    * The meta object id for the '{@link org.osate.verify.verify.SupportedReporting <em>Supported Reporting</em>}' enum.
@@ -1011,7 +983,7 @@ public interface VerifyPackage extends EPackage
    * @see org.osate.verify.verify.impl.VerifyPackageImpl#getSupportedReporting()
    * @generated
    */
-  int SUPPORTED_REPORTING = 19;
+  int SUPPORTED_REPORTING = 18;
 
 
   /**
@@ -1243,27 +1215,6 @@ public interface VerifyPackage extends EPackage
   EAttribute getClaim_Issues();
 
   /**
-   * Returns the meta object for class '{@link org.osate.verify.verify.VerificationActivityParameter <em>Verification Activity Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Verification Activity Parameter</em>'.
-   * @see org.osate.verify.verify.VerificationActivityParameter
-   * @generated
-   */
-  EClass getVerificationActivityParameter();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.verify.verify.VerificationActivityParameter#getCompute <em>Compute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Compute</em>'.
-   * @see org.osate.verify.verify.VerificationActivityParameter#getCompute()
-   * @see #getVerificationActivityParameter()
-   * @generated
-   */
-  EReference getVerificationActivityParameter_Compute();
-
-  /**
    * Returns the meta object for class '{@link org.osate.verify.verify.VerificationActivity <em>Verification Activity</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1296,15 +1247,15 @@ public interface VerifyPackage extends EPackage
   EReference getVerificationActivity_Method();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}'.
+   * Returns the meta object for the reference list '{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Parameters</em>'.
+   * @return the meta object for the reference list '<em>Parameters</em>'.
    * @see org.osate.verify.verify.VerificationActivity#getParameters()
    * @see #getVerificationActivity()
    * @generated
    */
-  EAttribute getVerificationActivity_Parameters();
+  EReference getVerificationActivity_Parameters();
 
   /**
    * Returns the meta object for the attribute '{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}'.
@@ -2017,24 +1968,6 @@ public interface VerifyPackage extends EPackage
     EAttribute CLAIM__ISSUES = eINSTANCE.getClaim_Issues();
 
     /**
-     * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationActivityParameterImpl <em>Verification Activity Parameter</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.verify.verify.impl.VerificationActivityParameterImpl
-     * @see org.osate.verify.verify.impl.VerifyPackageImpl#getVerificationActivityParameter()
-     * @generated
-     */
-    EClass VERIFICATION_ACTIVITY_PARAMETER = eINSTANCE.getVerificationActivityParameter();
-
-    /**
-     * The meta object literal for the '<em><b>Compute</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VERIFICATION_ACTIVITY_PARAMETER__COMPUTE = eINSTANCE.getVerificationActivityParameter_Compute();
-
-    /**
      * The meta object literal for the '{@link org.osate.verify.verify.impl.VerificationActivityImpl <em>Verification Activity</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2061,12 +1994,12 @@ public interface VerifyPackage extends EPackage
     EReference VERIFICATION_ACTIVITY__METHOD = eINSTANCE.getVerificationActivity_Method();
 
     /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Parameters</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute VERIFICATION_ACTIVITY__PARAMETERS = eINSTANCE.getVerificationActivity_Parameters();
+    EReference VERIFICATION_ACTIVITY__PARAMETERS = eINSTANCE.getVerificationActivity_Parameters();
 
     /**
      * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.

@@ -98,11 +98,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createUncertaintyAdapter();
       }
       @Override
-      public Adapter caseComputeDeclaration(ComputeDeclaration object)
-      {
-        return createComputeDeclarationAdapter();
-      }
-      @Override
       public Adapter caseShowValue(ShowValue object)
       {
         return createShowValueAdapter();
@@ -111,6 +106,11 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       public Adapter caseImageReference(ImageReference object)
       {
         return createImageReferenceAdapter();
+      }
+      @Override
+      public Adapter caseComputeDeclaration(ComputeDeclaration object)
+      {
+        return createComputeDeclarationAdapter();
       }
       @Override
       public Adapter caseAPropertyReference(APropertyReference object)
@@ -215,21 +215,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.ComputeDeclaration
-   * @generated
-   */
-  public Adapter createComputeDeclarationAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -255,6 +240,21 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createImageReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ComputeDeclaration <em>Compute Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.ComputeDeclaration
+   * @generated
+   */
+  public Adapter createComputeDeclarationAdapter()
   {
     return null;
   }

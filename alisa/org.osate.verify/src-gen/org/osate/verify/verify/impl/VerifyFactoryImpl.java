@@ -68,7 +68,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
       case VerifyPackage.VERIFICATION: return createVerification();
       case VerifyPackage.VERIFICATION_PLAN: return createVerificationPlan();
       case VerifyPackage.CLAIM: return createClaim();
-      case VerifyPackage.VERIFICATION_ACTIVITY_PARAMETER: return createVerificationActivityParameter();
       case VerifyPackage.VERIFICATION_ACTIVITY: return createVerificationActivity();
       case VerifyPackage.VERIFICATION_CONDITION: return createVerificationCondition();
       case VerifyPackage.ARGUMENT_EXPR: return createArgumentExpr();
@@ -160,17 +159,6 @@ public class VerifyFactoryImpl extends EFactoryImpl implements VerifyFactory
   {
     ClaimImpl claim = new ClaimImpl();
     return claim;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VerificationActivityParameter createVerificationActivityParameter()
-  {
-    VerificationActivityParameterImpl verificationActivityParameter = new VerificationActivityParameterImpl();
-    return verificationActivityParameter;
   }
 
   /**

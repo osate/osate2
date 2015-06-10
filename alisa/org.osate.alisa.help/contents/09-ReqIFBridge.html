@@ -109,10 +109,12 @@ menu in the ALISA menu as shown below. Note that two import
 options are available:
 <ol>
 	<li>
-		<em>System Requirements</em>: imports ReqIF requirements as system requirements
+		<em>System Requirements</em>: imports ReqIF requirements as system requirements. This option will then
+		map the reqif requirements into requirement object
 	</li>
 	<li>
-		<em>System Requirements</em>: imports ReqIF requirements as stakeholders requiremetns
+		<em>System Requirements</em>: imports ReqIF requirements as stakeholders requirements. This option will
+		map the reqif requiremnts into stakeholders requirements - goals
 	</li>
 </ol>
 </p>
@@ -137,7 +139,33 @@ of import you are using.
 When importing a ReqIF document, the bridge will then use the attributes
 values from the SpecObjects from ReqIF to fill the ReqSpec model.
 ReqIF lets you defines your own specification model so that each ReqIF model
-can have a different way to capture ReqSpec model.
+can have a different way to capture ReqSpec model. For each requirement in ReqIF,
+there is a set of attributes identified by a long name. This long name
+is defined in the data types of the ReqIF document. To see the data types
+of your ReqIF document, you can use RMF and open the data type definition. To do so,
+open the requirements document with RMF and click on the following icons.
+</p>
+<p>
+<div class="image" >
+<img src="images/reqif-icon.png" 
+/>
+<div class="caption">
+Icon to open the data types definition of the ReqIF document
+</div>
+</div>
+</p>
+<p>
+Once you open the data types definition, you can see the long name 
+by selecting the type. See below.
+</p>
+<p>
+<div class="image" >
+<img src="images/reqif-longname.png" 
+/>
+<div class="caption">
+Preferences showing the long name of a requirement attribute
+</div>
+</div>
 </p>
 <p>
 In order to adapt the bridge to each ReqIF specification model, 

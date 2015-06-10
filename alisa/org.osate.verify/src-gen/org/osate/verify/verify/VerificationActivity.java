@@ -6,6 +6,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.xtext.xbase.XExpression;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Verification Activity</b></em>'.
@@ -80,20 +82,20 @@ public interface VerificationActivity extends EObject
   void setMethod(VerificationMethod value);
 
   /**
-   * Returns the value of the '<em><b>Parameters</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Parameters</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.xtext.xbase.XExpression}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Parameters</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameters</em>' attribute list.
+   * @return the value of the '<em>Parameters</em>' reference list.
    * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Parameters()
-   * @model unique="false"
+   * @model
    * @generated
    */
-  EList<String> getParameters();
+  EList<XExpression> getParameters();
 
   /**
    * Returns the value of the '<em><b>Timeout</b></em>' attribute.

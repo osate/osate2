@@ -51,14 +51,15 @@ Claim:
 //	']';
 
 
-VerificationActivityParameter: 
-		compute=[common::ComputeDeclaration|ID]
-;
+//VerificationActivityParameter:
+//	ComputeDeclaration | XValDeclaration
+//;
+
 
 VerificationActivity:
 	name=ID ':'
 	(
-	   method=[VerificationMethod|QualifiedName] '(' (parameters+=ID (',' parameters+=ID)*)?')'
+	   method=[VerificationMethod|QualifiedName] '(' (parameters+=[xbase::XExpression| ID] (',' parameters+=[xbase::XExpression| ID])*)?')'
 	('timeout' timeout=INT)?
 	//	('parameters'  verificationParameters+=([ElementReference])*)? 
 	// these are data parameters to the method in addition to what comes with the model

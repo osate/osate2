@@ -697,8 +697,6 @@ ruleClaim returns [EObject current=null]
 
 
 
-
-
 // Entry rule entryRuleVerificationActivity
 entryRuleVerificationActivity returns [EObject current=null] 
 	:
@@ -756,20 +754,15 @@ ruleVerificationActivity returns [EObject current=null]
     }
 ((
 (
-		lv_parameters_4_0=RULE_ID
 		{
-			newLeafNode(lv_parameters_4_0, grammarAccess.getVerificationActivityAccess().getParametersIDTerminalRuleCall_2_2_0_0()); 
-		}
-		{
-	        if ($current==null) {
+			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
-       		addWithLastConsumed(
-       			$current, 
-       			"parameters",
-        		lv_parameters_4_0, 
-        		"ID");
-	    }
+        }
+	otherlv_4=RULE_ID
+	{
+		newLeafNode(otherlv_4, grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_2_0_0()); 
+	}
 
 )
 )(	otherlv_5=',' 
@@ -778,20 +771,15 @@ ruleVerificationActivity returns [EObject current=null]
     }
 (
 (
-		lv_parameters_6_0=RULE_ID
 		{
-			newLeafNode(lv_parameters_6_0, grammarAccess.getVerificationActivityAccess().getParametersIDTerminalRuleCall_2_2_1_1_0()); 
-		}
-		{
-	        if ($current==null) {
+			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
 	        }
-       		addWithLastConsumed(
-       			$current, 
-       			"parameters",
-        		lv_parameters_6_0, 
-        		"ID");
-	    }
+        }
+	otherlv_6=RULE_ID
+	{
+		newLeafNode(otherlv_6, grammarAccess.getVerificationActivityAccess().getParametersXExpressionCrossReference_2_2_1_1_0()); 
+	}
 
 )
 ))*)?	otherlv_7=')' 
@@ -2115,6 +2103,8 @@ ruleRationale returns [EObject current=null]
 
 
 
+
+
 // Entry rule entryRuleAPropertyReference
 entryRuleAPropertyReference returns [EObject current=null] 
 	:
@@ -2156,8 +2146,6 @@ ruleAPropertyReference returns [EObject current=null]
 )
 ))
 ;
-
-
 
 
 

@@ -2,7 +2,9 @@
  */
 package org.osate.alisa.common.common;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.common.types.JvmTypeReference;
+
+import org.eclipse.xtext.xbase.XExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.alisa.common.common.ComputeDeclaration#isWriteable <em>Writeable</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.ComputeDeclaration#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.ComputeDeclaration#getName <em>Name</em>}</li>
  * </ul>
  * </p>
@@ -21,33 +23,33 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ComputeDeclaration extends EObject
+public interface ComputeDeclaration extends XExpression
 {
   /**
-   * Returns the value of the '<em><b>Writeable</b></em>' attribute.
+   * Returns the value of the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Writeable</em>' attribute isn't clear,
+   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Writeable</em>' attribute.
-   * @see #setWriteable(boolean)
-   * @see org.osate.alisa.common.common.CommonPackage#getComputeDeclaration_Writeable()
-   * @model
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(JvmTypeReference)
+   * @see org.osate.alisa.common.common.CommonPackage#getComputeDeclaration_Type()
+   * @model containment="true"
    * @generated
    */
-  boolean isWriteable();
+  JvmTypeReference getType();
 
   /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.ComputeDeclaration#isWriteable <em>Writeable</em>}' attribute.
+   * Sets the value of the '{@link org.osate.alisa.common.common.ComputeDeclaration#getType <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Writeable</em>' attribute.
-   * @see #isWriteable()
+   * @param value the new value of the '<em>Type</em>' containment reference.
+   * @see #getType()
    * @generated
    */
-  void setWriteable(boolean value);
+  void setType(JvmTypeReference value);
 
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

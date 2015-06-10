@@ -13,6 +13,7 @@ import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.osate.verify.verify.VerificationActivity
 import org.osate.reqspec.reqSpec.ReqSpecs
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.osate.verify.verify.Claim
 
 /**
  * This class contains custom scoping description.
@@ -22,6 +23,21 @@ import static org.osate.reqspec.util.ReqSpecUtilExtension.*
  *
  */
 class VerifyScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
+
+	def scope_XExpression (VerificationActivity context, EReference reference)
+	{
+		var result = IScope.NULLSCOPE
+		val claim = context.eContainer as Claim
+		val req = claim.requirement
+		result = new SimpleScope(result,
+						Scopes::scopedElementsFor(req.computes,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		result = new SimpleScope(result,
+						Scopes::scopedElementsFor(req.constants,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		
+		return result
+	}
 
 //	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
 //		var result = IScope.NULLSCOPE
