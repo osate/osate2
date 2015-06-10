@@ -8,6 +8,8 @@ import org.eclipse.xtext.xbase.XExpression;
 
 import org.osate.aadl2.Classifier;
 
+import org.osate.alisa.common.common.Description;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Req Specs</b></em>'.
@@ -22,6 +24,7 @@ import org.osate.aadl2.Classifier;
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getTargetDescription <em>Target Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#isGlobal <em>Global</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getOtherreqspecs <em>Otherreqspecs</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getConstants <em>Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.ReqSpecs#getDocReference <em>Doc Reference</em>}</li>
@@ -180,6 +183,32 @@ public interface ReqSpecs extends ReqSpecContainer, ReqRoot
    * @generated
    */
   EList<ReqSpecs> getOtherreqspecs();
+
+  /**
+   * Returns the value of the '<em><b>Description</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Description</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Description</em>' containment reference.
+   * @see #setDescription(Description)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getReqSpecs_Description()
+   * @model containment="true"
+   * @generated
+   */
+  Description getDescription();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.ReqSpecs#getDescription <em>Description</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Description</em>' containment reference.
+   * @see #getDescription()
+   * @generated
+   */
+  void setDescription(Description value);
 
   /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.

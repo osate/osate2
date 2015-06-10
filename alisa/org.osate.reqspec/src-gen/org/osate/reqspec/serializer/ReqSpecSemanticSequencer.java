@@ -516,6 +516,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
+	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
 	 *         content+=Requirement* 
 	 *         docReference+=ExternalDocument* 
@@ -561,8 +562,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         title=STRING? 
 	 *         (target=[Classifier|AADLCLASSIFIERREFERENCE] | targetDescription=STRING | global?='all')? 
 	 *         description=Description? 
-	 *         docReference+=ExternalDocument* 
 	 *         content+=Goal* 
+	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
 	 *     )
 	 */

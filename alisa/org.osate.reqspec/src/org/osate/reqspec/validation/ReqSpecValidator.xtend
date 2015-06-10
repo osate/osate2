@@ -55,7 +55,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 	}
 
 	
-	@Check//(CheckType.EXPENSIVE)
+	@Check(CheckType.EXPENSIVE)
 	def void checkMultipleSystems(ReqDocument reqdoc) {
 		val syslist = new BasicEList<Classifier>
 		reqdoc.content.forEach[e | if (e instanceof ContractualElement) syslist += e.targetClassifier]
@@ -67,11 +67,11 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 	
-		@Check//(CheckType.EXPENSIVE)
+		@Check(CheckType.EXPENSIVE)
 	def void checkMultipleSystems(DocumentSection docsection) {
 		val syslist = new BasicEList<Classifier>
 		docsection.content.forEach[e | if (e instanceof ContractualElement) syslist += e.targetClassifier]
-		if (syslist.size > 1){
+		if (!syslist.empty){
 			val cls = syslist.map[name].reduce[p1, p2| p1 + ' ' + p2]
 			warning('Requirements cover multiple classifiers: '+cls, 
 					ReqSpecPackage.Literals.DOCUMENT_SECTION__CONTENT,
@@ -79,16 +79,17 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 	
-		@Check//(CheckType.EXPENSIVE)
+		@Check(CheckType.EXPENSIVE)
 	def void checkFeatureCoverage(ReqSpecs reqspecs) {
 		val cl = reqspecs.target
-		if (cl == null) return
+		if (cl == null || cl.getAllFeatures.empty ) return
+		
 		val fealist = new BasicEList<NamedElement>
-		reqspecs.content.forEach[e | if (e instanceof ContractualElement) fealist += e.targetElement]
-		if (fealist.size < cl.getAllFeatures.size){
-			val cls = fealist.map[name].reduce[p1, p2| p1 + ' ' + p2]
-			warning('Requirements cover multiple classifiers: '+cls, 
-					ReqSpecPackage.Literals.REQ_SPEC__PARTS,
+		cl.getAllFeatures.forEach[e| if (!reqspecs.content.exists[r| r.targetElement == e ]) fealist += e]
+		if (!fealist.empty){
+			val fls = reqspecs.content.map[name].reduce[p1, p2| p1 + ' ' + p2]
+			warning('Features without requirement: '+fls, 
+					ReqSpecPackage.Literals.REQ_SPECS__CONTENT,
 					FEATURES_WITHOUT_REQUIREMENT)
 		}
 	}
