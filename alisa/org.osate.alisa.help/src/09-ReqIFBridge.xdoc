@@ -51,8 +51,10 @@ Once you selected the specification to import, select the e[ReqIF import]
 menu in the ALISA menu as shown below. Note that two import
 options are available:
 ol[
-item[e[System Requirements]: imports ReqIF requirements as system requirements]
-item[e[System Requirements]: imports ReqIF requirements as stakeholders requiremetns]
+item[e[System Requirements]: imports ReqIF requirements as system requirements. This option will then
+map the reqif requirements into requirement object]
+item[e[System Requirements]: imports ReqIF requirements as stakeholders requirements. This option will
+map the reqif requiremnts into stakeholders requirements - goals]
 ]
 
 img[images/reqif-import2.png][Invoking the tool][][]
@@ -68,7 +70,20 @@ section2:Preferences[Tailoring the Import Process]
 When importing a ReqIF document, the bridge will then use the attributes
 values from the SpecObjects from ReqIF to fill the ReqSpec model.
 ReqIF lets you defines your own specification model so that each ReqIF model
-can have a different way to capture ReqSpec model.
+can have a different way to capture ReqSpec model. For each requirement in ReqIF,
+there is a set of attributes identified by a long name. This long name
+is defined in the data types of the ReqIF document. To see the data types
+of your ReqIF document, you can use RMF and open the data type definition. To do so,
+open the requirements document with RMF and click on the following icons.
+
+img[images/reqif-icon.png][Icon to open the data types definition of the ReqIF document][][]
+
+
+Once you open the data types definition, you can see the long name 
+by selecting the type. See below.
+
+img[images/reqif-longname.png][Preferences showing the long name of a requirement attribute][][]
+
 
 In order to adapt the bridge to each ReqIF specification model, 
 the bridge has a preference mechanism for the user to specify
