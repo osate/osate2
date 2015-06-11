@@ -251,7 +251,14 @@
 			This preference mechanism is available within the Eclipse preferences, as shown
 			below. For each property on ReqSpec object, the user can specify
 			the corresponding ReqIF attribute. The attribute
-			is designated by its long name.
+			is designated by its long name. If you do not specify
+			an identifier attribute, the bridge will then try to build identifiers
+			automatically. If you specify a mapping between ReqIF and ReqSpec, you
+			have to make sure that identifiers are unique in the document.
+			</p>
+			<p>
+			Finally, you add a prefix to the identifier in the preferences.
+			It can help to distinguish stakeholders and system requirements.
 			</p>
 			<p>
 			<div class="image" >
