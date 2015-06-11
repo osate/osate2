@@ -38,6 +38,15 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.EqualsHashCode
 import org.eclipse.xtend.lib.annotations.ToString
 
+/*
+ * Parent and tree element can be
+ * - a URI referencing a property set, property, modal property value, basic property association
+ * or basic property (record field def)
+ * - a range element (something for range values)
+ * - a list element
+ * 
+ * the parent of a property set is URI of a model element
+ */
 @Accessors
 @EqualsHashCode
 @ToString(singleLine = true)

@@ -36,6 +36,7 @@ package org.osate.xtext.aadl2.ui.propertyview
 
 import de.itemis.xtext.utils.jface.viewers.XtextStyledTextCellEditor
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.jface.viewers.EditingSupport
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.SWT
@@ -69,25 +70,35 @@ package class ValueColumnEditingSupport extends EditingSupport {
 	
 	val AadlPropertyView propertyView
 	
-	var creatingNewAssociationInEdit = false
+	val delim = System.getProperty("line.separator")
+	
+	var creatingNewLocalInEdit = false
+	var newContained = false
 	var String initialEditablePart
 	var int updateOffset
 	var int updateLength
 	var String updatePrefix
 	var String updateSuffix
-	
+
 	package new(TreeViewer treeViewer, AadlPropertyView propertyView) {
 		super(treeViewer)
 		this.propertyView = propertyView
 	}
 	
 	override protected canEdit(Object element) {
-		if (propertyView.nextEditIsANewAssociationCreation) {
-			creatingNewAssociationInEdit = true
-			propertyView.nextEditIsANewAssociationCreation = false
+		if (propertyView.nextEditIsLocalCreation) {
+			creatingNewLocalInEdit = true
+			newContained = false
+			propertyView.nextEditIsLocalCreation = false
+			true
+		} else if (propertyView.nextEditIsLocalContainedCreation) {
+			creatingNewLocalInEdit = true
+			newContained = true
+			propertyView.nextEditIsLocalContainedCreation = false
 			true
 		} else {
-			creatingNewAssociationInEdit = false
+			creatingNewLocalInEdit = false
+			newContained = false
 			propertyView.canEdit(element)
 		}
 	}
@@ -102,32 +113,61 @@ package class ValueColumnEditingSupport extends EditingSupport {
 		propertyView.xtextDocument.readOnly[
 			val modelUnitNameEndOffset = contents.head.findNodesForFeature(Aadl2Package.eINSTANCE.namedElement_Name).head.endOffset
 			val endNameEndOffset = contents.head.node.lastLeaf.previousNode.endOffset
-			if (creatingNewAssociationInEdit) {
-				val propertyName = (resourceSet.getEObject((element as TreeEntry).treeElement as URI, true) as Property).getQualifiedName
+
+			if (creatingNewLocalInEdit) {
+				val propertyName = (element as TreeEntry).property.getQualifiedName.stripPredeclaredName
 				val inputElement = resourceSet.getEObject(propertyView.input, true) as NamedElement
-				initialEditablePart = ""
-				updateOffset = if (inputElement.ownedPropertyAssociations.empty) {
-					switch inputElement {
+				val offsetElement = switch inputElement {
+					AadlPackage,
+					Classifier: inputElement
+					case !newContained: inputElement
+					default: inputElement.containingClassifier
+				}
+				val firstPA = offsetElement.ownedPropertyAssociations.empty
+				initialEditablePart = ''
+				updateOffset = if (firstPA) {
+					switch offsetElement {
 						AadlPackage,
 						FeatureGroupType,
-						ComponentClassifier case inputElement.ownedAnnexSubclauses.empty: inputElement.node.lastLeaf.previousNode.previousNode.offset
-						ComponentClassifier: inputElement.ownedAnnexSubclauses.head.node.offset
-						Subcomponent case !inputElement.ownedModeBindings.empty: inputElement.ownedModeBindings.head.node.previousNode.previousNode.previousNode.offset
-						ModalPath case !inputElement.inModeOrTransitions.empty: {
-							inputElement.findNodesForFeature(Aadl2Package.eINSTANCE.modalPath_InModeOrTransition).head.previousNode.previousNode.previousNode.offset
+						ComponentClassifier case offsetElement.ownedAnnexSubclauses.empty: offsetElement.node.lastLeaf.previousNode.previousNode.offset
+						ComponentClassifier: offsetElement.ownedAnnexSubclauses.head.node.offset
+						Subcomponent case !offsetElement.ownedModeBindings.empty: offsetElement.ownedModeBindings.head.node.previousNode.previousNode.previousNode.offset
+						ModalPath case !offsetElement.inModeOrTransitions.empty: {
+							offsetElement.findNodesForFeature(Aadl2Package.eINSTANCE.modalPath_InModeOrTransition).head.previousNode.previousNode.previousNode.offset
 						}
-						SubprogramCallSequence case !inputElement.inModes.empty: {
-							inputElement.findNodesForFeature(Aadl2Package.eINSTANCE.modalElement_InMode).head.previousNode.previousNode.previousNode.offset
+						SubprogramCallSequence case !offsetElement.inModes.empty: {
+							offsetElement.findNodesForFeature(Aadl2Package.eINSTANCE.modalElement_InMode).head.previousNode.previousNode.previousNode.offset
 						}
-						default: inputElement.node.lastLeaf.offset
+						default: offsetElement.node.lastLeaf.offset
 					}
 				} else {
-					inputElement.ownedPropertyAssociations.last.node.endOffset
+					offsetElement.ownedPropertyAssociations.last.node.endOffset
 				}
 				updateLength = 0
-				val inputIsPackageOrClassifier = inputElement instanceof AadlPackage || inputElement instanceof Classifier
-				updatePrefix = '''«IF inputElement.ownedPropertyAssociations.empty»«IF inputIsPackageOrClassifier»properties «ELSE»{«ENDIF»«ENDIF»«propertyName» => '''
-				updateSuffix = ''';«IF inputElement.ownedPropertyAssociations.empty && !inputIsPackageOrClassifier»}«ENDIF»'''
+				val inPropertiesSection = newContained || inputElement instanceof AadlPackage || inputElement instanceof Classifier
+				updatePrefix = ''
+				if (firstPA) {
+					updatePrefix += if (inPropertiesSection) {
+						'''properties«delim»'''
+					} else {
+						''' {'''
+					}
+				} else {
+					updatePrefix += delim
+				}
+				updatePrefix += '''«propertyName» => '''
+				updateSuffix = ''
+				if (newContained) {
+					updateSuffix += ''' applies to «inputElement.name»'''
+				}
+				updateSuffix += ';'
+				updateSuffix += if (inPropertiesSection) {
+					''
+				} else if (firstPA) {
+					'}'
+				} else {
+					delim
+				}
 				val prefix = propertyView.xtextDocument.get(0, updateOffset)
 				val suffix = propertyView.xtextDocument.get(updateOffset, propertyView.xtextDocument.length - updateOffset)
 				new CellEditorPartialValue('''«new StringBuilder(prefix).insert(modelUnitNameEndOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)»«updatePrefix»''',
@@ -135,24 +175,13 @@ package class ValueColumnEditingSupport extends EditingSupport {
 					'''«updateSuffix»«new StringBuilder(suffix).insert(endNameEndOffset - updateOffset, EMBEDDED_RESOURCE_NAME_SUFFIX)»'''
 				)
 			} else {
-				val expression = switch treeElement : (element as TreeEntry).treeElement {
-					URI: switch treeElementObject : resourceSet.getEObject(treeElement, true) {
-						Property: {
-							(resourceSet.getEObject(
-								propertyView.cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement), true
-							) as PropertyAssociation).ownedValues.head.ownedValue
-						}
-						BasicPropertyAssociation: treeElementObject.value
-					}
-					RangeElement: resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression
-					ListElement: resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression
-				}
+				val expression = getPropertyExpression(element)
 				val expressionNode = expression.node
-				initialEditablePart = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
 				updateOffset = expressionNode.offset
 				updateLength = expressionNode.length
 				updatePrefix = ""
 				updateSuffix = ""
+				initialEditablePart = serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
 				val prefix = propertyView.xtextDocument.get(0, expressionNode.offset)
 				val suffix = propertyView.xtextDocument.get(expressionNode.endOffset, propertyView.xtextDocument.length - expressionNode.endOffset)
 				new CellEditorPartialValue(new StringBuilder(prefix).insert(modelUnitNameEndOffset, EMBEDDED_RESOURCE_NAME_SUFFIX).toString,
@@ -162,22 +191,49 @@ package class ValueColumnEditingSupport extends EditingSupport {
 			}
 		]
 	}
+
+	private def PropertyExpression getPropertyExpression(Resource resource, Object element) {
+		val resourceSet = resource.resourceSet
+		switch treeElement : (element as TreeEntry).treeElement {
+			URI: switch treeElementObject : resourceSet.getEObject(treeElement, true) {
+				Property: {
+					(resourceSet.getEObject(
+						propertyView.cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement), true
+					) as PropertyAssociation).ownedValues.head.ownedValue
+				}
+				BasicPropertyAssociation: treeElementObject.value
+			}
+			RangeElement: resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression
+			ListElement: resourceSet.getEObject(treeElement.expressionURI, true) as PropertyExpression
+		}
+	}
 	
+	private def stripPredeclaredName(String qualifiedName) {
+		val predeclaredNames = #['communication_properties::', 'deployment_properties::', 'memory_properties::',
+				'modeling_properties::', 'programming_properties::', 'thread_properties::', 'timing_properties::']
+		val toStrip = predeclaredNames.findFirst[qualifiedName.toLowerCase.startsWith(it)]?:''
+		qualifiedName.substring(toStrip.length)
+	}
+
 	override protected setValue(Object element, Object value) {
-		if (creatingNewAssociationInEdit || initialEditablePart != value) {
+		if (creatingNewLocalInEdit || !(value as String).empty && initialEditablePart != value) {
+			// insert new property value
 			propertyView.xtextDocument.modify(new IUnitOfWork.Void<XtextResource> {
 				override process(XtextResource state) throws Exception {
 					state.update(updateOffset, updateLength, updatePrefix + value + updateSuffix)
 				}
 			})
+			
 			propertyView.treeViewer.refresh((element as TreeEntry).propertyParent)
+
+			// select inserted/modified text in editor			
 			val activeEditor = propertyView.site.workbenchWindow.activePage.activeEditor
 			if (activeEditor instanceof ITextEditor) {
-				activeEditor.selectAndReveal(updateOffset + updatePrefix.length, (value as String).length)
+				activeEditor.selectAndReveal(updateOffset, updatePrefix.length +(value as String).length + updateSuffix.length)
 			}
 		}
 	}
-	
+
 	def private static getLastLeaf(ICompositeNode node) {
 		var INode result = node
 		while (result instanceof ICompositeNode) {
@@ -200,5 +256,15 @@ package class ValueColumnEditingSupport extends EditingSupport {
 		} else {
 			(element.parent as TreeEntry).propertyParent
 		}
+	}
+
+	def private Property getProperty(TreeEntry element) {
+		propertyView.safeRead[extension it |
+			if (element.treeElement instanceof URI && (element.treeElement as URI).getEObject(true) instanceof Property) {
+				(element.treeElement as URI).getEObject(true)
+			} else {
+				(element.parent as TreeEntry).propertyParent
+			}
+		] as Property
 	}
 }

@@ -35,7 +35,7 @@
 package org.osate.xtext.aadl2.ui.propertyview;
 
 enum PropertyStatus {
-	LOCAL, LOCAL_CONTAINED, INHERITED, DEFAULT, UNDEFINED;
+	LOCAL, LOCAL_CONTAINED, LOCAL_SHARED, INHERITED, DEFAULT, UNDEFINED;
 
 	@Override
 	public String toString() {
@@ -44,6 +44,8 @@ enum PropertyStatus {
 			return "local";
 		case LOCAL_CONTAINED:
 			return "local contained";
+		case LOCAL_SHARED:
+			return "shared local contained";
 		case INHERITED:
 			return "inherited";
 		case DEFAULT:
@@ -53,5 +55,9 @@ enum PropertyStatus {
 		default:
 			return name();
 		}
+	}
+
+	public boolean isEditable() {
+		return this == LOCAL || this == LOCAL_CONTAINED;
 	}
 }
