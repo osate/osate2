@@ -294,6 +294,14 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		refinedSubcomponent.subcomponentType
 	}
 	
+	def protected static allInternalFeatures(ComponentImplementation implementation) {
+		val allInternalFeatures = newArrayList
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+			allInternalFeatures.addAll(currentImplementation.ownedInternalFeatures)
+		}
+		allInternalFeatures
+	}
+	
 	def private static allMembers(Classifier classifier) {
 		val allMembers = newArrayList
 		allMembers.addAll(classifier.members)
