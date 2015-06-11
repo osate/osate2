@@ -431,6 +431,44 @@
          </command>
       </menuContribution>
    </extension>
+	<extension
+		point="org.eclipse.ui.commands">
+		<command
+			description="Organize With Clauses"
+			id="org.osate.xtext.aadl2.ui.organize.with"
+			name="Organize With clauses">
+		</command>
+	</extension>
+    <extension point="org.eclipse.ui.menus">
+         <menuContribution
+		 allPopups="false"
+         locationURI="popup:#TextEditorContext">
+        <command commandId="org.osate.xtext.aadl2.ui.organize.with"
+		 tooltip="Remove unecessary, add needed and sort With Clauses" 
+		 style="push">
+         <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+               </reference>
+         </visibleWhen>
+        </command>
+      </menuContribution> 
+   </extension>
+   	<extension
+		point="org.eclipse.ui.handlers">
+		<handler 
+			class="org.osate.xtext.aadl2.ui.handlers.OrganizeWithHandler"
+			commandId="org.osate.xtext.aadl2.ui.organize.with">
+		</handler>
+	</extension>
+   <extension point="org.eclipse.ui.bindings">
+	  <key
+          commandId="org.osate.xtext.aadl2.ui.organize.with"
+          contextId="org.eclipse.ui.textEditorScope"
+          schemeId="org.osate.ge.key.bindings"
+          sequence="CTRL+SHIFT+O">
+    </key>
+	</extension>
 
    	<!-- Debugging Save by Serialize -->
    	<extension

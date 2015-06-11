@@ -682,7 +682,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					publicOrPrivate = "private";
 				}
 				errMsg.append(publicOrPrivate);
-				errMsg.append(" package section refers to the containg package and is not needed.");
+				errMsg.append(" package section refers to the containing package and is not needed.");
 				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
 				warning(errMsg.toString(), packageSection, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(),
 						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
@@ -744,7 +744,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ImportedUnitsLoop: for (ModelUnit nextImportedUnit : importedUnits) {
 			if (nextImportedUnit.equals(propertySet)) {
 				StringBuilder errMsg = new StringBuilder(nextImportedUnit.getName());
-				errMsg.append(" in 'with' clause refers to the containg package and is not needed.");
+				errMsg.append(" in 'with' clause refers to the containing package and is not needed.");
 				String importedUnitURI = EcoreUtil.getURI(nextImportedUnit).toString();
 				warning(errMsg.toString(), propertySet, Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit(),
 						importedUnits.indexOf(nextImportedUnit), WITH_NOT_USED, nextImportedUnit.getName(),
