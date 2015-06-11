@@ -707,14 +707,6 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		allPortProxies
 	}
 	
-	def private static allInternalFeatures(ComponentImplementation implementation) {
-		val allInternalFeatures = newArrayList
-		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
-			allInternalFeatures.addAll(currentImplementation.ownedInternalFeatures)
-		}
-		allInternalFeatures
-	}
-	
 	def private static allFeatureClassifier(Feature feature) {
 		var refinedFeature = feature
 		while (refinedFeature.featureClassifier == null && refinedFeature.refined != null) {
