@@ -83,7 +83,6 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage;
 import org.osate.reqspec.reqSpec.ReqSpecs;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
-import org.osate.reqspec.reqSpec.ValDeclaration;
 import org.osate.reqspec.reqSpec.ValueAssertion;
 import org.osate.reqspec.reqSpec.XPredicate;
 import org.osate.reqspec.services.ReqSpecGrammarAccess;
@@ -161,9 +160,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case ReqSpecPackage.STAKEHOLDER_GOALS:
 				sequence_StakeholderGoals(context, (StakeholderGoals) semanticObject); 
-				return; 
-			case ReqSpecPackage.VAL_DECLARATION:
-				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
 				return; 
 			case ReqSpecPackage.VALUE_ASSERTION:
 				sequence_ValueAssertion(context, (ValueAssertion) semanticObject); 
@@ -518,6 +514,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         otherreqspecs+=[ReqSpecs|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=XValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
 	 *         content+=Requirement* 
 	 *         docReference+=ExternalDocument* 
 	 *         issues+=STRING*
@@ -569,22 +566,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 */
 	protected void sequence_StakeholderGoals(EObject context, StakeholderGoals semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_ValDeclaration(EObject context, ValDeclaration semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.VAL_DECLARATION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.VAL_DECLARATION__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getValDeclarationAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
 	}
 	
 	

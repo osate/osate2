@@ -160,11 +160,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
         return createBehaviorEquationAdapter();
       }
       @Override
-      public Adapter caseValDeclaration(ValDeclaration object)
-      {
-        return createValDeclarationAdapter();
-      }
-      @Override
       public Adapter caseExternalDocument(ExternalDocument object)
       {
         return createExternalDocumentAdapter();
@@ -442,21 +437,6 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createBehaviorEquationAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ValDeclaration <em>Val Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.reqspec.reqSpec.ValDeclaration
-   * @generated
-   */
-  public Adapter createValDeclarationAdapter()
   {
     return null;
   }

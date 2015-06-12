@@ -56,6 +56,7 @@ ReqSpecs returns ReqSpecs:
 	(
 	 (  description=Description)? 
 	&( constants+=XValDeclaration* )
+	& (  computes+=ComputeDeclaration* )
 	& (content+= (Requirement))*
 	 &('see' 'document'  docReference+=ExternalDocument+)? 
 	&('issues' issues+=STRING+ )?
@@ -122,10 +123,6 @@ ValueAssertion: 'assert' 'value' xpression=XExpression;
 InputAssumption:  'input' 'assumption' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 OutputGuarantee: 'output''guarantee' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);	
 BehaviorEquation: 'assert' 'invariant' (xpression=XExpression |'as' reference=[ecore::EObject|ID]);
-
-ValDeclaration : 
-	'val' name=ID 
-;
 
 ExternalDocument : 
 	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?

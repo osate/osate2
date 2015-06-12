@@ -81,7 +81,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.INPUT_ASSUMPTION: return createInputAssumption();
       case ReqSpecPackage.OUTPUT_GUARANTEE: return createOutputGuarantee();
       case ReqSpecPackage.BEHAVIOR_EQUATION: return createBehaviorEquation();
-      case ReqSpecPackage.VAL_DECLARATION: return createValDeclaration();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -273,17 +272,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     BehaviorEquationImpl behaviorEquation = new BehaviorEquationImpl();
     return behaviorEquation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ValDeclaration createValDeclaration()
-  {
-    ValDeclarationImpl valDeclaration = new ValDeclarationImpl();
-    return valDeclaration;
   }
 
   /**

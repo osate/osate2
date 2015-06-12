@@ -46,6 +46,7 @@ import org.osate.reqspec.reqSpec.Requirement;
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getOtherreqspecs <em>Otherreqspecs</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getDocReference <em>Doc Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.impl.ReqSpecsImpl#getIssues <em>Issues</em>}</li>
@@ -175,6 +176,16 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * @ordered
    */
   protected EList<XExpression> constants;
+
+  /**
+   * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getComputes()
+   * @generated
+   * @ordered
+   */
+  protected EList<XExpression> computes;
 
   /**
    * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference list.
@@ -443,6 +454,20 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<XExpression> getComputes()
+  {
+    if (computes == null)
+    {
+      computes = new EObjectContainmentEList<XExpression>(XExpression.class, this, ReqSpecPackage.REQ_SPECS__COMPUTES);
+    }
+    return computes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Requirement> getContent()
   {
     if (content == null)
@@ -494,6 +519,8 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return basicSetDescription(null, msgs);
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return ((InternalEList<?>)getConstants()).basicRemove(otherEnd, msgs);
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return ((InternalEList<?>)getContent()).basicRemove(otherEnd, msgs);
       case ReqSpecPackage.REQ_SPECS__DOC_REFERENCE:
@@ -529,6 +556,8 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return getDescription();
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return getConstants();
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        return getComputes();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return getContent();
       case ReqSpecPackage.REQ_SPECS__DOC_REFERENCE:
@@ -575,6 +604,10 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
         getConstants().addAll((Collection<? extends XExpression>)newValue);
+        return;
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        getComputes().clear();
+        getComputes().addAll((Collection<? extends XExpression>)newValue);
         return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
@@ -626,6 +659,9 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         getConstants().clear();
         return;
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        getComputes().clear();
+        return;
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         getContent().clear();
         return;
@@ -665,6 +701,8 @@ public class ReqSpecsImpl extends ReqSpecContainerImpl implements ReqSpecs
         return description != null;
       case ReqSpecPackage.REQ_SPECS__CONSTANTS:
         return constants != null && !constants.isEmpty();
+      case ReqSpecPackage.REQ_SPECS__COMPUTES:
+        return computes != null && !computes.isEmpty();
       case ReqSpecPackage.REQ_SPECS__CONTENT:
         return content != null && !content.isEmpty();
       case ReqSpecPackage.REQ_SPECS__DOC_REFERENCE:

@@ -206,13 +206,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.VAL_DECLARATION:
-      {
-        ValDeclaration valDeclaration = (ValDeclaration)theEObject;
-        T result = caseValDeclaration(valDeclaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ReqSpecPackage.EXTERNAL_DOCUMENT:
       {
         ExternalDocument externalDocument = (ExternalDocument)theEObject;
@@ -492,22 +485,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseBehaviorEquation(BehaviorEquation object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Val Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Val Declaration</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseValDeclaration(ValDeclaration object)
   {
     return null;
   }

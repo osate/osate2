@@ -176,15 +176,6 @@ public interface ReqSpecFactory extends EFactory
   BehaviorEquation createBehaviorEquation();
 
   /**
-   * Returns a new object of class '<em>Val Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Val Declaration</em>'.
-   * @generated
-   */
-  ValDeclaration createValDeclaration();
-
-  /**
    * Returns a new object of class '<em>External Document</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

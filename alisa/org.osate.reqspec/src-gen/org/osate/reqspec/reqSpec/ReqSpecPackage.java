@@ -560,13 +560,22 @@ public interface ReqSpecPackage extends EPackage
   int REQ_SPECS__CONSTANTS = REQ_SPEC_CONTAINER_FEATURE_COUNT + 7;
 
   /**
+   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_SPECS__COMPUTES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+
+  /**
    * The feature id for the '<em><b>Content</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQ_SPECS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 8;
+  int REQ_SPECS__CONTENT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' containment reference list.
@@ -575,7 +584,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 9;
+  int REQ_SPECS__DOC_REFERENCE = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
 
   /**
    * The feature id for the '<em><b>Issues</b></em>' attribute list.
@@ -584,7 +593,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 10;
+  int REQ_SPECS__ISSUES = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
 
   /**
    * The number of structural features of the '<em>Req Specs</em>' class.
@@ -593,7 +602,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 11;
+  int REQ_SPECS_FEATURE_COUNT = REQ_SPEC_CONTAINER_FEATURE_COUNT + 12;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -1172,34 +1181,6 @@ public interface ReqSpecPackage extends EPackage
   int BEHAVIOR_EQUATION_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ValDeclarationImpl <em>Val Declaration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.ValDeclarationImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValDeclaration()
-   * @generated
-   */
-  int VAL_DECLARATION = 17;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAL_DECLARATION__NAME = 0;
-
-  /**
-   * The number of structural features of the '<em>Val Declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAL_DECLARATION_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1207,7 +1188,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 18;
+  int EXTERNAL_DOCUMENT = 17;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1758,6 +1739,17 @@ public interface ReqSpecPackage extends EPackage
   EReference getReqSpecs_Constants();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getComputes <em>Computes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Computes</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqSpecs#getComputes()
+   * @see #getReqSpecs()
+   * @generated
+   */
+  EReference getReqSpecs_Computes();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.ReqSpecs#getContent <em>Content</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2088,27 +2080,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getBehaviorEquation_Reference();
-
-  /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ValDeclaration <em>Val Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Val Declaration</em>'.
-   * @see org.osate.reqspec.reqSpec.ValDeclaration
-   * @generated
-   */
-  EClass getValDeclaration();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.osate.reqspec.reqSpec.ValDeclaration#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.osate.reqspec.reqSpec.ValDeclaration#getName()
-   * @see #getValDeclaration()
-   * @generated
-   */
-  EAttribute getValDeclaration_Name();
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ExternalDocument <em>External Document</em>}'.
@@ -2566,6 +2537,14 @@ public interface ReqSpecPackage extends EPackage
     EReference REQ_SPECS__CONSTANTS = eINSTANCE.getReqSpecs_Constants();
 
     /**
+     * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQ_SPECS__COMPUTES = eINSTANCE.getReqSpecs_Computes();
+
+    /**
      * The meta object literal for the '<em><b>Content</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2830,24 +2809,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference BEHAVIOR_EQUATION__REFERENCE = eINSTANCE.getBehaviorEquation_Reference();
-
-    /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ValDeclarationImpl <em>Val Declaration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.ValDeclarationImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValDeclaration()
-     * @generated
-     */
-    EClass VAL_DECLARATION = eINSTANCE.getValDeclaration();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VAL_DECLARATION__NAME = eINSTANCE.getValDeclaration_Name();
 
     /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ExternalDocumentImpl <em>External Document</em>}' class.
