@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.ui.actions.WorkspaceModifyOperation
 import org.eclipse.xtext.diagnostics.Severity
 import org.eclipse.xtext.scoping.IScopeProvider
+import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding
 import org.eclipse.xtext.validation.Issue
 import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextTest
@@ -34,12 +35,18 @@ import org.osate.core.AadlNature
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.junit.Assert.assertEquals
+import static extension org.osate.aadl2.modelsupport.util.AadlUtil.isPredeclaredPropertySet
 
 /**
  * Add a couple of utility methods for managing files in the test workspace
  */
 abstract class OsateTest extends XtextTest {
-	@Inject extension IScopeProvider
+	@Inject
+	IScopeProvider scopeProvider
+	
+	@Inject
+	@SerializerScopeProviderBinding
+	IScopeProvider serializerScopeProvider
 
 	static val Logger LOGGER = Logger.getLogger(OsateTest);
 
@@ -209,24 +216,35 @@ abstract class OsateTest extends XtextTest {
 	}
 	
 	def protected assertScope(EObject context, EReference reference, boolean applyFilterToUnqualifiedNames, Iterable<String> expected) {
+		assertScope(scopeProvider, context, reference, applyFilterToUnqualifiedNames, expected)
+	}
+	
+	def protected assertSerializerScope(EObject context, EReference reference, boolean applyFilterToUnqualifiedNames, Iterable<String> expected) {
+		assertScope(serializerScopeProvider, context, reference, applyFilterToUnqualifiedNames, expected)
+	}
+	
+	def private assertScope(IScopeProvider scopeProvider, EObject context, EReference reference,
+		boolean applyFilterToUnqualifiedNames, Iterable<String> expected
+	) {
 		if (pluginResourcesNames == null) {
-			pluginResourcesNames = pluginResources.members.filter(IFile).map[name].filter[
-			toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
+			val fileNames = pluginResources.members.filter(IFile).map[name]
+			pluginResourcesNames = fileNames.filter[toLowerCase.endsWith(".aadl")].map[substring(0, lastIndexOf("."))]
 		}
-		expected.sortWith(CUSTOM_NAME_COMPARATOR).join(", ").assertEquals(
-			context.getScope(reference).allElements.map[name.toString("::")].filter [
-				val separatorIndex = indexOf("::")
-				if (separatorIndex != -1 || applyFilterToUnqualifiedNames) {
-					val modelUnitName = if (separatorIndex != -1) {
-						substring(0, separatorIndex)
-					} else {
-						it
-					}
-					AadlUtil::isPredeclaredPropertySet(modelUnitName) || !pluginResourcesNames.exists[equalsIgnoreCase(modelUnitName)]
+		val expectedNames = expected.sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
+		val actualNames = scopeProvider.getScope(context, reference).allElements.map[name.toString("::")].filter[
+			val separatorIndex = indexOf("::")
+			if (separatorIndex != -1 || applyFilterToUnqualifiedNames) {
+				val modelUnitName = if (separatorIndex != -1) {
+					substring(0, separatorIndex)
 				} else {
-					true
+					it
 				}
-			].sortWith(CUSTOM_NAME_COMPARATOR).join(", "))
+				modelUnitName.predeclaredPropertySet || !pluginResourcesNames.exists[equalsIgnoreCase(modelUnitName)]
+			} else {
+				true
+			}
+		].sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
+		expectedNames.assertEquals(actualNames)
 	}
 	
 	/*
