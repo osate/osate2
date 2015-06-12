@@ -19,9 +19,11 @@ package org.osate.xtext.aadl2.errormodel;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.linking.ILinkingService;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
 import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer;
+import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelSerializer;
 import org.osate.xtext.aadl2.errormodel.valueconversion.ErrorModelValueConverter;
 
 /**
@@ -51,5 +53,10 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 	
 	public Class<? extends ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return ErrorModelCrossReferenceSerializer.class;
+	}
+	
+	@Override
+	public Class<? extends ISerializer> bindISerializer() {
+		return ErrorModelSerializer.class;
 	}
 }
