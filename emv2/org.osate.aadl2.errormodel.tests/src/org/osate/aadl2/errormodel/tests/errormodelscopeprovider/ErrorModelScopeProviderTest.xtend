@@ -22,7 +22,11 @@ class ErrorModelScopeProviderTest extends OsateTest {
 		"Error_Model_Scope_Provider_Test"
 	}
 	
-	//Tests scope_FeatureorPPReference_featureorPP(Classifier, EReference) and scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+	/*
+	 * Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(Classifier, EReference),
+	 * ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference), and
+	 * ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+	 */
 	@Test
 	def void testFeatureorPPReference() {
 		createFiles("pkg.aadl" -> '''
@@ -70,20 +74,26 @@ class ErrorModelScopeProviderTest extends OsateTest {
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a.i".assertEquals(name)
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).propagations.head => [
-					//Tests scope_FeatureorPPReference_featureorPP(Classifier, EReference)
+					//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(Classifier, EReference)
 					assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["eds", "es", "fg1", "op1", "point1", "point2"])
 					featureorPPRef => [
 						"fg1".assertEquals(featureorPP.name)
-						//Tests scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+						//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
 						assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["fg2", "op2"])
+						//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+						assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["eds", "es", "fg1", "op1", "point1", "point2"])
 						next => [
 							"fg2".assertEquals(featureorPP.name)
-							//Tests scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+							//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
 							assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["op3"])
+							//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+							assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["fg2", "op2"])
 							next => [
 								"op3".assertEquals(featureorPP.name)
-								//Tests scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+								//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
 								assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #[])
+								//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+								assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, false, #["op3"])
 								next.assertNull
 							]
 						]
