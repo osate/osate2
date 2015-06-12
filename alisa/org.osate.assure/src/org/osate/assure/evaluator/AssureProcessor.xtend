@@ -45,6 +45,9 @@ import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteProver
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteEvaluator
 import com.rockwellcollins.atc.resolute.analysis.values.ResoluteValue
 import com.rockwellcollins.atc.resolute.analysis.values.BoolValue
+import org.eclipse.xtext.xbase.XExpression
+import org.eclipse.xtext.xbase.XVariableDeclaration
+import org.osate.alisa.common.common.ComputeDeclaration
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -135,6 +138,28 @@ class AssureProcessor implements IAssureProcessor {
 		val method = verificationResult.method;
 		var Object res = null
 		val target = verificationResult.claimSubject
+		
+		if (verificationResult instanceof VerificationActivityResult)
+		{
+			val verificationActivityResult =  verificationResult as VerificationActivityResult
+			for (XExpression xe : verificationActivityResult.target.parameters)
+			{
+				if (xe instanceof XVariableDeclaration)
+				{
+					print ("type=" + (xe as XVariableDeclaration).type)
+					
+					print ("expr=" + (xe as XVariableDeclaration).right)
+				}
+				
+				if (xe instanceof ComputeDeclaration)
+				{
+					print ("compute decl=" + (xe as XVariableDeclaration).type)
+					
+				}
+//				print ("xe=" + xe.getClass())
+			}
+		}
+		
 		try {
 			switch (method.methodType) {
 				case SupportedTypes.PREDICATE: {

@@ -855,9 +855,9 @@ class AssureUtilExtension {
 		if(cr.message != null) return cr.message
 		
 		val r = cr.target
-	
-		if(r.description != null) return r.description.toText(cr.claimSubject)
 		if(r.name != null) return r.name
+		if(r.description != null) return r.description.toText(cr.claimSubject)
+		
 		""
 	}
 

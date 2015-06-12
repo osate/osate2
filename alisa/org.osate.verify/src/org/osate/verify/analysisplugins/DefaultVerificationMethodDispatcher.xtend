@@ -99,6 +99,7 @@ class DefaultVerificationMethodDispatcher implements IVerificationMethodDispatch
 			val instance = clazz.newInstance
 			val method = clazz.getMethod(methodName, ComponentInstance)
 
+			
 			method.invoke(instance, target)
 		} catch (Exception e) {
 			e.printStackTrace
