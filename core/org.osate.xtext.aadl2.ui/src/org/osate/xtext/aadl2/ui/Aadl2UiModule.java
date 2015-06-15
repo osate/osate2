@@ -114,4 +114,9 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 		return AnnexAwareContentAssistProcessor.class;
 	}
 
+// FIXME: Formatting doesn't work for classifier: no newline before, no indentation for end <name>
+//	public Class<? extends ITextEditComposer> bindITextEditComposer() {
+//		return FormattingTextEditComposer.class;
+//	}
+
 }
