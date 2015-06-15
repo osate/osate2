@@ -48,6 +48,7 @@ import com.rockwellcollins.atc.resolute.analysis.values.BoolValue
 import org.eclipse.xtext.xbase.XExpression
 import org.eclipse.xtext.xbase.XVariableDeclaration
 import org.osate.alisa.common.common.ComputeDeclaration
+import org.eclipse.xtext.xbase.compiler.XbaseCompiler
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -62,6 +63,14 @@ interface IAssureProcessor {
  */
 class AssureProcessor implements IAssureProcessor {
 	@Inject IVerificationMethodDispatcher dispatcher
+	
+	/**
+	 * See the following documentation
+	 * http://www.rcp-vision.com/1640/xtext-2-1-using-xbase-expressions/
+	 * http://www.rcp-vision.com/1796/xtext-2-1-using-xbase-variables/
+	 * about how to use the compiler
+	 */
+	@Inject XbaseCompiler xbaseCompiler
 
 	def void doProcess(AssuranceEvidence caseResult) {
 		caseResult.claimResult.forEach[claimResult|claimResult.process]
@@ -146,6 +155,8 @@ class AssureProcessor implements IAssureProcessor {
 			{
 				if (xe instanceof XVariableDeclaration)
 				{
+					print ("compiler" + xbaseCompiler)
+					
 					print ("type=" + (xe as XVariableDeclaration).type)
 					
 					print ("expr=" + (xe as XVariableDeclaration).right)
