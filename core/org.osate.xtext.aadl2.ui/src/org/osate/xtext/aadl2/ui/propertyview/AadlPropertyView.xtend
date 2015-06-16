@@ -45,8 +45,6 @@ import java.util.Set
 import java.util.TreeSet
 import org.eclipse.core.runtime.FileLocator
 import org.eclipse.core.runtime.IAdaptable
-import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.IStatus
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Platform
 import org.eclipse.core.runtime.Status
