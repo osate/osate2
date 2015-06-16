@@ -15,17 +15,20 @@ import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.Requirement
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
+import org.eclipse.emf.common.util.EList
+import org.osate.reqspec.reqSpec.ReqSpecs
+import org.osate.reqspec.reqSpec.ReqSpec
 
 /**
  * This class contains custom scoping description.
  * 
  * see : http://www.eclipse.org/Xtext/documentation.html#scoping
  * on how and when to use it 
- *
+ * 
  */
 class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 
-	//Reference is from Goal, ReqSpec, or Hazard
+	// Reference is from Goal, ReqSpec, or Hazard
 	def scope_NamedElement(ContractualElement context, EReference reference) {
 		val targetClassifier = contextClassifier(context)
 		if (targetClassifier != null) {
@@ -33,10 +36,10 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 			val thescope = new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(targetClassifier.getAllFeatures,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-			if (targetClassifier instanceof ComponentImplementation){
-			new SimpleScope(thescope,
-				Scopes::scopedElementsFor(targetClassifier.allSubcomponents,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)			
+			if (targetClassifier instanceof ComponentImplementation) {
+				new SimpleScope(thescope,
+					Scopes::scopedElementsFor(targetClassifier.allSubcomponents,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			} else {
 				return thescope
 			}
@@ -48,6 +51,14 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 	def scope_XVariableDeclaration(Requirement context, EReference reference) {
 		var result = IScope.NULLSCOPE
 		val reqspecs = containingReqSpecs(context)
+		val rslist = reqspecs.otherreqspecs
+		for (ReqSpecs rs : rslist) {
+			if (!reqspecs.constants.empty) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(reqspecs.constants,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			}
+		}
 		if (!reqspecs.constants.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(reqspecs.constants,
@@ -56,6 +67,30 @@ class ReqSpecScopeProvider extends AlisaAbstractDeclarativeScopeProvider {
 		if (!context.constants.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(context.constants,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		}
+		result
+	}
+
+	def scope_ComputeDeclaration(Requirement context, EReference reference) {
+		var result = IScope.NULLSCOPE
+		val reqspecs = containingReqSpecs(context)
+		val rslist = reqspecs.otherreqspecs
+		for (ReqSpecs rs : rslist) {
+			if (!reqspecs.computes.empty) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(reqspecs.computes,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			}
+		}
+		if (!reqspecs.computes.empty) {
+			result = new SimpleScope(result,
+				Scopes::scopedElementsFor(reqspecs.computes,
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+		}
+		if (!context.computes.empty) {
+			result = new SimpleScope(result,
+				Scopes::scopedElementsFor(context.computes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 		}
 		result
